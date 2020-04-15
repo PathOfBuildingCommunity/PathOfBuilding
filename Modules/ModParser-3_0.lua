@@ -371,6 +371,7 @@ local modNameList = {
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
 	["elusive effect"] = "ElusiveEffect",
 	["effect of elusive on you"] = "ElusiveEffect",
+	["effect of infusion"] = "InfusionEffect",
 	-- Basic damage types
 	["damage"] = "Damage",
 	["physical damage"] = "PhysicalDamage",
@@ -948,6 +949,7 @@ local modTagList = {
 	["while affected by a guard skill buff"] = { tag = { type = "Condition", varList = { "AffectedByImmortalCall", "AffectedByVaalImmortalCall", "AffectedByMoltenShell", "AffectedByVaalMoltenShell", "AffectedBySteelskin" } } },
 	["while affected by a herald"] = { tag = { type = "Condition", var = "AffectedByHerald" } },
 	["while you have a bestial minion"] = { tag = { type = "Condition", var = "HaveBestialMinion" } },
+	["while you have infusion"] = { tag = { type = "Condition", var = "InfusionActive" } },
 	["while focussed"] = { tag = { type = "Condition", var = "Focused" } },
 	["while leeching"] = { tag = { type = "Condition", var = "Leeching" } },
 	["while leeching energy shield"] = { tag = { type = "Condition", var = "LeechingEnergyShield" } },

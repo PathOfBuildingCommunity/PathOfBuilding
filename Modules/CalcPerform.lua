@@ -416,6 +416,34 @@ local function doActorMisc(env, actor)
 			condList["LeechingLife"] = true
 			env.configInput.conditionLeeching = true
 		end
+		if modDB:Flag(nil, "Condition:InfusionActive") then
+			local effect = 1 + modDB:Sum("INC", nil, "InfusionEffect", "BuffEffectOnSelf") / 100
+			if modDB:Flag(nil, "Condition:HavePhysicalInfusion") then
+				condList["PhysicalInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("PhysicalDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveFireInfusion") then
+				condList["FireInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("FireDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveColdInfusion") then
+				condList["ColdInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("ColdDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveLightningInfusion") then
+				condList["LightningInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("LightningDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveChaosInfusion") then
+				condList["ChaosInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("ChaosDamage", "MORE", 10 * effect, "Infusion")
+			end
+		end
 	end	
 end
 
