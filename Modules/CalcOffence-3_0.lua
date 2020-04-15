@@ -2277,8 +2277,8 @@ function calcs.offence(env, actor, activeSkill)
             skillFlags.impale = true
             local impaleChance = m_min(output.ImpaleChance/100, 1)
             local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
-            local configStacks = enemyDB:Override(nil, "ImpaleStacks") or 0
-            local impaleStacks = configStacks > 0 and m_min(configStacks, maxStacks) or  maxStacks
+			local configStacks = enemyDB:Sum("BASE", cfg, "Multiplier:ImpaleStacks")
+			local impaleStacks = m_min(maxStacks, configStacks)
 
             local baseStoredDamage = 0.1 -- magic number: base impale stored damage
             local storedExpectedDamageIncOnBleed = skillModList:Sum("INC", cfg, "ImpaleEffectOnBleed")*skillModList:Sum("BASE", cfg, "BleedChance")/100
