@@ -2448,7 +2448,4 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
-	if output.TotalDot > 0 then
-		output.CombinedDot = output.TotalDot + (output.PoisonDPS or 0) + (output.IgniteDPS or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
-	end
 end
