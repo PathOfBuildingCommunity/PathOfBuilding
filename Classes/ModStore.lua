@@ -75,6 +75,22 @@ function ModStoreClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
+---ReplaceMod
+---  Replaces an existing matching mod with a new mod.
+---  A mod is considered the same if the name, type, flags, keywordFlags, and source exactly match.
+---  If no matching mod exists, the mod is added instead.
+---Notes:
+---    See calls to ModStoreClass:NewMod for additional parameter examples.
+---    1 (string): name
+---    2 (string): type
+---    3 (number): value
+---    4 (string): source
+---    5+ (optional, varies): additional options
+---@param ... any @Parameters to be passed along to the modLib.createMod function
+function ModStoreClass:ReplaceMod(...)
+	self:ReplaceModInternal(mod_createMod(...))
+end
+
 function ModStoreClass:Combine(modType, cfg, ...)
 	if modType == "MORE" then
 		return self:More(cfg, ...)
@@ -157,6 +173,25 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 	local result = { }
 	self:TabulateInternal(self, result, modType, cfg, flags, keywordFlags, source, ...)
 	return result
+end
+
+---HasMod
+---  Checks if a mod exists with the given properties.
+---  Useful for determining if the other aggregate functions will find
+---  anything to aggregate.
+---@param modType string @Mod type to match
+---@param cfg table @Optional configuration to use - contains flags, keywordFlags, and source to match
+---@param ... string @Mod name(s) to check for.
+---@return boolean @true if the mod is found, false otherwise.
+function ModStoreClass:HasMod(modType, cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	return self:HasModInternal(modType, flags, keywordFlags, source, ...)
 end
 
 function ModStoreClass:GetCondition(var, cfg, noMod)
