@@ -2291,26 +2291,25 @@ function calcs.offence(env, actor, activeSkill)
 
             globalOutput.ImpaleStacksMax = maxStacks
             globalOutput.ImpaleStacks = impaleStacks
-			--ImpaleStoredDamage should be named ImpaleEffect or similar
-			--Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
-			output.ImpaleStoredDamage = impaleStoredDamage * 100
-			output.ImpaleModifier = 1 + impaleDMGModifier
+            --ImpaleStoredDamage should be named ImpaleEffect or similar
+            --Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
+            output.ImpaleStoredDamage = impaleStoredDamage * 100
+            output.ImpaleModifier = 1 + impaleDMGModifier
 
-			if breakdown then
-				breakdown.ImpaleStoredDamage = {}
-				t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
-				t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedDamageModifier))
-				t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
+            if breakdown then
+                breakdown.ImpaleStoredDamage = {}
+                t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
+                t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedDamageModifier))
+                t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
 
-				breakdown.ImpaleModifier = {}
-				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
-				t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
-
-			end
-		end
-	end
+                breakdown.ImpaleModifier = {}
+                t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
+                t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
+                t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
+                t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
+            end
+        end
+    end
 
 	-- Combine secondary effect stats
 	if isAttack then
