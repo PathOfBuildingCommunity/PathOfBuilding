@@ -41,8 +41,9 @@ local fireConvert = {
 	"FireDamageGainAsChaos", "ElementalDamageGainAsChaos", "NonChaosDamageGainAsChaos"
 }
 
+-- format {width, id, group, color, subection:{default hidden, label, data:{}}}
 return {
-{ 3, "HitDamage", 1, "Skill Hit Damage", colorCodes.OFFENCE, {
+{ 3, "HitDamage", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Hit Damage", data = {
 	extra = "{output:DisplayDamage}",
 	flag = "hit",
 	colWidth = 95,
@@ -308,8 +309,9 @@ return {
 	}, },
 	{ label = "Skill DPS", flag = "notAverage", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
+} }
 } },
-{ 3, "Dot", 1, "Skill Damage over Time", colorCodes.OFFENCE, {
+{ 3, "Dot", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Damage over Time", data = {
 	extra = "{1:output:TotalDot} total DoT",
 	flag = "dot",
 	colWidth = 95,
@@ -370,8 +372,9 @@ return {
 		{ format = "{1:output:ChaosDot}", { breakdown = "ChaosDot" }, },
 	},
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
+} }
 } },
-{ 1, "Speed", 1, "Attack/Cast Rate", colorCodes.OFFENCE, {
+{ 1, "Speed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Attack/Cast Rate", data = {
 	extra = "{2:output:Speed}/s",
 	{ label = "MH Inc. Att. Speed", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "weapon1", }, }, },
 	{ label = "MH More Att. Speed", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "weapon1", }, }, },
@@ -385,8 +388,9 @@ return {
 	{ label = "More Cast Speed", flag = "spell", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
 	{ label = "Casts per second", flag = "spell", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Cast time", flag = "spell", { format = "{2:output:Time}s", }, },
+} }
 } },
-{ 1, "Crit", 1, "Crits", colorCodes.OFFENCE, {
+{ 1, "Crit", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Crits", data = {
 	extra = "{2:output:CritChance}% x{2:output:CritMultiplier}",
 	flag = "hit",
 	-- Skill
@@ -437,28 +441,38 @@ return {
 		{ label = "Enemy modifiers", modName = "SelfCritMultiplier", enemy = true },
 	}, },
 	{ label = "OH Crit Effect Mod", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "x {3:output:OffHand.CritEffect}", { breakdown = "OffHand.CritEffect" }, }, },
+} }
 } },
-{ 1, "HitChance", 1, "Accuracy", colorCodes.OFFENCE, {
-	extra = "{0:output:HitChance}%",
-	flag = "attack",
-	{ label = "MH Accuracy", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:output:MainHand.Accuracy}", 
-		{ breakdown = "MainHand.Accuracy" }, 
-		{ modName = "Accuracy", cfg = "weapon1" }, 
+{ 1, "Impale", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Impale", data = {
+    flag = "impale",
+	extra = "{0:output:ImpaleChance}%",
+	{ label = "Max Impale Stacks", { format = "{0:output:ImpaleStacksMax}", { modName = "ImpaleStacksMax" } }, },
+	{ label = "Stacks on Enemy", { format = "{0:output:ImpaleStacks}" }},
+	{ label = "MH Impale Chance", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.ImpaleChance", { format = "{0:output:MainHand.ImpaleChance}%",
+		{ flag = "weapon1Attack", modName = "ImpaleChance", modType = "BASE", cfg = "weapon1" },
 	}, },
-	{ label = "MH Chance to Hit", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:output:MainHand.HitChance}%",
-		{ breakdown = "MainHand.HitChance" }, 
-		{ label = "Enemy Evasion modifiers", modName = "Evasion", enemy = true },
+	{ label = "MH Stored Damage",  bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.ImpaleStoredDamage", { format = "{1:output:MainHand.ImpaleStoredDamage}%",
+		{ breakdown = "MainHand.ImpaleStoredDamage" },
+		{ flag = "weapon1Attack", modName = "ImpaleEffect", cfg = "weapon1" },
 	}, },
-	{ label = "OH Accuracy", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.Accuracy}",
-		{ breakdown = "OffHand.Accuracy" }, 
-		{ modName = "Accuracy", cfg = "weapon2" },
+	{ label = "MH DMG Mod.",  bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.ImpaleModifier", { format = "{3:output:MainHand.ImpaleModifier}",
+		{ breakdown = "MainHand.ImpaleModifier" },
+	} },
+	{ label = "OH Impale Chance", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleChance", { format = "{0:output:OffHand.ImpaleChance}%",
+		{ flag = "weapon2Attack", modName = "ImpaleChance", modType = "BASE", cfg = "weapon2" },
 	}, },
-	{ label = "OH Chance to Hit", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.HitChance}%",
-		{ breakdown = "OffHand.HitChance" },
-		{ label = "Enemy Evasion modifiers", modName = "Evasion", enemy = true },
+	{ label = "OH Stored Damage",  bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleStoredDamage", { format = "{1:output:OffHand.ImpaleStoredDamage}%",
+		{ breakdown = "OffHand.ImpaleStoredDamage" },
+		{ flag = "weapon2Attack", modName = "ImpaleEffect", cfg = "weapon2" },
 	}, },
+	{ label = "OH DMG Mod.", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleModifier", { format = "{3:output:OffHand.ImpaleModifier}", modType = "MORE",
+		{ breakdown = "OffHand.ImpaleModifier" },
+	}, },
+	{ label = "Impale DPS", flag = "impale", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+	{ label = "Impale Damage", flag = "impale", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+} }
 } },
-{ 1, "SkillTypeStats", 1, "Skill type-specific Stats", colorCodes.OFFENCE, {
+{ 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
 	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
 	{ label = "Skill Cooldown", haveOutput = "Cooldown", { format = "{2:output:Cooldown}s", 
 		{ breakdown = "Cooldown" }, 
@@ -536,8 +550,30 @@ return {
 	}, },
 	{ label = "Totem Life", flag = "totem", { format = "{0:output:TotemLife}", { breakdown = "TotemLife" }, }, },
 	{ label = "Active Brand Limit", flag = "brand", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
+} }
 } },
-{ 1, "Bleed", 1, "Bleed", colorCodes.OFFENCE, {
+{ 1, "HitChance", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Accuracy", data = {
+	extra = "{0:output:HitChance}%",
+	flag = "attack",
+	{ label = "MH Accuracy", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:output:MainHand.Accuracy}", 
+		{ breakdown = "MainHand.Accuracy" }, 
+		{ modName = "Accuracy", cfg = "weapon1" }, 
+	}, },
+	{ label = "MH Chance to Hit", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:output:MainHand.HitChance}%",
+		{ breakdown = "MainHand.HitChance" }, 
+		{ label = "Enemy Evasion modifiers", modName = "Evasion", enemy = true },
+	}, },
+	{ label = "OH Accuracy", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.Accuracy}",
+		{ breakdown = "OffHand.Accuracy" }, 
+		{ modName = "Accuracy", cfg = "weapon2" },
+	}, },
+	{ label = "OH Chance to Hit", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.HitChance}%",
+		{ breakdown = "OffHand.HitChance" },
+		{ label = "Enemy Evasion modifiers", modName = "Evasion", enemy = true },
+	}, },
+} }
+} },
+{ 1, "Bleed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Bleed", data = {
 	extra = "{0:output:BleedChance}% {1:output:BleedDPS} {2:output:BleedDuration}s",
 	flag = "bleed",
 	{ label = "Max Bleed Stacks", { format = "{0:output:BleedStacksMax}", { modName = "BleedStacksMax" } }, },
@@ -560,36 +596,9 @@ return {
 		{ label = "Player modifiers", modName = { "EnemyBleedDuration", "SkillAndDamagingAilmentDuration" }, cfg = "bleed" }, 
 		{ label = "Enemy modifiers", modName = "SelfBleedDuration", enemy = true },
 	}, },
+} }
 } },
-{ 1, "Impale", 1, "Impale", colorCodes.OFFENCE, {
-    flag = "impale",
-	extra = "{0:output:ImpaleChance}%",
-	{ label = "Max Impale Stacks", { format = "{0:output:ImpaleStacksMax}", { modName = "ImpaleStacksMax" } }, },
-	{ label = "Stacks on Enemy", { format = "{0:output:ImpaleStacks}" }},
-	{ label = "MH Impale Chance", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.ImpaleChance", { format = "{0:output:MainHand.ImpaleChance}%",
-		{ flag = "weapon1Attack", modName = "ImpaleChance", modType = "BASE", cfg = "weapon1" },
-	}, },
-	{ label = "MH Stored Damage",  bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.ImpaleStoredDamage", { format = "{1:output:MainHand.ImpaleStoredDamage}%",
-		{ breakdown = "MainHand.ImpaleStoredDamage" },
-		{ flag = "weapon1Attack", modName = "ImpaleEffect", cfg = "weapon1" },
-	}, },
-	{ label = "MH DMG Mod.",  bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.ImpaleModifier", { format = "{3:output:MainHand.ImpaleModifier}",
-		{ breakdown = "MainHand.ImpaleModifier" },
-	} },
-	{ label = "OH Impale Chance", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleChance", { format = "{0:output:OffHand.ImpaleChance}%",
-		{ flag = "weapon2Attack", modName = "ImpaleChance", modType = "BASE", cfg = "weapon2" },
-	}, },
-	{ label = "OH Stored Damage",  bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleStoredDamage", { format = "{1:output:OffHand.ImpaleStoredDamage}%",
-		{ breakdown = "OffHand.ImpaleStoredDamage" },
-		{ flag = "weapon2Attack", modName = "ImpaleEffect", cfg = "weapon2" },
-	}, },
-	{ label = "OH DMG Mod.", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleModifier", { format = "{3:output:OffHand.ImpaleModifier}", modType = "MORE",
-		{ breakdown = "OffHand.ImpaleModifier" },
-	}, },
-	{ label = "Impale DPS", flag = "impale", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
-	{ label = "Impale Damage", flag = "impale", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
-} },
-{ 1, "Poison", 1, "Poison", colorCodes.OFFENCE, {
+{ 1, "Poison", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Poison", data = {
 	extra = "{0:output:PoisonChance}% {1:output:PoisonDPS} {2:output:PoisonDuration}s",
 	flag = "poison",
 	{ label = "Chance to Poison", { format = "{0:output:PoisonChance}%", 
@@ -641,8 +650,9 @@ return {
 		{ breakdown = "OffHand.TotalPoisonStacks" }, 
 		{ breakdown = "TotalPoisonStacks" }, 
 	}, },
+} }
 } },
-{ 1, "Ignite", 1, "Ignite", colorCodes.OFFENCE, {	
+{ 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Ignite", data = {	
 	extra = "{0:output:IgniteChance}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
 	flag = "ignite",
 	{ label = "Chance to Ignite", { format = "{0:output:IgniteChance}%", 
@@ -694,8 +704,9 @@ return {
 		{ breakdown = "OffHand.TotalIgniteStacks" }, 
 		{ breakdown = "TotalIgniteStacks" }, 
 	}, },
+} }
 } },
-{ 1, "Decay", 1, "Decay", colorCodes.OFFENCE, {
+{ 1, "Decay", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Decay", data = {
 	extra = "{1:output:DecayDPS} {2:output:DecayDuration}s",
 	flag = "decay",
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "INC", cfg = "decay" }, }, },
@@ -711,8 +722,9 @@ return {
 		{ breakdown = "DecayDuration" },
 		{ modName = { "Duration", "SkillAndDamagingAilmentDuration" }, cfg = "decay" },
 	}, },
+} }
 } },
-{ 1, "LeechGain", 1, "Leech & Gain on Hit", colorCodes.OFFENCE, {
+{ 1, "LeechGain", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Leech & Gain on Hit", data = {
 	{ label = "Life Leech Cap", flag = "leechLife", { format = "{1:output:MaxLifeLeechRate}", 
 		{ breakdown = "MaxLifeLeechRate" },
 		{ modName = "MaxLifeLeechRate" },
@@ -807,8 +819,9 @@ return {
 		{ label = "Off Hand", flag = "weapon2Attack", modName = "ManaOnHit", modType = "BASE", cfg = "weapon2" }, 
 		{ label = "Enemy modifiers", modName = { "SelfManaOnHit" }, modType = "BASE", cfg = "skill", enemy = true },
 	}, },
+} }
 } },
-{ 1, "EleAilments", 1, "Elemental Ailments", colorCodes.OFFENCE, {
+{ 1, "EleAilments", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Elemental Ailments", data = {
 	{ label = "Inc. Chill Effect", flag = "chill", { format = "{0:output:ChillEffectMod}%",
 		{ label = "Player modifiers", modName = "EnemyChillEffect", cfg = "skill" },
 		{ label = "Enemy modifiers", modName = "SelfChillEffect", enemy = true },
@@ -852,8 +865,9 @@ return {
 		{ label = "Player modifiers", modName = "EnemyShockDuration", cfg = "skill" }, 
 		{ label = "Enemy modifiers", modName = "SelfShockDuration", enemy = true }, 
 	}, },
-	}, },
-{ 1, "MiscEffects", 1, "Other Effects", colorCodes.OFFENCE, {
+} }
+} },
+{ 1, "MiscEffects", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Other Effects", data = {
 	{ label = "Stun Threshold", flag = "hit", notFlag = "attack", { format = "x {2:output:EnemyStunThresholdMod}", { modName = "EnemyStunThreshold", cfg = "skill" }, }, },
 	{ label = "Stun Duration", flag = "hit", notFlag = "attack", { format = "{2:output:EnemyStunDuration}s", 
 		{ breakdown = "EnemyStunDuration" }, 
@@ -898,8 +912,10 @@ return {
 	}, },
 	{ label = "Inc. Item Quantity", { format = "{0:mod:1}%", { modName = "LootQuantity", modType = "INC", cfg = "skill" }, }, },
 	{ label = "Inc. Item Rarity", { format = "{0:mod:1}%", { modName = "LootRarity", modType = "INC", cfg = "skill" }, }, },
+} }
 } },
-{ 1, "Attributes", 2, "Attributes", colorCodes.NORMAL, {
+--misc
+{ 1, "Attributes", 2, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "Attributes", data = {
 	extra = colorCodes.STRENGTH.."{0:output:Str}^7, "..colorCodes.DEXTERITY.."{0:output:Dex}^7, "..colorCodes.INTELLIGENCE.."{0:output:Int}",
 	{ label = "Strength", { format = "{0:output:Str}", { breakdown = "Str" }, { modName = "Str" }, }, },
 	{ label = "Dexterity", { format = "{0:output:Dex}", { breakdown = "Dex" }, { modName = "Dex" }, }, },
@@ -907,8 +923,10 @@ return {
 	{ notFlag = "minionSkill", label = "Str. Required", { format = "{output:ReqStrString}", { breakdown = "ReqStr" }, }, },
 	{ notFlag = "minionSkill", label = "Dex. Required", { format = "{output:ReqDexString}", { breakdown = "ReqDex" }, }, },
 	{ notFlag = "minionSkill", label = "Int. Required", { format = "{output:ReqIntString}", { breakdown = "ReqInt" }, }, },
+} }
 } },
-{ 1, "Life", 2, "Life", colorCodes.DEFENCE, {
+--defence
+{ 1, "Life", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Life", data = {
 	extra = "{0:output:LifeUnreserved}/{0:output:Life}",
 	{ label = "Base from Gear", { format = "{0:mod:1}", { modName = "Life", modType = "BASE", modSource = "Item" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Life", modType = "INC", modSource = "Tree" }, }, },
@@ -922,8 +940,9 @@ return {
 		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen" }, modType = "BASE" }, 
 		{ label = "Recovery modifiers", modName = "LifeRecovery" },
 	}, },
+} }
 } },
-{ 1, "Mana", 2, "Mana", colorCodes.DEFENCE, {
+{ 1, "Mana", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Mana", data = {
 	extra = "{0:output:ManaUnreserved}/{0:output:Mana}",
 	notFlag = "minionSkill",
 	{ label = "Base from Gear", { format = "{0:mod:1}", { modName = "Mana", modType = "BASE", modSource = "Item" }, }, },
@@ -939,8 +958,9 @@ return {
 		{ label = "Sources", modName = { "ManaRegen", "ManaRegenPercent" }, modType = "BASE" },
 		{ label = "Recovery modifiers", modName = "ManaRecovery" },
 	}, },
+} }
 } },
-{ 1, "EnergyShield", 2, "Energy Shield", colorCodes.DEFENCE, {
+{ 1, "EnergyShield", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Energy Shield", data = {
 	extra = "{0:output:EnergyShield}",
 	{ label = "Base from Armours", { format = "{0:output:Gear:EnergyShield}", { breakdown = "EnergyShield", gearOnly = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "EnergyShield", modType = "BASE" }, }, },
@@ -960,8 +980,9 @@ return {
 		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRegenPercent" }, modType = "BASE" }, 
 		{ label = "Recovery modifiers", modName = "EnergyShieldRecovery" },
 	}, },
+} }
 } },
-{ 1, "Armour", 3, "Armour", colorCodes.DEFENCE, {
+{ 1, "Armour", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Armour", data = {
 	extra = "{0:output:Armour}",
 	{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "Armour", modType = "BASE" }, }, },
@@ -973,8 +994,9 @@ return {
 		{ breakdown = "PhysicalDamageReduction" },
 		{ modName = { "PhysicalDamageReduction", "PhysicalDamageReductionWhenHit" } }, 
 	}, },
+} }
 } },
-{ 1, "Evasion", 3, "Evasion", colorCodes.DEFENCE, {
+{ 1, "Evasion", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Evasion", data = {
 	extra = "{0:output:Evasion}",
 	{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "Evasion", modType = "BASE" }, }, },
@@ -987,8 +1009,9 @@ return {
 		{ modName = { "CannotEvade" } },
 		{ label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
 	}, },
+} }
 } },
-{ 1, "Resist", 3, "Resists", colorCodes.DEFENCE, {
+{ 1, "Resist", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Resists", data = {
 	extra = colorCodes.FIRE.."{0:output:FireResist}+{0:output:FireResistOverCap}^7/"..colorCodes.COLD.."{0:output:ColdResist}+{0:output:ColdResistOverCap}^7/"..colorCodes.LIGHTNING.."{0:output:LightningResist}+{0:output:LightningResistOverCap}",
 	{ label = "Fire Resist", { format = "{0:output:FireResist}% (+{0:output:FireResistOverCap}%)",
 		{ breakdown = "FireResist" }, 
@@ -1006,8 +1029,9 @@ return {
 		{ breakdown = "ChaosResist" },
 		{ modName = { "ChaosResistMax", "ChaosResist" }, }, 
 	}, },
+} }
 } },
-{ 1, "DamageTaken", 3, "Damage Taken", colorCodes.DEFENCE, {
+{ 1, "DamageTaken", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
 	{ label = "Physical Hit/DoT", { format = "x {2:output:PhysicalTakenHitMult} / x {2:output:PhysicalTakenDotMult}", 
 		{ breakdown = "PhysicalTakenHitMult" }, 
 		{ breakdown = "PhysicalTakenDotMult" },
@@ -1043,23 +1067,11 @@ return {
 	}, },
 	{ label = "Net Life Regen", haveOutput = "NetLifeRegen", { format = "{1:output:NetLifeRegen}", { breakdown = "NetLifeRegen" }, }, },
 	{ label = "Net Mana Regen", haveOutput = "NetManaRegen", { format = "{1:output:NetManaRegen}", { breakdown = "NetManaRegen" }, }, },
+} }
 } },
-{ 1, "MiscDefences", 3, "Other Defences", colorCodes.DEFENCE, {
+{ 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
 	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = "MovementSpeed" }, }, },
 	{ label = "Effect of Elusive", haveOutput = "ElusiveEffectMod", { format = "{0:output:ElusiveEffectMod}%", { breakdown = "ElusiveEffectMod" }, { modName = { "ElusiveEffect", "BuffEffectOnSelf" }, }, } },
-	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
-	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
-	{ label = "Block Chance", { format = "{0:output:BlockChance}%",
-		{ breakdown = "BlockChance" },
-		{ modName = "BlockChance" }, 
-	}, },
-	{ label = "Spell Block Chance", { format = "{0:output:SpellBlockChance}%", 
-		{ breakdown = "SpellBlockChance" }, 
-		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
-	}, },
-	{ label = "Melee Avoid Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
-	{ label = "Projectile Avoid Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
-	{ label = "Spell Avoid Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
 	{ label = "Stun Avoid Chance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
 	{ label = "Stun Duration", { format = "{2:output:StunDuration}s", 
 		{ breakdown = "StunDuration" },
@@ -1070,5 +1082,24 @@ return {
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
+} }, { defaultCollapsed = false, label = "Dodge", data = {
+	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
+	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
+	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
+} }, { defaultCollapsed = false, label = "Block", data = {
+	extra = "{0:output:BlockChance}%/{0:output:SpellBlockChance}%",
+	{ label = "Block Chance", { format = "{0:output:BlockChance}%",
+		{ breakdown = "BlockChance" },
+		{ modName = "BlockChance" }, 
+	}, },
+	{ label = "Spell Block Chance", { format = "{0:output:SpellBlockChance}%", 
+		{ breakdown = "SpellBlockChance" }, 
+		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
+	}, },
+} }, { defaultCollapsed = false, label = "Cumulative", data = {
+	{ label = "Melee Avoid Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
+	{ label = "Projectile Avoid Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
+	{ label = "Spell Avoid Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
+} }, 
 } },
 }

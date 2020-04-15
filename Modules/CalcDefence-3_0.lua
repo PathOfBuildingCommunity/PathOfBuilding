@@ -620,20 +620,20 @@ function calcs.defence(env, actor)
 				{ "%.2f ^8(chance for evasion to fail)", 1 - output.MeleeEvadeChance / 100 },
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
 				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a melee attack)", 100 - output.MeleeAvoidChance),
+				total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.MeleeAvoidChance),
 			})
 			breakdown.ProjectileAvoidChance = { }
 			breakdown.multiChain(breakdown.ProjectileAvoidChance, {
 				{ "%.2f ^8(chance for evasion to fail)", 1 - output.ProjectileEvadeChance / 100 },
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
 				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a projectile attack)", 100 - output.ProjectileAvoidChance),
+				total = s_format("= %d%% ^8(chance to take damage from a projectile attack)", 100 - output.ProjectileAvoidChance),
 			})
 			breakdown.SpellAvoidChance = { }
 			breakdown.multiChain(breakdown.SpellAvoidChance, {
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
 				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellAvoidChance),
+				total = s_format("= %d%% ^8(chance to take damage from a spell)", 100 - output.SpellAvoidChance),
 			})
 		end
 		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)

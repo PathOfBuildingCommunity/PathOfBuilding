@@ -5,38 +5,46 @@
 --
 local t_insert = table.insert
 
-local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, label, col, data, updateFunc)
+local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, colour, subSection, updateFunc)
 	self.Control(calcsTab, 0, 0, width, 0)
 	self.ControlHost()
 	self.calcsTab = calcsTab
 	self.id = id
 	self.group = group
-	self.label = label
-	self.col = col
-	self.data = data
-	self.extra = data.extra
-	self.flag = data.flag
-	self.notFlag = data.notFlag
+	self.colour = colour
+	self.subSection = subSection
+	self.flag = subSection[1].data.flag
+	self.notFlag = subSection[1].data.notFlag
 	self.updateFunc = updateFunc
-	for _, data in ipairs(self.data) do
-		for _, colData in ipairs(data) do
-			if colData.control then
-				-- Add control to the section's control list and set show/hide function
-				self.controls[colData.controlName] = colData.control
-				colData.control.shown = function()
-					return self.enabled and not self.collapsed and data.enabled
+	
+	for i, subSec in ipairs(self.subSection) do
+		for _, data in ipairs(subSec.data) do
+			for _, colData in ipairs(data) do
+				if colData.control then
+					-- Add control to the section's control list and set show/hide function
+					self.controls[colData.controlName] = colData.control
+					colData.control.shown = function()
+						return self.enabled and not self.subSection[1].collapsed and not subSec.collapsed and data.enabled
+					end
 				end
 			end
 		end
-	end
-	self.controls.toggle = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -3, 3, 16, 16, function()
-		return self.collapsed and "+" or "-"
-	end, function()
-		self.collapsed = not self.collapsed
-		self.calcsTab.modFlag = true
-	end)
-	self.controls.toggle.shown = function()
-		return self.enabled
+		subSec.collapsed = subSec.defaultCollapsed
+		self.controls["toggle"..i] = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -3, -13 + (16 * i), 16, 16, function()
+			return subSec.collapsed and "+" or "-"
+		end, function()
+			subSec.collapsed = not subSec.collapsed
+			self.calcsTab.modFlag = true
+		end)
+		if i == 1 then
+			self.controls["toggle"..i].shown = function()
+				return self.enabled
+			end
+		else
+			self.controls["toggle"..i].shown = function()
+				return self.enabled and not self.subSection[1].collapsed
+			end
+		end
 	end
 	self.shown = function()
 		return self.enabled
@@ -51,19 +59,21 @@ function CalcSectionClass:IsMouseOver()
 		return true
 	end
 	local mOver = self:IsMouseInBounds()
-	if mOver and not self.collapsed and self.enabled then
-		-- Check if mouse is over one of the cells
-		local cursorX, cursorY = GetCursorPos()
-		for _, data in ipairs(self.data) do
-			if data.enabled then
-				for _, colData in ipairs(data) do
-					if colData.control then
+	for _, subSec in ipairs(self.subSection) do
+		if mOver and not subSec.collapsed and self.enabled then
+			-- Check if mouse is over one of the cells
+			local cursorX, cursorY = GetCursorPos()
+			for _, data in ipairs(subSec.data) do
+				if data.enabled then
+					for _, colData in ipairs(data) do
+						if colData.control then
 						if colData.control:IsMouseOver() then
 							return mOver, colData
 						end
 					elseif cursorX >= colData.x and cursorY >= colData.y and cursorX < colData.x + colData.width and cursorY < colData.y + colData.height then
 						return mOver, colData
 					end
+				end
 				end
 			end
 		end
@@ -79,30 +89,41 @@ function CalcSectionClass:UpdateSize()
 	end
 	local x, y = self:GetPos()
 	local width = self:GetSize()
-	self.height = 0
+	self.height = 2
 	self.enabled = false
-	local yOffset = 22
-	for _, rowData in ipairs(self.data) do
-		rowData.enabled = self.calcsTab:CheckFlag(rowData)
-		if rowData.enabled then
-			self.enabled = true
-			local xOffset = 134
-			for col, colData in ipairs(rowData) do
-				colData.xOffset = xOffset
-				colData.yOffset = yOffset
-				colData.width = self.data.colWidth or width - 136
-				colData.height = 18
-				xOffset = xOffset + colData.width
+	local yOffset = 0
+	for i, subSec in ipairs(self.subSection) do
+		self.controls["toggle"..i].y = yOffset + 3
+		local tempHeight = 0
+		yOffset = yOffset + 22
+		for _, rowData in ipairs(subSec.data) do
+			rowData.enabled = self.calcsTab:CheckFlag(rowData)
+			if rowData.enabled then
+				self.enabled = true
+				local xOffset = 134
+				for colour, colData in ipairs(rowData) do
+					colData.xOffset = xOffset
+					colData.yOffset = yOffset
+					colData.width = subSec.data.colWidth or width - 136
+					colData.height = 18
+					xOffset = xOffset + colData.width
+				end
+				yOffset = yOffset + 18
+				self.height = self.height + 18
+				tempHeight = tempHeight + 18
 			end
-			yOffset = yOffset + 18
-			self.height = self.height + 18
+			if subSec.collapsed then
+				rowData.enabled = false
+			end
 		end
-		if self.collapsed then
-			rowData.enabled = false
+		if self.enabled and not subSec.collapsed then
+			self.height = self.height + 22
+		else
+			self.height = self.height - tempHeight + 20
+			yOffset = yOffset - tempHeight - 2
 		end
 	end
-	if self.enabled and not self.collapsed then
-		self.height = self.height + 24
+	if self.enabled and not self.subSection[1].collapsed then
 		if self.updateFunc then
 			self:updateFunc()
 		end
@@ -112,20 +133,22 @@ function CalcSectionClass:UpdateSize()
 end
 
 function CalcSectionClass:UpdatePos()
-	if self.collapsed or not self.enabled then
+	if self.subSection[1].collapsed or not self.enabled then
 		return
 	end
 	local x, y = self:GetPos()
-	for _, rowData in ipairs(self.data) do
-		if rowData.enabled then
-			for col, colData in ipairs(rowData) do
-				-- Update the real coordinates of this cell
-				colData.x = x + colData.xOffset
-				colData.y = y + colData.yOffset
+	for _, subSec in ipairs(self.subSection) do
+		for _, rowData in ipairs(subSec.data) do
+			if rowData.enabled then
+				for colour, colData in ipairs(rowData) do
+					-- Update the real coordinates of this cell
+					colData.x = x + colData.xOffset
+					colData.y = y + colData.yOffset
 				if colData.control then
 					colData.control.x = colData.x + 4
 					colData.control.y = colData.y + 9 - colData.control.height/2
 				end
+			end
 			end
 		end
 	end
@@ -197,44 +220,58 @@ function CalcSectionClass:Draw(viewPort)
 	local actor = self.calcsTab.input.showMinion and self.calcsTab.calcsEnv.minion or self.calcsTab.calcsEnv.player
 	-- Draw border and background
 	SetDrawLayer(nil, -10)
-	SetDrawColor(self.col)
+	SetDrawColor(self.colour)
 	DrawImage(nil, x, y, width, height)
 	SetDrawColor(0.10, 0.10, 0.10)
 	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
-	-- Draw label
-	if not self.enabled then
-		DrawString(x + 3, y + 3, "LEFT", 16, "VAR BOLD", "^8"..self.label)
-	else
-		DrawString(x + 3, y + 3, "LEFT", 16, "VAR BOLD", "^7"..self.label..":")
-		if self.extra then
-			local x = x + 3 + DrawStringWidth(16, "VAR BOLD", self.label) + 10
-			DrawString(x, y + 3, "LEFT", 16, "VAR", self:FormatStr(self.extra, actor))
-		end
-	end
-	-- Draw line below label
-	SetDrawColor(self.col)
-	DrawImage(nil, x + 2, y + 20, width - 4, 2)
-	-- Draw controls
-	SetDrawLayer(nil, 0)
-	self:DrawControls(viewPort)
-	if self.collapsed or not self.enabled then
-		return
-	end
-	local lineY = y + 22
-	for _, rowData in ipairs(self.data) do
-		if rowData.enabled then
-			if rowData.label then
-				-- Draw row label with background
-				SetDrawColor(rowData.bgCol or "^0")
-				DrawImage(nil, x + 2, lineY, 130, 18)
-				DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
+	
+	local primary = true
+	local lineY = y
+	for _, subSec in ipairs(self.subSection) do
+		-- Draw line above label
+		SetDrawColor(self.colour)
+		DrawImage(nil, x + 2, lineY, width - 4, 2)
+		SetDrawColor(0.10, 0.10, 0.10)
+		-- Draw label
+		if not self.enabled then
+			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^8"..subSec.label)
+		else
+			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^7"..subSec.label..":")
+			if subSec.data.extra then
+				local x = x + 3 + DrawStringWidth(16, "VAR BOLD", subSec.label) + 10
+				DrawString(x, lineY + 3, "LEFT", 16, "VAR", self:FormatStr(subSec.data.extra, actor))
 			end
-			for col, colData in ipairs(rowData) do
-				-- Draw column separator at the left end of the cell
-				SetDrawColor(self.col)
-				DrawImage(nil, colData.x, lineY, 2, colData.height)
-				if colData.format and self.calcsTab:CheckFlag(colData) then
-					if cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height and cursorX >= colData.x and cursorY >= colData.y and cursorX < colData.x + colData.width and cursorY < colData.y + colData.height then
+		end
+		-- Draw line below label
+		SetDrawColor(self.colour)
+		DrawImage(nil, x + 2, lineY + 20, width - 4, 2)
+		-- Draw controls
+		SetDrawLayer(nil, 0)
+		self:DrawControls(viewPort)
+		if subSec.collapsed or not self.enabled then
+			if primary then
+				return
+			else
+				lineY = lineY + 20
+				primary = false
+			end
+		else
+			lineY = lineY + 22
+			primary = false
+			for _, rowData in ipairs(subSec.data) do
+				if rowData.enabled then
+					if rowData.label then
+						-- Draw row label with background
+				SetDrawColor(rowData.bgCol or "^0")
+						DrawImage(nil, x + 2, lineY, 130, 18)
+						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
+					end
+					for colour, colData in ipairs(rowData) do
+						-- Draw column separator at the left end of the cell
+						SetDrawColor(self.colour)
+						DrawImage(nil, colData.x, lineY, 2, colData.height)
+						if colData.format and self.calcsTab:CheckFlag(colData) then
+							if cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height and cursorX >= colData.x and cursorY >= colData.y and cursorX < colData.x + colData.width and cursorY < colData.y + colData.height then
 						self.calcsTab:SetDisplayStat(colData)
 					end
 					if self.calcsTab.displayData == colData then
@@ -254,6 +291,8 @@ function CalcSectionClass:Draw(viewPort)
 				end
 			end
 			lineY = lineY + 18
+				end
+			end
 		end
 	end
 end
