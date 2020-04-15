@@ -41,7 +41,7 @@ function calcs.initModDB(env, modDB)
 		modDB:NewMod("MineLayingTime", "BASE", 0.5, "Base")
 	else
 		modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
-		modDB:NewMod("MineLayingTime", "BASE", 0.25, "Base")
+		modDB:NewMod("MineLayingTime", "BASE", 0.3, "Base")
 	end
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
