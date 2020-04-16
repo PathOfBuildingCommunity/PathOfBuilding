@@ -1,4 +1,4 @@
-$fork = "LocalIdentity";
+$fork = "PathOfBuildingCommunity";
 Write-Output "Patching to use the $fork fork...";
 $source = "https://raw.githubusercontent.com/$fork/PathOfBuilding/master/manifest.xml";
 $dest = "$env:ProgramData\Path of Building\manifest.xml";

@@ -43,7 +43,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.sectionList = { }
 
 	-- Special section for skill/mode selection
-	self:NewSection(3, "SkillSelect", 1, "View Skill Details", colorCodes.NORMAL, {
+	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
 			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
 				self.input.skill_number = index 
@@ -134,7 +134,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}", { breakdown = "SkillBuffs" } }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
 		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}", { breakdown = "SkillDebuffs" } }, },
-	}, function(section)
+	}}}, function(section)
 		self.build:RefreshSkillSelectControls(section.controls, self.input.skill_number, "Calcs")
 		section.controls.showMinion.state = self.input.showMinion
 		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")

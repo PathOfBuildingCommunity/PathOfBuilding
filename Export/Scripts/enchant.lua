@@ -13,7 +13,7 @@ local labOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME" }
 
 local function doOtherEnchantment(fileName, group)
 	local byDiff = { }
-	for _, mod in ipairs(dat"Mods":GetRowList("GenerationType", 10)) do
+	for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
 		if mod.Family == group and mod.SpawnWeights[1] > 0 then
 			local stats, orders = describeMod(mod)
 			local diff = lab[mod.Level]
@@ -120,12 +120,12 @@ local skillMap = {
 }
 
 local bySkill = { }
-for _, mod in ipairs(dat"Mods":GetRowList("GenerationType", 10)) do
+for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
 	if mod.Family == "SkillEnchantment" and mod.SpawnWeights[1] > 0 then
 		local stats = { mod.Stat1, mod.Stat2, mod.Stat3, mod.Stat4, mod.Stat5, mod.Stat6 }
 		local skill
 		for _, stat in pairs(stats) do
-			for _, activeSkill in ipairs(dat"ActiveSkills":GetRowList("SkillSpecificStat", stat)) do
+			for _, activeSkill in ipairs(dat("ActiveSkills"):GetRowList("SkillSpecificStat", stat)) do
 				local isVaal = false
 				for _, skillType in ipairs(activeSkill.SkillTypes) do
 					if skillType == 39 then

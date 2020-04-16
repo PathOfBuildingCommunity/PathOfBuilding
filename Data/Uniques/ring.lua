@@ -215,7 +215,6 @@ Variant: Herald of Ash: Fire Damage
 Variant: Herald of Ash: Buff Effect
 Variant: Herald of Ash: Max Resistance
 Variant: Herald of Ash: Fire Resistance
-Limited to: 1
 +(20-30)% to Fire Resistance
 {fractured}+(20-30) to Strength
 Adds (20-25) to (26-35) Fire Damage
@@ -238,7 +237,6 @@ Variant: Herald of Ice: Cold Damage
 Variant: Herald of Ice: Buff Effect
 Variant: Herald of Ice: Max Resistance
 Variant: Herald of Ice: Cold Resistance
-Limited to: 1
 +(20-30)% to Cold Resistance
 {fractured}+(20-30) to Dexterity
 Adds (20-25) to (26-35) Cold Damage
@@ -261,7 +259,6 @@ Variant: Herald of Purity: Physical Damage
 Variant: Herald of Purity: Buff Effect
 Variant: Herald of Purity: Sentinel Damage
 Variant: Herald of Purity: Damage Reduction
-Limited to: 1
 Adds 1 to 4 Physical Damage to Attacks
 {fractured}+(10-20) to all Attributes
 Adds (8-10) to (13-15) Physical Damage
@@ -284,7 +281,6 @@ Variant: Herald of Agony: Chaos Damage
 Variant: Herald of Agony: Buff Effect
 Variant: Herald of Agony: Agony Damage
 Variant: Herald of Agony: Chaos Resistance
-Limited to: 1
 +(9-13)% to Chaos Resistance
 {fractured}+(10-20) to all Attributes
 Adds (15-20) to (21-30) Physical Damage
@@ -307,7 +303,6 @@ Variant: Herald of Thunder: Lightning Damage
 Variant: Herald of Thunder: Buff Effect
 Variant: Herald of Thunder: Max Resistance
 Variant: Herald of Thunder: Lightning Resistance
-Limited to: 1
 +(20-30)% to Lightning Resistance
 {fractured}+(20-30) to Intelligence
 Adds 1 to (48-60) Lightning Damage

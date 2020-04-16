@@ -1025,8 +1025,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RainOfSpores
-#flags attack projectile area
+#flags attack projectile area duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
+	end,
 #baseMod skill("dotIsArea", true)
+#baseMod flag("DotCanStack")
 #baseMod flag("OneShotProj")
 #mods
 

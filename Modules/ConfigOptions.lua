@@ -175,6 +175,10 @@ return {
 		modList:NewMod("Multiplier:EnemyAffectedBySiphoningTrap", "BASE", val, "Config")
 		modList:NewMod("Condition:SiphoningTrapSiphoning", "FLAG", true, "Config")
 	end },
+	{ label = "Snipe:", ifSkill = "Snipe" },
+	{ var = "configSnipeStages", type = "count", label = "# of Snipe stages:", ifSkill = "Snipe", tooltip = "Sets the number of stages reached before releasing Snipe.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SnipeStage", "BASE", m_min(val, 6), "Config")
+	end },
 	{ label = "Stance Skills:", ifSkillList = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate" } },
 	{ var = "bloodSandStance", type = "list", label = "Stance:", ifSkillList = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate" }, list = {{val="BLOOD",label="Blood Stance"},{val="SAND",label="Sand Stance"}}, apply = function(val, modList, enemyModList)
 		if val == "SAND" then
@@ -188,6 +192,10 @@ return {
 	{ label = "Summon Lightning Golem:", ifSkill = "Summon Lightning Golem" },
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
+	end },
+	{ label = "Toxic Rain:", ifSkill = "Toxic Rain" },
+	{ var = "toxicRainPodOverlap", type = "count", label = "# of Overlapping Pods:", tooltip = "Maximum is limited by the number of Projectiles.", ifSkill = "Toxic Rain", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "podOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillName = "Toxic Rain" })
 	end },
 	{ label = "Vortex:", ifSkill = "Vortex" },
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
@@ -431,8 +439,8 @@ return {
 		modList:NewMod("LuckyHits", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanBeLucky" } }, { type = "SkillName", skillNameList = { "Arc", "Vaal Arc" } })
 	end },
 	{ var = "buffElusive", type = "check", label = "Are you Elusive?", ifCond = "CanBeElusive", tooltip = "In addition to allowing any 'while Elusive' modifiers to apply,\nthis will enable the Elusive buff itself. (20% Attack and Spell Dodge, 40% increased Movement Speed)\nThe effect of Elusive decays over time.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } }, { type = "Condition", var = "CanBeElusive" })
-		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } }, { type = "Condition", var = "CanBeElusive" })
+		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
+		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 	end },
 	{ var = "buffDivinity", type = "check", label = "Do you have Divinity?", ifCond = "Divinity", tooltip = "This will enable the Divinity buff:\n50% more Elemental Damage\n20% less Elemental Damage Taken", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Divinity", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -778,8 +786,8 @@ return {
 	{ var = "conditionImpaledRecently", type = "check", ifVer="3_0", ifCond = "ImpaledRecently", label = "Impaled an Enemy recently?", apply = function(val, modList, enemyModLIst)
 		modList:NewMod("Condition:ImpaledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierImpalesOnEnemy", type = "count", label = "# of Impales on Enemy (if not maximum):", ifFlag = "impale", tooltip = "Set number of Impales if using Champions Master of Metal node", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", m_min(val, 9), "Config", { type = "Condition", var = "Combat" })
+	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on Enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on Enemy (if not maximum):", ifFlag = "bleed", tooltip = "Set number of Bleeds if using Crimson Dance node", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })

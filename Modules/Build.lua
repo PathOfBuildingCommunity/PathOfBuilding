@@ -210,11 +210,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
 				self.spec:AddUndoState()
+				self.spec:SetWindowTitleWithBuildClass()
 				self.buildFlag = true
 			else
 				main:OpenConfirmPopup("Class Change", "Changing class to "..value.label.." will reset your passive tree.\nThis can be avoided by connecting one of the "..value.label.." starting nodes to your tree.", "Continue", function()
 					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
+					self.spec:SetWindowTitleWithBuildClass()
 					self.buildFlag = true					
 				end)
 			end
@@ -223,6 +225,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
 		self.spec:SelectAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
 
@@ -627,6 +630,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self:RefreshStatList()
 	self.buildFlag = false
 
+	self.spec:SetWindowTitleWithBuildClass()
+
 	--[[
 	local testTooltip = new("Tooltip")
 	for _, item in pairs(main.uniqueDB.list) do
@@ -683,6 +688,7 @@ function buildMode:GetArgs()
 end
 
 function buildMode:CloseBuild()
+	main:SetWindowTitleSubtext()
 	main:SetMode("LIST", self.dbFileName and self.buildName, self.dbFileSubPath)
 end
 
@@ -829,6 +835,9 @@ function buildMode:OnFrame(inputEvents)
 	end
 	if main.showThousandsSidebar ~= self.lastShowThousandsSidebar then
 		self:RefreshStatList()
+	end
+	if main.showTitlebarName ~= self.lastShowTitlebarName then
+		self.spec:SetWindowTitleWithBuildClass()
 	end
 
 	-- Update contents of main skill dropdowns
@@ -1116,6 +1125,7 @@ function buildMode:FormatStat(statData, statVal)
 		valStr = color .. valStr
 	end
 	self.lastShowThousandsSidebar = main.showThousandsSidebar
+	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
 end
 
@@ -1179,7 +1189,12 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 					tooltip:AddLine(14, header)
 				end
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
-				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
+				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
+				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
+				if main.showThousandsCalcs then
+					valStr = formatNumSep(valStr)
+				end
+				local line = string.format("%s%s %s", color, valStr, statData.label)
 				local pcPerPt = ""
 				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then
 					local pc = statVal1 / statVal2 * 100 - 100

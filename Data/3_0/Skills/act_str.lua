@@ -1366,7 +1366,7 @@ skills["PuresteelBanner"] = {
 	name = "Dread Banner",
 	color = 1,
 	description = "Casting once reserves mana to carry a banner which makes nearby allies inflict impale with attacks, and lessens the accuracy of nearby enemies. Gain stages by impaling enemies while carrying the banner. Casting the skill again places the banner, ending the mana reservation. Once placed, it becomes more powerful for each stage gained. You cannot have multiple banners at the same time.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type94] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Banner] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "banner_aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -5091,7 +5091,7 @@ skills["BloodstainedBanner"] = {
 	name = "War Banner",
 	color = 1,
 	description = "Casting once reserves mana to carry a banner which increases the accuracy of nearby allies, and physical damage taken by nearby enemies. Gain stages by killing enemies while carrying the banner. Casting the skill again places the banner, ending the mana reservation. Once placed, it becomes more powerful for each stage gained. You cannot have multiple banners at the same time.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type94] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Banner] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "banner_aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {

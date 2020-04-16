@@ -41,7 +41,7 @@ function calcs.initModDB(env, modDB)
 		modDB:NewMod("MineLayingTime", "BASE", 0.5, "Base")
 	else
 		modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
-		modDB:NewMod("MineLayingTime", "BASE", 0.25, "Base")
+		modDB:NewMod("MineLayingTime", "BASE", 0.3, "Base")
 	end
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
@@ -440,6 +440,12 @@ function calcs.initEnv(build, mode, override)
 				scale = parentItem.socketedJewelEffectModifier
 			end
 		end
+		if slot.nodeId and item and item.type == "Jewel" and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
+			local node = env.spec.nodes[slot.nodeId]
+			if node and node.distanceToClassStart then
+				scale = scale + node.distanceToClassStart * (item.jewelData.jewelIncEffectFromClassStart / 100)
+			end
+		end
 		if item then
 			env.player.itemList[slotName] = item
 			-- Merge mods for this item
@@ -660,6 +666,12 @@ function calcs.initEnv(build, mode, override)
 				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
 					local grantedEffect = env.data.skills[value.skillId]
+					-- Some skill gems share the same name as support gems, e.g. Barrage.
+					-- Since a support gem is expected here, if the first lookup returns a skill, then
+					-- prepending "Support" to the skillId will find the support version of the gem.
+					if grantedEffect and not grantedEffect.support then
+						grantedEffect = env.data.skills["Support"..value.skillId]
+					end
 					if grantedEffect then
 						t_insert(supportList, { 
 							grantedEffect = grantedEffect,
