@@ -1070,6 +1070,23 @@ return {
 	{ label = "Net Mana Regen", haveOutput = "NetManaRegen", { format = "{1:output:NetManaRegen}", { breakdown = "NetManaRegen" }, }, },
 } }
 } },
+{ 1, "Block", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Block", data = {
+	extra = "{0:output:BlockChance}%/{0:output:SpellBlockChance}%",
+	{ label = "Block Chance", { format = "{0:output:BlockChance}%",
+		{ breakdown = "BlockChance" },
+		{ modName = "BlockChance" }, 
+	}, },
+	{ label = "Spell Block Chance", { format = "{0:output:SpellBlockChance}%", 
+		{ breakdown = "SpellBlockChance" }, 
+		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
+	}, },
+} }, { defaultCollapsed = true, label = "Gain on block", data = {
+	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}",
+	{ label = "Life on Block", { format = "{0:output:LifeOnBlock}", { modName = "LifeOnBlock" }, }, },
+	{ label = "Mana on Block", { format = "{0:output:ManaOnBlock}", { modName = "ManaOnBlock" }, }, },
+	{ label = "ES on Block", { format = "{0:output:EnergyShieldOnBlock}", { modName = "EnergyShieldOnBlock" }, }, },
+} },
+} },
 { 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
 	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = "MovementSpeed" }, }, },
 	{ label = "Effect of Elusive", haveOutput = "ElusiveEffectMod", { format = "{0:output:ElusiveEffectMod}%", { breakdown = "ElusiveEffectMod" }, { modName = { "ElusiveEffect", "BuffEffectOnSelf" }, }, } },
@@ -1087,16 +1104,6 @@ return {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
-} }, { defaultCollapsed = false, label = "Block", data = {
-	extra = "{0:output:BlockChance}%/{0:output:SpellBlockChance}%",
-	{ label = "Block Chance", { format = "{0:output:BlockChance}%",
-		{ breakdown = "BlockChance" },
-		{ modName = "BlockChance" }, 
-	}, },
-	{ label = "Spell Block Chance", { format = "{0:output:SpellBlockChance}%", 
-		{ breakdown = "SpellBlockChance" }, 
-		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
-	}, },
 } }, { defaultCollapsed = false, label = "Cumulative", data = {
 	{ label = "Melee Avoid Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
 	{ label = "Projectile Avoid Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
