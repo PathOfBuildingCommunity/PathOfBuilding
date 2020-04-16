@@ -1082,13 +1082,21 @@ return {
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
-} }, { defaultCollapsed = false, label = "Avoidance", data = {
+} }, { defaultCollapsed = false, label = "Damage Avoidance", data = {
 	{ label = "Avoid Physical Ch.", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
 	{ label = "Avoid Fire Chance", { format = "{0:output:AvoidFireDamageChance}%", { modName = "AvoidFireDamageChance" }, }, },
 	{ label = "Avoid Cold Chance", { format = "{0:output:AvoidColdDamageChance}%", { modName = "AvoidColdDamageChance" }, }, },
 	{ label = "Avoid Lightning Ch.", { format = "{0:output:AvoidLightningDamageChance}%", { modName = "AvoidLightningDamageChance" }, }, },
 	{ label = "Avoid Projectiles Ch", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
+} }, { defaultCollapsed = true, label = "Other Avoidance", data = {
 	{ label = "Stun Avoid Chance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
+	{ label = "Interupt Avoid Ch.", { format = "{0:output:InteruptStunAvoidChance}%", { modName = "AvoidInteruptStun" }, }, },
+	{ label = "Shock Avoid Ch.", { format = "{0:output:ShockAvoidChance}%", { modName = "AvoidShock" }, }, },
+	{ label = "Freeze Avoid Ch.", { format = "{0:output:FreezeAvoidChance}%", { modName = "AvoidFreeze" }, }, },
+	{ label = "Chill Avoid Ch.", { format = "{0:output:ChillAvoidChance}%", { modName = "AvoidChill" }, }, },
+	{ label = "Ignite Avoid Ch.", { format = "{0:output:IgniteAvoidChance}%", { modName = "AvoidIgnite" }, }, },
+	{ label = "Bleed Avoid Ch.", { format = "{0:output:BleedAvoidChance}%", { modName = "AvoidBleed" }, }, },
+	{ label = "Poison Avoid Ch.", { format = "{0:output:PoisonAvoidChance}%", { modName = "AvoidPoison" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
