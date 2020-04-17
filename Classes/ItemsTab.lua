@@ -31,6 +31,8 @@ local socketDropList = {
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
+local influenceInfo = itemLib.influenceInfo
+
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -330,16 +332,17 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end
 	
 	-- Section: Apply Implicit
-	self.controls.displayItemSectionImplicit = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return (self.controls.displayItemShaperElder:IsShown() or self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
-	end)
-	self.controls.displayItemShaperElder = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder","Warlord","Hunter","Crusader","Redeemer"}, function(index, value)
-		self.displayItem.shaper = (index == 2)
-		self.displayItem.elder = (index == 3)
-		self.displayItem.adjudicator = (index == 4)
-		self.displayItem.basilisk = (index == 5)
-		self.displayItem.crusader = (index == 6)
-		self.displayItem.eyrie = (index == 7)
+	local influenceDisplayList = { "None" }
+	for i, curInfluenceInfo in ipairs(influenceInfo) do
+		influenceDisplayList[i + 1] = curInfluenceInfo.display
+	end
+	local function setDisplayItemInfluence(influenceIndexList)
+		self.displayItem:ResetInfluence()
+		for _, index in ipairs(influenceIndexList) do
+			if index > 0 then
+				self.displayItem[influenceInfo[index].key] = true;
+			end
+		end
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
@@ -349,11 +352,25 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		end
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
-	end)
-	self.controls.displayItemShaperElder.shown = function()
-		return self.displayItem and self.displayItem.canBeShaperElder
 	end
-	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemShaperElder,"TOPRIGHT",true}, 8, 0, 160, 20, "Apply Enchantment...", function()
+	self.controls.displayItemSectionImplicit = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return (self.controls.displayItemInfluence:IsShown() or self.controls.displayItemInfluence2:IsShown() or self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
+	end)
+	self.controls.displayItemInfluence = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, influenceDisplayList, function(index, value)
+		local otherIndex = self.controls.displayItemInfluence2.selIndex
+		setDisplayItemInfluence({ index - 1, otherIndex - 1 })
+	end)
+	self.controls.displayItemInfluence.shown = function()
+		return self.displayItem and self.displayItem.canBeInfluenced
+	end
+	self.controls.displayItemInfluence2 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemInfluence,"TOPRIGHT",true}, 8, 0, 100, 20, influenceDisplayList, function(index, value)
+		local otherIndex = self.controls.displayItemInfluence.selIndex
+		setDisplayItemInfluence({ index - 1, otherIndex - 1 })
+	end)
+	self.controls.displayItemInfluence2.shown = function()
+		return self.displayItem and self.displayItem.canBeInfluenced
+	end
+	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemInfluence2,"TOPRIGHT",true}, 8, 0, 160, 20, "Apply Enchantment...", function()
 		self:EnchantDisplayItem()
 	end)
 	self.controls.displayItemEnchant.shown = function()
@@ -1084,7 +1101,22 @@ function ItemsTabClass:SetDisplayItem(item)
 		if item.crafted then
 			self:UpdateAffixControls()
 		end
-		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or (item.adjudicator and 4) or (item.basilisk and 5) or (item.crusader and 6) or (item.eyrie and 7) or 1)
+
+		-- Set both influence dropdowns
+		local influence1 = 1
+		local influence2 = 1
+		for i, curInfluenceInfo in ipairs(influenceInfo) do
+			if item[curInfluenceInfo.key] then
+				if influence1 == 1 then
+					influence1 = i + 1
+				elseif influence2 == 1 then
+					influence2 = i + 1
+					break
+				end
+			end
+		end
+		self.controls.displayItemInfluence:SetSel(influence1, true) -- Don't call the selection function for the first influence dropdown as the second dropdown isn't properly set yet.
+		self.controls.displayItemInfluence2:SetSel(influence2) -- The selection function for the second dropdown properly handles everything for both dropdowns
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
 		if item.clusterJewel and item.crafted then
@@ -1861,23 +1893,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	else
 		tooltip:AddLine(20, rarityCode..item.namePrefix..item.baseName:gsub(" %(.+%)","")..item.nameSuffix)
 	end
-	if item.shaper then
-		tooltip:AddLine(16, colorCodes.SHAPER.."Shaper Item")
-	end
-	if item.elder then
-		tooltip:AddLine(16, colorCodes.ELDER.."Elder Item")
-	end
-	if item.adjudicator then
-		tooltip:AddLine(16, colorCodes.ADJUDICATOR.."Warlord Item")
-	end
-	if item.basilisk then
-		tooltip:AddLine(16, colorCodes.BASILISK.."Hunter Item")
-	end
-	if item.crusader then
-		tooltip:AddLine(16, colorCodes.CRUSADER.."Crusader Item")
-	end
-	if item.eyrie then
-		tooltip:AddLine(16, colorCodes.EYRIE.."Redeemer Item")
+	for _, curInfluenceInfo in ipairs(influenceInfo) do
+		if item[curInfluenceInfo.key] then
+			tooltip:AddLine(16, curInfluenceInfo.color..curInfluenceInfo.display.." Item")
+		end
 	end
 	if item.fractured then
 		tooltip:AddLine(16, colorCodes.FRACTURED.."Fractured Item")

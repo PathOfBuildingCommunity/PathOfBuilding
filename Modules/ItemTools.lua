@@ -11,6 +11,16 @@ local m_floor = math.floor
 
 itemLib = { }
 
+-- Info table for all types of item influence
+itemLib.influenceInfo = {
+	{ key="shaper", display="Shaper", color=colorCodes.SHAPER },
+	{ key="elder", display="Elder", color=colorCodes.ELDER },
+	{ key="adjudicator", display="Warlord", color=colorCodes.ADJUDICATOR },
+	{ key="basilisk", display="Hunter", color=colorCodes.BASILISK },
+	{ key="crusader", display="Crusader", color=colorCodes.CRUSADER },
+	{ key="eyrie", display="Redeemer", color=colorCodes.EYRIE },
+}
+
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range)
 	return line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")

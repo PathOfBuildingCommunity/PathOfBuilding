@@ -6516,13 +6516,18 @@ skills["RainOfSpores"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		flag("DotCanStack"),
 		flag("OneShotProj"),
 	},
 	qualityStats = {

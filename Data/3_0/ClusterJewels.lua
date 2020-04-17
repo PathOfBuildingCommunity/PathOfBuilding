@@ -422,9 +422,10 @@ return {
 					icon = "Art/2DArt/SkillIcons/passives/NodeBowDamage.png",
 					masteryIcon = "Art/2DArt/SkillIcons/passives/AltMasteryGroupBow.png",
 					tag = "affliction_bow_damage",
-					stats = { "12% increased Damage with Bows" },
+					stats = { "12% increased Damage with Bows", "12% increased Damage Over Time with Bow Skills" },
 					enchant = {
 						"Added Small Passive Skills grant: 12% increased Damage with Bows",
+						"Added Small Passive Skills grant: 12% increased Damage Over Time with Bow Skills",
 					},
 				},
 				["affliction_wand_damage"] = {

@@ -183,6 +183,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 	calculateAttributes()
 	calculateAttributes()
 
+	-- Calculate total attributes
+	output.TotalAttr = output.Str + output.Dex + output.Int
+
 	-- Add attribute bonuses
 	if not modDB:Flag(nil, "NoStrBonusToLife") then
 		modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
@@ -413,6 +416,34 @@ local function doActorMisc(env, actor)
 			condList["LeechingLife"] = true
 			env.configInput.conditionLeeching = true
 		end
+		if modDB:Flag(nil, "Condition:InfusionActive") then
+			local effect = 1 + modDB:Sum("INC", nil, "InfusionEffect", "BuffEffectOnSelf") / 100
+			if modDB:Flag(nil, "Condition:HavePhysicalInfusion") then
+				condList["PhysicalInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("PhysicalDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveFireInfusion") then
+				condList["FireInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("FireDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveColdInfusion") then
+				condList["ColdInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("ColdDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveLightningInfusion") then
+				condList["LightningInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("LightningDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveChaosInfusion") then
+				condList["ChaosInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("ChaosDamage", "MORE", 10 * effect, "Infusion")
+			end
+		end
 	end	
 end
 
@@ -560,7 +591,18 @@ function calcs.perform(env)
 	if env.mode_combat then
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 		local flaskBuffs = { }
+		local usingFlask = false
+		local usingLifeFlask = false
+		local usingManaFlask = false
 		for item in pairs(env.flasks) do
+			usingFlask = true
+			if item.baseName:match("Life Flask") then
+				usingLifeFlask = true
+			end
+			if item.baseName:match("Mana Flask") then
+				usingManaFlask = true
+			end
+
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask, 
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
@@ -586,15 +628,20 @@ function calcs.perform(env)
 			end
 		end
 		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+			modDB.conditions["UsingFlask"] = usingFlask
+			modDB.conditions["UsingLifeFlask"] = usingLifeFlask
+			modDB.conditions["UsingManaFlask"] = usingManaFlask
 			for _, buffModList in pairs(flaskBuffs) do
-				modDB.conditions["UsingFlask"] = true
 				modDB:AddList(buffModList)
 			end
 		end
 		if env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
+			local minionModDB = env.minion.modDB
+			minionModDB.conditions["UsingFlask"] = usingFlask
+			minionModDB.conditions["UsingLifeFlask"] = usingLifeFlask
+			minionModDB.conditions["UsingManaFlask"] = usingManaFlask
 			for _, buffModList in pairs(flaskBuffs) do
-				env.minion.modDB.conditions["UsingFlask"] = true
-				env.minion.modDB:AddList(buffModList)
+				minionModDB:AddList(buffModList)
 			end
 		end
 	end
@@ -888,7 +935,7 @@ function calcs.perform(env)
 					if buff.type == "Buff" then
 						if env.mode_buffs and activeSkill.skillData.enable then
 							local skillCfg = buff.activeSkillBuff and skillCfg
-							local modStore = buff.activeSkillBuff and skillModList or env.minion.modDB
+							local modStore = buff.activeSkillBuff and skillModList or castingMinion.modDB
 							if buff.applyAllies then
 								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								local srcList = new("ModList")
@@ -1072,6 +1119,16 @@ function calcs.perform(env)
 		if slot.minionBuffModList then
 			env.minion.modDB:AddList(slot.minionBuffModList)
 		end
+	end
+	
+	-- Fix the configured impale stacks on the enemy
+	-- 		If the config is missing (blank), then use the maximum number of stacks
+	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
+	local maxImpaleStacks = modDB:Sum("BASE", nil, "ImpaleStacksMax")
+	if not enemyDB:HasMod("BASE", nil, "Multiplier:ImpaleStacks") then
+		enemyDB:NewMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
+	elseif enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks") > maxImpaleStacks then
+		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	end
 
 	-- Check for extra auras

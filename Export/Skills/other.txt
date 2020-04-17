@@ -110,6 +110,16 @@ local skills, mod, flag, skill = ...
 #baseMod skill("buffAllies", true)
 #mods
 
+#skill ChannelledSnipe
+#flags attack projectile bow
+	fromItem = true,
+#mods
+
+#skill ChannelledSnipeSupport
+	fromItem = true,
+#baseMod flag("TriggeredBySnipe")
+#mods
+
 #skill CrabAspect
 #flags cast
 	fromItem = true,
