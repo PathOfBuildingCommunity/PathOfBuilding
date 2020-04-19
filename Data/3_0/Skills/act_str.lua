@@ -457,7 +457,7 @@ skills["Anger"] = {
 skills["AnimateArmour"] = {
 	name = "Animate Guardian",
 	color = 1,
-	description = "Animates a melee weapon or armour, attaching it to an invisible Guardian that fights by your side. Animating multiple items attaches them to the same Guardian. You cannot animate unidentified items.",
+	description = "Animates a melee weapon or armour, attaching it to an invisible Guardian that fights by your side. Animating multiple items attaches them to the same Guardian. You cannot animate unidentified items. Cannot be used by Traps or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.PhysicalSkill] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",

@@ -11,7 +11,7 @@ skills["AnimateWeapon"] = {
 	color = 2,
 	baseEffectiveness = 0.21999999880791,
 	incrementalEffectiveness = 0.029999999329448,
-	description = "Animates a Melee Weapon Item or Lingering Blade to fight by your side. You cannot animate unidentified Weapons. Will not animate weapons with 6 sockets unless specifically targeted.",
+	description = "Animates a Melee Weapon Item or Lingering Blade to fight by your side. You cannot animate unidentified Weapons. Will not animate weapons with 6 sockets unless specifically targeted. Cannot be used by Traps or Mines.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.CreatesMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.PhysicalSkill] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type54] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type56] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
