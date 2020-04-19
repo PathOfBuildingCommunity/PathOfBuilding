@@ -49,6 +49,7 @@ for _, craft in ipairs(dat("CraftingBenchOptions"):GetRowList("IsDisabled", fals
 		end
 		out:write('affix = "', craft.Mod.Name, '", ')
 		local stats, orders = describeMod(craft.Mod)
+		out:write('modTags = { ', stats.modTags, ' }, ')
 		out:write('"', table.concat(stats, '", "'), '", ')
 		out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 		out:write('level = ', craft.Mod.Level, ', group = "', craft.Mod.Family, '", ')
