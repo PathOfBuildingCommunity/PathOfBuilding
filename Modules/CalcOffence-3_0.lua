@@ -1785,6 +1785,7 @@ function calcs.offence(env, actor, activeSkill)
 				local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
 				local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
 				local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
+				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
 				local durationBase
 				if skillData.bleedDurationIsSkillDuration then
@@ -1794,6 +1795,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
+				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
 				globalOutput.BleedStacksMax = maxStacks
 				globalOutput.BleedStacks = bleedStacks
 				if breakdown then
@@ -2089,6 +2091,7 @@ function calcs.offence(env, actor, activeSkill)
 				local incDur = skillModList:Sum("INC", dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:More(nil, "SelfIgniteDuration")
 				globalOutput.IgniteDuration = 4 * (1 + incDur / 100) * moreDur / rateMod * debuffDurationMult
+				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 					if skillData.showAverage then
@@ -2416,9 +2419,10 @@ function calcs.offence(env, actor, activeSkill)
 	-- Calculate combined DPS estimate, including DoTs
 	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"] + output.TotalDot
 	output.CombinedDPS = baseDPS
+	output.CombinedAvg = baseDPS
 	if skillData.showAverage then
-		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonAverageDamage or 0)
-		output.WithPoisonAverageDamage = baseDPS + (output.TotalPoisonAverageDamage or 0)
+		output.CombinedAvg = output.CombinedAvg + (output.PoisonDamage or 0)
+		output.WithPoisonDPS = baseDPS + (output.TotalPoisonAverageDamage or 0)
 	else
 		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
 		output.WithPoisonDPS = baseDPS + (output.TotalPoisonDPS or 0)
@@ -2426,18 +2430,28 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.ignite then
 		if skillFlags.igniteCanStack then
 			if skillData.showAverage then
-				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteAverageDamage
+				output.CombinedAvg = output.CombinedDPS + output.TotalIgniteAverageDamage
 				output.WithIgniteAverageDamage = baseDPS + output.TotalIgniteAverageDamage
 			else
 				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
 				output.WithIgniteDPS = baseDPS + output.TotalIgniteDPS
 			end
+		elseif skillData.showAverage then
+			output.WithIgniteDPS = baseDPS + output.IgniteDamage
+			output.CombinedAvg = output.CombinedAvg + output.IgniteDamage
 		else
+			output.WithIgniteDPS = baseDPS + output.IgniteDPS
 			output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
 		end
 	end
 	if skillFlags.bleed then
+		if skillData.showAverage then
+			output.WithBleedDPS = baseDPS + output.BleedDamage
+			output.CombinedAvg = output.CombinedAvg + output.BleedDamage
+		else
+		output.WithBleedDPS = baseDPS + output.BleedDPS
 		output.CombinedDPS = output.CombinedDPS + output.BleedDPS
+		end
 	end
 	if skillFlags.decay then
 		output.CombinedDPS = output.CombinedDPS + output.DecayDPS
