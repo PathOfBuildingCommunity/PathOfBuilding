@@ -1,5 +1,10 @@
+### 1.4.169.2 - 2020/04/20
+ * Change the 'Damage Avoidance' subsection to be collapsed by default
+ * Fix parsing on Assailum helmet
 ### 1.4.169.1 - 2020/04/20
  * Add support for Catalysts on items crafted in PoB or Uniques in the item list
+ * Add support for enemy armour and physical damage reduction calculations for hits and Impales
+	* Added Sirus to boss list as he has a 100% more armour multiplier
  * Add support for dual influence item crafting
  * Add support for Snipe on the Assailum unique helmet
  * Add support for Split Personality unique jewel

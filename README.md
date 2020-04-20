@@ -5,6 +5,7 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 * Adds updated uniques from 3.8, 3.9 and 3.10 changes
 * Pantheon support
 * Impale DPS support
+* Enemy armour and physical damage reduction calculations
 * Catalysts
 * Dual inlfuence crafting
 * Search for all dropdown boxes
