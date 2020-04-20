@@ -990,6 +990,9 @@ skills["BoneOffering"] = {
 		["base_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["minion_recover_X_life_on_block"] = {
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,

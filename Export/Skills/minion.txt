@@ -135,6 +135,7 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 	},
+#baseMod skill("showAverage", true)
 #mods
 
 #skill DominatingBlowMinionCharge

@@ -371,7 +371,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Modifier is from a passive node, add node name, and add node ID (used to show node location)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
 			if nodeId then
-				local node = build.spec.nodes[tonumber(nodeId)]
+				local nodeIdNumber = tonumber(nodeId)
+				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
 			end
@@ -409,6 +410,11 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				elseif tag.type == "PerStat" then
 					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal
 					desc = base.."per "..(tag.div or 1).." "..self:FormatVarNameOrList(tag.stat, tag.statList)
+					baseVal = ""
+				elseif tag.type == "PercentStat" then
+					local finalPercent = (row.mod.value * (tag.percent / 100)) * 100
+					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(finalPercent).." ") or self:FormatModBase(row.mod, finalPercent)
+					desc = base.."% of "..self:FormatVarNameOrList(tag.stat, tag.statList)
 					baseVal = ""
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
 					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))

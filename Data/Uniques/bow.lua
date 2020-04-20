@@ -151,7 +151,6 @@ Royal Bow
 Upgrade: Upgrades to unique{Doomfletch's Prism} via prophecy{Ancient Doom}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
 Requires Level 28, 95 Dex
@@ -169,6 +168,7 @@ Implicits: 2
 Doomfletch's Prism
 Royal Bow
 Source: Upgraded from unique{Doomfletch} via prophecy{Ancient Doom}
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Current

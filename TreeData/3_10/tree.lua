@@ -27626,7 +27626,7 @@ return {
             ["stats"]= {
                 "30% chance to gain an Endurance Charge when you are Hit",
                 "25% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges",
-                "Gain an Endurance Charge every second if you've been Hit Recently",
+                "Gain 1 Endurance Charge every second if you've been Hit Recently",
                 "+1 to Maximum Endurance Charges"
             },
             ["reminderText"]= {
@@ -46294,7 +46294,7 @@ return {
                 "Cannot be Chilled",
                 "Cannot be Stunned",
                 "5% increased Damage per Endurance Charge",
-                "Gain an Endurance Charge every second if you've been Hit Recently"
+                "Gain 1 Endurance Charge every second if you've been Hit Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)",
@@ -51887,7 +51887,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/BlockAttackDmgNotable.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "80% increased Critical Strike Chance if you haven’t Blocked Recently",
+                "80% increased Critical Strike Chance if you haven't Blocked Recently",
                 "+40% to Critical Strike Multiplier if you have Blocked Recently"
             },
             ["reminderText"]= {
@@ -52010,7 +52010,7 @@ return {
             ["isNotable"]= true,
             ["stats"]= {
                 "8% increased effect of Non-Curse Auras from your Skills",
-                "Auras from your Skills grant 0.2% of Life Regenerated per second to\nyou and Allies"
+                "Auras from your Skills grant 0.1% of Life Regenerated per second to\nyou and Allies"
             },
             ["reminderText"]= {
                 "(Auras can only grant bonuses to things they affect)"
@@ -52042,7 +52042,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/AuraEffectNotable.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "10% increased Effect of Auras on You for each Herald affecting you"
+                "Aura Buffs from Skills have 10% increased Effect on you for each Herald affecting you"
             }
         },
         [58221]= {
@@ -53140,7 +53140,7 @@ return {
             ["stats"]= {
                 "20% increased Spell Damage",
                 "30% increased Mana Regeneration Rate",
-                "Regenerate 1% of Energy Shield per second if you’ve Cursed an Enemy Recently"
+                "Regenerate 1% of Energy Shield per second if you've Cursed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -53697,7 +53697,7 @@ return {
             ["stats"]= {
                 "24% increased Damage over Time",
                 "6% increased maximum Energy Shield",
-                "Regenerate 2% of Energy Shield per second if you’ve Killed an Enemy Recently"
+                "Regenerate 2% of Energy Shield per second if you've Killed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -53877,7 +53877,7 @@ return {
             ["stats"]= {
                 "10% increased Effect of your Curses",
                 "Enemies you Curse are Hindered, with 15% reduced Movement Speed",
-                "Regenerate 1% of Energy Shield per second if you’ve Killed an Enemy Recently"
+                "Regenerate 1% of Energy Shield per second if you've Killed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Hindered enemies have reduced movement speed)",
@@ -54626,7 +54626,7 @@ return {
             ["isNotable"]= true,
             ["stats"]= {
                 "30% increased Armour",
-                "Gain an Endurance Charge every second if you've been Hit Recently"
+                "Gain 1 Endurance Charge every second if you've been Hit Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -55146,7 +55146,8 @@ return {
             ["name"]= "Bow Damage",
             ["icon"]= "Art/2DArt/SkillIcons/passives/NodeBowDamage.png",
             ["stats"]= {
-                "12% increased Damage with Bows"
+                "12% increased Damage with Bows",
+                "12% increased Damage Over Time with Bow Skills"
             }
         },
         [54935]= {
@@ -55895,16 +55896,16 @@ return {
     ["max_y"]= 8284,
     ["assets"]= {
         ["PSSkillFrame"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjowLCJzcCI6MC4xMjQ2fV0/a3faad8f5c/Skill_Frame_Unallocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjowLCJzcCI6MC4yMTA5fV0/a9a4bad3f8/Skill_Frame_Unallocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjowLCJzcCI6MC4yOTcyfV0/c3ca318fbd/Skill_Frame_Unallocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjowLCJzcCI6MC4zODM1fV0/75db4e5f2e/Skill_Frame_Unallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjowLCJzcCI6MC4xMjQ2fV0/fc1777dbcb/Skill_Frame_Unallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjowLCJzcCI6MC4yMTA5fV0/142d9f5dc1/Skill_Frame_Unallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjowLCJzcCI6MC4yOTcyfV0/15bd45f64b/Skill_Frame_Unallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjowLCJzcCI6MC4zODM1fV0/8982bb0a8b/Skill_Frame_Unallocated.png"
         },
         ["PSSkillFrameHighlighted"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjoyLCJzcCI6MC4xMjQ2fV0/b6d4df434b/Skill_Frame_CanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjoyLCJzcCI6MC4yMTA5fV0/8222c2e61f/Skill_Frame_CanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjoyLCJzcCI6MC4yOTcyfV0/c471c4fe8f/Skill_Frame_CanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyYmFmODZiYzhlZmU0MzQ1YjE1NWIzMDU3NjNiNDMzMyIseyJ0IjoyLCJzcCI6MC4zODM1fV0/d25406e8cc/Skill_Frame_CanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjoyLCJzcCI6MC4xMjQ2fV0/93389674a8/Skill_Frame_CanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjoyLCJzcCI6MC4yMTA5fV0/30ac4b0109/Skill_Frame_CanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjoyLCJzcCI6MC4yOTcyfV0/13827f2322/Skill_Frame_CanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmFhYTU0ZWYyZDc0OGY5ZGE5OTBlNjcwYzg5OWU0MiIseyJ0IjoyLCJzcCI6MC4zODM1fV0/b6e31a2c76/Skill_Frame_CanAllocate.png"
         },
         ["PSSkillFrameActive"]= {
             [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiMjc2Mjk0ODA5N2MyODUzOTQ1YWUzNTdhNDcxYzZlOCIseyJ0IjoxLCJzcCI6MC4xMjQ2fV0/3174f60d6b/Skill_Frame_Allocated.png",
@@ -55913,22 +55914,22 @@ return {
             [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiMjc2Mjk0ODA5N2MyODUzOTQ1YWUzNTdhNDcxYzZlOCIseyJ0IjoxLCJzcCI6MC4zODM1fV0/a70a46fca1/Skill_Frame_Allocated.png"
         },
         ["KeystoneFrameUnallocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyNTllMWZhZTlhOTE4ZGE4ZjgyZGRjYmJjM2MzNzU1YiIseyJ0IjozLCJzcCI6MC4xMjQ2fV0/aadc32a192/KeystoneFrameUnallocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyNTllMWZhZTlhOTE4ZGE4ZjgyZGRjYmJjM2MzNzU1YiIseyJ0IjozLCJzcCI6MC4yMTA5fV0/b8e2d7fa91/KeystoneFrameUnallocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyNTllMWZhZTlhOTE4ZGE4ZjgyZGRjYmJjM2MzNzU1YiIseyJ0IjozLCJzcCI6MC4yOTcyfV0/e318153850/KeystoneFrameUnallocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyNTllMWZhZTlhOTE4ZGE4ZjgyZGRjYmJjM2MzNzU1YiIseyJ0IjozLCJzcCI6MC4zODM1fV0/3c429c204e/KeystoneFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwNjk2YzkxM2FlMDFiMmYxZDZjNzA2NTU1MDRhYjdiMCIseyJ0IjozLCJzcCI6MC4xMjQ2fV0/aa7279d149/KeystoneFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwNjk2YzkxM2FlMDFiMmYxZDZjNzA2NTU1MDRhYjdiMCIseyJ0IjozLCJzcCI6MC4yMTA5fV0/a4587945a2/KeystoneFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwNjk2YzkxM2FlMDFiMmYxZDZjNzA2NTU1MDRhYjdiMCIseyJ0IjozLCJzcCI6MC4yOTcyfV0/3284107d21/KeystoneFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwNjk2YzkxM2FlMDFiMmYxZDZjNzA2NTU1MDRhYjdiMCIseyJ0IjozLCJzcCI6MC4zODM1fV0/a1fca3923d/KeystoneFrameUnallocated.png"
         },
         ["KeystoneFrameCanAllocate"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyM2JiMGM0NDQ3ZDJkMmU4NTY0ZTliNGE2YzI1NWQzOCIseyJ0Ijo1LCJzcCI6MC4xMjQ2fV0/f892acc8d7/KeystoneFrameCanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyM2JiMGM0NDQ3ZDJkMmU4NTY0ZTliNGE2YzI1NWQzOCIseyJ0Ijo1LCJzcCI6MC4yMTA5fV0/715ec21386/KeystoneFrameCanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyM2JiMGM0NDQ3ZDJkMmU4NTY0ZTliNGE2YzI1NWQzOCIseyJ0Ijo1LCJzcCI6MC4yOTcyfV0/b435690c68/KeystoneFrameCanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyM2JiMGM0NDQ3ZDJkMmU4NTY0ZTliNGE2YzI1NWQzOCIseyJ0Ijo1LCJzcCI6MC4zODM1fV0/3293c33574/KeystoneFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3YWZlZDlhNzc3Nzg5MDg0ZTI3MmVhYjY0MWViNWU1NiIseyJ0Ijo1LCJzcCI6MC4xMjQ2fV0/596d30e8c2/KeystoneFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3YWZlZDlhNzc3Nzg5MDg0ZTI3MmVhYjY0MWViNWU1NiIseyJ0Ijo1LCJzcCI6MC4yMTA5fV0/69092367c9/KeystoneFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3YWZlZDlhNzc3Nzg5MDg0ZTI3MmVhYjY0MWViNWU1NiIseyJ0Ijo1LCJzcCI6MC4yOTcyfV0/740d43435e/KeystoneFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3YWZlZDlhNzc3Nzg5MDg0ZTI3MmVhYjY0MWViNWU1NiIseyJ0Ijo1LCJzcCI6MC4zODM1fV0/a68fdcf573/KeystoneFrameCanAllocate.png"
         },
         ["KeystoneFrameAllocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1YTAxYjI5ZjE3ZmM1YTBlNDZmZjQwYmYwYWFhOTFmYSIseyJ0Ijo0LCJzcCI6MC4xMjQ2fV0/4e8a02a40d/KeystoneFrameAllocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1YTAxYjI5ZjE3ZmM1YTBlNDZmZjQwYmYwYWFhOTFmYSIseyJ0Ijo0LCJzcCI6MC4yMTA5fV0/e046a7fd20/KeystoneFrameAllocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1YTAxYjI5ZjE3ZmM1YTBlNDZmZjQwYmYwYWFhOTFmYSIseyJ0Ijo0LCJzcCI6MC4yOTcyfV0/b8985e53c4/KeystoneFrameAllocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1YTAxYjI5ZjE3ZmM1YTBlNDZmZjQwYmYwYWFhOTFmYSIseyJ0Ijo0LCJzcCI6MC4zODM1fV0/7eec6af495/KeystoneFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkMzI5ZDIzMjNhNGYyZmU1NjAyYzQyODJhMjY2YWM1YyIseyJ0Ijo0LCJzcCI6MC4xMjQ2fV0/37ee92513e/KeystoneFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkMzI5ZDIzMjNhNGYyZmU1NjAyYzQyODJhMjY2YWM1YyIseyJ0Ijo0LCJzcCI6MC4yMTA5fV0/7ed17a2192/KeystoneFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkMzI5ZDIzMjNhNGYyZmU1NjAyYzQyODJhMjY2YWM1YyIseyJ0Ijo0LCJzcCI6MC4yOTcyfV0/bf50d11da2/KeystoneFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkMzI5ZDIzMjNhNGYyZmU1NjAyYzQyODJhMjY2YWM1YyIseyJ0Ijo0LCJzcCI6MC4zODM1fV0/41054a1cf4/KeystoneFrameAllocated.png"
         },
         ["PSGroupBackground1"]= {
             [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJmMGE4YzQwOTA3MGY2ZWIzMTVjNTBiM2FjNTk0MDQwNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsIiwic3AiOjAuMTI0Nn1d/f7b3f43ca4/Group_Background_1.png",
@@ -56120,82 +56121,82 @@ return {
             [1]= "https://web.poecdn.com/gen/image/WzIxLCI3NDk1NTFmODZkODAwZjI3OTA1YmQ2MzNhOWY3OWNhNyIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlblBvaW50c0JhY2tncm91bmQiLCJzcCI6MX1d/36208c17de/PointsBackground.png"
         },
         ["NotableFrameUnallocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwZGFlZjM2ZGMyNWYwZDA1ZjU0MDU0NzBhZWFhZTU2NiIseyJ0Ijo2LCJzcCI6MC4xMjQ2fV0/71850c610e/NotableFrameUnallocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwZGFlZjM2ZGMyNWYwZDA1ZjU0MDU0NzBhZWFhZTU2NiIseyJ0Ijo2LCJzcCI6MC4yMTA5fV0/b9168c578b/NotableFrameUnallocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwZGFlZjM2ZGMyNWYwZDA1ZjU0MDU0NzBhZWFhZTU2NiIseyJ0Ijo2LCJzcCI6MC4yOTcyfV0/c4cb8c8f6d/NotableFrameUnallocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwZGFlZjM2ZGMyNWYwZDA1ZjU0MDU0NzBhZWFhZTU2NiIseyJ0Ijo2LCJzcCI6MC4zODM1fV0/2bff80178f/NotableFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwZjE2ZWMyNDI4ZmQ0MmQ0ZDZkM2NkMWI1M2JlNTU4OCIseyJ0Ijo2LCJzcCI6MC4xMjQ2fV0/90677d0dd5/NotableFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwZjE2ZWMyNDI4ZmQ0MmQ0ZDZkM2NkMWI1M2JlNTU4OCIseyJ0Ijo2LCJzcCI6MC4yMTA5fV0/28ead76322/NotableFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwZjE2ZWMyNDI4ZmQ0MmQ0ZDZkM2NkMWI1M2JlNTU4OCIseyJ0Ijo2LCJzcCI6MC4yOTcyfV0/8e02c28b21/NotableFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwZjE2ZWMyNDI4ZmQ0MmQ0ZDZkM2NkMWI1M2JlNTU4OCIseyJ0Ijo2LCJzcCI6MC4zODM1fV0/41438af3d2/NotableFrameUnallocated.png"
         },
         ["NotableFrameCanAllocate"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyNWY5YTlmMWZhYjllNmU1NGFjMDdiN2ZmMTBjNzcwMCIseyJ0Ijo4LCJzcCI6MC4xMjQ2fV0/ed21a7c91b/NotableFrameCanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyNWY5YTlmMWZhYjllNmU1NGFjMDdiN2ZmMTBjNzcwMCIseyJ0Ijo4LCJzcCI6MC4yMTA5fV0/397edff7eb/NotableFrameCanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyNWY5YTlmMWZhYjllNmU1NGFjMDdiN2ZmMTBjNzcwMCIseyJ0Ijo4LCJzcCI6MC4yOTcyfV0/12a385f3eb/NotableFrameCanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyNWY5YTlmMWZhYjllNmU1NGFjMDdiN2ZmMTBjNzcwMCIseyJ0Ijo4LCJzcCI6MC4zODM1fV0/e405d36555/NotableFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkNzAwMzdiZTEwZTc0MDYwMDBiZjQxM2U2OGJlOWFkNiIseyJ0Ijo4LCJzcCI6MC4xMjQ2fV0/1ff7c20084/NotableFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkNzAwMzdiZTEwZTc0MDYwMDBiZjQxM2U2OGJlOWFkNiIseyJ0Ijo4LCJzcCI6MC4yMTA5fV0/f14a9f5183/NotableFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkNzAwMzdiZTEwZTc0MDYwMDBiZjQxM2U2OGJlOWFkNiIseyJ0Ijo4LCJzcCI6MC4yOTcyfV0/5115ac296c/NotableFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkNzAwMzdiZTEwZTc0MDYwMDBiZjQxM2U2OGJlOWFkNiIseyJ0Ijo4LCJzcCI6MC4zODM1fV0/7632b70f11/NotableFrameCanAllocate.png"
         },
         ["NotableFrameAllocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0NThkZWVjZWIyNTgwMzQ5M2FmYjY0OGUwNGNjMzRiYiIseyJ0Ijo3LCJzcCI6MC4xMjQ2fV0/aca16ae23b/NotableFrameAllocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0NThkZWVjZWIyNTgwMzQ5M2FmYjY0OGUwNGNjMzRiYiIseyJ0Ijo3LCJzcCI6MC4yMTA5fV0/2ade170004/NotableFrameAllocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0NThkZWVjZWIyNTgwMzQ5M2FmYjY0OGUwNGNjMzRiYiIseyJ0Ijo3LCJzcCI6MC4yOTcyfV0/31ea8cf0a4/NotableFrameAllocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0NThkZWVjZWIyNTgwMzQ5M2FmYjY0OGUwNGNjMzRiYiIseyJ0Ijo3LCJzcCI6MC4zODM1fV0/752b1375a5/NotableFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyMDk5MDQyNmY0YmY5MmM2OThiNTkwYmRiZTE3NTI3NCIseyJ0Ijo3LCJzcCI6MC4xMjQ2fV0/564721b44b/NotableFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyMDk5MDQyNmY0YmY5MmM2OThiNTkwYmRiZTE3NTI3NCIseyJ0Ijo3LCJzcCI6MC4yMTA5fV0/8b980b9671/NotableFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyMDk5MDQyNmY0YmY5MmM2OThiNTkwYmRiZTE3NTI3NCIseyJ0Ijo3LCJzcCI6MC4yOTcyfV0/92c8cd4cda/NotableFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyMDk5MDQyNmY0YmY5MmM2OThiNTkwYmRiZTE3NTI3NCIseyJ0Ijo3LCJzcCI6MC4zODM1fV0/e16bb2bfa9/NotableFrameAllocated.png"
         },
         ["BlightedNotableFrameUnallocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhMGYyNjI0YWRhYTMwNGU2OGM0YWNiMjgzZGZjY2JkNCIseyJ0Ijo2Mywic3AiOjAuMTI0Nn1d/321e76d95a/BlightedNotableFrameUnallocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhMGYyNjI0YWRhYTMwNGU2OGM0YWNiMjgzZGZjY2JkNCIseyJ0Ijo2Mywic3AiOjAuMjEwOX1d/fe568e34c7/BlightedNotableFrameUnallocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhMGYyNjI0YWRhYTMwNGU2OGM0YWNiMjgzZGZjY2JkNCIseyJ0Ijo2Mywic3AiOjAuMjk3Mn1d/31a7aeb0a7/BlightedNotableFrameUnallocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhMGYyNjI0YWRhYTMwNGU2OGM0YWNiMjgzZGZjY2JkNCIseyJ0Ijo2Mywic3AiOjAuMzgzNX1d/2eaf49aa6b/BlightedNotableFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI5YzM3ZGE0ZGNjMzM3Nzk1ZGVlZTgxZmFhZjExNGYxYyIseyJ0Ijo2Mywic3AiOjAuMTI0Nn1d/8c3b900d59/BlightedNotableFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI5YzM3ZGE0ZGNjMzM3Nzk1ZGVlZTgxZmFhZjExNGYxYyIseyJ0Ijo2Mywic3AiOjAuMjEwOX1d/6c67712541/BlightedNotableFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI5YzM3ZGE0ZGNjMzM3Nzk1ZGVlZTgxZmFhZjExNGYxYyIseyJ0Ijo2Mywic3AiOjAuMjk3Mn1d/ada24fe4c5/BlightedNotableFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI5YzM3ZGE0ZGNjMzM3Nzk1ZGVlZTgxZmFhZjExNGYxYyIseyJ0Ijo2Mywic3AiOjAuMzgzNX1d/153394dfc5/BlightedNotableFrameUnallocated.png"
         },
         ["BlightedNotableFrameCanAllocate"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzYmYzNmE1ODk5ZDlkOWM4NDUxM2E0M2RhOTRiZGRiYiIseyJ0Ijo2NSwic3AiOjAuMTI0Nn1d/698bd5b859/BlightedNotableFrameCanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzYmYzNmE1ODk5ZDlkOWM4NDUxM2E0M2RhOTRiZGRiYiIseyJ0Ijo2NSwic3AiOjAuMjEwOX1d/d0a67a5f70/BlightedNotableFrameCanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzYmYzNmE1ODk5ZDlkOWM4NDUxM2E0M2RhOTRiZGRiYiIseyJ0Ijo2NSwic3AiOjAuMjk3Mn1d/351e5138ad/BlightedNotableFrameCanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzYmYzNmE1ODk5ZDlkOWM4NDUxM2E0M2RhOTRiZGRiYiIseyJ0Ijo2NSwic3AiOjAuMzgzNX1d/c499a04f5b/BlightedNotableFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4N2RjNDdlOTQ2MGEwZTMxNzU3MTUzNTNjYjhlMGM1MiIseyJ0Ijo2NSwic3AiOjAuMTI0Nn1d/fd840f6f0e/BlightedNotableFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4N2RjNDdlOTQ2MGEwZTMxNzU3MTUzNTNjYjhlMGM1MiIseyJ0Ijo2NSwic3AiOjAuMjEwOX1d/bd0af10c7e/BlightedNotableFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4N2RjNDdlOTQ2MGEwZTMxNzU3MTUzNTNjYjhlMGM1MiIseyJ0Ijo2NSwic3AiOjAuMjk3Mn1d/5400773d01/BlightedNotableFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4N2RjNDdlOTQ2MGEwZTMxNzU3MTUzNTNjYjhlMGM1MiIseyJ0Ijo2NSwic3AiOjAuMzgzNX1d/88ac1ed775/BlightedNotableFrameCanAllocate.png"
         },
         ["BlightedNotableFrameAllocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4YWIzNTEzMGFmZGQ3N2ZkZmNhYTc4Yzc1MzA4OTMxOCIseyJ0Ijo2NCwic3AiOjAuMTI0Nn1d/98f04e5015/BlightedNotableFrameAllocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4YWIzNTEzMGFmZGQ3N2ZkZmNhYTc4Yzc1MzA4OTMxOCIseyJ0Ijo2NCwic3AiOjAuMjEwOX1d/e7188f9ce6/BlightedNotableFrameAllocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4YWIzNTEzMGFmZGQ3N2ZkZmNhYTc4Yzc1MzA4OTMxOCIseyJ0Ijo2NCwic3AiOjAuMjk3Mn1d/29e7e89b3c/BlightedNotableFrameAllocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4YWIzNTEzMGFmZGQ3N2ZkZmNhYTc4Yzc1MzA4OTMxOCIseyJ0Ijo2NCwic3AiOjAuMzgzNX1d/36dc143193/BlightedNotableFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1NmQ5ZDliMGNkNTE5NzZmYmRiMzkzMWJiZmE0ZGMwMiIseyJ0Ijo2NCwic3AiOjAuMTI0Nn1d/71b7a4be29/BlightedNotableFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1NmQ5ZDliMGNkNTE5NzZmYmRiMzkzMWJiZmE0ZGMwMiIseyJ0Ijo2NCwic3AiOjAuMjEwOX1d/f9431c3635/BlightedNotableFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1NmQ5ZDliMGNkNTE5NzZmYmRiMzkzMWJiZmE0ZGMwMiIseyJ0Ijo2NCwic3AiOjAuMjk3Mn1d/1509169482/BlightedNotableFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1NmQ5ZDliMGNkNTE5NzZmYmRiMzkzMWJiZmE0ZGMwMiIseyJ0Ijo2NCwic3AiOjAuMzgzNX1d/807c3c02b3/BlightedNotableFrameAllocated.png"
         },
         ["JewelFrameUnallocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1YTgxYmVhMmYwMjliMTk2NmYwZjE5NWZjYWNmYzVkZSIseyJ0IjoxNSwic3AiOjAuMTI0Nn1d/594ecda650/JewelFrameUnallocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1YTgxYmVhMmYwMjliMTk2NmYwZjE5NWZjYWNmYzVkZSIseyJ0IjoxNSwic3AiOjAuMjEwOX1d/7f56c9068b/JewelFrameUnallocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1YTgxYmVhMmYwMjliMTk2NmYwZjE5NWZjYWNmYzVkZSIseyJ0IjoxNSwic3AiOjAuMjk3Mn1d/e4bf5e0cfc/JewelFrameUnallocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1YTgxYmVhMmYwMjliMTk2NmYwZjE5NWZjYWNmYzVkZSIseyJ0IjoxNSwic3AiOjAuMzgzNX1d/0e5f2ef678/JewelFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0ZjkzZWIxM2JhZTc0MWMyOGE1ODI1ZDQ5YzdiODI3ZSIseyJ0IjoxNSwic3AiOjAuMTI0Nn1d/4df896ce3b/JewelFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0ZjkzZWIxM2JhZTc0MWMyOGE1ODI1ZDQ5YzdiODI3ZSIseyJ0IjoxNSwic3AiOjAuMjEwOX1d/0067fd16d2/JewelFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0ZjkzZWIxM2JhZTc0MWMyOGE1ODI1ZDQ5YzdiODI3ZSIseyJ0IjoxNSwic3AiOjAuMjk3Mn1d/09d2b59076/JewelFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0ZjkzZWIxM2JhZTc0MWMyOGE1ODI1ZDQ5YzdiODI3ZSIseyJ0IjoxNSwic3AiOjAuMzgzNX1d/b99b1b0b79/JewelFrameUnallocated.png"
         },
         ["JewelFrameCanAllocate"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4ZDg5MDI0Y2FiOTRiNzVhMzJjYWViMzQxZjNiNzE2YSIseyJ0IjoxNiwic3AiOjAuMTI0Nn1d/16a50bb8a3/JewelFrameCanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4ZDg5MDI0Y2FiOTRiNzVhMzJjYWViMzQxZjNiNzE2YSIseyJ0IjoxNiwic3AiOjAuMjEwOX1d/f2ab418f81/JewelFrameCanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4ZDg5MDI0Y2FiOTRiNzVhMzJjYWViMzQxZjNiNzE2YSIseyJ0IjoxNiwic3AiOjAuMjk3Mn1d/f651c703e2/JewelFrameCanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4ZDg5MDI0Y2FiOTRiNzVhMzJjYWViMzQxZjNiNzE2YSIseyJ0IjoxNiwic3AiOjAuMzgzNX1d/19988d95d4/JewelFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzZDEwMTVhYzY2MGZmN2FiN2JmZDdiZDhiYTc4YTFhMSIseyJ0IjoxNiwic3AiOjAuMTI0Nn1d/813892a844/JewelFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzZDEwMTVhYzY2MGZmN2FiN2JmZDdiZDhiYTc4YTFhMSIseyJ0IjoxNiwic3AiOjAuMjEwOX1d/9612a987aa/JewelFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzZDEwMTVhYzY2MGZmN2FiN2JmZDdiZDhiYTc4YTFhMSIseyJ0IjoxNiwic3AiOjAuMjk3Mn1d/447dceccf9/JewelFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzZDEwMTVhYzY2MGZmN2FiN2JmZDdiZDhiYTc4YTFhMSIseyJ0IjoxNiwic3AiOjAuMzgzNX1d/86c2ae73f5/JewelFrameCanAllocate.png"
         },
         ["JewelFrameAllocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwN2FjMmY0MzFlOWIxNzI1YTNhYjUzYTUwYTg0NTkyMSIseyJ0IjoxNywic3AiOjAuMTI0Nn1d/00ac550389/JewelFrameAllocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwN2FjMmY0MzFlOWIxNzI1YTNhYjUzYTUwYTg0NTkyMSIseyJ0IjoxNywic3AiOjAuMjEwOX1d/6f87ebdf8a/JewelFrameAllocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwN2FjMmY0MzFlOWIxNzI1YTNhYjUzYTUwYTg0NTkyMSIseyJ0IjoxNywic3AiOjAuMjk3Mn1d/d4bdc69862/JewelFrameAllocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwN2FjMmY0MzFlOWIxNzI1YTNhYjUzYTUwYTg0NTkyMSIseyJ0IjoxNywic3AiOjAuMzgzNX1d/6ddd436f27/JewelFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1YTBmMmFhZDY4ZDkzN2QxZDdjNDIwZjNkZTIwOTI2NiIseyJ0IjoxNywic3AiOjAuMTI0Nn1d/855495933e/JewelFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1YTBmMmFhZDY4ZDkzN2QxZDdjNDIwZjNkZTIwOTI2NiIseyJ0IjoxNywic3AiOjAuMjEwOX1d/d3121e4d30/JewelFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1YTBmMmFhZDY4ZDkzN2QxZDdjNDIwZjNkZTIwOTI2NiIseyJ0IjoxNywic3AiOjAuMjk3Mn1d/4c48c6ac17/JewelFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1YTBmMmFhZDY4ZDkzN2QxZDdjNDIwZjNkZTIwOTI2NiIseyJ0IjoxNywic3AiOjAuMzgzNX1d/62dc2d6f40/JewelFrameAllocated.png"
         },
         ["JewelSocketActiveBlue"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiNjAzNmU5NTMzMjc1YzEyZGQ5NzQwNTUwMDZiMmYwZCIseyJ0IjoxOCwic3AiOjAuMTI0Nn1d/8ec9d8158f/JewelSocketActiveBlue.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiNjAzNmU5NTMzMjc1YzEyZGQ5NzQwNTUwMDZiMmYwZCIseyJ0IjoxOCwic3AiOjAuMjEwOX1d/f3d8c8c7c1/JewelSocketActiveBlue.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiNjAzNmU5NTMzMjc1YzEyZGQ5NzQwNTUwMDZiMmYwZCIseyJ0IjoxOCwic3AiOjAuMjk3Mn1d/5fddad23be/JewelSocketActiveBlue.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiNjAzNmU5NTMzMjc1YzEyZGQ5NzQwNTUwMDZiMmYwZCIseyJ0IjoxOCwic3AiOjAuMzgzNX1d/03c4bc452a/JewelSocketActiveBlue.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4OTVmYWUxMGQzY2E5MDY1YmIxNjQzNjU1N2EzZGFjNyIseyJ0IjoxOCwic3AiOjAuMTI0Nn1d/d18ff4bd7a/JewelSocketActiveBlue.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4OTVmYWUxMGQzY2E5MDY1YmIxNjQzNjU1N2EzZGFjNyIseyJ0IjoxOCwic3AiOjAuMjEwOX1d/663db1881f/JewelSocketActiveBlue.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4OTVmYWUxMGQzY2E5MDY1YmIxNjQzNjU1N2EzZGFjNyIseyJ0IjoxOCwic3AiOjAuMjk3Mn1d/67c5c49df5/JewelSocketActiveBlue.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4OTVmYWUxMGQzY2E5MDY1YmIxNjQzNjU1N2EzZGFjNyIseyJ0IjoxOCwic3AiOjAuMzgzNX1d/701e301394/JewelSocketActiveBlue.png"
         },
         ["JewelSocketActiveGreen"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmI2YzY3YzVmMTNiODE5Yjc3ODFiZTQ4NTZmNmE2ZiIseyJ0IjoxOSwic3AiOjAuMTI0Nn1d/9d7e419856/JewelSocketActiveGreen.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmI2YzY3YzVmMTNiODE5Yjc3ODFiZTQ4NTZmNmE2ZiIseyJ0IjoxOSwic3AiOjAuMjEwOX1d/e4ac5febda/JewelSocketActiveGreen.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmI2YzY3YzVmMTNiODE5Yjc3ODFiZTQ4NTZmNmE2ZiIseyJ0IjoxOSwic3AiOjAuMjk3Mn1d/2b8ec31854/JewelSocketActiveGreen.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1ZmI2YzY3YzVmMTNiODE5Yjc3ODFiZTQ4NTZmNmE2ZiIseyJ0IjoxOSwic3AiOjAuMzgzNX1d/93ccc1cbaa/JewelSocketActiveGreen.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4MDM4ODRkMTAzZTUwMzI0YzcwMTk2Y2NiOTAwMWFlZSIseyJ0IjoxOSwic3AiOjAuMTI0Nn1d/1870e5e3eb/JewelSocketActiveGreen.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4MDM4ODRkMTAzZTUwMzI0YzcwMTk2Y2NiOTAwMWFlZSIseyJ0IjoxOSwic3AiOjAuMjEwOX1d/c9d6b1e337/JewelSocketActiveGreen.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4MDM4ODRkMTAzZTUwMzI0YzcwMTk2Y2NiOTAwMWFlZSIseyJ0IjoxOSwic3AiOjAuMjk3Mn1d/450f03a449/JewelSocketActiveGreen.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4MDM4ODRkMTAzZTUwMzI0YzcwMTk2Y2NiOTAwMWFlZSIseyJ0IjoxOSwic3AiOjAuMzgzNX1d/228f0f59b4/JewelSocketActiveGreen.png"
         },
         ["JewelSocketActiveRed"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4NDZhODBhMDAzYzRmMzczNmRlYTRmYWVjZjliNmY3YiIseyJ0IjoyMCwic3AiOjAuMTI0Nn1d/153df63f3b/JewelSocketActiveRed.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4NDZhODBhMDAzYzRmMzczNmRlYTRmYWVjZjliNmY3YiIseyJ0IjoyMCwic3AiOjAuMjEwOX1d/22bf992251/JewelSocketActiveRed.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4NDZhODBhMDAzYzRmMzczNmRlYTRmYWVjZjliNmY3YiIseyJ0IjoyMCwic3AiOjAuMjk3Mn1d/0c0850a4e0/JewelSocketActiveRed.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4NDZhODBhMDAzYzRmMzczNmRlYTRmYWVjZjliNmY3YiIseyJ0IjoyMCwic3AiOjAuMzgzNX1d/39465d58c6/JewelSocketActiveRed.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI5N2E1YWFiYWE4ZDIxNjBiOTliZmZmOGY2MjQ5ZmUyYSIseyJ0IjoyMCwic3AiOjAuMTI0Nn1d/ada78760d9/JewelSocketActiveRed.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI5N2E1YWFiYWE4ZDIxNjBiOTliZmZmOGY2MjQ5ZmUyYSIseyJ0IjoyMCwic3AiOjAuMjEwOX1d/07141929d5/JewelSocketActiveRed.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI5N2E1YWFiYWE4ZDIxNjBiOTliZmZmOGY2MjQ5ZmUyYSIseyJ0IjoyMCwic3AiOjAuMjk3Mn1d/3ee4fe8544/JewelSocketActiveRed.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI5N2E1YWFiYWE4ZDIxNjBiOTliZmZmOGY2MjQ5ZmUyYSIseyJ0IjoyMCwic3AiOjAuMzgzNX1d/6bc883389d/JewelSocketActiveRed.png"
         },
         ["JewelSocketActivePrismatic"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmYTZmYmE1OWMwZDRjNTJhOTcyZDVjM2FiZDMzZDBiZiIseyJ0Ijo1MSwic3AiOjAuMTI0Nn1d/b3e3330ac8/JewelSocketActivePrismatic.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmYTZmYmE1OWMwZDRjNTJhOTcyZDVjM2FiZDMzZDBiZiIseyJ0Ijo1MSwic3AiOjAuMjEwOX1d/eab70afc7a/JewelSocketActivePrismatic.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmYTZmYmE1OWMwZDRjNTJhOTcyZDVjM2FiZDMzZDBiZiIseyJ0Ijo1MSwic3AiOjAuMjk3Mn1d/f3334c90c7/JewelSocketActivePrismatic.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmYTZmYmE1OWMwZDRjNTJhOTcyZDVjM2FiZDMzZDBiZiIseyJ0Ijo1MSwic3AiOjAuMzgzNX1d/293e7a0c0b/JewelSocketActivePrismatic.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjZTAwMjQ1ZWNkNjY2NTQwODVjZjFkNGQ3MWUxZmJkZSIseyJ0Ijo1MSwic3AiOjAuMTI0Nn1d/c5a5b2b926/JewelSocketActivePrismatic.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjZTAwMjQ1ZWNkNjY2NTQwODVjZjFkNGQ3MWUxZmJkZSIseyJ0Ijo1MSwic3AiOjAuMjEwOX1d/c72308699b/JewelSocketActivePrismatic.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjZTAwMjQ1ZWNkNjY2NTQwODVjZjFkNGQ3MWUxZmJkZSIseyJ0Ijo1MSwic3AiOjAuMjk3Mn1d/10bcf90818/JewelSocketActivePrismatic.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjZTAwMjQ1ZWNkNjY2NTQwODVjZjFkNGQ3MWUxZmJkZSIseyJ0Ijo1MSwic3AiOjAuMzgzNX1d/4d85128b1b/JewelSocketActivePrismatic.png"
         },
 		["JewelSocketActiveTimeless"]= {
             [0.1246]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjEyNDZ9XQ/4e4e882f35/JewelSocketActiveTimeless.png",
@@ -56204,304 +56205,304 @@ return {
             [0.3835]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjM4MzV9XQ/ccb99b0afa/JewelSocketActiveTimeless.png"
         },
         ["JewelSocketActiveAbyss"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkMDMyMmJlZWYwZjAwMDNlZDA3MWUyZDM5OGVjMGUxMSIseyJ0Ijo1MCwic3AiOjAuMTI0Nn1d/77435d8646/JewelSocketActiveAbyss.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkMDMyMmJlZWYwZjAwMDNlZDA3MWUyZDM5OGVjMGUxMSIseyJ0Ijo1MCwic3AiOjAuMjEwOX1d/636ae43cb5/JewelSocketActiveAbyss.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkMDMyMmJlZWYwZjAwMDNlZDA3MWUyZDM5OGVjMGUxMSIseyJ0Ijo1MCwic3AiOjAuMjk3Mn1d/7f865dedcb/JewelSocketActiveAbyss.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkMDMyMmJlZWYwZjAwMDNlZDA3MWUyZDM5OGVjMGUxMSIseyJ0Ijo1MCwic3AiOjAuMzgzNX1d/c6e7139d96/JewelSocketActiveAbyss.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI5NDdjODRmMGVhMDJmYjFjZDJlMDFhYTQzNGNiYzY5MyIseyJ0Ijo1MCwic3AiOjAuMTI0Nn1d/7a3b6fd6b2/JewelSocketActiveAbyss.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI5NDdjODRmMGVhMDJmYjFjZDJlMDFhYTQzNGNiYzY5MyIseyJ0Ijo1MCwic3AiOjAuMjEwOX1d/3fc51a6e14/JewelSocketActiveAbyss.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI5NDdjODRmMGVhMDJmYjFjZDJlMDFhYTQzNGNiYzY5MyIseyJ0Ijo1MCwic3AiOjAuMjk3Mn1d/77a0a2be16/JewelSocketActiveAbyss.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI5NDdjODRmMGVhMDJmYjFjZDJlMDFhYTQzNGNiYzY5MyIseyJ0Ijo1MCwic3AiOjAuMzgzNX1d/57191d54d9/JewelSocketActiveAbyss.png"
         },
         ["JewelCircle1"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCIwMzkwNjEzZTQzOGMyNTdkODNlNTYyMGQyMDU2OTllMyIseyJ0Ijo1Miwic3AiOjF9XQ/dabc0c289c/JewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJhNTUxNjZhMWNmYTI2ODI0NjVmZTYzOTIxNGQyMWI4NyIseyJ0Ijo1Miwic3AiOjF9XQ/354997cd8d/JewelCircle1.png"
         },
         ["JewelCircle1Inverse"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCIwNDIxY2MxNWM2NTFkNTNmZmVmN2IxZjIxZjM2Yjc5OSIseyJ0Ijo2Niwic3AiOjF9XQ/57eb7ea0dd/JewelCircle1inverse.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI4NDY1NWJjMzQ0NThmYzUzYmRmMmEwNjc5ZGI2NTJkYSIseyJ0Ijo2Niwic3AiOjF9XQ/2eabd43a93/JewelCircle1inverse.png"
         },
         ["VaalJewelCircle1"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCIyY2E5MDBhOGVmMjBlMjRiYTg0Y2MwYmQ2MzQyNjE4MCIseyJ0Ijo1Mywic3AiOjF9XQ/ae2e8d611a/VaalJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCIxNDBkMWUwNjM0Y2FiYjViOGFmNTZkMDBiOGI3NzYzNCIseyJ0Ijo1Mywic3AiOjF9XQ/fc7609019d/VaalJewelCircle1.png"
         },
         ["VaalJewelCircle2"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCIxZjlhNjFkYjQ1YzJjMDY3ZjgyNGU5NzkxNjg0YmZhOSIseyJ0Ijo1NCwic3AiOjF9XQ/2ca4d32516/VaalJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJjZjQwMmNiNTE1MTYwODU5NDAyM2Q2ZDg4YzhiYjdmMCIseyJ0Ijo1NCwic3AiOjF9XQ/de3b1e6249/VaalJewelCircle2.png"
         },
         ["KaruiJewelCircle1"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCJiZmFhMDE1NzU4N2FlZTBlMmE5ZWZjZTkwMzk1YzU3MCIseyJ0Ijo1NSwic3AiOjF9XQ/ff82153a52/KaruiJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJkMjBlOTA2YmFiZGIzYTFjODFlNmRhZDUyYmFhZTJlMyIseyJ0Ijo1NSwic3AiOjF9XQ/b1b39a0ed0/KaruiJewelCircle1.png"
         },
         ["KaruiJewelCircle2"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCIzOTU0OWJhMGFiNTlmMDlmYjc4MmM4MDcwOGE3Y2JhMSIseyJ0Ijo1Niwic3AiOjF9XQ/4d54bdfc73/KaruiJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI5MDk5YTZjNjAyYmNmYjNlODhiMDRlZjg3ZjBmZjA1MCIseyJ0Ijo1Niwic3AiOjF9XQ/c6d3d161bd/KaruiJewelCircle2.png"
         },
         ["MarakethJewelCircle1"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCI3MWIyMDcyODcwMzNiZmJkYjg0ZGViMGYyNmFkZjJhMSIseyJ0Ijo1Nywic3AiOjF9XQ/7c56f36609/MarakethJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJlOGM1MTgyOTdiMTA1N2Y5NmYyZGNhMjBlZmNjOGFkNCIseyJ0Ijo1Nywic3AiOjF9XQ/d25c4ec6ee/MarakethJewelCircle1.png"
         },
         ["MarakethJewelCircle2"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCI2Y2M5ZWFhNzFkY2I5ODVjMDAzYTYyNWRkZjA2Y2Q1NCIseyJ0Ijo1OCwic3AiOjF9XQ/7f3ef55653/MarakethJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI0ZTU4YTk1YjZhZmEwYjg2MWViY2E3ZjU5NGUwOTIwOSIseyJ0Ijo1OCwic3AiOjF9XQ/395f23e104/MarakethJewelCircle2.png"
         },
         ["TemplarJewelCircle1"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCJlM2NkMmU5OTE1ZmEwZTcwMjczMzQ2ZGNlZDBkNGRlZiIseyJ0Ijo1OSwic3AiOjF9XQ/92af75bd31/TemplarJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJlNjQwMzEyNDJkMjY2NmU3NTM0ZDM2M2FhNjBkYzliZCIseyJ0Ijo1OSwic3AiOjF9XQ/554b00d655/TemplarJewelCircle1.png"
         },
         ["TemplarJewelCircle2"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCIxOWRjZWM3YjMxM2EyYTQ2N2JkOTYxNGQ4ZjQ5MGQ2YyIseyJ0Ijo2MCwic3AiOjF9XQ/bf9b042ea3/TemplarJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCIxNjM4ZGFjNTJhMzgyYmM2YzFlMWM3NDAzMmRmMDEzZCIseyJ0Ijo2MCwic3AiOjF9XQ/1ac55a5bb7/TemplarJewelCircle2.png"
         },
         ["EternalEmpireJewelCircle1"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCIyNTUwZWQ3NjJjNjU1NThhNmM2Y2M5OWExYjM2YzY4MSIseyJ0Ijo2MSwic3AiOjF9XQ/d9170dbb63/EternalEmpireJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJhMjZjODIxNmEyY2ZhNzljYjVlNzJlNmZhOWNhZWRkMyIseyJ0Ijo2MSwic3AiOjF9XQ/3904b27757/EternalEmpireJewelCircle1.png"
         },
         ["EternalEmpireJewelCircle2"]= {
-            [1]= "https://web.poecdn.com/gen/image/WzIyLCJiYzdmZDk3MjM4YjNkZWUyOTk0N2RhMTdjNGZjMDJjYiIseyJ0Ijo2Miwic3AiOjF9XQ/86c3e19e03/EternalEmpireJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCIxZWI3ZGZkYzg5NjYzYjBmZDE5ODRjZmFkY2RhMjU0NCIseyJ0Ijo2Miwic3AiOjF9XQ/481f9f5136/EternalEmpireJewelCircle2.png"
         },
         ["JewelSocketAltNormal"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwNTZmMjg4MTlmNTkzMjQ5ZmE0MTI5OWVhOTQ1ODM1NyIseyJ0Ijo2Nywic3AiOjAuMTI0Nn1d/6d517f639d/JewelSocketAltNormal.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwNTZmMjg4MTlmNTkzMjQ5ZmE0MTI5OWVhOTQ1ODM1NyIseyJ0Ijo2Nywic3AiOjAuMjEwOX1d/9cb9b0f9a9/JewelSocketAltNormal.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwNTZmMjg4MTlmNTkzMjQ5ZmE0MTI5OWVhOTQ1ODM1NyIseyJ0Ijo2Nywic3AiOjAuMjk3Mn1d/3dc1043d3a/JewelSocketAltNormal.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwNTZmMjg4MTlmNTkzMjQ5ZmE0MTI5OWVhOTQ1ODM1NyIseyJ0Ijo2Nywic3AiOjAuMzgzNX1d/09fa564343/JewelSocketAltNormal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjYzkxNmJiYjZmNmZmOTQ0NjU1MzVkNjQ4ZDBhMDFiNyIseyJ0Ijo2Nywic3AiOjAuMTI0Nn1d/061407d051/JewelSocketAltNormal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjYzkxNmJiYjZmNmZmOTQ0NjU1MzVkNjQ4ZDBhMDFiNyIseyJ0Ijo2Nywic3AiOjAuMjEwOX1d/dcc6fb649f/JewelSocketAltNormal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjYzkxNmJiYjZmNmZmOTQ0NjU1MzVkNjQ4ZDBhMDFiNyIseyJ0Ijo2Nywic3AiOjAuMjk3Mn1d/ca3b8b70a7/JewelSocketAltNormal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjYzkxNmJiYjZmNmZmOTQ0NjU1MzVkNjQ4ZDBhMDFiNyIseyJ0Ijo2Nywic3AiOjAuMzgzNX1d/1e96117323/JewelSocketAltNormal.png"
         },
         ["JewelSocketAltCanAllocate"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjNmY2ZDJhMTdkZGMwMzE0OGE4ZjhlYjk4OTE5OTRmYyIseyJ0Ijo2OCwic3AiOjAuMTI0Nn1d/31bcf1bd79/JewelSocketAltCanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjNmY2ZDJhMTdkZGMwMzE0OGE4ZjhlYjk4OTE5OTRmYyIseyJ0Ijo2OCwic3AiOjAuMjEwOX1d/771521e0ad/JewelSocketAltCanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjNmY2ZDJhMTdkZGMwMzE0OGE4ZjhlYjk4OTE5OTRmYyIseyJ0Ijo2OCwic3AiOjAuMjk3Mn1d/bbeb230d47/JewelSocketAltCanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjNmY2ZDJhMTdkZGMwMzE0OGE4ZjhlYjk4OTE5OTRmYyIseyJ0Ijo2OCwic3AiOjAuMzgzNX1d/dadb87bdf0/JewelSocketAltCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2NTdmODJhNjRmMGMzNjk4ZTIyNmJmOTdmZjY4NTMyZiIseyJ0Ijo2OCwic3AiOjAuMTI0Nn1d/9332d28fd2/JewelSocketAltCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2NTdmODJhNjRmMGMzNjk4ZTIyNmJmOTdmZjY4NTMyZiIseyJ0Ijo2OCwic3AiOjAuMjEwOX1d/a261cf2f21/JewelSocketAltCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2NTdmODJhNjRmMGMzNjk4ZTIyNmJmOTdmZjY4NTMyZiIseyJ0Ijo2OCwic3AiOjAuMjk3Mn1d/94acaa00a9/JewelSocketAltCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2NTdmODJhNjRmMGMzNjk4ZTIyNmJmOTdmZjY4NTMyZiIseyJ0Ijo2OCwic3AiOjAuMzgzNX1d/a0907f3076/JewelSocketAltCanAllocate.png"
         },
         ["JewelSocketAltActive"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0MGZkNDZhNTI4YjlkMjJlYWI0MjdkNTBhMDJlNGI0YiIseyJ0Ijo2OSwic3AiOjAuMTI0Nn1d/152c5ec488/JewelSocketAltActive.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0MGZkNDZhNTI4YjlkMjJlYWI0MjdkNTBhMDJlNGI0YiIseyJ0Ijo2OSwic3AiOjAuMjEwOX1d/395da07c82/JewelSocketAltActive.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0MGZkNDZhNTI4YjlkMjJlYWI0MjdkNTBhMDJlNGI0YiIseyJ0Ijo2OSwic3AiOjAuMjk3Mn1d/9ea3a30310/JewelSocketAltActive.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0MGZkNDZhNTI4YjlkMjJlYWI0MjdkNTBhMDJlNGI0YiIseyJ0Ijo2OSwic3AiOjAuMzgzNX1d/ee5db04575/JewelSocketAltActive.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2MzBjMWZkNjMxYjg5N2ViZjk5NTgxM2MwZjFjYzA2ZSIseyJ0Ijo2OSwic3AiOjAuMTI0Nn1d/2b832395b2/JewelSocketAltActive.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2MzBjMWZkNjMxYjg5N2ViZjk5NTgxM2MwZjFjYzA2ZSIseyJ0Ijo2OSwic3AiOjAuMjEwOX1d/f708001df7/JewelSocketAltActive.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2MzBjMWZkNjMxYjg5N2ViZjk5NTgxM2MwZjFjYzA2ZSIseyJ0Ijo2OSwic3AiOjAuMjk3Mn1d/edc35b63cc/JewelSocketAltActive.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2MzBjMWZkNjMxYjg5N2ViZjk5NTgxM2MwZjFjYzA2ZSIseyJ0Ijo2OSwic3AiOjAuMzgzNX1d/7c8e0a4919/JewelSocketAltActive.png"
         },
         ["JewelSocketActiveBlueAlt"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmMWRkMjA1NmQ3OGUzNDljMzliZjUxZWMwOGUwYTBhZCIseyJ0Ijo3Niwic3AiOjAuMTI0Nn1d/d59a2e5ad9/JewelSocketActiveBlueAlt.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmMWRkMjA1NmQ3OGUzNDljMzliZjUxZWMwOGUwYTBhZCIseyJ0Ijo3Niwic3AiOjAuMjEwOX1d/0f4bc767c9/JewelSocketActiveBlueAlt.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmMWRkMjA1NmQ3OGUzNDljMzliZjUxZWMwOGUwYTBhZCIseyJ0Ijo3Niwic3AiOjAuMjk3Mn1d/2398b2cf40/JewelSocketActiveBlueAlt.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmMWRkMjA1NmQ3OGUzNDljMzliZjUxZWMwOGUwYTBhZCIseyJ0Ijo3Niwic3AiOjAuMzgzNX1d/b190d82a8f/JewelSocketActiveBlueAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2MWRhYzA2NTc2YjVjYzZiMGNlN2E0OTZkMjU5MTY0MiIseyJ0Ijo3Niwic3AiOjAuMTI0Nn1d/29283a328a/JewelSocketActiveBlueAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2MWRhYzA2NTc2YjVjYzZiMGNlN2E0OTZkMjU5MTY0MiIseyJ0Ijo3Niwic3AiOjAuMjEwOX1d/c2dbb41200/JewelSocketActiveBlueAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2MWRhYzA2NTc2YjVjYzZiMGNlN2E0OTZkMjU5MTY0MiIseyJ0Ijo3Niwic3AiOjAuMjk3Mn1d/7a03490dff/JewelSocketActiveBlueAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2MWRhYzA2NTc2YjVjYzZiMGNlN2E0OTZkMjU5MTY0MiIseyJ0Ijo3Niwic3AiOjAuMzgzNX1d/359840fc18/JewelSocketActiveBlueAlt.png"
         },
         ["JewelSocketActiveGreenAlt"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwY2U5ZTAzNmM4OTk0NjQ5ZWE3NWQ1NzI5MDEzNGZjYSIseyJ0Ijo3Nywic3AiOjAuMTI0Nn1d/c506acdc49/JewelSocketActiveGreenAlt.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwY2U5ZTAzNmM4OTk0NjQ5ZWE3NWQ1NzI5MDEzNGZjYSIseyJ0Ijo3Nywic3AiOjAuMjEwOX1d/a1a205ce1a/JewelSocketActiveGreenAlt.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwY2U5ZTAzNmM4OTk0NjQ5ZWE3NWQ1NzI5MDEzNGZjYSIseyJ0Ijo3Nywic3AiOjAuMjk3Mn1d/1a61248038/JewelSocketActiveGreenAlt.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwY2U5ZTAzNmM4OTk0NjQ5ZWE3NWQ1NzI5MDEzNGZjYSIseyJ0Ijo3Nywic3AiOjAuMzgzNX1d/22ba16a9d5/JewelSocketActiveGreenAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGVlNjIxOGU4ZTVmMGY3MTkwMmQxNDQ1ZDEwYzI1YyIseyJ0Ijo3Nywic3AiOjAuMTI0Nn1d/8182426418/JewelSocketActiveGreenAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGVlNjIxOGU4ZTVmMGY3MTkwMmQxNDQ1ZDEwYzI1YyIseyJ0Ijo3Nywic3AiOjAuMjEwOX1d/838f943005/JewelSocketActiveGreenAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGVlNjIxOGU4ZTVmMGY3MTkwMmQxNDQ1ZDEwYzI1YyIseyJ0Ijo3Nywic3AiOjAuMjk3Mn1d/1764c374f9/JewelSocketActiveGreenAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGVlNjIxOGU4ZTVmMGY3MTkwMmQxNDQ1ZDEwYzI1YyIseyJ0Ijo3Nywic3AiOjAuMzgzNX1d/77540fd177/JewelSocketActiveGreenAlt.png"
         },
         ["JewelSocketActiveRedAlt"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkOGQwYjM1YzdmZTk3YmI1YjVmZTEyNzY4OWZiZTRmYyIseyJ0Ijo3OCwic3AiOjAuMTI0Nn1d/cb1fb5692b/JewelSocketActiveRedAlt.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkOGQwYjM1YzdmZTk3YmI1YjVmZTEyNzY4OWZiZTRmYyIseyJ0Ijo3OCwic3AiOjAuMjEwOX1d/f659c14a3d/JewelSocketActiveRedAlt.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkOGQwYjM1YzdmZTk3YmI1YjVmZTEyNzY4OWZiZTRmYyIseyJ0Ijo3OCwic3AiOjAuMjk3Mn1d/0fd163b280/JewelSocketActiveRedAlt.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkOGQwYjM1YzdmZTk3YmI1YjVmZTEyNzY4OWZiZTRmYyIseyJ0Ijo3OCwic3AiOjAuMzgzNX1d/a6d668b3c8/JewelSocketActiveRedAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxNjk2NTRhNGRhMjE5ZjU2MDk0YmQ4Y2Q0ZTBiYjA5YyIseyJ0Ijo3OCwic3AiOjAuMTI0Nn1d/7f758a7f4e/JewelSocketActiveRedAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxNjk2NTRhNGRhMjE5ZjU2MDk0YmQ4Y2Q0ZTBiYjA5YyIseyJ0Ijo3OCwic3AiOjAuMjEwOX1d/696ae563db/JewelSocketActiveRedAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxNjk2NTRhNGRhMjE5ZjU2MDk0YmQ4Y2Q0ZTBiYjA5YyIseyJ0Ijo3OCwic3AiOjAuMjk3Mn1d/75b9d78099/JewelSocketActiveRedAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxNjk2NTRhNGRhMjE5ZjU2MDk0YmQ4Y2Q0ZTBiYjA5YyIseyJ0Ijo3OCwic3AiOjAuMzgzNX1d/61748a1aa8/JewelSocketActiveRedAlt.png"
         },
         ["JewelSocketActivePrismaticAlt"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4MDI5ZjhjYjAxMjQ2MTFlMDkyMjVlOTY4NTM1ZWZkMCIseyJ0Ijo3OSwic3AiOjAuMTI0Nn1d/927f992418/JewelSocketActivePrismaticAlt.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4MDI5ZjhjYjAxMjQ2MTFlMDkyMjVlOTY4NTM1ZWZkMCIseyJ0Ijo3OSwic3AiOjAuMjEwOX1d/8d8553a6e4/JewelSocketActivePrismaticAlt.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4MDI5ZjhjYjAxMjQ2MTFlMDkyMjVlOTY4NTM1ZWZkMCIseyJ0Ijo3OSwic3AiOjAuMjk3Mn1d/b881c576ca/JewelSocketActivePrismaticAlt.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4MDI5ZjhjYjAxMjQ2MTFlMDkyMjVlOTY4NTM1ZWZkMCIseyJ0Ijo3OSwic3AiOjAuMzgzNX1d/4abe8c551b/JewelSocketActivePrismaticAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjMDEyMTk3OGI5MDRhNTE1ZWNiNjk4ZTcwNjQwNjdlZCIseyJ0Ijo3OSwic3AiOjAuMTI0Nn1d/103f04e184/JewelSocketActivePrismaticAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjMDEyMTk3OGI5MDRhNTE1ZWNiNjk4ZTcwNjQwNjdlZCIseyJ0Ijo3OSwic3AiOjAuMjEwOX1d/bbf0edd64b/JewelSocketActivePrismaticAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjMDEyMTk3OGI5MDRhNTE1ZWNiNjk4ZTcwNjQwNjdlZCIseyJ0Ijo3OSwic3AiOjAuMjk3Mn1d/33f9395b18/JewelSocketActivePrismaticAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjMDEyMTk3OGI5MDRhNTE1ZWNiNjk4ZTcwNjQwNjdlZCIseyJ0Ijo3OSwic3AiOjAuMzgzNX1d/1ead3648a1/JewelSocketActivePrismaticAlt.png"
         },
         ["JewelSocketActiveAbyssAlt"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhYzA1ZGE1OWVhNzFkMjIxMGRiNWIwZjUzM2Q5ZGExMyIseyJ0Ijo4MCwic3AiOjAuMTI0Nn1d/9b5d0dba44/JewelSocketActiveAbyssAlt.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhYzA1ZGE1OWVhNzFkMjIxMGRiNWIwZjUzM2Q5ZGExMyIseyJ0Ijo4MCwic3AiOjAuMjEwOX1d/8e2513ad27/JewelSocketActiveAbyssAlt.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhYzA1ZGE1OWVhNzFkMjIxMGRiNWIwZjUzM2Q5ZGExMyIseyJ0Ijo4MCwic3AiOjAuMjk3Mn1d/e4fa1d9664/JewelSocketActiveAbyssAlt.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhYzA1ZGE1OWVhNzFkMjIxMGRiNWIwZjUzM2Q5ZGExMyIseyJ0Ijo4MCwic3AiOjAuMzgzNX1d/1021de6685/JewelSocketActiveAbyssAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3NjgxYzIxNWQ1OTJiZTU0ZmNiOWI5NTlhMDgyMTkyNyIseyJ0Ijo4MCwic3AiOjAuMTI0Nn1d/0646c27f46/JewelSocketActiveAbyssAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3NjgxYzIxNWQ1OTJiZTU0ZmNiOWI5NTlhMDgyMTkyNyIseyJ0Ijo4MCwic3AiOjAuMjEwOX1d/d16b19d956/JewelSocketActiveAbyssAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3NjgxYzIxNWQ1OTJiZTU0ZmNiOWI5NTlhMDgyMTkyNyIseyJ0Ijo4MCwic3AiOjAuMjk3Mn1d/6dc11fac7b/JewelSocketActiveAbyssAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3NjgxYzIxNWQ1OTJiZTU0ZmNiOWI5NTlhMDgyMTkyNyIseyJ0Ijo4MCwic3AiOjAuMzgzNX1d/ab2d6cd79c/JewelSocketActiveAbyssAlt.png"
         },
         ["JewelSocketClusterAltNormal1Small"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4MzYzMmU4NGYzM2EwNTllNWU2NDM1Y2UzYjgxMDA0ZSIseyJ0Ijo3MCwic3AiOjAuMTI0Nn1d/6987ed47c0/JewelSocketClusterAltNormal1Small.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4MzYzMmU4NGYzM2EwNTllNWU2NDM1Y2UzYjgxMDA0ZSIseyJ0Ijo3MCwic3AiOjAuMjEwOX1d/049f9af551/JewelSocketClusterAltNormal1Small.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4MzYzMmU4NGYzM2EwNTllNWU2NDM1Y2UzYjgxMDA0ZSIseyJ0Ijo3MCwic3AiOjAuMjk3Mn1d/8ed4717060/JewelSocketClusterAltNormal1Small.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4MzYzMmU4NGYzM2EwNTllNWU2NDM1Y2UzYjgxMDA0ZSIseyJ0Ijo3MCwic3AiOjAuMzgzNX1d/8ba6b3d528/JewelSocketClusterAltNormal1Small.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGU1OGE5YjM1YjZlN2QyNGE4YWI3YjQ5ZDJhNjBlYSIseyJ0Ijo3MCwic3AiOjAuMTI0Nn1d/7eb0eaaed4/JewelSocketClusterAltNormal1Small.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGU1OGE5YjM1YjZlN2QyNGE4YWI3YjQ5ZDJhNjBlYSIseyJ0Ijo3MCwic3AiOjAuMjEwOX1d/915fe5df52/JewelSocketClusterAltNormal1Small.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGU1OGE5YjM1YjZlN2QyNGE4YWI3YjQ5ZDJhNjBlYSIseyJ0Ijo3MCwic3AiOjAuMjk3Mn1d/78a54cb2aa/JewelSocketClusterAltNormal1Small.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3ZGU1OGE5YjM1YjZlN2QyNGE4YWI3YjQ5ZDJhNjBlYSIseyJ0Ijo3MCwic3AiOjAuMzgzNX1d/f9609edb71/JewelSocketClusterAltNormal1Small.png"
         },
         ["JewelSocketClusterAltCanAllocate1Small"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1ODFkOWQ2NTQwMTE1ZTFhNmFhYThhYjYzN2QwMTZhZiIseyJ0Ijo3MSwic3AiOjAuMTI0Nn1d/c2a85b73c9/JewelSocketClusterAltCanAllocate1Small.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1ODFkOWQ2NTQwMTE1ZTFhNmFhYThhYjYzN2QwMTZhZiIseyJ0Ijo3MSwic3AiOjAuMjEwOX1d/d4f72b2f39/JewelSocketClusterAltCanAllocate1Small.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1ODFkOWQ2NTQwMTE1ZTFhNmFhYThhYjYzN2QwMTZhZiIseyJ0Ijo3MSwic3AiOjAuMjk3Mn1d/6866c001fe/JewelSocketClusterAltCanAllocate1Small.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1ODFkOWQ2NTQwMTE1ZTFhNmFhYThhYjYzN2QwMTZhZiIseyJ0Ijo3MSwic3AiOjAuMzgzNX1d/f58694bf7d/JewelSocketClusterAltCanAllocate1Small.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2MDc2YzRmMmMxZWFjZGM4M2U0NmNjOGU2ZTU5MzYzZSIseyJ0Ijo3MSwic3AiOjAuMTI0Nn1d/175c0ed35f/JewelSocketClusterAltCanAllocate1Small.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2MDc2YzRmMmMxZWFjZGM4M2U0NmNjOGU2ZTU5MzYzZSIseyJ0Ijo3MSwic3AiOjAuMjEwOX1d/5d1934b00a/JewelSocketClusterAltCanAllocate1Small.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2MDc2YzRmMmMxZWFjZGM4M2U0NmNjOGU2ZTU5MzYzZSIseyJ0Ijo3MSwic3AiOjAuMjk3Mn1d/b86de367d0/JewelSocketClusterAltCanAllocate1Small.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2MDc2YzRmMmMxZWFjZGM4M2U0NmNjOGU2ZTU5MzYzZSIseyJ0Ijo3MSwic3AiOjAuMzgzNX1d/3d79d0b1e8/JewelSocketClusterAltCanAllocate1Small.png"
         },
         ["JewelSocketClusterAltNormal1Medium"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAxMjc5N2FhYmZkZDVkZDkxMmM2MWU3YmE2MzczNSIseyJ0Ijo3Miwic3AiOjAuMTI0Nn1d/7e07bea94a/JewelSocketClusterAltNormal1Medium.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAxMjc5N2FhYmZkZDVkZDkxMmM2MWU3YmE2MzczNSIseyJ0Ijo3Miwic3AiOjAuMjEwOX1d/1af1b9ef13/JewelSocketClusterAltNormal1Medium.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAxMjc5N2FhYmZkZDVkZDkxMmM2MWU3YmE2MzczNSIseyJ0Ijo3Miwic3AiOjAuMjk3Mn1d/9a48438105/JewelSocketClusterAltNormal1Medium.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAxMjc5N2FhYmZkZDVkZDkxMmM2MWU3YmE2MzczNSIseyJ0Ijo3Miwic3AiOjAuMzgzNX1d/faf5adc235/JewelSocketClusterAltNormal1Medium.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3YjJmZDAzNTNlMTU4ZTE4MzI5Y2M3M2Y4YjVlN2I4NSIseyJ0Ijo3Miwic3AiOjAuMTI0Nn1d/e2f38b0ad5/JewelSocketClusterAltNormal1Medium.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3YjJmZDAzNTNlMTU4ZTE4MzI5Y2M3M2Y4YjVlN2I4NSIseyJ0Ijo3Miwic3AiOjAuMjEwOX1d/aa704f5cac/JewelSocketClusterAltNormal1Medium.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3YjJmZDAzNTNlMTU4ZTE4MzI5Y2M3M2Y4YjVlN2I4NSIseyJ0Ijo3Miwic3AiOjAuMjk3Mn1d/b6fc21008b/JewelSocketClusterAltNormal1Medium.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3YjJmZDAzNTNlMTU4ZTE4MzI5Y2M3M2Y4YjVlN2I4NSIseyJ0Ijo3Miwic3AiOjAuMzgzNX1d/1231322bfb/JewelSocketClusterAltNormal1Medium.png"
         },
         ["JewelSocketClusterAltCanAllocate1Medium"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmMGVmYzNiMjRiZTQzOTY5YTg0NjU2NDZjM2E4ZmVlOCIseyJ0Ijo3Mywic3AiOjAuMTI0Nn1d/e811e4c641/JewelSocketClusterAltCanAllocate1Medium.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmMGVmYzNiMjRiZTQzOTY5YTg0NjU2NDZjM2E4ZmVlOCIseyJ0Ijo3Mywic3AiOjAuMjEwOX1d/bf6f3f3ac3/JewelSocketClusterAltCanAllocate1Medium.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmMGVmYzNiMjRiZTQzOTY5YTg0NjU2NDZjM2E4ZmVlOCIseyJ0Ijo3Mywic3AiOjAuMjk3Mn1d/320373e4cb/JewelSocketClusterAltCanAllocate1Medium.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmMGVmYzNiMjRiZTQzOTY5YTg0NjU2NDZjM2E4ZmVlOCIseyJ0Ijo3Mywic3AiOjAuMzgzNX1d/1b2a271d1a/JewelSocketClusterAltCanAllocate1Medium.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4MGFkYzFiZDBiNzc3MGI2NGU4YTFkZDgxMmM3NmQ4ZCIseyJ0Ijo3Mywic3AiOjAuMTI0Nn1d/24f1e985b6/JewelSocketClusterAltCanAllocate1Medium.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4MGFkYzFiZDBiNzc3MGI2NGU4YTFkZDgxMmM3NmQ4ZCIseyJ0Ijo3Mywic3AiOjAuMjEwOX1d/7f18cb3956/JewelSocketClusterAltCanAllocate1Medium.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4MGFkYzFiZDBiNzc3MGI2NGU4YTFkZDgxMmM3NmQ4ZCIseyJ0Ijo3Mywic3AiOjAuMjk3Mn1d/0f3a0eab80/JewelSocketClusterAltCanAllocate1Medium.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4MGFkYzFiZDBiNzc3MGI2NGU4YTFkZDgxMmM3NmQ4ZCIseyJ0Ijo3Mywic3AiOjAuMzgzNX1d/af5a68d4a5/JewelSocketClusterAltCanAllocate1Medium.png"
         },
         ["JewelSocketClusterAltNormal1Large"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwNGI5ODQyODUwMDU4NWZlYzJmNzRmMzJiNzcyN2U1MiIseyJ0Ijo3NCwic3AiOjAuMTI0Nn1d/8b7637e599/JewelSocketClusterAltNormal1Large.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwNGI5ODQyODUwMDU4NWZlYzJmNzRmMzJiNzcyN2U1MiIseyJ0Ijo3NCwic3AiOjAuMjEwOX1d/ac8ce22ddd/JewelSocketClusterAltNormal1Large.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwNGI5ODQyODUwMDU4NWZlYzJmNzRmMzJiNzcyN2U1MiIseyJ0Ijo3NCwic3AiOjAuMjk3Mn1d/453f5bc507/JewelSocketClusterAltNormal1Large.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwNGI5ODQyODUwMDU4NWZlYzJmNzRmMzJiNzcyN2U1MiIseyJ0Ijo3NCwic3AiOjAuMzgzNX1d/ce92ccc6f0/JewelSocketClusterAltNormal1Large.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyODhiNzUyN2ZkZmI3YWExM2RhNzJlOWZkZWI0MzZjMCIseyJ0Ijo3NCwic3AiOjAuMTI0Nn1d/7f6df4cd1d/JewelSocketClusterAltNormal1Large.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyODhiNzUyN2ZkZmI3YWExM2RhNzJlOWZkZWI0MzZjMCIseyJ0Ijo3NCwic3AiOjAuMjEwOX1d/3e687be9d0/JewelSocketClusterAltNormal1Large.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyODhiNzUyN2ZkZmI3YWExM2RhNzJlOWZkZWI0MzZjMCIseyJ0Ijo3NCwic3AiOjAuMjk3Mn1d/5d6be63af7/JewelSocketClusterAltNormal1Large.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyODhiNzUyN2ZkZmI3YWExM2RhNzJlOWZkZWI0MzZjMCIseyJ0Ijo3NCwic3AiOjAuMzgzNX1d/0bc3999a6b/JewelSocketClusterAltNormal1Large.png"
         },
         ["JewelSocketClusterAltCanAllocate1Large"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiZTI5YjJkYWUzMDc2OTQ5ZDlmMTJiMzQ1NjY3NzNkZCIseyJ0Ijo3NSwic3AiOjAuMTI0Nn1d/105f34ef09/JewelSocketClusterAltCanAllocate1Large.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiZTI5YjJkYWUzMDc2OTQ5ZDlmMTJiMzQ1NjY3NzNkZCIseyJ0Ijo3NSwic3AiOjAuMjEwOX1d/4e42cf62ea/JewelSocketClusterAltCanAllocate1Large.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiZTI5YjJkYWUzMDc2OTQ5ZDlmMTJiMzQ1NjY3NzNkZCIseyJ0Ijo3NSwic3AiOjAuMjk3Mn1d/eb449463aa/JewelSocketClusterAltCanAllocate1Large.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiZTI5YjJkYWUzMDc2OTQ5ZDlmMTJiMzQ1NjY3NzNkZCIseyJ0Ijo3NSwic3AiOjAuMzgzNX1d/96faba50ec/JewelSocketClusterAltCanAllocate1Large.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3YTI3NjRhZGM3YWUxNWQ3NDIyNWNiZGJmOWRlZGNjZiIseyJ0Ijo3NSwic3AiOjAuMTI0Nn1d/78c99a1b90/JewelSocketClusterAltCanAllocate1Large.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3YTI3NjRhZGM3YWUxNWQ3NDIyNWNiZGJmOWRlZGNjZiIseyJ0Ijo3NSwic3AiOjAuMjEwOX1d/fcf64c21a7/JewelSocketClusterAltCanAllocate1Large.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3YTI3NjRhZGM3YWUxNWQ3NDIyNWNiZGJmOWRlZGNjZiIseyJ0Ijo3NSwic3AiOjAuMjk3Mn1d/d2726c0e4b/JewelSocketClusterAltCanAllocate1Large.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3YTI3NjRhZGM3YWUxNWQ3NDIyNWNiZGJmOWRlZGNjZiIseyJ0Ijo3NSwic3AiOjAuMzgzNX1d/c120e0f4e1/JewelSocketClusterAltCanAllocate1Large.png"
         },
         ["AscendancyButton"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmZDM1NjgzZTM3NjBmZDcwYjllMmVmYTAwYWEyM2Y4NSIseyJ0IjoyMSwic3AiOjAuMTI0Nn1d/79590f7c0c/AscendancyButton.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmZDM1NjgzZTM3NjBmZDcwYjllMmVmYTAwYWEyM2Y4NSIseyJ0IjoyMSwic3AiOjAuMjEwOX1d/44a051b692/AscendancyButton.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmZDM1NjgzZTM3NjBmZDcwYjllMmVmYTAwYWEyM2Y4NSIseyJ0IjoyMSwic3AiOjAuMjk3Mn1d/fbceb645ad/AscendancyButton.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmZDM1NjgzZTM3NjBmZDcwYjllMmVmYTAwYWEyM2Y4NSIseyJ0IjoyMSwic3AiOjAuMzgzNX1d/e1c24775b4/AscendancyButton.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3YzkzNjFhMDU4YTM0MjgxYTIwZmYyZjA1NjFkZTBkMiIseyJ0IjoyMSwic3AiOjAuMTI0Nn1d/40f81b2e7b/AscendancyButton.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3YzkzNjFhMDU4YTM0MjgxYTIwZmYyZjA1NjFkZTBkMiIseyJ0IjoyMSwic3AiOjAuMjEwOX1d/4268eab8e7/AscendancyButton.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3YzkzNjFhMDU4YTM0MjgxYTIwZmYyZjA1NjFkZTBkMiIseyJ0IjoyMSwic3AiOjAuMjk3Mn1d/fe38b9c97f/AscendancyButton.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3YzkzNjFhMDU4YTM0MjgxYTIwZmYyZjA1NjFkZTBkMiIseyJ0IjoyMSwic3AiOjAuMzgzNX1d/b2ebbd99a1/AscendancyButton.png"
         },
         ["AscendancyButtonHighlight"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzM2U0YjAwY2ViZDU1ODY4M2UxNTY5Yzc1MzU2Y2I3MyIseyJ0IjoyMiwic3AiOjAuMTI0Nn1d/f4e24ffd4e/AscendancyButtonHighlight.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzM2U0YjAwY2ViZDU1ODY4M2UxNTY5Yzc1MzU2Y2I3MyIseyJ0IjoyMiwic3AiOjAuMjEwOX1d/974ac9dfa0/AscendancyButtonHighlight.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzM2U0YjAwY2ViZDU1ODY4M2UxNTY5Yzc1MzU2Y2I3MyIseyJ0IjoyMiwic3AiOjAuMjk3Mn1d/2aa91c21ed/AscendancyButtonHighlight.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzM2U0YjAwY2ViZDU1ODY4M2UxNTY5Yzc1MzU2Y2I3MyIseyJ0IjoyMiwic3AiOjAuMzgzNX1d/815d2cb70b/AscendancyButtonHighlight.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkNzljODExMDY1ODg5NWM3YWI1YmZhYjI2MzVlMzYzOCIseyJ0IjoyMiwic3AiOjAuMTI0Nn1d/da40b7054c/AscendancyButtonHighlight.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkNzljODExMDY1ODg5NWM3YWI1YmZhYjI2MzVlMzYzOCIseyJ0IjoyMiwic3AiOjAuMjEwOX1d/7f12acd18c/AscendancyButtonHighlight.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkNzljODExMDY1ODg5NWM3YWI1YmZhYjI2MzVlMzYzOCIseyJ0IjoyMiwic3AiOjAuMjk3Mn1d/cf9e2287ac/AscendancyButtonHighlight.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkNzljODExMDY1ODg5NWM3YWI1YmZhYjI2MzVlMzYzOCIseyJ0IjoyMiwic3AiOjAuMzgzNX1d/e520f18d9a/AscendancyButtonHighlight.png"
         },
         ["AscendancyButtonPressed"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkN2Q2ZDk5MDUyY2VmYTgxMzVkYWJlNDM2M2FiYTQ3OSIseyJ0IjoyMywic3AiOjAuMTI0Nn1d/626e97b345/AscendancyButtonPressed.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkN2Q2ZDk5MDUyY2VmYTgxMzVkYWJlNDM2M2FiYTQ3OSIseyJ0IjoyMywic3AiOjAuMjEwOX1d/639e7959ad/AscendancyButtonPressed.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkN2Q2ZDk5MDUyY2VmYTgxMzVkYWJlNDM2M2FiYTQ3OSIseyJ0IjoyMywic3AiOjAuMjk3Mn1d/66f3d93595/AscendancyButtonPressed.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkN2Q2ZDk5MDUyY2VmYTgxMzVkYWJlNDM2M2FiYTQ3OSIseyJ0IjoyMywic3AiOjAuMzgzNX1d/407988a1e5/AscendancyButtonPressed.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1MGZmYzAwZWQ1YzZhYmI1Zjc0NTI2ZDMyN2M3NjQzZCIseyJ0IjoyMywic3AiOjAuMTI0Nn1d/e0ecfa038f/AscendancyButtonPressed.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1MGZmYzAwZWQ1YzZhYmI1Zjc0NTI2ZDMyN2M3NjQzZCIseyJ0IjoyMywic3AiOjAuMjEwOX1d/ba7ef4bb0c/AscendancyButtonPressed.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1MGZmYzAwZWQ1YzZhYmI1Zjc0NTI2ZDMyN2M3NjQzZCIseyJ0IjoyMywic3AiOjAuMjk3Mn1d/6950c4243c/AscendancyButtonPressed.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1MGZmYzAwZWQ1YzZhYmI1Zjc0NTI2ZDMyN2M3NjQzZCIseyJ0IjoyMywic3AiOjAuMzgzNX1d/cd7f4df248/AscendancyButtonPressed.png"
         },
         ["AscendancyFrameLargeAllocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhMzEzYmMyMjgxNmZlYzRiYmVhMDVkOWQxOThiYTE3NiIseyJ0Ijo0Mywic3AiOjAuMTI0Nn1d/a787aabfdf/AscendancyFrameLargeAllocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhMzEzYmMyMjgxNmZlYzRiYmVhMDVkOWQxOThiYTE3NiIseyJ0Ijo0Mywic3AiOjAuMjEwOX1d/39f71beb11/AscendancyFrameLargeAllocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhMzEzYmMyMjgxNmZlYzRiYmVhMDVkOWQxOThiYTE3NiIseyJ0Ijo0Mywic3AiOjAuMjk3Mn1d/9670b2f70b/AscendancyFrameLargeAllocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhMzEzYmMyMjgxNmZlYzRiYmVhMDVkOWQxOThiYTE3NiIseyJ0Ijo0Mywic3AiOjAuMzgzNX1d/694931c23e/AscendancyFrameLargeAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyNWU4OWY5MGQ1ZDA5N2Y3ODYyNGFmMjgzM2ExYTU5ZiIseyJ0Ijo0Mywic3AiOjAuMTI0Nn1d/358f92d89f/AscendancyFrameLargeAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyNWU4OWY5MGQ1ZDA5N2Y3ODYyNGFmMjgzM2ExYTU5ZiIseyJ0Ijo0Mywic3AiOjAuMjEwOX1d/d6b7cd71e8/AscendancyFrameLargeAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyNWU4OWY5MGQ1ZDA5N2Y3ODYyNGFmMjgzM2ExYTU5ZiIseyJ0Ijo0Mywic3AiOjAuMjk3Mn1d/0572e24c39/AscendancyFrameLargeAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyNWU4OWY5MGQ1ZDA5N2Y3ODYyNGFmMjgzM2ExYTU5ZiIseyJ0Ijo0Mywic3AiOjAuMzgzNX1d/f41a0c7f40/AscendancyFrameLargeAllocated.png"
         },
         ["AscendancyFrameLargeCanAllocate"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmMGFlZmJlM2MxZjBkM2Q0YjNmNDEyMWM5OTE5MzJjMyIseyJ0Ijo0NCwic3AiOjAuMTI0Nn1d/8209a6872f/AscendancyFrameLargeCanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmMGFlZmJlM2MxZjBkM2Q0YjNmNDEyMWM5OTE5MzJjMyIseyJ0Ijo0NCwic3AiOjAuMjEwOX1d/82645231b0/AscendancyFrameLargeCanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmMGFlZmJlM2MxZjBkM2Q0YjNmNDEyMWM5OTE5MzJjMyIseyJ0Ijo0NCwic3AiOjAuMjk3Mn1d/c8658417a5/AscendancyFrameLargeCanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmMGFlZmJlM2MxZjBkM2Q0YjNmNDEyMWM5OTE5MzJjMyIseyJ0Ijo0NCwic3AiOjAuMzgzNX1d/8f9b1a20fa/AscendancyFrameLargeCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiZmVmYjVjMDA4ZmFiYTMxMmZlYmE2MGYwMzNhYjBlYyIseyJ0Ijo0NCwic3AiOjAuMTI0Nn1d/11c366f482/AscendancyFrameLargeCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiZmVmYjVjMDA4ZmFiYTMxMmZlYmE2MGYwMzNhYjBlYyIseyJ0Ijo0NCwic3AiOjAuMjEwOX1d/d192e8275d/AscendancyFrameLargeCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiZmVmYjVjMDA4ZmFiYTMxMmZlYmE2MGYwMzNhYjBlYyIseyJ0Ijo0NCwic3AiOjAuMjk3Mn1d/4e9eb020b2/AscendancyFrameLargeCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiZmVmYjVjMDA4ZmFiYTMxMmZlYmE2MGYwMzNhYjBlYyIseyJ0Ijo0NCwic3AiOjAuMzgzNX1d/6761d3e23f/AscendancyFrameLargeCanAllocate.png"
         },
         ["AscendancyFrameLargeNormal"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjNjgyMzA0MGFjNWM3MzIxZDhiMjM2YTY3MmRhOTgyNyIseyJ0Ijo0NSwic3AiOjAuMTI0Nn1d/473e6176d7/AscendancyFrameLargeNormal.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjNjgyMzA0MGFjNWM3MzIxZDhiMjM2YTY3MmRhOTgyNyIseyJ0Ijo0NSwic3AiOjAuMjEwOX1d/91b068e3e5/AscendancyFrameLargeNormal.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjNjgyMzA0MGFjNWM3MzIxZDhiMjM2YTY3MmRhOTgyNyIseyJ0Ijo0NSwic3AiOjAuMjk3Mn1d/d678635c7e/AscendancyFrameLargeNormal.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjNjgyMzA0MGFjNWM3MzIxZDhiMjM2YTY3MmRhOTgyNyIseyJ0Ijo0NSwic3AiOjAuMzgzNX1d/460ecc21ba/AscendancyFrameLargeNormal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1YTRkYjE3NjE2MmYwNWYzNWM4NGQ1MDFlYmEwNzAxNiIseyJ0Ijo0NSwic3AiOjAuMTI0Nn1d/2613dd39f8/AscendancyFrameLargeNormal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1YTRkYjE3NjE2MmYwNWYzNWM4NGQ1MDFlYmEwNzAxNiIseyJ0Ijo0NSwic3AiOjAuMjEwOX1d/2814c5a8dc/AscendancyFrameLargeNormal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1YTRkYjE3NjE2MmYwNWYzNWM4NGQ1MDFlYmEwNzAxNiIseyJ0Ijo0NSwic3AiOjAuMjk3Mn1d/fc06056da3/AscendancyFrameLargeNormal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1YTRkYjE3NjE2MmYwNWYzNWM4NGQ1MDFlYmEwNzAxNiIseyJ0Ijo0NSwic3AiOjAuMzgzNX1d/3a51e467f1/AscendancyFrameLargeNormal.png"
         },
         ["AscendancyFrameSmallAllocated"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjM2NhZWZhODk0NWVkYTVkMzI3OTQ2ODgzNjBjZGYzZiIseyJ0Ijo0Niwic3AiOjAuMTI0Nn1d/6d299e6033/AscendancyFrameSmallAllocated.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjM2NhZWZhODk0NWVkYTVkMzI3OTQ2ODgzNjBjZGYzZiIseyJ0Ijo0Niwic3AiOjAuMjEwOX1d/172148afd1/AscendancyFrameSmallAllocated.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjM2NhZWZhODk0NWVkYTVkMzI3OTQ2ODgzNjBjZGYzZiIseyJ0Ijo0Niwic3AiOjAuMjk3Mn1d/c868f8e9e8/AscendancyFrameSmallAllocated.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjM2NhZWZhODk0NWVkYTVkMzI3OTQ2ODgzNjBjZGYzZiIseyJ0Ijo0Niwic3AiOjAuMzgzNX1d/5d612f9b2e/AscendancyFrameSmallAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhNTFhZTA0MmI5MDE5NzRlZWYwZGNiZDgwOWI4ODZjNSIseyJ0Ijo0Niwic3AiOjAuMTI0Nn1d/ca28682699/AscendancyFrameSmallAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhNTFhZTA0MmI5MDE5NzRlZWYwZGNiZDgwOWI4ODZjNSIseyJ0Ijo0Niwic3AiOjAuMjEwOX1d/c89d77e06c/AscendancyFrameSmallAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhNTFhZTA0MmI5MDE5NzRlZWYwZGNiZDgwOWI4ODZjNSIseyJ0Ijo0Niwic3AiOjAuMjk3Mn1d/ca28a0181a/AscendancyFrameSmallAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhNTFhZTA0MmI5MDE5NzRlZWYwZGNiZDgwOWI4ODZjNSIseyJ0Ijo0Niwic3AiOjAuMzgzNX1d/0994dd7c2a/AscendancyFrameSmallAllocated.png"
         },
         ["AscendancyFrameSmallCanAllocate"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxYTIwMGIxNTQ5YWM2NzIwMTkyZjY2Yzk0NmE1OGI1MSIseyJ0Ijo0Nywic3AiOjAuMTI0Nn1d/4f724e2e86/AscendancyFrameSmallCanAllocate.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxYTIwMGIxNTQ5YWM2NzIwMTkyZjY2Yzk0NmE1OGI1MSIseyJ0Ijo0Nywic3AiOjAuMjEwOX1d/37f408cf26/AscendancyFrameSmallCanAllocate.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxYTIwMGIxNTQ5YWM2NzIwMTkyZjY2Yzk0NmE1OGI1MSIseyJ0Ijo0Nywic3AiOjAuMjk3Mn1d/562abc9383/AscendancyFrameSmallCanAllocate.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxYTIwMGIxNTQ5YWM2NzIwMTkyZjY2Yzk0NmE1OGI1MSIseyJ0Ijo0Nywic3AiOjAuMzgzNX1d/703144939a/AscendancyFrameSmallCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2MzNkMDM5MTNkMjFhNGEyMTYyZWNkZTZiZjRhNzIxYiIseyJ0Ijo0Nywic3AiOjAuMTI0Nn1d/90613bf84a/AscendancyFrameSmallCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2MzNkMDM5MTNkMjFhNGEyMTYyZWNkZTZiZjRhNzIxYiIseyJ0Ijo0Nywic3AiOjAuMjEwOX1d/88d5bdc040/AscendancyFrameSmallCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2MzNkMDM5MTNkMjFhNGEyMTYyZWNkZTZiZjRhNzIxYiIseyJ0Ijo0Nywic3AiOjAuMjk3Mn1d/50f281381b/AscendancyFrameSmallCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2MzNkMDM5MTNkMjFhNGEyMTYyZWNkZTZiZjRhNzIxYiIseyJ0Ijo0Nywic3AiOjAuMzgzNX1d/61c6308f25/AscendancyFrameSmallCanAllocate.png"
         },
         ["AscendancyFrameSmallNormal"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmMTE0NjEyOGE3MDg2MmEzNGRmOTQzMGU0MDlmMWU3YiIseyJ0Ijo0OCwic3AiOjAuMTI0Nn1d/d5b2051add/AscendancyFrameSmallNormal.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmMTE0NjEyOGE3MDg2MmEzNGRmOTQzMGU0MDlmMWU3YiIseyJ0Ijo0OCwic3AiOjAuMjEwOX1d/5d8453825a/AscendancyFrameSmallNormal.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmMTE0NjEyOGE3MDg2MmEzNGRmOTQzMGU0MDlmMWU3YiIseyJ0Ijo0OCwic3AiOjAuMjk3Mn1d/00bd14f97d/AscendancyFrameSmallNormal.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmMTE0NjEyOGE3MDg2MmEzNGRmOTQzMGU0MDlmMWU3YiIseyJ0Ijo0OCwic3AiOjAuMzgzNX1d/77fb50e473/AscendancyFrameSmallNormal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhZTY0Nzg1MDdjYjdmNTc5Zjk4ZWMzMDRmZTQ1NmM1ZiIseyJ0Ijo0OCwic3AiOjAuMTI0Nn1d/db9f6a7fad/AscendancyFrameSmallNormal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhZTY0Nzg1MDdjYjdmNTc5Zjk4ZWMzMDRmZTQ1NmM1ZiIseyJ0Ijo0OCwic3AiOjAuMjEwOX1d/662a608a3d/AscendancyFrameSmallNormal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhZTY0Nzg1MDdjYjdmNTc5Zjk4ZWMzMDRmZTQ1NmM1ZiIseyJ0Ijo0OCwic3AiOjAuMjk3Mn1d/8dc837b731/AscendancyFrameSmallNormal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhZTY0Nzg1MDdjYjdmNTc5Zjk4ZWMzMDRmZTQ1NmM1ZiIseyJ0Ijo0OCwic3AiOjAuMzgzNX1d/6605efbba9/AscendancyFrameSmallNormal.png"
         },
         ["AscendancyMiddle"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwOWY0ZGJhYmZhYWEyYzJiYzE2YmI1MjhmOThhOGQ1YiIseyJ0Ijo0OSwic3AiOjAuMTI0Nn1d/f19d889251/AscendancyMiddle.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwOWY0ZGJhYmZhYWEyYzJiYzE2YmI1MjhmOThhOGQ1YiIseyJ0Ijo0OSwic3AiOjAuMjEwOX1d/0e92acface/AscendancyMiddle.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwOWY0ZGJhYmZhYWEyYzJiYzE2YmI1MjhmOThhOGQ1YiIseyJ0Ijo0OSwic3AiOjAuMjk3Mn1d/7411a45468/AscendancyMiddle.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwOWY0ZGJhYmZhYWEyYzJiYzE2YmI1MjhmOThhOGQ1YiIseyJ0Ijo0OSwic3AiOjAuMzgzNX1d/97b111db95/AscendancyMiddle.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJlOWNkZmRhMWQ5ZTg0ODA4YmU2YmEyMDdjMTQyMzMyNyIseyJ0Ijo0OSwic3AiOjAuMTI0Nn1d/393e5ac5b3/AscendancyMiddle.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJlOWNkZmRhMWQ5ZTg0ODA4YmU2YmEyMDdjMTQyMzMyNyIseyJ0Ijo0OSwic3AiOjAuMjEwOX1d/a77a04d3c6/AscendancyMiddle.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJlOWNkZmRhMWQ5ZTg0ODA4YmU2YmEyMDdjMTQyMzMyNyIseyJ0Ijo0OSwic3AiOjAuMjk3Mn1d/42f7d39f1a/AscendancyMiddle.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJlOWNkZmRhMWQ5ZTg0ODA4YmU2YmEyMDdjMTQyMzMyNyIseyJ0Ijo0OSwic3AiOjAuMzgzNX1d/118b30e99d/AscendancyMiddle.png"
         },
         ["ClassesAscendant"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhOTI5ZWE0ODY2MmI5MmZlNDEyY2VlNjcyNTRiYTMyZiIseyJ0IjoyNCwic3AiOjAuMTI0Nn1d/9100ef3cf8/ClassesAscendant.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhOTI5ZWE0ODY2MmI5MmZlNDEyY2VlNjcyNTRiYTMyZiIseyJ0IjoyNCwic3AiOjAuMjEwOX1d/8323168750/ClassesAscendant.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhOTI5ZWE0ODY2MmI5MmZlNDEyY2VlNjcyNTRiYTMyZiIseyJ0IjoyNCwic3AiOjAuMjk3Mn1d/b69a38e37d/ClassesAscendant.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhOTI5ZWE0ODY2MmI5MmZlNDEyY2VlNjcyNTRiYTMyZiIseyJ0IjoyNCwic3AiOjAuMzgzNX1d/4878cfaad0/ClassesAscendant.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwZjkzM2Q1MzZmYmQzMDE1NmZhY2Q3MTExNWMwNmI5NCIseyJ0IjoyNCwic3AiOjAuMTI0Nn1d/0ac0e76709/ClassesAscendant.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwZjkzM2Q1MzZmYmQzMDE1NmZhY2Q3MTExNWMwNmI5NCIseyJ0IjoyNCwic3AiOjAuMjEwOX1d/e1ef2385f7/ClassesAscendant.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwZjkzM2Q1MzZmYmQzMDE1NmZhY2Q3MTExNWMwNmI5NCIseyJ0IjoyNCwic3AiOjAuMjk3Mn1d/889f9dd22c/ClassesAscendant.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwZjkzM2Q1MzZmYmQzMDE1NmZhY2Q3MTExNWMwNmI5NCIseyJ0IjoyNCwic3AiOjAuMzgzNX1d/62ec856ea6/ClassesAscendant.png"
         },
         ["ClassesJuggernaut"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1MjIxMjFiYTk1ZTlkMWUyZGQ2YzkzMjU3YTY1YzI4YiIseyJ0IjoyNSwic3AiOjAuMTI0Nn1d/d494e160bd/ClassesJuggernaut.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1MjIxMjFiYTk1ZTlkMWUyZGQ2YzkzMjU3YTY1YzI4YiIseyJ0IjoyNSwic3AiOjAuMjEwOX1d/862e4a2879/ClassesJuggernaut.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1MjIxMjFiYTk1ZTlkMWUyZGQ2YzkzMjU3YTY1YzI4YiIseyJ0IjoyNSwic3AiOjAuMjk3Mn1d/1eeac2afe9/ClassesJuggernaut.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1MjIxMjFiYTk1ZTlkMWUyZGQ2YzkzMjU3YTY1YzI4YiIseyJ0IjoyNSwic3AiOjAuMzgzNX1d/25a99fdb3c/ClassesJuggernaut.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyNGI0OTdmMzU4NTFkNDBhMGYzY2YzNDY0ODNjNDhmNCIseyJ0IjoyNSwic3AiOjAuMTI0Nn1d/945a4f1c79/ClassesJuggernaut.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyNGI0OTdmMzU4NTFkNDBhMGYzY2YzNDY0ODNjNDhmNCIseyJ0IjoyNSwic3AiOjAuMjEwOX1d/2eaba2cee6/ClassesJuggernaut.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyNGI0OTdmMzU4NTFkNDBhMGYzY2YzNDY0ODNjNDhmNCIseyJ0IjoyNSwic3AiOjAuMjk3Mn1d/b9a10c1a38/ClassesJuggernaut.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyNGI0OTdmMzU4NTFkNDBhMGYzY2YzNDY0ODNjNDhmNCIseyJ0IjoyNSwic3AiOjAuMzgzNX1d/aaa09bec47/ClassesJuggernaut.png"
         },
         ["ClassesBerserker"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2N2FmMzlmNzQ0MTMzMTk4ZGRjOTBmOGY1NGE0MDMxYSIseyJ0IjoyNiwic3AiOjAuMTI0Nn1d/8891a2ac83/ClassesBerserker.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2N2FmMzlmNzQ0MTMzMTk4ZGRjOTBmOGY1NGE0MDMxYSIseyJ0IjoyNiwic3AiOjAuMjEwOX1d/f5e6999ff1/ClassesBerserker.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2N2FmMzlmNzQ0MTMzMTk4ZGRjOTBmOGY1NGE0MDMxYSIseyJ0IjoyNiwic3AiOjAuMjk3Mn1d/3db4f53a69/ClassesBerserker.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2N2FmMzlmNzQ0MTMzMTk4ZGRjOTBmOGY1NGE0MDMxYSIseyJ0IjoyNiwic3AiOjAuMzgzNX1d/fd1f5712b3/ClassesBerserker.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiYTEyMDA1ZTFjMzUyNThhNTEyNTZlNmFiMDU4OTUwNCIseyJ0IjoyNiwic3AiOjAuMTI0Nn1d/806a44565b/ClassesBerserker.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiYTEyMDA1ZTFjMzUyNThhNTEyNTZlNmFiMDU4OTUwNCIseyJ0IjoyNiwic3AiOjAuMjEwOX1d/764d299102/ClassesBerserker.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiYTEyMDA1ZTFjMzUyNThhNTEyNTZlNmFiMDU4OTUwNCIseyJ0IjoyNiwic3AiOjAuMjk3Mn1d/f4ed0cbcfc/ClassesBerserker.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiYTEyMDA1ZTFjMzUyNThhNTEyNTZlNmFiMDU4OTUwNCIseyJ0IjoyNiwic3AiOjAuMzgzNX1d/b94b38cbd1/ClassesBerserker.png"
         },
         ["ClassesChieftain"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzOGZmNjEwZTcxYWMyOTE2ZjdjYjg3NTQwYTdjMGRkMiIseyJ0IjoyNywic3AiOjAuMTI0Nn1d/37d89000b7/ClassesChieftain.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzOGZmNjEwZTcxYWMyOTE2ZjdjYjg3NTQwYTdjMGRkMiIseyJ0IjoyNywic3AiOjAuMjEwOX1d/f67a47a45e/ClassesChieftain.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzOGZmNjEwZTcxYWMyOTE2ZjdjYjg3NTQwYTdjMGRkMiIseyJ0IjoyNywic3AiOjAuMjk3Mn1d/c72861855a/ClassesChieftain.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzOGZmNjEwZTcxYWMyOTE2ZjdjYjg3NTQwYTdjMGRkMiIseyJ0IjoyNywic3AiOjAuMzgzNX1d/bb800f451b/ClassesChieftain.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiYjQ2MWJiNzllMDlkZjNmN2RiZjNhNTZhOGU3NmJhNSIseyJ0IjoyNywic3AiOjAuMTI0Nn1d/e90d996f48/ClassesChieftain.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiYjQ2MWJiNzllMDlkZjNmN2RiZjNhNTZhOGU3NmJhNSIseyJ0IjoyNywic3AiOjAuMjEwOX1d/7b88d3a65b/ClassesChieftain.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiYjQ2MWJiNzllMDlkZjNmN2RiZjNhNTZhOGU3NmJhNSIseyJ0IjoyNywic3AiOjAuMjk3Mn1d/fec1586c63/ClassesChieftain.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiYjQ2MWJiNzllMDlkZjNmN2RiZjNhNTZhOGU3NmJhNSIseyJ0IjoyNywic3AiOjAuMzgzNX1d/8ccb58fa06/ClassesChieftain.png"
         },
         ["ClassesRaider"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkZDkyZjEwMDQxZmZlN2YxNTNhYjRiMWMyNWEzMzYzZiIseyJ0IjoyOCwic3AiOjAuMTI0Nn1d/f8b572eb1c/ClassesRaider.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkZDkyZjEwMDQxZmZlN2YxNTNhYjRiMWMyNWEzMzYzZiIseyJ0IjoyOCwic3AiOjAuMjEwOX1d/eec408430d/ClassesRaider.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkZDkyZjEwMDQxZmZlN2YxNTNhYjRiMWMyNWEzMzYzZiIseyJ0IjoyOCwic3AiOjAuMjk3Mn1d/08e9074e55/ClassesRaider.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkZDkyZjEwMDQxZmZlN2YxNTNhYjRiMWMyNWEzMzYzZiIseyJ0IjoyOCwic3AiOjAuMzgzNX1d/a7904cb953/ClassesRaider.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyN2I5MTk0MDkzOGNmYjk4YWE1YmYzNjA5MGNkNWU1MiIseyJ0IjoyOCwic3AiOjAuMTI0Nn1d/27a341283b/ClassesRaider.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyN2I5MTk0MDkzOGNmYjk4YWE1YmYzNjA5MGNkNWU1MiIseyJ0IjoyOCwic3AiOjAuMjEwOX1d/70a63dc809/ClassesRaider.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyN2I5MTk0MDkzOGNmYjk4YWE1YmYzNjA5MGNkNWU1MiIseyJ0IjoyOCwic3AiOjAuMjk3Mn1d/09f31e0803/ClassesRaider.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyN2I5MTk0MDkzOGNmYjk4YWE1YmYzNjA5MGNkNWU1MiIseyJ0IjoyOCwic3AiOjAuMzgzNX1d/d0446f97af/ClassesRaider.png"
         },
         ["ClassesDeadeye"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmNzQ0YzlkYmQ4YmY3Zjc0MjFlOWM0NmZjMjY4MTcwYyIseyJ0IjoyOSwic3AiOjAuMTI0Nn1d/f23f48f670/ClassesDeadeye.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmNzQ0YzlkYmQ4YmY3Zjc0MjFlOWM0NmZjMjY4MTcwYyIseyJ0IjoyOSwic3AiOjAuMjEwOX1d/5fc31b4cc0/ClassesDeadeye.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmNzQ0YzlkYmQ4YmY3Zjc0MjFlOWM0NmZjMjY4MTcwYyIseyJ0IjoyOSwic3AiOjAuMjk3Mn1d/7bdab5d173/ClassesDeadeye.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmNzQ0YzlkYmQ4YmY3Zjc0MjFlOWM0NmZjMjY4MTcwYyIseyJ0IjoyOSwic3AiOjAuMzgzNX1d/ab53102a5c/ClassesDeadeye.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkOGY2NDMxYWRlZTlkNzA0MGZjNzcyYzcxNjk1ZDFhYSIseyJ0IjoyOSwic3AiOjAuMTI0Nn1d/5931075b09/ClassesDeadeye.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkOGY2NDMxYWRlZTlkNzA0MGZjNzcyYzcxNjk1ZDFhYSIseyJ0IjoyOSwic3AiOjAuMjEwOX1d/1a36fec7a1/ClassesDeadeye.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkOGY2NDMxYWRlZTlkNzA0MGZjNzcyYzcxNjk1ZDFhYSIseyJ0IjoyOSwic3AiOjAuMjk3Mn1d/9b8a945fa7/ClassesDeadeye.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkOGY2NDMxYWRlZTlkNzA0MGZjNzcyYzcxNjk1ZDFhYSIseyJ0IjoyOSwic3AiOjAuMzgzNX1d/6d9897df58/ClassesDeadeye.png"
         },
         ["ClassesPathfinder"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI5YTE5YzVkY2JjNmYyMmZiZWY0MTMyOTFhNGI4ZjAxYSIseyJ0IjozMCwic3AiOjAuMTI0Nn1d/76ea97c349/ClassesPathfinder.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI5YTE5YzVkY2JjNmYyMmZiZWY0MTMyOTFhNGI4ZjAxYSIseyJ0IjozMCwic3AiOjAuMjEwOX1d/9f82cf2606/ClassesPathfinder.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI5YTE5YzVkY2JjNmYyMmZiZWY0MTMyOTFhNGI4ZjAxYSIseyJ0IjozMCwic3AiOjAuMjk3Mn1d/cd5824c38a/ClassesPathfinder.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI5YTE5YzVkY2JjNmYyMmZiZWY0MTMyOTFhNGI4ZjAxYSIseyJ0IjozMCwic3AiOjAuMzgzNX1d/4e72e3b78f/ClassesPathfinder.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0ZTE3NGI4M2JlMTc4NjE4ODNjNGNmYThlZTYzNjcwZiIseyJ0IjozMCwic3AiOjAuMTI0Nn1d/25e96cc6e2/ClassesPathfinder.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0ZTE3NGI4M2JlMTc4NjE4ODNjNGNmYThlZTYzNjcwZiIseyJ0IjozMCwic3AiOjAuMjEwOX1d/932416c1d3/ClassesPathfinder.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0ZTE3NGI4M2JlMTc4NjE4ODNjNGNmYThlZTYzNjcwZiIseyJ0IjozMCwic3AiOjAuMjk3Mn1d/58f49433d6/ClassesPathfinder.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0ZTE3NGI4M2JlMTc4NjE4ODNjNGNmYThlZTYzNjcwZiIseyJ0IjozMCwic3AiOjAuMzgzNX1d/2f0769900a/ClassesPathfinder.png"
         },
         ["ClassesOccultist"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzZjBhMTlmMzBjZWNlMWFmYzE0YjE3ZWJiZTRlZTk0MyIseyJ0IjozMSwic3AiOjAuMTI0Nn1d/6633dacfc5/ClassesOccultist.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzZjBhMTlmMzBjZWNlMWFmYzE0YjE3ZWJiZTRlZTk0MyIseyJ0IjozMSwic3AiOjAuMjEwOX1d/af3e0ac64e/ClassesOccultist.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzZjBhMTlmMzBjZWNlMWFmYzE0YjE3ZWJiZTRlZTk0MyIseyJ0IjozMSwic3AiOjAuMjk3Mn1d/2e71370e70/ClassesOccultist.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzZjBhMTlmMzBjZWNlMWFmYzE0YjE3ZWJiZTRlZTk0MyIseyJ0IjozMSwic3AiOjAuMzgzNX1d/939baeda0c/ClassesOccultist.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzNDdjMTY4MmE3NjE0YjFlYzlkYTE1OWU5ZTc5Mjk2MyIseyJ0IjozMSwic3AiOjAuMTI0Nn1d/439688da31/ClassesOccultist.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzNDdjMTY4MmE3NjE0YjFlYzlkYTE1OWU5ZTc5Mjk2MyIseyJ0IjozMSwic3AiOjAuMjEwOX1d/72d71d05dc/ClassesOccultist.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzNDdjMTY4MmE3NjE0YjFlYzlkYTE1OWU5ZTc5Mjk2MyIseyJ0IjozMSwic3AiOjAuMjk3Mn1d/36002eef12/ClassesOccultist.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzNDdjMTY4MmE3NjE0YjFlYzlkYTE1OWU5ZTc5Mjk2MyIseyJ0IjozMSwic3AiOjAuMzgzNX1d/852dfcb51c/ClassesOccultist.png"
         },
         ["ClassesElementalist"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjNDBkZWQwNjYwMmQ0NDY1ZjNiNzY5NGRjZmI3OTZlMSIseyJ0IjozMiwic3AiOjAuMTI0Nn1d/aec14df6ca/ClassesElementalist.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjNDBkZWQwNjYwMmQ0NDY1ZjNiNzY5NGRjZmI3OTZlMSIseyJ0IjozMiwic3AiOjAuMjEwOX1d/2ed7caaa59/ClassesElementalist.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjNDBkZWQwNjYwMmQ0NDY1ZjNiNzY5NGRjZmI3OTZlMSIseyJ0IjozMiwic3AiOjAuMjk3Mn1d/7301f727a1/ClassesElementalist.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjNDBkZWQwNjYwMmQ0NDY1ZjNiNzY5NGRjZmI3OTZlMSIseyJ0IjozMiwic3AiOjAuMzgzNX1d/b21a78c02d/ClassesElementalist.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzZjkzZDk3M2QyMmQ0ZjZlM2ZlNWM5YzU1ZmZjMjI3NSIseyJ0IjozMiwic3AiOjAuMTI0Nn1d/bdee3b1aad/ClassesElementalist.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzZjkzZDk3M2QyMmQ0ZjZlM2ZlNWM5YzU1ZmZjMjI3NSIseyJ0IjozMiwic3AiOjAuMjEwOX1d/45b32e2539/ClassesElementalist.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzZjkzZDk3M2QyMmQ0ZjZlM2ZlNWM5YzU1ZmZjMjI3NSIseyJ0IjozMiwic3AiOjAuMjk3Mn1d/055061bd24/ClassesElementalist.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzZjkzZDk3M2QyMmQ0ZjZlM2ZlNWM5YzU1ZmZjMjI3NSIseyJ0IjozMiwic3AiOjAuMzgzNX1d/e3b8179936/ClassesElementalist.png"
         },
         ["ClassesNecromancer"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyZjFkM2U1MmY5ZTliZTBmYTRkYTc0ZTM4NTU4M2FmNiIseyJ0IjozMywic3AiOjAuMTI0Nn1d/94cf81d95e/ClassesNecromancer.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyZjFkM2U1MmY5ZTliZTBmYTRkYTc0ZTM4NTU4M2FmNiIseyJ0IjozMywic3AiOjAuMjEwOX1d/befe46c0dc/ClassesNecromancer.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyZjFkM2U1MmY5ZTliZTBmYTRkYTc0ZTM4NTU4M2FmNiIseyJ0IjozMywic3AiOjAuMjk3Mn1d/481f0f5486/ClassesNecromancer.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyZjFkM2U1MmY5ZTliZTBmYTRkYTc0ZTM4NTU4M2FmNiIseyJ0IjozMywic3AiOjAuMzgzNX1d/d60762cf5c/ClassesNecromancer.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJlMjBkOGYyODc1ZDBmODQ4MWQzYTQwMTI2ODk3MDg2MCIseyJ0IjozMywic3AiOjAuMTI0Nn1d/7e2f082048/ClassesNecromancer.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJlMjBkOGYyODc1ZDBmODQ4MWQzYTQwMTI2ODk3MDg2MCIseyJ0IjozMywic3AiOjAuMjEwOX1d/b27c8b0198/ClassesNecromancer.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJlMjBkOGYyODc1ZDBmODQ4MWQzYTQwMTI2ODk3MDg2MCIseyJ0IjozMywic3AiOjAuMjk3Mn1d/d1b83a757c/ClassesNecromancer.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJlMjBkOGYyODc1ZDBmODQ4MWQzYTQwMTI2ODk3MDg2MCIseyJ0IjozMywic3AiOjAuMzgzNX1d/5fad98bd3a/ClassesNecromancer.png"
         },
         ["ClassesSlayer"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkZWZlZWM4ZWJmYzVmNjUzNGNjYmNjODIxNjA2MjVkZiIseyJ0IjozNCwic3AiOjAuMTI0Nn1d/a781c37b60/ClassesSlayer.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkZWZlZWM4ZWJmYzVmNjUzNGNjYmNjODIxNjA2MjVkZiIseyJ0IjozNCwic3AiOjAuMjEwOX1d/58239ce6a4/ClassesSlayer.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkZWZlZWM4ZWJmYzVmNjUzNGNjYmNjODIxNjA2MjVkZiIseyJ0IjozNCwic3AiOjAuMjk3Mn1d/95b28f33f0/ClassesSlayer.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkZWZlZWM4ZWJmYzVmNjUzNGNjYmNjODIxNjA2MjVkZiIseyJ0IjozNCwic3AiOjAuMzgzNX1d/efeb9f1756/ClassesSlayer.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmNmVhMjJlYWVjZWVjOTAyNTAwNjhlOGU4NDM4ZjYzOCIseyJ0IjozNCwic3AiOjAuMTI0Nn1d/be9306a11b/ClassesSlayer.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmNmVhMjJlYWVjZWVjOTAyNTAwNjhlOGU4NDM4ZjYzOCIseyJ0IjozNCwic3AiOjAuMjEwOX1d/975763e87a/ClassesSlayer.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmNmVhMjJlYWVjZWVjOTAyNTAwNjhlOGU4NDM4ZjYzOCIseyJ0IjozNCwic3AiOjAuMjk3Mn1d/7788f50e84/ClassesSlayer.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmNmVhMjJlYWVjZWVjOTAyNTAwNjhlOGU4NDM4ZjYzOCIseyJ0IjozNCwic3AiOjAuMzgzNX1d/c87a81e1ba/ClassesSlayer.png"
         },
         ["ClassesGladiator"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0MmU0YjAxZDk0YzJhZTQ0MmE2ZDQ2ZWU4NzJlZmZiNiIseyJ0IjozNSwic3AiOjAuMTI0Nn1d/c026c69b9c/ClassesGladiator.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0MmU0YjAxZDk0YzJhZTQ0MmE2ZDQ2ZWU4NzJlZmZiNiIseyJ0IjozNSwic3AiOjAuMjEwOX1d/c22af403e7/ClassesGladiator.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0MmU0YjAxZDk0YzJhZTQ0MmE2ZDQ2ZWU4NzJlZmZiNiIseyJ0IjozNSwic3AiOjAuMjk3Mn1d/7b7f2c01c7/ClassesGladiator.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0MmU0YjAxZDk0YzJhZTQ0MmE2ZDQ2ZWU4NzJlZmZiNiIseyJ0IjozNSwic3AiOjAuMzgzNX1d/2b56cf2acb/ClassesGladiator.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxM2UzNGJjYjg0MjkxYzg5ZjAxMjRjMmMzNDFkOGJiYSIseyJ0IjozNSwic3AiOjAuMTI0Nn1d/d79fe77ef1/ClassesGladiator.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxM2UzNGJjYjg0MjkxYzg5ZjAxMjRjMmMzNDFkOGJiYSIseyJ0IjozNSwic3AiOjAuMjEwOX1d/4c3c15bd95/ClassesGladiator.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxM2UzNGJjYjg0MjkxYzg5ZjAxMjRjMmMzNDFkOGJiYSIseyJ0IjozNSwic3AiOjAuMjk3Mn1d/c5faf0cbbc/ClassesGladiator.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxM2UzNGJjYjg0MjkxYzg5ZjAxMjRjMmMzNDFkOGJiYSIseyJ0IjozNSwic3AiOjAuMzgzNX1d/143b10b174/ClassesGladiator.png"
         },
         ["ClassesChampion"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmOWY2YjdmYmI3MTQ3YmFmYjI2YmVkZWMwMjU4OWRiOCIseyJ0IjozNiwic3AiOjAuMTI0Nn1d/283c734c0d/ClassesChampion.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmOWY2YjdmYmI3MTQ3YmFmYjI2YmVkZWMwMjU4OWRiOCIseyJ0IjozNiwic3AiOjAuMjEwOX1d/15003718f3/ClassesChampion.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmOWY2YjdmYmI3MTQ3YmFmYjI2YmVkZWMwMjU4OWRiOCIseyJ0IjozNiwic3AiOjAuMjk3Mn1d/eac63599d9/ClassesChampion.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmOWY2YjdmYmI3MTQ3YmFmYjI2YmVkZWMwMjU4OWRiOCIseyJ0IjozNiwic3AiOjAuMzgzNX1d/ec29ef168b/ClassesChampion.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4NTI3NTA1ZGZiZGYwYWY5MDg2ZDZkNDI3ZWE2YmYyMCIseyJ0IjozNiwic3AiOjAuMTI0Nn1d/858ec5538d/ClassesChampion.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4NTI3NTA1ZGZiZGYwYWY5MDg2ZDZkNDI3ZWE2YmYyMCIseyJ0IjozNiwic3AiOjAuMjEwOX1d/d57abef3f7/ClassesChampion.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4NTI3NTA1ZGZiZGYwYWY5MDg2ZDZkNDI3ZWE2YmYyMCIseyJ0IjozNiwic3AiOjAuMjk3Mn1d/cd43667b54/ClassesChampion.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4NTI3NTA1ZGZiZGYwYWY5MDg2ZDZkNDI3ZWE2YmYyMCIseyJ0IjozNiwic3AiOjAuMzgzNX1d/997ed8e74c/ClassesChampion.png"
         },
         ["ClassesInquisitor"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhOTEwMDNhMzdiODE0MThlMGI3OTNlMmFlMjg0MzdlMSIseyJ0IjozNywic3AiOjAuMTI0Nn1d/43c4accffc/ClassesInquisitor.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhOTEwMDNhMzdiODE0MThlMGI3OTNlMmFlMjg0MzdlMSIseyJ0IjozNywic3AiOjAuMjEwOX1d/47f2d799b1/ClassesInquisitor.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhOTEwMDNhMzdiODE0MThlMGI3OTNlMmFlMjg0MzdlMSIseyJ0IjozNywic3AiOjAuMjk3Mn1d/4591d1580a/ClassesInquisitor.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhOTEwMDNhMzdiODE0MThlMGI3OTNlMmFlMjg0MzdlMSIseyJ0IjozNywic3AiOjAuMzgzNX1d/75dd8d6365/ClassesInquisitor.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI5MWI1ZWUwNmM4OGFmMGMwMjBlOGJkN2RiZWQ5MTgxYyIseyJ0IjozNywic3AiOjAuMTI0Nn1d/74475b2c7c/ClassesInquisitor.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI5MWI1ZWUwNmM4OGFmMGMwMjBlOGJkN2RiZWQ5MTgxYyIseyJ0IjozNywic3AiOjAuMjEwOX1d/5c24eec287/ClassesInquisitor.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI5MWI1ZWUwNmM4OGFmMGMwMjBlOGJkN2RiZWQ5MTgxYyIseyJ0IjozNywic3AiOjAuMjk3Mn1d/aa4f01e678/ClassesInquisitor.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI5MWI1ZWUwNmM4OGFmMGMwMjBlOGJkN2RiZWQ5MTgxYyIseyJ0IjozNywic3AiOjAuMzgzNX1d/a61a560e6a/ClassesInquisitor.png"
         },
         ["ClassesHierophant"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhZGU2Njk4ZWMxZGZmYTY2ZjhhZjVlMWUzN2YxZGVlOSIseyJ0IjozOCwic3AiOjAuMTI0Nn1d/18055909f5/ClassesHierophant.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhZGU2Njk4ZWMxZGZmYTY2ZjhhZjVlMWUzN2YxZGVlOSIseyJ0IjozOCwic3AiOjAuMjEwOX1d/f6e513c834/ClassesHierophant.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhZGU2Njk4ZWMxZGZmYTY2ZjhhZjVlMWUzN2YxZGVlOSIseyJ0IjozOCwic3AiOjAuMjk3Mn1d/a2cddd733d/ClassesHierophant.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhZGU2Njk4ZWMxZGZmYTY2ZjhhZjVlMWUzN2YxZGVlOSIseyJ0IjozOCwic3AiOjAuMzgzNX1d/1fa99021b5/ClassesHierophant.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3YzAzOTlkNjE5OTRkY2VlNmYxYTEzYjg0ZmY1YTk3NiIseyJ0IjozOCwic3AiOjAuMTI0Nn1d/ae001bc03a/ClassesHierophant.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3YzAzOTlkNjE5OTRkY2VlNmYxYTEzYjg0ZmY1YTk3NiIseyJ0IjozOCwic3AiOjAuMjEwOX1d/417c4fcb1b/ClassesHierophant.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3YzAzOTlkNjE5OTRkY2VlNmYxYTEzYjg0ZmY1YTk3NiIseyJ0IjozOCwic3AiOjAuMjk3Mn1d/1971f7889a/ClassesHierophant.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3YzAzOTlkNjE5OTRkY2VlNmYxYTEzYjg0ZmY1YTk3NiIseyJ0IjozOCwic3AiOjAuMzgzNX1d/dd8b84f87c/ClassesHierophant.png"
         },
         ["ClassesGuardian"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAyNWY5YTI0NjM0MTYyYThmMGNkZWUyNWYxNWNiNiIseyJ0IjozOSwic3AiOjAuMTI0Nn1d/bccf38c5f5/ClassesGuardian.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAyNWY5YTI0NjM0MTYyYThmMGNkZWUyNWYxNWNiNiIseyJ0IjozOSwic3AiOjAuMjEwOX1d/f9c6f4352c/ClassesGuardian.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAyNWY5YTI0NjM0MTYyYThmMGNkZWUyNWYxNWNiNiIseyJ0IjozOSwic3AiOjAuMjk3Mn1d/9167b7b1c0/ClassesGuardian.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjZDAyNWY5YTI0NjM0MTYyYThmMGNkZWUyNWYxNWNiNiIseyJ0IjozOSwic3AiOjAuMzgzNX1d/88d224d8cc/ClassesGuardian.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0ZmQ4YzhiODBmNGMxODNkMDYxYmI3OTEyZDEyZDBlYyIseyJ0IjozOSwic3AiOjAuMTI0Nn1d/676ef4186b/ClassesGuardian.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0ZmQ4YzhiODBmNGMxODNkMDYxYmI3OTEyZDEyZDBlYyIseyJ0IjozOSwic3AiOjAuMjEwOX1d/6dad50d56d/ClassesGuardian.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0ZmQ4YzhiODBmNGMxODNkMDYxYmI3OTEyZDEyZDBlYyIseyJ0IjozOSwic3AiOjAuMjk3Mn1d/834d15b92b/ClassesGuardian.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0ZmQ4YzhiODBmNGMxODNkMDYxYmI3OTEyZDEyZDBlYyIseyJ0IjozOSwic3AiOjAuMzgzNX1d/3a172b5f30/ClassesGuardian.png"
         },
         ["ClassesAssassin"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzYjM1NTYyMjg1MzkwYmJkMzk4YTJjZmFjOGQwMDg0ZSIseyJ0Ijo0MCwic3AiOjAuMTI0Nn1d/83af0b9a57/ClassesAssassin.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzYjM1NTYyMjg1MzkwYmJkMzk4YTJjZmFjOGQwMDg0ZSIseyJ0Ijo0MCwic3AiOjAuMjEwOX1d/0d836e375d/ClassesAssassin.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzYjM1NTYyMjg1MzkwYmJkMzk4YTJjZmFjOGQwMDg0ZSIseyJ0Ijo0MCwic3AiOjAuMjk3Mn1d/755fae50fb/ClassesAssassin.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzYjM1NTYyMjg1MzkwYmJkMzk4YTJjZmFjOGQwMDg0ZSIseyJ0Ijo0MCwic3AiOjAuMzgzNX1d/3ffc6f160d/ClassesAssassin.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2ZGQwY2QwYWNkNTcxNDExZmJiOWI1NzFlMTE2MmRlNiIseyJ0Ijo0MCwic3AiOjAuMTI0Nn1d/7b9d89c030/ClassesAssassin.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2ZGQwY2QwYWNkNTcxNDExZmJiOWI1NzFlMTE2MmRlNiIseyJ0Ijo0MCwic3AiOjAuMjEwOX1d/7e4635d181/ClassesAssassin.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2ZGQwY2QwYWNkNTcxNDExZmJiOWI1NzFlMTE2MmRlNiIseyJ0Ijo0MCwic3AiOjAuMjk3Mn1d/3398ddf017/ClassesAssassin.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2ZGQwY2QwYWNkNTcxNDExZmJiOWI1NzFlMTE2MmRlNiIseyJ0Ijo0MCwic3AiOjAuMzgzNX1d/b9f8092235/ClassesAssassin.png"
         },
         ["ClassesTrickster"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkODM5YjdjZTllZWYzNTVmMWFlYzhkNjY4YWY2MTQ4YiIseyJ0Ijo0Miwic3AiOjAuMTI0Nn1d/115d0ccb2b/ClassesTrickster.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkODM5YjdjZTllZWYzNTVmMWFlYzhkNjY4YWY2MTQ4YiIseyJ0Ijo0Miwic3AiOjAuMjEwOX1d/b5cbcbd576/ClassesTrickster.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkODM5YjdjZTllZWYzNTVmMWFlYzhkNjY4YWY2MTQ4YiIseyJ0Ijo0Miwic3AiOjAuMjk3Mn1d/3b67b4101f/ClassesTrickster.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkODM5YjdjZTllZWYzNTVmMWFlYzhkNjY4YWY2MTQ4YiIseyJ0Ijo0Miwic3AiOjAuMzgzNX1d/8d5bdd67f6/ClassesTrickster.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjMjYzNjQ1MmJjZmRlMzVkOGU0NTgzZTk2NWVkZjU1MSIseyJ0Ijo0Miwic3AiOjAuMTI0Nn1d/04606816e1/ClassesTrickster.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjMjYzNjQ1MmJjZmRlMzVkOGU0NTgzZTk2NWVkZjU1MSIseyJ0Ijo0Miwic3AiOjAuMjEwOX1d/5874c5ae4a/ClassesTrickster.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjMjYzNjQ1MmJjZmRlMzVkOGU0NTgzZTk2NWVkZjU1MSIseyJ0Ijo0Miwic3AiOjAuMjk3Mn1d/4c9d31b85d/ClassesTrickster.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjMjYzNjQ1MmJjZmRlMzVkOGU0NTgzZTk2NWVkZjU1MSIseyJ0Ijo0Miwic3AiOjAuMzgzNX1d/4932571fb2/ClassesTrickster.png"
         },
         ["ClassesSaboteur"]= {
-            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyZTc4MGU1MzBmODUwYTkxN2FlN2JlOGEyOTQ3ZjZhNiIseyJ0Ijo0MSwic3AiOjAuMTI0Nn1d/ec7f5e958e/ClassesSaboteur.png",
-            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyZTc4MGU1MzBmODUwYTkxN2FlN2JlOGEyOTQ3ZjZhNiIseyJ0Ijo0MSwic3AiOjAuMjEwOX1d/fdb7649cab/ClassesSaboteur.png",
-            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyZTc4MGU1MzBmODUwYTkxN2FlN2JlOGEyOTQ3ZjZhNiIseyJ0Ijo0MSwic3AiOjAuMjk3Mn1d/7f227a34a3/ClassesSaboteur.png",
-            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyZTc4MGU1MzBmODUwYTkxN2FlN2JlOGEyOTQ3ZjZhNiIseyJ0Ijo0MSwic3AiOjAuMzgzNX1d/788037c5fe/ClassesSaboteur.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmMjU3M2E4NzE0NDFmMzQ3YjY3OGNmNGFiNjdhMzMwNiIseyJ0Ijo0MSwic3AiOjAuMTI0Nn1d/615483c672/ClassesSaboteur.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmMjU3M2E4NzE0NDFmMzQ3YjY3OGNmNGFiNjdhMzMwNiIseyJ0Ijo0MSwic3AiOjAuMjEwOX1d/5045f5366d/ClassesSaboteur.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmMjU3M2E4NzE0NDFmMzQ3YjY3OGNmNGFiNjdhMzMwNiIseyJ0Ijo0MSwic3AiOjAuMjk3Mn1d/25540147aa/ClassesSaboteur.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmMjU3M2E4NzE0NDFmMzQ3YjY3OGNmNGFiNjdhMzMwNiIseyJ0Ijo0MSwic3AiOjAuMzgzNX1d/971b043392/ClassesSaboteur.png"
         },
         ["Background1"]= {
             [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI0ODRjMTBmZTljMjNhMmNkYjE2ZjBjNzkyYjE1MTRkZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9Db21tb25cL0JhY2tncm91bmQxIiwic3AiOjAuMTI0Nn1d/5c45fbabbf/Background1.png",

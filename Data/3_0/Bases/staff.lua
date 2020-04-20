@@ -7,6 +7,7 @@ itemBases["Gnarled Branch"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, small_staff = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 8, PhysicalMax = 17, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
 	req = { str = 12, int = 12, },
 }
@@ -15,6 +16,7 @@ itemBases["Primitive Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 9, PhysicalMax = 27, CritChanceBase = 6.2, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 9, str = 20, int = 20, },
 }
@@ -23,6 +25,7 @@ itemBases["Long Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 21, PhysicalMax = 35, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 18, str = 35, int = 35, },
 }
@@ -31,6 +34,7 @@ itemBases["Iron Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 12, PhysicalMax = 36, CritChanceBase = 6.4, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 13, str = 27, int = 27, },
 }
@@ -39,6 +43,7 @@ itemBases["Coiled Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+20% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 24, PhysicalMax = 49, CritChanceBase = 6.2, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 23, str = 43, int = 43, },
 }
@@ -47,6 +52,7 @@ itemBases["Royal Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 23, PhysicalMax = 70, CritChanceBase = 6.5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 28, str = 51, int = 51, },
 }
@@ -55,6 +61,7 @@ itemBases["Vile Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 65, CritChanceBase = 6.1, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 33, str = 59, int = 59, },
 }
@@ -63,6 +70,7 @@ itemBases["Crescent Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "80% increased Global Critical Strike Chance",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 73, CritChanceBase = 6, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 36, str = 66, int = 66, },
 }
@@ -71,6 +79,7 @@ itemBases["Woodful Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 88, CritChanceBase = 6.2, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 37, str = 65, int = 65, },
 }
@@ -79,6 +88,7 @@ itemBases["Quarterstaff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 44, PhysicalMax = 73, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 45, str = 78, int = 78, },
 }
@@ -87,6 +97,7 @@ itemBases["Military Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 33, PhysicalMax = 98, CritChanceBase = 6.6, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 41, str = 72, int = 72, },
 }
@@ -95,6 +106,7 @@ itemBases["Serpentine Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+20% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 48, PhysicalMax = 100, CritChanceBase = 6.3, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 49, str = 85, int = 85, },
 }
@@ -103,6 +115,7 @@ itemBases["Highborn Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 42, PhysicalMax = 125, CritChanceBase = 6.5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 52, str = 89, int = 89, },
 }
@@ -111,6 +124,7 @@ itemBases["Foul Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 56, PhysicalMax = 104, CritChanceBase = 6.1, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 55, str = 94, int = 94, },
 }
@@ -119,6 +133,7 @@ itemBases["Moon Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "80% increased Global Critical Strike Chance",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 57, PhysicalMax = 118, CritChanceBase = 6, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 57, str = 101, int = 101, },
 }
@@ -127,6 +142,7 @@ itemBases["Primordial Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 47, PhysicalMax = 141, CritChanceBase = 6.2, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 58, str = 99, int = 99, },
 }
@@ -135,6 +151,7 @@ itemBases["Lathi"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 62, PhysicalMax = 103, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 62, str = 113, int = 113, },
 }
@@ -143,6 +160,7 @@ itemBases["Ezomyte Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 46, PhysicalMax = 137, CritChanceBase = 7, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 60, str = 113, int = 113, },
 }
@@ -151,6 +169,7 @@ itemBases["Maelstrom Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+20% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 61, PhysicalMax = 126, CritChanceBase = 6.5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 64, str = 113, int = 113, },
 }
@@ -159,6 +178,7 @@ itemBases["Imperial Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 49, PhysicalMax = 147, CritChanceBase = 7, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 66, str = 113, int = 113, },
 }
@@ -167,6 +187,7 @@ itemBases["Judgement Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, warstaff = true, },
 	implicit = "+18% Chance to Block Attack Damage while wielding a Staff",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 63, PhysicalMax = 117, CritChanceBase = 6.3, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 68, str = 113, int = 113, },
 }
@@ -175,6 +196,7 @@ itemBases["Eclipse Staff"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "100% increased Global Critical Strike Chance",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 60, PhysicalMax = 125, CritChanceBase = 6, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 70, str = 117, int = 117, },
 }

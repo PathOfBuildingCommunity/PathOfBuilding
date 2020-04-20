@@ -100,12 +100,32 @@ local function matchLimit(lang, val)
 	end
 end
 
+function describeModTags(modType)
+	if not modType then
+		return ""
+	end
+
+	local modTypesDat = dat("ModType")
+	local tagsDat = dat("Tags")
+	local modTypeIndex = modType._rowIndex
+	local modTags = modTypesDat:ReadCell(modTypeIndex, 3)
+	local modTagsText = ""
+	for i=1,#modTags do
+		local curModTagIndex = modTags[i]._rowIndex
+		if #modTagsText > 0 then
+			modTagsText = modTagsText..', '
+		end
+		modTagsText = modTagsText..'"'..tagsDat:ReadCellText(curModTagIndex, 1)..'"'
+	end
+	return modTagsText
+end
+
 function describeStats(stats)
 	local out = { }
 	local orders = { }
 	local descriptors = { }
 	for s, v in pairs(stats) do
-		if (v.min ~= 0 or v.max ~= 0) and statDescriptor[s] and statDescriptor[s].stats then
+		if s ~= "Type" and (v.min ~= 0 or v.max ~= 0) and statDescriptor[s] and statDescriptor[s].stats then
 			descriptors[statDescriptor[s]] = true
 		end
 	end
@@ -207,6 +227,8 @@ function describeStats(stats)
 			end
 		end
 	end
+
+	out.modTags = describeModTags(stats.Type)
 	return out, orders
 end
 
@@ -216,6 +238,9 @@ function describeMod(mod)
 		if mod["Stat"..i] then
 			stats[mod["Stat"..i].Id] = { min = mod["Stat"..i.."Value"][1], max = mod["Stat"..i.."Value"][2] }
 		end
+	end
+	if mod.Type then
+		stats.Type = mod.Type
 	end
 	return describeStats(stats)
 end

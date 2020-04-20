@@ -131,13 +131,14 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore)
 	return out
 end
 
-function breakdown.dot(out, baseVal, inc, more, mult, rate, effMult, total)
+function breakdown.dot(out, baseVal, inc, more, mult, rate, aura, effMult, total)
 	breakdown.multiChain(out, {
 		base = s_format("%.1f ^8(base damage per second)", baseVal), 
 		{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 		{ "%.2f ^8(more/less)", more },
 		{ "%.2f ^8(multiplier)", 1 + (mult or 0)/100 },
 		{ "%.2f ^8(rate modifier)", rate },
+		{ "%.3f ^8(aura effect modifier)", aura },
 		{ "%.3f ^8(effective DPS modifier)", effMult },
 		total = s_format("= %.1f ^8per second", total),
 	})

@@ -175,6 +175,10 @@ return {
 		modList:NewMod("Multiplier:EnemyAffectedBySiphoningTrap", "BASE", val, "Config")
 		modList:NewMod("Condition:SiphoningTrapSiphoning", "FLAG", true, "Config")
 	end },
+	{ label = "Snipe:", ifSkill = "Snipe" },
+	{ var = "configSnipeStages", type = "count", label = "# of Snipe stages:", ifSkill = "Snipe", tooltip = "Sets the number of stages reached before releasing Snipe.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SnipeStage", "BASE", m_min(val, 6), "Config")
+	end },
 	{ label = "Stance Skills:", ifSkillList = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate" } },
 	{ var = "bloodSandStance", type = "list", label = "Stance:", ifSkillList = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate" }, list = {{val="BLOOD",label="Blood Stance"},{val="SAND",label="Sand Stance"}}, apply = function(val, modList, enemyModList)
 		if val == "SAND" then
@@ -188,6 +192,10 @@ return {
 	{ label = "Summon Lightning Golem:", ifSkill = "Summon Lightning Golem" },
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
+	end },
+	{ label = "Toxic Rain:", ifSkill = "Toxic Rain" },
+	{ var = "toxicRainPodOverlap", type = "count", label = "# of Overlapping Pods:", tooltip = "Maximum is limited by the number of Projectiles.", ifSkill = "Toxic Rain", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "podOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillName = "Toxic Rain" })
 	end },
 	{ label = "Vortex:", ifSkill = "Vortex" },
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
@@ -427,12 +435,12 @@ return {
 	{ var = "buffAdrenaline", type = "check", label = "Do you have Adrenaline?", tooltip = "This will enable the Adrenaline buff:\n100% increased Damage\n25% increased Attack, Cast and Movement Speed\n10% additional Physical Damage Reduction", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Adrenaline", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffLuckyHits", type = "check", label = "Do you have Vaal Arc's Lucky Buff?", ifCond = "CanBeLucky",  tooltip = "Damage with Arc Hits is rolled twice, maximum roll is used", apply = function(val, modList, enemyModList)
+	{ var = "buffVaalArcLuckyHits", type = "check", label = "Do you have Vaal Arc's Lucky Buff?", ifCond = "CanBeLucky",  tooltip = "Damage with Arc Hits is rolled twice, maximum roll is used", apply = function(val, modList, enemyModList)
 		modList:NewMod("LuckyHits", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanBeLucky" } }, { type = "SkillName", skillNameList = { "Arc", "Vaal Arc" } })
 	end },
 	{ var = "buffElusive", type = "check", label = "Are you Elusive?", ifCond = "CanBeElusive", tooltip = "In addition to allowing any 'while Elusive' modifiers to apply,\nthis will enable the Elusive buff itself. (20% Attack and Spell Dodge, 40% increased Movement Speed)\nThe effect of Elusive decays over time.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } }, { type = "Condition", var = "CanBeElusive" })
-		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } }, { type = "Condition", var = "CanBeElusive" })
+		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
+		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 	end },
 	{ var = "buffDivinity", type = "check", label = "Do you have Divinity?", ifCond = "Divinity", tooltip = "This will enable the Divinity buff:\n50% more Elemental Damage\n20% less Elemental Damage Taken", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Divinity", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -546,6 +554,9 @@ return {
 	end },
 	{ var = "conditionNonCritRecently", type = "check", label = "Have you dealt a Non-Crit Recently?", ifCond = "NonCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:NonCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionChannelling", type = "check", label = "Are you Channelling?", ifCond = "Channelling", tooltip = "You will automatically be considered to be Channeling if your main skill is a channelled skill,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Channelling", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionKilledRecently", type = "check", label = "Have you Killed Recently?", ifCond = "KilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:KilledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -715,6 +726,11 @@ return {
 		modList:NewMod("Condition:UsedMinionSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionUsedTravelSkillRecently", type = "check", label = "Have you used a Travel Skill Recently?", ifCond = "UsedTravelSkillRecently", implyCond = "UsedSkillRecently", tooltip = "This also implies that you have used a Skill Recently..", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedTravelSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedMovementSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionUsedMovementSkillRecently", type = "check", label = "Have you used a Movement Skill Recently?", ifCond = "UsedMovementSkillRecently", implyCond = "UsedSkillRecently", tooltip = "This also implies that you have used a Skill Recently.\nYou will automatically be considered to have used a Movement skill Recently if your main skill is a movement skill,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedMovementSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -775,11 +791,14 @@ return {
 	{ var = "conditionBlockedHitFromUniqueEnemyInPast10Sec", type = "check", ifVer = "3_0", label = "Blocked hit from a Unique in the past 10s?", ifNode = 63490, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedHitFromUniqueEnemyInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "BlockedPast10Sec", type = "count", label = "Number of times you've blocked in the past 10s", ifNode = 63490, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BlockedPast10Sec", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionImpaledRecently", type = "check", ifVer="3_0", ifCond = "ImpaledRecently", label = "Impaled an Enemy recently?", apply = function(val, modList, enemyModLIst)
 		modList:NewMod("Condition:ImpaledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierImpalesOnEnemy", type = "count", label = "# of Impales on Enemy (if not maximum):", ifFlag = "impale", tooltip = "Set number of Impales if using Champions Master of Metal node", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", m_min(val, 9), "Config", { type = "Condition", var = "Combat" })
+	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on Enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on Enemy (if not maximum):", ifFlag = "bleed", tooltip = "Set number of Bleeds if using Crimson Dance node", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -925,7 +944,7 @@ return {
 			enemyModList:NewMod("SelfIgniteDuration", "MORE", -50, "Boss")
 		end
 	end },
-	{ var = "enemyIsBoss", type = "list", ifVer = "3_0", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n33% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n66% less Effect of your Curses\n+50% to enemy Elemental Resistances\n+30% to enemy Chaos Resistance", list = {{val="NONE",label="No"},{val=true,label="Standard Boss"},{val="SHAPER",label="Shaper/Guardian"}}, apply = function(val, modList, enemyModList)
+	{ var = "enemyIsBoss", type = "list", ifVer = "3_0", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n33% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n66% less Effect of your Curses\n+50% to enemy Elemental Resistances\n+30% to enemy Chaos Resistance\n+33% to enemy Armour\n\nSirus adds the following modifiers:\n66% less Effect of your Curses\n+50% to enemy Elemental Resistances\n+30% to enemy Chaos Resistance\n+100% to enemy Armour", list = {{val="NONE",label="No"},{val=true,label="Standard Boss"},{val="SHAPER",label="Shaper/Guardian"},{val="SIRUS",label="Sirus"}}, apply = function(val, modList, enemyModList)
 		if val == true then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
@@ -936,6 +955,13 @@ return {
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
+			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
+		elseif val == "SIRUS" then
+			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
+			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
+			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
+			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 		end
 	end },
 	{ var = "enemyPhysicalReduction", type = "integer", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)

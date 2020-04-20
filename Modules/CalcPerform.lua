@@ -55,6 +55,8 @@ local function mergeKeystones(env)
 end
 
 -- Calculate attributes and life/mana pools, and set conditions
+---@param env table
+---@param actor table
 local function doActorAttribsPoolsConditions(env, actor)
 	local modDB = actor.modDB
 	local output = actor.output
@@ -183,6 +185,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 	calculateAttributes()
 	calculateAttributes()
 
+	-- Calculate total attributes
+	output.TotalAttr = output.Str + output.Dex + output.Int
+
 	-- Add attribute bonuses
 	if not modDB:Flag(nil, "NoStrBonusToLife") then
 		modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
@@ -234,8 +239,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 	if breakdown then
 		breakdown.Mana = breakdown.simple(nil, nil, output.Mana, "Mana")
 	end
+end
 
-	-- Life/mana reservation
+-- Calculate life/mana reservation
+---@param actor table
+local function doActorLifeManaReservation(actor)
+	local modDB = actor.modDB
+	local output = actor.output
+	local condList = modDB.conditions
+
 	for _, pool in pairs({"Life", "Mana"}) do
 		local max = output[pool]
 		local reserved
@@ -413,6 +425,34 @@ local function doActorMisc(env, actor)
 			condList["LeechingLife"] = true
 			env.configInput.conditionLeeching = true
 		end
+		if modDB:Flag(nil, "Condition:InfusionActive") then
+			local effect = 1 + modDB:Sum("INC", nil, "InfusionEffect", "BuffEffectOnSelf") / 100
+			if modDB:Flag(nil, "Condition:HavePhysicalInfusion") then
+				condList["PhysicalInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("PhysicalDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveFireInfusion") then
+				condList["FireInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("FireDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveColdInfusion") then
+				condList["ColdInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("ColdDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveLightningInfusion") then
+				condList["LightningInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("LightningDamage", "MORE", 10 * effect, "Infusion")
+			end
+			if modDB:Flag(nil, "Condition:HaveChaosInfusion") then
+				condList["ChaosInfusion"] = true
+				condList["Infusion"] = true
+				modDB:NewMod("ChaosDamage", "MORE", 10 * effect, "Infusion")
+			end
+		end
 	end	
 end
 
@@ -421,11 +461,12 @@ end
 -- 2. Initialises minion skills
 -- 3. Initialises the main skill's minion, if present
 -- 4. Merges flask effects
--- 5. Calculates reservations
--- 6. Sets conditions and calculates attributes and life/mana pools (doActorAttribsPoolsConditions)
--- 7. Processes buffs and debuffs
--- 8. Processes charges and misc buffs (doActorMisc)
--- 9. Calculates defence and offence stats (calcs.defence, calcs.offence)
+-- 5. Sets conditions and calculates attributes and life/mana pools (doActorAttribsPoolsConditions)
+-- 6. Calculates reservations
+-- 7. Sets life/mana reservation (doActorLifeManaReservation)
+-- 8. Processes buffs and debuffs
+-- 9. Processes charges and misc buffs (doActorMisc)
+-- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
 function calcs.perform(env)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
@@ -560,7 +601,18 @@ function calcs.perform(env)
 	if env.mode_combat then
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 		local flaskBuffs = { }
+		local usingFlask = false
+		local usingLifeFlask = false
+		local usingManaFlask = false
 		for item in pairs(env.flasks) do
+			usingFlask = true
+			if item.baseName:match("Life Flask") then
+				usingLifeFlask = true
+			end
+			if item.baseName:match("Mana Flask") then
+				usingManaFlask = true
+			end
+
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask, 
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
@@ -586,21 +638,40 @@ function calcs.perform(env)
 			end
 		end
 		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+			modDB.conditions["UsingFlask"] = usingFlask
+			modDB.conditions["UsingLifeFlask"] = usingLifeFlask
+			modDB.conditions["UsingManaFlask"] = usingManaFlask
 			for _, buffModList in pairs(flaskBuffs) do
-				modDB.conditions["UsingFlask"] = true
 				modDB:AddList(buffModList)
 			end
 		end
 		if env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
+			local minionModDB = env.minion.modDB
+			minionModDB.conditions["UsingFlask"] = usingFlask
+			minionModDB.conditions["UsingLifeFlask"] = usingLifeFlask
+			minionModDB.conditions["UsingManaFlask"] = usingManaFlask
 			for _, buffModList in pairs(flaskBuffs) do
-				env.minion.modDB.conditions["UsingFlask"] = true
-				env.minion.modDB:AddList(buffModList)
+				minionModDB:AddList(buffModList)
 			end
 		end
 	end
 
 	-- Merge keystones again to catch any that were added by flasks
 	mergeKeystones(env)
+
+	-- Calculate attributes and life/mana pools
+	doActorAttribsPoolsConditions(env, env.player)
+	if env.minion then
+		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
+			if not value.type or env.minion.type == value.type then
+				env.minion.modDB:AddMod(value.mod)
+			end
+		end
+		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
+			env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+		end
+		doActorAttribsPoolsConditions(env, env.minion)
+	end
 
 	-- Calculate skill life and mana reservations
 	env.player.reserved_LifeBase = 0
@@ -650,18 +721,10 @@ function calcs.perform(env)
 		end
 	end
 	
-	-- Calculate attributes and life/mana pools
-	doActorAttribsPoolsConditions(env, env.player)
+	-- Set the life/mana reservations
+	doActorLifeManaReservation(env.player)
 	if env.minion then
-		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
-			if not value.type or env.minion.type == value.type then
-				env.minion.modDB:AddMod(value.mod)
-			end
-		end
-		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
-		end
-		doActorAttribsPoolsConditions(env, env.minion)
+		doActorLifeManaReservation(env.minion)
 	end
 
 	-- Process attribute requirements
@@ -720,9 +783,19 @@ function calcs.perform(env)
 
 	-- Check for extra modifiers to apply to aura skills
 	local extraAuraModList = { }
-	for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
-		t_insert(extraAuraModList, value.mod)
-	end
+    for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
+        local add = true
+        for _, mod in ipairs(extraAuraModList) do
+            if modLib.compareModParams(mod, value.mod) then
+                mod.value = mod.value + value.mod.value
+                add = false
+                break
+            end
+        end
+        if add then
+            t_insert(extraAuraModList, copyTable(value.mod, true))
+        end
+    end
 
 	-- Calculate number of active heralds
 	local heraldList = { }
@@ -792,8 +865,8 @@ function calcs.perform(env)
 						affectedByAura[env.player] = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf")
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf")
+						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
+						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
@@ -878,7 +951,7 @@ function calcs.perform(env)
 					if buff.type == "Buff" then
 						if env.mode_buffs and activeSkill.skillData.enable then
 							local skillCfg = buff.activeSkillBuff and skillCfg
-							local modStore = buff.activeSkillBuff and skillModList or env.minion.modDB
+							local modStore = buff.activeSkillBuff and skillModList or castingMinion.modDB
 							if buff.applyAllies then
 								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								local srcList = new("ModList")
@@ -1062,6 +1135,16 @@ function calcs.perform(env)
 		if slot.minionBuffModList then
 			env.minion.modDB:AddList(slot.minionBuffModList)
 		end
+	end
+	
+	-- Fix the configured impale stacks on the enemy
+	-- 		If the config is missing (blank), then use the maximum number of stacks
+	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
+	local maxImpaleStacks = modDB:Sum("BASE", nil, "ImpaleStacksMax")
+	if not enemyDB:HasMod("BASE", nil, "Multiplier:ImpaleStacks") then
+		enemyDB:NewMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
+	elseif enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks") > maxImpaleStacks then
+		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	end
 
 	-- Check for extra auras

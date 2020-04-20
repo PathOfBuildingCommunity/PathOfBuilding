@@ -1456,6 +1456,20 @@ return {
 			refTo="",
 			type="Int",
 			width=70
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[16]={
+			list=false,
+			name="Armour",
+			refTo="",
+			type="Int",
+			width=70
 		}
 	},
 	DelveAzuriteShop={
@@ -4339,7 +4353,7 @@ return {
 			name="Stats",
 			refTo="Stats",
 			type="Key",
-			width=420
+			width=640
 		},
 		[4]={
 			list=false,
