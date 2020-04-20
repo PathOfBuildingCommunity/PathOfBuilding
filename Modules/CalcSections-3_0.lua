@@ -1080,7 +1080,7 @@ return {
 		{ breakdown = "SpellBlockChance" }, 
 		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
 	}, },
-} }, { defaultCollapsed = true, label = "Gain on block", data = {
+} }, { defaultCollapsed = true, label = "Gain on Block", data = {
 	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}",
 	{ label = "Life on Block", { format = "{0:output:LifeOnBlock}", { modName = "LifeOnBlock" }, }, },
 	{ label = "Mana on Block", { format = "{0:output:ManaOnBlock}", { modName = "ManaOnBlock" }, }, },
@@ -1099,7 +1099,7 @@ return {
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
-} }, { defaultCollapsed = false, label = "Damage Avoidance", data = {
+} }, { defaultCollapsed = true, label = "Damage Avoidance", data = {
 	{ label = "Avoid Physical Ch.", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
 	{ label = "Avoid Fire Chance", { format = "{0:output:AvoidFireDamageChance}%", { modName = "AvoidFireDamageChance" }, }, },
 	{ label = "Avoid Cold Chance", { format = "{0:output:AvoidColdDamageChance}%", { modName = "AvoidColdDamageChance" }, }, },
