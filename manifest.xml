@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
 	<Version number="1.4.167.2" />
-	<Source part="program" url="https://raw.githubusercontent.com/LocalIdentity/PathOfBuilding/{branch}/" />
-	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/" />
-	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip" />
-	<Source part="tree-3_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_6.zip" />
-	<Source part="tree-3_7" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_7.zip" />
-	<Source part="tree-3_8" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_8.zip" />
-	<Source part="tree-3_9" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_9.zip" />
-	<Source part="tree-3_10" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_10.zip" />
-	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" />
+	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
+	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
+	<Source part="tree-2_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-2_6.zip" />
+	<Source part="tree-3_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_6.zip" />
+	<Source part="tree-3_7" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_7.zip" />
+	<Source part="tree-3_8" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_8.zip" />
+	<Source part="tree-3_9" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_9.zip" />
+	<Source part="tree-3_10" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_10.zip" />
+	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime-win32.zip" />
 	<File name="Launch.lua" part="program" sha1="74cd89091c4db01f0673217a5bd0927f232391e2" />
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="4cf43ef67fe750c22e15c7a63d7f77cce7768dba" />
 	<File name="changelog.txt" part="program" sha1="1e9720a8d11162a5573386b376782f5392278e73" />
-	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="7e5a3242c9a4296dc8377feb4c9d824f3f0a3cc1" />
+	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="abedf9c43a64c4a9270de5aacc3f02a105fecd1d" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="d852ae6eafc9be62aa41d3cb74fb986d0e5b40e5" />
 	<File name="libcurl.dll" part="runtime" platform="win32" sha1="5f68674e22a389dddeb72078b7d9d69d29881bdd" />
@@ -26,7 +26,6 @@
 	<File name="lua/sha1.lua" part="runtime" sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" />
 	<File name="lua/xml.lua" part="runtime" sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
-	<File name="Assets/patreon_logo.png" part="program" sha1="c0734401c6ffb940eb3f804c8785c8863a548c3c" />
 	<File name="Assets/range_guide.png" part="program" sha1="a373cb27e35961aae661f5e5078898dab705fbba" />
 	<File name="Assets/ring.png" part="program" sha1="6ef89c50f3505dd2c114b3edbcac017ab969d176" />
 	<File name="Assets/ShadedInnerRing.png" part="program" sha1="6ad9088ebaed6646dbd3d231d563dc9611ba4bc6" />
@@ -318,9 +317,9 @@
 	<File name="TreeData/EternalEmpireJewelCircle1.png" part="program" sha1="5ff686f46e7798c11e835a83027039d0c14ba3f4" />
 	<File name="TreeData/EternalEmpireJewelCircle2.png" part="program" sha1="578b54ff2208f9387d52e40b78fc533e9978ee97" />
 	<File name="TreeData/GoldenOil.png" part="program" sha1="8475b6862fbc2a8b11fff241ff3390b76aba5f8b" />
-	<File name="TreeData/GroupBackgroundLargeHalfAlt.png" part="program" sha1="2abdd2be644143749adf92943a98d7b84b99ff5b" />	
-	<File name="TreeData/GroupBackgroundMediumAlt.png" part="program" sha1="5cfa54cf5289880a08e103b0780b5dc40185cc4e" />	
-	<File name="TreeData/GroupBackgroundSmallAlt.png" part="program" sha1="8072f48a5b6a9b38de7dfe122399ee373847d2bc" />	
+	<File name="TreeData/GroupBackgroundLargeHalfAlt.png" part="program" sha1="2abdd2be644143749adf92943a98d7b84b99ff5b" />
+	<File name="TreeData/GroupBackgroundMediumAlt.png" part="program" sha1="5cfa54cf5289880a08e103b0780b5dc40185cc4e" />
+	<File name="TreeData/GroupBackgroundSmallAlt.png" part="program" sha1="8072f48a5b6a9b38de7dfe122399ee373847d2bc" />
 	<File name="TreeData/imgPSFadeCorner.png" part="program" sha1="b74e007cd3c61059f3a4e303c7caf34f15e2cad3" />
 	<File name="TreeData/imgPSFadeSide.png" part="program" sha1="e27bb4ab38d3865f8bb7c5dd46f0dcc53a599a26" />
 	<File name="TreeData/JewelCircle1.png" part="program" sha1="ed2b4dfdb469433632e59738efc1319f462a3670" />

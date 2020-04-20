@@ -418,6 +418,65 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		[20] = { 10, 20, 4000, cooldown = 4, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
 	},
 }
+skills["ChannelledSnipe"] = {
+	name = "Snipe",
+	hidden = true,
+	color = 2,
+	description = "Channel to charge up your bow, gaining stages. Release to trigger one linked bow skill for each stage gained. Channelled Skills cannot be triggered this way. If there are no skills linked, but at least one stage was gained, this skill will fire its own arrow instead. Cannot be used by Totems.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Channelled] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		bow = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"snipe_max_stacks",
+		"override_turn_duration_ms",
+		"snipe_triggered_skill_ailment_damage_+%_final_per_stage",
+		"snipe_triggered_skill_hit_damage_+%_final_per_stage",
+		"skill_can_fire_arrows",
+		"is_snipe_default_projectile",
+		"is_snipe_default_projectile_2",
+	},
+	levels = {
+		[20] = { 6, 100, 120, 165, attackSpeedMultiplier = 80, levelRequirement = 70, manaCost = 4, statInterpolation = { 1, 1, 1, 1, }, },
+	},
+}
+skills["ChannelledSnipeSupport"] = {
+	name = "ChannelledSnipeSupport",
+	hidden = true,
+	color = 2,
+	support = true,
+	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.Type56, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Channelled, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+		flag("TriggeredBySnipe"),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"snipe_triggered_skill_damage_+%_final",
+		"snipe_triggered_skill_ailment_damage_+%_final_per_stage",
+		"snipe_triggered_skill_hit_damage_+%_final_per_stage",
+		"skill_triggered_by_snipe",
+	},
+	levels = {
+		[20] = { 0, 120, 165, cooldown = 0.05, levelRequirement = 0, statInterpolation = { 1, 1, 1, }, },
+	},
+}
 skills["CrabAspect"] = {
 	name = "Aspect of the Crab",
 	hidden = true,

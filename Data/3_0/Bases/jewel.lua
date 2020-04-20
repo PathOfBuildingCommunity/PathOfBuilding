@@ -5,21 +5,25 @@ local itemBases = ...
 itemBases["Crimson Jewel"] = {
 	type = "Jewel",
 	tags = { default = true, jewel = true, not_dex = true, not_int = true, not_for_sale = true, strjewel = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Viridian Jewel"] = {
 	type = "Jewel",
 	tags = { default = true, jewel = true, not_str = true, not_int = true, not_for_sale = true, dexjewel = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Cobalt Jewel"] = {
 	type = "Jewel",
 	tags = { default = true, jewel = true, not_dex = true, not_str = true, not_for_sale = true, intjewel = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Prismatic Jewel"] = {
 	type = "Jewel",
 	tags = { default = true, jewel = true, intjewel = true, dexjewel = true, strjewel = true, not_for_sale = true, },
+	implicitModTypes = { },
 	req = { },
 }
 
@@ -27,24 +31,28 @@ itemBases["Ghastly Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { default = true, not_for_sale = true, abyss_jewel_summoner = true, abyss_jewel = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Hypnotic Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { default = true, not_for_sale = true, abyss_jewel_caster = true, abyss_jewel = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Murderous Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { default = true, not_for_sale = true, abyss_jewel_melee = true, abyss_jewel = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Searching Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { default = true, not_for_sale = true, abyss_jewel_ranged = true, abyss_jewel = true, },
+	implicitModTypes = { },
 	req = { },
 }
 
@@ -52,18 +60,21 @@ itemBases["Large Cluster Jewel"] = {
 	type = "Jewel",
 	subType = "Cluster",
 	tags = { default = true, jewel = true, not_for_sale = true, expansion_jewel_large = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Medium Cluster Jewel"] = {
 	type = "Jewel",
 	subType = "Cluster",
 	tags = { default = true, jewel = true, not_for_sale = true, expansion_jewel_medium = true, },
+	implicitModTypes = { },
 	req = { },
 }
 itemBases["Small Cluster Jewel"] = {
 	type = "Jewel",
 	subType = "Cluster",
 	tags = { default = true, jewel = true, not_for_sale = true, expansion_jewel_small = true, },
+	implicitModTypes = { },
 	req = { },
 }
 
@@ -71,5 +82,6 @@ itemBases["Timeless Jewel"] = {
 	type = "Jewel",
 	subType = "Timeless",
 	tags = { default = true, jewel = true, intjewel = true, dexjewel = true, strjewel = true, not_for_sale = true, },
+	implicitModTypes = { },
 	req = { },
 }

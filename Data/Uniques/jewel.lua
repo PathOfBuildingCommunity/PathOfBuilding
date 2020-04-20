@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Jewel: Drop
@@ -46,7 +46,7 @@ Limited to: 1
 Radius: Large
 Gain 5% of Lightning Damage as Extra Chaos Damage
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
-also grant Chance to Block Spells at 35% of its value
+also grant Chance to Block Spell Damage at 35% of its value
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Power Charge on Kill
 ]],[[
@@ -157,7 +157,7 @@ Radius: Medium
 Minions deal (35-45)% increased Damage
 Minions have +(10-12)% Chance to Block Attack Damage
 Minions have +(10-12)% Chance to Block Spell Damage
-Notable Passive Skills in Radius are Transformed to instead grant, Minions take 20% increased Damage
+Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
 ]],[[
 Fragile Bloom
 Crimson Jewel
@@ -237,7 +237,7 @@ Limited to: 1
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
 Passives granting Cold Resistance or all Elemental Resistances in Radius
-also grant Chance to Dodge Attacks at 35% of its value
+also grant Chance to Dodge Attack Hits at 35% of its value
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
@@ -563,10 +563,10 @@ Variant: Large Ring
 Variant: Very Large Ring
 Radius: Variable
 Implicits: 0
-{variant:1}Affects Passives in Small Ring
-{variant:2}Affects Passives in Medium Ring
-{variant:3}Affects Passives in Large Ring
-{variant:4}Affects Passives in Very Large Ring
+{variant:1}Only affects Passives in Small Ring
+{variant:2}Only affects Passives in Medium Ring
+{variant:3}Only affects Passives in Large Ring
+{variant:4}Only affects Passives in Very Large Ring
 Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
 ]],[[
@@ -603,6 +603,34 @@ Adds 3 Jewel Socket Passive Skills
 {variant:2}Adds 3 Small Passive Skills which grant nothing
 {variant:3}Adds 5 Small Passive Skills which grant nothing
 {variant:4}Adds 7 Small Passive Skills which grant nothing
+]],[[
+Split Personality
+Crimson Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Has Alt Variant: true
+Variant: Strength
+Variant: Dexterity
+Variant: Intelligence
+Variant: Life
+Variant: Mana
+Variant: Energy Shield
+Variant: Armour
+Variant: Evasion Rating
+Variant: Accuracy Rating
+This Jewel's Socket has 25% increased effect per Allocated Passive Skill between
+it and your Class' starting location
+{variant:1}+5 to Strength
+{variant:2}+5 to Dexterity
+{variant:3}+5 to Intelligence
+{variant:4}+5 to maximum Life
+{variant:5}+5 to maximum Mana
+{variant:6}+5 to maximum Energy Shield
+{variant:7}+40 to Armour
+{variant:8}+40 to Evasion Rating
+{variant:9}+40 to Accuracy Rating
+--------
+Corrupted
 ]],[[
 Watcher's Eye
 Prismatic Jewel

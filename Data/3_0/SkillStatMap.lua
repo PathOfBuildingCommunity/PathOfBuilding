@@ -161,6 +161,9 @@ return {
 ["unique_cospris_malice_cold_spells_triggered"] = {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
+["skill_triggered_by_snipe"] = {
+	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
@@ -709,8 +712,16 @@ return {
 	flag("DealNoChaos"),
 },
 -- Other effects
+["enemy_phys_reduction_%_penalty_vs_hit"] = {
+	mod("EnemyPhysicalDamageReduction", "BASE", nil),
+	mult = -1,
+},
 ["base_stun_threshold_reduction_+%"] = {
 	mod("EnemyStunThreshold", "INC", nil),
+	mult = -1,
+},
+["impale_phys_reduction_%_penalty"] = {
+	mod("EnemyImpalePhysicalDamageReduction", "BASE", nil),
 	mult = -1,
 },
 ["base_stun_duration_+%"] = {
@@ -1194,6 +1205,12 @@ return {
 },
 ["channelled_skill_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
+},
+["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
+	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage" }),
+},
+["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
+	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
 },
 
 }

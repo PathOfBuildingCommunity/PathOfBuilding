@@ -424,6 +424,49 @@ function PassiveSpecClass:BuildPathFromNode(root)
 	end
 end
 
+-- Determine this node's distance from the class' start
+-- Only allocated nodes can be traversed
+function PassiveSpecClass:SetNodeDistanceToClassStart(root)
+	root.distanceToClassStart = 0
+	if not root.alloc or root.dependsOnIntuitiveLeapLike then
+		return
+	end
+
+	-- Stop once the current class' starting node is reached
+	local targetNodeId = self.curClass.startNodeId
+
+	local nodeDistanceToRoot = { }
+	nodeDistanceToRoot[root.id] = 0
+
+	local queue = { root }
+	local o, i = 1, 2 -- Out, in
+	while o < i do
+		-- Nodes are processed in a queue, until there are no nodes left or the starting node is reached
+		-- All nodes that are 1 node away from the root will be processed first, then all nodes that are 2 nodes away, etc
+		-- Only allocated nodes are queued
+		local node = queue[o]
+		o = o + 1
+		local curDist = nodeDistanceToRoot[node.id] + 1
+		-- Iterate through all nodes that are connected to this one
+		for _, other in ipairs(node.linked) do
+			-- If this connected node is the correct class start node, then record the distance to the node and return
+			if other.id == targetNodeId then
+				root.distanceToClassStart = curDist - 1
+				return
+			end
+
+			-- Otherwise, record the distance to this node if it hasn't already been visited
+			if other.alloc and not nodeDistanceToRoot[other.id] then
+				nodeDistanceToRoot[other.id] = curDist;
+
+				-- Add the other node to the end of the queue
+				queue[i] = other
+				i = i + 1
+			end
+		end
+	end
+end
+
 -- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- This table will keep track of which nodes have been visited during each path-finding attempt
@@ -523,10 +566,16 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.pathDist = (node.alloc and not node.dependsOnIntuitiveLeapLike) and 0 or 1000
 		node.path = nil
+		if node.isJewelSocket or node.expansionJewel then
+			node.distanceToClassStart = 0
+		end
 	end
 	for id, node in pairs(self.allocNodes) do
 		if not node.dependsOnIntuitiveLeapLike then
 			self:BuildPathFromNode(node)
+			if node.isJewelSocket or node.expansionJewel then
+				self:SetNodeDistanceToClassStart(node)
+			end
 		end
 	end
 end
@@ -762,24 +811,24 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		if #notableIndexList == notableCount then
 			break
 		end
-		if not indicies[nodeIndex] then
-			if clusterJewel.size == "Medium" then
-				if socketCount == 0 and notableCount == 2 then
-					-- Special rule for two notables in a Medium cluster
-					if nodeIndex == 6 then
-						nodeIndex = 4
-					elseif nodeIndex == 10 then
-						nodeIndex = 8
-					end
-				elseif nodeCount == 4 then
-					-- Special rule for notables in a 4-node Medium cluster
-					if nodeIndex == 10 then
-						nodeIndex = 9
-					elseif nodeIndex == 2 then
-						nodeIndex = 3
-					end
+		if clusterJewel.size == "Medium" then
+			if socketCount == 0 and notableCount == 2 then
+				-- Special rule for two notables in a Medium cluster
+				if nodeIndex == 6 then
+					nodeIndex = 4
+				elseif nodeIndex == 10 then
+					nodeIndex = 8
+				end
+			elseif nodeCount == 4 then
+				-- Special rule for notables in a 4-node Medium cluster
+				if nodeIndex == 10 then
+					nodeIndex = 9
+				elseif nodeIndex == 2 then
+					nodeIndex = 3
 				end
 			end
+		end
+		if not indicies[nodeIndex] then
 			t_insert(notableIndexList, nodeIndex)
 		end
 	end
@@ -818,19 +867,19 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		if #smallIndexList == smallCount then
 			break
 		end
-		if not indicies[nodeIndex] then
-			if clusterJewel.size == "Medium" then
-				-- Special rules for small nodes in Medium clusters
-				if nodeCount == 5 and nodeIndex == 4 then
+		if clusterJewel.size == "Medium" then
+			-- Special rules for small nodes in Medium clusters
+			if nodeCount == 5 and nodeIndex == 4 then
+				nodeIndex = 3
+			elseif nodeCount == 4 then
+				if nodeIndex == 8 then
+					nodeIndex = 9
+				elseif nodeIndex == 4 then
 					nodeIndex = 3
-				elseif nodeCount == 4 then
-					if nodeIndex == 8 then
-						nodeIndex = 9
-					elseif nodeIndex == 4 then
-						nodeIndex = 3
-					end
 				end
 			end
+		end
+		if not indicies[nodeIndex] then
 			t_insert(smallIndexList, nodeIndex)
 		end
 	end
@@ -929,4 +978,9 @@ end
 
 function PassiveSpecClass:RestoreUndoState(state)
 	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList)
+	self:SetWindowTitleWithBuildClass()
+end
+
+function PassiveSpecClass:SetWindowTitleWithBuildClass()
+	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName))
 end
