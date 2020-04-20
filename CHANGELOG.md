@@ -1,3 +1,45 @@
+### 1.4.169.1 - 2020/04/20
+ * Add support for Catalysts on items crafted in PoB or Uniques in the item list
+ * Add support for dual influence item crafting
+ * Add support for Snipe on the Assailum unique helmet
+ * Add support for Split Personality unique jewel
+ * Add 2 new Spectre types
+    * Redemption Sentry
+    * Baranite Thaumaturge
+ * Add "Are you Channelling?" checkbox to support new cluster notables
+ * Add support for Violent Retaliation, Vicious Skewering and Rapid Infusion
+ * Add support for Life/ES/Mana Gain on Block
+ * Add support for more damage avoidance calculations
+ * Add option to select number of overlapping pods for Toxic Rain
+ * Add support for breakdown of DoT more multipliers and aura effect
+ * Add build name in title bar of PoB window and config to turn this off
+ * Add attributes to the Node/Item Power sorting list
+ * Add support for mods based on "UsingLifeFlask" and "UsingManaFlask"
+ * Improve support for ignite duration breakdown
+ * Update XP to take into account higher possible mob levels
+ * Update mine throwing time from 0.25s to 0.3s
+ * Fix Hungry Loop crash when socketed with Barrage Support
+ * Fix crash when hovering over the stat breakdown for stats that came from Cluster jewel Keystones
+ * Fix crash related to ticking the Lightning Golem aura
+ * Fix crash when sorting the unique item list
+ * Fix crash caused by Elusive stack overflow
+ * Fix item and gem importer to work properly with Barrage Support and some Cluster jewels
+ * Fix Fractal Thoughts mods not applying correctly
+ * Fix Mask of the Tribunal mana reservation mod not working
+ * Fix Vaal Timeless jewel to disable stats on nodes in its radius
+ * Fix wording on Blue and Green Nightmare jewels
+ * Fix Doomfletch and Doomfletch Prism
+ * Fix bug where crafted and custom modifiers disappeared from custom items when prefix or suffixes were changed
+ * Fix Master of Metal not applying correctly and being limited to 9 stacks
+ * Fix Impale stacks not being adjustable
+ * Fix tooltip issue when hovering over some Cluster jewel notables
+ * Fix mod on Fortress Covenant
+ * Fix Perquil's Toe not working properly
+ * Fix support for Juggernaut's "cannot be slowed below base speed" mod
+ * Fix rendering of Medium Cluster jewels with 3 notables
+ * Fix Thread of Hope not importing correctly
+ * Fix Replenishing Presence not stacking correctly
+ * Fix Purposeful Harbinger incorrectly scaling some skills
 ### 1.4.167.2 - 2020/03/24
  * Fix crash related to Oni-Goroshi
  * Fix crash related to number of brands attached to enemy
