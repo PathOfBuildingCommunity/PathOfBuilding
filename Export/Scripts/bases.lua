@@ -67,14 +67,22 @@ directiveTable.base = function(state, args, out)
 	out:write('},\n')
 	local movementPenalty
 	local implicitLines = { }
+	local implicitModTypes = { }
 	for _, mod in ipairs(baseItemType.ImplicitMods) do
-		for _, line in ipairs(describeMod(mod)) do
+		local modDesc = describeMod(mod)
+		for _, line in ipairs(modDesc) do
 			table.insert(implicitLines, line)
+			table.insert(implicitModTypes, modDesc.modTags)
 		end
 	end
 	if #implicitLines > 0 then
 		out:write('\timplicit = "', table.concat(implicitLines, "\\n"), '",\n')
 	end
+	out:write('\timplicitModTypes = { ')
+	for i=1,#implicitModTypes do
+		out:write('{ ', implicitModTypes[i], ' }, ')
+	end
+	out:write('},\n')
 	local weaponType = dat("WeaponTypes"):GetRow("BaseItemType", baseItemType)
 	if weaponType then
 		out:write('\tweapon = { ')

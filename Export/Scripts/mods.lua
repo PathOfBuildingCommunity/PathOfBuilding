@@ -67,6 +67,7 @@ local function writeMods(outName, condFunc)
 					end
 					out:write('}, ')
 				end
+				out:write('modTags = { ', stats.modTags, ' }, ')
 				out:write('},\n')
 			else
 				print("Mod '"..mod.Id.."' has no stats")

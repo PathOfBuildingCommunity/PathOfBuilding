@@ -435,9 +435,6 @@ skills["ChannelledSnipe"] = {
 		projectile = true,
 		bow = true,
 	},
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
-	end,
 	baseMods = {
 	},
 	qualityStats = {
@@ -464,6 +461,7 @@ skills["ChannelledSnipeSupport"] = {
 	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Channelled, },
 	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
 	baseMods = {
 		flag("TriggeredBySnipe"),
 	},

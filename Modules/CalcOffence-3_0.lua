@@ -1119,6 +1119,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.EnergyShieldLeechInstant = 0
 		output.ManaLeech = 0
 		output.ManaLeechInstant = 0
+        output.impaleStoredHitAvg = 0
 		for pass = 1, 2 do
 			-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 			cfg.skillCond["CriticalStrike"] = (pass == 1)
@@ -1153,6 +1154,11 @@ function calcs.offence(env, actor, activeSkill)
 					end				
 					damageTypeHitMin = damageTypeHitMin * allMult
 					damageTypeHitMax = damageTypeHitMax * allMult
+					if skillModList:Flag(skillCfg, "LuckyHits") or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky")) then
+						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
+					else
+						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
+					end
 					if (damageTypeHitMin ~= 0 or damageTypeHitMax ~= 0) and env.mode_effective then
 						-- Apply enemy resistances and damage taken modifiers
 						local resist = 0
@@ -1160,7 +1166,17 @@ function calcs.offence(env, actor, activeSkill)
 						local takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
 						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
 						if damageType == "Physical" then
-							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction"))
+                            if isAttack then
+								-- store pre-armour physical damage from attacks for impale calculations
+								if pass == 1 then
+									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (output.CritChance / 100)
+								else
+									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
+								end
+							end
+							local enemyArmour = round(calcLib.val(enemyDB, "Armour") * enemyDB:More(nil, "Armour"))
+							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
+							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
 						else
 							resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 							if isElemental[damageType] then
@@ -1187,6 +1203,7 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						damageTypeHitMin = damageTypeHitMin * effMult
 						damageTypeHitMax = damageTypeHitMax * effMult
+						damageTypeHitAvg = damageTypeHitAvg * effMult
 						if env.mode == "CALCS" then
 							output[damageType.."EffMult"] = effMult
 						end
@@ -1197,11 +1214,6 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], s_format("= %d to %d", damageTypeHitMin, damageTypeHitMax))
-					end
-					if skillModList:Flag(skillCfg, "LuckyHits") or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky")) then 
-						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
-					else
-						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
 					end
 					
 					--Beginning of Leech Calculation for this DamageType
@@ -1301,7 +1313,7 @@ function calcs.offence(env, actor, activeSkill)
 			-- For each damage type, calculate percentage of total damage
 			for _, damageType in ipairs(dmgTypeList) do
 				if output[damageType.."HitAverage"] > 0 then
-					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", output[damageType.."HitAverage"] / (totalHitMin + totalHitMax) * 200))
+					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", output[damageType.."HitAverage"] / totalHitAvg * 100))
 				end
 			end
 		end
@@ -1773,6 +1785,7 @@ function calcs.offence(env, actor, activeSkill)
 				local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
 				local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
 				local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
+				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
 				local durationBase
 				if skillData.bleedDurationIsSkillDuration then
@@ -1782,6 +1795,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
+				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
 				globalOutput.BleedStacksMax = maxStacks
 				globalOutput.BleedStacks = bleedStacks
 				if breakdown then
@@ -2077,6 +2091,7 @@ function calcs.offence(env, actor, activeSkill)
 				local incDur = skillModList:Sum("INC", dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:More(nil, "SelfIgniteDuration")
 				globalOutput.IgniteDuration = 4 * (1 + incDur / 100) * moreDur / rateMod * debuffDurationMult
+				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 					if skillData.showAverage then
@@ -2286,8 +2301,13 @@ function calcs.offence(env, actor, activeSkill)
             local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
             local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
             local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
+            local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
-            local impaleDMGModifier = impaleStoredDamage * impaleStacks * impaleChance
+            local enemyArmour = round(calcLib.val(enemyDB, "Armour") * enemyDB:More(nil, "Armour"))
+            local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
+            local impaleResist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction)
+
+            local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
 
             globalOutput.ImpaleStacksMax = maxStacks
             globalOutput.ImpaleStacks = impaleStacks
@@ -2306,6 +2326,7 @@ function calcs.offence(env, actor, activeSkill)
                 t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
                 t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
                 t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
+                t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
                 t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
             end
         end
@@ -2398,9 +2419,10 @@ function calcs.offence(env, actor, activeSkill)
 	-- Calculate combined DPS estimate, including DoTs
 	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"] + output.TotalDot
 	output.CombinedDPS = baseDPS
+	output.CombinedAvg = baseDPS
 	if skillData.showAverage then
-		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonAverageDamage or 0)
-		output.WithPoisonAverageDamage = baseDPS + (output.TotalPoisonAverageDamage or 0)
+		output.CombinedAvg = output.CombinedAvg + (output.PoisonDamage or 0)
+		output.WithPoisonDPS = baseDPS + (output.TotalPoisonAverageDamage or 0)
 	else
 		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
 		output.WithPoisonDPS = baseDPS + (output.TotalPoisonDPS or 0)
@@ -2408,18 +2430,28 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.ignite then
 		if skillFlags.igniteCanStack then
 			if skillData.showAverage then
-				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteAverageDamage
+				output.CombinedAvg = output.CombinedDPS + output.TotalIgniteAverageDamage
 				output.WithIgniteAverageDamage = baseDPS + output.TotalIgniteAverageDamage
 			else
 				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
 				output.WithIgniteDPS = baseDPS + output.TotalIgniteDPS
 			end
+		elseif skillData.showAverage then
+			output.WithIgniteDPS = baseDPS + output.IgniteDamage
+			output.CombinedAvg = output.CombinedAvg + output.IgniteDamage
 		else
+			output.WithIgniteDPS = baseDPS + output.IgniteDPS
 			output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
 		end
 	end
 	if skillFlags.bleed then
+		if skillData.showAverage then
+			output.WithBleedDPS = baseDPS + output.BleedDamage
+			output.CombinedAvg = output.CombinedAvg + output.BleedDamage
+		else
+		output.WithBleedDPS = baseDPS + output.BleedDPS
 		output.CombinedDPS = output.CombinedDPS + output.BleedDPS
+		end
 	end
 	if skillFlags.decay then
 		output.CombinedDPS = output.CombinedDPS + output.DecayDPS

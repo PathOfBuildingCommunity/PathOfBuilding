@@ -2083,7 +2083,7 @@ skills["MonsterFlameRedCannibal"] = {
 	baseEffectiveness = 1.3999999761581,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Summons a totem that fires a stream of flame at nearby enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Totem] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Totem] = true, [SkillType.FireSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 8,
 	castTime = 0.333,
