@@ -405,7 +405,7 @@ function calcs.defence(env, actor)
 	-- Mind over Matter
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100)
-		local sourcePool = output.ManaUnreserved or 0
+		local sourcePool = m_max(output.ManaUnreserved or 0, 0)
 		local manatext = "unreserved mana"
 		if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and modDB:Flag(nil, "EnergyShieldProtectsMana") then
 			manatext = manatext.." + total energy shield"
