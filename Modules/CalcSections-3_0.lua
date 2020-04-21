@@ -431,7 +431,12 @@ return {
 			{ modName = { "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime" } }
 		},
 	},
-	{ label = " ", { format = "  chance not to take damage when hit"} },
+} }, { defaultCollapsed = false, label = "Chance to not be hit", data = {
+	{ label = "Melee Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
+	{ label = "Projectile Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
+	{ label = "Spell Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
+}, }, { defaultCollapsed = false, label = "Chance to not take damage when hit", data = {
+	colWidth = 95,
 	{ label = "Melee Ch.",
 		{ },
 		{ format = "{1:output:PhysicalMeleeDamageChance}%", 
@@ -504,11 +509,6 @@ return {
 			{ breakdown = "ChaosSpellProjectileDamageChance" }, 
 		},
 	},
-} }, { defaultCollapsed = false, label = "Chance to not be hit", data = {
-	{ label = "Melee Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
-	{ label = "Projectile Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
-	{ label = "Spell Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
-}, }, { defaultCollapsed = false, label = "Chance to not take damage when hit", data = {
 }, }, { defaultCollapsed = false, label = "total EHP", data = {
 	{ label = "Mind over Matter", haveOutput = "MindOverMatter", { format = "{0:output:MindOverMatter}%", 
 		{ breakdown = "MindOverMatter" }, 
