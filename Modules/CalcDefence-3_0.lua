@@ -856,19 +856,43 @@ function calcs.defence(env, actor)
 	end
 	
 	--maximum hit taken
-	output.MaximumHitTaken = output.TotalPool / output.PhysicalTakenHitMult
+	output.PhysicalMaximumHitTaken = output.TotalPool / output.PhysicalTakenHitMult
+	output.LightningMaximumHitTaken = output.TotalPool / output.LightningTakenHitMult
+	output.ColdMaximumHitTaken = output.TotalPool / output.ColdTakenHitMult
+	output.FireMaximumHitTaken = output.TotalPool / output.FireTakenHitMult
+	output.ChaosMaximumHitTaken = output.TotalPool / output.ChaosTakenHitMult
 	if breakdown then
-		breakdown.MaximumHitTaken = {
+		breakdown.PhysicalMaximumHitTaken = {
 			s_format("Total Pool: %d", output.TotalPool),
 			s_format("damage taken: %.2f", output.PhysicalTakenHitMult),
-			s_format("Total EHP: %d", output.MaximumHitTaken),
+			s_format("Total EHP: %d", output.PhysicalMaximumHitTaken),
+		}
+		breakdown.LightningMaximumHitTaken = {
+			s_format("Total Pool: %d", output.TotalPool),
+			s_format("damage taken: %.2f", output.LightningTakenHitMult),
+			s_format("Total EHP: %d", output.LightningMaximumHitTaken),
+		}
+		breakdown.ColdMaximumHitTaken = {
+			s_format("Total Pool: %d", output.TotalPool),
+			s_format("damage taken: %.2f", output.ColdTakenHitMult),
+			s_format("Total EHP: %d", output.ColdMaximumHitTaken),
+		}
+		breakdown.FireMaximumHitTaken = {
+			s_format("Total Pool: %d", output.TotalPool),
+			s_format("damage taken: %.2f", output.FireTakenHitMult),
+			s_format("Total EHP: %d", output.FireMaximumHitTaken),
+		}
+		breakdown.ChaosMaximumHitTaken = {
+			s_format("Total Pool: %d", output.TotalPool),
+			s_format("damage taken: %.2f", output.ChaosTakenHitMult),
+			s_format("Total EHP: %d", output.ChaosMaximumHitTaken),
 		}
 	end
 	--total EHP
-	output.TotalEHP = output.MaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.PhysicalMeleeDamageChance / 100) 
+	output.TotalEHP = output.PhysicalMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.PhysicalMeleeDamageChance / 100) 
 	if breakdown then
 		breakdown.TotalEHP = {
-			s_format("Maximum Hit taken: %d", output.MaximumHitTaken),
+			s_format("Maximum Hit taken: %d", output.PhysicalMaximumHitTaken),
 			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
 			s_format("Chance to not take damage when hit: %d%%", output.PhysicalMeleeDamageChance),
 			s_format("Total EHP: %d", output.TotalEHP),
