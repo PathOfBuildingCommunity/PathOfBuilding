@@ -381,11 +381,26 @@ function calcs.defence(env, actor)
 		sourcePool = sourcePool + output.EnergyShield
 	end
 	local lifeProtected = sourcePool / (output.MindOverMatter / 100) * (1 - output.MindOverMatter / 100)
-	local effectiveLife = m_max(output.Life - lifeProtected, 0) + m_min(output.Life, lifeProtected) / (1 - output.MindOverMatter / 100)
+	local effectiveLife = 0
+	if output.MindOverMatter >= 100 then
+		effectiveLife = output.Life + sourcePool
+	else
+		effectiveLife = m_max(output.Life - lifeProtected, 0) + m_min(output.Life, lifeProtected) / (1 - output.MindOverMatter / 100)
+	end
 	local LightninglifeProtected = sourcePool / (output.LightningMindOverMatter / 100) * (1 - output.LightningMindOverMatter / 100)
-	local LightningeffectiveLife = m_max(output.Life - LightninglifeProtected, 0) + m_min(output.Life, LightninglifeProtected) / (1 - output.LightningMindOverMatter / 100)
+	local LightningeffectiveLife = 0
+	if output.LightningMindOverMatter >= 100 then
+		LightningeffectiveLife = output.Life + sourcePool
+	else
+		LightningeffectiveLife = m_max(output.Life - LightninglifeProtected, 0) + m_min(output.Life, LightninglifeProtected) / (1 - output.LightningMindOverMatter / 100)
+	end
 	local ChaoslifeProtected = sourcePool / (output.ChaosMindOverMatter / 100) * (1 - output.ChaosMindOverMatter / 100)
-	local ChaoseffectiveLife = m_max(output.Life - ChaoslifeProtected, 0) + m_min(output.Life, ChaoslifeProtected) / (1 - output.ChaosMindOverMatter / 100)
+	local ChaoseffectiveLife = 0
+	if output.ChaosMindOverMatter >= 100 then
+		ChaoseffectiveLife = output.Life + sourcePool
+	else
+		ChaoseffectiveLife = m_max(output.Life - ChaoslifeProtected, 0) + m_min(output.Life, ChaoslifeProtected) / (1 - output.ChaosMindOverMatter / 100)
+	end
 	if breakdown then
 		if output.MindOverMatter then
 			breakdown.MindOverMatter = {
