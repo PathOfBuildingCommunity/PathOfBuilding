@@ -57,38 +57,21 @@ local function infoDump(env)
 end
 
 -- Generate a function for calculating the effect of some modification to the environment
-local function getCalculator(build, fullInit, modFunc)
+local function getCalculator(build, fullInit)
 	-- Initialise environment
 	local env = calcs.initEnv(build, "CALCULATOR")
-
-	-- Save a copy of the initial mod database
-	local initModDB = new("ModDB")
-	initModDB:AddDB(env.modDB)
-	initModDB.conditions = copyTable(env.modDB.conditions)
-	initModDB.multipliers = copyTable(env.modDB.multipliers)
-	local initEnemyDB = new("ModDB")
-	initEnemyDB:AddDB(env.enemyDB)
-	initEnemyDB.conditions = copyTable(env.enemyDB.conditions)
-	initEnemyDB.multipliers = copyTable(env.enemyDB.multipliers)
 
 	-- Run base calculation pass
 	calcs.perform(env)
 	local baseOutput = env.player.output
 
-	env.modDB.parent = initModDB
-	env.enemyDB.parent = initEnemyDB
-
-	return function(...)
-		-- Remove mods added during the last pass
-		wipeTable(env.modDB.mods)
-		wipeTable(env.modDB.conditions)
-		wipeTable(env.modDB.multipliers)
-		wipeTable(env.enemyDB.mods)
-		wipeTable(env.enemyDB.conditions)
-		wipeTable(env.enemyDB.multipliers)
-
-		-- Call function to make modifications to the environment
-		modFunc(env, ...)
+	return function(nodeList)
+		-- Initialise the new environment with a node list override
+		local override = { addNodes = { } }
+		for _, node in ipairs(nodeList) do
+			override.addNodes[node] = true
+		end
+		env = calcs.initEnv(build, "CALCULATOR", override)
 		
 		-- Run calculation pass
 		calcs.perform(env)
@@ -99,10 +82,7 @@ end
 
 -- Get fast calculator for adding tree node modifiers
 function calcs.getNodeCalculator(build)
-	return getCalculator(build, true, function(env, nodeList)
-		-- Build and merge modifiers for these nodes
-		env.modDB:AddList(calcs.buildModListForNodeList(env, nodeList))
-	end)
+	return getCalculator(build, true)
 end
 
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)

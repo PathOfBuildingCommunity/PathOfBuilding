@@ -516,6 +516,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
 				return
 			end
+		elseif tag.type == "SkillProperties" then
+			if not cfg or not tag.properties or type(tag.properties) ~= "table" then
+				return
+			end
+
+			-- Check that the skill has all the desired properties
+			for k, v in pairs(tag.properties) do
+				if cfg[k] ~= v then
+					return
+				end
+			end
 		end
 	end	
 	return value

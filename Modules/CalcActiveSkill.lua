@@ -62,7 +62,9 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 		local map = grantedEffect.statMap[stat]
 		if map then
 			for _, mod in ipairs(map) do
-				mergeLevelMod(modList, mod, map.value or statValue * (map.mult or 1) / (map.div or 1))
+				local value = map.value or statValue * (map.mult or 1) / (map.div or 1)
+				local buffEffect = 1 + env.modDB:Sum("INC", mod[1], "SkillEffect" ) / 100
+				mergeLevelMod(modList, mod, value * buffEffect)
 			end
 		end
 	end

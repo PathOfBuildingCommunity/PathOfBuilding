@@ -264,7 +264,7 @@ local modNameList = {
 	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector" } } },
 	["warcry effect"] = { "BuffEffect", keywordFlags = KeywordFlag.Warcry },
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
-	["effect of arcane surge on you"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Arcane Surge" } },
+	["effect of arcane surge on you"] = { "SkillEffect", tag = { type = "SkillProperties", properties = { type="GlobalEffect", effectType="Buff", effectName="Arcane Surge" } } },
 	-- Charges
 	["maximum power charge"] = "PowerChargesMax",
 	["maximum power charges"] = "PowerChargesMax",
