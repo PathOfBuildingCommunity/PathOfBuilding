@@ -425,10 +425,11 @@ function calcs.defence(env, actor)
 	else
 		LightningeffectiveLife = m_max(output.LifeUnreserved - LightninglifeProtected, 0) + m_min(output.LifeUnreserved, LightninglifeProtected) / (1 - output.LightningMindOverMatter / 100)
 	end
-	local ChaoslifeProtected = sourcePool / (output.ChaosMindOverMatter / 100) * (1 - output.ChaosMindOverMatter / 100)
+	local ChaosSourcePool = output.ManaUnreserved or 0
+	local ChaoslifeProtected = ChaosSourcePool / (output.ChaosMindOverMatter / 100) * (1 - output.ChaosMindOverMatter / 100)
 	local ChaoseffectiveLife = 0
 	if output.ChaosMindOverMatter >= 100 then
-		ChaoseffectiveLife = output.LifeUnreserved + sourcePool
+		ChaoseffectiveLife = output.LifeUnreserved + ChaosSourcePool
 	else
 		ChaoseffectiveLife = m_max(output.LifeUnreserved - ChaoslifeProtected, 0) + m_min(output.LifeUnreserved, ChaoslifeProtected) / (1 - output.ChaosMindOverMatter / 100)
 	end
@@ -456,7 +457,7 @@ function calcs.defence(env, actor)
 		if output.ChaosMindOverMatter then
 			breakdown.ChaosMindOverMatter = {
 				s_format("Total life protected:"),
-				s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Flag(nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
+				s_format("%d ^8(unreserved mana)", ChaosSourcePool),
 				s_format("/ %.2f ^8(portion taken from mana)", output.ChaosMindOverMatter / 100),
 				s_format("x %.2f ^8(portion taken from life)", 1 - output.ChaosMindOverMatter / 100),
 				s_format("= %d", ChaoslifeProtected),
