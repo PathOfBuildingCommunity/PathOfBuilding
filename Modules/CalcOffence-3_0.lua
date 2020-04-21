@@ -497,10 +497,13 @@ function calcs.offence(env, actor, activeSkill)
 	elseif skillData.cooldown then
 		local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 		output.Cooldown = cooldownOverride or skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+		
+		output.Cooldown = math.ceil(output.Cooldown * 30)/30
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
+				s_format("rounded up to nearest server tick"),
 				s_format("= %.2fs", output.Cooldown)
 			}
 		end
