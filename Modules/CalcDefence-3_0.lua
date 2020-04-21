@@ -854,4 +854,24 @@ function calcs.defence(env, actor)
 			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
 		end
 	end
+	
+	--maximum hit taken
+	output.MaximumHitTaken = output.TotalPool / output.PhysicalTakenHitMult
+	if breakdown then
+		breakdown.MaximumHitTaken = {
+			s_format("Total Pool: %d", output.TotalPool),
+			s_format("damage taken: %.2f", output.PhysicalTakenHitMult),
+			s_format("Total EHP: %d", output.MaximumHitTaken),
+		}
+	end
+	--total EHP
+	output.TotalEHP = output.MaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.PhysicalMeleeDamageChance / 100) 
+	if breakdown then
+		breakdown.TotalEHP = {
+			s_format("Maximum Hit taken: %d", output.MaximumHitTaken),
+			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
+			s_format("Chance to not take damage when hit: %d%%", output.PhysicalMeleeDamageChance),
+			s_format("Total EHP: %d", output.TotalEHP),
+		}
+	end
 end

@@ -517,6 +517,12 @@ return {
 	{ label = "Total pool", { format = "{0:output:TotalPool}", 
 		{ breakdown = "TotalPool" }, 
 	} }, 
+	{ label = "Maximum Hit taken", { format = "{0:output:MaximumHitTaken}", 
+		{ breakdown = "MaximumHitTaken" }, 
+	} }, 
+	{ label = "Effective health", { format = "{0:output:TotalEHP}", 
+		{ breakdown = "TotalEHP" }, 
+	} }, 
 } }, { defaultCollapsed = false, label = "Degen", data = {
 	{ label = "Total Degen", haveOutput = "TotalDegen", { format = "{1:output:TotalDegen}", 
 		{ breakdown = "TotalDegen" },
