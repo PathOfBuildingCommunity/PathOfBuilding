@@ -512,41 +512,6 @@ function calcs.defence(env, actor)
 		t_insert(breakdown.ChaosTotalPool, s_format("TotalPool: %d", output.ChaosTotalPool))
 	end
 	
-	--maximum hit taken
-	output.PhysicalMaximumHitTaken = output.PhysicalTotalPool / output.PhysicalTakenHitMult
-	output.LightningMaximumHitTaken = output.LightningTotalPool / output.LightningTakenHitMult
-	output.ColdMaximumHitTaken = output.ColdTotalPool / output.ColdTakenHitMult
-	output.FireMaximumHitTaken = output.FireTotalPool / output.FireTakenHitMult
-	output.ChaosMaximumHitTaken = output.ChaosTotalPool / output.ChaosTakenHitMult
-	output.SminMaximumHitTaken = m_second_min({output.PhysicalMaximumHitTaken, output.LightningMaximumHitTaken, output.ColdMaximumHitTaken, output.FireMaximumHitTaken, output.ChaosMaximumHitTaken})
-	if breakdown then
-		breakdown.PhysicalMaximumHitTaken = {
-			s_format("Total Pool: %d", output.PhysicalTotalPool),
-			s_format("damage taken: %.2f", output.PhysicalTakenHitMult),
-			s_format("Total EHP: %d", output.PhysicalMaximumHitTaken),
-		}
-		breakdown.LightningMaximumHitTaken = {
-			s_format("Total Pool: %d", output.LightningTotalPool),
-			s_format("damage taken: %.2f", output.LightningTakenHitMult),
-			s_format("Total EHP: %d", output.LightningMaximumHitTaken),
-		}
-		breakdown.ColdMaximumHitTaken = {
-			s_format("Total Pool: %d", output.ColdTotalPool),
-			s_format("damage taken: %.2f", output.ColdTakenHitMult),
-			s_format("Total EHP: %d", output.ColdMaximumHitTaken),
-		}
-		breakdown.FireMaximumHitTaken = {
-			s_format("Total Pool: %d", output.FireTotalPool),
-			s_format("damage taken: %.2f", output.FireTakenHitMult),
-			s_format("Total EHP: %d", output.FireMaximumHitTaken),
-		}
-		breakdown.ChaosMaximumHitTaken = {
-			s_format("Total Pool: %d", output.ChaosTotalPool),
-			s_format("damage taken: %.2f", output.ChaosTakenHitMult),
-			s_format("Total EHP: %d", output.ChaosMaximumHitTaken),
-		}
-	end
-	
 	-- Damage taken multipliers/Degen calculations
 	for _, damageType in ipairs(dmgTypeList) do
 		local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
@@ -1004,6 +969,76 @@ function calcs.defence(env, actor)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
 		breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
+	end
+	
+	--maximum hit taken
+	output.PhysicalMaximumHitTaken = output.PhysicalTotalPool / output.PhysicalTakenHitMult
+	output.LightningMaximumHitTaken = output.LightningTotalPool / output.LightningTakenHitMult
+	output.ColdMaximumHitTaken = output.ColdTotalPool / output.ColdTakenHitMult
+	output.FireMaximumHitTaken = output.FireTotalPool / output.FireTakenHitMult
+	output.ChaosMaximumHitTaken = output.ChaosTotalPool / output.ChaosTakenHitMult
+	output.SminMaximumHitTaken = m_second_min({output.PhysicalMaximumHitTaken, output.LightningMaximumHitTaken, output.ColdMaximumHitTaken, output.FireMaximumHitTaken, output.ChaosMaximumHitTaken})
+	if breakdown then
+		breakdown.PhysicalMaximumHitTaken = {
+			s_format("Total Pool: %d", output.PhysicalTotalPool),
+			s_format("damage taken: %.2f", output.PhysicalTakenHitMult),
+			s_format("Total EHP: %d", output.PhysicalMaximumHitTaken),
+		}
+		breakdown.LightningMaximumHitTaken = {
+			s_format("Total Pool: %d", output.LightningTotalPool),
+			s_format("damage taken: %.2f", output.LightningTakenHitMult),
+			s_format("Total EHP: %d", output.LightningMaximumHitTaken),
+		}
+		breakdown.ColdMaximumHitTaken = {
+			s_format("Total Pool: %d", output.ColdTotalPool),
+			s_format("damage taken: %.2f", output.ColdTakenHitMult),
+			s_format("Total EHP: %d", output.ColdMaximumHitTaken),
+		}
+		breakdown.FireMaximumHitTaken = {
+			s_format("Total Pool: %d", output.FireTotalPool),
+			s_format("damage taken: %.2f", output.FireTakenHitMult),
+			s_format("Total EHP: %d", output.FireMaximumHitTaken),
+		}
+		breakdown.ChaosMaximumHitTaken = {
+			s_format("Total Pool: %d", output.ChaosTotalPool),
+			s_format("damage taken: %.2f", output.ChaosTakenHitMult),
+			s_format("Total EHP: %d", output.ChaosMaximumHitTaken),
+		}
+	end
+	
+	--effective health pool vs dots
+	output.PhysicalDotEHP = output.PhysicalTotalPool / output.PhysicalTakenDotMult
+	output.LightningDotEHP = output.LightningTotalPool / output.LightningTakenDotMult
+	output.ColdDotEHP = output.ColdTotalPool / output.ColdTakenDotMult
+	output.FireDotEHP = output.FireTotalPool / output.FireTakenDotMult
+	output.ChaosDotEHP = output.ChaosTotalPool / output.ChaosTakenDotMult
+	output.SminDotEHP = m_second_min({output.PhysicalDotEHP, output.LightningDotEHP, output.ColdDotEHP, output.FireDotEHP, output.ChaosDotEHP})
+	if breakdown then
+		breakdown.PhysicalDotEHP = {
+			s_format("Total Pool: %d", output.PhysicalTotalPool),
+			s_format("damage taken: %.2f", output.PhysicalTakenDotMult),
+			s_format("Total EHP: %d", output.PhysicalDotEHP),
+		}
+		breakdown.LightningDotEHP = {
+			s_format("Total Pool: %d", output.LightningTotalPool),
+			s_format("damage taken: %.2f", output.LightningTakenDotMult),
+			s_format("Total EHP: %d", output.LightningDotEHP),
+		}
+		breakdown.ColdDotEHP = {
+			s_format("Total Pool: %d", output.ColdTotalPool),
+			s_format("damage taken: %.2f", output.ColdTakenDotMult),
+			s_format("Total EHP: %d", output.ColdDotEHP),
+		}
+		breakdown.FireDotEHP = {
+			s_format("Total Pool: %d", output.FireTotalPool),
+			s_format("damage taken: %.2f", output.FireTakenDotMult),
+			s_format("Total EHP: %d", output.FireDotEHP),
+		}
+		breakdown.ChaosDotEHP = {
+			s_format("Total Pool: %d", output.ChaosTotalPool),
+			s_format("damage taken: %.2f", output.ChaosTakenDotMult),
+			s_format("Total EHP: %d", output.ChaosDotEHP),
+		}
 	end
 	
 	--total EHP
