@@ -889,13 +889,41 @@ function calcs.defence(env, actor)
 		}
 	end
 	--total EHP
-	output.TotalEHP = output.PhysicalMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.PhysicalMeleeDamageChance / 100) 
+	output.PhysicalTotalEHP = output.PhysicalMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.PhysicalMeleeDamageChance / 100) 
+	output.LightningTotalEHP = output.LightningMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.LightningMeleeDamageChance / 100) 
+	output.ColdTotalEHP = output.ColdMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.ColdMeleeDamageChance / 100) 
+	output.FireTotalEHP = output.FireMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.FireMeleeDamageChance / 100) 
+	output.ChaosTotalEHP = output.ChaosMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.ChaosMeleeDamageChance / 100) 
 	if breakdown then
-		breakdown.TotalEHP = {
+		breakdown.PhysicalTotalEHP = {
 			s_format("Maximum Hit taken: %d", output.PhysicalMaximumHitTaken),
 			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
 			s_format("Chance to not take damage when hit: %d%%", output.PhysicalMeleeDamageChance),
-			s_format("Total EHP: %d", output.TotalEHP),
+			s_format("Total EHP: %d", output.PhysicalTotalEHP),
+		}
+		breakdown.LightningTotalEHP = {
+			s_format("Maximum Hit taken: %d", output.LightningMaximumHitTaken),
+			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
+			s_format("Chance to not take damage when hit: %d%%", output.LightningMeleeDamageChance),
+			s_format("Total EHP: %d", output.LightningTotalEHP),
+		}
+		breakdown.ColdTotalEHP = {
+			s_format("Maximum Hit taken: %d", output.ColdMaximumHitTaken),
+			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
+			s_format("Chance to not take damage when hit: %d%%", output.ColdMeleeDamageChance),
+			s_format("Total EHP: %d", output.ColdTotalEHP),
+		}
+		breakdown.FireTotalEHP = {
+			s_format("Maximum Hit taken: %d", output.FireMaximumHitTaken),
+			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
+			s_format("Chance to not take damage when hit: %d%%", output.FireMeleeDamageChance),
+			s_format("Total EHP: %d", output.FireTotalEHP),
+		}
+		breakdown.ChaosTotalEHP = {
+			s_format("Maximum Hit taken: %d", output.ChaosMaximumHitTaken),
+			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
+			s_format("Chance to not take damage when hit: %d%%", output.ChaosMeleeDamageChance),
+			s_format("Total EHP: %d", output.ChaosTotalEHP),
 		}
 	end
 end
