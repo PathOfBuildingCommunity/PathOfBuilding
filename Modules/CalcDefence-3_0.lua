@@ -435,19 +435,49 @@ function calcs.defence(env, actor)
 	end
 
 	--total pool
-	output.TotalPool = effectiveLife
+	output.PhysicalTotalPool = effectiveLife
+	output.LightningTotalPool = LightningeffectiveLife
+	output.ColdTotalPool = effectiveLife
+	output.FireTotalPool = effectiveLife
+	output.ChaosTotalPool = ChaoseffectiveLife
 	if not modDB:Flag(nil, "EnergyShieldProtectsMana") then
-		output.TotalPool = output.TotalPool + output.EnergyShield
+		output.PhysicalTotalPool = output.PhysicalTotalPool + output.EnergyShield
+		output.LightningTotalPool = output.LightningTotalPool + output.EnergyShield
+		output.ColdTotalPool = output.ColdTotalPool + output.EnergyShield
+		output.FireTotalPool = output.FireTotalPool + output.EnergyShield
 	end
 	if breakdown then
-		breakdown.TotalPool = {
+		breakdown.PhysicalTotalPool = {
 			s_format("Life: %d", output.Life),
 			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.Life)
 		}
+		breakdown.LightningTotalPool = {
+			s_format("Life: %d", output.Life),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", LightningeffectiveLife - output.Life)
+		}
+		breakdown.ColdTotalPool = {
+			s_format("Life: %d", output.Life),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.Life)
+		}
+		breakdown.FireTotalPool = {
+			s_format("Life: %d", output.Life),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.Life)
+		}
+		breakdown.ChaosTotalPool = {
+			s_format("Life: %d", output.Life),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", ChaoseffectiveLife - output.Life)
+		}
 		if not modDB:Flag(nil, "EnergyShieldProtectsMana") then
-			t_insert(breakdown.TotalPool, s_format("Energy Shield: %d", output.EnergyShield))
+			t_insert(breakdown.PhysicalTotalPool, s_format("Energy Shield: %d", output.EnergyShield))
+			t_insert(breakdown.LightningTotalPool, s_format("Energy Shield: %d", output.EnergyShield))
+			t_insert(breakdown.ColdTotalPool, s_format("Energy Shield: %d", output.EnergyShield))
+			t_insert(breakdown.FireTotalPool, s_format("Energy Shield: %d", output.EnergyShield))
 		end
-		t_insert(breakdown.TotalPool, s_format("TotalPool: %d", output.TotalPool))
+		t_insert(breakdown.PhysicalTotalPool, s_format("TotalPool: %d", output.PhysicalTotalPool))
+		t_insert(breakdown.LightningTotalPool, s_format("TotalPool: %d", output.LightningTotalPool))
+		t_insert(breakdown.ColdTotalPool, s_format("TotalPool: %d", output.ColdTotalPool))
+		t_insert(breakdown.FireTotalPool, s_format("TotalPool: %d", output.FireTotalPool))
+		t_insert(breakdown.ChaosTotalPool, s_format("TotalPool: %d", output.ChaosTotalPool))
 	end
 	
 	-- Damage taken multipliers/Degen calculations
@@ -904,34 +934,34 @@ function calcs.defence(env, actor)
 	end
 	
 	--maximum hit taken
-	output.PhysicalMaximumHitTaken = output.TotalPool / output.PhysicalTakenHitMult
-	output.LightningMaximumHitTaken = output.TotalPool / output.LightningTakenHitMult
-	output.ColdMaximumHitTaken = output.TotalPool / output.ColdTakenHitMult
-	output.FireMaximumHitTaken = output.TotalPool / output.FireTakenHitMult
-	output.ChaosMaximumHitTaken = output.TotalPool / output.ChaosTakenHitMult
+	output.PhysicalMaximumHitTaken = output.PhysicalTotalPool / output.PhysicalTakenHitMult
+	output.LightningMaximumHitTaken = output.LightningTotalPool / output.LightningTakenHitMult
+	output.ColdMaximumHitTaken = output.ColdTotalPool / output.ColdTakenHitMult
+	output.FireMaximumHitTaken = output.FireTotalPool / output.FireTakenHitMult
+	output.ChaosMaximumHitTaken = output.ChaosTotalPool / output.ChaosTakenHitMult
 	if breakdown then
 		breakdown.PhysicalMaximumHitTaken = {
-			s_format("Total Pool: %d", output.TotalPool),
+			s_format("Total Pool: %d", output.PhysicalTotalPool),
 			s_format("damage taken: %.2f", output.PhysicalTakenHitMult),
 			s_format("Total EHP: %d", output.PhysicalMaximumHitTaken),
 		}
 		breakdown.LightningMaximumHitTaken = {
-			s_format("Total Pool: %d", output.TotalPool),
+			s_format("Total Pool: %d", output.LightningTotalPool),
 			s_format("damage taken: %.2f", output.LightningTakenHitMult),
 			s_format("Total EHP: %d", output.LightningMaximumHitTaken),
 		}
 		breakdown.ColdMaximumHitTaken = {
-			s_format("Total Pool: %d", output.TotalPool),
+			s_format("Total Pool: %d", output.ColdTotalPool),
 			s_format("damage taken: %.2f", output.ColdTakenHitMult),
 			s_format("Total EHP: %d", output.ColdMaximumHitTaken),
 		}
 		breakdown.FireMaximumHitTaken = {
-			s_format("Total Pool: %d", output.TotalPool),
+			s_format("Total Pool: %d", output.FireTotalPool),
 			s_format("damage taken: %.2f", output.FireTakenHitMult),
 			s_format("Total EHP: %d", output.FireMaximumHitTaken),
 		}
 		breakdown.ChaosMaximumHitTaken = {
-			s_format("Total Pool: %d", output.TotalPool),
+			s_format("Total Pool: %d", output.ChaosTotalPool),
 			s_format("damage taken: %.2f", output.ChaosTakenHitMult),
 			s_format("Total EHP: %d", output.ChaosMaximumHitTaken),
 		}
