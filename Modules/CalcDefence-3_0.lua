@@ -373,9 +373,9 @@ function calcs.defence(env, actor)
 	end
 
 	-- Mind over Matter
-	output.MindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife")
-	output.LightningMindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "LightningDamageTakenFromManaBeforeLife")
-	output.ChaosMindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "ChaosDamageTakenFromManaBeforeLife")
+	output.MindOverMatter = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife"), 100)
+	output.LightningMindOverMatter = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "LightningDamageTakenFromManaBeforeLife"), 100)
+	output.ChaosMindOverMatter = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "ChaosDamageTakenFromManaBeforeLife"), 100)
 	local sourcePool = output.ManaUnreserved or 0
 	if modDB:Flag(nil, "EnergyShieldProtectsMana") then
 		sourcePool = sourcePool + output.EnergyShield
@@ -383,23 +383,23 @@ function calcs.defence(env, actor)
 	local lifeProtected = sourcePool / (output.MindOverMatter / 100) * (1 - output.MindOverMatter / 100)
 	local effectiveLife = 0
 	if output.MindOverMatter >= 100 then
-		effectiveLife = output.Life + sourcePool
+		effectiveLife = output.LifeUnreserved + sourcePool
 	else
-		effectiveLife = m_max(output.Life - lifeProtected, 0) + m_min(output.Life, lifeProtected) / (1 - output.MindOverMatter / 100)
+		effectiveLife = m_max(output.LifeUnreserved - lifeProtected, 0) + m_min(output.LifeUnreserved, lifeProtected) / (1 - output.MindOverMatter / 100)
 	end
 	local LightninglifeProtected = sourcePool / (output.LightningMindOverMatter / 100) * (1 - output.LightningMindOverMatter / 100)
 	local LightningeffectiveLife = 0
 	if output.LightningMindOverMatter >= 100 then
-		LightningeffectiveLife = output.Life + sourcePool
+		LightningeffectiveLife = output.LifeUnreserved + sourcePool
 	else
-		LightningeffectiveLife = m_max(output.Life - LightninglifeProtected, 0) + m_min(output.Life, LightninglifeProtected) / (1 - output.LightningMindOverMatter / 100)
+		LightningeffectiveLife = m_max(output.LifeUnreserved - LightninglifeProtected, 0) + m_min(output.LifeUnreserved, LightninglifeProtected) / (1 - output.LightningMindOverMatter / 100)
 	end
 	local ChaoslifeProtected = sourcePool / (output.ChaosMindOverMatter / 100) * (1 - output.ChaosMindOverMatter / 100)
 	local ChaoseffectiveLife = 0
 	if output.ChaosMindOverMatter >= 100 then
-		ChaoseffectiveLife = output.Life + sourcePool
+		ChaoseffectiveLife = output.LifeUnreserved + sourcePool
 	else
-		ChaoseffectiveLife = m_max(output.Life - ChaoslifeProtected, 0) + m_min(output.Life, ChaoslifeProtected) / (1 - output.ChaosMindOverMatter / 100)
+		ChaoseffectiveLife = m_max(output.LifeUnreserved - ChaoslifeProtected, 0) + m_min(output.LifeUnreserved, ChaoslifeProtected) / (1 - output.ChaosMindOverMatter / 100)
 	end
 	if breakdown then
 		if output.MindOverMatter then
@@ -448,24 +448,24 @@ function calcs.defence(env, actor)
 	end
 	if breakdown then
 		breakdown.PhysicalTotalPool = {
-			s_format("Life: %d", output.Life),
-			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.Life)
+			s_format("Life: %d", output.LifeUnreserved),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.LifeUnreserved)
 		}
 		breakdown.LightningTotalPool = {
-			s_format("Life: %d", output.Life),
-			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", LightningeffectiveLife - output.Life)
+			s_format("Life: %d", output.LifeUnreserved),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", LightningeffectiveLife - output.LifeUnreserved)
 		}
 		breakdown.ColdTotalPool = {
-			s_format("Life: %d", output.Life),
-			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.Life)
+			s_format("Life: %d", output.LifeUnreserved),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.LifeUnreserved)
 		}
 		breakdown.FireTotalPool = {
-			s_format("Life: %d", output.Life),
-			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.Life)
+			s_format("Life: %d", output.LifeUnreserved),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.LifeUnreserved)
 		}
 		breakdown.ChaosTotalPool = {
-			s_format("Life: %d", output.Life),
-			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", ChaoseffectiveLife - output.Life)
+			s_format("Life: %d", output.LifeUnreserved),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", ChaoseffectiveLife - output.LifeUnreserved)
 		}
 		if not modDB:Flag(nil, "EnergyShieldProtectsMana") then
 			t_insert(breakdown.PhysicalTotalPool, s_format("Energy Shield: %d", output.EnergyShield))
