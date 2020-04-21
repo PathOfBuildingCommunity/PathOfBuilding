@@ -403,9 +403,11 @@ function calcs.defence(env, actor)
 	end
 
 	-- Mind over Matter
+	output.AnyMindOverMatter = 0
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100)
 		if output[damageType.."MindOverMatter"] > 0 then
+			output.AnyMindOverMatter = output.AnyMindOverMatter + output[damageType.."MindOverMatter"]
 			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
 			local manatext = "unreserved mana"
 			if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and modDB:Flag(nil, "EnergyShieldProtectsMana") then
@@ -434,8 +436,10 @@ function calcs.defence(env, actor)
 			output[damageType.."EffectiveLife"] = output.LifeUnreserved
 		end
 	end
-	output.SminMindOverMatter = m_second_min({output.PhysicalMindOverMatter, output.LightningMindOverMatter, output.ColdMindOverMatter, output.FireMindOverMatter, output.ChaosMindOverMatter})
-
+	if output.AnyMindOverMatter >= 0 then
+		output.SminMindOverMatter = m_second_min({output.PhysicalMindOverMatter, output.LightningMindOverMatter, output.ColdMindOverMatter, output.FireMindOverMatter, output.ChaosMindOverMatter})
+	end
+	
 	--total pool
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."TotalPool"] = output[damageType.."EffectiveLife"]

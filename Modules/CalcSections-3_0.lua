@@ -523,7 +523,7 @@ return {
 	},
 }, }, { defaultCollapsed = false, label = "\"Health\" Pool", data = {
 	colWidth = 95,
-	{ label = "Mind over Matter", haveOutput = "LightningMindOverMatter",
+	{ label = "Mind over Matter", haveOutput = "AnyMindOverMatter",
 		{ format = "{0:output:SminMindOverMatter}", 
 			{ breakdown = "SminMindOverMatter" },			
 		},
