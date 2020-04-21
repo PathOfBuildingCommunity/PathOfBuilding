@@ -39,6 +39,36 @@ function calcs.armourReduction(armour, raw)
 	return round(calcs.armourReductionF(armour, raw))
 end
 
+-- find second minimum
+function m_second_min(array)
+	local minimum = 2147483648
+	local Sminimum = 2147483648
+	for i, val in ipairs(array) do
+		if val < minimum then
+			Sminimum = minimum
+			minimum = val
+		elseif val < Sminimum then
+			Sminimum = val
+		end
+	end
+	return Sminimum
+end
+
+-- find second maximum
+function m_second_max(array)
+	local maximum = -2147483648
+	local Smaximum = -2147483648
+	for i, val in ipairs(array) do
+		if val > maximum then
+			Smaximum = maximum
+			maximum = val
+		elseif val > Smaximum then
+			Smaximum = val
+		end
+	end
+	return Smaximum
+end
+
 -- Performs all defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
@@ -376,6 +406,7 @@ function calcs.defence(env, actor)
 	output.MindOverMatter = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife"), 100)
 	output.LightningMindOverMatter = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "LightningDamageTakenFromManaBeforeLife"), 100)
 	output.ChaosMindOverMatter = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "ChaosDamageTakenFromManaBeforeLife"), 100)
+	output.SminMindOverMatter = m_second_min({output.MindOverMatter, output.LightningMindOverMatter, output.MindOverMatter, output.MindOverMatter, output.ChaosMindOverMatter})
 	local sourcePool = output.ManaUnreserved or 0
 	if modDB:Flag(nil, "EnergyShieldProtectsMana") then
 		sourcePool = sourcePool + output.EnergyShield
@@ -446,6 +477,7 @@ function calcs.defence(env, actor)
 		output.ColdTotalPool = output.ColdTotalPool + output.EnergyShield
 		output.FireTotalPool = output.FireTotalPool + output.EnergyShield
 	end
+	output.SminTotalPool = m_second_min({output.PhysicalTotalPool, output.LightningTotalPool, output.ColdTotalPool, output.FireTotalPool, output.ChaosTotalPool})
 	if breakdown then
 		breakdown.PhysicalTotalPool = {
 			s_format("Life: %d", output.LifeUnreserved),
@@ -646,6 +678,8 @@ function calcs.defence(env, actor)
 		end
 		output[damageType.."TakenHitMult"] = mult
 	end
+	output.SmaxTakenHitMult = m_second_max({output.PhysicalTakenHitMult, output.LightningTakenHitMult, output.ColdTakenHitMult, output.FireTakenHitMult, output.ChaosTakenHitMult})
+	output.SmaxTakenDotMult = m_second_max({output.PhysicalTakenDotMult, output.LightningTakenDotMult, output.ColdTakenDotMult, output.FireTakenDotMult, output.ChaosTakenDotMult})
 
 	-- Other defences: block, dodge, stun recovery/avoidance
 	output.MovementSpeedMod = calcLib.mod(modDB, nil, "MovementSpeed")
@@ -745,6 +779,7 @@ function calcs.defence(env, actor)
 	output.ColdMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidColdDamageChance / 100) * 100
 	output.FireMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidFireDamageChance / 100) * 100
 	output.ChaosMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * 100
+	output.SminMeleeDamageChance = m_second_min({output.PhysicalMeleeDamageChance, output.LightningMeleeDamageChance, output.ColdMeleeDamageChance, output.FireMeleeDamageChance, output.ChaosMeleeDamageChance})
 	if breakdown then
 		breakdown.PhysicalMeleeDamageChance = { }
 		breakdown.multiChain(breakdown.PhysicalMeleeDamageChance, {
@@ -782,6 +817,7 @@ function calcs.defence(env, actor)
 	output.ColdProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
 	output.FireProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
 	output.ChaosProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidProjectilesChance / 100) * 100
+	output.SminProjectileDamageChance = m_second_min({output.PhysicalProjectileDamageChance, output.LightningProjectileDamageChance, output.ColdProjectileDamageChance, output.FireProjectileDamageChance, output.ChaosProjectileDamageChance})
 	if breakdown then
 		breakdown.PhysicalProjectileDamageChance = { }
 		breakdown.multiChain(breakdown.PhysicalProjectileDamageChance, {
@@ -820,35 +856,36 @@ function calcs.defence(env, actor)
 	output.ColdSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidColdDamageChance / 100) * 100
 	output.FireSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidFireDamageChance / 100) * 100
 	output.ChaosSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * 100
+	output.SminSpellDamageChance = m_second_min({output.PhysicalSpellDamageChance, output.LightningSpellDamageChance, output.ColdSpellDamageChance, output.FireSpellDamageChance, output.ChaosSpellDamageChance})
 	if breakdown then
 		breakdown.PhysicalSpellDamageChance = { }
 		breakdown.multiChain(breakdown.PhysicalSpellDamageChance, {
 			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
 			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidPhysicalDamageChance / 100 },
-			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.PhysicalSpellDamageChance),
+			total = s_format("= %d%% ^8(chance to take damage from a Spell)", 100 - output.PhysicalSpellDamageChance),
 		})
 		breakdown.LightningSpellDamageChance = { }
 		breakdown.multiChain(breakdown.LightningSpellDamageChance, {
 			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
 			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidLightningDamageChance / 100 },
-			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.LightningSpellDamageChance),
+			total = s_format("= %d%% ^8(chance to take damage from a Spell)", 100 - output.LightningSpellDamageChance),
 		})
 		breakdown.ColdSpellDamageChance = { }
 		breakdown.multiChain(breakdown.ColdSpellDamageChance, {
 			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
 			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidColdDamageChance / 100 },
-			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ColdSpellDamageChance),
+			total = s_format("= %d%% ^8(chance to take damage from a Spell)", 100 - output.ColdSpellDamageChance),
 		})
 		breakdown.FireSpellDamageChance = { }
 		breakdown.multiChain(breakdown.FireSpellDamageChance, {
 			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
 			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidFireDamageChance / 100 },
-			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.FireSpellDamageChance),
+			total = s_format("= %d%% ^8(chance to take damage from a Spell)", 100 - output.FireSpellDamageChance),
 		})
 		breakdown.ChaosSpellDamageChance = { }
 		breakdown.multiChain(breakdown.ChaosSpellDamageChance, {
 			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ChaosSpellDamageChance),
+			total = s_format("= %d%% ^8(chance to take damage from a Spell)", 100 - output.ChaosSpellDamageChance),
 		})
 	end
 	--spell projectile
@@ -857,6 +894,7 @@ function calcs.defence(env, actor)
 	output.ColdSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
 	output.FireSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
 	output.ChaosSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidProjectilesChance / 100) * 100
+	output.SminSpellProjectileDamageChance = m_second_min({output.PhysicalSpellProjectileDamageChance, output.LightningSpellProjectileDamageChance, output.ColdSpellProjectileDamageChance, output.FireSpellProjectileDamageChance, output.ChaosSpellProjectileDamageChance})
 	if breakdown then
 		breakdown.PhysicalSpellProjectileDamageChance = { }
 		breakdown.multiChain(breakdown.PhysicalSpellProjectileDamageChance, {
@@ -939,6 +977,7 @@ function calcs.defence(env, actor)
 	output.ColdMaximumHitTaken = output.ColdTotalPool / output.ColdTakenHitMult
 	output.FireMaximumHitTaken = output.FireTotalPool / output.FireTakenHitMult
 	output.ChaosMaximumHitTaken = output.ChaosTotalPool / output.ChaosTakenHitMult
+	output.SminMaximumHitTaken = m_second_min({output.PhysicalMaximumHitTaken, output.LightningMaximumHitTaken, output.ColdMaximumHitTaken, output.FireMaximumHitTaken, output.ChaosMaximumHitTaken})
 	if breakdown then
 		breakdown.PhysicalMaximumHitTaken = {
 			s_format("Total Pool: %d", output.PhysicalTotalPool),
@@ -972,6 +1011,7 @@ function calcs.defence(env, actor)
 	output.ColdTotalEHP = output.ColdMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.ColdAverageDamageChance / 100) 
 	output.FireTotalEHP = output.FireMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.FireAverageDamageChance / 100) 
 	output.ChaosTotalEHP = output.ChaosMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.ChaosAverageDamageChance / 100) 
+	output.SminTotalEHP = m_second_min({output.PhysicalTotalEHP, output.LightningTotalEHP, output.ColdTotalEHP, output.FireTotalEHP, output.ChaosTotalEHP})
 	if breakdown then
 		breakdown.PhysicalTotalEHP = {
 			s_format("Maximum Hit taken: %d", output.PhysicalMaximumHitTaken),
