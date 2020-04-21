@@ -911,6 +911,7 @@ function calcs.offence(env, actor, activeSkill)
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 			end
+			output.Speed = m_min(output.Speed, 30)
 			if output.Speed == 0 then 
 				output.Time = 0
 			else 
