@@ -407,7 +407,7 @@ function calcs.defence(env, actor)
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100)
 		local sourcePool = output.ManaUnreserved or 0
 		local manatext = "unreserved mana"
-		if (not (damageType == "Chaos")) and modDB:Flag(nil, "EnergyShieldProtectsMana") then
+		if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and modDB:Flag(nil, "EnergyShieldProtectsMana") then
 			manatext = manatext.." + total energy shield"
 			sourcePool = sourcePool + output.EnergyShield
 		end
@@ -436,7 +436,7 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."TotalPool"] = output[damageType.."EffectiveLife"]
 		local manatext = "Mana"
-		if (not (damageType == "Chaos")) then 
+		if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) then 
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") then
 				manatext = manatext.." and total Energy Shield"
 			else
@@ -448,7 +448,7 @@ function calcs.defence(env, actor)
 				s_format("Life: %d", output.LifeUnreserved),
 				s_format("%s through MoM: %d", manatext, output[damageType.."EffectiveLife"] - output.LifeUnreserved)
 			}
-			if (not (damageType == "Chaos")) and (not modDB:Flag(nil, "EnergyShieldProtectsMana")) then
+			if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and (not modDB:Flag(nil, "EnergyShieldProtectsMana")) then
 				t_insert(breakdown[damageType.."TotalPool"], s_format("Energy Shield: %d", output.EnergyShield))
 			end
 			t_insert(breakdown[damageType.."TotalPool"], s_format("TotalPool: %d", output[damageType.."TotalPool"]))
