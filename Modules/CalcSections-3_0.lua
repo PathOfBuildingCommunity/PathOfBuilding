@@ -375,6 +375,74 @@ return {
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },
+{ 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
+	colWidth = 95,
+	{
+		{ format = "Average:", },
+		{ format = "Physical:" },
+		{ format = "Lightning:" },
+		{ format = "Cold:" },
+		{ format = "Fire:" },
+		{ format = "Chaos:" },
+	},
+	{ label = "Hit taken",
+		{ },
+		{ format = "x {2:output:PhysicalTakenHitMult}", 
+			{ breakdown = "PhysicalTakenHitMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenWhenHit", "PhysicalDamageTaken", "PhysicalDamageTakenWhenHit", "PhysicalDamageTakenAsFire", "PhysicalDamageTakenAsCold", "PhysicalDamageTakenAsLightning", "PhysicalDamageTakenAsChaos" } } 
+		},
+		{ format = "x {2:output:LightningTakenHitMult}",
+			{ breakdown = "LightningTakenHitMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenWhenHit", "LightningDamageTaken", "LightningDamageTakenWhenHit", "ElementalDamageTaken", "ElementalDamageTakenWhenHit", "ElementalDamageTakenOverTime", "LightningDamageTakenAsPhysical", "LightningDamageTakenAsFire", "LightningDamageTakenAsCold", "LightningDamageTakenAsChaos", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos" } }
+		},
+		{ format = "x {2:output:ColdTakenHitMult}",
+			{ breakdown = "ColdTakenHitMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenWhenHit", "ColdDamageTaken", "ColdDamageTakenWhenHit", "ElementalDamageTaken", "ElementalDamageTakenWhenHit", "ElementalDamageTakenOverTime", "ColdDamageTakenAsPhysical", "ColdDamageTakenAsFire", "ColdDamageTakenAsLightning", "ColdDamageTakenAsChaos", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos" } }
+		},
+		{ format = "x {2:output:FireTakenHitMult}", 
+			{ breakdown = "FireTakenHitMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenWhenHit", "FireDamageTaken", "FireDamageTakenWhenHit", "ElementalDamageTaken", "ElementalDamageTakenWhenHit", "ElementalDamageTakenOverTime", "FireDamageTakenAsPhysical", "FireDamageDamageTakenAsCold", "FireDamageTakenAsLightning", "FireDamageTakenAsChaos", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos" }  } 
+		},
+		{ format = "x {2:output:ChaosTakenHitMult}%",
+			{ breakdown = "ChaosTakenHitMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenWhenHit", "ChaosDamageTaken", "ChaosDamageTakenWhenHit", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenAsFire", "ChaosDamageTakenAsCold", "ChaosDamageTakenAsLightning" } }
+		},
+	},
+	{ label = "Dot taken",
+		{ },
+		{ format = "x {2:output:PhysicalTakenDotMult}", 
+			{ breakdown = "PhysicalTakenDotMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime" } } 
+		},
+		{ format = "x {2:output:LightningTakenDotMult}",
+			{ breakdown = "LightningTakenDotMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "LightningDamageTaken", "LightningDamageTakenOverTime" } }
+		},
+		{ format = "x {2:output:ColdTakenDotMult}",
+			{ breakdown = "ColdTakenDotMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "ColdDamageTaken", "ColdDamageTakenOverTime" } }
+		},
+		{ format = "x {2:output:FireTakenDotMult}", 
+			{ breakdown = "FireTakenDotMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime" }  } 
+		},
+		{ format = "x {2:output:ChaosTakenDotMult}%",
+			{ breakdown = "ChaosTakenDotMult" }, 
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime" } }
+		},
+	},
+	{ label = "Mind over Matter", haveOutput = "MindOverMatter", { format = "{0:output:MindOverMatter}%", 
+		{ breakdown = "MindOverMatter" }, 
+		{ modName = "DamageTakenFromManaBeforeLife" }, 
+	}, },
+	{ label = "Total Degen", haveOutput = "TotalDegen", { format = "{1:output:TotalDegen}", 
+		{ breakdown = "TotalDegen" },
+		{ label = "Sources", modName = { "PhysicalDegen", "FireDegen", "ColdDegen", "LightningDegen", "ChaosDegen" }, modType = "BASE" },
+	}, },
+	{ label = "Net Life Regen", haveOutput = "NetLifeRegen", { format = "{1:output:NetLifeRegen}", { breakdown = "NetLifeRegen" }, }, },
+	{ label = "Net Mana Regen", haveOutput = "NetManaRegen", { format = "{1:output:NetManaRegen}", { breakdown = "NetManaRegen" }, }, },
+} }
+} },
 { 1, "Speed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Attack/Cast Rate", data = {
 	extra = "{2:output:Speed}/s",
 	{ label = "MH Inc. Att. Speed", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "weapon1", }, }, },
@@ -1030,74 +1098,6 @@ return {
 		{ breakdown = "ChaosResist" },
 		{ modName = { "ChaosResistMax", "ChaosResist" }, }, 
 	}, },
-} }
-} },
-{ 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
-	colWidth = 95,
-	{
-		{ format = "Average:", },
-		{ format = "Physical:" },
-		{ format = "Lightning:" },
-		{ format = "Cold:" },
-		{ format = "Fire:" },
-		{ format = "Chaos:" },
-	},
-	{ label = "Hit taken",
-		{ },
-		{ format = "x {2:output:PhysicalTakenHitMult}", 
-			{ breakdown = "PhysicalTakenHitMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenWhenHit", "PhysicalDamageTaken", "PhysicalDamageTakenWhenHit", "PhysicalDamageTakenAsFire", "PhysicalDamageTakenAsCold", "PhysicalDamageTakenAsLightning", "PhysicalDamageTakenAsChaos" } } 
-		},
-		{ format = "x {2:output:LightningTakenHitMult}",
-			{ breakdown = "LightningTakenHitMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenWhenHit", "LightningDamageTaken", "LightningDamageTakenWhenHit", "ElementalDamageTaken", "ElementalDamageTakenWhenHit", "ElementalDamageTakenOverTime", "LightningDamageTakenAsPhysical", "LightningDamageTakenAsFire", "LightningDamageTakenAsCold", "LightningDamageTakenAsChaos", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos" } }
-		},
-		{ format = "x {2:output:ColdTakenHitMult}",
-			{ breakdown = "ColdTakenHitMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenWhenHit", "ColdDamageTaken", "ColdDamageTakenWhenHit", "ElementalDamageTaken", "ElementalDamageTakenWhenHit", "ElementalDamageTakenOverTime", "ColdDamageTakenAsPhysical", "ColdDamageTakenAsFire", "ColdDamageTakenAsLightning", "ColdDamageTakenAsChaos", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos" } }
-		},
-		{ format = "x {2:output:FireTakenHitMult}", 
-			{ breakdown = "FireTakenHitMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenWhenHit", "FireDamageTaken", "FireDamageTakenWhenHit", "ElementalDamageTaken", "ElementalDamageTakenWhenHit", "ElementalDamageTakenOverTime", "FireDamageTakenAsPhysical", "FireDamageDamageTakenAsCold", "FireDamageTakenAsLightning", "FireDamageTakenAsChaos", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos" }  } 
-		},
-		{ format = "x {2:output:ChaosTakenHitMult}%",
-			{ breakdown = "ChaosTakenHitMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenWhenHit", "ChaosDamageTaken", "ChaosDamageTakenWhenHit", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenAsFire", "ChaosDamageTakenAsCold", "ChaosDamageTakenAsLightning" } }
-		},
-	},
-	{ label = "Dot taken",
-		{ },
-		{ format = "x {2:output:PhysicalTakenDotMult}", 
-			{ breakdown = "PhysicalTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime" } } 
-		},
-		{ format = "x {2:output:LightningTakenDotMult}",
-			{ breakdown = "LightningTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "LightningDamageTaken", "LightningDamageTakenOverTime" } }
-		},
-		{ format = "x {2:output:ColdTakenDotMult}",
-			{ breakdown = "ColdTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "ColdDamageTaken", "ColdDamageTakenOverTime" } }
-		},
-		{ format = "x {2:output:FireTakenDotMult}", 
-			{ breakdown = "FireTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime" }  } 
-		},
-		{ format = "x {2:output:ChaosTakenDotMult}%",
-			{ breakdown = "ChaosTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime" } }
-		},
-	},
-	{ label = "Mind over Matter", haveOutput = "MindOverMatter", { format = "{0:output:MindOverMatter}%", 
-		{ breakdown = "MindOverMatter" }, 
-		{ modName = "DamageTakenFromManaBeforeLife" }, 
-	}, },
-	{ label = "Total Degen", haveOutput = "TotalDegen", { format = "{1:output:TotalDegen}", 
-		{ breakdown = "TotalDegen" },
-		{ label = "Sources", modName = { "PhysicalDegen", "FireDegen", "ColdDegen", "LightningDegen", "ChaosDegen" }, modType = "BASE" },
-	}, },
-	{ label = "Net Life Regen", haveOutput = "NetLifeRegen", { format = "{1:output:NetLifeRegen}", { breakdown = "NetLifeRegen" }, }, },
-	{ label = "Net Mana Regen", haveOutput = "NetManaRegen", { format = "{1:output:NetManaRegen}", { breakdown = "NetManaRegen" }, }, },
 } }
 } },
 { 1, "Block", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Block", data = {
