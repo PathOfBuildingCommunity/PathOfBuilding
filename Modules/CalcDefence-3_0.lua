@@ -405,29 +405,33 @@ function calcs.defence(env, actor)
 	-- Mind over Matter
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100)
-		local sourcePool = m_max(output.ManaUnreserved or 0, 0)
-		local manatext = "unreserved mana"
-		if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and modDB:Flag(nil, "EnergyShieldProtectsMana") then
-			manatext = manatext.." + total energy shield"
-			sourcePool = sourcePool + output.EnergyShield
-		end
-		local lifeProtected = sourcePool / (output[damageType.."MindOverMatter"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
-		if output[damageType.."MindOverMatter"] >= 100 then
-			output[damageType.."EffectiveLife"] = output.LifeUnreserved + sourcePool
-		else
-			output[damageType.."EffectiveLife"] = m_max(output.LifeUnreserved - lifeProtected, 0) + m_min(output.LifeUnreserved, lifeProtected) / (1 - output[damageType.."MindOverMatter"] / 100)
-		end
-		if breakdown then
-			if output[damageType.."MindOverMatter"] then
-				breakdown[damageType.."MindOverMatter"] = {
-					s_format("Total life protected:"),
-					s_format("%d ^8(%s)", sourcePool, manatext),
-					s_format("/ %.2f ^8(portion taken from mana)", output[damageType.."MindOverMatter"] / 100),
-					s_format("x %.2f ^8(portion taken from life)", 1 - output[damageType.."MindOverMatter"] / 100),
-					s_format("= %d", lifeProtected),
-					s_format("Effective life: %d", output[damageType.."EffectiveLife"])
-				}
+		if output[damageType.."MindOverMatter"] > 0 then
+			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
+			local manatext = "unreserved mana"
+			if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and modDB:Flag(nil, "EnergyShieldProtectsMana") then
+				manatext = manatext.." + total energy shield"
+				sourcePool = sourcePool + output.EnergyShield
 			end
+			local lifeProtected = sourcePool / (output[damageType.."MindOverMatter"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
+			if output[damageType.."MindOverMatter"] >= 100 then
+				output[damageType.."EffectiveLife"] = output.LifeUnreserved + sourcePool
+			else
+				output[damageType.."EffectiveLife"] = m_max(output.LifeUnreserved - lifeProtected, 0) + m_min(output.LifeUnreserved, lifeProtected) / (1 - output[damageType.."MindOverMatter"] / 100)
+			end
+			if breakdown then
+				if output[damageType.."MindOverMatter"] then
+					breakdown[damageType.."MindOverMatter"] = {
+						s_format("Total life protected:"),
+						s_format("%d ^8(%s)", sourcePool, manatext),
+						s_format("/ %.2f ^8(portion taken from mana)", output[damageType.."MindOverMatter"] / 100),
+						s_format("x %.2f ^8(portion taken from life)", 1 - output[damageType.."MindOverMatter"] / 100),
+						s_format("= %d", lifeProtected),
+						s_format("Effective life: %d", output[damageType.."EffectiveLife"])
+					}
+				end
+			end
+		else
+			output[damageType.."EffectiveLife"] = output.LifeUnreserved
 		end
 	end
 	output.SminMindOverMatter = m_second_min({output.PhysicalMindOverMatter, output.LightningMindOverMatter, output.ColdMindOverMatter, output.FireMindOverMatter, output.ChaosMindOverMatter})
