@@ -374,22 +374,49 @@ function calcs.defence(env, actor)
 
 	-- Mind over Matter
 	output.MindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife")
-	local effectiveLife = 0
-	if output.MindOverMatter and breakdown then
-		local sourcePool = output.ManaUnreserved or 0
-		if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-			sourcePool = sourcePool + output.EnergyShield
+	output.LightningMindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "LightningDamageTakenFromManaBeforeLife")
+	output.ChaosMindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, "ChaosDamageTakenFromManaBeforeLife")
+	local sourcePool = output.ManaUnreserved or 0
+	if modDB:Flag(nil, "EnergyShieldProtectsMana") then
+		sourcePool = sourcePool + output.EnergyShield
+	end
+	local lifeProtected = sourcePool / (output.MindOverMatter / 100) * (1 - output.MindOverMatter / 100)
+	local effectiveLife = m_max(output.Life - lifeProtected, 0) + m_min(output.Life, lifeProtected) / (1 - output.MindOverMatter / 100)
+	local LightninglifeProtected = sourcePool / (output.LightningMindOverMatter / 100) * (1 - output.LightningMindOverMatter / 100)
+	local LightningeffectiveLife = m_max(output.Life - LightninglifeProtected, 0) + m_min(output.Life, LightninglifeProtected) / (1 - output.LightningMindOverMatter / 100)
+	local ChaoslifeProtected = sourcePool / (output.ChaosMindOverMatter / 100) * (1 - output.ChaosMindOverMatter / 100)
+	local ChaoseffectiveLife = m_max(output.Life - ChaoslifeProtected, 0) + m_min(output.Life, ChaoslifeProtected) / (1 - output.ChaosMindOverMatter / 100)
+	if breakdown then
+		if output.MindOverMatter then
+			breakdown.MindOverMatter = {
+				s_format("Total life protected:"),
+				s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Flag(nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
+				s_format("/ %.2f ^8(portion taken from mana)", output.MindOverMatter / 100),
+				s_format("x %.2f ^8(portion taken from life)", 1 - output.MindOverMatter / 100),
+				s_format("= %d", lifeProtected),
+				s_format("Effective life: %d", effectiveLife)
+			}
 		end
-		local lifeProtected = sourcePool / (output.MindOverMatter / 100) * (1 - output.MindOverMatter / 100)
-		effectiveLife = m_max(output.Life - lifeProtected, 0) + m_min(output.Life, lifeProtected) / (1 - output.MindOverMatter / 100)
-		breakdown.MindOverMatter = {
-			s_format("Total life protected:"),
-			s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Flag(nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
-			s_format("/ %.2f ^8(portion taken from mana)", output.MindOverMatter / 100),
-			s_format("x %.2f ^8(portion taken from life)", 1 - output.MindOverMatter / 100),
-			s_format("= %d", lifeProtected),
-			s_format("Effective life: %d", effectiveLife)
-		}
+		if output.LightningMindOverMatter then
+			breakdown.LightningMindOverMatter = {
+				s_format("Total life protected:"),
+				s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Flag(nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
+				s_format("/ %.2f ^8(portion taken from mana)", output.LightningMindOverMatter / 100),
+				s_format("x %.2f ^8(portion taken from life)", 1 - output.LightningMindOverMatter / 100),
+				s_format("= %d", LightninglifeProtected),
+				s_format("Effective life: %d", LightningeffectiveLife)
+			}
+		end
+		if output.ChaosMindOverMatter then
+			breakdown.ChaosMindOverMatter = {
+				s_format("Total life protected:"),
+				s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Flag(nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
+				s_format("/ %.2f ^8(portion taken from mana)", output.ChaosMindOverMatter / 100),
+				s_format("x %.2f ^8(portion taken from life)", 1 - output.ChaosMindOverMatter / 100),
+				s_format("= %d", ChaoslifeProtected),
+				s_format("Effective life: %d", ChaoseffectiveLife)
+			}
+		end
 	end
 
 	--total pool
@@ -576,291 +603,289 @@ function calcs.defence(env, actor)
 	end
 
 	-- Other defences: block, dodge, stun recovery/avoidance
-	do
-		output.MovementSpeedMod = calcLib.mod(modDB, nil, "MovementSpeed")
-		if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
-			output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
-		end
-		output.EffectiveMovementSpeedMod = output.MovementSpeedMod * output.ActionSpeedMod
+	output.MovementSpeedMod = calcLib.mod(modDB, nil, "MovementSpeed")
+	if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
+		output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
+	end
+	output.EffectiveMovementSpeedMod = output.MovementSpeedMod * output.ActionSpeedMod
+	if breakdown then
+		breakdown.EffectiveMovementSpeedMod = { }
+		breakdown.multiChain(breakdown.EffectiveMovementSpeedMod, {
+			{ "%.2f ^8(movement speed modifier)", output.MovementSpeedMod },
+			{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
+			total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
+		})
+	end
+	if modDB:Flag(nil, "Elusive") then
+		output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+	end
+	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+	local baseBlockChance = 0
+	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
+		baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
+	end
+	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
+		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
+	end
+	output.ShieldBlockChance = baseBlockChance
+	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
+		output.BlockChance = output.BlockChanceMax
+	else
+		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+	end
+	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
+		output.SpellBlockChanceMax = output.BlockChanceMax
+	else
+		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
+	end
+	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
+		output.SpellBlockChance = output.BlockChance
+	else
+		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
+	end
+	if breakdown then
+		breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
+		breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
+	end
+	if modDB:Flag(nil, "CannotBlockAttacks") then
+		output.BlockChance = 0
+	end
+	if modDB:Flag(nil, "CannotBlockSpells") then
+		output.SpellBlockChance = 0
+	end
+	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
+	output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), 75)
+	output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), 75)
+	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
+		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
+		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
+	end
+	output.AvoidPhysicalDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidPhysicalDamageChance"), 75)
+	output.AvoidFireDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidFireDamageChance"), 75)
+	output.AvoidColdDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidColdDamageChance"), 75)
+	output.AvoidLightningDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidLightningDamageChance"), 75)
+	output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), 75)
+	
+	-- cumulative defences
+	--chance to not be hit
+	output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
+	output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
+	output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
+	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance) / 3
+	if breakdown then
+		breakdown.MeleeNotHitChance = { }
+		breakdown.multiChain(breakdown.MeleeNotHitChance, {
+			{ "%.2f ^8(chance for evasion to fail)", 1 - output.MeleeEvadeChance / 100 },
+			{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
+			total = s_format("= %d%% ^8(chance to be hit by a melee attack)", 100 - output.MeleeNotHitChance),
+		})
+		breakdown.ProjectileNotHitChance = { }
+		breakdown.multiChain(breakdown.ProjectileNotHitChance, {
+			{ "%.2f ^8(chance for evasion to fail)", 1 - output.ProjectileEvadeChance / 100 },
+			{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
+			total = s_format("= %d%% ^8(chance to be hit by a projectile attack)", 100 - output.ProjectileNotHitChance),
+		})
+		breakdown.SpellNotHitChance = { }
+		breakdown.multiChain(breakdown.SpellNotHitChance, {
+			{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
+			total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellNotHitChance),
+		})
+	end
+	--chance to not take damage if hit
+	--melee
+	output.PhysicalMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidPhysicalDamageChance / 100) * 100
+	output.LightningMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidLightningDamageChance / 100) * 100
+	output.ColdMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidColdDamageChance / 100) * 100
+	output.FireMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidFireDamageChance / 100) * 100
+	output.ChaosMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * 100
+	if breakdown then
+		breakdown.PhysicalMeleeDamageChance = { }
+		breakdown.multiChain(breakdown.PhysicalMeleeDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidPhysicalDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.PhysicalMeleeDamageChance),
+		})
+		breakdown.LightningMeleeDamageChance = { }
+		breakdown.multiChain(breakdown.LightningMeleeDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidLightningDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.LightningMeleeDamageChance),
+		})
+		breakdown.ColdMeleeDamageChance = { }
+		breakdown.multiChain(breakdown.ColdMeleeDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidColdDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.ColdMeleeDamageChance),
+		})
+		breakdown.FireMeleeDamageChance = { }
+		breakdown.multiChain(breakdown.FireMeleeDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidFireDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.FireMeleeDamageChance),
+		})
+		breakdown.ChaosMeleeDamageChance = { }
+		breakdown.multiChain(breakdown.ChaosMeleeDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.ChaosMeleeDamageChance),
+		})
+	end
+	--attack projectile
+	output.PhysicalProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75)  / 100) * 100
+	output.LightningProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
+	output.ColdProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
+	output.FireProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
+	output.ChaosProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidProjectilesChance / 100) * 100
+	if breakdown then
+		breakdown.PhysicalProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.PhysicalProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.PhysicalProjectileDamageChance),
+		})
+		breakdown.LightningProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.LightningProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.LightningProjectileDamageChance),
+		})
+		breakdown.ColdProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.ColdProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.ColdProjectileDamageChance),
+		})
+		breakdown.FireProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.FireProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.FireProjectileDamageChance),
+		})
+		breakdown.ChaosProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.ChaosProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.ChaosProjectileDamageChance),
+		})
+	end
+	--spell
+	output.PhysicalSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidPhysicalDamageChance / 100) * 100
+	output.LightningSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidLightningDamageChance / 100) * 100
+	output.ColdSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidColdDamageChance / 100) * 100
+	output.FireSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidFireDamageChance / 100) * 100
+	output.ChaosSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * 100
+	if breakdown then
+		breakdown.PhysicalSpellDamageChance = { }
+		breakdown.multiChain(breakdown.PhysicalSpellDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidPhysicalDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.PhysicalSpellDamageChance),
+		})
+		breakdown.LightningSpellDamageChance = { }
+		breakdown.multiChain(breakdown.LightningSpellDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidLightningDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.LightningSpellDamageChance),
+		})
+		breakdown.ColdSpellDamageChance = { }
+		breakdown.multiChain(breakdown.ColdSpellDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidColdDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ColdSpellDamageChance),
+		})
+		breakdown.FireSpellDamageChance = { }
+		breakdown.multiChain(breakdown.FireSpellDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidFireDamageChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.FireSpellDamageChance),
+		})
+		breakdown.ChaosSpellDamageChance = { }
+		breakdown.multiChain(breakdown.ChaosSpellDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ChaosSpellDamageChance),
+		})
+	end
+	--spell projectile
+	output.PhysicalSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75)  / 100) * 100
+	output.LightningSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
+	output.ColdSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
+	output.FireSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
+	output.ChaosSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidProjectilesChance / 100) * 100
+	if breakdown then
+		breakdown.PhysicalSpellProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.PhysicalSpellProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.PhysicalSpellProjectileDamageChance),
+		})
+		breakdown.LightningSpellProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.LightningSpellProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.LightningSpellProjectileDamageChance),
+		})
+		breakdown.ColdSpellProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.ColdSpellProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ColdSpellProjectileDamageChance),
+		})
+		breakdown.FireSpellProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.FireSpellProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.FireSpellProjectileDamageChance),
+		})
+		breakdown.ChaosSpellProjectileDamageChance = { }
+		breakdown.multiChain(breakdown.ChaosSpellProjectileDamageChance, {
+			{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+			{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100 },
+			total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ChaosSpellProjectileDamageChance),
+		})
+	end
+	--average
+	output.PhysicalAverageDamageChance = (output.PhysicalMeleeDamageChance + output.PhysicalProjectileDamageChance + output.PhysicalSpellDamageChance + output.PhysicalSpellProjectileDamageChance ) / 4
+	output.LightningAverageDamageChance = (output.LightningMeleeDamageChance + output.LightningProjectileDamageChance + output.LightningSpellDamageChance + output.LightningSpellProjectileDamageChance ) / 4
+	output.ColdAverageDamageChance = (output.ColdMeleeDamageChance + output.ColdProjectileDamageChance + output.ColdSpellDamageChance + output.ColdSpellProjectileDamageChance ) / 4
+	output.FireAverageDamageChance = (output.FireMeleeDamageChance + output.FireProjectileDamageChance + output.FireSpellDamageChance + output.FireSpellProjectileDamageChance ) / 4
+	output.ChaosAverageDamageChance = (output.ChaosMeleeDamageChance + output.ChaosProjectileDamageChance + output.ChaosSpellDamageChance + output.ChaosSpellProjectileDamageChance ) / 4
+	
+	--other avoidances etc
+	local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
+	if output.EnergyShield > output.Life * 2 then
+		stunChance = stunChance * 0.5
+	end
+	output.StunAvoidChance = 100 - stunChance
+	if output.StunAvoidChance >= 100 then
+		output.StunDuration = 0
+		output.BlockDuration = 0
+	else
+		output.StunDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
+		output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
 		if breakdown then
-			breakdown.EffectiveMovementSpeedMod = { }
-			breakdown.multiChain(breakdown.EffectiveMovementSpeedMod, {
-				{ "%.2f ^8(movement speed modifier)", output.MovementSpeedMod },
-				{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
-				total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
-			})
+			breakdown.StunDuration = {
+				"0.35s ^8(base)",
+				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
+				s_format("= %.2fs", output.StunDuration)
+			}
+			breakdown.BlockDuration = {
+				"0.35s ^8(base)",
+				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
+				s_format("= %.2fs", output.BlockDuration)
+			}
 		end
-		if modDB:Flag(nil, "Elusive") then
-			output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
-		end
-		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
-		local baseBlockChance = 0
-		if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
-			baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
-		end
-		if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
-			baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
-		end
-		output.ShieldBlockChance = baseBlockChance
-		if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
-			output.BlockChance = output.BlockChanceMax
-		else
-			output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
-		end
-		if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
-			output.SpellBlockChanceMax = output.BlockChanceMax
-		else
-			output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
-		end
-		if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
-			output.SpellBlockChance = output.BlockChance
-		else
-			output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
-		end
-		if breakdown then
-			breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
-			breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
-		end
-		if modDB:Flag(nil, "CannotBlockAttacks") then
-			output.BlockChance = 0
-		end
-		if modDB:Flag(nil, "CannotBlockSpells") then
-			output.SpellBlockChance = 0
-		end
-		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-		output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-		output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
-		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), data.misc.DodgeChanceCap)
-		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), data.misc.DodgeChanceCap)
-		if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
-			output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
-			output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
-		end
-		output.AvoidPhysicalDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidPhysicalDamageChance"), 75)
-		output.AvoidFireDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidFireDamageChance"), 75)
-		output.AvoidColdDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidColdDamageChance"), 75)
-		output.AvoidLightningDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidLightningDamageChance"), 75)
-		output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), 75)
-		
-		-- cumulative defences
-		--chance to not be hit
-		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance) / 3
-		if breakdown then
-			breakdown.MeleeNotHitChance = { }
-			breakdown.multiChain(breakdown.MeleeNotHitChance, {
-				{ "%.2f ^8(chance for evasion to fail)", 1 - output.MeleeEvadeChance / 100 },
-				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a melee attack)", 100 - output.MeleeNotHitChance),
-			})
-			breakdown.ProjectileNotHitChance = { }
-			breakdown.multiChain(breakdown.ProjectileNotHitChance, {
-				{ "%.2f ^8(chance for evasion to fail)", 1 - output.ProjectileEvadeChance / 100 },
-				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a projectile attack)", 100 - output.ProjectileNotHitChance),
-			})
-			breakdown.SpellNotHitChance = { }
-			breakdown.multiChain(breakdown.SpellNotHitChance, {
-				{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellNotHitChance),
-			})
-		end
-		--chance to not take damage if hit
-		--melee
-		output.PhysicalMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidPhysicalDamageChance / 100) * 100
-		output.LightningMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidLightningDamageChance / 100) * 100
-		output.ColdMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidColdDamageChance / 100) * 100
-		output.FireMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidFireDamageChance / 100) * 100
-		output.ChaosMeleeDamageChance = 100 - (1 - output.BlockChance / 100) * 100
-		if breakdown then
-			breakdown.PhysicalMeleeDamageChance = { }
-			breakdown.multiChain(breakdown.PhysicalMeleeDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidPhysicalDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.PhysicalMeleeDamageChance),
-			})
-			breakdown.LightningMeleeDamageChance = { }
-			breakdown.multiChain(breakdown.LightningMeleeDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidLightningDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.LightningMeleeDamageChance),
-			})
-			breakdown.ColdMeleeDamageChance = { }
-			breakdown.multiChain(breakdown.ColdMeleeDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidColdDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.ColdMeleeDamageChance),
-			})
-			breakdown.FireMeleeDamageChance = { }
-			breakdown.multiChain(breakdown.FireMeleeDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidFireDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.FireMeleeDamageChance),
-			})
-			breakdown.ChaosMeleeDamageChance = { }
-			breakdown.multiChain(breakdown.ChaosMeleeDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output.ChaosMeleeDamageChance),
-			})
-		end
-		--attack projectile
-		output.PhysicalProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75)  / 100) * 100
-		output.LightningProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
-		output.ColdProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
-		output.FireProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
-		output.ChaosProjectileDamageChance = 100 - (1 - output.BlockChance / 100) * (1 - output.AvoidProjectilesChance / 100) * 100
-		if breakdown then
-			breakdown.PhysicalProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.PhysicalProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.PhysicalProjectileDamageChance),
-			})
-			breakdown.LightningProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.LightningProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.LightningProjectileDamageChance),
-			})
-			breakdown.ColdProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.ColdProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.ColdProjectileDamageChance),
-			})
-			breakdown.FireProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.FireProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.FireProjectileDamageChance),
-			})
-			breakdown.ChaosProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.ChaosProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output.ChaosProjectileDamageChance),
-			})
-		end
-		--spell
-		output.PhysicalSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidPhysicalDamageChance / 100) * 100
-		output.LightningSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidLightningDamageChance / 100) * 100
-		output.ColdSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidColdDamageChance / 100) * 100
-		output.FireSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidFireDamageChance / 100) * 100
-		output.ChaosSpellDamageChance = 100 - (1 - output.SpellBlockChance / 100) * 100
-		if breakdown then
-			breakdown.PhysicalSpellDamageChance = { }
-			breakdown.multiChain(breakdown.PhysicalSpellDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidPhysicalDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.PhysicalSpellDamageChance),
-			})
-			breakdown.LightningSpellDamageChance = { }
-			breakdown.multiChain(breakdown.LightningSpellDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidLightningDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.LightningSpellDamageChance),
-			})
-			breakdown.ColdSpellDamageChance = { }
-			breakdown.multiChain(breakdown.ColdSpellDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidColdDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ColdSpellDamageChance),
-			})
-			breakdown.FireSpellDamageChance = { }
-			breakdown.multiChain(breakdown.FireSpellDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidFireDamageChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.FireSpellDamageChance),
-			})
-			breakdown.ChaosSpellDamageChance = { }
-			breakdown.multiChain(breakdown.ChaosSpellDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ChaosSpellDamageChance),
-			})
-		end
-		--spell projectile
-		output.PhysicalSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75)  / 100) * 100
-		output.LightningSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
-		output.ColdSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
-		output.FireSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100) * 100
-		output.ChaosSpellProjectileDamageChance = 100 - (1 - output.SpellBlockChance / 100) * (1 - output.AvoidProjectilesChance / 100) * 100
-		if breakdown then
-			breakdown.PhysicalSpellProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.PhysicalSpellProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidPhysicalDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.PhysicalSpellProjectileDamageChance),
-			})
-			breakdown.LightningSpellProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.LightningSpellProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidLightningDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.LightningSpellProjectileDamageChance),
-			})
-			breakdown.ColdSpellProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.ColdSpellProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidColdDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ColdSpellProjectileDamageChance),
-			})
-			breakdown.FireSpellProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.FireSpellProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output.AvoidFireDamageChance + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.FireSpellProjectileDamageChance),
-			})
-			breakdown.ChaosSpellProjectileDamageChance = { }
-			breakdown.multiChain(breakdown.ChaosSpellProjectileDamageChance, {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ChaosSpellProjectileDamageChance),
-			})
-		end
-		--average
-		output.PhysicalAverageDamageChance = (output.PhysicalMeleeDamageChance + output.PhysicalProjectileDamageChance + output.PhysicalSpellDamageChance + output.PhysicalSpellProjectileDamageChance ) / 4
-		output.LightningAverageDamageChance = (output.LightningMeleeDamageChance + output.LightningProjectileDamageChance + output.LightningSpellDamageChance + output.LightningSpellProjectileDamageChance ) / 4
-		output.ColdAverageDamageChance = (output.ColdMeleeDamageChance + output.ColdProjectileDamageChance + output.ColdSpellDamageChance + output.ColdSpellProjectileDamageChance ) / 4
-		output.FireAverageDamageChance = (output.FireMeleeDamageChance + output.FireProjectileDamageChance + output.FireSpellDamageChance + output.FireSpellProjectileDamageChance ) / 4
-		output.ChaosAverageDamageChance = (output.ChaosMeleeDamageChance + output.ChaosProjectileDamageChance + output.ChaosSpellDamageChance + output.ChaosSpellProjectileDamageChance ) / 4
-		
-		--other avoidances etc
-		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
-		if output.EnergyShield > output.Life * 2 then
-			stunChance = stunChance * 0.5
-		end
-		output.StunAvoidChance = 100 - stunChance
-		if output.StunAvoidChance >= 100 then
-			output.StunDuration = 0
-			output.BlockDuration = 0
-		else
-			output.StunDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
-			output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
-			if breakdown then
-				breakdown.StunDuration = {
-					"0.35s ^8(base)",
-					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
-					s_format("= %.2fs", output.StunDuration)
-				}
-				breakdown.BlockDuration = {
-					"0.35s ^8(base)",
-					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
-					s_format("= %.2fs", output.BlockDuration)
-				}
-			end
-		end
-		output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
-		output.ShockAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidShock"), 100)
-		output.FreezeAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidFreeze"), 100)
-		output.ChillAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidChill"), 100)
-		output.IgniteAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidIgnite"), 100)
-		output.BleedAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBleed"), 100)
-		output.PoisonAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidPoison"), 100)
-		output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
-		if breakdown then
-			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
-		end
+	end
+	output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
+	output.ShockAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidShock"), 100)
+	output.FreezeAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidFreeze"), 100)
+	output.ChillAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidChill"), 100)
+	output.IgniteAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidIgnite"), 100)
+	output.BleedAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBleed"), 100)
+	output.PoisonAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidPoison"), 100)
+	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
+	if breakdown then
+		breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
 	end
 	
 	--maximum hit taken
