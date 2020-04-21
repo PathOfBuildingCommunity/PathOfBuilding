@@ -374,13 +374,14 @@ function calcs.defence(env, actor)
 
 	-- Mind over Matter
 	output.MindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife")
+	local effectiveLife = 0
 	if output.MindOverMatter and breakdown then
 		local sourcePool = output.ManaUnreserved or 0
 		if modDB:Flag(nil, "EnergyShieldProtectsMana") then
 			sourcePool = sourcePool + output.EnergyShield
 		end
 		local lifeProtected = sourcePool / (output.MindOverMatter / 100) * (1 - output.MindOverMatter / 100)
-		local effectiveLife = m_max(output.Life - lifeProtected, 0) + m_min(output.Life, lifeProtected) / (1 - output.MindOverMatter / 100)
+		effectiveLife = m_max(output.Life - lifeProtected, 0) + m_min(output.Life, lifeProtected) / (1 - output.MindOverMatter / 100)
 		breakdown.MindOverMatter = {
 			s_format("Total life protected:"),
 			s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Flag(nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
@@ -391,6 +392,22 @@ function calcs.defence(env, actor)
 		}
 	end
 
+	--total pool
+	output.TotalPool = effectiveLife
+	if not modDB:Flag(nil, "EnergyShieldProtectsMana") then
+		output.TotalPool = output.TotalPool + output.EnergyShield
+	end
+	if breakdown then
+		breakdown.TotalPool = {
+			s_format("Life: %d", output.Life),
+			s_format("Mana%s through MoM: %d", modDB:Flag(nil, "EnergyShieldProtectsMana") and " and total Energy Shield" or "", effectiveLife - output.Life)
+		}
+		if not modDB:Flag(nil, "EnergyShieldProtectsMana") then
+			t_insert(breakdown.TotalPool, s_format("Energy Shield: %d", output.EnergyShield))
+		end
+		t_insert(breakdown.TotalPool, s_format("TotalPool: %d", output.TotalPool))
+	end
+	
 	-- Damage taken multipliers/Degen calculations
 	for _, damageType in ipairs(dmgTypeList) do
 		local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
