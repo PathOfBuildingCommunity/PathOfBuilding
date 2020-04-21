@@ -432,9 +432,9 @@ return {
 		},
 	},
 } }, { defaultCollapsed = false, label = "Chance to not be hit", data = {
-	{ label = "Melee Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
-	{ label = "Projectile Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
-	{ label = "Spell Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
+	{ label = "Melee Ch.", { format = "{0:output:MeleeNotHitChance}%", { breakdown = "MeleeNotHitChance" }, }, },
+	{ label = "Projectile Ch.", { format = "{0:output:ProjectileNotHitChance}%", { breakdown = "ProjectileNotHitChance" }, }, },
+	{ label = "Spell Ch.", { format = "{0:output:SpellNotHitChance}%", { breakdown = "SpellNotHitChance" }, }, },
 }, }, { defaultCollapsed = false, label = "Chance to not take damage when hit", data = {
 	colWidth = 95,
 	{ label = "Melee Ch.",

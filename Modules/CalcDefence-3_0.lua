@@ -644,26 +644,27 @@ function calcs.defence(env, actor)
 		
 		-- cumulative defences
 		--chance to not be hit
-		output.MeleeAvoidChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.ProjectileAvoidChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.SpellAvoidChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
+		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
+		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
+		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
+		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance) / 3
 		if breakdown then
-			breakdown.MeleeAvoidChance = { }
-			breakdown.multiChain(breakdown.MeleeAvoidChance, {
+			breakdown.MeleeNotHitChance = { }
+			breakdown.multiChain(breakdown.MeleeNotHitChance, {
 				{ "%.2f ^8(chance for evasion to fail)", 1 - output.MeleeEvadeChance / 100 },
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a melee attack)", 100 - output.MeleeAvoidChance),
+				total = s_format("= %d%% ^8(chance to be hit by a melee attack)", 100 - output.MeleeNotHitChance),
 			})
-			breakdown.ProjectileAvoidChance = { }
-			breakdown.multiChain(breakdown.ProjectileAvoidChance, {
+			breakdown.ProjectileNotHitChance = { }
+			breakdown.multiChain(breakdown.ProjectileNotHitChance, {
 				{ "%.2f ^8(chance for evasion to fail)", 1 - output.ProjectileEvadeChance / 100 },
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a projectile attack)", 100 - output.ProjectileAvoidChance),
+				total = s_format("= %d%% ^8(chance to be hit by a projectile attack)", 100 - output.ProjectileNotHitChance),
 			})
-			breakdown.SpellAvoidChance = { }
-			breakdown.multiChain(breakdown.SpellAvoidChance, {
+			breakdown.SpellNotHitChance = { }
+			breakdown.multiChain(breakdown.SpellNotHitChance, {
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellAvoidChance),
+				total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellNotHitChance),
 			})
 		end
 		--chance to not take damage if hit
@@ -817,6 +818,13 @@ function calcs.defence(env, actor)
 				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output.ChaosSpellProjectileDamageChance),
 			})
 		end
+		--average
+		output.PhysicalAverageDamageChance = (output.PhysicalMeleeDamageChance + output.PhysicalProjectileDamageChance + output.PhysicalSpellDamageChance + output.PhysicalSpellProjectileDamageChance ) / 4
+		output.LightningAverageDamageChance = (output.LightningMeleeDamageChance + output.LightningProjectileDamageChance + output.LightningSpellDamageChance + output.LightningSpellProjectileDamageChance ) / 4
+		output.ColdAverageDamageChance = (output.ColdMeleeDamageChance + output.ColdProjectileDamageChance + output.ColdSpellDamageChance + output.ColdSpellProjectileDamageChance ) / 4
+		output.FireAverageDamageChance = (output.FireMeleeDamageChance + output.FireProjectileDamageChance + output.FireSpellDamageChance + output.FireSpellProjectileDamageChance ) / 4
+		output.ChaosAverageDamageChance = (output.ChaosMeleeDamageChance + output.ChaosProjectileDamageChance + output.ChaosSpellDamageChance + output.ChaosSpellProjectileDamageChance ) / 4
+		
 		--other avoidances etc
 		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
 		if output.EnergyShield > output.Life * 2 then
@@ -889,40 +897,40 @@ function calcs.defence(env, actor)
 		}
 	end
 	--total EHP
-	output.PhysicalTotalEHP = output.PhysicalMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.PhysicalMeleeDamageChance / 100) 
-	output.LightningTotalEHP = output.LightningMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.LightningMeleeDamageChance / 100) 
-	output.ColdTotalEHP = output.ColdMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.ColdMeleeDamageChance / 100) 
-	output.FireTotalEHP = output.FireMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.FireMeleeDamageChance / 100) 
-	output.ChaosTotalEHP = output.ChaosMaximumHitTaken / (1 - output.MeleeAvoidChance / 100) / (1 - output.ChaosMeleeDamageChance / 100) 
+	output.PhysicalTotalEHP = output.PhysicalMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.PhysicalAverageDamageChance / 100) 
+	output.LightningTotalEHP = output.LightningMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.LightningAverageDamageChance / 100) 
+	output.ColdTotalEHP = output.ColdMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.ColdAverageDamageChance / 100) 
+	output.FireTotalEHP = output.FireMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.FireAverageDamageChance / 100) 
+	output.ChaosTotalEHP = output.ChaosMaximumHitTaken / (1 - output.AverageNotHitChance / 100) / (1 - output.ChaosAverageDamageChance / 100) 
 	if breakdown then
 		breakdown.PhysicalTotalEHP = {
 			s_format("Maximum Hit taken: %d", output.PhysicalMaximumHitTaken),
-			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
-			s_format("Chance to not take damage when hit: %d%%", output.PhysicalMeleeDamageChance),
+			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
+			s_format("Average chance to not take damage when hit: %d%%", output.PhysicalAverageDamageChance),
 			s_format("Total EHP: %d", output.PhysicalTotalEHP),
 		}
 		breakdown.LightningTotalEHP = {
 			s_format("Maximum Hit taken: %d", output.LightningMaximumHitTaken),
-			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
-			s_format("Chance to not take damage when hit: %d%%", output.LightningMeleeDamageChance),
+			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
+			s_format("Average chance to not take damage when hit: %d%%", output.LightningAverageDamageChance),
 			s_format("Total EHP: %d", output.LightningTotalEHP),
 		}
 		breakdown.ColdTotalEHP = {
 			s_format("Maximum Hit taken: %d", output.ColdMaximumHitTaken),
-			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
-			s_format("Chance to not take damage when hit: %d%%", output.ColdMeleeDamageChance),
+			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
+			s_format("Average chance to not take damage when hit: %d%%", output.ColdAverageDamageChance),
 			s_format("Total EHP: %d", output.ColdTotalEHP),
 		}
 		breakdown.FireTotalEHP = {
 			s_format("Maximum Hit taken: %d", output.FireMaximumHitTaken),
-			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
-			s_format("Chance to not take damage when hit: %d%%", output.FireMeleeDamageChance),
+			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
+			s_format("Average chance to not take damage when hit: %d%%", output.FireAverageDamageChance),
 			s_format("Total EHP: %d", output.FireTotalEHP),
 		}
 		breakdown.ChaosTotalEHP = {
 			s_format("Maximum Hit taken: %d", output.ChaosMaximumHitTaken),
-			s_format("Chance not to be hit: %d%%", output.MeleeAvoidChance),
-			s_format("Chance to not take damage when hit: %d%%", output.ChaosMeleeDamageChance),
+			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
+			s_format("Average chance to not take damage when hit: %d%%", output.ChaosAverageDamageChance),
 			s_format("Total EHP: %d", output.ChaosTotalEHP),
 		}
 	end
