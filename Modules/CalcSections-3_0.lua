@@ -434,7 +434,12 @@ return {
 	{ label = "Mind over Matter", haveOutput = "MindOverMatter", { format = "{0:output:MindOverMatter}%", 
 		{ breakdown = "MindOverMatter" }, 
 		{ modName = "DamageTakenFromManaBeforeLife" }, 
-	}, },
+} }, 
+} }, { defaultCollapsed = false, label = "Cumulative", data = {
+	{ label = "Melee Avoid Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
+	{ label = "Projectile Avoid Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
+	{ label = "Spell Avoid Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
+}, }, { defaultCollapsed = false, label = "Degen", data = {
 	{ label = "Total Degen", haveOutput = "TotalDegen", { format = "{1:output:TotalDegen}", 
 		{ breakdown = "TotalDegen" },
 		{ label = "Sources", modName = { "PhysicalDegen", "FireDegen", "ColdDegen", "LightningDegen", "ChaosDegen" }, modType = "BASE" },
@@ -1148,10 +1153,6 @@ return {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
-} }, { defaultCollapsed = false, label = "Cumulative", data = {
-	{ label = "Melee Avoid Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
-	{ label = "Projectile Avoid Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
-	{ label = "Spell Avoid Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
-} }, 
+} },
 } },
 }
