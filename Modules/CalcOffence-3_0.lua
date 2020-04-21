@@ -498,7 +498,7 @@ function calcs.offence(env, actor, activeSkill)
 		local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 		output.Cooldown = cooldownOverride or skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 		
-		output.Cooldown = math.ceil(output.Cooldown * 30)/30
+		output.Cooldown = m_ceil(output.Cooldown * 30)/30
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown),
