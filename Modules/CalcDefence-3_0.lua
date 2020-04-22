@@ -42,31 +42,31 @@ end
 -- find second minimum
 function m_second_min(array)
 	local minimum = 2147483648
-	local Sminimum = 2147483648
+	local SecondMinimum = 2147483648
 	for i, val in ipairs(array) do
 		if val < minimum then
-			Sminimum = minimum
+			SecondMinimum = minimum
 			minimum = val
-		elseif val < Sminimum then
-			Sminimum = val
+		elseif val < SecondMinimum then
+			SecondMinimum = val
 		end
 	end
-	return Sminimum
+	return SecondMinimum
 end
 
 -- find second maximum
 function m_second_max(array)
 	local maximum = -2147483648
-	local Smaximum = -2147483648
+	local SecondMaximum = -2147483648
 	for i, val in ipairs(array) do
 		if val > maximum then
-			Smaximum = maximum
+			SecondMaximum = maximum
 			maximum = val
-		elseif val > Smaximum then
-			Smaximum = val
+		elseif val > SecondMaximum then
+			SecondMaximum = val
 		end
 	end
-	return Smaximum
+	return SecondMaximum
 end
 
 -- Performs all defensive calculations
@@ -437,7 +437,7 @@ function calcs.defence(env, actor)
 		end
 	end
 	if output.AnyMindOverMatter >= 0 then
-		output.SminMindOverMatter = m_second_min({output.PhysicalMindOverMatter, output.LightningMindOverMatter, output.ColdMindOverMatter, output.FireMindOverMatter, output.ChaosMindOverMatter})
+		output.SecondMinimumMindOverMatter = m_second_min({output.PhysicalMindOverMatter, output.LightningMindOverMatter, output.ColdMindOverMatter, output.FireMindOverMatter, output.ChaoSecondMinimumdOverMatter})
 	end
 	
 	--total pool
@@ -462,7 +462,7 @@ function calcs.defence(env, actor)
 			t_insert(breakdown[damageType.."TotalPool"], s_format("TotalPool: %d", output[damageType.."TotalPool"]))
 		end
 	end
-	output.SminTotalPool = m_second_min({output.PhysicalTotalPool, output.LightningTotalPool, output.ColdTotalPool, output.FireTotalPool, output.ChaosTotalPool})
+	output.SecondMinimumTotalPool = m_second_min({output.PhysicalTotalPool, output.LightningTotalPool, output.ColdTotalPool, output.FireTotalPool, output.ChaosTotalPool})
 	
 	-- Damage taken multipliers/Degen calculations
 	for _, damageType in ipairs(dmgTypeList) do
@@ -630,8 +630,8 @@ function calcs.defence(env, actor)
 		end
 		output[damageType.."TakenHitMult"] = mult
 	end
-	output.SmaxTakenHitMult = m_second_max({output.PhysicalTakenHitMult, output.LightningTakenHitMult, output.ColdTakenHitMult, output.FireTakenHitMult, output.ChaosTakenHitMult})
-	output.SmaxTakenDotMult = m_second_max({output.PhysicalTakenDotMult, output.LightningTakenDotMult, output.ColdTakenDotMult, output.FireTakenDotMult, output.ChaosTakenDotMult})
+	output.SecondMaximumTakenHitMult = m_second_max({output.PhysicalTakenHitMult, output.LightningTakenHitMult, output.ColdTakenHitMult, output.FireTakenHitMult, output.ChaosTakenHitMult})
+	output.SecondMaximumTakenDotMult = m_second_max({output.PhysicalTakenDotMult, output.LightningTakenDotMult, output.ColdTakenDotMult, output.FireTakenDotMult, output.ChaosTakenDotMult})
 
 	-- Other defences: block, dodge, stun recovery/avoidance
 	do
@@ -809,10 +809,10 @@ function calcs.defence(env, actor)
 		--average
 		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end
-	output.SminMeleeDamageChance = m_second_min({output.PhysicalMeleeDamageChance, output.LightningMeleeDamageChance, output.ColdMeleeDamageChance, output.FireMeleeDamageChance, output.ChaosMeleeDamageChance})
-	output.SminProjectileDamageChance = m_second_min({output.PhysicalProjectileDamageChance, output.LightningProjectileDamageChance, output.ColdProjectileDamageChance, output.FireProjectileDamageChance, output.ChaosProjectileDamageChance})
-	output.SminSpellDamageChance = m_second_min({output.PhysicalSpellDamageChance, output.LightningSpellDamageChance, output.ColdSpellDamageChance, output.FireSpellDamageChance, output.ChaosSpellDamageChance})
-	output.SminSpellProjectileDamageChance = m_second_min({output.PhysicalSpellProjectileDamageChance, output.LightningSpellProjectileDamageChance, output.ColdSpellProjectileDamageChance, output.FireSpellProjectileDamageChance, output.ChaosSpellProjectileDamageChance})
+	output.SecondMinimumMeleeDamageChance = m_second_min({output.PhysicalMeleeDamageChance, output.LightningMeleeDamageChance, output.ColdMeleeDamageChance, output.FireMeleeDamageChance, output.ChaosMeleeDamageChance})
+	output.SecondMinimumProjectileDamageChance = m_second_min({output.PhysicalProjectileDamageChance, output.LightningProjectileDamageChance, output.ColdProjectileDamageChance, output.FireProjectileDamageChance, output.ChaosProjectileDamageChance})
+	output.SecondMinimumSpellDamageChance = m_second_min({output.PhysicalSpellDamageChance, output.LightningSpellDamageChance, output.ColdSpellDamageChance, output.FireSpellDamageChance, output.ChaosSpellDamageChance})
+	output.SecondMinimumSpellProjectileDamageChance = m_second_min({output.PhysicalSpellProjectileDamageChance, output.LightningSpellProjectileDamageChance, output.ColdSpellProjectileDamageChance, output.FireSpellProjectileDamageChance, output.ChaosSpellProjectileDamageChance})
 	
 	--maximum hit taken
 	--FIX X TAKEN AS Y (output[damageType.."TotalPool"] should use the damage types that are converted to in output[damageType.."TakenHitMult"])
@@ -826,7 +826,7 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	output.SminMaximumHitTaken = m_second_min({output.PhysicalMaximumHitTaken, output.LightningMaximumHitTaken, output.ColdMaximumHitTaken, output.FireMaximumHitTaken, output.ChaosMaximumHitTaken})
+	output.SecondMinimumMaximumHitTaken = m_second_min({output.PhysicalMaximumHitTaken, output.LightningMaximumHitTaken, output.ColdMaximumHitTaken, output.FireMaximumHitTaken, output.ChaoSecondMaximumimumHitTaken})
 	
 	--effective health pool vs dots
 	for _, damageType in ipairs(dmgTypeList) do
@@ -839,7 +839,7 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	output.SminDotEHP = m_second_min({output.PhysicalDotEHP, output.LightningDotEHP, output.ColdDotEHP, output.FireDotEHP, output.ChaosDotEHP})
+	output.SecondMinimumDotEHP = m_second_min({output.PhysicalDotEHP, output.LightningDotEHP, output.ColdDotEHP, output.FireDotEHP, output.ChaosDotEHP})
 	
 	--total EHP
 	for _, damageType in ipairs(dmgTypeList) do
@@ -857,5 +857,5 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	output.SminTotalEHP = m_second_min({output.PhysicalTotalEHP, output.LightningTotalEHP, output.ColdTotalEHP, output.FireTotalEHP, output.ChaosTotalEHP})
+	output.SecondMinimumTotalEHP = m_second_min({output.PhysicalTotalEHP, output.LightningTotalEHP, output.ColdTotalEHP, output.FireTotalEHP, output.ChaosTotalEHP})
 end
