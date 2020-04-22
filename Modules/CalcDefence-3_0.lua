@@ -797,17 +797,17 @@ function calcs.defence(env, actor)
 			})
 		end
 		--spell projectile
-		output[damageType.."ProjectileSpellDamageChance"] = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, 75)  / 100) * 100
+		output[damageType.."SpellProjectileDamageChance"] = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, 75)  / 100) * 100
 		if breakdown then
-			breakdown[damageType.."ProjectileSpellDamageChance"] = { }
-			breakdown.multiChain(breakdown[damageType.."ProjectileSpellDamageChance"], {
+			breakdown[damageType.."SpellProjectileDamageChance"] = { }
+			breakdown.multiChain(breakdown[damageType.."SpellProjectileDamageChance"], {
 				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
 				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, 75) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output[damageType.."ProjectileSpellDamageChance"]),
+				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output[damageType.."SpellProjectileDamageChance"]),
 			})
 		end
 		--average
-		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."ProjectileSpellDamageChance"] ) / 4
+		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end
 	output.SminMeleeDamageChance = m_second_min({output.PhysicalMeleeDamageChance, output.LightningMeleeDamageChance, output.ColdMeleeDamageChance, output.FireMeleeDamageChance, output.ChaosMeleeDamageChance})
 	output.SminProjectileDamageChance = m_second_min({output.PhysicalProjectileDamageChance, output.LightningProjectileDamageChance, output.ColdProjectileDamageChance, output.FireProjectileDamageChance, output.ChaosProjectileDamageChance})
