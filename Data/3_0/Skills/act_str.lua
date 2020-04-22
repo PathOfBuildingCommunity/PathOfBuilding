@@ -2539,6 +2539,9 @@ skills["HeraldOfAsh"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.CausesBurning] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.Type27] = true, [SkillType.Herald] = true, [SkillType.Duration] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.FireDot = (activeSkill.skillData.hoaOverkill or 0) * 0.25 -- value comes from base 25%
+	end,
 	statMap = {
 		["herald_of_ash_fire_damage_+%"] = {
 			mod("FireDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
