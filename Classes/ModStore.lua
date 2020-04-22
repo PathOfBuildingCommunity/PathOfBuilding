@@ -88,7 +88,10 @@ end
 ---    5+ (optional, varies): additional options
 ---@param ... any @Parameters to be passed along to the modLib.createMod function
 function ModStoreClass:ReplaceMod(...)
-	self:ReplaceModInternal(mod_createMod(...))
+	local mod = mod_createMod(...)
+	if not self:ReplaceModInternal(mod) then
+		self:AddMod(mod)
+	end
 end
 
 function ModStoreClass:Combine(modType, cfg, ...)

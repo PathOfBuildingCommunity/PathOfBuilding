@@ -31,8 +31,9 @@ end
 
 ---ReplaceModInternal
 ---  Replaces an existing matching mod with a new mod.
----  If no matching mod exists, the mod is added instead.
+---  If no matching mod exists, then the function returns false
 ---@param mod table
+---@return boolean @Whether any mod was replaced
 function ModDBClass:ReplaceModInternal(mod)
 	local name = mod.name
 	if not self.mods[name] then
@@ -51,11 +52,16 @@ function ModDBClass:ReplaceModInternal(mod)
 	end
 
 	-- Add or replace the mod
-	if modIndex == -1 then
-		t_insert(self.mods[name], mod)
-	else
+	if modIndex > 0 then
 		modList[modIndex] = mod
+		return true
 	end
+
+	if self.parent then
+		return self.parent:ReplaceModInternal(mod)
+	end
+	
+	return false
 end
 
 function ModDBClass:AddList(modList)
