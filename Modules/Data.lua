@@ -227,6 +227,8 @@ data.misc = { -- magic numbers
 	ImpaleStoredDamageBase = 0.1,
 }
 
+ServerTickRate = 30
+
 ---------------------------
 -- Version-specific Data --
 ---------------------------

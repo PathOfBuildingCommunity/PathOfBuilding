@@ -26,7 +26,6 @@ local tempTable2 = { }
 local tempTable3 = { }
 
 local isElemental = { Fire = true, Cold = true, Lightning = true }
-local ServerTickRate = 30
 
 -- List of all damage types, ordered according to the conversion sequence
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
