@@ -32,8 +32,7 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 [![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)
 
 ## Download
-Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
-Then head [here](https://github.com/LocalIdentity/PathOfBuilding/wiki/Installing-this-Fork/_edit) to see the install instructions for this fork
+Head over to the [Releases](https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases) page to download the install wizard or portable zip.
 
 ## Contribute
 You can find instructions on how to contribute code and bug reports [here](CONTRIBUTING.md).
