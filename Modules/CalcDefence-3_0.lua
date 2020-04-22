@@ -815,6 +815,7 @@ function calcs.defence(env, actor)
 	output.SminSpellProjectileDamageChance = m_second_min({output.PhysicalSpellProjectileDamageChance, output.LightningSpellProjectileDamageChance, output.ColdSpellProjectileDamageChance, output.FireSpellProjectileDamageChance, output.ChaosSpellProjectileDamageChance})
 	
 	--maximum hit taken
+	--FIX X TAKEN AS Y (output[damageType.."TotalPool"] should use the damage types that are converted to in output[damageType.."TakenHitMult"])
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MaximumHitTaken"] = output[damageType.."TotalPool"] / output[damageType.."TakenHitMult"]
 		if breakdown then
@@ -842,12 +843,16 @@ function calcs.defence(env, actor)
 	
 	--total EHP
 	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output.AverageNotHitChance / 100) / (1 - output[damageType.."AverageDamageChance"] / 100)
+		local convertedAvoidance = 0
+		for _, damageConvertedType in ipairs(dmgTypeList) do
+			convertedAvoidance = convertedAvoidance + output[damageConvertedType.."AverageDamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+		end
+		output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output.AverageNotHitChance / 100) / (1 - convertedAvoidance / 100)
 		if breakdown then
 			breakdown[damageType.."TotalEHP"] = {
 			s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
 			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
-			s_format("Average chance to not take damage when hit: %d%%", output[damageType.."AverageDamageChance"]),
+			s_format("Average chance to not take damage when hit: %d%%", convertedAvoidance),
 			s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
 			}
 		end
