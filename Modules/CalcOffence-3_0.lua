@@ -25,6 +25,7 @@ local tempTable2 = { }
 local tempTable3 = { }
 
 local isElemental = { Fire = true, Cold = true, Lightning = true }
+local ServerTickRate = 30
 
 -- List of all damage types, ordered according to the conversion sequence
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
@@ -455,7 +456,7 @@ function calcs.offence(env, actor, activeSkill)
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
-		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, 30)
+		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, ServerTickRate)
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
 		if breakdown then
 			breakdown.TrapThrowingSpeed = { }
@@ -498,7 +499,7 @@ function calcs.offence(env, actor, activeSkill)
 		local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 		output.Cooldown = cooldownOverride or skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 		
-		output.Cooldown = m_ceil(output.Cooldown * 30)/30
+		output.Cooldown = m_ceil(output.Cooldown * ServerTickRate) / ServerTickRate
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown),
@@ -515,7 +516,7 @@ function calcs.offence(env, actor, activeSkill)
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
-		output.MineLayingSpeed = m_min(output.MineLayingSpeed, 30)
+		output.MineLayingSpeed = m_min(output.MineLayingSpeed, ServerTickRate)
 		output.MineLayingTime = 1 / output.MineLayingSpeed
 		if breakdown then
 			breakdown.MineLayingTime = { }
@@ -916,7 +917,7 @@ function calcs.offence(env, actor, activeSkill)
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 			end
-			output.Speed = m_min(output.Speed, 30)
+			output.Speed = m_min(output.Speed, ServerTickRate)
 			if output.Speed == 0 then 
 				output.Time = 0
 			else 
