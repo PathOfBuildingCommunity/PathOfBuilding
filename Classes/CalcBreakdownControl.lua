@@ -538,7 +538,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						self.tooltip:Clear()
 						ttFunc(self.tooltip)
 						self.tooltip:Draw(col.x, rowY, col.width, 12, viewPort)
-					elseif ttNode then
+					elseif ttNode and ttNode.x and ttNode.y then -- The source "node" from cluster jewels don't know their location because it's the abstract node in tree.lua rather than the generated node from the cluster jewel.
 						local viewerX = col.x + col.width + 5
 						if viewPort.x + viewPort.width < viewerX + 304 then
 							viewerX = col.x - 309
