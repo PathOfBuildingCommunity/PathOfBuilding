@@ -966,6 +966,12 @@ function calcs.offence(env, actor, activeSkill)
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 
+		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
+		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)		
+		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
+		output.CritDoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "CritDoubleDamageChance"), 100)
+		output.CritDoubleDamageEffect = 1 + output.CritDoubleDamageChance / 100
+
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
@@ -1049,20 +1055,19 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				output.CritMultiplier = 1 + m_max(0, extraDamage)
 			end
-			output.CritEffect = 1 - output.CritChance / 100 + output.CritChance / 100 * output.CritMultiplier
+			output.CritEffect = (1 - (output.CritChance / 100)) + (output.CritChance / 100 * output.CritMultiplier * output.CritDoubleDamageEffect)
 			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
 			if breakdown and output.CritEffect ~= 1 then
 				breakdown.CritEffect = {
 					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", output.CritChance/100),
-					s_format("+ (%.4f x %g) ^8(portion of damage from crits)", output.CritChance/100, output.CritMultiplier),
+					s_format("+ [ (%.4f x %g) ^8(portion of damage from crits)", output.CritChance/100, output.CritMultiplier),
+					s_format("  x (%.4f) ] ^8(double damage inc on crit)", 1+(output.CritDoubleDamageChance/100)),
 					s_format("= %.3f", output.CritEffect),
 				}
 			end
 		end
 
-		-- Calculate Double Damage + Ruthless Blow chance/multipliers
-		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)
-		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
+		-- Calculate Ruthless Blow chance/multipliers
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
 		if output.RuthlessBlowMaxCount > 0 then
 			output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
