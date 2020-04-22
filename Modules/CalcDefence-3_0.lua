@@ -529,9 +529,9 @@ function calcs.defence(env, actor)
 		end
 	end
 	if output.TotalDegen then
-		if output.MindOverMatter > 0 and output.LifeRegen >= output.EnergyShieldRegen then
-			local lifeDegen = output.TotalDegen * (1 - output.MindOverMatter / 100)
-			local manaDegen = output.TotalDegen * output.MindOverMatter / 100
+		if output.PhysicalMindOverMatter > 0 and output.LifeRegen >= output.EnergyShieldRegen then
+			local lifeDegen = output.TotalDegen * (1 - output.PhysicalMindOverMatter / 100)
+			local manaDegen = output.TotalDegen * output.PhysicalMindOverMatter / 100
 			output.NetLifeRegen = output.LifeRegen - lifeDegen
 			output.NetManaRegen = output.ManaRegen - manaDegen
 			if breakdown then
