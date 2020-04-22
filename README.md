@@ -1,5 +1,5 @@
 # Path of Building Community Fork
-# Formerly known as LocalIdentity Fork
+## Formerly known as LocalIdentity Fork
 
 This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
 * Adds updated uniques from 3.8, 3.9 and 3.10 changes
@@ -7,9 +7,9 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 * Impale DPS support
 * Enemy armour and physical damage reduction calculations
 * Catalysts
-* Dual inlfuence crafting
+* Dual influence crafting
 * Search for all dropdown boxes
-* Barrage Suport skill gem
+* Barrage Support skill gem
 * Ensnaring Arrow support
 * Thread of Hope support
 * Crimson Dance support
