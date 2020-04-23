@@ -211,8 +211,10 @@ data.misc = {
 	TemporalChainsEffectCap = 75,
 	PhysicalDamageReductionCap = 90,
 	MaxResistCap = 90,
-	EvadeChanceCap = 95
-	
+	EvadeChanceCap = 95,
+	DodgeChanceCap = 75,
+	AvoidChanceCap = 75,
+	EnergyShieldRechargeBase = 0.2
 }
 
 ---------------------------
