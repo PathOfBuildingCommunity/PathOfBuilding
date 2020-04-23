@@ -207,6 +207,16 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
+data.misc = {
+	Cap = {
+		TemporalChainsEffect = 75,
+		PhysicalDamageReduction = 90,
+		MaxResist = 90,
+		EvadeChance = 95
+	}
+	
+}
+
 ---------------------------
 -- Version-specific Data --
 ---------------------------
