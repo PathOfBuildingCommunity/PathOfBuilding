@@ -208,12 +208,10 @@ data.specialBaseTags = {
 }
 
 data.misc = {
-	Cap = {
-		TemporalChainsEffect = 75,
-		PhysicalDamageReduction = 90,
-		MaxResist = 90,
-		EvadeChance = 95
-	}
+	TemporalChainsEffectCap = 75,
+	PhysicalDamageReductionCap = 90,
+	MaxResistCap = 90,
+	EvadeChanceCap = 95
 	
 }
 
