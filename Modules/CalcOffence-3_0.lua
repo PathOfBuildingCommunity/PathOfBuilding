@@ -1055,12 +1055,13 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				output.CritMultiplier = 1 + m_max(0, extraDamage)
 			end
-			output.CritEffect = (1 - (output.CritChance / 100)) + (output.CritChance / 100 * output.CritMultiplier * output.CritDoubleDamageEffect)
+			local critChancePercentage = output.CritChance / 100
+			output.CritEffect = 1 - critChancePercentage + (critChancePercentage * output.CritMultiplier * output.CritDoubleDamageEffect)
 			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
 			if breakdown and output.CritEffect ~= 1 then
 				breakdown.CritEffect = {
-					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", output.CritChance/100),
-					s_format("+ [ (%.4f x %g) ^8(portion of damage from crits)", output.CritChance/100, output.CritMultiplier),
+					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", critChancePercentage),
+					s_format("+ [ (%.4f x %g) ^8(portion of damage from crits)", critChancePercentage, output.CritMultiplier),
 					s_format("  x (%.4f) ] ^8(double damage inc on crit)", 1+(output.CritDoubleDamageChance/100)),
 					s_format("= %.3f", output.CritEffect),
 				}
