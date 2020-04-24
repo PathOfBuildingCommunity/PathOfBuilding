@@ -665,6 +665,17 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self:UpdateGem()
 				self:ScrollSelIntoView()
 			end
+		elseif itemLib.wiki.matchesKey(key) then
+			if self.hoverSel and self.gems[self.list[self.hoverSel]] then
+				-- mouse over
+				itemLib.wiki.openGem(self.gems[self.list[self.hoverSel]])
+			elseif self.selIndex > 0 then
+				-- selected
+				itemLib.wiki.openGem(self.gems[self.list[self.selIndex]])
+			elseif not self.noMatches then
+				-- search result
+				itemLib.wiki.openGem(self.gems[self.list[m_max(self.selIndex, 1)]])
+			end
 		end
 	elseif key == "RETURN" or key == "RIGHTBUTTON" then
 		self.dropped = true

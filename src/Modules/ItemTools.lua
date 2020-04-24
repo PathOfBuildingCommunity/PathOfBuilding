@@ -66,7 +66,7 @@ end
 function itemLib.applyRange(line, range, valueScalar)
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-		:gsub("(%+?)%((%-?%d+)%-(%d+)%)", 
+		:gsub("(%+?)%((%-?%d+)%-(%d+)%)",
 		function(plus, min, max)
 			local numVal = m_floor(tonumber(min) + range * (tonumber(max) - tonumber(min)) + 0.5)
 			if numVal < 0 then
@@ -77,9 +77,9 @@ function itemLib.applyRange(line, range, valueScalar)
 			return plus .. tostring(numVal)
 		end)
 		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
-		function(min, max) 
+		function(min, max)
 			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * 10 + 0.5) / 10
-			return tostring(numVal) 
+			return tostring(numVal)
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 	return itemLib.applyValueScalar(line, valueScalar)
@@ -132,3 +132,24 @@ function itemLib.formatModLine(modLine, dbMode)
 	end
 	return colorCode..line
 end
+
+itemLib.wiki = {
+	key = "F1",
+	openGem = function(item)
+		local name = item.name;
+
+		if item.tags.support then
+			name = name .. " Support"
+		end
+
+		itemLib.wiki.open(name)
+	end,
+	open = function(name)
+		local route = string.gsub(name, " ", "_")
+
+		OpenURL("https://pathofexile.gamepedia.com/" .. route)
+	end,
+	matchesKey = function(key)
+		return key == itemLib.wiki.key
+	end
+}
