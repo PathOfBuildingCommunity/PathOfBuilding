@@ -325,6 +325,7 @@ League: Blight
 (5-10)% increased Attack and Cast Speed
 Create a Blighted Spore when you Kill a Rare Monster
 (Blighted Spores last for 10 seconds and have a random Aura)
+This item can be anointed by Cassia
 ]],[[
 Farrul's Pounce
 Hydrascale Gauntlets

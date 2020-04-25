@@ -918,6 +918,7 @@ Trigger Level 10 Contaminate when you Kill an Enemy
 +(17-23)% to Chaos Resistance
 Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
 You have Fungal Ground around you while stationary
+This item can be anointed by Cassia
 ]],[[
 Voll's Protector
 Holy Chainmail

@@ -5,6 +5,7 @@
 --
 local pairs = pairs
 local ipairs = ipairs
+local next = next
 local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
@@ -292,7 +293,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 
 	-- Section: Sockets and Links
 	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return self.displayItem.selectableSocketCount > 0 and 28 or 0
+		return self.displayItem and self.displayItem.selectableSocketCount > 0 and 28 or 0
 	end)
 	for i = 1, 6 do
 		local drop = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, (i-1) * 64, 0, 36, 20, socketDropList, function(index, value)
@@ -341,8 +342,46 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		return #self.displayItem.sockets < self.displayItem.selectableSocketCount + self.displayItem.abyssalSocketCount
 	end
 	
-	-- Section: Apply Implicit
-	local influenceDisplayList = { "None" }
+	-- Section: Enchant / Anoint / Corrupt
+	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT",true}, 0, 0, 0, function()
+		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemEnchant2:IsShown() or self.controls.displayItemAnoint:IsShown() or self.controls.displayItemAnoint2:IsShown() or self.controls.displayItemCorrupt:IsShown() ) and 28 or 0
+	end)
+	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionEnchant,"TOPLEFT"}, 0, 0, 160, 20, "Apply Enchantment...", function()
+		self:EnchantDisplayItem(1)
+	end)
+	self.controls.displayItemEnchant.shown = function()
+		return self.displayItem and self.displayItem.enchantments
+	end
+	self.controls.displayItemEnchant2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, 8, 0, 160, 20, "Apply Enchantment 2...", function()
+		self:EnchantDisplayItem(2)
+	end)
+	self.controls.displayItemEnchant2.shown = function()
+		return self.displayItem and self.displayItem.enchantments and self.displayItem.canHaveTwoEnchants and #self.displayItem.enchantModLines > 0
+	end
+	self.controls.displayItemAnoint = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant2,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint...", function()
+		self:AnointDisplayItem(1)
+	end)
+	self.controls.displayItemAnoint.shown = function()
+		return self.displayItem and (self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed)
+	end
+	self.controls.displayItemAnoint2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint 2...", function()
+		self:AnointDisplayItem(2)
+	end)
+	self.controls.displayItemAnoint2.shown = function()
+		return self.displayItem and
+			(self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed) and
+			self.displayItem.canHaveTwoEnchants and
+			#self.displayItem.enchantModLines > 0
+	end
+	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint2,"TOPRIGHT",true}, 8, 0, 100, 20, "Corrupt...", function()
+		self:CorruptDisplayItem()
+	end)
+	self.controls.displayItemCorrupt.shown = function()
+		return self.displayItem and self.displayItem.corruptable
+	end
+
+	-- Section: Influcence dropdowns
+	local influenceDisplayList = { "Influence" }
 	for i, curInfluenceInfo in ipairs(influenceInfo) do
 		influenceDisplayList[i + 1] = curInfluenceInfo.display
 	end
@@ -364,12 +403,10 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 	end
-	self.controls.displayItemSectionImplicit = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
-		local firstRow = (self.controls.displayItemInfluence:IsShown() or self.controls.displayItemInfluence2:IsShown() or self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
-		local secondRow = (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualitySlider:IsShown()) and 28 or 0
-		return firstRow + secondRow
+	self.controls.displayItemSectionInfluence = new("Control", {"TOPLEFT",self.controls.displayItemSectionEnchant,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return self.displayItem and self.displayItem.canBeInfluenced and 28 or 0
 	end)
-	self.controls.displayItemInfluence = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, influenceDisplayList, function(index, value)
+	self.controls.displayItemInfluence = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionInfluence,"TOPRIGHT"}, 0, 0, 100, 20, influenceDisplayList, function(index, value)
 		local otherIndex = self.controls.displayItemInfluence2.selIndex
 		setDisplayItemInfluence({ index - 1, otherIndex - 1 })
 	end)
@@ -383,20 +420,13 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemInfluence2.shown = function()
 		return self.displayItem and self.displayItem.canBeInfluenced
 	end
-	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemInfluence2,"TOPRIGHT",true}, 8, 0, 160, 20, "Apply Enchantment...", function()
-		self:EnchantDisplayItem()
+
+	-- Section: Catalysts
+	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualitySlider:IsShown()) and 28 or 0
 	end)
-	self.controls.displayItemEnchant.shown = function()
-		return self.displayItem and self.displayItem.enchantments
-	end
-	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, 8, 0, 100, 20, "Corrupt...", function()
-		self:CorruptDisplayItem()
-	end)
-	self.controls.displayItemCorrupt.shown = function()
-		return self.displayItem and self.displayItem.corruptable
-	end
-	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemInfluence,"BOTTOMLEFT"}, 0, 8, 180, 20,
-		{"No Catalyst","Abrasive (Attack)","Fertile (Life and Mana)","Imbued (Caster)","Intrinsic (Attribute)","Prismatic (Resistance)","Tempering (Defense)", "Turbulent (Elemental)"},
+	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, 0, 0, 180, 20,
+		{"Catalyst","Abrasive (Attack)","Fertile (Life and Mana)","Imbued (Caster)","Intrinsic (Attribute)","Prismatic (Resistance)","Tempering (Defense)", "Turbulent (Elemental)"},
 		function(index, value)
 			self.displayItem.catalyst = index - 1
 			if not self.displayItem.catalystQuality then
@@ -415,7 +445,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemCatalyst.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and (self.displayItem.base.type == "Amulet" or self.displayItem.base.type == "Ring" or self.displayItem.base.type == "Belt")
 	end
-	self.controls.displayItemCatalystQualitySlider = new("SliderControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT"}, 8, 0, 200, 20, function(val)
+	self.controls.displayItemCatalystQualitySlider = new("SliderControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT",true}, 8, 0, 200, 20, function(val)
 		self.displayItem.catalystQuality = round(val * 20)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
@@ -430,7 +460,6 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemCatalystQualitySlider.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and self.displayItem.catalyst and self.displayItem.catalyst > 0
 	end
-	--self.controls.displayItemCatalystQualitySlider.divCount = 20
 	self.controls.displayItemCatalystQualitySlider.tooltipFunc = function(tooltip, val)
 		local quality = round(val * 20)
 		tooltip:Clear()
@@ -438,7 +467,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end
 
 	-- Section: Cluster Jewel
-	self.controls.displayItemSectionClusterJewel = new("Control", {"TOPLEFT",self.controls.displayItemSectionImplicit,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionClusterJewel = new("Control", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"BOTTOMLEFT"}, 0, 0, 0, function()
 		return self.controls.displayItemClusterJewelSkill:IsShown() and 52 or 0
 	end)
 	self.controls.displayItemClusterJewelSkill = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"TOPLEFT"}, 0, 0, 300, 20, { }, function(index, value)
@@ -539,7 +568,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 			end
 		end
 		drop.shown = function()
-			return self.displayItem.crafted and i <= self.displayItem.affixLimit
+			return self.displayItem and self.displayItem.crafted and i <= self.displayItem.affixLimit
 		end
 		slider = new("SliderControl", {"TOPLEFT",drop,"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
 			local affix = self.displayItem[drop.outputTable][drop.outputIndex]
@@ -596,7 +625,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self:AddCustomModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCustom.shown = function()
-		return self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE"
+		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")
 	end
 
 	-- Section: Modifier Range
@@ -607,7 +636,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[index].range
 	end)
 	self.controls.displayItemRangeLine.shown = function()
-		return self.displayItem.rangeLineList[1] ~= nil
+		return self.displayItem and self.displayItem.rangeLineList[1] ~= nil
 	end
 	self.controls.displayItemRangeSlider = new("SliderControl", {"LEFT",self.controls.displayItemRangeLine,"RIGHT"}, 8, 0, 100, 18, function(val)
 		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.selIndex].range = val
@@ -1628,7 +1657,9 @@ function ItemsTabClass:EditDisplayItemText()
 end
 
 -- Opens the item enchanting popup
-function ItemsTabClass:EnchantDisplayItem()
+function ItemsTabClass:EnchantDisplayItem(enchantSlot)
+	self.enchantSlot = enchantSlot or 1
+
 	local controls = { } 
 	local enchantments = self.displayItem.enchantments
 	local haveSkills = not self.displayItem.enchantments[self.build.data.labyrinths[1].name]
@@ -1678,9 +1709,11 @@ function ItemsTabClass:EnchantDisplayItem()
 	local function enchantItem()
 		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
-		wipeTable(item.enchantModLines)
+		if #item.enchantModLines >= self.enchantSlot then
+			t_remove(item.enchantModLines, self.enchantSlot)
+		end
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
-		t_insert(item.enchantModLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
+		t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
 		item:BuildAndParseRaw()
 		return item
 	end
@@ -1722,6 +1755,122 @@ function ItemsTabClass:EnchantDisplayItem()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(550, 130, "Enchant Item", controls)
+end
+
+---Gets the name of the anointed node on an item
+---@param item table @The item to get the anoint from
+---@return string @The name of the anointed node, or nil if there is no anoint
+function ItemsTabClass:getAnoint(item)
+	local result = { }
+	if item then
+		for _, modList in ipairs{item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+			for _, mod in ipairs(modList) do
+				local line = mod.line
+				local anoint = line:find("Allocates ([a-zA-Z ]+)")
+				if anoint then
+					local nodeName = line:sub(anoint + string.len("Allocates "))
+					t_insert(result, nodeName)
+				end
+			end
+		end
+	end
+	return result
+end
+
+---Returns a copy of the currently displayed item, but anointed with a new node.
+---Removes any existing enchantments before anointing. (Anoints are considered enchantments)
+---@param node table @The passive tree node to anoint, or nil to just remove existing anoints.
+---@return table @The new item
+function ItemsTabClass:anointItem(node)
+	self.anointEnchantSlot = self.anointEnchantSlot or 1
+	local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
+	item.id = self.displayItem.id
+	if #item.enchantModLines >= self.anointEnchantSlot then
+		t_remove(item.enchantModLines, self.anointEnchantSlot)
+	end
+	if node then
+		t_insert(item.enchantModLines, self.anointEnchantSlot, { crafted = true, line = "Allocates " .. node.dn })
+	end
+	item:BuildAndParseRaw()
+	return item
+end
+
+---Appends tooltip information for anointing a new passive tree node onto the currently editing amulet
+---@param tooltip table @The tooltip to append into
+---@param node table @The passive tree node that will be anointed, or nil to remove the current anoint.
+function ItemsTabClass:AppendAnointTooltip(tooltip, node)
+	if not self.displayItem then
+		return
+	end
+
+	local header
+	if node then
+		if self.build.spec.allocNodes[node.id] then
+			tooltip:AddLine(14, "^7Anointing "..node.dn.." changes nothing because this node is already allocated on the tree.")
+			return
+		end
+
+		local curAnoints = self:getAnoint(self.displayItem)
+		if curAnoints and #curAnoints > 0 then
+			for _, curAnoint in ipairs(curAnoints) do
+				if curAnoint == node.dn then
+					tooltip:AddLine(14, "^7Anointing "..node.dn.." changes nothing because this node is already anointed.")
+					return
+				end
+			end
+		end
+
+		header = "^7Anointing "..node.dn.." will give you: "
+	else
+		header = "^7Anointing nothing will give you: "
+	end
+	local calcFunc = self.build.calcsTab:GetMiscCalculator()
+	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem })
+	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) })
+	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
+	if node and numChanges == 0 then
+		tooltip:AddLine(14, "^7Anointing "..node.dn.." changes nothing.")
+	end
+end
+
+-- Opens the item anointing popup
+function ItemsTabClass:AnointDisplayItem(enchantSlot)
+	self.anointEnchantSlot = enchantSlot or 1
+
+	local controls = { } 
+	controls.notableDB = new("NotableDBControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 60, 360, 360, self, self.build.spec.tree.nodes, "ANOINT")
+
+	local function saveLabel()
+		local node = controls.notableDB.selValue
+		if node then
+			return "Anoint " .. node.dn
+		end
+		local curAnoints = self:getAnoint(self.displayItem)
+		if curAnoints and #curAnoints >= self.anointEnchantSlot then
+			return "Remove "..curAnoints[self.anointEnchantSlot]
+		end
+		return "No Anoint"
+	end
+	local function saveLabelWidth()
+		local label = saveLabel()
+		return DrawStringWidth(16, "VAR", label) + 10
+	end
+	local function saveLabelX()
+		local width = saveLabelWidth()
+		return -(width + 90) / 2
+	end
+	controls.save = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOM" }, saveLabelX, -4, saveLabelWidth, 20, saveLabel, function()
+		self:SetDisplayItem(self:anointItem(controls.notableDB.selValue))
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		self:AppendAnointTooltip(tooltip, controls.notableDB.selValue)
+	end	
+	controls.close = new("ButtonControl", {"TOPLEFT", controls.save, "TOPRIGHT" }, 10, 0, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(380, 448, "Anoint Item", controls)
 end
 
 -- Opens the item corrupting popup

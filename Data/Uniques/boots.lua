@@ -779,6 +779,7 @@ League: Blight
 Travel Skills have (50-80)% increased Cooldown Recovery Speed
 (30-40)% increased Mana Regeneration Rate while moving
 Your Movement Speed is 150% of its base value
+This item can be anointed by Cassia
 ]],[[
 Sundance
 Clasped Boots
