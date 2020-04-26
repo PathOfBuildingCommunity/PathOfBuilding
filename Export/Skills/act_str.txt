@@ -183,6 +183,11 @@ local skills, mod, flag, skill = ...
 
 #skill ConsecratedPath
 #flags attack melee area duration
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #mods
 
 #skill DecoyTotem
