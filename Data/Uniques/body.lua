@@ -40,7 +40,7 @@ Grants Level 20 Aspect of the Crab Skill
 (300-350)% increased Armour
 +(100-120) to maximum Life
 +(25-30)% to Fire and Cold Resistances
-Cannot be inflicted with Bleeding
+Bleeding cannot be inflicted on you
 +5 to Maximum number of Crab Barriers
 ]],[[
 Death's Oath

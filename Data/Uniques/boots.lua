@@ -611,7 +611,7 @@ Requires Level 64, 62 Str, 62 Int
 25% increased Movement Speed
 +1 to Maximum Endurance Charges
 50% increased Elemental Ailment Duration on You
-You are Immune to Bleeding
+Bleeding cannot be inflicted on you
 ]],[[
 Gang's Momentum
 Legion Boots
