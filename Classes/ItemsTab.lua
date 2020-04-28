@@ -2145,6 +2145,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 	tooltip:AddSeparator(10)
 
+    if item.talismanTier then
+        tooltip:AddLine(16, "^x7F7F7FTalisman Tier ^xFFFFFF"..item.talismanTier)
+        tooltip:AddSeparator(10)
+    end
+
 	-- Requirements
 	self.build:AddRequirementsToTooltip(tooltip, item.requirements.level, 
 		item.requirements.strMod, item.requirements.dexMod, item.requirements.intMod, 

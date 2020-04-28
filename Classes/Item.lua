@@ -270,6 +270,8 @@ function ItemClass:ParseRaw(raw)
 					else
 						t_insert(self.variantList, specVal)
 					end
+                elseif specName == "Talisman Tier" then
+                    self.talismanTier = tonumber(specVal)
 				elseif specName == "Requires Level" then
 					self.requirements.level = tonumber(specVal)
 				elseif specName == "Requires" then
@@ -599,6 +601,9 @@ function ItemClass:BuildRaw()
 			t_insert(rawLines, "Cluster Jewel Node Count: "..self.clusterJewelNodeCount)
 		end
 	end
+    if self.talismanTier then
+        t_insert(rawLines, "Talisman Tier: "..self.talismanTier)
+    end
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: "..self.itemLevel)
 	end
