@@ -439,7 +439,7 @@ Requires Level 69, 154 Int
 Recover (8-10)% of maximum Life when you use a Mana Flask
 Non-instant Mana recovery from Flasks is also recovered as Life
 (50-60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
-{variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently
+{variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 Shaper Item
 ]],[[
