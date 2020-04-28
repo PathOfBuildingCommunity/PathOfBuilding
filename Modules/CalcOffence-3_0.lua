@@ -1490,6 +1490,13 @@ function calcs.offence(env, actor, activeSkill)
 		flags = bor(ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0, skillData.dotIsProjectile and ModFlag.Projectile or 0),
 		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
 	}
+
+	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
+	local dotTakenCfg = copyTable(dotCfg, true)
+	if (skillData.dotIsSpell) then
+		dotTakenCfg.flags = band(dotTakenCfg.flags, bnot(ModFlag.Spell))
+	end
+
 	activeSkill.dotCfg = dotCfg
 	output.TotalDotInstance = 0
 	for _, damageType in ipairs(dmgTypeList) do
@@ -1507,8 +1514,8 @@ function calcs.offence(env, actor, activeSkill)
 			local effMult = 1
 			if env.mode_effective then
 				local resist = 0
-				local takenInc = enemyDB:Sum("INC", dotTypeCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
-				local takenMore = enemyDB:More(dotTypeCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
+				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
+				local takenMore = enemyDB:More(dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
