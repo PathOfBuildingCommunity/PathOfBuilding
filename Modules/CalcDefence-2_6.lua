@@ -398,10 +398,10 @@ function calcs.defence(env, actor)
 				breakdown[damageType.."TakenDotMult"] = { }
 				breakdown.multiChain(breakdown[damageType.."TakenDotMult"], {
 					label = "DoT Multiplier:",
-					{ "%.2f ^8(%s)", (1 - output[damageType.."Resist"] / 100), damageType == "Physical" and "physical damage reduction" or "resistance" },
-					{ "%.2f ^8(increased/reduced damage taken)", (1 + takenInc / 100) },
-					{ "%.2f ^8(more/less damage taken)", takenMore },
-					total = s_format("= %.2f", output[damageType.."TakenDotMult"]),
+					{ "%.3f ^8(%s)", (1 - output[damageType.."Resist"] / 100), damageType == "Physical" and "physical damage reduction" or "resistance" },
+					{ "%.3f ^8(increased/reduced damage taken)", (1 + takenInc / 100) },
+					{ "%.3f ^8(more/less damage taken)", takenMore },
+					total = s_format("= %.3f", output[damageType.."TakenDotMult"]),
 				})
 			end
 			-- Degens
@@ -422,9 +422,9 @@ function calcs.defence(env, actor)
 					}
 					t_insert(breakdown.TotalDegen.rowList, {
 						type = damageType,
-						base = s_format("%.1f", baseVal),
-						mult = s_format("x %.2f", output[damageType.."TakenDotMult"]),
-						total = s_format("%.1f", total),
+						base = s_format("%.2f", baseVal),
+						mult = s_format("x %.3f", output[damageType.."TakenDotMult"]),
+						total = s_format("%.2f", total),
 					})
 				end
 			end
@@ -503,9 +503,9 @@ function calcs.defence(env, actor)
 				if breakdown then
 					t_insert(breakdown[damageType.."TakenHitMult"].rowList, {
 						type = s_format("%d%% as %s", portion, destType),
-						resist = s_format("x %.2f", 1 - resist / 100),
-						taken = takenMult ~= 1 and s_format("x %.2f", takenMult),
-						final = s_format("x %.2f", final),
+						resist = s_format("x %.3f", 1 - resist / 100),
+						taken = takenMult ~= 1 and s_format("x %.3f", takenMult),
+						final = s_format("x %.3f", final),
 					})
 				end
 			end

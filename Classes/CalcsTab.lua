@@ -39,7 +39,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.input.skill_number = 1
 	self.input.misc_buffMode = "EFFECTIVE"
 
-	self.colWidth = 230
+	self.colWidth = 240
 	self.sectionList = { }
 
 	-- Special section for skill/mode selection
