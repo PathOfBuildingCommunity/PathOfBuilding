@@ -224,7 +224,7 @@ data.misc = { -- magic numbers
 	PoisonDurationBase = 2,
 	IgnitePercentBase = 0.50,
 	IgniteDurationBase = 4,
-	ImpaleStoredDamageBase = 0.1
+	ImpaleStoredDamageBase = 0.1,
 }
 
 ---------------------------
