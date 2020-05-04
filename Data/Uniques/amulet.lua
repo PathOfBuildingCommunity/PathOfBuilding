@@ -891,7 +891,7 @@ Implicits: 1
 {tags:jewellery_resistance}-(30-20)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
 Fortify Buffs you create instead grant 30% more Evasion Rating
-{tags:caster,attack}15-25)% increased Attack and Cast Speed while you have Fortify
+{tags:caster,attack}(15-25)% increased Attack and Cast Speed while you have Fortify
 ]],[[
 Winterheart
 Gold Amulet
