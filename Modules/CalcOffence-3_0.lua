@@ -456,7 +456,7 @@ function calcs.offence(env, actor, activeSkill)
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
-		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, ServerTickRate)
+		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, data.misc.ServerTickRate)
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
 		if breakdown then
 			breakdown.TrapThrowingSpeed = { }
@@ -499,7 +499,7 @@ function calcs.offence(env, actor, activeSkill)
 		local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 		output.Cooldown = cooldownOverride or skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 		
-		output.Cooldown = m_ceil(output.Cooldown * ServerTickRate) / ServerTickRate
+		output.Cooldown = m_ceil(output.Cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown),
@@ -516,7 +516,7 @@ function calcs.offence(env, actor, activeSkill)
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
-		output.MineLayingSpeed = m_min(output.MineLayingSpeed, ServerTickRate)
+		output.MineLayingSpeed = m_min(output.MineLayingSpeed, data.misc.ServerTickRate)
 		output.MineLayingTime = 1 / output.MineLayingSpeed
 		if breakdown then
 			breakdown.MineLayingTime = { }
@@ -917,7 +917,7 @@ function calcs.offence(env, actor, activeSkill)
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 			end
-			output.Speed = m_min(output.Speed, ServerTickRate)
+			output.Speed = m_min(output.Speed, data.misc.ServerTickRate)
 			if output.Speed == 0 then 
 				output.Time = 0
 			else 
