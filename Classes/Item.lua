@@ -409,6 +409,14 @@ function ItemClass:ParseRaw(raw)
 						modList, extra = modLib.parseMod[self.targetVersion](rangedLine or line)
 					end
 				end
+
+				local lineLower = line:lower()
+				if lineLower == "this item can be anointed by cassia" then
+					self.canBeAnointed = true
+				elseif lineLower == "can have a second enchantment modifier" then
+					self.canHaveTwoEnchants = true
+				end
+
 				local modLines
 				if enchant or (crafted and #self.enchantModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.enchantModLines

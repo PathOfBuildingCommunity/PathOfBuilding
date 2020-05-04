@@ -736,6 +736,30 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 		end
 	end
+	-- Sometimes flavour text has actual mods that PoB cares about
+	-- Right now, the only known one is "This item can be anointed by Cassia"
+	if itemData.flavourText then
+		for _, line in ipairs(itemData.flavourText) do
+			for line in line:gmatch("[^\n]+") do
+				-- Remove any text outside of curly braces, if they exist.
+				-- This fixes lines such as:
+				--   "<default>{This item can be anointed by Cassia}"
+				-- To now be:
+				--   "This item can be anointed by Cassia"
+				local startBracket = line:find("{")
+				local endBracket = line:find("}")
+				if startBracket and endBracket and endBracket > startBracket then
+					line = line:sub(startBracket + 1, endBracket - 1)
+				end
+
+				-- If the line parses, then it should be included as an explicit mod
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				if modList then
+					t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
+				end
+			end
+		end
+	end
 
 	-- Add and equip the new item
 	item:BuildAndParseRaw()

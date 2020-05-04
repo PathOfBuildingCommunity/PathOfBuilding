@@ -246,6 +246,7 @@ Can have a second Enchantment Modifier
 (50-55)% reduced Fire Resistance
 (50-55)% reduced Cold Resistance
 Lightning Resistance is 75%
+This item can be anointed by Cassia
 ]],[[
 Cowl of the Cryophile
 Silken Hood
@@ -257,6 +258,7 @@ Can have a second Enchantment Modifier
 (50-55)% reduced Fire Resistance
 (50-55)% reduced Lightning Resistance
 Cold Resistance is 75%
+This item can be anointed by Cassia
 ]],[[
 Cowl of the Thermophile
 Ezomyte Burgonet
@@ -268,6 +270,7 @@ Can have a second Enchantment Modifier
 (50-55)% reduced Cold Resistance
 (50-55)% reduced Lightning Resistance
 Fire Resistance is 75%
+This item can be anointed by Cassia
 ]],[[
 Chitus' Apex
 Necromancer Circlet

@@ -2081,6 +2081,8 @@ local specialModList = {
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
 	["you can have two different banners at the same time"] = { },
+	["can have a second enchantment modifier"] = { },
+	["this item can be anointed by cassia"] = { },
 	["every (%d+) seconds, regenerate (%d+)%% of life over one second"] = function (num, _, percent) return {
 		mod("LifeRegenPercent", "BASE", tonumber(percent), { type = "Condition", var = "LifeRegenBurstFull" }),
 		mod("LifeRegenPercent", "BASE", tonumber(percent) / num, { type = "Condition", var = "LifeRegenBurstAvg" }),
