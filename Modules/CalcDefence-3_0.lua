@@ -688,19 +688,19 @@ function calcs.defence(env, actor)
 		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
 		output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
 		output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
-		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), 75)
-		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), 75)
+		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), data.misc.DodgeChanceCap)
+		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), data.misc.DodgeChanceCap)
 		if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
 			output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 			output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
 		end
 		-- damage avoidances
-		output.AvoidPhysicalDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidPhysicalDamageChance"), 75)
-		output.AvoidLightningDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidLightningDamageChance"), 75)
-		output.AvoidColdDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidColdDamageChance"), 75)
-		output.AvoidFireDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidFireDamageChance"), 75)
+		output.AvoidPhysicalDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidPhysicalDamageChance"), data.misc.AvoidChanceCap)
+		output.AvoidLightningDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidLightningDamageChance"), data.misc.AvoidChanceCap)
+		output.AvoidColdDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidColdDamageChance"), data.misc.AvoidChanceCap)
+		output.AvoidFireDamageChance = m_min(modDB:Sum("BASE", nil, "AvoidFireDamageChance"), data.misc.AvoidChanceCap)
 		output.AvoidChaosDamageChance = 0
-		output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), 75)
+		output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
 		--other avoidances etc
 		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
 		if output.EnergyShield > output.Life * 2 then
@@ -777,12 +777,12 @@ function calcs.defence(env, actor)
 			})
 		end
 		--attack projectile
-		output[damageType.."ProjectileDamageChance"] = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, 75)  / 100) * 100
+		output[damageType.."ProjectileDamageChance"] = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
 		if breakdown then
 			breakdown[damageType.."ProjectileDamageChance"] = { }
 			breakdown.multiChain(breakdown[damageType.."ProjectileDamageChance"], {
 				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, 75) / 100 },
+				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap) / 100 },
 				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output[damageType.."ProjectileDamageChance"]),
 			})
 		end
@@ -797,12 +797,12 @@ function calcs.defence(env, actor)
 			})
 		end
 		--spell projectile
-		output[damageType.."SpellProjectileDamageChance"] = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, 75)  / 100) * 100
+		output[damageType.."SpellProjectileDamageChance"] = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
 		if breakdown then
 			breakdown[damageType.."SpellProjectileDamageChance"] = { }
 			breakdown.multiChain(breakdown[damageType.."SpellProjectileDamageChance"], {
 				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, 75) / 100 },
+				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap) / 100 },
 				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output[damageType.."SpellProjectileDamageChance"]),
 			})
 		end
