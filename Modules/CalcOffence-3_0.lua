@@ -2421,6 +2421,7 @@ function calcs.offence(env, actor, activeSkill)
 	output.CombinedDPS = baseDPS
 	output.CombinedAvg = baseDPS
 	if skillData.showAverage then
+		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
 		output.CombinedAvg = output.CombinedAvg + (output.PoisonDamage or 0)
 		output.WithPoisonDPS = baseDPS + (output.TotalPoisonAverageDamage or 0)
 	else
@@ -2430,6 +2431,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.ignite then
 		if skillFlags.igniteCanStack then
 			if skillData.showAverage then
+				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
 				output.CombinedAvg = output.CombinedDPS + output.TotalIgniteAverageDamage
 				output.WithIgniteAverageDamage = baseDPS + output.TotalIgniteAverageDamage
 			else
@@ -2438,6 +2440,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		elseif skillData.showAverage then
 			output.WithIgniteDPS = baseDPS + output.IgniteDamage
+			output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
 			output.CombinedAvg = output.CombinedAvg + output.IgniteDamage
 		else
 			output.WithIgniteDPS = baseDPS + output.IgniteDPS
@@ -2447,6 +2450,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.bleed then
 		if skillData.showAverage then
 			output.WithBleedDPS = baseDPS + output.BleedDamage
+			output.CombinedDPS = output.CombinedDPS + output.BleedDPS
 			output.CombinedAvg = output.CombinedAvg + output.BleedDamage
 		else
 		output.WithBleedDPS = baseDPS + output.BleedDPS
