@@ -573,6 +573,9 @@ skills["Berserk"] = {
 		["berserk_base_damage_taken_+%_final"] = {
 			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["attack_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
