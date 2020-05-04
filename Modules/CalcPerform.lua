@@ -798,15 +798,17 @@ function calcs.perform(env)
     end
 
 	-- Calculate number of active heralds
-	local heraldList = { }
-	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillTypes[SkillType.Herald] then
-			heraldList[activeSkill.skillCfg.skillName] = true
+	if env.mode_buffs then
+		local heraldList = { }
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillTypes[SkillType.Herald] then
+				heraldList[activeSkill.skillCfg.skillName] = true
+			end
 		end
-	end
-	for _, herald in pairs(heraldList) do
-		modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
-		modDB.conditions["AffectedByHerald"] = true
+		for _, herald in pairs(heraldList) do
+			modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+			modDB.conditions["AffectedByHerald"] = true
+		end
 	end
 
 	-- Combine buffs/debuffs 
