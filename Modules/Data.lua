@@ -228,7 +228,6 @@ data.misc = { -- magic numbers
 	ImpaleStoredDamageBase = 0.1,
 }
 
-
 ---------------------------
 -- Version-specific Data --
 ---------------------------
