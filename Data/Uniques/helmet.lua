@@ -246,6 +246,7 @@ Can have a second Enchantment Modifier
 (50-55)% reduced Fire Resistance
 (50-55)% reduced Cold Resistance
 Lightning Resistance is 75%
+This item can be anointed by Cassia
 ]],[[
 Cowl of the Cryophile
 Silken Hood
@@ -257,6 +258,7 @@ Can have a second Enchantment Modifier
 (50-55)% reduced Fire Resistance
 (50-55)% reduced Lightning Resistance
 Cold Resistance is 75%
+This item can be anointed by Cassia
 ]],[[
 Cowl of the Thermophile
 Ezomyte Burgonet
@@ -268,6 +270,7 @@ Can have a second Enchantment Modifier
 (50-55)% reduced Cold Resistance
 (50-55)% reduced Lightning Resistance
 Fire Resistance is 75%
+This item can be anointed by Cassia
 ]],[[
 Chitus' Apex
 Necromancer Circlet
@@ -439,7 +442,7 @@ Requires Level 69, 154 Int
 Recover (8-10)% of maximum Life when you use a Mana Flask
 Non-instant Mana recovery from Flasks is also recovered as Life
 (50-60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
-{variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently
+{variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 Shaper Item
 ]],[[
@@ -462,7 +465,7 @@ Requires Level 48, 101 Int
 (200-250)% increased Energy Shield
 +(50-70) to maximum Life
 Unaffected by Poison
-(10-20)% of Damage taken gained a Life over 4 seconds when Hit
+(10-20)% of Damage taken gained as Life over 4 seconds when Hit
 ]],[[
 Rime Gaze
 Mind Cage

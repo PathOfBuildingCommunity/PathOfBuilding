@@ -177,13 +177,13 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	
 	if skillModList:Flag(nil, "TransfigurationOfBody") then
-		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Life") * 0.3), "Transfiguration of Body", ModFlag.Attack)
+		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Life") * data.misc.Transfiguration), "Transfiguration of Body", ModFlag.Attack)
 	end
 	if skillModList:Flag(nil, "TransfigurationOfMind") then
-		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Mana") * 0.3), "Transfiguration of Mind")
+		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Mana") * data.misc.Transfiguration), "Transfiguration of Mind")
 	end
 	if skillModList:Flag(nil, "TransfigurationOfSoul") then
-		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * 0.3), "Transfiguration of Soul", ModFlag.Spell)
+		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * data.misc.Transfiguration), "Transfiguration of Soul", ModFlag.Spell)
 	end
 
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
@@ -1174,7 +1174,7 @@ function calcs.offence(env, actor, activeSkill)
 									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
 								end
 							end
-							local enemyArmour = round(calcLib.val(enemyDB, "Armour") * enemyDB:More(nil, "Armour"))
+							local enemyArmour = calcLib.val(enemyDB, "Armour")
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
 							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
 						else
@@ -1186,7 +1186,7 @@ function calcs.offence(env, actor, activeSkill)
 							elseif damageType == "Chaos" then
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
-							resist = m_min(resist, 75)
+							resist = m_min(resist, data.misc.EnemyMaxResist)
 						end
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
@@ -1325,7 +1325,7 @@ function calcs.offence(env, actor, activeSkill)
 			if total == 0 then
 				return 0, 0
 			end
-			local duration = amount / total / 0.02
+			local duration = amount / total / data.misc.LeechRateBase
 			return duration, duration * hitRate
 		end
 		if ghostReaver then
@@ -1448,13 +1448,13 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Calculate leech rates
-	output.LifeLeechInstanceRate = output.Life * 0.02 * calcLib.mod(skillModList, skillCfg, "LifeLeechRate")
+	output.LifeLeechInstanceRate = output.Life * data.misc.LeechRateBase * calcLib.mod(skillModList, skillCfg, "LifeLeechRate")
 	output.LifeLeechRate = output.LifeLeechInstantRate * output.LifeRecoveryMod + m_min(output.LifeLeechInstances * output.LifeLeechInstanceRate, output.MaxLifeLeechRate) * output.LifeRecoveryRateMod
 	output.LifeLeechPerHit = output.LifeLeechInstant * output.LifeRecoveryMod + m_min(output.LifeLeechInstanceRate, output.MaxLifeLeechRate) * output.LifeLeechDuration * output.LifeRecoveryRateMod
-	output.EnergyShieldLeechInstanceRate = output.EnergyShield * 0.02 * calcLib.mod(skillModList, skillCfg, "EnergyShieldLeechRate")
+	output.EnergyShieldLeechInstanceRate = output.EnergyShield * data.misc.LeechRateBase * calcLib.mod(skillModList, skillCfg, "EnergyShieldLeechRate")
 	output.EnergyShieldLeechRate = output.EnergyShieldLeechInstantRate * output.EnergyShieldRecoveryMod + m_min(output.EnergyShieldLeechInstances * output.EnergyShieldLeechInstanceRate, output.MaxEnergyShieldLeechRate) * output.EnergyShieldRecoveryRateMod
 	output.EnergyShieldLeechPerHit = output.EnergyShieldLeechInstant * output.EnergyShieldRecoveryMod + m_min(output.EnergyShieldLeechInstanceRate, output.MaxEnergyShieldLeechRate) * output.EnergyShieldLeechDuration * output.EnergyShieldRecoveryRateMod
-	output.ManaLeechInstanceRate = output.Mana * 0.02 * calcLib.mod(skillModList, skillCfg, "ManaLeechRate")
+	output.ManaLeechInstanceRate = output.Mana * data.misc.LeechRateBase * calcLib.mod(skillModList, skillCfg, "ManaLeechRate")
 	output.ManaLeechRate = output.ManaLeechInstantRate * output.ManaRecoveryMod + m_min(output.ManaLeechInstances * output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaRecoveryRateMod
 	output.ManaLeechPerHit = output.ManaLeechInstant * output.ManaRecoveryMod  + m_min(output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaLeechDuration * output.ManaRecoveryRateMod
 	skillFlags.leechLife = output.LifeLeechRate > 0
@@ -1517,7 +1517,7 @@ function calcs.offence(env, actor, activeSkill)
 						resist = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
 						takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
 					end
-					resist = m_min(resist, 75)
+					resist = m_min(resist, data.misc.EnemyMaxResist)
 				end
 				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 				output[damageType.."DotEffMult"] = effMult
@@ -1763,7 +1763,7 @@ function calcs.offence(env, actor, activeSkill)
 					sourceHitDmg = (min + max) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100)
 				end
 			end
-			local basePercent = skillData.bleedBasePercent or 70
+			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
 			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
@@ -1791,7 +1791,7 @@ function calcs.offence(env, actor, activeSkill)
 				if skillData.bleedDurationIsSkillDuration then
 					durationBase = skillData.duration
 				else
-					durationBase = 5
+					durationBase = data.misc.BleedDurationBase
 				end
 				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
@@ -1910,13 +1910,13 @@ function calcs.offence(env, actor, activeSkill)
 					sourceHitDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100)
 				end
 			end
-			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * 0.20
+			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
+					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), data.misc.EnemyMaxResist)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -1932,7 +1932,7 @@ function calcs.offence(env, actor, activeSkill)
 				if skillData.poisonDurationIsSkillDuration then
 					durationBase = skillData.duration
 				else
-					durationBase = 2
+					durationBase = data.misc.PoisonDurationBase
 				end
 				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyPoisonDuration", "SkillAndDamagingAilmentDuration", skillData.poisonIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfPoisonDuration")
 				globalOutput.PoisonDuration = durationBase * durationMod / rateMod * debuffDurationMult
@@ -2071,12 +2071,12 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * 0.5
+			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist"), 75)
+					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -2090,7 +2090,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.IgniteDPS = baseVal * effectMod * rateMod * effMult
 				local incDur = skillModList:Sum("INC", dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:More(nil, "SelfIgniteDuration")
-				globalOutput.IgniteDuration = 4 * (1 + incDur / 100) * moreDur / rateMod * debuffDurationMult
+				globalOutput.IgniteDuration = data.misc.IgniteDurationBase * (1 + incDur / 100) * moreDur / rateMod * debuffDurationMult
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
@@ -2295,7 +2295,7 @@ function calcs.offence(env, actor, activeSkill)
 			local configStacks = enemyDB:Sum("BASE", cfg, "Multiplier:ImpaleStacks")
 			local impaleStacks = m_min(maxStacks, configStacks)
 
-            local baseStoredDamage = 0.1 -- magic number: base impale stored damage
+            local baseStoredDamage = data.misc.ImpaleStoredDamageBase
             local storedExpectedDamageIncOnBleed = skillModList:Sum("INC", cfg, "ImpaleEffectOnBleed")*skillModList:Sum("BASE", cfg, "BleedChance")/100
             local storedExpectedDamageInc = (skillModList:Sum("INC", cfg, "ImpaleEffect") + storedExpectedDamageIncOnBleed)/100
             local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
@@ -2303,9 +2303,9 @@ function calcs.offence(env, actor, activeSkill)
             local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
             local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
-            local enemyArmour = round(calcLib.val(enemyDB, "Armour") * enemyDB:More(nil, "Armour"))
+            local enemyArmour = calcLib.val(enemyDB, "Armour")
             local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
-            local impaleResist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction)
+            local impaleResist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction)
 
             local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
 
@@ -2382,7 +2382,7 @@ function calcs.offence(env, actor, activeSkill)
 		local dotCfg = activeSkill.decayCfg
 		local effMult = 1
 		if env.mode_effective then
-			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
+			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), data.misc.EnemyMaxResist)
 			local takenInc = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			local takenMore = enemyDB:More(nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -2421,6 +2421,7 @@ function calcs.offence(env, actor, activeSkill)
 	output.CombinedDPS = baseDPS
 	output.CombinedAvg = baseDPS
 	if skillData.showAverage then
+		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
 		output.CombinedAvg = output.CombinedAvg + (output.PoisonDamage or 0)
 		output.WithPoisonDPS = baseDPS + (output.TotalPoisonAverageDamage or 0)
 	else
@@ -2430,6 +2431,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.ignite then
 		if skillFlags.igniteCanStack then
 			if skillData.showAverage then
+				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
 				output.CombinedAvg = output.CombinedDPS + output.TotalIgniteAverageDamage
 				output.WithIgniteAverageDamage = baseDPS + output.TotalIgniteAverageDamage
 			else
@@ -2438,6 +2440,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		elseif skillData.showAverage then
 			output.WithIgniteDPS = baseDPS + output.IgniteDamage
+			output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
 			output.CombinedAvg = output.CombinedAvg + output.IgniteDamage
 		else
 			output.WithIgniteDPS = baseDPS + output.IgniteDPS
@@ -2447,6 +2450,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.bleed then
 		if skillData.showAverage then
 			output.WithBleedDPS = baseDPS + output.BleedDamage
+			output.CombinedDPS = output.CombinedDPS + output.BleedDPS
 			output.CombinedAvg = output.CombinedAvg + output.BleedDamage
 		else
 		output.WithBleedDPS = baseDPS + output.BleedDPS

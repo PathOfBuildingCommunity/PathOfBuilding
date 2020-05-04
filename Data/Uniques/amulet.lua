@@ -181,8 +181,8 @@ Implicits: 1
 Blightwell
 Clutching Talisman
 League: Talisman Hardcore
-Requires Level 28
 Talisman Tier: 2
+Requires Level 28
 Implicits: 1
 (15-25)% increased Global Defences
 +(20-30) to maximum Energy Shield
@@ -591,8 +591,8 @@ Your Critical Strikes have Culling Strike
 Natural Hierarchy
 Rotfeather Talisman
 League: Talisman Standard, Talisman Hardcore
-Requires Level 44
 Talisman Tier: 3
+Requires Level 44
 Implicits: 1
 (25-35)% increased Damage
 (10-15)% increased Physical Damage
@@ -605,9 +605,9 @@ Corrupted
 Night's Hold
 Black Maw Talisman
 League: Talisman Standard, Talisman Hardcore
+Talisman Tier: 1
 Requires Level 25
 Implicits: 1
-Talisman Tier: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
 Socketed Gems are Supported by level 10 Added Chaos Damage
@@ -659,8 +659,8 @@ Wereclaw Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
 Variant: Current
-Requires Level 28
 Talisman Tier: 2
+Requires Level 28
 Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}+(24-36)% to Global Critical Strike Multiplier
