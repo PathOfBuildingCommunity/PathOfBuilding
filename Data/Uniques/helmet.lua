@@ -465,7 +465,7 @@ Requires Level 48, 101 Int
 (200-250)% increased Energy Shield
 +(50-70) to maximum Life
 Unaffected by Poison
-(10-20)% of Damage taken gained a Life over 4 seconds when Hit
+(10-20)% of Damage taken gained as Life over 4 seconds when Hit
 ]],[[
 Rime Gaze
 Mind Cage
