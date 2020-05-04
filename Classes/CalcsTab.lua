@@ -500,8 +500,8 @@ function CalcsTabClass:CalculatePowerStat(selection, original, modified)
 		original = original.Minion
 		modified = modified.Minion
 	end
-	originalValue = original[selection.stat] or 0
-	modifiedValue = modified[selection.stat] or 0
+	local originalValue = original[selection.stat] or 0
+	local modifiedValue = modified[selection.stat] or 0
 	if selection.transform then
 		originalValue = selection.transform(originalValue)
 		modifiedValue = selection.transform(modifiedValue)
