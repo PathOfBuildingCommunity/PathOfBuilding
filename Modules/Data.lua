@@ -225,6 +225,9 @@ data.misc = { -- magic numbers
 	IgnitePercentBase = 0.50,
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
+	TrapTriggerRadiusBase = 10,
+	MineDetonationRadiusBase = 60,
+	MineAuraRadiusBase = 35,
 }
 
 ---------------------------
