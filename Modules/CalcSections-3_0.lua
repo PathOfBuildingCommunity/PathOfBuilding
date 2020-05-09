@@ -594,7 +594,7 @@ return {
 	{ label = "Bleed DPS", { format = "{1:output:BleedDPS}", { breakdown = "BleedDPS" }, { breakdown = "MainHand.BleedDPS" }, { breakdown = "OffHand.BleedDPS" }, }, },
 	{ label = "Bleed Duration", { format = "{2:output:BleedDuration}s", 
 		{ breakdown = "BleedDuration" }, 
-		{ label = "Player modifiers", modName = { "EnemyBleedDuration", "SkillAndDamagingAilmentDuration" }, cfg = "bleed" }, 
+		{ label = "Player modifiers", modName = { "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", "BleedFaster" }, cfg = "bleed" }, 
 		{ label = "Enemy modifiers", modName = "SelfBleedDuration", enemy = true },
 	}, },
 } }
