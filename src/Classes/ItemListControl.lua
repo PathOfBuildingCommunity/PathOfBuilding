@@ -142,3 +142,11 @@ function ItemListClass:OnSelDelete(index, itemId)
 		self.selValue = nil
 	end
 end
+
+function ItemListClass:OnHoverKeyUp(index, itemId, key)
+	if itemLib.wiki.matchesKey(key) then
+		local item = self.itemsTab.items[itemId]
+
+		itemLib.wiki.openItem(item)
+	end
+end

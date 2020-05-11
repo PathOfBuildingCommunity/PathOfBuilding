@@ -144,6 +144,17 @@ itemLib.wiki = {
 
 		itemLib.wiki.open(name)
 	end,
+	openItem = function(item)
+		local name;
+
+		if item.rarity == "UNIQUE" then
+			name = item.title
+		else
+			name = item.baseName
+		end
+
+		itemLib.wiki.open(name)
+	end,
 	open = function(name)
 		local route = string.gsub(name, " ", "_")
 
