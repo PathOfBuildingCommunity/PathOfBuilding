@@ -2103,6 +2103,7 @@ local keystoneList = {
 	"Iron Reflexes",
 	"Mind Over Matter",
 	"Minion Instability",
+	"Mortal Conviction",
 	"Pain Attunement",
 	"Perfect Agony",
 	"Phase Acrobatics",
