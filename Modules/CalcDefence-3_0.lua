@@ -234,12 +234,9 @@ function calcs.defence(env, actor)
 	end
 
 	-- Recovery modifiers
-	output.LifeRecoveryMod = calcLib.mod(modDB, nil, "LifeRecovery")
-	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecovery", "LifeRecoveryRate")
-	output.ManaRecoveryMod = calcLib.mod(modDB, nil, "ManaRecovery")
-	output.ManaRecoveryRateMod = calcLib.mod(modDB, nil, "ManaRecovery", "ManaRecoveryRate")
-	output.EnergyShieldRecoveryMod = calcLib.mod(modDB, nil, "EnergyShieldRecovery")
-	output.EnergyShieldRecoveryRateMod = calcLib.mod(modDB, nil, "EnergyShieldRecovery", "EnergyShieldRecoveryRate")
+	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
+	output.ManaRecoveryRateMod = calcLib.mod(modDB, nil, "ManaRecoveryRate")
+	output.EnergyShieldRecoveryRateMod = calcLib.mod(modDB, nil, "EnergyShieldRecoveryRate")
 
 	-- Leech caps
 	output.MaxLifeLeechInstance = output.Life * calcLib.val(modDB, "MaxLifeLeechInstance") / 100
