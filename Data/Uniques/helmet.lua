@@ -864,9 +864,6 @@ Cannot Leech Mana
 ]],[[
 Speaker's Wreath
 Prophet Crown
-Quality: +20%
-Armour: 268
-Energy Shield: 36
 Requires Level 63, 85 Str, 62 Int
 +(20-40) to Dexterity
 (10-15)% increased Skill Effect Duration
