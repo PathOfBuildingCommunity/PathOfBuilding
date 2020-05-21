@@ -1446,9 +1446,6 @@ skills["SupportGenerosityPlus"] = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
 		},
-		["supported_aura_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
-		},
 	},
 	baseMods = {
 	},
