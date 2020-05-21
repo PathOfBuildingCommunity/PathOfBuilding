@@ -73,7 +73,7 @@ function calcs.defence(env, actor)
 		local final = m_min(total, max)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
-		output[elem.."ResistOverCap"] = m_max(0, total - max)
+		output[elem.."ResistOverCap"] = total-max
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
