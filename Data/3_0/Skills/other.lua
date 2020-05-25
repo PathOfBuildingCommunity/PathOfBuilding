@@ -430,6 +430,9 @@ skills["ChannelledSnipe"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
