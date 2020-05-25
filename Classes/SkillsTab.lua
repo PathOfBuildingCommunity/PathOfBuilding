@@ -597,7 +597,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				gemInstance.color = colorCodes.NORMAL
 			end
 			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.defaultLevel ~= prevDefaultLevel then
-				gemInstance.level = m_min(self.defaultGemLevel, gemInstance.gemData.defaultLevel + 1)
+				gemInstance.level = m_min(self.defaultGemLevel or gemInstance.gemData.defaultLevel, gemInstance.gemData.defaultLevel + 1)
 				gemInstance.defaultLevel = gemInstance.level
 			end
 			calcLib.validateGemLevel(gemInstance)
