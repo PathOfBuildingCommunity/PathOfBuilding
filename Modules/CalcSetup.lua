@@ -100,6 +100,18 @@ function calcs.buildModListForNode(env, node)
 		end
 	end
 
+	node.grantedSkills = { }
+	for _, skill in ipairs(modList:List(nil, "ExtraSkill")) do
+		if skill.name ~= "Unknown" then
+			t_insert(node.grantedSkills, {
+				skillId = skill.skillId,
+				level = skill.level,
+				noSupports = true,
+				source = "Tree:"..node.id
+			})
+		end
+	end
+
 	return modList
 end
 
@@ -359,7 +371,7 @@ function calcs.initEnv(build, mode, override)
 	env.radiusJewelList = wipeTable(env.radiusJewelList)
 	env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
 	env.player.itemList = { }
-	env.itemGrantedSkills = { }
+	env.grantedSkills = { }
 	env.flasks = { }
 	for _, slot in pairs(build.itemsTab.orderedSlots) do
 		local slotName = slot.slotName
@@ -381,7 +393,7 @@ function calcs.initEnv(build, mode, override)
 				local grantedSkill = copyTable(skill)
 				grantedSkill.sourceItem = item
 				grantedSkill.slotName = slotName
-				t_insert(env.itemGrantedSkills, grantedSkill)
+				t_insert(env.grantedSkills, grantedSkill)
 			end
 		end
 		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
@@ -554,11 +566,33 @@ function calcs.initEnv(build, mode, override)
 			env.flasks[override.toggleFlask] = true
 		end
 	end
-	
+
+	-- Add granted passives
+	env.grantedPassives = { }
+	for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
+		local node = env.spec.tree.notableMap[passive]
+		if node then
+			nodes[node.id] = node
+			env.grantedPassives[node.id] = true
+		end
+	end
+
+	-- Merge modifiers for allocated passives
+	env.modDB:AddList(calcs.buildModListForNodeList(env, nodes, true))
+
+	-- Find skills granted by tree nodes
+	for _, node in pairs(env.allocNodes) do
+		for _, skill in ipairs(node.grantedSkills) do
+			local grantedSkill = copyTable(skill)
+			grantedSkill.sourceNode = node
+			t_insert(env.grantedSkills, grantedSkill)
+		end
+	end
+
 	if env.mode == "MAIN" then
-		-- Process extra skills granted by items
+		-- Process extra skills granted by items or tree nodes
 		local markList = wipeTable(tempTable1)
-		for _, grantedSkill in ipairs(env.itemGrantedSkills) do	
+		for _, grantedSkill in ipairs(env.grantedSkills) do
 			-- Check if a matching group already exists
 			local group
 			for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
@@ -579,6 +613,7 @@ function calcs.initEnv(build, mode, override)
 			
 			-- Update the group
 			group.sourceItem = grantedSkill.sourceItem
+			group.sourceNode = grantedSkill.sourceNode
 			local activeGemInstance = group.gemList[1] or {
 				skillId = grantedSkill.skillId,
 				quality = 0,
@@ -628,19 +663,6 @@ function calcs.initEnv(build, mode, override)
 	else
 		env.player.weaponData2 = env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
 	end
-
-	-- Add granted passives
-	env.grantedPassives = { }
-	for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
-		local node = env.spec.tree.notableMap[passive]
-		if node then
-			nodes[node.id] = node
-			env.grantedPassives[node.id] = true
-		end
-	end
-
-	-- Merge modifiers for allocated passives
-	env.modDB:AddList(calcs.buildModListForNodeList(env, nodes, true))
 
 	-- Determine main skill group
 	if env.mode == "CALCS" then
