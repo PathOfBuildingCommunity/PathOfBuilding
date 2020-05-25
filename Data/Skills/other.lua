@@ -292,8 +292,10 @@ skills["SummonMirageChieftain"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Instant] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	fromTree = true,
 	baseFlags = {
 		spell = true,
+		duration = true,
 	},
 	baseMods = {
 	},
@@ -435,6 +437,7 @@ skills["BoneArmour"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Minion] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	fromTree = true,
 	baseFlags = {
 		duration = true,
 		spell = true,

@@ -1268,7 +1268,7 @@ local gemIdLookup = {
 	["power charge on critical strike"] = "SupportPowerChargeOnCrit",
 }
 for name, grantedEffect in pairs(data.skills) do
-	if not grantedEffect.hidden or grantedEffect.fromItem then
+	if not grantedEffect.hidden or grantedEffect.fromItem or grantedEffect.fromTree then
 		gemIdLookup[grantedEffect.name:lower()] = grantedEffect.id
 	end
 end
@@ -1452,6 +1452,7 @@ local specialModList = {
 		mod("Damage", "MORE", num, { type = "Multiplier", var = "EnduranceChargesLostRecently", limit = tonumber(limit), limitTotal = true }),
 	} end,
 	["(%d+)%% more damage if you've lost an endurance charge in the past 8 seconds"] = function(num) return { mod("Damage", "MORE", num, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" })	} end,
+	["trigger level (%d+) (.+) when you attack with a non%-vaal slam skill near an enemy"] = function(num, _, skill) return extraSkill(skill, num) end,
 	-- Deadeye
 	["projectiles pierce all nearby targets"] = { flag("PierceAllTargets") },
 	["gain %+(%d+) life when you hit a bleeding enemy"] = function(num) return { mod("LifeOnHit", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }) } end,

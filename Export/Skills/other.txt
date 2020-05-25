@@ -51,7 +51,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonMirageChieftain
-#flags spell
+#flags spell duration
+	fromTree = true,
 #mods
 
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
@@ -91,6 +92,7 @@ local skills, mod, flag, skill = ...
 #noGem
 #skill BoneArmour
 #flags duration spell
+	fromTree = true,
 #mods
 
 #skill BirdAspect
