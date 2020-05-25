@@ -1764,7 +1764,29 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or 70
-			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect
+			local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
+			local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
+			local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
+			local durationBase
+			if skillData.bleedDurationIsSkillDuration then
+				durationBase = skillData.duration
+			else
+				durationBase = 5
+			end
+			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
+			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster")
+			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
+			local ruthlessBlowEffectForBleed = output.RuthlessBlowEffect
+			if output.RuthlessBlowEffect ~= 0 and bleedStacks == 8 then
+				local hitsPerBleedDuration = (globalOutput.HitSpeed or globalOutput.Speed) * globalOutput.BleedDuration
+				local ruthlessHitsPerBleedDurationWeightForCrimson = (hitsPerBleedDuration / 3) / 8
+				if ruthlessHitsPerBleedDurationWeightForCrimson > 1 then
+					ruthlessHitsPerBleedDurationWeightForCrimson = 1
+				end
+				local fullRuthlessEffect = output.RuthlessBlowMultiplier - 1
+				ruthlessBlowEffectForBleed = 1 + ruthlessHitsPerBleedDurationWeightForCrimson * fullRuthlessEffect
+			end
+			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * ruthlessBlowEffectForBleed
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -1781,20 +1803,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster")
-				local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
-				local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
-				local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
-				local durationBase
-				if skillData.bleedDurationIsSkillDuration then
-					durationBase = skillData.duration
-				else
-					durationBase = 5
-				end
-				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
-				globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
 				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
 				globalOutput.BleedStacksMax = maxStacks
 				globalOutput.BleedStacks = bleedStacks
@@ -1804,7 +1814,7 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
 					end
 					if output.RuthlessBlowEffect ~= 0 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", ruthlessBlowEffectForBleed))
 					end
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 					breakdown.multiChain(breakdown.BleedDPS, {
