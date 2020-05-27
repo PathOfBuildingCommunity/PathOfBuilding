@@ -6840,7 +6840,7 @@ skills["Stormbind"] = {
 	},
 	statMap = {
 		["rune_paint_damage_+%_final_per_rune_level"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["rune_paint_area_of_effect_+%_final_per_rune_level"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
