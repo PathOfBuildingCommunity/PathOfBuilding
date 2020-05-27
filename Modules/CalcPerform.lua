@@ -163,6 +163,11 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if actor.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
 		end
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillTypes[SkillType.Vaal] and activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable then
+				condList["SoulGainPrevention"] = true
+			end
+		end
 	end
 
 	-- Calculate attributes
