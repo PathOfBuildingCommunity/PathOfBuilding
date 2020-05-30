@@ -1957,27 +1957,38 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
+			local prefixModList = { }
+			local suffixModList = { }
+
 			for _, craft in ipairs(self.build.data.masterMods) do
 				if craft.types[self.displayItem.type] then
-					local label
-					if craft.master then
-						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]"
-					else
-						label = table.concat(craft, "/")
+					local destinationModList = suffixModList
+
+					if craft.type == "Prefix" then
+						destinationModList = prefixModList
 					end
-					t_insert(modList, {
-						label = label,
+
+					t_insert(destinationModList, {
+						label = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")",
 						mod = craft,
 						type = "crafted",
 					})
 				end
+			end
+
+			for _, mod in ipairs(prefixModList) do
+				t_insert(modList, mod)
+			end
+
+			for _, mod in ipairs(suffixModList) do
+				t_insert(modList, mod)
 			end
 		elseif sourceId == "ESSENCE" then
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
 				t_insert(modList, {
-					label = essence.name .. "   "..mod.type:sub(1,3).."^8[" .. table.concat(mod, "/") .. "]",
+					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
 					mod = mod,
 					type = "custom",
 					essence = essence,
