@@ -136,7 +136,7 @@ data.labyrinths = {
 }
 
 local maxPenaltyFreeAreaLevel = 70
-local maxAreaLevel = 88 -- T16 map + side area + four watchstones that grant +1 level
+local maxAreaLevel = 87 -- T16 map + side area + three watchstones that grant +1 level
 local penaltyMultiplier = 0.06
 
 ---@param areaLevel number
