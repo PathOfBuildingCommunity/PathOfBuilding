@@ -620,6 +620,9 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 
 	-- Rebuild paths to account for new/removed nodes
 	self:BuildAllDependsAndPaths()
+
+	-- Rebuild node search cache because the tree might have changed
+	self.build.treeTab.viewer.searchStrCached = ""
 end
 
 function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
