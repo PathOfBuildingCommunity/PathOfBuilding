@@ -7452,7 +7452,7 @@ skills["Slither"] = {
 	},
 	baseMods = {
 		mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
-		flag("Condition:CanBeElusive"),
+		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" } ),
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
 	qualityStats = {

@@ -2472,7 +2472,7 @@ skills["SupportPuncturingWeapon"] = {
 		},
 	},	
 	baseMods = {
-		flag("Condition:CanBeElusive", { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
+		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
 	},
 	qualityStats = {
