@@ -162,3 +162,13 @@ function ItemSlotClass:OnKeyDown(key)
 	end
 	return self.DropDownControl:OnKeyDown(key)
 end
+
+function ItemSlotClass:OnHoverKeyUp(key)
+	if itemLib.wiki.matchesKey(key) then
+		local item = self.itemsTab.items[self.selItemId]
+
+		if item then
+			itemLib.wiki.openItem(item)
+		end
+	end
+end
