@@ -55,7 +55,7 @@ function itemLib.applyRange(line, range, valueScalar)
 			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * 10 + 0.5) / 10
 			return tostring(numVal) 
 		end)
-		:gsub("%-(%d+%%) increased", function(num) return num.."%% reduced" end)
+		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 	return itemLib.applyValueScalar(line, valueScalar)
 end
 
