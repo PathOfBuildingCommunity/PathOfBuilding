@@ -1341,6 +1341,14 @@ local specialModList = {
 		flag("ChaosCanIgnite", { type = "Condition", var = "IgnitingConflux" }),
 	},
 	["gain chilling, shocking and igniting conflux for %d seconds"] = { },
+	["summoned golems are immune to elemental damage"] = {
+		mod("MinionModifier", "LIST", { mod = mod("FireResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("MinionModifier", "LIST", { mod = mod("FireResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("MinionModifier", "LIST", { mod = mod("ColdResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("MinionModifier", "LIST", { mod = mod("ColdResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("MinionModifier", "LIST", { mod = mod("LightningResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("MinionModifier", "LIST", { mod = mod("LightningResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
+	},
 	["(%d+)%% increased golem damage per summoned golem"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "SkillType", skillType = SkillType.Golem }, { type = "PerStat", stat = "ActiveGolemLimit" }) } end,
 	-- Gladiator
 	["enemies maimed by you take (%d+)%% increased physical damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num, { type = "Condition", var = "Maimed" }) }) } end,
