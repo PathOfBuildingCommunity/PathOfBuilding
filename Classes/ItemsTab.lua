@@ -1954,30 +1954,35 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	---Mutates modList to contain mods from the specified source
+	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
-			for _, craft in ipairs(self.build.data.masterMods) do
+			for i, craft in ipairs(self.build.data.masterMods) do
 				if craft.types[self.displayItem.type] then
-					local label
-					if craft.master then
-						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]"
-					else
-						label = table.concat(craft, "/")
-					end
 					t_insert(modList, {
-						label = label,
+						label = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")",
 						mod = craft,
 						type = "crafted",
+						affixType = craft.type,
+						defaultOrder = i,
 					})
 				end
 			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		elseif sourceId == "ESSENCE" then
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
 				t_insert(modList, {
-					label = essence.name .. "   "..mod.type:sub(1,3).."^8[" .. table.concat(mod, "/") .. "]",
+					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
 					mod = mod,
 					type = "custom",
 					essence = essence,
