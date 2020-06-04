@@ -1342,7 +1342,7 @@ Limited to: 1
 Survival Skills
 Crimson Jewel
 Limited to: 1
-10% increased Physical Damage
+10% increased Global Physical Damage
 +50 to Armour
 ]],[[
 Warlord's Reach
