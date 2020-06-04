@@ -23,6 +23,7 @@ local groupSlotDropList = {
 	{ label = "Amulet", slotName = "Amulet" },
 	{ label = "Ring 1", slotName = "Ring 1" },
 	{ label = "Ring 2", slotName = "Ring 2" },
+	{ label = "Belt", slotName = "Belt" },
 }
 
 local showSupportGemTypeList = {
