@@ -432,5 +432,8 @@ function DropDownClass:OnKeyUp(key)
 		self:ScrollSelIntoView()
 		return self
 	end
+	if self.OnHoverKeyUp then
+		self:OnHoverKeyUp(key)
+	end
 	return self.dropped and self
 end
