@@ -113,6 +113,9 @@ local skills, mod, flag, skill = ...
 #skill ChannelledSnipe
 #flags attack projectile bow
 	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
+	end,
 #mods
 
 #skill ChannelledSnipeSupport
