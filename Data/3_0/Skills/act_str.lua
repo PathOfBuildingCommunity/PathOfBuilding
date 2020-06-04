@@ -2575,13 +2575,13 @@ skills["ImmortalCall"] = {
 	castTime = 0,
 	statMap = {
 		["mortal_call_elemental_damage_taken_+%_final"] = {
-			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["mortal_call_physical_damage_taken_+%_final"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["mortal_call_physical_damage_taken_per_endurance_charge_consumed_final_permyriad"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
 			div = 100,
 		},
 	},
@@ -2657,6 +2657,7 @@ skills["VaalImmortalCall"] = {
 		duration = true,
 	},
 	baseMods = {
+		flag("Condition:CannotDie", { type = "GlobalEffect", effectType = "Guard" }),
 	},
 	qualityStats = {
 		{ "skill_effect_duration_+%", 1 },
@@ -2885,7 +2886,17 @@ skills["MoltenShell"] = {
 	castTime = 0,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
-			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorb_limit_%_of_armour"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard" }),
+			div = 100,
+		},
+		["molten_shell_max_damage_absorbed"] = {
+			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 	},
 	baseFlags = {
@@ -2964,7 +2975,17 @@ skills["VaalMoltenShell"] = {
 	castTime = 0,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
-			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorb_limit_%_of_armour"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard" }),
+			div = 100,
+		},
+		["molten_shell_max_damage_absorbed"] = {
+			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 	},
 	baseFlags = {
@@ -4219,6 +4240,14 @@ skills["QuickGuard"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["quick_guard_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["quick_guard_damage_absorb_limit"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
