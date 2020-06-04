@@ -208,6 +208,7 @@ data.specialBaseTags = {
 }
 
 data.misc = { -- magic numbers
+	ServerTickRate = 30,
 	TemporalChainsEffectCap = 75,
 	PhysicalDamageReductionCap = 90,
 	MaxResistCap = 90,
