@@ -1168,6 +1168,7 @@ return {
 	{ label = "Ignite Avoid Ch.", { format = "{0:output:IgniteAvoidChance}%", { modName = "AvoidIgnite" }, }, },
 	{ label = "Bleed Avoid Ch.", { format = "{0:output:BleedAvoidChance}%", { modName = "AvoidBleed" }, }, },
 	{ label = "Poison Avoid Ch.", { format = "{0:output:PoisonAvoidChance}%", { modName = "AvoidPoison" }, }, },
+	{ label = "Crit Reduction", haveOutput = "CritExtraDamageReduction", { format = "{0:output:CritExtraDamageReduction}%", { modName = "ReduceCritExtraDamage" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },

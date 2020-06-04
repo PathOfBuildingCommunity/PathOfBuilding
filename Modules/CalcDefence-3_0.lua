@@ -678,6 +678,7 @@ function calcs.defence(env, actor)
 		output.IgniteAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidIgnite"), 100)
 		output.BleedAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBleed"), 100)
 		output.PoisonAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidPoison"), 100)
+		output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 		output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 		if breakdown then
 			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
