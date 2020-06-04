@@ -227,6 +227,9 @@ data.misc = { -- magic numbers
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
+	TrapTriggerRadiusBase = 10,
+	MineDetonationRadiusBase = 60,
+	MineAuraRadiusBase = 35,
 }
 
 ---------------------------
