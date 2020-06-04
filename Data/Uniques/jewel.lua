@@ -1349,7 +1349,7 @@ Warlord's Reach
 Crimson Jewel
 Limited to: 1
 8% increased Attack Damage
-+1 Melee Weapon and Unarmed Range
++1 Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
 [[
