@@ -585,7 +585,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Skill duration
 	local debuffDurationMult
 	if env.mode_effective then
-		debuffDurationMult = 1 / calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster")
+		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster"))
 	else
 		debuffDurationMult = 1
 	end

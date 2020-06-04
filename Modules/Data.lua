@@ -225,6 +225,7 @@ data.misc = { -- magic numbers
 	IgnitePercentBase = 0.50,
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
+	BuffExpirationSlowCap = 0.25,
 }
 
 ---------------------------
