@@ -1203,7 +1203,7 @@ Corrupted
 Brittle Barrier
 Cobalt Jewel
 20% faster start of Energy Shield Recharge
-10% increased Damage Taken while Energy Shield is Full
+10% increased Damage taken while on Full Energy Shield
 Corrupted
 ]],[[
 Chill of Corruption
