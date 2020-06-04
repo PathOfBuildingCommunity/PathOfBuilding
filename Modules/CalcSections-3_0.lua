@@ -993,7 +993,7 @@ return {
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
 	{ label = "Regen", { format = "{1:output:LifeRegen} ({1:output:LifeRegenPercent}%)", 
 		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen" }, modType = "BASE" }, 
-		{ label = "Recovery modifiers", modName = "LifeRecovery" },
+		{ label = "Recovery modifiers", modName = "LifeRecoveryRate" },
 	}, },
 } }
 } },
@@ -1011,7 +1011,7 @@ return {
 	{ label = "Regen", { format = "{1:output:ManaRegen}", 
 		{ breakdown = "ManaRegen" }, 
 		{ label = "Sources", modName = { "ManaRegen", "ManaRegenPercent" }, modType = "BASE" },
-		{ label = "Recovery modifiers", modName = "ManaRecovery" },
+		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
 	}, },
 } }
 } },
@@ -1025,7 +1025,7 @@ return {
 	{ label = "Total", { format = "{0:output:EnergyShield}", { breakdown = "EnergyShield" }, }, },
 	{ label = "Recharge Rate", { format = "{1:output:EnergyShieldRecharge}", 
 		{ breakdown = "EnergyShieldRecharge" },
-		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecovery", "NoEnergyShieldRecharge" }, },
+		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecoveryRate", "NoEnergyShieldRecharge" }, },
 	}, },
 	{ label = "Recharge Delay", { format = "{2:output:EnergyShieldRechargeDelay}s", 
 		{ breakdown = "EnergyShieldRechargeDelay" },
@@ -1033,7 +1033,7 @@ return {
 	}, },
 	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)", 
 		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRegenPercent", "EnergyShieldDegen", "NoEnergyShieldRegen" } }, 
-		{ label = "Recovery modifiers", modName = "EnergyShieldRecovery" },
+		{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
 	}, },
 } }
 } },
