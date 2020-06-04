@@ -1374,6 +1374,12 @@ local specialModList = {
 		mod("LifeRegenPercent", "BASE", num, { type = "PerStat", stat = "TotemsSummoned" }, 0, KeywordFlag.Totem),
 	} end,
 	["enemies take (%d+)%% increased damage for each of your brands attached to them"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Multiplier", var = "BrandsAttached" }) }) } end,
+	["immune to elemental ailments while you have arcane surge"] = {
+		mod("AvoidChill", "BASE", 100, { type = "Condition", var = "AffectedByArcaneSurge" }),
+		mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "AffectedByArcaneSurge" }),
+		mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "AffectedByArcaneSurge" }),
+		mod("AvoidShock", "BASE", 100, { type = "Condition", var = "AffectedByArcaneSurge" }),
+	},
 	-- Inquisitor
 	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
