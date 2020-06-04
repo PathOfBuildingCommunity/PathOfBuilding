@@ -1635,6 +1635,9 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.freeze = false
 	skillFlags.impale = false
 	skillFlags.chill = false
+	skillFlags.scorch = false
+	skillFlags.brittle = false
+	skillFlags.sap = false
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1670,6 +1673,20 @@ function calcs.offence(env, actor, activeSkill)
 			output.ChillChanceOnCrit = 0
 		else
 			output.ChillChanceOnCrit = 100
+		end
+		if skillModList:Flag(cfg, "CritAlwaysAltAilments") and not skillModList:Flag(cfg, "NeverCrit") then
+			skillFlags.inflictScorch = true
+			skillFlags.inflictBrittle = true
+			skillFlags.inflictSap = true
+		end
+		if skillModList:Flag(cfg, "CritAlwaysAltAilments") and not skillModList:Flag(cfg, "NeverCrit") and skillFlags.hit then
+			output.ScorchChanceOnCrit = 100
+			output.BrittleChanceOnCrit = 100
+			output.SapChanceOnCrit = 100
+		else
+			output.ScorchChanceOnCrit = 0
+			output.BrittleChanceOnCrit = 0
+			output.SapChanceOnCrit = 0
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnCrit = 0
@@ -1717,6 +1734,30 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.KnockbackChanceOnHit = skillModList:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
+		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 then
+			skillFlags.inflictScorch = true
+		end
+		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 and skillFlags.hit then
+			output.ScorchChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "ScorchChance"))
+		else
+			output.ScorchChanceOnHit = 0
+		end
+		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 then
+			skillFlags.inflictBrittle = true
+		end
+		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 and skillFlags.hit then
+			output.BrittleChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BrittleChance"))
+		else
+			output.BrittleChanceOnHit = 0
+		end
+		if skillModList:Sum("BASE", cfg, "SapChance") > 0 then
+			skillFlags.inflictSap = true
+		end
+		if skillModList:Sum("BASE", cfg, "SapChance") > 0 and skillFlags.hit then
+			output.SapChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "SapChance"))
+		else
+			output.SapChanceOnHit = 0
+		end
 		if not skillFlags.attack then
             output.ImpaleChance = 0
         else
@@ -1739,6 +1780,15 @@ function calcs.offence(env, actor, activeSkill)
 			local freezeMult = (1 - enemyDB:Sum("BASE", nil, "AvoidFreeze") / 100)
 			output.FreezeChanceOnHit = output.FreezeChanceOnHit * freezeMult
 			output.FreezeChanceOnCrit = output.FreezeChanceOnCrit * freezeMult
+			local scorchMult = (1 - enemyDB:Sum("BASE", nil, "AvoidScorch") / 100)
+			output.ScorchChanceOnHit = output.ScorchChanceOnHit * scorchMult
+			output.ScorchChanceOnCrit = output.ScorchChanceOnCrit * scorchMult
+			local brittleMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBrittle") / 100)
+			output.BrittleChanceOnHit = output.BrittleChanceOnHit * brittleMult
+			output.BrittleChanceOnCrit = output.BrittleChanceOnCrit * brittleMult
+			local sapMult = (1 - enemyDB:Sum("BASE", nil, "AvoidSap") / 100)
+			output.SapChanceOnHit = output.SapChanceOnHit * sapMult
+			output.SapChanceOnCrit = output.SapChanceOnCrit * sapMult
 		end
 	
 		local function calcAilmentDamage(type, sourceHitDmg, sourceCritDmg)
@@ -2321,6 +2371,57 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
+		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 then
+			local sourceHitDmg = 0
+			local sourceCritDmg = 0
+			if output.ScorchChanceOnCrit == 0 and output.ScorchChanceOnHit > 0 then
+				output.ScorchChanceOnCrit = output.ScorchChanceOnHit
+			end
+			if canDeal.Fire then
+				sourceHitDmg = sourceHitDmg + output.FireHitAverage
+				sourceCritDmg = sourceCritDmg + output.FireCritAverage
+			end
+			local baseVal = calcAilmentDamage("Scorch", sourceHitDmg, sourceCritDmg)
+			if baseVal > 0 then
+				skillFlags.scorch = true
+				output.ScorchEffectMod = skillModList:Sum("INC", cfg, "EnemyScorchEffect")
+				output.ScorchDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyScorchDuration") / 100 + enemyDB:Sum("INC", nil, "SelfScorchDuration") / 100
+			end
+		end
+		if (output.BrittleChanceOnHit + output.BrittleChanceOnCrit) > 0 then
+			local sourceHitDmg = 0
+			local sourceCritDmg = 0
+			if output.BrittleChanceOnCrit == 0 and output.BrittleChanceOnHit > 0 then
+				output.BrittleChanceOnCrit = output.BrittleChanceOnHit
+			end
+			if canDeal.Cold then
+				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
+				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
+			end
+			local baseVal = calcAilmentDamage("Brittle", sourceHitDmg, sourceCritDmg)
+			if baseVal > 0 then
+				skillFlags.brittle = true
+				output.BrittleEffectMod = skillModList:Sum("INC", cfg, "EnemyBrittleEffect")
+				output.BrittleDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyBrittleDuration") / 100 + enemyDB:Sum("INC", nil, "SelfBrittleDuration") / 100
+			end
+		end
+		if (output.SapChanceOnHit + output.SapChanceOnCrit) > 0 then
+			local sourceHitDmg = 0
+			local sourceCritDmg = 0
+			if output.SapChanceOnCrit == 0 and output.SapChanceOnHit > 0 then
+				output.SapChanceOnCrit = output.SapChanceOnHit
+			end
+			if canDeal.Lightning then
+				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
+				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
+			end
+			local baseVal = calcAilmentDamage("Sap", sourceHitDmg, sourceCritDmg)
+			if baseVal > 0 then
+				skillFlags.sap = true
+				output.SapEffectMod = skillModList:Sum("INC", cfg, "EnemySapEffect")
+				output.SapDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemySapDuration") / 100 + enemyDB:Sum("INC", nil, "SelfSapDuration") / 100
+			end
+		end
 
 		-- Calculate knockback chance/distance
 		output.KnockbackChance = m_min(100, output.KnockbackChanceOnHit * (1 - output.CritChance / 100) + output.KnockbackChanceOnCrit * output.CritChance / 100 + enemyDB:Sum("BASE", nil, "SelfKnockbackChance"))
@@ -2435,6 +2536,16 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("ShockEffectMod", "AVERAGE")
 		combineStat("FreezeChance", "AVERAGE")
 		combineStat("FreezeDurationMod", "AVERAGE")
+		combineStat("ScorchChance", "AVERAGE")
+		combineStat("ScorchEffectMod", "AVERAGE")
+		combineStat("ScorchDurationMod", "AVERAGE")
+		combineStat("BrittleChance", "AVERAGE")
+		combineStat("BrittleEffectMod", "AVERAGE")
+		combineStat("BrittleDurationMod", "AVERAGE")
+		combineStat("SapChance", "AVERAGE")
+		combineStat("SapEffectMod", "AVERAGE")
+		combineStat("SapDurationMod", "AVERAGE")
+		combineStat("BrittleChance", "AVERAGE")
 		combineStat("ImpaleChance", "AVERAGE")
 		combineStat("ImpaleStoredDamage", "AVERAGE")
 		combineStat("ImpaleModifier", "CHANCE", "ImpaleChance")
