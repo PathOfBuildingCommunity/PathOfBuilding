@@ -470,6 +470,7 @@ Your Energy Shield starts at zero
 You cannot Recharge Energy Shield
 You cannot Regenerate Energy Shield
 {tags:jewellery_defense}You lose 5% of Energy Shield per second
+{tags:life}Life Leech effects are not removed at Full Life
 {tags:life}Life Leech is applied to Energy Shield instead while on Full Life
 {tags:jewellery_defense,life}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
 ]],[[
