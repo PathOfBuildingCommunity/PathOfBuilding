@@ -612,6 +612,10 @@ function calcs.perform(env)
 			if item.baseName:match("Mana Flask") then
 				usingManaFlask = true
 			end
+			if item.baseName:match("Hybrid Flask") then
+				usingLifeFlask = true
+				usingManaFlask = true
+			end
 
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask, 
