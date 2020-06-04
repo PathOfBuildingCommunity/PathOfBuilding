@@ -488,7 +488,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 
 	-- Section: Affix Selection
 	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"BOTTOMLEFT"}, 0, 0, 0, function()
-		if not self.displayItem.crafted then
+		if not self.displayItem or not self.displayItem.crafted then
 			return 0
 		end
 		local h = 6
