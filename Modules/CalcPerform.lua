@@ -1112,6 +1112,7 @@ function calcs.perform(env)
 	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit") + (output.GemCurseLimit or 0)
 	local buffs = { }
 	env.buffs = buffs
+	local guards = { }
 	local minionBuffs = { }
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
@@ -1155,6 +1156,19 @@ function calcs.perform(env)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, minionBuffs, buff.name)
+					end
+				end
+			elseif buff.type == "Guard" then
+				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
+					local skillCfg = buff.activeSkillBuff and skillCfg
+					local modStore = buff.activeSkillBuff and skillModList or modDB
+				 	if not buff.applyNotPlayer then
+						activeSkill.buffSkill = true
+						local srcList = new("ModList")
+						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
+						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						mergeBuff(srcList, guards, buff.name)
 					end
 				end
 			elseif buff.type == "Aura" then
@@ -1422,6 +1436,31 @@ function calcs.perform(env)
 				end
 			end
 		end
+	end
+
+	-- Process guard buffs
+	local guardSlots = { }
+	local nonVaal = false
+	for name, modList in pairs(guards) do
+		if name == "Vaal Molten Shell" then
+			wipeTable(guardSlots)
+			nonVaal = false
+			t_insert(guardSlots, { name = name, modList = modList })
+			break
+		elseif name:match("^Vaal") then
+			t_insert(guardSlots, { name = name, modList = modList })
+		elseif not nonVaal then
+			t_insert(guardSlots, { name = name, modList = modList })
+			nonVaal = true
+		end
+	end
+	if nonVaal then
+		modDB.conditions["AffectedByNonVaalGuardSkill"] = true
+	end
+	for _, guard in ipairs(guardSlots) do
+		modDB.conditions["AffectedByGuardSkill"] = true
+		modDB.conditions["AffectedBy"..guard.name:gsub(" ","")] = true
+		mergeBuff(guard.modList, buffs, guard.name)
 	end
 
 	-- Apply buff/debuff modifiers
