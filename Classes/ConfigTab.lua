@@ -94,6 +94,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.shown = function()
 					return self.input[varData.ifOption]
 				end
+				control.tooltipText = varData.tooltip
 			elseif varData.ifCond or varData.ifMinionCond or varData.ifEnemyCond then
 				control.shown = function()
 					local mainEnv = self.build.calcsTab.mainEnv
