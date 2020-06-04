@@ -988,6 +988,11 @@ skills["ConsecratedPath"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
