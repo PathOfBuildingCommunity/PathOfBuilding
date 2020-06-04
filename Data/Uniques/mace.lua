@@ -412,7 +412,7 @@ Implicits: 2
 {variant:1}Raised Zombies have +500 to maximum Life
 {variant:2,3}Raised Zombies have +2000 to maximum Life
 {variant:4}Raised Zombies have +5000 to maximum Life
-(25-30)% increased Zombie Resistances
+Raised Zombies have +(25-30)% to all Resistances
 25% increased Zombie Size
 Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
