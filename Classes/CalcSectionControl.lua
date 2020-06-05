@@ -12,6 +12,7 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 	self.id = id
 	self.group = group
 	self.colour = colour
+	self.width = width
 	self.subSection = subSection
 	self.flag = subSection[1].data.flag
 	self.notFlag = subSection[1].data.notFlag
