@@ -1243,6 +1243,8 @@ local specialModList = {
 		flag("CannotFork", nil, ModFlag.Projectile),
 	},
 	["critical strikes inflict scorch, brittle and sapped"] = { flag("CritAlwaysAltAilments") },
+	["chance to block attack damage is doubled"] = { mod("BlockChance", "MORE", 100) },
+	["chance to block spell damage is doubled"] = { mod("SpellBlockChance", "MORE", 100) },
 	["ignore attribute requirements"] = { flag("IgnoreAttributeRequirements") },
 	["gain no inherent bonuses from attributes"] = { flag("NoAttributeBonuses") },
 	-- Ascendant
