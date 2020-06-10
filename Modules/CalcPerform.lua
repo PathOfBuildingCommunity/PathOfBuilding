@@ -198,24 +198,26 @@ local function doActorAttribsPoolsConditions(env, actor)
 	output.TotalAttr = output.Str + output.Dex + output.Int
 
 	-- Add attribute bonuses
-	if not modDB:Flag(nil, "NoStrBonusToLife") then
-		modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+	if not modDB:Flag(nil, "NoAttributeBonuses") then
+		if not modDB:Flag(nil, "NoStrBonusToLife") then
+			modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+		end
+		local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
+		if strDmgBonusRatioOverride > 0 then
+			actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
+		else
+			actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+		end
+		modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
+		modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
+		if not modDB:Flag(nil, "IronReflexes") then
+			modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
+		end
+		if not modDB:Flag(nil, "NoIntBonusToMana") then
+			modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
+		end
+		modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 	end
-	local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
-	if strDmgBonusRatioOverride > 0 then
-		actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
-	else
-		actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
-	end
-	modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
-	modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
-	if not modDB:Flag(nil, "IronReflexes") then
-		modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
-	end
-	if not modDB:Flag(nil, "NoIntBonusToMana") then
-		modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
-	end
-	modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 
 	-- Life/mana pools
 	if modDB:Flag(nil, "ChaosInoculation") then
@@ -778,6 +780,9 @@ function calcs.perform(env)
 						t_insert(breakdown["Req"..attr].rowList, row)
 					end
 				end
+			end
+			if modDB:Flag(nil, "IgnoreAttributeRequirements") then
+				out = 0
 			end
 			output["Req"..attr] = out
 			if env.mode == "CALCS" then

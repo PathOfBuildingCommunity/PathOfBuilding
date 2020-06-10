@@ -1243,6 +1243,8 @@ local specialModList = {
 		flag("CannotFork", nil, ModFlag.Projectile),
 	},
 	["critical strikes inflict scorch, brittle and sapped"] = { flag("CritAlwaysAltAilments") },
+	["ignore attribute requirements"] = { flag("IgnoreAttributeRequirements") },
+	["gain no inherent bonuses from attributes"] = { flag("NoAttributeBonuses") },
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
