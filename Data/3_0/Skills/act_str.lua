@@ -1813,6 +1813,11 @@ skills["GlacialHammer"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["glacial_hammer_third_hit_freeze_as_though_dealt_damage_+%"] = {
+			mod("FreezeAsThoughDealing", "MORE", nil)
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,

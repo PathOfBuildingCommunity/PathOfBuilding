@@ -684,6 +684,12 @@ return {
 	mod("PoisonFaster", "INC", nil),
 	mod("IgniteBurnFaster", "INC", nil),
 },
+["active_skill_shock_as_though_damage_+%_final"] = {
+	mod("ShockAsThoughDealing", "MORE", nil),
+},
+["active_skill_chill_as_though_damage_+%_final"] = {
+	mod("ChillAsThoughDealing", "MORE", nil),
+},
 -- Global flags
 ["never_ignite"] = {
 	flag("CannotIgnite"),
