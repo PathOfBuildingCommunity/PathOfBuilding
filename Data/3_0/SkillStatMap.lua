@@ -161,6 +161,9 @@ return {
 ["unique_cospris_malice_cold_spells_triggered"] = {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
+["skill_triggered_by_snipe"] = {
+	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
@@ -338,6 +341,9 @@ return {
 ["base_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["support_added_cooldown_count_if_not_instant"] = {
+	mod("CooldownRecovery", "INC", nil),
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
@@ -362,6 +368,12 @@ return {
 },
 ["critical_strike_chance_+%"] = {
 	mod("CritChance", "INC", nil),
+},
+["spell_critical_strike_chance_+%"] = {
+	mod("CritChance", "INC", nil, ModFlag.Spell),
+},
+["attack_critical_strike_chance_+%"] = {
+	mod("CritChance", "INC", nil, ModFlag.Attack),
 },
 ["base_critical_strike_multiplier_+"] = {
 	mod("CritMultiplier", "BASE", nil),
@@ -700,8 +712,16 @@ return {
 	flag("DealNoChaos"),
 },
 -- Other effects
+["enemy_phys_reduction_%_penalty_vs_hit"] = {
+	mod("EnemyPhysicalDamageReduction", "BASE", nil),
+	mult = -1,
+},
 ["base_stun_threshold_reduction_+%"] = {
 	mod("EnemyStunThreshold", "INC", nil),
+	mult = -1,
+},
+["impale_phys_reduction_%_penalty"] = {
+	mod("EnemyImpalePhysicalDamageReduction", "BASE", nil),
 	mult = -1,
 },
 ["base_stun_duration_+%"] = {
@@ -762,6 +782,14 @@ return {
 },
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
+},
+["projectiles_fork"] = {
+	flag("ForkOnce"),
+	mod("ForkCountMax", "BASE", nil),
+},
+["number_of_additional_forks_base"] = {
+	flag("ForkTwice"),
+	mod("ForkCountMax", "BASE", nil),
 },
 ["active_skill_returning_projectile_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }),
@@ -1116,6 +1144,9 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_champions_of_light_allowed"] = {
+    mod("ActiveSentinelOfPurityLimit", "BASE", nil)
+},
 ["base_number_of_spectres_allowed"] = {
 	mod("ActiveSpectreLimit", "BASE", nil),
 },
@@ -1157,9 +1188,9 @@ return {
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
 },
--- Sigil
+-- Brand
 ["sigil_attached_target_damage_+%_final"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BrandAttachedToEnemy" }),
+	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
@@ -1174,6 +1205,12 @@ return {
 },
 ["channelled_skill_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
+},
+["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
+	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage" }),
+},
+["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
+	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
 },
 
 }

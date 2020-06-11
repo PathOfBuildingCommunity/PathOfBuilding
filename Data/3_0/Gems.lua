@@ -23,6 +23,7 @@ return {
 		name = "Vaal Fireball",
 		grantedEffectId = "VaalFireballSpiralNova",
 		secondaryGrantedEffectId = "Fireball",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -59,6 +60,7 @@ return {
 		name = "Vaal Ice Nova",
 		grantedEffectId = "VaalIceNova",
 		secondaryGrantedEffectId = "IceNova",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -167,6 +169,7 @@ return {
 		name = "Vaal Ground Slam",
 		grantedEffectId = "VaalGroundSlam",
 		secondaryGrantedEffectId = "GroundSlam",
+		vaalGem = true,
 		tags = {
 			strength = true,
 			active_skill = true,
@@ -254,6 +257,7 @@ return {
 		name = "Vaal Double Strike",
 		grantedEffectId = "VaalDoubleStrike",
 		secondaryGrantedEffectId = "DoubleStrike",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -329,6 +333,7 @@ return {
 		name = "Vaal Immortal Call",
 		grantedEffectId = "VaalImmortalCall",
 		secondaryGrantedEffectId = "ImmortalCall",
+		vaalGem = true,
 		tags = {
 			strength = true,
 			active_skill = true,
@@ -414,6 +419,7 @@ return {
 		name = "Vaal Detonate Dead",
 		grantedEffectId = "VaalDetonateDead",
 		secondaryGrantedEffectId = "DetonateDead",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -626,6 +632,7 @@ return {
 		name = "Vaal Cold Snap",
 		grantedEffectId = "VaalColdSnap",
 		secondaryGrantedEffectId = "ColdSnap",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -711,6 +718,7 @@ return {
 		name = "Vaal Righteous Fire",
 		grantedEffectId = "VaalRighteousFire",
 		secondaryGrantedEffectId = "RighteousFire",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -763,6 +771,7 @@ return {
 		name = "Vaal Breach",
 		grantedEffectId = "VaalBreach",
 		secondaryGrantedEffectId = "Portal",
+		vaalGem = true,
 		tags = {
 			low_max_level = true,
 			active_skill = true,
@@ -906,6 +915,7 @@ return {
 		name = "Vaal Spark",
 		grantedEffectId = "VaalSparkSpiralNova",
 		secondaryGrantedEffectId = "Spark",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -1033,6 +1043,7 @@ return {
 		name = "Vaal Glacial Hammer",
 		grantedEffectId = "VaalGlacialHammer",
 		secondaryGrantedEffectId = "GlacialHammer",
+		vaalGem = true,
 		tags = {
 			strength = true,
 			active_skill = true,
@@ -1371,6 +1382,7 @@ return {
 		name = "Vaal Lightning Warp",
 		grantedEffectId = "VaalLightningWarpInstant",
 		secondaryGrantedEffectId = "LightningWarp",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -1408,6 +1420,7 @@ return {
 		name = "Vaal Summon Skeletons",
 		grantedEffectId = "VaalSummonSkeletons",
 		secondaryGrantedEffectId = "SummonSkeletons",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -1477,6 +1490,7 @@ return {
 		name = "Vaal Rain of Arrows",
 		grantedEffectId = "VaalRainOfArrows",
 		secondaryGrantedEffectId = "RainOfArrows",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -1675,6 +1689,7 @@ return {
 		name = "Vaal Lightning Strike",
 		grantedEffectId = "VaalLightningStrike",
 		secondaryGrantedEffectId = "LightningStrike",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -1732,6 +1747,7 @@ return {
 		name = "Vaal Molten Shell",
 		grantedEffectId = "VaalMoltenShell",
 		secondaryGrantedEffectId = "MoltenShell",
+		vaalGem = true,
 		tags = {
 			strength = true,
 			active_skill = true,
@@ -1768,6 +1784,7 @@ return {
 		name = "Vaal Power Siphon",
 		grantedEffectId = "VaalPowerSiphon",
 		secondaryGrantedEffectId = "PowerSiphon",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -1839,6 +1856,7 @@ return {
 		name = "Vaal Haste",
 		grantedEffectId = "VaalHaste",
 		secondaryGrantedEffectId = "Haste",
+		vaalGem = true,
 		tags = {
 			aura = true,
 			dexterity = true,
@@ -1906,6 +1924,7 @@ return {
 		name = "Vaal Discipline",
 		grantedEffectId = "VaalDiscipline",
 		secondaryGrantedEffectId = "Discipline",
+		vaalGem = true,
 		tags = {
 			aura = true,
 			intelligence = true,
@@ -1941,6 +1960,7 @@ return {
 		name = "Vaal Grace",
 		grantedEffectId = "VaalGrace",
 		secondaryGrantedEffectId = "Grace",
+		vaalGem = true,
 		tags = {
 			aura = true,
 			dexterity = true,
@@ -2046,6 +2066,7 @@ return {
 		name = "Vaal Burning Arrow",
 		grantedEffectId = "VaalBurningArrow",
 		secondaryGrantedEffectId = "BurningArrow",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -2113,6 +2134,7 @@ return {
 		name = "Vaal Clarity",
 		grantedEffectId = "VaalClarity",
 		secondaryGrantedEffectId = "Clarity",
+		vaalGem = true,
 		tags = {
 			aura = true,
 			intelligence = true,
@@ -2401,8 +2423,9 @@ return {
 			spell = true,
 			projectile = true,
 			physical = true,
+			duration = true,
 		},
-		tagString = "Spell, Projectile, Physical",
+		tagString = "Spell, Projectile, Physical, Duration",
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
@@ -2477,6 +2500,7 @@ return {
 		name = "Vaal Arc",
 		grantedEffectId = "VaalArcChain",
 		secondaryGrantedEffectId = "Arc",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -2727,6 +2751,7 @@ return {
 		name = "Vaal Cyclone",
 		grantedEffectId = "VaalCyclone",
 		secondaryGrantedEffectId = "Cyclone",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -2883,6 +2908,7 @@ return {
 		name = "Vaal Reave",
 		grantedEffectId = "VaalReave",
 		secondaryGrantedEffectId = "Reave",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -2980,6 +3006,7 @@ return {
 		name = "Vaal Lightning Trap",
 		grantedEffectId = "VaalLightningTrap",
 		secondaryGrantedEffectId = "LightningTrap",
+		vaalGem = true,
 		tags = {
 			trap = true,
 			intelligence = true,
@@ -3039,8 +3066,9 @@ return {
 			active_skill = true,
 			spell = true,
 			minion = true,
+			physical = true,
 		},
-		tagString = "Spell, Minion",
+		tagString = "Spell, Minion, Physical",
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
@@ -3081,6 +3109,7 @@ return {
 		name = "Vaal Spectral Throw",
 		grantedEffectId = "VaalThrownWeapon",
 		secondaryGrantedEffectId = "ThrownWeapon",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -3176,8 +3205,9 @@ return {
 			duration = true,
 			minion = true,
 			spell = true,
+			physical = true,
 		},
-		tagString = "Duration, Minion, Spell",
+		tagString = "Duration, Minion, Spell, Physical",
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
@@ -3218,6 +3248,7 @@ return {
 		name = "Vaal Impurity of Fire",
 		grantedEffectId = "FireImpurity",
 		secondaryGrantedEffectId = "FireResistAura",
+		vaalGem = true,
 		tags = {
 			aura = true,
 			strength = true,
@@ -3255,6 +3286,7 @@ return {
 		name = "Vaal Impurity of Ice",
 		grantedEffectId = "ColdImpurity",
 		secondaryGrantedEffectId = "ColdResistAura",
+		vaalGem = true,
 		tags = {
 			aura = true,
 			dexterity = true,
@@ -3292,6 +3324,7 @@ return {
 		name = "Vaal Impurity of Lightning",
 		grantedEffectId = "LightningImpurity",
 		secondaryGrantedEffectId = "LightningResistAura",
+		vaalGem = true,
 		tags = {
 			aura = true,
 			intelligence = true,
@@ -3329,6 +3362,7 @@ return {
 		name = "Vaal Storm Call",
 		grantedEffectId = "VaalStormCall",
 		secondaryGrantedEffectId = "StormCall",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -3365,6 +3399,7 @@ return {
 		name = "Vaal Flameblast",
 		grantedEffectId = "VaalFlameblast",
 		secondaryGrantedEffectId = "Flameblast",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -4285,8 +4320,9 @@ return {
 			spell = true,
 			area = true,
 			physical = true,
+			duration = true,
 		},
-		tagString = "Spell, AoE, Physical",
+		tagString = "Spell, AoE, Physical, Duration",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
@@ -4313,6 +4349,7 @@ return {
 		name = "Vaal Blade Vortex",
 		grantedEffectId = "VaalBladeVortex",
 		secondaryGrantedEffectId = "BladeVortex",
+		vaalGem = true,
 		tags = {
 			dexterity = true,
 			active_skill = true,
@@ -5185,6 +5222,7 @@ return {
 		name = "Vaal Earthquake",
 		grantedEffectId = "VaalEarthquake",
 		secondaryGrantedEffectId = "Earthquake",
+		vaalGem = true,
 		tags = {
 			strength = true,
 			active_skill = true,
@@ -5204,6 +5242,7 @@ return {
 		name = "Vaal Blight",
 		grantedEffectId = "VaalBlight",
 		secondaryGrantedEffectId = "Blight",
+		vaalGem = true,
 		tags = {
 			intelligence = true,
 			active_skill = true,
@@ -5253,6 +5292,7 @@ return {
 		name = "Vaal Ancestral Warchief",
 		grantedEffectId = "VaalAncestralWarchief",
 		secondaryGrantedEffectId = "AncestorTotemSlam",
+		vaalGem = true,
 		tags = {
 			strength = true,
 			active_skill = true,
@@ -5455,6 +5495,7 @@ return {
 			duration = true,
 			aura = true,
 			physical = true,
+			banner = true,
 		},
 		tagString = "AoE, Spell, Duration, Aura, Physical",
 		reqStr = 100,
@@ -5473,6 +5514,7 @@ return {
 			duration = true,
 			aura = true,
 			physical = true,
+			banner = true,
 		},
 		tagString = "AoE, Spell, Duration, Aura, Physical",
 		reqStr = 100,
@@ -5726,23 +5768,6 @@ return {
 		reqDex = 0,
 		reqInt = 0,
 		defaultLevel = 20,
-	},
-	["Metadata/Items/Gems/SkillGemBoneArmour"] = {
-		name = "[DNT] Bone Armour",
-		grantedEffectId = "BoneArmour",
-		tags = {
-			intelligence = true,
-			active_skill = true,
-			spell = true,
-			duration = true,
-			guard = true,
-			minion = true,
-		},
-		tagString = "Spell, Duration, Guard, Minion",
-		reqStr = 0,
-		reqDex = 0,
-		reqInt = 100,
-		defaultLevel = 1,
 	},
 	["Metadata/Items/Gems/SkillGemDash"] = {
 		name = "Dash",
@@ -6276,7 +6301,7 @@ return {
 		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBarrage"] = {
-		name = "Barrage Support",
+		name = "Barrage",
 		grantedEffectId = "SupportBarrage",
 		tags = {
 			bow = true,
@@ -6401,7 +6426,7 @@ return {
 		defaultLevel = 5,
 	},
 	["Metadata/Items/Gems/SupportGemWeaponElementalDamagePlus"] = {
-		name = "Awakened Elemental Damage With Attacks",
+		name = "Awakened Elemental Damage with Attacks",
 		grantedEffectId = "SupportWeaponElementalDamagePlus",
 		tags = {
 			attack = true,
@@ -6753,7 +6778,7 @@ return {
 		defaultLevel = 5,
 	},
 	["Metadata/Items/Gems/SupportGemIncreasedAreaOfEffectPlus"] = {
-		name = "Awakened Increased Area Of Effect",
+		name = "Awakened Increased Area of Effect",
 		grantedEffectId = "SupportIncreasedAreaOfEffectPlus",
 		tags = {
 			intelligence = true,
@@ -6849,5 +6874,116 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SkillGemArcaneCloak"] = {
+		name = "Arcane Cloak",
+		grantedEffectId = "ArcaneCloak",
+		tags = {
+			intelligence = true,
+			active_skill = true,
+			spell = true,
+			duration = true,
+			guard = true,
+			lightning = true,
+		},
+		tagString = "Spell, Duration, Guard, Lightning",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemStormBind"] = {
+		name = "Stormbind",
+		grantedEffectId = "Stormbind",
+		secondaryGrantedEffectId = "RuneBlast",
+		tags = {
+			intelligence = true,
+			active_skill = true,
+			spell = true,
+			area = true,
+			channelling = true,
+			lightning = true,
+			duration = true,
+		},
+		tagString = "Spell, AoE, Channelling, Lightning, Duration",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemKineticBolt"] = {
+		name = "Kinetic Bolt",
+		grantedEffectId = "KineticBolt",
+		tags = {
+			intelligence = true,
+			active_skill = true,
+			attack = true,
+			projectile = true,
+		},
+		tagString = "Attack, Projectile",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemBladeBlast"] = {
+		name = "Blade Blast",
+		grantedEffectId = "BladeBlast",
+		tags = {
+			dexterity = true,
+			active_skill = true,
+			spell = true,
+			area = true,
+			physical = true,
+		},
+		tagString = "Spell, AoE, Physical",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSpellslinger"] = {
+		name = "Spellslinger",
+		grantedEffectId = "Spellslinger",
+		secondaryGrantedEffectId = "SupportSpellslinger",
+		secondaryEffectName = "Spellslinger Support",
+		tags = {
+			intelligence = true,
+			active_skill = true,
+			spell = true,
+		},
+		tagString = "Spell",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SupportGemArchmage"] = {
+		name = "Archmage",
+		grantedEffectId = "SupportArchmage",
+		tags = {
+			lightning = true,
+			intelligence = true,
+			support = true,
+			spell = true,
+		},
+		tagString = "Lightning, Support, Spell",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SupportGemSecondWind"] = {
+		name = "Second Wind",
+		grantedEffectId = "SupportAdditionalCooldown",
+		tags = {
+			dexterity = true,
+			support = true,
+		},
+		tagString = "Support",
+		reqStr = 0,
+		reqDex = 60,
+		reqInt = 40,
+		defaultLevel = 20,
 	},
 }

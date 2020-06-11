@@ -25,6 +25,21 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeLucky" })
 #mods
 
+#skill ArcaneCloak
+#flags spell duration
+	statMap = {
+		["arcane_cloak_consume_%_of_mana"] = {
+			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+		["arcane_cloak_gain_%_of_consumed_mana_as_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+	},
+#mods
+
 #skill ArcticBreath
 #flags spell area projectile duration
 #baseMod skill("radius", 12)
@@ -32,7 +47,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CataclysmSigil
-#flags spell area duration
+#flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
@@ -171,6 +186,9 @@ local skills, mod, flag, skill = ...
 		},
 		["base_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["minion_recover_X_life_on_block"] = {
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("buffMinions", true)
@@ -727,6 +745,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 #mods
 
+#skill KineticBolt
+#flags attack projectile
+	statMap = {
+		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+			flag("ImprovedSpellDamageAppliesToAttacks"),
+		},
+	},
+#mods
+
 #skill LightningTowerTrap
 #flags spell trap duration area
 #mods
@@ -1019,6 +1046,20 @@ local skills, mod, flag, skill = ...
 #flags spell projectile duration
 #mods
 
+#skill Spellslinger
+#flags spell
+#mods
+
+#skill SupportSpellslinger
+	statMap = {
+		["gain_%_of_base_wand_damage_as_added_spell_damage"] = {
+			skill("gainPercentBaseWandDamage", nil),
+		},
+	},
+#baseMod flag("Condition:SupportedBySpellslinger")
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SpiritOffering
 #flags spell duration
 	statMap = {
@@ -1028,13 +1069,16 @@ local skills, mod, flag, skill = ...
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
 #mods
 
 #skill ConduitSigil
-#flags spell area duration
+#flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
@@ -1056,6 +1100,40 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 20)
+#mods
+
+#skill Stormbind
+#flags spell area duration
+	parts = {
+		{
+			name = "Unimproved",
+		},
+		{
+			name = "1 Improvement",
+		},
+		{
+			name = "2 Improvements",
+		},
+		{
+			name = "3 Improvements",
+		},
+	},
+	statMap = {
+		["rune_paint_damage_+%_final_per_rune_level"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_final_per_rune_level"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+	},
+#baseMod mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 2, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("radius", 16)
+#mods
+
+#skill RuneBlast
+#flags spell
 #mods
 
 #skill StormBurstNew

@@ -117,6 +117,7 @@ Death Bow
 Upgrade: Upgrades to unique{Death's Opus} via prophecy{The Bowstring's Music}
 Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 32, 107 Dex
 Implicits: 1
@@ -125,12 +126,14 @@ Implicits: 1
 10% increased Attack Speed
 {variant:1,3}+100% to Global Critical Strike Multiplier
 {variant:2}+150% to Global Critical Strike Multiplier
+{variant:4}+50% to Global Critical Strike Multiplier
 Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
 Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 44, 107 Dex
 Implicits: 1
@@ -140,6 +143,7 @@ Adds (10-20) to (30-35) Physical Damage
 10% increased Attack Speed
 {variant:1}+150% to Global Critical Strike Multiplier
 {variant:2}+100% to Global Critical Strike Multiplier
+{variant:3}+50% to Global Critical Strike Multiplier
 2 additional Arrows
 ]],[[
 Doomfletch
@@ -147,7 +151,6 @@ Royal Bow
 Upgrade: Upgrades to unique{Doomfletch's Prism} via prophecy{Ancient Doom}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
 Requires Level 28, 95 Dex
@@ -165,6 +168,7 @@ Implicits: 2
 Doomfletch's Prism
 Royal Bow
 Source: Upgraded from unique{Doomfletch} via prophecy{Ancient Doom}
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Current
