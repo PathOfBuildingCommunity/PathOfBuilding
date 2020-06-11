@@ -136,7 +136,7 @@ data.labyrinths = {
 }
 
 local maxPenaltyFreeAreaLevel = 70
-local maxAreaLevel = 88 -- T16 map + side area + four watchstones that grant +1 level
+local maxAreaLevel = 87 -- T16 map + side area + three watchstones that grant +1 level
 local penaltyMultiplier = 0.06
 
 ---@param areaLevel number
@@ -208,6 +208,7 @@ data.specialBaseTags = {
 }
 
 data.misc = { -- magic numbers
+	ServerTickRate = 30,
 	TemporalChainsEffectCap = 75,
 	PhysicalDamageReductionCap = 90,
 	MaxResistCap = 90,
@@ -225,6 +226,10 @@ data.misc = { -- magic numbers
 	IgnitePercentBase = 0.50,
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
+	BuffExpirationSlowCap = 0.25,
+	TrapTriggerRadiusBase = 10,
+	MineDetonationRadiusBase = 60,
+	MineAuraRadiusBase = 35,
 }
 
 ---------------------------

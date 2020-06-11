@@ -307,11 +307,11 @@ function GemSelectClass:Draw(viewPort)
 				if gemList[self.index] then
 					oldGem = copyTable(gemList[self.index], true)
 				else
-					gemList[self.index] = { level = self.skillsTab.defaultGemLevel or gemData.defaultLevel, quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
+					gemList[self.index] = { level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 				end
 				local gemInstance = gemList[self.index]
 				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-					gemData.level = self.skillsTab.defaultGemLevel or gemData.defaultLevel
+					gemData.level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)
 				end
 				gemInstance.gemData = gemData
 				if not gemData.grantedEffect.levels[gemInstance.level] then

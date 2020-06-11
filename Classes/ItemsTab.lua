@@ -488,7 +488,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 
 	-- Section: Affix Selection
 	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"BOTTOMLEFT"}, 0, 0, 0, function()
-		if not self.displayItem.crafted then
+		if not self.displayItem or not self.displayItem.crafted then
 			return 0
 		end
 		local h = 6
@@ -1954,30 +1954,35 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	---Mutates modList to contain mods from the specified source
+	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
-			for _, craft in ipairs(self.build.data.masterMods) do
+			for i, craft in ipairs(self.build.data.masterMods) do
 				if craft.types[self.displayItem.type] then
-					local label
-					if craft.master then
-						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]"
-					else
-						label = table.concat(craft, "/")
-					end
 					t_insert(modList, {
-						label = label,
+						label = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")",
 						mod = craft,
 						type = "crafted",
+						affixType = craft.type,
+						defaultOrder = i,
 					})
 				end
 			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		elseif sourceId == "ESSENCE" then
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
 				t_insert(modList, {
-					label = essence.name .. "   "..mod.type:sub(1,3).."^8[" .. table.concat(mod, "/") .. "]",
+					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
 					mod = mod,
 					type = "custom",
 					essence = essence,
@@ -2369,7 +2374,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			if item.base.flask.life then
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
-				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100) * output.LifeRecoveryMod
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
 				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 				if inst > 0 and grad > 0 then
@@ -2385,7 +2390,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			if item.base.flask.mana then
 				local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
 				local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
-				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100) * output.ManaRecoveryMod
+				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
 				local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.ManaRecoveryRateMod
 				local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
 				if inst > 0 and grad > 0 then

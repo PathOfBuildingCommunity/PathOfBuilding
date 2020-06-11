@@ -1203,7 +1203,7 @@ Corrupted
 Brittle Barrier
 Cobalt Jewel
 20% faster start of Energy Shield Recharge
-10% increased Damage Taken while Energy Shield is Full
+10% increased Damage taken while on Full Energy Shield
 Corrupted
 ]],[[
 Chill of Corruption
@@ -1342,14 +1342,14 @@ Limited to: 1
 Survival Skills
 Crimson Jewel
 Limited to: 1
-10% increased Physical Damage
+10% increased Global Physical Damage
 +50 to Armour
 ]],[[
 Warlord's Reach
 Crimson Jewel
 Limited to: 1
 8% increased Attack Damage
-+1 Melee Weapon and Unarmed Range
++1 Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
 [[

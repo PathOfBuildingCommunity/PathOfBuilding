@@ -111,7 +111,7 @@ return {
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
 	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
-	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n10% more Minion Damage\n15% increased Minion Movement Speed\n15% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
+	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n10% more Minion Damage\n10% increased Minion Movement Speed\n10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FeedingFrenzyActive", "FLAG", true, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Damage", "MORE", 10, "Feeding Frenzy") }, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("MovementSpeed", "INC", 10, "Feeding Frenzy") }, "Config")
@@ -292,10 +292,10 @@ return {
 	{ var = "playerHasPointBlank", type = "check", label = "Player has Point Blank?", tooltip = "'of Skirmishing'", apply = function(val, modList, enemyModList)
 		modList:NewMod("Keystone", "LIST", "Point Blank", "Config")
 	end },
-	{ var = "playerHasLessLifeESRecovery", type = "list", label = "Less Recovery of Life and Energy Shield:", tooltip = "'of Smothering'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)
+	{ var = "playerHasLessLifeESRecovery", type = "list", label = "Less Recovery Rate of Life and Energy Shield:", tooltip = "'of Smothering'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)
 		if val ~= 0 then
-			modList:NewMod("LifeRecovery", "MORE", -val, "Config")
-			modList:NewMod("EnergyShieldRecovery", "MORE", -val, "Config")
+			modList:NewMod("LifeRecoveryRate", "MORE", -val, "Config")
+			modList:NewMod("EnergyShieldRecoveryRate", "MORE", -val, "Config")
 		end
 	end },
 	{ var = "playerCannotRegenLifeManaEnergyShield", type = "check", label = "Cannot Regen Life, Mana or ES?", tooltip = "'of Stasis'", apply = function(val, modList, enemyModList)
@@ -438,7 +438,7 @@ return {
 	{ var = "buffVaalArcLuckyHits", type = "check", label = "Do you have Vaal Arc's Lucky Buff?", ifCond = "CanBeLucky",  tooltip = "Damage with Arc Hits is rolled twice, maximum roll is used", apply = function(val, modList, enemyModList)
 		modList:NewMod("LuckyHits", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanBeLucky" } }, { type = "SkillName", skillNameList = { "Arc", "Vaal Arc" } })
 	end },
-	{ var = "buffElusive", type = "check", label = "Are you Elusive?", ifCond = "CanBeElusive", tooltip = "In addition to allowing any 'while Elusive' modifiers to apply,\nthis will enable the Elusive buff itself. (20% Attack and Spell Dodge, 40% increased Movement Speed)\nThe effect of Elusive decays over time.", apply = function(val, modList, enemyModList)
+	{ var = "buffElusive", type = "check", label = "Are you Elusive?", ifCond = "CanBeElusive", tooltip = "In addition to allowing any 'while Elusive' modifiers to apply,\nthis will enable the Elusive buff itself. (15% Attack and Spell Dodge, 30% increased Movement Speed)\nThe effect of Elusive decays over time.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 	end },
@@ -468,6 +468,10 @@ return {
 	end },
 	{ var = "conditionHaveTotem", type = "check", label = "Do you have a Totem summoned?", ifCond = "HaveTotem", tooltip = "You will automatically be considered to have a Totem if your main skill is a Totem,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveTotem", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "TotemsSummoned", type = "count", label = "# of Summoned Totems (if not maximum):", ifSkillList = { "Spell Totem", "Ballista Totem", "Siege Ballista", "Artillery Ballista", "Shrapnel Ballista", "Ancestral Protector", "Ancestral Warchief", "Vaal Ancestral Warchief" }, tooltip = "This also implies that you have a Totem summoned.\nThis will affect all \"per Summoned Totem\" modifiers, even for non-Totem skills.", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotemsSummoned", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:HaveTotem", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierNearbyAlly", type = "count", label = "# of Nearby Allies", ifMult = "NearbyAlly", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyAlly", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -529,11 +533,11 @@ return {
 		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", m_max(0, val), "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:OnlyOneNearbyEnemy", "FLAG", val == 1, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierNearbyRareOrUniqueEnemies", type = "count", label = "# of nearby Rare or Unique Enemies:", ifMult = "NearbyRareOrUniqueEnemies", apply = function(val, modList, enemyModList)
+	{ var = "multiplierNearbyRareOrUniqueEnemies", type = "countAllowZero", label = "# of nearby Rare or Unique Enemies:", ifMult = "NearbyRareOrUniqueEnemies", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyRareOrUniqueEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Multiplier:NearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", m_max(0, val), "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Condition:OnlyOneNearbyRareOrUniqueEnemy", "FLAG", val == 1, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:AtMostOneNearbyRareOrUniqueEnemy", "FLAG", val <= 1, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:NearbyRareOrUniqueEnemy", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionHitRecently", type = "check", label = "Have you Hit Recently?", ifCond = "HitRecently", tooltip = "You will automatically be considered to have Hit Recently if your main skill is self-cast,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
@@ -800,8 +804,9 @@ return {
 	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on Enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on Enemy (if not maximum):", ifFlag = "bleed", tooltip = "Set number of Bleeds if using Crimson Dance node", apply = function(val, modList, enemyModList)
+	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on Enemy (if not maximum):", ifFlag = "bleed", tooltip = "Set number of Bleeds if using Crimson Dance node. Implies enemy is Bleeding", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionKilledUniqueEnemy", type = "check", ifVer = "3_0", label = "Killed Rare or Unique Enemy Recently?", ifNode = 3184, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:KilledUniqueEnemy", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -888,17 +893,32 @@ return {
 	{ var = "conditionEnemyIgnited", type = "check", label = "Is the enemy Ignited?", implyCond = "Burning", tooltip = "This also implies that the enemy is Burning.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Ignited", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyScorched", type = "check", ifFlag = "inflictScorch", label = "Is the enemy Scorched?", tooltip = "Scorched enemies have lowered elemental resistances, up to -30%.\nThis option will also allow you to input the effect of Scorched.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictScorch" })
+	end },
+	{ var = "conditionScorchedEffect", type = "count", label = "Effect of Scorched:", ifOption = "conditionEnemyScorched", tooltip = "This effect will only be applied while you can inflict Scorched.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ElementalResist", "BASE", -m_min(val, 30), "Config", { type = "Condition", var = "Scorched" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictScorch" })
+	end },
 	{ var = "conditionEnemyChilled", type = "check", label = "Is the enemy Chilled?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy Frozen?", implyCond = "Chilled", tooltip = "This also implies that the enemy is Chilled.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will allow you to input the effect of the Shock applied to the enemy.\n\nShock increases Damage Taken by the enemy by the Effect of Shock specified, up to 50%.\nGuaranteed sources of Shock with an unspecified effect apply a base Shock of 15%.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy Brittle?", tooltip = "Hits against Brittle enemies have up to +15% Critical Strike Chance.\nThis option will also allow you to input the effect of Brittle.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionBrittleEffect", type = "count", label = "Effect of Brittle:", ifOption = "conditionEnemyBrittle", tooltip = "This effect will only be applied while you can inflict Brittle.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("SelfCritChance", "BASE", m_min(val, 15), "Config", { type = "Condition", var = "Brittle" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictBrittle" })
+	end },
+	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will allow you to input the effect of the Shock applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionShockEffect", type = "count", label = "Effect of Shock:", ifOption = "conditionEnemyShocked", apply = function(val,modList,enemyModList)
+	{ var = "conditionShockEffect", type = "count", label = "Effect of Shock:", ifOption = "conditionEnemyShocked", tooltip = "Shock causes the enemy to take increased Damage, up to 50%.\nGuaranteed sources of Shock with an unspecified effect apply a base Shock of 15%.", apply = function(val,modList,enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", m_min(val, 50), "Shock", { type = "Condition", var = "Shocked" })
+	end },
+	{ var = "conditionEnemySapped", type = "check", ifFlag = "inflictSap", label = "Is the enemy Sapped?", tooltip = "Sapped enemies deal less damage, up to 20%.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Sapped", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "count", label = "# of Freeze/Shock/Ignite on Enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
