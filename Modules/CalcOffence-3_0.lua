@@ -1034,6 +1034,15 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	
+	-- shock
+	output.maximumShock = enemyDB:Sum("OVERRIDE", nil, "ShockMax") or 50
+	if output.maximumShock == 0 then
+		output.maximumShock = 50
+	end
+	output.currentShock = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), output.maximumShock)
+	enemyDB:NewMod("DamageTaken", "INC", output.currentShock, "Shock", { type = "Condition", var = "Shocked" })
+
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1192,13 +1201,6 @@ function calcs.offence(env, actor, activeSkill)
 		output.ManaLeech = 0
 		output.ManaLeechInstant = 0
         output.impaleStoredHitAvg = 0
-		-- shock
-		--output.maximumShock = enemyDB:Sum("OVERRIDE", nil, "ShockVal") or 50
-		--if output.maximumShock == 0 then
-		output.maximumShock = 50
-		--end
-		output.currentShock = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), output.maximumShock)
-		enemyDB:NewMod("DamageTaken", "INC", output.shock, "Shock", { type = "Condition", var = "Shocked" })
 		for pass = 1, 2 do
 			-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 			cfg.skillCond["CriticalStrike"] = (pass == 1)
