@@ -471,7 +471,7 @@ function calcs.defence(env, actor)
 				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenWhenHit")
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenWhenHit")
 			end
-			output[damageType.."TakenHit"] = (1 + takenInc / 100) * takenMore
+			output[damageType.."TakenHit"] = m_max((1 + takenInc / 100) * takenMore, 0)
 			do
 				-- Reflect
 				takenInc = takenInc + modDB:Sum("INC", nil, damageType.."ReflectedDamageTaken")
@@ -480,7 +480,7 @@ function calcs.defence(env, actor)
 					takenInc = takenInc + modDB:Sum("INC", nil, "ElementalReflectedDamageTaken")
 					takenMore = takenMore * modDB:More(nil, "ElementalReflectedDamageTaken")
 				end
-				output[damageType.."TakenReflect"] = (1 + takenInc / 100) * takenMore
+				output[damageType.."TakenReflect"] = m_max((1 + takenInc / 100) * takenMore, 0)
 			end
 		end
 		do
@@ -577,7 +577,7 @@ function calcs.defence(env, actor)
 	output.AnyTakenReflect = 0
 	for _, damageType in ipairs(dmgTypeList) do
 		if output[damageType.."TakenReflect"] ~= output[damageType.."TakenHit"] then
-			output.AnyTakenReflect = output.AnyTakenReflect + output[damageType.."TakenReflect"]
+			output.AnyTakenReflect = true
 		end
 	end
 
@@ -661,7 +661,7 @@ function calcs.defence(env, actor)
 						taken = takenMult ~= 1 and s_format("x %.2f", takenMult),
 						final = s_format("x %.2f", final),
 					})
-					if output.AnyTakenReflect ~= 0 then
+					if output.AnyTakenReflect then
 						t_insert(breakdown[damageType.."TakenReflectMult"].rowList, {
 							type = s_format("%d%% as %s", portion, destType),
 							resist = s_format("x %.2f", 1 - resist / 100),
@@ -673,7 +673,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		output[damageType.."TakenHitMult"] = mult
-		if output.AnyTakenReflect ~= 0 then
+		if output.AnyTakenReflect then
 			output[damageType.."TakenReflectMult"] = multReflect
 		end
 	end
