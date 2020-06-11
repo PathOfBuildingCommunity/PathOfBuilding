@@ -148,6 +148,7 @@ local modNameList = {
 	["physical damage taken when hit"] = "PhysicalDamageTakenWhenHit",
 	["physical damage taken over time"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time damage taken"] = "PhysicalDamageTakenOverTime",
+	["reflected physical damage taken"] = "PhysicalReflectedDamageTaken",
 	["lightning damage taken"] = "LightningDamageTaken",
 	["lightning damage from hits taken"] = "LightningDamageTaken",
 	["lightning damage taken when hit"] = "LightningDamageTakenWhenHit",
@@ -169,6 +170,7 @@ local modNameList = {
 	["elemental damage taken when hit"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken from hits"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken over time"] = "ElementalDamageTakenOverTime",
+	["reflected elemental damage taken"] = "ElementalReflectedDamageTaken",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
 	["to dodge attack hits"] = "AttackDodgeChance",
