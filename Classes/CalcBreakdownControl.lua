@@ -371,7 +371,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Modifier is from a passive node, add node name, and add node ID (used to show node location)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
 			if nodeId then
-				local node = build.spec.nodes[tonumber(nodeId)]
+				local nodeIdNumber = tonumber(nodeId)
+				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
 			end
@@ -409,6 +410,11 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				elseif tag.type == "PerStat" then
 					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal
 					desc = base.."per "..(tag.div or 1).." "..self:FormatVarNameOrList(tag.stat, tag.statList)
+					baseVal = ""
+				elseif tag.type == "PercentStat" then
+					local finalPercent = (row.mod.value * (tag.percent / 100)) * 100
+					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(finalPercent).." ") or self:FormatModBase(row.mod, finalPercent)
+					desc = base.."% of "..self:FormatVarNameOrList(tag.stat, tag.statList)
 					baseVal = ""
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
 					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))
@@ -532,7 +538,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						self.tooltip:Clear()
 						ttFunc(self.tooltip)
 						self.tooltip:Draw(col.x, rowY, col.width, 12, viewPort)
-					elseif ttNode then
+					elseif ttNode and ttNode.x and ttNode.y then -- The source "node" from cluster jewels don't know their location because it's the abstract node in tree.lua rather than the generated node from the cluster jewel.
 						local viewerX = col.x + col.width + 5
 						if viewPort.x + viewPort.width < viewerX + 304 then
 							viewerX = col.x - 309
@@ -542,7 +548,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						DrawImage(nil, viewerX, viewerY, 304, 304)
 						local viewer = self.nodeViewer
 						viewer.zoom = 5
-						local scale = 11.85
+						local scale = self.calcsTab.build.spec.tree.size / 1500
 						viewer.zoomX = -ttNode.x / scale
 						viewer.zoomY = -ttNode.y / scale
 						SetViewport(viewerX + 2, viewerY + 2, 300, 300)

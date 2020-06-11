@@ -29,6 +29,41 @@ function ModDBClass:AddMod(mod)
 	t_insert(self.mods[name], mod)
 end
 
+---ReplaceModInternal
+---  Replaces an existing matching mod with a new mod.
+---  If no matching mod exists, then the function returns false
+---@param mod table
+---@return boolean @Whether any mod was replaced
+function ModDBClass:ReplaceModInternal(mod)
+	local name = mod.name
+	if not self.mods[name] then
+		self.mods[name] = { }
+	end
+
+	-- Find the index of the existing mod, if it is in the table
+	local modList = self.mods[name]
+	local modIndex = -1
+	for i = 1, #modList do
+		local curMod = modList[i]
+		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source then
+			modIndex = i
+			break;
+		end
+	end
+
+	-- Add or replace the mod
+	if modIndex > 0 then
+		modList[modIndex] = mod
+		return true
+	end
+
+	if self.parent then
+		return self.parent:ReplaceModInternal(mod)
+	end
+	
+	return false
+end
+
 function ModDBClass:AddList(modList)
 	local mods = self.mods
 	for i, mod in ipairs(modList) do
@@ -195,6 +230,34 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 	if self.parent then
 		self.parent:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
 	end
+end
+
+---HasModInternal
+---  Checks if a mod exists with the given properties
+---@param modType string @The type of the mod, e.g. "BASE"
+---@param flags number @The mod flags to match
+---@param keywordFlags number @The mod keyword flags to match
+---@param source string @The mod source to match
+---@return boolean @true if the mod is found, false otherwise.
+function ModDBClass:HasModInternal(modType, flags, keywordFlags, source, ...)
+	for i = 1, select('#', ...) do
+		local modList = self.mods[select(i, ...)]
+		if modList then
+			for i = 1, #modList do
+				local mod = modList[i]
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+					return true
+				end
+			end
+		end
+	end
+	if self.parent then
+		local parentResult = self.parent:HasModInternal(modType, flags, keywordFlags, source, ...)
+		if parentResult == true then
+			return true
+		end
+	end
+	return false
 end
 
 function ModDBClass:Print()

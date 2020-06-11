@@ -194,7 +194,7 @@ Implicits: 1
 Adds (45-60) to (100-120) Physical Damage 
 Gain (30-40)% of Physical Attack Damage as Extra Fire Damage 
 +4% to Chaos Resistance per Endurance Charge 
-1% reduced Elemental Damage taken when Hit per Endurance Charge 
+1% reduced Elemental Damage taken from Hits per Endurance Charge 
 Adds 5 to 8 Physical Damage per Endurance Charge 
 +500 to Armour per Endurance Charge 
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
@@ -412,7 +412,7 @@ Implicits: 2
 {variant:1}Raised Zombies have +500 to maximum Life
 {variant:2,3}Raised Zombies have +2000 to maximum Life
 {variant:4}Raised Zombies have +5000 to maximum Life
-(25-30)% increased Zombie Resistances
+Raised Zombies have +(25-30)% to all Resistances
 25% increased Zombie Size
 Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
@@ -622,12 +622,12 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
+{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
-(8-12)% increased Cast Speed
 (8-12)% increased Attack Speed
+(8-12)% increased Cast Speed
 30% less Animate Weapon Duration
 Weapons you Animate create an additional copy
-{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 ]],[[
 Kongor's Undying Rage
 Terror Maul

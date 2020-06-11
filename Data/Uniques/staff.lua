@@ -328,7 +328,7 @@ Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 60, 113 Str, 113 Int
+Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3,4}18% Chance to Block Attack Damage while wielding a Staff
@@ -343,7 +343,7 @@ Implicits: 2
 The Searing Touch
 Long Staff
 Variant: Pre 2.0.0
-Requires Level 60, 113 Str, 113 Int
+Requires Level 18, 35 Str, 35 Int
 Implicits: 1
 12% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of Socketed Fire Gems

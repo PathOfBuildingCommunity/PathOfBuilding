@@ -81,6 +81,15 @@ return {
 			"Arc deals 12% increased Damage for each time it has Chained",
 		},
 	},
+	["Arcane Cloak"] = {
+		["MERCILESS"] = {
+			"Arcane Cloak Spends an additional 10% of current Mana",
+		},
+		["ENDGAME"] = {
+			"Arcane Cloak Spends an additional 15% of current Mana",
+			"Arcane Cloak grants Life Regeneration equal to 15% of Mana Spent per Second",
+		},
+	},
 	["Arctic Armour"] = {
 		["MERCILESS"] = {
 			"24% increased Arctic Armour Buff Effect",
@@ -191,6 +200,18 @@ return {
 		["ENDGAME"] = {
 			"Berserk has 40% reduced Rage loss per second",
 			"Berserk has 30% increased Buff Effect",
+		},
+	},
+	["Blade Blast"] = {
+		["MERCILESS"] = {
+			"Blade Blast has 16% increased Area of Effect",
+			"Blade Blast detonates other Lingering Blades within an 50% increased Area",
+			"Blade Blast deals 25% increased Damage",
+		},
+		["ENDGAME"] = {
+			"Blade Blast has 24% increased Area of Effect",
+			"Blade Blast detonates other Lingering Blades within an 75% increased Area",
+			"Blade Blast deals 40% increased Damage",
 		},
 	},
 	["Blade Flurry"] = {
@@ -503,11 +524,11 @@ return {
 	["Dash"] = {
 		["MERCILESS"] = {
 			"Dash travels 65% increased distance",
-			"Dash has +1 Cooldown",
+			"Dash has +1 Cooldown Use",
 		},
 		["ENDGAME"] = {
 			"Dash travels 100% increased distance",
-			"Dash has +2 Cooldowns",
+			"Dash has +2 Cooldown Uses",
 		},
 	},
 	["Decoy Totem"] = {
@@ -955,11 +976,11 @@ return {
 	["Frostblink"] = {
 		["MERCILESS"] = {
 			"Frostblink has 20% increased Cooldown Recovery Speed",
-			"Frostblink has 65% increased maximum travel distance",
+			"Frostblink has 50% increased maximum travel distance",
 		},
 		["ENDGAME"] = {
 			"Frostblink has 30% increased Cooldown Recovery Speed",
-			"Frostblink has 100% increased maximum travel distance",
+			"Frostblink has 75% increased maximum travel distance",
 		},
 	},
 	["Frostbolt"] = {
@@ -1240,6 +1261,18 @@ return {
 			"40% increased Kinetic Blast Damage",
 			"24% increased Kinetic Blast Area of Effect",
 			"Kinetic Blast has a 75% chance for an additional explosion",
+		},
+	},
+	["Kinetic Bolt"] = {
+		["MERCILESS"] = {
+			"Kinetic Bolt has 10% increased Attack Speed",
+			"Kinetic Bolt has 20% increased Projectile Speed",
+			"Kinetic Bolt changes direction 1 additional time",
+		},
+		["ENDGAME"] = {
+			"Kinetic Bolt has 15% increased Attack Speed",
+			"Kinetic Bolt has 30% increased Projectile Speed",
+			"Kinetic Bolt changes direction 2 additional times",
 		},
 	},
 	["Lacerate"] = {
@@ -1589,12 +1622,11 @@ return {
 		["MERCILESS"] = {
 			"Pyroclast Mine deals 25% increased Damage",
 			"Pyroclast Mine has 10% increased Throwing Speed",
-			"Pyroclast Mine fires an additional Projectile",
 		},
 		["ENDGAME"] = {
 			"Pyroclast Mine deals 40% increased Damage",
 			"Pyroclast Mine has 15% increased Throwing Speed",
-			"Pyroclast Mine fires 2 additional Projectiles",
+			"Pyroclast Mine fires an additional Projectile",
 		},
 	},
 	["Rain of Arrows"] = {
@@ -1894,6 +1926,16 @@ return {
 			"30% increased Spectral Throw Projectile Speed",
 		},
 	},
+	["Spellslinger"] = {
+		["MERCILESS"] = {
+			"Skills Supported by Spellslinger have 10% reduced Mana Reservation",
+			"Skills Supported by Spellslinger have 20% increased Cooldown Recovery Speed",
+		},
+		["ENDGAME"] = {
+			"Skills Supported by Spellslinger have 15% reduced Mana Reservation",
+			"Skills Supported by Spellslinger have 30% increased Cooldown Recovery Speed",
+		},
+	},
 	["Spirit Offering"] = {
 		["MERCILESS"] = {
 			"30% increased Spirit Offering Duration",
@@ -1974,6 +2016,18 @@ return {
 			"40% increased Storm Call Damage",
 			"30% reduced Storm Call Duration",
 			"24% increased Storm Call Area of Effect",
+		},
+	},
+	["Stormbind"] = {
+		["MERCILESS"] = {
+			"Stormbind has 16% increased Area of Effect",
+			"Stormbind deals 25% increased Damage",
+			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1 second",
+		},
+		["ENDGAME"] = {
+			"Stormbind has 24% increased Area of Effect",
+			"Stormbind deals 40% increased Damage",
+			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1.5 seconds",
 		},
 	},
 	["Stormblast Mine"] = {

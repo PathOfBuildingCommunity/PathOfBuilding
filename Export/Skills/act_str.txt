@@ -113,6 +113,9 @@ local skills, mod, flag, skill = ...
 		["berserk_base_damage_taken_+%_final"] = {
 			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["attack_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #mods
 
@@ -183,6 +186,11 @@ local skills, mod, flag, skill = ...
 
 #skill ConsecratedPath
 #flags attack melee area duration
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #mods
 
 #skill DecoyTotem
@@ -315,11 +323,21 @@ local skills, mod, flag, skill = ...
 
 #skill GroundSlam
 #flags attack melee area
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #baseMod skill("radius", 35)
 #mods
 
 #skill VaalGroundSlam
 #flags attack melee area
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #mods
 
 #skill HeavyStrike
@@ -474,11 +492,18 @@ local skills, mod, flag, skill = ...
 
 #skill BloodSpears
 #flags attack melee area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = math.max(activeSkill.skillData.dpsMultiplier or 1, 1)
+	end,
 	statMap = {
+		["blood_spears_base_number_of_spears"] = {
+			mod("Multiplier:PerforateMaxSpikes", "BASE", nil),
+		},
 		["blood_spears_damage_+%_final_in_blood_stance"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" })
 		},
 	},
+#baseMod skill("dpsMultiplier", 1, { type = "Multiplier", var = "PerforateSpikeOverlap", limitVar = "PerforateMaxSpikes" }, { type = "Condition", var = "BloodStance" })
 #mods
 
 #skill PhysicalDamageAura
@@ -549,7 +574,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["inspiring_cry_damage_+%_per_one_hundred_nearby_enemies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "NearbyEnemy" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100,
 		},
 		["base_mana_regeneration_rate_per_minute"] = {

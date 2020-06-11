@@ -9,6 +9,29 @@ local m_max = math.max
 local m_floor = math.floor
 local s_gmatch = string.gmatch
 
+-- All possible values for notable recipes (oils)
+local recipeNames = {
+	"AmberOil",
+	"AzureOil",
+	"BlackOil",
+	"ClearOil",
+	"CrimsonOil",
+	"GoldenOil",
+	"OpalescentOil",
+	"SepiaOil",
+	"SilverOil",
+	"TealOil",
+	"VerdantOil",
+	"VioletOil",
+}
+
+-- Preload all recipe images
+local recipeImages = { }
+for _, recipeName in pairs(recipeNames) do
+	recipeImages[recipeName] = NewImageHandle()
+	recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
+end
+
 local TooltipClass = newClass("Tooltip", function(self)
 	self.lines = { }
 	self:Clear()
@@ -19,6 +42,7 @@ function TooltipClass:Clear()
 	if self.updateParams then
 		wipeTable(self.updateParams)
 	end
+	self.recipe = nil
 	self.center = false
 	self.color = { 0.5, 0.3, 0 }
 end
@@ -57,6 +81,10 @@ function TooltipClass:AddLine(size, text)
 	end
 end
 
+function TooltipClass:SetRecipe(recipe)
+	self.recipe = recipe
+end
+
 function TooltipClass:AddSeparator(size)
 	t_insert(self.lines, { size = size })
 end
@@ -71,6 +99,23 @@ function TooltipClass:GetSize()
 			ttW = m_max(ttW, DrawStringWidth(data.size, "VAR", data.text))
 		end
 	end
+
+	-- Account for recipe display
+	if self.recipe and self.lines[1] then
+		local title = self.lines[1]
+		local imageX = DrawStringWidth(title.size, "VAR", title.text) + title.size
+		local recipeTextSize = (title.size * 3) / 4
+		for _, recipeName in ipairs(self.recipe) do
+			-- Trim "Oil" from the recipe name, which normally looks like "GoldenOil"
+			local recipeNameShort = recipeName
+			if #recipeNameShort > 3 and recipeNameShort:sub(-3) == "Oil" then
+				recipeNameShort = recipeNameShort:sub(1, #recipeNameShort - 3)
+			end
+			imageX = imageX + DrawStringWidth(recipeTextSize, "VAR", recipeNameShort) + title.size * 1.25
+		end
+		ttW = m_max(ttW, imageX)
+	end
+
 	return ttW + 12, ttH + 10
 end
 
@@ -107,7 +152,28 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	SetDrawColor(0, 0, 0, 0.75)
 	DrawImage(nil, ttX + 3, ttY + 3, ttW - 6, ttH - 6)
 	SetDrawColor(1, 1, 1)
+
 	local y = ttY + 6
+	-- Draw the oil recipe for notables
+	if self.recipe and self.lines[1] then
+		local title = self.lines[1]
+		local imageX = DrawStringWidth(title.size, "VAR", title.text) + title.size
+		local recipeTextSize = (title.size * 3) / 4
+		for _, recipeName in ipairs(self.recipe) do
+			-- Trim "Oil" from the recipe name, which normally looks like "GoldenOil"
+			local recipeNameShort = recipeName
+			if #recipeNameShort > 3 and recipeNameShort:sub(-3) == "Oil" then
+				recipeNameShort = recipeNameShort:sub(1, #recipeNameShort - 3)
+			end
+			-- Draw the name of the recipe component (oil)
+			DrawString(ttX + imageX, y + (title.size - recipeTextSize)/2, "LEFT", recipeTextSize, "VAR", recipeNameShort)
+			imageX = imageX + DrawStringWidth(recipeTextSize, "VAR", recipeNameShort)
+			-- Draw the image of the recipe component (oil)
+			DrawImage(recipeImages[recipeName], ttX + imageX, y, title.size, title.size)
+			imageX = imageX + title.size * 1.25
+		end
+	end
+
 	for i, data in ipairs(self.lines) do
 		if data.text then
 			if self.center then

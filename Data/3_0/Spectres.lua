@@ -2361,7 +2361,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 	modList = {
 		-- MonsterAbyssDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
-		-- CannotBeUsedAsMinion [cannot_be_used_as_minion = 1]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
 	},
@@ -2655,6 +2654,59 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 		"WickerManRighteousFire",
 		"WickerManMoltenStrike",
 		"MonsterRighteousFireWhileSpectred",
+	},
+	modList = {
+	},
+}
+-- Redemption Sentry
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcher"] = {
+	name = "Redemption Sentry",
+	life = 4.05,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 70,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"WalkEmergeAtlasInfluenceMonster",
+		"MeleeEyrieArrow",
+		"AtlasEyrieArcherMortar",
+		"AtlasEyrieArcherSnipe",
+		"AtlasEyrieArcherSnipeTrickshot",
+		"EmptyActionAttackEyrieArcherTrickshot",
+		"AtlasEyrieArcherGeometryProjectiles",
+		"AtlasExileEyrieArcherSpawnCrystal",
+		"AtlasEyrieArcherCrystalImpact",
+	},
+	modList = {
+	},
+}
+-- Baranite Thaumaturge
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCaster"] = {
+	name = "Baranite Thaumaturge",
+	life = 4.05,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"AtlasExilesCrusaderMageguardProjectile",
+		"EmptyActionSpellCrusaderMageguard",
+		"AtlasCrusaderMageguardSpawnBomb",
+		"AtlasExileCrusaderMageguardBombExplode",
+		"AtlasCrusaderMageguardBeam",
+		"WalkEmergeAtlasInfluenceMonster",
 	},
 	modList = {
 	},

@@ -187,6 +187,10 @@ function TreeTabClass:Load(xml, dbFileName)
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Spec" then
+				if node.attrib.treeVersion and not treeVersions[node.attrib.treeVersion] then
+					main:OpenMessagePopup("Unknown Passive Tree Version", "The build you are trying to load uses an unrecognised version of the passive skill tree.\nYou may need to update the program before loading this build.")
+					return true
+				end
 				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or self.build.targetVersionData.defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
@@ -201,7 +205,7 @@ end
 
 function TreeTabClass:PostLoad()
 	for _, spec in ipairs(self.specList) do
-		spec:BuildAllDependsAndPaths()
+		spec:PostLoad()
 	end
 end
 
@@ -233,6 +237,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	local curSpec = self.specList[self.activeSpec]
 	self.build.spec = curSpec
 	self.build.buildFlag = true
+	self.build.spec:SetWindowTitleWithBuildClass()
 	for _, slot in pairs(self.build.itemsTab.slots) do
 		if slot.nodeId then
 			if prevSpec then

@@ -60,7 +60,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
-			elseif varData.type == "count" or varData.type == "integer" then
+			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
@@ -94,6 +94,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.shown = function()
 					return self.input[varData.ifOption]
 				end
+				control.tooltipText = varData.tooltip
 			elseif varData.ifCond or varData.ifMinionCond or varData.ifEnemyCond then
 				control.shown = function()
 					local mainEnv = self.build.calcsTab.mainEnv
@@ -373,8 +374,8 @@ function ConfigTabClass:BuildModList()
 				if input[varData.var] then
 					varData.apply(true, modList, enemyModList, self.build)
 				end
-			elseif varData.type == "count" or varData.type == "integer" then
-				if input[varData.var] and input[varData.var] ~= 0 then
+			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
+				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then
