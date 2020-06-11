@@ -1830,6 +1830,7 @@ local specialModList = {
 	["(%d+) life gained for each enemy hit if you have used a vaal skill recently"] = function(num) return { mod("LifeOnHit", "BASE", num, { type = "Condition", var = "UsedVaalSkillRecently" }) } end,
 	-- Defences
 	["chaos damage does not bypass energy shield"] = { flag("ChaosNotBypassEnergyShield") },
+	["chaos damage does not bypass energy shield while not on low life or low mana"] = { flag("ChaosNotBypassEnergyShield", { type = "Condition", varList = { "LowLife", "LowMana" }, neg = true }) },
 	["chaos damage is taken from mana before life"] = function() return { mod("ChaosDamageTakenFromManaBeforeLife", "BASE", 100) } end,
 	["cannot evade enemy attacks"] = { flag("CannotEvade") },
 	["cannot block"] = { flag("CannotBlockAttacks"), flag("CannotBlockSpells") },
@@ -1935,6 +1936,7 @@ local specialModList = {
 	["(%d+)%% of maximum life taken as chaos damage per second"] = function(num) return { mod("ChaosDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) } end,
 	["your critical strikes do not deal extra damage during flask effect"] = { flag("NoCritMultiplier", { type = "Condition", var = "UsingFlask" }) },
 	["grants perfect agony during flask effect"] = { mod("Keystone", "LIST", "Perfect Agony", { type = "Condition", var = "UsingFlask" }) },
+	["chaos damage does not bypass energy shield during effect"] = { flag("ChaosNotBypassEnergyShield") },
 	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" }) } end,
 	-- Jewels
 	["passives in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeapLike", value = true }) },
