@@ -55,8 +55,8 @@ function calcs.defence(env, actor)
 	end
 
 	-- Resistances
-	output.PhysicalResist = m_min(data.misc.PhysicalDamageReductionCap, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
-	output.PhysicalResistWhenHit = m_min(data.misc.PhysicalDamageReductionCap, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
+	output.PhysicalResist = m_min(data.misc.DamageReductionCap, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
+	output.PhysicalResistWhenHit = m_min(data.misc.DamageReductionCap, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
 		local max, total
 		if elem == "Chaos" and modDB:Flag(nil, "ChaosInoculation") then
@@ -686,20 +686,34 @@ function calcs.defence(env, actor)
 			local portion = shiftTable[destType]
 			if portion > 0 then
 				local resist = output[destType.."ResistWhenHit"] or output[destType.."Resist"]
-				if damageType == "Physical" and destType == "Physical" then
-					-- Factor in armour for Physical taken as Physical
-					local damage = env.configInput.enemyPhysicalHit or env.data.monsterDamageTable[env.enemyLevel] * 1.5
-					local armourReduct = calcs.armourReduction(output.Armour, damage * portion / 100)
-					resist = m_min(data.misc.PhysicalDamageReductionCap, resist + armourReduct)
-					output.PhysicalDamageReduction = resist
-					if breakdown then
-						breakdown.PhysicalDamageReduction = {
-							s_format("Enemy Physical Hit Damage: %d ^8(%s the Configuration tab)", damage, env.configInput.enemyPhysicalHit and "overridden from" or "can be overridden in"),
-						}
-						if portion < 100 then
-							t_insert(breakdown.PhysicalDamageReduction, s_format("Portion taken as Physical: %d%%", portion))
+				if destType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..destType.."DamageTaken") then
+					local damage = env.configInput.enemyHit or env.data.monsterDamageTable[env.enemyLevel] * 1.5
+					local armourReduct = 0
+					local portionArmour = 100
+					if destType == "Physical" then
+						if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
+							armourReduct = calcs.armourReduction(output.Armour, damage * portion / 100)
+							resist = m_min(data.misc.DamageReductionCap, resist + armourReduct)
 						end
-						t_insert(breakdown.PhysicalDamageReduction, s_format("Reduction from Armour: %d%%", armourReduct))
+					else
+						portionArmour = 100 - resist
+						armourReduct = m_min(data.misc.DamageReductionCap, calcs.armourReduction(output.Armour, damage * portion / 100 * portionArmour / 100))
+						resist =  resist + armourReduct * portionArmour / 100
+					end
+					if damageType == destType then
+						output[damageType.."DamageReduction"] = damageType == "Physical" and resist or armourReduct * portionArmour / 100
+						if breakdown then
+							breakdown[damageType.."DamageReduction"] = {
+								s_format("Enemy Hit Damage: %d ^8(%s the Configuration tab)", damage, env.configInput.enemyHit and "overridden from" or "can be overridden in"),
+							}
+							if portion < 100 then
+								t_insert(breakdown[damageType.."DamageReduction"], s_format("Portion taken as %s: %d%%", damageType, portion))
+							end
+							if portionArmour < 100 then
+								t_insert(breakdown[damageType.."DamageReduction"], s_format("Portion mitigated by Armour: %d%%", portionArmour))
+							end
+							t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
+						end
 					end
 				end
 				local takenMult = output[destType.."TakenHit"]
