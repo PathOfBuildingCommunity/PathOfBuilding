@@ -369,6 +369,23 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	
+	-- Energy Shield bypass
+	output.AnyBypass = false
+	for _, damageType in ipairs(dmgTypeList) do
+		output[damageType.."EnergyShieldBypass"] = modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0
+		if output[damageType.."EnergyShieldBypass"] ~= 0 then
+			output.AnyBypass = true
+		end
+		if damageType == "Chaos" then
+			if not modDB:Flag(nil, "ChaosNotBypassEnergyShield") then
+				output[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] + 100
+			else
+				output.AnyBypass = true
+			end
+		end
+		output[damageType.."EnergyShieldBypass"] = m_max(m_min(output[damageType.."EnergyShieldBypass"], 100), 0)
+	end
 
 	-- Mind over Matter
 	output.AnyMindOverMatter = 0
@@ -378,9 +395,14 @@ function calcs.defence(env, actor)
 			output.AnyMindOverMatter = output.AnyMindOverMatter + output[damageType.."MindOverMatter"]
 			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
 			local manatext = "unreserved mana"
-			if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and modDB:Flag(nil, "EnergyShieldProtectsMana") then
-				manatext = manatext.." + total energy shield"
-				sourcePool = sourcePool + output.EnergyShield
+			if modDB:Flag(nil, "EnergyShieldProtectsMana") and output[damageType.."EnergyShieldBypass"] < 100 then
+				manatext = manatext.." + non-bypassed energy shield"
+				if output[damageType.."EnergyShieldBypass"] > 0 then
+					local manaProtected = output.EnergyShield / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
+					sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected)  / (output[damageType.."EnergyShieldBypass"] / 100)
+				else 
+					sourcePool = sourcePool + output.EnergyShield
+				end
 			end
 			local lifeProtected = sourcePool / (output[damageType.."MindOverMatter"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
 			if output[damageType.."MindOverMatter"] >= 100 then
@@ -409,11 +431,16 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."TotalPool"] = output[damageType.."EffectiveLife"]
 		local manatext = "Mana"
-		if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) then 
+		if output[damageType.."EnergyShieldBypass"] < 100 then 
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-				manatext = manatext.." and total Energy Shield"
+				manatext = manatext.." and non-bypassed Energy Shield"
 			else
-				output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.EnergyShield
+				if output[damageType.."EnergyShieldBypass"] > 0 then
+					local poolProtected = output.EnergyShield / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
+					output[damageType.."TotalPool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected)  / (output[damageType.."EnergyShieldBypass"] / 100)
+				else 
+					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.EnergyShield
+				end
 			end
 		end
 		if breakdown then
@@ -421,8 +448,8 @@ function calcs.defence(env, actor)
 				s_format("Life: %d", output.LifeUnreserved),
 				s_format("%s through MoM: %d", manatext, output[damageType.."EffectiveLife"] - output.LifeUnreserved)
 			}
-			if (not (damageType == "Chaos" and not modDB:Flag(nil, "ChaosNotBypassEnergyShield"))) and (not modDB:Flag(nil, "EnergyShieldProtectsMana")) then
-				t_insert(breakdown[damageType.."TotalPool"], s_format("Energy Shield: %d", output.EnergyShield))
+			if (not modDB:Flag(nil, "EnergyShieldProtectsMana")) and output[damageType.."EnergyShieldBypass"] < 100 then
+				t_insert(breakdown[damageType.."TotalPool"], s_format("Non-bypassed Energy Shield: %d", output[damageType.."TotalPool"] - output[damageType.."EffectiveLife"]))
 			end
 			t_insert(breakdown[damageType.."TotalPool"], s_format("TotalPool: %d", output[damageType.."TotalPool"]))
 		end

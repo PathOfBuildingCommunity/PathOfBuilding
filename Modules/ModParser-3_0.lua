@@ -225,6 +225,7 @@ local modNameList = {
 	["recovery rate of life, mana and energy shield"] = { "LifeRecoveryRate", "ManaRecoveryRate", "EnergyShieldRecoveryRate" },
 	["recovery rate of life and energy shield"] = { "LifeRecoveryRate", "EnergyShieldRecoveryRate" },
 	["maximum life, mana and global energy shield"] = { "Life", "Mana", "EnergyShield", tag = { type = "Global" } },
+	["non-chaos damage taken bypasses energy shield"] = {"PhysicalEnergyShieldBypass", "LightningEnergyShieldBypass", "ColdEnergyShieldBypass", "FireEnergyShieldBypass" },
 	-- Stun/knockback modifiers
 	["stun recovery"] = "StunRecovery",
 	["stun and block recovery"] = "StunRecovery",
@@ -1247,6 +1248,12 @@ local specialModList = {
 	["chance to block spell damage is doubled"] = { mod("SpellBlockChance", "MORE", 100) },
 	["ignore attribute requirements"] = { flag("IgnoreAttributeRequirements") },
 	["gain no inherent bonuses from attributes"] = { flag("NoAttributeBonuses") },
+	["all damage taken bypasses energy shield"] = {
+		mod("PhysicalEnergyShieldBypass", "BASE", 100),
+		mod("LightningEnergyShieldBypass", "BASE", 100),
+		mod("ColdEnergyShieldBypass", "BASE", 100),
+		mod("FireEnergyShieldBypass", "BASE", 100),
+	},
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
