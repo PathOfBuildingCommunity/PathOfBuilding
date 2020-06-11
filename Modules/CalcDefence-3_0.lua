@@ -545,13 +545,13 @@ function calcs.defence(env, actor)
 				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenOverTime")
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenOverTime")
 			end
-			local resist = output[damageType.."Resist"]
+			local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."Resist"]
 			output[damageType.."TakenDotMult"] = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			if breakdown then
 				breakdown[damageType.."TakenDotMult"] = { }
 				breakdown.multiChain(breakdown[damageType.."TakenDotMult"], {
 					label = "DoT Multiplier:",
-					{ "%.2f ^8(%s)", (1 - output[damageType.."Resist"] / 100), damageType == "Physical" and "physical damage reduction" or "resistance" },
+					{ "%.2f ^8(%s)", (1 - resist / 100), damageType == "Physical" and "physical damage reduction" or "resistance" },
 					{ "%.2f ^8(increased/reduced damage taken)", (1 + takenInc / 100) },
 					{ "%.2f ^8(more/less damage taken)", takenMore },
 					total = s_format("= %.2f", output[damageType.."TakenDotMult"]),
@@ -685,7 +685,7 @@ function calcs.defence(env, actor)
 		for _, destType in ipairs(dmgTypeList) do
 			local portion = shiftTable[destType]
 			if portion > 0 then
-				local resist = output[destType.."ResistWhenHit"] or output[destType.."Resist"]
+				local resist = modDB:Flag(nil, "SelfIgnore"..destType.."Resistance") and 0 or output[destType.."ResistWhenHit"] or output[destType.."Resist"]
 				if destType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..destType.."DamageTaken") then
 					local damage = env.configInput.enemyHit or env.data.monsterDamageTable[env.enemyLevel] * 1.5
 					local armourReduct = 0
