@@ -1358,6 +1358,29 @@ return {
 		},
 	}
 } }, { defaultCollapsed = false, label = "Degen", data = {
+	colWidth = 114,
+	{ label = "Degens", haveOutput = "TotalDegen",
+		{ format = "{0:output:PhysicalDegen}", 
+			{ breakdown = "PhysicalDegen" }, 
+			{ modName = "PhysicalDegen", }
+		},
+		{ format = "{0:output:LightningDegen}",
+			{ breakdown = "LightningDegen" }, 
+			{ modName = "LightningDegen", }
+		},
+		{ format = "{0:output:ColdDegen}",
+			{ breakdown = "ColdDegen" }, 
+			{ modName = "ColdDegen", }
+		},
+		{ format = "{0:output:FireDegen}", 
+			{ breakdown = "FireDegen" }, 
+			{ modName = "FireDegen", }
+		},
+		{ format = "{0:output:ChaosDegen}",
+			{ breakdown = "ChaosDegen" }, 
+			{ modName = "ChaosDegen", }
+		},
+	},
 	{ label = "Total Degen", haveOutput = "TotalDegen", { format = "{1:output:TotalDegen}", 
 		{ breakdown = "TotalDegen" },
 		{ label = "Sources", modName = { "PhysicalDegen", "FireDegen", "ColdDegen", "LightningDegen", "ChaosDegen" }, modType = "BASE" },
