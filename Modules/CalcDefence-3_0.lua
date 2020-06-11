@@ -597,7 +597,7 @@ function calcs.defence(env, actor)
 
 	-- Other defences: block, dodge, stun recovery/avoidance
 	do
-		output.MovementSpeedMod = calcLib.mod(modDB, nil, "MovementSpeed")
+		output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
 		if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
 			output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
 		end

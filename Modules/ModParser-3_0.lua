@@ -1904,6 +1904,7 @@ local specialModList = {
 	},
 	["unaffected by curses"] = { mod("CurseEffectOnSelf", "MORE", -100) },
 	["the effect of chill on you is reversed"] = { flag("SelfChillEffectIsReversed") },
+	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },
