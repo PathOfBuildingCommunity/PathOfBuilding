@@ -1959,6 +1959,7 @@ local specialModList = {
 	["cannot be stunned"] = { mod("AvoidStun", "BASE", 100) },
 	["cannot be stunned if you haven't been hit recently"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "BeenHitRecently", neg = true }) },
 	["cannot be stunned if you have at least (%d+) crab barriers"] = function(num) return { mod("AvoidStun", "BASE", 100, { type = "StatThreshold", stat = "CrabBarriers", threshold = num }) } end,
+	["cannot be blinded"] = { mod("AvoidBlind", "BASE", 100) },
 	["cannot be shocked"] = { mod("AvoidShock", "BASE", 100) },
 	["immune to shock"] = { mod("AvoidShock", "BASE", 100) },
 	["cannot be frozen"] = { mod("AvoidFreeze", "BASE", 100) },

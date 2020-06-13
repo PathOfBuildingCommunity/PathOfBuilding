@@ -835,6 +835,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
+		output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 		output.ShockAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidShock"), 100)
 		output.FreezeAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidFreeze"), 100)
 		output.ChillAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidChill"), 100)
