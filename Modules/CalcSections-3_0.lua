@@ -572,7 +572,7 @@ return {
 	{ label = "MH Chance to Hit", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:output:MainHand.HitChance}%",
 		{ breakdown = "MainHand.HitChance" }, 
 		{ label = "Enemy Evasion modifiers", modName = { "Evasion", "CannotEvade" }, enemy = true },
-		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded" } },
+		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded", "IgnoreBlindHitChance" } },
 	}, },
 	{ label = "OH Accuracy", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.Accuracy}",
 		{ breakdown = "OffHand.Accuracy" }, 
@@ -581,7 +581,7 @@ return {
 	{ label = "OH Chance to Hit", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.HitChance}%",
 		{ breakdown = "OffHand.HitChance" },
 		{ label = "Enemy Evasion modifiers", modName = { "Evasion", "CannotEvade" }, enemy = true },
-		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded" } },
+		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded", "IgnoreBlindHitChance" } },
 	}, },
 } }
 } },

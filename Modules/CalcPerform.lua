@@ -427,7 +427,9 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
 		if modDB:Flag(nil, "Blind") then
-			modDB:NewMod("HitChance", "MORE", -50, "Blind")
+			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
+				modDB:NewMod("HitChance", "MORE", -50, "Blind")
+			end
 		end
 		if modDB:Flag(nil, "Chill") then
 			local effect = m_max(m_floor(30 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
