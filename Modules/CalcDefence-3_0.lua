@@ -55,8 +55,9 @@ function calcs.defence(env, actor)
 	end
 
 	-- Resistances
-	output.PhysicalResist = m_min(data.misc.DamageReductionCap, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
-	output.PhysicalResistWhenHit = m_min(data.misc.DamageReductionCap, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
+	output.DamageReductionMax =  modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
+	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
+	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
 		local max, total
 		if elem == "Chaos" and modDB:Flag(nil, "ChaosInoculation") then
@@ -693,15 +694,15 @@ function calcs.defence(env, actor)
 					if destType == "Physical" then
 						if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
 							armourReduct = calcs.armourReduction(output.Armour, damage * portion / 100)
-							resist = m_min(data.misc.DamageReductionCap, resist + armourReduct)
+							resist = m_min(output.DamageReductionMax, resist + armourReduct)
 						end
 					else
 						portionArmour = 100 - resist
-						armourReduct = m_min(data.misc.DamageReductionCap, calcs.armourReduction(output.Armour, damage * portion / 100 * portionArmour / 100))
-						resist =  resist + armourReduct * portionArmour / 100
+						armourReduct = calcs.armourReduction(output.Armour, damage * portion / 100 * portionArmour / 100)
+						resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 					end
 					if damageType == destType then
-						output[damageType.."DamageReduction"] = damageType == "Physical" and resist or armourReduct * portionArmour / 100
+						output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 						if breakdown then
 							breakdown[damageType.."DamageReduction"] = {
 								s_format("Enemy Hit Damage: %d ^8(%s the Configuration tab)", damage, env.configInput.enemyHit and "overridden from" or "can be overridden in"),
