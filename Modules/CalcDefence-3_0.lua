@@ -39,6 +39,15 @@ function calcs.armourReduction(armour, raw)
 	return round(calcs.armourReductionF(armour, raw))
 end
 
+--- Calculates Damage Reduction from Armour
+---@param armour number
+---@param damage number
+---@param doubleChance number @Chance to Defend with Double Armour 
+---@return number @Damage Reduction
+function calcs.armourReductionDouble(armour, damage, doubleChance)
+	return calcs.armourReduction(armour, damage) * (1 - doubleChance) + calcs.armourReduction(armour * 2, damage) * doubleChance
+end
+
 -- Performs all defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
@@ -210,6 +219,7 @@ function calcs.defence(env, actor)
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
+		output.DoubleArmourChance = m_min(modDB:Sum("BASE", nil, "DoubleArmourChance"), 100)
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
 		output["Gear:EnergyShield"] = gearEnergyShield
@@ -637,6 +647,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Incoming hit damage multipliers
+	local doubleArmourChance = (output.DoubleArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.DoubleArmourChance / 100
 	actor.damageShiftTable = wipeTable(actor.damageShiftTable)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Build damage shift table
@@ -693,12 +704,12 @@ function calcs.defence(env, actor)
 					local portionArmour = 100
 					if destType == "Physical" then
 						if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-							armourReduct = calcs.armourReduction(output.Armour, damage * portion / 100)
+							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, doubleArmourChance)
 							resist = m_min(output.DamageReductionMax, resist + armourReduct)
 						end
 					else
 						portionArmour = 100 - resist
-						armourReduct = calcs.armourReduction(output.Armour, damage * portion / 100 * portionArmour / 100)
+						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, doubleArmourChance)
 						resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 					end
 					if damageType == destType then

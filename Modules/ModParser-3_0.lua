@@ -96,6 +96,7 @@ local modNameList = {
 	["energy shield recharge rate"] = "EnergyShieldRecharge",
 	["start of energy shield recharge"] = "EnergyShieldRechargeFaster",
 	["armour"] = "Armour",
+	["to defend with double armour"] = "DoubleArmourChance",
 	["evasion"] = "Evasion",
 	["evasion rating"] = "Evasion",
 	["energy shield"] = "EnergyShield",
