@@ -1,8 +1,8 @@
 [1.4.169.3][2020/06/17]
-* Add 3.11 passive skill tree
-* Add support for Indigo oils
-* Add support for reworded brand mods
-* Add support for Overwhelm
+ * Add 3.11 passive skill tree
+ * Add support for Indigo oils
+ * Add support for reworded brand mods
+ * Add support for Overwhelm
 [1.4.169.2][2020/04/20]
  * Change the 'Damage Avoidance' subsection to be collapsed by default
  * Fix parsing on Assailum helmet
