@@ -9,6 +9,7 @@
 	<Source part="tree-3_8" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_8.zip" />
 	<Source part="tree-3_9" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_9.zip" />
 	<Source part="tree-3_10" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_10.zip" />
+	<Source part="tree-3_11" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_11.zip" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime-win32.zip" />
 	<File name="Launch.lua" part="program" sha1="74cd89091c4db01f0673217a5bd0927f232391e2" />
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
@@ -322,6 +323,7 @@
 	<File name="TreeData/GroupBackgroundSmallAlt.png" part="program" sha1="8072f48a5b6a9b38de7dfe122399ee373847d2bc" />
 	<File name="TreeData/imgPSFadeCorner.png" part="program" sha1="b74e007cd3c61059f3a4e303c7caf34f15e2cad3" />
 	<File name="TreeData/imgPSFadeSide.png" part="program" sha1="e27bb4ab38d3865f8bb7c5dd46f0dcc53a599a26" />
+	<File name="TreeData/IndigoOil.png" part="program" sha1="92cba0521ea4eac6fb1b3fc75a0c1d45c6e676c5" />
 	<File name="TreeData/JewelCircle1.png" part="program" sha1="ed2b4dfdb469433632e59738efc1319f462a3670" />
 	<File name="TreeData/JewelCircle1Inverse.png" part="program" sha1="9cd9f26f4271b99a514e5771bf6f87f6261b5133" />
 	<File name="TreeData/JewelFrameAllocated.png" part="program" sha1="354ceefdbbba413cb120ee65c823b2ec8cf498b7" />
@@ -437,4 +439,8 @@
 	<File name="TreeData/3_10/groups-3.png" part="tree-3_10" sha1="85a5d6410e38d62c567538caba62d1c20c306453" />
 	<File name="TreeData/3_10/skills-3.jpg" part="tree-3_10" sha1="5e178407366f55bd46739ecba312fcb3e0d515dc" />
 	<File name="TreeData/3_10/skills-disabled-3.jpg" part="tree-3_10" sha1="ef12b39c6dad5448e6f10c92a1b4e7cf38e00843" />
+	<File name="TreeData/3_11/tree.lua" part="program" sha1="d39cce3c9bc51c7c74a7a9f951259b1fead904da" />
+	<File name="TreeData/3_11/groups-3.png" part="tree-3_11" sha1="d1f6dba409b069f84689f53e8622fdece2139e26" />
+	<File name="TreeData/3_11/skills-3.jpg" part="tree-3_11" sha1="5e36e838c464f275f6149e670d650e8c8a401079" />
+	<File name="TreeData/3_11/skills-disabled-3.jpg" part="tree-3_11" sha1="9e8fbd483c8d4ca88be18b3a3b5361fe064ac84e" />
 </PoBVersion>
