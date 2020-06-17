@@ -577,6 +577,7 @@ local modFlagList = {
 	["that place mines or throw traps"] = { keywordFlags = bor(KeywordFlag.Mine, KeywordFlag.Trap) },
 	["that throw mines"] = { keywordFlags = KeywordFlag.Mine },
 	["that throw traps"] = { keywordFlags = KeywordFlag.Trap },
+	["brand"] = { keywordFlags = KeywordFlag.Brand },
 	["totem"] = { keywordFlags = KeywordFlag.Totem },
 	["with totem skills"] = { keywordFlags = KeywordFlag.Totem },
 	["for skills used by totems"] = { keywordFlags = KeywordFlag.Totem },
@@ -2018,6 +2019,12 @@ local specialModList = {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num),
 	} end,
 	["enemies you impale have %-(%d+)%% to total physical damage reduction against impale hits"] = function(num) return {
+		mod("EnemyImpalePhysicalDamageReduction", "BASE", -num)
+	} end,
+	["overwhelm (%d+)%% physical damage reduction"] = function(num) return {
+		mod("EnemyPhysicalDamageReduction", "BASE", -num)
+	} end,
+	["impale damage dealt to enemies impaled by you overwhelms (%d+)%% physical damage reduction"] = function(num) return {
 		mod("EnemyImpalePhysicalDamageReduction", "BASE", -num)
 	} end,
 	["enemies on fungal ground you kill explode, dealing 5%% of their life as chaos damage"] = {},
