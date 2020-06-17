@@ -308,6 +308,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Trap)
 	elseif skillFlags.mine then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Mine)
+	elseif skillFlags.brand then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Brand)
 	else
 		skillFlags.selfCast = true
 	end
