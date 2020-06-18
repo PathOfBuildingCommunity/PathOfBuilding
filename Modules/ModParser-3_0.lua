@@ -1267,6 +1267,7 @@ local specialModList = {
 		mod("ColdEnergyShieldBypass", "BASE", 100),
 		mod("FireEnergyShieldBypass", "BASE", 100),
 	},
+	["increases and reductions to mana regeneration rate instead apply to rage regeneration rate"] = { flag("ManaRegenToRageRegen") },
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
@@ -2302,6 +2303,7 @@ local regenTypes = {
 	["energy shield"] = "EnergyShieldRegen",
 	["maximum energy shield"] = "EnergyShieldRegen",
 	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
+	["rage"] = "RageRegen",
 }
 
 -- Build active skill name lookup

@@ -473,8 +473,8 @@ local function doActorMisc(env, actor)
 			end
 		end
 		if modDB:Flag(nil, "Condition:CanGainRage") then
-			local maximum = modDB:Sum("BASE", skillCfg, "MaximumRage")
-			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = maximum })
+			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
+			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
 		end
 	end	
 end
