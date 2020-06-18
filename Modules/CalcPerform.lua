@@ -597,6 +597,24 @@ function calcs.perform(env)
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
 			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
 		end
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
+			ConPrintf("'%s':", env.player.mainSkill)
+			ConPrintf("'%s':", env.player.mainSkill.skillModList)
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")
+			output.ActiveSkeletonLimit = m_max(limit, output.ActiveSkeletonLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Raise Zombie" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveZombieLimit")
+			output.ActiveZombieLimit = m_max(limit, output.ActiveZombieLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
+			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
+			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
+		end
 	end
 
 	local breakdown
