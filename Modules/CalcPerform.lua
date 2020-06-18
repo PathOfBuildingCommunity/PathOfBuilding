@@ -598,8 +598,6 @@ function calcs.perform(env)
 			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
-			ConPrintf("'%s':", env.player.mainSkill)
-			ConPrintf("'%s':", env.player.mainSkill.skillModList)
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")
 			output.ActiveSkeletonLimit = m_max(limit, output.ActiveSkeletonLimit or 0)
 		end
