@@ -17,8 +17,6 @@ local s_format = string.format
 
 local tempTable1 = { }
 
-local PURPOSEFUL_HARBINGER_MAX_BUFF_PERCENT = 40
-
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
@@ -894,7 +892,7 @@ function calcs.perform(env)
 						-- These are capped to 40% increased buff effect, no matter the amount allocated
 						local incFromPurposefulHarbinger = math.min(
 							skillModList:Sum("INC", skillCfg, "PurpHarbAuraBuffEffect"),
-							PURPOSEFUL_HARBINGER_MAX_BUFF_PERCENT)
+							data.misc.PurposefulHarbingerMaxBuffPercent)
 						inc = inc + incFromPurposefulHarbinger
 
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
