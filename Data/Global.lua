@@ -113,6 +113,25 @@ KeywordFlag.LightningDot=0x02000000
 KeywordFlag.ColdDot =	0x04000000
 KeywordFlag.FireDot =	0x08000000
 KeywordFlag.ChaosDot =	0x10000000
+---The default behavior for KeywordFlags is to match *any* of the specified flags.
+---Including the "MatchAll" flag when creating a mod will cause *all* flags to be matched rather than any.
+KeywordFlag.MatchAll =	0x40000000
+
+-- Helper function to compare KeywordFlags
+local band = bit.band
+local MatchAllMask = bit.bnot(KeywordFlag.MatchAll)
+---@param keywordFlags number The KeywordFlags to be compared to.
+---@param modKeywordFlags number The KeywordFlags stored in the mod.
+---@return boolean Whether the KeywordFlags in the mod are satified.
+function MatchKeywordFlags(keywordFlags, modKeywordFlags)
+	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
+	modKeywordFlags = band(modKeywordFlags, MatchAllMask)
+	keywordFlags = band(keywordFlags, MatchAllMask)
+	if matchAll then
+		return band(keywordFlags, modKeywordFlags) == modKeywordFlags
+	end
+	return modKeywordFlags == 0 or band(keywordFlags, modKeywordFlags) ~= 0
+end
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
 -- Had to reverse engineer this, not sure what all of the values mean
