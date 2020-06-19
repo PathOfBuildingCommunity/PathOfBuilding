@@ -234,7 +234,6 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
-	modDB:NewMod("PhysicalDamage", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
 	if build.targetVersion == "2_6" then
 		modDB:NewMod("Damage", "MORE", 500, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
