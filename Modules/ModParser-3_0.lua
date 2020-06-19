@@ -2536,6 +2536,12 @@ local jewelThresholdFuncs = {
 	["With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times"] = getThreshold({ "Dex","Str" }, "ChainCountMax", "BASE", 4, { type = "SkillName", skillName = "Spectral Shield Throw" }),
 	["With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles"] = getThreshold({ "Dex","Str" }, "ProjectileCount", "MORE", -75, { type = "SkillName", skillName = "Spectral Shield Throw" }),
 	["With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds"] = getThreshold({ "Int" }, "Dummy", "DUMMY", 1, { type = "Condition", var = "CanWither" }, { type = "SkillName", skillName = "Blight" } , flag("Condition:CanWither")),
+	-- One for each weapon type for now, no current way to re-use the generic parsing
+	["With at least 40 Dexterity in Radius, Dual Strike has a +26% to Critical Strike Multiplier while wielding a dagger"] = getThreshold("Dex", "CritMultiplier", "BASE", 26, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "UsingDagger" }),
+	["With at least 40 Dexterity in Radius, Dual Strike has a +26% to Critical Strike Multiplier while wielding a sword"] = getThreshold("Dex", "CritMultiplier", "BASE", 26, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "UsingSword" }),
+	["With at least 40 Dexterity in Radius, Dual Strike has a +26% to Critical Strike Multiplier while wielding a mace"] = getThreshold("Dex", "CritMultiplier", "BASE", 26, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "UsingMace" }),
+	["With at least 40 Dexterity in Radius, Dual Strike has a +26% to Critical Strike Multiplier while wielding a claw"] = getThreshold("Dex", "CritMultiplier", "BASE", 26, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "UsingClaw" }),
+	["With at least 40 Dexterity in Radius, Dual Strike has a +26% to Critical Strike Multiplier while wielding an axe"] = getThreshold("Dex", "CritMultiplier", "BASE", 26, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "UsingAxe" }),
 	-- [""] = getThreshold("", "", "", , { type = "SkillName", skillName = "" }),
 }
 
