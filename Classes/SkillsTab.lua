@@ -35,7 +35,7 @@ local showSupportGemTypeList = {
 local sortGemTypeList ={
 	{label = "Combined DPS", type = "CombinedDPS"},
 	{label = "Total DPS", type = "TotalDPS"},
-	{label = "Average Hit", type = "AverageHit"},
+	{label = "Average Hit", type = "AverageDamage"},
 	{label = "Bleed DPS", type = "BleedDPS"},
 	{label = "Ignite DPS", type = "IgniteDPS"},
 	{label = "Poison DPS", type = "TotalPoisonDPS"},
