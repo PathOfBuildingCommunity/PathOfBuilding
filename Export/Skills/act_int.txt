@@ -54,10 +54,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
-		},
 	},
 #baseMod skill("radius", 18)
 #baseMod skill("radiusSecondary", 8)
@@ -1084,10 +1080,6 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
 		},
 	},
 #mods

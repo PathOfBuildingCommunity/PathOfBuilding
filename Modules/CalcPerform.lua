@@ -597,6 +597,12 @@ function calcs.perform(env)
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
 			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
 		end
+		if activeSkill.skillFlags.brand then
+			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
+			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			modDB:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(attached, attachLimit), "Config")
+			enemyDB:NewMod("Multiplier:BrandsAttached", "BASE", m_min(attached, attachLimit), "Config")
+		end
 	end
 
 	local breakdown

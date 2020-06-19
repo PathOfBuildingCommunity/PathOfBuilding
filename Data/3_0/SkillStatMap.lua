@@ -1192,6 +1192,13 @@ return {
 ["sigil_attached_target_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
 },
+["base_number_of_sigils_allowed_per_target"] = {
+	mod("BrandsAttachedLimit", "BASE", nil)
+},
+["base_sigil_repeat_frequency_ms"] = {
+	skill("repeatFrequency", nil),
+	div = 1000,
+},
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
 	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
