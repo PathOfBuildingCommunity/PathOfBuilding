@@ -451,6 +451,7 @@ Grants Level 22 Precision Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
 {tags:attack,life}(0.8-1)% of Physical Attack Damage Leeched as Life
+Precision has 50% less Mana Reservation
 ]],[[
 The Ignomon
 Gold Amulet
