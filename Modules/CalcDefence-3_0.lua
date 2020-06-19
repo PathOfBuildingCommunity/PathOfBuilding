@@ -694,6 +694,7 @@ function calcs.defence(env, actor)
 			output.SpellBlockChance = 0
 			output.SpellProjectileBlockChance = 0
 		end
+		output.BlockEffect = modDB:Sum("BASE", nil, "BlockEffect")
 		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
 		output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
 		output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
