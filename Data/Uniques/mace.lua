@@ -653,17 +653,19 @@ League: Legion
 Source: Drops from Legion Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 57, 182 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2,3}30% increased Stun Duration on Enemies
+{variant:2,3,4}30% increased Stun Duration on Enemies
 {variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
-{variant:3}Socketed Gems are Supported by level 15 Pulverise
+{variant:3,4}Socketed Gems are Supported by level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
+{variant:4}(200-230)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
-{variant:3}Adds 30 to 40 Physical Damage
+{variant:3,4}Adds 30 to 40 Physical Damage
 10% reduced Attack Speed
 -100 to Accuracy Rating
 10% reduced Movement Speed

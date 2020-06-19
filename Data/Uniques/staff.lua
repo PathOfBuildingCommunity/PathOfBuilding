@@ -99,12 +99,14 @@ Disintegrator
 Maelstrom Staff
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 20% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Adds (270–300) to (340–380) Physical Damage
 {variant:2}Adds (250–280) to (315–355) Physical Damage
+{variant:3}Adds (220–240) to (270–300) Physical Damage
 Adds (376-400) to (568-600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
@@ -233,16 +235,19 @@ Hegemony's Era
 Judgement Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3}18% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3,4}18% Chance to Block Attack Damage while wielding a Staff
 6% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}Adds (180-190) to (190-220) Physical Damage
 {variant:3}Adds (165-175) to (185-205) Physical Damage
+{variant:4}Adds (135-145) to (160-175) Physical Damage
 (12-16)% increased Attack Speed
-(20-30)% increased Critical Strike Chance
+{variant:1,2,3}(20-30)% increased Critical Strike Chance
+{variant:4}(10-20)% increased Critical Strike Chance
 +1 to Maximum Power Charges
 10% chance to gain a Power Charge if you Knock an Enemy Back with Melee Damage
 ]],[[

@@ -140,13 +140,15 @@ Atziri's Disfavour
 Vaal Axe
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 75, 158 Str, 76 Dex
 +2 to Level of Socketed Support Gems
-Adds (220-235) to (270-290) Physical Damage
+{variant:1,2}Adds (220-235) to (270-290) Physical Damage
+{variant:3}Adds (205-220) to (250-270) Physical Damage
 (12-16)% increased Attack Speed
 {variant:1}Causes Bleeding on Hit
-{variant:2}25% chance to cause Bleeding on Hit
+{variant:2,3}25% chance to cause Bleeding on Hit
 +2 to Weapon range
 ]],[[
 The Blood Reaper
@@ -193,43 +195,49 @@ Karui Chopper
 League: Legion
 Source: Drops from Karui Legion
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 58, 151 Str, 43 Dex
-(160-220)% increased Physical Damage
+{variant:1,2}(160-220)% increased Physical Damage
+{variant:3}(100-140)% increased Physical Damage
 +20 Life gained on Kill
 {variant:1}Adds (16-21) to (32-38) Fire Damage
 +(150-250) to Accuracy Rating
 Culling Strike
-{variant:2}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
-{variant:2}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
+{variant:2,3}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
+{variant:2,3}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
 ]],[[
 Kingmaker
 Despot Axe
 Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 66, 140 Str, 86 Dex
 {variant:1,2}(200-250)% increased Physical Damage
 {variant:3}(250-285)% increased Physical Damage
+{variant:4}(170-200)% increased Physical Damage
 (7-12)% increased Attack Speed
-{variant:2,3}(30-40)% increased Critical Strike Chance
+{variant:2,3,4}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
 Nearby Allies have 30% increased Item Rarity
 {variant:1}Nearby Allies' spells have Culling Strike
-{variant:2,3}Nearby Allies have Culling Strike
-{variant:2,3}Insufficient Mana doesn't prevent your Melee Attacks
-{variant:3}Nearby Allies have +50% to Critical Strike Multiplier
-{variant:3}Nearby Allies have Fortify
+{variant:2,3,4}Nearby Allies have Culling Strike
+{variant:2,3,4}Insufficient Mana doesn't prevent your Melee Attacks
+{variant:3,4}Nearby Allies have +50% to Critical Strike Multiplier
+{variant:3,4}Nearby Allies have Fortify
 ]],[[
 Kitava's Feast
 Void Axe
 Variant: Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 149 Str, 76 Dex
 Socketed Gems are supported by level 25 Melee Splash
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
+{variant:3}(200-240)% increased Physical Damage
 1% of Physical Attack Damage Leeched as Life
 1% of Physical Attack Damage Leeched as Mana
 Recover 5% of Maximum Life on Kill
@@ -258,8 +266,11 @@ Culling Strike
 ]],[[
 Ngamahu's Flame
 Abyssal Axe
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 55, 128 Str, 60 Dex
-(190-230)% increased Physical Damage
+{variant:1}(190-230)% increased Physical Damage
+{variant:2}(170-190)% increased Physical Damage
 (8-12)% increased Attack Speed
 50% of Physical Damage Converted to Fire Damage
 Damage Penetrates 20% Fire Resistance
@@ -277,8 +288,11 @@ Hits can't be Evaded
 ]],[[
 Sinvicta's Mettle
 Ezomyte Axe
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 62, 140 Str, 86 Dex
-(200-212)% increased Physical Damage
+{variant:1}(200-212)% increased Physical Damage
+{variant:2}(140-152)% increased Physical Damage
 (8-12)% increased Attack Speed
 Rampage
 2% increased Area of Effect per 25 Rampage Kills

@@ -600,12 +600,14 @@ The Dancing Dervish
 Reaver Sword
 Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
-(160-190)% increased Physical Damage
+{variant:2,3}40% increased Global Accuracy Rating
+{variant:1,2}(160-190)% increased Physical Damage
+{variant:3}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
@@ -633,18 +635,20 @@ Lion Sword
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.8.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 104 Str, 122 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3,4}+470 to Accuracy Rating
+{variant:2,3,4,5}+470 to Accuracy Rating
 {variant:1,2,3}Socketed Melee Gems have 15% increased Area of Effect
 {variant:1,2,3}Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
-{variant:4}Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem
-{variant:4}You have Vaal Pact while all Socketed Gems are Red
-(50-70)% increased Physical Damage
+{variant:4,5}Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem
+{variant:4,5}You have Vaal Pact while all Socketed Gems are Red
+{variant:1,2,3,4}(50-70)% increased Physical Damage
+{variant:5}(30-50)% increased Physical Damage
 {variant:1,2}Adds (50-75) to (85-110) Physical Damage
-{variant:3,4}Adds (65-75) to (100-110) Physical Damage
+{variant:3,4,5}Adds (65-75) to (100-110) Physical Damage
 (6-12)% increased Attack Speed
 ]],[[
 Edge of Madness
@@ -682,18 +686,20 @@ Kondo's Pride
 Ezomyte Blade
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 61, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}+435 to Accuracy Rating
-(270-320)% increased Physical Damage
+{variant:2,3,4}+435 to Accuracy Rating
+{variant:1,2,3}(270-320)% increased Physical Damage
+{variant:4}(220-250)% increased Physical Damage
 0.6% of Physical Attack Damage Leeched as Life
 50% increased Melee Damage against Bleeding Enemies
 Cannot Leech Life from Critical Strikes
 30% chance to Blind Enemies on Critical Strike
 {variant:1,2}Causes Bleeding on Melee Critical Strike
-{variant:3}50% chance to cause Bleeding on Critical Strike
+{variant:3,4}50% chance to cause Bleeding on Critical Strike
 ]],[[
 Oro's Sacrifice
 Infernal Sword
@@ -800,14 +806,16 @@ Shaper Item
 Terminus Est
 Tiger Sword
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 51, 80 Str, 96 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}+360 to Accuracy Rating
+{variant:2,3}+360 to Accuracy Rating
 {variant:1}(120-180)% increased Physical Damage
 {variant:2}(220-260)% increased Physical Damage
-{variant:2}(50-75)% increased Critical Strike Chance
+{variant:3}(180-220)% increased Physical Damage
+{variant:2,3}(50-75)% increased Critical Strike Chance
 20% increased Attack Speed
 +10 Mana Gained on Kill
 10% increased Movement Speed
@@ -816,10 +824,13 @@ Gain a Frenzy Charge on Critical Strike
 Voidforge
 Infernal Sword
 Source: Drops from unique{The Elder} (Uber)
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 67, 113 Str, 113 Dex
 Implicits: 1
 30% increased Accuracy Rating
-(50-100)% increased Physical Damage
+{variant:1}(50-100)% increased Physical Damage
+{variant:2}(30-60)% increased Physical Damage
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 Your Elemental Damage can Shock
