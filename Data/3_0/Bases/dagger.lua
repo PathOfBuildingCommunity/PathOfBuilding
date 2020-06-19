@@ -7,7 +7,7 @@ itemBases["Glass Shank"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 6, PhysicalMax = 10, CritChanceBase = 6, AttackRateBase = 1.5, Range = 10, },
 	req = { dex = 9, int = 6, },
 }
@@ -16,7 +16,7 @@ itemBases["Skinning Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 4, PhysicalMax = 17, CritChanceBase = 6, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 5, dex = 16, int = 11, },
 }
@@ -25,7 +25,7 @@ itemBases["Carving Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 3, PhysicalMax = 26, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 10, dex = 18, int = 26, },
 }
@@ -34,7 +34,7 @@ itemBases["Stiletto"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 7, PhysicalMax = 27, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 10, },
 	req = { level = 15, dex = 30, int = 30, },
 }
@@ -43,7 +43,7 @@ itemBases["Boot Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 8, PhysicalMax = 34, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 20, dex = 31, int = 45, },
 }
@@ -52,7 +52,7 @@ itemBases["Copper Kris"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 10, PhysicalMax = 41, CritChanceBase = 6.5, AttackRateBase = 1.3, Range = 10, },
 	req = { level = 24, dex = 28, int = 60, },
 }
@@ -61,7 +61,7 @@ itemBases["Skean"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 11, PhysicalMax = 43, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 28, dex = 42, int = 60, },
 }
@@ -70,7 +70,7 @@ itemBases["Imp Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 10, },
 	req = { level = 32, dex = 36, int = 78, },
 }
@@ -88,7 +88,7 @@ itemBases["Flaying Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 11, PhysicalMax = 45, CritChanceBase = 6, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 30, dex = 64, int = 44, },
 }
@@ -97,7 +97,7 @@ itemBases["Butcher Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 7, PhysicalMax = 62, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 38, dex = 55, int = 79, },
 }
@@ -106,7 +106,7 @@ itemBases["Poignard"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 13, PhysicalMax = 52, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 10, },
 	req = { level = 41, dex = 72, int = 72, },
 }
@@ -115,7 +115,7 @@ itemBases["Boot Blade"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 44, dex = 63, int = 90, },
 }
@@ -124,7 +124,7 @@ itemBases["Golden Kris"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 75, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 10, },
 	req = { level = 47, dex = 51, int = 110, },
 }
@@ -133,7 +133,7 @@ itemBases["Royal Skean"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 50, dex = 71, int = 102, },
 }
@@ -142,7 +142,7 @@ itemBases["Fiend Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 87, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 10, },
 	req = { level = 53, dex = 58, int = 123, },
 }
@@ -160,7 +160,7 @@ itemBases["Gutting Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 76, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 56, dex = 113, int = 78, },
 }
@@ -169,7 +169,7 @@ itemBases["Slaughter Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 10, PhysicalMax = 86, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 58, dex = 81, int = 117, },
 }
@@ -178,7 +178,7 @@ itemBases["Ambusher"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 10, },
 	req = { level = 60, dex = 113, int = 113, },
 }
@@ -187,7 +187,7 @@ itemBases["Ezomyte Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 62, dex = 95, int = 131, },
 }
@@ -196,7 +196,7 @@ itemBases["Platinum Kris"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 24, PhysicalMax = 95, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 10, },
 	req = { level = 64, dex = 76, int = 149, },
 }
@@ -205,7 +205,7 @@ itemBases["Imperial Skean"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 18, PhysicalMax = 73, CritChanceBase = 6.3, AttackRateBase = 1.5, Range = 10, },
 	req = { level = 66, dex = 95, int = 131, },
 }
@@ -214,7 +214,7 @@ itemBases["Demon Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 24, PhysicalMax = 97, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 10, },
 	req = { level = 68, dex = 76, int = 149, },
 }

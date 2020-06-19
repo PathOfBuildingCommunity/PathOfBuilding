@@ -220,4 +220,8 @@ SkillType = {
 	Type95 = 101,
 	Type96 = 102,
 	Type97 = 103,
+	CantUseFistOfWar = 101,
+	SlamSkill = 102,
+	StanceSkill = 103,
+	Type101 = 104,
 }

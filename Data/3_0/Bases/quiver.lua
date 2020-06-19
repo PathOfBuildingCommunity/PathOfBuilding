@@ -95,7 +95,7 @@ itemBases["Spike-Point Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	implicit = "(20-30)% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	req = { level = 45, },
 }
 itemBases["Ornate Quiver"] = {

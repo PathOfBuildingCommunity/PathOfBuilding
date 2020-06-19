@@ -497,6 +497,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportRapidActivation
+#mods
+
 #skill SupportAilments
 	statMap = {
 		["support_unbound_ailments_ailment_damage_+%_final"] = {

@@ -24,6 +24,13 @@ local skills, mod, flag, skill = ...
 #baseMod skill("thisIsNotABuff", true)
 #mods
 
+#skill AncestralCry
+#flags warcry area duration
+	statMap = {
+	},
+#baseMod skill("radius", 60)
+#mods
+
 #skill AncestorTotemSlam
 #flags attack melee totem area duration
 	statMap = {
@@ -290,6 +297,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill SpikeSlam
+#flags attack melee area duration
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
+#mods
+
 #skill EnduringCry
 #flags warcry area duration
 	statMap = {
@@ -311,6 +327,17 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28)
 #baseMod mod("Condition:Maimed", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Flesh", effectCond = "BloodStance" })
 #baseMod mod("Condition:Blinded", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Stone", effectCond = "SandStance" })
+#mods
+
+#skill GeneralsCry
+#flags warcry area duration
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+	},
+#baseMod skill("radius", 60)
 #mods
 
 #skill GlacialHammer
@@ -441,6 +468,13 @@ local skills, mod, flag, skill = ...
 #skill InfernalBlow
 #flags attack melee
 #baseMod skill("radius", 15)
+#mods
+
+#skill IntimidatingCry
+#flags warcry area duration
+	statMap = {
+	},
+#baseMod skill("radius", 60)
 #mods
 
 #skill LeapSlam
@@ -604,6 +638,13 @@ local skills, mod, flag, skill = ...
 #flags spell totem duration
 #mods
 
+#skill SeismicCry
+#flags warcry area duration
+	statMap = {
+	},
+#baseMod skill("radius", 60)
+#mods
+
 #skill NewShieldCharge
 #flags attack melee area shieldAttack
 #mods
@@ -686,7 +727,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill Sunder
+#skill NewSunder
 #flags attack melee area
 	parts = {
 		{

@@ -1364,7 +1364,7 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	color = 4,
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
-	description = "Releases a circle of projectiles based on your weapon, leaving chilling ground in their wake.",
+	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.Type83] = true, [SkillType.Type96] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1417,7 +1417,7 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	color = 4,
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
-	description = "Releases a circle of projectiles based on your weapon, leaving chilling ground in their wake.",
+	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.Type83] = true, [SkillType.Type96] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1470,7 +1470,7 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	color = 4,
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
-	description = "Releases a circle of projectiles based on your weapon, leaving chilling ground in their wake.",
+	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.Type83] = true, [SkillType.Type96] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1523,7 +1523,7 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 	color = 4,
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
-	description = "Releases a circle of projectiles based on your weapon, leaving chilling ground in their wake.",
+	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.Type83] = true, [SkillType.Type96] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
