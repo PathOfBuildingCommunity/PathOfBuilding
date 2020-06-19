@@ -1600,6 +1600,7 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }),
 	} end,
 	-- Elemental Ailments
+	["your shocks can increase damage taken by up to a maximum of (%d+)%%"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ShockMax", "OVERRIDE", num) }) } end,
 	["your elemental damage can shock"] = { flag("ColdCanShock"), flag("FireCanShock") },
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
 	["your lightning damage can ignite"] = { flag("LightningCanIgnite") },
