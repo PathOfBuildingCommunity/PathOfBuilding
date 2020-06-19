@@ -918,7 +918,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 	weaponType2 = "Shield",
 	skillList = {
 		"Melee",
-		"MonsterFlickerStrike",
+		"MonsterFlickerStrikeExtraRange",
 	},
 	modList = {
 		mod("PhysicalDamageGainAsLightning", "BASE", 100), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
@@ -1433,8 +1433,8 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 	chaosResist = 0,
 	damage = 1.68,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
+	attackTime = 1.11,
+	attackRange = 11,
 	accuracy = 1,
 	damageFixup = 0.11,
 	skillList = {
@@ -1457,8 +1457,8 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 	chaosResist = 0,
 	damage = 1.56,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
+	attackTime = 1.11,
+	attackRange = 11,
 	accuracy = 1,
 	damageFixup = 0.11,
 	skillList = {

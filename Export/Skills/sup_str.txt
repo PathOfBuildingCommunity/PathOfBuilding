@@ -32,6 +32,11 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill AncestralSlamSupport
+	statMap = {
+	},
+#mods
+
 #skill SupportBloodMagic
 #mods
 
@@ -384,4 +389,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportStun
+#mods
+
+#skill SupportUrgentOrders
 #mods

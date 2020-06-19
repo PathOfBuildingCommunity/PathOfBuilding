@@ -801,6 +801,53 @@ local skills, mod, flag, skill = ...
 #flags spell chaining duration
 #mods
 
+#skill MagmaSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	end,
+	parts = {
+		{
+			name = "1 Energy Explosion",
+		},
+		{
+			name = "5 Energy Explosion",
+		},
+		{
+			name = "10 Energy Explosion",
+		},
+		{
+			name = "15 Energy Explosion",
+		},
+		{
+			name = "20 Energy Explosion",
+		},
+		{
+			name = "20 Energy Pulse",
+		},
+	},
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["base_sigil_repeat_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "EnergyLevel" }),
+		},
+		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "EnergyLevel" }),
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }})
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 5 })
+#baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 6 })
+#mods
+
 #skill PowerSiphon
 #flags attack projectile
 #mods
@@ -1324,6 +1371,27 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 16)
+#mods
+
+#skill ImmolationSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["base_sigil_repeat_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["immolation_brand_burn_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStage" }),
+		},
+		["winter_brand_max_number_of_stages"] = {
+			mod("Multiplier:WintertideBrandMaxStage", "BASE", nil)
+		},
+	},
 #mods
 
 #skill Wither
