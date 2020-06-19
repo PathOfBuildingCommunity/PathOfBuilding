@@ -331,10 +331,6 @@ skills["CataclysmSigil"] = {
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5091,10 +5087,6 @@ skills["MagmaSigil"] = {
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
-		},
 		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "EnergyLevel" }),
 		},
@@ -6787,10 +6779,6 @@ skills["ConduitSigil"] = {
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8331,10 +8319,6 @@ skills["ImmolationSigil"] = {
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
 		},
 		["immolation_brand_burn_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStage" }),
