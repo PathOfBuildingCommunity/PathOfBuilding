@@ -347,7 +347,7 @@ local function doActorMisc(env, actor)
 	else
 		output.GhostShrouds = 0
 	end
-	output.CrabBarriers = m_max(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
+	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
