@@ -7,6 +7,7 @@ local itemBases = ...
 #base Metadata/Items/Jewels/JewelDex
 #base Metadata/Items/Jewels/JewelInt
 #base Metadata/Items/Jewels/JewelPrismatic
+#base Metadata/Items/Jewels/JewelTimeless
 
 #subType Abyss
 #base Metadata/Items/Jewels/JewelAbyssSummoner

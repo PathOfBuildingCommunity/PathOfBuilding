@@ -408,6 +408,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = node.expansionJewel and "JewelSocketActiveBlueAlt" or "JewelSocketActiveBlue"
 					elseif jewel.baseName == "Prismatic Jewel" then
 						overlay = node.expansionJewel and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
+					elseif jewel.baseName == "Timeless Jewel" then
+						overlay = node.expansionJewel and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
 					elseif jewel.base.subType == "Abyss" then
 						overlay = node.expansionJewel and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
 					elseif jewel.baseName == "Large Cluster Jewel" then

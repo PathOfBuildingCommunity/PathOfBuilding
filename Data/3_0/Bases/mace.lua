@@ -409,7 +409,7 @@ itemBases["Driftwood Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 9, PhysicalMax = 13, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 10, PhysicalMax = 16, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { str = 20, },
 }
 itemBases["Tribal Maul"] = {
@@ -417,7 +417,7 @@ itemBases["Tribal Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 14, PhysicalMax = 21, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	weapon = { PhysicalMin = 17, PhysicalMax = 25, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 8, str = 35, },
 }
 itemBases["Mallet"] = {
@@ -425,7 +425,7 @@ itemBases["Mallet"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 14, PhysicalMax = 29, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 16, PhysicalMax = 33, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 12, str = 47, },
 }
 itemBases["Sledgehammer"] = {
@@ -433,7 +433,7 @@ itemBases["Sledgehammer"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "45% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 21, PhysicalMax = 32, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 25, PhysicalMax = 38, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 17, str = 62, },
 }
 itemBases["Jagged Maul"] = {
@@ -441,7 +441,7 @@ itemBases["Jagged Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 23, PhysicalMax = 42, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 27, PhysicalMax = 49, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 22, str = 77, },
 }
 itemBases["Brass Maul"] = {
@@ -449,7 +449,7 @@ itemBases["Brass Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 34, PhysicalMax = 51, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
+	weapon = { PhysicalMin = 40, PhysicalMax = 60, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 27, str = 92, },
 }
 itemBases["Fright Maul"] = {
@@ -457,15 +457,15 @@ itemBases["Fright Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 39, PhysicalMax = 53, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	weapon = { PhysicalMin = 46, PhysicalMax = 62, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 32, str = 107, },
 }
 itemBases["Morning Star"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% increased Area of Effect",
-	weapon = { PhysicalMin = 39, PhysicalMax = 58, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	implicit = "15% increased Area of Effect",
+	weapon = { PhysicalMin = 45, PhysicalMax = 68, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 34, str = 118, },
 }
 itemBases["Totemic Maul"] = {
@@ -473,7 +473,7 @@ itemBases["Totemic Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 49, PhysicalMax = 73, CritChanceBase = 5, AttackRateBase = 1.1, Range = 13, },
+	weapon = { PhysicalMin = 57, PhysicalMax = 85, CritChanceBase = 5, AttackRateBase = 1.1, Range = 13, },
 	req = { level = 36, str = 119, },
 }
 itemBases["Great Mallet"] = {
@@ -481,7 +481,7 @@ itemBases["Great Mallet"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 37, PhysicalMax = 76, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	weapon = { PhysicalMin = 43, PhysicalMax = 88, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 40, str = 131, },
 }
 itemBases["Steelhead"] = {
@@ -489,7 +489,7 @@ itemBases["Steelhead"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "45% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 47, PhysicalMax = 70, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 54, PhysicalMax = 81, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 44, str = 143, },
 }
 itemBases["Spiny Maul"] = {
@@ -497,7 +497,7 @@ itemBases["Spiny Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 47, PhysicalMax = 88, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	weapon = { PhysicalMin = 55, PhysicalMax = 103, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 48, str = 155, },
 }
 itemBases["Plated Maul"] = {
@@ -505,7 +505,7 @@ itemBases["Plated Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 62, PhysicalMax = 92, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
+	weapon = { PhysicalMin = 72, PhysicalMax = 108, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 51, str = 164, },
 }
 itemBases["Dread Maul"] = {
@@ -513,70 +513,70 @@ itemBases["Dread Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 66, PhysicalMax = 89, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	weapon = { PhysicalMin = 77, PhysicalMax = 104, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 54, str = 173, },
 }
 itemBases["Solar Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% increased Area of Effect",
-	weapon = { PhysicalMin = 64, PhysicalMax = 97, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	implicit = "15% increased Area of Effect",
+	weapon = { PhysicalMin = 75, PhysicalMax = 113, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 56, str = 187, },
 }
 itemBases["Karui Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
-	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 79, PhysicalMax = 118, CritChanceBase = 5, AttackRateBase = 1.1, Range = 13, },
+	implicit = "45% increased Stun Duration on Enemies",
+	weapon = { PhysicalMin = 112, PhysicalMax = 168, CritChanceBase = 5, AttackRateBase = 1, Range = 13, },
 	req = { level = 57, str = 182, },
 }
 itemBases["Colossus Mallet"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
-	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 57, PhysicalMax = 118, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	implicit = "30% increased Area Damage",
+	weapon = { PhysicalMin = 65, PhysicalMax = 135, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 59, str = 188, },
 }
 itemBases["Piledriver"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
-	implicit = "45% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 67, PhysicalMax = 100, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	implicit = "20% reduced Enemy Stun Threshold",
+	weapon = { PhysicalMin = 77, PhysicalMax = 115, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 61, str = 212, },
 }
 itemBases["Meatgrinder"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
-	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 63, PhysicalMax = 117, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	implicit = "5% chance to deal Double Damage",
+	weapon = { PhysicalMin = 74, PhysicalMax = 138, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 63, str = 212, },
 }
 itemBases["Imperial Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
-	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 74, PhysicalMax = 111, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
+	implicit = "10% increased Strength",
+	weapon = { PhysicalMin = 102, PhysicalMax = 153, CritChanceBase = 5, AttackRateBase = 1.1, Range = 13, },
 	req = { level = 65, str = 212, },
 }
 itemBases["Terror Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
-	implicit = "30% increased Stun Duration on Enemies",
-	weapon = { PhysicalMin = 75, PhysicalMax = 102, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	implicit = "25% chance to double Stun Duration",
+	weapon = { PhysicalMin = 101, PhysicalMax = 137, CritChanceBase = 6, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 67, str = 212, },
 }
 itemBases["Coronal Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "6% increased Area of Effect",
-	weapon = { PhysicalMin = 74, PhysicalMax = 110, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
+	implicit = "20% increased Area of Effect",
+	weapon = { PhysicalMin = 91, PhysicalMax = 136, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 69, str = 220, },
 }

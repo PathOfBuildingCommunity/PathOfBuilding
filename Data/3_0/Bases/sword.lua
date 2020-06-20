@@ -427,7 +427,7 @@ itemBases["Corroded Blade"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "40% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 7, PhysicalMax = 13, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
+	weapon = { PhysicalMin = 8, PhysicalMax = 16, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
 	req = { str = 11, dex = 11, },
 }
 itemBases["Longsword"] = {
@@ -435,15 +435,15 @@ itemBases["Longsword"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "+60 to Accuracy Rating",
-	weapon = { PhysicalMin = 10, PhysicalMax = 23, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
+	weapon = { PhysicalMin = 11, PhysicalMax = 26, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 8, str = 20, dex = 17, },
 }
 itemBases["Bastard Sword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "40% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 15, PhysicalMax = 25, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
+	implicit = "60% increased Global Accuracy Rating",
+	weapon = { PhysicalMin = 17, PhysicalMax = 29, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
 	req = { level = 12, str = 21, dex = 30, },
 }
 itemBases["Two-Handed Sword"] = {
@@ -451,15 +451,15 @@ itemBases["Two-Handed Sword"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "+120 to Accuracy Rating",
-	weapon = { PhysicalMin = 18, PhysicalMax = 33, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 38, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 17, str = 33, dex = 33, },
 }
 itemBases["Etched Greatsword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "40% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 20, PhysicalMax = 41, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
+	implicit = "60% increased Global Accuracy Rating",
+	weapon = { PhysicalMin = 23, PhysicalMax = 48, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 22, str = 45, dex = 38, },
 }
 itemBases["Ornate Sword"] = {
@@ -467,15 +467,15 @@ itemBases["Ornate Sword"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "+185 to Accuracy Rating",
-	weapon = { PhysicalMin = 26, PhysicalMax = 43, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
+	weapon = { PhysicalMin = 30, PhysicalMax = 50, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 27, str = 45, dex = 54, },
 }
 itemBases["Spectral Sword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "30% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 27, PhysicalMax = 56, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	implicit = "45% increased Global Accuracy Rating",
+	weapon = { PhysicalMin = 31, PhysicalMax = 65, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 32, str = 57, dex = 57, },
 }
 itemBases["Curved Blade"] = {
@@ -483,7 +483,7 @@ itemBases["Curved Blade"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "+40% to Global Critical Strike Multiplier",
-	weapon = { PhysicalMin = 35, PhysicalMax = 58, CritChanceBase = 6, AttackRateBase = 1.35, Range = 13, },
+	weapon = { PhysicalMin = 41, PhysicalMax = 68, CritChanceBase = 6, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 35, str = 62, dex = 73, },
 }
 itemBases["Butcher Sword"] = {
@@ -491,15 +491,15 @@ itemBases["Butcher Sword"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "+250 to Accuracy Rating",
-	weapon = { PhysicalMin = 29, PhysicalMax = 68, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 34, PhysicalMax = 79, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 36, str = 69, dex = 58, },
 }
 itemBases["Footman Sword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "40% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 34, PhysicalMax = 56, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
+	implicit = "60% increased Global Accuracy Rating",
+	weapon = { PhysicalMin = 39, PhysicalMax = 65, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
 	req = { level = 40, str = 57, dex = 83, },
 }
 itemBases["Highland Blade"] = {
@@ -507,15 +507,15 @@ itemBases["Highland Blade"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "+305 to Accuracy Rating",
-	weapon = { PhysicalMin = 39, PhysicalMax = 72, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	weapon = { PhysicalMin = 45, PhysicalMax = 84, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 44, str = 77, dex = 77, },
 }
 itemBases["Engraved Greatsword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "40% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 42, PhysicalMax = 87, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	implicit = "60% increased Global Accuracy Rating",
+	weapon = { PhysicalMin = 49, PhysicalMax = 102, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 48, str = 91, dex = 76, },
 }
 itemBases["Tiger Sword"] = {
@@ -523,15 +523,15 @@ itemBases["Tiger Sword"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "+360 to Accuracy Rating",
-	weapon = { PhysicalMin = 46, PhysicalMax = 76, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
+	weapon = { PhysicalMin = 54, PhysicalMax = 89, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 51, str = 80, dex = 96, },
 }
 itemBases["Wraith Sword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "30% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 45, PhysicalMax = 93, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	implicit = "45% increased Global Accuracy Rating",
+	weapon = { PhysicalMin = 52, PhysicalMax = 109, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 54, str = 93, dex = 93, },
 }
 itemBases["Lithe Blade"] = {
@@ -539,7 +539,7 @@ itemBases["Lithe Blade"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "+40% to Global Critical Strike Multiplier",
-	weapon = { PhysicalMin = 54, PhysicalMax = 89, CritChanceBase = 6, AttackRateBase = 1.35, Range = 13, },
+	weapon = { PhysicalMin = 63, PhysicalMax = 104, CritChanceBase = 6, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 56, str = 96, dex = 113, },
 }
 itemBases["Headman's Sword"] = {
@@ -547,54 +547,54 @@ itemBases["Headman's Sword"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
 	implicit = "+400 to Accuracy Rating",
-	weapon = { PhysicalMin = 47, PhysicalMax = 109, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 55, PhysicalMax = 128, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 57, str = 106, dex = 89, },
 }
 itemBases["Reaver Sword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "40% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 52, PhysicalMax = 86, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
+	implicit = "60% increased Global Accuracy Rating",
+	weapon = { PhysicalMin = 62, PhysicalMax = 104, CritChanceBase = 5, AttackRateBase = 1.5, Range = 13, },
 	req = { level = 59, str = 82, dex = 119, },
 }
 itemBases["Ezomyte Blade"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "+435 to Accuracy Rating",
-	weapon = { PhysicalMin = 55, PhysicalMax = 102, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	implicit = "+25% to Global Critical Strike Multiplier",
+	weapon = { PhysicalMin = 62, PhysicalMax = 115, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 61, str = 113, dex = 113, },
 }
 itemBases["Vaal Greatsword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "40% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 55, PhysicalMax = 113, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
+	implicit = "+470 to Accuracy Rating",
+	weapon = { PhysicalMin = 68, PhysicalMax = 142, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 63, str = 122, dex = 104, },
 }
 itemBases["Lion Sword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "+470 to Accuracy Rating",
-	weapon = { PhysicalMin = 57, PhysicalMax = 94, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
+	implicit = "+50 to Strength and Dexterity",
+	weapon = { PhysicalMin = 69, PhysicalMax = 115, CritChanceBase = 5, AttackRateBase = 1.45, Range = 13, },
 	req = { level = 65, str = 104, dex = 122, },
 }
 itemBases["Infernal Sword"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, },
-	implicit = "30% increased Global Accuracy Rating",
-	weapon = { PhysicalMin = 52, PhysicalMax = 108, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	implicit = "30% increased Elemental Damage with Attack Skills",
+	weapon = { PhysicalMin = 62, PhysicalMax = 129, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 67, str = 113, dex = 113, },
 }
 itemBases["Exquisite Blade"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, sword = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "+60% to Global Critical Strike Multiplier",
-	weapon = { PhysicalMin = 56, PhysicalMax = 94, CritChanceBase = 6, AttackRateBase = 1.35, Range = 13, },
+	implicit = "+50% to Global Critical Strike Multiplier",
+	weapon = { PhysicalMin = 67, PhysicalMax = 112, CritChanceBase = 5.7, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 70, str = 119, dex = 131, },
 }

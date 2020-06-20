@@ -22,6 +22,11 @@ itemBases["Prismatic Jewel"] = {
 	tags = { default = true, jewel = true, intjewel = true, dexjewel = true, strjewel = true, not_for_sale = true, },
 	req = { },
 }
+itemBases["Timeless Jewel"] = {
+	type = "Jewel",
+	tags = { default = true, jewel = true, intjewel = true, dexjewel = true, strjewel = true, not_for_sale = true, },
+	req = { },
+}
 
 itemBases["Ghastly Eye Jewel"] = {
 	type = "Jewel",

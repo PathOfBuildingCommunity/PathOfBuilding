@@ -1,3 +1,7 @@
+### 1.4.170 - 2020/06/20
+ * Added 3.11.0 passive tree
+ * Updated item bases, mods, and enchantments for 3.11.0
+
 ### 1.4.169 - 2020/03/31
  * Fixed Stormbind and Barrage Support not importing correctly when importing a character's skills
  * Fixed certain Cluster Jewels not importing correctly
