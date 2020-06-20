@@ -83,14 +83,16 @@ Curse Enemies with level 5 Vulnerability on Block
 Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level: 60, 113 Str, 113 Int
-Implicits: 1
-18% Chance to Block Attack Damage while wielding a Staff
+Implicits: 2
+{variant:1,2}18% Chance to Block Attack Damage while wielding a Staff
+{variant:3}20% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of all Chaos Spell Skill Gems
 {variant:1}(60-80)% increased Chaos Damage
-{variant:2}(20-30)% increased Chaos Damage
-{variant:2}+(40-55)% to Chaos Damage over Time Multiplier
+{variant:2,3}(20-30)% increased Chaos Damage
+{variant:2,3}+(40-55)% to Chaos Damage over Time Multiplier
 2% increased Cast Speed per Power Charge
 Gain a Power Charge after spending a total of 200 Mana
 2 Mana Regenerated per Second per Power Charge
@@ -102,8 +104,9 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
-Implicits: 1
-20% Chance to Block Attack Damage while wielding a Staff
+Implicits: 2
+{variant:1,2}20% Chance to Block Attack Damage while wielding a Staff
+{variant:3}25% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Adds (270–300) to (340–380) Physical Damage
 {variant:2}Adds (250–280) to (315–355) Physical Damage
 {variant:3}Adds (220–240) to (270–300) Physical Damage
@@ -122,19 +125,21 @@ Maelström Staff
 Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
-Implicits: 2
+Implicits: 3
 {variant:1}18% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}20% Chance to Block Attack Damage while wielding a Staff
+{variant:4}25% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}4% Chance to Block Attack Damage while wielding a Staff
-{variant:3}10% Chance to Block Attack Damage while wielding a Staff
+{variant:3,4}10% Chance to Block Attack Damage while wielding a Staff
 (60-80)% increased Critical Strike Chance for Spells
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 +1% to Critical Strike Multiplier per 1% Block Chance
 +60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 {variant:1,2}120% increased Spell Damage if you've dealt a Critical Strike Recently
-{variant:3}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
+{variant:3,4}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
 ]],[[
 Dying Breath
 Coiled Staff
@@ -223,9 +228,12 @@ Socketed Gems are Supported by Level 16 Trap and Mine Damage
 ]],[[
 The Grey Spire
 Judgement Staff
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 68, 113 Str, 113 Int
-Implicits: 1
-+18% Chance to Block Attack Damage while wielding a Staff
+Implicits: 2
+{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:2}+20% Chance to Block Attack Damage while wielding a Staff
 Has no Sockets
 (250-300)% increased Global Damage
 (20-30)% increased Attack Speed
@@ -238,9 +246,10 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
-Implicits: 2
+Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3,4}18% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3}18% Chance to Block Attack Damage while wielding a Staff
+{variant:4}20% Chance to Block Attack Damage while wielding a Staff
 6% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}Adds (180-190) to (190-220) Physical Damage
 {variant:3}Adds (165-175) to (185-205) Physical Damage
@@ -285,11 +294,13 @@ Judgement Staff
 League: Legion
 Source: Drops from Vaal Legion
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
-Implicits: 2
+Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
+{variant:3}20% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
 100% increased maximum Mana
@@ -375,9 +386,12 @@ Socketed Gems fire Projectiles in a Nova
 Soulwrest
 Ezomyte Staff
 League: Delve
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 62, 113 Str, 113 Int
-Implicits: 1
-+18% Chance to Block Attack Damage while wielding a Staff
+Implicits: 2
+{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:2}+20% Chance to Block Attack Damage while wielding a Staff
 Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
 (100-140)% increased Spell Damage
 (25-30)% increased Cast Speed
@@ -421,15 +435,17 @@ Taryn's Shiver
 Maelström Staff
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
-Implicits: 2
+Implicits: 3
 {variant:1,2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:3}20% Chance to Block Attack Damage while wielding a Staff
+{variant:4}25% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}+1 to Level of all Cold Spell Skill Gems
-{variant:3}+2 to Level of all Cold Spell Skill Gems
+{variant:3,4}+2 to Level of all Cold Spell Skill Gems
 {variant:1}(40-50)% increased Spell Damage
-{variant:2,3}(50-60)% increased Spell Damage
+{variant:2,3,4}(50-60)% increased Spell Damage
 (40-50)% increased Cold Damage
 (10-20)% increased Cast Speed
 8% chance to Freeze

@@ -603,9 +603,10 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
-Implicits: 2
+Implicits: 3
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
+{variant:3}60% increased Global Accuracy Rating
 {variant:1,2}(160-190)% increased Physical Damage
 {variant:3}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
@@ -618,9 +619,12 @@ Manifested Dancing Dervish dies when Rampage ends
 The Dancing Duo
 Reaver Sword
 Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 65, 82 Str, 119 Dex
-Implicits: 1
-40% increased Global Accuracy Rating
+Implicits: 2
+{variant:1}40% increased Global Accuracy Rating
+{variant:2}60% increased Global Accuracy Rating
 (160-190)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
@@ -638,9 +642,10 @@ Variant: Pre 3.8.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 104 Str, 122 Dex
-Implicits: 2
+Implicits: 3
 {variant:1}18% increased Accuracy Rating
-{variant:2,3,4,5}+470 to Accuracy Rating
+{variant:2,3,4}+470 to Accuracy Rating
+{variant:5}+50 to Strength and Dexterity
 {variant:1,2,3}Socketed Melee Gems have 15% increased Area of Effect
 {variant:1,2,3}Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
 {variant:4,5}Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem
@@ -655,27 +660,31 @@ Edge of Madness
 Etched Greatsword
 League: Beyond
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 22, 45 Str, 38 Dex
-Implicits: 2
+Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
+{variant:3}60% increased Global Accuracy Rating
 +1 to Level of Active Socketed Skill Gems
 (40-60)% increased Physical Damage
 Adds (60-68) to (90-102) Chaos Damage
 {variant:1}+1 Life gained on Kill per Level
 {variant:1}1% increased Elemental Damage per Level
 1% increased Chaos Damage per Level
-{variant:2}Adds 1 to 2 Physical Damage to Attacks per Level
+{variant:2,3}Adds 1 to 2 Physical Damage to Attacks per Level
 ]],[[
 Hiltless
 Reaver Sword
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
-Implicits: 2
+Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
+{variant:3}60% increased Global Accuracy Rating
 Socketed Gems are Supported by level 1 Blood Magic
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
@@ -689,9 +698,10 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 61, 113 Str, 113 Dex
-Implicits: 2
+Implicits: 3
 {variant:1}18% increased Accuracy Rating
-{variant:2,3,4}+435 to Accuracy Rating
+{variant:2,3}+435 to Accuracy Rating
+{variant:4}+25% to Global Critical Strike Multiplier
 {variant:1,2,3}(270-320)% increased Physical Damage
 {variant:4}(220-250)% increased Physical Damage
 0.6% of Physical Attack Damage Leeched as Life
@@ -704,18 +714,20 @@ Cannot Leech Life from Critical Strikes
 Oro's Sacrifice
 Infernal Sword
 Variant: Pre 1.3.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 113 Str, 113 Dex
-Implicits: 1
-30% increased Accuracy Rating
+Implicits: 2
+{variant:1,2}30% increased Accuracy Rating
+{variant:3}30% increased Elemental Damage
 No Physical Damage
 Adds (425-475) to (550-600) Fire Damage
 (10-15)% increased Attack Speed
 20% chance to Ignite
 {variant:1}20% increased Physical Damage taken
-{variant:2}10% increased Physical Damage taken
+{variant:2,3}10% increased Physical Damage taken
 {variant:1}20% increased Fire Damage taken
-{variant:2}10% increased Fire Damage taken
+{variant:2,3}10% increased Fire Damage taken
 Culling Strike against Burning Enemies
 Gain a Frenzy Charge if an Attack Ignites an Enemy
 ]],[[
@@ -779,11 +791,13 @@ Implicits: 2
 Shiversting
 Bastard Sword
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 14, 21 Str, 30 Dex
-Implicits: 2
+Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
+{variant:3}60% increased Global Accuracy Rating
 (80-100)% increased Physical Damage
 Adds 35 to 70 Cold Damage
 0.6% of Physical Attack Damage Leeched as Mana
@@ -792,9 +806,12 @@ Cannot be Frozen
 Starforge 
 Infernal Sword
 Source: Drops from unique{The Shaper}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 67, 113 Str, 113 Dex
-Implicits: 1
-30% increased Accuracy Rating
+Implicits: 2
+{variant:1}30% increased Accuracy Rating
+{variant:2}30% increased Elemental Damage
 (400-500)% increased Physical Damage
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
@@ -827,8 +844,9 @@ Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 113 Str, 113 Dex
-Implicits: 1
-30% increased Accuracy Rating
+Implicits: 2
+{variant:1}30% increased Accuracy Rating
+{variant:2}30% increased Elemental Damage
 {variant:1}(50-100)% increased Physical Damage
 {variant:2}(30-60)% increased Physical Damage
 (5-8)% increased Attack Speed

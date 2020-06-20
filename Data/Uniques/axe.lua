@@ -143,6 +143,8 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 75, 158 Str, 76 Dex
+Implicits: 1
+{variant:3}25% chance to Maim on Hit
 +2 to Level of Socketed Support Gems
 {variant:1,2}Adds (220-235) to (270-290) Physical Damage
 {variant:3}Adds (205-220) to (250-270) Physical Damage
@@ -184,7 +186,11 @@ Gain Flask Charges when you deal a Critical Strike
 ]],[[
 Hezmana's Bloodlust
 Vaal Axe
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 64, 158 Str, 76 Dex
+Implicits: 1
+{variant:2}25% chance to Maim on Hit
 (150-170)% increased Physical Damage
 Adds (7-12) to (16-25) Physical Damage
 1% of Physical Attack Damage Leeched as Life
@@ -317,12 +323,15 @@ Vaal Axe
 League: Breach
 Source: Upgraded from unique{Uul-Netol's Kiss} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 158 Str, 76 Dex
+Implicts: 1
+{variant:3}25% chance to Maim on Hit
 (280-320)% increased Physical Damage
 (30-25)% reduced Attack Speed
 {variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
-{variant:2}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
+{variant:2,3}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
 Trigger Level 20 Bone Nova when you Kill a Bleeding Enemy
 ]],[[
 Wideswing
@@ -343,14 +352,17 @@ Sundering Axe
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 60, 149 Str, 76 Dex
+Implicits:1
+{variant:5}+20% to Damage over Time Multiplier for Bleeding
 {variant:1,2,3}25% of Block Chance applied to Spells
-{variant:4}+7% chance to Block Spell Damage
+{variant:4,5}+7% chance to Block Spell Damage
 {variant:1}10% additional Chance to Block while Dual Wielding
-{variant:2,3,4}8% additional Chance to Block while Dual Wielding
+{variant:2,3,4,5}8% additional Chance to Block while Dual Wielding
 {variant:1,2}(80-120)% increased Physical Damage
-{variant:3,4}(100-120)% increased Physical Damage
+{variant:3,4,5}(100-120)% increased Physical Damage
 Adds (55-65) to (100-120) Fire Damage in Main Hand
 Adds (55-65) to (100-120) Chaos Damage in Off Hand
 Counts as Dual Wielding

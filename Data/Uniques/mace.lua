@@ -508,11 +508,13 @@ Brain Rattler
 Meatgrinder
 Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 63, 212 Str
-Implicits: 2
+Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
+{variant:3}5% chance to deal Double Damage
 Adds (80-100) to (320-370) Physical Damage
 50% of Physical Damage Converted to Lightning Damage
 15% chance to Shock
@@ -633,19 +635,21 @@ Kongor's Undying Rage
 Terror Maul
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 212 Str
-Implicits: 2
+Implicits: 3
 {variant:1,2}20% increased Stun Duration on Enemies
 {variant:3}30% increased Stun Duration on Enemies
+{variant:4}25% chance to double Stun Duration
 {variant:1}Adds (27-36) to (270-360) Physical Damage
-{variant:2,3}Adds (27-56) to (270-400) Physical Damage
-{variant:2,3}(30-40)% increased Critical Strike Chance
+{variant:2,3,4}Adds (27-56) to (270-400) Physical Damage
+{variant:2,3,4}(30-40)% increased Critical Strike Chance
 +(15-20)% to all Elemental Resistances
 Hits can't be Evaded
 Your Critical Strikes do not deal extra Damage
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
-{variant:3}You gain Onslaught for 4 seconds on Critical Strike
+{variant:3,4}You gain Onslaught for 4 seconds on Critical Strike
 ]],[[
 Marohi Erqi
 Karui Maul
@@ -656,9 +660,10 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 57, 182 Str
-Implicits: 2
+Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2,3,4}30% increased Stun Duration on Enemies
+{variant:2,3}30% increased Stun Duration on Enemies
+{variant:4}45% increased Stun Duration on Enemies
 {variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
 {variant:3,4}Socketed Gems are Supported by level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
@@ -701,13 +706,15 @@ Recover 5% of Maximum Life on Kill
 Tidebreaker
 Imperial Maul
 Variant: Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 212 Str
-Implicits: 1
-30% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1,2}30% increased Stun Duration on Enemies
+{variant:3}10% increased Strength
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 {variant:1}Adds (60-70) to (300-350) Physical Damage
-{variant:2}Adds (70-80) to (340-375) Physical Damage
+{variant:2,3}Adds (70-80) to (340-375) Physical Damage
 +40 to Intelligence
 10% increased Physical Damage per Endurance Charge
 (20-30)% reduced Enemy Stun Threshold with this Weapon
