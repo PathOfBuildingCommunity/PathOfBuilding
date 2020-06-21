@@ -551,12 +551,12 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	elseif skillData.cooldown then
 		local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
-		output.Cooldown = cooldownOverride or skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+		output.Cooldown = cooldownOverride or (skillData.cooldown  + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 		
 		output.Cooldown = m_ceil(output.Cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		if breakdown then
 			breakdown.Cooldown = {
-				s_format("%.2fs ^8(base)", skillData.cooldown),
+				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 				s_format("rounded up to nearest server tick"),
 				s_format("= %.2fs", output.Cooldown)
@@ -651,6 +651,13 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.brand then
 		output.BrandAttachmentRange = calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+	end
+	
+	if skillFlags.warcry then
+		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "WarcryCastTime")
+		output.WarcryCastTime = baseSpeed * calcLib.mod(skillModList, skillCfg, "WarcrySpeed") * output.ActionSpeedMod
+		output.WarcryCastTime = m_min(output.WarcryCastTime, data.misc.ServerTickRate)
+		output.WarcryCastTime = 1 / output.WarcryCastTime
 	end
 
 	-- Skill duration

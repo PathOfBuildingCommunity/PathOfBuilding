@@ -436,6 +436,7 @@ local modNameList = {
 	["minion accuracy rating"] = { "Accuracy", addToMinion = true },
 	["attack speed"] = { "Speed", flags = ModFlag.Attack },
 	["cast speed"] = { "Speed", flags = ModFlag.Cast },
+	["warcry speed"] = { "WarcrySpeed", keywordFlags = KeywordFlag.Warcry },
 	["attack and cast speed"] = "Speed",
 	["attack and movement speed"] = { "Speed", "MovementSpeed" },
 	-- Elemental ailments

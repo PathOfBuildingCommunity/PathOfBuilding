@@ -348,6 +348,9 @@ return {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
 },
+["warcry_speed_+%"] = {
+	mod("WarcrySpeed", "INC", nil, KeywordFlag.Warcry),
+},
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil),

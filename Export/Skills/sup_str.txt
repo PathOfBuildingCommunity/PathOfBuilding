@@ -392,4 +392,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportUrgentOrders
+	statMap = {	
+		["base_cooldown_modifier_ms"] = {
+			mod("CooldownRecovery", "BASE", nil),
+			div = 1000,
+		},
+	},
 #mods

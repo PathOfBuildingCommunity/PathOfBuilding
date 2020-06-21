@@ -3208,6 +3208,12 @@ skills["SupportUrgentOrders"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {	
+		["base_cooldown_modifier_ms"] = {
+			mod("CooldownRecovery", "BASE", nil),
+			div = 1000,
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

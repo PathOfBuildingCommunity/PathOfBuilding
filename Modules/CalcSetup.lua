@@ -43,6 +43,7 @@ function calcs.initModDB(env, modDB)
 		modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
 		modDB:NewMod("MineLayingTime", "BASE", 0.3, "Base")
 	end
+	modDB:NewMod("WarcryCastTime", "BASE", 0.8, "Base")
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
