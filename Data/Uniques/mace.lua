@@ -248,15 +248,17 @@ Recover (1-3)% of Maximum Mana on Kill
 Bitterdream
 Shadow Sceptre
 Variant: Pre 2.3.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2}22% increased Elemental Damage
+{variant:2,3}22% increased Elemental Damage
+{variant:3}Socketed Gems are Supported by Level 1 Bonechill
 Socketed Gems are Supported by level 1 Hypothermia
 Socketed Gems are Supported by level 1 Ice Bite
 Socketed Gems are Supported by level 1 Cold Penetration
-Socketed Gems are Supported by level 1 Mana Leech
+{variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
 Socketed Gems are Supported by level 10 Added Cold Damage
 Socketed Gems are Supported by level 1 Reduced Mana
 ]],[[
@@ -324,21 +326,27 @@ Shadow Sceptre
 League: Beyond
 Variant: Pre 2.3.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0 (Life/Mana)
+Variant: Pre 3.11.0 (Life/ES)
+Variant: Pre 3.11.0 (Mana/ES)
 Variant: Current (Life/Mana)
 Variant: Current (Life/ES)
 Variant: Current (Mana/ES)
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3,4,5}22% increased Elemental Damage
-(30-50)% increased Damage
-7% Global chance to Blind Enemies on hit
+{variant:2,3,4,5,6,7,8}22% increased Elemental Damage
+{variant:1,2,3,4,5}(30-50)% increased Global Damage
+{variant:6,7,8}(40-60)% increased Global Damage
+{variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
+{variant:6,7,8}10% Global chance to Blind Enemies on hit
+Blind does not affect your Chance to Hit
+Enemies Blinded by you while you are Blinded have Malediction
 {variant:1,2}+1 Mana gained on Kill per Level
 {variant:1,2}+1 Energy Shield gained on Kill per Level
-{variant:3,4}+1 to maximum Life per Level
-{variant:3,5}+1 to maximum Mana per Level
-{variant:4,5}+1 to maximum Energy Shield per Level
-Cannot be Blinded
+{variant:3,4,6,7}+1 to maximum Life per Level
+{variant:3,5,6,8}+1 to maximum Mana per Level
+{variant:4,5,7,8}+1 to maximum Energy Shield per Level
 ]],[[
 Death's Hand
 Karui Sceptre
@@ -515,13 +523,16 @@ Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
 {variant:3}5% chance to deal Double Damage
-Adds (80-100) to (320-370) Physical Damage
+{variant:1,2}Adds (80-100) to (320-370) Physical Damage
+{variant:3}Adds (60-80) to (270-320) Physical Damage
 50% of Physical Damage Converted to Lightning Damage
-15% chance to Shock
-10% chance to Cause Monsters to Flee
+{variant:1,2}15% chance to Shock
+{variant:3}50% chance to Shock
+{variant:1,2}10% chance to Cause Monsters to Flee
+{variant:3}Shock Enemies as though dealing 300% more Damage
+Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
-Damage Penetrates 20% Lightning Resistance
 ]],[[
 Chober Chaber
 Great Mallet
@@ -573,12 +584,17 @@ Never deal Critical Strikes
 Geofri's Devotion
 Brass Maul
 Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
+Variant: Pre 2.6.0
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 61, 92 Str
-Implicits: 1
-20% increased Stun Duration on Enemies
-Trigger Level 20 Elemental Warding when you Hit an Enemy while Cursed
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2,3}30% increased Stun Duration on Enemies
+Trigger Level 20 Elemental Warding on Melee Hit while Cursed
 200% increased Physical Damage
-Adds (50-56) to (73-78) Physical Damage
+{variant:1,2}Adds (50-56) to (73-78) Physical Damage
+{variant:3}Adds (42-47) to (66-71) Physical Damage
 Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
 Never deal Critical Strikes

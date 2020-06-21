@@ -86,13 +86,18 @@ Adds (11-14) to (18-23) Physical Damage
 ]],[[
 Moonbender's Wing
 Tomahawk
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 39, 81 Str, 56 Dex
-(70-90)% increased Physical Damage
-Adds (5-9) to (13-17) Physical Damage
+{variant:1}Grants level 1 Lightning Warp Skill
+{variant:2}Trigger Level 15 Lightning Warp on Hit with this Weapon
+{variant:1}(70-90)% increased Physical Damage
+{variant:2}(30-50)% increased Physical Damage
+{variant:1}Adds (5-9) to (13-17) Physical Damage
 (30-50)% increased Critical Strike Chance
-25% of Physical Damage Converted to Cold Damage
-25% of Physical Damage Converted to Lightning Damage
-Grants level 1 Lightning Warp Skill
+{variant:1}25% of Physical Damage Converted to Cold Damage
+{variant:1}25% of Physical Damage Converted to Lightning Damage
+{variant:2}Hits with this Weapon gain (75-100)% of Physical Damage as Extra Cold or Lightning Damage
 ]],[[
 Relentless Fury
 Decorative Axe
@@ -112,14 +117,16 @@ Royal Axe
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 167 Str, 57 Dex
 Adds (50-70) to (135-165) Physical Damage
 40% increased Physical Weapon Damage while Dual Wielding
 (10-15)% increased Attack Speed
-35% increased Attack Speed with Swords
+{variant:1,2}35% increased Attack Speed with Swords
 {variant:1}Causes Bleeding on Hit
 {variant:2}25% chance to cause Bleeding on Hit
+{variant:3}+25 to Maximum Rage while wielding a Sword
 ]],[[
 Soul Taker
 Siege Axe
@@ -191,9 +198,11 @@ Variant: Current
 Requires Level 64, 158 Str, 76 Dex
 Implicits: 1
 {variant:2}25% chance to Maim on Hit
-(150-170)% increased Physical Damage
+{variant:1}(150-170)% increased Physical Damage
+{variant:2}(100-125)% increased Physical Damage
 Adds (7-12) to (16-25) Physical Damage
 1% of Physical Attack Damage Leeched as Life
+{variant:2}40% increased Attack Speed if you've taken a Savage Hit Recently
 Attacks have Blood Magic
 ]],[[
 Kaom's Primacy
@@ -252,21 +261,27 @@ Enemies you hit are destroyed on Kill
 Limbsplit
 Woodsplitter
 Upgrade: Upgrades to unique{The Cauteriser} via prophecy{Severed Limbs}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 13, 36 Str, 17 Dex
 +1 to Level of Socketed Strength Gems
+{variant:2}Trigger Level 1 Gore Shockwave on Melee Hit if you have at least 150 Strength
++(15-30) to Strength
 (80-100)% increased Physical Damage
 Adds 5 to 10 Physical Damage
-+(15-30) to Strength
 Culling Strike
 ]],[[
 The Cauteriser
 Woodsplitter
 Source: Upgraded from unique{Limbsplit} using prophecy{Severed Limbs}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 40, 36 Str, 17 Dex
 +1 to Level of Socketed Strength Gems
+{variant:2}Trigger Level 5 Gore Shockwave on Melee Hit if you have at least 150 Strength
++(15-30) to Strength
 (80-100)% increased Physical Damage
 Adds (35-45) to (80-90) Physical Damage
-+(15-30) to Strength
 Gain 70% of Physical Damage as Extra Fire Damage
 Culling Strike
 ]],[[
@@ -278,7 +293,8 @@ Requires Level 55, 128 Str, 60 Dex
 {variant:1}(190-230)% increased Physical Damage
 {variant:2}(170-190)% increased Physical Damage
 (8-12)% increased Attack Speed
-50% of Physical Damage Converted to Fire Damage
+{variant:1}50% of Physical Damage Converted to Fire Damage
+{variant:2}60% of Physical Damage Converted to Fire Damage
 Damage Penetrates 20% Fire Resistance
 20% chance to attack with Level 16 Molten Burst on Melee Hit
 ]],[[
@@ -328,11 +344,11 @@ Variant: Current
 Requires Level 64, 158 Str, 76 Dex
 Implicts: 1
 {variant:3}25% chance to Maim on Hit
+Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
 (30-25)% reduced Attack Speed
 {variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
-{variant:2,3}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
-Trigger Level 20 Bone Nova when you Kill a Bleeding Enemy
+{variant:2,3}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 ]],[[
 Wideswing
 Poleaxe
@@ -348,23 +364,39 @@ Socketed Gems are Supported by level 20 Increased Area of Effect
 +2 to Weapon range
 ]],[[
 Wings of Entropy
+Ezomyte Axe
+Requires Level 62, 140 Str, 86 Dex
+(7-10)% Chance to Block Spell Damage
++(8-12)% Chance to Block Attack Damage while Dual Wielding
+(60-80)% increased Physical Damage
+Adds (75-100) to (165-200) Fire Damage in Main Hand
+Adds (75-100) to (165-200) Chaos Damage in Off Hand
+Counts as Dual Wielding
+]],[[
+Wings of Entropy
 Sundering Axe
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 60, 149 Str, 76 Dex
 Implicits:1
 {variant:5}+20% to Damage over Time Multiplier for Bleeding
-{variant:1,2,3}25% of Block Chance applied to Spells
-{variant:4,5}+7% chance to Block Spell Damage
-{variant:1}10% additional Chance to Block while Dual Wielding
-{variant:2,3,4,5}8% additional Chance to Block while Dual Wielding
+{variant:1,2}25% of Block Chance applied to Spells
+{variant:3}7% chance to Block Spell Damage
+{variant:4}(6-7)% chance to Block Spell Damage
+{variant:5}(7-10)% chance to Block Spell Damage
+{variant:1}+10% Chance to Block Attack Damage while Dual Wielding
+{variant:2,3,4}+8% Chance to Block Attack Damage while Dual Wielding
+{variant:5}+(8-10)% Chance to Block Attack Damage while Dual Wielding
 {variant:1,2}(80-120)% increased Physical Damage
-{variant:3,4,5}(100-120)% increased Physical Damage
-Adds (55-65) to (100-120) Fire Damage in Main Hand
-Adds (55-65) to (100-120) Chaos Damage in Off Hand
+{variant:3,4}(100-120)% increased Physical Damage
+{variant:5}(60-80)% increased Physical Damage
+{variant:1,2,3,4}Adds (55-65) to (100-120) Fire Damage in Main Hand
+{variant:5}Adds (75-100) to (165-200) Fire Damage in Main Hand
+{variant:1,2,3,4}Adds (55-65) to (100-120) Chaos Damage in Off Hand
+{variant:5}Adds (75-100) to (165-200) Chaos Damage in Off Hand
 Counts as Dual Wielding
 ]],
 }

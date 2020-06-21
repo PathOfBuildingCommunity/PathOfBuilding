@@ -392,6 +392,8 @@ Modifiers to number of Projectiles instead apply to the number of targets Projec
 Gloomfang
 Blue Pearl Amulet
 Source: Drops from unique{The Purifier}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 77
 Implicits: 1
 {tags:mana}(48-56)% increased Mana Regeneration Rate
@@ -399,7 +401,9 @@ Implicits: 1
 {tags:caster,life}Lose (10-15) Life for each Enemy hit by your Spells
 {tags:attack,life}Lose (20-25) Life for each Enemy hit by your Attacks
 Skills Chain +1 times
-Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
+{variant:2}(30-40)% increased Projectile Speed
+{variant:1}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
+{variant:2}Projectiles that have Chained gain (20-35)% of Non-Chaos Damage as extra Chaos Damage
 ]],[[
 The Halcyon
 Jade Amulet
@@ -606,13 +610,13 @@ Night's Hold
 Black Maw Talisman
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 1
-Requires Level 25
+Requires Level 12
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
-Socketed Gems are Supported by level 10 Added Chaos Damage
-Socketed Gems are Supported by level 10 Blind
-Socketed Gems are Supported by level 10 Cast When Stunned
+Socketed Gems are Supported by Level 10 Added Chaos Damage
+Socketed Gems are Supported by Level 10 Blind
+Socketed Gems are Supported by Level 10 Cast when Stunned
 Corrupted
 ]],[[
 Perquil's Toe
@@ -801,19 +805,17 @@ Grants level 10 Purity of Elements Skill
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
-Variant: Pre 2.2.0
-Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 23
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
-100% increased Global Critical Strike Chance
-{variant:1}−50% to Global Critical Strike Multiplier
-{variant:2}−75% to Global Critical Strike Multiplier
-{variant:3}−25% to Global Critical Strike Multiplier
+{variant:1}100% increased Global Critical Strike Chance
+{variant:2}(250-350)% increased Global Critical Strike Chance
 {tags:life}+(30-50) to maximum Life
 {tags:mana}+(30-50) to maximum Mana
 40% increased Stun and Block Recovery
+Your Critical Strikes do not deal extra Damage
 ]],[[
 Victario's Acuity
 Turquoise Amulet
@@ -871,15 +873,19 @@ Gain an Endurance Charge when a Power Charge expires or is consumed
 ]],[[
 Warped Timepiece
 Turquoise Amulet
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 50
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
-{tags:attack}(8-12)% increased Attack Speed
-{tags:caster}(8-12)% increased Cast Speed
+{variant:1}{tags:attack}(8-12)% increased Attack Speed
+{variant:2}{tags:attack}(10-15)% increased Attack Speed
+{variant:1}{tags:caster}(8-12)% increased Cast Speed
+{variant:2}{tags:caster}(10-15)% increased Cast Speed
 12% increased Movement Speed
-(8-12)% reduced Skill Effect Duration
-{tags:life}30% increased Life Leeched per second
-{tags:mana}30% increased Mana Leeched per second
+{variant:1}(8-12)% reduced Skill Effect Duration
+{variant:2}(10-15)% reduced Skill Effect Duration
+30% increased total Recovery per second from Life, Mana, or Energy Shield Leech
 ]],[[
 Willowgift
 Jade Amulet

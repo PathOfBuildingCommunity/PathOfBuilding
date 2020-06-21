@@ -955,26 +955,33 @@ Topaz Ring
 League: Bloodlines
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {variant:1}15% increased Damage against Shocked Enemies
 {variant:2}40% increased Damage against Shocked Enemies
-{variant:3}40% increased Damage with Hits against Shocked Enemies
+{variant:3,4}40% increased Damage with Hits against Shocked Enemies
 {tags:jewellery_elemental}20% increased Lightning Damage
 {tags:mana}+(20-40) to maximum Mana
-{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
+{variant:1,2,3}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
+{variant:4}{tags:life}1% of Damage Leeched as Life against Shocked Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Shock
 {variant:2,3}{tags:jewellery_elemental}10% chance to Shock
+{variant:4}{tags:jewellery_elemental}25% chance to Shock
 ]],[[
 Valyrium
 Moonstone Ring
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 38
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
-{tags:jewellery_defense}+(10-20) to maximum Energy Shield
-{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{variant:1}{tags:jewellery_defense}+(10-20) to maximum Energy Shield
+{variant:2}{tags:jewellery_defense}+(30-40) to maximum Energy Shield
+{variant:1}{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{variant:2}{tags:jewellery_resistance}+(30-40)% to Fire Resistance
 {tags:jewellery_resistance}−40% to Cold Resistance
 Stun Threshold is based on Energy Shield instead of Life
 ]],[[

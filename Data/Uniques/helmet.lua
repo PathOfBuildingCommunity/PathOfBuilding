@@ -184,7 +184,7 @@ Silken Hood
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 60, 138 Dex
-25% chance to Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
+Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
 (60-80)% increased Evasion Rating
 +(40-60) to maximum Life
 +(30-40)% to Lightning Resistance
@@ -448,13 +448,17 @@ Shaper Item
 ]],[[
 Mark of the Red Covenant
 Tribal Circlet
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 26, 58 Int
 +(30-50) to maximum Energy Shield
-Minions have (10-15)% increased Movement Speed
-Raging Spirits have (130-150)% increased Damage
+{variant:1}Minions have (10-15)% increased Movement Speed
+{variant:2}Minions have (25-45)% increased Movement Speed
+Summoned Raging Spirits deal (130-150)% increased Damage
 75% reduced Maximum number of Summoned Raging Spirits
-Raging Spirits' Hits always Ignite
-Raging Spirits refresh their Duration when they Kill an Ignited Enemy
+Summoned Raging Spirits' Hits always Ignite
+{variant:1}Summoned Raging Spirits refresh their Duration when they Kill an Ignited Enemy
+{variant:2}Summoned Raging Spirits' Melee Strikes deal Fire-only Splash Damage to Surrounding Targets
 ]],[[
 Maw of Conquest
 Steel Circlet
@@ -711,9 +715,12 @@ Crown of the Tyrant
 Magistrate Crown
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 58, 64 Str, 64 Int
 Has 1 Socket
-+(50-100) to maximum Life
+{variant:1}+(50-100) to maximum Life
+{variant:2}+(50-175) to maximum Life
 Nearby Enemies have -10% to all Resistances
 You and Nearby Allies have 64 to 96 added Fire Damage per Red Socket
 You and Nearby Allies have 56 to 88 added Cold Damage per Green Socket
@@ -764,12 +771,14 @@ Requires Level 12, 16 Str, 16 Int
 ]],[[
 Kitava's Thirst
 Zealot Helmet
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 44, 50 Str, 50 Int
 15% reduced Cast Speed
 (70-80)% increased Armour and Energy Shield
 +(30-50) to maximum Mana
-30% chance to Cast Socketed Spells when
-you Spend at least 100 Mana to Use a Skill
+{variant:1}30% chance to Cast Socketed Spells when you Spend at least 100 Mana to Use a Skill
+{variant:2}50% chance to Cast Socketed Spells when you Spend at least 100 Mana to Use a Skill
 ]],[[
 Lightpoacher
 Great Crown
@@ -790,14 +799,16 @@ Malachai's Vision
 Praetor Crown
 Source: Use currency{Vaal Orb} on unique{Voll's Vision}
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 62 Str, 91 Int
 Adds (13-17) to (29-37) Chaos Damage
 {variant:1}+(200-250) to maximum Energy Shield
-{variant:2}+(150-200) to maximum Energy Shield
+{variant:2,3}+(150-200) to maximum Energy Shield
 +(32-40)% to Cold Resistance
 +(15-20)% to Lightning Resistance
-Regenerate 100 Energy Shield per second if all Equipped Items are Corrupted
+{variant:1,2}Regenerate 100 Energy Shield per second if all Equipped items are Corrupted
+{variant:3}Regenerate 250 Energy Shield per second if all Equipped items are Corrupted
 Regenerate 35 Mana per second if all Equipped Items are Corrupted
 Corrupted
 ]],[[

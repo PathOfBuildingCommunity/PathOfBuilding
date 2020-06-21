@@ -130,18 +130,20 @@ Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 62, 122 Str, 104 Dex
 Implicits: 2
 {variant:1,2,3}18% increased Accuracy Rating
-{variant:4,5}40% increased Global Accuracy Rating
+{variant:4,5,6}40% increased Global Accuracy Rating
 {variant:1,2}Adds 1 to (500-600) Lightning Damage
-{variant:3,4,5}Adds 1 to (550-650) Lightning Damage
+{variant:3,4,5,6}Adds 1 to (550-650) Lightning Damage
 (7-10)% increased Attack Speed
 {variant:1}6% increased Damage taken per Frenzy Charge
 {variant:2,3,4}3% increased Damage taken per Frenzy Charge
-{variant:5}1% increased Damage taken per Frenzy Charge
-12% increased Lightning Damage per Frenzy Charge
+{variant:5,6}1% increased Damage taken per Frenzy Charge
+{variant:1,2,3,4,5}12% increased Lightning Damage per Frenzy Charge
+{variant:6}(15-20)% increased Lightning Damage per Frenzy Charge
 +20 Life gained on Kill per Frenzy Charge
 ]],[[
 Ichimonji
@@ -253,17 +255,19 @@ Midnight Blade
 Source: Drops from unique{Guardian of the Phoenix}
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
+{variant:2,3,4}40% increased Global Accuracy Rating
 {variant:1,2}Adds (65-75) to (110-130) Physical Damage
-{variant:3}Adds (90-110) to (145-170) Physical Damage
+{variant:3,4}Adds (90-110) to (145-170) Physical Damage
 {variant:3}25% of Physical Damage Converted to Fire Damage
-{variant:3}25% chance to Ignite
+{variant:4}30% of Physical Damage Converted to Fire Damage
+{variant:3,4}25% chance to Ignite
 100% increased Burning Damage if you've Ignited an Enemy Recently
-Recover 1% of Maximum Life when you Ignite an Enemy
+Recover 1% of Life when you Ignite an Enemy
 100% increased Melee Physical Damage against Ignited Enemies
 ]],[[
 Rebuke of the Vaal
@@ -327,16 +331,18 @@ Midnight Blade
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
-10% additional Block Chance while Dual Wielding
+{variant:2,3}40% increased Global Accuracy Rating
++10% Chance to Block Attack Damage while Dual Wielding
 Adds (60-80) to (150-180) Physical Damage
-80% increased Physical Damage with Axes
+{variant:1,2}80% increased Physical Damage with Axes
 +(350-400) to Accuracy Rating
-15% chance to gain a Frenzy Charge on Kill
+{variant:1,2}15% chance to gain a Frenzy Charge on Kill
+{variant:3}+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe
 ]],[[
 The Rippling Thoughts
 Legion Sword
@@ -625,7 +631,8 @@ Requires Level 65, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating
-(160-190)% increased Physical Damage
+{variant:1}(160-190)% increased Physical Damage
+{variant:2}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
@@ -811,8 +818,9 @@ Variant: Current
 Requires Level 67, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}30% increased Accuracy Rating
-{variant:2}30% increased Elemental Damage
-(400-500)% increased Physical Damage
+{variant:2}30% increased Global Physical Damage
+{variant:1}(400-500)% increased Physical Damage
+{variant:2}(200-300)% increased Physical Damage
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 20% increased Area of Effect for Attacks

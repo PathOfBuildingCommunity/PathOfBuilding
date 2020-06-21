@@ -161,8 +161,15 @@ Notable Passive Skills in Radius are Transformed to instead grant: Minions take 
 ]],[[
 Fragile Bloom
 Crimson Jewel
-2% of Life Regenerated per Second
-10% increased Damage taken
+Limited to: 1
+Variant: Pre 3.11.0
+Variant: Current
+{variant:1}2% of Life Regenerated per Second
+{variant:1}10% increased Damage taken
+{variant:2}Gain 1 Fragile Regrowth each second
+{variant:2}Maximum 10 Fragile Regrowth
+{variant:2}0.7% of Life Regenerated per second per Fragile Regrowth
+{variant:2}Lose all Fragile Regrowth when Hit
 ]],[[
 From Dust
 Cobalt Jewel
@@ -261,10 +268,15 @@ Viridian Jewel
 Limited to: 1
 (20-25)% increased Damage for each Magic Item Equipped
 ]],[[
-Hotfooted
+Hotheaded
 Viridian Jewel
 Limited to: 1
-(10-15)% increased Movement Speed while Ignited
+Variant: Pre 3.11.0
+Variant: Current
+{variant:1}(10-15)% increased Movement Speed while Ignited
+{variant:2}(10-20)% increased Movement Speed while Ignited
+{variant:2}(10-20)% increased Attack Speed while Ignited
+{variant:2}(10-20)% increased Cast Speed while Ignited
 ]],[[
 Inertia
 Crimson Jewel
@@ -320,7 +332,12 @@ Adds (2-3) to (5-8) Fire Spell Damage per Buff on You
 Martial Artistry
 Crimson Jewel
 Limited to: 1
-(10-15)% increased Area of Effect while Unarmed
+Variant: Pre 3.11.0
+Variant: Current
+Radius: Small
+{variant:1}(10-15)% increased Area of Effect while Unarmed
+{variant:2}+(3-4) to Melee Strike Range while Unarmed
+{variant:2}Passive Skills in Radius also grant: 1% increased Attack Speed with Unarmed Attacks
 ]],[[
 Might in All Forms
 Crimson Jewel
@@ -618,6 +635,7 @@ Variant: Energy Shield
 Variant: Armour
 Variant: Evasion Rating
 Variant: Accuracy Rating
+Limited to: 2
 This Jewel's Socket has 25% increased effect per Allocated Passive Skill between
 it and your Class' starting location
 {variant:1}+5 to Strength
@@ -629,7 +647,6 @@ it and your Class' starting location
 {variant:7}+40 to Armour
 {variant:8}+40 to Evasion Rating
 {variant:9}+40 to Accuracy Rating
---------
 Corrupted
 ]],[[
 Watcher's Eye
@@ -945,10 +962,14 @@ With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
 ]],[[
 Inevitability
 Cobalt Jewel
-Limited to: 2
+Variant: Pre 3.11.0
+Variant: Current
+Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage
-With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
+{variant:1}With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
+{variant:2}With at least 40 Intelligence in Radius, Magma Orb deals 50% less Damage
+{variant:2}With at least 40 Intelligence in Radius, Magma Orb deals 40% more Damage per Chain
 With at least 40 Intelligence in Radius, Magma Orb
 has 10% increased Area of Effect per Chain
 ]],[[
@@ -1032,13 +1053,16 @@ With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nov
 Rolling Flames
 Cobalt Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:2}(10-15)% increased Fire Damage
-{variant:1}With at least 40 Intelligence in Radius, Fireball Projectiles gain Area of Effect Radius as they travel further, up to 50% increased Radius.
+{variant:2,3}(10-15)% increased Fire Damage
+{variant:1}With at least 40 Intelligence in Radius, Fireball Projectiles gain Area as they travel farther, up to 50% increased Area of Effect
 {variant:2}With at least 40 Intelligence in Radius, Fireball Projectiles gain Radius as they travel farther, up to +4 Radius
+{variant:3}With at least 40 Intelligence in Radius, Fireball cannot ignite
+{variant:3}With at least 40 Intelligence in Radius, Fireball has +(30-50)% chance to inflict scorch
 ]],[[
 Shattered Chains
 Crimson Jewel
@@ -1063,11 +1087,11 @@ Spirited Response
 Cobalt Jewel
 Variant: Pre 2.6.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 {variant:1}(5-10)% increased maximum Mana
 {variant:2}(7-10)% increased maximum Mana
-With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit during Rallying Cry for you and Allies
+With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit if you've Warcried Recently
 ]],[[
 Spreading Rot
 Cobalt Jewel
@@ -1149,11 +1173,16 @@ With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Doubl
 ]],[[
 Wildfire
 Crimson Jewel
+Variant: Pre 3.11.0
+Variant: Current
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
-With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
-With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
+{variant:1}With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
+{variant:1}With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
+{variant:2}With at least 40 Strength in Radius, Molten Strike Projectiles Chain on impacting ground
+{variant:2}With at least 40 Strength in Radius, Molten Strike Projectiles Chain +1 time
+{variant:2}With at least 40 Strength in Radius, Molten Strike fires 50% less Projectiles
 ]],[[
 Winter Burial
 Crimson Jewel
@@ -1227,11 +1256,16 @@ Corrupted
 Fevered Mind
 Cobalt Jewel
 Variant: Pre 3.10.0
+Variant: Pre 3.11.0
 Variant: Current
+Limited to: 1
+Radius: Small
 {variant:1}(20-30)% increased Spell Damage
 {variant:2}(30-40)% increased Spell Damage
 {variant:1}100% increased Mana Cost of Skills
 {variant:2}50% increased Mana Cost of Skills
+{variant:3}+(5-10) to Intelligence
+{variant:3}Notable Passive Skills in Radius are Transformed to instead grant: 10% increased Mana Cost of Skills and 20% increased Spell Damage
 Corrupted
 ]],[[
 Fragility

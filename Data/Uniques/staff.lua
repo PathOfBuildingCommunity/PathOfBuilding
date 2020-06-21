@@ -171,12 +171,16 @@ Nearby allies gain 18% increased Damage
 The Enmity Divine
 Imperial Staff
 League: Harbinger
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
-Socketed Gems are supported by level 10 Life Leech
+{variant:1}Socketed Gems are supported by level 10 Life Leech
+{variant:2}Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Harbinger of Brutality Skill
 5% Chance to Block Attack Damage while wielding a Staff
+{variant:2}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 Adds (160-185) to (200-225) Physical Damage
 (30-40)% increased Critical Strike Chance
 ]],[[
