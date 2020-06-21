@@ -22,8 +22,8 @@ Implicits: 1
 {variant:1,2,3}30% increased Attack, Cast and Movement Speed while you do not have Iron Reflexes
 {variant:1,2,3}You have Far Shot while you do not have Iron Reflexes
 {variant:4}Grants Level 30 Dash Skill
-{variant:4}Bow Attacks fire 2 additional Arrows if you haven’t Cast Dash recently
-{variant:4}(20-30)% increased Attack Speed if you haven’t Cast Dash recently
+{variant:4}Bow Attacks fire 2 additional Arrows if you haven't Cast Dash recently
+{variant:4}(20-30)% increased Attack Speed if you haven't Cast Dash recently
 {variant:4}(100-160)% increased Evasion Rating if you've Cast Dash recently
 {variant:4}(20-30)% increased Movement Speed if you've Cast Dash recently
 {variant:4}Travel Skills other than Dash are Disabled
