@@ -676,22 +676,23 @@ local skills, mod, flag, skill = ...
 			name = "Melee hit",
 		},
 		{
-			name = "Beams - 1 Stack",
-		},
-		{
-			name = "Beams - 3 Stacks",
-		},
+			name = "Beams",
+		}
 	},
 	statMap = {
 		["static_strike_beam_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving", neg = true }, { type = "SkillPart", skillPartList = { 2, 3 }}),
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2}),
 		},
-		["static_strike_beam_damage_+%_final_while_moving"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving" }, { type = "SkillPart", skillPartList = { 2, 3 }}),
+		["static_strike_base_zap_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
 		},
 	},
-#baseMod skill("hitTimeOverride", 0.4 / (1+1*0.1), { type = "SkillPart", skillPart = 2 })
-#baseMod skill("hitTimeOverride", 0.4 / (1+3*0.1), { type = "SkillPart", skillPart = 3 })
+preDamageFunc = function(activeSkill, output)
+	if activeSkill.skillPart == 2 then
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
+	end
+end,
 #mods
 
 #skill QuickGuard
