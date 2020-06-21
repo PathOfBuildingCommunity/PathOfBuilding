@@ -210,20 +210,24 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Herald of Ash: Mana Reservation
-Variant: Herald of Ash: Fire Damage
-Variant: Herald of Ash: Buff Effect
-Variant: Herald of Ash: Max Resistance
-Variant: Herald of Ash: Fire Resistance
+Variant: Mana Reservation (Pre 3.11.0)
+Variant: Mana Reservation (Current)
+Variant: Fire Damage
+Variant: Buff Effect (Pre 3.11.0)
+Variant: Buff Effect (Current)
+Variant: Max Resistance
+Variant: Fire Resistance
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Fire Damage
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}{tags:mana}Herald of Ash has (40-30)% reduced Mana Reservation
-{variant:2}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
-{variant:3}Herald of Ash has (70-100)% increased Buff Effect
-{variant:4}{tags:jewellery_resistance}+1% to maximum Fire Resistance while affected by Herald of Ash
-{variant:5}{tags:jewellery_resistance}+(50-60)% to Fire Resistance while affected by Herald of Ash
+{variant:1}{tags:mana}Herald of Ash has (30-40)% reduced Mana Reservation
+{variant:2}{tags:mana}Herald of Ash has (15-20)% reduced Mana Reservation
+{variant:3}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
+{variant:4}Herald of Ash has (70-100)% increased Buff Effect
+{variant:5}Herald of Ash has (40-60)% increased Buff Effect
+{variant:6}{tags:jewellery_resistance}+1% to maximum Fire Resistance while affected by Herald of Ash
+{variant:7}{tags:jewellery_resistance}+(50-60)% to Fire Resistance while affected by Herald of Ash
 ]],[[
 Circle of Fear
 Sapphire Ring
@@ -232,20 +236,24 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Herald of Ice: Mana Reservation
-Variant: Herald of Ice: Cold Damage
-Variant: Herald of Ice: Buff Effect
-Variant: Herald of Ice: Max Resistance
-Variant: Herald of Ice: Cold Resistance
+Variant: Mana Reservation (Pre 3.11.0)
+Variant: Mana Reservation (Current)
+Variant: Cold Damage
+Variant: Buff Effect (Pre 3.11.0)
+Variant: Buff Effect (Current)
+Variant: Max Resistance
+Variant: Cold Resistance
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Cold Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}{tags:mana}Herald of Ice has (40-30)% reduced Mana Reservation
-{variant:2}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
-{variant:3}Herald of Ice has (70-100)% increased Buff Effect
-{variant:4}{tags:jewellery_resistance}+1% to maximum Cold Resistance while affected by Herald of Ice
-{variant:5}{tags:jewellery_resistance}+(50-60)% to Cold Resistance while affected by Herald of Ice
+{variant:1}{tags:mana}Herald of Ice has (30-40)% reduced Mana Reservation
+{variant:2}{tags:mana}Herald of Ice has (15-20)% reduced Mana Reservation
+{variant:3}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
+{variant:4}Herald of Ice has (70-100)% increased Buff Effect
+{variant:5}Herald of Ice has (40-60)% increased Buff Effect
+{variant:6}{tags:jewellery_resistance}+1% to maximum Cold Resistance while affected by Herald of Ice
+{variant:7}{tags:jewellery_resistance}+(50-60)% to Cold Resistance while affected by Herald of Ice
 ]],[[
 Circle of Guilt
 Iron Ring
@@ -254,20 +262,24 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Herald of Purity: Mana Reservation
-Variant: Herald of Purity: Physical Damage
-Variant: Herald of Purity: Buff Effect
-Variant: Herald of Purity: Sentinel Damage
-Variant: Herald of Purity: Damage Reduction
+Variant: Mana Reservation (Pre 3.11.0)
+Variant: Mana Reservation (Current)
+Variant: Physical Damage
+Variant: Buff Effect (Pre 3.11.0)
+Variant: Buff Effect (Current)
+Variant: Sentinel Damage
+Variant: Damage Reduction
 {tags:attack}Adds 1 to 4 Physical Damage to Attacks
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 Adds (8-10) to (13-15) Physical Damage
 {tags:jewellery_defense}+(350-400) to Armour
-{variant:1}{tags:mana}Herald of Purity has (40-30)% reduced Mana Reservation
-{variant:2}(40-60)% increased Physical Damage while affected by Herald of Purity
-{variant:3}Herald of Purity has (70-100)% increased Buff Effect
-{variant:4}Sentinels of Purity deal (70-100)% increased Damage
-{variant:5}4% additional Physical Damage Reduction while affected by Herald of Purity
+{variant:1}{tags:mana}Herald of Purity has (30-40)% reduced Mana Reservation
+{variant:2}{tags:mana}Herald of Purity has (15-20)% reduced Mana Reservation
+{variant:3}(40-60)% increased Physical Damage while affected by Herald of Purity
+{variant:4}Herald of Purity has (70-100)% increased Buff Effect
+{variant:5}Herald of Purity has (40-60)% increased Buff Effect
+{variant:6}Sentinels of Purity deal (70-100)% increased Damage
+{variant:7}4% additional Physical Damage Reduction while affected by Herald of Purity
 ]],[[
 Circle of Nostalgia
 Amethyst Ring
@@ -276,20 +288,24 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Herald of Agony: Mana Reservation
-Variant: Herald of Agony: Chaos Damage
-Variant: Herald of Agony: Buff Effect
-Variant: Herald of Agony: Agony Damage
-Variant: Herald of Agony: Chaos Resistance
+Variant: Mana Reservation (Pre 3.11.0)
+Variant: Mana Reservation (Current)
+Variant: Chaos Damage
+Variant: Buff Effect (Pre 3.11.0)
+Variant: Buff Effect (Current)
+Variant: Agony Damage
+Variant: Chaos Resistance
 {tags:jewellery_resistance}+(9-13)% to Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 Adds (15-20) to (21-30) Chaos Damage
 {tags:jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}{tags:mana}Herald of Agony has (40-30)% reduced Mana Reservation
-{variant:2}(40-60)% increased Chaos Damage while affected by Herald of Agony
-{variant:3}Herald of Agony has (70-100)% increased Buff Effect
-{variant:4}Agony Crawler deals (70-100)% increased Damage
-{variant:5}{tags:jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+{variant:1}{tags:mana}Herald of Agony has (30-40)% reduced Mana Reservation
+{variant:2}{tags:mana}Herald of Agony has (15-20)% reduced Mana Reservation
+{variant:3}(40-60)% increased Chaos Damage while affected by Herald of Agony
+{variant:4}Herald of Agony has (70-100)% increased Buff Effect
+{variant:5}Herald of Agony has (40-60)% increased Buff Effect
+{variant:6}Agony Crawler deals (70-100)% increased Damage
+{variant:7}{tags:jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
 ]],[[
 Circle of Regret
 Topaz Ring
@@ -298,20 +314,24 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Herald of Thunder: Mana Reservation
-Variant: Herald of Thunder: Lightning Damage
-Variant: Herald of Thunder: Buff Effect
-Variant: Herald of Thunder: Max Resistance
-Variant: Herald of Thunder: Lightning Resistance
+Variant: Mana Reservation (Pre 3.11.0)
+Variant: Mana Reservation (Current)
+Variant: Lightning Damage
+Variant: Buff Effect (Pre 3.11.0)
+Variant: Buff Effect (Current)
+Variant: Max Resistance
+Variant: Lightning Resistance
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_elemental}Adds 1 to (48-60) Lightning Damage
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-{variant:1}{tags:mana}Herald of Thunder has (40-30)% reduced Mana Reservation
-{variant:2}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
-{variant:3}Herald of Thunder has (70-100)% increased Buff Effect
-{variant:4}{tags:jewellery_resistance}+1% to maximum Lightning Resistance while affected by Herald of Thunder
-{variant:5}{tags:jewellery_resistance}+(50-60)% to Lightning Resistance while affected by Herald of Thunder
+{variant:1}{tags:mana}Herald of Thunder has (30-40)% reduced Mana Reservation
+{variant:2}{tags:mana}Herald of Thunder has (15-20)% reduced Mana Reservation
+{variant:3}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
+{variant:4}Herald of Thunder has (70-100)% increased Buff Effect
+{variant:5}Herald of Thunder has (40-60)% increased Buff Effect
+{variant:6}{tags:jewellery_resistance}+1% to maximum Lightning Resistance while affected by Herald of Thunder
+{variant:7}{tags:jewellery_resistance}+(50-60)% to Lightning Resistance while affected by Herald of Thunder
 ]],[[
 Death Rush
 Amethyst Ring
