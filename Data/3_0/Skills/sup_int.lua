@@ -3802,6 +3802,17 @@ skills["SupportRapidActivation"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_rapid_activation_brand_activation_rate_+%_final"] = {
+			mod("BrandActivationFrequency", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
+			mod("PrimaryDuration", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
+			mod("SecondaryDuration", "MORE", nil),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

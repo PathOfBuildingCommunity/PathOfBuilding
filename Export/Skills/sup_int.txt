@@ -498,6 +498,17 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportRapidActivation
+	statMap = {
+		["support_rapid_activation_brand_activation_rate_+%_final"] = {
+			mod("BrandActivationFrequency", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
+			mod("PrimaryDuration", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
+			mod("SecondaryDuration", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportAilments
