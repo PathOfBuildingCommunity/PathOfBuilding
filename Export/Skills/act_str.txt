@@ -752,8 +752,8 @@ local skills, mod, flag, skill = ...
 #skill EnduranceChargeSlam
 #flags attack melee area
 	statMap = {
-		["endurance_charge_slam_damage_+%_final_with_endurance_charge"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "StatThreshold", stat = "EnduranceCharges", threshold = 1 }),
+		["active_skill_area_of_effect_+%_final_per_endurance_charge"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
 	},
 #mods
