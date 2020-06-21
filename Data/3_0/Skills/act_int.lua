@@ -326,7 +326,7 @@ skills["CataclysmSigil"] = {
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.4,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -5062,7 +5062,7 @@ skills["MagmaSigil"] = {
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
 	parts = {
 		{
@@ -6774,7 +6774,7 @@ skills["ConduitSigil"] = {
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -8315,7 +8315,7 @@ skills["ImmolationSigil"] = {
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {

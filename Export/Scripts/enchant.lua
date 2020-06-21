@@ -117,6 +117,12 @@ local skillMap = {
 	["BladeBlast"] = "Blade Blast",
 	["RuneBlast"] = "Stormbind",
 	["Spellslinger"] = "Spellslinger",
+	["AncestralCry"] = "Ancestral Cry",
+	["EnduringCry"] = "Enduring Cry",
+	["SeismicCry"] = "Seismic Cry",
+	["Sunder"] = "Sunder",
+	["Earthshatter"] = "Earthshatter",
+	["ArcanistBrand"] = "Arcanist Brand",
 }
 
 local bySkill = { }

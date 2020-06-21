@@ -3,7 +3,11 @@
 
 return {
 	["Ancestral Cry"] = {
+		["MERCILESS"] = {
+			"Attacks Exerted by Ancestral Cry deal 35% increased Damage ",
+		},
 		["ENDGAME"] = {
+			"Attacks Exerted by Ancestral Cry deal 50% increased Damage ",
 			"Ancestral Cry has a minimum of 10 Power",
 		},
 	},
@@ -91,6 +95,7 @@ return {
 		},
 		["ENDGAME"] = {
 			"Arcanist Brand has 12% increased Cast Speed",
+			"Spells Triggered by Arcanist Brand Unnerve enemies on Hit for 4 seconds",
 		},
 	},
 	["Arctic Armour"] = {
@@ -694,6 +699,7 @@ return {
 		["ENDGAME"] = {
 			"Earthshatter deals 40% increased Damage",
 			"Earthshatter has 24% increased Area of Effect",
+			"Earthshatter creates +1 fissures",
 		},
 	},
 	["Elemental Hit"] = {
@@ -724,6 +730,7 @@ return {
 		},
 		["ENDGAME"] = {
 			"30% increased Enduring Cry Cooldown Recovery Speed",
+			"Enduring Cry grants 1 additional Endurance Charge",
 		},
 	},
 	["Enfeeble"] = {
@@ -1818,7 +1825,11 @@ return {
 		},
 	},
 	["Seismic Cry"] = {
+		["MERCILESS"] = {
+			"Attacks Exerted by Seismic Cry deal 35% increased Damage ",
+		},
 		["ENDGAME"] = {
+			"Attacks Exerted by Seismic Cry deal 50% increased Damage ",
 			"Seismic Cry has a minimum of 10 Power",
 		},
 	},
@@ -2220,10 +2231,12 @@ return {
 		["MERCILESS"] = {
 			"Sunder has 25% increased Damage",
 			"Sunder has 16% increased Area of Effect",
+			"Sunder has 15% reduced delay between Areas in the Wave",
 		},
 		["ENDGAME"] = {
 			"Sunder has 40% increased Damage",
 			"Sunder has 24% increased Area of Effect",
+			"Sunder has 20% reduced delay between Areas in the Wave",
 		},
 	},
 	["Sweep"] = {
