@@ -342,13 +342,10 @@ local skills, mod, flag, skill = ...
 
 #skill GeneralsCry
 #flags warcry area duration
-	statMap = {
-		["base_life_regeneration_rate_per_minute"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
-		},
-	},
 #baseMod skill("radius", 60)
+#mods
+
+#skill GeneralsCrySupport
 #mods
 
 #skill GlacialHammer

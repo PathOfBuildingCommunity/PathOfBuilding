@@ -32,11 +32,6 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill AncestralSlamSupport
-	statMap = {
-	},
-#mods
-
 #skill SupportBloodMagic
 #mods
 
@@ -154,6 +149,21 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportFirePenetrationPlus
+#mods
+
+#skill AncestralSlamSupport
+	statMap = {
+		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
+			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
+			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.bor(ModFlag.Melee, ModFlag.Ailment)),
+		},
+		["ancestral_slam_interval_duration"] = {
+			mod("FistOfWarCooldown", "BASE", nil),
+			div = 1000,
+		},
+	},
 #mods
 
 #skill SupportFortify

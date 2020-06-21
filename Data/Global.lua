@@ -225,4 +225,5 @@ SkillType = {
 	SlamSkill = 102,
 	StanceSkill = 103,
 	Type101 = 104,
+	Type102 = 105,
 }
