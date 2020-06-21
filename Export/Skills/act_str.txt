@@ -674,9 +674,11 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Melee hit",
+			chaining = false,
 		},
 		{
 			name = "Beams",
+			chaining = true,
 		}
 	},
 	statMap = {
