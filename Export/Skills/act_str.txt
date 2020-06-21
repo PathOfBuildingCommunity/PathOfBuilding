@@ -741,6 +741,9 @@ local skills, mod, flag, skill = ...
 		["shockwave_slam_explosion_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["active_skill_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
 	},
 #mods
 
