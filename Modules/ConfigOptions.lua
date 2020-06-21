@@ -849,6 +849,9 @@ return {
 	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifFlag = "chaining", apply = function(val, modList, enemyModList)
 		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionTargetChainedFrom", type = "check", label = "Skill chains to another target?", ifFlag = "chaining", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:TargetChainedFrom", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "meleeDistance", type = "count", label = "Melee distance to enemy:", ifFlag = "melee" },
 	{ var = "projectileDistance", type = "count", label = "Projectile travel distance:", ifFlag = "projectile" },
 	{ var = "conditionAtCloseRange", type = "check", label = "Is the enemy at Close Range?", ifCond = "AtCloseRange", apply = function(val, modList, enemyModList)
