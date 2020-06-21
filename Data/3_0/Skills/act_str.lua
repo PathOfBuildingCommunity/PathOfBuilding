@@ -1746,9 +1746,20 @@ skills["SpikeSlam"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Spike",
+		},
+	},
 	statMap = {
-		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		["spike_slam_explosion_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["active_skill_area_of_effect_+%_final"] = {
+			skill("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {

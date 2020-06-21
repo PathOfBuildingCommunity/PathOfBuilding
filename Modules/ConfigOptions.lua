@@ -61,6 +61,10 @@ return {
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
+	{ label = "Arcanist Brand:", ifSkill = "Arcanist Brand" },
+	{ var = "targetBrandedEnemy", type = "check", label = "Skills are targeting the Branded Enemy?", ifSkill = "Arcanist Brand", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
+	end },
 	{ label = "Aspect of the Avian:", ifSkill = "Aspect of the Avian" },
 	{ var = "aspectOfTheAvianAviansMight", type = "check", label = "Is Avian's Might active?", ifSkill = "Aspect of the Avian", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AviansMightActive", "FLAG", true, "Config")

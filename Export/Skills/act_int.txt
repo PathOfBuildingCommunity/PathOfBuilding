@@ -1099,6 +1099,28 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
+#skill BrandSupport
+#flags spell duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+#mods
+
+#skill SupportBrandSupport
+	statMap = {
+		["support_brand_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_brand_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["trigger_brand_support_hit_ailment_damage_+%_final_vs_branded_enemy"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+		},
+	},
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SpiritOffering
 #flags spell duration
 	statMap = {
