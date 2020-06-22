@@ -1751,6 +1751,9 @@ local specialModList = {
 	["warcries have minimum of (%d+) power"] = { flag("CryWolfMinimumPower") },
 	["enemies you curse take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "Cursed" }) }) } end,
 	["you have fortify during effect of any life flask"] = { flag("Condition:Fortify", { type = "Condition", var = "UsingLifeFlask" }) },
+	["you take (%d+) chaos damage per second for 3 seconds on kill"] = function(num) return { mod("ChaosDegen", "BASE", num, { type = "Condition", var = "KilledLast3Seconds" }) } end,
+	["regenerate (%d+) life over 1 second for each spell you cast"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "CastLast1Seconds" }) } end,
+	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "KilledPosionedLast2Seconds" }) } end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -1876,8 +1879,11 @@ local specialModList = {
 	["recover (%d+)%% of energy shield when you block"] = function(num) return { mod("EnergyShieldOnBlock", "BASE", 1,  { type = "PerStat", stat = "EnergyShield", div = 100 / num }) } end,
 	["replenishes energy shield by (%d+)%% of armour when you block"] = function(num) return { mod("EnergyShieldOnBlock", "BASE", 1,  { type = "PerStat", stat = "Armour", div = 100 / num }) } end,
 	["you have no life regeneration"] = { flag("NoLifeRegen") },
+	["right ring slot: you cannot regenerate mana" ] = { flag("NoManaRegen", { type = "SlotNumber", num = 2 }) },
 	["you cannot recharge energy shield"] = { flag("NoEnergyShieldRecharge") },
 	["you cannot regenerate energy shield" ] = { flag("NoEnergyShieldRegen") },
+	["left ring slot: you cannot recharge or regenerate energy shield"] = { flag("NoEnergyShieldRecharge", { type = "SlotNumber", num = 1 }), flag("NoEnergyShieldRegen", { type = "SlotNumber", num = 1 }) },
+	["cannot gain energy shield"] = { flag("NoEnergyShieldRegen"), flag("NoEnergyShieldRecharge"), flag("CannotLeechEnergyShield") },
 	["you lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
 	["you have no armour or energy shield"] = {
 		mod("Armour", "MORE", -100),

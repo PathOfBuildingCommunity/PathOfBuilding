@@ -488,6 +488,21 @@ function calcs.defence(env, actor)
 						mult = s_format("x %.2f", output[damageType.."TakenDotMult"]),
 						total = s_format("%.1f", total),
 					})
+					breakdown[damageType.."Degen"] = { 
+						rowList = { },
+						colList = {
+							{ label = "Type", key = "type" },
+							{ label = "Base", key = "base" },
+							{ label = "Multiplier", key = "mult" },
+							{ label = "Total", key = "total" },
+						}
+					}
+					t_insert(breakdown[damageType.."Degen"].rowList, {
+						type = damageType,
+						base = s_format("%.1f", baseVal),
+						mult = s_format("x %.2f", output[damageType.."TakenDotMult"]),
+						total = s_format("%.1f", total),
+					})
 				end
 			end
 		end
