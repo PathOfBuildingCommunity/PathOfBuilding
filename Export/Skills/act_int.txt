@@ -1115,6 +1115,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBrandSupport
+	addFlags = {
+		brand = true,
+	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
