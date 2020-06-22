@@ -579,7 +579,7 @@ local modFlagList = {
 	["with poison"] = { keywordFlags = KeywordFlag.Poison },
 	["with bleeding"] = { keywordFlags = KeywordFlag.Bleed },
 	["for ailments"] = { flags = ModFlag.Ailment },
-	["for poison"] = { keywordFlags = KeywordFlag.Poison },
+	["for poison"] = { keywordFlags = bor(KeywordFlag.Poison, KeywordFlag.MatchAll) },
 	["for bleeding"] = { keywordFlags = KeywordFlag.Bleed },
 	["for ignite"] = { keywordFlags = KeywordFlag.Ignite },
 	["area"] = { flags = ModFlag.Area },
