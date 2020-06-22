@@ -348,6 +348,9 @@ return {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
 },
+["warcry_speed_+%"] = {
+	mod("WarcrySpeed", "INC", nil, KeywordFlag.Warcry),
+},
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil),
@@ -1191,6 +1194,13 @@ return {
 -- Brand
 ["sigil_attached_target_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
+},
+["base_number_of_sigils_allowed_per_target"] = {
+	mod("BrandsAttachedLimit", "BASE", nil)
+},
+["base_sigil_repeat_frequency_ms"] = {
+	skill("repeatFrequency", nil),
+	div = 1000,
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {

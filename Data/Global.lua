@@ -103,10 +103,11 @@ KeywordFlag.Attack =	0x00010000
 KeywordFlag.Spell =		0x00020000
 KeywordFlag.Hit =		0x00040000
 KeywordFlag.Ailment =	0x00080000
+KeywordFlag.Brand =		0x00100000
 -- Other effects
-KeywordFlag.Poison =	0x00100000
-KeywordFlag.Bleed =		0x00200000
-KeywordFlag.Ignite =	0x00400000
+KeywordFlag.Poison =	0x00200000
+KeywordFlag.Bleed =		0x00400000
+KeywordFlag.Ignite =	0x00800000
 -- Damage over Time types
 KeywordFlag.PhysicalDot=0x01000000
 KeywordFlag.LightningDot=0x02000000
@@ -220,4 +221,9 @@ SkillType = {
 	Type95 = 101,
 	Type96 = 102,
 	Type97 = 103,
+	CantUseFistOfWar = 101,
+	SlamSkill = 102,
+	StanceSkill = 103,
+	Type101 = 104,
+	Type102 = 105,
 }

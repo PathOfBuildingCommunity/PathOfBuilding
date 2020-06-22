@@ -205,7 +205,7 @@ itemBases["Hexclaw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(40-50)% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	req = { },
 }
 itemBases["Primal Skull Talisman"] = {
@@ -221,7 +221,7 @@ itemBases["Wereclaw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "+(24-36)% to Global Critical Strike Multiplier",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	req = { },
 }
 itemBases["Splitnewt Talisman"] = {
@@ -349,7 +349,7 @@ itemBases["Monkey Paw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "10% chance to gain a Power Charge on Kill",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	req = { },
 }
 itemBases["Monkey Paw Talisman"] = {

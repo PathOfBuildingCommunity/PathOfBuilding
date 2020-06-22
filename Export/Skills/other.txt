@@ -25,6 +25,35 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill BrandDetonate
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill EmbraceMadness
+#flags spell
+	fromItem = true,
+#mods
+
+#skill CreateSmokeCloud
+#flags spell
+	fromItem = true,
+#mods
+
+#skill VolatileDeadChaos
+#flags spell
+	fromItem = true,
+	statMap = {
+		["volatile_dead_core_explosion_radius_+"] = {
+			skill("radius", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SummonMirageChieftain
+#flags spell
+#mods
+
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
 	statMap = {

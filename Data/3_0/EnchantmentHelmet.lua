@@ -2,14 +2,13 @@
 -- Item data (c) Grinding Gear Games
 
 return {
-	["Abyssal Cry"] = {
+	["Ancestral Cry"] = {
 		["MERCILESS"] = {
-			"25% increased Abyssal Cry Damage",
-			"24% increased Abyssal Cry Duration",
+			"Attacks Exerted by Ancestral Cry deal 35% increased Damage ",
 		},
 		["ENDGAME"] = {
-			"40% increased Abyssal Cry Damage",
-			"36% increased Abyssal Cry Duration",
+			"Attacks Exerted by Ancestral Cry deal 50% increased Damage ",
+			"Ancestral Cry has a minimum of 10 Power",
 		},
 	},
 	["Ancestral Protector"] = {
@@ -90,6 +89,15 @@ return {
 			"Arcane Cloak grants Life Regeneration equal to 15% of Mana Spent per Second",
 		},
 	},
+	["Arcanist Brand"] = {
+		["MERCILESS"] = {
+			"Arcanist Brand has 8% increased Cast Speed",
+		},
+		["ENDGAME"] = {
+			"Arcanist Brand has 12% increased Cast Speed",
+			"Spells Triggered by Arcanist Brand Unnerve enemies on Hit for 4 seconds",
+		},
+	},
 	["Arctic Armour"] = {
 		["MERCILESS"] = {
 			"24% increased Arctic Armour Buff Effect",
@@ -98,19 +106,6 @@ return {
 		["ENDGAME"] = {
 			"36% increased Arctic Armour Buff Effect",
 			"Arctic Armour has 30% reduced Mana Reservation",
-		},
-	},
-	["Arctic Breath"] = {
-		["MERCILESS"] = {
-			"25% increased Arctic Breath Damage",
-			"24% increased Arctic Breath Duration",
-			"16% increased Arctic Breath Area of Effect",
-		},
-		["ENDGAME"] = {
-			"40% increased Arctic Breath Damage",
-			"36% increased Arctic Breath Duration",
-			"24% increased Arctic Breath Area of Effect",
-			"Arctic Breath's Chilling Area has 38% increased Movement Speed",
 		},
 	},
 	["Armageddon Brand"] = {
@@ -434,6 +429,11 @@ return {
 			"24% increased Cold Snap Area of Effect",
 		},
 	},
+	["Combust"] = {
+		["ENDGAME"] = {
+			"Combust has 30% increased Area of Effect",
+		},
+	},
 	["Conductivity"] = {
 		["MERCILESS"] = {
 			"20% increased Conductivity Curse Effect",
@@ -486,6 +486,19 @@ return {
 		["ENDGAME"] = {
 			"30% increased Convocation Cooldown Recovery Speed",
 			"36% increased Convocation Buff Effect",
+		},
+	},
+	["Creeping Frost"] = {
+		["MERCILESS"] = {
+			"25% increased Creeping Frost Damage",
+			"24% increased Creeping Frost Duration",
+			"16% increased Creeping Frost Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Creeping Frost Damage",
+			"36% increased Creeping Frost Duration",
+			"24% increased Creeping Frost Area of Effect",
+			"Creeping Frost's Chilling Area has 38% increased Movement Speed",
 		},
 	},
 	["Cremation"] = {
@@ -669,13 +682,24 @@ return {
 	["Earthquake"] = {
 		["MERCILESS"] = {
 			"25% increased Earthquake Damage",
-			"20% reduced Earthquake Duration",
 			"16% increased Earthquake Area of Effect",
+			"Earthquake deals 5% increased Damage per 0.1 seconds Duration",
 		},
 		["ENDGAME"] = {
 			"40% increased Earthquake Damage",
-			"30% reduced Earthquake Duration",
 			"24% increased Earthquake Area of Effect",
+			"Earthquake deals 8% increased Damage per 0.1 seconds Duration",
+		},
+	},
+	["Earthshatter"] = {
+		["MERCILESS"] = {
+			"Earthshatter deals 25% increased Damage",
+			"Earthshatter has 16% increased Area of Effect",
+		},
+		["ENDGAME"] = {
+			"Earthshatter deals 40% increased Damage",
+			"Earthshatter has 24% increased Area of Effect",
+			"Earthshatter creates +1 fissures",
 		},
 	},
 	["Elemental Hit"] = {
@@ -703,11 +727,10 @@ return {
 	["Enduring Cry"] = {
 		["MERCILESS"] = {
 			"20% increased Enduring Cry Cooldown Recovery Speed",
-			"24% increased Enduring Cry Buff Effect",
 		},
 		["ENDGAME"] = {
 			"30% increased Enduring Cry Cooldown Recovery Speed",
-			"36% increased Enduring Cry Buff Effect",
+			"Enduring Cry grants 1 additional Endurance Charge",
 		},
 	},
 	["Enfeeble"] = {
@@ -1007,6 +1030,15 @@ return {
 			"Galvanic Arrow has 30% increased Projectile Speed",
 		},
 	},
+	["General's Cry"] = {
+		["MERCILESS"] = {
+			"General's Cry has 20% increased Cooldown Recovery Speed",
+		},
+		["ENDGAME"] = {
+			"General's Cry has 30% increased Cooldown Recovery Speed",
+			"General's Cry has +1 to maximum number of Mirage Warriors",
+		},
+	},
 	["Glacial Cascade"] = {
 		["MERCILESS"] = {
 			"25% increased Glacial Cascade Damage",
@@ -1251,6 +1283,24 @@ return {
 			"Infernal Blow Debuff deals an additional 5% of Damage per Charge",
 		},
 	},
+	["Infernal Cry"] = {
+		["MERCILESS"] = {
+			"Infernal Cry has 20% increased Cooldown Recovery Speed",
+		},
+		["ENDGAME"] = {
+			"Infernal Cry has 30% increased Cooldown Recovery Speed",
+		},
+	},
+	["Intimidating Cry"] = {
+		["MERCILESS"] = {
+			"Intimidating Cry has 20% increased Cooldown Recovery Speed",
+			"Intimidating Cry has 16% increased Area of Effect",
+		},
+		["ENDGAME"] = {
+			"Intimidating Cry has 30% increased Cooldown Recovery Speed",
+			"Intimidating Cry has 24% increased Area of Effect",
+		},
+	},
 	["Kinetic Blast"] = {
 		["MERCILESS"] = {
 			"25% increased Kinetic Blast Damage",
@@ -1393,12 +1443,11 @@ return {
 	["Magma Orb"] = {
 		["MERCILESS"] = {
 			"25% increased Magma Orb Damage",
-			"Magma Orb Chains an additional time",
 			"16% increased Magma Orb Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Magma Orb Damage",
-			"Magma Orb Chains an additional 2 times",
+			"Magma Orb Chains an additional time",
 			"24% increased Magma Orb Area of Effect",
 		},
 	},
@@ -1456,6 +1505,18 @@ return {
 			"Orb of Storms has 30% increased Cast Speed",
 			"90% increased Orb of Storms Critical Strike Chance",
 			"24% increased Orb of Storms Area of Effect",
+		},
+	},
+	["Penance Brand"] = {
+		["MERCILESS"] = {
+			"Penance Brand deals 25% increased Damage",
+			"Penance Brand has 8% increased Cast Speed",
+			"Penance Brand has 16% increased Area of Effect",
+		},
+		["ENDGAME"] = {
+			"Penance Brand deals 40% increased Damage",
+			"Penance Brand has 12% increased Cast Speed",
+			"Penance Brand has 24% increased Area of Effect",
 		},
 	},
 	["Perforate"] = {
@@ -1669,12 +1730,11 @@ return {
 	},
 	["Rallying Cry"] = {
 		["MERCILESS"] = {
-			"50% increased Rallying Cry Buff Effect",
-			"30% increased Rallying Cry Duration",
+			"10% increased Rallying Cry Buff Effect",
 		},
 		["ENDGAME"] = {
-			"75% increased Rallying Cry Buff Effect",
-			"45% increased Rallying Cry Duration",
+			"15% increased Rallying Cry Buff Effect",
+			"Rallying Cry Exerts 1 additional Attack",
 		},
 	},
 	["Reave"] = {
@@ -1762,6 +1822,15 @@ return {
 			"40% increased Searing Bond Damage",
 			"60% increased Searing Bond Totem Placement Speed",
 			"36% increased Searing Bond Totem Elemental Resistances",
+		},
+	},
+	["Seismic Cry"] = {
+		["MERCILESS"] = {
+			"Attacks Exerted by Seismic Cry deal 35% increased Damage ",
+		},
+		["ENDGAME"] = {
+			"Attacks Exerted by Seismic Cry deal 50% increased Damage ",
+			"Seismic Cry has a minimum of 10 Power",
 		},
 	},
 	["Seismic Trap"] = {
@@ -2160,14 +2229,14 @@ return {
 	},
 	["Sunder"] = {
 		["MERCILESS"] = {
-			"25% increased Sunder Damage",
-			"10% increased Sunder Attack Speed",
-			"16% increased Sunder Area of Effect",
+			"Sunder has 25% increased Damage",
+			"Sunder has 16% increased Area of Effect",
+			"Sunder has 15% reduced delay between Areas in the Wave",
 		},
 		["ENDGAME"] = {
-			"40% increased Sunder Damage",
-			"15% increased Sunder Attack Speed",
-			"24% increased Sunder Area of Effect",
+			"Sunder has 40% increased Damage",
+			"Sunder has 24% increased Area of Effect",
+			"Sunder has 20% reduced delay between Areas in the Wave",
 		},
 	},
 	["Sweep"] = {
@@ -2184,14 +2253,14 @@ return {
 	},
 	["Tectonic Slam"] = {
 		["MERCILESS"] = {
-			"25% increased Tectonic Slam Damage",
-			"16% increased Tectonic Slam Area of Effect",
-			"Tectonic Slam has 12% chance to create a Charged Slam",
+			"Tectonic Slam deals 25% increased Damage",
+			"Tectonic Slam has 16% increased Area of Effect",
+			"Tectonic Slam has +12% fissure branching chance",
 		},
 		["ENDGAME"] = {
-			"40% increased Tectonic Slam Damage",
-			"24% increased Tectonic Slam Area of Effect",
-			"Tectonic Slam has 20% chance to create a Charged Slam",
+			"Tectonic Slam deals 40% increased Damage",
+			"Tectonic Slam has 24% increased Area of Effect",
+			"Tectonic Slam has +20% fissure branching chance",
 		},
 	},
 	["Tempest Shield"] = {
@@ -2395,6 +2464,18 @@ return {
 			"Winter Orb deals 40% increased Damage",
 			"Winter Orb has +2 Maximum Stages",
 			"Winter Orb has 3% increased Area of Effect per Stage",
+		},
+	},
+	["Wintertide Brand"] = {
+		["MERCILESS"] = {
+			"Wintertide Brand deals 25% increased Damage",
+			"Wintertide Brand has +2 to maximum Stages",
+			"Wintertide Brand has 25% increased Chill Effect",
+		},
+		["ENDGAME"] = {
+			"Wintertide Brand deals 40% increased Damage",
+			"Wintertide Brand has +4 to maximum Stages",
+			"Wintertide Brand has 40% increased Chill Effect",
 		},
 	},
 	["Wither"] = {

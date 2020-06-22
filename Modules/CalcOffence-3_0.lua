@@ -228,11 +228,16 @@ function calcs.offence(env, actor, activeSkill)
 		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * data.misc.Transfiguration), "Transfiguration of Soul", ModFlag.Spell)
 	end
 
-	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
+	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer")  or skillModList:Flag(nil, "ImprovedMinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from The Scourge
+		local multiplier = 1
+		if skillModList:Flag(nil, "ImprovedMinionDamageAppliesToPlayer") then
+			multiplier = 1.5
+		end
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
+			local mod = value.mod
 			if value.mod.name == "Damage" and value.mod.type == "INC" then
-				skillModList:AddMod(value.mod)
+				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
@@ -551,12 +556,12 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	elseif skillData.cooldown then
 		local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
-		output.Cooldown = cooldownOverride or skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+		output.Cooldown = cooldownOverride or (skillData.cooldown  + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 		
 		output.Cooldown = m_ceil(output.Cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		if breakdown then
 			breakdown.Cooldown = {
-				s_format("%.2fs ^8(base)", skillData.cooldown),
+				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 				s_format("rounded up to nearest server tick"),
 				s_format("= %.2fs", output.Cooldown)
@@ -651,6 +656,16 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.brand then
 		output.BrandAttachmentRange = calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+	end
+	
+	if skillFlags.warcry then
+		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "WarcryCastTime")
+		output.WarcryCastTime = baseSpeed * calcLib.mod(skillModList, skillCfg, "WarcrySpeed") * output.ActionSpeedMod
+		output.WarcryCastTime = m_min(output.WarcryCastTime, data.misc.ServerTickRate)
+		output.WarcryCastTime = 1 / output.WarcryCastTime
+		if skillModList:Flag(skillCfg, "InstantWarcry") then
+			output.WarcryCastTime = 0
+		end
 	end
 
 	-- Skill duration
@@ -1034,6 +1049,15 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	
+	-- shock
+	output.maximumShock = enemyDB:Sum("OVERRIDE", nil, "ShockMax") or 50
+	if output.maximumShock == 0 then
+		output.maximumShock = 50
+	end
+	output.currentShock = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), output.maximumShock)
+	enemyDB:NewMod("DamageTaken", "INC", output.currentShock, "Shock", { type = "Condition", var = "Shocked" })
+
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1132,7 +1156,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		-- Calculate Double Damage + Ruthless Blow chance/multipliers
+		-- Calculate Double Damage + Ruthless Blow chance/multipliers + Fist of War multipliers
 		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
@@ -1143,6 +1167,17 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output.RuthlessBlowMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowMultiplier") / 100
 		output.RuthlessBlowEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowMultiplier
+
+		output.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown")
+		output.FistOfWarHitMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarHitMultiplier") / 100
+		output.FistOfWarAilmentMultiplier = 1 + skillModList:Sum("BASE", cfg, "FistOfWarAilmentMultiplier") / 100
+		if output.FistOfWarCooldown ~= 0 then
+			output.FistOfWarHitEffect = 1 + output.FistOfWarHitMultiplier / (output.FistOfWarCooldown * output.Speed)
+			output.FistOfWarAilmentEffect = 1 + output.FistOfWarAilmentMultiplier / (output.FistOfWarCooldown * output.Speed)
+		else
+			output.FistOfWarHitEffect = 1
+			output.FistOfWarAilmentEffect = 1
+		end
 
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
@@ -1218,8 +1253,11 @@ function calcs.offence(env, actor, activeSkill)
 						if output.RuthlessBlowEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
 						end
+						if output.FistOfWarHitEffect ~= 1 then
+						t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
+						end
 					end
-					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect
+					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect
 					if pass == 1 then
 						-- Apply crit multiplier
 						allMult = allMult * output.CritMultiplier
@@ -1886,7 +1924,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
-			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect
+			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect * output.FistOfWarAilmentEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -1927,6 +1965,9 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if output.RuthlessBlowEffect ~= 0 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
+					end
+					if output.FistOfWarAilmentEffect ~= 0 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarAilmentEffect))
 					end
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 					breakdown.multiChain(breakdown.BleedDPS, {
@@ -2032,7 +2073,7 @@ function calcs.offence(env, actor, activeSkill)
 					sourceHitDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100)
 				end
 			end
-			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase
+			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -2193,7 +2234,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase
+			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1

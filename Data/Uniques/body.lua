@@ -332,8 +332,6 @@ Vaal Regalia
 League: Betrayal
 Variant: Pre 3.8.0
 Variant: Current
-Energy Shield: (358-407)
-Movement Speed: -3%
 Requires Level 68, 194 Int
 Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds
 Offering Skills Triggered this way also affect you
@@ -341,7 +339,6 @@ Offering Skills Triggered this way also affect you
 (5-10)% increased Cast Speed
 (100-130)% increased Energy Shield
 (6-10)% increased maximum Life
-<Two Veiled Mods>
 ]],[[
 Yriel's Fostering
 Exquisite Leather

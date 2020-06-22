@@ -77,7 +77,7 @@ itemBases["Diamond Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "(20-30)% increased Global Critical Strike Chance",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "critical" }, },
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {

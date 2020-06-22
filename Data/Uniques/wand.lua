@@ -21,17 +21,19 @@ Apep's Rage
 Opal Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 62, 212 Int
 Implicits: 2
 {variant:1}(17-20)% increased Spell Damage
-{variant:2,3}(38-42)% increased Spell Damage
+{variant:2,3,4}(38-42)% increased Spell Damage
 {variant:1,2}Adds (50-65) to (90-105) Chaos Damage to Spells
-{variant:3}Adds (90-130) to (140-190) Chaos Damage to Spells
+{variant:3,4}Adds (90-130) to (140-190) Chaos Damage to Spells
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
-40% increased Mana Cost of Skills
-{variant:3}Poisons you inflict deal Damage 20% faster
+{variant:1,2,3}40% increased Mana Cost of Skills
+{variant:4}+40 to Total Mana Cost of Skills
+{variant:3,4}Poisons you inflict deal Damage 20% faster
 ]],[[
 Ashcaller
 Quartz Wand
@@ -186,25 +188,30 @@ Reverberation Rod
 Spiraled Wand
 Upgrade: Upgrades to unique{Amplification Rod} via prophecy{Power Magnified}
 Variant: Pre 2.3.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 24, 83 Int
 Implicits: 2
 {variant:1}(10-14)% increased Spell Damage
-{variant:2}(15-19)% increased Spell Damage
-+1 to Level of Socketed Gems
-Socketed Gems are Supported by level 1 Spell Echo
+{variant:2,3}(15-19)% increased Spell Damage
+{variant:1,2}+1 to Level of Socketed Gems
+{variant:3}+2 to Level of Socketed Gems
+Socketed Gems are Supported by Level 10 Spell Echo
 +(10-30) to Intelligence
 ]],[[
 Amplification Rod
 Spiraled Wand
 Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 36, 83 Int
 Implicits: 1
 (15-19)% increased Spell Damage
-+1 to Level of Socketed Gems
-Socketed Gems are Supported by level 1 Spell Echo
-Socketed Gems are Supported by level 1 Increased Area of Effect
-Socketed Gems are Supported by level 1 Controlled Destruction
+{variant:1}+1 to Level of Socketed Gems
+{variant:2}+2 to Level of Socketed Gems
+Socketed Gems are Supported by Level 10 Intensify
+Socketed Gems are Supported by Level 10 Spell Echo
+Socketed Gems are Supported by Level 10 Controlled Destruction
 +(10-30) to Intelligence
 ]],[[
 Shade of Solaris

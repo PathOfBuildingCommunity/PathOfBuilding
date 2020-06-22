@@ -347,7 +347,10 @@ local function doActorMisc(env, actor)
 	else
 		output.GhostShrouds = 0
 	end
-	output.CrabBarriers = m_max(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
+	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "Multiplier:WarcryPower") < 10 then
+		modDB:NewMod("Multiplier:WarcryPower", "OVERRIDE", 10, "Minimum Power")
+	end
+	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
@@ -434,6 +437,11 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "CanLeechLifeOnFullLife") then
 			condList["Leeching"] = true
 			condList["LeechingLife"] = true
+			env.configInput.conditionLeeching = true
+		end
+		if modDB:Flag(nil, "CanLeechLifeOnFullEnergyShield") then
+			condList["Leeching"] = true
+			condList["LeechingEnergyShield"] = true
 			env.configInput.conditionLeeching = true
 		end
 		if modDB:Flag(nil, "Condition:InfusionActive") then
@@ -596,6 +604,12 @@ function calcs.perform(env)
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
 			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
+		end
+		if activeSkill.skillFlags.brand then
+			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
+			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			modDB:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(attached, attachLimit), "Config")
+			enemyDB:NewMod("Multiplier:BrandsAttached", "BASE", m_min(attached, attachLimit), "Config")
 		end
 	end
 
@@ -887,6 +901,14 @@ function calcs.perform(env)
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
+
+						-- Take the Purposeful Harbinger buffs into account.
+						-- These are capped to 40% increased buff effect, no matter the amount allocated
+						local incFromPurposefulHarbinger = math.min(
+							skillModList:Sum("INC", skillCfg, "PurpHarbAuraBuffEffect"),
+							data.misc.PurposefulHarbingerMaxBuffPercent)
+						inc = inc + incFromPurposefulHarbinger
+
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
