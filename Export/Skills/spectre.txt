@@ -682,3 +682,7 @@ local skills, mod, flag, skill = ...
 #skill AtlasCrusaderMageguardBeam Beam
 #flags spell hit triggerable
 #mods
+
+#skill AtlasCrusaderSisterMortar Mortar
+#flags spell hit triggerable area projectile
+#mods
