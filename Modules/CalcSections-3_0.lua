@@ -1102,6 +1102,10 @@ return {
 		{ breakdown = "SpellBlockChance" }, 
 		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
 	}, },
+	{ label = "Taken From Block", haveOutput = "ShowBlockEffect", { format = "{0:output:BlockEffect}%", 
+		{ breakdown = "BlockEffect" }, 
+		{ modName = { "BlockEffect" }, },
+	}, },
 } }, { defaultCollapsed = true, label = "Gain on Block", data = {
 	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}",
 	{ label = "Life on Block", { format = "{0:output:LifeOnBlock}", { modName = "LifeOnBlock" }, }, },
