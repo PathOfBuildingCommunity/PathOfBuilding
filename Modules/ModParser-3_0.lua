@@ -148,6 +148,7 @@ local modNameList = {
 	["physical damage taken when hit"] = "PhysicalDamageTakenWhenHit",
 	["physical damage taken over time"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time damage taken"] = "PhysicalDamageTakenOverTime",
+	["reflected physical damage taken"] = "PhysicalReflectedDamageTaken",
 	["lightning damage taken"] = "LightningDamageTaken",
 	["lightning damage from hits taken"] = "LightningDamageTaken",
 	["lightning damage taken when hit"] = "LightningDamageTakenWhenHit",
@@ -169,6 +170,7 @@ local modNameList = {
 	["elemental damage taken when hit"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken from hits"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken over time"] = "ElementalDamageTakenOverTime",
+	["reflected elemental damage taken"] = "ElementalReflectedDamageTaken",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
 	["to dodge attack hits"] = "AttackDodgeChance",
@@ -269,6 +271,7 @@ local modNameList = {
 	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector" } } },
 	["warcry effect"] = { "BuffEffect", keywordFlags = KeywordFlag.Warcry },
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
+	["maximum rage"] = "MaximumRage",
 	-- Charges
 	["maximum power charge"] = "PowerChargesMax",
 	["maximum power charges"] = "PowerChargesMax",
@@ -576,7 +579,7 @@ local modFlagList = {
 	["with poison"] = { keywordFlags = KeywordFlag.Poison },
 	["with bleeding"] = { keywordFlags = KeywordFlag.Bleed },
 	["for ailments"] = { flags = ModFlag.Ailment },
-	["for poison"] = { keywordFlags = KeywordFlag.Poison },
+	["for poison"] = { keywordFlags = bor(KeywordFlag.Poison, KeywordFlag.MatchAll) },
 	["for bleeding"] = { keywordFlags = KeywordFlag.Bleed },
 	["for ignite"] = { keywordFlags = KeywordFlag.Ignite },
 	["area"] = { flags = ModFlag.Area },
@@ -875,6 +878,10 @@ local modTagList = {
 	["for each golem you have summoned"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
 	["per summoned golem"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
 	["per summoned sentinel of purity"] = { tag = { type = "PerStat", stat = "ActiveSentinelOfPurityLimit" } },
+	["per summoned skeleton"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit" } },
+	["per summoned raging spirit"] = { tag = { type = "PerStat", stat = "ActiveRagingSpiritLimit" } },
+	["for each raised zombie"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit" } },
+	["per raised spectre"] = { tag = { type = "PerStat", stat = "ActiveSpectreLimit" } },
 	-- Stat conditions
 	["with (%d+) or more strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
 	["with at least (%d+) strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
@@ -1257,6 +1264,7 @@ local specialModList = {
 	["critical strikes inflict scorch, brittle and sapped"] = { flag("CritAlwaysAltAilments") },
 	["chance to block attack damage is doubled"] = { mod("BlockChance", "MORE", 100) },
 	["chance to block spell damage is doubled"] = { mod("SpellBlockChance", "MORE", 100) },
+	["you take (%d+)%% of damage from blocked hits"] = function(num) return { mod("BlockEffect", "BASE", num) } end,
 	["ignore attribute requirements"] = { flag("IgnoreAttributeRequirements") },
 	["gain no inherent bonuses from attributes"] = { flag("NoAttributeBonuses") },
 	["all damage taken bypasses energy shield"] = {
@@ -1265,6 +1273,7 @@ local specialModList = {
 		mod("ColdEnergyShieldBypass", "BASE", 100),
 		mod("FireEnergyShieldBypass", "BASE", 100),
 	},
+	["increases and reductions to mana regeneration rate instead apply to rage regeneration rate"] = { flag("ManaRegenToRageRegen") },
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
@@ -1344,6 +1353,7 @@ local specialModList = {
 		mod("ColdDamageTaken", "INC", -num, { type = "Condition", var = "HitByColdDamageRecently" }),
 		mod("LightningDamageTaken", "INC", -num, { type = "Condition", var = "HitByLightningDamageRecently" }),
 	} end,
+	["cannot take reflected elemental damage"] = { mod("ElementalReflectedDamageTaken", "MORE", -100) },
 	["every %d+ seconds:"] = { },
 	["gain chilling conflux for %d seconds"] = {
 		flag("PhysicalCanChill", { type = "Condition", var = "ChillingConflux" }),
@@ -1454,6 +1464,7 @@ local specialModList = {
 	["you are immune to bleeding while leeching"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "Leeching" }) },
 	["life leech effects are not removed at full life"] = { flag("CanLeechLifeOnFullLife") },
 	["energy shield leech effects from attacks are not removed at full energy shield"] = { flag("CanLeechLifeOnFullEnergyShield") },
+	["cannot take reflected physical damage"] = { mod("PhysicalReflectedDamageTaken", "MORE", -100) },
 	["gain (%d+)%% increased movement speed for 20 seconds when you kill an enemy"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "Condition", var = "KilledRecently" }) } end,
 	["gain (%d+)%% increased attack speed for 20 seconds when you kill a rare or unique enemy"] = function(num) return { mod("Speed", "INC", num, { type = "Condition", var = "KilledUniqueEnemy" }) } end,
 	
@@ -1661,6 +1672,12 @@ local specialModList = {
 	["cannot inflict freeze or chill"] = { flag("CannotFreeze"), flag("CannotChill") },
 	["cannot inflict shock"] = { flag("CannotShock") },
 	["cannot ignite, chill, freeze or shock"] = { flag("CannotIgnite"), flag("CannotChill"), flag("CannotFreeze"), flag("CannotShock") },
+	["shock enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("ShockAsThoughDealing", "MORE", num) } end,
+	["inflict non%-damaging ailments as though dealing (%d+)%% more damage"] = function(num) return {
+		mod("ShockAsThoughDealing", "MORE", num),
+		mod("ChillAsThoughDealing", "MORE", num),
+		mod("FreezeAsThoughDealing", "MORE", num)
+	} end,
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
@@ -2300,6 +2317,7 @@ local regenTypes = {
 	["energy shield"] = "EnergyShieldRegen",
 	["maximum energy shield"] = "EnergyShieldRegen",
 	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
+	["rage"] = "RageRegen",
 }
 
 -- Build active skill name lookup

@@ -1,3 +1,74 @@
+### 1.4.170.1 - 2020/06/22
+ * Add all new gems from 3.11
+   * Full support:
+     * Earthshatter
+     * Arcanist Brand
+     * Penance Brand
+     * Wintertide Brand
+     * Fist of War Support
+     * Urgent Orders Support
+     * Swiftbrand Support
+   * Partial support:
+     * Ancestral Cry
+     * Generals Cry
+     * Intimidating Cry
+     * Seismic Cry
+ * Update gems with 3.11 changes
+ * Update uniques with 3.11 changes
+ * Add basic support for Warcry power
+ * Add large breakdown for character defences
+   * Shows detailed breakdowns for defences
+   * Includes effective hit points against hits and DoTs for each element
+   * And much more
+ * Add UI for annointing amulets
+ * Add dropdown to select dps field for sorting support gems
+ * Add prefix/suffix tag for crafting options
+ * Add support for Scorch, Brittle, and Sap
+ * Add parsing for Tailwind mod on Hunter influenced boots
+ * Add support for Supreme Ostentation Keystone
+ * Add support for Glancing Blows Keystone
+ * Add support for new Rage nodes and Chainbreaker's two regen related mods 
+ * Add support for "as though dealing more damage" for Shock, Chill, and Freeze
+ * Add support for Overshock and Voltaxic Rift max shock mod
+ * Add support for stance nodes on the tree
+ * Add support for two-handed Impale nodes on the tree
+ * Add support for Attack Critical Strike multiplier while Dual Wielding
+ * Add Mortal Conviction to Skin of the Lords
+ * Add 75% cap for buff expiration speed
+ * Add support for Daresso's Courage block mod
+ * Add support for Liege of the Primordial golem elemental immunity
+ * Add support for Arcane Blessing ailment immunity
+ * Add total for "reduced Extra Damage from Critical Strikes" on the calcs page
+ * Add support for cooldowns rounding to the nearest server tick
+ * Add hard caps to attack, cast, trap throwing and mine throwing speeds
+ * Add better support for Soul Tether unique belt
+ * Update Area of Effect calculations showing breakpoints for skills
+ * Clamp skill gem options to make comparing gems more consistent
+ * Fix incorrect enemy armour calculations
+ * Fix importing bug with 2-line implicit Cluster jewels
+ * Fix crash related to Cluster jewel Keystones on the calcs page
+ * Fix bug where the node power calculator would sometimes break when using Impale
+ * Fix Consecrated Path not applying more damage to close targets
+ * Fix Herald dependent mods applying while unbuffed
+ * Fix parsing for bleed infliction/immunity mods
+ * Fix several typos on uniques
+ * Fix Talisman tier parsing
+ * Fix Hybrid flasks not counting as Life/Mana flasks
+ * Fix for Berserk quality attack damage not applying properly
+ * Fix for Dying Sun not changing "increased" to "reduced" properly
+ * Fix faster bleeding mods not being displayed
+ * Fix 20 quality Awakened Generosity not increasing supported auras level
+ * Fix Snipe stages applying incorrectly to the Snipe skill
+ * Fix Stormbind damage per improvement
+ * Fix Elusive calculations not applying properly
+ * Fix node search not updating when switching Cluster jewels
+ * Fix tooltip for Feeding Frenzy
+ * Fix bug for brand nodes on the tree
+ * Fix support for corpse pact
+ * Fix poison node on the tree for spell skills applying to cold DoTs
+ * Fix parsing for the new Purposeful Harbinger mod
+ * Fix calculation of crab barriers
+ * Remove 20% more physical damage while dual wielding
 ### 1.4.169.3 - 2020/06/17
  * Add 3.11 passive skill tree
  * Add support for Indigo oils

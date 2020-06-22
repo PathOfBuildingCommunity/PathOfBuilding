@@ -267,21 +267,24 @@ function calcs.defence(env, actor)
 		}
 	end
 
-	-- Mana, life and energy shield regen
+	-- Mana, life, energy shield, and rage regen
 	if modDB:Flag(nil, "NoManaRegen") then
 		output.ManaRegen = 0
 	else
 		local base = modDB:Sum("BASE", nil, "ManaRegen") + output.Mana * modDB:Sum("BASE", nil, "ManaRegenPercent") / 100
-		local inc = modDB:Sum("INC", nil, "ManaRegen")
+		output.ManaRegenInc = modDB:Sum("INC", nil, "ManaRegen")
 		local more = modDB:More(nil, "ManaRegen")
-		local regen = base * (1 + inc/100) * more
+		if modDB:Flag(nil, "ManaRegenToRageRegen") then
+			output.ManaRegenInc = 0
+		end
+		local regen = base * (1 + output.ManaRegenInc/100) * more
 		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1) - modDB:Sum("BASE", nil, "ManaDegen")
 		if breakdown then
 			breakdown.ManaRegen = { }
 			breakdown.multiChain(breakdown.ManaRegen, {
 				label = "Mana Regeneration:",
 				base = s_format("%.1f ^8(base)", base),
-				{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+				{ "%.2f ^8(increased/reduced)", 1 + output.ManaRegenInc/100 },
 				{ "%.2f ^8(more/less)", more },
 				total = s_format("= %.1f ^8per second", regen),
 			})
@@ -335,7 +338,25 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRegen = 0
 		end
 	end
-
+	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
+		local base = modDB:Sum("BASE", nil, "RageRegen")
+		if modDB:Flag(nil, "ManaRegenToRageRegen") then
+			local mana = modDB:Sum("INC", nil, "ManaRegen")
+			modDB:NewMod("RageRegen", "INC", mana, "Mana Regen to Rage Regen")
+		end
+		local inc = modDB:Sum("INC", nil, "RageRegen")
+		local more = modDB:More(nil, "RageRegen")
+		output.RageRegen = base * (1 + inc /100) * more
+		if breakdown then
+			breakdown.RageRegen = { }
+			breakdown.multiChain(breakdown.RageRegen, {
+				base = s_format("%.1f ^8(base)", base),
+				{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+				{ "%.2f ^8(more/less)", more },
+				total = s_format("= %.1f ^8per second", output.RageRegen),
+			})
+		end
+	end
 	-- Energy Shield Recharge
 	if modDB:Flag(nil, "NoEnergyShieldRecharge") then
 		output.EnergyShieldRecharge = 0
@@ -471,7 +492,17 @@ function calcs.defence(env, actor)
 				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenWhenHit")
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenWhenHit")
 			end
-			output[damageType.."TakenHit"] = (1 + takenInc / 100) * takenMore
+			output[damageType.."TakenHit"] = m_max((1 + takenInc / 100) * takenMore, 0)
+			do
+				-- Reflect
+				takenInc = takenInc + modDB:Sum("INC", nil, damageType.."ReflectedDamageTaken")
+				takenMore = takenMore * modDB:More(nil, damageType.."ReflectedDamageTaken")
+				if isElemental[damageType] then
+					takenInc = takenInc + modDB:Sum("INC", nil, "ElementalReflectedDamageTaken")
+					takenMore = takenMore * modDB:More(nil, "ElementalReflectedDamageTaken")
+				end
+				output[damageType.."TakenReflect"] = m_max((1 + takenInc / 100) * takenMore, 0)
+			end
 		end
 		do
 			-- Dot
@@ -564,6 +595,12 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	output.AnyTakenReflect = 0
+	for _, damageType in ipairs(dmgTypeList) do
+		if output[damageType.."TakenReflect"] ~= output[damageType.."TakenHit"] then
+			output.AnyTakenReflect = true
+		end
+	end
 
 	-- Incoming hit damage multipliers
 	actor.damageShiftTable = wipeTable(actor.damageShiftTable)
@@ -589,8 +626,19 @@ function calcs.defence(env, actor)
 
 		-- Calculate incoming damage multiplier
 		local mult = 0
+		local multReflect = 0
 		if breakdown then
 			breakdown[damageType.."TakenHitMult"] = { 
+				label = "Hit Damage taken as",
+				rowList = { },
+				colList = {
+					{ label = "Type", key = "type" },
+					{ label = "Mitigation", key = "resist" },
+					{ label = "Taken", key = "taken" },
+					{ label = "Final", key = "final" },
+				},
+			}
+			breakdown[damageType.."TakenReflectMult"] = { 
 				label = "Hit Damage taken as",
 				rowList = { },
 				colList = {
@@ -622,8 +670,11 @@ function calcs.defence(env, actor)
 					end
 				end
 				local takenMult = output[destType.."TakenHit"]
+				local takenMultReflect = output[destType.."TakenReflect"]
 				local final = portion / 100 * (1 - resist / 100) * takenMult
+				local finalReflect = portion / 100 * (1 - resist / 100) * takenMultReflect
 				mult = mult + final
+				multReflect = multReflect + finalReflect
 				if breakdown then
 					t_insert(breakdown[damageType.."TakenHitMult"].rowList, {
 						type = s_format("%d%% as %s", portion, destType),
@@ -631,10 +682,21 @@ function calcs.defence(env, actor)
 						taken = takenMult ~= 1 and s_format("x %.2f", takenMult),
 						final = s_format("x %.2f", final),
 					})
+					if output.AnyTakenReflect then
+						t_insert(breakdown[damageType.."TakenReflectMult"].rowList, {
+							type = s_format("%d%% as %s", portion, destType),
+							resist = s_format("x %.2f", 1 - resist / 100),
+							taken = takenMultReflect ~= 1 and s_format("x %.2f", takenMultReflect),
+							finalReflect = s_format("x %.2f", finalReflect),
+						})
+					end
 				end
 			end
 		end
 		output[damageType.."TakenHitMult"] = mult
+		if output.AnyTakenReflect then
+			output[damageType.."TakenReflectMult"] = multReflect
+		end
 	end
 
 	-- Other defences: block, dodge, stun recovery/avoidance
@@ -693,6 +755,12 @@ function calcs.defence(env, actor)
 		if modDB:Flag(nil, "CannotBlockSpells") then
 			output.SpellBlockChance = 0
 			output.SpellProjectileBlockChance = 0
+		end
+		output.BlockEffect = modDB:Sum("BASE", nil, "BlockEffect")
+		if output.BlockEffect == 0 then
+			output.BlockEffect = 100
+		else
+			output.ShowBlockEffect = true
 		end
 		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
 		output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
@@ -772,48 +840,33 @@ function calcs.defence(env, actor)
 			total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellNotHitChance),
 		})
 	end
+	
 	--chance to not take damage if hit
+	function chanceToNotTakeDamage(outputText, outputName, BlockChance, AvoidChance)
+		output[outputName] = 100 - (1 - BlockChance * output.BlockEffect / 100 / 100 ) * (1 - AvoidChance / 100) * 100
+		if breakdown then
+			breakdown[outputName] = { }
+			if output.ShowBlockEffect then
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for block to fail)", 1 - BlockChance / 100 },
+					{ "%d%% Damage taken from blocks", output.BlockEffect },
+					{ "%.2f ^8(chance for avoidance to fail)", 1 - AvoidChance / 100 },
+					total = s_format("= %d%% ^8(chance to take damage from a %s)", 100 - output[outputName], outputText),
+				})
+			else
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for block to fail)", 1 - BlockChance / 100 },
+					{ "%.2f ^8(chance for avoidance to fail)", 1 - AvoidChance / 100 },
+					total = s_format("= %d%% ^8(chance to take damage from a %s)", 100 - output[outputName], outputText),
+				})
+			end
+		end
+	end
 	for _, damageType in ipairs(dmgTypeList) do
-		--melee
-		output[damageType.."MeleeDamageChance"] = 100 - (1 - output.BlockChance / 100) * (1 - output["Avoid"..damageType.."DamageChance"] / 100) * 100
-		if breakdown then
-			breakdown[damageType.."MeleeDamageChance"] = { }
-			breakdown.multiChain(breakdown[damageType.."MeleeDamageChance"], {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output["Avoid"..damageType.."DamageChance"] / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a melee attack)", 100 - output[damageType.."MeleeDamageChance"]),
-			})
-		end
-		--attack projectile
-		output[damageType.."ProjectileDamageChance"] = 100 - (1 - output.ProjectileBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
-		if breakdown then
-			breakdown[damageType.."ProjectileDamageChance"] = { }
-			breakdown.multiChain(breakdown[damageType.."ProjectileDamageChance"], {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.ProjectileBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output[damageType.."ProjectileDamageChance"]),
-			})
-		end
-		--spell
-		output[damageType.."SpellDamageChance"] = 100 - (1 - output.SpellBlockChance / 100) * (1 - output["Avoid"..damageType.."DamageChance"] / 100) * 100
-		if breakdown then
-			breakdown[damageType.."SpellDamageChance"] = { }
-			breakdown.multiChain(breakdown[damageType.."SpellDamageChance"], {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - output["Avoid"..damageType.."DamageChance"] / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Spell)", 100 - output[damageType.."SpellDamageChance"]),
-			})
-		end
-		--spell projectile
-		output[damageType.."SpellProjectileDamageChance"] = 100 - (1 - output.SpellProjectileBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
-		if breakdown then
-			breakdown[damageType.."SpellProjectileDamageChance"] = { }
-			breakdown.multiChain(breakdown[damageType.."SpellProjectileDamageChance"], {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellProjectileBlockChance / 100 },
-				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap) / 100 },
-				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output[damageType.."SpellProjectileDamageChance"]),
-			})
-		end
+		chanceToNotTakeDamage("Melee Attack", damageType.."MeleeDamageChance", output.BlockChance, output["Avoid"..damageType.."DamageChance"])
+		chanceToNotTakeDamage("Projectile Attack", damageType.."ProjectileDamageChance", output.ProjectileBlockChance, m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap))
+		chanceToNotTakeDamage("Spell", damageType.."SpellDamageChance", output.SpellBlockChance, output["Avoid"..damageType.."DamageChance"])
+		chanceToNotTakeDamage("Projectile Spell", damageType.."SpellProjectileDamageChance", output.SpellProjectileBlockChance, m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap))
 		--average
 		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end

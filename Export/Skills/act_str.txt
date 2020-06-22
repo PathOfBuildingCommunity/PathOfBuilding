@@ -350,6 +350,11 @@ local skills, mod, flag, skill = ...
 
 #skill GlacialHammer
 #flags attack melee
+	statMap = {
+		["glacial_hammer_third_hit_freeze_as_though_dealt_damage_+%"] = {
+			mod("FreezeAsThoughDealing", "MORE", nil)
+		},
+	},
 #mods
 
 #skill VaalGlacialHammer
@@ -412,6 +417,7 @@ local skills, mod, flag, skill = ...
 		["herald_of_purity_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+	},
 #mods
 
 #skill FlameTotem

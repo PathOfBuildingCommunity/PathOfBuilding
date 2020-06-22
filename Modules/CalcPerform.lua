@@ -472,6 +472,10 @@ local function doActorMisc(env, actor)
 				modDB:NewMod("ChaosDamage", "MORE", 10 * effect, "Infusion")
 			end
 		end
+		if modDB:Flag(nil, "Condition:CanGainRage") then
+			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
+			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
+		end
 	end	
 end
 
@@ -610,6 +614,22 @@ function calcs.perform(env)
 			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
 			modDB:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(attached, attachLimit), "Config")
 			enemyDB:NewMod("Multiplier:BrandsAttached", "BASE", m_min(attached, attachLimit), "Config")
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")
+			output.ActiveSkeletonLimit = m_max(limit, output.ActiveSkeletonLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Raise Zombie" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveZombieLimit")
+			output.ActiveZombieLimit = m_max(limit, output.ActiveZombieLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
+			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
+			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
 		end
 	end
 

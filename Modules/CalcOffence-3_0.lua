@@ -1839,6 +1839,7 @@ function calcs.offence(env, actor, activeSkill)
 			local baseFromHit = sourceHitDmg * chanceFromHit / (chanceFromHit + chanceFromCrit)
 			local baseFromCrit = sourceCritDmg * chanceFromCrit / (chanceFromHit + chanceFromCrit)
 			local baseVal = baseFromHit + baseFromCrit
+			local sourceMult = skillModList:More(nil, type.."AsThoughDealing")
 			if breakdown and chance ~= 0 then
 				local breakdownChance = breakdown[type.."Chance"] or { }
 				breakdown[type.."Chance"] = breakdownChance
@@ -1869,23 +1870,37 @@ function calcs.offence(env, actor, activeSkill)
 				if sourceHitDmg == sourceCritDmg then
 					t_insert(breakdownDPS, "Total damage:")
 					t_insert(breakdownDPS, s_format("%.1f ^8(source damage)",sourceHitDmg))
+					if sourceMult > 1 then
+						t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
+						t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
+					end
 				else
 					if baseFromHit > 0 then
 						t_insert(breakdownDPS, "Damage from Non-crits:")
 						t_insert(breakdownDPS, s_format("%.1f ^8(source damage from non-crits)", sourceHitDmg))
 						t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by non-crits)", chanceFromHit / (chanceFromHit + chanceFromCrit)))
-						t_insert(breakdownDPS, s_format("= %.1f", baseFromHit))
+						if sourceMult == 1 or baseFromCrit ~= 0 then
+							t_insert(breakdownDPS, s_format("= %.1f", baseFromHit))
+						end
 					end
 					if baseFromCrit > 0 then
 						t_insert(breakdownDPS, "Damage from Crits:")
 						t_insert(breakdownDPS, s_format("%.1f ^8(source damage from crits)", sourceCritDmg))
 						t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by crits)", chanceFromCrit / (chanceFromHit + chanceFromCrit)))
-						t_insert(breakdownDPS, s_format("= %.1f", baseFromCrit))
+						if sourceMult == 1 or baseFromHit ~= 0 then
+							t_insert(breakdownDPS, s_format("= %.1f", baseFromCrit))
+						end
 					end
 					if baseFromHit > 0 and baseFromCrit > 0 then
 						t_insert(breakdownDPS, "Total damage:")
 						t_insert(breakdownDPS, s_format("%.1f + %.1f", baseFromHit, baseFromCrit))
-						t_insert(breakdownDPS, s_format("= %.1f", baseVal))
+						if sourceMult == 1 then
+							t_insert(breakdownDPS, s_format("= %.1f", baseVal))
+						end
+					end
+					if sourceMult > 1 then
+						t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
+						t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
 					end
 				end
 			end
@@ -2345,7 +2360,7 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
 				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
 			end
-			local baseVal = calcAilmentDamage("Shock", sourceHitDmg, sourceCritDmg)
+			local baseVal = calcAilmentDamage("Shock", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "ShockAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.shock = true
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
@@ -2379,7 +2394,7 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
 				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
 			end
-			local baseVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg)
+			local baseVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "ChillAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.chill = true
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
@@ -2401,7 +2416,7 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
 			end
-			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg)
+			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.freeze = true
 				skillFlags.chill = true

@@ -4133,6 +4133,7 @@ skills["AtlasEyrieArcherCrystalImpact"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
 		hit = true,
 		triggerable = true,
 	},
@@ -4189,6 +4190,7 @@ skills["AtlasExileCrusaderMageguardBombExplode"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
 		hit = true,
 		triggerable = true,
 	},
@@ -4215,6 +4217,7 @@ skills["AtlasCrusaderMageguardBeam"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.3,
 	baseFlags = {
+		spell = true,
 		hit = true,
 		triggerable = true,
 	},

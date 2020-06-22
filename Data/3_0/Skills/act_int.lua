@@ -3708,6 +3708,9 @@ skills["HeraldOfThunder"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.LightningSkill] = true, [SkillType.Type27] = true, [SkillType.Herald] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "HeraldStormFrequency") / 100)
+	end,
 	statMap = {
 		["herald_of_thunder_lightning_damage_+%"] = {
 			mod("LightningDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -3724,6 +3727,10 @@ skills["HeraldOfThunder"] = {
 		["attack_maximum_added_lightning_damage"] = {
 			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["herald_of_thunder_bolt_base_frequency"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
 	},
 	baseFlags = {
 		cast = true,
@@ -3731,6 +3738,7 @@ skills["HeraldOfThunder"] = {
 	},
 	baseMods = {
 		skill("radius", 32),
+		skill("showAverage", false),
 	},
 	qualityStats = {
 		{ "herald_of_thunder_lightning_damage_+%", 0.75 },
