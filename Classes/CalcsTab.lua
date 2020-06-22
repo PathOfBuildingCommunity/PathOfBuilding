@@ -223,14 +223,20 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		if section.enabled then
 			local col
 			if section.group == 1 then
-				-- Group 1: Offense 
+				-- Group 1: Offense or 3 wide sections
 				-- This group is put into the first 3 columns, with each section placed into the highest available location
 				col = 1
-				local minY = colY[col] or baseY
-				for c = 2, 3 do
-					if (colY[c] or baseY) < minY then
-						col = c
-						minY = colY[c] or baseY
+				if section.width == self.colWidth then -- if 1 col wide
+					local minY = colY[col] or baseY
+					for c = 2, 3 do
+						if (colY[c] or baseY) < minY then
+							col = c
+							minY = colY[c] or baseY
+						end
+					end
+				else
+					for c = 2, 3 do
+						colY[col] = m_max(colY[col] or baseY, colY[c] or baseY)
 					end
 				end
 			elseif section.group == 2 then
@@ -500,8 +506,8 @@ function CalcsTabClass:CalculatePowerStat(selection, original, modified)
 		original = original.Minion
 		modified = modified.Minion
 	end
-	originalValue = original[selection.stat] or 0
-	modifiedValue = modified[selection.stat] or 0
+	local originalValue = original[selection.stat] or 0
+	local modifiedValue = modified[selection.stat] or 0
 	if selection.transform then
 		originalValue = selection.transform(originalValue)
 		modifiedValue = selection.transform(modifiedValue)

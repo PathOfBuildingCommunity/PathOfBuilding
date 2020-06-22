@@ -136,7 +136,7 @@ data.labyrinths = {
 }
 
 local maxPenaltyFreeAreaLevel = 70
-local maxAreaLevel = 88 -- T16 map + side area + four watchstones that grant +1 level
+local maxAreaLevel = 87 -- T16 map + side area + three watchstones that grant +1 level
 local penaltyMultiplier = 0.06
 
 ---@param areaLevel number
@@ -205,6 +205,32 @@ data.specialBaseTags = {
 	["Helmet"] = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", },
 	["Shield"] = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", },
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
+}
+
+data.misc = { -- magic numbers
+	ServerTickRate = 30,
+	TemporalChainsEffectCap = 75,
+	PhysicalDamageReductionCap = 90,
+	MaxResistCap = 90,
+	EvadeChanceCap = 95,
+	DodgeChanceCap = 75,
+	AvoidChanceCap = 75,
+	EnergyShieldRechargeBase = 0.2,
+	Transfiguration = 0.3,
+	EnemyMaxResist = 75,
+	LeechRateBase = 0.02,
+	BleedPercentBase = 70,
+	BleedDurationBase = 5,
+	PoisonPercentBase = 0.20,
+	PoisonDurationBase = 2,
+	IgnitePercentBase = 0.50,
+	IgniteDurationBase = 4,
+	ImpaleStoredDamageBase = 0.1,
+	BuffExpirationSlowCap = 0.25,
+	TrapTriggerRadiusBase = 10,
+	MineDetonationRadiusBase = 60,
+	MineAuraRadiusBase = 35,
+	PurposefulHarbingerMaxBuffPercent = 40,
 }
 
 ---------------------------

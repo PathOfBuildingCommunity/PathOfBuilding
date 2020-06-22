@@ -17,6 +17,17 @@ function calcLib.mod(modStore, cfg, ...)
 	return (1 + (modStore:Sum("INC", cfg, ...)) / 100) * modStore:More(cfg, ...)
 end
 
+---Calculates additive and multiplicative modifiers for specified modifier names
+---@param modStore table
+---@param cfg table
+---@param ... string @Mod name(s)
+---@return number, number @increased, more
+function calcLib.mods(modStore, cfg, ...)
+	local inc = 1 + modStore:Sum("INC", cfg, ...) / 100
+	local more = modStore:More(cfg, ...)
+	return inc, more
+end
+
 -- Calculate value
 function calcLib.val(modStore, name, cfg)
 	local baseVal = modStore:Sum("BASE", cfg, name)

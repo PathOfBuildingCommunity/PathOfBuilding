@@ -258,9 +258,10 @@ skills["BoneStalkerEarthquake"] = {
 	name = "Earthquake",
 	hidden = true,
 	color = 1,
-	description = "Smashes the ground with an Axe, Mace, Sceptre or Staff, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Earthquakes created before the first one has erupted will not generate their own aftershocks.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
+	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
+		["None"] = true,
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
 		["Two Handed Mace"] = true,
@@ -896,9 +897,10 @@ skills["GoatmanEarthquake"] = {
 	name = "Earthquake",
 	hidden = true,
 	color = 1,
-	description = "Smashes the ground with an Axe, Mace, Sceptre or Staff, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Earthquakes created before the first one has erupted will not generate their own aftershocks.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
+	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
+		["None"] = true,
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
 		["Two Handed Mace"] = true,
@@ -1272,7 +1274,7 @@ skills["IncursionLeapSlamChampion"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1436,7 +1438,7 @@ skills["KaomWarriorMoltenStrike"] = {
 	hidden = true,
 	color = 1,
 	description = "Attacks enemies with physical and fire damage, causing balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, [SkillType.Type97] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1467,9 +1469,10 @@ skills["KaomWarriorMoltenStrike"] = {
 		"physical_damage_+%",
 		"active_skill_projectile_damage_+%_final",
 		"active_skill_area_of_effect_radius_+%_final",
+		"base_projectile_speed_+%",
 	},
 	levels = {
-		[1] = { 60, 5, -20, 0, -20, 0, cooldown = 3, levelRequirement = 2, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 60, 5, -20, 0, -20, 0, -25, cooldown = 3, levelRequirement = 2, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["KitavaDemonLeapSlam"] = {
@@ -1477,7 +1480,7 @@ skills["KitavaDemonLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1864,9 +1867,9 @@ skills["MonsterEnduringCry"] = {
 	name = "Enduring Cry",
 	hidden = true,
 	color = 1,
-	description = "Performs a warcry, adding endurance charges proportional to the number of surrounding enemies and granting life regeneration to you for a short time if there are nearby enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
+	description = "Performs a warcry, taunting all nearby enemies to attack the user and granting endurance charges. Gives a brief burst of life regeneration, as well as a buff which grants resistances and physical damage reduction based on your endurance charges.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.25,
 	baseFlags = {
 		warcry = true,
@@ -1878,7 +1881,7 @@ skills["MonsterEnduringCry"] = {
 	qualityStats = {
 	},
 	stats = {
-		"endurance_charges_granted_per_one_hundred_nearby_enemies_during_endurance_warcry",
+		"endurance_charge_granted_per_X_monster_power_during_endurance_warcry",
 		"base_skill_effect_duration",
 		"base_life_regeneration_rate_per_minute",
 	},
@@ -2071,6 +2074,7 @@ skills["MonsterFlickerStrike"] = {
 		"physical_damage_+%",
 		"active_skill_damage_+%_final",
 		"ignores_proximity_shield",
+		"melee_defer_damage_prediction",
 	},
 	levels = {
 		[1] = { 30, 10, 0, 10, cooldown = 2, levelRequirement = 13, manaCost = 18, statInterpolation = { 1, 1, 1, 1, }, },
@@ -2181,7 +2185,7 @@ skills["MonsterLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2218,7 +2222,7 @@ skills["MonsterLeapSlamFoothills"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -3889,7 +3893,7 @@ skills["WickerManMoltenStrike"] = {
 	hidden = true,
 	color = 1,
 	description = "Attacks enemies with physical and fire damage, causing balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, [SkillType.Type97] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -3919,9 +3923,10 @@ skills["WickerManMoltenStrike"] = {
 		"active_skill_damage_+%_final",
 		"physical_damage_+%",
 		"active_skill_projectile_damage_+%_final",
+		"base_projectile_speed_+%",
 	},
 	levels = {
-		[1] = { 60, 4, 20, 10, -40, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[1] = { 60, 4, 20, 10, -40, -25, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["VaalincursionMortar"] = {
@@ -4128,6 +4133,7 @@ skills["AtlasEyrieArcherCrystalImpact"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
 		hit = true,
 		triggerable = true,
 	},
@@ -4184,6 +4190,7 @@ skills["AtlasExileCrusaderMageguardBombExplode"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
 		hit = true,
 		triggerable = true,
 	},
@@ -4210,6 +4217,7 @@ skills["AtlasCrusaderMageguardBeam"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.3,
 	baseFlags = {
+		spell = true,
 		hit = true,
 		triggerable = true,
 	},

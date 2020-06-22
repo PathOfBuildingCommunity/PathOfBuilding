@@ -8,6 +8,7 @@ local modDB, output, actor = ...
 local unpack = unpack
 local ipairs = ipairs
 local t_insert = table.insert
+local m_floor = math.floor
 local m_sqrt = math.sqrt
 local s_format = string.format
 
@@ -92,21 +93,20 @@ function breakdown.slot(source, sourceName, cfg, base, total, ...)
 	})
 end
 
-function breakdown.area(base, areaMod, total, label)
+function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, redBreakpoint, lessBreakpoint, label)
+	local out = {}
 	if base ~= total then
-		return {
-			s_format("%d ^8(base radius)", base),
-			s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(areaMod)),
-			s_format("= %d", total),
-			label,
-			radius = total
-		}
-	else
-		return {
-			label,
-			radius = total
-		}
+		t_insert(out, s_format("%d ^8(base radius)", base))
+		t_insert(out, s_format("x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(areaMod)) / 100))
+		t_insert(out, s_format("= %d", total))
 	end
+	if incBreakpoint and moreBreakpoint and redBreakpoint and lessBreakpoint then
+		t_insert(out, s_format("^8Next breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incBreakpoint, moreBreakpoint))
+		t_insert(out, s_format("^8Previous breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redBreakpoint, lessBreakpoint))
+	end
+	t_insert(out, label)
+	out.radius = total
+	return out
 end
 
 function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore)

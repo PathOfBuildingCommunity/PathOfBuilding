@@ -469,7 +469,7 @@ function main:LoadSettings()
 					self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
 				end -- else leave at default
 				if node.attrib.showTitlebarName then
-					self.showTitlebarName = node.attrib.showTitlebarName
+					self.showTitlebarName = node.attrib.showTitlebarName == "true"
 				end
 			end
 		end

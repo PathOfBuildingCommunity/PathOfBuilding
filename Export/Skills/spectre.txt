@@ -668,7 +668,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtlasEyrieArcherCrystalImpact Crystal Impact
-#flags hit triggerable
+#flags spell hit triggerable
 #mods
 
 #skill AtlasExilesCrusaderMageguardProjectile Default Attack
@@ -676,9 +676,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtlasExileCrusaderMageguardBombExplode Bombs
-#flags hit triggerable
+#flags spell hit triggerable
 #mods
 
 #skill AtlasCrusaderMageguardBeam Beam
-#flags hit triggerable
+#flags spell hit triggerable
 #mods

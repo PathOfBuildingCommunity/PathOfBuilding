@@ -194,7 +194,7 @@ Implicits: 1
 Adds (45-60) to (100-120) Physical Damage 
 Gain (30-40)% of Physical Attack Damage as Extra Fire Damage 
 +4% to Chaos Resistance per Endurance Charge 
-1% reduced Elemental Damage taken when Hit per Endurance Charge 
+1% reduced Elemental Damage taken from Hits per Endurance Charge 
 Adds 5 to 8 Physical Damage per Endurance Charge 
 +500 to Armour per Endurance Charge 
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
@@ -248,15 +248,17 @@ Recover (1-3)% of Maximum Mana on Kill
 Bitterdream
 Shadow Sceptre
 Variant: Pre 2.3.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2}22% increased Elemental Damage
+{variant:2,3}22% increased Elemental Damage
+{variant:3}Socketed Gems are Supported by Level 1 Bonechill
 Socketed Gems are Supported by level 1 Hypothermia
 Socketed Gems are Supported by level 1 Ice Bite
 Socketed Gems are Supported by level 1 Cold Penetration
-Socketed Gems are Supported by level 1 Mana Leech
+{variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
 Socketed Gems are Supported by level 10 Added Cold Damage
 Socketed Gems are Supported by level 1 Reduced Mana
 ]],[[
@@ -324,21 +326,27 @@ Shadow Sceptre
 League: Beyond
 Variant: Pre 2.3.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0 (Life/Mana)
+Variant: Pre 3.11.0 (Life/ES)
+Variant: Pre 3.11.0 (Mana/ES)
 Variant: Current (Life/Mana)
 Variant: Current (Life/ES)
 Variant: Current (Mana/ES)
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3,4,5}22% increased Elemental Damage
-(30-50)% increased Damage
-7% Global chance to Blind Enemies on hit
+{variant:2,3,4,5,6,7,8}22% increased Elemental Damage
+{variant:1,2,3,4,5}(30-50)% increased Global Damage
+{variant:6,7,8}(40-60)% increased Global Damage
+{variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
+{variant:6,7,8}10% Global chance to Blind Enemies on hit
+Blind does not affect your Chance to Hit
+Enemies Blinded by you while you are Blinded have Malediction
 {variant:1,2}+1 Mana gained on Kill per Level
 {variant:1,2}+1 Energy Shield gained on Kill per Level
-{variant:3,4}+1 to maximum Life per Level
-{variant:3,5}+1 to maximum Mana per Level
-{variant:4,5}+1 to maximum Energy Shield per Level
-Cannot be Blinded
+{variant:3,4,6,7}+1 to maximum Life per Level
+{variant:3,5,6,8}+1 to maximum Mana per Level
+{variant:4,5,7,8}+1 to maximum Energy Shield per Level
 ]],[[
 Death's Hand
 Karui Sceptre
@@ -412,7 +420,7 @@ Implicits: 2
 {variant:1}Raised Zombies have +500 to maximum Life
 {variant:2,3}Raised Zombies have +2000 to maximum Life
 {variant:4}Raised Zombies have +5000 to maximum Life
-(25-30)% increased Zombie Resistances
+Raised Zombies have +(25-30)% to all Resistances
 25% increased Zombie Size
 Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
@@ -508,18 +516,23 @@ Brain Rattler
 Meatgrinder
 Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 63, 212 Str
-Implicits: 2
+Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
-Adds (80-100) to (320-370) Physical Damage
+{variant:3}5% chance to deal Double Damage
+{variant:1,2}Adds (80-100) to (320-370) Physical Damage
+{variant:3}Adds (60-80) to (270-320) Physical Damage
 50% of Physical Damage Converted to Lightning Damage
-15% chance to Shock
-10% chance to Cause Monsters to Flee
+{variant:1,2}15% chance to Shock
+{variant:3}50% chance to Shock
+{variant:1,2}10% chance to Cause Monsters to Flee
+{variant:3}Shock Enemies as though dealing 300% more Damage
+Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
-Damage Penetrates 20% Lightning Resistance
 ]],[[
 Chober Chaber
 Great Mallet
@@ -571,12 +584,17 @@ Never deal Critical Strikes
 Geofri's Devotion
 Brass Maul
 Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
+Variant: Pre 2.6.0
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 61, 92 Str
-Implicits: 1
-20% increased Stun Duration on Enemies
-Trigger Level 20 Elemental Warding when you Hit an Enemy while Cursed
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2,3}30% increased Stun Duration on Enemies
+Trigger Level 20 Elemental Warding on Melee Hit while Cursed
 200% increased Physical Damage
-Adds (50-56) to (73-78) Physical Damage
+{variant:1,2}Adds (50-56) to (73-78) Physical Damage
+{variant:3}Adds (42-47) to (66-71) Physical Damage
 Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
 Never deal Critical Strikes
@@ -633,19 +651,21 @@ Kongor's Undying Rage
 Terror Maul
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 212 Str
-Implicits: 2
+Implicits: 3
 {variant:1,2}20% increased Stun Duration on Enemies
 {variant:3}30% increased Stun Duration on Enemies
+{variant:4}25% chance to double Stun Duration
 {variant:1}Adds (27-36) to (270-360) Physical Damage
-{variant:2,3}Adds (27-56) to (270-400) Physical Damage
-{variant:2,3}(30-40)% increased Critical Strike Chance
+{variant:2,3,4}Adds (27-56) to (270-400) Physical Damage
+{variant:2,3,4}(30-40)% increased Critical Strike Chance
 +(15-20)% to all Elemental Resistances
 Hits can't be Evaded
 Your Critical Strikes do not deal extra Damage
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
-{variant:3}You gain Onslaught for 4 seconds on Critical Strike
+{variant:3,4}You gain Onslaught for 4 seconds on Critical Strike
 ]],[[
 Marohi Erqi
 Karui Maul
@@ -653,17 +673,20 @@ League: Legion
 Source: Drops from Legion Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 57, 182 Str
-Implicits: 2
+Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
+{variant:4}45% increased Stun Duration on Enemies
 {variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
-{variant:3}Socketed Gems are Supported by level 15 Pulverise
+{variant:3,4}Socketed Gems are Supported by level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
+{variant:4}(200-230)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
-{variant:3}Adds 30 to 40 Physical Damage
+{variant:3,4}Adds 30 to 40 Physical Damage
 10% reduced Attack Speed
 -100 to Accuracy Rating
 10% reduced Movement Speed
@@ -699,13 +722,15 @@ Recover 5% of Maximum Life on Kill
 Tidebreaker
 Imperial Maul
 Variant: Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 212 Str
-Implicits: 1
-30% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1,2}30% increased Stun Duration on Enemies
+{variant:3}10% increased Strength
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 {variant:1}Adds (60-70) to (300-350) Physical Damage
-{variant:2}Adds (70-80) to (340-375) Physical Damage
+{variant:2,3}Adds (70-80) to (340-375) Physical Damage
 +40 to Intelligence
 10% increased Physical Damage per Endurance Charge
 (20-30)% reduced Enemy Stun Threshold with this Weapon

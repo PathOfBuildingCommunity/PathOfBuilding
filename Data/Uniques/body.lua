@@ -40,7 +40,7 @@ Grants Level 20 Aspect of the Crab Skill
 (300-350)% increased Armour
 +(100-120) to maximum Life
 +(25-30)% to Fire and Cold Resistances
-Cannot be inflicted with Bleeding
+Bleeding cannot be inflicted on you
 +5 to Maximum number of Crab Barriers
 ]],[[
 Death's Oath
@@ -332,8 +332,6 @@ Vaal Regalia
 League: Betrayal
 Variant: Pre 3.8.0
 Variant: Current
-Energy Shield: (358-407)
-Movement Speed: -3%
 Requires Level 68, 194 Int
 Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds
 Offering Skills Triggered this way also affect you
@@ -341,7 +339,6 @@ Offering Skills Triggered this way also affect you
 (5-10)% increased Cast Speed
 (100-130)% increased Energy Shield
 (6-10)% increased maximum Life
-<Two Veiled Mods>
 ]],[[
 Yriel's Fostering
 Exquisite Leather
@@ -548,6 +545,7 @@ Variant: Iron Grip
 Variant: Iron Reflexes
 Variant: Mind Over Matter
 Variant: Minion Instability
+Variant: Mortal Conviction
 Variant: Pain Attunement
 Variant: Perfect Agony
 Variant: Phase Acrobatics
@@ -576,14 +574,15 @@ You can only Socket Corrupted Gems in this item
 {variant:13}Iron Reflexes
 {variant:14}Mind Over Matter
 {variant:15}Minion Instability
-{variant:16}Pain Attunement
-{variant:17}Perfect Agony
-{variant:18}Phase Acrobatics
-{variant:19}Point Blank
-{variant:20}Resolute Technique
-{variant:21}Unwavering Stance
-{variant:22}Vaal Pact
-{variant:23}Zealot's Oath
+{variant:16}Mortal Conviction
+{variant:17}Pain Attunement
+{variant:18}Perfect Agony
+{variant:19}Phase Acrobatics
+{variant:20}Point Blank
+{variant:21}Resolute Technique
+{variant:22}Unwavering Stance
+{variant:23}Vaal Pact
+{variant:24}Zealot's Oath
 Corrupted
 ]],[[
 Soul Mantle
@@ -918,6 +917,7 @@ Trigger Level 10 Contaminate when you Kill an Enemy
 +(17-23)% to Chaos Resistance
 Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
 You have Fungal Ground around you while stationary
+This item can be anointed by Cassia
 ]],[[
 Voll's Protector
 Holy Chainmail

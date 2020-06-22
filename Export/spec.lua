@@ -588,6 +588,8 @@ return {
 	},
 	BlightRewardTypes={
 	},
+	BlightStashTabLayout={
+	},
 	BlightTopologies={
 	},
 	BlightTopologyNodes={
@@ -1348,6 +1350,8 @@ return {
 	},
 	CustomLeagueMods={
 	},
+	DamageHitEffects={
+	},
 	DamageParticleEffectTypes={
 	},
 	DamageParticleEffects={
@@ -1471,6 +1475,8 @@ return {
 			type="Int",
 			width=70
 		}
+	},
+	DeliriumStashTabLayout={
 	},
 	DelveAzuriteShop={
 	},
@@ -2721,6 +2727,34 @@ return {
 	},
 	Harbingers={
 	},
+	HarvestColours={
+	},
+	HarvestCraftOptions={
+	},
+	HarvestCraftTiers={
+	},
+	HarvestDurability={
+	},
+	HarvestEncounterScaling={
+	},
+	HarvestInfrastructure={
+	},
+	HarvestInfrastructureCategories={
+	},
+	HarvestMetaCraftingOptions={
+	},
+	HarvestObjects={
+	},
+	HarvestPerLevelValues={
+	},
+	HarvestSeedTypes={
+	},
+	HarvestSpecialCraftCosts={
+	},
+	HarvestSpecialCraftOptions={
+	},
+	HarvestStorageLayout={
+	},
 	HideoutDoodads={
 	},
 	HideoutNPCs={
@@ -2757,6 +2791,8 @@ return {
 	IncursionUniqueUpgradeComponents={
 	},
 	IncursionUniqueUpgrades={
+	},
+	IndexableSupportGems={
 	},
 	InfluenceExalts={
 	},
@@ -2903,6 +2939,8 @@ return {
 	},
 	LabyrinthAreas={
 	},
+	LabyrinthBonusItems={
+	},
 	LabyrinthExclusionGroups={
 	},
 	LabyrinthIzaroChests={
@@ -3029,6 +3067,8 @@ return {
 	},
 	MetamorphosisScaling={
 	},
+	MetamorphosisStashTabLayout={
+	},
 	MicroMigrationData={
 	},
 	MicrotransactionCharacterPortraitVariations={
@@ -3076,6 +3116,8 @@ return {
 	ModAuraFlags={
 	},
 	ModDomains={
+	},
+	ModEquivalencies={
 	},
 	ModFamily={
 	},
@@ -4329,6 +4371,10 @@ return {
 			width=350
 		}
 	},
+	PassiveSkillFilterCatagories={
+	},
+	PassiveSkillFilterOptions={
+	},
 	PassiveSkillStatCategories={
 	},
 	PassiveSkillTreeTutorial={
@@ -4745,6 +4791,8 @@ return {
 	},
 	RogueExiles={
 	},
+	Rulesets={
+	},
 	RunicCircles={
 	},
 	SafehouseBYOCrafting={
@@ -4754,6 +4802,10 @@ return {
 	SafehouseCraftingSpreeCurrencies={
 	},
 	SalvageBoxes={
+	},
+	ScarabTypes={
+	},
+	Scarabs={
 	},
 	SessionQuestFlags={
 	},
@@ -5198,6 +5250,8 @@ return {
 	TormentSpirits={
 	},
 	TreasureHunterMissions={
+	},
+	TriggerBeam={
 	},
 	TriggerSpawners={
 	},

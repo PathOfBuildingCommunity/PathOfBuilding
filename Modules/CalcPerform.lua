@@ -163,6 +163,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if actor.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
 		end
+		if modDB:Sum("BASE", nil, "ScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
+			condList["CanInflictScorch"] = true
+		end
+		if modDB:Sum("BASE", nil, "BrittleChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
+			condList["CanInflictBrittle"] = true
+		end
+		if modDB:Sum("BASE", nil, "SapChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
+			condList["CanInflictSap"] = true
+		end
 	end
 
 	-- Calculate attributes
@@ -189,24 +198,26 @@ local function doActorAttribsPoolsConditions(env, actor)
 	output.TotalAttr = output.Str + output.Dex + output.Int
 
 	-- Add attribute bonuses
-	if not modDB:Flag(nil, "NoStrBonusToLife") then
-		modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+	if not modDB:Flag(nil, "NoAttributeBonuses") then
+		if not modDB:Flag(nil, "NoStrBonusToLife") then
+			modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+		end
+		local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
+		if strDmgBonusRatioOverride > 0 then
+			actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
+		else
+			actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+		end
+		modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
+		modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
+		if not modDB:Flag(nil, "IronReflexes") then
+			modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
+		end
+		if not modDB:Flag(nil, "NoIntBonusToMana") then
+			modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
+		end
+		modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 	end
-	local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
-	if strDmgBonusRatioOverride > 0 then
-		actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
-	else
-		actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
-	end
-	modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
-	modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
-	if not modDB:Flag(nil, "IronReflexes") then
-		modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
-	end
-	if not modDB:Flag(nil, "NoIntBonusToMana") then
-		modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
-	end
-	modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 
 	-- Life/mana pools
 	if modDB:Flag(nil, "ChaosInoculation") then
@@ -336,7 +347,10 @@ local function doActorMisc(env, actor)
 	else
 		output.GhostShrouds = 0
 	end
-	output.CrabBarriers = m_max(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
+	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "Multiplier:WarcryPower") < 10 then
+		modDB:NewMod("Multiplier:WarcryPower", "OVERRIDE", 10, "Minimum Power")
+	end
+	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
@@ -425,6 +439,11 @@ local function doActorMisc(env, actor)
 			condList["LeechingLife"] = true
 			env.configInput.conditionLeeching = true
 		end
+		if modDB:Flag(nil, "CanLeechLifeOnFullEnergyShield") then
+			condList["Leeching"] = true
+			condList["LeechingEnergyShield"] = true
+			env.configInput.conditionLeeching = true
+		end
 		if modDB:Flag(nil, "Condition:InfusionActive") then
 			local effect = 1 + modDB:Sum("INC", nil, "InfusionEffect", "BuffEffectOnSelf") / 100
 			if modDB:Flag(nil, "Condition:HavePhysicalInfusion") then
@@ -452,6 +471,10 @@ local function doActorMisc(env, actor)
 				condList["Infusion"] = true
 				modDB:NewMod("ChaosDamage", "MORE", 10 * effect, "Infusion")
 			end
+		end
+		if modDB:Flag(nil, "Condition:CanGainRage") then
+			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
+			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
 		end
 	end	
 end
@@ -582,8 +605,31 @@ function calcs.perform(env)
 			output.ActiveGolemLimit = m_max(limit, output.ActiveGolemLimit or 0)
 		end
 		if activeSkill.skillFlags.totem then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit")
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
+			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
+		end
+		if activeSkill.skillFlags.brand then
+			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
+			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			modDB:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(attached, attachLimit), "Config")
+			enemyDB:NewMod("Multiplier:BrandsAttached", "BASE", m_min(attached, attachLimit), "Config")
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")
+			output.ActiveSkeletonLimit = m_max(limit, output.ActiveSkeletonLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Raise Zombie" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveZombieLimit")
+			output.ActiveZombieLimit = m_max(limit, output.ActiveZombieLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
+			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
+			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
 		end
 	end
 
@@ -610,6 +656,10 @@ function calcs.perform(env)
 				usingLifeFlask = true
 			end
 			if item.baseName:match("Mana Flask") then
+				usingManaFlask = true
+			end
+			if item.baseName:match("Hybrid Flask") then
+				usingLifeFlask = true
 				usingManaFlask = true
 			end
 
@@ -765,6 +815,9 @@ function calcs.perform(env)
 					end
 				end
 			end
+			if modDB:Flag(nil, "IgnoreAttributeRequirements") then
+				out = 0
+			end
 			output["Req"..attr] = out
 			if env.mode == "CALCS" then
 				output["Req"..attr.."String"] = out > output[attr] and colorCodes.NEGATIVE..out or out
@@ -798,15 +851,17 @@ function calcs.perform(env)
     end
 
 	-- Calculate number of active heralds
-	local heraldList = { }
-	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillTypes[SkillType.Herald] then
-			heraldList[activeSkill.skillCfg.skillName] = true
+	if env.mode_buffs then
+		local heraldList = { }
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillTypes[SkillType.Herald] then
+				heraldList[activeSkill.skillCfg.skillName] = true
+			end
 		end
-	end
-	for _, herald in pairs(heraldList) do
-		modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
-		modDB.conditions["AffectedByHerald"] = true
+		for _, herald in pairs(heraldList) do
+			modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+			modDB.conditions["AffectedByHerald"] = true
+		end
 	end
 
 	-- Combine buffs/debuffs 
@@ -866,6 +921,14 @@ function calcs.perform(env)
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
+
+						-- Take the Purposeful Harbinger buffs into account.
+						-- These are capped to 40% increased buff effect, no matter the amount allocated
+						local incFromPurposefulHarbinger = math.min(
+							skillModList:Sum("INC", skillCfg, "PurpHarbAuraBuffEffect"),
+							data.misc.PurposefulHarbingerMaxBuffPercent)
+						inc = inc + incFromPurposefulHarbinger
+
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
@@ -1053,7 +1116,7 @@ function calcs.perform(env)
 						modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 						local cfg = { skillName = grantedEffect.name }
 						local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
-						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:Sum("MORE", nil, "CurseEffectAgainstPlayer")
+						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
 						modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then

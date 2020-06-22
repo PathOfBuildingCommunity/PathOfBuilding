@@ -250,13 +250,16 @@ Requires Level 12, 21 Int
 Doedre's Malevolence
 Velvet Gloves
 Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 64, 21 Int
 (50-60)% increased Spell Damage
 +20 to Intelligence
 Adds (48-56) to (73-84) Chaos Damage to Spells
 15% reduced Cast Speed
 +(64-96) to maximum Energy Shield
-+50 to Total Mana Cost of Skills
+{variant:1}+50 to Total Mana Cost of Skills
+{variant:2}Skills Supported by Unleash have (30-50)% increased Seal gain frequency
 ]],[[
 Grip of the Council
 Arcanist Gloves
@@ -295,15 +298,17 @@ Voidbringer
 Conjurer Gloves
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 55, 79 Int
++1 to Level of Socketed Elemental Gems
 (125-150)% increased Critical Strike Chance for Spells
 {variant:1,2}(280-350)% increased Energy Shield
-{variant:3}(180-250)% increased Energy Shield
+{variant:3,4}(180-250)% increased Energy Shield
 {variant:1}80% increased Mana Cost of Skills
 {variant:2,3}(40-80)% increased Mana Cost of Skills
+{variant:4}+(40-80) to Total Mana Cost of Skills
 +(15-20) Energy Shield gained on Kill
-+1 to Level of Socketed Elemental Gems
 ]],
 -- Gloves: Armour/Evasion
 [[
@@ -325,6 +330,7 @@ League: Blight
 (5-10)% increased Attack and Cast Speed
 Create a Blighted Spore when you Kill a Rare Monster
 (Blighted Spores last for 10 seconds and have a random Aura)
+This item can be anointed by Cassia
 ]],[[
 Farrul's Pounce
 Hydrascale Gauntlets
