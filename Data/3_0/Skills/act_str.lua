@@ -2628,19 +2628,9 @@ skills["HeraldOfPurity"] = {
 		["base_number_of_champions_of_light_allowed"] = {
 			mod("ActiveSentinelOfPurityLimit", "BASE", nil)
 		},
-		["herald_of_light_spell_minimum_added_physical_damage"] = {
-			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["herald_of_purity_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["herald_of_light_spell_maximum_added_physical_damage"] = {
-			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["herald_of_light_attack_minimum_added_physical_damage"] = {
-			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["herald_of_light_attack_maximum_added_physical_damage"] = {
-			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -4615,30 +4605,33 @@ skills["StaticStrike"] = {
 	parts = {
 		{
 			name = "Melee hit",
+			chaining = false,
 		},
 		{
-			name = "Beams - 1 Stack",
-		},
-		{
-			name = "Beams - 3 Stacks",
-		},
+			name = "Beams",
+			chaining = true,
+		}
 	},
 	statMap = {
 		["static_strike_beam_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving", neg = true }, { type = "SkillPart", skillPartList = { 2, 3 }}),
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2}),
 		},
-		["static_strike_beam_damage_+%_final_while_moving"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving" }, { type = "SkillPart", skillPartList = { 2, 3 }}),
+		["static_strike_base_zap_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
 		},
 	},
+preDamageFunc = function(activeSkill, output)
+	if activeSkill.skillPart == 2 then
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
+	end
+end,
 	baseFlags = {
 		attack = true,
 		melee = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("hitTimeOverride", 0.4 / (1+1*0.1), { type = "SkillPart", skillPart = 2 }),
-		skill("hitTimeOverride", 0.4 / (1+3*0.1), { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		{ "skill_effect_duration_+%", 1 },
@@ -4950,6 +4943,9 @@ skills["NewSunder"] = {
 		["shockwave_slam_explosion_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["active_skill_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -5113,8 +5109,8 @@ skills["EnduranceChargeSlam"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["endurance_charge_slam_damage_+%_final_with_endurance_charge"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "StatThreshold", stat = "EnduranceCharges", threshold = 1 }),
+		["active_skill_area_of_effect_+%_final_per_endurance_charge"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
 	},
 	baseFlags = {
