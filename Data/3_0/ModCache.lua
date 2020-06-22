@@ -373,6 +373,7 @@ c["+2 to Level of all Lightning Gems"]={{[1]={flags=0,keywordFlags=0,name="GemPr
 c["+20% chance to be Pierced by Projectiles Projectiles Pierce you"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=20}}," to be Pierced by  Projectiles Pierce you "}
 c["33% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=33}},nil}
 c["40% chance to Chill Attackers for 4 seconds on Block 40% chance to Shock Attackers for 4 seconds on Block"]={{[1]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=40}}," to Chill Attackers for 4 seconds on Block 40% chance  Attackers for 4 seconds on Block "}
+c["30% increased Damage while in Blood Stance 15% increased Area of Effect while in Sand Stance"]={{[1]={flags=512,keywordFlags=0,name="Damage",type="INC",value=30}},"  while in Blood Stance 15% increased  of Effect while in Sand Stance "}
 c["0.2% of Damage Leeched as Life against Shocked Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Shocked"},flags=0,keywordFlags=262144,name="DamageLifeLeech",type="BASE",value=0.2}},nil}
 c["80% increased Onslaught Effect"]={{[1]={flags=0,keywordFlags=0,name="OnslaughtEffect",type="INC",value=80}},nil}
 c["17% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=17}},nil}
@@ -675,7 +676,7 @@ c["Azure Oil - Violet Oil - Golden Oil 20% increased Lightning Damage"]={nil,"Az
 c["Socketed Red Gems get 10% Physical Damage as Extra Fire Damage"]={{[1]={[1]={keyword="strength",slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=10}}}},nil}
 c["Adds 17 to 29 Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosMin",type="BASE",value=17},[2]={flags=0,keywordFlags=0,name="ChaosMax",type="BASE",value=29}},nil}
 c["43% increased Chill Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyChillDuration",type="INC",value=43}},nil}
-c["Gain 10% increased Attack Speed for 20 seconds when you Kill a Rare or Unique Enemy"]={{[1]={[1]={type="Condition",var="KilledUniqueEnemy"},flags=0,keywordFlags=0,name="Speed",type="INC",value=10}},nil}
+c["Gain 20% increased Attack Speed for 20 seconds when you Kill a Rare or Unique Enemy"]={{[1]={[1]={type="Condition",var="KilledUniqueEnemy"},flags=0,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["Damage Penetrates 10% Lightning Resistance during Flask effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LightningPenetration",type="BASE",value=10}},nil}
 c["12% increased Damage with Ailments from Attack Skills while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=2048,keywordFlags=65536,name="Damage",type="INC",value=12}},nil}
 c["their Maximum Life as Physical Damage 25% more Damage with Bleeding"]={nil,"their Maximum Life as Physical Damage 25% more Damage with Bleeding "}
@@ -829,7 +830,7 @@ c["70% increased Critical Strike Chance when in Main Hand"]={{[1]={[1]={num=1,ty
 c["6% increased Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="INC",value=6}},nil}
 c["Sepia Oil - Violet Oil - Crimson Oil 12% increased Damage Minions have 10% increased Movement Speed"]={nil,"Sepia Oil - Violet Oil - Crimson Oil 12% increased Damage Minions have 10% increased Movement Speed "}
 c["55% reduced Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="INC",value=-55}},nil}
-c["Azure Oil - Violet Oil - Black Oil 20% increased Armour Enemies have -5% to Total Physical Damage Reduction against your Hits +250 to Armour while affected by a Guard Skill Buff 10% chance when Hit for double Armour effect"]={nil,"Azure Oil - Violet Oil - Black Oil 20% increased Armour Enemies have -5% to Total Physical Damage Reduction against your Hits +250 to Armour while affected by a Guard Skill Buff 10% chance when Hit for double Armour effect "}
+c["20% increased Brand Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
 c["30% increased Maximum total Recovery per second from Energy Shield Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxEnergyShieldLeechRate",type="INC",value=30}},nil}
 c["1 Added Passive Skill is Chip Away"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Chip Away"}},nil}
 c["50% increased Aspect of the Spider Debuff Duration"]={{[1]={[1]={skillName="Aspect of the Spider",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=50}},nil}
@@ -974,7 +975,7 @@ c["100% increased Warcry Cooldown Recovery Speed"]={{[1]={flags=0,keywordFlags=4
 c["2% increased Minion Movement Speed per 50 Dexterity"]={{[1]={[1]={div=50,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}}}},nil}
 c["100% increased Vaal Skill Critical Strike Chance"]={{[1]={flags=0,keywordFlags=256,name="CritChance",type="INC",value=100}},nil}
 c["+5% Chance to Block Attack Damage while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=5}},nil}
-c["10% increased Poison Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=10}},nil}
+c["7% Global chance to Blind Enemies on hit +1 Mana gained on Kill per Level"]={nil,"7% Global chance to Blind Enemies on hit +1 Mana gained on Kill per Level "}
 c["Adds 250 to 280 Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireMin",type="BASE",value=250},[2]={flags=0,keywordFlags=0,name="FireMax",type="BASE",value=280}},nil}
 c["10% increased Movement Speed while Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=10}},nil}
 c["+185 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=185}},nil}
@@ -1012,7 +1013,7 @@ c["Golems have 15% increased Maximum Life"]={{[1]={[1]={skillType=62,type="Skill
 c["Traps cannot be Damaged for 5 seconds after being Thrown Mines cannot be Damaged for 5 seconds after being thrown"]={nil,"Traps cannot be Damaged for 5 seconds after being Thrown Mines cannot be Damaged for 5 seconds after being thrown "}
 c["+30% to Critical Strike Multiplier with Wands"]={{[1]={flags=8388612,keywordFlags=0,name="CritMultiplier",type="BASE",value=30}},nil}
 c["10% chance to gain an Endurance Charge when you are Hit 30% increased Armour while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="Armour",type="BASE",value=10}}," to gain an Endurance Charge when you are Hit 30% increased   "}
-c["+20% to Cold and Lightning Resistances"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=20},[2]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=20}},nil}
+c["20% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=20}},nil}
 c["6% increased Elemental Damage per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=6}},nil}
 c["Non-Banner Aura Skills reserve no Mana"]={nil,"Non-Banner Aura Skills reserve no Mana "}
 c["25% increased Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=25}},nil}
@@ -1022,7 +1023,7 @@ c["+12% to Fire and Lightning Resistances"]={{[1]={flags=0,keywordFlags=0,name="
 c["6 Mana Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="BASE",value=6}},nil}
 c["Cannot be Blinded 10% reduced Damage taken from Blinded Enemies 30% increased Damage with Hits and Ailments against Blinded Enemies 25% chance to Blind Enemies on Hit Nearby Enemies are Blinded"]={nil,"Cannot be Blinded 10% reduced Damage taken from Blinded Enemies 30% increased Damage with Hits and Ailments against Blinded Enemies 25% chance to Blind Enemies on Hit Nearby Enemies are Blinded "}
 c["13% reduced maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=-13}},nil}
-c["15% increased Elemental Damage if you've Chilled an Enemy Recently"]={{[1]={[1]={type="Condition",var="ChilledEnemyRecently"},flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=15}},nil}
+c["90% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=90}},nil}
 c["0.4% of Energy Shield Regenerated per Second for"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=0.4}}," for "}
 c["0.9% of Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=0.9}},nil}
 c["43% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=43}},nil}
@@ -1242,7 +1243,7 @@ c["14% increased Physical Damage with Maces and Sceptres"]={{[1]={flags=1048580,
 c["You have Crimson Dance if you have dealt a Critical Strike Recently"]={{[1]={[1]={type="Condition",var="CritRecently"},flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Crimson Dance"}},nil}
 c["Clear Oil - Opalescent Oil - Golden Oil +10 to maximum Mana 16% increased maximum Mana 40% increased Mana Regeneration Rate"]={nil,"Clear Oil - Opalescent Oil - Golden Oil +10 to maximum Mana 16% increased maximum Mana 40% increased Mana Regeneration Rate "}
 c["Amber Oil - Amber Oil - Verdant Oil 6% increased Attack Speed 4% increased Movement Speed"]={nil,"Amber Oil - Amber Oil - Verdant Oil 6% increased Attack Speed 4% increased Movement Speed "}
-c["Minions have 8% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=8}}}},nil}
+c["Minions have 5% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=5}}}},nil}
 c["Clear Oil - Teal Oil - Opalescent Oil 10% increased Attack Speed with Two Handed Melee Weapons 20% increased Stun Duration with Two Handed Melee Weapons on Enemies 20% increased Damage with Two Handed Weapons"]={nil,"Clear Oil - Teal Oil - Opalescent Oil 10% increased Attack Speed with Two Handed Melee Weapons 20% increased Stun Duration with Two Handed Melee Weapons on Enemies 20% increased Damage with Two Handed Weapons "}
 c["You and your Minions have 1% additional Physical Damage Reduction for each Raised Zombie Your Raised Zombies spread Caustic Ground on Death, dealing 50% of their maximum Life as Chaos Damage per second Raised Zombies' Slam Attack has 100% increased Area of Effect"]={nil,"You and your Minions have 1% additional Physical Damage Reduction for each Raised Zombie Your Raised Zombies spread Caustic Ground on Death, dealing 50% of their maximum Life as Chaos Damage per second Raised Zombies' Slam Attack has 100% increased Area of Effect "}
 c["Vaal Skills deal 100% increased Damage during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=256,name="Damage",type="INC",value=100}},nil}
@@ -1520,7 +1521,7 @@ c["Gain a Flask Charge when you deal a Critical Strike while affected by Precisi
 c["Energy Shield Recharge is not interrupted by Damage if"]={nil,"Energy Shield Recharge is not interrupted by Damage if "}
 c["40% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=40}},nil}
 c["Arrows Pierce an additional Target"]={{[1]={flags=1,keywordFlags=0,name="PierceCount",type="BASE",value=1}},nil}
-c["10% chance to Impale Enemies on Hit with Axes or Swords"]={{[1]={[1]={modFlags=4259840,type="ModFlagOr"},flags=4,keywordFlags=0,name="ImpaleChance",type="BASE",value=10}},nil}
+c["10% increased Brand Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
 c["Golden Oil - Golden Oil - Golden Oil +150 to Armour"]={nil,"Golden Oil - Golden Oil - Golden Oil +150 to Armour "}
 c["23% increased Damage for each Magic Item Equipped"]={{[1]={[1]={type="Multiplier",var="MagicItem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=23}},nil}
 c["15% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons"]={{}," to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons "}
@@ -1585,7 +1586,7 @@ c["25% chance to gain a Challenger Charge when you Hit a Rare or Unique Enemy wh
 c["+1 to Maximum Frenzy Charges and Maximum Power Charges"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=1},[2]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},nil}
 c["Sepia Oil - Azure Oil - Crimson Oil 20% increased Trap Damage 20% increased Mine Damage"]={nil,"Sepia Oil - Azure Oil - Crimson Oil 20% increased Trap Damage 20% increased Mine Damage "}
 c["Arrows Pierce all Targets"]={{[1]={flags=1,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
-c["Herald Skills have 25% increased Area of Effect"]={{[1]={[1]={skillType=63,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=25}},nil}
+c["Herald Skills have 20% increased Area of Effect"]={{[1]={[1]={skillType=63,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=20}},nil}
 c["130% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=130}},nil}
 c["Adds 20 to 30 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=20},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=30}},nil}
 c["Adds 25 to 60 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=25},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=60}},nil}
@@ -1717,7 +1718,7 @@ c["2 Mana Regenerated per Second per Power Charge"]={{[1]={[1]={type="Multiplier
 c["Gain Vaal Souls equal to Charges Consumed when used"]={nil,"Gain Vaal Souls equal to Charges Consumed when used "}
 c["8% increased Mine Damage"]={{[1]={flags=0,keywordFlags=8192,name="Damage",type="INC",value=8}},nil}
 c["Totems gain +20% to all Elemental Resistances Totems have 15% additional Physical Damage Reduction +100 Armour per Summoned Totem"]={nil,"Totems gain +20% to all Elemental Resistances Totems have 15% additional Physical Damage Reduction +100 Armour per Summoned Totem "}
-c["Sepia Oil - Teal Oil - Violet Oil 25% increased Mine Damage 20% increased Mine Duration"]={nil,"Sepia Oil - Teal Oil - Violet Oil 25% increased Mine Damage 20% increased Mine Duration "}
+c["15% increased Brand Attachment range"]={{[1]={flags=0,keywordFlags=0,name="BrandAttachmentRange",type="INC",value=15}},nil}
 c["15% increased Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=15}},nil}
 c["20% increased Physical Weapon Damage while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=8192,keywordFlags=0,name="PhysicalDamage",type="INC",value=20}},nil}
 c["+10% to Critical Strike Multiplier with Totem Skills"]={{[1]={flags=0,keywordFlags=16384,name="CritMultiplier",type="BASE",value=10}},nil}
@@ -1795,7 +1796,7 @@ c["Crimson Oil - Crimson Oil - Black Oil"]={nil,"Crimson Oil - Crimson Oil - Bla
 c["Damage Penetrates 10% Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=10}},nil}
 c["Removes 1% of maximum Energy Shield on Kill"]={nil,"Removes 1% of maximum Energy Shield on Kill "}
 c["3% increased Experience gain 20% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=3}}," Experience gain 20% increased  "}
-c["1 Added Passive Skill is Graceful Execution"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Graceful Execution"}},nil}
+c["1 Added Passive Skill is Wasting Affliction"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Wasting Affliction"}},nil}
 c["Recover 20% of your Maximum Life on Rampage Gain 5 Souls for Vaal Skills on Rampage"]={nil,"Recover 20% of your Maximum Life on Rampage Gain 5 Souls for Vaal Skills on Rampage "}
 c["75% increased Weapon Critical Strike Chance while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=8192,keywordFlags=0,name="CritChance",type="INC",value=75}},nil}
 c["Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="PerStat"},flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=1},[2]={[1]={div=10,stat="Dex",type="PerStat"},flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=2}},nil}
@@ -1833,9 +1834,9 @@ c["Brand Recall grants 20% increased Brand Attachment range to recalled Brands"]
 c["100% chance on Block to create Desecrated Ground"]={{}," on Block to create Desecrated Ground "}
 c["15% increased Brand Critical Strike Chance"]={{[1]={flags=0,keywordFlags=1048576,name="CritChance",type="INC",value=15}},nil}
 c["50% reduced Totem Damage"]={{[1]={flags=0,keywordFlags=16384,name="Damage",type="INC",value=-50}},nil}
-c["40% increased Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=40}},nil}
+c["40% increased Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamage",type="INC",value=40}},nil}
 c["With at least 40 Intelligence in Radius, Raised Zombies' Slam"]={nil,"With at least 40 Intelligence in Radius, Raised Zombies' Slam "}
-c["Opalescent Oil - Opalescent Oil - Silver Oil"]={nil,"Opalescent Oil - Opalescent Oil - Silver Oil "}
+c["Opalescent Oil - Opalescent Oil - Golden Oil"]={nil,"Opalescent Oil - Opalescent Oil - Golden Oil "}
 c["45% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=45}},nil}
 c["Minions gain 20% of Elemental Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalDamageGainAsChaos",type="BASE",value=20}}}},nil}
 c["Immune to Elemental Ailments while on Consecrated Ground"]={nil,"Immune to Elemental Ailments while on Consecrated Ground "}
@@ -2098,6 +2099,7 @@ c["1 Added Passive Skill is Run Through"]={{[1]={flags=0,keywordFlags=0,name="Cl
 c["Clear Oil - Clear Oil - Teal Oil +30 to Strength"]={nil,"Clear Oil - Clear Oil - Teal Oil +30 to Strength "}
 c["Herald Skills deal 20% increased Damage"]={{[1]={[1]={skillType=63,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
 c["Recover 10% of maximum Life when you use a Mana Flask Non-instant Mana recovery from Flasks is also recovered as Life"]={nil,"Recover 10% of maximum Life when you use a Mana Flask Non-instant Mana recovery from Flasks is also recovered as Life "}
+c["15% increased Warcry Speed 15% increased Warcry Cooldown Recovery Speed"]={{[1]={flags=0,keywordFlags=4,name="CooldownRecovery",type="INC",value=15}},"  Speed 15% increased Warcry  "}
 c["30% increased Attack Damage while you have Fortify"]={{[1]={[1]={type="Condition",var="Fortify"},flags=1,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
 c["Determination has 30% increased Aura Effect"]={{[1]={[1]={skillName="Determination",type="SkillName"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=30}},nil}
 c["+10% to Critical Strike Multiplier for Spells"]={{[1]={flags=2,keywordFlags=0,name="CritMultiplier",type="BASE",value=10}},nil}
@@ -2134,6 +2136,7 @@ c["+225% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags
 c["18% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=18}},nil}
 c["Bathed in the blood of 8000 sacrificed in the name of Zerphi Passives in radius are Conquered by the Vaal"]={nil,"Bathed in the blood of 8000 sacrificed in the name of Zerphi Passives in radius are Conquered by the Vaal "}
 c["Amber Oil - Amber Oil - Silver Oil +10% to Damage over Time Multiplier 20% increased Poison Duration 20% increased Bleeding Duration Bleeding you inflict deals Damage 5% faster Poisons you inflict deal Damage 5% faster"]={nil,"Amber Oil - Amber Oil - Silver Oil +10% to Damage over Time Multiplier 20% increased Poison Duration 20% increased Bleeding Duration Bleeding you inflict deals Damage 5% faster Poisons you inflict deal Damage 5% faster "}
+c["30% increased Warcry Speed 12% increased Warcry Cooldown Recovery Speed Remove an Ailment when you Warcry"]={{[1]={flags=0,keywordFlags=4,name="CooldownRecovery",type="INC",value=30}},"  Speed 12% increased Warcry  Remove an Ailment when you Warcry "}
 c["10% increased Effect of Chill"]={{[1]={flags=0,keywordFlags=0,name="EnemyChillEffect",type="INC",value=10}},nil}
 c["Grants Level 30 Dash Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="QuickDodge"}}},nil}
 c["10% additional Chance to Block while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=10}},nil}
@@ -2296,6 +2299,7 @@ c["Notable Passive Skills in Radius are Transformed to instead grant: 10% increa
 c["Trigger a Socketed Spell when you Attack with a Bow 15% increased Attack Speed"]={nil,"Trigger a Socketed Spell when you Attack with a Bow 15% increased Attack Speed "}
 c["Socketed Gems are Supported by level 10 Fire Penetration"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportFirePenetration"}}},nil}
 c["35% more Maximum Physical Attack Damage"]={{[1]={flags=1,keywordFlags=0,name="MaxPhysicalDamage",type="MORE",value=35}},nil}
+c["15% increased Warcry Speed Exerted Attacks deal 15% increased Damage"]={{[1]={flags=0,keywordFlags=4,name="Damage",type="INC",value=15}},"  Speed Exerted Attacks deal 15% increased  "}
 c["+85 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=85}},nil}
 c["Teal Oil - Azure Oil - Violet Oil Minions have 20% increased maximum Life Regenerate 1% of Life per second Minions Regenerate 1% of Life per second Minions have +10% to all Elemental Resistances"]={nil,"Teal Oil - Azure Oil - Violet Oil Minions have 20% increased maximum Life Regenerate 1% of Life per second Minions Regenerate 1% of Life per second Minions have +10% to all Elemental Resistances "}
 c["+4% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=4}},nil}
@@ -2348,7 +2352,7 @@ c["While not on Full Life, Sacrifice 20% of Mana per Second to Recover that much
 c["Creates a Smoke Cloud on Use"]={{},nil}
 c["16% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=16}},nil}
 c["8% reduced Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-8}},nil}
-c["Teal Oil - Teal Oil - Black Oil Regenerate 1.8% of Life per second 20% increased Stun Threshold +20 to Strength"]={nil,"Teal Oil - Teal Oil - Black Oil Regenerate 1.8% of Life per second 20% increased Stun Threshold +20 to Strength "}
+c["35% chance to gain an Endurance Charge when you use a Fire skill 5% increased Physical Damage per Endurance Charge 5% increased Fire Damage per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},[2]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=35}}," to gain an Endurance Charge when you use a Fire skill 5% increased   5% increased Fire Damage  "}
 c["50% increased Rarity of Items Dropped by Enemies killed with a Critical Strike 50% increased Damage while on Consecrated Ground"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="Damage",type="INC",value=50}}," Rarity of Items Dropped by Enemies killed with a Critical Strike 50% increased   "}
 c["+1 to Level of all Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="spell",[2]="active_skill"},value=1}}},nil}
 c["20% increased Effect of Chill"]={{[1]={flags=0,keywordFlags=0,name="EnemyChillEffect",type="INC",value=20}},nil}
@@ -2829,7 +2833,7 @@ c["1% of Energy Shield Regenerated per second for each Enemy you or your Minions
 c["+1 to maximum Energy Shield per 6 Evasion Rating on Body Armour"]={{[1]={[1]={div=6,stat="EvasionOnBody Armour",type="PerStat"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=1}},nil}
 c["+50% to Chaos Resistance while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=50}},nil}
 c["and your Totems to each gain an Endurance Charge"]={nil,"and your Totems to each gain an Endurance Charge "}
-c["Gain Arcane Surge when you or your Totems Hit an Enemy with a Spell"]={nil,"Gain Arcane Surge when you or your Totems Hit an Enemy with a Spell "}
+c["Your Elemental Golems are Immune to Elemental Damage"]={nil,"Your Elemental Golems are Immune to Elemental Damage "}
 c["10% chance to Blind Enemies on Critical Strike"]={{}," to Blind Enemies "}
 c["4% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=4}},nil}
 c["25% chance to gain a Power Charge on Critical Strike 6% reduced Mana Reserved"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="ManaReserved",type="BASE",value=25}}," to gain a Power Charge 6% reduced  "}
@@ -2900,8 +2904,8 @@ c["5% chance to Dodge Attack Hits while Phasing"]={{[1]={[1]={type="Condition",v
 c["Projectiles Pierce 2 additional Targets"]={{[1]={flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=2}},nil}
 c["20% chance to Poison on Hit with Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="PoisonChance",type="BASE",value=20}},nil}
 c["15% increased Movement Speed while affected by Grace"]={{[1]={[1]={type="Condition",var="AffectedByGrace"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
-c["Sepia Oil - Verdant Oil - Violet Oil 20% increased Physical Damage with Bows 10% reduced Enemy Stun Threshold with Bows 30% increased Stun Duration with Bows on Enemies 12% increased Area of Effect"]={nil,"Sepia Oil - Verdant Oil - Violet Oil 20% increased Physical Damage with Bows 10% reduced Enemy Stun Threshold with Bows 30% increased Stun Duration with Bows on Enemies 12% increased Area of Effect "}
-c["Sepia Oil - Azure Oil - Silver Oil 20% increased Physical Damage with Swords 40% increased Critical Strike Chance with Swords +15% to Critical Strike Multiplier with Swords 20% increased Damage with Ailments from Attack Skills while wielding a Sword"]={nil,"Sepia Oil - Azure Oil - Silver Oil 20% increased Physical Damage with Swords 40% increased Critical Strike Chance with Swords +15% to Critical Strike Multiplier with Swords 20% increased Damage with Ailments from Attack Skills while wielding a Sword "}
+c["Detonating Mines is Instant"]={nil,"Detonating Mines is Instant "}
+c["Sepia Oil - Black Oil - Black Oil You take 20% reduced Extra Damage from Critical Strikes"]={nil,"Sepia Oil - Black Oil - Black Oil You take 20% reduced Extra Damage from Critical Strikes "}
 c["Shocks all nearby Enemies on Killing a Shocked Enemy Ignite a nearby Enemy on Killing an Ignited Enemy"]={nil,"Shocks all nearby Enemies on Killing a Shocked Enemy Ignite a nearby Enemy on Killing an Ignited Enemy "}
 c["5% increased Cast Speed with Brand Skills"]={{[1]={[1]={skillType=76,type="SkillType"},flags=16,keywordFlags=0,name="Speed",type="INC",value=5}},nil}
 c["Crimson Oil - Crimson Oil - Opalescent Oil"]={nil,"Crimson Oil - Crimson Oil - Opalescent Oil "}
@@ -3027,7 +3031,7 @@ c["Cannot Ignite, Chill, Freeze or Shock"]={{[1]={flags=0,keywordFlags=0,name="C
 c["15% chance to Poison on Hit with Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="PoisonChance",type="BASE",value=15}},nil}
 c["Opalescent Oil - Golden Oil - Golden Oil 8% reduced Mana Reserved 6% increased effect of Non-Curse Auras from your Skills"]={nil,"Opalescent Oil - Golden Oil - Golden Oil 8% reduced Mana Reserved 6% increased effect of Non-Curse Auras from your Skills "}
 c["10% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
-c["+20 Life gained on Kill"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=20}},nil}
+c["Black Oil - Black Oil - Opalescent Oil 20% reduced Reflected Physical Damage taken Enemies have -5% to Total Physical Damage Reduction against your Hits 4% chance to deal Double Damage +20 to Strength"]={nil,"Black Oil - Black Oil - Opalescent Oil 20% reduced Reflected Physical Damage taken Enemies have -5% to Total Physical Damage Reduction against your Hits 4% chance to deal Double Damage +20 to Strength "}
 c["Totems gain +16% to all Elemental Resistances"]={nil,"Totems gain +16% to all Elemental Resistances "}
 c["45% increased Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=45}},nil}
 c["Maximum Energy Shield is 0 While not on Full Life, Sacrifice 20% of Mana per Second to Recover that much Life"]={nil,"Maximum Energy Shield is 0 While not on Full Life, Sacrifice 20% of Mana per Second to Recover that much Life "}
@@ -3471,7 +3475,7 @@ c["35% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="
 c["+30% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=30}},nil}
 c["15% increased Area of Effect for Skills used by Totems"]={{[1]={flags=0,keywordFlags=16384,name="AreaOfEffect",type="INC",value=15}},nil}
 c["Allies' Aura Buffs do not affect you"]={{[1]={flags=0,keywordFlags=0,name="AlliesAurasCannotAffectSelf",type="FLAG",value=true}},nil}
-c["40% increased Critical Strike Chance with One Handed Melee Weapons"]={{[1]={flags=167772164,keywordFlags=0,name="CritChance",type="INC",value=40}},nil}
+c["40% increased Critical Strike Chance with Two Handed Melee Weapons"]={{[1]={flags=301989892,keywordFlags=0,name="CritChance",type="INC",value=40}},nil}
 c["20% chance to Cover Rare or Unique Enemies in Ash for 10 Seconds on Hit 10% increased Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=20}}," to Cover Rare or Unique Enemies in Ash for 10 Seconds on Hit 10% increased  "}
 c["Adds 10 to 20 Cold Damage to Spells per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=131072,name="ColdMin",type="BASE",value=10},[2]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=131072,name="ColdMax",type="BASE",value=20}},nil}
 c["Violet Oil - Crimson Oil - Silver Oil"]={nil,"Violet Oil - Crimson Oil - Silver Oil "}
@@ -3538,6 +3542,7 @@ c["+1 to Melee Strike Range with Daggers"]={{[1]={flags=524292,keywordFlags=0,na
 c["Damage from your Critical Strikes cannot be Reflected 100% increased Damage while there is only one nearby Enemy You take no Extra Damage from Critical Strikes while there is only one nearby Enemy"]={nil,"Damage from your Critical Strikes cannot be Reflected 100% increased Damage while there is only one nearby Enemy You take no Extra Damage from Critical Strikes while there is only one nearby Enemy "}
 c["30% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=30}},nil}
 c["+4% Chance to Block Spell Damage while Channelling"]={{[1]={[1]={type="Condition",var="Channelling"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=4}},nil}
+c["15% increased Damage while in Blood Stance 10% increased Area of Effect while in Sand Stance"]={{[1]={flags=512,keywordFlags=0,name="Damage",type="INC",value=15}},"  while in Blood Stance 10% increased  of Effect while in Sand Stance "}
 c["1 Added Passive Skill is Martial Mastery"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Martial Mastery"}},nil}
 c["Adds 36 to 50 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=36},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=50}},nil}
 c["18% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=18}},nil}
@@ -3556,7 +3561,7 @@ c["600% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShie
 c["+28% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=28}},nil}
 c["Teal Oil - Crimson Oil - Opalescent Oil 20% increased Projectile Speed 20% increased Projectile Attack Damage"]={nil,"Teal Oil - Crimson Oil - Opalescent Oil 20% increased Projectile Speed 20% increased Projectile Attack Damage "}
 c["Verdant Oil - Verdant Oil - Silver Oil 30% increased Mine Duration 30% increased Trap Trigger Area of Effect Trap Damage Penetrates 10% Elemental Resistances Mine Damage Penetrates 10% Elemental Resistances"]={{[1]={flags=0,keywordFlags=4096,name="ElementalPenetration",type="BASE",value=10}},"Verdant Oil - Verdant Oil - Silver Oil 30% increased  30% increased  Trigger Area of Effect Trap Damage   Mine Damage Penetrates 10% Elemental Resistances "}
-c["Recover 3% of Maximum Mana on Kill 10% increased Scorching Ray beam length"]={nil,"Recover 3% of Maximum Mana on Kill 10% increased Scorching Ray beam length "}
+c["225% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=225}},nil}
 c["100% increased Critical Strike Chance against Enemies on Full Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="FullLife"},flags=0,keywordFlags=262144,name="CritChance",type="INC",value=100}},nil}
 c["Verdant Oil - Verdant Oil - Opalescent Oil 5% increased Attack Speed 10% increased Global Accuracy Rating 20% increased Critical Strike Chance +20 to Dexterity and Intelligence"]={nil,"Verdant Oil - Verdant Oil - Opalescent Oil 5% increased Attack Speed 10% increased Global Accuracy Rating 20% increased Critical Strike Chance +20 to Dexterity and Intelligence "}
 c["145% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=145}},nil}
@@ -3603,7 +3608,7 @@ c["Socketed Gems are Supported by level 30 Generosity"]={{[1]={[1]={slotName="{S
 c["50% less maximum Total Recovery per Second from Life Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="MORE",value=-50}},nil}
 c["10% chance to Dodge Attacks"]={{[1]={flags=0,keywordFlags=0,name="AttackDodgeChance",type="BASE",value=10}},nil}
 c["10% chance to Fortify on Melee hit Enemies Taunted by you take 10% increased Damage 25% chance to Taunt on Hit Your Hits permanently Intimidate Enemies that are on Full Life 20% chance to Impale Enemies on Hit with Attacks You and nearby Allies have 8% increased Movement Speed"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="BASE",value=10}}," to Fortify  Enemies Taunted by you take 10% increased  25% chance to Taunt on Hit Your Hits permanently Intimidate Enemies that are on Full Life 20% chance to Impale Enemies on Hit with Attacks You and nearby Allies have 8% increased Movement Speed "}
-c["Crimson Dance"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Crimson Dance"}},nil}
+c["180% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=180}},nil}
 c["+50 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=50}},nil}
 c["Adds 1 to 30 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=1},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=30}},nil}
 c["Socketed Gems are Supported by Level 18 Ice Bite"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=18,skillId="SupportFrenzyChargeOnSlayingFrozenEnemy"}}},nil}
@@ -3677,7 +3682,7 @@ c["Mine Damage Penetrates 5% Elemental Resistances"]={{[1]={flags=0,keywordFlags
 c["Teal Oil - Crimson Oil - Black Oil +12% to Critical Strike Multiplier"]={nil,"Teal Oil - Crimson Oil - Black Oil +12% to Critical Strike Multiplier "}
 c["5% chance to Cover Enemies in Ash on Hit while you are Burning"]={{}," to Cover Enemies in Ash on Hit while you are Burning "}
 c["+5 Life gained on Kill"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=5}},nil}
-c["8% increased Accuracy Rating with Axes"]={{[1]={flags=65540,keywordFlags=0,name="Accuracy",type="INC",value=8}},nil}
+c["Skills which create corpses have +2 to Maximum number of corpses allowed Regenerate 2% of Life per second if you've Consumed a corpse Recently"]={nil,"Skills which create corpses have +2 to Maximum number of corpses allowed Regenerate 2% of Life per second if you've Consumed a corpse Recently "}
 c["+1 to Melee range with Swords"]={{[1]={flags=4194308,keywordFlags=0,name="MeleeWeaponRange",type="BASE",value=1}},nil}
 c["Teal Oil - Opalescent Oil - Golden Oil"]={nil,"Teal Oil - Opalescent Oil - Golden Oil "}
 c["Sepia Oil - Verdant Oil - Verdant Oil 15% increased Attack Speed with Wands 30% increased Accuracy Rating with Wands"]={nil,"Sepia Oil - Verdant Oil - Verdant Oil 15% increased Attack Speed with Wands 30% increased Accuracy Rating with Wands "}
@@ -4010,6 +4015,7 @@ c["50% increased Effect of Curses on you"]={{[1]={flags=0,keywordFlags=0,name="C
 c["2% increased Attack Speed while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=1,keywordFlags=0,name="Speed",type="INC",value=2}},nil}
 c["0.7% of Physical Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageLifeLeech",type="BASE",value=0.7}},nil}
 c["20% increased Cast Speed while Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=16,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
+c["Skills which create corpses have +2 to Maximum number of corpses allowed"]={nil,"Skills which create corpses have +2 to Maximum number of corpses allowed "}
 c["You can only have one Herald 50% more Effect of Herald Buffs on you 100% more Damage with Hits from Herald Skills 50% more Damage Over Time with Herald Skills Minions from Herald Skills deal 25% more Damage"]={nil,"You can only have one Herald 50% more Effect of Herald Buffs on you 100% more Damage with Hits from Herald Skills 50% more Damage Over Time with Herald Skills Minions from Herald Skills deal 25% more Damage "}
 c["1 Added Passive Skill is Opportunistic Fusilade"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Opportunistic Fusilade"}},nil}
 c["111% increased Duration of Ailments you inflict while Focussed"]={{[1]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyShockDuration",type="INC",value=111},[2]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyFreezeDuration",type="INC",value=111},[3]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyChillDuration",type="INC",value=111},[4]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="INC",value=111},[5]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=111},[6]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyBleedDuration",type="INC",value=111},[7]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyScorchDuration",type="INC",value=111},[8]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyBrittleDuration",type="INC",value=111},[9]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemySapDuration",type="INC",value=111}},nil}
@@ -4033,7 +4039,7 @@ c["Warcry Skills have 40% increased Area of Effect"]={{[1]={[1]={skillType=74,ty
 c["+96 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=96}},nil}
 c["Your Chaos Damage can Shock"]={{[1]={flags=0,keywordFlags=0,name="ChaosCanShock",type="FLAG",value=true}},nil}
 c["Amber Oil - Black Oil - Opalescent Oil 30% increased Damage with Axes +30% to Critical Strike Multiplier with Axes +200 to Accuracy Rating with Axes 30% increased Damage with Ailments from Attack Skills while wielding an Axe"]={nil,"Amber Oil - Black Oil - Opalescent Oil 30% increased Damage with Axes +30% to Critical Strike Multiplier with Axes +200 to Accuracy Rating with Axes 30% increased Damage with Ailments from Attack Skills while wielding an Axe "}
-c["120% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=120}},nil}
+c["Requires Level 68, 194 Int"]={nil,"Requires Level 68, 194 Int "}
 c["20% less Lightning Damage taken"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageTaken",type="MORE",value=-20}},nil}
 c["1% chance to deal Double Damage per 4 Rage"]={{[1]={[1]={div=4,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=1}},nil}
 c["200% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=200}},nil}
@@ -4096,7 +4102,7 @@ c["+1 to Level of Socketed Melee Gems"]={{[1]={[1]={slotName="{SlotName}",type="
 c["20% chance to gain a Power Charge when you Block"]={{}," to gain a Power Charge when you Block "}
 c["Black Oil - Golden Oil - Golden Oil"]={nil,"Black Oil - Golden Oil - Golden Oil "}
 c["1 Added Passive Skill is Student of Decay"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Student of Decay"}},nil}
-c["Minions have +5% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=5}}}},nil}
+c["Minions have +8% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=8}}}},nil}
 c["Gain Rampage while at Maximum Endurance Charges Lose all Endurance Charges when Rampage ends"]={nil,"Gain Rampage while at Maximum Endurance Charges Lose all Endurance Charges when Rampage ends "}
 c["Minions deal 70% increased Damage if you've Hit Recently"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=70}}}},nil}
 c["8% increased Spell Damage while holding a Shield"]={{[1]={[1]={type="Condition",var="UsingShield"},flags=2,keywordFlags=0,name="Damage",type="INC",value=8}},nil}
@@ -4156,7 +4162,7 @@ c["Your Hits permanently Intimidate Enemies that are on Full Life 20% chance to 
 c["Azure Oil - Golden Oil - Golden Oil 5% increased maximum Energy Shield Transfiguration of Soul"]={nil,"Azure Oil - Golden Oil - Golden Oil 5% increased maximum Energy Shield Transfiguration of Soul "}
 c["40% reduced Frenzy Charge Duration"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesDuration",type="INC",value=-40}},nil}
 c["5% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=5}},nil}
-c["Sepia Oil - Violet Oil - Crimson Oil"]={nil,"Sepia Oil - Violet Oil - Crimson Oil "}
+c["Attack Projectiles Return to you from final Target"]={nil,"Attack Projectiles Return to you from final Target "}
 c["20% reduced Chill Duration on You"]={{[1]={flags=0,keywordFlags=0,name="EnemyChillDuration",type="INC",value=-20}},"  on You "}
 c["120% increased Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="BlockRecovery",type="INC",value=120}},nil}
 c["Attack Projectiles Return to you from final Target Returning Projectiles Pierce all Targets"]={nil,"Attack Projectiles Return to you from final Target Returning Projectiles Pierce all Targets "}
@@ -4182,7 +4188,7 @@ c["25% increased Critical Strike Chance with Mines"]={{[1]={flags=0,keywordFlags
 c["190% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=190}},nil}
 c["You lose all Endurance Charges when Hit You gain an Endurance Charge on Kill"]={nil,"You lose all Endurance Charges when Hit You gain an Endurance Charge on Kill "}
 c["Sepia Oil - Teal Oil - Teal Oil +20 to maximum Energy Shield +20 to maximum Mana +20 to Intelligence"]={nil,"Sepia Oil - Teal Oil - Teal Oil +20 to maximum Energy Shield +20 to maximum Mana +20 to Intelligence "}
-c["Minions have 12% increased Attack and Cast Speed if you or your Minions have Killed Recently"]={{[1]={[1]={type="Condition",varList={[1]="KilledRecently",[2]="MinionsKilledRecently"}},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Speed",type="INC",value=12}}}},nil}
+c["12% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=12}},nil}
 c["Gain Chilling, Shocking and Igniting Conflux for 2 seconds"]={{},nil}
 c["Reflects 100 to 150 Physical Damage to Melee Attackers"]={nil,"Reflects 100 to 150 Physical Damage to Melee Attackers "}
 c["Curse Enemies with level 5 Vulnerability on Block"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=5,noSupports=true,skillId="Vulnerability"}}},nil}
@@ -4204,7 +4210,7 @@ c["Golems have +1000 to Armour"]={{[1]={[1]={skillType=62,type="SkillType"},flag
 c["With at least 40 Strength in Radius, Cleave grants Fortify on Hit"]={nil,"With at least 40 Strength in Radius, Cleave grants Fortify on Hit "}
 c["175% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=175}},nil}
 c["4% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=4}},nil}
-c["Amber Oil - Amber Oil - Violet Oil 20% increased Damage with Axes 12% increased Accuracy Rating with Axes 15% increased Attack Speed while Leeching 20% increased Damage with Ailments from Attack Skills while wielding an Axe"]={nil,"Amber Oil - Amber Oil - Violet Oil 20% increased Damage with Axes 12% increased Accuracy Rating with Axes 15% increased Attack Speed while Leeching 20% increased Damage with Ailments from Attack Skills while wielding an Axe "}
+c["Azure Oil - Azure Oil - Violet Oil 30% increased Damage with Staves 30% increased Critical Strike Chance with Staves 10% chance to gain an Endurance Charge on Melee Critical Strike"]={nil,"Azure Oil - Azure Oil - Violet Oil 30% increased Damage with Staves 30% increased Critical Strike Chance with Staves 10% chance to gain an Endurance Charge on Melee Critical Strike "}
 c["10% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=10}},nil}
 c["30% chance to Avoid being Chilled"]={{[1]={flags=0,keywordFlags=0,name="AvoidChill",type="BASE",value=30}},nil}
 c["8% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=8}},nil}
@@ -4350,7 +4356,7 @@ c["Sepia Oil - Amber Oil - Amber Oil +30 to Intelligence"]={nil,"Sepia Oil - Amb
 c["Amber Oil - Violet Oil - Black Oil +20 to maximum Mana 15% increased maximum Mana +2 Mana gained for each Enemy hit by your Attacks"]={nil,"Amber Oil - Violet Oil - Black Oil +20 to maximum Mana 15% increased maximum Mana +2 Mana gained for each Enemy hit by your Attacks "}
 c["Amber Oil - Crimson Oil - Silver Oil +30% to Critical Strike Multiplier with Traps +30% to Critical Strike Multiplier with Mines"]={nil,"Amber Oil - Crimson Oil - Silver Oil +30% to Critical Strike Multiplier with Traps +30% to Critical Strike Multiplier with Mines "}
 c["6% increased Attack Speed with Swords"]={{[1]={flags=4194309,keywordFlags=0,name="Speed",type="INC",value=6}},nil}
-c["5% increased Poison Duration for each Poison you have inflicted Recently"]={{[1]={[1]={type="Multiplier",var="PoisonAppliedRecently"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=5}},nil}
+c["30% Chance to Block during Flask effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=30}},nil}
 c["Increases and Reductions to Light Radius also apply to Accuracy"]={{[1]={flags=0,keywordFlags=0,name="LightRadiusAppliesToAccuracy",type="FLAG",value=true}},nil}
 c["20% increased Attack and Movement Speed with Her Blessing"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=20},[2]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}},"  with Her Blessing "}
 c["+75% to Critical Strike Multiplier during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=75}},nil}
@@ -4445,7 +4451,7 @@ c["Teal Oil - Azure Oil - Golden Oil 25% increased Fire Damage Damage Penetrates
 c["Curses in this item are reflected back to you"]={nil,"Curses in this item are reflected back to you "}
 c["Clear Oil - Black Oil - Black Oil 18% increased Damage 10% increased Projectile Speed 10% increased Area of Effect"]={nil,"Clear Oil - Black Oil - Black Oil 18% increased Damage 10% increased Projectile Speed 10% increased Area of Effect "}
 c["155% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=155}},nil}
-c["20% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=20}},nil}
+c["1 Added Passive Skill is Blacksmith"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Blacksmith"}},nil}
 c["5% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=5}},nil}
 c["10.0 Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=10}},nil}
 c["6% reduced Mana Reserved"]={{[1]={flags=0,keywordFlags=0,name="ManaReserved",type="INC",value=-6}},nil}
@@ -4468,7 +4474,7 @@ c["20% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC"
 c["1 Added Passive Skill is Brutal Infamy"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Brutal Infamy"}},nil}
 c["You cannot be Chilled or Frozen while you have an Ice Golem Summoned You cannot be Ignited while you have a Flame Golem Summoned You cannot be Shocked while you have a Lightning Golem Summoned"]={nil,"You cannot be Chilled or Frozen while you have an Ice Golem Summoned You cannot be Ignited while you have a Flame Golem Summoned You cannot be Shocked while you have a Lightning Golem Summoned "}
 c["Clear Oil - Amber Oil - Teal Oil 30% increased Totem Life Totems gain +20% to all Elemental Resistances"]={nil,"Clear Oil - Amber Oil - Teal Oil 30% increased Totem Life Totems gain +20% to all Elemental Resistances "}
-c["Skeletons deal 40% increased Damage"]={{[1]={[1]={skillName="Summon Skeleton",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=40}}}},nil}
+c["Unaffected by Frostbite while affected by Purity of Ice Immune to Shock while affected by Purity of Lightning"]={nil,"Unaffected by Frostbite while affected by Purity of Ice Immune to Shock while affected by Purity of Lightning "}
 c["4% increased Brand Activation frequency"]={{[1]={flags=0,keywordFlags=0,name="BrandActivationFrequency",type="INC",value=4}},nil}
 c["+1 to Level of Socketed Bow Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="bow",value=1}}},nil}
 c["+25% to Critical Strike Multiplier with Mines"]={{[1]={flags=0,keywordFlags=8192,name="CritMultiplier",type="BASE",value=25}},nil}
@@ -4556,7 +4562,7 @@ c["30% increased Life Leeched per second"]={{[1]={flags=0,keywordFlags=0,name="L
 c["Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence"]={{[1]={[1]={div=10,stat="Int",type="PerStat"},flags=0,keywordFlags=65536,name="LightningMin",type="BASE",value=0},[2]={[1]={div=10,stat="Int",type="PerStat"},flags=0,keywordFlags=65536,name="LightningMax",type="BASE",value=3}},nil}
 c["Attacks Maim on Hit against Bleeding Enemies 10% chance to Blind with Hits against Bleeding Enemies"]={nil,"Attacks Maim on Hit against Bleeding Enemies 10% chance to Blind with Hits against Bleeding Enemies "}
 c["20% Chance to Block Attack Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=20}},nil}
-c["Clear Oil - Sepia Oil - Golden Oil +10% to Chaos Damage over Time Multiplier 20% increased Chaos Damage 4% increased Cast Speed with Chaos Skills"]={nil,"Clear Oil - Sepia Oil - Golden Oil +10% to Chaos Damage over Time Multiplier 20% increased Chaos Damage 4% increased Cast Speed with Chaos Skills "}
+c["30% increased Minion Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=30}}}},nil}
 c["100% reduced Despair Mana Reservation"]={{[1]={[1]={skillName="Despair",type="SkillName"},flags=0,keywordFlags=0,name="ManaReserved",type="INC",value=-100}},nil}
 c["Culling Strike"]={{},"Culling Strike"}
 c["200% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=200}},nil}
@@ -5614,7 +5620,7 @@ c["Cannot Leech Mana"]={{[1]={flags=0,keywordFlags=0,name="CannotLeechMana",type
 c["10% of Damage taken Gained as Mana over 4 seconds when Hit Cannot Leech Mana"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="BASE",value=10}},"  Gained as Mana over 4 seconds when Hit Cannot Leech Mana "}
 c["Sepia Oil - Crimson Oil - Opalescent Oil 18% increased Evasion Rating 12% increased maximum Energy Shield 0.3% of Spell Damage Leeched as Energy Shield"]={nil,"Sepia Oil - Crimson Oil - Opalescent Oil 18% increased Evasion Rating 12% increased maximum Energy Shield 0.3% of Spell Damage Leeched as Energy Shield "}
 c["30% of Damage is taken from Mana before Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTakenFromManaBeforeLife",type="BASE",value=30}},nil}
-c["100% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=100}},nil}
+c["Clear Oil - Azure Oil - Violet Oil 20% increased Trap Damage"]={nil,"Clear Oil - Azure Oil - Violet Oil 20% increased Trap Damage "}
 c["-50% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-50}},nil}
 c["20% chance to gain a Power Charge on non-Critical Strike"]={{}," to gain a Power Charge on non-Critical Strike "}
 c["Gain 10% of Maximum Mana as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ManaGainAsEnergyShield",type="BASE",value=10}},nil}
@@ -5680,7 +5686,7 @@ c["+33 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",v
 c["212% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=212}},nil}
 c["Nearby Enemies have -10% to all Resistances"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-10}}},[2]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-10}}}},nil}
 c["Azure Oil - Azure Oil - Azure Oil 25% increased Physical Damage with Axes"]={nil,"Azure Oil - Azure Oil - Azure Oil 25% increased Physical Damage with Axes "}
-c["8% increased Attack and Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=8}},nil}
+c["Cannot be Chilled while Burning 5% chance to Cover Enemies in Ash on Hit while you are Burning"]={nil,"Cannot be Chilled while Burning 5% chance to Cover Enemies in Ash on Hit while you are Burning "}
 c["50% increased Damage with Movement Skills"]={{[1]={flags=0,keywordFlags=8,name="Damage",type="INC",value=50}},nil}
 c["21% increased maximum Life, Mana and Global Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Life",type="INC",value=21},[2]={[1]={type="Global"},flags=0,keywordFlags=0,name="Mana",type="INC",value=21},[3]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=21}},nil}
 c["15% increased Physical Damage with Staves"]={{[1]={flags=2097156,keywordFlags=0,name="PhysicalDamage",type="INC",value=15}},nil}
@@ -5691,7 +5697,7 @@ c["Cannot lose Crab Barriers if you have lost Crab Barriers Recently"]={nil,"Can
 c["15% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInteruptStun",type="BASE",value=15}},nil}
 c["12% increased Attack Damage while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=1,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
 c["Amber Oil - Black Oil - Black Oil 10% increased Global Accuracy Rating"]={nil,"Amber Oil - Black Oil - Black Oil 10% increased Global Accuracy Rating "}
-c["1 Added Passive Skill is Disease Vector"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Disease Vector"}},nil}
+c["Verdant Oil - Verdant Oil - Azure Oil"]={nil,"Verdant Oil - Verdant Oil - Azure Oil "}
 c["Adds 10 to 15 Physical Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="PhysicalMin",type="BASE",value=10},[2]={flags=0,keywordFlags=65536,name="PhysicalMax",type="BASE",value=15}},nil}
 c["Adds 5 to 10 Physical Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="PhysicalMin",type="BASE",value=5},[2]={flags=0,keywordFlags=65536,name="PhysicalMax",type="BASE",value=10}},nil}
 c["1 Added Passive Skill is Second Skin"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Second Skin"}},nil}
@@ -5764,7 +5770,7 @@ c["Claw Attacks deal 8% increased Damage with Hits and Ailments"]={{[1]={flags=2
 c["Adds 2 to 4 Physical Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="PhysicalMin",type="BASE",value=2},[2]={flags=0,keywordFlags=65536,name="PhysicalMax",type="BASE",value=4}},nil}
 c["Adds 4 to 7 Physical Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="PhysicalMin",type="BASE",value=4},[2]={flags=0,keywordFlags=65536,name="PhysicalMax",type="BASE",value=7}},nil}
 c["(Blighted Spores last for 10 seconds and have a random Aura)"]={nil,"(Blighted Spores last for 10 seconds and have a random Aura) "}
-c["Amber Oil - Amber Oil - Crimson Oil 24% increased Damage with Swords"]={nil,"Amber Oil - Amber Oil - Crimson Oil 24% increased Damage with Swords "}
+c["+70 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=70}},nil}
 c["If you've Impaled an Enemy Recently, you and nearby Allies have +1000 to Armour"]={{[1]={[1]={type="Condition",var="ImpaledRecently"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Armour",type="BASE",value=1000}}}},nil}
 c["Socketed Gems are Supported by level 12 Fortify"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=12,skillId="SupportFortify"}}},nil}
 c["7% increased Movement Speed when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=7}},nil}
@@ -5855,7 +5861,7 @@ c["+2 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="
 c["Adds 115 to 265 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=115},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=265}},nil}
 c["+1 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="curse",value=1}}},nil}
 c["2% increased Attack Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=1,keywordFlags=0,name="Speed",type="INC",value=2}},nil}
-c["50% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=50}},nil}
+c["Regenerate 0.5% of Mana per second for each Summoned Totem"]={{[1]={[1]={stat="ActiveTotemLimit",type="PerStat"},flags=0,keywordFlags=0,name="ManaRegenPercent",type="BASE",value=0.5}},nil}
 c["Gain Accuracy Rating equal to your Strength"]={{[1]={[1]={stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=1}},nil}
 c["30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes"]={{[1]={[1]={type="Condition",var="AtCloseRange"},[2]={type="Condition",var="HaveIronReflexes"},flags=131076,keywordFlags=0,name="Damage",type="MORE",value=30}},nil}
 c["Implicit Modifier magnitudes are tripled Corrupted"]={nil,"Implicit Modifier magnitudes are tripled Corrupted "}
@@ -7071,7 +7077,7 @@ c["13% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSp
 c["15% increased Damage against Ignited Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},flags=0,keywordFlags=262144,name="Damage",type="INC",value=15}},nil}
 c["7% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=7}},nil}
 c["Fire Resistance is 75%"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="OVERRIDE",value=75}},nil}
-c["+2 to Melee range with Staves"]={{[1]={flags=2097156,keywordFlags=0,name="MeleeWeaponRange",type="BASE",value=2}},nil}
+c["You gain 4% increased Area of Effect for each Mine 20% increased Mine Throwing Speed if you Detonated Mines Recently 40% increased Damage if you Detonated Mines Recently Mines have 20% increased Detonation Speed"]={{[1]={[1]={type="Condition",var="DetonatedMinesRecently"},[2]={type="Condition",var="DetonatedMinesRecently"},flags=0,keywordFlags=8192,name="AreaOfEffect",type="BASE",value=4}},"% increased  for each  20% increased Mine Throwing Speed  40% increased Damage  Mines have 20% increased Detonation Speed "}
 c["+18 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=18}},nil}
 c["20% increased Critical Strike Chance for each Mine Detonated"]={{[1]={flags=0,keywordFlags=8192,name="CritChance",type="INC",value=20}},"  for each  Detonated "}
 c["Attacks used by Totems have 8% increased Attack Speed"]={{[1]={flags=1,keywordFlags=16384,name="Speed",type="INC",value=8}},nil}
@@ -7976,6 +7982,12 @@ c["50% of Lightning Damage Converted to Cold Damage"]={{[1]={flags=0,keywordFlag
 c["10% Chance to Block Spells during Flask effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=10}},nil}
 c["Amber Oil - Silver Oil - Golden Oil"]={nil,"Amber Oil - Silver Oil - Golden Oil "}
 c["Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity"]={nil,"Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity "}
+c["Azure Oil - Silver Oil - Silver Oil"]={nil,"Azure Oil - Silver Oil - Silver Oil "}
+c["40% increased Defences from Equipped Shield"]={{[1]={[1]={slotName="Weapon 2",type="SlotName"},flags=0,keywordFlags=0,name="Defences",type="INC",value=40}},nil}
+c["10% Chance to Block Spells during Flask effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=10}},nil}
+c["+20% chance to be Shocked"]={{}," to be Shocked "}
+c["22% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=22}},nil}
+c["18% increased Lightning Damage per 1% Lightning Resistance above 75%"]={{[1]={[1]={div=1,stat="LightningResistOver75",type="PerStat"},flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=18}},nil}
 c["Nearby Enemies have Fire, Cold and Lighting Exposure while you have Phasing, applying -15% to those Resistances Nearby Enemies have 15% less Accuracy Rating while you have Phasing"]={nil,"Nearby Enemies have Fire, Cold and Lighting Exposure while you have Phasing, applying -15% to those Resistances Nearby Enemies have 15% less Accuracy Rating while you have Phasing "}
 c["20% more Damage with Hits and Ailments against Enemies that are on Low Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="LowLife"},flags=0,keywordFlags=786432,name="Damage",type="MORE",value=20}},nil}
 c["Cannot be Frozen"]={{[1]={flags=0,keywordFlags=0,name="AvoidFreeze",type="BASE",value=100}},nil}
@@ -10073,7 +10085,7 @@ c["Inflict non-Damaging Ailments as though dealing 150% more Damage"]={{[1]={fla
 c["Teal Oil - Crimson Oil - Crimson Oil +30% to Critical Strike Multiplier"]={nil,"Teal Oil - Crimson Oil - Crimson Oil +30% to Critical Strike Multiplier "}
 c["18% increased Effect of your Curses"]={{[1]={flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=18}},nil}
 c["15% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=15}},nil}
-c["1 Added Passive Skill is Corrosive Elements"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Corrosive Elements"}},nil}
+c["4% increased Attack Speed with One Handed Melee Weapons"]={{[1]={flags=167772165,keywordFlags=0,name="Speed",type="INC",value=4}},nil}
 c["+7% chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=7}},nil}
 c["Violet Oil - Crimson Oil - Golden Oil +10% to Cold Damage over Time Multiplier"]={nil,"Violet Oil - Crimson Oil - Golden Oil +10% to Cold Damage over Time Multiplier "}
 c["Sword Attacks deal 8% increased Damage with Ailments"]={{[1]={flags=4196352,keywordFlags=0,name="Damage",type="INC",value=8}},nil}
