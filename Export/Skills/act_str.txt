@@ -409,19 +409,9 @@ local skills, mod, flag, skill = ...
 		["base_number_of_champions_of_light_allowed"] = {
 			mod("ActiveSentinelOfPurityLimit", "BASE", nil)
 		},
-		["herald_of_light_spell_minimum_added_physical_damage"] = {
-			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["herald_of_purity_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["herald_of_light_spell_maximum_added_physical_damage"] = {
-			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["herald_of_light_attack_minimum_added_physical_damage"] = {
-			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["herald_of_light_attack_maximum_added_physical_damage"] = {
-			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-	},
 #mods
 
 #skill FlameTotem
