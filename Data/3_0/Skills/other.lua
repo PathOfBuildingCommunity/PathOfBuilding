@@ -154,6 +154,149 @@ skills["VaalBreach"] = {
 		[10] = { levelRequirement = 10, statInterpolation = { }, },
 	},
 }
+skills["BrandDetonate"] = {
+	name = "Brandsurge",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 5.5,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Overcharges your brands near the targeted area, causing them to accelerate how quickly they activate and expire. Deals damage in an area around each overcharged brand when it expires.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.PhysicalSkill] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type96] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.6,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"brand_detonate_faster_activation_%_per_second",
+		"brand_detonate_faster_duration_%_per_second",
+		"display_brand_deonate_tag_conversion",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 25, 150, critChance = 5, manaCost = 20, damageEffectiveness = 4.3, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
+skills["EmbraceMadness"] = {
+	name = "Embrace Madness",
+	hidden = true,
+	color = 4,
+	description = "Grants Glorious Madness. Using this skill again will remove Glorious Madness and the Touched Debuffs it inflicts, but you will be unable to Embrace Madness again until the cooldown expires.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Type96] = true, [SkillType.ManaCostReserved] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"embrace_madness_amount_of_cooldown_to_gain_ms",
+		"glorious_madness_timer_ms",
+	},
+	levels = {
+		[1] = { 8000, 1000, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["CreateSmokeCloud"] = {
+	name = "Fog of War",
+	hidden = true,
+	color = 4,
+	description = "Creates a Smoke Cloud in an area, which blinds enemies within it.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"chance_to_cast_when_your_trap_is_triggered_%",
+	},
+	levels = {
+		[20] = { 3000, 100, cooldown = 1, levelRequirement = 65, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["VolatileDeadChaos"] = {
+	name = "Stalking Pustule",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.0337999984622,
+	description = "A corpse near the targeted location explodes, dealing damage in a small area and creating an orb which moves towards nearby enemies before dealing spell damage in a larger area. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.8,
+	fromItem = true,
+	statMap = {
+		["volatile_dead_core_explosion_radius_+"] = {
+			skill("radius", "BASE", nil),
+		},
+	},
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+		{ "base_skill_area_of_effect_+%", 0.5 },
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"volatile_dead_base_number_of_corpses_to_consume",
+		"corpse_explosion_monster_life_%_chaos",
+		"volatile_dead_core_explosion_radius_+",
+		"volatile_dead_max_cores_allowed",
+		"chance_to_cast_on_kill_%",
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[15] = { 0.80000001192093, 1.2000000476837, 1, 9, 13, 10, 100, critChance = 5, manaCost = 23, damageEffectiveness = 1.4, cooldown = 2, levelRequirement = 59, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, },
+	},
+}
+skills["SummonMirageChieftain"] = {
+	name = "Tawhoa's Chosen",
+	hidden = true,
+	color = 1,
+	description = "This skill is triggered when you use a Slam skill, and summons a Mirage Chieftain who will use that Slam skill once before dissipating.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Instant] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"trigger_on_slam_%_chance",
+		"skill_used_by_mirage_chieftain_damage_+%_final",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[20] = { 100, 50, levelRequirement = 1, duration = 3, cooldown = 2, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	name = "Mjolner",
 	hidden = true,

@@ -784,11 +784,15 @@ return {
 		modList:NewMod("Multiplier:CorpseConsumedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:ConsumedCorpseRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierEnduranceChargesLostRecently", type = "count", label = "# of Endurance Charges lost Recently:", ifMult = "EnduranceChargesLostRecently", apply = function(val, modList, enemyModList)
+	{ var = "multiplierEnduranceChargesLostRecently", type = "count", label = "# of Endurance Charges lost Recently:", ifMult = "EnduranceChargesLostRecently", implyCond = "LostEnduranceChargeInPast8Sec", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnduranceChargesLostRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:LostEnduranceChargeInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionTauntedEnemyRecently", type = "check", label = "Taunted an Enemy Recently?", ifCond = "TauntedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TauntedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionLostEnduranceChargeInPast8Sec", type = "check", label = "Lost an Endurance Charge in the past 8s?", ifNode = 32249, apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:LostEnduranceChargeInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", ifVer = "2_6", label = "Have you used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedFireSkillInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -818,6 +822,9 @@ return {
 	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on Enemy (if not maximum):", ifFlag = "bleed", tooltip = "Set number of Bleeds if using Crimson Dance node. Implies enemy is Bleeding", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "multiplierFragileRegrowth", type = "count", label = "# of Fragile Regrowth Stacks:", ifMult = "FragileRegrowthCount", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:FragileRegrowthCount", "BASE", m_min(val,10), "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionKilledUniqueEnemy", type = "check", ifVer = "3_0", label = "Killed Rare or Unique Enemy Recently?", ifNode = 3184, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:KilledUniqueEnemy", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

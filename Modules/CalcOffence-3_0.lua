@@ -228,11 +228,16 @@ function calcs.offence(env, actor, activeSkill)
 		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * data.misc.Transfiguration), "Transfiguration of Soul", ModFlag.Spell)
 	end
 
-	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
+	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer")  or skillModList:Flag(nil, "ImprovedMinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from The Scourge
+		local multiplier = 1
+		if skillModList:Flag(nil, "ImprovedMinionDamageAppliesToPlayer") then
+			multiplier = 1.5
+		end
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
+			local mod = value.mod
 			if value.mod.name == "Damage" and value.mod.type == "INC" then
-				skillModList:AddMod(value.mod)
+				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
@@ -658,6 +663,9 @@ function calcs.offence(env, actor, activeSkill)
 		output.WarcryCastTime = baseSpeed * calcLib.mod(skillModList, skillCfg, "WarcrySpeed") * output.ActionSpeedMod
 		output.WarcryCastTime = m_min(output.WarcryCastTime, data.misc.ServerTickRate)
 		output.WarcryCastTime = 1 / output.WarcryCastTime
+		if skillModList:Flag(skillCfg, "InstantWarcry") then
+			output.WarcryCastTime = 0
+		end
 	end
 
 	-- Skill duration
@@ -1159,7 +1167,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output.RuthlessBlowMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowMultiplier") / 100
 		output.RuthlessBlowEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowMultiplier
-
 
 		output.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown")
 		output.FistOfWarHitMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarHitMultiplier") / 100

@@ -342,7 +342,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 158 Str, 76 Dex
-Implicts: 1
+Implicits: 1
 {variant:3}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
