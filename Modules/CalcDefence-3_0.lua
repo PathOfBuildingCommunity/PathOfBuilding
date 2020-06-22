@@ -339,6 +339,8 @@ function calcs.defence(env, actor)
 		end
 	end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
+		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
+		modDB:NewMod("Dummy", "DUMMY", 1, "RageRegen", 0, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
 		local base = modDB:Sum("BASE", nil, "RageRegen")
 		if modDB:Flag(nil, "ManaRegenToRageRegen") then
 			local mana = modDB:Sum("INC", nil, "ManaRegen")
