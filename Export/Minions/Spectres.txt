@@ -168,3 +168,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCaster
 -- Baranite Sister
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSister
+-- Scale of Esh
+#spectre Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_
