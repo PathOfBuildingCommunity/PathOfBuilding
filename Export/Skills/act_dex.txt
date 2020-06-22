@@ -453,6 +453,10 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 		{
+			name = "Explosion (20 fuses)",
+			area = true
+		},
+		{
 			name = "Arrow",
 			area = false,
 		},
@@ -472,11 +476,12 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 15)
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3 } })
-#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } })
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 4 })
 #mods
 
 #skill ShrapnelTrap
