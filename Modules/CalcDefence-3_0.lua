@@ -267,21 +267,24 @@ function calcs.defence(env, actor)
 		}
 	end
 
-	-- Mana, life and energy shield regen
+	-- Mana, life, energy shield, and rage regen
 	if modDB:Flag(nil, "NoManaRegen") then
 		output.ManaRegen = 0
 	else
 		local base = modDB:Sum("BASE", nil, "ManaRegen") + output.Mana * modDB:Sum("BASE", nil, "ManaRegenPercent") / 100
-		local inc = modDB:Sum("INC", nil, "ManaRegen")
+		output.ManaRegenInc = modDB:Sum("INC", nil, "ManaRegen")
 		local more = modDB:More(nil, "ManaRegen")
-		local regen = base * (1 + inc/100) * more
+		if modDB:Flag(nil, "ManaRegenToRageRegen") then
+			output.ManaRegenInc = 0
+		end
+		local regen = base * (1 + output.ManaRegenInc/100) * more
 		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1) - modDB:Sum("BASE", nil, "ManaDegen")
 		if breakdown then
 			breakdown.ManaRegen = { }
 			breakdown.multiChain(breakdown.ManaRegen, {
 				label = "Mana Regeneration:",
 				base = s_format("%.1f ^8(base)", base),
-				{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+				{ "%.2f ^8(increased/reduced)", 1 + output.ManaRegenInc/100 },
 				{ "%.2f ^8(more/less)", more },
 				total = s_format("= %.1f ^8per second", regen),
 			})
@@ -335,7 +338,25 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRegen = 0
 		end
 	end
-
+	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
+		local base = modDB:Sum("BASE", nil, "RageRegen")
+		if modDB:Flag(nil, "ManaRegenToRageRegen") then
+			local mana = modDB:Sum("INC", nil, "ManaRegen")
+			modDB:NewMod("RageRegen", "INC", mana, "Mana Regen to Rage Regen")
+		end
+		local inc = modDB:Sum("INC", nil, "RageRegen")
+		local more = modDB:More(nil, "RageRegen")
+		output.RageRegen = base * (1 + inc /100) * more
+		if breakdown then
+			breakdown.RageRegen = { }
+			breakdown.multiChain(breakdown.RageRegen, {
+				base = s_format("%.1f ^8(base)", base),
+				{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+				{ "%.2f ^8(more/less)", more },
+				total = s_format("= %.1f ^8per second", output.RageRegen),
+			})
+		end
+	end
 	-- Energy Shield Recharge
 	if modDB:Flag(nil, "NoEnergyShieldRecharge") then
 		output.EnergyShieldRecharge = 0
