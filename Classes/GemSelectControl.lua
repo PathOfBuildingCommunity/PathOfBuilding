@@ -108,10 +108,13 @@ end
 
 function GemSelectClass:UpdateSortCache()
 	local sortCache = self.sortCache
+	--Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and 
-	  sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel and sortCache.defaultQuality == self.skillsTab.defaultGemQuality then
+	  sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel 
+	  and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField then
 		return
 	end
+	--Initialize a new sort cache
 	sortCache = {
 		socketGroup = self.skillsTab.displayGroup,
 		gemInstance = self.skillsTab.displayGroup.gemList[self.index],
@@ -121,8 +124,10 @@ function GemSelectClass:UpdateSortCache()
 		canSupport = { },
 		dps = { },
 		dpsColor = { },
+		sortType = self.skillsTab.sortGemsByDPSField
 	}
 	self.sortCache = sortCache
+	--Determine supports that affect the active skill
 	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
 		for gemId, gemData in pairs(self.gems) do
 			if gemData.grantedEffect.support then
@@ -136,9 +141,13 @@ function GemSelectClass:UpdateSortCache()
 		end
 	end
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
-	local baseDPS = calcBase.Minion and calcBase.Minion.CombinedDPS or calcBase.CombinedDPS
+	local dpsField = self.skillsTab.sortGemsByDPSField
+	-- Check for nil because some fields may not be populated, default to 0
+	local baseDPS = (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0
+
 	for gemId, gemData in pairs(self.gems) do
 		sortCache.dps[gemId] = baseDPS
+		--Ignore gems that don't support the active skill
 		if sortCache.canSupport[gemId] or gemData.grantedEffect.hasGlobalEffect then
 			local gemList = self.skillsTab.displayGroup.gemList
 			local oldGem
@@ -155,6 +164,7 @@ function GemSelectClass:UpdateSortCache()
 			if not gemData.grantedEffect.levels[gemInstance.level] then
 				gemInstance.level = gemData.defaultLevel
 			end
+			--Calculate the impact of using this gem
 			local output = calcFunc()
 			if oldGem then
 				gemInstance.gemData = oldGem.gemData
@@ -162,8 +172,10 @@ function GemSelectClass:UpdateSortCache()
 			else
 				gemList[self.index] = nil
 			end
-			sortCache.dps[gemId] = output.Minion and output.Minion.CombinedDPS or output.CombinedDPS
+			-- Check for nil because some fields may not be populated, default to 0
+			sortCache.dps[gemId] = (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
+		--Color based on the dps
 		if sortCache.dps[gemId] > baseDPS then
 			sortCache.dpsColor[gemId] = "^x228866"
 		elseif sortCache.dps[gemId] < baseDPS then
