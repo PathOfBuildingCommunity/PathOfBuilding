@@ -813,7 +813,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
-	output.AnyTakenReflect = 0
+	output.AnyTakenReflect = false
 	for _, damageType in ipairs(dmgTypeList) do
 		if output[damageType.."TakenReflect"] ~= output[damageType.."TakenHit"] then
 			output.AnyTakenReflect = true
