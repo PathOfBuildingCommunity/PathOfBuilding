@@ -617,6 +617,9 @@ local skills, mod, flag, skill = ...
 
 #skill HeraldOfThunder
 #flags cast duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "HeraldStormFrequency") / 100)
+	end,
 	statMap = {
 		["herald_of_thunder_lightning_damage_+%"] = {
 			mod("LightningDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -633,8 +636,13 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_lightning_damage"] = {
 			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["herald_of_thunder_bolt_base_frequency"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
 	},
 #baseMod skill("radius", 32)
+#baseMod skill("showAverage", false)
 #mods
 
 #skill IceNova
