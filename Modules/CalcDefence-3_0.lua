@@ -492,7 +492,17 @@ function calcs.defence(env, actor)
 				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenWhenHit")
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenWhenHit")
 			end
-			output[damageType.."TakenHit"] = (1 + takenInc / 100) * takenMore
+			output[damageType.."TakenHit"] = m_max((1 + takenInc / 100) * takenMore, 0)
+			do
+				-- Reflect
+				takenInc = takenInc + modDB:Sum("INC", nil, damageType.."ReflectedDamageTaken")
+				takenMore = takenMore * modDB:More(nil, damageType.."ReflectedDamageTaken")
+				if isElemental[damageType] then
+					takenInc = takenInc + modDB:Sum("INC", nil, "ElementalReflectedDamageTaken")
+					takenMore = takenMore * modDB:More(nil, "ElementalReflectedDamageTaken")
+				end
+				output[damageType.."TakenReflect"] = m_max((1 + takenInc / 100) * takenMore, 0)
+			end
 		end
 		do
 			-- Dot
@@ -585,6 +595,12 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	output.AnyTakenReflect = 0
+	for _, damageType in ipairs(dmgTypeList) do
+		if output[damageType.."TakenReflect"] ~= output[damageType.."TakenHit"] then
+			output.AnyTakenReflect = true
+		end
+	end
 
 	-- Incoming hit damage multipliers
 	actor.damageShiftTable = wipeTable(actor.damageShiftTable)
@@ -610,8 +626,19 @@ function calcs.defence(env, actor)
 
 		-- Calculate incoming damage multiplier
 		local mult = 0
+		local multReflect = 0
 		if breakdown then
 			breakdown[damageType.."TakenHitMult"] = { 
+				label = "Hit Damage taken as",
+				rowList = { },
+				colList = {
+					{ label = "Type", key = "type" },
+					{ label = "Mitigation", key = "resist" },
+					{ label = "Taken", key = "taken" },
+					{ label = "Final", key = "final" },
+				},
+			}
+			breakdown[damageType.."TakenReflectMult"] = { 
 				label = "Hit Damage taken as",
 				rowList = { },
 				colList = {
@@ -643,8 +670,11 @@ function calcs.defence(env, actor)
 					end
 				end
 				local takenMult = output[destType.."TakenHit"]
+				local takenMultReflect = output[destType.."TakenReflect"]
 				local final = portion / 100 * (1 - resist / 100) * takenMult
+				local finalReflect = portion / 100 * (1 - resist / 100) * takenMultReflect
 				mult = mult + final
+				multReflect = multReflect + finalReflect
 				if breakdown then
 					t_insert(breakdown[damageType.."TakenHitMult"].rowList, {
 						type = s_format("%d%% as %s", portion, destType),
@@ -652,10 +682,21 @@ function calcs.defence(env, actor)
 						taken = takenMult ~= 1 and s_format("x %.2f", takenMult),
 						final = s_format("x %.2f", final),
 					})
+					if output.AnyTakenReflect then
+						t_insert(breakdown[damageType.."TakenReflectMult"].rowList, {
+							type = s_format("%d%% as %s", portion, destType),
+							resist = s_format("x %.2f", 1 - resist / 100),
+							taken = takenMultReflect ~= 1 and s_format("x %.2f", takenMultReflect),
+							finalReflect = s_format("x %.2f", finalReflect),
+						})
+					end
 				end
 			end
 		end
 		output[damageType.."TakenHitMult"] = mult
+		if output.AnyTakenReflect then
+			output[damageType.."TakenReflectMult"] = multReflect
+		end
 	end
 
 	-- Other defences: block, dodge, stun recovery/avoidance

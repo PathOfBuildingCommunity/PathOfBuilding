@@ -148,6 +148,7 @@ local modNameList = {
 	["physical damage taken when hit"] = "PhysicalDamageTakenWhenHit",
 	["physical damage taken over time"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time damage taken"] = "PhysicalDamageTakenOverTime",
+	["reflected physical damage taken"] = "PhysicalReflectedDamageTaken",
 	["lightning damage taken"] = "LightningDamageTaken",
 	["lightning damage from hits taken"] = "LightningDamageTaken",
 	["lightning damage taken when hit"] = "LightningDamageTakenWhenHit",
@@ -169,6 +170,7 @@ local modNameList = {
 	["elemental damage taken when hit"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken from hits"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken over time"] = "ElementalDamageTakenOverTime",
+	["reflected elemental damage taken"] = "ElementalReflectedDamageTaken",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
 	["to dodge attack hits"] = "AttackDodgeChance",
@@ -1347,6 +1349,7 @@ local specialModList = {
 		mod("ColdDamageTaken", "INC", -num, { type = "Condition", var = "HitByColdDamageRecently" }),
 		mod("LightningDamageTaken", "INC", -num, { type = "Condition", var = "HitByLightningDamageRecently" }),
 	} end,
+	["cannot take reflected elemental damage"] = { mod("ElementalReflectedDamageTaken", "MORE", -100) },
 	["every %d+ seconds:"] = { },
 	["gain chilling conflux for %d seconds"] = {
 		flag("PhysicalCanChill", { type = "Condition", var = "ChillingConflux" }),
@@ -1457,6 +1460,7 @@ local specialModList = {
 	["you are immune to bleeding while leeching"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "Leeching" }) },
 	["life leech effects are not removed at full life"] = { flag("CanLeechLifeOnFullLife") },
 	["energy shield leech effects from attacks are not removed at full energy shield"] = { flag("CanLeechLifeOnFullEnergyShield") },
+	["cannot take reflected physical damage"] = { mod("PhysicalReflectedDamageTaken", "MORE", -100) },
 	["gain (%d+)%% increased movement speed for 20 seconds when you kill an enemy"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "Condition", var = "KilledRecently" }) } end,
 	["gain (%d+)%% increased attack speed for 20 seconds when you kill a rare or unique enemy"] = function(num) return { mod("Speed", "INC", num, { type = "Condition", var = "KilledUniqueEnemy" }) } end,
 	
