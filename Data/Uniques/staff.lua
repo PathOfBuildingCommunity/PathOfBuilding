@@ -237,7 +237,7 @@ Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+20% Chance to Block Attack Damage while wielding a Staff
+{variant:2}+20% Chance to Block Spell Damage while wielding a Staff
 Has no Sockets
 (250-300)% increased Global Damage
 (20-30)% increased Attack Speed
@@ -253,7 +253,7 @@ Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}18% Chance to Block Attack Damage while wielding a Staff
-{variant:4}20% Chance to Block Attack Damage while wielding a Staff
+{variant:4}20% Chance to Block Spell Damage while wielding a Staff
 6% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}Adds (180-190) to (190-220) Physical Damage
 {variant:3}Adds (165-175) to (185-205) Physical Damage
@@ -304,7 +304,7 @@ Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}20% Chance to Block Attack Damage while wielding a Staff
+{variant:3}20% Chance to Block Spell Damage while wielding a Staff
 Socketed Gems are Supported by level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
 100% increased maximum Mana

@@ -2711,3 +2711,24 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMagegua
 	modList = {
 	},
 }
+-- Baranite Sister
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSister"] = {
+	name = "Baranite Sister",
+	life = 1.2,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.8,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"AtlasCrusaderSisterMortar",
+		"WalkEmergeAtlasInfluenceMonster",
+	},
+	modList = {
+	},
+}
