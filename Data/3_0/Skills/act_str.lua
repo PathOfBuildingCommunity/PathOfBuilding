@@ -2631,6 +2631,7 @@ skills["HeraldOfPurity"] = {
 		["herald_of_purity_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,

@@ -417,6 +417,7 @@ local skills, mod, flag, skill = ...
 		["herald_of_purity_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+	},
 #mods
 
 #skill FlameTotem
