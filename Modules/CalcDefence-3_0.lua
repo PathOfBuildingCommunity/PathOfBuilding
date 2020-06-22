@@ -669,6 +669,7 @@ function calcs.defence(env, actor)
 		else
 			output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
 		end
+		output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
 		if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
 			output.SpellBlockChanceMax = output.BlockChanceMax
 		else
@@ -676,8 +677,10 @@ function calcs.defence(env, actor)
 		end
 		if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
 			output.SpellBlockChance = output.BlockChance
+			output.SpellProjectileBlockChance = output.ProjectileBlockChance
 		else
 			output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
+			output.SpellProjectileBlockChance = output.SpellBlockChance
 		end
 		if breakdown then
 			breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
@@ -685,9 +688,11 @@ function calcs.defence(env, actor)
 		end
 		if modDB:Flag(nil, "CannotBlockAttacks") then
 			output.BlockChance = 0
+			output.ProjectileBlockChance = 0
 		end
 		if modDB:Flag(nil, "CannotBlockSpells") then
 			output.SpellBlockChance = 0
+			output.SpellProjectileBlockChance = 0
 		end
 		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
 		output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
@@ -780,11 +785,11 @@ function calcs.defence(env, actor)
 			})
 		end
 		--attack projectile
-		output[damageType.."ProjectileDamageChance"] = 100 - (1 - output.BlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
+		output[damageType.."ProjectileDamageChance"] = 100 - (1 - output.ProjectileBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
 		if breakdown then
 			breakdown[damageType.."ProjectileDamageChance"] = { }
 			breakdown.multiChain(breakdown[damageType.."ProjectileDamageChance"], {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
+				{ "%.2f ^8(chance for block to fail)", 1 - output.ProjectileBlockChance / 100 },
 				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap) / 100 },
 				total = s_format("= %d%% ^8(chance to take damage from a Projectile attack)", 100 - output[damageType.."ProjectileDamageChance"]),
 			})
@@ -800,11 +805,11 @@ function calcs.defence(env, actor)
 			})
 		end
 		--spell projectile
-		output[damageType.."SpellProjectileDamageChance"] = 100 - (1 - output.SpellBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
+		output[damageType.."SpellProjectileDamageChance"] = 100 - (1 - output.SpellProjectileBlockChance / 100) * (1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap)  / 100) * 100
 		if breakdown then
 			breakdown[damageType.."SpellProjectileDamageChance"] = { }
 			breakdown.multiChain(breakdown[damageType.."SpellProjectileDamageChance"], {
-				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellBlockChance / 100 },
+				{ "%.2f ^8(chance for block to fail)", 1 - output.SpellProjectileBlockChance / 100 },
 				{ "%.2f ^8(chance for avoidance to fail)", 1 - m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap) / 100 },
 				total = s_format("= %d%% ^8(chance to take damage from a Projectile Spell)", 100 - output[damageType.."SpellProjectileDamageChance"]),
 			})
