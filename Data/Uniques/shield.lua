@@ -176,7 +176,7 @@ Implicits: 1
 40% increased Totem Damage
 +(80-100) to maximum Life
 Can have up to 1 additional Totem summoned at a time
-+300 Armour per active Totem
++300 Armour per Summoned Totem
 Blood Magic
 {variant:3}Mortal Conviction
 ]],
