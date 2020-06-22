@@ -878,6 +878,10 @@ local modTagList = {
 	["for each golem you have summoned"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
 	["per summoned golem"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
 	["per summoned sentinel of purity"] = { tag = { type = "PerStat", stat = "ActiveSentinelOfPurityLimit" } },
+	["per summoned skeleton"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit" } },
+	["per summoned raging spirit"] = { tag = { type = "PerStat", stat = "ActiveRagingSpiritLimit" } },
+	["for each raised zombie"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit" } },
+	["per raised spectre"] = { tag = { type = "PerStat", stat = "ActiveSpectreLimit" } },
 	-- Stat conditions
 	["with (%d+) or more strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
 	["with at least (%d+) strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
