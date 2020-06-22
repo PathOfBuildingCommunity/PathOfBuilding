@@ -1316,6 +1316,9 @@ return {
 		},
 	},
 	{ label = "Reflect taken", haveOutput = "AnyTakenReflect",
+		{ format = "x {2:output:SecondMaximumTakenReflectMult}", 
+			{ breakdown = "SecondMaximumTakenReflectMult" }, 
+		},
 		{ format = "x {2:output:PhysicalTakenReflectMult}", 
 			{ breakdown = "PhysicalTakenReflectMult" }, 
 			{ modName = { "DamageTaken", "DamageTakenWhenHit", "PhysicalDamageTaken", "PhysicalDamageTakenWhenHit", "PhysicalReflectedDamageTaken", "PhysicalDamageTakenAsFire", "PhysicalDamageTakenAsCold", "PhysicalDamageTakenAsLightning", "PhysicalDamageTakenAsChaos" } } 
@@ -1425,8 +1428,11 @@ return {
 		},
 	},
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
-	colWidth = 114,
+	colWidth = 95,
 	{ label = "ES Bypass%", haveOutput = "AnyBypass",
+		{ format = "{0:output:SecondMaximumEnergyShieldBypass}", 
+			{ breakdown = "SecondMaximumEnergyShieldBypass" },		
+		},
 		{ format = "{0:output:PhysicalEnergyShieldBypass}", 
 			{ breakdown = "PhysicalEnergyShieldBypass" },
 			{ modName = {"PhysicalEnergyShieldBypass", "BlockedDamageDoesntBypassES", "UnblockedDamageDoesBypassES"} },			
@@ -1448,7 +1454,6 @@ return {
 			{ modName = {"ChaosEnergyShieldBypass", "ChaosNotBypassEnergyShield", "BlockedDamageDoesntBypassES", "UnblockedDamageDoesBypassES"} },	
 		},
 	},
-	colWidth = 95,
 	{ label = "Mind over Matter", haveOutput = "AnyMindOverMatter",
 		{ format = "{0:output:SecondMinimumMindOverMatter}", 
 			{ breakdown = "SecondMinimumMindOverMatter" },			
@@ -1555,8 +1560,11 @@ return {
 		},
 	}
 } }, { defaultCollapsed = false, label = "Degen", data = {
-	colWidth = 114,
+	colWidth = 95,
 	{ label = "Degens", haveOutput = "TotalDegen",
+		{ format = "{0:output:SecondMaximumDegen}", 
+			{ breakdown = "SecondMaximumDegen" }, 
+		},
 		{ format = "{0:output:PhysicalDegen}", 
 			{ breakdown = "PhysicalDegen" }, 
 			{ modName = "PhysicalDegen", }

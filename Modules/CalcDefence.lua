@@ -648,13 +648,16 @@ function calcs.defence(env, actor)
 		end
 		output[damageType.."EnergyShieldBypass"] = m_max(m_min(output[damageType.."EnergyShieldBypass"], 100), 0)
 	end
+	if output.AnyBypass then
+		output.SecondMaximumEnergyShieldBypass = m_second_max({output.PhysicalEnergyShieldBypass, output.LightningEnergyShieldBypass, output.ColdEnergyShieldBypass, output.FireEnergyShieldBypass, output.ChaoSecondMinimumdOverMatter})
+	end
 
 	-- Mind over Matter
-	output.AnyMindOverMatter = 0
+	output.AnyMindOverMatter = false
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife") + modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100)
 		if output[damageType.."MindOverMatter"] > 0 then
-			output.AnyMindOverMatter = output.AnyMindOverMatter + output[damageType.."MindOverMatter"]
+			output.AnyMindOverMatter = true
 			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
 			local manatext = "unreserved mana"
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") and output[damageType.."EnergyShieldBypass"] < 100 then
@@ -688,7 +691,7 @@ function calcs.defence(env, actor)
 			output[damageType.."EffectiveLife"] = output.LifeUnreserved
 		end
 	end
-	if output.AnyMindOverMatter >= 0 then
+	if output.AnyMindOverMatter then
 		output.SecondMinimumMindOverMatter = m_second_min({output.PhysicalMindOverMatter, output.LightningMindOverMatter, output.ColdMindOverMatter, output.FireMindOverMatter, output.ChaoSecondMinimumdOverMatter})
 	end
 	
@@ -816,6 +819,8 @@ function calcs.defence(env, actor)
 			output.AnyTakenReflect = true
 		end
 	end
+	SecondMaximumDegen = m_second_max({output.PhysicalDegen, output.LightningDegen, output.ColdDegen, output.FireDegen, output.ChaosDegen})
+	
 	if output.TotalDegen then
 		output.NetLifeRegen = output.LifeRegen
 		output.NetManaRegen = output.ManaRegen
@@ -1022,6 +1027,9 @@ function calcs.defence(env, actor)
 	end
 	output.SecondMaximumTakenHitMult = m_second_max({output.PhysicalTakenHitMult, output.LightningTakenHitMult, output.ColdTakenHitMult, output.FireTakenHitMult, output.ChaosTakenHitMult})
 	output.SecondMaximumTakenDotMult = m_second_max({output.PhysicalTakenDotMult, output.LightningTakenDotMult, output.ColdTakenDotMult, output.FireTakenDotMult, output.ChaosTakenDotMult})
+	if output.AnyTakenReflect then
+		output.SecondMaximumTakenReflectMult = m_second_max({output.PhysicalTakenReflectMult, output.LightningTakenReflectMult, output.ColdTakenReflectMult, output.FireTakenReflectMult, output.ChaosTakenReflectMult})
+	end
 
 	-- cumulative defences
 	--chance to not be hit
