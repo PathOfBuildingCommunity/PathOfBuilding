@@ -230,6 +230,7 @@ data.misc = { -- magic numbers
 	TrapTriggerRadiusBase = 10,
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
+	PurposefulHarbingerMaxBuffPercent = 40,
 }
 
 ---------------------------
