@@ -671,8 +671,8 @@ local skills, mod, flag, skill = ...
 #flags spell hit triggerable
 #mods
 
-#skill AtlasExilesCrusaderMageguardProjectile Default Attack
-#flags attack spell projectile
+#skill AtlasExilesCrusaderMageguardProjectile Projectile Spell
+#flags spell projectile triggerable
 #mods
 
 #skill AtlasExileCrusaderMageguardBombExplode Bombs

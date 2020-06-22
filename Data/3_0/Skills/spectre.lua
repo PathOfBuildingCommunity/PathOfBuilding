@@ -4151,7 +4151,7 @@ skills["AtlasEyrieArcherCrystalImpact"] = {
 	},
 }
 skills["AtlasExilesCrusaderMageguardProjectile"] = {
-	name = "Default Attack",
+	name = "Projectile Spell",
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 2.25,
@@ -4160,9 +4160,9 @@ skills["AtlasExilesCrusaderMageguardProjectile"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.33,
 	baseFlags = {
-		attack = true,
 		spell = true,
 		projectile = true,
+		triggerable = true,
 	},
 	baseMods = {
 	},
