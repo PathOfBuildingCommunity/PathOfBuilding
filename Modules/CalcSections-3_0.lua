@@ -1232,6 +1232,7 @@ return {
 	{ label = "Melee Ch.", { format = "{0:output:MeleeNotHitChance}%", { breakdown = "MeleeNotHitChance" }, }, },
 	{ label = "Projectile Ch.", { format = "{0:output:ProjectileNotHitChance}%", { breakdown = "ProjectileNotHitChance" }, }, },
 	{ label = "Spell Ch.", { format = "{0:output:SpellNotHitChance}%", { breakdown = "SpellNotHitChance" }, }, },
+	{ label = "Spell Projectile Ch.", { format = "{0:output:SpellProjectileNotHitChance}%", { breakdown = "SpellProjectileNotHitChance" }, }, },
 }, }, { defaultCollapsed = false, label = "Chance to not take damage when hit", data = {
 	colWidth = 114,
 	{ label = "Melee Ch.",

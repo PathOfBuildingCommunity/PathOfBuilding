@@ -390,7 +390,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
-	
+
 	-- Energy Shield bypass
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do
@@ -447,7 +447,7 @@ function calcs.defence(env, actor)
 			output[damageType.."EffectiveLife"] = output.LifeUnreserved
 		end
 	end
-	
+
 	--total pool
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."TotalPool"] = output[damageType.."EffectiveLife"]
@@ -475,7 +475,7 @@ function calcs.defence(env, actor)
 			t_insert(breakdown[damageType.."TotalPool"], s_format("TotalPool: %d", output[damageType.."TotalPool"]))
 		end
 	end
-	
+
 	-- Damage taken multipliers/Degen calculations
 	for _, damageType in ipairs(dmgTypeList) do
 		local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
@@ -814,13 +814,14 @@ function calcs.defence(env, actor)
 			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
 		end
 	end
-	
+
 	-- cumulative defences
 	--chance to not be hit
 	output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
 	output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
 	output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance) / 3
+	output.SpellProjectileNotHitChance = output.SpellNotHitChance
+	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 	if breakdown then
 		breakdown.MeleeNotHitChance = { }
 		breakdown.multiChain(breakdown.MeleeNotHitChance, {
@@ -839,8 +840,13 @@ function calcs.defence(env, actor)
 			{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
 			total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellNotHitChance),
 		})
+		breakdown.SpellProjectileNotHitChance = { }
+		breakdown.multiChain(breakdown.SpellProjectileNotHitChance, {
+			{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
+			total = s_format("= %d%% ^8(chance to be hit by a projectile spell)", 100 - output.SpellProjectileNotHitChance),
+		})
 	end
-	
+
 	--chance to not take damage if hit
 	function chanceToNotTakeDamage(outputText, outputName, BlockChance, AvoidChance)
 		output[outputName] = 100 - (1 - BlockChance * output.BlockEffect / 100 / 100 ) * (1 - AvoidChance / 100) * 100
