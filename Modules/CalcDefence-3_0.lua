@@ -903,7 +903,16 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	for _, DamageType in ipairs({"Average"}) do
+	local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
+	local minimumEHP = 2500000
+	local minimumEHPMode = "NONE"
+	if DamageTypeConfig == "Minimum" then
+		DamageTypeConfig = {"Melee", "Projectile", "Spell", "SpellProjectile"}
+		minimumEHPMode = "Melee"
+	else
+		DamageTypeConfig = {DamageTypeConfig}
+	end
+	for _, DamageType in ipairs(DamageTypeConfig) do
 		--total EHP
 		for _, damageType in ipairs(dmgTypeList) do
 			local convertedAvoidance = 0
@@ -911,12 +920,36 @@ function calcs.defence(env, actor)
 				convertedAvoidance = convertedAvoidance + output[damageConvertedType..DamageType.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
 			end
 			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[DamageType.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
-			if breakdown then
+			if minimumEHPMode ~= "NONE" then
+				if output[damageType.."TotalEHP"] < minimumEHP then
+					minimumEHP = output[damageType.."TotalEHP"]
+					minimumEHPMode = DamageType
+				end
+			elseif breakdown then
 				breakdown[damageType.."TotalEHP"] = {
 				s_format("EHP calculation Mode: %s", DamageType),
 				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
 				s_format("%s chance not to be hit: %d%%", DamageType, output[DamageType.."NotHitChance"]),
 				s_format("%s chance to not take damage when hit: %d%%", DamageType, convertedAvoidance),
+				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
+				}
+			end
+		end
+	end
+	if minimumEHPMode ~= "NONE" then
+		for _, damageType in ipairs(dmgTypeList) do
+			local convertedAvoidance = 0
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				convertedAvoidance = convertedAvoidance + output[damageConvertedType..minimumEHPMode.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+			end
+			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[minimumEHPMode.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+			if breakdown then
+				breakdown[damageType.."TotalEHP"] = {
+				s_format("EHP calculation Mode: Minimum"),
+				s_format("Minimum is of type %s", minimumEHPMode),
+				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
+				s_format("%s chance not to be hit: %d%%", minimumEHPMode, output[minimumEHPMode.."NotHitChance"]),
+				s_format("%s chance to not take damage when hit: %d%%", minimumEHPMode, convertedAvoidance),
 				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
 				}
 			end
