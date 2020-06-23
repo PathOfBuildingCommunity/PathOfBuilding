@@ -904,7 +904,7 @@ function calcs.defence(env, actor)
 	end
 
 	local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
-	local minimumEHP = 2500000
+	local minimumEHP = 2147483648
 	local minimumEHPMode = "NONE"
 	if DamageTypeConfig == "Minimum" then
 		DamageTypeConfig = {"Melee", "Projectile", "Spell", "SpellProjectile"}
