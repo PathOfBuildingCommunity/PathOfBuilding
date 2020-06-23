@@ -477,6 +477,9 @@ local skills, mod, flag, skill = ...
 #skill IntimidatingCry
 #flags warcry area duration
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("radius", 60)
 #mods
@@ -648,6 +651,12 @@ local skills, mod, flag, skill = ...
 #skill SeismicCry
 #flags warcry area duration
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("SeismicExertedAttacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
+			mod("SeismicHitMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("radius", 60)
 #mods

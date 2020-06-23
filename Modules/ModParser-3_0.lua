@@ -750,6 +750,8 @@ local preFlagList = {
 	["^socketed melee gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "melee" } },
 	["^socketed golem gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "golem" } },
 	["^socketed golem skills [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "golem" } },
+	-- Exerted
+	["^exerted attacks deal "] = { addToExerted = true, flags = ModFlag.Attack,  tag = { type = "SkillType", skillType = SkillType.SlamSkill } },
 	-- Other
 	["^your flasks grant "] = { },
 	["^when hit, "] = { },
@@ -1326,6 +1328,7 @@ local specialModList = {
 		flag("Condition:CanGainRage"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainRage" }), -- Make the Configuration option appear
 	},
+	["exerted attacks deal (%d+)%% more damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertedAttacks", "LIST", { mod = mod("Damage", "MORE", num, nil, ModFlag.Attack) }, { type = "SkillType", skillType = SkillType.SlamSkill }) } end,
 	-- Champion
 	["you have fortify"] = { flag("Condition:Fortify") },
 	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortify" }) },
@@ -2069,6 +2072,7 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
+	["warcries exert (%d+) additional attack"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
 	["you have zealot's oath if you haven't been hit recently"] = { mod("Keystone", "LIST", "Zealot's Oath", { type = "Condition", var = "BeenHitRecently", neg = true }) },
@@ -2930,6 +2934,11 @@ local function parseMod(line, order)
 		elseif misc.convertFortifyEffect then
 			for i, effectMod in ipairs(modList) do
 				modList[i] = mod("convertFortifyBuff", "LIST", { mod = effectMod })
+			end
+		elseif misc.addToExerted then
+			-- Exerted attack modifiers
+			for i, effectMod in ipairs(modList) do
+				modList[i] = mod("ExertedAttacks", "LIST", { mod = effectMod })
 			end
 		end
 	end

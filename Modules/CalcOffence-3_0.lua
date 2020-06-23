@@ -1172,12 +1172,64 @@ function calcs.offence(env, actor, activeSkill)
 		output.FistOfWarHitMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarHitMultiplier") / 100
 		output.FistOfWarAilmentMultiplier = 1 + skillModList:Sum("BASE", cfg, "FistOfWarAilmentMultiplier") / 100
 		if output.FistOfWarCooldown ~= 0 then
-			output.FistOfWarHitEffect = 1 + output.FistOfWarHitMultiplier / (output.FistOfWarCooldown * output.Speed)
-			output.FistOfWarAilmentEffect = 1 + output.FistOfWarAilmentMultiplier / (output.FistOfWarCooldown * output.Speed)
+			output.FistOfWarHitEffect = 1 + output.FistOfWarHitMultiplier / m_max(output.FistOfWarCooldown * output.Speed, 1.0)
+			output.FistOfWarAilmentEffect = 1 + output.FistOfWarAilmentMultiplier / m_max(output.FistOfWarCooldown * output.Speed, 1.0)
 		else
 			output.FistOfWarHitEffect = 1
 			output.FistOfWarAilmentEffect = 1
 		end
+
+		-- Calculate Exerted Attacks
+		output.extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
+		
+		output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
+		output.SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
+		if output.maxSeismicExerts ~= 0 then
+			output.numSeismicExerts = output.maxSeismicExerts + output.extraExertions
+			for _, value in ipairs(env.auxSkillList) do
+				if value.skillCfg.skillName == "Seismic Cry" then
+					local gemDefaultCooldown = value.skillData.cooldown
+					output.SeismicCryCooldown = gemDefaultCooldown * (1 - skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
+					-- round it to the nearest server tick rate
+					output.SeismicCryCooldown = m_ceil(output.SeismicCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					break
+				end
+			end
+			output.SeismicDmgImpact = 0
+			for i = 1, output.numSeismicExerts do
+				output.SeismicDmgImpact = output.SeismicDmgImpact + (i * output.SeismicHitMultiplier)
+			end
+			output.SeismicAvgDmg = output.SeismicDmgImpact / output.numSeismicExerts
+			-- calculate ratio of uptime versus downtime
+			output.SeismicUpTimeRatio = m_min((output.numSeismicExerts / output.Speed) / output.SeismicCryCooldown, 1.0)
+			output.SeismicHitEffect = 1 + output.SeismicAvgDmg * output.SeismicUpTimeRatio
+		else
+			output.SeismicHitEffect = 1
+		end
+
+		output.maxIntimidatingExerts = skillModList:Sum("BASE", nil, "IntimidatingExertedAttacks")
+		if output.maxIntimidatingExerts ~= 0 then
+			output.numIntimidatingExerts = output.maxIntimidatingExerts + output.extraExertions
+			for _, value in ipairs(env.auxSkillList) do
+				if value.skillCfg.skillName == "Intimidating Cry" then
+					local gemDefaultCooldown = value.skillData.cooldown
+					output.IntimidatingCryCooldown = gemDefaultCooldown * (1 - skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
+					-- round it to the nearest server tick rate
+					output.IntimidatingCryCooldown = m_ceil(output.IntimidatingCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					break
+				end
+			end
+			-- calculate ratio of uptime versus downtime
+			output.IntimidatingUpTimeRatio = m_min((output.numIntimidatingExerts / output.Speed) / output.IntimidatingCryCooldown, 1.0)
+			-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
+			-- is calculated as the improvement over the non-intimidated double damage chance
+			output.IntimidatingHitEffect = 1 + (1 - output.DoubleDamageChance / 100) * output.IntimidatingUpTimeRatio
+		else
+			output.IntimidatingHitEffect = 1
+		end
+		-- TODO account of War Bringer
+		-- TODO account for tree nodes that increased damage of exerted hits
+		-- TODO account for opportunity cost with Warcry Speed.... can't do anything while warcrying (if it's not instant)
 
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
@@ -1254,10 +1306,17 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
 						end
 						if output.FistOfWarHitEffect ~= 1 then
-						t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
+						end
+						if output.SeismicHitEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry exertions effect modifier)", output.SeismicHitEffect))
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry cast speed effect modifier)", output.SeismicCryCastSpeed))
+						end
+						if output.IntimidatingHitEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(intimidating cry exertions effect modifier)", output.IntimidatingHitEffect))
 						end
 					end
-					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect
+					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * output.SeismicHitEffect * output.IntimidatingHitEffect
 					if pass == 1 then
 						-- Apply crit multiplier
 						allMult = allMult * output.CritMultiplier
