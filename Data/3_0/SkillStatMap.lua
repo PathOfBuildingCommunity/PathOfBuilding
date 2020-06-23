@@ -628,6 +628,9 @@ return {
 	mod("EnemyChillEffect", "INC", nil),
 	mod("EnemyShockEffect", "INC", nil),
 	mod("EnemyFreezeEffect", "INC", nil),
+	mod("EnemyScorchEffect", "INC", nil),
+	mod("EnemyBrittleEffect", "INC", nil),
+	mod("EnemySapEffect", "INC", nil),
 },
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
@@ -652,6 +655,9 @@ return {
 	mod("EnemyShockDuration", "INC", nil), 
 	mod("EnemyChillDuration", "INC", nil), 
 	mod("EnemyFreezeDuration", "INC", nil),
+	mod("EnemyScorchDuration", "INC", nil),
+	mod("EnemyBrittleDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
 },
 ["base_all_ailment_duration_+%"] = {
 	mod("EnemyBleedDuration", "INC", nil), 
@@ -660,6 +666,9 @@ return {
 	mod("EnemyShockDuration", "INC", nil), 
 	mod("EnemyChillDuration", "INC", nil), 
 	mod("EnemyFreezeDuration", "INC", nil),
+	mod("EnemyScorchDuration", "INC", nil),
+	mod("EnemyBrittleDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
