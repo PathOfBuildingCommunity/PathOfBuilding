@@ -896,21 +896,24 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	
-	--total EHP
-	for _, damageType in ipairs(dmgTypeList) do
-		local convertedAvoidance = 0
-		for _, damageConvertedType in ipairs(dmgTypeList) do
-			convertedAvoidance = convertedAvoidance + output[damageConvertedType.."AverageDamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
-		end
-		output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output.AverageNotHitChance / 100) / (1 - convertedAvoidance / 100)
-		if breakdown then
-			breakdown[damageType.."TotalEHP"] = {
-			s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
-			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
-			s_format("Average chance to not take damage when hit: %d%%", convertedAvoidance),
-			s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
-			}
+
+	for _, DamageType in ipairs({"Average"}) do
+		--total EHP
+		for _, damageType in ipairs(dmgTypeList) do
+			local convertedAvoidance = 0
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				convertedAvoidance = convertedAvoidance + output[damageConvertedType..DamageType.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+			end
+			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[DamageType.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+			if breakdown then
+				breakdown[damageType.."TotalEHP"] = {
+				s_format("EHP calculation Mode: %s", DamageType),
+				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
+				s_format("%s chance not to be hit: %d%%", DamageType, output[DamageType.."NotHitChance"]),
+				s_format("%s chance to not take damage when hit: %d%%", DamageType, convertedAvoidance),
+				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
+				}
+			end
 		end
 	end
 end
