@@ -1188,10 +1188,18 @@ function calcs.offence(env, actor, activeSkill)
 			output.numSeismicExerts = output.maxSeismicExerts + output.extraExertions
 			for _, value in ipairs(env.auxSkillList) do
 				if value.skillCfg.skillName == "Seismic Cry" then
+					-- get cooldown
 					local gemDefaultCooldown = value.skillData.cooldown
-					output.SeismicCryCooldown = gemDefaultCooldown * (1 - skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
+					output.SeismicCryCooldown = gemDefaultCooldown / (1 + skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
 					-- round it to the nearest server tick rate
 					output.SeismicCryCooldown = m_ceil(output.SeismicCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+
+					-- get castTime
+					local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
+					output.SeismicCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
+					-- round it to the nearest server tick rate
+					output.SeismicCryCastTime = m_ceil(output.SeismicCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
+
 					break
 				end
 			end
@@ -1213,9 +1221,16 @@ function calcs.offence(env, actor, activeSkill)
 			for _, value in ipairs(env.auxSkillList) do
 				if value.skillCfg.skillName == "Intimidating Cry" then
 					local gemDefaultCooldown = value.skillData.cooldown
-					output.IntimidatingCryCooldown = gemDefaultCooldown * (1 - skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
+					output.IntimidatingCryCooldown = gemDefaultCooldown / (1 + skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
 					-- round it to the nearest server tick rate
 					output.IntimidatingCryCooldown = m_ceil(output.IntimidatingCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+
+					-- get castTime
+					local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
+					output.IntimidatingCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
+					-- round it to the nearest server tick rate
+					output.IntimidatingCryCastTime = m_ceil(output.IntimidatingCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
+
 					break
 				end
 			end
@@ -1310,7 +1325,6 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if output.SeismicHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry exertions effect modifier)", output.SeismicHitEffect))
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry cast speed effect modifier)", output.SeismicCryCastSpeed))
 						end
 						if output.IntimidatingHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(intimidating cry exertions effect modifier)", output.IntimidatingHitEffect))
