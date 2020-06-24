@@ -1181,10 +1181,12 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate Exerted Attacks
 		output.extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
+		local exertedAttacks = false
 		
 		output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
 		output.SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
 		if output.maxSeismicExerts ~= 0 then
+			exertedAttacks = true
 			output.numSeismicExerts = output.maxSeismicExerts + output.extraExertions
 			for _, value in ipairs(env.auxSkillList) do
 				if value.skillCfg.skillName == "Seismic Cry" then
@@ -1210,13 +1212,14 @@ function calcs.offence(env, actor, activeSkill)
 			output.SeismicAvgDmg = output.SeismicDmgImpact / output.numSeismicExerts
 			-- calculate ratio of uptime versus downtime
 			output.SeismicUpTimeRatio = m_min((output.numSeismicExerts / output.Speed) / output.SeismicCryCooldown, 1.0)
-			output.SeismicHitEffect = 1 + output.SeismicAvgDmg * output.SeismicUpTimeRatio
+			output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
 		else
 			output.SeismicHitEffect = 1
 		end
 
 		output.maxIntimidatingExerts = skillModList:Sum("BASE", nil, "IntimidatingExertedAttacks")
 		if output.maxIntimidatingExerts ~= 0 then
+			exertedAttacks = true
 			output.numIntimidatingExerts = output.maxIntimidatingExerts + output.extraExertions
 			for _, value in ipairs(env.auxSkillList) do
 				if value.skillCfg.skillName == "Intimidating Cry" then
@@ -1242,9 +1245,15 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.IntimidatingHitEffect = 1
 		end
-		-- TODO account of War Bringer
-		-- TODO account for tree nodes that increased damage of exerted hits
+
 		-- TODO account for opportunity cost with Warcry Speed.... can't do anything while warcrying (if it's not instant)
+
+		-- Account for INC and MORE increases for Exerted Attacks
+		local exertInc, exertMore = calcLib.mod(skillModList, cfg, "ExertIncrease")
+		if exertedAttacks then
+			skillModList:NewMod("Damage", "INC", exertInc, "Exerted Attack Increases", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
+			skillModList:NewMod("Damage", "MORE", exertMore, "Exerted Attack More", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
+		end
 
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
