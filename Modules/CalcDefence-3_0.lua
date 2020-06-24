@@ -566,11 +566,23 @@ function calcs.defence(env, actor)
 		end
 	end
 	if output.TotalDegen then
-		if output.PhysicalMindOverMatter > 0 and output.LifeRegen >= output.EnergyShieldRegen then
-			local lifeDegen = output.TotalDegen * (1 - output.PhysicalMindOverMatter / 100)
-			local manaDegen = output.TotalDegen * output.PhysicalMindOverMatter / 100
-			output.NetLifeRegen = output.LifeRegen - lifeDegen
-			output.NetManaRegen = output.ManaRegen - manaDegen
+		output.NetLifeRegen = output.LifeRegen
+		output.NetManaRegen = output.ManaRegen
+		output.NetEnergyShieldRegen = output.EnergyShieldRegen
+		for _, damageType in ipairs(dmgTypeList) do
+			local energyShieldDegen = 0
+			local lifeDegen = 0
+			if modDB:Flag(nil, "EnergyShieldProtectsMana") then
+				lifeDegen = output[damageType.."Degen"] * (1 - output[damageType.."MindOverMatter"] / 100)
+				energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
+			else
+				lifeDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
+				energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
+			end
+			local manaDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
+			output.NetLifeRegen = output.NetLifeRegen - lifeDegen
+			output.NetManaRegen = output.NetManaRegen - manaDegen
+			output.NetEnergyShieldRegen = output.NetEnergyShieldRegen - energyShieldDegen
 			if breakdown then
 				breakdown.NetLifeRegen = {
 					s_format("%.1f ^8(total life regen)", output.LifeRegen),
@@ -583,16 +595,14 @@ function calcs.defence(env, actor)
 					s_format("= %.1f", output.NetManaRegen),
 				}
 			end
-		else
-			local totalRegen = output.LifeRegen + (modDB:Flag(nil, "EnergyShieldProtectsMana") and 0 or output.EnergyShieldRegen)
-			output.NetLifeRegen = totalRegen - output.TotalDegen
-			if breakdown then
-				breakdown.NetLifeRegen = {
-					s_format("%.1f ^8(total life%s regen)", totalRegen, modDB:Flag(nil, "EnergyShieldProtectsMana") and "" or " + energy shield"),	
-					s_format("- %.1f ^8(total degen)", output.TotalDegen),
-					s_format("= %.1f", output.NetLifeRegen),
-				}
+		end
+		if output.NetEnergyShieldRegen < 0 then
+			if modDB:Flag(nil, "EnergyShieldProtectsMana") then
+				output.NetManaRegen = output.NetManaRegen - output.NetEnergyShieldRegen
+			else
+				output.NetLifeRegen = output.NetLifeRegen - output.NetEnergyShieldRegen
 			end
+			output.NetEnergyShieldRegen = 0
 		end
 	end
 	output.AnyTakenReflect = 0
