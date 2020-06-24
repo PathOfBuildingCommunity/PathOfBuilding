@@ -1190,11 +1190,11 @@ function calcs.offence(env, actor, activeSkill)
 			for index, value in ipairs(actor.activeSkillList) do
 				if value.activeEffect.gemData.name == "Seismic Cry" then
 					-- recursively calculate the values for Seismic Cry
-					-- only actual Cooldown and CastTime are returned
+					-- only actual Cooldown and WarcryCastTime are returned
 					local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index])
 					
 					output.SeismicCryCooldown = seismicCryData.Cooldown
-					output.SeismicCryCastTime = seismicCryData.CastTime
+					output.SeismicCryCastTime = seismicCryData.WarcryCastTime
 					break
 				end
 			end
@@ -1218,11 +1218,11 @@ function calcs.offence(env, actor, activeSkill)
 			for index, value in ipairs(actor.activeSkillList) do
 				if value.activeEffect.gemData.name == "Intimidating Cry" then
 					-- recursively calculate the values for Intimidating Cry
-					-- only actual Cooldown and CastTime are returned
+					-- only actual Cooldown and WarcryCastTime are returned
 					local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index])
 					
 					output.IntimidatingCryCooldown = intimidatingCryData.Cooldown
-					output.IntimidatingCryCastTime = intimidatingCryData.CastTime
+					output.IntimidatingCryCastTime = intimidatingCryData.WarcryCastTime
 					break
 				end
 			end
@@ -2796,5 +2796,5 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
-	return { Cooldown = output.Cooldown, CastTime = output.WarcryCastTime }
+	return { Cooldown = output.Cooldown, WarcryCastTime = output.WarcryCastTime }
 end
