@@ -315,7 +315,7 @@ function calcs.defence(env, actor)
 			lifeBase = lifeBase + output.Life * lifePercent / 100
 		end
 		if lifeBase > 0 then
-			output.LifeRegen = lifeBase * output.LifeRecoveryRateMod
+			output.LifeRegen = lifeBase * output.LifeRecoveryRateMod * (1 + modDB:Sum("MORE", nil, "LifeRegen") / 100)
 		else
 			output.LifeRegen = 0
 		end
@@ -363,24 +363,49 @@ function calcs.defence(env, actor)
 	else
 		local inc = modDB:Sum("INC", nil, "EnergyShieldRecharge")
 		local more = modDB:More(nil, "EnergyShieldRecharge")
-		local recharge = output.EnergyShield * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
-		output.EnergyShieldRecharge = round(recharge * output.EnergyShieldRecoveryRateMod)
+		if modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife") then
+			output.EnergyShieldRechargeAppliesToLife = true
+			local recharge = output.Life * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
+			output.LifeRecharge = round(recharge * output.LifeRecoveryRateMod)
+			if breakdown then
+				breakdown.LifeRecharge = { }
+				breakdown.multiChain(breakdown.LifeRecharge, {
+					label = "Recharge rate:",
+					base = s_format("%.1f ^8(20%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
+					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+					{ "%.2f ^8(more/less)", more },
+					total = s_format("= %.1f ^8per second", recharge),
+				})
+				breakdown.multiChain(breakdown.LifeRecharge, {
+					label = "Effective Recharge rate:",
+					base = s_format("%.1f", recharge),
+					{ "%.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod },
+					total = s_format("= %.1f ^8per second", output.LifeRecharge),
+				})	
+			end
+		else
+			output.EnergyShieldRechargeAppliesToEnergyShield = true
+			local recharge = output.EnergyShield * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
+			output.EnergyShieldRecharge = round(recharge * output.EnergyShieldRecoveryRateMod)
+			if breakdown then
+				breakdown.EnergyShieldRecharge = { }
+				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
+					label = "Recharge rate:",
+					base = s_format("%.1f ^8(20%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
+					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+					{ "%.2f ^8(more/less)", more },
+					total = s_format("= %.1f ^8per second", recharge),
+				})
+				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
+					label = "Effective Recharge rate:",
+					base = s_format("%.1f", recharge),
+					{ "%.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod },
+					total = s_format("= %.1f ^8per second", output.EnergyShieldRecharge),
+				})
+			end
+		end
 		output.EnergyShieldRechargeDelay = 2 / (1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100)
 		if breakdown then
-			breakdown.EnergyShieldRecharge = { }
-			breakdown.multiChain(breakdown.EnergyShieldRecharge, {
-				label = "Recharge rate:",
-				base = s_format("%.1f ^8(20%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
-				{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
-				{ "%.2f ^8(more/less)", more },
-				total = s_format("= %.1f ^8per second", recharge),
-			})
-			breakdown.multiChain(breakdown.EnergyShieldRecharge, {
-				label = "Effective Recharge rate:",
-				base = s_format("%.1f", recharge),
-				{ "%.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod },
-				total = s_format("= %.1f ^8per second", output.EnergyShieldRecharge),
-			})				
 			if output.EnergyShieldRechargeDelay ~= 2 then
 				breakdown.EnergyShieldRechargeDelay = {
 					"2.00s ^8(base)",
