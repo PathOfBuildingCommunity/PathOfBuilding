@@ -1182,7 +1182,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate Exerted Attacks
 		output.extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 		output.exertedUptime = 0
-		local bInstantWarcry = skillModList:Flag(nil, "InstantWarcry") or 0
+		local bInstantWarcry = skillModList:Flag(nil, "InstantWarcry") or false
 		
 		output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
 		output.SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
@@ -1197,10 +1197,14 @@ function calcs.offence(env, actor, activeSkill)
 					output.SeismicCryCooldown = m_ceil(output.SeismicCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 
 					-- get castTime
-					local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
-					output.SeismicCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
-					-- round it to the nearest server tick rate
-					output.SeismicCryCastTime = m_ceil(output.SeismicCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					if bInstantWarcry == true then
+						output.SeismicCryCastTime = 0
+					else
+						local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
+						output.SeismicCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
+						-- round it to the nearest server tick rate
+						output.SeismicCryCastTime = m_ceil(output.SeismicCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					end
 
 					break
 				end
@@ -1210,8 +1214,8 @@ function calcs.offence(env, actor, activeSkill)
 				output.SeismicDmgImpact = output.SeismicDmgImpact + (i * output.SeismicHitMultiplier)
 			end
 			output.SeismicAvgDmg = output.SeismicDmgImpact / output.numSeismicExerts
-			-- calculate ratio of uptime versus downtime
-			output.SeismicUpTimeRatio = m_min((output.numSeismicExerts / output.Speed) / output.SeismicCryCooldown, 1.0)
+			-- calculate ratio of uptime versus downtime (including opportunity cost of casting the warcry)
+			output.SeismicUpTimeRatio = m_min((output.numSeismicExerts / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1.0)
 			output.exertedUptime = m_max(output.exertedUptime, output.SeismicUpTimeRatio)
 			output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
 		else
@@ -1230,16 +1234,20 @@ function calcs.offence(env, actor, activeSkill)
 					output.IntimidatingCryCooldown = m_ceil(output.IntimidatingCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 
 					-- get castTime
-					local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
-					output.IntimidatingCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
-					-- round it to the nearest server tick rate
-					output.IntimidatingCryCastTime = m_ceil(output.IntimidatingCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					if bInstantWarcry == true then
+						output.IntimidatingCryCastTime = 0
+					else
+						local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
+						output.IntimidatingCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
+						-- round it to the nearest server tick rate
+						output.IntimidatingCryCastTime = m_ceil(output.IntimidatingCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					end
 
 					break
 				end
 			end
 			-- calculate ratio of uptime versus downtime
-			output.IntimidatingUpTimeRatio = m_min((output.numIntimidatingExerts / output.Speed) / output.IntimidatingCryCooldown, 1.0)
+			output.IntimidatingUpTimeRatio = m_min((output.numIntimidatingExerts / output.Speed) / (output.IntimidatingCryCooldown + output.IntimidatingCryCastTime), 1.0)
 			output.exertedUptime = m_max(output.exertedUptime, output.IntimidatingUpTimeRatio)
 			-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
 			-- is calculated as the improvement over the non-intimidated double damage chance
@@ -1247,10 +1255,6 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.IntimidatingHitEffect = 1
 		end
-
-		-- TODO account for opportunity cost with Warcry Speed.... can't do anything while warcrying (if it's not instant)
-		--if bInstantWarcry == 0 then
-		--end
 
 		-- Account for INC and MORE increases for Exerted Attacks
 		if exertedAttacks then
@@ -1336,9 +1340,11 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
 						end
 						if output.SeismicHitEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry uptime ratio)", output.SeismicUpTimeRatio))
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry exertions effect modifier)", output.SeismicHitEffect))
 						end
 						if output.IntimidatingHitEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(intimidating cry uptime ratio)", output.IntimidatingUpTimeRatio))
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(intimidating cry exertions effect modifier)", output.IntimidatingHitEffect))
 						end
 					end
