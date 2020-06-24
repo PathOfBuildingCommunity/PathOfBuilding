@@ -2060,6 +2060,7 @@ local specialModList = {
 	["immortal ambition"] = {
 		flag("NoEnergyShieldRecharge"),
 		flag("NoEnergyShieldRegen"),
+		flag("CanLeechLifeOnFullLife"),
 		mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = 5 }) 
 	},
 	["deal no physical damage"] = { flag("DealNoPhysical") },
