@@ -1021,7 +1021,7 @@ return {
 	{ label = "Increased Regen", { format = "{0:output:ManaRegenInc}%", { modName = "ManaRegen", modType = "INC" }, }, },
 	{ label = "Regen", { format = "{1:output:ManaRegen}", 
 		{ breakdown = "ManaRegen" }, 
-		{ label = "Sources", modName = { "ManaRegen", "ManaRegenPercent" }, modType = "BASE" },
+		{ label = "Sources", modName = { "ManaRegen", "ManaRegenPercent", "ManaDegen" }, modType = "BASE" },
 		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
 	}, },
 } }

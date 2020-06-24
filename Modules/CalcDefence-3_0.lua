@@ -278,7 +278,9 @@ function calcs.defence(env, actor)
 			output.ManaRegenInc = 0
 		end
 		local regen = base * (1 + output.ManaRegenInc/100) * more
-		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1) - modDB:Sum("BASE", nil, "ManaDegen")
+		local regenRate = round(regen * output.ManaRecoveryRateMod, 1)
+		local degen = modDB:Sum("BASE", nil, "ManaDegen")
+		output.ManaRegen = regenRate - degen
 		if breakdown then
 			breakdown.ManaRegen = { }
 			breakdown.multiChain(breakdown.ManaRegen, {
@@ -292,8 +294,12 @@ function calcs.defence(env, actor)
 				label = "Effective Mana Regeneration:",
 				base = s_format("%.1f", regen),
 				{ "%.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod },
-				total = s_format("= %.1f ^8per second", output.ManaRegen),
-			})				
+				total = s_format("= %.1f ^8per second", regenRate),
+			})
+			if degen ~= 0 then
+				t_insert(breakdown.ManaRegen, s_format("- %d", degen))
+				t_insert(breakdown.ManaRegen, s_format("= %.1f ^8per second", output.ManaRegen))
+			end
 		end
 	end
 	if modDB:Flag(nil, "NoLifeRegen") then
