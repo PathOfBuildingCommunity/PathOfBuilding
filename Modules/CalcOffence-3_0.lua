@@ -1181,12 +1181,12 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate Exerted Attacks
 		output.extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
-		local exertedAttacks = false
+		output.exertedUptime = 0
+		local bInstantWarcry = skillModList:Flag(nil, "InstantWarcry") or 0
 		
 		output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
 		output.SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
 		if output.maxSeismicExerts ~= 0 then
-			exertedAttacks = true
 			output.numSeismicExerts = output.maxSeismicExerts + output.extraExertions
 			for _, value in ipairs(env.auxSkillList) do
 				if value.skillCfg.skillName == "Seismic Cry" then
@@ -1212,6 +1212,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.SeismicAvgDmg = output.SeismicDmgImpact / output.numSeismicExerts
 			-- calculate ratio of uptime versus downtime
 			output.SeismicUpTimeRatio = m_min((output.numSeismicExerts / output.Speed) / output.SeismicCryCooldown, 1.0)
+			output.exertedUptime = m_max(output.exertedUptime, output.SeismicUpTimeRatio)
 			output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
 		else
 			output.SeismicHitEffect = 1
@@ -1239,6 +1240,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			-- calculate ratio of uptime versus downtime
 			output.IntimidatingUpTimeRatio = m_min((output.numIntimidatingExerts / output.Speed) / output.IntimidatingCryCooldown, 1.0)
+			output.exertedUptime = m_max(output.exertedUptime, output.IntimidatingUpTimeRatio)
 			-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
 			-- is calculated as the improvement over the non-intimidated double damage chance
 			output.IntimidatingHitEffect = 1 + (1 - output.DoubleDamageChance / 100) * output.IntimidatingUpTimeRatio
@@ -1247,12 +1249,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- TODO account for opportunity cost with Warcry Speed.... can't do anything while warcrying (if it's not instant)
+		--if bInstantWarcry == 0 then
+		--end
 
 		-- Account for INC and MORE increases for Exerted Attacks
-		local exertInc, exertMore = calcLib.mod(skillModList, cfg, "ExertIncrease")
 		if exertedAttacks then
-			skillModList:NewMod("Damage", "INC", exertInc, "Exerted Attack Increases", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
-			skillModList:NewMod("Damage", "MORE", exertMore, "Exerted Attack More", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
+			skillModList:NewMod("Damage", "INC", skillModList:Sum("INC", cfg, "ExertIncrease") * output.exertedUptime, "Exerted Attack Increases", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
+			skillModList:NewMod("Damage", "MORE", skillModList:Sum("MORE", cfg, "ExertIncrease") * output.exertedUptime, "Exerted Attack More", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
 		end
 
 		-- Calculate base hit damage
