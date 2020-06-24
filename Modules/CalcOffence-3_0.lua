@@ -1182,30 +1182,19 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate Exerted Attacks
 		output.extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 		output.exertedUptime = 0
-		local bInstantWarcry = skillModList:Flag(nil, "InstantWarcry") or false
-		
+
 		output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
 		output.SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
-		if output.maxSeismicExerts ~= 0 then
+		if output.maxSeismicExerts ~= 0 and not skillFlags.warcry then
 			output.numSeismicExerts = output.maxSeismicExerts + output.extraExertions
-			for _, value in ipairs(env.auxSkillList) do
-				if value.skillCfg.skillName == "Seismic Cry" then
-					-- get cooldown
-					local gemDefaultCooldown = value.skillData.cooldown
-					output.SeismicCryCooldown = gemDefaultCooldown / (1 + skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
-					-- round it to the nearest server tick rate
-					output.SeismicCryCooldown = m_ceil(output.SeismicCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-
-					-- get castTime
-					if bInstantWarcry == true then
-						output.SeismicCryCastTime = 0
-					else
-						local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
-						output.SeismicCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
-						-- round it to the nearest server tick rate
-						output.SeismicCryCastTime = m_ceil(output.SeismicCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
-					end
-
+			for index, value in ipairs(actor.activeSkillList) do
+				if value.activeEffect.gemData.name == "Seismic Cry" then
+					-- recursively calculate the values for Seismic Cry
+					-- only actual Cooldown and CastTime are returned
+					local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index])
+					
+					output.SeismicCryCooldown = seismicCryData.Cooldown
+					output.SeismicCryCastTime = seismicCryData.CastTime
 					break
 				end
 			end
@@ -1223,26 +1212,17 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		output.maxIntimidatingExerts = skillModList:Sum("BASE", nil, "IntimidatingExertedAttacks")
-		if output.maxIntimidatingExerts ~= 0 then
+		if output.maxIntimidatingExerts ~= 0 and not skillFlags.warcry then
 			exertedAttacks = true
 			output.numIntimidatingExerts = output.maxIntimidatingExerts + output.extraExertions
-			for _, value in ipairs(env.auxSkillList) do
-				if value.skillCfg.skillName == "Intimidating Cry" then
-					local gemDefaultCooldown = value.skillData.cooldown
-					output.IntimidatingCryCooldown = gemDefaultCooldown / (1 + skillModList:Sum("INC", value.skillCfg, "CooldownRecovery") / 100)
-					-- round it to the nearest server tick rate
-					output.IntimidatingCryCooldown = m_ceil(output.IntimidatingCryCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-
-					-- get castTime
-					if bInstantWarcry == true then
-						output.IntimidatingCryCastTime = 0
-					else
-						local gemDefaultCastTime = value.effectList[1].grantedEffect.castTime
-						output.IntimidatingCryCastTime = gemDefaultCastTime / (1 + skillModList:Sum("INC", value.skillCfg, "WarcrySpeed") / 100)
-						-- round it to the nearest server tick rate
-						output.IntimidatingCryCastTime = m_ceil(output.IntimidatingCryCastTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
-					end
-
+			for index, value in ipairs(actor.activeSkillList) do
+				if value.activeEffect.gemData.name == "Intimidating Cry" then
+					-- recursively calculate the values for Intimidating Cry
+					-- only actual Cooldown and CastTime are returned
+					local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index])
+					
+					output.IntimidatingCryCooldown = intimidatingCryData.Cooldown
+					output.IntimidatingCryCastTime = intimidatingCryData.CastTime
 					break
 				end
 			end
@@ -2816,4 +2796,5 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
+	return { Cooldown = output.Cooldown, CastTime = output.WarcryCastTime }
 end

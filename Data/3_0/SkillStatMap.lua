@@ -349,7 +349,7 @@ return {
 	div = 1000,
 },
 ["warcry_speed_+%"] = {
-	mod("WarcrySpeed", "INC", nil, KeywordFlag.Warcry),
+	mod("WarcrySpeed", "INC", nil, 0, KeywordFlag.Warcry),
 },
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
