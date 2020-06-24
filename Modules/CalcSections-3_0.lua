@@ -1003,7 +1003,7 @@ return {
 	{ label = "Reserved", { format = "{0:output:LifeReserved} ({0:output:LifeReservedPercent}%)", { breakdown = "LifeReserved" }, }, },
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
 	{ label = "Regen", { format = "{1:output:LifeRegen} ({1:output:LifeRegenPercent}%)", 
-		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen" }, modType = "BASE" }, 
+		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen", "LifeDegen", "LifeRecovery" }, modType = "BASE" }, 
 		{ label = "Recovery modifiers", modName = "LifeRecoveryRate" },
 	}, },
 } }
