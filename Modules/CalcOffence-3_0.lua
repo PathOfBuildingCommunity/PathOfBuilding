@@ -1340,11 +1340,9 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
 						end
 						if output.SeismicHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry uptime ratio)", output.SeismicUpTimeRatio))
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry exertions effect modifier)", output.SeismicHitEffect))
 						end
 						if output.IntimidatingHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(intimidating cry uptime ratio)", output.IntimidatingUpTimeRatio))
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(intimidating cry exertions effect modifier)", output.IntimidatingHitEffect))
 						end
 					end
