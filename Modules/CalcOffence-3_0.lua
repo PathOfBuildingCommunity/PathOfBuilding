@@ -1190,57 +1190,61 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		local extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 		output.exertedUptime = 0
 
-		output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
-		if output.maxSeismicExerts ~= 0 and not skillFlags.warcry then
-			local SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
-			local numSeismicExerts = output.maxSeismicExerts + extraExertions
-			for index, value in ipairs(actor.activeSkillList) do
-				if value.activeEffect.gemData.name == "Seismic Cry" then
-					-- recursively calculate the values for Seismic Cry
-					-- only actual Cooldown and WarcryCastTime are returned
-					local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
-					
-					output.SeismicCryCooldown = seismicCryData.Cooldown
-					output.SeismicCryCastTime = seismicCryData.WarcryCastTime
-					break
+		-- Seismic Cry only Exerts Slam Skills
+		output.SeismicHitEffect = 1
+		if activeSkill.skillTypes[SkillType.SlamSkill] then
+			output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
+			if output.maxSeismicExerts ~= 0 and not skillFlags.warcry then
+				local SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
+				local numSeismicExerts = output.maxSeismicExerts + extraExertions
+				for index, value in ipairs(actor.activeSkillList) do
+					if value.activeEffect.gemData.name == "Seismic Cry" then
+						-- recursively calculate the values for Seismic Cry
+						-- only actual Cooldown and WarcryCastTime are returned
+						local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
+						
+						output.SeismicCryCooldown = seismicCryData.Cooldown
+						output.SeismicCryCastTime = seismicCryData.WarcryCastTime
+						break
+					end
 				end
+				output.SeismicDmgImpact = 0
+				for i = 1, numSeismicExerts do
+					output.SeismicDmgImpact = output.SeismicDmgImpact + (i * SeismicHitMultiplier)
+				end
+				output.SeismicAvgDmg = output.SeismicDmgImpact / numSeismicExerts
+				-- calculate ratio of uptime versus downtime (including opportunity cost of casting the warcry)
+				output.SeismicUpTimeRatio = m_min((numSeismicExerts / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1.0)
+				output.exertedUptime = m_max(output.exertedUptime, output.SeismicUpTimeRatio)
+				output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
 			end
-			output.SeismicDmgImpact = 0
-			for i = 1, numSeismicExerts do
-				output.SeismicDmgImpact = output.SeismicDmgImpact + (i * SeismicHitMultiplier)
-			end
-			output.SeismicAvgDmg = output.SeismicDmgImpact / numSeismicExerts
-			-- calculate ratio of uptime versus downtime (including opportunity cost of casting the warcry)
-			output.SeismicUpTimeRatio = m_min((numSeismicExerts / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1.0)
-			output.exertedUptime = m_max(output.exertedUptime, output.SeismicUpTimeRatio)
-			output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
-		else
-			output.SeismicHitEffect = 1
 		end
 
-		output.maxIntimidatingExerts = skillModList:Sum("BASE", nil, "IntimidatingExertedAttacks")
-		if output.maxIntimidatingExerts ~= 0 and not skillFlags.warcry then
-			exertedAttacks = true
-			local numIntimidatingExerts = output.maxIntimidatingExerts + extraExertions
-			for index, value in ipairs(actor.activeSkillList) do
-				if value.activeEffect.gemData.name == "Intimidating Cry" then
-					-- recursively calculate the values for Intimidating Cry
-					-- only actual Cooldown and WarcryCastTime are returned
-					local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
-					
-					output.IntimidatingCryCooldown = intimidatingCryData.Cooldown
-					output.IntimidatingCryCastTime = intimidatingCryData.WarcryCastTime
-					break
+		-- Intimidating Cry Exerts Attacks
+		output.IntimidatingHitEffect = 1
+		if activeSkill.skillTypes[SkillType.Attack] then
+			output.maxIntimidatingExerts = skillModList:Sum("BASE", nil, "IntimidatingExertedAttacks")
+			if output.maxIntimidatingExerts ~= 0 and not skillFlags.warcry then
+				exertedAttacks = true
+				local numIntimidatingExerts = output.maxIntimidatingExerts + extraExertions
+				for index, value in ipairs(actor.activeSkillList) do
+					if value.activeEffect.gemData.name == "Intimidating Cry" then
+						-- recursively calculate the values for Intimidating Cry
+						-- only actual Cooldown and WarcryCastTime are returned
+						local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
+						
+						output.IntimidatingCryCooldown = intimidatingCryData.Cooldown
+						output.IntimidatingCryCastTime = intimidatingCryData.WarcryCastTime
+						break
+					end
 				end
+				-- calculate ratio of uptime versus downtime
+				output.IntimidatingUpTimeRatio = m_min((numIntimidatingExerts / output.Speed) / (output.IntimidatingCryCooldown + output.IntimidatingCryCastTime), 1.0)
+				output.exertedUptime = m_max(output.exertedUptime, output.IntimidatingUpTimeRatio)
+				-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
+				-- is calculated as the improvement over the non-intimidated double damage chance
+				output.IntimidatingHitEffect = 1 + (1 - output.DoubleDamageChance / 100) * output.IntimidatingUpTimeRatio
 			end
-			-- calculate ratio of uptime versus downtime
-			output.IntimidatingUpTimeRatio = m_min((numIntimidatingExerts / output.Speed) / (output.IntimidatingCryCooldown + output.IntimidatingCryCastTime), 1.0)
-			output.exertedUptime = m_max(output.exertedUptime, output.IntimidatingUpTimeRatio)
-			-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
-			-- is calculated as the improvement over the non-intimidated double damage chance
-			output.IntimidatingHitEffect = 1 + (1 - output.DoubleDamageChance / 100) * output.IntimidatingUpTimeRatio
-		else
-			output.IntimidatingHitEffect = 1
 		end
 
 		-- Account for INC and MORE increases for Exerted Attacks
