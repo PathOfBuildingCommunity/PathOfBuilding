@@ -392,7 +392,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
-	
+
 	-- Energy Shield bypass
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do
@@ -449,7 +449,7 @@ function calcs.defence(env, actor)
 			output[damageType.."EffectiveLife"] = output.LifeUnreserved
 		end
 	end
-	
+
 	--total pool
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."TotalPool"] = output[damageType.."EffectiveLife"]
@@ -477,7 +477,7 @@ function calcs.defence(env, actor)
 			t_insert(breakdown[damageType.."TotalPool"], s_format("TotalPool: %d", output[damageType.."TotalPool"]))
 		end
 	end
-	
+
 	-- Damage taken multipliers/Degen calculations
 	for _, damageType in ipairs(dmgTypeList) do
 		local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
@@ -816,13 +816,14 @@ function calcs.defence(env, actor)
 			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
 		end
 	end
-	
+
 	-- cumulative defences
 	--chance to not be hit
 	output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
 	output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
 	output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance) / 3
+	output.SpellProjectileNotHitChance = output.SpellNotHitChance
+	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 	if breakdown then
 		breakdown.MeleeNotHitChance = { }
 		breakdown.multiChain(breakdown.MeleeNotHitChance, {
@@ -841,8 +842,13 @@ function calcs.defence(env, actor)
 			{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
 			total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellNotHitChance),
 		})
+		breakdown.SpellProjectileNotHitChance = { }
+		breakdown.multiChain(breakdown.SpellProjectileNotHitChance, {
+			{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
+			total = s_format("= %d%% ^8(chance to be hit by a projectile spell)", 100 - output.SpellProjectileNotHitChance),
+		})
 	end
-	
+
 	--chance to not take damage if hit
 	function chanceToNotTakeDamage(outputText, outputName, BlockChance, AvoidChance)
 		output[outputName] = 100 - (1 - BlockChance * output.BlockEffect / 100 / 100 ) * (1 - AvoidChance / 100) * 100
@@ -864,6 +870,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+
 	for _, damageType in ipairs(dmgTypeList) do
 		chanceToNotTakeDamage("Melee Attack", damageType.."MeleeDamageChance", output.BlockChance, output["Avoid"..damageType.."DamageChance"])
 		chanceToNotTakeDamage("Projectile Attack", damageType.."ProjectileDamageChance", output.ProjectileBlockChance, m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap))
@@ -872,7 +879,19 @@ function calcs.defence(env, actor)
 		--average
 		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end
-	
+
+	--effective health pool vs dots
+	for _, damageType in ipairs(dmgTypeList) do
+		output[damageType.."DotEHP"] = output[damageType.."TotalPool"] / output[damageType.."TakenDotMult"]
+		if breakdown then
+			breakdown[damageType.."DotEHP"] = {
+				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
+				s_format("Dot Damage Taken modifier: %.2f", output[damageType.."TakenDotMult"]),
+				s_format("Total Effective Dot Pool: %d", output[damageType.."DotEHP"]),
+			}
+		end
+	end
+
 	--maximum hit taken
 	--FIX X TAKEN AS Y (output[damageType.."TotalPool"] should use the damage types that are converted to in output[damageType.."TakenHitMult"])
 	for _, damageType in ipairs(dmgTypeList) do
@@ -885,33 +904,57 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	
-	--effective health pool vs dots
-	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."DotEHP"] = output[damageType.."TotalPool"] / output[damageType.."TakenDotMult"]
-		if breakdown then
-			breakdown[damageType.."DotEHP"] = {
-				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
-				s_format("Dot Damage Taken modifier: %.2f", output[damageType.."TakenDotMult"]),
-				s_format("Total Effective Dot Pool: %d", output[damageType.."DotEHP"]),
-			}
+
+	local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
+	local minimumEHP = 2147483648
+	local minimumEHPMode = "NONE"
+	if DamageTypeConfig == "Minimum" then
+		DamageTypeConfig = {"Melee", "Projectile", "Spell", "SpellProjectile"}
+		minimumEHPMode = "Melee"
+	else
+		DamageTypeConfig = {DamageTypeConfig}
+	end
+	for _, DamageType in ipairs(DamageTypeConfig) do
+		--total EHP
+		for _, damageType in ipairs(dmgTypeList) do
+			local convertedAvoidance = 0
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				convertedAvoidance = convertedAvoidance + output[damageConvertedType..DamageType.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+			end
+			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[DamageType.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+			if minimumEHPMode ~= "NONE" then
+				if output[damageType.."TotalEHP"] < minimumEHP then
+					minimumEHP = output[damageType.."TotalEHP"]
+					minimumEHPMode = DamageType
+				end
+			elseif breakdown then
+				breakdown[damageType.."TotalEHP"] = {
+				s_format("EHP calculation Mode: %s", DamageType),
+				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
+				s_format("%s chance not to be hit: %d%%", DamageType, output[DamageType.."NotHitChance"]),
+				s_format("%s chance to not take damage when hit: %d%%", DamageType, convertedAvoidance),
+				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
+				}
+			end
 		end
 	end
-	
-	--total EHP
-	for _, damageType in ipairs(dmgTypeList) do
-		local convertedAvoidance = 0
-		for _, damageConvertedType in ipairs(dmgTypeList) do
-			convertedAvoidance = convertedAvoidance + output[damageConvertedType.."AverageDamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
-		end
-		output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output.AverageNotHitChance / 100) / (1 - convertedAvoidance / 100)
-		if breakdown then
-			breakdown[damageType.."TotalEHP"] = {
-			s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
-			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
-			s_format("Average chance to not take damage when hit: %d%%", convertedAvoidance),
-			s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
-			}
+	if minimumEHPMode ~= "NONE" then
+		for _, damageType in ipairs(dmgTypeList) do
+			local convertedAvoidance = 0
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				convertedAvoidance = convertedAvoidance + output[damageConvertedType..minimumEHPMode.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+			end
+			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[minimumEHPMode.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+			if breakdown then
+				breakdown[damageType.."TotalEHP"] = {
+				s_format("EHP calculation Mode: Minimum"),
+				s_format("Minimum is of type %s", minimumEHPMode),
+				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
+				s_format("%s chance not to be hit: %d%%", minimumEHPMode, output[minimumEHPMode.."NotHitChance"]),
+				s_format("%s chance to not take damage when hit: %d%%", minimumEHPMode, convertedAvoidance),
+				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
+				}
+			end
 		end
 	end
 end
