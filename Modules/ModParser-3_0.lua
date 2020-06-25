@@ -1274,6 +1274,8 @@ local specialModList = {
 		mod("ColdEnergyShieldBypass", "BASE", 100),
 		mod("FireEnergyShieldBypass", "BASE", 100),
 	},
+	["auras from your skills do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
+	["auras from your skills have (%d+)%% more effect on you"] = function(num) return { mod("AuraEffectOnSelf", "MORE", num) } end,
 	["increases and reductions to mana regeneration rate instead apply to rage regeneration rate"] = { flag("ManaRegenToRageRegen") },
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
