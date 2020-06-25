@@ -207,7 +207,7 @@ function calcs.defence(env, actor)
 				breakdown.slot("Conversion", "Life to Energy Shield", nil, energyShieldBase, total, "EnergyShield", "Defences", "Life")
 			end
 		end
-		output.EnergyShield = m_max(round(energyShield), 0)
+		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
@@ -278,7 +278,9 @@ function calcs.defence(env, actor)
 			output.ManaRegenInc = 0
 		end
 		local regen = base * (1 + output.ManaRegenInc/100) * more
-		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1) - modDB:Sum("BASE", nil, "ManaDegen")
+		local regenRate = round(regen * output.ManaRecoveryRateMod, 1)
+		local degen = modDB:Sum("BASE", nil, "ManaDegen")
+		output.ManaRegen = regenRate - degen
 		if breakdown then
 			breakdown.ManaRegen = { }
 			breakdown.multiChain(breakdown.ManaRegen, {
@@ -292,8 +294,12 @@ function calcs.defence(env, actor)
 				label = "Effective Mana Regeneration:",
 				base = s_format("%.1f", regen),
 				{ "%.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod },
-				total = s_format("= %.1f ^8per second", output.ManaRegen),
-			})				
+				total = s_format("= %.1f ^8per second", regenRate),
+			})
+			if degen ~= 0 then
+				t_insert(breakdown.ManaRegen, s_format("- %d", degen))
+				t_insert(breakdown.ManaRegen, s_format("= %.1f ^8per second", output.ManaRegen))
+			end
 		end
 	end
 	if modDB:Flag(nil, "NoLifeRegen") then
@@ -320,7 +326,7 @@ function calcs.defence(env, actor)
 			output.LifeRegen = 0
 		end
 	end
-	output.LifeRegen = output.LifeRegen - modDB:Sum("BASE", nil, "LifeDegen")
+	output.LifeRegen = output.LifeRegen - modDB:Sum("BASE", nil, "LifeDegen") + modDB:Sum("BASE", nil, "LifeRecovery") * output.LifeRecoveryRateMod
 	output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
 	if modDB:Flag(nil, "NoEnergyShieldRegen") then
 		output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
