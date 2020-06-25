@@ -169,8 +169,10 @@ local function calcRadiusBreakpoints(baseRadius, incArea, moreArea)
 end
 
 -- Performs all offensive calculations
-function calcs.offence(env, actor, activeSkill)
+function calcs.offence(env, actor, activeSkill, skillLookupOnly)
+	local dontSave = skillLookupOnly or false
 	local enemyDB = actor.enemy.modDB
+
 	local output = actor.output
 	local breakdown = actor.breakdown
 
@@ -182,6 +184,11 @@ function calcs.offence(env, actor, activeSkill)
 		skillFlags.showAverage = true
 	else
 		skillFlags.notAverage = true
+	end
+
+	-- if this function was called to do a skill lookup, don't double count output variables
+	if dontSave then
+		output = copyTable(actor.output)
 	end
 
 	if skillFlags.disable then
@@ -1180,18 +1187,18 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate Exerted Attacks
-		output.extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
+		local extraExertions = skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 		output.exertedUptime = 0
 
 		output.maxSeismicExerts = skillModList:Sum("BASE", cfg, "SeismicExertedAttacks")
-		output.SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
 		if output.maxSeismicExerts ~= 0 and not skillFlags.warcry then
-			output.numSeismicExerts = output.maxSeismicExerts + output.extraExertions
+			local SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
+			local numSeismicExerts = output.maxSeismicExerts + extraExertions
 			for index, value in ipairs(actor.activeSkillList) do
 				if value.activeEffect.gemData.name == "Seismic Cry" then
 					-- recursively calculate the values for Seismic Cry
 					-- only actual Cooldown and WarcryCastTime are returned
-					local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index])
+					local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
 					
 					output.SeismicCryCooldown = seismicCryData.Cooldown
 					output.SeismicCryCastTime = seismicCryData.WarcryCastTime
@@ -1199,12 +1206,12 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			output.SeismicDmgImpact = 0
-			for i = 1, output.numSeismicExerts do
-				output.SeismicDmgImpact = output.SeismicDmgImpact + (i * output.SeismicHitMultiplier)
+			for i = 1, numSeismicExerts do
+				output.SeismicDmgImpact = output.SeismicDmgImpact + (i * SeismicHitMultiplier)
 			end
-			output.SeismicAvgDmg = output.SeismicDmgImpact / output.numSeismicExerts
+			output.SeismicAvgDmg = output.SeismicDmgImpact / numSeismicExerts
 			-- calculate ratio of uptime versus downtime (including opportunity cost of casting the warcry)
-			output.SeismicUpTimeRatio = m_min((output.numSeismicExerts / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1.0)
+			output.SeismicUpTimeRatio = m_min((numSeismicExerts / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1.0)
 			output.exertedUptime = m_max(output.exertedUptime, output.SeismicUpTimeRatio)
 			output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
 		else
@@ -1214,12 +1221,12 @@ function calcs.offence(env, actor, activeSkill)
 		output.maxIntimidatingExerts = skillModList:Sum("BASE", nil, "IntimidatingExertedAttacks")
 		if output.maxIntimidatingExerts ~= 0 and not skillFlags.warcry then
 			exertedAttacks = true
-			output.numIntimidatingExerts = output.maxIntimidatingExerts + output.extraExertions
+			local numIntimidatingExerts = output.maxIntimidatingExerts + extraExertions
 			for index, value in ipairs(actor.activeSkillList) do
 				if value.activeEffect.gemData.name == "Intimidating Cry" then
 					-- recursively calculate the values for Intimidating Cry
 					-- only actual Cooldown and WarcryCastTime are returned
-					local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index])
+					local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
 					
 					output.IntimidatingCryCooldown = intimidatingCryData.Cooldown
 					output.IntimidatingCryCastTime = intimidatingCryData.WarcryCastTime
@@ -1227,7 +1234,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			-- calculate ratio of uptime versus downtime
-			output.IntimidatingUpTimeRatio = m_min((output.numIntimidatingExerts / output.Speed) / (output.IntimidatingCryCooldown + output.IntimidatingCryCastTime), 1.0)
+			output.IntimidatingUpTimeRatio = m_min((numIntimidatingExerts / output.Speed) / (output.IntimidatingCryCooldown + output.IntimidatingCryCastTime), 1.0)
 			output.exertedUptime = m_max(output.exertedUptime, output.IntimidatingUpTimeRatio)
 			-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
 			-- is calculated as the improvement over the non-intimidated double damage chance
