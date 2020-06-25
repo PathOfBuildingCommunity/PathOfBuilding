@@ -1879,7 +1879,7 @@ c["12% increased Damage with Swords"]={{[1]={flags=4194308,keywordFlags=0,name="
 c["Azure Oil - Azure Oil - Black Oil"]={nil,"Azure Oil - Azure Oil - Black Oil "}
 c["90% increased Power Charge Duration"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesDuration",type="INC",value=90}},nil}
 c["All Attack Damage Chills when you Stun"]={nil,"All Attack Damage Chills when you Stun "}
-c["15% chance to gain a Frenzy Charge on Kill +1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Condition",var="UsingAxe"},[2]={skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=15}}," to gain aCharge on Kill +1% to   per Rage  "}
+c["15% chance to gain a Frenzy Charge on Kill +1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Multiplier",var="Rage"},[2]={type="Condition",var="UsingAxe"},[3]={skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=15}}," to gain aCharge on Kill +1% to     "}
 c["Minions have 20% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=20}}}},nil}
 c["Azure Oil - Opalescent Oil - Silver Oil 10% increased maximum Life +5 Life gained on Kill +20 to Strength"]={nil,"Azure Oil - Opalescent Oil - Silver Oil 10% increased maximum Life +5 Life gained on Kill +20 to Strength "}
 c["2% increased Cast Speed while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=16,keywordFlags=0,name="Speed",type="INC",value=2}},nil}
@@ -4329,7 +4329,7 @@ c["25% increased Critical Strike Chance with Maces"]={{[1]={flags=1048580,keywor
 c["6% increased Damage per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Damage",type="INC",value=6}},nil}
 c["1 Added Passive Skill is Antifreeze"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Antifreeze"}},nil}
 c["18% increased Physical Damage with Maces"]={{[1]={flags=1048580,keywordFlags=0,name="PhysicalDamage",type="INC",value=18}},nil}
-c["+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=1}},"   per Rage  "}
+c["+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Multiplier",var="Rage"},[2]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=1}},nil}
 c["Cannot be Shocked while Chilled"]={nil,"Cannot be Shocked while Chilled "}
 c["Verdant Oil - Violet Oil - Violet Oil"]={nil,"Verdant Oil - Violet Oil - Violet Oil "}
 c["22% increased Physical Damage with Maces"]={{[1]={flags=1048580,keywordFlags=0,name="PhysicalDamage",type="INC",value=22}},nil}
@@ -9218,7 +9218,7 @@ c["12% of Physical Damage from Hits taken as Fire Damage while affected by Purit
 c["Shock nearby Enemies for 4 Seconds when you Focus"]={nil,"Shock nearby Enemies for 4 Seconds when you Focus "}
 c["Verdant Oil - Violet Oil - Silver Oil 16% increased Damage with Bows 80% increased Critical Strike Chance with Bows"]={nil,"Verdant Oil - Violet Oil - Silver Oil 16% increased Damage with Bows 80% increased Critical Strike Chance with Bows "}
 c["Sepia Oil - Black Oil - Golden Oil 20% increased Armour 10% increased maximum Energy Shield 10% increased Energy Shield Recharge Rate"]={nil,"Sepia Oil - Black Oil - Golden Oil 20% increased Armour 10% increased maximum Energy Shield 10% increased Energy Shield Recharge Rate "}
-c["Lose 0.1% of Life per second per Rage while you are not losing Rage"]={{[1]={[1]={percent=0.1,stat="Life",type="PercentStat"},[2]={limit=50,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="LifeDegen",type="BASE",value=1}},nil}
+c["Lose 0.1% of Life per second per Rage while you are not losing Rage"]={{[1]={[1]={percent=0.1,stat="Life",type="PercentStat"},[2]={type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="LifeDegen",type="BASE",value=1}},nil}
 c["Lightning Damage with Non-Critical Strikes is Lucky"]={{[1]={flags=0,keywordFlags=0,name="LightningNoCritLucky",type="FLAG",value=true}},nil}
 c["Sepia Oil - Black Oil - Golden Oil"]={nil,"Sepia Oil - Black Oil - Golden Oil "}
 c["8% increased Accuracy Rating with Staves"]={{[1]={flags=2097156,keywordFlags=0,name="Accuracy",type="INC",value=8}},nil}
