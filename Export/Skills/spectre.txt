@@ -686,3 +686,29 @@ local skills, mod, flag, skill = ...
 #skill AtlasCrusaderSisterMortar Mortar
 #flags spell hit triggerable area projectile
 #mods
+
+#skill BreachLightningWhip Breach Lightning Whip
+#flags spell area
+#baseMod skill("radius", 30)
+#baseMod skill("showAverage", true)
+#mods
+
+#skill BreachArc Breach Arc
+#flags spell chaining
+#mods
+
+#skill BreachTeamWarp Breach Team Warp
+#flags spell area
+#baseMod skill("showAverage", true)
+#mods
+
+#skill BreachLightningOrbsCommander Breach Lightning Orbs Commander
+#flags spell
+#baseMod skill("showAverage", true)
+#mods
+
+#skill SandLeaperDodgeLeft Sand Leaper Dodge Left
+#mods
+
+#skill SandLeaperDodgeRight Sand Leaper Dodge Right
+#mods
