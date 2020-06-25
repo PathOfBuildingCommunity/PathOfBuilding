@@ -487,17 +487,20 @@ Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life a
 ]],[[
 Soul Tether
 Cloth Belt
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-40) to Intelligence
-Your Energy Shield starts at zero
-You cannot Recharge Energy Shield
-You cannot Regenerate Energy Shield
-{tags:jewellery_defense}You lose 5% of Energy Shield per second
-{tags:life}Life Leech effects are not removed at Full Life
-{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
 {tags:jewellery_defense,life}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+{variant:1}Your Energy Shield starts at zero
+{variant:1}You cannot Recharge Energy Shield
+{variant:1}You cannot Regenerate Energy Shield
+{variant:1}{tags:jewellery_defense}You lose 5% of Energy Shield per second
+{variant:1}{tags:life}Life Leech effects are not removed at Full Life
+{variant:1}{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
+{variant:2}Immortal Ambition
 ]],[[
 Soulthirst
 Cloth Belt
