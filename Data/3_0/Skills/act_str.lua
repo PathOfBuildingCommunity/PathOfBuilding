@@ -904,7 +904,7 @@ skills["ChainStrike"] = {
 	castTime = 1,
 	statMap = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
-			flag("Condition:CanGainRage"),
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
