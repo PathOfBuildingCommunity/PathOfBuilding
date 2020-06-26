@@ -3807,10 +3807,10 @@ skills["SupportRapidActivation"] = {
 			mod("BrandActivationFrequency", "MORE", nil),
 		},
 		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
-			mod("PrimaryDuration", "MORE", nil),
+			mod("PrimaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
 		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
-			mod("SecondaryDuration", "MORE", nil),
+			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
 	},
 	baseMods = {
