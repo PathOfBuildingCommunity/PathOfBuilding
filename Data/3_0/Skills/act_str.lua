@@ -1831,9 +1831,14 @@ skills["EnduringCry"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["base_life_regeneration_rate_per_minute"] = {
+		["regenerate_X_life_over_1_second_on_cast"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
+		},
+		["resist_all_elements_%_per_endurance_charge"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "EnduranceCharge" }),
+		},
+		["physical_damage_reduction_%_per_endurance_charge"] = {
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
 	},
 	baseFlags = {

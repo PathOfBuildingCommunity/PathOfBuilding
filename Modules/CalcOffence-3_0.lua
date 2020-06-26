@@ -1406,7 +1406,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 						t_insert(breakdown[damageType], s_format("= %d to %d", damageTypeHitMin, damageTypeHitMax))
 					end
 					
-					--Beginning of Leech Calculation for this DamageType
+					-- Beginning of Leech Calculation for this DamageType
 					if skillFlags.mine or skillFlags.trap or skillFlags.totem then
 						if not noLifeLeech then
 							local lifeLeech = skillModList:Sum("BASE", cfg, "DamageLifeLeechToPlayer")
@@ -2807,5 +2807,5 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
-	return { Cooldown = output.Cooldown, WarcryCastTime = output.WarcryCastTime }
+	return { Cooldown = output.Cooldown, Duration = output.Duration, WarcryCastTime = output.WarcryCastTime }
 end
