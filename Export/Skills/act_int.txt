@@ -1126,7 +1126,12 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
+	qualityStats = {
+		{ "sigil_repeat_frequency_+%", 0.5 },
+	},
+	addSkillTypes = { SkillType.Brand, },
 #baseMod skill("showAverage", true)
+#baseMod skill("triggeredByBrand", true)
 #mods
 
 #skill SpiritOffering
