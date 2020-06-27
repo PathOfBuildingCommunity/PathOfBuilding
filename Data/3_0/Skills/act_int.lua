@@ -6788,7 +6788,6 @@ skills["SupportBrandSupport"] = {
 	},
 	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
-		skill("showAverage", true),
 		skill("triggeredByBrand", true),
 	},
 	qualityStats = {

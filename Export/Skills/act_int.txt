@@ -1130,7 +1130,6 @@ local skills, mod, flag, skill = ...
 		{ "sigil_repeat_frequency_+%", 0.5 },
 	},
 	addSkillTypes = { SkillType.Brand, },
-#baseMod skill("showAverage", true)
 #baseMod skill("triggeredByBrand", true)
 #mods
 
