@@ -631,6 +631,19 @@ function calcs.perform(env)
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
 			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
 		end
+		if activeSkill.skillData.triggeredByBrand then
+			local spellCount, quality = 0
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggeredByBrand then
+					spellCount = spellCount + 1
+				end
+				if skill.socketGroup == activeSkill.socketGroup and skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
+					quality = skill.activeEffect.quality / 2
+				end
+			end
+			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
+			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
+		end
 	end
 
 	local breakdown

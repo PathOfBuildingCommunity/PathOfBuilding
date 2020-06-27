@@ -6783,9 +6783,6 @@ skills["SupportBrandSupport"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-	qualityStats = {
-		{ "sigil_repeat_frequency_+%", 0.5 },
-	},
 	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
 		skill("triggeredByBrand", true),
