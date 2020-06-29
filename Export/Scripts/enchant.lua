@@ -13,7 +13,7 @@ local labOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME" }
 
 local function doOtherEnchantment(fileName, group)
 	local byDiff = { }
-	for _, mod in ipairs(dat"Mods":GetRowList("GenerationType", 10)) do
+	for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
 		if mod.Family == group and mod.SpawnWeights[1] > 0 then
 			local stats, orders = describeMod(mod)
 			local diff = lab[mod.Level]
@@ -112,21 +112,26 @@ local skillMap = {
 	["PlagueBearer"] = "Plague Bearer",
 	["SummonSkitterbots"] = "Summon Skitterbots",
 	["ArtilleryBallista"] = "Artillery Ballista",
-	["BladeBlast"] = "Blade Blast",
 	["ArcaneCloak"] = "Arcane Cloak",
 	["KineticBolt"] = "Kinetic Bolt",
+	["BladeBlast"] = "Blade Blast",
+	["RuneBlast"] = "Stormbind",
 	["Spellslinger"] = "Spellslinger",
-	["Stormbind"] = "Stormbind",
-	["RuneBlast"] = "Rune Blast",
+	["AncestralCry"] = "Ancestral Cry",
+	["EnduringCry"] = "Enduring Cry",
+	["SeismicCry"] = "Seismic Cry",
+	["Sunder"] = "Sunder",
+	["Earthshatter"] = "Earthshatter",
+	["ArcanistBrand"] = "Arcanist Brand",
 }
 
 local bySkill = { }
-for _, mod in ipairs(dat"Mods":GetRowList("GenerationType", 10)) do
+for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
 	if mod.Family == "SkillEnchantment" and mod.SpawnWeights[1] > 0 then
 		local stats = { mod.Stat1, mod.Stat2, mod.Stat3, mod.Stat4, mod.Stat5, mod.Stat6 }
 		local skill
 		for _, stat in pairs(stats) do
-			for _, activeSkill in ipairs(dat"ActiveSkills":GetRowList("SkillSpecificStat", stat)) do
+			for _, activeSkill in ipairs(dat("ActiveSkills"):GetRowList("SkillSpecificStat", stat)) do
 				local isVaal = false
 				for _, skillType in ipairs(activeSkill.SkillTypes) do
 					if skillType == 39 then

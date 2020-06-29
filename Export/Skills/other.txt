@@ -25,6 +25,35 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill BrandDetonate
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill EmbraceMadness
+#flags spell
+	fromItem = true,
+#mods
+
+#skill CreateSmokeCloud
+#flags spell
+	fromItem = true,
+#mods
+
+#skill VolatileDeadChaos
+#flags spell
+	fromItem = true,
+	statMap = {
+		["volatile_dead_core_explosion_radius_+"] = {
+			skill("radius", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SummonMirageChieftain
+#flags spell
+#mods
+
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
 	statMap = {
@@ -108,6 +137,19 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("buffAllies", true)
+#mods
+
+#skill ChannelledSnipe
+#flags attack projectile bow
+	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
+	end,
+#mods
+
+#skill ChannelledSnipeSupport
+	fromItem = true,
+#baseMod flag("TriggeredBySnipe")
 #mods
 
 #skill CrabAspect

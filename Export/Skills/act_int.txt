@@ -28,6 +28,15 @@ local skills, mod, flag, skill = ...
 #skill ArcaneCloak
 #flags spell duration
 	statMap = {
+		["arcane_cloak_consume_%_of_mana"] = {
+			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+		["arcane_cloak_gain_%_of_consumed_mana_as_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
 	},
 #mods
 
@@ -40,14 +49,10 @@ local skills, mod, flag, skill = ...
 #skill CataclysmSigil
 #flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
 		},
 	},
 #baseMod skill("radius", 18)
@@ -177,6 +182,9 @@ local skills, mod, flag, skill = ...
 		},
 		["base_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["minion_recover_X_life_on_block"] = {
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("buffMinions", true)
@@ -609,6 +617,9 @@ local skills, mod, flag, skill = ...
 
 #skill HeraldOfThunder
 #flags cast duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "HeraldStormFrequency") / 100)
+	end,
 	statMap = {
 		["herald_of_thunder_lightning_damage_+%"] = {
 			mod("LightningDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -625,8 +636,13 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_lightning_damage"] = {
 			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["herald_of_thunder_bolt_base_frequency"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
 	},
 #baseMod skill("radius", 32)
+#baseMod skill("showAverage", false)
 #mods
 
 #skill IceNova
@@ -787,6 +803,49 @@ local skills, mod, flag, skill = ...
 
 #skill OrbOfStorms
 #flags spell chaining duration
+#mods
+
+#skill MagmaSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	parts = {
+		{
+			name = "1 Energy Explosion",
+		},
+		{
+			name = "5 Energy Explosion",
+		},
+		{
+			name = "10 Energy Explosion",
+		},
+		{
+			name = "15 Energy Explosion",
+		},
+		{
+			name = "20 Energy Explosion",
+		},
+		{
+			name = "20 Energy Pulse",
+		},
+	},
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "EnergyLevel" }),
+		},
+		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "EnergyLevel" }),
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }})
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod mod("Multiplier:EnergyLevel", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 5 })
+#baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 6 })
 #mods
 
 #skill PowerSiphon
@@ -1038,6 +1097,38 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill SupportSpellslinger
+	statMap = {
+		["gain_%_of_base_wand_damage_as_added_spell_damage"] = {
+			skill("gainPercentBaseWandDamage", nil),
+		},
+	},
+#baseMod flag("Condition:SupportedBySpellslinger")
+#baseMod skill("showAverage", true)
+#mods
+
+#skill BrandSupport
+#flags spell duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+#mods
+
+#skill SupportBrandSupport
+	statMap = {
+		["support_brand_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_brand_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["trigger_brand_support_hit_ailment_damage_+%_final_vs_branded_enemy"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+		},
+	},
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SpiritOffering
 #flags spell duration
 	statMap = {
@@ -1047,6 +1138,9 @@ local skills, mod, flag, skill = ...
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
@@ -1055,14 +1149,10 @@ local skills, mod, flag, skill = ...
 #skill ConduitSigil
 #flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-		["base_sigil_repeat_frequency_ms"] = {
-			skill("repeatFrequency", nil),
-			div = 1000,
 		},
 	},
 #mods
@@ -1081,6 +1171,9 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 	parts = {
 		{
+			name = "Unimproved",
+		},
+		{
 			name = "1 Improvement",
 		},
 		{
@@ -1090,12 +1183,22 @@ local skills, mod, flag, skill = ...
 			name = "3 Improvements",
 		},
 	},
-#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("Damage", "MORE", 200, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("Damage", "MORE", 300, 0, 0, { type = "SkillPart", skillPart = 3 })
-#baseMod mod("AreaOfEffect", "MORE", 30, 0, 0, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("AreaOfEffect", "MORE", 60, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("AreaOfEffect", "MORE", 90, 0, 0, { type = "SkillPart", skillPart = 3 })
+	statMap = {
+		["rune_paint_damage_+%_final_per_rune_level"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_final_per_rune_level"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+	},
+#baseMod mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 2, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("radius", 16)
+#mods
+
+#skill RuneBlast
+#flags spell
 #mods
 
 #skill StormBurstNew
@@ -1286,6 +1389,23 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 16)
+#mods
+
+#skill ImmolationSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["immolation_brand_burn_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStage" }),
+		},
+		["winter_brand_max_number_of_stages"] = {
+			mod("Multiplier:WintertideBrandMaxStage", "BASE", nil)
+		},
+	},
 #mods
 
 #skill Wither

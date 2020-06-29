@@ -6,16 +6,18 @@ return {
 Ahn's Heritage
 Colossal Tower Shield
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 67, 159 Str
 Implicits: 1
-{variant:2}+(10-20) to maximum Life
+{variant:2,3}+(10-20) to maximum Life
 (50-100)% increased Armour
 +(60-80) to maximum Life
 -1 to maximum Endurance Charges
 -10% to maximum Block Chance
 +6% Chance to Block
-+3% to all maximum Resistances while you have no Endurance Charges
+{variant:1,2}+3% to all maximum Resistances while you have no Endurance Charges
+{variant:3}+2% to all maximum Resistances while you have no Endurance Charges
 You have Onslaught while at maximum Endurance Charges
 ]],[[
 The Anticipation
@@ -115,19 +117,22 @@ Painted Tower Shield
 League: Warbands
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 35, 87 Str
 Implicits: 1
-{variant:3}+(20-30) to maximum Life
+{variant:3,4}+(20-30) to maximum Life
+{variant:2,3,4}(80-100)% increased Armour
 {variant:1}+(20-60) to maximum Life
-{variant:2,3}+(50-60) to maximum Life
+{variant:2,3,4}+(50-60) to maximum Life
+20% increased Taunt Duration
 {variant:1}+1 to Level of Socketed Warcry Gems
-{variant:2,3}(80-100)% increased Armour
-{variant:2,3}2% of Attack Damage Leeched as Life against Taunted Enemies
-{variant:2,3}50% increased Warcry Cooldown Recovery Speed
 +5% Chance to Block
 {variant:1}20% increased Endurance Charge Duration
-Gain +10 Life when you Taunt an Enemy
+{variant:1}Gain +10 Life when you Taunt an Enemy
+{variant:2,3,4}50% increased Warcry Cooldown Recovery Speed
+{variant:2,3}2% of Attack Damage Leeched as Life against Taunted Enemies
+{variant:4}Warcries have infinite Power
 ]],[[
 Titucius' Span
 Reinforced Tower Shield
@@ -153,12 +158,12 @@ Variant: Current
 Requires Level 17, 46 Str
 Implicits: 1
 {variant:3}+(20-30) to maximum Life
-+(40-60) to maximum Life
 {variant:2,3}(130-150)% increased Armour
-0.5% of Life Regenerated per Second
++(40-60) to maximum Life
 15% increased Area of Effect for Skills used by Totems
 {variant:1}1% of Damage Leeched as Life for Skills used by Totems
 {variant:2,3}0.5% of Damage dealt by your Totems is Leeched to you as Life
+You and your Totems Regenerate 0.5% of Life per second for each Summoned Totem
 ]],[[
 Tukohama's Fortress
 Ebony Tower Shield
@@ -171,7 +176,7 @@ Implicits: 1
 40% increased Totem Damage
 +(80-100) to maximum Life
 Can have up to 1 additional Totem summoned at a time
-+300 Armour per active Totem
++300 Armour per Summoned Totem
 Blood Magic
 {variant:3}Mortal Conviction
 ]],
@@ -323,18 +328,20 @@ Enameled Buckler
 League: Warbands
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 42, 103 Dex
 Implicits: 1
-{variant:3}6% increased Movement Speed
-+(20-40)% to Cold Resistance
+{variant:3,4}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
-{variant:2,3}(80-100)% Increased Evasion Rating
-10% increased Area of Effect of Area Skills
 {variant:1}(20-30)% increased Chaos Damage
+{variant:2,3,4}(80-100)% Increased Evasion Rating
++(20-40)% to Cold Resistance
+10% increased Area of Effect of Area Skills
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
-{variant:2,3}You gain Onslaught for 4 seconds on using a Warcry
-{variant:2,3}25% Increased Warcry Effect
+{variant:2,3,4}Gain Onslaught for 4 seconds when you Warcry
+{variant:2,3,4}25% increased Warcry Buff Effect
+{variant:4}Call to Arms
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
@@ -415,19 +422,21 @@ Tarnished Spirit Shield
 League: Warbands
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 23, 60 Int
 Implicits: 2
 {variant:1,2}5% increased Spell Damage
-{variant:3}(5-10)% increased Spell Damage
-+(70-90) to maximum Energy Shield
-{variant:1}(8-12)% increased Attack Speed
-{variant:2,3}(8-12)% increased Cast Speed
-(20-40)% increased Mana Regeneration Rate
+{variant:3,4}(5-10)% increased Spell Damage
 {variant:1}+1 to Level of Socketed Warcry Gems
-{variant:2,3}+3 to Level of Socketed Warcry Gems
+{variant:2,3,4}+3 to Level of Socketed Warcry Gems
+{variant:1}(8-12)% increased Attack Speed
+{variant:2,3,4}(8-12)% increased Cast Speed
++(70-90) to maximum Energy Shield
+(20-40)% increased Mana Regeneration Rate
 {variant:1}Gain +3 Mana when you hit a Taunted Enemy
 {variant:2,3}Gain 2 Power Charges on Using a Warcry
+{variant:4}Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%
 ]],[[
 Esh's Mirror
 Thorium Spirit Shield
@@ -474,19 +483,22 @@ Cannot Block
 Kongming's Stratagem
 Ivory Spirit Shield
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.1.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 41, 100 Int
 Implicits: 2
 {variant:1}15% increased Spell Damage
-{variant:2}(15-20)% increased Spell Damage
+{variant:2,3,4}(15-20)% increased Spell Damage
+{Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
+{Variant:3,4}Trigger Level 20 Fog of War when your Trap is triggered
 +(20-30) to Intelligence
-(80-120)% increased Energy Shield
-{Variant:1}Socketed Trap Skills create a Smoke Cloud when triggered
-{Variant:2}Trigger Level 20 Fog of War when your Trap is triggered
-{variant:1}30% increased Fire Damage against Blinded Enemies
-{variant:2}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
+{variant:1,2}(80-120)% increased Energy Shield
+{variant:3,4}(250-300)% increased Energy Shield
+{variant:1,2,3}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
+{variant:4}(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies
 30% reduced Spell Damage taken from Blinded Enemies
-No Block Chance
+No Chance to Block
 ]],[[
 Light of Lunaris
 Jingling Spirit Shield
@@ -510,18 +522,20 @@ Malachai's Loop
 Harmonic Spirit Shield
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 159 Int
 Implicits: 2
 {variant:1,2}10% increased Spell Damage
-{variant:3}(10-15)% increased Spell Damage
+{variant:3,4}(10-15)% increased Spell Damage
 {variant:1}(160-200)% increased Energy Shield
-{variant:2,3}(210-250)% increased Energy Shield
+{variant:2,3,4}(210-250)% increased Energy Shield
 +2 to Maximum Power Charges
 20% chance to gain a Power Charge on Hit
-6% increased Spell Damage per Power Charge
+{variant:1,2,3}6% increased Spell Damage per Power Charge
+{variant:4}(12-16)% increased Spell Damage per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
-You are Shocked for 4 seconds on reaching Maximum Power Charges
+Shocks you when you reach Maximum Power Charges
 ]],[[
 Manastorm
 Fossilised Spirit Shield
@@ -678,18 +692,21 @@ Broken Faith
 Archon Kite Shield
 League: Warbands
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 0.4% of Chaos Damage Leeched as Life
-Gain (5-10)% of Physical Damage as Extra Chaos Damage
-{variant:1}-10% Chance to Block
+{variant:1,2}Gain (5-10)% of Physical Damage as Extra Chaos Damage
+{variant:1,3}-10% Chance to Block
 {variant:2}5% Chance to Block
-{variant:1}(20-30)% increased Damage when you have no Energy Shield
-{variant:2}100% increased Global Armour when you have no Energy Shield
+{variant:1}(20-30)% increased Damage while you have no Energy Shield
+{variant:2,3}100% increased Global Armour while you have no Energy Shield
 {variant:1}30% Chance to gain Unholy Might on Block for 3 seconds
-{variant:2}You gain Unholy Might for 10 seconds on Block
+{variant:2}Gain Unholy Might on Block for 10 seconds
+{variant:3}You have Unholy Might while you have no Energy Shield
+Create Profane Ground instead of Consecrated Ground
 ]],[[
 Invictus Solaris
 Archon Kite Shield
@@ -888,16 +905,18 @@ Shared Suffering
 Maligaro's Lens
 Compound Spiked Shield
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 45, 58 Dex, 58 Int
 Implicits: 2
 {variant:1}Reflects (51-70) Physical Damage to Melee Attackers
-{variant:2}2% chance to Dodge Spell Damage
+{variant:2,3}2% chance to Dodge Spell Damage
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
 −50% to all Elemental Resistances
 10% increased Area of Effect of Area Skills
-Nearby allies Recover 2% of your maximum Life when you Die
+{variant:1,2}Nearby allies Recover 2% of your Maximum Life when you Die
+{variant:3}Nearby allies Recover 1% of your Maximum Life when you Die
 ]],[[
 Perepiteia
 Ezomyte Spiked Shield

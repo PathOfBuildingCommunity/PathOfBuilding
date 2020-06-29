@@ -371,7 +371,6 @@ minions["AnimatedArmour"] = {
 	modList = {
 		-- LabyrinthArrowTrapDamageTakenAnimateArmour [damage_taken_+%_from_arrow_traps_final = -90]
 		mod("Speed", "MORE", 10, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
-		mod("PhysicalDamage", "MORE", 20, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
 		mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" }),
 	},
 }

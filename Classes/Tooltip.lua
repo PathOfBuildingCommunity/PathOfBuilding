@@ -17,6 +17,7 @@ local recipeNames = {
 	"ClearOil",
 	"CrimsonOil",
 	"GoldenOil",
+	"IndigoOil",
 	"OpalescentOil",
 	"SepiaOil",
 	"SilverOil",
@@ -25,14 +26,14 @@ local recipeNames = {
 	"VioletOil",
 }
 
-local TooltipClass = newClass("Tooltip", function(self)
-	-- Preload all recipe images
-	self.recipeImages = { }
-	for _, recipeName in pairs(recipeNames) do
-		self.recipeImages[recipeName] = NewImageHandle()
-		self.recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
-	end
+-- Preload all recipe images
+local recipeImages = { }
+for _, recipeName in pairs(recipeNames) do
+	recipeImages[recipeName] = NewImageHandle()
+	recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
+end
 
+local TooltipClass = newClass("Tooltip", function(self)
 	self.lines = { }
 	self.blocks = { }
 	self:Clear()
@@ -173,7 +174,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				t_insert(drawStack, {ttX + imageX, y + (title.size - recipeTextSize)/2, "LEFT", recipeTextSize, "VAR", recipeNameShort})
 				imageX = imageX + DrawStringWidth(recipeTextSize, "VAR", recipeNameShort)
 				-- Draw the image of the recipe component (oil)
-				t_insert(drawStack, {self.recipeImages[recipeName], ttX + imageX, y, title.size, title.size})
+				t_insert(drawStack, {recipeImages[recipeName], ttX + imageX, y, title.size, title.size})
 				imageX = imageX + title.size * 1.25
 			end
 		end

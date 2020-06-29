@@ -21,17 +21,19 @@ Apep's Rage
 Opal Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 62, 212 Int
 Implicits: 2
 {variant:1}(17-20)% increased Spell Damage
-{variant:2,3}(38-42)% increased Spell Damage
+{variant:2,3,4}(38-42)% increased Spell Damage
 {variant:1,2}Adds (50-65) to (90-105) Chaos Damage to Spells
-{variant:3}Adds (90-130) to (140-190) Chaos Damage to Spells
+{variant:3,4}Adds (90-130) to (140-190) Chaos Damage to Spells
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
-40% increased Mana Cost of Skills
-{variant:3}Poisons you inflict deal Damage 20% faster
+{variant:1,2,3}40% increased Mana Cost of Skills
+{variant:4}+40 to Total Mana Cost of Skills
+{variant:3,4}Poisons you inflict deal Damage 20% faster
 ]],[[
 Ashcaller
 Quartz Wand
@@ -53,14 +55,17 @@ Crystal Wand
 Upgrade: Upgrades to unique{Corona Solaris} via prophecy{Blinding Light}
 Variant: Pre 2.2.0
 Variant: Pre 2.3.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 45, 146 Int
 Implicits: 2
 {variant:1,2}(14-18)% increased Spell Damage
-{variant:3}(29-33)% increased Spell Damage
-Adds (18-22) to (36-44) Physical Damage
+{variant:3,4}(29-33)% increased Spell Damage
+{variant:1,2,3}Adds (18-22) to (36-44) Physical Damage
+{variant:4}Adds (30-45) to (60-80) Fire Damage
+{variant:4}(6-10)% increased Attack Speed
 {variant:1}+(18-30)% to Global Critical Strike Multiplier
-{variant:2,3}+(27-33)% to Global Critical Strike Multiplier
+{variant:2,3,4}+(27-33)% to Global Critical Strike Multiplier
 20% increased Light Radius
 Nearby Enemies are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
@@ -68,11 +73,15 @@ Nearby Enemies are Blinded
 Corona Solaris
 Crystal Wand
 Source: Upgraded from unique{Eclipse Solaris} via prophecy{Blinding Light}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 63, 146 Int
 Implicits: 1
 (29-33)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
-Adds (18-22) to (36-44) Physical Damage
+{variant:1}Adds (18-22) to (36-44) Physical Damage
+{variant:2}Adds (30-45) to (60-80) Fire Damage
+{variant:2}(6-10)% increased Attack Speed
 +(27-33)% to Global Critical Strike Multiplier
 20% increased Light Radius
 (120-140)% increased Critical Strike Chance against Blinded Enemies
@@ -136,16 +145,18 @@ Implicits: 2
 Obliteration
 Demon's Horn
 Variant: Pre 2.3.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 56, 179 Int
 Implicits: 2
 {variant:1}(15-18)% increased Spell Damage
-{variant:2}(31-35)% increased Spell Damage
-Adds (24-30) to (80-92) Physical Damage
+{variant:2,3}(31-35)% increased Spell Damage
+{variant:1,2}Adds (24-30) to (80-92) Physical Damage
+{variant:3}Adds (25-50) to (85-125) Physical Damage
 (26-32)% increased Critical Strike Chance
 Gain (13-15)% of Physical Damage as Extra Chaos Damage
 Enemies you Kill have a 20% chance to Explode, dealing a quarter
-of their maximum Life as Chaos Damage.
+of their maximum Life as Chaos Damage
 ]],[[
 Piscator's Vigil
 Tornado Wand
@@ -177,25 +188,30 @@ Reverberation Rod
 Spiraled Wand
 Upgrade: Upgrades to unique{Amplification Rod} via prophecy{Power Magnified}
 Variant: Pre 2.3.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 24, 83 Int
 Implicits: 2
 {variant:1}(10-14)% increased Spell Damage
-{variant:2}(15-19)% increased Spell Damage
-+1 to Level of Socketed Gems
-Socketed Gems are Supported by level 1 Spell Echo
+{variant:2,3}(15-19)% increased Spell Damage
+{variant:1,2}+1 to Level of Socketed Gems
+{variant:3}+2 to Level of Socketed Gems
+Socketed Gems are Supported by Level 10 Spell Echo
 +(10-30) to Intelligence
 ]],[[
 Amplification Rod
 Spiraled Wand
 Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 36, 83 Int
 Implicits: 1
 (15-19)% increased Spell Damage
-+1 to Level of Socketed Gems
-Socketed Gems are Supported by level 1 Spell Echo
-Socketed Gems are Supported by level 1 Increased Area of Effect
-Socketed Gems are Supported by level 1 Controlled Destruction
+{variant:1}+1 to Level of Socketed Gems
+{variant:2}+2 to Level of Socketed Gems
+Socketed Gems are Supported by Level 10 Intensify
+Socketed Gems are Supported by Level 10 Spell Echo
+Socketed Gems are Supported by Level 10 Controlled Destruction
 +(10-30) to Intelligence
 ]],[[
 Shade of Solaris

@@ -13,14 +13,6 @@ local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
 
-local nodeMigrate32_33 = {
-	[17788] = 38129,
-	[38807] = 63639,
-	[5607] = 62069,
-	[61547] = 31583,
-	[29619] = 1600,
-}
-
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion)
 	self.UndoHandler()
 
@@ -65,24 +57,7 @@ end)
 
 function PassiveSpecClass:Load(xml, dbFileName)
 	self.title = xml.attrib.title
-	local url, hashLoad
-	if xml.attrib.nodes then
-		-- New format
-		if not xml.attrib.classId then
-			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'classId' attribute", dbFileName)
-			return true
-		end
-		if not xml.attrib.ascendClassId then
-			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'ascendClassId' attribute", dbFileName)
-			return true
-		end
-		local hashList = { }
-		for hash in xml.attrib.nodes:gmatch("%d+") do
-			t_insert(hashList, tonumber(hash))
-		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
-		hashLoad = true
-	end
+	local url
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "URL" then
@@ -109,7 +84,22 @@ function PassiveSpecClass:Load(xml, dbFileName)
 			end
 		end
 	end
-	if url and not hashLoad then
+	if xml.attrib.nodes then
+		-- New format
+		if not xml.attrib.classId then
+			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'classId' attribute", dbFileName)
+			return true
+		end
+		if not xml.attrib.ascendClassId then
+			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'ascendClassId' attribute", dbFileName)
+			return true
+		end
+		local hashList = { }
+		for hash in xml.attrib.nodes:gmatch("%d+") do
+			t_insert(hashList, tonumber(hash))
+		end
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
+	elseif url then
 		self:DecodeURL(url)
 	end
 	self:ResetUndo()
@@ -147,20 +137,11 @@ function PassiveSpecClass:PostLoad()
 	self:BuildClusterJewelGraphs()
 end
 
-function PassiveSpecClass:MigrateNodeId(nodeId)
-	if self.build.targetVersion == "3_0" then
-		-- Migration from 3.2 to 3.3
-		return nodeMigrate32_33[nodeId] or nodeId
-	end
-	return nodeId
-end
-
 -- Import passive spec from the provided class IDs and node hash list
 function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
-		id = self:MigrateNodeId(id)
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
@@ -173,65 +154,31 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 end
 
 -- Decode the given passive tree URL
--- Supports both the official skill tree links as well as PoE Planner links
 function PassiveSpecClass:DecodeURL(url)
 	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
 	if not b or #b < 6 then
 		return "Invalid tree link (unrecognised format)"
 	end
-	local classId, ascendClassId, bandits, nodes
-	if b:byte(1) == 0 and b:byte(2) == 2 then
-		-- Hold on to your headgear, it looks like a PoE Planner link
-		-- Let's grab a scalpel and start peeling back the 50 layers of base 64 encoding
-		local treeLinkLen = b:byte(4) * 256 + b:byte(5)
-		local treeLink = b:sub(6, 6 + treeLinkLen - 1)
-		b = common.base64.decode(treeLink:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
-		classId = b:byte(3)
-		ascendClassId = b:byte(4)
-		bandits = b:byte(5)
-		nodes = b:sub(8, -1)
-	elseif b:byte(1) == 0 and b:byte(2) == 4 then
-		-- PoE Planner version 4
-		-- Now with 50% fewer layers of base 64 encoding
-		classId = b:byte(6) % 16
-		ascendClassId = m_floor(b:byte(6) / 16)
-		bandits = b:byte(7)
-		local numNodes = b:byte(8) * 256 + b:byte(9)
-		nodes = b:sub(10, 10 + numNodes * 2 - 1)
-	else
-		local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
-		if ver > 4 then
-			return "Invalid tree link (unknown version number '"..ver.."')"
-		end
-		classId = b:byte(5)	
-		ascendClassId = 0--(ver >= 4) and b:byte(6) or 0   -- This value would be reliable if the developer of a certain online skill tree planner *cough* PoE Planner *cough* hadn't bollocked up
-														   -- the generation of the official tree URL. The user would most likely import the PoE Planner URL instead but that can't be relied upon.
-		nodes = b:sub(ver >= 4 and 8 or 7, -1)
-	end	
+	local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
+	if ver > 4 then
+		return "Invalid tree link (unknown version number '"..ver.."')"
+	end
+	local classId = b:byte(5)	
+	local ascendClassId = (ver >= 4) and b:byte(6) or 0
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
+	self:SelectAscendClass(ascendClassId)
+	local nodes = b:sub(ver >= 4 and 8 or 7, -1)
 	for i = 1, #nodes - 1, 2 do
-		local id = self:MigrateNodeId(nodes:byte(i) * 256 + nodes:byte(i + 1))
+		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
 			self.allocNodes[id] = node
-			if ascendClassId == 0 and node.ascendancyName then
-				-- Just guess the ascendancy class based on the allocated nodes
-				ascendClassId = self.tree.ascendNameMap[node.ascendancyName].ascendClassId
-			end
 		end
-	end
-	self:SelectAscendClass(ascendClassId)
-	if bandits then
-		-- Decode bandits from PoEPlanner
-		local lookup = { [0] = "None", "Alira", "Kraityn", "Oak" }
-		self.build.banditNormal = lookup[bandits % 4]
-		self.build.banditCruel = lookup[m_floor(bandits / 4) % 4]
-		self.build.banditMerciless = lookup[m_floor(bandits / 16) % 4]
 	end
 end
 
@@ -477,6 +424,49 @@ function PassiveSpecClass:BuildPathFromNode(root)
 	end
 end
 
+-- Determine this node's distance from the class' start
+-- Only allocated nodes can be traversed
+function PassiveSpecClass:SetNodeDistanceToClassStart(root)
+	root.distanceToClassStart = 0
+	if not root.alloc or root.dependsOnIntuitiveLeapLike then
+		return
+	end
+
+	-- Stop once the current class' starting node is reached
+	local targetNodeId = self.curClass.startNodeId
+
+	local nodeDistanceToRoot = { }
+	nodeDistanceToRoot[root.id] = 0
+
+	local queue = { root }
+	local o, i = 1, 2 -- Out, in
+	while o < i do
+		-- Nodes are processed in a queue, until there are no nodes left or the starting node is reached
+		-- All nodes that are 1 node away from the root will be processed first, then all nodes that are 2 nodes away, etc
+		-- Only allocated nodes are queued
+		local node = queue[o]
+		o = o + 1
+		local curDist = nodeDistanceToRoot[node.id] + 1
+		-- Iterate through all nodes that are connected to this one
+		for _, other in ipairs(node.linked) do
+			-- If this connected node is the correct class start node, then record the distance to the node and return
+			if other.id == targetNodeId then
+				root.distanceToClassStart = curDist - 1
+				return
+			end
+
+			-- Otherwise, record the distance to this node if it hasn't already been visited
+			if other.alloc and not nodeDistanceToRoot[other.id] then
+				nodeDistanceToRoot[other.id] = curDist;
+
+				-- Add the other node to the end of the queue
+				queue[i] = other
+				i = i + 1
+			end
+		end
+	end
+end
+
 -- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- This table will keep track of which nodes have been visited during each path-finding attempt
@@ -490,14 +480,14 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			for nodeId, itemId in pairs(self.jewels) do
 				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
 					local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
-					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
+					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
 						if itemId ~= 0
 							and self.build.itemsTab.items[itemId].jewelData
 							and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
 							-- This node depends on Intuitive Leap-like behaviour
 							-- This flag:
 							-- 1. Prevents generation of paths from this node
-							-- 2. Prevents this node from being deallocted via dependancy
+							-- 2. Prevents this node from being deallocated via dependency
 							-- 3. Prevents allocation of path nodes when this node is being allocated
 							node.dependsOnIntuitiveLeapLike = true
 							break
@@ -576,10 +566,16 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.pathDist = (node.alloc and not node.dependsOnIntuitiveLeapLike) and 0 or 1000
 		node.path = nil
+		if node.isJewelSocket or node.expansionJewel then
+			node.distanceToClassStart = 0
+		end
 	end
 	for id, node in pairs(self.allocNodes) do
 		if not node.dependsOnIntuitiveLeapLike then
 			self:BuildPathFromNode(node)
+			if node.isJewelSocket or node.expansionJewel then
+				self:SetNodeDistanceToClassStart(node)
+			end
 		end
 	end
 end
@@ -606,7 +602,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	for nodeId in pairs(self.tree.sockets) do
 		local node = self.tree.nodes[nodeId]
 		local jewel = self:GetJewel(self.jewels[nodeId])
-		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelSkill then
+		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
 			-- This is a Large Jewel Socket, and it has a cluster jewel in it
 			self:BuildSubgraph(jewel, self.nodes[nodeId])
 		end
@@ -624,19 +620,21 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 
 	-- Rebuild paths to account for new/removed nodes
 	self:BuildAllDependsAndPaths()
+
+	-- Rebuild node search cache because the tree might have changed
+	self.build.treeTab.viewer.searchStrCached = ""
 end
 
 function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	local expansionJewel = parentSocket.expansionJewel
 	local clusterJewel = jewel.clusterJewel
 	local jewelData = jewel.jewelData
-	local skill = clusterJewel.skills[jewelData.clusterJewelSkill]
-	assert(skill, "Invalid cluster jewel skill")
 
 	local subGraph = {
 		nodes = { },
-		group = { },
+		group = { oo = { } },
 		connectors = { },
+		parentSocket = parentSocket,
 	}
 
 	-- Make id for this subgraph (and nodes)
@@ -644,8 +642,8 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	-- 4-5: Group size (0-2)
 	-- 6-8: Large index (0-5)
 	-- 9-10: Medium index (0-2)
-	-- 11: Unused
-	-- 12: 1 (signal bit, to prevent conflict with node hashes)
+	-- 11-15: Unused
+	-- 16: 1 (signal bit, to prevent conflict with node hashes)
 	id = id or 0x10000
 	if expansionJewel.size == 2 then
 		id = id + b_lshift(expansionJewel.index, 6)
@@ -654,22 +652,60 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	end
 	local nodeId = id + b_lshift(clusterJewel.sizeIndex, 4)
 
+	self.subGraphs[nodeId] = subGraph
+
 	-- Locate the proxy group
 	local proxyNode = self.tree.nodes[tonumber(expansionJewel.proxy)]
 	assert(proxyNode, "Proxy node not found")
 	local proxyGroup = proxyNode.group
 
-	if upSize and upSize > 0 then
-		-- We need to move inwards to account for the parent group being downsized
-		-- So we position according to the parent's original group position
-		assert(upSize == 1) -- Only handling 1 upsize, which is the most that is possible
-		local parentGroup = self.tree.nodes[parentSocket.id].group
-		subGraph.group.x = parentGroup.x
-		subGraph.group.y = parentGroup.y
-	else
+	-- Actually, let's not, since the game doesn't handle this :D
+--	if upSize and upSize > 0 then
+--		-- We need to move inwards to account for the parent group being downsized
+--		-- So we position according to the parent's original group position
+--		assert(upSize == 1) -- Only handling 1 upsize, which is the most that is possible
+--		local parentGroup = self.tree.nodes[parentSocket.id].group
+--		subGraph.group.x = parentGroup.x
+--		subGraph.group.y = parentGroup.y
+--	else
 		-- Position the group using the original proxy's position
 		subGraph.group.x = proxyGroup.x
 		subGraph.group.y = proxyGroup.y
+--	end
+
+	local function linkNodes(node1, node2)
+		t_insert(node1.linked, node2)
+		t_insert(node2.linked, node1)
+		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
+	end
+
+	if jewelData.clusterJewelKeystone then
+		-- Special handling for keystones
+		local keystoneNode = self.tree.clusterNodeMap[jewelData.clusterJewelKeystone]
+		assert(keystoneNode, "Keystone node not found: "..jewelData.clusterJewelKeystone)
+
+		-- Construct the new node
+		local node = {
+			type = "Keystone",
+			id = nodeId,
+			dn = keystoneNode.dn,
+			sd = keystoneNode.sd,
+			icon = keystoneNode.icon,
+			expansionSkill = true,
+			group = subGraph.group,
+			o = 0,
+			oidx = 0,
+			linked = { },
+			power = { },
+		}
+		t_insert(subGraph.nodes, node)
+
+		-- Process and add it
+		self.tree:ProcessNode(node)
+		linkNodes(node, parentSocket)
+		subGraph.entranceNode = node
+		self.nodes[node.id] = node
+		return
 	end
 
 	local function findSocket(group, index)
@@ -699,7 +735,28 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 
 	-- Initialise orbit flags
 	local nodeOrbit = clusterJewel.sizeIndex + 1
-	subGraph.group.oo = { [nodeOrbit] = true }
+	subGraph.group.oo[nodeOrbit] = true
+
+	-- Process list of notables
+	local notableList = { }
+	local sortOrder = self.build.data.clusterJewels.notableSortOrder
+	for _, name in ipairs(jewelData.clusterJewelNotables) do
+		local baseNode = self.tree.clusterNodeMap[name]
+		assert(baseNode, "Cluster notable not found:  "..name)
+		assert(sortOrder[baseNode.dn], "Cluster notable has no sort order: "..name)
+		t_insert(notableList, baseNode)
+	end
+	table.sort(notableList, function(a, b) return sortOrder[a.dn] < sortOrder[b.dn] end)
+
+	local skill = clusterJewel.skills[jewelData.clusterJewelSkill] or {
+		name = "Nothingness",
+		icon = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
+		stats = { },
+	}
+	local socketCount = jewelData.clusterJewelSocketCountOverride or jewelData.clusterJewelSocketCount or 0
+	local notableCount = #notableList
+	local nodeCount = jewelData.clusterJewelNodeCount or (socketCount + notableCount + (jewelData.clusterJewelNothingnessCount or 0))
+	local smallCount = nodeCount - socketCount - notableCount
 
 	if skill.masteryIcon then
 		-- Add mastery node
@@ -715,7 +772,6 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	end
 
 	local indicies = { }
-	local smallCount = m_min(m_max(jewelData.clusterJewelNodeCount or clusterJewel.maxNodes, clusterJewel.minNodes), clusterJewel.maxNodes)
 
 	local function makeJewel(nodeIndex, jewelIndex)
 		-- Look for the socket
@@ -736,47 +792,60 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
-		smallCount = smallCount - 1
 	end
 
 	-- First pass: sockets
-	if jewelData.clusterJewelSocketCount == 1 and clusterJewel.size == "Large" then
+	if clusterJewel.size == "Large" and socketCount == 1 then
 		-- Large clusters always have the single jewel at index 6
 		makeJewel(6, 1)
 	else
-		local count = jewelData.clusterJewelSocketCount or 0
-		assert(count <= #clusterJewel.socketIndicies)
+		assert(socketCount <= #clusterJewel.socketIndicies, "Too many sockets!")
 		local getJewels = { 0, 2, 1 }
-		for i = 1, count do
+		for i = 1, socketCount do
 			makeJewel(clusterJewel.socketIndicies[i], getJewels[i])
 		end
 	end
 
 	-- Second pass: notables
-	for _, name in ipairs(jewelData.clusterJewelNotables) do
-		-- Find a free index
-		local nodeIndex
-		for _, index in ipairs(clusterJewel.notableIndicies) do
-			if not indicies[index] then
-				nodeIndex = index
-				break
-			end
+
+	-- Gather notable indicies
+	local notableIndexList = { }
+	for _, nodeIndex in ipairs(clusterJewel.notableIndicies) do
+		if #notableIndexList == notableCount then
+			break
 		end
-		if not nodeIndex then
-			for index = clusterJewel.totalIndicies - 2, 0, -2 do
-				-- Silly fallback to handle maybe possible cases?
-				if not indicies[index] then
-					nodeIndex = index
-					break
+		if clusterJewel.size == "Medium" then
+			if socketCount == 0 and notableCount == 2 then
+				-- Special rule for two notables in a Medium cluster
+				if nodeIndex == 6 then
+					nodeIndex = 4
+				elseif nodeIndex == 10 then
+					nodeIndex = 8
+				end
+			elseif nodeCount == 4 then
+				-- Special rule for notables in a 4-node Medium cluster
+				if nodeIndex == 10 then
+					nodeIndex = 9
+				elseif nodeIndex == 2 then
+					nodeIndex = 3
 				end
 			end
-			assert(nodeIndex, "No free index to place notable")
 		end
+		if not indicies[nodeIndex] then
+			t_insert(notableIndexList, nodeIndex)
+		end
+	end
+	table.sort(notableIndexList)
 
-		-- Locate the base node
-		local baseNode = self.tree.clusterNodeMap[name]
-		assert(baseNode, "Cluster notable not found: "..name)
-
+	-- Create the notables
+	for index, baseNode in ipairs(notableList) do
+		-- Get the index
+		local nodeIndex = notableIndexList[index]
+		if not nodeIndex then
+			-- Silently fail to handle cases of jewels with more notables than should be allowed
+			break
+		end
+		
 		-- Construct the new node
 		local node = {
 			type = "Notable",
@@ -791,20 +860,40 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
-		smallCount = smallCount - 1
 	end
 
 	-- Third pass: small fill
-	for i = 1, smallCount do
-		-- Find a free index
-		local nodeIndex
-		for _, index in ipairs(clusterJewel.smallIndicies) do
-			if not indicies[index] then
-				nodeIndex = index
-				break
+
+	-- Gather small indicies
+	local smallIndexList = { }
+	for _, nodeIndex in ipairs(clusterJewel.smallIndicies) do
+		if #smallIndexList == smallCount then
+			break
+		end
+		if clusterJewel.size == "Medium" then
+			-- Special rules for small nodes in Medium clusters
+			if nodeCount == 5 and nodeIndex == 4 then
+				nodeIndex = 3
+			elseif nodeCount == 4 then
+				if nodeIndex == 8 then
+					nodeIndex = 9
+				elseif nodeIndex == 4 then
+					nodeIndex = 3
+				end
 			end
 		end
-		assert(nodeIndex, "No free index to place small node")
+		if not indicies[nodeIndex] then
+			t_insert(smallIndexList, nodeIndex)
+		end
+	end
+
+	-- Create the small nodes
+	for index = 1, smallCount do
+		-- Get the index
+		local nodeIndex = smallIndexList[index]
+		if not nodeIndex then
+			break
+		end
 
 		-- Construct the new node
 		local node = {
@@ -827,11 +916,10 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 
 	assert(indicies[0], "No entrance to subgraph")
 	subGraph.entranceNode = indicies[0]
-	subGraph.parentSocket = parentSocket
-
+	
 	-- Correct position to account for index of proxy node
 	for _, node in pairs(indicies) do
-		node.oidx = (node.oidx + proxyNode.oidx - 1) % clusterJewel.totalIndicies + 1
+		node.oidx = (node.oidx + proxyNode.oidx) % clusterJewel.totalIndicies
 	end
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
@@ -839,15 +927,9 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		node.linked = { }
 		node.power = { }
 		self.tree:ProcessNode(node)
-		if node.modList and jewelData.clusterJewelIncEffect then
+		if node.modList and jewelData.clusterJewelIncEffect and node.type == "Normal" then
 			node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)
 		end
-	end
-
-	local function linkNodes(node1, node2)
-		t_insert(node1.linked, node2)
-		t_insert(node2.linked, node1)
-		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
 	end
 
 	-- Generate connectors
@@ -872,21 +954,17 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 
 	-- Add synthetic nodes to the main node list
 	for _, node in ipairs(subGraph.nodes) do
-		if node.id then
-			self.nodes[node.id] = node
-			if node.type == "Socket" then
-				-- Recurse to smaller jewels
-				local jewel = self:GetJewel(self.jewels[node.id])
-				if jewel and jewel.jewelData.clusterJewelSkill then
-					self:BuildSubgraph(jewel, node, id, upSize)
-				end
+		self.nodes[node.id] = node
+		if node.type == "Socket" then
+			-- Recurse to smaller jewels
+			local jewel = self:GetJewel(self.jewels[node.id])
+			if jewel and jewel.jewelData.clusterJewelValid then
+				self:BuildSubgraph(jewel, node, id, upSize)
 			end
 		end
 	end
 
 	--ConPrintTable(subGraph)
-
-	self.subGraphs[nodeId] = subGraph
 end
 
 function PassiveSpecClass:CreateUndoState()
@@ -903,4 +981,9 @@ end
 
 function PassiveSpecClass:RestoreUndoState(state)
 	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList)
+	self:SetWindowTitleWithBuildClass()
+end
+
+function PassiveSpecClass:SetWindowTitleWithBuildClass()
+	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName))
 end

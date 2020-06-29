@@ -42,21 +42,23 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
 {variant:1}+8 Life gained for each Enemy hit by Attacks
 {variant:2}2% of Physical Attack Damage Leeched as Life
-{variant:3,4,5}+19 Life gained for each Enemy hit by Attacks
-{variant:4}Trigger Level 1 Abyssal Cry on Hit
+{variant:3,4,5,6}+19 Life gained for each Enemy hit by Attacks
 {variant:1,2,3,4}Socketed Gems have 10% chance to cause Enemies to Flee on Hit
-{variant:4,5}Trigger Level 1 Abyssal Cry on Hit
+{variant:4,5}Trigger Level 1 Intimidating Cry on Hit
 {variant:1}(60-80)% increased Physical Damage
-{variant:2,3,4,5}(100-120)% increased Physical Damage
+{variant:2,3,4,5,6}(100-120)% increased Physical Damage
 3% of Physical Attack Damage Leeched as Life
 {variant:1,2,3,4}10% reduced Enemy Stun Threshold with this Weapon
+{variant:6}Enemies Taunted by your Warcries Explode on death, dealing 8% of their maximum Life as Chaos Damage
 {variant:5}50% increased Warcry Buff Effect
-{variant:5}Warcry Skills' Cooldown Time is 2 seconds
+{variant:6}25% increased Warcry Buff Effect
+{variant:5,6}Warcry Skills' Cooldown Time is 4 seconds
 ]],[[
 Bloodseeker
 Hellion's Paw
@@ -114,15 +116,20 @@ Leech Energy Shield instead of Life
 ]],[[
 Essentia Sanguis
 Vaal Claw
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
-8% additional Chance to Block while Dual Wielding Claws
++8% Chance to Block Attack Damage while Dual Wielding Claws
 (140-180)% increased Physical Damage
 Adds 1 to 200 Lightning Damage
 (20-30)% increased Attack Speed
 +(30-40) to maximum Energy Shield
-Leech Energy Shield instead of Life
+{variant:1}Leech Energy Shield instead of Life
+{variant:2}50% reduced Maximum Recovery per Energy Shield Leech
+{variant:2}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
+{variant:2}Ghost Reaver
 ]],[[
 Hand of Thought and Motion
 Blinder
@@ -242,15 +249,17 @@ Adds (25-35) to (50-65) Physical Damage
 The Scourge
 Terror Claw
 Source: Drops from unique{Guardian of the Chimera}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
+{variant:1}10% Chance to Cast level 10 Summon Spectral Wolf on Kill
 Adds (35-50) to (100-125) Physical Damage
 (10-15)% increased Attack Speed
 Minions have (10-15)% increased Attack Speed
-10% Chance to Cast level 18 Summon Spectral Wolf on Kill
-Increases and Reductions to Minion Damage also affect you
-70% increased Minion Damage if you have Hit Recently
+Increases and Reductions to Minion Damage also affect you at 150% of their value
+Minions deal 70% increased Damage if you've Hit Recently
 ]],[[
 Touch of Anguish
 Imperial Claw

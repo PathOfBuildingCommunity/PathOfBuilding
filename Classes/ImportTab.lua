@@ -12,6 +12,8 @@ local realmList = {
 	{ label = "PS4", id = "SONY", realmCode = "sony", profileURL = "https://www.pathofexile.com/account/sony/view-profile/" },
 }
 
+local influenceInfo = itemLib.influenceInfo
+
 local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
 	self.Control()
@@ -68,7 +70,9 @@ If possible, change the game version in the Configuration tab before importing.]
 			t_insert(historyList, accountName)
 			historyList[accountName] = true
 		end
-		table.sort(historyList)
+		table.sort(historyList, function(a,b)
+			return a:lower() < b:lower()
+		end)
 	end -- don't load the list many times
 
 	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
@@ -161,7 +165,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 			t_insert(historyList, self.controls.accountName.buf)
 			historyList[self.controls.accountName.buf] = true
 			self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
-			table.sort(historyList)
+			table.sort(historyList, function(a,b)
+				return a:lower() < b:lower()
+			end)
 		end
 	end)
 
@@ -381,8 +387,11 @@ function ImportTabClass:DownloadCharacterList()
 					league = league,
 				})
 			end				
+			if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
+				self.controls.charSelectLeague.selIndex = 1
+			end
 			self.lastCharList = charList
-			self:BuildCharacterList()
+			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
 		end, sessionID and "POESESSID="..sessionID)
 	end, sessionID and "POESESSID="..sessionID)
 end
@@ -483,6 +492,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.characterLevel = charData.level
 	self.build.controls.characterLevel:SetText(charData.level)
 	self.build.buildFlag = true
+	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
 end
 
 function ImportTabClass:ImportItemsAndSkills(json)
@@ -630,12 +640,9 @@ function ImportTabClass:ImportItem(itemData, slotName)
 
 	-- Import item data
 	item.uniqueID = itemData.id
-	item.shaper = itemData.shaper
-	item.elder = itemData.elder
-	item.adjudicator = itemData.adjudicator
-	item.basilisk = itemData.basilisk
-	item.crusader = itemData.crusader
-	item.eyrie = itemData.eyrie
+	for _, curInfluenceInfo in ipairs(influenceInfo) do
+		item[curInfluenceInfo.key] = itemData[curInfluenceInfo.key]
+	end
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
 	end
@@ -691,16 +698,18 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	item.explicitModLines = { }
 	if itemData.enchantMods then
 		for _, line in ipairs(itemData.enchantMods) do
-			line = line:gsub("\n"," ")
-			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			end
 		end
 	end
 	if itemData.implicitMods then
 		for _, line in ipairs(itemData.implicitMods) do
-			line = line:gsub("\n"," ")
-			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
+			end
 		end
 	end
 	if itemData.fracturedMods then
@@ -724,6 +733,30 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			end
+		end
+	end
+	-- Sometimes flavour text has actual mods that PoB cares about
+	-- Right now, the only known one is "This item can be anointed by Cassia"
+	if itemData.flavourText then
+		for _, line in ipairs(itemData.flavourText) do
+			for line in line:gmatch("[^\n]+") do
+				-- Remove any text outside of curly braces, if they exist.
+				-- This fixes lines such as:
+				--   "<default>{This item can be anointed by Cassia}"
+				-- To now be:
+				--   "This item can be anointed by Cassia"
+				local startBracket = line:find("{")
+				local endBracket = line:find("}")
+				if startBracket and endBracket and endBracket > startBracket then
+					line = line:sub(startBracket + 1, endBracket - 1)
+				end
+
+				-- If the line parses, then it should be included as an explicit mod
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				if modList then
+					t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
+				end
 			end
 		end
 	end
@@ -761,26 +794,34 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true }
-			gemInstance.nameSpec = socketedItem.typeLine:gsub(" Support","")
-			gemInstance.support = socketedItem.support
-			for _, property in pairs(socketedItem.properties) do
-				if property.name == "Level" then
-					gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
-				elseif property.name == "Quality" then
-					gemInstance.quality = tonumber(property.values[1][1]:match("%d+"))
+			local gemId = self.build.data.gemForBaseName[socketedItem.typeLine] 
+			if not gemId and socketedItem.hybrid then
+				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
+				-- Luckily the primary skill name is also there, so we can find the gem using that
+				gemId = self.build.data.gemForBaseName[socketedItem.hybrid.baseTypeName]
+			end
+			if gemId then
+				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
+				gemInstance.nameSpec = self.build.data.gems[gemId].name
+				gemInstance.support = socketedItem.support
+				for _, property in pairs(socketedItem.properties) do
+					if property.name == "Level" then
+						gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
+					elseif property.name == "Quality" then
+						gemInstance.quality = tonumber(property.values[1][1]:match("%d+"))
+					end
 				end
-			end
-			local groupID = item.sockets[socketedItem.socket + 1].group
-			if not itemSocketGroupList[groupID] then
-				itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
-			end
-			local socketGroup = itemSocketGroupList[groupID]
-			if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
-				-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
-				t_insert(socketGroup.gemList, 1, gemInstance)
-			else
-				t_insert(socketGroup.gemList, gemInstance)
+				local groupID = item.sockets[socketedItem.socket + 1].group
+				if not itemSocketGroupList[groupID] then
+					itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
+				end
+				local socketGroup = itemSocketGroupList[groupID]
+				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
+					-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
+					t_insert(socketGroup.gemList, 1, gemInstance)
+				else
+					t_insert(socketGroup.gemList, gemInstance)
+				end
 			end
 		end
 	end

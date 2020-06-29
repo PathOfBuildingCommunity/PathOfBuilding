@@ -46,6 +46,16 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportArchmage
+	statMap = {
+		["manaweave_cost_equals_%_unreserved_mana"] = {
+			skill("baseManaCostIsAtLeastPercentUnreservedMana", nil),
+		},
+		["manaweave_added_lightning_damage_%_cost_if_payable"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			div = 100,
+		},
+	},
 #mods
 
 #skill SupportBlasphemy
@@ -297,11 +307,11 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 		["support_storm_barrier_skill_type_damage_+%_final"] = {
-			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
-			mod("FireDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
-			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
-			mod("LightningDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
-			mod("ChaosDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
+			mod("Condition:HavePhysicalInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
+			mod("Condition:HaveFireInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
+			mod("Condition:HaveColdInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
+			mod("Condition:HaveLightningInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
+			mod("Condition:HaveChaosInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
 		},
 	},
 #baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })
@@ -483,6 +493,20 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_number_of_support_ghosts_allowed"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SupportRapidActivation
+	statMap = {
+		["support_rapid_activation_brand_activation_rate_+%_final"] = {
+			mod("BrandActivationFrequency", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
+			mod("PrimaryDuration", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
+			mod("SecondaryDuration", "MORE", nil),
 		},
 	},
 #mods
