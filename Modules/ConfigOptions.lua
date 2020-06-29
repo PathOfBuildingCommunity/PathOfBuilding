@@ -963,6 +963,9 @@ return {
 	{ var = "conditionEnemyUnnerved", type = "check", ifVer = "3_0", label = "Is the enemy Unnerved?", tooltip = "This adds the following modifiers:\n10% increased Spell Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Unnerve", ModFlag.Spell)
 	end },
+	{ var = "conditionEnemyCrushed", type = "check", ifVer = "3_0", label = "Is the enemy Crushed?", tooltip = "This adds the following modifiers:\n15% reduced enemy Physical Damage Reduction", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("PhysicalDamageReduction", "BASE", -15, "Crush")
+	end },
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
 	end },
