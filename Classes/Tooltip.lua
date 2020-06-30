@@ -9,6 +9,12 @@ local m_max = math.max
 local m_floor = math.floor
 local s_gmatch = string.gmatch
 
+-- Constants
+
+local BORDER_WIDTH = 3
+local H_PAD	= 12
+local V_PAD = 10
+
 -- All possible values for notable recipes (oils)
 local recipeNames = {
 	"AmberOil",
@@ -80,7 +86,7 @@ function TooltipClass:AddLine(size, text)
 				self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
 			end
 			if self.maxWidth then
-				for _, line in ipairs(main:WrapString(line, size, self.maxWidth - 12)) do
+				for _, line in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
 					t_insert(self.lines, { size = size, text = line, block = #self.blocks })
 				end
 			else
@@ -125,60 +131,19 @@ function TooltipClass:GetSize()
 		ttW = m_max(ttW, imageX)
 	end
 
-	return ttW + 12, ttH + 10
+	return ttW + H_PAD, ttH + V_PAD
 end
 
 function TooltipClass:GetDynamicSize(viewPort)
 	local staticttW, staticttH = self:GetSize()
-	local y = 6
-	local x = 0
-	local columns = 1 -- reset to count columns by block heights
-	local currentBlock = 1
-	local ttW, ttH = 0, 0
-	for i, data in ipairs(self.lines) do
-		if data.text then
-			if currentBlock ~= data.block and self.blocks[data.block].height + y > math.min(staticttH, viewPort.height) then
-				y = 6
-				x = staticttW * columns
-				columns = columns + 1
-			end
-			currentBlock = data.block
-			y = y + data.size + 2
-		elseif self.lines[i + 1] and self.lines[i - 1] and self.lines[i + 1].text then
-			y = y + data.size + 2
-		end
-		ttH = m_max(y + 6, ttH)
-		ttW = columns * staticttW
-	end
+	local columns, ttH = self:CalculateColumns(0, 0, staticttH, staticttW, viewPort)
+	local ttW = columns * staticttW
 
-	return ttW, ttH
+	return ttW + H_PAD, ttH + V_PAD
 end
 
-function TooltipClass:Draw(x, y, w, h, viewPort)
-	if #self.lines == 0 then
-		return
-	end
-	local ttW, ttH = self:GetSize()
-	local ttX = x
-	local ttY = y
-	if w and h then
-		ttX = ttX + w + 5
-		if ttX + ttW > viewPort.x + viewPort.width then
-			ttX = m_max(viewPort.x, x - 5 - ttW)
-			if ttX + ttW > x then
-				ttY = ttY + h
-			end
-		end
-		if ttY + ttH > viewPort.y + viewPort.height then
-			ttY = m_max(viewPort.y, y + h - ttH)
-		end
-	elseif self.center then
-		ttX = m_floor(x - ttW/2)
-	end
-	
-	SetDrawColor(1, 1, 1)
-
-	local y = ttY + 6
+function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
+	local y = ttY + 2 * BORDER_WIDTH
 	local x = ttX
 	local columns = 1 -- reset to count columns by block heights
 	local currentBlock = 1
@@ -206,8 +171,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		end
 		if data.text then
 			-- if data + borders is going to go outside of the viewPort
-			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + math.min(ttH, viewPort.height) then
-				y = ttY + 6
+			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + math.min(ttH, viewPort.height) - (V_PAD + 2 * BORDER_WIDTH) then
+				y = ttY + 2 * BORDER_WIDTH
 				x = ttX + ttW * columns
 				columns = columns + 1
 			end
@@ -219,16 +184,45 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			end
 			y = y + data.size + 2
 		elseif self.lines[i + 1] and self.lines[i - 1] and self.lines[i + 1].text then
-			t_insert(drawStack, {nil, x, y - 1 + data.size / 2, ttW - 3, 2})
+			t_insert(drawStack, {nil, x, y - 1 + data.size / 2, ttW - BORDER_WIDTH, 2})
 			y = y + data.size + 2
 		end
-		maxColumnHeight = m_max(y - ttY + 6, maxColumnHeight)
+		maxColumnHeight = m_max(y - ttY + 2 * BORDER_WIDTH, maxColumnHeight)
 	end
+
+	return columns, maxColumnHeight, drawStack
+end
+
+function TooltipClass:Draw(x, y, w, h, viewPort)
+	if #self.lines == 0 then
+		return
+	end
+	local ttW, ttH = self:GetSize()
+	local ttX = x
+	local ttY = y
+	if w and h then
+		ttX = ttX + w + 5
+		if ttX + ttW > viewPort.x + viewPort.width then
+			ttX = m_max(viewPort.x, x - 5 - ttW)
+			if ttX + ttW > x then
+				ttY = ttY + h
+			end
+		end
+		if ttY + ttH > viewPort.y + viewPort.height then
+			ttY = m_max(viewPort.y, y + h - ttH)
+		end
+	elseif self.center then
+		ttX = m_floor(x - ttW/2)
+	end
+	
+	SetDrawColor(1, 1, 1)
+
+	local columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 
 	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
 	SetDrawColor(0, 0, 0, .85)
 	--SetDrawLayer(nil, GetDrawLayer() - 5)
-	DrawImage(nil, ttX, ttY + 3, ttW * columns - 3, maxColumnHeight - 6)
+	DrawImage(nil, ttX, ttY + BORDER_WIDTH, ttW * columns - BORDER_WIDTH, maxColumnHeight - 2 * BORDER_WIDTH)
 	--SetDrawLayer(nil, GetDrawLayer())
 	SetDrawColor(1, 1, 1)
 	for i, lines in ipairs(drawStack) do 
@@ -251,10 +245,10 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		SetDrawColor(unpack(self.color))
 	end
 	for i=0,columns do
-		DrawImage(nil, ttX + ttW * i - 3 * math.ceil(i^2 / (i^2 + 1)), ttY, 3, maxColumnHeight) -- borders
+		DrawImage(nil, ttX + ttW * i - BORDER_WIDTH * math.ceil(i^2 / (i^2 + 1)), ttY, BORDER_WIDTH, maxColumnHeight) -- borders
 	end
-	DrawImage(nil, ttX, ttY, ttW * columns, 3) -- top border
-	DrawImage(nil, ttX, ttY + maxColumnHeight - 3, ttW * columns, 3) -- bottom border
+	DrawImage(nil, ttX, ttY, ttW * columns, BORDER_WIDTH) -- top border
+	DrawImage(nil, ttX, ttY + maxColumnHeight - BORDER_WIDTH, ttW * columns, BORDER_WIDTH) -- bottom border
 
 	return ttW, ttH
 end
