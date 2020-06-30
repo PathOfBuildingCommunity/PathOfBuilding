@@ -171,7 +171,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 		end
 		if data.text then
 			-- if data + borders is going to go outside of the viewPort
-			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + math.min(ttH, viewPort.height) - (V_PAD + 2 * BORDER_WIDTH) then
+			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + math.min(ttH, viewPort.height) then
 				y = ttY + 2 * BORDER_WIDTH
 				x = ttX + ttW * columns
 				columns = columns + 1
