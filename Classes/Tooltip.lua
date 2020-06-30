@@ -129,7 +129,7 @@ function TooltipClass:GetSize()
 end
 
 function TooltipClass:GetDynamicSize(viewPort)
-	local staticttW, staticttH = self:GetStaticSize()
+	local staticttW, staticttH = self:GetSize()
 	local y = 6
 	local x = 0
 	local columns = 1 -- reset to count columns by block heights
@@ -205,6 +205,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			end
 		end
 		if data.text then
+			-- if data + borders is going to go outside of the viewPort
 			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + math.min(ttH, viewPort.height) then
 				y = ttY + 6
 				x = ttX + ttW * columns
