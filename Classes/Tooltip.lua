@@ -128,6 +128,32 @@ function TooltipClass:GetSize()
 	return ttW + 12, ttH + 10
 end
 
+function TooltipClass:GetDynamicSize(viewPort)
+	local staticttW, staticttH = self:GetStaticSize()
+	local y = 6
+	local x = 0
+	local columns = 1 -- reset to count columns by block heights
+	local currentBlock = 1
+	local ttW, ttH = 0, 0
+	for i, data in ipairs(self.lines) do
+		if data.text then
+			if currentBlock ~= data.block and self.blocks[data.block].height + y > math.min(staticttH, viewPort.height) then
+				y = 6
+				x = staticttW * columns
+				columns = columns + 1
+			end
+			currentBlock = data.block
+			y = y + data.size + 2
+		elseif self.lines[i + 1] and self.lines[i - 1] and self.lines[i + 1].text then
+			y = y + data.size + 2
+		end
+		ttH = m_max(y + 6, ttH)
+		ttW = columns * staticttW
+	end
+
+	return ttW, ttH
+end
+
 function TooltipClass:Draw(x, y, w, h, viewPort)
 	if #self.lines == 0 then
 		return
