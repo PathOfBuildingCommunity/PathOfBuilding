@@ -574,7 +574,7 @@ function calcs.defence(env, actor)
 		local totalEnergyShieldDegen = 0
 		if breakdown then
 			breakdown.NetLifeRegen = { 
-					label = "Net Life Regen",
+					label = "Total Life Degen",
 					rowList = { },
 					colList = {
 						{ label = "Type", key = "type" },
@@ -582,7 +582,7 @@ function calcs.defence(env, actor)
 					},
 				}
 			breakdown.NetManaRegen = { 
-					label = "Net Mana Regen",
+					label = "Total Mana Degen",
 					rowList = { },
 					colList = {
 						{ label = "Type", key = "type" },
@@ -590,7 +590,7 @@ function calcs.defence(env, actor)
 					},
 				}
 			breakdown.NetEnergyShieldRegen = { 
-					label = "Net Energy Shield Regen",
+					label = "Total Energy Shield Degen",
 					rowList = { },
 					colList = {
 						{ label = "Type", key = "type" },
