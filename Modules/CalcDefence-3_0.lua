@@ -572,20 +572,27 @@ function calcs.defence(env, actor)
 		for _, damageType in ipairs(dmgTypeList) do
 			local energyShieldDegen = 0
 			local lifeDegen = 0
-			if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-				lifeDegen = output[damageType.."Degen"] * (1 - output[damageType.."MindOverMatter"] / 100)
-				energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
+			local manaDegen = 0
+			if output.EnergyShieldRegen > 0 then 
+				if modDB:Flag(nil, "EnergyShieldProtectsMana") then
+					lifeDegen = output[damageType.."Degen"] * (1 - output[damageType.."MindOverMatter"] / 100)
+					energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
 			else
-				lifeDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
-				energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
+					lifeDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
+					energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
+				end
+				manaDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
+			else
+				lifeDegen = output[damageType.."Degen"] * (1 - output[damageType.."MindOverMatter"] / 100)
+				manaDegen = output[damageType.."Degen"] * (output[damageType.."MindOverMatter"] / 100)
 			end
-			local manaDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
 			output.NetLifeRegen = output.NetLifeRegen - lifeDegen
 			output.NetManaRegen = output.NetManaRegen - manaDegen
 			output.NetEnergyShieldRegen = output.NetEnergyShieldRegen - energyShieldDegen
-			if breakdown then
-				breakdown.NetLifeRegen = {
-					s_format("%.1f ^8(total life regen)", output.LifeRegen),
+		end
+		if breakdown then
+			breakdown.NetLifeRegen = {
+				s_format("%.1f ^8(total life regen)", output.LifeRegen),
 					s_format("- %.1f ^8(total life degen)", lifeDegen),
 					s_format("= %.1f", output.NetLifeRegen),
 				}
@@ -593,16 +600,7 @@ function calcs.defence(env, actor)
 					s_format("%.1f ^8(total mana regen)", output.ManaRegen),
 					s_format("- %.1f ^8(total mana degen)", manaDegen),
 					s_format("= %.1f", output.NetManaRegen),
-				}
-			end
-		end
-		if output.NetEnergyShieldRegen < 0 then
-			if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-				output.NetManaRegen = output.NetManaRegen - output.NetEnergyShieldRegen
-			else
-				output.NetLifeRegen = output.NetLifeRegen - output.NetEnergyShieldRegen
-			end
-			output.NetEnergyShieldRegen = 0
+			}
 		end
 	end
 	output.AnyTakenReflect = 0
