@@ -803,6 +803,15 @@ local skills, mod, flag, skill = ...
 
 #skill OrbOfStorms
 #flags spell chaining duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100)
+	end,
+	statMap = {
+		["orb_of_storms_base_bolt_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
 #mods
 
 #skill MagmaSigil
