@@ -2711,3 +2711,52 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMagegua
 	modList = {
 	},
 }
+-- Baranite Sister
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSister"] = {
+	name = "Baranite Sister",
+	life = 1.2,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.8,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"AtlasCrusaderSisterMortar",
+		"WalkEmergeAtlasInfluenceMonster",
+	},
+	modList = {
+	},
+}
+-- Scale of Esh
+minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
+	name = "Scale of Esh",
+	life = 3,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+		"BreachLightningWhip",
+		"BreachArc",
+		"BreachTeamWarp",
+		"BreachLightningOrbsCommander",
+	},
+	modList = {
+		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
+		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+	},
+}

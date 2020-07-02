@@ -207,7 +207,7 @@ function calcs.defence(env, actor)
 				breakdown.slot("Conversion", "Life to Energy Shield", nil, energyShieldBase, total, "EnergyShield", "Defences", "Life")
 			end
 		end
-		output.EnergyShield = m_max(round(energyShield), 0)
+		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
@@ -278,7 +278,9 @@ function calcs.defence(env, actor)
 			output.ManaRegenInc = 0
 		end
 		local regen = base * (1 + output.ManaRegenInc/100) * more
-		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1) - modDB:Sum("BASE", nil, "ManaDegen")
+		local regenRate = round(regen * output.ManaRecoveryRateMod, 1)
+		local degen = modDB:Sum("BASE", nil, "ManaDegen")
+		output.ManaRegen = regenRate - degen
 		if breakdown then
 			breakdown.ManaRegen = { }
 			breakdown.multiChain(breakdown.ManaRegen, {
@@ -292,8 +294,12 @@ function calcs.defence(env, actor)
 				label = "Effective Mana Regeneration:",
 				base = s_format("%.1f", regen),
 				{ "%.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod },
-				total = s_format("= %.1f ^8per second", output.ManaRegen),
-			})				
+				total = s_format("= %.1f ^8per second", regenRate),
+			})
+			if degen ~= 0 then
+				t_insert(breakdown.ManaRegen, s_format("- %d", degen))
+				t_insert(breakdown.ManaRegen, s_format("= %.1f ^8per second", output.ManaRegen))
+			end
 		end
 	end
 	if modDB:Flag(nil, "NoLifeRegen") then
@@ -315,12 +321,12 @@ function calcs.defence(env, actor)
 			lifeBase = lifeBase + output.Life * lifePercent / 100
 		end
 		if lifeBase > 0 then
-			output.LifeRegen = lifeBase * output.LifeRecoveryRateMod
+			output.LifeRegen = lifeBase * output.LifeRecoveryRateMod * (1 + modDB:Sum("MORE", nil, "LifeRegen") / 100)
 		else
 			output.LifeRegen = 0
 		end
 	end
-	output.LifeRegen = output.LifeRegen - modDB:Sum("BASE", nil, "LifeDegen")
+	output.LifeRegen = output.LifeRegen - modDB:Sum("BASE", nil, "LifeDegen") + modDB:Sum("BASE", nil, "LifeRecovery") * output.LifeRecoveryRateMod
 	output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
 	if modDB:Flag(nil, "NoEnergyShieldRegen") then
 		output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
@@ -339,6 +345,8 @@ function calcs.defence(env, actor)
 		end
 	end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
+		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
+		modDB:NewMod("Dummy", "DUMMY", 1, "RageRegen", 0, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
 		local base = modDB:Sum("BASE", nil, "RageRegen")
 		if modDB:Flag(nil, "ManaRegenToRageRegen") then
 			local mana = modDB:Sum("INC", nil, "ManaRegen")
@@ -363,24 +371,49 @@ function calcs.defence(env, actor)
 	else
 		local inc = modDB:Sum("INC", nil, "EnergyShieldRecharge")
 		local more = modDB:More(nil, "EnergyShieldRecharge")
-		local recharge = output.EnergyShield * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
-		output.EnergyShieldRecharge = round(recharge * output.EnergyShieldRecoveryRateMod)
+		if modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife") then
+			output.EnergyShieldRechargeAppliesToLife = true
+			local recharge = output.Life * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
+			output.LifeRecharge = round(recharge * output.LifeRecoveryRateMod)
+			if breakdown then
+				breakdown.LifeRecharge = { }
+				breakdown.multiChain(breakdown.LifeRecharge, {
+					label = "Recharge rate:",
+					base = s_format("%.1f ^8(20%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
+					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+					{ "%.2f ^8(more/less)", more },
+					total = s_format("= %.1f ^8per second", recharge),
+				})
+				breakdown.multiChain(breakdown.LifeRecharge, {
+					label = "Effective Recharge rate:",
+					base = s_format("%.1f", recharge),
+					{ "%.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod },
+					total = s_format("= %.1f ^8per second", output.LifeRecharge),
+				})	
+			end
+		else
+			output.EnergyShieldRechargeAppliesToEnergyShield = true
+			local recharge = output.EnergyShield * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
+			output.EnergyShieldRecharge = round(recharge * output.EnergyShieldRecoveryRateMod)
+			if breakdown then
+				breakdown.EnergyShieldRecharge = { }
+				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
+					label = "Recharge rate:",
+					base = s_format("%.1f ^8(20%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
+					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+					{ "%.2f ^8(more/less)", more },
+					total = s_format("= %.1f ^8per second", recharge),
+				})
+				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
+					label = "Effective Recharge rate:",
+					base = s_format("%.1f", recharge),
+					{ "%.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod },
+					total = s_format("= %.1f ^8per second", output.EnergyShieldRecharge),
+				})
+			end
+		end
 		output.EnergyShieldRechargeDelay = 2 / (1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100)
 		if breakdown then
-			breakdown.EnergyShieldRecharge = { }
-			breakdown.multiChain(breakdown.EnergyShieldRecharge, {
-				label = "Recharge rate:",
-				base = s_format("%.1f ^8(20%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
-				{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
-				{ "%.2f ^8(more/less)", more },
-				total = s_format("= %.1f ^8per second", recharge),
-			})
-			breakdown.multiChain(breakdown.EnergyShieldRecharge, {
-				label = "Effective Recharge rate:",
-				base = s_format("%.1f", recharge),
-				{ "%.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod },
-				total = s_format("= %.1f ^8per second", output.EnergyShieldRecharge),
-			})				
 			if output.EnergyShieldRechargeDelay ~= 2 then
 				breakdown.EnergyShieldRechargeDelay = {
 					"2.00s ^8(base)",
@@ -390,7 +423,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
-	
+
 	-- Energy Shield bypass
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do
@@ -447,7 +480,7 @@ function calcs.defence(env, actor)
 			output[damageType.."EffectiveLife"] = output.LifeUnreserved
 		end
 	end
-	
+
 	--total pool
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."TotalPool"] = output[damageType.."EffectiveLife"]
@@ -475,7 +508,7 @@ function calcs.defence(env, actor)
 			t_insert(breakdown[damageType.."TotalPool"], s_format("TotalPool: %d", output[damageType.."TotalPool"]))
 		end
 	end
-	
+
 	-- Damage taken multipliers/Degen calculations
 	for _, damageType in ipairs(dmgTypeList) do
 		local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
@@ -814,13 +847,14 @@ function calcs.defence(env, actor)
 			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
 		end
 	end
-	
+
 	-- cumulative defences
 	--chance to not be hit
 	output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
 	output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
 	output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance) / 3
+	output.SpellProjectileNotHitChance = output.SpellNotHitChance
+	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 	if breakdown then
 		breakdown.MeleeNotHitChance = { }
 		breakdown.multiChain(breakdown.MeleeNotHitChance, {
@@ -839,8 +873,13 @@ function calcs.defence(env, actor)
 			{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
 			total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellNotHitChance),
 		})
+		breakdown.SpellProjectileNotHitChance = { }
+		breakdown.multiChain(breakdown.SpellProjectileNotHitChance, {
+			{ "%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100 },
+			total = s_format("= %d%% ^8(chance to be hit by a projectile spell)", 100 - output.SpellProjectileNotHitChance),
+		})
 	end
-	
+
 	--chance to not take damage if hit
 	function chanceToNotTakeDamage(outputText, outputName, BlockChance, AvoidChance)
 		output[outputName] = 100 - (1 - BlockChance * output.BlockEffect / 100 / 100 ) * (1 - AvoidChance / 100) * 100
@@ -862,6 +901,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+
 	for _, damageType in ipairs(dmgTypeList) do
 		chanceToNotTakeDamage("Melee Attack", damageType.."MeleeDamageChance", output.BlockChance, output["Avoid"..damageType.."DamageChance"])
 		chanceToNotTakeDamage("Projectile Attack", damageType.."ProjectileDamageChance", output.ProjectileBlockChance, m_min(output["Avoid"..damageType.."DamageChance"] + output.AvoidProjectilesChance, data.misc.AvoidChanceCap))
@@ -870,7 +910,19 @@ function calcs.defence(env, actor)
 		--average
 		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end
-	
+
+	--effective health pool vs dots
+	for _, damageType in ipairs(dmgTypeList) do
+		output[damageType.."DotEHP"] = output[damageType.."TotalPool"] / output[damageType.."TakenDotMult"]
+		if breakdown then
+			breakdown[damageType.."DotEHP"] = {
+				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
+				s_format("Dot Damage Taken modifier: %.2f", output[damageType.."TakenDotMult"]),
+				s_format("Total Effective Dot Pool: %d", output[damageType.."DotEHP"]),
+			}
+		end
+	end
+
 	--maximum hit taken
 	--FIX X TAKEN AS Y (output[damageType.."TotalPool"] should use the damage types that are converted to in output[damageType.."TakenHitMult"])
 	for _, damageType in ipairs(dmgTypeList) do
@@ -883,33 +935,57 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	
-	--effective health pool vs dots
-	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."DotEHP"] = output[damageType.."TotalPool"] / output[damageType.."TakenDotMult"]
-		if breakdown then
-			breakdown[damageType.."DotEHP"] = {
-				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
-				s_format("Dot Damage Taken modifier: %.2f", output[damageType.."TakenDotMult"]),
-				s_format("Total Effective Dot Pool: %d", output[damageType.."DotEHP"]),
-			}
+
+	local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
+	local minimumEHP = 2147483648
+	local minimumEHPMode = "NONE"
+	if DamageTypeConfig == "Minimum" then
+		DamageTypeConfig = {"Melee", "Projectile", "Spell", "SpellProjectile"}
+		minimumEHPMode = "Melee"
+	else
+		DamageTypeConfig = {DamageTypeConfig}
+	end
+	for _, DamageType in ipairs(DamageTypeConfig) do
+		--total EHP
+		for _, damageType in ipairs(dmgTypeList) do
+			local convertedAvoidance = 0
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				convertedAvoidance = convertedAvoidance + output[damageConvertedType..DamageType.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+			end
+			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[DamageType.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+			if minimumEHPMode ~= "NONE" then
+				if output[damageType.."TotalEHP"] < minimumEHP then
+					minimumEHP = output[damageType.."TotalEHP"]
+					minimumEHPMode = DamageType
+				end
+			elseif breakdown then
+				breakdown[damageType.."TotalEHP"] = {
+				s_format("EHP calculation Mode: %s", DamageType),
+				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
+				s_format("%s chance not to be hit: %d%%", DamageType, output[DamageType.."NotHitChance"]),
+				s_format("%s chance to not take damage when hit: %d%%", DamageType, convertedAvoidance),
+				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
+				}
+			end
 		end
 	end
-	
-	--total EHP
-	for _, damageType in ipairs(dmgTypeList) do
-		local convertedAvoidance = 0
-		for _, damageConvertedType in ipairs(dmgTypeList) do
-			convertedAvoidance = convertedAvoidance + output[damageConvertedType.."AverageDamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
-		end
-		output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output.AverageNotHitChance / 100) / (1 - convertedAvoidance / 100)
-		if breakdown then
-			breakdown[damageType.."TotalEHP"] = {
-			s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
-			s_format("Average chance not to be hit: %d%%", output.AverageNotHitChance),
-			s_format("Average chance to not take damage when hit: %d%%", convertedAvoidance),
-			s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
-			}
+	if minimumEHPMode ~= "NONE" then
+		for _, damageType in ipairs(dmgTypeList) do
+			local convertedAvoidance = 0
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				convertedAvoidance = convertedAvoidance + output[damageConvertedType..minimumEHPMode.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+			end
+			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[minimumEHPMode.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+			if breakdown then
+				breakdown[damageType.."TotalEHP"] = {
+				s_format("EHP calculation Mode: Minimum"),
+				s_format("Minimum is of type %s", minimumEHPMode),
+				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
+				s_format("%s chance not to be hit: %d%%", minimumEHPMode, output[minimumEHPMode.."NotHitChance"]),
+				s_format("%s chance to not take damage when hit: %d%%", minimumEHPMode, convertedAvoidance),
+				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
+				}
+			end
 		end
 	end
 end

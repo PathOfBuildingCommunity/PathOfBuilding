@@ -904,7 +904,7 @@ skills["ChainStrike"] = {
 	castTime = 1,
 	statMap = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
-			flag("Condition:CanGainRage"),
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
@@ -3548,6 +3548,9 @@ skills["BloodSpears"] = {
 		},
 		["blood_spears_damage_+%_final_in_blood_stance"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" })
+		},
+		["blood_spears_additional_number_of_spears_if_changed_stance_recently"] = {
+			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently"}),
 		},
 	},
 	baseFlags = {

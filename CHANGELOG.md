@@ -1,3 +1,9 @@
+### 1.4.170.2 - 2020/06/23
+ * Add Baranite Sister Spectre
+ * Add 20 fuse cap to Explosive Arrow
+ * Fix Corpse Pact node attack speed cap
+ * Fix some Cluster jewel notables not appearing on the tree
+ * Fix unique staves using the Judgement Staff base
 ### 1.4.170.1 - 2020/06/22
  * Add all new gems from 3.11
    * Full support:

@@ -35311,7 +35311,7 @@ return {
             ["stats"]= {
                 "30% increased Damage while in Blood Stance",
                 "15% increased Area of Effect while in Sand Stance",
-                "10% increased Attack Speed if you’ve changed Stance Recently"
+                "10% increased Attack Speed if you've changed Stance Recently"
             },
             ["reminderText"]= {
                 "(You are in Blood Stance by default)",
@@ -54319,7 +54319,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/BlockAttackDmgNotable.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "60% increased Critical Strike Chance if you haven’t Blocked Recently",
+                "60% increased Critical Strike Chance if you haven't Blocked Recently",
                 "+30% to Critical Strike Multiplier if you have Blocked Recently"
             },
             ["reminderText"]= {
@@ -55567,7 +55567,7 @@ return {
             ["stats"]= {
                 "20% increased Spell Damage",
                 "30% increased Mana Regeneration Rate",
-                "Regenerate 1% of Energy Shield per second if you’ve Cursed an Enemy Recently"
+                "Regenerate 1% of Energy Shield per second if you've Cursed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -56129,7 +56129,7 @@ return {
             ["stats"]= {
                 "24% increased Damage over Time",
                 "6% increased maximum Energy Shield",
-                "Regenerate 2% of Energy Shield per second if you’ve Killed an Enemy Recently"
+                "Regenerate 2% of Energy Shield per second if you've Killed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -56315,7 +56315,7 @@ return {
             ["stats"]= {
                 "10% increased Effect of your Curses",
                 "Enemies you Curse are Hindered, with 15% reduced Movement Speed",
-                "Regenerate 1% of Energy Shield per second if you’ve Killed an Enemy Recently"
+                "Regenerate 1% of Energy Shield per second if you've Killed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Hindered enemies have reduced movement speed)",
@@ -57547,6 +57547,7 @@ return {
             ["skill"]= 33,
             ["name"]= "Lord of Drought",
             ["icon"]= "Art/2DArt/SkillIcons/passives/CurseEffectNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "10% increased Area of Effect",
                 "25% increased Flammability Curse Effect"
@@ -57556,6 +57557,7 @@ return {
             ["skill"]= 25938,
             ["name"]= "Blizzard Caller",
             ["icon"]= "Art/2DArt/SkillIcons/passives/CurseEffectNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "25% increased Frostbite Curse Effect",
                 "15% increased Critical Strike Chance"
@@ -57565,6 +57567,7 @@ return {
             ["skill"]= 17662,
             ["name"]= "Tempt the Storm",
             ["icon"]= "Art/2DArt/SkillIcons/passives/CurseEffectNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "5% increased Cast Speed",
                 "25% increased Conductivity Curse Effect"
@@ -57574,6 +57577,7 @@ return {
             ["skill"]= 14061,
             ["name"]= "Misery Everlasting",
             ["icon"]= "Art/2DArt/SkillIcons/passives/CurseEffectNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "10% increased Skill Effect Duration",
                 "25% increased Despair Curse Effect"
@@ -57583,6 +57587,7 @@ return {
             ["skill"]= 42601,
             ["name"]= "Exploit Weakness",
             ["icon"]= "Art/2DArt/SkillIcons/passives/CurseEffectNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "25% increased Vulnerability Curse Effect",
                 "15% increased Physical Damage"
@@ -57592,6 +57597,7 @@ return {
             ["skill"]= 33232,
             ["name"]= "Self-Control",
             ["icon"]= "Art/2DArt/SkillIcons/passives/EnergyShieldNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "15% increased Mana Regeneration Rate",
                 "Discipline has 30% reduced Mana Reservation"
@@ -57601,6 +57607,7 @@ return {
             ["skill"]= 21907,
             ["name"]= "Uncompromising",
             ["icon"]= "Art/2DArt/SkillIcons/passives/ArmourNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "10% increased Stun Threshold",
                 "Determination has 30% reduced Mana Reservation"
@@ -57613,6 +57620,7 @@ return {
             ["skill"]= 60690,
             ["name"]= "Sublime Form",
             ["icon"]= "Art/2DArt/SkillIcons/passives/EvasionNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "+5% to all Elemental Resistances",
                 "Grace has 30% reduced Mana Reservation"
@@ -57622,6 +57630,7 @@ return {
             ["skill"]= 32259,
             ["name"]= "Summer Commander",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AuraEffectNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "8% increased Armour",
                 "Purity of Fire has 30% increased Aura Effect"
@@ -57631,6 +57640,7 @@ return {
             ["skill"]= 31333,
             ["name"]= "Winter Commander",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AuraEffectNotable.png",
+            ["isNotable"]= true,
             ["stats"]= {
                 "4% increased Movement Speed",
                 "Purity of Ice has 30% increased Aura Effect"
@@ -57640,6 +57650,7 @@ return {
             ["skill"]= 907,
             ["name"]= "Grounded Commander",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AuraEffectNotable.png",
+            ["isNotable"]= true,
             ["grantedIntelligence"]= 10,
             ["stats"]= {
                 "Purity of Lightning has 30% increased Aura Effect",
