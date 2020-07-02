@@ -1098,7 +1098,6 @@ function calcs.defence(env, actor)
 	output.SecondMinimumSpellDamageChance = m_second_min({output.PhysicalSpellDamageChance, output.LightningSpellDamageChance, output.ColdSpellDamageChance, output.FireSpellDamageChance, output.ChaosSpellDamageChance})
 	output.SecondMinimumSpellProjectileDamageChance = m_second_min({output.PhysicalSpellProjectileDamageChance, output.LightningSpellProjectileDamageChance, output.ColdSpellProjectileDamageChance, output.FireSpellProjectileDamageChance, output.ChaosSpellProjectileDamageChance})
 
-	output.SecondMinimumMaximumHitTaken = m_second_min({output.PhysicalMaximumHitTaken, output.LightningMaximumHitTaken, output.ColdMaximumHitTaken, output.FireMaximumHitTaken, output.ChaoSecondMaximumimumHitTaken})
 	--effective health pool vs dots
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."DotEHP"] = output[damageType.."TotalPool"] / output[damageType.."TakenDotMult"]
@@ -1124,6 +1123,7 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
+	output.SecondMinimumMaximumHitTaken = m_second_min({output.PhysicalMaximumHitTaken, output.LightningMaximumHitTaken, output.ColdMaximumHitTaken, output.FireMaximumHitTaken, output.ChaoSecondMaximumimumHitTaken})
 
 	local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
 	local minimumEHP = 2147483648
