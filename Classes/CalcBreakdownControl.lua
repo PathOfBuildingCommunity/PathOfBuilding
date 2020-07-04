@@ -86,12 +86,14 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 					section.width = section.width + col.width
 				end
 			end
-			if section.label then
-				section.width = m_max(section.width, 6 + DrawStringWidth(16, "VAR", section.label..":"))
-			end
 			section.height = #section.rowList * 14 + 20
 			if section.label then
+				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(16, "VAR", section.label..":"))
 				section.height = section.height + 16
+			end
+			if section.footer then
+				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(12, "VAR", section.footer))
+				section.height = section.height + 12
 			end
 		end
 		self.contentWidth = m_max(self.contentWidth, section.width)
@@ -139,6 +141,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		local section = {
 			type = "TABLE",
 			label = breakdown.label,
+			footer = breakdown.footer,
 			rowList = breakdown.rowList,
 			colList = breakdown.colList,
 		}
@@ -506,7 +509,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			if index > 1 then
 				-- Skip the separator for the first column
 				SetDrawColor(0.5, 0.5, 0.5)
-				DrawImage(nil, colX - 2, y, 1, section.label and section.height - 16 or section.height)
+				DrawImage(nil, colX - 2, y, 1, section.height - (section.label and 16 or 0) - (section.footer and 12 or 0))
 			end
 			SetDrawColor(1, 1, 1)
 			DrawString(colX, y + 2, "LEFT", 16, "VAR", col.label)
@@ -563,6 +566,10 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			end
 		end
 		rowY = rowY + 14
+	end
+	if section.footer then
+		-- Draw table footer if able
+		DrawString(x + 2, rowY, "LEFT", 12, "VAR", "^7"..section.footer)
 	end
 end
 

@@ -2381,6 +2381,7 @@ function calcs.offence(env, actor, activeSkill)
 					else
 						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds", 2 * output.ShockDurationMod)
 					end
+					breakdown.ShockDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
 					breakdown.ShockDPS.rowList = { }
 					breakdown.ShockDPS.colList = {
 						{ label = "Shock Effect", key = "effect" },
@@ -2458,6 +2459,7 @@ function calcs.offence(env, actor, activeSkill)
 						{ label = "Chill Effect", key = "effect" },
 						{ label = "Ailment Threshold", key = "thresh" },
 					}
+					breakdown.ChillDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
 					for _, value in ipairs(effList) do
 						local thresh = (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
 						if value == output.BonechillEffect then
