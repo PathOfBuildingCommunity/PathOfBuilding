@@ -548,6 +548,7 @@ local skills, mod, flag, skill = ...
 #skill AvianTornado
 #flags spell projectile duration
 	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill VoidGaze
