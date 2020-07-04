@@ -1488,10 +1488,10 @@ skills["SupportEfficacy"] = {
 }
 skills["SupportElementalFocus"] = {
 	name = "Elemental Focus",
-	description = "Supports any skill that hits or burns enemies.",
+	description = "Supports any skill that hits or burns enemies, or inflicts elemental ailments.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.CausesBurning, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.CausesBurning, SkillType.NonHitChill, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",

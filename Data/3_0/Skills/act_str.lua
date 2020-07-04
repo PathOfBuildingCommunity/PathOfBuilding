@@ -2065,6 +2065,7 @@ skills["GeneralsCrySupport"] = {
 		"is_empowered",
 		"no_spirit_strikes",
 		"force_lite_skill_effects",
+		"base_damage_not_from_skill_user",
 	},
 	levels = {
 		[1] = { -45, levelRequirement = 24, statInterpolation = { 1, }, },

@@ -2747,6 +2747,10 @@ return {
 	},
 	HarvestPerLevelValues={
 	},
+	HarvestPlantBoosterFamilies={
+	},
+	HarvestPlantBoosters={
+	},
 	HarvestSeedTypes={
 	},
 	HarvestSpecialCraftCosts={
