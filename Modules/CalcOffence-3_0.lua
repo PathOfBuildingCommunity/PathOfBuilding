@@ -2445,16 +2445,31 @@ function calcs.offence(env, actor, activeSkill)
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
 					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+					if output.BonechillEffect then
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds ^8(with a ^7%s%% ^8Bonechill effect on the enemy)^7", 2 * output.ChillDurationMod, output.BonechillEffect)
+					else
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+					end
 					breakdown.ChillDPS.rowList = { }
 					breakdown.ChillDPS.colList = {
 						{ label = "Chill Effect", key = "effect" },
 						{ label = "Ailment Threshold", key = "thresh" },
 					}
 				end
-				for _, value in ipairs({ 5, 10, 30 }) do
+				effList = { 5, 10, 30 }
+				if output.BonechillEffect then
+					t_insert(effList, output.BonechillEffect)
+					table.sort(effList)
+				end
+				for _, value in ipairs(effList) do
 					if breakdown then
 						local thresh = (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
-						if value == 30 then
+						if value == output.BonechillEffect then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(current)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == 30 then
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%% ^8(maximum)", value),
 								thresh = s_format("%.0f", thresh),
