@@ -2386,9 +2386,7 @@ function calcs.offence(env, actor, activeSkill)
 						{ label = "Shock Effect", key = "effect" },
 						{ label = "Ailment Threshold", key = "thresh" },
 					}
-				end
-				for _, value in ipairs(effList) do
-					if breakdown then
+					for _, value in ipairs(effList) do
 						local thresh = (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
 						if value == current then
 							t_insert(breakdown.ShockDPS.rowList, {
@@ -2443,6 +2441,11 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.chill = true
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
+				effList = { 5, 10, 30 }
+				if output.BonechillEffect then
+					t_insert(effList, output.BonechillEffect)
+					table.sort(effList)
+				end
 				if breakdown then
 					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
 					if output.BonechillEffect then
@@ -2455,14 +2458,7 @@ function calcs.offence(env, actor, activeSkill)
 						{ label = "Chill Effect", key = "effect" },
 						{ label = "Ailment Threshold", key = "thresh" },
 					}
-				end
-				effList = { 5, 10, 30 }
-				if output.BonechillEffect then
-					t_insert(effList, output.BonechillEffect)
-					table.sort(effList)
-				end
-				for _, value in ipairs(effList) do
-					if breakdown then
+					for _, value in ipairs(effList) do
 						local thresh = (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
 						if value == output.BonechillEffect then
 							t_insert(breakdown.ChillDPS.rowList, {
