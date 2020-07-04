@@ -65,7 +65,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any Requirement", "Level Useable", "Attribute Useable", "Both Useable" }, function(index, value)
+		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
 	end
