@@ -616,7 +616,7 @@ function calcs.perform(env)
 			enemyDB:NewMod("Multiplier:BrandsAttached", "BASE", m_min(attached, attachLimit), "Config")
 		end
 		if activeSkill.skillData.supportBonechill then
-			if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
+			if activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
 				output.BonechillDotEffect = m_floor(10 * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyChillEffect") / 100))
 			end
 			output.BonechillEffect = m_max(output.BonechillEffect or 0, modDB:Override(nil, "BonechillEffect") or output.BonechillDotEffect or 0)
