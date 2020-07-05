@@ -377,6 +377,19 @@ Implicits: 32
 {variant:32}Projectiles Pierce (4-6) additional Targets
 Implicit Modifier magnitudes are doubled
 ]],[[
+The Felbog Fang
+Citrine Amulet
+League: Harvest
+Requires Level 61
+Implictis: 1
+{tags:jewellery_attribute}+(16-24) to Strength and Dexterity
+{tags:jewellery_attribute}+(30-50) to Intelligence
+{tags:caster,speed}(10-15)% increased Cast Speed
+(10-15)% increased Area of Effect
+Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
+Your Curses have 25% increased Effect if 50% of Curse Duration expired
+Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
+]],[[
 Fury Valve
 Turquoise Amulet
 League: Metamorph
@@ -658,6 +671,17 @@ Implicits: 1
 {tags:jewellery_attribute}Items and Gems have 10% reduced Attribute Requirements
 {tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
+]],[[
+Retaliation Charm
+Citrine Amulet
+Requires Level 30
+Implicits: 1
+{tags:jewellery_attribute}+(16-24) to Strength and Dexterity
+(25-40)% increased Damage with Hits and Ailments against Blinded Enemies
+(30-50)% increased Critical Strike Chance against Blinded Enemies
+(40-50)% chance to Blind Enemies on Critical Strike
+Blind does not affect your Light Radius
+Blind you inflict is Reflected to you
 ]],[[
 Rigwald's Curse
 Wereclaw Talisman

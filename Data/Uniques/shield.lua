@@ -708,6 +708,18 @@ Implicits: 1
 {variant:3}You have Unholy Might while you have no Energy Shield
 Create Profane Ground instead of Consecrated Ground
 ]],[[
+Emperor's Vigilance
+Steel Kite Shield
+League: Harvest
+Requires Level 46, 60 Str, 60 Int
+(16-22)% Chance to Block Spell Damage
+(300-400)% increased Armour and Energy Shield
+(10-15)% increased maximum Life
+Cannot Block while you have no Energy Shield
+Damage from Blocked Hits cannot bypass Energy Shield
+Damage from Unblocked hits always bypasses Energy Shield
+Glancing Blows
+]],[[
 Invictus Solaris
 Archon Kite Shield
 Requires Level: 68, 85 Str, 85 Int

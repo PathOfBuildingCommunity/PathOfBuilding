@@ -459,6 +459,16 @@ Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50-70)% increased Aspect of the Spider Area of Effect
 ]],[[
+Fleshcrafter
+Necromancer Silks
+League: Harvest
+Requires Level 59, 160 Int
+(100-150)% increased Energy Shield
+Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
+Chaos Damage does not bypass Minions' Energy Shield
+Minions have (50-100)% faster start of Energy Shield Recharge
+While Minions have Energy Shield, their Hits Ignore Monster Elemental Resistances
+]],[[
 Garb of the Ephemeral
 Savant's Robe
 League: Synthesis
@@ -782,6 +792,17 @@ Animated Guardian deals 5% increased Damage per Animated Weapon
 Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
 You cannot have non-Animated Minions
+]],[[
+Doryani's Prototype
+Saint's Hauberk
+League: Harvest
+Requires Level 67, 109 Str, 94 Int
+(150-200)% increased Armour and Energy Shield
++(60-90) to maximum Life
+Deal no Non-Lightning Damage
+Armour also applies to Lightning Damage taken from Hits
+Lightning Resistance does not affect Lightning Damage taken
+Nearby Enemies have Lightning Resistance equal to yours
 ]],[[
 Geofri's Sanctuary
 Elegant Ringmail
