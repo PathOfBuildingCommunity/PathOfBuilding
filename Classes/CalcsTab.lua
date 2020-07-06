@@ -453,8 +453,11 @@ function CalcsTabClass:PowerBuilder()
 	local cache = { }
 	local newPowerMax = {
 		singleStat = 0,
+		singleStatPerPoint = 0,
 		offence = 0,
-		defence = 0
+		offencePerPoint = 0,
+		defence = 0,
+		defencePerPoint = 0
 	}
 	if not self.powerMax then
 		self.powerMax = newPowerMax
@@ -474,6 +477,7 @@ function CalcsTabClass:PowerBuilder()
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 				if node.path then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
+					newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / #node.path, newPowerMax.singleStatPerPoint)
 				end
 			else
 				if calcBase.Minion then
@@ -490,6 +494,9 @@ function CalcsTabClass:PowerBuilder()
 				if node.path then
 					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+					newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / #node.path)
+					newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / #node.path)
+
 				end
 			end
 		end

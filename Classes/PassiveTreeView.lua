@@ -470,6 +470,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- Calculate color based on a single stat
 					local stat = m_max(node.power.singleStat or 0, 0)
 					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
+					local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
+					if(self.heatMapStatPerPoint and self.heatMapTopPick) then
+						statCol = stat / #path == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
+					elseif self.heatMapStatPerPoint then
+						statCol = statCol / #path * 4
+					elseif self.heatMapTopPick then
+						statCol = stat == build.calcsTab.powerMax.singleStat and 1.5 ^ 0.5 or 0
+					end
 					if main.nodePowerTheme == "RED/BLUE" then
 						SetDrawColor(statCol, 0, 0)
 					elseif main.nodePowerTheme == "RED/GREEN" then

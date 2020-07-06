@@ -83,6 +83,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
 		self.viewer.showHeatMap = state
+		self.controls.treeHeatMapStatSelect.shown = state
 	end)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
@@ -98,6 +99,15 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			t_insert(self.powerStatList, stat)
 		end
 	end
+
+	self.controls.treeHeatMapTopStat = new("CheckBoxControl", {"LEFT", self.controls.treeHeatMapStatSelect,"RIGHT"}, 130, 0, 20, "Show only top stat:", function(state)
+		self.viewer.heatMapTopPick = state
+	end )
+
+	self.controls.treeHeatMapStatPerPoint = new("CheckBoxControl", {"LEFT", self.controls.treeHeatMapTopStat,"RIGHT"}, 75, 0, 20, "Per point?", function(state)
+		self.viewer.heatMapStatPerPoint = state
+	end )
+
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
