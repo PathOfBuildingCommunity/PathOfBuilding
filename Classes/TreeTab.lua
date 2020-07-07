@@ -19,7 +19,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self:SetActiveSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
-	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, -24, 190, 20, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
 			self:SetActiveSpec(index)
@@ -81,7 +81,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-	self.controls.treeHeatMap = new("CheckBoxControl", {"BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT"}, 125, 24, 20, "Show Node Power:", function(state)
+	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
 	end)
@@ -104,9 +104,17 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.heatMapTopPick = state
 	end )
 
+	self.controls.treeHeatMapTopStat.tooltipText = function()
+		return "When enabled, only the best node for the selected stats will be highlighted.\nIf 'Power per point:' is also enabled, only the node that gives you the best stat\nper point will be highlighted"
+	end
+
 	self.controls.treeHeatMapStatPerPoint = new("CheckBoxControl", {"LEFT", self.controls.treeHeatMapTopStat,"RIGHT"}, 115, 0, 20, "Power per point:", function(state)
 		self.viewer.heatMapStatPerPoint = state
 	end )
+
+	self.controls.treeHeatMapStatPerPoint.tooltipText = function()
+		return "When enabled, node power is divided by the point cost it would take to get there,\nso closer points are highlighted brighter"
+	end
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
@@ -146,7 +154,28 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 
-	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 90 or 58) }
+	-- Determine positions if one line of controls doesn't fit in the screen width
+	local twoLineHeight = self.controls.treeHeatMap.y == 24 and 26 or 0
+	if(select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize()) > viewPort.x + viewPort.width) then
+		twoLineHeight = 26
+		self.controls.treeHeatMap:SetAnchor("BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT",nil,nil,nil)
+		self.controls.treeHeatMap.y = 24
+		self.controls.treeHeatMap.x = 125
+
+		self.controls.specSelect.y = -24
+		self.controls.specConvertText.y = self.controls.specConvertText.y - 2
+	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize())) - viewPort.x  then
+		twoLineHeight = 0
+		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
+		self.controls.treeHeatMap.y = 0
+		self.controls.treeHeatMap.x = 130
+
+		self.controls.specSelect.y = 0
+		self.controls.specConvertText.y = self.controls.specConvertText.y + 2
+	end
+	--
+
+	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + twoLineHeight or 32 + twoLineHeight)}
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	self.controls.specSelect.selIndex = self.activeSpec
@@ -171,15 +200,15 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 54, viewPort.width, 54)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + twoLineHeight), viewPort.width, 28 + twoLineHeight)
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 58, viewPort.width, 4)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + twoLineHeight), viewPort.width, 4)
 
 	if self.showConvert then
 		SetDrawColor(0.05, 0.05, 0.05)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 86, viewPort.width, 28)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (60 + twoLineHeight), viewPort.width, 28)
 		SetDrawColor(0.85, 0.85, 0.85)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 90, viewPort.width, 4)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (64 + twoLineHeight), viewPort.width, 4)
 	end
 
 	self:DrawControls(viewPort)
