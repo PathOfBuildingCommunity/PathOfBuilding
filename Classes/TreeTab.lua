@@ -19,7 +19,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self:SetActiveSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
-	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, -22, 190, 20, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, -24, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
 			self:SetActiveSpec(index)
@@ -146,7 +146,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 
-	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 86 or 54) }
+	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 90 or 58) }
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	self.controls.specSelect.selIndex = self.activeSpec
@@ -171,15 +171,15 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 50, viewPort.width, 50)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 54, viewPort.width, 54)
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 54, viewPort.width, 4)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 58, viewPort.width, 4)
 
 	if self.showConvert then
 		SetDrawColor(0.05, 0.05, 0.05)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 82, viewPort.width, 28)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 86, viewPort.width, 28)
 		SetDrawColor(0.85, 0.85, 0.85)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 86, viewPort.width, 4)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 90, viewPort.width, 4)
 	end
 
 	self:DrawControls(viewPort)
