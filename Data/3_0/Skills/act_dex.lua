@@ -7452,7 +7452,6 @@ skills["Slither"] = {
 	statMap = {
 		["slither_wither_stacks"] = {
 			flag("Condition:CanWither"),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
 		},
 	},
 	baseFlags = {
@@ -7460,7 +7459,6 @@ skills["Slither"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
