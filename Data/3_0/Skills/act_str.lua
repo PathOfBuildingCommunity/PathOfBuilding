@@ -1831,9 +1831,14 @@ skills["EnduringCry"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["base_life_regeneration_rate_per_minute"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
+		["regenerate_X_life_over_1_second_on_cast"] = {
+			mod("EnduringCryLifeRegen", "BASE", nil),
+		},
+		["resist_all_elements_%_per_endurance_charge"] = {
+			mod("EnduringCryElementalResist", "BASE", nil),
+		},
+		["physical_damage_reduction_%_per_endurance_charge"] = {
+			mod("EnduringCryPhysicalDamageReduction", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -3112,6 +3117,9 @@ skills["IntimidatingCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -4263,6 +4271,12 @@ skills["SeismicCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("SeismicExertedAttacks", "BASE", nil),
+		},
+		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
+			mod("SeismicHitMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 		warcry = true,

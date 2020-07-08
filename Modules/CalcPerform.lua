@@ -618,18 +618,35 @@ function calcs.perform(env)
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")
 			output.ActiveSkeletonLimit = m_max(limit, output.ActiveSkeletonLimit or 0)
-		end
-		if activeSkill.activeEffect.grantedEffect.name == "Raise Zombie" then
+		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Zombie" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveZombieLimit")
 			output.ActiveZombieLimit = m_max(limit, output.ActiveZombieLimit or 0)
-		end
-		if activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
+		elseif activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
 			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
-		end
-		if activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
+		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
 			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
+		elseif activeSkill.activeEffect.grantedEffect.name == "Enduring Cry" then
+			local base_duration = activeSkill.activeEffect.grantedEffectLevel.duration
+			local base_cooldown = activeSkill.activeEffect.grantedEffectLevel.cooldown
+			local heal_over_1_sec = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryLifeRegen")
+			local resist_all_per_endurance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryElementalResist")
+			local pdr_per_endurance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryPhysicalDamageReduction")
+			local quality_duration_inc = activeSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Duration")
+			local full_duration = base_duration * (1 + quality_duration_inc / 100)
+			local cdr = activeSkill.skillModList:Sum("INC", nil, "CooldownRecovery")
+			local actual_cooldown = base_cooldown / (1 + cdr / 100)
+			local uptime = m_min(full_duration / actual_cooldown, 1)
+			env.modDB:NewMod("LifeRegen", "BASE", heal_over_1_sec * uptime, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+			env.modDB:NewMod("ElementalResist", "BASE", resist_all_per_endurance * uptime, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+			env.modDB:NewMod("PhysicalDamageReduction", "BASE", pdr_per_endurance * uptime, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		elseif activeSkill.activeEffect.grantedEffect.name == "Seismic Cry" then
+			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
+			env.modDB:NewMod("NumSeismicExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions)
+		elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" then
+			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
+			env.modDB:NewMod("NumIntimidatingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions)
 		end
 	end
 
