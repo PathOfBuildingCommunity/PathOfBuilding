@@ -105,7 +105,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end )
 
 	self.controls.treeHeatMapTopStat.tooltipText = function()
-		return "When enabled, only the best node for the selected stats will be highlighted.\nIf 'Power per point:' is also enabled, only the node that gives you the best stat\nper point will be highlighted"
+		return "When enabled, only the strongest node for the selected stat will be highlighted."
 	end
 
 	self.controls.treeHeatMapStatPerPoint = new("CheckBoxControl", {"LEFT", self.controls.treeHeatMapTopStat,"RIGHT"}, 115, 0, 20, "Power per point:", function(state)
@@ -113,7 +113,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end )
 
 	self.controls.treeHeatMapStatPerPoint.tooltipText = function()
-		return "When enabled, node power is divided by the point cost it would take to get there,\nso closer points are highlighted brighter"
+		return "When enabled, node power is divided by the point cost it would take to get there,\nso closer points are considered stronger"
 	end
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
@@ -163,7 +163,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		self.controls.treeHeatMap.x = 125
 
 		self.controls.specSelect.y = -24
-		self.controls.specConvertText.y = self.controls.specConvertText.y - 2
+		self.controls.specConvertText.y = -16
 	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize())) - viewPort.x  then
 		twoLineHeight = 0
 		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
@@ -171,7 +171,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		self.controls.treeHeatMap.x = 130
 
 		self.controls.specSelect.y = 0
-		self.controls.specConvertText.y = self.controls.specConvertText.y + 2
+		self.controls.specConvertText.y = -14
 	end
 	--
 
