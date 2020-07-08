@@ -1951,6 +1951,10 @@ local specialModList = {
 	["cold resistance is (%d+)%%"] = function(num) return { mod("ColdResist", "OVERRIDE", num) } end,
 	["lightning resistance is (%d+)%%"] = function(num) return { mod("LightningResist", "OVERRIDE", num) } end,
 	["chaos resistance is doubled"] = { mod("ChaosResist", "MORE", 100) },
+	["nearby enemies have (%d+)%% increased fire and cold resistances"] = function(num) return { 
+		mod("EnemyModifier", "LIST", { mod = mod("FireResist", "INC", num) }),
+		mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "INC", num) }),
+	} end,
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
 	["evasion rating is increased by uncapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistTotal", div = 1 }) },
 	["reflects (%d+) physical damage to melee attackers"] = { },
