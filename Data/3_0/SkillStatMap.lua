@@ -688,6 +688,9 @@ return {
 ["fire_dot_multiplier_+"] = {
 	mod("FireDotMultiplier", "BASE", nil),
 },
+["cold_dot_multiplier_+"] = {
+	mod("ColdDotMultiplier", "BASE", nil),
+},
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
 },
