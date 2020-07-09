@@ -349,7 +349,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(40-50) to Dexterity
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
-(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
+{tags:attack}(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
 ]],[[
 The Tactician
 Studded Belt
