@@ -2365,7 +2365,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
  			end
 		end
-		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 then
+		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 or (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.ChillNotHit]) then
 			local sourceHitDmg = 0
 			local sourceCritDmg = 0
 			if canDeal.Cold and not skillModList:Flag(cfg, "ColdCannotChill") then
@@ -2397,6 +2397,21 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for %.1f seconds, target must have no more than %.0f Ailment Threshold.", 2 * output.ChillDurationMod, (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
 					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
+			end
+		end
+		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
+			skillFlags.chill = true
+			output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
+			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
+			output.ChillSourceEffect = m_min(30, m_floor(10 * (1 + output.ChillEffectMod / 100)))
+			if breakdown then
+				breakdown.DotChill = { }
+				breakdown.multiChain(breakdown.DotChill, {
+					label = "Effect of Chill: ^8(capped at 30%)",
+					base = "10% ^8(base)",
+					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
+					total = s_format("= %.0f%%", output.ChillSourceEffect)
+				})
 			end
 		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then

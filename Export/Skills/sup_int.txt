@@ -70,6 +70,7 @@ local skills, mod, flag, skill = ...
 			mod("ColdDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill", effectEnemyCond = "Chilled" }),
 		},
 	},
+#baseMod skill("supportBonechill", true)
 #mods
 
 #skill SupportCastOnStunned

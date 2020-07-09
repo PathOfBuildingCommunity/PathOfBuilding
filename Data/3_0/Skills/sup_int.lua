@@ -507,6 +507,7 @@ skills["SupportBonechill"] = {
 		},
 	},
 	baseMods = {
+		skill("supportBonechill", true),
 	},
 	qualityStats = {
 		{ "chill_duration_+%", 1 },
