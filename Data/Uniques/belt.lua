@@ -59,6 +59,18 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}20% increased maximum Energy Shield
 {tags:jewellery_defense}50% increased Energy Shield Recharge Rate
 ]],[[
+Bear's Girdle
+Leather Belt
+League: Harvest
+Requires Level 68
+Implicits: 1
+{tags:life}+(25-40) to maximum Life
+{tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
+(20-30)% increased Stun Duration on Enemies
+Nearby Enemies are Crushed while you have least 25 Rage
+(4-6)% increased Physical Damage per 10 Rage
++20 to Maximum Rage
+]],[[
 Belt of the Deceiver
 Heavy Belt
 Variant: Pre 2.6.0
