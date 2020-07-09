@@ -2320,6 +2320,7 @@ skills["AvianTornado"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
