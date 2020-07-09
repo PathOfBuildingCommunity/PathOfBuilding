@@ -4997,6 +4997,15 @@ skills["OrbOfStorms"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100)
+	end,
+	statMap = {
+		["orb_of_storms_base_bolt_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		chaining = true,
