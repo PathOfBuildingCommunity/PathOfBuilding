@@ -24,7 +24,7 @@ The Anticipation
 Ezomyte Tower Shield
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
-Upgrade: Upgrades to unique{} using currency{Blessing of Uul-Netol}
+Upgrade: Upgrades to unique{The Surrender} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
@@ -39,7 +39,7 @@ Permanently Intimidate Enemies on Block
 The Surrender
 Ezomyte Tower Shield
 League: Breach
-Source: Upgraded from unique{} using currency{Blessing of Uul-Netol}
+Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
