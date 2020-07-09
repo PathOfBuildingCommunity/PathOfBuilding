@@ -1456,6 +1456,7 @@ return {
 	}, },
 	{ label = "Net Life Regen", haveOutput = "NetLifeRegen", { format = "{1:output:NetLifeRegen}", { breakdown = "NetLifeRegen" }, }, },
 	{ label = "Net Mana Regen", haveOutput = "NetManaRegen", { format = "{1:output:NetManaRegen}", { breakdown = "NetManaRegen" }, }, },
+	{ label = "Net Energy Shield Regen", haveOutput = "NetEnergyShieldRegen", { format = "{1:output:NetEnergyShieldRegen}", { breakdown = "NetEnergyShieldRegen" }, }, },
 } }
 } },
 }
