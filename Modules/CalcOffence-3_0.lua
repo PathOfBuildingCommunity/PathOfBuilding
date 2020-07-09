@@ -2359,9 +2359,52 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.shock = true
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
+				local maximum = skillModList:Override(nil, "ShockMax") or 50
+				local current = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), maximum)
+				local effList = { 5, 15, 50 }
+				if maximum ~= 50 then
+					t_insert(effList, maximum)
+				end
+				if current > 5 and current ~= (15 or 50 or maximum) and current < maximum then
+					t_insert(effList, current)
+				end
+				table.sort(effList)
 				if breakdown then
-					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for %.1f seconds, target must have no more than %.0f Ailment Threshold.", 2 * output.ShockDurationMod, (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
-					t_insert(breakdown.ShockDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
+					if current > 0 then
+						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds ^8(with a ^7%s%% ^8shock on the enemy)^7", 2 * output.ShockDurationMod, current)
+					else
+						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds", 2 * output.ShockDurationMod)
+					end
+					breakdown.ShockDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
+					breakdown.ShockDPS.rowList = { }
+					breakdown.ShockDPS.colList = {
+						{ label = "Shock Effect", key = "effect" },
+						{ label = "Ailment Threshold", key = "thresh" },
+					}
+					for _, value in ipairs(effList) do
+						local thresh = (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
+						if value == current then
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%% ^8(current)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == maximum then
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%% ^8(maximum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == 5 then
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%% ^8(minimum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						else
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%%", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						end
+					end
 				end
  			end
 		end
@@ -2393,9 +2436,48 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.chill = true
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
+				effList = { 5, 10, 30 }
+				if output.BonechillEffect then
+					t_insert(effList, output.BonechillEffect)
+					table.sort(effList)
+				end
 				if breakdown then
-					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for %.1f seconds, target must have no more than %.0f Ailment Threshold.", 2 * output.ChillDurationMod, (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
-					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
+					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+					if output.BonechillEffect then
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds ^8(with a ^7%s%% ^8Bonechill effect on the enemy)^7", 2 * output.ChillDurationMod, output.BonechillEffect)
+					else
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+					end
+					breakdown.ChillDPS.rowList = { }
+					breakdown.ChillDPS.colList = {
+						{ label = "Chill Effect", key = "effect" },
+						{ label = "Ailment Threshold", key = "thresh" },
+					}
+					breakdown.ChillDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
+					for _, value in ipairs(effList) do
+						local thresh = (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
+						if value == output.BonechillEffect then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(current)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == 30 then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(maximum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == 5 then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(minimum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						else
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%%", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						end
+					end
 				end
 			end
 		end
