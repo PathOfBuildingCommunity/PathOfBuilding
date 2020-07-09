@@ -1193,7 +1193,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		if activeSkill.skillTypes[SkillType.SlamSkill] then
 			local numSeismicExerts = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
 			if numSeismicExerts > 0 and not skillFlags.warcry then
-				local SeismicHitMultiplier = skillModList:Sum("BASE", cfg, "SeismicHitMultiplier") / 100
+				local moreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.gemData.name == "Seismic Cry" then
 						-- recursively calculate the values for Seismic Cry
@@ -1207,13 +1207,14 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				end
 				output.SeismicDmgImpact = 0
 				for i = 1, numSeismicExerts do
-					output.SeismicDmgImpact = output.SeismicDmgImpact + (i * SeismicHitMultiplier)
+					output.SeismicDmgImpact = output.SeismicDmgImpact + (i * moreDmgAndAoEPerExert)
 				end
 				output.SeismicAvgDmg = output.SeismicDmgImpact / numSeismicExerts
 				-- calculate ratio of uptime versus downtime (including opportunity cost of casting the warcry)
 				output.SeismicUpTimeRatio = m_min((numSeismicExerts / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1.0)
 				exertedUptime = m_max(exertedUptime, output.SeismicUpTimeRatio)
 				output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
+				skillModList:NewMod("AreaOfEffect", "MORE", m_floor(output.SeismicAvgDmg * output.SeismicUpTimeRatio * 100), "Avg Seismic Exert AoE")
 			end
 		end
 
@@ -1228,6 +1229,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 						-- only actual Cooldown and WarcryCastTime are returned
 						local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
 
+						output.InitmidatingCryDuration = intimidatingCryData.Duration
 						output.IntimidatingCryCooldown = intimidatingCryData.Cooldown
 						output.IntimidatingCryCastTime = intimidatingCryData.WarcryCastTime
 						break
@@ -1239,6 +1241,10 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
 				-- is calculated as the improvement over the non-intimidated double damage chance
 				output.IntimidatingHitEffect = 1 + (1 - output.DoubleDamageChance / 100) * output.IntimidatingUpTimeRatio
+
+				-- overwhelm calculation
+				local buffUptime = m_min(output.InitmidatingCryDuration / output.IntimidatingCryCooldown, 1)
+				skillModList:NewMod("EnemyPhysicalDamageReduction", "BASE", -30 * buffUptime, "Intimidating Cry Buff")
 			end
 		end
 

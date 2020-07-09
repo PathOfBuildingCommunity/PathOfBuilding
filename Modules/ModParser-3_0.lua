@@ -2073,7 +2073,7 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
-	["warcries exert (%d+) additional attack"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
+	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
 	["you have zealot's oath if you haven't been hit recently"] = { mod("Keystone", "LIST", "Zealot's Oath", { type = "Condition", var = "BeenHitRecently", neg = true }) },

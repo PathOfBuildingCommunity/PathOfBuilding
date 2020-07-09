@@ -4275,7 +4275,7 @@ skills["SeismicCry"] = {
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
 		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
-			mod("SeismicHitMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("SeismicHitMultiplier", "BASE", nil),
 		},
 	},
 	baseFlags = {
