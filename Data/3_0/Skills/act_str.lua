@@ -88,7 +88,7 @@ skills["InfernalCryOnHitExplosion"] = {
 	name = "Combust",
 	color = 1,
 	description = "Deals attack damage in an area.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.TriggeredGrantedSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -109,7 +109,7 @@ skills["InfernalCryOnHitExplosion"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("showAverage", true)
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
