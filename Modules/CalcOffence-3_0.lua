@@ -1286,7 +1286,7 @@ function calcs.offence(env, actor, activeSkill)
 							if isElemental[damageType] then
 								resist = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
-								takenInc = takenInc + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+								takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 							elseif damageType == "Chaos" then
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
@@ -1302,7 +1302,9 @@ function calcs.offence(env, actor, activeSkill)
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
 						end
 						local effMult = (1 + takenInc / 100) * takenMore
-						if not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
+						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+							effMult = effMult * (1 - resist / 100)
+						elseif not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
 							effMult = effMult * (1 - (resist - pen) / 100)
 						end
 						damageTypeHitMin = damageTypeHitMin * effMult
@@ -1311,7 +1313,10 @@ function calcs.offence(env, actor, activeSkill)
 						if env.mode == "CALCS" then
 							output[damageType.."EffMult"] = effMult
 						end
-						if pass == 2 and breakdown and effMult ~= 1 then
+						if pass == 2 and breakdown and effMult ~= 1 and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore)
+						elseif pass == 2 and breakdown and effMult ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore)
 						end
