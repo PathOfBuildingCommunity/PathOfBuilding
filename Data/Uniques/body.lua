@@ -1067,13 +1067,13 @@ Shroud of the Lightless
 Carnal Armour
 League: Abyss
 Source: Drops from Abyssal Liches
-Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
+Variant: One Abyssal Socket
 Requires Level: 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana 
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+{variant:1}Has 2 Abyssal Sockets
+{variant:2}Has 1 Abyssal Socket
 Socketed Gems are Supported by Level 20 Elemental Penetration 
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill 
 (160-180)% increased Evasion and Energy Shield 
