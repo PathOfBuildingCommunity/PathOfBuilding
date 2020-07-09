@@ -4623,6 +4623,11 @@ skills["VaalLightningTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Trap] = true, [SkillType.SkillCanMine] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["shocked_ground_base_magnitude_override"] = {
+			mod("ShockedGroundEffect", "BASE", nil)
+		},
+	},
 	baseFlags = {
 		spell = true,
 		trap = true,

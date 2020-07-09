@@ -773,6 +773,11 @@ local skills, mod, flag, skill = ...
 
 #skill VaalLightningTrap
 #flags spell trap projectile duration
+	statMap = {
+		["shocked_ground_base_magnitude_override"] = {
+			mod("ShockedGroundEffect", "BASE", nil)
+		},
+	},
 #mods
 
 #skill LightningWarp
