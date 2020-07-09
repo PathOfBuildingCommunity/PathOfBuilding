@@ -6783,8 +6783,9 @@ skills["SupportBrandSupport"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
+	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
-		skill("showAverage", true),
+		skill("triggeredByBrand", true),
 	},
 	qualityStats = {
 	},

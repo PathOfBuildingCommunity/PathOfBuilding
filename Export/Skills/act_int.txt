@@ -1126,7 +1126,8 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-#baseMod skill("showAverage", true)
+	addSkillTypes = { SkillType.Brand, },
+#baseMod skill("triggeredByBrand", true)
 #mods
 
 #skill SpiritOffering

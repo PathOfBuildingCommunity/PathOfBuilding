@@ -1220,6 +1220,9 @@ return {
 	skill("repeatFrequency", nil),
 	div = 1000,
 },
+["sigil_repeat_frequency_+%"] = {
+	mod("BrandActivationFrequency", "INC", nil)
+},
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
 	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
