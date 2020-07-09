@@ -1096,6 +1096,9 @@ return {
 ["mine_laying_speed_+%"] = {
 	mod("MineLayingSpeed", "INC", nil),
 },
+["mine_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Mine),
+},
 ["mine_detonation_radius_+%"] = {
 	mod("MineDetonationAreaOfEffect", "INC", nil),
 },
