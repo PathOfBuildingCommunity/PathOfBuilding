@@ -1226,6 +1226,14 @@ function calcs.perform(env)
 	elseif enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks") > maxImpaleStacks then
 		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	end
+	
+	-- Calculates maximum Shock, then applies the configured Shock effect to the enemy
+	if enemyDB:Sum("BASE", nil, "ShockVal") > 0 and not enemyDB:Flag(nil, "Condition:AlreadyShocked") then
+		output.MaximumShock = modDB:Override(nil, "ShockMax") or 50
+		output.CurrentShock = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), output.MaximumShock)
+		enemyDB:NewMod("DamageTaken", "INC", output.CurrentShock, "Shock", { type = "Condition", var = "Shocked"} )
+		enemyDB:NewMod("Condition:AlreadyShocked", "FLAG", true, { type = "Condition", var = "Shocked"} ) -- Prevents Shock from applying doubly for minions
+	end
 
 	-- Check for extra auras
 	for _, value in ipairs(modDB:List(nil, "ExtraAura")) do
