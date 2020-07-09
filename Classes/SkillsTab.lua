@@ -69,11 +69,11 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.sortGemsByDPSField = value.type
 	end)
 	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 94, 60, 20, nil, nil, "%D", 2, function(buf)
-		self.defaultGemLevel = m_min(tonumber(buf), 21)
+		self.defaultGemLevel = m_min(tonumber(buf) or 20, 21)
 	end)
 	self.controls.defaultLevelLabel = new("LabelControl", {"RIGHT",self.controls.defaultLevel,"LEFT"}, -4, 0, 0, 16, "^7Default gem level:")
 	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 118, 60, 20, nil, nil, "%D", 2, function(buf)
-		self.defaultGemQuality = m_min(tonumber(buf), 23)
+		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
 	self.controls.defaultQualityLabel = new("LabelControl", {"RIGHT",self.controls.defaultQuality,"LEFT"}, -4, 0, 0, 16, "^7Default gem quality:")
 	self.controls.showSupportGemTypes = new("DropDownControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 142, 120, 20, showSupportGemTypeList, function(index, value)
