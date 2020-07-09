@@ -13,6 +13,11 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill InfernalCryOnHitExplosion
+#flags attack melee area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill TotemMelee
 #flags attack melee totem duration
 	statMap = {
