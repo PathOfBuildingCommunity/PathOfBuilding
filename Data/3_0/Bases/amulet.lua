@@ -181,7 +181,7 @@ itemBases["Mandible Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(6-10)% increased Attack and Cast Speed",
-	implicitModTypes = { { "speed", "jewellery_attack", "jewellery_caster" }, },
+	implicitModTypes = { { "speed", "jewellery_attack", "jewellery_caster", "attack", "caster" }, },
 	req = { },
 }
 itemBases["Chrysalis Talisman"] = {
@@ -197,7 +197,7 @@ itemBases["Writhing Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased Attack Damage",
-	implicitModTypes = { { "jewellery_attack" }, },
+	implicitModTypes = { { "jewellery_attack", "attack" }, },
 	req = { },
 }
 itemBases["Hexclaw Talisman"] = {

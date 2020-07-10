@@ -2729,6 +2729,8 @@ return {
 	},
 	HarvestColours={
 	},
+	HarvestCraftOptionIcons={
+	},
 	HarvestCraftOptions={
 	},
 	HarvestCraftTiers={
