@@ -163,6 +163,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCurseOnHitPlus
+    statMap = {
+		["number_of_additional_curses_allowed"] = {
+			mod("AdditionalCurse", "BASE", nil),
+		},
+	},
+#baseMod skill("supportAwakenedCurseOnHit", true)
 #mods
 
 #skill SupportMinionFocusFire

@@ -1250,7 +1250,13 @@ skills["SupportCurseOnHitPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHit",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["number_of_additional_curses_allowed"] = {
+			mod("AdditionalCurse", "BASE", nil),
+		},
+	},
 	baseMods = {
+		skill("supportAwakenedCurseOnHit", true),
 	},
 	qualityStats = {
 		{ "curse_effect_+%", 0.5 },
