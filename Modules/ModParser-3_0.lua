@@ -1699,7 +1699,10 @@ local specialModList = {
 		mod("FreezeAsThoughDealing", "MORE", num)
 	} end,
 	["(%d+)%% chance to shock attackers for (%d+) seconds on block"] = { mod("ShockBase", "OVERRIDE", 15) },
-	["shock nearby enemies for (%d+) seconds when you focus"]  = { mod("ShockBase", "OVERRIDE", 15, { type = "Condition", var = "Focused" }) },
+	["shock nearby enemies for (%d+) seconds when you focus"]  = { 
+		mod("ShockBase", "OVERRIDE", 15, { type = "Condition", var = "Focused" }),
+		mod("EnemyModifier", "LIST", { mod = flag("Condition:Shocked") }, { type = "Condition", var = "Focused" } ),
+	},
 	["drops shocked ground while moving, lasting (%d+) seconds"] = { mod("ShockOverride", "OVERRIDE", 10, { type = "ActorCondition", actor = "enemy", var = "OnShockedGround"} ) },
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
