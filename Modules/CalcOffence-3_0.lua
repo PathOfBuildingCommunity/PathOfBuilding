@@ -2273,12 +2273,8 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
-					if skillData.showAverage then
-						output.TotalIgniteAverageDamage = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage
-					else
-						output.TotalIgniteStacks = output.HitChance / 100 * output.IgniteChance / 100 * globalOutput.IgniteDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
-						output.TotalIgniteDPS = output.IgniteDPS * output.TotalIgniteStacks
-					end
+					output.TotalIgniteStacks = 1 + skillModList:Sum("BASE", cfg, "IgniteStacks")
+					output.TotalIgniteDPS = output.IgniteDPS * output.TotalIgniteStacks
 				end
 				if breakdown then
 					t_insert(breakdown.IgniteDPS, "x 0.5 ^8(ignite deals 50% per second)")
@@ -2299,20 +2295,6 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(breakdown.IgniteDamage, s_format("%.1f ^8(damage per second)", output.IgniteDPS))
 						t_insert(breakdown.IgniteDamage, s_format("x %.2fs ^8(ignite duration)", globalOutput.IgniteDuration))
 						t_insert(breakdown.IgniteDamage, s_format("= %.1f ^8damage per ignite stack", output.IgniteDamage))
-						if not skillData.showAverage then
-							breakdown.TotalIgniteStacks = { }
-							if isAttack then
-								t_insert(breakdown.TotalIgniteStacks, pass.label..":")
-							end
-							breakdown.multiChain(breakdown.TotalIgniteStacks, {
-								base = s_format("%.2fs ^8(ignite duration)", globalOutput.IgniteDuration),
-								{ "%.2f ^8(ignite chance)", output.IgniteChance / 100 },
-								{ "%.2f ^8(hit chance)", output.HitChance / 100 },
-								{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
-								{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
-								total = s_format("= %.1f", output.TotalIgniteStacks),
-							})
-						end
 					end
 					if incDur ~= 0 or moreDur ~= 1 or rateMod ~= 1 then
 						globalBreakdown.IgniteDuration = {
@@ -2678,6 +2660,8 @@ function calcs.offence(env, actor, activeSkill)
 			combineStat("IgniteDamage", "CHANCE", "IgniteChance")
 			if skillData.showAverage then
 				combineStat("TotalIgniteAverageDamage", "DPS")
+				combineStat("TotalIgniteStacks", "DPS")
+				combineStat("TotalIgniteDPS", "DPS")
 			else
 				combineStat("TotalIgniteStacks", "DPS")
 				combineStat("TotalIgniteDPS", "DPS")
@@ -2769,8 +2753,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillFlags.igniteCanStack then
 			if skillData.showAverage then
 				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
-				output.CombinedAvg = output.CombinedDPS + output.TotalIgniteAverageDamage
-				output.WithIgniteAverageDamage = baseDPS + output.TotalIgniteAverageDamage
+				output.CombinedAvg = output.CombinedDPS + output.IgniteDamage
 			else
 				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
 				output.WithIgniteDPS = baseDPS + output.TotalIgniteDPS

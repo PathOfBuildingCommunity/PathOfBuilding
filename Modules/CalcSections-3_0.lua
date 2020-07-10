@@ -701,7 +701,7 @@ return {
 	}, },
 	{ label = "Ignite Duration", { format = "{2:output:IgniteDuration}s", 
 		{ breakdown = "IgniteDuration" },
-		{ label = "Player modifiers", modName = { "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration" }, cfg = "skill" },
+		{ label = "Player modifiers", modName = { "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration", "IgniteBurnFaster", "IgniteBurnSlower" }, cfg = "skill" },
 		{ label = "Enemy modifiers", modName = "SelfIgniteDuration", enemy = true },
 	}, },
 	{ label = "Dmg. per Ignite", flag = "igniteCanStack", { format = "{1:output:IgniteDamage}",
@@ -709,11 +709,7 @@ return {
 		{ breakdown = "OffHand.IgniteDamage" },
 		{ breakdown = "IgniteDamage" },
 	}, },
-	{ flagList = { "notAverage", "igniteCanStack" }, label = "Max Ignite Stacks", { format = "{1:output:TotalIgniteStacks}",
-		{ breakdown = "MainHand.TotalIgniteStacks" }, 
-		{ breakdown = "OffHand.TotalIgniteStacks" }, 
-		{ breakdown = "TotalIgniteStacks" }, 
-	}, },
+	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:TotalIgniteStacks}", { modName = "IgniteStacks" }, }, },
 } }
 } },
 { 1, "Decay", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Decay", data = {
