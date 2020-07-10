@@ -172,12 +172,12 @@ Implicits: 1
 {variant:1,2,3,5,6,7}{tags:jewellery_resistance}+(30-35)% to Lightning Resistance
 {variant:1}{tags:life}0.2% of Physical Damage Leeched as Life
 {variant:5}{tags:life}0.6% of Physical Damage Leeched as Life
-{variant:2}{tags:lifejewellery_elemental}0.2% of Fire Damage Leeched as Life
-{variant:6}{tags:lifejewellery_elemental}0.6% of Fire Damage Leeched as Life
-{variant:3}{tags:lifejewellery_elemental}0.2% of Cold Damage Leeched as Life
-{variant:7}{tags:lifejewellery_elemental}0.6% of Cold Damage Leeched as Life
-{variant:4}{tags:lifejewellery_elemental}0.2% of Lightning Damage Leeched as Life
-{variant:8}{tags:lifejewellery_elemental}0.6% of Lightning Damage Leeched as Life
+{variant:2}{tags:life,jewellery_elemental}0.2% of Fire Damage Leeched as Life
+{variant:6}{tags:life,jewellery_elemental}0.6% of Fire Damage Leeched as Life
+{variant:3}{tags:life,jewellery_elemental}0.2% of Cold Damage Leeched as Life
+{variant:7}{tags:life,jewellery_elemental}0.6% of Cold Damage Leeched as Life
+{variant:4}{tags:life,jewellery_elemental}0.2% of Lightning Damage Leeched as Life
+{variant:8}{tags:life,jewellery_elemental}0.6% of Lightning Damage Leeched as Life
 {variant:1,5}Your Flasks grant 25% reduced Enemy Stun Threshold during any Flask Effect
 {variant:2}Your Flasks grant 10% chance to Ignite during any Flask Effect
 {variant:6}Your Flasks grant (20-30)% chance to Ignite during any Flask Effect
