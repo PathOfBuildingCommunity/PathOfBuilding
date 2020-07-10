@@ -1270,6 +1270,11 @@ function ItemsTabClass:CraftClusterJewel()
 	local item = self.displayItem
 	wipeTable(item.enchantModLines)
 	t_insert(item.enchantModLines, { line = "Adds "..(item.clusterJewelNodeCount or item.clusterJewel.maxNodes).." Passive Skills", crafted = true })
+	if item.clusterJewel.size == "Large" then
+		t_insert(item.enchantModLines, { line = "2 Added Passive Skills are Jewel Sockets", crafted = true })
+	elseif item.clusterJewel.size == "Medium" then
+		t_insert(item.enchantModLines, { line = "1 Added Passive Skill is a Jewel Socket", crafted = true })
+	end
 	local skill = item.clusterJewel.skills[item.clusterJewelSkill]
 	t_insert(item.enchantModLines, { line = table.concat(skill.enchant, "\n"), crafted = true })
 	item:BuildAndParseRaw()
