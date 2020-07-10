@@ -626,11 +626,11 @@ function calcs.perform(env)
 			output.BonechillEffect = m_max(output.BonechillEffect or 0, modDB:Override(nil, "BonechillEffect") or output.BonechillDotEffect or 0)
 		end
 		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap"  or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
-			modDB:NewMod("ShockOverride", "OVERRIDE", activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect"), "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
+			modDB:NewMod("ShockOverride", "BASE", activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect"), "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" and not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
 			local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
-			modDB:NewMod("ShockOverride", "OVERRIDE", 15 * (1 + effect / 100), "Summon Skitterbots")
+			modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
 			enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
 		end
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") and not modDB:Flag(nil, "AlreadyWithered") then
@@ -1257,14 +1257,21 @@ function calcs.perform(env)
 	end
 	
 	-- Calculates maximum Shock, then applies the strongest Shock effect to the enemy
-	if (enemyDB:Sum("BASE", nil, "ShockVal") > 0 or modDB:Override(nil, "ShockBase", "ShockOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyShocked") then
+	if (enemyDB:Sum("BASE", nil, "ShockVal") > 0 or modDB:Sum(nil, "ShockBase", "ShockOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyShocked") then
 		local baseShock = (modDB:Override(nil, "ShockBase") or 0) * (1 + modDB:Sum("INC", nil, "EnemyShockEffect") / 100)
 		local overrideShock = 0
-		for _, value in ipairs(modDB:Tabulate("OVERRIDE", { }, "ShockOverride")) do
-			overrideShock = m_max(overrideShock or 0, value.mod.value or 0)
+		for i, value in ipairs(modDB:Tabulate("BASE", { }, "ShockBase", "ShockOverride")) do
+			local mod = value.mod
+			local inc = 1 + modDB:Sum("INC", nil, "EnemyShockEffect") / 100
+			local effect = mod.value
+			if mod.name == "ShockBase" then
+				effect = effect * inc
+				modDB:NewMod("ShockOverride", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			overrideShock = m_max(overrideShock or 0, effect or 0)
 		end
 		output.MaximumShock = modDB:Override(nil, "ShockMax") or 50
-		output.CurrentShock = m_min(m_max(baseShock, overrideShock, enemyDB:Sum("BASE", nil, "ShockVal")), output.MaximumShock)
+		output.CurrentShock = m_floor(m_min(m_max(overrideShock, enemyDB:Sum("BASE", nil, "ShockVal")), output.MaximumShock))
 		enemyDB:NewMod("DamageTaken", "INC", m_floor(output.CurrentShock), "Shock", { type = "Condition", var = "Shocked"} )
 		enemyDB:NewMod("Condition:AlreadyShocked", "FLAG", true, { type = "Condition", var = "Shocked"} ) -- Prevents Shock from applying doubly for minions
 	end
