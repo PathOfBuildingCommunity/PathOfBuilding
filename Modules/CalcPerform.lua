@@ -631,22 +631,22 @@ function calcs.perform(env)
 			local heal_over_1_sec = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryLifeRegen")
 			local resist_all_per_endurance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryElementalResist")
 			local pdr_per_endurance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryPhysicalDamageReduction")
-			local duration_inc = env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Duration")
-			local full_duration = activeSkill.activeEffect.grantedEffectLevel.duration * (1 + duration_inc / 100)
-			local cdr = env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "CooldownRecovery")
-			local actual_cooldown = activeSkill.activeEffect.grantedEffectLevel.cooldown / (1 + cdr / 100)
+			local full_duration = activeSkill.activeEffect.grantedEffectLevel.duration * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", activeSkill.skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+			local cooldownOverride = activeSkill.skillModList:Override(activeSkill.skillCfg, "CooldownRecovery")
+			local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "CooldownRecovery")) / calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "CooldownRecovery")
 			local uptime = m_min(full_duration / actual_cooldown, 1)
-			modDB:NewMod("LifeRegen", "BASE", heal_over_1_sec * uptime, "Enduring Cry")
-			local buff_inc = env.player.mainSkill.skillModList:Sum("INC", activeSkill.skillCfg, "BuffEffect")
-			modDB:NewMod("ElementalResist", "BASE", resist_all_per_endurance * uptime * (1 + buff_inc/100), "Enduring Cry", { type = "Multiplier", var = "EnduranceCharge" })
-			modDB:NewMod("PhysicalDamageReduction", "BASE", pdr_per_endurance * uptime * (1 + buff_inc/100), "Enduring Cry", { type = "Multiplier", var = "EnduranceCharge" })
+			env.player.modDB:NewMod("LifeRegen", "BASE", heal_over_1_sec , "Enduring Cry", { type = "Condition", var = "LifeRegenBurstFull" })
+			env.player.modDB:NewMod("LifeRegen", "BASE", heal_over_1_sec / actual_cooldown, "Enduring Cry", { type = "Condition", var = "LifeRegenBurstAvg" })
+			local buff_inc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "BuffEffect")
+			env.player.modDB:NewMod("ElementalResist", "BASE", resist_all_per_endurance * uptime * (1 + buff_inc/100), "Enduring Cry", { type = "Multiplier", var = "EnduranceCharge" })
+			env.player.modDB:NewMod("PhysicalDamageReduction", "BASE", pdr_per_endurance * uptime * (1 + buff_inc/100), "Enduring Cry", { type = "Multiplier", var = "EnduranceCharge" })
 		elseif activeSkill.activeEffect.grantedEffect.name == "Seismic Cry" then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
-			modDB:NewMod("NumSeismicExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions)
-			modDB:NewMod("SeismicMoreDmgPerExert",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicHitMultiplier"))
+			env.player.modDB:NewMod("NumSeismicExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions)
+			env.player.modDB:NewMod("SeismicMoreDmgPerExert",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicHitMultiplier"))
 		elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
-			modDB:NewMod("NumIntimidatingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions)
+			env.player.modDB:NewMod("NumIntimidatingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions)
 		end
 	end
 

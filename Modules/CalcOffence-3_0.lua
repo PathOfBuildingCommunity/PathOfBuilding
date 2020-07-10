@@ -1193,15 +1193,17 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		if activeSkill.skillTypes[SkillType.SlamSkill] then
 			local numSeismicExerts = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
 			if numSeismicExerts > 0 and not skillFlags.warcry then
+				local buff_effect = 1
 				local moreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.gemData.name == "Seismic Cry" then
 						-- recursively calculate the values for Seismic Cry
-						-- only actual Cooldown and WarcryCastTime are returned
+						-- only actual Duration, Cooldown and WarcryCastTime are returned
 						local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
-
+						output.SeismicCryDuration = seismicCryData.Duration
 						output.SeismicCryCooldown = seismicCryData.Cooldown
 						output.SeismicCryCastTime = seismicCryData.WarcryCastTime
+						buff_effect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 						break
 					end
 				end
@@ -1215,6 +1217,11 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				exertedUptime = m_max(exertedUptime, output.SeismicUpTimeRatio)
 				output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
 				skillModList:NewMod("AreaOfEffect", "MORE", m_floor(output.SeismicAvgDmg * output.SeismicUpTimeRatio * 100), "Avg Seismic Exert AoE")
+
+				-- stun reduce threshold calculation
+				local buffUptime = m_min(output.SeismicCryDuration / output.SeismicCryCooldown, 1)
+				local warcryPower = m_floor(m_min(env.modDB:Sum("BASE", cfg, "Multiplier:WarcryPower"), 30) / 5)
+				skillModList:NewMod("EnemyStunThreshold", "BASE", -5 * buff_effect * warcryPower * buffUptime, "Seismic Cry Buff")
 			end
 		end
 
@@ -1223,15 +1230,16 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		if activeSkill.skillTypes[SkillType.Attack] then
 			local numIntimidatingExerts = env.modDB:Sum("BASE", nil, "NumIntimidatingExerts") or 0
 			if numIntimidatingExerts > 0 and not skillFlags.warcry then
+				local buff_effect = 1
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.gemData.name == "Intimidating Cry" then
 						-- recursively calculate the values for Intimidating Cry
-						-- only actual Cooldown and WarcryCastTime are returned
+						-- only actual Duration, Cooldown and WarcryCastTime are returned
 						local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
-
 						output.InitmidatingCryDuration = intimidatingCryData.Duration
 						output.IntimidatingCryCooldown = intimidatingCryData.Cooldown
 						output.IntimidatingCryCastTime = intimidatingCryData.WarcryCastTime
+						buff_effect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 						break
 					end
 				end
@@ -1244,7 +1252,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 
 				-- overwhelm calculation
 				local buffUptime = m_min(output.InitmidatingCryDuration / output.IntimidatingCryCooldown, 1)
-				skillModList:NewMod("EnemyPhysicalDamageReduction", "BASE", -30 * buffUptime, "Intimidating Cry Buff")
+				local warcryPower = m_floor(m_min(env.modDB:Sum("BASE", cfg, "Multiplier:WarcryPower"), 30) / 5)
+				skillModList:NewMod("EnemyPhysicalDamageReduction", "BASE", -5 * buff_effect * warcryPower * buffUptime, "Intimidating Cry Buff")
 			end
 		end
 
