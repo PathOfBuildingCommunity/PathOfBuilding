@@ -513,6 +513,36 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SummonHarbingerOfTheArcaneUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfBrutalityUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfDirectionsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfFocusUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfStormsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfTimeUber
+#flags spell minion
+	fromItem = true,
+#mods
+
 #skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
 #flags spell minion
 	fromItem = true,
