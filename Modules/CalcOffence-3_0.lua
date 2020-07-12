@@ -1259,8 +1259,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 
 		-- Account for INC and MORE increases for Exerted Attacks
 		if exertedUptime > 0 then
-			skillModList:NewMod("Damage", "INC", skillModList:Sum("INC", cfg, "ExertIncrease") * exertedUptime, "Exerted Attack Increases", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
-			skillModList:NewMod("Damage", "MORE", skillModList:Sum("MORE", cfg, "ExertIncrease") * exertedUptime, "Exerted Attack More", ModFlag.Attack, 0, { type = "SkillType", skillType = SkillType.SlamSkill })
+			skillModList:NewMod("Damage", "INC", skillModList:Sum("INC", cfg, "ExertIncrease") * exertedUptime, "Exerted Attack Increases", ModFlag.Attack, 0)
+			skillModList:NewMod("Damage", "MORE", skillModList:Sum("MORE", cfg, "ExertIncrease") * exertedUptime, "Exerted Attack More", ModFlag.Attack, 0)
 		end
 
 		-- Calculate base hit damage
