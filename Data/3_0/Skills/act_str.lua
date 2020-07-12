@@ -3952,16 +3952,18 @@ skills["RallyingCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["damage_+%"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["rallying_cry_damage_+%_final_from_osm_per_nearby_ally"] = {
+			mod("RallyingCryExertDamageBonus", "BASE", nil),
 		},
-		["inspiring_cry_damage_+%_per_one_hundred_nearby_enemies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("RallyingExertedAttacks", "BASE", nil),
 		},
-		["base_mana_regeneration_rate_per_minute"] = {
-			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
+		["rallying_cry_weapon_damage_%_for_allies_per_5_monster_power"] = {
+			mod("RallyingCryAllyDamageBonusPer5Power", "BASE", nil),
+		},
+		["rallying_cry_buff_effect_on_minions_+%_final"] = {
+			mod("RallyingCryMinionDamageBonusMultiplier", "BASE", nil),
+			div = 100
 		},
 	},
 	baseFlags = {
@@ -3971,6 +3973,7 @@ skills["RallyingCry"] = {
 	},
 	baseMods = {
 		skill("buffAllies", true),
+		skill("buffNotPlayer", true)
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 1 },
