@@ -649,6 +649,25 @@ function calcs.perform(env)
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 			env.player.modDB:NewMod("NumIntimidatingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions)
 			env.player.modDB:NewMod("IntimidatingPDR", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingPDRPer5MP"), "Intimidating Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
+		elseif activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" then
+			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
+			env.player.modDB:NewMod("NumRallyingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions)
+			env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
+			-- Special handling for the minion side to add the flat damage bonus
+			if env.minion then
+				-- Get the warcry power effect for the skill based on configured power
+				local warcryPowerBonus = m_min(activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power") * m_floor(activeSkill.skillModList:Sum("BASE", env.player.modDB, "Multiplier:WarcryPower") / 5), 20)/100
+				-- Get the warcry effect bonus, TODO: add the buff as coming from a warcry
+				local warcryBuffEffect = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "BuffEffect") / 100
+				-- Get the overall multiplier for player main hand damage
+				local mult = warcryPowerBonus * (1 + activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier")) * (1 + warcryBuffEffect)
+				-- Add all damage types
+				local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
+				for _, damageType in ipairs(dmgTypeList) do
+					env.minion.modDB:NewMod(damageType.."Min", "BASE", (env.player.weaponData1[damageType.."Min"] or 0) * mult, "Rallying Cry", 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+					env.minion.modDB:NewMod(damageType.."Max", "BASE", (env.player.weaponData1[damageType.."Max"] or 0) * mult, "Rallying Cry", 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+				end
+			end
 		end
 	end
 
