@@ -1194,9 +1194,12 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			local numSeismicExerts = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
 			if numSeismicExerts > 0 and not skillFlags.warcry then
 				local buff_effect = 1
+				output.SeismicCryDuration = 4
+				output.SeismicCryCooldown = 8
+				output.SeismicCryCastTime = 0.8
 				local moreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
 				for index, value in ipairs(actor.activeSkillList) do
-					if value.activeEffect.gemData.name == "Seismic Cry" then
+					if value.activeEffect.grantedEffect.name == "Seismic Cry" then
 						-- recursively calculate the values for Seismic Cry
 						-- only actual Duration, Cooldown and WarcryCastTime are returned
 						local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
@@ -1231,8 +1234,11 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			local numIntimidatingExerts = env.modDB:Sum("BASE", nil, "NumIntimidatingExerts") or 0
 			if numIntimidatingExerts > 0 and not skillFlags.warcry then
 				local buff_effect = 1
+				output.InitmidatingCryDuration = 4
+				output.IntimidatingCryCooldown = 8
+				output.IntimidatingCryCastTime = 0.8
 				for index, value in ipairs(actor.activeSkillList) do
-					if value.activeEffect.gemData.name == "Intimidating Cry" then
+					if value.activeEffect.grantedEffect.name == "Intimidating Cry" then
 						-- recursively calculate the values for Intimidating Cry
 						-- only actual Duration, Cooldown and WarcryCastTime are returned
 						local intimidatingCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
