@@ -3120,6 +3120,9 @@ skills["IntimidatingCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -4276,6 +4279,9 @@ skills["SeismicCry"] = {
 		},
 		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
 			mod("SeismicHitMultiplier", "BASE", nil),
+		},
+		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
+			mod("SeismicStunThresholdPer5MP", "BASE", nil),
 		},
 	},
 	baseFlags = {
