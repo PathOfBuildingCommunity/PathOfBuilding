@@ -1259,8 +1259,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 
 					-- overwhelm calculation
 					local buffUptime = m_min(output.InitmidatingCryDuration / output.IntimidatingCryCooldown, 1)
-					local warcryPower = m_floor(m_min(env.modDB:Sum("BASE", cfg, "Multiplier:WarcryPower"), 30) / 5)
-					skillModList:NewMod("EnemyPhysicalDamageReduction", "BASE", -5 * buff_effect * warcryPower * buffUptime, "Intimidating Cry Buff")
+					local overwhelmBuff = env.modDB:Sum("BASE", cfg, "IntimidatingPDR") or 0
+					skillModList:NewMod("EnemyPhysicalDamageReduction", "BASE", -overwhelmBuff * buff_effect * buffUptime, "Intimidating Cry Buff")
 				end
 			end
 		end
