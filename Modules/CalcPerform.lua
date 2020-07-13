@@ -1002,8 +1002,8 @@ function calcs.perform(env)
 					local srcList = new("ModList")
 					local mult = 1
 					if buff.type == "AuraDebuff" then
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
+						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 						mult = (1 + inc / 100) * more
 					end
 					srcList:ScaleAddList(buff.modList, mult * stackCount)
