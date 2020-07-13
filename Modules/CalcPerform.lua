@@ -347,10 +347,12 @@ local function doActorMisc(env, actor)
 	else
 		output.GhostShrouds = 0
 	end
-	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "Multiplier:WarcryPower") < 10 then
-		modDB:NewMod("Multiplier:WarcryPower", "OVERRIDE", 10, "Minimum Power")
+	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
+		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
 	end
+	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
+	modDB.multipliers["WarcryPower"] = output.WarcryPower
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges

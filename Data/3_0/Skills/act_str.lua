@@ -2006,6 +2006,14 @@ skills["GeneralsCry"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["spiritual_cry_doubles_summoned_per_5_MP+%"] = {
+			mod("GeneralsCryDoubleMPCount", "BASE", nil),
+		},
+		["maximum_number_of_spiritual_cry_warriors"] = {
+			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		warcry = true,
 		area = true,
@@ -2079,6 +2087,11 @@ skills["GeneralsCrySupport"] = {
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Spell, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_spiritual_cry_damage_+%_final"] = {
+			mod("GeneralsCryMirageWarriorLessDamage", "BASE", nil),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

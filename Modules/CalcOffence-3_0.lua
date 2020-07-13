@@ -1240,12 +1240,12 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					-- calculate ratio of uptime versus downtime
 					output.InfernalUpTimeRatio = m_min((numInfernalExerts / output.Speed) / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
 					exertedUptime = m_max(exertedUptime, output.InfernalUpTimeRatio)
-				end
-				if not skillModList:Flag(skillCfg, "CoveredInAsh") then
-					-- Covered in Ash calculation
-					local buffUptime = m_min(output.InfernalCryDuration / output.InfernalCryCooldown, 1)
-					local CoveredInAshBuff = env.modDB:Sum("BASE", nil, "InfernalCoveredInAsh") or 0
-					enemyDB:NewMod("FireDamageTaken", "INC", CoveredInAshBuff * buffUptime, "Infernal Cry Buff")
+					if not skillModList:Flag(skillCfg, "CoveredInAsh") then
+						-- Covered in Ash calculation
+						local buffUptime = m_min(output.InfernalCryDuration / output.InfernalCryCooldown, 1)
+						local CoveredInAshBuff = env.modDB:Sum("BASE", nil, "InfernalCoveredInAsh") or 0
+						enemyDB:NewMod("FireDamageTaken", "INC", CoveredInAshBuff * buffUptime, "Infernal Cry Buff")
+					end
 				end
 			end
 		end

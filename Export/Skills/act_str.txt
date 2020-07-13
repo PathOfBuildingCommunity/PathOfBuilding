@@ -366,10 +366,23 @@ local skills, mod, flag, skill = ...
 
 #skill GeneralsCry
 #flags warcry area duration
+	statMap = {
+		["spiritual_cry_doubles_summoned_per_5_MP+%"] = {
+			mod("GeneralsCryDoubleMPCount", "BASE", nil),
+		},
+		["maximum_number_of_spiritual_cry_warriors"] = {
+			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
+		},
+	},
 #baseMod skill("radius", 60)
 #mods
 
 #skill GeneralsCrySupport
+	statMap = {
+		["support_spiritual_cry_damage_+%_final"] = {
+			mod("GeneralsCryMirageWarriorLessDamage", "BASE", nil),
+		},
+	},
 #mods
 
 #skill GlacialHammer
