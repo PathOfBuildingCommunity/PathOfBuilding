@@ -3975,7 +3975,7 @@ skills["IceSpear"] = {
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+		if activeSkill.skillPart == 3 or 4 then
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
