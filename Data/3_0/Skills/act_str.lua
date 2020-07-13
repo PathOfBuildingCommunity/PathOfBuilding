@@ -1836,7 +1836,7 @@ skills["SpikeSlam"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["active_skill_area_of_effect_+%_final"] = {
-			skill("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("AreaOfEffect", "MORE", nil),
 		},
 	},
 	baseFlags = {
