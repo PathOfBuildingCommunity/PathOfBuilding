@@ -2540,7 +2540,7 @@ skills["HeraldOfAsh"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.FireDot = (activeSkill.skillData.hoaOverkill or 0) * 0.25 -- value comes from base 25%
+		activeSkill.skillData.FireDot = (activeSkill.skillData.hoaOverkill or 0) * (1 + activeSkill.skillData.hoaMoreBurn / 100) * activeSkill.skillData.hoaOverkillPercent
 	end,
 	statMap = {
 		["herald_of_ash_fire_damage_+%"] = {
@@ -2551,6 +2551,13 @@ skills["HeraldOfAsh"] = {
 		},
 		["physical_damage_%_to_add_as_fire"] = {
 			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["herald_of_ash_burning_damage_+%_final"] = {
+			skill("hoaMoreBurn", nil),
+		},
+		["herald_of_ash_burning_%_overkill_damage_per_minute"] = {
+			skill("hoaOverkillPercent", nil),
+			div = 6000,
 		},
 	},
 	baseFlags = {

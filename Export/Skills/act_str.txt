@@ -391,6 +391,9 @@ local skills, mod, flag, skill = ...
 
 #skill HeraldOfAsh
 #flags spell area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.FireDot = (activeSkill.skillData.hoaOverkill or 0) * (1 + activeSkill.skillData.hoaMoreBurn / 100) * activeSkill.skillData.hoaOverkillPercent
+	end,
 	statMap = {
 		["herald_of_ash_fire_damage_+%"] = {
 			mod("FireDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -400,6 +403,13 @@ local skills, mod, flag, skill = ...
 		},
 		["physical_damage_%_to_add_as_fire"] = {
 			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["herald_of_ash_burning_damage_+%_final"] = {
+			skill("hoaMoreBurn", nil),
+		},
+		["herald_of_ash_burning_%_overkill_damage_per_minute"] = {
+			skill("hoaOverkillPercent", nil),
+			div = 6000,
 		},
 	},
 #baseMod skill("radius", 10)
