@@ -1296,8 +1296,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 
 		-- Account for INC and MORE increases for Exerted Attacks
 		if exertedUptime > 0 then
-			skillModList:NewMod("Damage", "INC", skillModList:Sum("INC", cfg, "ExertIncrease") * exertedUptime, "Exerted Attack Increases", ModFlag.Attack, 0)
-			skillModList:NewMod("Damage", "MORE", skillModList:Sum("MORE", cfg, "ExertIncrease") * exertedUptime, "Exerted Attack More", ModFlag.Attack, 0)
+			skillModList:NewMod("Damage", "INC", skillModList:Sum("INC", cfg, "ExertIncrease") * exertedUptime, "Exerted Attacks")
+			skillModList:NewMod("Damage", "MORE", skillModList:Sum("MORE", cfg, "ExertIncrease") * exertedUptime, "Exerted Attacks")
 		end
 
 		-- Calculate base hit damage
@@ -2069,7 +2069,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
-			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect * output.FistOfWarAilmentEffect
+			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect * output.FistOfWarAilmentEffect * output.SeismicHitEffect * output.RallyingHitEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -2113,6 +2113,12 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					end
 					if output.FistOfWarAilmentEffect ~= 0 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarAilmentEffect))
+					end
+					if output.SeismicHitEffect ~= 0 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(seismic cry effect modifier)", output.SeismicHitEffect))
+					end
+					if output.RallyingHitEffect ~= 0 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(rallying cry effect modifier)", output.RallyingHitEffect))
 					end
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 					breakdown.multiChain(breakdown.BleedDPS, {
@@ -2218,7 +2224,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					sourceHitDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100)
 				end
 			end
-			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect
+			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * output.SeismicHitEffect * output.RallyingHitEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -2379,7 +2385,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect
+			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * output.SeismicHitEffect * output.RallyingHitEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
