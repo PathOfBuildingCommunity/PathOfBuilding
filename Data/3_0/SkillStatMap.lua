@@ -688,6 +688,9 @@ return {
 ["fire_dot_multiplier_+"] = {
 	mod("FireDotMultiplier", "BASE", nil),
 },
+["cold_dot_multiplier_+"] = {
+	mod("ColdDotMultiplier", "BASE", nil),
+},
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
 },
@@ -1093,6 +1096,9 @@ return {
 ["mine_laying_speed_+%"] = {
 	mod("MineLayingSpeed", "INC", nil),
 },
+["mine_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Mine),
+},
 ["mine_detonation_radius_+%"] = {
 	mod("MineDetonationAreaOfEffect", "INC", nil),
 },
@@ -1216,6 +1222,9 @@ return {
 ["base_sigil_repeat_frequency_ms"] = {
 	skill("repeatFrequency", nil),
 	div = 1000,
+},
+["sigil_repeat_frequency_+%"] = {
+	mod("BrandActivationFrequency", "INC", nil)
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {

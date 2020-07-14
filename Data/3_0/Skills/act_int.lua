@@ -4997,6 +4997,15 @@ skills["OrbOfStorms"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100)
+	end,
+	statMap = {
+		["orb_of_storms_base_bolt_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		chaining = true,
@@ -6783,8 +6792,9 @@ skills["SupportBrandSupport"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
+	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
-		skill("showAverage", true),
+		skill("triggeredByBrand", true),
 	},
 	qualityStats = {
 	},
@@ -8466,8 +8476,8 @@ skills["ImmolationSigil"] = {
 	color = 3,
 	baseEffectiveness = 4.5,
 	incrementalEffectiveness = 0.022299999371171,
-	description = "Creates a magical brand which can attach to a nearby enemy, dealing cold damage over time and chilling them. It periodically activates while attached, gaining stages that raise the damage. When removed, a short-duration debuff dealing the same damage over time and chill is applied to each nearby enemy.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ColdSkill] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, [SkillType.NonHitChill] = true, [SkillType.Type59] = true, },
+	description = "Creates a magical brand which can attach to a nearby enemy, dealing cold damage over time and chilling them. It periodically activates while attached, gaining stages that raise the damage. When removed, a short-duration debuff dealing the same damage over time and chill is applied to each nearby enemy. The brand keeps its charges while detached.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.ColdSkill] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, [SkillType.NonHitChill] = true, [SkillType.Type59] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
@@ -8568,8 +8578,6 @@ skills["Wither"] = {
 		},
 		["chaos_damage_taken_+%"] = {
 			flag("Condition:CanWither"),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
-			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),

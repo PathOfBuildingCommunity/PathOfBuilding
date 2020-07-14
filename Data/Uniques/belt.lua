@@ -59,6 +59,18 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}20% increased maximum Energy Shield
 {tags:jewellery_defense}50% increased Energy Shield Recharge Rate
 ]],[[
+Bear's Girdle
+Leather Belt
+League: Harvest
+Requires Level 68
+Implicits: 1
+{tags:life}+(25-40) to maximum Life
+{tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
+(20-30)% increased Stun Duration on Enemies
+Nearby Enemies are Crushed while you have least 25 Rage
+(4-6)% increased Physical Damage per 10 Rage
++20 to Maximum Rage
+]],[[
 Belt of the Deceiver
 Heavy Belt
 Variant: Pre 2.6.0
@@ -160,12 +172,12 @@ Implicits: 1
 {variant:1,2,3,5,6,7}{tags:jewellery_resistance}+(30-35)% to Lightning Resistance
 {variant:1}{tags:life}0.2% of Physical Damage Leeched as Life
 {variant:5}{tags:life}0.6% of Physical Damage Leeched as Life
-{variant:2}{tags:lifejewellery_elemental}0.2% of Fire Damage Leeched as Life
-{variant:6}{tags:lifejewellery_elemental}0.6% of Fire Damage Leeched as Life
-{variant:3}{tags:lifejewellery_elemental}0.2% of Cold Damage Leeched as Life
-{variant:7}{tags:lifejewellery_elemental}0.6% of Cold Damage Leeched as Life
-{variant:4}{tags:lifejewellery_elemental}0.2% of Lightning Damage Leeched as Life
-{variant:8}{tags:lifejewellery_elemental}0.6% of Lightning Damage Leeched as Life
+{variant:2}{tags:life,jewellery_elemental}0.2% of Fire Damage Leeched as Life
+{variant:6}{tags:life,jewellery_elemental}0.6% of Fire Damage Leeched as Life
+{variant:3}{tags:life,jewellery_elemental}0.2% of Cold Damage Leeched as Life
+{variant:7}{tags:life,jewellery_elemental}0.6% of Cold Damage Leeched as Life
+{variant:4}{tags:life,jewellery_elemental}0.2% of Lightning Damage Leeched as Life
+{variant:8}{tags:life,jewellery_elemental}0.6% of Lightning Damage Leeched as Life
 {variant:1,5}Your Flasks grant 25% reduced Enemy Stun Threshold during any Flask Effect
 {variant:2}Your Flasks grant 10% chance to Ignite during any Flask Effect
 {variant:6}Your Flasks grant (20-30)% chance to Ignite during any Flask Effect
@@ -349,7 +361,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(40-50) to Dexterity
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
-(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
+{tags:attack}(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
 ]],[[
 The Tactician
 Studded Belt

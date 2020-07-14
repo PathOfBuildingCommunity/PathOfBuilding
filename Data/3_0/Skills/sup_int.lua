@@ -507,6 +507,7 @@ skills["SupportBonechill"] = {
 		},
 	},
 	baseMods = {
+		skill("supportBonechill", true),
 	},
 	qualityStats = {
 		{ "chill_duration_+%", 1 },
@@ -1488,10 +1489,10 @@ skills["SupportEfficacy"] = {
 }
 skills["SupportElementalFocus"] = {
 	name = "Elemental Focus",
-	description = "Supports any skill that hits or burns enemies.",
+	description = "Supports any skill that hits or burns enemies, or inflicts elemental ailments.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.CausesBurning, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.CausesBurning, SkillType.NonHitChill, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1554,10 +1555,10 @@ skills["SupportElementalFocus"] = {
 }
 skills["SupportElementalFocusPlus"] = {
 	name = "Awakened Elemental Focus",
-	description = "Supports any skill that hits or burns enemies.",
+	description = "Supports any skill that hits or burns enemies, or inflicts elemental ailments.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.CausesBurning, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.CausesBurning, SkillType.NonHitChill, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportElementalFocus",
@@ -3807,10 +3808,10 @@ skills["SupportRapidActivation"] = {
 			mod("BrandActivationFrequency", "MORE", nil),
 		},
 		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
-			mod("PrimaryDuration", "MORE", nil),
+			mod("PrimaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
 		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
-			mod("SecondaryDuration", "MORE", nil),
+			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
 	},
 	baseMods = {

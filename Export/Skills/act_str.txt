@@ -13,6 +13,11 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill InfernalCryOnHitExplosion
+#flags attack melee area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill TotemMelee
 #flags attack melee totem duration
 	statMap = {
@@ -501,6 +506,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["vaal_molten_shall_armour_+%_final"] = {
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #mods

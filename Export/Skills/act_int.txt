@@ -803,6 +803,15 @@ local skills, mod, flag, skill = ...
 
 #skill OrbOfStorms
 #flags spell chaining duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100)
+	end,
+	statMap = {
+		["orb_of_storms_base_bolt_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
 #mods
 
 #skill MagmaSigil
@@ -1126,7 +1135,8 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-#baseMod skill("showAverage", true)
+	addSkillTypes = { SkillType.Brand, },
+#baseMod skill("triggeredByBrand", true)
 #mods
 
 #skill SpiritOffering
@@ -1419,8 +1429,6 @@ local skills, mod, flag, skill = ...
 		},
 		["chaos_damage_taken_+%"] = {
 			flag("Condition:CanWither"),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
-			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
