@@ -242,7 +242,7 @@ return {
 	end },
 	{ label = "Vaal Molten Shell:", ifSkill = "Vaal Molten Shell" },
 	{ var = "VaalMoltenShellDamageMitigated", type = "count", label = "Damage Mitigated:", tooltip = "The amount of damage mitigated by vaal molten shell in the last second", ifSkill = "Vaal Molten Shell", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Vaal Molten Shell" })
+		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
 
 	-- Section: Map modifiers/curses
