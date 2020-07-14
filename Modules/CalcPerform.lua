@@ -264,8 +264,8 @@ local function doActorLifeManaReservation(actor)
 		local reserved
 		if max > 0 then
 			reserved = (actor["reserved_"..pool.."Base"] or 0) + m_ceil(max * (actor["reserved_"..pool.."Percent"] or 0) / 100)
-			output[pool.."Reserved"] = reserved
-			output[pool.."ReservedPercent"] = reserved / max * 100
+			output[pool.."Reserved"] = m_min(reserved, max)
+			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
 			output[pool.."Unreserved"] = max - reserved
 			output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
 			if (max - reserved) / max <= 0.35 then
