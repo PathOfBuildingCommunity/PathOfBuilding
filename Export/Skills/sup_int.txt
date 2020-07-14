@@ -169,7 +169,6 @@ local skills, mod, flag, skill = ...
 			flag("CanHaveAdditionalCurse"),
 		},
 	},
-#baseMod skill("supportAwakenedCurseOnHit", true)
 #mods
 
 #skill SupportMinionFocusFire
