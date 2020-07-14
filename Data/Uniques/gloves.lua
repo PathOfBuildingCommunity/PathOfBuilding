@@ -121,6 +121,14 @@ Requires Level 47, 68 Str
 ]],
 -- Gloves: Evasion
 [[
+Great Old One's Tentacles
+Eelskin Gloves
+Requires Level 38, 56 Dex
+Adds (8-12) to (15-20) Physical Damage to Attacks
++(50-70) to maximum Life
+(10-20)% chance to Impale Enemies on Hit with Attacks
+50% chance for Impales on Enemies you Kill to Reflect Damage to surrounding Enemies
+]],[[
 Hrimsorrow
 Goathide Gloves
 Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
@@ -594,6 +602,16 @@ Requires Level 43, 34 Str, 34 Int
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
+Abhorrent Interrogation
+Ambush Mitts
+League: Harvest
+Requires Level 45, 35 Dex, 35 Int
+(100-150)% increased Evasion and Energy Shield
+(5-7)% increased Attack and Cast Speed
+(20-25)% chance to inflict Withered for 2 seconds on Hit
+Enemies take 4% increased Elemental Damage from your Hits for each Withered you have inflicted on them
+Your Hits cannot Penetrate or ignore Elemental Resistances
+]],[[
 Algor Mortis
 Carnal Mitts
 League: Delirium

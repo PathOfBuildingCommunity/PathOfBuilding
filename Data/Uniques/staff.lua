@@ -487,6 +487,15 @@ Grants level 1 Icestorm Skill
 1% increased Spell Damage per 10 Intelligence
 (14-18)% increased Intelligence
 ]],[[
+Witchhunter's Judgment
+Highborn Staff
+League: Harvest
+Requires Level 68, 89 Str, 89 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Grants Level 20 Brandsurge Skill
+Brand Skills have (50-100)% increased Duration
+]],[[
 Xirgil's Crank
 Coiled Staff
 Source: Drops in The Lord's Labyrinth

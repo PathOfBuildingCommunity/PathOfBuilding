@@ -24,7 +24,7 @@ The Anticipation
 Ezomyte Tower Shield
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
-Upgrade: Upgrades to unique{} using currency{Blessing of Uul-Netol}
+Upgrade: Upgrades to unique{The Surrender} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
@@ -39,7 +39,7 @@ Permanently Intimidate Enemies on Block
 The Surrender
 Ezomyte Tower Shield
 League: Breach
-Source: Upgraded from unique{} using currency{Blessing of Uul-Netol}
+Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
@@ -707,6 +707,18 @@ Implicits: 1
 {variant:2}Gain Unholy Might on Block for 10 seconds
 {variant:3}You have Unholy Might while you have no Energy Shield
 Create Profane Ground instead of Consecrated Ground
+]],[[
+Emperor's Vigilance
+Steel Kite Shield
+League: Harvest
+Requires Level 46, 60 Str, 60 Int
+(16-22)% Chance to Block Spell Damage
+(300-400)% increased Armour and Energy Shield
+(10-15)% increased maximum Life
+Cannot Block while you have no Energy Shield
+Damage from Blocked Hits cannot bypass Energy Shield
+Damage from Unblocked hits always bypasses Energy Shield
+Glancing Blows
 ]],[[
 Invictus Solaris
 Archon Kite Shield

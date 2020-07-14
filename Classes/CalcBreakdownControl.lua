@@ -70,7 +70,12 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 		if section.type == "TEXT" then
 			section.width = 0
 			for _, line in ipairs(section.lines) do
-				section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8)
+				local _, num = string.gsub(line, "%d%d%d%d", "") -- count how many commas will be added
+				if main.showThousandsCalcs and num > 0 then
+					section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8 + (4 * num))
+				else
+					section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8)
+				end
 			end
 			section.height = #section.lines * section.textSize + 4
 		elseif section.type == "TABLE" then
@@ -79,19 +84,26 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 			for _, col in pairs(section.colList) do
 				for _, row in pairs(section.rowList) do
 					if row[col.key] then
-						col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6)
+						local _, num = string.gsub(row[col.key], "%d%d%d%d", "") -- count how many commas will be added
+						if main.showThousandsCalcs and num > 0 then
+							col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6 + (4 * num))
+						else 
+							col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6)
+						end
 					end
 				end
 				if col.width then
 					section.width = section.width + col.width
 				end
 			end
-			if section.label then
-				section.width = m_max(section.width, 6 + DrawStringWidth(16, "VAR", section.label..":"))
-			end
 			section.height = #section.rowList * 14 + 20
 			if section.label then
+				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(16, "VAR", section.label..":"))
 				section.height = section.height + 16
+			end
+			if section.footer then
+				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(12, "VAR", section.footer))
+				section.height = section.height + 12
 			end
 		end
 		self.contentWidth = m_max(self.contentWidth, section.width)
@@ -139,6 +151,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		local section = {
 			type = "TABLE",
 			label = breakdown.label,
+			footer = breakdown.footer,
 			rowList = breakdown.rowList,
 			colList = breakdown.colList,
 		}
@@ -506,7 +519,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			if index > 1 then
 				-- Skip the separator for the first column
 				SetDrawColor(0.5, 0.5, 0.5)
-				DrawImage(nil, colX - 2, y, 1, section.label and section.height - 16 or section.height)
+				DrawImage(nil, colX - 2, y, 1, section.height - (section.label and 16 or 0) - (section.footer and 12 or 0))
 			end
 			SetDrawColor(1, 1, 1)
 			DrawString(colX, y + 2, "LEFT", 16, "VAR", col.label)
@@ -521,8 +534,13 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 		for _, col in ipairs(section.colList) do
 			if col.width and row[col.key] then
 				-- This row has an entry for this column, draw it
-				if col.right then
+				local _, alpha = string.gsub(row[col.key], "%a", " ") -- counts letters in the string
+				if main.showThousandsCalcs and alpha == 0 and col.right then
+					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
+				elseif col.right then
 					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..row[col.key])
+				elseif main.showThousandsCalcs and alpha == 0 then
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
 				else
 					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..row[col.key])
 				end
@@ -563,6 +581,10 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			end
 		end
 		rowY = rowY + 14
+	end
+	if section.footer then
+		-- Draw table footer if able
+		DrawString(x + 2, rowY, "LEFT", 12, "VAR", "^7"..section.footer)
 	end
 end
 
@@ -650,7 +672,12 @@ function CalcBreakdownClass:Draw(viewPort)
 			local lineY = sectionY + 2
 			for i, line in ipairs(section.lines) do
 				SetDrawColor(1, 1, 1)
-				DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", line)
+				local _, dec = string.gsub(line, "%.%d%d.", " ") -- counts decimals with 2 or more digits
+				if main.showThousandsCalcs and dec == 0 then
+					DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", formatNumSep(line))
+				else
+					DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", line)
+				end
 				lineY = lineY + section.textSize
 			end
 		elseif section.type == "TABLE" then

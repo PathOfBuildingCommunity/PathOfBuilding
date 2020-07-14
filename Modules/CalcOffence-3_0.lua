@@ -973,6 +973,9 @@ function calcs.offence(env, actor, activeSkill)
 		elseif skillData.fixedCastTime then
 			output.Time = activeSkill.activeEffect.grantedEffect.castTime
 			output.Speed = 1 / output.Time
+		elseif skillData.triggeredByBrand then
+			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
+			output.Speed = 1 / output.Time
 		else
 			local baseTime
 			if isAttack then
@@ -1048,15 +1051,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-
-	
-	-- shock
-	output.maximumShock = enemyDB:Sum("OVERRIDE", nil, "ShockMax") or 50
-	if output.maximumShock == 0 then
-		output.maximumShock = 50
-	end
-	output.currentShock = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), output.maximumShock)
-	enemyDB:NewMod("DamageTaken", "INC", output.currentShock, "Shock", { type = "Condition", var = "Shocked" })
 
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
@@ -1290,9 +1284,10 @@ function calcs.offence(env, actor, activeSkill)
 						else
 							resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 							if isElemental[damageType] then
-								resist = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
+								local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
+								resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
-								takenInc = takenInc + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+								takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 							elseif damageType == "Chaos" then
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
@@ -1308,7 +1303,9 @@ function calcs.offence(env, actor, activeSkill)
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
 						end
 						local effMult = (1 + takenInc / 100) * takenMore
-						if not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
+						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+							effMult = effMult * (1 - resist / 100)
+						elseif not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
 							effMult = effMult * (1 - (resist - pen) / 100)
 						end
 						damageTypeHitMin = damageTypeHitMin * effMult
@@ -1317,7 +1314,10 @@ function calcs.offence(env, actor, activeSkill)
 						if env.mode == "CALCS" then
 							output[damageType.."EffMult"] = effMult
 						end
-						if pass == 2 and breakdown and effMult ~= 1 then
+						if pass == 2 and breakdown and effMult ~= 1 and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore)
+						elseif pass == 2 and breakdown and effMult ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore)
 						end
@@ -1624,7 +1624,8 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 					if isElemental[damageType] then
-						resist = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+						local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+						resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
 						takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
 					end
 					resist = m_min(resist, data.misc.EnemyMaxResist)
@@ -2365,13 +2366,56 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.shock = true
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
+				local maximum = skillModList:Override(nil, "ShockMax") or 50
+				local current = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), maximum)
+				local effList = { 5, 15, 50 }
+				if maximum ~= 50 then
+					t_insert(effList, maximum)
+				end
+				if current > 5 and current ~= (15 or 50 or maximum) and current < maximum then
+					t_insert(effList, current)
+				end
+				table.sort(effList)
 				if breakdown then
-					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for %.1f seconds, target must have no more than %.0f Ailment Threshold.", 2 * output.ShockDurationMod, (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
-					t_insert(breakdown.ShockDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
+					if current > 0 then
+						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds ^8(with a ^7%s%% ^8shock on the enemy)^7", 2 * output.ShockDurationMod, current)
+					else
+						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds", 2 * output.ShockDurationMod)
+					end
+					breakdown.ShockDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
+					breakdown.ShockDPS.rowList = { }
+					breakdown.ShockDPS.colList = {
+						{ label = "Shock Effect", key = "effect" },
+						{ label = "Ailment Threshold", key = "thresh" },
+					}
+					for _, value in ipairs(effList) do
+						local thresh = (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
+						if value == current then
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%% ^8(current)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == maximum then
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%% ^8(maximum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == 5 then
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%% ^8(minimum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						else
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%%", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						end
+					end
 				end
  			end
 		end
-		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 then
+		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 or (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.ChillNotHit]) then
 			local sourceHitDmg = 0
 			local sourceCritDmg = 0
 			if canDeal.Cold and not skillModList:Flag(cfg, "ColdCannotChill") then
@@ -2399,10 +2443,64 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.chill = true
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
-				if breakdown then
-					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for %.1f seconds, target must have no more than %.0f Ailment Threshold.", 2 * output.ChillDurationMod, (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
-					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
+				effList = { 5, 10, 30 }
+				if output.BonechillEffect then
+					t_insert(effList, output.BonechillEffect)
+					table.sort(effList)
 				end
+				if breakdown then
+					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+					if output.BonechillEffect then
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds ^8(with a ^7%s%% ^8Bonechill effect on the enemy)^7", 2 * output.ChillDurationMod, output.BonechillEffect)
+					else
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+					end
+					breakdown.ChillDPS.rowList = { }
+					breakdown.ChillDPS.colList = {
+						{ label = "Chill Effect", key = "effect" },
+						{ label = "Ailment Threshold", key = "thresh" },
+					}
+					breakdown.ChillDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
+					for _, value in ipairs(effList) do
+						local thresh = (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
+						if value == output.BonechillEffect then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(current)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == 30 then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(maximum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						elseif value == 5 then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(minimum)", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						else
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%%", value),
+								thresh = s_format("%.0f", thresh),
+							})
+						end
+					end
+				end
+			end
+		end
+		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
+			skillFlags.chill = true
+			output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
+			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
+			output.ChillSourceEffect = m_min(30, m_floor(10 * (1 + output.ChillEffectMod / 100)))
+			if breakdown then
+				breakdown.DotChill = { }
+				breakdown.multiChain(breakdown.DotChill, {
+					label = "Effect of Chill: ^8(capped at 30%)",
+					base = "10% ^8(base)",
+					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
+					total = s_format("= %.0f%%", output.ChillSourceEffect)
+				})
 			end
 		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then

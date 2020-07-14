@@ -2729,6 +2729,8 @@ return {
 	},
 	HarvestColours={
 	},
+	HarvestCraftOptionIcons={
+	},
 	HarvestCraftOptions={
 	},
 	HarvestCraftTiers={
@@ -2746,6 +2748,10 @@ return {
 	HarvestObjects={
 	},
 	HarvestPerLevelValues={
+	},
+	HarvestPlantBoosterFamilies={
+	},
+	HarvestPlantBoosters={
 	},
 	HarvestSeedTypes={
 	},

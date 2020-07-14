@@ -197,6 +197,19 @@ Implicits: 1
 20% chance to Avoid being Stunned
 1% increased Lightning Damage per 10 Intelligence
 ]],[[
+Scorpion's Call
+Broadhead Arrow Quiver
+League: Harvest
+Requires Level 57
+Implicits: 1
+Adds 6 to 12 Physical Damage to Bow Attacks
++(20-40) to Dexterity
+(150-200) Life Regenerated per Second while in Blood Stance
+(40-60)% increased Projectile Damage while in Blood Stance
++(700-1000) to Evasion Rating while in Sand Stance
+(20-30)% increased Area of Effect while in Sand Stance
+(20-30)% increased Attack Speed if you’ve changed Stance Recently
+]],[[
 Skirmish
 Two-Point Arrow Quiver
 Requires Level 19

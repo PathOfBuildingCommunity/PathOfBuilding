@@ -201,7 +201,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	-- Unique database
 	self.controls.uniqueDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB[build.targetVersion], "UNIQUE")
 	self.controls.uniqueDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 98 or 76
+		return self.controls.selectDBLabel:IsShown() and 118 or 96
 	end
 	self.controls.uniqueDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 1
@@ -210,7 +210,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	-- Rare template database
 	self.controls.rareDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB[build.targetVersion], "RARE")
 	self.controls.rareDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 78 or 376
+		return self.controls.selectDBLabel:IsShown() and 78 or 396
 	end
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
@@ -343,7 +343,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end
 	
 	-- Section: Enchant / Anoint / Corrupt
-	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT",true}, 0, 0, 0, function()
+	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
 		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemEnchant2:IsShown() or self.controls.displayItemAnoint:IsShown() or self.controls.displayItemAnoint2:IsShown() or self.controls.displayItemCorrupt:IsShown() ) and 28 or 0
 	end)
 	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionEnchant,"TOPLEFT"}, 0, 0, 160, 20, "Apply Enchantment...", function()
@@ -1270,6 +1270,11 @@ function ItemsTabClass:CraftClusterJewel()
 	local item = self.displayItem
 	wipeTable(item.enchantModLines)
 	t_insert(item.enchantModLines, { line = "Adds "..(item.clusterJewelNodeCount or item.clusterJewel.maxNodes).." Passive Skills", crafted = true })
+	if item.clusterJewel.size == "Large" then
+		t_insert(item.enchantModLines, { line = "2 Added Passive Skills are Jewel Sockets", crafted = true })
+	elseif item.clusterJewel.size == "Medium" then
+		t_insert(item.enchantModLines, { line = "1 Added Passive Skill is a Jewel Socket", crafted = true })
+	end
 	local skill = item.clusterJewel.skills[item.clusterJewelSkill]
 	t_insert(item.enchantModLines, { line = table.concat(skill.enchant, "\n"), crafted = true })
 	item:BuildAndParseRaw()

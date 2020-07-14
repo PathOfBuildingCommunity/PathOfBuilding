@@ -1379,7 +1379,7 @@ skills["SupportFortify"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, },
+	excludeSkillTypes = { SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_fortify_melee_damage_+%_final"] = {
@@ -2636,7 +2636,7 @@ skills["SupportRage"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rage_gain_rage_on_melee_hit_cooldown_ms"] = {
-			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {

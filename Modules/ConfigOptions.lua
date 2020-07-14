@@ -102,6 +102,10 @@ return {
 	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
 	end },
+	{ label = "Bonechill Support:", ifSkill = "Bonechill" },
+	{ var = "bonechillEffect", type = "count", label = "Effect of Chill:", tooltip = "The effect of Chill is automatically calculated if you have a guaranteed source of Chill,\nbut you can use this to override the effect if necessary.", ifSkill = "Bonechill", apply = function(val, modList, enemyModList)
+		modList:NewMod("BonechillEffect", "OVERRIDE", m_min(val, 30), "Config")
+	end },
 	{ label = "Brand Skills:", ifSkillList = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
 	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy", ifSkillList = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigBrandsAttachedToEnemy", "BASE", val, "Config")
@@ -900,7 +904,7 @@ return {
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifCond = "CanWither", tooltip = "Withered applies 6% increased Chaos Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:WitheredStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Multiplier:WitheredStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierEnsnaredStackCount", type = "count", label = "# of Ensnare Stacks:", ifCond = "CanEnsnare", tooltip = "While ensnared, enemies take increased Projectile Damage from Attack Hits\nEnsnared enemies always count as moving, and have less movement speed while trying to break the snare.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnsnareStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
@@ -945,7 +949,7 @@ return {
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will allow you to input the effect of the Shock applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionShockEffect", type = "count", label = "Effect of Shock:", ifOption = "conditionEnemyShocked", apply = function(val,modList,enemyModList)
+	{ var = "conditionShockEffect", type = "count", label = "Effect of Shock:", ifOption = "conditionEnemyShocked", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ShockVal", "BASE", val, "Shock", { type = "Condition", var = "Shocked" })
 	end },
 	{ var = "conditionEnemySapped", type = "check", ifFlag = "inflictSap", label = "Is the enemy Sapped?", tooltip = "Sapped enemies deal less damage, up to 20%.", apply = function(val, modList, enemyModList)
@@ -962,9 +966,6 @@ return {
 	end },
 	{ var = "conditionEnemyUnnerved", type = "check", ifVer = "3_0", label = "Is the enemy Unnerved?", tooltip = "This adds the following modifiers:\n10% increased Spell Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Unnerve", ModFlag.Spell)
-	end },
-	{ var = "conditionEnemyCrushed", type = "check", ifVer = "3_0", label = "Is the enemy Crushed?", tooltip = "This adds the following modifiers:\n15% reduced enemy Physical Damage Reduction", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("PhysicalDamageReduction", "BASE", -15, "Crush")
 	end },
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")

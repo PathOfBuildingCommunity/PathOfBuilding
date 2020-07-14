@@ -847,6 +847,19 @@ Implicits: 1
 {tags:jewellery_elemental}Adds (1-3) to (62-70) Lightning Damage to Hits against Ignited Enemies
 Your Lightning Damage can Ignite
 ]],[[
+Storm Secret
+Topaz Ring
+League: Harvest
+Requires Level 56
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Lightning Resistance
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:jewellery_elemental}(20-30)% increased Lightning Damage
+{tags:jewellery_elemental}(10-15)% chance to Shock
+Herald of Thunder also creates a storm when you Shock an Enemy
+Herald of Thunder's Storms Hit Enemies with (30-50)% increased Frequency
+Take 250 Lightning Damage when Herald of Thunder Hits an Enemy
+]],[[
 The Taming
 Prismatic Ring
 League: Domination, Nemesis

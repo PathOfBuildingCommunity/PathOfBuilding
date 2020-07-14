@@ -459,6 +459,16 @@ Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50-70)% increased Aspect of the Spider Area of Effect
 ]],[[
+Fleshcrafter
+Necromancer Silks
+League: Harvest
+Requires Level 59, 160 Int
+(100-150)% increased Energy Shield
+Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
+Chaos Damage does not bypass Minions' Energy Shield
+Minions have (50-100)% faster start of Energy Shield Recharge
+While Minions have Energy Shield, their Hits Ignore Monster Elemental Resistances
+]],[[
 Garb of the Ephemeral
 Savant's Robe
 League: Synthesis
@@ -783,6 +793,17 @@ Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
 You cannot have non-Animated Minions
 ]],[[
+Doryani's Prototype
+Saint's Hauberk
+League: Harvest
+Requires Level 67, 109 Str, 94 Int
+(150-200)% increased Armour and Energy Shield
++(60-90) to maximum Life
+Deal no Non-Lightning Damage
+Armour also applies to Lightning Damage taken from Hits
+Lightning Resistance does not affect Lightning Damage taken
+Nearby Enemies have Lightning Resistance equal to yours
+]],[[
 Geofri's Sanctuary
 Elegant Ringmail
 Variant: Pre 2.6.0
@@ -1046,13 +1067,13 @@ Shroud of the Lightless
 Carnal Armour
 League: Abyss
 Source: Drops from Abyssal Liches
-Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
+Variant: One Abyssal Socket
 Requires Level: 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana 
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+{variant:1}Has 2 Abyssal Sockets
+{variant:2}Has 1 Abyssal Socket
 Socketed Gems are Supported by Level 20 Elemental Penetration 
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill 
 (160-180)% increased Evasion and Energy Shield 
