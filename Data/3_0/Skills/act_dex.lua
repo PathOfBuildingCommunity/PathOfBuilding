@@ -737,6 +737,7 @@ skills["VaalBladeVortex"] = {
 	},
 	baseMods = {
 		skill("hitTimeOverride", 0.133),
+		skill("radius", 15),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -812,6 +813,10 @@ skills["Bladefall"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 44),
+		skill("radiusLabel", "Volley Width:"),
+		skill("radiusSecondary", 12),
+		skill("radiusSecondaryLabel", "Volley Length:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1216,6 +1221,7 @@ skills["VaalBurningArrow"] = {
 		vaal = true,
 	},
 	baseMods = {
+		skill("radius", 16),
 	},
 	qualityStats = {
 		{ "fire_dot_multiplier_+", 0.5 },
@@ -1386,6 +1392,10 @@ skills["ChargedDash"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 12),
+		skill("radiusLabel", "Start of Dash:"),
+		skill("radiusSecondary", 22),
+		skill("radiusSecondaryLabel", "End of Dash:"),
 	},
 	qualityStats = {
 		{ "attack_speed_+%", 0.5 },
@@ -1548,6 +1558,7 @@ skills["CorpseEruption"] = {
 	},
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 15),
 	},
 	qualityStats = {
 		{ "fire_damage_+%", 1 },
@@ -1918,6 +1929,7 @@ skills["Desecrate"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		skill("radius", 12),
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 1 },
@@ -2082,6 +2094,7 @@ skills["VaalDetonateDead"] = {
 	},
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 24),
 	},
 	qualityStats = {
 		{ "area_damage_+%", 1 },
@@ -2426,10 +2439,9 @@ skills["ElementalHit"] = {
 		flag("DealNoCold", { type = "SkillPart", skillPart = 3 }),
 		flag("DealNoLightning", { type = "SkillPart", skillPart = 1 }),
 		flag("DealNoLightning", { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }, { type = "SkillPart", skillPart = 1 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }, { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }, { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }, { type = "SkillPart", skillPart = 3 }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 1 }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 2 }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 3 }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -2438,6 +2450,7 @@ skills["ElementalHit"] = {
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" }),
 		mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+		skill("radius", 10),
 	},
 	qualityStats = {
 		{ "elemental_damage_+%", 1 },
@@ -2788,6 +2801,10 @@ skills["ShrapnelTrap"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 12),
+		skill("radiusLabel", "Primary Explosion:"),
+		skill("radiusSecondary", 7),
+		skill("radiusSecondaryLabel", "Secondary Explosion:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -2948,6 +2965,7 @@ skills["FlamethrowerTrap"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 32),
 	},
 	qualityStats = {
 		{ "fire_damage_+%", 1 },
@@ -3301,6 +3319,7 @@ skills["ShrapnelShot"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 28),
 	},
 	qualityStats = {
 		{ "base_projectile_speed_+%", 1 },
@@ -4038,6 +4057,12 @@ skills["IceTrap"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 18),
+		skill("radiusLabel", "First Explosion:"),
+		skill("radiusSecondary", 9),
+		skill("radiusSecondaryLabel", "Second Explosion:"),
+		skill("radiusTertiary", 6),
+		skill("radiusTertiaryLabel", "Third Explosion:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4286,6 +4311,7 @@ skills["LightningArrow"] = {
 		projectile = true,
 	},
 	baseMods = {
+		skill("radius", 18),
 	},
 	qualityStats = {
 		{ "base_chance_to_shock_%", 1 },
@@ -5351,7 +5377,7 @@ skills["RainOfArrows"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 24),
+		skill("radius", 10),
 		flag("OneShotProj"),
 	},
 	qualityStats = {
@@ -5426,6 +5452,7 @@ skills["VaalRainOfArrows"] = {
 		vaal = true,
 	},
 	baseMods = {
+		skill("radius", 10),
 		flag("OneShotProj"),
 	},
 	qualityStats = {
@@ -5896,6 +5923,7 @@ skills["ShatteringSteel"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 28),
 	},
 	qualityStats = {
 		{ "impale_debuff_effect_+%", 1 },
@@ -5970,6 +5998,7 @@ skills["PhysCascadeTrap"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 12),
 	},
 	qualityStats = {
 		{ "physical_damage_+%", 1 },
@@ -6206,6 +6235,7 @@ skills["SmokeMine"] = {
 		buff = true,
 	},
 	baseMods = {
+		skill("radius", 10),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 2 },
@@ -6538,6 +6568,8 @@ skills["RainOfSpores"] = {
 		skill("dotIsArea", true),
 		flag("DotCanStack"),
 		flag("OneShotProj"),
+		skill("radius", 18),
+		skill("radiusLabel", "Pod Area:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -7184,6 +7216,7 @@ skills["VolatileDead"] = {
 	},
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 15),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -7385,6 +7418,7 @@ skills["WildStrike"] = {
 		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
 		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
 		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
+		skill("radius", 24, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "elemental_damage_+%", 1 },
@@ -7461,6 +7495,7 @@ skills["Slither"] = {
 	baseMods = {
 		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
+		skill("radius", 26),
 	},
 	qualityStats = {
 		{ "elusive_effect_+%", 0.5 },
