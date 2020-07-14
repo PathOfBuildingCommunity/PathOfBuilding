@@ -492,10 +492,18 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MoltenShell
-#flags spell area duration
+#flags hit area duration
+	preDamageFunc = function(activeSkill, output)
+		local add = (activeSkill.skillData.MoltenShellDamageMitigated or 0) * activeSkill.skillData.moltenShellReflect / 100
+		activeSkill.skillData.FireMin = add
+		activeSkill.skillData.FireMax = add
+	end,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
+			skill("moltenShellReflect", nil),
 		},
 	},
 #baseMod skill("radius", 15)

@@ -236,6 +236,10 @@ return {
 	{ var = "wintertideBrandStage", type = "count", label = "Wintertide Brand Stages:", ifSkill = "Wintertide Brand", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WintertideBrandStage", "BASE", val, "Config", { type = "SkillName", skillName = "Wintertide Brand" })
 	end },
+	{ label = "Molten Shell:", ifSkill = "Molten Shell" },
+	{ var = "MoltenShellDamageMitigated", type = "count", label = "DamageMitigated:", tooltip = "The overkill damage causing the Herald of Ash DoT", ifSkill = "Molten Shell", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "MoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
+	end },
 
 	-- Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },

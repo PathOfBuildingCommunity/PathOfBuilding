@@ -3344,13 +3344,21 @@ skills["MoltenShell"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		local add = (activeSkill.skillData.MoltenShellDamageMitigated or 0) * activeSkill.skillData.moltenShellReflect / 100
+		activeSkill.skillData.FireMin = add
+		activeSkill.skillData.FireMax = add
+	end,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
+			skill("moltenShellReflect", nil),
+		},
 	},
 	baseFlags = {
-		spell = true,
+		hit = true,
 		area = true,
 		duration = true,
 	},
