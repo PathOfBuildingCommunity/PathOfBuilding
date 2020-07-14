@@ -243,7 +243,7 @@ skills["SupportArcaneSurge"] = {
 		},
 		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
 			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-			div = 60,
+			div = 60.0001,
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
