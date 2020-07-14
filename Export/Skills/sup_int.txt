@@ -166,6 +166,7 @@ local skills, mod, flag, skill = ...
     statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
+			flag("CanHaveAdditionalCurse"),
 		},
 	},
 #baseMod skill("supportAwakenedCurseOnHit", true)

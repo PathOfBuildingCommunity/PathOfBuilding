@@ -1253,10 +1253,10 @@ skills["SupportCurseOnHitPlus"] = {
 	statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
+			flag("CanHaveAdditionalCurse"),
 		},
 	},
 	baseMods = {
-		skill("supportAwakenedCurseOnHit", true),
 	},
 	qualityStats = {
 		{ "curse_effect_+%", 0.5 },
