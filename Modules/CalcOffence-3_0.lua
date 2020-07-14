@@ -1162,32 +1162,9 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			end
 		end
 
-		-- Calculate Double Damage + Ruthless Blow chance/multipliers + Fist of War multipliers
-		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)
-		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
-		if output.RuthlessBlowMaxCount > 0 then
-			output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
-		else
-			output.RuthlessBlowChance = 0
-		end
-		output.RuthlessBlowMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowMultiplier") / 100
-		output.RuthlessBlowEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowMultiplier
-
-		output.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown")
-		output.FistOfWarHitMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarHitMultiplier") / 100
-		output.FistOfWarAilmentMultiplier = 1 + skillModList:Sum("BASE", cfg, "FistOfWarAilmentMultiplier") / 100
-		if output.FistOfWarCooldown ~= 0 then
-			output.FistOfWarHitEffect = 1 + output.FistOfWarHitMultiplier / m_max(output.FistOfWarCooldown * output.Speed, 1)
-			output.FistOfWarAilmentEffect = 1 + output.FistOfWarAilmentMultiplier / m_max(output.FistOfWarCooldown * output.Speed, 1)
-		else
-			output.FistOfWarHitEffect = 1
-			output.FistOfWarAilmentEffect = 1
-		end
-
 		-- Exerted Attack members
 		local exertedUptime = 0
-
+		local exertedDoubleDamage = 0
 
 		-- Ancestral Cry Exerts Attacks
 		output.AncestralHitEffect = 1
@@ -1274,7 +1251,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					exertedUptime = m_max(exertedUptime, output.IntimidatingUpTimeRatio)
 					-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
 					-- is calculated as the improvement over the non-intimidated double damage chance
-					output.IntimidatingHitEffect = 1 + (1 - output.DoubleDamageChance / 100) * output.IntimidatingUpTimeRatio
+					local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance"), 100)
+					output.IntimidatingHitEffect = 1 + (1 - ddChance / 100) * output.IntimidatingUpTimeRatio
 
 					-- overwhelm calculation
 					local buffUptime = m_min(output.InitmidatingCryDuration / output.IntimidatingCryCooldown, 1)
@@ -1358,7 +1336,32 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		if exertedUptime > 0 then
 			skillModList:NewMod("Damage", "INC", skillModList:Sum("INC", cfg, "ExertIncrease") * exertedUptime, "Exerted Attacks")
 			skillModList:NewMod("Damage", "MORE", skillModList:Sum("MORE", cfg, "ExertIncrease") * exertedUptime, "Exerted Attacks")
+			exertedDoubleDamage = env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance")
 		end
+
+		-- Calculate Double Damage + Ruthless Blow chance/multipliers + Fist of War multipliers
+		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
+		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
+		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
+		if output.RuthlessBlowMaxCount > 0 then
+			output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
+		else
+			output.RuthlessBlowChance = 0
+		end
+		output.RuthlessBlowMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowMultiplier") / 100
+		output.RuthlessBlowEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowMultiplier
+
+		output.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown")
+		output.FistOfWarHitMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarHitMultiplier") / 100
+		output.FistOfWarAilmentMultiplier = 1 + skillModList:Sum("BASE", cfg, "FistOfWarAilmentMultiplier") / 100
+		if output.FistOfWarCooldown ~= 0 then
+			output.FistOfWarHitEffect = 1 + output.FistOfWarHitMultiplier / m_max(output.FistOfWarCooldown * output.Speed, 1)
+			output.FistOfWarAilmentEffect = 1 + output.FistOfWarAilmentMultiplier / m_max(output.FistOfWarCooldown * output.Speed, 1)
+		else
+			output.FistOfWarHitEffect = 1
+			output.FistOfWarAilmentEffect = 1
+		end
+
 
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
