@@ -24,6 +24,10 @@ skills["AbyssalCry"] = {
 		chaos = true,
 	},
 	baseMods = {
+		skill("radius", 60),
+		skill("radiusLabel", "Warcry area:"),
+		skill("radiusSecondary", 22),
+		skill("radiusSecondaryLabel", "Explosion area:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 1 },
@@ -990,6 +994,8 @@ skills["ChainStrike"] = {
 		melee = true,
 	},
 	baseMods = {
+		skill("radius", 24),
+		skill("radiusExtra", 1, { type = "Multiplier", var = "Rage" , div = 5 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1157,6 +1163,7 @@ skills["ConsecratedPath"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 23),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1846,6 +1853,7 @@ skills["SpikeSlam"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 20, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -2293,6 +2301,7 @@ skills["VaalGlacialHammer"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		{ "chill_duration_+%", 2 },
@@ -2469,6 +2478,7 @@ skills["VaalGroundSlam"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 39),
 	},
 	qualityStats = {
 		{ "base_stun_duration_+%", 1 },
@@ -3547,6 +3557,13 @@ skills["MoltenStrike"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("projectileSpeedAppliesToMSAreaOfEffect", true),
+		skill("radius", 9, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPart = 2 }),
+		skill("radiusSecondary", 2, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 }),
+		skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "fire_damage_+%", 1 },
@@ -3641,6 +3658,8 @@ skills["BloodSpears"] = {
 	},
 	baseMods = {
 		skill("dpsMultiplier", 1, { type = "Multiplier", var = "PerforateSpikeOverlap", limitVar = "PerforateMaxSpikes" }, { type = "Condition", var = "BloodStance" }),
+		skill("radius", 11, { type = "Condition", var = "SandStance" }),
+		skill("radius", 8, { type = "Condition", var = "BloodStance" }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4033,6 +4052,7 @@ skills["RallyingCry"] = {
 	},
 	baseMods = {
 		skill("buffAllies", true),
+		skill("radius", 60),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 1 },
@@ -4117,6 +4137,7 @@ skills["Reckoning"] = {
 		melee = true,
 	},
 	baseMods = {
+		skill("radius", 35),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4420,6 +4441,12 @@ skills["NewShieldCharge"] = {
 		shieldAttack = true,
 	},
 	baseMods = {
+		skill("radius", 28),
+		skill("radiusLabel", "End Cone area:"),
+		skill("radiusSecondary", 16),
+		skill("radiusSecondaryLabel", "End Circle area:"),
+		skill("radiusTertiary", 8),
+		skill("radiusTertiaryLabel", "Charging area:"),
 	},
 	qualityStats = {
 		{ "base_movement_velocity_+%", 1 },
@@ -4598,6 +4625,7 @@ skills["Smite"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 15),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4707,6 +4735,7 @@ end,
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		{ "skill_effect_duration_+%", 1 },
@@ -5008,7 +5037,10 @@ skills["NewSunder"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Primary wave",
+			name = "First Wave Area",
+		},
+		{
+			name = "Final Wave Area",
 		},
 		{
 			name = "Shockwaves",
@@ -5016,10 +5048,13 @@ skills["NewSunder"] = {
 	},
 	statMap = {
 		["shockwave_slam_explosion_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["active_skill_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
+		},
+		["sunder_wave_radius_+_per_step"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "SunderWaveArea" }),
 		},
 	},
 	baseFlags = {
@@ -5028,6 +5063,8 @@ skills["NewSunder"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 12),
+		mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -5194,6 +5231,10 @@ skills["EnduranceChargeSlam"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 15),
+		skill("radiusLabel", "Fissure Length:"),
+		skill("radiusSecondary", 7),
+		skill("radiusSecondaryLabel", "Fissure Width:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },

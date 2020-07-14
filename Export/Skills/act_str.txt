@@ -11,6 +11,10 @@ local skills, mod, flag, skill = ...
 		["base_movement_velocity_+%"] = {
 		},
 	},
+#baseMod skill("radius", 60)
+#baseMod skill("radiusLabel", "Warcry area:")
+#baseMod skill("radiusSecondary", 22)
+#baseMod skill("radiusSecondaryLabel", "Explosion area:")
 #mods
 
 #skill InfernalCryOnHitExplosion
@@ -184,6 +188,8 @@ local skills, mod, flag, skill = ...
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
+#baseMod skill("radius", 24)
+#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "Rage" , div = 5 })
 #mods
 
 #skill Cleave
@@ -203,6 +209,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
+#baseMod skill("radius", 23)
 #mods
 
 #skill DecoyTotem
@@ -320,6 +327,7 @@ local skills, mod, flag, skill = ...
 			skill("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
+#baseMod skill("radius", 20, { type = "SkillPart", skillPart = 1 })
 #mods
 
 #skill EnduringCry
@@ -364,6 +372,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalGlacialHammer
 #flags attack melee area duration
+#baseMod skill("radius", 20)
 #mods
 
 #skill GroundSlam
@@ -383,6 +392,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
+#baseMod skill("radius", 39)
 #mods
 
 #skill HeavyStrike
@@ -534,6 +544,13 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
 		},
 	},
+#baseMod skill("projectileSpeedAppliesToMSAreaOfEffect", true)
+#baseMod skill("radius", 9, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusSecondary", 2, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill BloodSpears
@@ -553,6 +570,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("dpsMultiplier", 1, { type = "Multiplier", var = "PerforateSpikeOverlap", limitVar = "PerforateMaxSpikes" }, { type = "Condition", var = "BloodStance" })
+#baseMod skill("radius", 11, { type = "Condition", var = "SandStance" })
+#baseMod skill("radius", 8, { type = "Condition", var = "BloodStance" })
 #mods
 
 #skill PhysicalDamageAura
@@ -622,10 +641,12 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("buffAllies", true)
+#baseMod skill("radius", 60)
 #mods
 
 #skill Reckoning
 #flags attack area melee
+#baseMod skill("radius", 35)
 #mods
 
 #skill RejuvenationTotem
@@ -652,6 +673,12 @@ local skills, mod, flag, skill = ...
 
 #skill NewShieldCharge
 #flags attack melee area shieldAttack
+#baseMod skill("radius", 28)
+#baseMod skill("radiusLabel", "End Cone area:")
+#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondaryLabel", "End Circle area:")
+#baseMod skill("radiusTertiary", 8)
+#baseMod skill("radiusTertiaryLabel", "Charging area:")
 #mods
 
 #skill ShockwaveTotem
@@ -672,6 +699,7 @@ local skills, mod, flag, skill = ...
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 15)
 #mods
 
 #skill StaticStrike
@@ -700,6 +728,7 @@ preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
 	end
 end,
+#baseMod skill("radius", 20)
 #mods
 
 #skill QuickGuard
@@ -739,7 +768,10 @@ end,
 #flags attack melee area
 	parts = {
 		{
-			name = "Primary wave",
+			name = "First Wave Area",
+		},
+		{
+			name = "Final Wave Area",
 		},
 		{
 			name = "Shockwaves",
@@ -747,12 +779,17 @@ end,
 	},
 	statMap = {
 		["shockwave_slam_explosion_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["active_skill_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
 		},
+		["sunder_wave_radius_+_per_step"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "SunderWaveArea" }),
+		},
 	},
+#baseMod skill("radius", 12)
+#baseMod mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill Sweep
@@ -767,6 +804,10 @@ end,
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
 	},
+#baseMod skill("radius", 15)
+#baseMod skill("radiusLabel", "Fissure Length:")
+#baseMod skill("radiusSecondary", 7)
+#baseMod skill("radiusSecondaryLabel", "Fissure Width:")
 #mods
 
 #skill Vengeance

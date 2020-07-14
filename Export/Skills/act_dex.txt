@@ -167,10 +167,15 @@ local skills, mod, flag, skill = ...
 #skill VaalBladeVortex
 #flags spell area duration
 #baseMod skill("hitTimeOverride", 0.133)
+#baseMod skill("radius", 15)
 #mods
 
 #skill Bladefall
 #flags spell area
+#baseMod skill("radius", 44)
+#baseMod skill("radiusLabel", "Volley Width:")
+#baseMod skill("radiusSecondary", 12)
+#baseMod skill("radiusSecondaryLabel", "Volley Length:")
 #mods
 
 #skill BlastRain
@@ -228,6 +233,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalBurningArrow
 #flags attack projectile area vaal
+#baseMod skill("radius", 16)
 #mods
 
 #skill PoisonArrow
@@ -246,6 +252,10 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
+#baseMod skill("radius", 12)
+#baseMod skill("radiusLabel", "Start of Dash:")
+#baseMod skill("radiusSecondary", 22)
+#baseMod skill("radiusSecondaryLabel", "End of Dash:")
 #mods
 
 #skill CobraLash
@@ -267,6 +277,7 @@ local skills, mod, flag, skill = ...
 			cast =  true,
 		},
 	},
+#baseMod skill("radius", 15)
 #mods
 
 #skill Cyclone
@@ -329,6 +340,7 @@ local skills, mod, flag, skill = ...
 #skill Desecrate
 #flags spell area duration chaos
 #baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 12)
 #mods
 
 #skill DetonateDead
@@ -352,6 +364,7 @@ local skills, mod, flag, skill = ...
 #skill VaalDetonateDead
 #flags cast area
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 24)
 	parts = {
 		{
 			name = "Spell",
@@ -408,10 +421,9 @@ local skills, mod, flag, skill = ...
 #baseMod flag("DealNoCold", { type = "SkillPart", skillPart = 3 })
 #baseMod flag("DealNoLightning", { type = "SkillPart", skillPart = 1 })
 #baseMod flag("DealNoLightning", { type = "SkillPart", skillPart = 2 })
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 3 })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
@@ -420,6 +432,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" })
 #baseMod mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" })
+#baseMod skill("radius", 10)
 #mods
 
 #skill EnsnaringArrow
@@ -486,6 +499,10 @@ local skills, mod, flag, skill = ...
 
 #skill ShrapnelTrap
 #flags spell trap area
+#baseMod skill("radius", 12)
+#baseMod skill("radiusLabel", "Primary Explosion:")
+#baseMod skill("radiusSecondary", 7)
+#baseMod skill("radiusSecondaryLabel", "Secondary Explosion:")
 #mods
 
 #skill FireTrap
@@ -501,6 +518,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
 		},
 	},
+#baseMod skill("radius", 32)
 #mods
 
 #skill FlickerStrike
@@ -557,6 +575,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#baseMod skill("radius", 28)
 #mods
 
 #skill Grace
@@ -694,6 +713,12 @@ local skills, mod, flag, skill = ...
 
 #skill IceTrap
 #flags spell trap area
+#baseMod skill("radius", 18)
+#baseMod skill("radiusLabel", "First Explosion:")
+#baseMod skill("radiusSecondary", 9)
+#baseMod skill("radiusSecondaryLabel", "Second Explosion:")
+#baseMod skill("radiusTertiary", 6)
+#baseMod skill("radiusTertiaryLabel", "Third Explosion:")
 #mods
 
 #skill DoubleSlash
@@ -724,6 +749,7 @@ local skills, mod, flag, skill = ...
 
 #skill LightningArrow
 #flags attack projectile
+#baseMod skill("radius", 18)
 #mods
 
 #skill LightningStrike
@@ -878,12 +904,13 @@ local skills, mod, flag, skill = ...
 
 #skill RainOfArrows
 #flags attack projectile area
-#baseMod skill("radius", 24)
+#baseMod skill("radius", 10)
 #baseMod flag("OneShotProj")
 #mods
 
 #skill VaalRainOfArrows
 #flags attack projectile area duration vaal
+#baseMod skill("radius", 10)
 #baseMod flag("OneShotProj")
 #mods
 
@@ -982,10 +1009,12 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
+#baseMod skill("radius", 28)
 #mods
 
 #skill PhysCascadeTrap
 #flags spell area trap duration
+#baseMod skill("radius", 12)
 #mods
 
 #skill ShrapnelBallista
@@ -1004,6 +1033,7 @@ local skills, mod, flag, skill = ...
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#baseMod skill("radius", 10)
 #mods
 
 #skill ThrownShield
@@ -1040,6 +1070,8 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true)
 #baseMod flag("DotCanStack")
 #baseMod flag("OneShotProj")
+#baseMod skill("radius", 18)
+#baseMod skill("radiusLabel", "Pod Area:")
 #mods
 
 #skill SplitArrow
@@ -1132,6 +1164,7 @@ local skills, mod, flag, skill = ...
 			cast =  true,
 		},
 	},
+#baseMod skill("radius", 15)
 #mods
 
 #skill WhirlingBlades
@@ -1187,6 +1220,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } })
 #baseMod mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } })
 #baseMod mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } })
+#baseMod skill("radius", 24, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill Slither
@@ -1198,4 +1232,5 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
+#baseMod skill("radius", 26)
 #mods
