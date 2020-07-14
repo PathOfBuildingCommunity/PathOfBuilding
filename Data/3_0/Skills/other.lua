@@ -2216,6 +2216,14 @@ skills["SummonRigwaldsPack"] = {
 		minion = true,
 		duration = true,
 	},
+	statMap = {
+		["spectral_wolf_grants_attack_minimum_added_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
+			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2235,7 +2243,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 30000, 10, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SummonVoidSphere"] = {
