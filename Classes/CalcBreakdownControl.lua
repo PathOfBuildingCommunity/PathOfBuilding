@@ -535,11 +535,13 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			if col.width and row[col.key] then
 				-- This row has an entry for this column, draw it
 				local _, alpha = string.gsub(row[col.key], "%a", " ") -- counts letters in the string
-				if main.showThousandsCalcs and alpha == 0 and col.right then
+				local _, notes = string.gsub(row[col.key], " to ", " ") -- counts " to " in the string
+				local _, paren = string.gsub(row[col.key], "%b()", " ") -- counts parenthesis in the string
+				if main.showThousandsCalcs and (alpha == 0 or notes > 0 or paren > 0) and col.right then
 					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
 				elseif col.right then
 					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..row[col.key])
-				elseif main.showThousandsCalcs and alpha == 0 then
+				elseif main.showThousandsCalcs and (alpha == 0 or notes > 0 or paren > 0) then
 					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
 				else
 					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..row[col.key])
