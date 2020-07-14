@@ -494,6 +494,9 @@ return {
 	{ var = "conditionHaveTotem", type = "check", label = "Do you have a Totem summoned?", ifCond = "HaveTotem", tooltip = "You will automatically be considered to have a Totem if your main skill is a Totem,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveTotem", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionSummonedTotemRecently", type = "check", label = "Have you Summoned a Totem Recently?", ifCond = "SummonedTotemRecently", tooltip = "You will automatically be considered to have Summoned a Totem Recently if your main skill is a Totem,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SummonedTotemRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "TotemsSummoned", type = "count", label = "# of Summoned Totems (if not maximum):", ifSkillList = { "Spell Totem", "Ballista Totem", "Siege Ballista", "Artillery Ballista", "Shrapnel Ballista", "Ancestral Protector", "Ancestral Warchief", "Vaal Ancestral Warchief" }, tooltip = "This also implies that you have a Totem summoned.\nThis will affect all \"per Summoned Totem\" modifiers, even for non-Totem skills.", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotemsSummoned", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:HaveTotem", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
