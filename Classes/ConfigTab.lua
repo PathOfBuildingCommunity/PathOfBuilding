@@ -238,7 +238,7 @@ function ConfigTabClass:Load(xml, fileName)
 				self.input[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
 				if node.attrib.name == "enemyIsBoss" then
-					self.input[node.attrib.name] = node.attrib.string:lower():gsub("^%l", s_upper)
+					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
 				else
 					self.input[node.attrib.name] = node.attrib.string
 				end

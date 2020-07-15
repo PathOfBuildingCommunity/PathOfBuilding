@@ -1057,8 +1057,8 @@ return {
 			enemyModList:NewMod("SelfIgniteDuration", "MORE", -50, "Boss")
 		end
 	end },
-	{ var = "enemyIsBoss", type = "list", ifVer = "3_0", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n33% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n66% less Effect of your Curses\n+50% to enemy Elemental Resistances\n+30% to enemy Chaos Resistance\n+33% to enemy Armour\n\nSirus adds the following modifiers:\n66% less Effect of your Curses\n+50% to enemy Elemental Resistances\n+30% to enemy Chaos Resistance\n+100% to enemy Armour", list = {{val="None",label="No"},{val="Uber atziri",label="Standard Boss"},{val="Shaper",label="Shaper/Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
-		if val == "Uber atziri" then
+	{ var = "enemyIsBoss", type = "list", ifVer = "3_0", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n33% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n66% less Effect of your Curses\n+50% to enemy Elemental Resistances\n+30% to enemy Chaos Resistance\n+33% to enemy Armour\n\nSirus adds the following modifiers:\n66% less Effect of your Curses\n+50% to enemy Elemental Resistances\n+30% to enemy Chaos Resistance\n+100% to enemy Armour", list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper/Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
+		if val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
