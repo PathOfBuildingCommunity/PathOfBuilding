@@ -1147,8 +1147,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		-- Intimidating Cry Exerts Attacks
 		output.IntimidatingHitEffect = 1
 		if activeSkill.skillTypes[SkillType.Attack] then
-			local numIntimidatingExerts = env.modDB:Sum("BASE", nil, "NumIntimidatingExerts") or 0
-			if numIntimidatingExerts > 0 and not skillFlags.warcry then
+			output.IntimidatingExertsCount = env.modDB:Sum("BASE", nil, "NumIntimidatingExerts") or 0
+			if output.IntimidatingExertsCount > 0 and not skillFlags.warcry then
 				local buff_effect = 1
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Intimidating Cry" then
@@ -1165,12 +1165,13 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				-- Special case to handle Dominating Blow, which will have the Attack flag, but we don't want and can't have the calcs for the minion side
 				if output.InitmidatingCryDuration ~= nil then
 					-- calculate ratio of uptime versus downtime
-					output.IntimidatingUpTimeRatio = m_min((numIntimidatingExerts / output.Speed) / (output.IntimidatingCryCooldown + output.IntimidatingCryCastTime), 1)
+					output.IntimidatingUpTimeRatio = m_min((output.IntimidatingExertsCount / output.Speed) / (output.IntimidatingCryCooldown + output.IntimidatingCryCastTime), 1)
 					exertedUptime = m_max(exertedUptime, output.IntimidatingUpTimeRatio)
 					-- intimidating cry guarantees double damage for its attacks; therefore, its hit effect
 					-- is calculated as the improvement over the non-intimidated double damage chance
 					local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance"), 100)
-					output.IntimidatingHitEffect = 1 + (1 - ddChance / 100) * output.IntimidatingUpTimeRatio
+					output.IntimidatingAvgDmg = (1 - ddChance / 100)
+					output.IntimidatingHitEffect = 1 + output.IntimidatingAvgDmg * output.IntimidatingUpTimeRatio
 
 					-- overwhelm calculation
 					local buffUptime = m_min(output.InitmidatingCryDuration / output.IntimidatingCryCooldown, 1)
@@ -1182,8 +1183,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		-- Rallying Cry Exerts Attacks
 		output.RallyingHitEffect = 1
 		if activeSkill.skillTypes[SkillType.Attack] then
-			local numRallyingExerts = env.modDB:Sum("BASE", nil, "NumRallyingExerts") or 0
-			if numRallyingExerts > 0 and not skillFlags.warcry then
+			output.RallyingExertsCount = env.modDB:Sum("BASE", nil, "NumRallyingExerts") or 0
+			if output.RallyingExertsCount > 0 and not skillFlags.warcry then
 				local buff_effect = 1
 				--Find Rallying cry in the list of skills in the build; note this finds the *first*, not the highest
 				for index, value in ipairs(actor.activeSkillList) do
@@ -1201,10 +1202,11 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				-- Special case to handle Dominating Blow, which will have the Attack flag, but we don't want and can't have the calcs for the minion side
 				if output.RallyingCryDuration ~= nil then
 					-- calculate ratio of uptime versus downtime
-					output.RallyingUpTimeRatio = m_min((numRallyingExerts / output.Speed) / (output.RallyingCryCooldown + output.RallyingCryCastTime), 1)
+					output.RallyingUpTimeRatio = m_min((output.RallyingExertsCount / output.Speed) / (output.RallyingCryCooldown + output.RallyingCryCastTime), 1)
 					exertedUptime = m_max(exertedUptime, output.RallyingUpTimeRatio)
 					-- Add the average 'More' multiplier on damage accounting for uptime
-					output.RallyingHitEffect = 1 + env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly") * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100) * output.RallyingUpTimeRatio
+					output.RallyingAvgDmg = env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly") * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100)
+					output.RallyingHitEffect = 1 + output.RallyingAvgDmg * output.RallyingUpTimeRatio
 				end
 			end
 		end
