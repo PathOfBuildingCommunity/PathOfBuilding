@@ -770,7 +770,7 @@ skills["SupportCastWhileChannellingPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil),
 			div = 1000,
 		},
 	},
@@ -821,6 +821,7 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 		},
 	},
 	baseMods = {
+		skill("triggeredWhileChannelling", true),
 	},
 	qualityStats = {
 		{ "triggered_skill_damage_+%", 0.5 },

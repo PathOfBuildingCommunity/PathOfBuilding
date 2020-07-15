@@ -97,7 +97,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingPlus
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil),
 			div = 1000,
 		},
 	},
@@ -109,6 +109,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
+#baseMod skill("triggeredWhileChannelling", true),
 #mods
 
 #skill SupportChanceToIgnite
