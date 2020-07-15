@@ -1,3 +1,5 @@
+### 1.4.170.4 - 2020/07/15
+ * Fix bug where importing builds would change the boss configuration to be empty
 ### 1.4.170.3 - 2020/07/15
  * Add support for 3.11 Warcries and Exerted Attacks
   * Warcry-related Exerted Attack Effect is calculated based on:
