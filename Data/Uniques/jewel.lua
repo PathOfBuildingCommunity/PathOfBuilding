@@ -1482,11 +1482,13 @@ Limited to: 1 Historic
 Variant: Kaom
 Variant: Kiloava
 Variant: Rakiata
+Variant: Akoya
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over (10000-18000) warriors under Kaom
 {variant:2}Commanded leadership over (10000-18000) warriors under Kiloava
 {variant:3}Commanded leadership over (10000-18000) warriors under Rakiata
+{variant:4}Commanded leadership over (10000-18000) warriors under Akoya
 Passives in radius are Conquered by the Karui
 Historic
 ]],[[
