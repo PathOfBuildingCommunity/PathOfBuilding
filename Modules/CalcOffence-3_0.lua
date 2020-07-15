@@ -1204,7 +1204,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					output.RallyingUpTimeRatio = m_min((numRallyingExerts / output.Speed) / (output.RallyingCryCooldown + output.RallyingCryCastTime), 1)
 					exertedUptime = m_max(exertedUptime, output.RallyingUpTimeRatio)
 					-- Add the average 'More' multiplier on damage accounting for uptime
-					output.RallyingHitEffect = 1 + env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly") * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100) * output.RallyingUpTimeRatio
+					output.RallyingHitEffect = 1 + m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100) * output.RallyingUpTimeRatio
 				end
 			end
 		end
