@@ -737,6 +737,19 @@ function calcs.perform(env)
 			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
 		end
+		if activeSkill.skillData.triggeredWhileChannelling then
+			local spellCount, trigTime = 0
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggerTime or 0 > 0 then
+					trigTime = skill.skillData.triggerTime
+				end
+				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggeredWhileChannelling then
+					spellCount = spellCount + 1
+				end
+			end
+			activeSkill.skillModList:NewMod("CastWhileChannellingSpellsLinked", "BASE", spellCount, "Skill")
+			activeSkill.skillData.triggerTime = trigTime
+		end
 	end
 
 	local breakdown
