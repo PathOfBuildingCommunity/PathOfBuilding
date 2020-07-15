@@ -326,7 +326,7 @@ return {
 		{ format = "{2:output:SeismicAvgDmg}" },
 		{ format = "{2:output:SeismicUpTimeRatio}" },
 	},
-	{ label = "Intimdiating Cry",
+	{ label = "Intimidating Cry",
 		{ format = "{2:output:IntimidatingHitEffect}" },
 		{ format = "{2:output:IntimidatingExertsCount}" },
 		{ format = "{2:output:IntimidatingAvgDmg}" },
