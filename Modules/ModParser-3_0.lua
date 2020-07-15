@@ -1012,6 +1012,7 @@ local modTagList = {
 	["on chilled ground"] = { tag = { type = "Condition", var = "OnChilledGround" } },
 	["on shocked ground"] = { tag = { type = "Condition", var = "OnShockedGround" } },
 	["while in a caustic cloud"] = { tag = { type = "Condition", var = "OnCausticCloud" } },
+	["while blinded"] = { tag = { type = "Condition", var = "Blinded" } },
 	["while burning"] = { tag = { type = "Condition", var = "Burning" } },
 	["while ignited"] = { tag = { type = "Condition", var = "Ignited" } },
 	["while frozen"] = { tag = { type = "Condition", var = "Frozen" } },
@@ -1289,6 +1290,7 @@ local specialModList = {
 		mod("ManaDegen", "BASE", 1, { type = "PercentStat", stat = "ManaUnreserved", percent = num }, { type = "Condition", var = "FullLife", neg = true }),
 		mod("LifeRecovery", "BASE", 1, { type = "PercentStat", stat = "ManaUnreserved", percent = num }, { type = "Condition", var = "FullLife", neg = true }) 
 	} end,
+	["you are blind"] = { flag("Condition:Blinded") },
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
@@ -2001,6 +2003,7 @@ local specialModList = {
 	["cannot be stunned"] = { mod("AvoidStun", "BASE", 100) },
 	["cannot be stunned if you haven't been hit recently"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "BeenHitRecently", neg = true }) },
 	["cannot be stunned if you have at least (%d+) crab barriers"] = function(num) return { mod("AvoidStun", "BASE", 100, { type = "StatThreshold", stat = "CrabBarriers", threshold = num }) } end,
+	["cannot be blinded"] = { mod("AvoidBlind", "BASE", 100) },
 	["cannot be shocked"] = { mod("AvoidShock", "BASE", 100) },
 	["immune to shock"] = { mod("AvoidShock", "BASE", 100) },
 	["cannot be frozen"] = { mod("AvoidFreeze", "BASE", 100) },
@@ -2179,6 +2182,7 @@ local specialModList = {
 	["you have resolute technique while you do not have elemental overload"] = { mod("Keystone", "LIST", "Resolute Technique", { neg = true, type = "Condition", var = "HaveElementalOverload" }) },
 	["hits ignore enemy monster fire resistance while you are ignited"] = { flag("IgnoreFireResistance", { type = "Condition", var = "Ignited" }) },
 	["your hits can't be evaded by blinded enemies"] = { flag("CannotBeEvaded", { type = "ActorCondition", actor = "enemy", var = "Blinded" }) },
+	["blind does not affect your chance to hit"] = { flag("IgnoreBlindHitChance") },
 	["skills which throw traps have blood magic"] = { flag("BloodMagic", { type = "SkillType", skillType = SkillType.Trap }) },
 	["lose ([%d%.]+) mana per second"] = function(num) return { mod("ManaDegen", "BASE", num) } end,
 	["lose ([%d%.]+)%% of maximum mana per second"] = function(num) return { mod("ManaDegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }) } end,

@@ -571,7 +571,8 @@ return {
 	}, },
 	{ label = "MH Chance to Hit", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:output:MainHand.HitChance}%",
 		{ breakdown = "MainHand.HitChance" }, 
-		{ label = "Enemy Evasion modifiers", modName = "Evasion", enemy = true },
+		{ label = "Enemy Evasion modifiers", modName = { "Evasion", "CannotEvade" }, enemy = true },
+		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded", "IgnoreBlindHitChance" } },
 	}, },
 	{ label = "OH Accuracy", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.Accuracy}",
 		{ breakdown = "OffHand.Accuracy" }, 
@@ -579,7 +580,8 @@ return {
 	}, },
 	{ label = "OH Chance to Hit", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:output:OffHand.HitChance}%",
 		{ breakdown = "OffHand.HitChance" },
-		{ label = "Enemy Evasion modifiers", modName = "Evasion", enemy = true },
+		{ label = "Enemy Evasion modifiers", modName = { "Evasion", "CannotEvade" }, enemy = true },
+		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded", "IgnoreBlindHitChance" } },
 	}, },
 } }
 } },
@@ -1146,6 +1148,7 @@ return {
 } }, { defaultCollapsed = true, label = "Other Avoidance", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
 	{ label = "Interupt Avoid Ch.", haveOutput = "InteruptStunAvoidChance", { format = "{0:output:InteruptStunAvoidChance}%", { modName = "AvoidInteruptStun" }, }, },
+	{ label = "Blind Avoid Ch.", haveOutput = "BlindAvoidChance", { format = "{0:output:BlindAvoidChance}%", { modName = "AvoidBlind" }, }, },
 	{ label = "Shock Avoid Ch.", haveOutput = "ShockAvoidChance", { format = "{0:output:ShockAvoidChance}%", { modName = "AvoidShock" }, }, },
 	{ label = "Freeze Avoid Ch.", haveOutput = "FreezeAvoidChance", { format = "{0:output:FreezeAvoidChance}%", { modName = "AvoidFreeze" }, }, },
 	{ label = "Chill Avoid Ch.", haveOutput = "ChillAvoidChance", { format = "{0:output:ChillAvoidChance}%", { modName = "AvoidChill" }, }, },
