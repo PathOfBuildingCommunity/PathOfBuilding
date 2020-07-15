@@ -1250,7 +1250,7 @@ skills["SupportCurseOnHitPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHit",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
+    statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
 			flag("CanHaveAdditionalCurse"),

@@ -1704,7 +1704,7 @@ skills["TriggeredShockedGround"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("ShockedGroundEffect", "BASE", 15)	
+		mod("ShockedGroundEffect", "BASE", 15),
 	},
 	qualityStats = {
 	},
@@ -2369,11 +2369,6 @@ skills["SummonRigwaldsPack"] = {
 	minionList = {
 		"SummonedSpectralWolf",
 	},
-	baseFlags = {
-		spell = true,
-		minion = true,
-		duration = true,
-	},
 	statMap = {
 		["spectral_wolf_grants_attack_minimum_added_physical_damage"] = {
 			mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
@@ -2381,6 +2376,11 @@ skills["SummonRigwaldsPack"] = {
 		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
 			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
 		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
 	},
 	baseMods = {
 	},
