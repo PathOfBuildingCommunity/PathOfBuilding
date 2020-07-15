@@ -472,6 +472,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
 					local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
 					local pathCost = #path == 0 and 1 or #path
+					if node.ascendancyName then
+						pathCost = 10000
+					end
 					if(stat ~= 0) then
 						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
 							statCol = stat / pathCost == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
@@ -496,6 +499,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
 					local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
 					local pathCost = #path == 0 and 1 or #path
+					if node.ascendancyName then
+						pathCost = 10000
+					end
 					if(self.heatMapStatPerPoint and self.heatMapTopPick) then
 						dpsCol = offence / pathCost == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
 						defCol = defence / pathCost == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
