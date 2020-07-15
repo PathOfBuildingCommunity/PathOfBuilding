@@ -4110,6 +4110,7 @@ skills["RallyingCry"] = {
 		},
 		["rallying_cry_weapon_damage_%_for_allies_per_5_monster_power"] = {
 			mod("RallyingCryAllyDamageBonusPer5Power", "BASE", nil),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "NearbyAlly"}),
 		},
 		["rallying_cry_buff_effect_on_minions_+%_final"] = {
 			mod("RallyingCryMinionDamageBonusMultiplier", "BASE", nil),

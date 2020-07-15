@@ -195,7 +195,6 @@ c["+15% to Critical Strike Multiplier with Traps"]={{[1]={flags=0,keywordFlags=4
 c["Flasks gain 3 Charges every 3 seconds 20% chance for Flasks you use to not consume Charges"]={nil,"Flasks gain 3 Charges every 3 seconds 20% chance for Flasks you use to not consume Charges "}
 c["Chance to Block Attack Damage is doubled"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="MORE",value=100}},nil}
 c["15% reduced Mana Cost of Minion Skills"]={{[1]={[1]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-15}},nil}
-c["Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies +150 to Evasion Rating and Energy Shield"]={nil,"Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies +150 to Evasion Rating and Energy Shield "}
 c["You gain Onslaught for 5 second per Endurance Charge when Hit 100% increased Onslaught Effect"]={nil,"You gain Onslaught for 5 second per Endurance Charge when Hit 100% increased Onslaught Effect "}
 c["225% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=225}},nil}
 c["12% increased Global Attack Speed per Green Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="GreenSocketIn{SlotName}"},flags=1,keywordFlags=0,name="Speed",type="INC",value=12}},nil}
@@ -5688,7 +5687,7 @@ c["Sepia Oil - Silver Oil - Silver Oil"]={nil,"Sepia Oil - Silver Oil - Silver O
 c["20% increased Vaal Skill Effect Duration"]={{[1]={flags=0,keywordFlags=256,name="Duration",type="INC",value=20}},nil}
 c["10% increased Totem Damage"]={{[1]={flags=0,keywordFlags=16384,name="Damage",type="INC",value=10}},nil}
 c["Mercury Footprints"]={nil,"Mercury Footprints "}
-c["Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies"]={nil,"Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies "}
+c["Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies"]={{[1]={[1]={skillName="Aspect of the Avian",type="SkillName"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="BuffEffectOnMinion",type="MORE",value=100}}}},nil}
 c["30% chance to gain a Frenzy Charge on Kill Gore Footprints"]={{}," to gain aCharge on Kill Gore Footprints "}
 c["Clear Oil - Violet Oil - Crimson Oil 24% increased Damage with Daggers"]={nil,"Clear Oil - Violet Oil - Crimson Oil 24% increased Damage with Daggers "}
 c["Black Oil - Black Oil - Opalescent Oil 20% reduced Reflected Physical Damage taken Enemies have -5% to Total Physical Damage Reduction against your Hits 4% chance to deal Double Damage"]={nil,"Black Oil - Black Oil - Opalescent Oil 20% reduced Reflected Physical Damage taken Enemies have -5% to Total Physical Damage Reduction against your Hits 4% chance to deal Double Damage "}
@@ -7511,7 +7510,7 @@ c["60% increased Effect of Fortify on you while affected by Glorious Madness"]={
 c["+25% to Critical Strike Multiplier with Claws"]={{[1]={flags=262148,keywordFlags=0,name="CritMultiplier",type="BASE",value=25}},nil}
 c["Clear Oil - Teal Oil - Teal Oil 30% increased Trap Damage"]={nil,"Clear Oil - Teal Oil - Teal Oil 30% increased Trap Damage "}
 c["+15 Life gained on Kill"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=15}},nil}
-c["Drops Shocked Ground while moving, lasting 2 seconds"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnShockedGround"},flags=0,keywordFlags=0,name="ShockOverride",type="OVERRIDE",value=10}},nil}
+c["Drops Shocked Ground while moving, lasting 2 seconds"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnShockedGround"},flags=0,keywordFlags=0,name="ShockOverride",type="BASE",value=10}},nil}
 c["10% Chance to Cause Monsters to Flee Drops Shocked Ground while moving, lasting 2 seconds"]={{}," to Cause Monsters to Flee Drops Shocked Ground , lasting 2 seconds "}
 c["10% Chance to Cause Monsters to Flee"]={{}," to Cause Monsters to Flee "}
 c["Lose all Frenzy, Endurance, and Power Charges when you Move"]={nil,"Lose all Frenzy, Endurance, and Power Charges when you Move "}
@@ -10541,7 +10540,7 @@ c["10% chance to gain a Power Charge on Critical Strike 40% chance to Poison on 
 c["and nearby Allies cannot be Stunned"]={nil,"and nearby Allies cannot be Stunned "}
 c["10% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-10}},nil}
 c["40% increased Damage if you have consumed a corpse Recently"]={{[1]={[1]={type="Condition",var="ConsumedCorpseRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=40}},nil}
-c["Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Shocked",type="FLAG",value=true}}},[2]={flags=0,keywordFlags=0,name="ShockOverride",type="OVERRIDE",value=10}},nil}
+c["Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ShockOverride",type="BASE",value=10}},nil}
 c["Sepia Oil - Amber Oil - Opalescent Oil"]={nil,"Sepia Oil - Amber Oil - Opalescent Oil "}
 c["Hits against Nearby Enemies have 50% increased Critical Strike Chance"]={nil,"Hits against Nearby Enemies have 50% increased Critical Strike Chance "}
 c["10% increased Damage while wielding a Wand"]={{[1]={[1]={type="Condition",var="UsingWand"},flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
