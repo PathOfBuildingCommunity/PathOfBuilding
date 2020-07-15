@@ -532,12 +532,11 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 	castTime = 0.25,
 	fromItem = true,
 	statMap = {
-		["attack_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -546,7 +545,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("buffAllies", true),
+		skill("radius", 60),
 	},
 	qualityStats = {
 	},
