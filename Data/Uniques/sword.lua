@@ -347,11 +347,27 @@ Adds (60-80) to (150-180) Physical Damage
 The Rippling Thoughts
 Legion Sword
 League: Harbinger
+Upgrade: Upgrades to unique{The Surging Thoughts} via currency{Electroshock Scroll}
 Requires Level 62, 122 Str, 104 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
 Trigger level 20 Storm Cascade when you Attack
+(75-90)% increased Spell Damage
+(140-160)% increased Physical Damage
+Adds 1 to (60-70) Lightning Damage
+Adds 1 to (60-70) Lightning Damage to Spells
+10% increased Area of Effect of Area Skills
+]],[[
+The Surging Thoughts
+Legion Sword
+League: Harvest
+Source: Upgraded from unique{The Rippling Thoughts} via currency{Electroshock Scroll}
+Requires Level 62, 122 Str, 104 Dex
+Implicits: 1
+40% increased Global Accuracy Rating
+Grants Summon Greater Harbinger of the Arcane Skill
+Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
 Adds 1 to (60-70) Lightning Damage

@@ -1073,13 +1073,27 @@ Requires Level 57, 64 Dex, 64 Int
 The Tempest's Binding
 Callous Mask
 League: Harbinger
+Upgrade: Upgrades to unique{The Tempest's Liberation} via currency{Deregulation Scroll}
 Requires Level 45, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate
 Grants Summon Harbinger of Storms Skill
 +(100-150) to Evasion Rating
-+(60-80) to maximum Life
 +(40-60) to maximum Energy Shield
++(60-80) to maximum Life
++(10-15)% to all Elemental Resistances
+]],[[
+The Tempest's Liberation
+Callous Mask
+League: Harvest
+Source: Upgraded from unique{The Tempest's Binding} via currency{Deregulation Scroll}
+Requires Level 60, 51 Dex, 51 Int
+Socketed Gems are Supported by Level 18 Ice Bite
+Socketed Gems are Supported by Level 18 Innervate
+Grants Summon Greater Harbinger of Storms Skill
++(100-150) to Evasion Rating
++(40-60) to maximum Energy Shield
++(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 ]],[[
 The Three Dragons
