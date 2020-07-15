@@ -1075,108 +1075,6 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 
-		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
-		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)		
-		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.CritDoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "CritDoubleDamageChance"), 100)
-		output.CritDoubleDamageEffect = 1 + output.CritDoubleDamageChance / 100
-
-		-- Calculate crit chance, crit multiplier, and their combined effect
-		if skillModList:Flag(nil, "NeverCrit") then
-			output.PreEffectiveCritChance = 0
-			output.CritChance = 0
-			output.CritMultiplier = 0
-			output.BonusCritDotMultiplier = 0
-			output.CritEffect = 1
-		else
-			local baseCrit = source.CritChance or 0
-			if baseCrit == 100 then
-				output.PreEffectiveCritChance = 100
-				output.CritChance = 100
-			else
-				local base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
-				local inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
-				local more = skillModList:More(cfg, "CritChance")
-				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
-				local preCapCritChance = output.CritChance
-				output.CritChance = m_min(output.CritChance, 100)
-				if (baseCrit + base) > 0 then
-					output.CritChance = m_max(output.CritChance, 0)
-				end
-				output.PreEffectiveCritChance = output.CritChance
-				local preLuckyCritChance = output.CritChance
-				if env.mode_effective and skillModList:Flag(cfg, "CritChanceLucky") then
-					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
-				end
-				local preHitCheckCritChance = output.CritChance
-				if env.mode_effective then
-					output.CritChance = output.CritChance * output.HitChance / 100
-				end
-				if breakdown and output.CritChance ~= baseCrit then
-					breakdown.CritChance = { }
-					if base ~= 0 then
-						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base)", baseCrit, base))
-					else
-						t_insert(breakdown.CritChance, s_format("%g ^8(base)", baseCrit + base))
-					end
-					if inc ~= 0 then
-						t_insert(breakdown.CritChance, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
-					end
-					if more ~= 1 then
-						t_insert(breakdown.CritChance, s_format("x %.2f", more).." ^8(more/less)")
-					end
-					t_insert(breakdown.CritChance, s_format("= %.2f%% ^8(crit chance)", output.PreEffectiveCritChance))
-					if preCapCritChance > 100 then
-						local overCap = preCapCritChance - 100
-						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
-					end
-					if env.mode_effective and skillModList:Flag(cfg, "CritChanceLucky") then
-						t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
-						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preLuckyCritChance / 100, preLuckyCritChance / 100))
-						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
-					end
-					if env.mode_effective and output.HitChance < 100 then
-						t_insert(breakdown.CritChance, "Crit confirmation roll:")
-						t_insert(breakdown.CritChance, s_format("%.2f%%", preHitCheckCritChance))
-						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-						t_insert(breakdown.CritChance, s_format("= %.2f%%", output.CritChance))
-					end
-				end
-			end
-			if skillModList:Flag(cfg, "NoCritMultiplier") then
-				output.CritMultiplier = 1
-			else
-				local extraDamage = skillModList:Sum("BASE", cfg, "CritMultiplier") / 100
-				local multiOverride = skillModList:Override(skillCfg, "CritMultiplier")
-				if multiOverride then
-					extraDamage = (multiOverride - 100) / 100
-				end
-				if env.mode_effective then
-					local enemyInc = 1 + enemyDB:Sum("INC", nil, "SelfCritMultiplier") / 100
-					extraDamage = round(extraDamage * enemyInc, 2)
-					if breakdown and enemyInc ~= 1 then
-						breakdown.CritMultiplier = {
-							s_format("%d%% ^8(additional extra damage)", skillModList:Sum("BASE", cfg, "CritMultiplier") / 100),
-							s_format("x %.2f ^8(increased/reduced extra crit damage taken by enemy)", enemyInc),
-							s_format("= %d%% ^8(extra crit damage)", extraDamage * 100),
-						}
-					end
-				end
-				output.CritMultiplier = 1 + m_max(0, extraDamage)
-			end
-			local critChancePercentage = output.CritChance / 100
-			output.CritEffect = 1 - critChancePercentage + critChancePercentage * output.CritMultiplier * output.CritDoubleDamageEffect
-			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
-			if breakdown and output.CritEffect ~= 1 then
-				breakdown.CritEffect = {
-					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", critChancePercentage),
-					s_format("+ [ (%.4f x %g) ^8(portion of damage from crits)", critChancePercentage, output.CritMultiplier),
-					s_format("  x (%.4f) ] ^8(double damage inc on crit)", 1 + output.CritDoubleDamageChance / 100),
-					s_format("= %.3f", output.CritEffect),
-				}
-			end
-		end
-
 		-- Exerted Attack members
 		local exertedUptime = 0
 		local exertedDoubleDamage = 0
@@ -1354,9 +1252,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			exertedDoubleDamage = env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance")
 		end
 
-		-- Calculate Double Damage + Ruthless Blow chance/multipliers + Fist of War multipliers
-		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
-		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
+		-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
 		if output.RuthlessBlowMaxCount > 0 then
 			output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
@@ -1377,6 +1273,107 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			output.FistOfWarAilmentEffect = 1
 		end
 
+		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
+		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
+		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
+		output.CritDoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "CritDoubleDamageChance"), 100)
+		output.CritDoubleDamageEffect = 1 + output.CritDoubleDamageChance / 100
+
+		-- Calculate crit chance, crit multiplier, and their combined effect
+		if skillModList:Flag(nil, "NeverCrit") then
+			output.PreEffectiveCritChance = 0
+			output.CritChance = 0
+			output.CritMultiplier = 0
+			output.BonusCritDotMultiplier = 0
+			output.CritEffect = 1
+		else
+			local baseCrit = source.CritChance or 0
+			if baseCrit == 100 then
+				output.PreEffectiveCritChance = 100
+				output.CritChance = 100
+			else
+				local base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
+				local inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
+				local more = skillModList:More(cfg, "CritChance")
+				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
+				local preCapCritChance = output.CritChance
+				output.CritChance = m_min(output.CritChance, 100)
+				if (baseCrit + base) > 0 then
+					output.CritChance = m_max(output.CritChance, 0)
+				end
+				output.PreEffectiveCritChance = output.CritChance
+				local preLuckyCritChance = output.CritChance
+				if env.mode_effective and skillModList:Flag(cfg, "CritChanceLucky") then
+					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
+				end
+				local preHitCheckCritChance = output.CritChance
+				if env.mode_effective then
+					output.CritChance = output.CritChance * output.HitChance / 100
+				end
+				if breakdown and output.CritChance ~= baseCrit then
+					breakdown.CritChance = { }
+					if base ~= 0 then
+						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base)", baseCrit, base))
+					else
+						t_insert(breakdown.CritChance, s_format("%g ^8(base)", baseCrit + base))
+					end
+					if inc ~= 0 then
+						t_insert(breakdown.CritChance, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
+					end
+					if more ~= 1 then
+						t_insert(breakdown.CritChance, s_format("x %.2f", more).." ^8(more/less)")
+					end
+					t_insert(breakdown.CritChance, s_format("= %.2f%% ^8(crit chance)", output.PreEffectiveCritChance))
+					if preCapCritChance > 100 then
+						local overCap = preCapCritChance - 100
+						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
+					end
+					if env.mode_effective and skillModList:Flag(cfg, "CritChanceLucky") then
+						t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
+						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preLuckyCritChance / 100, preLuckyCritChance / 100))
+						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
+					end
+					if env.mode_effective and output.HitChance < 100 then
+						t_insert(breakdown.CritChance, "Crit confirmation roll:")
+						t_insert(breakdown.CritChance, s_format("%.2f%%", preHitCheckCritChance))
+						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+						t_insert(breakdown.CritChance, s_format("= %.2f%%", output.CritChance))
+					end
+				end
+			end
+			if skillModList:Flag(cfg, "NoCritMultiplier") then
+				output.CritMultiplier = 1
+			else
+				local extraDamage = skillModList:Sum("BASE", cfg, "CritMultiplier") / 100
+				local multiOverride = skillModList:Override(skillCfg, "CritMultiplier")
+				if multiOverride then
+					extraDamage = (multiOverride - 100) / 100
+				end
+				if env.mode_effective then
+					local enemyInc = 1 + enemyDB:Sum("INC", nil, "SelfCritMultiplier") / 100
+					extraDamage = round(extraDamage * enemyInc, 2)
+					if breakdown and enemyInc ~= 1 then
+						breakdown.CritMultiplier = {
+							s_format("%d%% ^8(additional extra damage)", skillModList:Sum("BASE", cfg, "CritMultiplier") / 100),
+							s_format("x %.2f ^8(increased/reduced extra crit damage taken by enemy)", enemyInc),
+							s_format("= %d%% ^8(extra crit damage)", extraDamage * 100),
+						}
+					end
+				end
+				output.CritMultiplier = 1 + m_max(0, extraDamage)
+			end
+			local critChancePercentage = output.CritChance / 100
+			output.CritEffect = 1 - critChancePercentage + critChancePercentage * output.CritMultiplier * output.CritDoubleDamageEffect
+			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
+			if breakdown and output.CritEffect ~= 1 then
+				breakdown.CritEffect = {
+					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", critChancePercentage),
+					s_format("+ [ (%.4f x %g) ^8(portion of damage from crits)", critChancePercentage, output.CritMultiplier),
+					s_format("  x (%.4f) ] ^8(double damage inc on crit)", 1 + output.CritDoubleDamageChance / 100),
+					s_format("= %.3f", output.CritEffect),
+				}
+			end
+		end
 
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
