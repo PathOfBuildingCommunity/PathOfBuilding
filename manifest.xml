@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.170.3" />
+	<Version number="1.4.170.4" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-2_6.zip" />
@@ -15,7 +15,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="2f55b44f8bae18e7969dcb3a16c1d5cacc135b87" />
-	<File name="changelog.txt" part="program" sha1="c3e710b5b880453299011277cbdc90010c7f9aa0" />
+	<File name="changelog.txt" part="program" sha1="d62d9e8d33e845aca4305b7d7ac43c887faedba2" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="abedf9c43a64c4a9270de5aacc3f02a105fecd1d" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="d852ae6eafc9be62aa41d3cb74fb986d0e5b40e5" />
@@ -40,7 +40,7 @@
 	<File name="Classes/CalcSectionControl.lua" part="program" sha1="8ed97e9fdb4ae362eee1eec01984004d42bc433e" />
 	<File name="Classes/CalcsTab.lua" part="program" sha1="5f3889e7dd86f2877a456cafcba3b871f05440c6" />
 	<File name="Classes/CheckBoxControl.lua" part="program" sha1="d2e5a1d2717da6853a9c5e788bc45c309d925e77" />
-	<File name="Classes/ConfigTab.lua" part="program" sha1="4d09c4b1fa2713840007f12626f8428cf4d2cc53" />
+	<File name="Classes/ConfigTab.lua" part="program" sha1="48317f24ebd1ef261a8a40417c2fce5133136b1b" />
 	<File name="Classes/Control.lua" part="program" sha1="64fc5fd8e3d4ade976f51c4a28d782b9b2ad31ac" />
 	<File name="Classes/ControlHost.lua" part="program" sha1="8bc9c45c9223fb0d51e67cde556849678862817a" />
 	<File name="Classes/DropDownControl.lua" part="program" sha1="f05cf6629b9e11f387bee81738152d687e0ef91e" />
@@ -227,7 +227,7 @@
 	<File name="Modules/CalcSetup.lua" part="program" sha1="8d68a90f095198978ab331f8d96e60409ccbc6a5" />
 	<File name="Modules/CalcTools.lua" part="program" sha1="f4961868814126584d4ada4a886150718bb96071" />
 	<File name="Modules/Common.lua" part="program" sha1="c8a6612199263da0665ce45e588c123fb3e8361e" />
-	<File name="Modules/ConfigOptions.lua" part="program" sha1="d9386b8a4deb5fe9b3dfeb89f8f7ebe6c2a6b6d5" />
+	<File name="Modules/ConfigOptions.lua" part="program" sha1="e0ba2a1e9dea8ec098835dac649ced891d12fa0e" />
 	<File name="Modules/Data.lua" part="program" sha1="b9a695d8e4eef8f193aa1e180e43c8ef73d3f14a" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="08d24df856a31835234fa2d569ebf4c1295d63e3" />
 	<File name="Modules/Main.lua" part="program" sha1="180eb8c8fdda9215ccc8fc80d20e6c3d1159790e" />
