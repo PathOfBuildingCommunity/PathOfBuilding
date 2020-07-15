@@ -1264,6 +1264,9 @@ function calcs.perform(env)
 			local mod = value.mod
 			local inc = 1 + modDB:Sum("INC", nil, "EnemyShockEffect") / 100
 			local effect = mod.value
+			if mod.name == "ShockOverride" then
+				enemyDB:NewMod("Condition:Shocked", "FLAG", true, mod.source)
+			end
 			if mod.name == "ShockBase" then
 				effect = effect * inc
 				modDB:NewMod("ShockOverride", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))

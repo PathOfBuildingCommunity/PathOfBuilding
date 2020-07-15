@@ -1707,7 +1707,7 @@ local specialModList = {
 		mod("ShockBase", "BASE", 15, { type = "Condition", var = "Focused" }),
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Shocked") }, { type = "Condition", var = "Focused" } ),
 	},
-	["drops shocked ground while moving, lasting (%d+) seconds"] = { mod("ShockOverride", "OVERRIDE", 10, { type = "ActorCondition", actor = "enemy", var = "OnShockedGround"} ) },
+	["drops shocked ground while moving, lasting (%d+) seconds"] = { mod("ShockOverride", "BASE", 10, { type = "ActorCondition", actor = "enemy", var = "OnShockedGround"} ) },
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
@@ -2040,8 +2040,7 @@ local specialModList = {
 	["zealot's oath during flask effect"] = { mod("ZealotsOath", "FLAG", true, { type = "Condition", var = "UsingFlask" }) },
 	["grants level (%d+) (.+) curse aura during flask effect"] = function(num, _, skill) return { mod("ExtraCurse", "LIST", { skillId = gemIdLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "Condition", var = "UsingFlask" }) } end,
 	["shocks nearby enemies during flask effect, causing (%d+)%% increased damage taken"] = function(num) return { 
-		mod("EnemyModifier", "LIST", { mod = mod("Condition:Shocked", "FLAG", true) } ),
-		mod("ShockOverride", "OVERRIDE", num)
+		mod("ShockOverride", "BASE", num, { type = "Condition", var = "UsingFlask" } )
 	} end,
 	["during flask effect, (%d+)%% reduced damage taken of each element for which your uncapped elemental resistance is lowest"] = function(num) return {
 		mod("LightningDamageTaken", "INC", -num, { type = "StatThreshold", stat = "LightningResistTotal", thresholdStat = "ColdResistTotal", upper = true }, { type = "StatThreshold", stat = "LightningResistTotal", thresholdStat = "FireResistTotal", upper = true }),
