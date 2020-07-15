@@ -1180,6 +1180,23 @@ return {
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
 } },
 } },
+{ 3, "Warcry", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Offensive Warcries", data = {
+	extra = "{0:output:OffensiveWarcryEffect}%",
+	colWidth = 120,
+	{
+		{ format = "Effective Impact = " },
+		{ format = "Num Exerts" },
+		{ format = "* Avg Exert Dmg" },
+		{ format = "* Uptime %" },
+	},
+	{ label = "Seismic Cry",
+		{ format = "{0:output:SeismicHitEffect}", { modName = { "SeismicHitEffect" }, }, },
+		{ format = "{0:output:SeismicExertsCount}", { modName = { "SeismicExertsCount" }, }, },
+		{ format = "{0:output:SeismicAvgDmg}", { modName = { "SeismicAvgDmg" }, }, },
+		{ format = "{0:output:SeismicUpTimeRatio}", { modName = { "SeismicUpTimeRatio" }, }, },
+	},
+} }
+} },
 { 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
 	colWidth = 114,
 	{

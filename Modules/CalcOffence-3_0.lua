@@ -1211,8 +1211,8 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		-- Seismic Cry only Exerts Slam Skills
 		output.SeismicHitEffect = 1
 		if activeSkill.skillTypes[SkillType.SlamSkill] then
-			local numSeismicExerts = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
-			if numSeismicExerts > 0 and not skillFlags.warcry then
+			output.SeismicExertsCount = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
+			if output.SeismicExertsCount > 0 and not skillFlags.warcry then
 				local buff_effect = 1
 				output.SeismicCryDuration = 4
 				output.SeismicCryCooldown = 8
@@ -1232,12 +1232,12 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				end
 				if output.SeismicCryCooldown ~= nil then
 					output.SeismicDmgImpact = 0
-					for i = 1, numSeismicExerts do
+					for i = 1, output.SeismicExertsCount do
 						output.SeismicDmgImpact = output.SeismicDmgImpact + (i * moreDmgAndAoEPerExert)
 					end
-					output.SeismicAvgDmg = output.SeismicDmgImpact / numSeismicExerts
+					output.SeismicAvgDmg = output.SeismicDmgImpact / output.SeismicExertsCount
 					-- calculate ratio of uptime versus downtime (including opportunity cost of casting the warcry)
-					output.SeismicUpTimeRatio = m_min((numSeismicExerts / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1)
+					output.SeismicUpTimeRatio = m_min((output.SeismicExertsCount / output.Speed) / (output.SeismicCryCooldown + output.SeismicCryCastTime), 1)
 					exertedUptime = m_max(exertedUptime, output.SeismicUpTimeRatio)
 					output.SeismicHitEffect = 1 + (output.SeismicAvgDmg * output.SeismicUpTimeRatio)
 					skillModList:NewMod("AreaOfEffect", "MORE", m_floor(output.SeismicAvgDmg * output.SeismicUpTimeRatio * 100), "Avg Seismic Exert AoE")
@@ -1249,6 +1249,9 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				end
 			end
 		end
+
+		-- Aggregate all Offensive Hit Effects of Warcries
+		output.OffensiveWarcryEffect = 1 * output.IntimidatingHitEffect * output.RallyingHitEffect * output.SeismicHitEffect
 
 		-- Account for INC and MORE increases for Exerted Attacks
 		if exertedUptime > 0 then
@@ -1457,23 +1460,11 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 						if output.FistOfWarHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
 						end
-						if output.SeismicHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(seismic cry exertions effect modifier)", output.SeismicHitEffect))
-						end
-						if output.IntimidatingHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(intimidating cry exertions effect modifier)", output.IntimidatingHitEffect))
-						end
-						if output.RallyingHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(rallying cry exertions effect modifier)", output.RallyingHitEffect))
-						end
-						if output.AncestralHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(ancestral cry exertions effect modifier)", output.AncestralHitEffect))
-						end
-						if output.InfernalHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(infernal cry exertions effect modifier)", output.InfernalHitEffect))
+						if output.OffensiveWarcryEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated warcry exerted effect modifier)", output.OffensiveWarcryEffect))
 						end
 					end
-					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * output.SeismicHitEffect * output.IntimidatingHitEffect * output.RallyingHitEffect * output.AncestralHitEffect * output.InfernalHitEffect
+					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * output.OffensiveWarcryEffect
 					if pass == 1 then
 						-- Apply crit multiplier
 						allMult = allMult * output.CritMultiplier
