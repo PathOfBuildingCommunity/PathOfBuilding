@@ -84,7 +84,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						return true
 					end
 					local node = self.build.spec.nodes[varData.ifNode]
-					if node.type == "Keystone" then
+					if node and node.type == "Keystone" then
 						return self.build.calcsTab.mainEnv.keystonesAdded[node.dn]
 					end
 				end
