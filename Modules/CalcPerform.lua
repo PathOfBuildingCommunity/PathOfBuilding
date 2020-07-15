@@ -306,22 +306,22 @@ local function doActorMisc(env, actor)
 	else
 		output.PowerCharges = 0
 	end
-	output.PowerCharges = m_max(output.PowerCharges, output.PowerChargesMin)
-	output.RemovablePowerCharges = output.PowerCharges - output.PowerChargesMin
+	output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
+	output.RemovablePowerCharges = m_max(output.PowerCharges - output.PowerChargesMin, 0)
 	if modDB:Flag(nil, "UseFrenzyCharges") then
 		output.FrenzyCharges = modDB:Override(nil, "FrenzyCharges") or output.FrenzyChargesMax
 	else
 		output.FrenzyCharges = 0
 	end
-	output.FrenzyCharges = m_max(output.FrenzyCharges, output.FrenzyChargesMin)
-	output.RemovableFrenzyCharges = output.FrenzyCharges - output.FrenzyChargesMin
+	output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
+	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
 	else
 		output.EnduranceCharges = 0
 	end
-	output.EnduranceCharges = m_max(output.EnduranceCharges, output.EnduranceChargesMin)
-	output.RemovableEnduranceCharges = output.EnduranceCharges - output.EnduranceChargesMin
+	output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
+	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
 	else
