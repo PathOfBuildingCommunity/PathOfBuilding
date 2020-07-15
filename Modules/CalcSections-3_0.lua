@@ -317,7 +317,7 @@ return {
 	{
 		{ format = "Effective Impact = " },
 		{ format = "Num Exerts" },
-		{ format = "* Avg Exert Dmg Multiplier" },
+		{ format = "* Avg Exert Dmg Multi" },
 		{ format = "* Uptime %" },
 	},
 	{ label = "Seismic Cry",
