@@ -4151,7 +4151,7 @@ skills["AtlasEyrieArcherCrystalImpact"] = {
 	},
 }
 skills["AtlasExilesCrusaderMageguardProjectile"] = {
-	name = "Default Attack",
+	name = "Projectile Spell",
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 2.25,
@@ -4160,9 +4160,9 @@ skills["AtlasExilesCrusaderMageguardProjectile"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.33,
 	baseFlags = {
-		attack = true,
 		spell = true,
 		projectile = true,
+		triggerable = true,
 	},
 	baseMods = {
 	},
@@ -4268,5 +4268,165 @@ skills["AtlasCrusaderSisterMortar"] = {
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1.2999999523163, 20, 0, 3, 10, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+	},
+}
+skills["BreachLightningWhip"] = {
+	name = "Breach Lightning Whip",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.75,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 30),
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 0, critChance = 5, cooldown = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
+		[2] = { 1, 3, 0, critChance = 5, cooldown = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, },
+	},
+}
+skills["BreachArc"] = {
+	name = "Breach Arc",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.82499998807907,
+	incrementalEffectiveness = 0.043999999761581,
+	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Chaining] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "beam_skill_stat_descriptions",
+	castTime = 0.5,
+	baseFlags = {
+		spell = true,
+		chaining = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_chance_to_shock_%",
+		"number_of_chains",
+		"base_cast_speed_+%",
+		"spell_maximum_action_distance_+%",
+	},
+	levels = {
+		[1] = { 0.69999998807907, 1.2999999523163, 10, 0, 0, -65, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+		[2] = { 1.3999999761581, 2.5999999046326, 10, 0, 0, -65, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+	},
+}
+skills["BreachTeamWarp"] = {
+	name = "Breach Team Warp",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"breach_team_warp_buff_lightning_damage_+%",
+		"breach_team_warp_buff_movement_velocity_+%",
+		"breach_team_warp_buff_damage_taken_+%",
+	},
+	levels = {
+		[1] = { 8000, 3, 25, 50, -50, cooldown = 20, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
+	},
+}
+skills["BreachLightningOrbsCommander"] = {
+	name = "Breach Lightning Orbs Commander",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.85000002384186,
+	incrementalEffectiveness = 0.049100000411272,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_skill_effect_duration",
+		"spell_maximum_action_distance_+%",
+		"is_area_damage",
+		"cannot_stun",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 3000, 0, critChance = 5, cooldown = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
+skills["SandLeaperDodgeLeft"] = {
+	name = "Sand Leaper Dodge Left",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_dodge_direction",
+		"monster_dodge_distance",
+	},
+	levels = {
+		[1] = { 0, 22, manaCost = 90, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["SandLeaperDodgeRight"] = {
+	name = "Sand Leaper Dodge Right",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_dodge_direction",
+		"monster_dodge_distance",
+	},
+	levels = {
+		[1] = { 1, 22, manaCost = 90, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }

@@ -2729,6 +2729,8 @@ return {
 	},
 	HarvestColours={
 	},
+	HarvestCraftOptionIcons={
+	},
 	HarvestCraftOptions={
 	},
 	HarvestCraftTiers={
@@ -2746,6 +2748,10 @@ return {
 	HarvestObjects={
 	},
 	HarvestPerLevelValues={
+	},
+	HarvestPlantBoosterFamilies={
+	},
+	HarvestPlantBoosters={
 	},
 	HarvestSeedTypes={
 	},
@@ -4315,6 +4321,167 @@ return {
 	PVPTypes={
 	},
 	PantheonPanelLayout={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="X",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="Y",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[4]={
+			list=false,
+			name="IsMajorGod",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="CoverImage",
+			refTo="",
+			type="String",
+			width=380
+		},
+		[6]={
+			list=false,
+			name="GodName2",
+			refTo="",
+			type="String",
+			width=220
+		},
+		[7]={
+			list=false,
+			name="SelectionFrame",
+			refTo="",
+			type="String",
+			width=390
+		},
+		[8]={
+			list=true,
+			name="Effect1StatsKey",
+			refTo="Stats",
+			type="Key",
+			width=650
+		},
+		[9]={
+			list=true,
+			name="Effect1Values",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=true,
+			name="Effect2StatsKey",
+			refTo="Stats",
+			type="Key",
+			width=530
+		},
+		[11]={
+			list=false,
+			name="GodName3",
+			refTo="",
+			type="String",
+			width=170
+		},
+		[12]={
+			list=true,
+			name="Effect3Values",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=true,
+			name="Effect3StatsKey",
+			refTo="Stats",
+			type="Key",
+			width=470
+		},
+		[14]={
+			list=false,
+			name="GodName4",
+			refTo="",
+			type="String",
+			width=170
+		},
+		[15]={
+			list=true,
+			name="Effect4StatsKey",
+			refTo="Stats",
+			type="Key",
+			width=370
+		},
+		[16]={
+			list=true,
+			name="Effect4Values",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[17]={
+			list=false,
+			name="GodName1",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[18]={
+			list=true,
+			name="Effect2Values",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="Unknown1",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[20]={
+			list=false,
+			name="Unknown2",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[21]={
+			list=false,
+			name="Unknown3",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[22]={
+			list=false,
+			name="Unknown4",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[23]={
+			list=false,
+			name="IsDisabled",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	PantheonSouls={
 	},

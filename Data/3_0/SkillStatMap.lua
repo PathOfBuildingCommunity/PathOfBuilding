@@ -349,7 +349,7 @@ return {
 	div = 1000,
 },
 ["warcry_speed_+%"] = {
-	mod("WarcrySpeed", "INC", nil, KeywordFlag.Warcry),
+	mod("WarcrySpeed", "INC", nil, 0, KeywordFlag.Warcry),
 },
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
@@ -628,6 +628,9 @@ return {
 	mod("EnemyChillEffect", "INC", nil),
 	mod("EnemyShockEffect", "INC", nil),
 	mod("EnemyFreezeEffect", "INC", nil),
+	mod("EnemyScorchEffect", "INC", nil),
+	mod("EnemyBrittleEffect", "INC", nil),
+	mod("EnemySapEffect", "INC", nil),
 },
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
@@ -652,6 +655,9 @@ return {
 	mod("EnemyShockDuration", "INC", nil), 
 	mod("EnemyChillDuration", "INC", nil), 
 	mod("EnemyFreezeDuration", "INC", nil),
+	mod("EnemyScorchDuration", "INC", nil),
+	mod("EnemyBrittleDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
 },
 ["base_all_ailment_duration_+%"] = {
 	mod("EnemyBleedDuration", "INC", nil), 
@@ -660,6 +666,9 @@ return {
 	mod("EnemyShockDuration", "INC", nil), 
 	mod("EnemyChillDuration", "INC", nil), 
 	mod("EnemyFreezeDuration", "INC", nil),
+	mod("EnemyScorchDuration", "INC", nil),
+	mod("EnemyBrittleDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
@@ -678,6 +687,9 @@ return {
 },
 ["fire_dot_multiplier_+"] = {
 	mod("FireDotMultiplier", "BASE", nil),
+},
+["cold_dot_multiplier_+"] = {
+	mod("ColdDotMultiplier", "BASE", nil),
 },
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
@@ -1084,6 +1096,9 @@ return {
 ["mine_laying_speed_+%"] = {
 	mod("MineLayingSpeed", "INC", nil),
 },
+["mine_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Mine),
+},
 ["mine_detonation_radius_+%"] = {
 	mod("MineDetonationAreaOfEffect", "INC", nil),
 },
@@ -1207,6 +1222,9 @@ return {
 ["base_sigil_repeat_frequency_ms"] = {
 	skill("repeatFrequency", nil),
 	div = 1000,
+},
+["sigil_repeat_frequency_+%"] = {
+	mod("BrandActivationFrequency", "INC", nil)
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {

@@ -1379,7 +1379,7 @@ skills["SupportFortify"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, },
+	excludeSkillTypes = { SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_fortify_melee_damage_+%_final"] = {
@@ -2636,7 +2636,7 @@ skills["SupportRage"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rage_gain_rage_on_melee_hit_cooldown_ms"] = {
-			flag("Condition:CanGainRage"),
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
@@ -2646,10 +2646,10 @@ skills["SupportRage"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
 		},
 		["attack_minimum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
 	},
 	baseMods = {

@@ -34,7 +34,7 @@ local skills, mod, flag, skill = ...
 		},
 		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
 			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-			div = 60,
+			div = 60.0001,
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
@@ -70,6 +70,7 @@ local skills, mod, flag, skill = ...
 			mod("ColdDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill", effectEnemyCond = "Chilled" }),
 		},
 	},
+#baseMod skill("supportBonechill", true)
 #mods
 
 #skill SupportCastOnStunned
@@ -78,7 +79,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannelling
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil),
 			div = 1000,
 		},
 	},
@@ -90,12 +91,13 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
+#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportCastWhileChannellingPlus
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil),
 			div = 1000,
 		},
 	},
@@ -107,6 +109,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
+#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportChanceToIgnite
@@ -162,6 +165,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCurseOnHitPlus
+    statMap = {
+		["number_of_additional_curses_allowed"] = {
+			mod("AdditionalCurse", "BASE", nil),
+			flag("CanHaveAdditionalCurse"),
+		},
+	},
 #mods
 
 #skill SupportMinionFocusFire
@@ -503,10 +512,10 @@ local skills, mod, flag, skill = ...
 			mod("BrandActivationFrequency", "MORE", nil),
 		},
 		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
-			mod("PrimaryDuration", "MORE", nil),
+			mod("PrimaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
 		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
-			mod("SecondaryDuration", "MORE", nil),
+			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
 	},
 #mods

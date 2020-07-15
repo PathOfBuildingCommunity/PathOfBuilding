@@ -59,6 +59,18 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}20% increased maximum Energy Shield
 {tags:jewellery_defense}50% increased Energy Shield Recharge Rate
 ]],[[
+Bear's Girdle
+Leather Belt
+League: Harvest
+Requires Level 68
+Implicits: 1
+{tags:life}+(25-40) to maximum Life
+{tags:attack}Adds (5-7) to (11-12) Physical Damage to Attacks
+(20-30)% increased Stun Duration on Enemies
+Nearby Enemies are Crushed while you have least 25 Rage
+(4-6)% increased Physical Damage per 10 Rage
++20 to Maximum Rage
+]],[[
 Belt of the Deceiver
 Heavy Belt
 Variant: Pre 2.6.0
@@ -160,12 +172,12 @@ Implicits: 1
 {variant:1,2,3,5,6,7}{tags:jewellery_resistance}+(30-35)% to Lightning Resistance
 {variant:1}{tags:life}0.2% of Physical Damage Leeched as Life
 {variant:5}{tags:life}0.6% of Physical Damage Leeched as Life
-{variant:2}{tags:lifejewellery_elemental}0.2% of Fire Damage Leeched as Life
-{variant:6}{tags:lifejewellery_elemental}0.6% of Fire Damage Leeched as Life
-{variant:3}{tags:lifejewellery_elemental}0.2% of Cold Damage Leeched as Life
-{variant:7}{tags:lifejewellery_elemental}0.6% of Cold Damage Leeched as Life
-{variant:4}{tags:lifejewellery_elemental}0.2% of Lightning Damage Leeched as Life
-{variant:8}{tags:lifejewellery_elemental}0.6% of Lightning Damage Leeched as Life
+{variant:2}{tags:life,jewellery_elemental}0.2% of Fire Damage Leeched as Life
+{variant:6}{tags:life,jewellery_elemental}0.6% of Fire Damage Leeched as Life
+{variant:3}{tags:life,jewellery_elemental}0.2% of Cold Damage Leeched as Life
+{variant:7}{tags:life,jewellery_elemental}0.6% of Cold Damage Leeched as Life
+{variant:4}{tags:life,jewellery_elemental}0.2% of Lightning Damage Leeched as Life
+{variant:8}{tags:life,jewellery_elemental}0.6% of Lightning Damage Leeched as Life
 {variant:1,5}Your Flasks grant 25% reduced Enemy Stun Threshold during any Flask Effect
 {variant:2}Your Flasks grant 10% chance to Ignite during any Flask Effect
 {variant:6}Your Flasks grant (20-30)% chance to Ignite during any Flask Effect
@@ -217,10 +229,24 @@ Implicits: 1
 The Flow Untethered
 Cloth Belt
 League: Harbinger
+Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
 Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
+{tags:caster,attack}(10-15)% increased Attack and Cast Speed
+{tags:life}(15-20)% increased Life Recovery rate
+{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+(15-20)% increased Cooldown Recovery Speed
+Debuffs on you expire (15-20)% faster
+]],[[
+The Torrent's Reclamation
+Cloth Belt
+League: Harvest
+Source: Upgraded from unique{The Flow Untethered} via currency{Time-light Scroll}
+Requires Level 60
+(15-25% increased Stun and Block Recovery
+Grants Summon Greater Harbinger of Time Skill
 {tags:caster,attack}(10-15)% increased Attack and Cast Speed
 {tags:life}(15-20)% increased Life Recovery rate
 {tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
@@ -349,7 +375,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(40-50) to Dexterity
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
-(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
+{tags:attack}(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
 ]],[[
 The Tactician
 Studded Belt
@@ -487,17 +513,20 @@ Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life a
 ]],[[
 Soul Tether
 Cloth Belt
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-40) to Intelligence
-Your Energy Shield starts at zero
-You cannot Recharge Energy Shield
-You cannot Regenerate Energy Shield
-{tags:jewellery_defense}You lose 5% of Energy Shield per second
-{tags:life}Life Leech effects are not removed at Full Life
-{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
 {tags:jewellery_defense,life}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+{variant:1}Your Energy Shield starts at zero
+{variant:1}You cannot Recharge Energy Shield
+{variant:1}You cannot Regenerate Energy Shield
+{variant:1}{tags:jewellery_defense}You lose 5% of Energy Shield per second
+{variant:1}{tags:life}Life Leech effects are not removed at Full Life
+{variant:1}{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
+{variant:2}Immortal Ambition
 ]],[[
 Soulthirst
 Cloth Belt

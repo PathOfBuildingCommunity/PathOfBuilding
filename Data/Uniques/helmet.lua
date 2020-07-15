@@ -471,6 +471,16 @@ Requires Level 48, 101 Int
 Unaffected by Poison
 (10-20)% of Damage taken gained as Life over 4 seconds when Hit
 ]],[[
+Plume of Pursuit
+Bone Circlet
+League: Harvest
+Requires Level 64, 73 Int
+(30-20)% reduced Cast Speed
+(80-130)% increased Energy Shield
+Non-critical strikes deal 80% less Damage
+Spell Skills always deal Critical Strikes on final Repeat
+Spell Skills cannot deal Critical Strikes except on final Repeat
+]],[[
 Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
@@ -1063,13 +1073,27 @@ Requires Level 57, 64 Dex, 64 Int
 The Tempest's Binding
 Callous Mask
 League: Harbinger
+Upgrade: Upgrades to unique{The Tempest's Liberation} via currency{Deregulation Scroll}
 Requires Level 45, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate
 Grants Summon Harbinger of Storms Skill
 +(100-150) to Evasion Rating
-+(60-80) to maximum Life
 +(40-60) to maximum Energy Shield
++(60-80) to maximum Life
++(10-15)% to all Elemental Resistances
+]],[[
+The Tempest's Liberation
+Callous Mask
+League: Harvest
+Source: Upgraded from unique{The Tempest's Binding} via currency{Deregulation Scroll}
+Requires Level 60, 51 Dex, 51 Int
+Socketed Gems are Supported by Level 18 Ice Bite
+Socketed Gems are Supported by Level 18 Innervate
+Grants Summon Greater Harbinger of Storms Skill
++(100-150) to Evasion Rating
++(40-60) to maximum Energy Shield
++(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 ]],[[
 The Three Dragons

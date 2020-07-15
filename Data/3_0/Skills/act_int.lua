@@ -912,6 +912,9 @@ skills["CorpseWarp"] = {
 		["spell_maximum_base_fire_damage"] = {
 			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
+		["corpse_warp_area_of_effect_+%_final_when_consuming_corpse"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -919,6 +922,7 @@ skills["CorpseWarp"] = {
 	},
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 10),
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 0.5 },
@@ -1344,6 +1348,10 @@ skills["VaalColdSnap"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		skill("radius", 20),
+		skill("radiusLabel", "Initial Area:"),
+		skill("radiusSecondary", 36),
+		skill("radiusSecondaryLabel", "Final Area:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -2410,6 +2418,7 @@ skills["EssenceDrain"] = {
 	baseMods = {
 		skill("debuff", true),
 		skill("showAverage", true),
+		skill("radius", 8),
 	},
 	qualityStats = {
 		{ "chaos_damage_+%", 1 },
@@ -2570,6 +2579,7 @@ skills["VaalFireballSpiralNova"] = {
 		projectile = true,
 	},
 	baseMods = {
+		skill("radius", 9),
 	},
 	qualityStats = {
 		{ "base_projectile_speed_+%", 1 },
@@ -2887,6 +2897,8 @@ skills["Flameblast"] = {
 	baseMods = {
 		mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 2, { type = "SkillPart", skillPart = 1 }),
+		skill("radius", 29, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "damage_+%", 1 },
@@ -2953,9 +2965,26 @@ skills["VaalFlameblast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+    parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "Max Stages",
+		},
+	},
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["flameblast_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["flameblast_ignite_chance_+%_per_stage"] = {
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["vaal_flameblast_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 	},
 	baseFlags = {
@@ -2963,7 +2992,8 @@ skills["VaalFlameblast"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:FlameblastStage", "BASE", 9),
+		mod("Multiplier:VaalFlameblastStage", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 35),
 	},
 	qualityStats = {
 		{ "damage_+%", 1 },
@@ -3280,6 +3310,7 @@ skills["FrostBomb"] = {
 	},
 	baseMods = {
 		skill("debuffSecondary", true),
+		skill("radius", 24),
 	},
 	qualityStats = {
 		{ "cold_damage_+%", 1 },
@@ -3506,6 +3537,10 @@ skills["IceDash"] = {
 	},
 	baseMods = {
 		skill("showAverage", true),
+		skill("radius", 20),
+		skill("radiusLabel", "Area of initial explosion:"),
+		skill("radiusSecondary", 16),
+		skill("radiusSecondaryLabel", "Area of Chilled Ground:"),
 	},
 	qualityStats = {
 		{ "chill_effect_+%", 1 },
@@ -3888,6 +3923,7 @@ skills["VaalIceNova"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 26),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4159,11 +4195,14 @@ skills["ExpandingFireCone"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
 		},
 		["expanding_fire_cone_radius_+_per_stage"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
 		},
 		["expanding_fire_cone_final_wave_always_ignite"] = {
 			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
 			value = 100,
+		},
+		["expanding_fire_cone_radius_limit"] = {
+			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -4171,9 +4210,13 @@ skills["ExpandingFireCone"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:IncinerateStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:IncinerateStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:IncinerateStage", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:IncinerateStage", "BASE", 7, 0, 0, { type = "SkillPart", skillPartList = { 3, 4 }  }),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 4 }),
+		skill("radius", 25),
+		skill("radiusLabel", "Flame Length:"),
+		skill("radiusSecondary", 20),
+		skill("radiusSecondaryLabel", "Flame Width:"),
 	},
 	qualityStats = {
 		{ "fire_damage_+%", 1 },
@@ -4406,6 +4449,7 @@ skills["LightningTowerTrap"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 24),
 	},
 	qualityStats = {
 		{ "base_chance_to_shock_%", 1 },
@@ -4623,6 +4667,11 @@ skills["VaalLightningTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Trap] = true, [SkillType.SkillCanMine] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["shocked_ground_base_magnitude_override"] = {
+			mod("ShockedGroundEffect", "BASE", nil)
+		},
+	},
 	baseFlags = {
 		spell = true,
 		trap = true,
@@ -4783,6 +4832,7 @@ skills["VaalLightningWarpInstant"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 16),
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 1 },
@@ -4855,6 +4905,7 @@ skills["MagmaOrb"] = {
 		chaining = true,
 	},
 	baseMods = {
+		skill("radius", 14),
 	},
 	qualityStats = {
 		{ "damage_+%", 1 },
@@ -4997,12 +5048,22 @@ skills["OrbOfStorms"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100)
+	end,
+	statMap = {
+		["orb_of_storms_base_bolt_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		chaining = true,
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 28),
 	},
 	qualityStats = {
 		{ "lightning_damage_+%", 1 },
@@ -5115,6 +5176,8 @@ skills["MagmaSigil"] = {
 		mod("Multiplier:EnergyLevel", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 4 }),
 		mod("Multiplier:EnergyLevel", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 5 }),
 		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 6 }),
+		skill("radius", 8),
+		skill("radiusExtra", 1, { type = "Multiplier", var = "EnergyLevel" }, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }}),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -6024,6 +6087,7 @@ skills["VaalRighteousFire"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		skill("radius", 30),
 	},
 	qualityStats = {
 		{ "burn_damage_+%", 1 },
@@ -6783,8 +6847,9 @@ skills["SupportBrandSupport"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
+	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
-		skill("showAverage", true),
+		skill("triggeredByBrand", true),
 	},
 	qualityStats = {
 	},
@@ -6943,6 +7008,7 @@ skills["ConduitSigil"] = {
 		brand = true,
 	},
 	baseMods = {
+		skill("radius", 9),
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 0.5 },
@@ -7415,6 +7481,10 @@ skills["VaalStormCall"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 16),
+		skill("radiusLabel", "Initial Lightning tether area:"),
+		skill("radiusSecondary", 40),
+		skill("radiusSecondaryLabel", "Final Lightning Strike area:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -8051,6 +8121,7 @@ skills["Skitterbots"] = {
 		minion = true,
 	},
 	baseMods = {
+		skill("radius", 30),
 	},
 	qualityStats = {
 		{ "minion_movement_speed_+%", 2 },
@@ -8466,8 +8537,8 @@ skills["ImmolationSigil"] = {
 	color = 3,
 	baseEffectiveness = 4.5,
 	incrementalEffectiveness = 0.022299999371171,
-	description = "Creates a magical brand which can attach to a nearby enemy, dealing cold damage over time and chilling them. It periodically activates while attached, gaining stages that raise the damage. When removed, a short-duration debuff dealing the same damage over time and chill is applied to each nearby enemy.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ColdSkill] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, [SkillType.NonHitChill] = true, [SkillType.Type59] = true, },
+	description = "Creates a magical brand which can attach to a nearby enemy, dealing cold damage over time and chilling them. It periodically activates while attached, gaining stages that raise the damage. When removed, a short-duration debuff dealing the same damage over time and chill is applied to each nearby enemy. The brand keeps its charges while detached.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.ColdSkill] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, [SkillType.NonHitChill] = true, [SkillType.Type59] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
@@ -8568,8 +8639,6 @@ skills["Wither"] = {
 		},
 		["chaos_damage_taken_+%"] = {
 			flag("Condition:CanWither"),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
-			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),

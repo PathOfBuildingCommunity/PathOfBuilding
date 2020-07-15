@@ -74,7 +74,7 @@ Adds 10 to 12 Physical Damage
 1.2% of Physical Attack Damage Leeched as Life
 5% increased Movement Speed
 {variant:1}Life Leech from Hits with this Weapon applies instantly
-{variant:2}Gain Life from Leech instantly from Hits with this Weapon
+{variant:2}Life Leech from Hits with this Weapon is instant
 ]],[[
 Cybil's Paw
 Thresher Claw
@@ -193,6 +193,18 @@ Implicits: 1
 Adds 2 to 10 Physical Damage
 100% increased Claw Physical Damage when on Low Life
 100% increased Accuracy Rating when on Low Life
+]],[[
+Law of the Wilds
+Hellion's Paw
+League: Harvest
+Source: Drops from unique{Avatar of the Grove}
+Requires Level 62, 131 Dex, 95 Int
+Implicits: 1
+1.6% of Physical Attack Damage Leeched as Life
+20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
+(15-20)% increased Attack Speed
+(22-28)% increased Critical Strike Chance
++(15-25)% to Global Critical Strike Multiplier
 ]],[[
 Mortem Morsu
 Fright Claw

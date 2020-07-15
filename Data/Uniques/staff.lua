@@ -171,6 +171,7 @@ Nearby allies gain 18% increased Damage
 The Enmity Divine
 Imperial Staff
 League: Harbinger
+Upgrade: Upgrades to unique{The Yielding Mortality} via currency{Haemocombustion Scroll}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
@@ -183,6 +184,20 @@ Grants Summon Harbinger of Brutality Skill
 {variant:2}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 Adds (160-185) to (200-225) Physical Damage
 (30-40)% increased Critical Strike Chance
+]],[[
+The Yielding Mortality
+Imperial Staff
+League: Harvest
+Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
+Requires Level 66, 113 Str, 113 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Socketed Gems are supported by Level 1 Chance to Bleed
+Grants Summon Greater Harbinger of Brutality Skill
++5% Chance to Block Attack Damage while wielding a Staff
++(30–40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
+Adds (160–185) to (200–225) Physical Damage
+(30–40)% increased Critical Strike Chance
 ]],[[
 Femurs of the Saints
 Primordial Staff
@@ -486,6 +501,15 @@ Grants level 1 Icestorm Skill
 (8-12)% increased Cast Speed
 1% increased Spell Damage per 10 Intelligence
 (14-18)% increased Intelligence
+]],[[
+Witchhunter's Judgment
+Highborn Staff
+League: Harvest
+Requires Level 68, 89 Str, 89 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Grants Level 20 Brandsurge Skill
+Brand Skills have (50-100)% increased Duration
 ]],[[
 Xirgil's Crank
 Coiled Staff

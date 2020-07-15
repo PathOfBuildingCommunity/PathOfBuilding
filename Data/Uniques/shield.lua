@@ -24,7 +24,7 @@ The Anticipation
 Ezomyte Tower Shield
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
-Upgrade: Upgrades to unique{} using currency{Blessing of Uul-Netol}
+Upgrade: Upgrades to unique{The Surrender} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
@@ -39,7 +39,7 @@ Permanently Intimidate Enemies on Block
 The Surrender
 Ezomyte Tower Shield
 League: Breach
-Source: Upgraded from unique{} using currency{Blessing of Uul-Netol}
+Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
@@ -708,6 +708,18 @@ Implicits: 1
 {variant:3}You have Unholy Might while you have no Energy Shield
 Create Profane Ground instead of Consecrated Ground
 ]],[[
+Emperor's Vigilance
+Steel Kite Shield
+League: Harvest
+Requires Level 46, 60 Str, 60 Int
+(16-22)% Chance to Block Spell Damage
+(300-400)% increased Armour and Energy Shield
+(10-15)% increased maximum Life
+Cannot Block while you have no Energy Shield
+Damage from Blocked Hits cannot bypass Energy Shield
+Damage from Unblocked hits always bypasses Energy Shield
+Glancing Blows
+]],[[
 Invictus Solaris
 Archon Kite Shield
 Requires Level: 68, 85 Str, 85 Int
@@ -813,10 +825,25 @@ Implicits: 1
 The Unshattered Will
 Archon Kite Shield
 League: Harbinger
+Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Harbinger of Focus Skill
++(60-80) to maximum Life
++(10-15)% to all Elemental Resistances
++(30-50) Mana gained when you Block
++5% Chance to Block
+(50-70)% increased Damage with Channelling Skills
+]],[[
+The Immortal Will
+Archon Kite Shield
+League: Harvest
+Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
+Requires Level 68, 85 Str, 85 Int
+Implicits: 1
++12% to all Elemental Resistances
+Grants Summon Greater Harbinger of Focus Skill
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 +(30-50) Mana gained when you Block

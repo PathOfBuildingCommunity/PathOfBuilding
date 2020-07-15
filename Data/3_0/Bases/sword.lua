@@ -316,7 +316,7 @@ itemBases["Smallsword"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, sword = true, one_hand_weapon = true, rapier = true, not_for_sale = true, maraketh = true, },
 	implicit = "15% chance to cause Bleeding on Hit",
-	implicitModTypes = { { "bleed" }, },
+	implicitModTypes = { { "bleed", "attack" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 40, CritChanceBase = 6, AttackRateBase = 1.55, Range = 14, },
 	req = { level = 36, dex = 124, },
 }
@@ -388,7 +388,7 @@ itemBases["Courtesan Sword"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, sword = true, one_hand_weapon = true, rapier = true, not_for_sale = true, maraketh = true, },
 	implicit = "15% chance to cause Bleeding on Hit",
-	implicitModTypes = { { "bleed" }, },
+	implicitModTypes = { { "bleed", "attack" }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 60, CritChanceBase = 6, AttackRateBase = 1.55, Range = 14, },
 	req = { level = 57, dex = 190, },
 }
@@ -460,7 +460,7 @@ itemBases["Dragoon Sword"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, sword = true, one_hand_weapon = true, rapier = true, not_for_sale = true, maraketh = true, },
 	implicit = "20% chance to cause Bleeding on Hit",
-	implicitModTypes = { { "bleed" }, },
+	implicitModTypes = { { "bleed", "attack" }, },
 	weapon = { PhysicalMin = 32, PhysicalMax = 66, CritChanceBase = 6, AttackRateBase = 1.5, Range = 14, },
 	req = { level = 72, dex = 220, },
 }

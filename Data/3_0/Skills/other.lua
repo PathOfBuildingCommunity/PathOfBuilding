@@ -532,12 +532,11 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 	castTime = 0.25,
 	fromItem = true,
 	statMap = {
-		["attack_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -546,7 +545,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("buffAllies", true),
+		skill("radius", 60),
 	},
 	qualityStats = {
 	},
@@ -1704,6 +1703,7 @@ skills["TriggeredShockedGround"] = {
 		duration = true,
 	},
 	baseMods = {
+		mod("ShockedGroundEffect", "BASE", 15),
 	},
 	qualityStats = {
 	},
@@ -2158,6 +2158,163 @@ skills["SummonHarbingerOfTime"] = {
 		[1] = { 1, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["SummonHarbingerOfTheArcaneUber"] = {
+	name = "Summon Greater Harbinger of the Arcane",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting More Spell Damage, Cast Speed and Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"alternate_minion",
+		"display_one_harbinger_allowed",
+	},
+	levels = {
+		[1] = { 6, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SummonHarbingerOfBrutalityUber"] = {
+	name = "Summon Greater Harbinger of Brutality",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. When you are near a rare or unique enemy, the minion will occasionally grant you a buff giving significantly increased Damage, Attack Speed, and Movement Speed, reducing the Damage you take, and causing Bleeding Enemies that you Kill to Explode, dealing 10% of their maximum Life as Physical Damage.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"alternate_minion",
+		"display_one_harbinger_allowed",
+	},
+	levels = {
+		[1] = { 11, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SummonHarbingerOfDirectionsUber"] = {
+	name = "Summon Greater Harbinger of Directions",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will cast a random buff on you that grants one or all of the following: Fire 2 additional Projectiles, Chain 2 additional times, Projectiles Pierce 2 additional targets, or Projectiles Fork then Fork an additional time.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"alternate_minion",
+		"display_one_harbinger_allowed",
+	},
+	levels = {
+		[1] = { 9, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SummonHarbingerOfFocusUber"] = {
+	name = "Summon Greater Harbinger of Focus",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. While you are channelling, the minion will occasionally cast a buff on you that reduces the Damage you take, makes you avoid all Stuns and Ailments, and prevents Curses affecting you.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"alternate_minion",
+		"display_one_harbinger_allowed",
+	},
+	levels = {
+		[1] = { 8, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SummonHarbingerOfStormsUber"] = {
+	name = "Summon Greater Harbinger of Storms",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally apply a Chill or Shock with increased effect to an enemy that chains to other nearby enemies.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	minionSkillTypes = { [SkillType.NonHitChill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"alternate_minion",
+		"display_one_harbinger_allowed",
+	},
+	levels = {
+		[1] = { 10, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SummonHarbingerOfTimeUber"] = {
+	name = "Summon Greater Harbinger of Time",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally create an aura on you that increases the Action Speed of you and all allies near you.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"alternate_minion",
+		"display_one_harbinger_allowed",
+	},
+	levels = {
+		[1] = { 7, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
 skills["TriggeredSummonGhostOnKill"] = {
 	name = "Triggered Summon Phantasm",
 	hidden = true,
@@ -2211,6 +2368,14 @@ skills["SummonRigwaldsPack"] = {
 	minionList = {
 		"SummonedSpectralWolf",
 	},
+	statMap = {
+		["spectral_wolf_grants_attack_minimum_added_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
+			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -2235,7 +2400,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 30000, 10, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SummonVoidSphere"] = {
@@ -2320,6 +2485,7 @@ skills["AvianTornado"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
