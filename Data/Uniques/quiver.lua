@@ -222,7 +222,7 @@ Adds 6 to 12 Physical Damage to Bow Attacks
 (40-60)% increased Projectile Damage while in Blood Stance
 +(700-1000) to Evasion Rating while in Sand Stance
 (20-30)% increased Area of Effect while in Sand Stance
-(20-30)% increased Attack Speed if you’ve changed Stance Recently
+(20-30)% increased Attack Speed if you've changed Stance Recently
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
