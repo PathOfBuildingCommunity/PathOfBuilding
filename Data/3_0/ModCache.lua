@@ -8454,7 +8454,7 @@ c["20% of Physical Damage Converted to Cold Damage"]={{[1]={flags=0,keywordFlags
 c["+15 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=15},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=15},[3]={flags=0,keywordFlags=0,name="Int",type="BASE",value=15}},nil}
 c["14% increased Damage with Brand Skills"]={{[1]={[1]={skillType=76,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=14}},nil}
 c["Cover Enemies in Ash when they Hit you Avatar of Fire"]={nil,"Cover Enemies in Ash when they Hit you Avatar of Fire "}
-c["Gain 25% increased Armour per 5 Power for 8 seconds when you Warcry, up to a maximum of 100%"]={nil,"Gain 25% increased Armour per 5 Power for 8 seconds when you Warcry, up to a maximum of 100% "}
+c["Gain 25% increased Armour per 5 Power for 8 seconds when you Warcry, up to a maximum of 100%"]={{[1]={[1]={div=5,limit=100,limitTotal=true,type="Multiplier",var="WarcryPower"},[2]={type="Condition",var="UsedWarcryInPast8Seconds"},flags=0,keywordFlags=0,name="Armour",type="INC",value=25}},nil}
 c["14% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=14}},nil}
 c["30% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=30}},nil}
 c["350% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=350}},nil}

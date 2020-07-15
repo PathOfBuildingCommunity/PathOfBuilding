@@ -907,8 +907,8 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:EnergyLevel", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 4 })
 #baseMod mod("Multiplier:EnergyLevel", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 5 })
 #baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 6 })
-#baseMod skill("radius", 8, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }})
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "EnergyLevel" })
+#baseMod skill("radius", 8)
+#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "EnergyLevel" }, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }})
 #mods
 
 #skill PowerSiphon

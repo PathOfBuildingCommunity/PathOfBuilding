@@ -5176,8 +5176,8 @@ skills["MagmaSigil"] = {
 		mod("Multiplier:EnergyLevel", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 4 }),
 		mod("Multiplier:EnergyLevel", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 5 }),
 		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 6 }),
-		skill("radius", 8, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }}),
-		skill("radiusExtra", 1, { type = "Multiplier", var = "EnergyLevel" }),
+		skill("radius", 8),
+		skill("radiusExtra", 1, { type = "Multiplier", var = "EnergyLevel" }, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }}),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
