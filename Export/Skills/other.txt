@@ -417,6 +417,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredShockedGround
 #flags spell area duration
 	fromItem = true,
+#baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
 #skill SpiritBurst

@@ -2362,13 +2362,22 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				local maximum = skillModList:Override(nil, "ShockMax") or 50
-				local current = m_min(enemyDB:Sum("BASE", nil, "ShockVal"), maximum)
+				local current = m_min(output.CurrentShock or 0, maximum)
+				local desired = m_min(enemyDB:Sum("BASE", nil, "DesiredShockVal"), maximum)
+				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
 				local effList = { 5, 15, 50 }
+				if enemyThreshold > 0 then
+					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (1  + output.ShockEffectMod / 100)
+					t_insert(effList, bossEffect)
+				end
 				if maximum ~= 50 then
 					t_insert(effList, maximum)
 				end
 				if current > 5 and current ~= (15 or 50 or maximum) and current < maximum then
 					t_insert(effList, current)
+				end
+				if desired > 5 and desired ~= (15 or 50 or current or maximum) and desired < maximum and current == 0 then
+					t_insert(effList, desired)
 				end
 				table.sort(effList)
 				if breakdown then
@@ -2385,25 +2394,43 @@ function calcs.offence(env, actor, activeSkill)
 					}
 					for _, value in ipairs(effList) do
 						local thresh = (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
-						if value == current then
+						local decCheck = value / m_floor(value)
+						value = m_floor(value)
+						local threshString = ""
+						if m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) then
+							threshString = s_format("%.0f ^8(AL%.0f %s)", thresh, skillModList:Sum("BASE", nil, "AwakeningLevel"), env.configInput.enemyIsBoss)
+						else
+							threshString = s_format("%.0f", thresh)
+						end
+						if decCheck ~= 1 then -- don't put a label on the calculated boss effect
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%%", value),
+								thresh = threshString,
+							})
+						elseif current > 0 and value == current then
 							t_insert(breakdown.ShockDPS.rowList, {
 								effect = s_format("%s%% ^8(current)", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
+							})
+						elseif value == desired then
+							t_insert(breakdown.ShockDPS.rowList, {
+								effect = s_format("%s%% ^8(desired)", value),
+								thresh = threshString,
 							})
 						elseif value == maximum then
 							t_insert(breakdown.ShockDPS.rowList, {
 								effect = s_format("%s%% ^8(maximum)", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
 							})
 						elseif value == 5 then
 							t_insert(breakdown.ShockDPS.rowList, {
 								effect = s_format("%s%% ^8(minimum)", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
 							})
 						else
 							t_insert(breakdown.ShockDPS.rowList, {
 								effect = s_format("%s%%", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
 							})
 						end
 					end
@@ -2438,11 +2465,20 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.chill = true
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
+				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
 				effList = { 5, 10, 30 }
+				local desired = skillModList:Sum("BASE", nil, "DesiredBonechillEffect") or 0
 				if output.BonechillEffect then
 					t_insert(effList, output.BonechillEffect)
-					table.sort(effList)
 				end
+				if not output.BonechillEffect and desired ~= (0 or 5 or 10 or 30 or output.BonechillEffect) and desired > 5 and desired < 30 then
+					t_insert(effList, desired)
+				end
+				if enemyThreshold > 0 then
+					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (1  + output.ChillEffectMod / 100)
+					t_insert(effList, bossEffect)
+				end
+				table.sort(effList)
 				if breakdown then
 					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
 					if output.BonechillEffect then
@@ -2458,25 +2494,42 @@ function calcs.offence(env, actor, activeSkill)
 					breakdown.ChillDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
 					for _, value in ipairs(effList) do
 						local thresh = (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
-						if value == output.BonechillEffect then
+						local decCheck = value / m_floor(value)
+						value = m_floor(value)
+						if m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) then
+							threshString = s_format("%.0f ^8(AL%.0f %s)", thresh, skillModList:Sum("BASE", nil, "AwakeningLevel"), env.configInput.enemyIsBoss)
+						else
+							threshString = s_format("%.0f", thresh)
+						end
+						if decCheck ~= 1 then -- don't put a label on the calculated boss effect
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%%", value),
+								thresh = threshString,
+							})
+						elseif value == output.BonechillEffect then
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%% ^8(current)", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
+							})
+						elseif value == desired then
+							t_insert(breakdown.ChillDPS.rowList, {
+								effect = s_format("%s%% ^8(desired)", value),
+								thresh = threshString,
 							})
 						elseif value == 30 then
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%% ^8(maximum)", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
 							})
 						elseif value == 5 then
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%% ^8(minimum)", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
 							})
 						else
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%%", value),
-								thresh = s_format("%.0f", thresh),
+								thresh = threshString,
 							})
 						end
 					end

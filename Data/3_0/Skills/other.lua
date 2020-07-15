@@ -1704,6 +1704,7 @@ skills["TriggeredShockedGround"] = {
 		duration = true,
 	},
 	baseMods = {
+		mod("ShockedGroundEffect", "BASE", 15)	
 	},
 	qualityStats = {
 	},
