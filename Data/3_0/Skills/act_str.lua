@@ -14,7 +14,14 @@ skills["AbyssalCry"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["base_movement_velocity_+%"] = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("InfernalExertedAttacks", "BASE", nil),
+		},
+		["infernal_cry_covered_in_ash_fire_damage_taken_"] = {
+			mod("InfernalAshEffectPer5MP", "BASE", nil),
+		},
+		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
+			mod("InfernalFireTakenPer5MP", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -267,6 +274,18 @@ skills["AncestralCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("AncestralExertedAttacks", "BASE", nil),
+		},
+		["ancestral_cry_x_melee_range_per_5_monster_power"] = {
+			mod("AncestralMeleeWeaponRangePer5MP", "BASE", nil),
+		},
+		["ancestral_cry_physical_damage_reduction_rating_per_5_MP"] = {
+			mod("AncestralArmourPer5MP", "BASE", nil),
+		},
+		["ancestral_cry_max_physical_damage_reduction_rating"] = {
+			mod("AncestralArmourMax", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -1916,9 +1935,14 @@ skills["EnduringCry"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["base_life_regeneration_rate_per_minute"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
+		["regenerate_X_life_over_1_second_on_cast"] = {
+			mod("EnduringCryLifeRegen", "BASE", nil),
+		},
+		["resist_all_elements_%_per_endurance_charge"] = {
+			mod("EnduringCryElementalResist", "BASE", nil),
+		},
+		["physical_damage_reduction_%_per_endurance_charge"] = {
+			mod("EnduringCryPhysicalDamageReduction", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -2067,6 +2091,14 @@ skills["GeneralsCry"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["spiritual_cry_doubles_summoned_per_5_MP+%"] = {
+			mod("GeneralsCryDoubleMPCount", "BASE", nil),
+		},
+		["maximum_number_of_spiritual_cry_warriors"] = {
+			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		warcry = true,
 		area = true,
@@ -2140,6 +2172,11 @@ skills["GeneralsCrySupport"] = {
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Spell, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_spiritual_cry_damage_+%_final"] = {
+			mod("GeneralsCryMirageWarriorLessDamage", "BASE", nil),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -3209,6 +3246,12 @@ skills["IntimidatingCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
+		},
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -4059,16 +4102,18 @@ skills["RallyingCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["damage_+%"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["rallying_cry_damage_+%_final_from_osm_per_nearby_ally"] = {
+			mod("RallyingCryExertDamageBonus", "BASE", nil),
 		},
-		["inspiring_cry_damage_+%_per_one_hundred_nearby_enemies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("RallyingExertedAttacks", "BASE", nil),
 		},
-		["base_mana_regeneration_rate_per_minute"] = {
-			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
+		["rallying_cry_weapon_damage_%_for_allies_per_5_monster_power"] = {
+			mod("RallyingCryAllyDamageBonusPer5Power", "BASE", nil),
+		},
+		["rallying_cry_buff_effect_on_minions_+%_final"] = {
+			mod("RallyingCryMinionDamageBonusMultiplier", "BASE", nil),
+			div = 100
 		},
 	},
 	baseFlags = {
@@ -4078,6 +4123,7 @@ skills["RallyingCry"] = {
 	},
 	baseMods = {
 		skill("buffAllies", true),
+		skill("buffNotPlayer", true)
 		skill("radius", 60),
 	},
 	qualityStats = {
@@ -4380,6 +4426,15 @@ skills["SeismicCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("SeismicExertedAttacks", "BASE", nil),
+		},
+		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
+			mod("SeismicHitMultiplier", "BASE", nil),
+		},
+		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
+			mod("SeismicStunThresholdPer5MP", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,

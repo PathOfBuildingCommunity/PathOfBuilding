@@ -233,9 +233,9 @@ return {
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Vortex" })
 	end },
-	{ label = "Warcry Skills:", ifFlag = "warcry" },
-	{ var = "multiplierWarcryPower", type = "count", label = "Warcry Power:", ifFlag = "warcry", tooltip = "Power determines how strong your Warcry buffs will be, and is based on the total strength of nearby enemies.\nPower is assumed to be 20 if your target is a Boss, but you can override it here if necessary.\nEach Normal enemy grants 1 Power\nEach Magic enemy grants 2 Power\nEach Rare enemy grants 10 Power\nEach Unique enemy grants 20 Power", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:WarcryPower", "OVERRIDE", val, "Config")
+	{ label = "Warcry Skills:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry" } },
+	{ var = "multiplierWarcryPower", type = "count", label = "Warcry Power:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry" }, tooltip = "Power determines how strong your Warcry buffs will be, and is based on the total strength of nearby enemies.\nPower is assumed to be 20 if your target is a Boss, but you can override it here if necessary.\nEach Normal enemy grants 1 Power\nEach Magic enemy grants 2 Power\nEach Rare enemy grants 10 Power\nEach Unique enemy grants 20 Power", apply = function(val, modList, enemyModList)
+		modList:NewMod("WarcryPower", "OVERRIDE", val, "Config")
 	end },
 	{ label = "Wave of Conviction:", ifSkill = "Wave of Conviction" },
 	{ var = "waveOfConvictionExposureType", type = "list", label = "Exposure Type:", ifSkill = "Wave of Conviction", list = {{val=0,label="None"},{val="Fire",label="Fire"},{val="Cold",label="Cold"},{val="Lightning",label="Lightning"}}, apply = function(val, modList, enemyModList)
@@ -836,6 +836,12 @@ return {
 		modList:NewMod("Multiplier:CorpseConsumedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:ConsumedCorpseRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierWarcryUsedRecently", type = "count", label = "# of Warcies Used Recently:", ifMult = "WarcryUsedRecently", implyCondList = {"UsedWarcryRecently", "UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies you have 'Used a Warcry Recently', 'Used a Warcry in the past 8 seconds', and 'Used a Skill Recently'", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:WarcryUsedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedWarcryRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedWarcryInPast8Seconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierEnduranceChargesLostRecently", type = "count", label = "# of Endurance Charges lost Recently:", ifMult = "EnduranceChargesLostRecently", implyCond = "LostEnduranceChargeInPast8Sec", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnduranceChargesLostRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:LostEnduranceChargeInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1013,7 +1019,8 @@ return {
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Unnerve", ModFlag.Spell)
 	end },
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
+		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Covered in Ash")
+		modList:NewMod("CoveredInAsh", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on consecrated ground?", tooltip = "In addition to allowing any relevant modifiers to apply,\nthis will cause your hits have 100% increased Critical Strike Chance on the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1057,7 +1064,7 @@ return {
 			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 2190202, "Boss")
-			modList:NewMod("Multiplier:WarcryPower", "BASE", 20, "Boss")
+			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
@@ -1065,7 +1072,7 @@ return {
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 44360789, "Boss")
-			modList:NewMod("Multiplier:WarcryPower", "BASE", 20, "Boss")
+			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Sirus" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
@@ -1073,7 +1080,7 @@ return {
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 37940148, "Boss")
-			modList:NewMod("Multiplier:WarcryPower", "BASE", 20, "Boss")
+			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		end
 	end },
 	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more Life.", apply = function(val, modList, enemyModList)
