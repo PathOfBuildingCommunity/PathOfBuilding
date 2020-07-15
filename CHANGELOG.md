@@ -3,7 +3,7 @@
  * Fix Rallying Cry not showing the proper configuration option to select number of nearby Allies
  * Fix Saqawals Nest not scaling Aspect of the Avian properly on Allies
  * Fix Ascendancy nodes showing up on the nearby strong nodes in the heatmap
- * Fix crash related to oppening old builds with a different tree version
+ * Fix crash related to opening old builds with a different tree version
 ### 1.4.170.4 - 2020/07/15
  * Fix bug where importing builds would change the boss configuration to be empty
 ### 1.4.170.3 - 2020/07/15
