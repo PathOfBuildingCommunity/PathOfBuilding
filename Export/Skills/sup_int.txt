@@ -91,7 +91,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
-#baseMod skill("triggeredWhileChannelling", true),
+#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportCastWhileChannellingPlus
@@ -109,7 +109,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
-#baseMod skill("triggeredWhileChannelling", true),
+#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportChanceToIgnite
