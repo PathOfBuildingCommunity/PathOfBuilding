@@ -556,6 +556,19 @@ function calcs.perform(env)
 	env.player.output = { }
 	env.enemy.output = { }
 	local output = env.player.output
+	
+	if modDB:Flag(nil, "CantUseHelm") then
+		env.player.itemList["Helmet"] = nil
+	end
+	if modDB:Flag(nil, "CantUseBody") or true then
+		env.player.itemList["Body Armour"] = nil
+	end
+	if modDB:Flag(nil, "CantUseRightRing") then
+		env.player.itemList["Ring 2"] = nil
+	end
+	if modDB:Flag(nil, "CantUseLeftRing") then
+		env.player.itemList["Ring 1"] = nil
+	end
 
 	env.minion = env.player.mainSkill.minion
 	if env.minion then
