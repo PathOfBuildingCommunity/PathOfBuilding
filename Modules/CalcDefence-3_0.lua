@@ -560,7 +560,14 @@ function calcs.defence(env, actor)
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do
 		if modDB:Flag(nil, "BlockedDamageDoesntBypassES") and modDB:Flag(nil, "UnblockedDamageDoesBypassES") then
-			output[damageType.."EnergyShieldBypass"] = 100 - output.AverageBlockChance 
+			local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
+			if DamageTypeConfig == "Minimum" then
+				output[damageType.."EnergyShieldBypass"] = 100 - m_min(output.BlockChance, output.ProjectileBlockChance, output.SpellBlockChance, output.SpellProjectileBlockChance)
+			elseif DamageTypeConfig == "Melee" then
+				output[damageType.."EnergyShieldBypass"] = 100 - output.BlockChance
+			else
+				output[damageType.."EnergyShieldBypass"] = 100 - output[DamageTypeConfig.."BlockChance"]
+			end
 			output.AnyBypass = true
 		else
 			output[damageType.."EnergyShieldBypass"] = modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0
