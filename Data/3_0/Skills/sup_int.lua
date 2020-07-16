@@ -635,7 +635,7 @@ skills["SupportCastWhileChannelling"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
 			div = 1000,
 		},
 	},
@@ -701,7 +701,7 @@ skills["SupportCastWhileChannellingTriggered"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
 	baseMods = {
@@ -770,7 +770,7 @@ skills["SupportCastWhileChannellingPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
 			div = 1000,
 		},
 	},
@@ -817,7 +817,7 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
 	baseMods = {

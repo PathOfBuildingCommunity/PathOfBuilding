@@ -1235,7 +1235,7 @@ return {
 },
 -- Other
 ["triggered_skill_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+	mod("TriggeredDamage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 },
 ["channelled_skill_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
