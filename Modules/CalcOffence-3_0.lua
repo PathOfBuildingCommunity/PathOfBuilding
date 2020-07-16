@@ -200,6 +200,58 @@ local function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB
 	return duration
 end
 
+local function calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
+	local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect")
+	output.AreaOfEffectMod = round(round(incArea * moreArea, 10), 2)
+	if skillData.radiusIsWeaponRange then
+		local range = 0
+		if skillFlags.weapon1Attack then
+			range = m_max(range, actor.weaponRange1)
+		end
+		if skillFlags.weapon2Attack then
+			range = m_max(range, actor.weaponRange2)
+		end
+		skillData.radius = range + 2
+	end
+	if skillData.radius then
+		skillFlags.area = true
+		local baseRadius = skillData.radius + (skillData.radiusExtra or 0) + skillModList:Sum("BASE", skillCfg, "AreaOfEffect")
+		output.AreaOfEffectRadius = calcRadius(baseRadius, output.AreaOfEffectMod)
+		if breakdown then
+			local incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint = calcRadiusBreakpoints(baseRadius, incArea, moreArea)
+			breakdown.AreaOfEffectRadius = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint, skillData.radiusLabel)
+		end
+		if skillData.radiusSecondary then
+			local incAreaSecondary, moreAreaSecondary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectSecondary")
+			output.AreaOfEffectModSecondary = round(round(incAreaSecondary * moreAreaSecondary, 10), 2)
+			baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
+			output.AreaOfEffectRadiusSecondary = calcRadius(baseRadius, output.AreaOfEffectModSecondary)
+			if breakdown then
+				local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
+				breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary, incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary, skillData.radiusSecondaryLabel)
+			end
+		end
+		if skillData.radiusTertiary then
+			local incAreaTertiary, moreAreaTertiary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectTertiary")
+			output.AreaOfEffectModTertiary = round(round(incAreaTertiary * moreAreaTertiary, 10), 2)
+			baseRadius = skillData.radiusTertiary + (skillData.radiusExtra or 0)
+			output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary)
+			if breakdown then
+				local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary)
+				breakdown.AreaOfEffectRadiusTertiary = breakdown.area(baseRadius, output.AreaOfEffectModTertiary, output.AreaOfEffectRadiusTertiary, incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary, skillData.radiusTertiaryLabel)
+			end
+		end
+	end
+	if breakdown then
+		breakdown.AreaOfEffectMod = { }
+		breakdown.multiChain(breakdown.AreaOfEffectMod, {
+			{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
+			{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
+			total = s_format("= %.2f", output.AreaOfEffectMod),
+		})
+	end
+end
+
 -- Performs all offensive calculations
 function calcs.offence(env, actor, activeSkill)
 	local enemyDB = actor.enemy.modDB
@@ -489,55 +541,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.area or skillData.radius or (skillFlags.mine and activeSkill.skillTypes[SkillType.Aura]) then
-		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect")
-		output.AreaOfEffectMod = round(round(incArea * moreArea, 10), 2)
-		if skillData.radiusIsWeaponRange then
-			local range = 0
-			if skillFlags.weapon1Attack then
-				range = m_max(range, actor.weaponRange1)
-			end
-			if skillFlags.weapon2Attack then
-				range = m_max(range, actor.weaponRange2)
-			end
-			skillData.radius = range + 2
-		end
-		if skillData.radius then
-			skillFlags.area = true
-			local baseRadius = skillData.radius + (skillData.radiusExtra or 0) + skillModList:Sum("BASE", skillCfg, "AreaOfEffect")
-			output.AreaOfEffectRadius = calcRadius(baseRadius, output.AreaOfEffectMod)
-			if breakdown then
-				local incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint = calcRadiusBreakpoints(baseRadius, incArea, moreArea)
-				breakdown.AreaOfEffectRadius = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint, skillData.radiusLabel)
-			end
-			if skillData.radiusSecondary then
-				local incAreaSecondary, moreAreaSecondary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectSecondary")
-				output.AreaOfEffectModSecondary = round(round(incAreaSecondary * moreAreaSecondary, 10), 2)
-				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
-				output.AreaOfEffectRadiusSecondary = calcRadius(baseRadius, output.AreaOfEffectModSecondary)
-				if breakdown then
-					local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
-					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary, incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary, skillData.radiusSecondaryLabel)
-				end
-			end
-			if skillData.radiusTertiary then
-				local incAreaTertiary, moreAreaTertiary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectTertiary")
-				output.AreaOfEffectModTertiary = round(round(incAreaTertiary * moreAreaTertiary, 10), 2)
-				baseRadius = skillData.radiusTertiary + (skillData.radiusExtra or 0)
-				output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary)
-				if breakdown then
-					local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary)
-					breakdown.AreaOfEffectRadiusTertiary = breakdown.area(baseRadius, output.AreaOfEffectModTertiary, output.AreaOfEffectRadiusTertiary, incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary, skillData.radiusTertiaryLabel)
-				end
-			end
-		end
-		if breakdown then
-			breakdown.AreaOfEffectMod = { }
-			breakdown.multiChain(breakdown.AreaOfEffectMod, {
-				{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
-				{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
-				total = s_format("= %.2f", output.AreaOfEffectMod),
-			})
-		end
+		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 	end
 	if activeSkill.skillTypes[SkillType.Aura] then
 		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect")
@@ -1146,6 +1150,8 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Avg Intimidating Cry Dmg:"),
 						s_format("   (%.2f ^8(avg dmg multi for raising double damage chance to 100%%)", (1 - ddChance / 100) ),
 						s_format("   x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
+						s_format(""),
+						s_format("Exterted Attacks Breakdown:"),
 					}
 				end
 				globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio
@@ -1176,6 +1182,8 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("   (%.2f ^8(avg dmg mulit per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
 						s_format("    x %d ^8(num nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
 						s_format("    x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
+						s_format(""),
+						s_format("Exterted Attacks Breakdown:"),
 					}
 				end
 				globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio
@@ -1212,12 +1220,15 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Avg Seismic Dmg:"),
 						s_format("  (%.2f ^8(avg dmg multi per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
 						s_format("   x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
+						s_format(""),
+						s_format("Exterted Attacks Breakdown:"),
 					}
 				end
 				globalOutput.SeismicHitEffect = 1 + (globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio)
 
 				-- account for AoE increase
 				skillModList:NewMod("AreaOfEffect", "INC", m_floor(globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio * 100), "Avg Seismic Exert AoE")
+				calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 
 				-- stun reduce threshold calculation
 				local buffUptime = m_min(globalOutput.SeismicCryDuration / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1)
