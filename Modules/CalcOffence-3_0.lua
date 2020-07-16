@@ -1104,7 +1104,7 @@ function calcs.offence(env, actor, activeSkill)
 		local exertedAttackEffect = calcLib.mod(skillModList, cfg, "ExertIncrease")
 		globalOutput.IntimidatingHitEffect = 1
 		globalOutput.SeismicHitEffect = 1
-		globalOutput.RallyingHitEffect = 1
+		globalOutput.RallyingHitEffect = 1 
 
 		-- Iterative over all the active skills to account for exerted attacks provided by warcries
 		for index, value in ipairs(actor.activeSkillList) do
@@ -1129,6 +1129,7 @@ function calcs.offence(env, actor, activeSkill)
 					enemyDB:NewMod("FireDamageTaken", "INC", CoveredInAshBuff * buffUptime, "Infernal Cry Buff")
 				end
 			elseif value.activeEffect.grantedEffect.name == "Intimidating Cry" and activeSkill.skillTypes[SkillType.Melee] then
+				globalOutput.CreateWarcryOffensiveCalcSection = true
 				globalOutput.IntimidatingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 				globalOutput.IntimidatingCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 				globalOutput.IntimidatingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
@@ -1161,6 +1162,7 @@ function calcs.offence(env, actor, activeSkill)
 				local overwhelmBuff = env.modDB:Sum("BASE", cfg, "IntimidatingPDR") or 0
 				skillModList:NewMod("EnemyPhysicalDamageReduction", "BASE", -overwhelmBuff * globalOutput.IntimidatingBuffEffect * buffUptime, "Intimidating Cry Buff")
 			elseif value.activeEffect.grantedEffect.name == "Rallying Cry" and activeSkill.skillTypes[SkillType.Melee] then
+				globalOutput.CreateWarcryOffensiveCalcSection = true
 				globalOutput.RallyingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 				globalOutput.RallyingCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 				globalOutput.RallyingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
@@ -1189,6 +1191,7 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio
 
 			elseif value.activeEffect.grantedEffect.name == "Seismic Cry" and activeSkill.skillTypes[SkillType.SlamSkill] then
+				globalOutput.CreateWarcryOffensiveCalcSection = true
 				globalOutput.SeismicCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 				globalOutput.SeismicCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 				globalOutput.SeismicCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
