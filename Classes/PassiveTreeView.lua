@@ -466,9 +466,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- Determine color for the base artwork
 		if self.showHeatMap then
 			if not isAlloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
-				if node.name == "Crusader" then
-					local noop = ""
-				end
 				if self.heatMapStat and self.heatMapStat.stat then
 					-- Calculate color based on a single stat
 					local stat = m_max(node.power.singleStat or 0, 0)

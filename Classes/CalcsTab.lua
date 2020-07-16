@@ -473,9 +473,6 @@ function CalcsTabClass:PowerBuilder()
 				cache[node.modKey] = calcFunc({node})
 			end
 			local output = cache[node.modKey]
-			if node.name == "Crusader" then
-				local noop = ""
-			end
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 				if node.path and not node.ascendancyName then
