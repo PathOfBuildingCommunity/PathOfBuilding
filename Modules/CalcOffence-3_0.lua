@@ -1208,12 +1208,15 @@ function calcs.offence(env, actor, activeSkill)
 				local TotalSeismicDmgImpact = 0
 				local ThisSeismicDmgImpact = 0
 				local LastSeismicImpact = 0
+				local AoEImpact = 0
 				for i = 1, globalOutput.SeismicExertsCount do
 					ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert / 100)*LastSeismicImpact
 					LastSeismicImpact = LastSeismicImpact + SeismicMoreDmgAndAoEPerExert
 					TotalSeismicDmgImpact = TotalSeismicDmgImpact + ThisSeismicDmgImpact
+					AoEImpact = AoEImpact + (i * SeismicMoreDmgAndAoEPerExert)
 				end
 				globalOutput.SeismicAvgDmg = (TotalSeismicDmgImpact / globalOutput.SeismicExertsCount) * exertedAttackEffect
+				local AvgAoEImpact = AoEImpact / globalOutput.SeismicExertsCount
 				if globalBreakdown then
 					globalBreakdown.SeismicAvgDmg = {
 						s_format("%.2f ^8(total seismic dmg multi across all exerts)", TotalSeismicDmgImpact),
@@ -1227,7 +1230,7 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.SeismicHitEffect = 1 + (globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio)
 
 				-- account for AoE increase
-				skillModList:NewMod("AreaOfEffect", "INC", m_floor(globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio * 100), "Avg Seismic Exert AoE")
+				skillModList:NewMod("AreaOfEffect", "INC", m_floor(AvgAoEImpact * globalOutput.SeismicUpTimeRatio * 100), "Avg Seismic Exert AoE")
 				calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 
 				-- stun reduce threshold calculation
