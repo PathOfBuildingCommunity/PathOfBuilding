@@ -1135,10 +1135,10 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.IntimidatingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 				globalOutput.IntimidatingExertsCount = env.modDB:Sum("BASE", nil, "NumIntimidatingExerts") or 0
 				globalOutput.IntimidatingBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-				globalOutput.IntimidatingUpTimeRatio = m_min((globalOutput.IntimidatingExertsCount / output.Speed) / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1)
+				globalOutput.IntimidatingUpTimeRatio = m_min((globalOutput.IntimidatingExertsCount / output.Speed) / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.IntimidatingUpTimeRatio = {
-						s_format("(%d ^8(num exerts)", globalOutput.IntimidatingExertsCount),
+						s_format("100 x (%d ^8(num exerts)", globalOutput.IntimidatingExertsCount),
 						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
 						s_format("/ (%.2f  ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown),
 						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime),
@@ -1155,7 +1155,13 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Exterted Attacks Breakdown:"),
 					}
 				end
-				globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio
+				globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
+				if globalBreakdown then
+					globalBreakdown.IntimidatingHitEffect = {
+						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.IntimidatingAvgDmg),
+						s_format("   x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio/100),
+					}
+				end
 				
 				-- overwhelm calculation
 				local buffUptime = m_min(globalOutput.IntimidatingCryDuration / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1)
@@ -1168,10 +1174,10 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.RallyingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 				globalOutput.RallyingExertsCount = env.modDB:Sum("BASE", nil, "NumRallyingExerts") or 0
 				globalOutput.RallyingBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-				globalOutput.RallyingUpTimeRatio = m_min((globalOutput.RallyingExertsCount / output.Speed) / (globalOutput.RallyingCryCooldown + globalOutput.RallyingCryCastTime), 1)
+				globalOutput.RallyingUpTimeRatio = m_min((globalOutput.RallyingExertsCount / output.Speed) / (globalOutput.RallyingCryCooldown + globalOutput.RallyingCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.RallyingUpTimeRatio = {
-						s_format("(%d ^8(num exerts)", globalOutput.RallyingExertsCount),
+						s_format("100 x (%d ^8(num exerts)", globalOutput.RallyingExertsCount),
 						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
 						s_format("/ (%.2f  ^8(warcry cooldown)", globalOutput.RallyingCryCooldown),
 						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.RallyingCryCastTime),
@@ -1188,7 +1194,13 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Exterted Attacks Breakdown:"),
 					}
 				end
-				globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio
+				globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio/100
+				if globalBreakdown then
+					globalBreakdown.RallyingHitEffect = {
+						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.RallyingAvgDmg),
+						s_format("   x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio/100),
+					}
+				end
 
 			elseif value.activeEffect.grantedEffect.name == "Seismic Cry" and activeSkill.skillTypes[SkillType.SlamSkill] then
 				globalOutput.CreateWarcryOffensiveCalcSection = true
@@ -1197,13 +1209,13 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.SeismicCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 				globalOutput.SeismicExertsCount = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
 				globalOutput.SeismicBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-				globalOutput.SeismicUpTimeRatio = m_min((globalOutput.SeismicExertsCount / output.Speed) / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1)
+				globalOutput.SeismicUpTimeRatio = m_min((globalOutput.SeismicExertsCount / output.Speed) / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.SeismicUpTimeRatio = {
-						s_format("(%d ^8(num exerts)", globalOutput.SeismicExertsCount),
+						s_format("100 x (%d ^8(num exerts)", globalOutput.SeismicExertsCount),
 						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
 						s_format("/ (%.2f  ^8(warcry cooldown)", globalOutput.SeismicCryCooldown),
-						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
+						s_format(" + %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
 					}
 				end
 				-- calculate the stacking MORE dmg modifier of Seismic slams
@@ -1230,10 +1242,16 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Exterted Attacks Breakdown:"),
 					}
 				end
-				globalOutput.SeismicHitEffect = 1 + (globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio)
+				globalOutput.SeismicHitEffect = 1 + (globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio/100)
+				if globalBreakdown then
+					globalBreakdown.SeismicHitEffect = {
+						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.SeismicAvgDmg),
+						s_format("   x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio/100),
+					}
+				end
 
 				-- account for AoE increase
-				skillModList:NewMod("AreaOfEffect", "INC", m_floor(AvgAoEImpact * globalOutput.SeismicUpTimeRatio * 100), "Avg Seismic Exert AoE")
+				skillModList:NewMod("AreaOfEffect", "INC", m_floor(AvgAoEImpact * globalOutput.SeismicUpTimeRatio), "Avg Seismic Exert AoE")
 				calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 
 				-- stun reduce threshold calculation
