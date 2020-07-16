@@ -1195,7 +1195,6 @@ function calcs.offence(env, actor, activeSkill)
 						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
 					}
 				end
-<<<<<<< HEAD
 				-- calculate the stacking MORE dmg modifier of Seismic slams
 				local SeismicMoreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
 				local TotalSeismicDmgImpact = 0
@@ -1214,39 +1213,6 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("  (%.2f ^8(avg dmg multi per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
 						s_format("   x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
 					}
-=======
-				-- Special case to handle Dominating Blow, which will have the Attack flag, but we don't want and can't have the calcs for the minion side
-				if output.RallyingCryDuration ~= nil then
-					-- calculate ratio of uptime versus downtime
-					output.RallyingUpTimeRatio = m_min((numRallyingExerts / output.Speed) / (output.RallyingCryCooldown + output.RallyingCryCastTime), 1)
-					exertedUptime = m_max(exertedUptime, output.RallyingUpTimeRatio)
-					-- Add the average 'More' multiplier on damage accounting for uptime
-					output.RallyingHitEffect = 1 + m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100) * output.RallyingUpTimeRatio
-				end
-			end
-		end
-		-- Seismic Cry only Exerts Slam Skills
-		output.SeismicHitEffect = 1
-		if activeSkill.skillTypes[SkillType.SlamSkill] then
-			local numSeismicExerts = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
-			if numSeismicExerts > 0 and not skillFlags.warcry then
-				local buff_effect = 1
-				output.SeismicCryDuration = 4
-				output.SeismicCryCooldown = 8
-				output.SeismicCryCastTime = 0.8
-				local moreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
-				for index, value in ipairs(actor.activeSkillList) do
-					if value.activeEffect.grantedEffect.name == "Seismic Cry" then
-						-- recursively calculate the values for Seismic Cry
-						-- only actual Duration, Cooldown and WarcryCastTime are returned
-						local seismicCryData = calcs.offence(env, actor, actor.activeSkillList[index], true)
-						output.SeismicCryDuration = seismicCryData.Duration
-						output.SeismicCryCooldown = seismicCryData.Cooldown
-						output.SeismicCryCastTime = seismicCryData.WarcryCastTime
-						buff_effect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-						break
-					end
->>>>>>> dev_base
 				end
 				globalOutput.SeismicHitEffect = 1 + (globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio)
 
