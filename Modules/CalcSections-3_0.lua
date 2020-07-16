@@ -312,14 +312,14 @@ return {
 } }
 } },
 { 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Offensive Warcries", data = {
-	extra = "Aggregated Dmg Multiplier: {2:output:OffensiveWarcryEffect} (multplication of all Effective Impacts)",
+	extra = "Aggregated Damage Multiplier: {2:output:OffensiveWarcryEffect} (multiplication of all Effective Impacts)",
 	colWidth = 142,
 	{
 		haveOutput = "CreateWarcryOffensiveCalcSection",
 		{ format = "Effective Impact" },
 		{ format = "Avg Exert Dmg Effect" },
 		{ format = "Uptime" },
-		{ format = "Num Exerts" },
+		{ format = "Number of Exerts" },
 	},
 	{ label = "Seismic Cry", haveOutput = "SeismicUpTimeRatio", 
 		{ format = "{2:output:SeismicHitEffect}", { breakdown = "SeismicHitEffect"}, },

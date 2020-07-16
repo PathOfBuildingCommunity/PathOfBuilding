@@ -1138,19 +1138,21 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.IntimidatingUpTimeRatio = m_min((globalOutput.IntimidatingExertsCount / output.Speed) / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.IntimidatingUpTimeRatio = {
-						s_format("100 x (%d ^8(num exerts)", globalOutput.IntimidatingExertsCount),
-						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
-						s_format(" / (%.2f  ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown),
-						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime),
+						s_format("100 x (%d ^8(number of exerts)", globalOutput.IntimidatingExertsCount),
+						s_format("/ %.2f) ^8(attacks per second)", output.Speed),
+						s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown),
+						s_format("+ %.2f) ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime),
+						s_format("= %.2f", globalOutput.IntimidatingUpTimeRatio),
 					}
 				end
 				local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
 				globalOutput.IntimidatingAvgDmg = (1 - ddChance / 100) * exertedAttackEffect
 				if globalBreakdown then
 					globalBreakdown.IntimidatingAvgDmg = {
-						s_format("Avg Intimidating Cry Dmg:"),
-						s_format("   (%.2f ^8(avg dmg multi for raising double damage chance to 100%%)", (1 - ddChance / 100) ),
-						s_format("   x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
+						s_format("Average Intimidating Cry Damage:"),
+						s_format("(%.2f ^8(average damage multiplier for raising double damage chance to 100%%)", (1 - ddChance / 100) ),
+						s_format("x %.2f) ^8(sum of Exerted Attack increases)", exertedAttackEffect),
+						s_format("= %.2f", globalOutput.IntimidatingAvgDmg),
 						s_format(""),
 						s_format("Exterted Attacks Breakdown:"),
 					}
@@ -1158,8 +1160,9 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
 				if globalBreakdown then
 					globalBreakdown.IntimidatingHitEffect = {
-						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.IntimidatingAvgDmg),
-						s_format("    x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio/100),
+						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.IntimidatingAvgDmg),
+						s_format("x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio/100),
+						s_format("= %.2f", globalOutput.IntimidatingHitEffect),
 					}
 				end
 				
@@ -1177,19 +1180,21 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.RallyingUpTimeRatio = m_min((globalOutput.RallyingExertsCount / output.Speed) / (globalOutput.RallyingCryCooldown + globalOutput.RallyingCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.RallyingUpTimeRatio = {
-						s_format("100 x (%d ^8(num exerts)", globalOutput.RallyingExertsCount),
-						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
-						s_format(" / (%.2f  ^8(warcry cooldown)", globalOutput.RallyingCryCooldown),
-						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.RallyingCryCastTime),
+						s_format("100 x (%d ^8(number of exerts)", globalOutput.RallyingExertsCount),
+						s_format("/ %.2f) ^8(attacks per second)", output.Speed),
+						s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown),
+						s_format("+ %.2f) ^8(warcry casttime)", globalOutput.RallyingCryCastTime),
+						s_format("= %.2f", globalOutput.RallyingUpTimeRatio),
 					}
 				end
 				globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100) * exertedAttackEffect
 				if globalBreakdown then
 					globalBreakdown.RallyingAvgDmg = {
-						s_format("Avg Rallying Cry Dmg:"),
-						s_format("   (%.2f ^8(avg dmg mulit per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
-						s_format("    x %d ^8(num nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
-						s_format("    x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
+						s_format("Average Rallying Cry Damage:"),
+						s_format("(%.2f ^8(average damage multiplier per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
+						s_format("x %d ^8(number of nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
+						s_format("x %.2f) ^8(sum of Exerted Attack increases)", exertedAttackEffect),
+						s_format("= %.2f", globalOutput.RallyingAvgDmg),
 						s_format(""),
 						s_format("Exterted Attacks Breakdown:"),
 					}
@@ -1197,8 +1202,9 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio/100
 				if globalBreakdown then
 					globalBreakdown.RallyingHitEffect = {
-						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.RallyingAvgDmg),
-						s_format("    x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio/100),
+						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.RallyingAvgDmg),
+						s_format("x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio/100),
+						s_format("= %.2f", globalOutput.RallyingHitEffect),
 					}
 				end
 
@@ -1212,10 +1218,11 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.SeismicUpTimeRatio = m_min((globalOutput.SeismicExertsCount / output.Speed) / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.SeismicUpTimeRatio = {
-						s_format("100 x (%d ^8(num exerts)", globalOutput.SeismicExertsCount),
-						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
-						s_format(" / (%.2f  ^8(warcry cooldown)", globalOutput.SeismicCryCooldown),
-						s_format(" + %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
+						s_format("100 x (%d ^8(number of exerts)", globalOutput.SeismicExertsCount),
+						s_format("/ %.2f) ^8(attacks per second)", output.Speed),
+						s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown),
+						s_format("+ %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
+						s_format("= %.2f", globalOutput.SeismicUpTimeRatio),
 					}
 				end
 				-- calculate the stacking MORE dmg modifier of Seismic slams
@@ -1234,10 +1241,11 @@ function calcs.offence(env, actor, activeSkill)
 				local AvgAoEImpact = AoEImpact / globalOutput.SeismicExertsCount
 				if globalBreakdown then
 					globalBreakdown.SeismicAvgDmg = {
-						s_format("%.2f ^8(total seismic dmg multi across all exerts)", TotalSeismicDmgImpact),
-						s_format("Avg Seismic Dmg:"),
-						s_format("  (%.2f ^8(avg dmg multi per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
-						s_format(" x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
+						s_format("%.2f ^8(total seismic damage multiplier across all exerts)", TotalSeismicDmgImpact),
+						s_format("Average Seismic Damage:"),
+						s_format("(%.2f ^8(average damage multiplier per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
+						s_format("x %.2f) ^8(sum of Exerted Attack increases)", exertedAttackEffect),
+						s_format("= %.2f", globalOutput.SeismicAvgDmg),
 						s_format(""),
 						s_format("Exterted Attacks Breakdown:"),
 					}
@@ -1245,8 +1253,9 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.SeismicHitEffect = 1 + (globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio/100)
 				if globalBreakdown then
 					globalBreakdown.SeismicHitEffect = {
-						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.SeismicAvgDmg),
-						s_format("    x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio/100),
+						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.SeismicAvgDmg),
+						s_format("x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio/100),
+						s_format("= %.2f", globalOutput.SeismicHitEffect),
 					}
 				end
 
