@@ -440,6 +440,121 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	-- Other defences: block, dodge, stun recovery/avoidance
+	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
+	if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
+		output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
+	end
+	output.EffectiveMovementSpeedMod = output.MovementSpeedMod * output.ActionSpeedMod
+	if breakdown then
+		breakdown.EffectiveMovementSpeedMod = { }
+		breakdown.multiChain(breakdown.EffectiveMovementSpeedMod, {
+			{ "%.2f ^8(movement speed modifier)", output.MovementSpeedMod },
+			{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
+			total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
+		})
+	end
+	if modDB:Flag(nil, "Elusive") then
+		output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+	end
+	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+	local baseBlockChance = 0
+	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
+		baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
+	end
+	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
+		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
+	end
+	output.ShieldBlockChance = baseBlockChance
+	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
+		output.BlockChance = output.BlockChanceMax
+	else
+		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+	end
+	output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
+		output.SpellBlockChanceMax = output.BlockChanceMax
+	else
+		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
+	end
+	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
+		output.SpellBlockChance = output.BlockChance
+		output.SpellProjectileBlockChance = output.ProjectileBlockChance
+	else
+		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
+		output.SpellProjectileBlockChance = output.SpellBlockChance
+	end
+	if breakdown then
+		breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
+		breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
+	end
+	if modDB:Flag(nil, "CannotBlockAttacks") then
+		output.BlockChance = 0
+		output.ProjectileBlockChance = 0
+	end
+	if modDB:Flag(nil, "CannotBlockSpells") then
+		output.SpellBlockChance = 0
+		output.SpellProjectileBlockChance = 0
+	end
+	output.BlockEffect = modDB:Sum("BASE", nil, "BlockEffect")
+	if output.BlockEffect == 0 then
+		output.BlockEffect = 100
+	else
+		output.ShowBlockEffect = true
+	end
+	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
+	output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), data.misc.DodgeChanceCap)
+	output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), data.misc.DodgeChanceCap)
+	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
+		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
+		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
+	end
+	-- damage avoidances
+	for _, damageType in ipairs(dmgTypeList) do
+		output["Avoid"..damageType.."DamageChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..damageType.."DamageChance"), data.misc.AvoidChanceCap)
+	end
+	output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
+	--other avoidances etc
+	local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
+	if output.EnergyShield > output.Life * 2 then
+		stunChance = stunChance * 0.5
+	end
+	output.StunAvoidChance = 100 - stunChance
+	if output.StunAvoidChance >= 100 then
+		output.StunDuration = 0
+		output.BlockDuration = 0
+	else
+		output.StunDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
+		output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
+		if breakdown then
+			breakdown.StunDuration = {
+				"0.35s ^8(base)",
+				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
+				s_format("= %.2fs", output.StunDuration)
+			}
+			breakdown.BlockDuration = {
+				"0.35s ^8(base)",
+				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
+				s_format("= %.2fs", output.BlockDuration)
+			}
+		end
+	end
+	output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
+	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
+	output.ShockAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidShock"), 100)
+	output.FreezeAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidFreeze"), 100)
+	output.ChillAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidChill"), 100)
+	output.IgniteAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidIgnite"), 100)
+	output.BleedAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBleed"), 100)
+	output.PoisonAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidPoison"), 100)
+	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
+	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
+	if breakdown then
+		breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
+	end
+
 	-- Energy Shield bypass
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do
@@ -614,6 +729,12 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	output.AnyTakenReflect = 0
+	for _, damageType in ipairs(dmgTypeList) do
+		if output[damageType.."TakenReflect"] ~= output[damageType.."TakenHit"] then
+			output.AnyTakenReflect = true
+		end
+	end
 	if output.TotalDegen then
 		output.NetLifeRegen = output.LifeRegen
 		output.NetManaRegen = output.ManaRegen
@@ -697,12 +818,6 @@ function calcs.defence(env, actor)
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("= %.1f", output.NetEnergyShieldRegen))
-		end
-	end
-	output.AnyTakenReflect = 0
-	for _, damageType in ipairs(dmgTypeList) do
-		if output[damageType.."TakenReflect"] ~= output[damageType.."TakenHit"] then
-			output.AnyTakenReflect = true
 		end
 	end
 
@@ -815,123 +930,6 @@ function calcs.defence(env, actor)
 		output[damageType.."TakenHitMult"] = mult
 		if output.AnyTakenReflect then
 			output[damageType.."TakenReflectMult"] = multReflect
-		end
-	end
-
-	-- Other defences: block, dodge, stun recovery/avoidance
-	do
-		output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
-		if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
-			output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
-		end
-		output.EffectiveMovementSpeedMod = output.MovementSpeedMod * output.ActionSpeedMod
-		if breakdown then
-			breakdown.EffectiveMovementSpeedMod = { }
-			breakdown.multiChain(breakdown.EffectiveMovementSpeedMod, {
-				{ "%.2f ^8(movement speed modifier)", output.MovementSpeedMod },
-				{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
-				total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
-			})
-		end
-		if modDB:Flag(nil, "Elusive") then
-			output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
-		end
-		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
-		local baseBlockChance = 0
-		if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
-			baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
-		end
-		if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
-			baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
-		end
-		output.ShieldBlockChance = baseBlockChance
-		if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
-			output.BlockChance = output.BlockChanceMax
-		else
-			output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
-		end
-		output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
-		if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
-			output.SpellBlockChanceMax = output.BlockChanceMax
-		else
-			output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
-		end
-		if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
-			output.SpellBlockChance = output.BlockChance
-			output.SpellProjectileBlockChance = output.ProjectileBlockChance
-		else
-			output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
-			output.SpellProjectileBlockChance = output.SpellBlockChance
-		end
-		if breakdown then
-			breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
-			breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
-		end
-		if modDB:Flag(nil, "CannotBlockAttacks") then
-			output.BlockChance = 0
-			output.ProjectileBlockChance = 0
-		end
-		if modDB:Flag(nil, "CannotBlockSpells") then
-			output.SpellBlockChance = 0
-			output.SpellProjectileBlockChance = 0
-		end
-		output.BlockEffect = modDB:Sum("BASE", nil, "BlockEffect")
-		if output.BlockEffect == 0 then
-			output.BlockEffect = 100
-		else
-			output.ShowBlockEffect = true
-		end
-		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-		output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-		output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
-		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), data.misc.DodgeChanceCap)
-		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), data.misc.DodgeChanceCap)
-		if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
-			output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
-			output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
-		end
-		-- damage avoidances
-		for _, damageType in ipairs(dmgTypeList) do
-			output["Avoid"..damageType.."DamageChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..damageType.."DamageChance"), data.misc.AvoidChanceCap)
-		end
-		output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
-		--other avoidances etc
-		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
-		if output.EnergyShield > output.Life * 2 then
-			stunChance = stunChance * 0.5
-		end
-		output.StunAvoidChance = 100 - stunChance
-		if output.StunAvoidChance >= 100 then
-			output.StunDuration = 0
-			output.BlockDuration = 0
-		else
-			output.StunDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
-			output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
-			if breakdown then
-				breakdown.StunDuration = {
-					"0.35s ^8(base)",
-					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
-					s_format("= %.2fs", output.StunDuration)
-				}
-				breakdown.BlockDuration = {
-					"0.35s ^8(base)",
-					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
-					s_format("= %.2fs", output.BlockDuration)
-				}
-			end
-		end
-		output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
-		output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
-		output.ShockAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidShock"), 100)
-		output.FreezeAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidFreeze"), 100)
-		output.ChillAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidChill"), 100)
-		output.IgniteAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidIgnite"), 100)
-		output.BleedAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBleed"), 100)
-		output.PoisonAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidPoison"), 100)
-		output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
-		output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
-		if breakdown then
-			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
 		end
 	end
 
