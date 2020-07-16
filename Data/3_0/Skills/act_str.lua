@@ -14,7 +14,14 @@ skills["AbyssalCry"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["base_movement_velocity_+%"] = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("InfernalExertedAttacks", "BASE", nil),
+		},
+		["infernal_cry_covered_in_ash_fire_damage_taken_"] = {
+			mod("InfernalAshEffectPer5MP", "BASE", nil),
+		},
+		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
+			mod("InfernalFireTakenPer5MP", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -24,6 +31,10 @@ skills["AbyssalCry"] = {
 		chaos = true,
 	},
 	baseMods = {
+		skill("radius", 60),
+		skill("radiusLabel", "Warcry area:"),
+		skill("radiusSecondary", 22),
+		skill("radiusSecondaryLabel", "Explosion area:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 1 },
@@ -263,6 +274,18 @@ skills["AncestralCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("AncestralExertedAttacks", "BASE", nil),
+		},
+		["ancestral_cry_x_melee_range_per_5_monster_power"] = {
+			mod("AncestralMeleeWeaponRangePer5MP", "BASE", nil),
+		},
+		["ancestral_cry_physical_damage_reduction_rating_per_5_MP"] = {
+			mod("AncestralArmourPer5MP", "BASE", nil),
+		},
+		["ancestral_cry_max_physical_damage_reduction_rating"] = {
+			mod("AncestralArmourMax", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -990,6 +1013,8 @@ skills["ChainStrike"] = {
 		melee = true,
 	},
 	baseMods = {
+		skill("radius", 24),
+		skill("radiusExtra", 1, { type = "Multiplier", var = "Rage" , div = 5 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1157,6 +1182,7 @@ skills["ConsecratedPath"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 23),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1836,7 +1862,7 @@ skills["SpikeSlam"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["active_skill_area_of_effect_+%_final"] = {
-			skill("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("AreaOfEffect", "MORE", nil),
 		},
 	},
 	baseFlags = {
@@ -1846,6 +1872,7 @@ skills["SpikeSlam"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 20, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1908,9 +1935,14 @@ skills["EnduringCry"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["base_life_regeneration_rate_per_minute"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
+		["regenerate_X_life_over_1_second_on_cast"] = {
+			mod("EnduringCryLifeRegen", "BASE", nil),
+		},
+		["resist_all_elements_%_per_endurance_charge"] = {
+			mod("EnduringCryElementalResist", "BASE", nil),
+		},
+		["physical_damage_reduction_%_per_endurance_charge"] = {
+			mod("EnduringCryPhysicalDamageReduction", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -2059,6 +2091,14 @@ skills["GeneralsCry"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["spiritual_cry_doubles_summoned_per_5_MP+%"] = {
+			mod("GeneralsCryDoubleMPCount", "BASE", nil),
+		},
+		["maximum_number_of_spiritual_cry_warriors"] = {
+			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		warcry = true,
 		area = true,
@@ -2132,6 +2172,11 @@ skills["GeneralsCrySupport"] = {
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Spell, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_spiritual_cry_damage_+%_final"] = {
+			mod("GeneralsCryMirageWarriorLessDamage", "BASE", nil),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2293,6 +2338,7 @@ skills["VaalGlacialHammer"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		{ "chill_duration_+%", 2 },
@@ -2469,6 +2515,7 @@ skills["VaalGroundSlam"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 39),
 	},
 	qualityStats = {
 		{ "base_stun_duration_+%", 1 },
@@ -2617,6 +2664,9 @@ skills["HeraldOfAsh"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.CausesBurning] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.Type27] = true, [SkillType.Herald] = true, [SkillType.Duration] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.FireDot = (activeSkill.skillData.hoaOverkill or 0) * (1 + activeSkill.skillData.hoaMoreBurn / 100) * activeSkill.skillData.hoaOverkillPercent
+	end,
 	statMap = {
 		["herald_of_ash_fire_damage_+%"] = {
 			mod("FireDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -2626,6 +2676,13 @@ skills["HeraldOfAsh"] = {
 		},
 		["physical_damage_%_to_add_as_fire"] = {
 			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["herald_of_ash_burning_damage_+%_final"] = {
+			skill("hoaMoreBurn", nil),
+		},
+		["herald_of_ash_burning_%_overkill_damage_per_minute"] = {
+			skill("hoaOverkillPercent", nil),
+			div = 6000,
 		},
 	},
 	baseFlags = {
@@ -3189,6 +3246,12 @@ skills["IntimidatingCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
+		},
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -3344,13 +3407,21 @@ skills["MoltenShell"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		local add = (activeSkill.skillData.MoltenShellDamageMitigated or 0) * activeSkill.skillData.moltenShellReflect / 100
+		activeSkill.skillData.FireMin = add
+		activeSkill.skillData.FireMax = add
+	end,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
+			skill("moltenShellReflect", nil),
+		},
 	},
 	baseFlags = {
-		spell = true,
+		hit = true,
 		area = true,
 		duration = true,
 	},
@@ -3424,6 +3495,11 @@ skills["VaalMoltenShell"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Vaal] = true, [SkillType.Type92] = true, [SkillType.Type91] = true, [SkillType.Type96] = true, [SkillType.CantUseFistOfWar] = true, [SkillType.GuardSkill] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		local add = (activeSkill.skillData.VaalMoltenShellDamageMitigated or 0) * activeSkill.skillData.moltenShellReflect / 100
+		activeSkill.skillData.FireMin = add
+		activeSkill.skillData.FireMax = add
+	end,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -3431,9 +3507,12 @@ skills["VaalMoltenShell"] = {
 		["vaal_molten_shall_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
+			skill("moltenShellReflect", nil),
+		},
 	},
 	baseFlags = {
-		spell = true,
+		hit = true,
 		area = true,
 		duration = true,
 	},
@@ -3547,6 +3626,13 @@ skills["MoltenStrike"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("projectileSpeedAppliesToMSAreaOfEffect", true),
+		skill("radius", 9, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPart = 2 }),
+		skill("radiusSecondary", 2, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 }),
+		skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "fire_damage_+%", 1 },
@@ -3641,6 +3727,8 @@ skills["BloodSpears"] = {
 	},
 	baseMods = {
 		skill("dpsMultiplier", 1, { type = "Multiplier", var = "PerforateSpikeOverlap", limitVar = "PerforateMaxSpikes" }, { type = "Condition", var = "BloodStance" }),
+		skill("radius", 11, { type = "Condition", var = "SandStance" }),
+		skill("radius", 8, { type = "Condition", var = "BloodStance" }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -3706,20 +3794,12 @@ skills["PhysicalDamageAura"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.AuraDebuff] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
-	parts = {
-		{
-			name = "Initial effect",
-		},
-		{
-			name = "Maximum effect",
-		},
-	},
 	statMap = {
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MinEffect" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMinEffect" }),
 		},
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MaxEffect" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
 		},
 	},
 	baseFlags = {
@@ -3728,8 +3808,6 @@ skills["PhysicalDamageAura"] = {
 		area = true,
 	},
 	baseMods = {
-		flag("Condition:MinEffect", { type = "SkillPart", skillPart = 1 }),
-		flag("Condition:MaxEffect", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 2 },
@@ -4024,16 +4102,19 @@ skills["RallyingCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["damage_+%"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["rallying_cry_damage_+%_final_from_osm_per_nearby_ally"] = {
+			mod("RallyingCryExertDamageBonus", "BASE", nil),
 		},
-		["inspiring_cry_damage_+%_per_one_hundred_nearby_enemies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("RallyingExertedAttacks", "BASE", nil),
 		},
-		["base_mana_regeneration_rate_per_minute"] = {
-			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
+		["rallying_cry_weapon_damage_%_for_allies_per_5_monster_power"] = {
+			mod("RallyingCryAllyDamageBonusPer5Power", "BASE", nil),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "NearbyAlly"}),
+		},
+		["rallying_cry_buff_effect_on_minions_+%_final"] = {
+			mod("RallyingCryMinionDamageBonusMultiplier", "BASE", nil),
+			div = 100
 		},
 	},
 	baseFlags = {
@@ -4043,6 +4124,8 @@ skills["RallyingCry"] = {
 	},
 	baseMods = {
 		skill("buffAllies", true),
+		skill("buffNotPlayer", true),
+		skill("radius", 60),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 1 },
@@ -4127,6 +4210,7 @@ skills["Reckoning"] = {
 		melee = true,
 	},
 	baseMods = {
+		skill("radius", 35),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4343,6 +4427,15 @@ skills["SeismicCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("SeismicExertedAttacks", "BASE", nil),
+		},
+		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
+			mod("SeismicHitMultiplier", "BASE", nil),
+		},
+		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
+			mod("SeismicStunThresholdPer5MP", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -4430,6 +4523,12 @@ skills["NewShieldCharge"] = {
 		shieldAttack = true,
 	},
 	baseMods = {
+		skill("radius", 28),
+		skill("radiusLabel", "End Cone area:"),
+		skill("radiusSecondary", 16),
+		skill("radiusSecondaryLabel", "End Circle area:"),
+		skill("radiusTertiary", 8),
+		skill("radiusTertiaryLabel", "Charging area:"),
 	},
 	qualityStats = {
 		{ "base_movement_velocity_+%", 1 },
@@ -4608,6 +4707,7 @@ skills["Smite"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 15),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4717,6 +4817,7 @@ end,
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		{ "skill_effect_duration_+%", 1 },
@@ -5018,7 +5119,10 @@ skills["NewSunder"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Primary wave",
+			name = "First Wave Area",
+		},
+		{
+			name = "Final Wave Area",
 		},
 		{
 			name = "Shockwaves",
@@ -5026,10 +5130,13 @@ skills["NewSunder"] = {
 	},
 	statMap = {
 		["shockwave_slam_explosion_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["active_skill_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
+		},
+		["sunder_wave_radius_+_per_step"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "SunderWaveArea" }),
 		},
 	},
 	baseFlags = {
@@ -5038,6 +5145,8 @@ skills["NewSunder"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 12),
+		mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -5204,6 +5313,10 @@ skills["EnduranceChargeSlam"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 15),
+		skill("radiusLabel", "Fissure Length:"),
+		skill("radiusSecondary", 7),
+		skill("radiusSecondaryLabel", "Fissure Width:"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },

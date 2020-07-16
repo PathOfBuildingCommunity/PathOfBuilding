@@ -128,15 +128,14 @@ local skills, mod, flag, skill = ...
 #flags warcry area duration
 	fromItem = true,
 	statMap = {
-		["attack_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
 	},
-#baseMod skill("buffAllies", true)
+#baseMod skill("radius", 60)
 #mods
 
 #skill ChannelledSnipe
@@ -417,6 +416,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredShockedGround
 #flags spell area duration
 	fromItem = true,
+#baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
 #skill SpiritBurst
@@ -513,6 +513,36 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SummonHarbingerOfTheArcaneUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfBrutalityUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfDirectionsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfFocusUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfStormsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfTimeUber
+#flags spell minion
+	fromItem = true,
+#mods
+
 #skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
 #flags spell minion
 	fromItem = true,
@@ -531,6 +561,14 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	minionList = {
 		"SummonedSpectralWolf",
+	},
+	statMap = {
+		["spectral_wolf_grants_attack_minimum_added_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
+			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
 	},
 #mods
 

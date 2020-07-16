@@ -1,3 +1,77 @@
+### 1.4.170.5 - 2020/07/15
+ * Fix crash related to Vessel of Vinktar and flask effect
+ * Fix Rallying Cry not showing the proper configuration option to select number of nearby Allies
+ * Fix Saqawals Nest not scaling Aspect of the Avian properly on Allies
+ * Fix Ascendancy nodes showing up on the nearby strong nodes in the heatmap
+ * Fix crash related to opening old builds with a different tree version
+### 1.4.170.4 - 2020/07/15
+ * Fix bug where importing builds would change the boss configuration to be empty
+### 1.4.170.3 - 2020/07/15
+ * Add support for 3.11 Warcries and Exerted Attacks
+  * Warcry-related Exerted Attack Effect is calculated based on:
+    Average Damage of Exerted Attacks * Exerted Buff Scaling * Expected Uptime of Exerted Attacks.
+    Expected Uptime is based on number of Exerted Attacks contrasted with Attack Speed and impacted
+    by Warcry Cooldown Speed and Cast Time
+  * Full support:
+    * Ancestral Cry
+    * Enduring Cry
+    * Infernal Cry
+    * Intimidating Cry
+    * Rallying Cry
+    * Seismic Cry
+  * Not yet implemented:
+    * General's Cry
+ * Add full support for Arcanist Brand
+ * Add proper support for Cast while Channelling
+ * Add new Harvest uniques
+ * Add upgraded Harbinger uniques
+ * Add support to show Notable power calculation in a tooltip when crafting Cluster jewels
+ * Add AoE numbers for 56 skills
+ * Add full support for Bonechill (automatically applies for guaranteed sources of Chill)
+ * Add support to automatically Shock enemies with guaranteed sources of Shock
+ * Add in-depth breakdowns of Shock and Chill thresholds
+ * Add Scale of Esh Spectre
+ * Add full support for Agnostic, Eternal Youth and Imbalanced Guard Keystones
+ * Add partial support for Supreme Ego Keystone
+ * Add support for increased Effect of Arcane Surge
+ * Add support for Awakened Curse on Hit +1 Curse mod
+ * Add support for Rattling Bellow, Warning Call, Cry Wolf and Pressure Points Cluster Notables
+ * Add support for Warcry Power calculation with Configuration based override support
+ * Add support for reworked Berserker War Bringer Ascendancy node
+ * Add support for "each time you've Warcried Recently"
+ * Add support for "If you've changed Stance Recently"
+ * Add support for added Physical Damage from Spectral Wolves
+ * Add support for Herald of Ash Overkill DoT
+ * Add support for Vaal Molten Shell/Molten Shell reflect damage
+ * Add support for Rigwald's Command Rage DoT multiplier mod
+ * Add support for faster Damaging Ailments mod on Malevolence Watcher's Eye
+ * Add support for Emberwake's +1 Ignite mod
+ * Add support for Wintertide Brand gem quality
+ * Add support for Charged Mines Support gem quality
+ * Add support for Blind on the player
+ * Add support to hide items in the unique list by stat and level requirements
+ * Add support to highlight nodes by per-point and best node
+ * Add the ability to change the eHP calculation mode between spell, attack and more
+ * Add a breakdown on Evasion for Melee and Projectile Attacks
+ * Move Pride's effect drop-down to the "Configuration" page
+ * Show boss ailment threshold in Chill and Shock breakdown (Sirus, Shaper, Uber Atziri)
+ * Change jewel tooltips to now scroll horizontally across the screen when having many jewel sockets
+ * Update Pantheon mods to the changes from 3.11
+ * Update Cluster jewels to include new jewel socket enchantments
+ * Fix Orb of Storms to use a Hit Rate value instead of Cast Speed
+ * Fix Rage not working correctly in some cases
+ * Fix Wither not applying properly in many cases
+ * Fix Unnerve applying to DoT Spell skills
+ * Fix Unbound Ailments Support not working with new Ailments
+ * Fix parsing for mods that modified the duration of Aspect of the Cat/Avian
+ * Fix support for Bannerman and Revelry
+ * Fix Vaal Molten Shell more Armour Buff
+ * Fix Baranite Thaumaturge default skill by removing "attack" tag
+ * Fix Cluster nodes on the tree with broken tooltips
+ * Fix bug where Shock was applying twice on Minion skills
+ * Fix bug where skills that reserved Mana would benefit from negative Life/Mana Reservation
+ * Fix bug where removable crafts remained after editing an item
+ * Fix crash on deleting the number for default gem level/quality on the skills tab
 ### 1.4.170.2 - 2020/06/23
  * Add Baranite Sister Spectre
  * Add 20 fuse cap to Explosive Arrow

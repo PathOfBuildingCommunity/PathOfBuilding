@@ -381,7 +381,7 @@ The Felbog Fang
 Citrine Amulet
 League: Harvest
 Requires Level 61
-Implictis: 1
+Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-50) to Intelligence
 {tags:caster,speed}(10-15)% increased Cast Speed

@@ -89,13 +89,27 @@ Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
+Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
 (25-35)% increased Stun Duration on Enemies
 Grants Summon Harbinger of Directions Skill
++(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
 Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
++(15-25)% to Fire and Cold Resistances
+]],[[
+The Shattered Divinity
+Blunt Arrow Quiver
+League: Harvest
+Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
+Requires Level 60
+Implicits: 1
+(25-35)% increased Stun Duration on Enemies
+Grants Summon Greater Harbinger of Directions Skill
 +(30-50) to Strength and Dexterity
+Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
+Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 +(15-25)% to Fire and Cold Resistances
 ]],[[
 Hyrri's Bite
@@ -208,7 +222,7 @@ Adds 6 to 12 Physical Damage to Bow Attacks
 (40-60)% increased Projectile Damage while in Blood Stance
 +(700-1000) to Evasion Rating while in Sand Stance
 (20-30)% increased Area of Effect while in Sand Stance
-(20-30)% increased Attack Speed if you’ve changed Stance Recently
+(20-30)% increased Attack Speed if you've changed Stance Recently
 ]],[[
 Skirmish
 Two-Point Arrow Quiver

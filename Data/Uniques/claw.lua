@@ -74,7 +74,7 @@ Adds 10 to 12 Physical Damage
 1.2% of Physical Attack Damage Leeched as Life
 5% increased Movement Speed
 {variant:1}Life Leech from Hits with this Weapon applies instantly
-{variant:2}Gain Life from Leech instantly from Hits with this Weapon
+{variant:2}Life Leech from Hits with this Weapon is instant
 ]],[[
 Cybil's Paw
 Thresher Claw

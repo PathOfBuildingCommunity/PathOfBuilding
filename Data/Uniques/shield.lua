@@ -825,10 +825,25 @@ Implicits: 1
 The Unshattered Will
 Archon Kite Shield
 League: Harbinger
+Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Harbinger of Focus Skill
++(60-80) to maximum Life
++(10-15)% to all Elemental Resistances
++(30-50) Mana gained when you Block
++5% Chance to Block
+(50-70)% increased Damage with Channelling Skills
+]],[[
+The Immortal Will
+Archon Kite Shield
+League: Harvest
+Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
+Requires Level 68, 85 Str, 85 Int
+Implicits: 1
++12% to all Elemental Resistances
+Grants Summon Greater Harbinger of Focus Skill
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 +(30-50) Mana gained when you Block

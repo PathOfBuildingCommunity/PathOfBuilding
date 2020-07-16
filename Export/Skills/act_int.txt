@@ -170,8 +170,12 @@ local skills, mod, flag, skill = ...
 		["spell_maximum_base_fire_damage"] = {
 			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
+		["corpse_warp_area_of_effect_+%_final_when_consuming_corpse"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
 	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 10)
 #mods
 
 #skill BoneOffering
@@ -227,6 +231,10 @@ local skills, mod, flag, skill = ...
 #skill VaalColdSnap
 #flags spell area duration
 #baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 20)
+#baseMod skill("radiusLabel", "Initial Area:")
+#baseMod skill("radiusSecondary", 36)
+#baseMod skill("radiusSecondaryLabel", "Final Area:")
 #mods
 
 #skill Conductivity
@@ -432,6 +440,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile duration chaos
 #baseMod skill("debuff", true)
 #baseMod skill("showAverage", true)
+#baseMod skill("radius", 8)
 #mods
 
 #skill Fireball
@@ -461,6 +470,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#baseMod skill("radius", 9)
 #mods
 
 #skill Firestorm
@@ -511,16 +521,36 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 2, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 29, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill VaalFlameblast
 #flags spell area
-	statMap = {
-		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }),
+    parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "Max Stages",
 		},
 	},
-#baseMod mod("Multiplier:FlameblastStage", "BASE", 9)
+	statMap = {
+		["charged_blast_spell_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["flameblast_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["flameblast_ignite_chance_+%_per_stage"] = {
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["vaal_flameblast_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+	},
+#baseMod mod("Multiplier:VaalFlameblastStage", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 35)
 #mods
 
 #skill Flammability
@@ -577,6 +607,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuffSecondary", true)
+#baseMod skill("radius", 24)
 #mods
 
 #skill FrostWall
@@ -604,6 +635,10 @@ local skills, mod, flag, skill = ...
 #skill IceDash
 #flags spell area hit
 #baseMod skill("showAverage", true)
+#baseMod skill("radius", 20)
+#baseMod skill("radiusLabel", "Area of initial explosion:")
+#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondaryLabel", "Area of Chilled Ground:")
 #mods
 
 #skill FrostBolt
@@ -652,6 +687,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalIceNova
 #flags spell area
+#baseMod skill("radius", 26)
 #mods
 
 #skill IceSpear
@@ -722,16 +758,23 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
 		},
 		["expanding_fire_cone_radius_+_per_stage"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
 		},
 		["expanding_fire_cone_final_wave_always_ignite"] = {
 			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
 			value = 100,
 		},
+		["expanding_fire_cone_radius_limit"] = {
+			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
+		},
 	},
-#baseMod mod("Multiplier:IncinerateStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("Multiplier:IncinerateStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:IncinerateStage", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:IncinerateStage", "BASE", 7, 0, 0, { type = "SkillPart", skillPartList = { 3, 4 }  })
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("radius", 25)
+#baseMod skill("radiusLabel", "Flame Length:")
+#baseMod skill("radiusSecondary", 20)
+#baseMod skill("radiusSecondaryLabel", "Flame Width:")
 #mods
 
 #skill ClusterBurst
@@ -760,6 +803,7 @@ local skills, mod, flag, skill = ...
 
 #skill LightningTowerTrap
 #flags spell trap duration area
+#baseMod skill("radius", 24)
 #mods
 
 #skill LightningTendrilsChannelled
@@ -773,6 +817,11 @@ local skills, mod, flag, skill = ...
 
 #skill VaalLightningTrap
 #flags spell trap projectile duration
+	statMap = {
+		["shocked_ground_base_magnitude_override"] = {
+			mod("ShockedGroundEffect", "BASE", nil)
+		},
+	},
 #mods
 
 #skill LightningWarp
@@ -782,10 +831,12 @@ local skills, mod, flag, skill = ...
 
 #skill VaalLightningWarpInstant
 #flags spell area duration
+#baseMod skill("radius", 16)
 #mods
 
 #skill MagmaOrb
 #flags spell projectile area chaining
+#baseMod skill("radius", 14)
 #mods
 
 #skill DamageOverTimeAura
@@ -812,6 +863,7 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
+#baseMod skill("radius", 28)
 #mods
 
 #skill MagmaSigil
@@ -855,6 +907,8 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:EnergyLevel", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 4 })
 #baseMod mod("Multiplier:EnergyLevel", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 5 })
 #baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 6 })
+#baseMod skill("radius", 8)
+#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "EnergyLevel" }, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }})
 #mods
 
 #skill PowerSiphon
@@ -1023,6 +1077,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 30)
 #mods
 
 #skill FireBeam
@@ -1165,6 +1220,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
+#baseMod skill("radius", 9)
 #mods
 
 #skill LightningExplosionMine
@@ -1228,6 +1284,10 @@ local skills, mod, flag, skill = ...
 
 #skill VaalStormCall
 #flags spell area duration
+#baseMod skill("radius", 16)
+#baseMod skill("radiusLabel", "Initial Lightning tether area:")
+#baseMod skill("radiusSecondary", 40)
+#baseMod skill("radiusSecondaryLabel", "Final Lightning Strike area:")
 #mods
 
 #skill SummonBoneGolem
@@ -1332,6 +1392,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Mine, KeywordFlag.Trap), { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#baseMod skill("radius", 30)
 #mods
 
 #skill TempestShield

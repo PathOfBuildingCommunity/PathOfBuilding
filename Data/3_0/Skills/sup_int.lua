@@ -243,7 +243,7 @@ skills["SupportArcaneSurge"] = {
 		},
 		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
 			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-			div = 60,
+			div = 60.0001,
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
@@ -635,7 +635,7 @@ skills["SupportCastWhileChannelling"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil),
 			div = 1000,
 		},
 	},
@@ -705,6 +705,7 @@ skills["SupportCastWhileChannellingTriggered"] = {
 		},
 	},
 	baseMods = {
+		skill("triggeredWhileChannelling", true),
 	},
 	qualityStats = {
 		{ "triggered_skill_damage_+%", 0.5 },
@@ -769,7 +770,7 @@ skills["SupportCastWhileChannellingPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil),
 			div = 1000,
 		},
 	},
@@ -820,6 +821,7 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 		},
 	},
 	baseMods = {
+		skill("triggeredWhileChannelling", true),
 	},
 	qualityStats = {
 		{ "triggered_skill_damage_+%", 0.5 },
@@ -1250,6 +1252,12 @@ skills["SupportCurseOnHitPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHit",
 	statDescriptionScope = "gem_stat_descriptions",
+    statMap = {
+		["number_of_additional_curses_allowed"] = {
+			mod("AdditionalCurse", "BASE", nil),
+			flag("CanHaveAdditionalCurse"),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

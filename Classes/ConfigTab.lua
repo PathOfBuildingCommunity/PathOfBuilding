@@ -7,6 +7,7 @@ local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local s_upper = string.upper
 
 local gameVersionDropList = { }
 for _, version in ipairs(targetVersionList) do
@@ -83,7 +84,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						return true
 					end
 					local node = self.build.spec.nodes[varData.ifNode]
-					if node.type == "Keystone" then
+					if node and node.type == "Keystone" then
 						return self.build.calcsTab.mainEnv.keystonesAdded[node.dn]
 					end
 				end
@@ -236,7 +237,11 @@ function ConfigTabClass:Load(xml, fileName)
 			if node.attrib.number then
 				self.input[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
-				self.input[node.attrib.name] = node.attrib.string
+				if node.attrib.name == "enemyIsBoss" then
+					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
+				else
+					self.input[node.attrib.name] = node.attrib.string
+				end
 			elseif node.attrib.boolean then
 				self.input[node.attrib.name] = node.attrib.boolean == "true"
 			else

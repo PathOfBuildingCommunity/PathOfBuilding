@@ -65,7 +65,7 @@ League: Harvest
 Requires Level 68
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
-{tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
+{tags:attack}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
 Nearby Enemies are Crushed while you have least 25 Rage
 (4-6)% increased Physical Damage per 10 Rage
@@ -229,10 +229,24 @@ Implicits: 1
 The Flow Untethered
 Cloth Belt
 League: Harbinger
+Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
 Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
+{tags:caster,attack}(10-15)% increased Attack and Cast Speed
+{tags:life}(15-20)% increased Life Recovery rate
+{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+(15-20)% increased Cooldown Recovery Speed
+Debuffs on you expire (15-20)% faster
+]],[[
+The Torrent's Reclamation
+Cloth Belt
+League: Harvest
+Source: Upgraded from unique{The Flow Untethered} via currency{Time-light Scroll}
+Requires Level 60
+(15-25% increased Stun and Block Recovery
+Grants Summon Greater Harbinger of Time Skill
 {tags:caster,attack}(10-15)% increased Attack and Cast Speed
 {tags:life}(15-20)% increased Life Recovery rate
 {tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
