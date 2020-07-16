@@ -496,6 +496,7 @@ function calcs.defence(env, actor)
 		output.SpellBlockChance = 0
 		output.SpellProjectileBlockChance = 0
 	end
+	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
 	output.BlockEffect = modDB:Sum("BASE", nil, "BlockEffect")
 	if output.BlockEffect == 0 then
 		output.BlockEffect = 100
@@ -558,15 +559,20 @@ function calcs.defence(env, actor)
 	-- Energy Shield bypass
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."EnergyShieldBypass"] = modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0
-		if output[damageType.."EnergyShieldBypass"] ~= 0 then
+		if modDB:Flag(nil, "BlockedDamageDoesntBypassES") and modDB:Flag(nil, "UnblockedDamageDoesBypassES") then
+			output[damageType.."EnergyShieldBypass"] = 100 - output.AverageBlockChance 
 			output.AnyBypass = true
-		end
-		if damageType == "Chaos" then
-			if not modDB:Flag(nil, "ChaosNotBypassEnergyShield") then
-				output[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] + 100
-			else
+		else
+			output[damageType.."EnergyShieldBypass"] = modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0
+			if output[damageType.."EnergyShieldBypass"] ~= 0 then
 				output.AnyBypass = true
+			end
+			if damageType == "Chaos" then
+				if not modDB:Flag(nil, "ChaosNotBypassEnergyShield") then
+					output[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] + 100
+				else
+					output.AnyBypass = true
+				end
 			end
 		end
 		output[damageType.."EnergyShieldBypass"] = m_max(m_min(output[damageType.."EnergyShieldBypass"], 100), 0)
