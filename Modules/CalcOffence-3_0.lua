@@ -1140,7 +1140,7 @@ function calcs.offence(env, actor, activeSkill)
 					globalBreakdown.IntimidatingUpTimeRatio = {
 						s_format("100 x (%d ^8(num exerts)", globalOutput.IntimidatingExertsCount),
 						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
-						s_format("/ (%.2f  ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown),
+						s_format(" / (%.2f  ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown),
 						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime),
 					}
 				end
@@ -1159,7 +1159,7 @@ function calcs.offence(env, actor, activeSkill)
 				if globalBreakdown then
 					globalBreakdown.IntimidatingHitEffect = {
 						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.IntimidatingAvgDmg),
-						s_format("   x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio/100),
+						s_format("    x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio/100),
 					}
 				end
 				
@@ -1179,7 +1179,7 @@ function calcs.offence(env, actor, activeSkill)
 					globalBreakdown.RallyingUpTimeRatio = {
 						s_format("100 x (%d ^8(num exerts)", globalOutput.RallyingExertsCount),
 						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
-						s_format("/ (%.2f  ^8(warcry cooldown)", globalOutput.RallyingCryCooldown),
+						s_format(" / (%.2f  ^8(warcry cooldown)", globalOutput.RallyingCryCooldown),
 						s_format(" + %.2f)  ^8(warcry casttime)", globalOutput.RallyingCryCastTime),
 					}
 				end
@@ -1198,7 +1198,7 @@ function calcs.offence(env, actor, activeSkill)
 				if globalBreakdown then
 					globalBreakdown.RallyingHitEffect = {
 						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.RallyingAvgDmg),
-						s_format("   x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio/100),
+						s_format("    x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio/100),
 					}
 				end
 
@@ -1214,7 +1214,7 @@ function calcs.offence(env, actor, activeSkill)
 					globalBreakdown.SeismicUpTimeRatio = {
 						s_format("100 x (%d ^8(num exerts)", globalOutput.SeismicExertsCount),
 						s_format(" / %.2f) ^8(attacks per second)", output.Speed),
-						s_format("/ (%.2f  ^8(warcry cooldown)", globalOutput.SeismicCryCooldown),
+						s_format(" / (%.2f  ^8(warcry cooldown)", globalOutput.SeismicCryCooldown),
 						s_format(" + %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
 					}
 				end
@@ -1237,7 +1237,7 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("%.2f ^8(total seismic dmg multi across all exerts)", TotalSeismicDmgImpact),
 						s_format("Avg Seismic Dmg:"),
 						s_format("  (%.2f ^8(avg dmg multi per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
-						s_format("   x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
+						s_format(" x %.2f) ^8(Inc/More to Exerted Attacks)", exertedAttackEffect),
 						s_format(""),
 						s_format("Exterted Attacks Breakdown:"),
 					}
@@ -1246,7 +1246,7 @@ function calcs.offence(env, actor, activeSkill)
 				if globalBreakdown then
 					globalBreakdown.SeismicHitEffect = {
 						s_format("1 + (%.2f ^8(avg exerted dmg)", globalOutput.SeismicAvgDmg),
-						s_format("   x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio/100),
+						s_format("    x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio/100),
 					}
 				end
 
