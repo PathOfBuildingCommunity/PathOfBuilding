@@ -473,12 +473,14 @@ function CalcsTabClass:PowerBuilder()
 				cache[node.modKey] = calcFunc({node})
 			end
 			local output = cache[node.modKey]
+			if node.name == "Crusader" then
+				local noop = ""
+			end
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
-				if (node.path or node.recipe) and not node.ascendancyName then
+				if node.path and not node.ascendancyName then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
-					local pathCost = node.path and #node.path or 1
-					newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / pathCost, newPowerMax.singleStatPerPoint)
+					newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / node.pathDist, newPowerMax.singleStatPerPoint)
 				end
 			else
 				if calcBase.Minion then
@@ -492,12 +494,11 @@ function CalcsTabClass:PowerBuilder()
 								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
 								(output.LifeRegen - calcBase.LifeRegen) / 500 +
 								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
-				if (node.path or node.recipe) and not node.ascendancyName then
+				if node.path and not node.ascendancyName then
 					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
-					local pathCost = node.path and #node.path or 1
-					newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / pathCost)
-					newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / pathCost)
+					newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
+					newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
 
 				end
 			end
