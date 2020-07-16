@@ -1138,11 +1138,11 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.IntimidatingUpTimeRatio = m_min((globalOutput.IntimidatingExertsCount / output.Speed) / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.IntimidatingUpTimeRatio = {
-						s_format("100 x (%d ^8(number of exerts)", globalOutput.IntimidatingExertsCount),
+						s_format("(%d ^8(number of exerts)", globalOutput.IntimidatingExertsCount),
 						s_format("/ %.2f) ^8(attacks per second)", output.Speed),
 						s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown),
 						s_format("+ %.2f) ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime),
-						s_format("= %.2f", globalOutput.IntimidatingUpTimeRatio),
+						s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio),
 					}
 				end
 				local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
@@ -1180,11 +1180,11 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.RallyingUpTimeRatio = m_min((globalOutput.RallyingExertsCount / output.Speed) / (globalOutput.RallyingCryCooldown + globalOutput.RallyingCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.RallyingUpTimeRatio = {
-						s_format("100 x (%d ^8(number of exerts)", globalOutput.RallyingExertsCount),
+						s_format("(%d ^8(number of exerts)", globalOutput.RallyingExertsCount),
 						s_format("/ %.2f) ^8(attacks per second)", output.Speed),
 						s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown),
 						s_format("+ %.2f) ^8(warcry casttime)", globalOutput.RallyingCryCastTime),
-						s_format("= %.2f", globalOutput.RallyingUpTimeRatio),
+						s_format("= %d%%", globalOutput.RallyingUpTimeRatio),
 					}
 				end
 				globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100) * exertedAttackEffect
@@ -1218,11 +1218,11 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.SeismicUpTimeRatio = m_min((globalOutput.SeismicExertsCount / output.Speed) / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1) * 100
 				if globalBreakdown then
 					globalBreakdown.SeismicUpTimeRatio = {
-						s_format("100 x (%d ^8(number of exerts)", globalOutput.SeismicExertsCount),
+						s_format("(%d ^8(number of exerts)", globalOutput.SeismicExertsCount),
 						s_format("/ %.2f) ^8(attacks per second)", output.Speed),
 						s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown),
 						s_format("+ %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
-						s_format("= %.2f", globalOutput.SeismicUpTimeRatio),
+						s_format("= %d%%", globalOutput.SeismicUpTimeRatio),
 					}
 				end
 				-- calculate the stacking MORE dmg modifier of Seismic slams
