@@ -1736,7 +1736,7 @@ local specialModList = {
 		mod("ShockBase", "BASE", 15, { type = "Condition", var = "Focused" }),
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Shocked") }, { type = "Condition", var = "Focused" } ),
 	},
-	["drops shocked ground while moving, lasting (%d+) seconds"] = { mod("ShockOverride", "OVERRIDE", 10, { type = "ActorCondition", actor = "enemy", var = "OnShockedGround"} ) },
+	["drops shocked ground while moving, lasting (%d+) seconds"] = { mod("ShockOverride", "BASE", 10, { type = "ActorCondition", actor = "enemy", var = "OnShockedGround"} ) },
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
@@ -1811,6 +1811,7 @@ local specialModList = {
 	["([%+%-][%d%.]+) seconds to avian's might duration"] = function(num) return { mod("PrimaryDuration", "BASE", num, { type = "SkillName", skillName = "Aspect of the Avian" }) } end,
 	["([%+%-][%d%.]+) seconds to avian's flight duration"] = function(num) return { mod("SecondaryDuration", "BASE", num, { type = "SkillName", skillName = "Aspect of the Avian" }) } end,
 	["aspect of the spider can inflict spider's web on enemies an additional time"] = { mod("ExtraSkillMod", "LIST", { mod = mod("Multiplier:SpiderWebApplyStackMax", "BASE", 1) }, { type = "SkillName", skillName = "Aspect of the Spider" }) },
+	["aspect of the avian also grants avian's might and avian's flight to nearby allies"] = { mod("ExtraSkillMod", "LIST", { mod = mod("BuffEffectOnMinion", "MORE", 100) }, { type = "SkillName", skillName = "Aspect of the Avian" }) },
 	["enemies affected by your spider's webs have (%-%d+)%% to all resistances"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("ElementalResist", "BASE", num, { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }) }),
 		mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", num, { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }) }),
@@ -2077,8 +2078,7 @@ local specialModList = {
 	["zealot's oath during flask effect"] = { mod("ZealotsOath", "FLAG", true, { type = "Condition", var = "UsingFlask" }) },
 	["grants level (%d+) (.+) curse aura during flask effect"] = function(num, _, skill) return { mod("ExtraCurse", "LIST", { skillId = gemIdLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "Condition", var = "UsingFlask" }) } end,
 	["shocks nearby enemies during flask effect, causing (%d+)%% increased damage taken"] = function(num) return { 
-		mod("EnemyModifier", "LIST", { mod = mod("Condition:Shocked", "FLAG", true) } ),
-		mod("ShockOverride", "OVERRIDE", num)
+		mod("ShockOverride", "BASE", num, { type = "Condition", var = "UsingFlask" } )
 	} end,
 	["during flask effect, (%d+)%% reduced damage taken of each element for which your uncapped elemental resistance is lowest"] = function(num) return {
 		mod("LightningDamageTaken", "INC", -num, { type = "StatThreshold", stat = "LightningResistTotal", thresholdStat = "ColdResistTotal", upper = true }, { type = "StatThreshold", stat = "LightningResistTotal", thresholdStat = "FireResistTotal", upper = true }),
