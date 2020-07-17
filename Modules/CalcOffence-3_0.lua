@@ -1114,14 +1114,14 @@ function calcs.offence(env, actor, activeSkill)
 				output.AncestralCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 				output.AncestralExertsCount = env.modDB:Sum("BASE", nil, "NumAncestralExerts") or 0
 				output.AncestralBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-				output.AncestralUpTimeRatio = m_min((output.AncestralExertsCount / output.Speed) / (output.AncestralCryCooldown + output.AncestralCryCastTime), 1)
+				globalOutput.AncestralUpTimeRatio = m_min((output.AncestralExertsCount / output.Speed) / (output.AncestralCryCooldown + output.AncestralCryCastTime), 1)
 			elseif value.activeEffect.grantedEffect.name == "Infernal Cry" and activeSkill.skillTypes[SkillType.Melee] then
 				output.InfernalCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 				output.InfernalCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 				output.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 				output.InfernalExertsCount = env.modDB:Sum("BASE", nil, "NumInfernalExerts") or 0
 				output.InfernalBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-				output.InfernalUpTimeRatio = m_min((output.InfernalExertsCount / output.Speed) / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
+				globalOutput.InfernalUpTimeRatio = m_min((output.InfernalExertsCount / output.Speed) / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
 				if not skillModList:Flag(skillCfg, "CoveredInAsh") then
 					-- Covered in Ash calculation
 					local buffUptime = m_min(output.InfernalCryDuration / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
@@ -1146,18 +1146,17 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
-				globalOutput.IntimidatingAvgDmg = (1 - ddChance / 100) * exertedAttackEffect
+				globalOutput.IntimidatingAvgDmg = exertedAttackEffect
 				if globalBreakdown then
 					globalBreakdown.IntimidatingAvgDmg = {
 						s_format("Average Intimidating Cry Damage:"),
-						s_format("(%.2f ^8(average damage multiplier for raising double damage chance to 100%%)", (1 - ddChance / 100) ),
-						s_format("x %.2f) ^8(sum of Exerted Attack increases)", exertedAttackEffect),
+						s_format("%.2f ^8(average damage multiplier for raising double damage chance to 100%%)", (1 - ddChance / 100) ),
 						s_format("= %.2f", globalOutput.IntimidatingAvgDmg),
 						s_format(""),
 						s_format("Exterted Attacks Breakdown:"),
 					}
 				end
-				globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
+				globalOutput.IntimidatingHitEffect = 1 -- globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
 				if globalBreakdown then
 					globalBreakdown.IntimidatingHitEffect = {
 						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.IntimidatingAvgDmg),
@@ -1187,13 +1186,12 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("= %d%%", globalOutput.RallyingUpTimeRatio),
 					}
 				end
-				globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100) * exertedAttackEffect
+				globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100)
 				if globalBreakdown then
 					globalBreakdown.RallyingAvgDmg = {
 						s_format("Average Rallying Cry Damage:"),
-						s_format("(%.2f ^8(average damage multiplier per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
+						s_format("%.2f ^8(average damage multiplier per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
 						s_format("x %d ^8(number of nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
-						s_format("x %.2f) ^8(sum of Exerted Attack increases)", exertedAttackEffect),
 						s_format("= %.2f", globalOutput.RallyingAvgDmg),
 						s_format(""),
 						s_format("Exterted Attacks Breakdown:"),
@@ -1237,14 +1235,13 @@ function calcs.offence(env, actor, activeSkill)
 					TotalSeismicDmgImpact = TotalSeismicDmgImpact + ThisSeismicDmgImpact
 					AoEImpact = AoEImpact + (i * SeismicMoreDmgAndAoEPerExert)
 				end
-				globalOutput.SeismicAvgDmg = (TotalSeismicDmgImpact / globalOutput.SeismicExertsCount) * exertedAttackEffect
+				globalOutput.SeismicAvgDmg = (TotalSeismicDmgImpact / globalOutput.SeismicExertsCount)
 				local AvgAoEImpact = AoEImpact / globalOutput.SeismicExertsCount
 				if globalBreakdown then
 					globalBreakdown.SeismicAvgDmg = {
 						s_format("%.2f ^8(total seismic damage multiplier across all exerts)", TotalSeismicDmgImpact),
 						s_format("Average Seismic Damage:"),
 						s_format("(%.2f ^8(average damage multiplier per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
-						s_format("x %.2f) ^8(sum of Exerted Attack increases)", exertedAttackEffect),
 						s_format("= %.2f", globalOutput.SeismicAvgDmg),
 						s_format(""),
 						s_format("Exterted Attacks Breakdown:"),
@@ -1269,7 +1266,13 @@ function calcs.offence(env, actor, activeSkill)
 				skillModList:NewMod("EnemyStunThreshold", "BASE", -stunBuff * globalOutput.SeismicBuffEffect * buffUptime, "Seismic Cry Buff")
 			end
 		end
-		globalOutput.OffensiveWarcryEffect = 1 * globalOutput.IntimidatingHitEffect * globalOutput.RallyingHitEffect * globalOutput.SeismicHitEffect
+
+		-- Calculate Exerted Attack Uptime
+		-- There are various strategies a player could use to maximize either warcry effect stacking or staggering
+		-- 1) they don't pay attention and therefore we calculated exerted attack uptime as just the maximum uptime of any enabled warcries that exert attacks
+		globalOutput.ExertedAttackUptime = m_max(m_max(m_max(globalOutput.AncestralUpTimeRatio or 0, globalOutput.InfernalUpTimeRatio or 0), m_max(globalOutput.IntimidatingUpTimeRatio or 0, globalOutput.RallyingUpTimeRatio or 0)), globalOutput.SeismicUpTimeRatio or 0)
+
+		globalOutput.OffensiveWarcryEffect = 1 * globalOutput.IntimidatingHitEffect * globalOutput.RallyingHitEffect * globalOutput.SeismicHitEffect * (exertedAttackEffect * globalOutput.ExertedAttackUptime/100)
 
 		-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
@@ -1291,12 +1294,6 @@ function calcs.offence(env, actor, activeSkill)
 			output.FistOfWarHitEffect = 1
 			output.FistOfWarAilmentEffect = 1
 		end
-
-		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
-		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)
-		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.CritDoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "CritDoubleDamageChance"), 100 - output.DoubleDamageChance)
-		output.CritDoubleDamageEffect = 1 + output.CritDoubleDamageChance / 100
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
@@ -1382,18 +1379,25 @@ function calcs.offence(env, actor, activeSkill)
 				output.CritMultiplier = 1 + m_max(0, extraDamage)
 			end
 			local critChancePercentage = output.CritChance / 100
-			output.CritEffect = 1 - critChancePercentage + critChancePercentage * output.CritMultiplier * output.CritDoubleDamageEffect
+			output.CritEffect = 1 - critChancePercentage + critChancePercentage * output.CritMultiplier
 			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
 			if breakdown and output.CritEffect ~= 1 then
 				breakdown.CritEffect = {
 					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", critChancePercentage),
 					s_format("+ [ (%.4f x %g) ^8(portion of damage from crits)", critChancePercentage, output.CritMultiplier),
-					s_format("  x (%.4f) ] ^8(double damage inc on crit)", 1 + output.CritDoubleDamageChance / 100),
 					s_format("= %.3f", output.CritEffect),
 				}
 			end
 		end
 
+		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
+		output.DoubleDamageChanceOnCrit = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChanceOnCrit"), 100)
+		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + (output.DoubleDamageChanceOnCrit * output.CritChance), 100)
+		if globalOutput.IntimidatingUpTimeRatio then
+			output.DoubleDamageChance = m_min(output.DoubleDamageChance + globalOutput.IntimidatingUpTimeRatio, 100)
+		end
+		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
+		
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -1478,7 +1482,7 @@ function calcs.offence(env, actor, activeSkill)
 					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
 					if pass == 1 then
 						-- Apply crit multiplier
-						allMult = allMult * output.CritMultiplier * output.CritDoubleDamageEffect
+						allMult = allMult * output.CritMultiplier
 					end				
 					damageTypeHitMin = damageTypeHitMin * allMult
 					damageTypeHitMax = damageTypeHitMax * allMult
