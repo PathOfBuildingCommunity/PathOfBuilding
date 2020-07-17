@@ -1272,7 +1272,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- 1) they don't pay attention and therefore we calculated exerted attack uptime as just the maximum uptime of any enabled warcries that exert attacks
 		globalOutput.ExertedAttackUptime = m_max(m_max(m_max(globalOutput.AncestralUpTimeRatio or 0, globalOutput.InfernalUpTimeRatio or 0), m_max(globalOutput.IntimidatingUpTimeRatio or 0, globalOutput.RallyingUpTimeRatio or 0)), globalOutput.SeismicUpTimeRatio or 0)
 
-		globalOutput.OffensiveWarcryEffect = 1 * globalOutput.IntimidatingHitEffect * globalOutput.RallyingHitEffect * globalOutput.SeismicHitEffect * (exertedAttackEffect * globalOutput.ExertedAttackUptime/100)
+		globalOutput.OffensiveWarcryEffect = m_max(1 * globalOutput.IntimidatingHitEffect * globalOutput.RallyingHitEffect * globalOutput.SeismicHitEffect * (exertedAttackEffect * globalOutput.ExertedAttackUptime/100), 1)
 
 		-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
