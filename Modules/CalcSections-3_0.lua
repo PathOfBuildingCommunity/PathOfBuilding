@@ -311,7 +311,7 @@ return {
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },
-{ 3, "Warcries", 1, colorCodes.POSITIVE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
+{ 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
 	colWidth = 142,
 	{
 		haveOutput = "CreateWarcryOffensiveCalcSection",
