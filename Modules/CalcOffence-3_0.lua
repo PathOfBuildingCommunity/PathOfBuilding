@@ -1107,25 +1107,43 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Iterative over all the active skills to account for exerted attacks provided by warcries
 		for index, value in ipairs(actor.activeSkillList) do
-			if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] then
-				output.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
-				output.AncestralCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
-				output.AncestralCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
-				output.AncestralExertsCount = env.modDB:Sum("BASE", nil, "NumAncestralExerts") or 0
-				output.AncestralBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-				globalOutput.AncestralUpTimeRatio = m_min((output.AncestralExertsCount / output.Speed) / (output.AncestralCryCooldown + output.AncestralCryCastTime), 1)
+			if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.Melee] then
+				globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+				globalOutput.AncestralCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
+				globalOutput.AncestralCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+				globalOutput.AncestralExertsCount = env.modDB:Sum("BASE", nil, "NumAncestralExerts") or 0
+				globalOutput.AncestralBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
+				globalOutput.AncestralUpTimeRatio = m_min((globalOutput.AncestralExertsCount / output.Speed) / (globalOutput.AncestralCryCooldown + globalOutput.AncestralCryCastTime), 1) * 100
+				if globalBreakdown then
+					globalBreakdown.AncestralUpTimeRatio = {
+						s_format("(%d ^8(number of exerts)", globalOutput.AncestralExertsCount),
+						s_format("/ %.2f) ^8(attacks per second)", output.Speed),
+						s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown),
+						s_format("+ %.2f) ^8(warcry casttime)", globalOutput.AncestralCryCastTime),
+						s_format("= %d%%", globalOutput.AncestralUpTimeRatio),
+					}
+				end
 			elseif value.activeEffect.grantedEffect.name == "Infernal Cry" then
-				output.InfernalCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
-				output.InfernalCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
-				output.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+				globalOutput.InfernalCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+				globalOutput.InfernalCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
+				globalOutput.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 				if activeSkill.skillTypes[SkillType.Melee] then
-					output.InfernalExertsCount = env.modDB:Sum("BASE", nil, "NumInfernalExerts") or 0
-					output.InfernalBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-					globalOutput.InfernalUpTimeRatio = m_min((output.InfernalExertsCount / output.Speed) / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
+					globalOutput.InfernalExertsCount = env.modDB:Sum("BASE", nil, "NumInfernalExerts") or 0
+					globalOutput.InfernalBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
+					globalOutput.InfernalUpTimeRatio = m_min((globalOutput.InfernalExertsCount / output.Speed) / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1) * 100
+					if globalBreakdown then
+						globalBreakdown.InfernalUpTimeRatio = {
+							s_format("(%d ^8(number of exerts)", globalOutput.InfernalExertsCount),
+							s_format("/ %.2f) ^8(attacks per second)", output.Speed),
+							s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown),
+							s_format("+ %.2f) ^8(warcry casttime)", globalOutput.InfernalCryCastTime),
+							s_format("= %d%%", globalOutput.InfernalUpTimeRatio),
+						}
+					end
 				end
 				if not skillModList:Flag(skillCfg, "CoveredInAsh") then
 					-- Covered in Ash calculation
-					local buffUptime = m_min(output.InfernalCryDuration / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
+					local buffUptime = m_min(globalOutput.InfernalCryDuration / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1)
 					local CoveredInAshBuff = env.modDB:Sum("BASE", nil, "InfernalCoveredInAsh") or 0
 					enemyDB:NewMod("FireDamageTaken", "INC", CoveredInAshBuff * buffUptime, "Infernal Cry Buff")
 				end

@@ -311,7 +311,7 @@ return {
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },
-{ 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Offensive Warcries", data = {
+{ 3, "Warcries", 1, colorCodes.POSITIVE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
 	colWidth = 142,
 	{
 		haveOutput = "CreateWarcryOffensiveCalcSection",
@@ -337,6 +337,18 @@ return {
 		{ format = "{2:output:RallyingAvgDmg}", { breakdown = "RallyingAvgDmg"}, },
 		{ format = "{0:output:RallyingUpTimeRatio}%", { breakdown = "RallyingUpTimeRatio" }, },
 		{ format = "{0:output:RallyingExertsCount}" },
+	},
+	{ label = "Infernal Cry", haveOutput = "InfernalUpTimeRatio", 
+		{ format = "" },
+		{ format = "" },
+		{ format = "{0:output:InfernalUpTimeRatio}%", { breakdown = "InfernalUpTimeRatio" }, },
+		{ format = "{0:output:InfernalExertsCount}" },
+	},
+	{ label = "Ancestral Cry", haveOutput = "AncestralUpTimeRatio", 
+		{ format = "" },
+		{ format = "" },
+		{ format = "{0:output:AncestralUpTimeRatio}%", { breakdown = "AncestralUpTimeRatio" }, },
+		{ format = "{0:output:AncestralExertsCount}" },
 	},
 	{ label = "Exerted Attacks", haveOutput = "ExertedAttackUptimeRatio", 
 		{ format = "{2:output:ExertedAttackHitEffect}", { breakdown = "ExertedAttackHitEffect"}, },
