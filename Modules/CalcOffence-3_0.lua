@@ -1119,13 +1119,16 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.AncestralBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.AncestralUpTimeRatio = m_min((globalOutput.AncestralExertsCount / output.Speed) / (globalOutput.AncestralCryCooldown + globalOutput.AncestralCryCastTime), 1) * 100
 					if globalBreakdown then
-						globalBreakdown.AncestralUpTimeRatio = {
-							s_format("(%d ^8(number of exerts)", globalOutput.AncestralExertsCount),
-							s_format("/ %.2f) ^8(attacks per second)", output.Speed),
-							s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown),
-							s_format("+ %.2f) ^8(warcry casttime)", globalOutput.AncestralCryCastTime),
-							s_format("= %d%%", globalOutput.AncestralUpTimeRatio),
-						}
+						globalBreakdown.AncestralUpTimeRatio = { }
+						t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.AncestralExertsCount))
+						t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+						if globalOutput.AncestralCryCastTime > 0 then
+							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown))
+							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.AncestralCryCastTime))
+						else
+							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown))
+						end
+						t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("= %d%%", globalOutput.AncestralUpTimeRatio))
 					end
 				elseif value.activeEffect.grantedEffect.name == "Infernal Cry" then
 					globalOutput.InfernalCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -1136,21 +1139,24 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.InfernalBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 						globalOutput.InfernalUpTimeRatio = m_min((globalOutput.InfernalExertsCount / output.Speed) / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1) * 100
 						if globalBreakdown then
-							globalBreakdown.InfernalUpTimeRatio = {
-								s_format("(%d ^8(number of exerts)", globalOutput.InfernalExertsCount),
-								s_format("/ %.2f) ^8(attacks per second)", output.Speed),
-								s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown),
-								s_format("+ %.2f) ^8(warcry casttime)", globalOutput.InfernalCryCastTime),
-								s_format("= %d%%", globalOutput.InfernalUpTimeRatio),
-							}
+							globalBreakdown.InfernalUpTimeRatio = { }
+							t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.InfernalExertsCount))
+							t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+							if globalOutput.InfernalCryCastTime > 0 then
+								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown))
+								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.InfernalCryCastTime))
+							else
+								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown))
+							end
+							t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("= %d%%", globalOutput.InfernalUpTimeRatio))
 						end
 					end
-					if not skillModList:Flag(skillCfg, "CoveredInAsh") then
+					--if not skillModList:Flag(skillCfg, "CoveredInAsh") then
 						-- Covered in Ash calculation
-						local buffUptime = m_min(globalOutput.InfernalCryDuration / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1)
-						local CoveredInAshBuff = env.modDB:Sum("BASE", nil, "InfernalCoveredInAsh") or 0
-						enemyDB:NewMod("FireDamageTaken", "INC", CoveredInAshBuff * buffUptime, "Infernal Cry Buff")
-					end
+						--local buffUptime = m_min(globalOutput.InfernalCryDuration / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1)
+						--local CoveredInAshBuff = env.modDB:Sum("BASE", nil, "InfernalCoveredInAsh") or 0
+						--enemyDB:NewMod("FireDamageTaken", "INC", CoveredInAshBuff * buffUptime, "Infernal Cry Buff")
+					--end
 				elseif value.activeEffect.grantedEffect.name == "Intimidating Cry" and activeSkill.skillTypes[SkillType.Melee] then
 					globalOutput.CreateWarcryOffensiveCalcSection = true
 					globalOutput.IntimidatingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -1160,16 +1166,19 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.IntimidatingBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.IntimidatingUpTimeRatio = m_min((globalOutput.IntimidatingExertsCount / output.Speed) / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1) * 100
 					if globalBreakdown then
-						globalBreakdown.IntimidatingUpTimeRatio = {
-							s_format("(%d ^8(number of exerts)", globalOutput.IntimidatingExertsCount),
-							s_format("/ %.2f) ^8(attacks per second)", output.Speed),
-							s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown),
-							s_format("+ %.2f) ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime),
-							s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio),
-						}
+						globalBreakdown.IntimidatingUpTimeRatio = { }
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.IntimidatingExertsCount))
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+						if 	globalOutput.IntimidatingCryCastTime > 0 then
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown))
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime))
+						else
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown))
+						end
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio))
 					end
 					local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
-					globalOutput.IntimidatingAvgDmg = 2 * (1 - ddChance / 100)
+					globalOutput.IntimidatingAvgDmg = 2 * (1 - ddChance / 100) - 1
 					if globalBreakdown then
 						globalBreakdown.IntimidatingAvgDmg = {
 							s_format("Average Intimidating Cry Damage:"),
@@ -1178,12 +1187,12 @@ function calcs.offence(env, actor, activeSkill)
 							s_format("= %.2f", globalOutput.IntimidatingAvgDmg),
 						}
 					end
-					globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
+					globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio / 100
 					globalOutput.IntimidatingMaxHitEffect = 1 + globalOutput.IntimidatingAvgDmg
 					if globalBreakdown then
 						globalBreakdown.IntimidatingHitEffect = {
 							s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.IntimidatingAvgDmg),
-							s_format("x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio/100),
+							s_format("x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio / 100),
 							s_format("= %.2f", globalOutput.IntimidatingHitEffect),
 						}
 					end
@@ -1204,13 +1213,16 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.RallyingBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.RallyingUpTimeRatio = m_min((globalOutput.RallyingExertsCount / output.Speed) / (globalOutput.RallyingCryCooldown + globalOutput.RallyingCryCastTime), 1) * 100
 					if globalBreakdown then
-						globalBreakdown.RallyingUpTimeRatio = {
-							s_format("(%d ^8(number of exerts)", globalOutput.RallyingExertsCount),
-							s_format("/ %.2f) ^8(attacks per second)", output.Speed),
-							s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown),
-							s_format("+ %.2f) ^8(warcry casttime)", globalOutput.RallyingCryCastTime),
-							s_format("= %d%%", globalOutput.RallyingUpTimeRatio),
-						}
+						globalBreakdown.RallyingUpTimeRatio = { }
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.RallyingExertsCount))
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+						if 	globalOutput.RallyingCryCastTime > 0 then
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown))
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.RallyingCryCastTime))
+						else
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown))
+						end
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("= %d%%", globalOutput.RallyingUpTimeRatio))
 					end
 					globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100)
 					if globalBreakdown then
@@ -1221,12 +1233,12 @@ function calcs.offence(env, actor, activeSkill)
 							s_format("= %.2f", globalOutput.RallyingAvgDmg),
 						}
 					end
-					globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio/100
+					globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio / 100
 					globalOutput.RallyingMaxHitEffect = 1 + globalOutput.RallyingAvgDmg
 					if globalBreakdown then
 						globalBreakdown.RallyingHitEffect = {
 							s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.RallyingAvgDmg),
-							s_format("x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio/100),
+							s_format("x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio / 100),
 							s_format("= %.2f", globalOutput.RallyingHitEffect),
 						}
 					end
@@ -1244,13 +1256,16 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.SeismicBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.SeismicUpTimeRatio = m_min((globalOutput.SeismicExertsCount / output.Speed) / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1) * 100
 					if globalBreakdown then
-						globalBreakdown.SeismicUpTimeRatio = {
-							s_format("(%d ^8(number of exerts)", globalOutput.SeismicExertsCount),
-							s_format("/ %.2f) ^8(attacks per second)", output.Speed),
-							s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown),
-							s_format("+ %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime),
-							s_format("= %d%%", globalOutput.SeismicUpTimeRatio),
-						}
+						globalBreakdown.SeismicUpTimeRatio = { }
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.SeismicExertsCount))
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+						if 	globalOutput.SeismicCryCastTime > 0 then
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown))
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime))
+						else
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown))
+						end
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 					end
 					-- calculate the stacking MORE dmg modifier of Seismic slams
 					local SeismicMoreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
@@ -1276,12 +1291,12 @@ function calcs.offence(env, actor, activeSkill)
 							s_format("= %.2f", globalOutput.SeismicAvgDmg),
 						}
 					end
-					globalOutput.SeismicHitEffect = 1 + globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio/100
+					globalOutput.SeismicHitEffect = 1 + globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio / 100
 					globalOutput.SeismicMaxHitEffect = 1 + MaxSingleHitDmgImpact
 					if globalBreakdown then
 						globalBreakdown.SeismicHitEffect = {
 							s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.SeismicAvgDmg),
-							s_format("x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio/100),
+							s_format("x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio / 100),
 							s_format("= %.2f", globalOutput.SeismicHitEffect),
 						}
 					end
@@ -1306,28 +1321,37 @@ function calcs.offence(env, actor, activeSkill)
 			-- 1) they don't pay attention and therefore we calculated exerted attack uptime as just the maximum uptime of any enabled warcries that exert attacks
 			globalOutput.ExertedAttackUptimeRatio = m_max(m_max(m_max(globalOutput.AncestralUpTimeRatio or 0, globalOutput.InfernalUpTimeRatio or 0), m_max(globalOutput.IntimidatingUpTimeRatio or 0, globalOutput.RallyingUpTimeRatio or 0)), globalOutput.SeismicUpTimeRatio or 0)
 			if globalBreakdown then
-				globalBreakdown.ExertedAttackUptimeRatio = {
-					s_format("Maximum of:"),
-					s_format("%d%% ^8(Ancestral Cry Uptime)", globalOutput.AncestralUpTimeRatio or 0),
-					s_format("%d%% ^8(Infernal Cry Uptime)", globalOutput.InfernalUpTimeRatio or 0),
-					s_format("%d%% ^8(Intimidating Cry Uptime)", globalOutput.IntimidatingUpTimeRatio or 0),
-					s_format("%d%% ^8(Rallying Cry Uptime)", globalOutput.RallyingUpTimeRatio or 0),
-					s_format("%d%% ^8(Seismic Cry Uptime)", globalOutput.SeismicUpTimeRatio or 0),
-					s_format("= %d%%", globalOutput.ExertedAttackUptimeRatio),
-				}
+				globalBreakdown.ExertedAttackUptimeRatio = { }
+				t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("Maximum of:"))
+				if globalOutput.AncestralUpTimeRatio then
+					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Ancestral Cry Uptime)", globalOutput.AncestralUpTimeRatio or 0))
+				end
+				if globalOutput.InfernalUpTimeRatio then
+					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Infernal Cry Uptime)", globalOutput.InfernalUpTimeRatio or 0))
+				end
+				if globalOutput.IntimidatingUpTimeRatio then
+					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Intimidating Cry Uptime)", globalOutput.IntimidatingUpTimeRatio or 0))
+				end
+				if globalOutput.RallyingUpTimeRatio then
+					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Rallying Cry Uptime)", globalOutput.RallyingUpTimeRatio or 0))
+				end
+				if globalOutput.SeismicUpTimeRatio then
+					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Seismic Cry Uptime)", globalOutput.SeismicUpTimeRatio or 0))
+				end
+				t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("= %d%%", globalOutput.ExertedAttackUptimeRatio))
 			end
 			if globalOutput.ExertedAttackUptimeRatio > 0 then
 				local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
 				local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
-				skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio/100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
-				skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio/100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+				skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+				skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
 				globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
-				globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio/100
+				globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio / 100
 				globalOutput.ExertedAttackMaxHitEffect = globalOutput.ExertedAttackAvgDmg
 				if globalBreakdown then
 					globalBreakdown.ExertedAttackHitEffect = {
 						s_format("(%.2f ^8(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
-						s_format("x %.2f) ^8(uptime %%)", globalOutput.ExertedAttackUptimeRatio/100),
+						s_format("x %.2f) ^8(uptime %%)", globalOutput.ExertedAttackUptimeRatio / 100),
 						s_format("= %.2f", globalOutput.ExertedAttackHitEffect),
 					}
 				end
@@ -1452,9 +1476,11 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
 		output.DoubleDamageChanceOnCrit = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChanceOnCrit"), 100)
-		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + (output.DoubleDamageChanceOnCrit * output.CritChance/100), 100)
-		if globalOutput.IntimidatingUpTimeRatio then
+		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + (output.DoubleDamageChanceOnCrit * output.CritChance / 100), 100)
+		if globalOutput.IntimidatingUpTimeRatio and activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
 			output.DoubleDamageChance = m_min(output.DoubleDamageChance + globalOutput.IntimidatingUpTimeRatio, 100)
+		elseif globalOutput.IntimidatingUpTimeRatio and activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
+			output.DoubleDamageChance = 100
 		end
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
 		
@@ -1535,11 +1561,19 @@ function calcs.offence(env, actor, activeSkill)
 						if output.FistOfWarHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
 						end
-						if globalOutput.OffensiveWarcryEffect ~= 1 then
+						if globalOutput.OffensiveWarcryEffect ~= 1  and activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated warcry exerted effect modifier)", globalOutput.OffensiveWarcryEffect))
 						end
+						if globalOutput.MaxOffensiveWarcryEffect ~= 1 and activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated max warcry exerted effect modifier)", globalOutput.MaxOffensiveWarcryEffect))
+						end
 					end
-					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
+					if activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
+						output.allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
+					else
+						output.allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.MaxOffensiveWarcryEffect
+					end
+					local allMult = output.allMult
 					if pass == 1 then
 						-- Apply crit multiplier
 						allMult = allMult * output.CritMultiplier

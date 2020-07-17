@@ -60,7 +60,13 @@ return {
 	end },
 	{ var = "armourCalculationMode", type = "list", label = "Armour calculation mode:", tooltip = "Controls how Defending with Double Armour is calculated:\n\tMinimum, never Defend with Double Armour;\n\tAverage, Damage Reduction from Defending with Double Armour is proportional to chance;\n\tMaximum, always Defend with Double Armour.\nThis setting has no effect if you have 100% chance to Defend with Double Armour.", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="MAX",label="Maximum"}} },
 	{ var = "EhpCalcMode", type = "list", label = "EHP calc calculation mode:", tooltip = "Controls which types of damage the EHP calculation uses:\nAverage: Uses the Averages of all the damage types.\nMinimum: Calculates each one and uses the worst one.\nThe rest  are the specific types damage", list = {{val="Average",label="Average"},{val="Minimum",label="Minimum"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
-
+	{ var = "warcryMode", type = "list", label = "Warcry calculation mode:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry" }, tooltip = "Controls how exerted attacks from Warcries are calculated:\nAverage: Averages out Warcry usage with cast time, attack speed and warcry cooldown .\nMax Hit: Shows maximum hit for lining up all warcries.", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Hit"}}, apply = function(val, modList, enemyModList)
+		if val == "AVERAGE" then
+			modList:NewMod("Condition:WarcryAverage", "FLAG", true, "Config")
+		elseif val == "MAX" then
+			modList:NewMod("Condition:WarcryMaxHit", "FLAG", true, "Config")
+		end
+	end },
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
 	{ label = "Arcanist Brand:", ifSkill = "Arcanist Brand" },
