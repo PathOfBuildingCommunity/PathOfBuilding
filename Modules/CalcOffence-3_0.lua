@@ -1121,7 +1121,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 				output.InfernalExertsCount = env.modDB:Sum("BASE", nil, "NumInfernalExerts") or 0
 				output.InfernalBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
-				output.InfernalUpTimeRatio = m_min((output.InfernalExertsCoun / output.Speed) / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
+				output.InfernalUpTimeRatio = m_min((output.InfernalExertsCount / output.Speed) / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
 				if not skillModList:Flag(skillCfg, "CoveredInAsh") then
 					-- Covered in Ash calculation
 					local buffUptime = m_min(output.InfernalCryDuration / (output.InfernalCryCooldown + output.InfernalCryCastTime), 1)
@@ -1295,7 +1295,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
 		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.CritDoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "CritDoubleDamageChance"), 100)
+		output.CritDoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "CritDoubleDamageChance"), 100 - output.DoubleDamageChance)
 		output.CritDoubleDamageEffect = 1 + output.CritDoubleDamageChance / 100
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
@@ -1478,7 +1478,7 @@ function calcs.offence(env, actor, activeSkill)
 					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
 					if pass == 1 then
 						-- Apply crit multiplier
-						allMult = allMult * output.CritMultiplier
+						allMult = allMult * output.CritMultiplier * output.CritDoubleDamageEffect
 					end				
 					damageTypeHitMin = damageTypeHitMin * allMult
 					damageTypeHitMax = damageTypeHitMax * allMult
