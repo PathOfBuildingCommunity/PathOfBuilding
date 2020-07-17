@@ -2565,6 +2565,25 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
+	["Notable Passive Skills in Radius are Transformed to instead grant: 10% increased Mana Cost of Skills and 20% increased Spell Damage"] = function(node, out, data)
+		if node and node.type == "Notable" then
+			out:NewMod("PassiveSkillHasOtherEffect", "FLAG", true, data.modSource)
+			out:NewMod("NodeModifier", "LIST", { mod = mod("ManaCost", "INC", 10, data.modSource) }, data.modSource)
+			out:NewMod("NodeModifier", "LIST", { mod = mod("Damage", "INC", 20, data.modSource, ModFlag.Spell) }, data.modSource)
+		end
+	end,
+	["Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage"] = function(node, out, data)
+		if node and node.type == "Notable" then
+			out:NewMod("PassiveSkillHasOtherEffect", "FLAG", true, data.modSource)
+			out:NewMod("NodeModifier", "LIST", { mod = mod("MinionModifier", "LIST", { mod = mod("DamageTaken", "INC", 20, data.modSource) } ) }, data.modSource)
+		end
+	end,
+	["Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed"] = function(node, out, data)
+		if node and node.type == "Notable" then
+			out:NewMod("PassiveSkillHasOtherEffect", "FLAG", true, data.modSource)
+			out:NewMod("NodeModifier", "LIST", { mod = mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", -25, data.modSource) } ) }, data.modSource)
+		end
+	end,
 	["Passives in radius are Conquered by the Eternal Empire"] = function(node, out, data)
 		if node and node.type ~= "Keystone" then
 			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
