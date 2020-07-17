@@ -1025,6 +1025,7 @@ return {
 	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on consecrated ground?", tooltip = "In addition to allowing any relevant modifiers to apply,\nthis will cause your hits have 100% increased Critical Strike Chance on the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		modList:NewMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" })
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("CritChance", "INC", 100, { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }) }, "Config")
 	end },
 	{ var = "conditionEnemyOnProfaneGround", type = "check", label = "Is the enemy on Profane Ground?", ifCond = "CreateProfaneGround", tooltip = "Enemies on Profane Ground have reduced resistances and are more likely to be critically hit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
