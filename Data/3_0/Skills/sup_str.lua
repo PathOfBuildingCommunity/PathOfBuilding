@@ -2361,6 +2361,7 @@ skills["SupportMultistrike"] = {
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
+			flag("SupportedByMultistrike"),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
