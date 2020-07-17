@@ -1324,10 +1324,10 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio/100
 			globalOutput.ExertedAttackMaxHitEffect = globalOutput.ExertedAttackAvgDmg
 			if globalBreakdown then
-				globalBreakdown.ExertedAttackMaxHitEffect = {
+				globalBreakdown.ExertedAttackHitEffect = {
 					s_format("(%.2f ^8(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
 					s_format("x %.2f) ^8(uptime %%)", globalOutput.ExertedAttackUptimeRatio/100),
-					s_format("= %.2f", globalOutput.ExertedAttackMaxHitEffect),
+					s_format("= %.2f", globalOutput.ExertedAttackHitEffect),
 				}
 			end
 		end
