@@ -1296,7 +1296,7 @@ function calcs.offence(env, actor, activeSkill)
 				-- stun reduce threshold calculation
 				local buffUptime = m_min(globalOutput.SeismicCryDuration / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1)
 				local stunBuff = env.modDB:Sum("BASE", cfg, "SeismicStunThreshold") or 0
-				skillModList:NewMod("EnemyStunThreshold", "BASE", -stunBuff * globalOutput.SeismicBuffEffect * buffUptime, "Seismic Cry Buff")
+				skillModList:NewMod("EnemyStunThreshold", "INC", -stunBuff * globalOutput.SeismicBuffEffect * buffUptime, "Seismic Cry Buff")
 			end
 		end
 
