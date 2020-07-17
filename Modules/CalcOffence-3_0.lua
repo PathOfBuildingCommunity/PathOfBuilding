@@ -1101,7 +1101,6 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Exerted Attack members
 		local exertedDoubleDamage = env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance")
-		local exertedAttackHitEffect = calcLib.mod(skillModList, cfg, "ExertIncrease")
 		globalOutput.OffensiveWarcryEffect = 1
 		globalOutput.SeismicHitEffect = 1
 		globalOutput.RallyingHitEffect = 1
@@ -1146,15 +1145,16 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
-				globalOutput.IntimidatingAvgDmg = exertedAttackHitEffect
+				globalOutput.IntimidatingAvgDmg = 2 * (1 - ddChance / 100)
 				if globalBreakdown then
 					globalBreakdown.IntimidatingAvgDmg = {
 						s_format("Average Intimidating Cry Damage:"),
-						s_format("%.2f ^8(average damage multiplier for raising double damage chance to 100%%)", (1 - ddChance / 100) ),
+						s_format("%.2f%% ^8(base double damage increase to hit 100%%)", (1 - ddChance / 100) * 100 ),
+						s_format("x %d ^8(double damage multiplier)", 2),
 						s_format("= %.2f", globalOutput.IntimidatingAvgDmg),
 					}
 				end
-				globalOutput.IntimidatingHitEffect = 0 -- globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
+				globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
 				if globalBreakdown then
 					globalBreakdown.IntimidatingHitEffect = {
 						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.IntimidatingAvgDmg),
@@ -1242,7 +1242,7 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("= %.2f", globalOutput.SeismicAvgDmg),
 					}
 				end
-				globalOutput.SeismicHitEffect = 1 + (globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio/100)
+				globalOutput.SeismicHitEffect = 1 + globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio/100
 				if globalBreakdown then
 					globalBreakdown.SeismicHitEffect = {
 						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.SeismicAvgDmg),
@@ -1266,13 +1266,35 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate Exerted Attack Uptime
 		-- There are various strategies a player could use to maximize either warcry effect stacking or staggering
 		-- 1) they don't pay attention and therefore we calculated exerted attack uptime as just the maximum uptime of any enabled warcries that exert attacks
-		globalOutput.ExertedAttackUptime = m_max(m_max(m_max(globalOutput.AncestralUpTimeRatio or 0, globalOutput.InfernalUpTimeRatio or 0), m_max(globalOutput.IntimidatingUpTimeRatio or 0, globalOutput.RallyingUpTimeRatio or 0)), globalOutput.SeismicUpTimeRatio or 0)
-		globalOutput.ExertedAttackHitEffect = 1
-		if globalOutput.ExertedAttackUptime > 0 then
-			globalOutput.ExertedAttackHitEffect = 1 + (exertedAttackHitEffect - 1) * globalOutput.ExertedAttackUptime/100
+		globalOutput.ExertedAttackUptimeRatio = m_max(m_max(m_max(globalOutput.AncestralUpTimeRatio or 0, globalOutput.InfernalUpTimeRatio or 0), m_max(globalOutput.IntimidatingUpTimeRatio or 0, globalOutput.RallyingUpTimeRatio or 0)), globalOutput.SeismicUpTimeRatio or 0)
+		if globalBreakdown then
+			globalBreakdown.ExertedAttackUptimeRatio = {
+				s_format("Maximum of:"),
+				s_format("%d%% ^8(Ancestral Cry Uptime)", globalOutput.AncestralUpTimeRatio or 0),
+				s_format("%d%% ^8(Infernal Cry Uptime)", globalOutput.InfernalUpTimeRatio or 0),
+				s_format("%d%% ^8(Intimidating Cry Uptime)", globalOutput.IntimidatingUpTimeRatio or 0),
+				s_format("%d%% ^8(Rallying Cry Uptime)", globalOutput.RallyingUpTimeRatio or 0),
+				s_format("%d%% ^8(Seismic Cry Uptime)", globalOutput.SeismicUpTimeRatio or 0),
+				s_format("= %d%%", globalOutput.ExertedAttackUptimeRatio),
+			}
+		end
+		if globalOutput.ExertedAttackUptimeRatio > 0 then
+			local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
+			local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
+			skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio/100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+			skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio/100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+			globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
+			globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio/100
+			if globalBreakdown then
+				globalBreakdown.ExertedAttackHitEffect = {
+					s_format("(%.2f ^8(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
+					s_format("x %.2f) ^8(uptime %%)", globalOutput.ExertedAttackUptimeRatio/100),
+					s_format("= %.2f", globalOutput.ExertedAttackHitEffect),
+				}
+			end
 		end
 
-		globalOutput.OffensiveWarcryEffect = globalOutput.OffensiveWarcryEffect * globalOutput.ExertedAttackHitEffect
+		--globalOutput.OffensiveWarcryEffect = globalOutput.OffensiveWarcryEffect * globalOutput.ExertedAttackHitEffect
 
 		-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
