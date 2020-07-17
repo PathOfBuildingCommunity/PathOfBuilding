@@ -1102,6 +1102,9 @@ function calcs.offence(env, actor, activeSkill)
 		-- Exerted Attack members
 		local exertedDoubleDamage = env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance")
 		globalOutput.OffensiveWarcryEffect = 1
+		globalOutput.MaxOffensiveWarcryEffect = 1
+		globalOutput.TheoreticalOffensiveWarcryEffect = 1
+		globalOutput.TheoreticalMaxOffensiveWarcryEffect = 1
 		globalOutput.SeismicHitEffect = 1
 		globalOutput.RallyingHitEffect = 1
 
@@ -1175,6 +1178,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				globalOutput.IntimidatingHitEffect = 1 + globalOutput.IntimidatingAvgDmg * globalOutput.IntimidatingUpTimeRatio/100
+				globalOutput.IntimidatingMaxHitEffect = 1 + globalOutput.IntimidatingAvgDmg
 				if globalBreakdown then
 					globalBreakdown.IntimidatingHitEffect = {
 						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.IntimidatingAvgDmg),
@@ -1182,6 +1186,9 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("= %.2f", globalOutput.IntimidatingHitEffect),
 					}
 				end
+
+				globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.IntimidatingHitEffect
+				globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.IntimidatingMaxHitEffect
 				
 				-- overwhelm calculation
 				local buffUptime = m_min(globalOutput.IntimidatingCryDuration / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1)
@@ -1214,6 +1221,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				globalOutput.RallyingHitEffect = 1 + globalOutput.RallyingAvgDmg * globalOutput.RallyingUpTimeRatio/100
+				globalOutput.RallyingMaxHitEffect = 1 + globalOutput.RallyingAvgDmg
 				if globalBreakdown then
 					globalBreakdown.RallyingHitEffect = {
 						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.RallyingAvgDmg),
@@ -1222,6 +1230,9 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				globalOutput.OffensiveWarcryEffect = globalOutput.OffensiveWarcryEffect * globalOutput.RallyingHitEffect
+				globalOutput.MaxOffensiveWarcryEffect = globalOutput.MaxOffensiveWarcryEffect * globalOutput.RallyingMaxHitEffect
+				globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.RallyingHitEffect
+				globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.RallyingMaxHitEffect
 
 			elseif value.activeEffect.grantedEffect.name == "Seismic Cry" and activeSkill.skillTypes[SkillType.SlamSkill] then
 				globalOutput.CreateWarcryOffensiveCalcSection = true
@@ -1246,8 +1257,10 @@ function calcs.offence(env, actor, activeSkill)
 				local ThisSeismicDmgImpact = 0
 				local LastSeismicImpact = 0
 				local AoEImpact = 0
+				local MaxSingleHitDmgImpact = 0
 				for i = 1, globalOutput.SeismicExertsCount do
 					ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert / 100)*LastSeismicImpact
+					MaxSingleHitDmgImpact = m_max(MaxSingleHitDmgImpact, ThisSeismicDmgImpact)
 					LastSeismicImpact = LastSeismicImpact + SeismicMoreDmgAndAoEPerExert
 					TotalSeismicDmgImpact = TotalSeismicDmgImpact + ThisSeismicDmgImpact
 					AoEImpact = AoEImpact + (i * SeismicMoreDmgAndAoEPerExert)
@@ -1263,6 +1276,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				globalOutput.SeismicHitEffect = 1 + globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio/100
+				globalOutput.SeismicMaxHitEffect = 1 + MaxSingleHitDmgImpact
 				if globalBreakdown then
 					globalBreakdown.SeismicHitEffect = {
 						s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.SeismicAvgDmg),
@@ -1271,6 +1285,9 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				globalOutput.OffensiveWarcryEffect = globalOutput.OffensiveWarcryEffect * globalOutput.SeismicHitEffect
+				globalOutput.MaxOffensiveWarcryEffect = globalOutput.MaxOffensiveWarcryEffect * globalOutput.SeismicMaxHitEffect
+				globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.SeismicHitEffect
+				globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.SeismicMaxHitEffect
 
 				-- account for AoE increase
 				skillModList:NewMod("AreaOfEffect", "INC", m_floor(AvgAoEImpact * globalOutput.SeismicUpTimeRatio), "Avg Seismic Exert AoE")
@@ -1305,16 +1322,15 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio/100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
 			globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
 			globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio/100
+			globalOutput.ExertedAttackMaxHitEffect = globalOutput.ExertedAttackAvgDmg
 			if globalBreakdown then
-				globalBreakdown.ExertedAttackHitEffect = {
+				globalBreakdown.ExertedAttackMaxHitEffect = {
 					s_format("(%.2f ^8(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
 					s_format("x %.2f) ^8(uptime %%)", globalOutput.ExertedAttackUptimeRatio/100),
-					s_format("= %.2f", globalOutput.ExertedAttackHitEffect),
+					s_format("= %.2f", globalOutput.ExertedAttackMaxHitEffect),
 				}
 			end
 		end
-
-		--globalOutput.OffensiveWarcryEffect = globalOutput.OffensiveWarcryEffect * globalOutput.ExertedAttackHitEffect
 
 		-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
