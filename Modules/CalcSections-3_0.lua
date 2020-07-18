@@ -364,6 +364,13 @@ return {
 		{ format = "" },
 		{ format = "{2:output:ExertedAttackMaxHitEffect}", { modName = "ExertIncrease", cfg = "skill" }, },
 	},
+	{ label = "Fist of War", bgCol = colorCodes.MAINHANDBG, haveOutput = "FistOfWarUptimeRatio",
+		{ format = "{2:output:AvgFistOfWarHitEffect}", { breakdown = "AvgFistOfWarHitEffect"}, },
+		{ format = "{2:output:AvgFistOfWarHit}", { modName = "FistOfWarHitMultiplier", cfg = "skill"}, },
+		{ format = "{0:output:FistOfWarUptimeRatio}%", { breakdown = "FistOfWarUptimeRatio" },  },
+		{ format = "" },
+		{ format = "{2:output:MaxFistOfWarHitEffect}" },
+	},
 } }
 } },
 { 3, "Dot", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Damage over Time", data = {
