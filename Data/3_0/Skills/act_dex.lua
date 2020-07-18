@@ -1157,7 +1157,7 @@ skills["BurningArrow"] = {
 		}
 	},
 	preDotFunc = function(activeSkill, output)
-		local effect = activeSkill.skillModList:Sum("BASE", activeSkill,skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
+		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
 		local debuff = (output.IgniteDPS or 0) * effect
 		if activeSkill.skillPart == 1 then
 			output.FireDot = debuff
