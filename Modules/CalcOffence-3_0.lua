@@ -1107,6 +1107,7 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput.TheoreticalMaxOffensiveWarcryEffect = 1
 		globalOutput.SeismicHitEffect = 1
 		globalOutput.RallyingHitEffect = 1
+		globalOutput.AilmentWarcryEffect = 1
 
 		-- Iterative over all the active skills to account for exerted attacks provided by warcries
 		if not activeSkill.skillTypes[SkillType.Vaal] and not activeSkill.skillTypes[SkillType.Channelled] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
@@ -1316,7 +1317,6 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 
-			globalOutput.AilmentWarcryEffect = 1
 			if activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
 				globalOutput.AilmentWarcryEffect = globalOutput.OffensiveWarcryEffect
 			else
