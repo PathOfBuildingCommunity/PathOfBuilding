@@ -1170,7 +1170,7 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio))
 					end
 					local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
-					globalOutput.IntimidatingAvgDmg = 2 * (1 - ddChance / 100) - 1
+					globalOutput.IntimidatingAvgDmg = 2 * (1 - ddChance / 100) -- 1
 					if globalBreakdown then
 						globalBreakdown.IntimidatingAvgDmg = {
 							s_format("Average Intimidating Cry Damage:"),
@@ -1329,8 +1329,13 @@ function calcs.offence(env, actor, activeSkill)
 			if globalOutput.ExertedAttackUptimeRatio > 0 then
 				local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
 				local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
-				skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
-				skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+				if activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
+					skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+					skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+				else
+					skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks", ModFlag.Melee)
+					skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks", ModFlag.Melee)
+				end
 				globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
 				globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio / 100
 				globalOutput.ExertedAttackMaxHitEffect = globalOutput.ExertedAttackAvgDmg
