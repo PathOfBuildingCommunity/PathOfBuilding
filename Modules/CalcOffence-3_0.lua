@@ -1813,88 +1813,6 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		end
 	end
 
-	-- Calculate skill DOT components
-	local dotCfg = {
-		skillName = skillCfg.skillName,
-		skillPart = skillCfg.skillPart,
-		skillTypes = skillCfg.skillTypes,
-		slotName = skillCfg.slotName,
-		flags = bor(ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0, skillData.dotIsProjectile and ModFlag.Projectile or 0),
-		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
-	}
-
-	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
-	local dotTakenCfg = copyTable(dotCfg, true)
-	if (skillData.dotIsSpell) then
-		dotTakenCfg.flags = band(dotTakenCfg.flags, bnot(ModFlag.Spell))
-	end
-
-	activeSkill.dotCfg = dotCfg
-	output.TotalDotInstance = 0
-	for _, damageType in ipairs(dmgTypeList) do
-		local dotTypeCfg = copyTable(dotCfg, true)
-		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
-		activeSkill["dot"..damageType.."Cfg"] = dotTypeCfg
-		local baseVal 
-		if canDeal[damageType] then
-			baseVal = skillData[damageType.."Dot"] or 0
-		else
-			baseVal = 0
-		end
-		if baseVal > 0 or (output[damageType.."Dot"] or 0) > 0 then
-			skillFlags.dot = true
-			local effMult = 1
-			if env.mode_effective then
-				local resist = 0
-				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
-				local takenMore = enemyDB:More(dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
-				if damageType == "Physical" then
-					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
-				else
-					resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
-					if isElemental[damageType] then
-						local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
-						resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
-						takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
-					end
-					resist = m_min(resist, data.misc.EnemyMaxResist)
-				end
-				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
-				output[damageType.."DotEffMult"] = effMult
-				if breakdown and effMult ~= 1 then
-					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore)
-				end
-			end
-			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
-			local more = round(skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
-			local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
-			local aura = activeSkill.skillTypes[SkillType.Aura] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
-			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
-			output[damageType.."Dot"] = total
-			output.TotalDotInstance = output.TotalDotInstance + total
-			if breakdown then
-				breakdown[damageType.."Dot"] = { }
-				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, mult, nil, aura, effMult, total)
-			end
-		end
-	end
-	if skillModList:Flag(nil, "DotCanStack") then
-		output.TotalDot = output.TotalDotInstance * output.Speed * output.Duration * (skillData.dpsMultiplier or 1)
-		if breakdown then
-			breakdown.TotalDot = {
-				s_format("%.1f ^8(Damage per Instance)", output.TotalDotInstance),
-				s_format("x %.2f ^8(hits per second)", output.Speed),
-				s_format("x %.2f ^8(skill duration)", output.Duration),
-			}
-			if skillData.dpsMultiplier then
-				t_insert(breakdown.TotalDot, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
-			end
-			t_insert(breakdown.TotalDot, s_format("= %.1f", output.TotalDot))
-		end
-	else
-		output.TotalDot = output.TotalDotInstance
-	end
-
 	skillFlags.bleed = false
 	skillFlags.poison = false
 	skillFlags.ignite = false
@@ -3034,8 +2952,15 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		flags = bor(ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0, skillData.dotIsProjectile and ModFlag.Projectile or 0),
 		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
 	}
+
+	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
+	local dotTakenCfg = copyTable(dotCfg, true)
+	if (skillData.dotIsSpell) then
+		dotTakenCfg.flags = band(dotTakenCfg.flags, bnot(ModFlag.Spell))
+	end
+
 	activeSkill.dotCfg = dotCfg
-	output.TotalDot = 0	
+	output.TotalDotInstance = 0
 	
 	runSkillFunc("preDotFunc")
 
@@ -3054,17 +2979,18 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			local effMult = 1
 			if env.mode_effective then
 				local resist = 0
-				local takenInc = enemyDB:Sum("INC", dotTypeCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
-				local takenMore = enemyDB:More(dotTypeCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
+				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
+				local takenMore = enemyDB:More(dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
 					resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 					if isElemental[damageType] then
-						resist = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+						local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+						resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
 						takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
 					end
-					resist = m_min(resist, 75)
+					resist = m_min(resist, data.misc.EnemyMaxResist)
 				end
 				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 				output[damageType.."DotEffMult"] = effMult
@@ -3077,12 +3003,31 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
 			local aura = activeSkill.skillTypes[SkillType.Aura] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
-			output.TotalDot = output.TotalDot + total + (output[damageType.."Dot"] or 0)
+			if output[damageType.."Dot"] == 0 then
+				output[damageType.."Dot"] = total
+			end
+			output.TotalDotInstance = output.TotalDotInstance + total + (output[damageType.."Dot"] or 0)
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
 				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, mult, nil, aura, effMult, total)
 			end
 		end
+	end
+	if skillModList:Flag(nil, "DotCanStack") then
+		output.TotalDot = output.TotalDotInstance * output.Speed * output.Duration * (skillData.dpsMultiplier or 1)
+		if breakdown then
+			breakdown.TotalDot = {
+				s_format("%.1f ^8(Damage per Instance)", output.TotalDotInstance),
+				s_format("x %.2f ^8(hits per second)", output.Speed),
+				s_format("x %.2f ^8(skill duration)", output.Duration),
+			}
+			if skillData.dpsMultiplier then
+				t_insert(breakdown.TotalDot, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			end
+			t_insert(breakdown.TotalDot, s_format("= %.1f", output.TotalDot))
+		end
+	else
+		output.TotalDot = output.TotalDotInstance
 	end
 
 	-- Calculate combined DPS estimate, including DoTs
