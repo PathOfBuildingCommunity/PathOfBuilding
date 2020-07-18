@@ -2330,7 +2330,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), data.misc.EnemyMaxResist)
+					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -2490,7 +2490,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				skillFlags.ignite = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
+					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -2991,7 +2991,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		local dotCfg = activeSkill.decayCfg
 		local effMult = 1
 		if env.mode_effective then
-			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), data.misc.EnemyMaxResist)
+			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
 			local takenInc = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			local takenMore = enemyDB:More(nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
