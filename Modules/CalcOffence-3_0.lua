@@ -1117,7 +1117,6 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.AncestralCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 					globalOutput.AncestralCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 					globalOutput.AncestralExertsCount = env.modDB:Sum("BASE", nil, "NumAncestralExerts") or 0
-					globalOutput.AncestralBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.AncestralUpTimeRatio = m_min((globalOutput.AncestralExertsCount / output.Speed) / (globalOutput.AncestralCryCooldown + globalOutput.AncestralCryCastTime), 1) * 100
 					if globalBreakdown then
 						globalBreakdown.AncestralUpTimeRatio = { }
@@ -1137,7 +1136,6 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 					if activeSkill.skillTypes[SkillType.Melee] then
 						globalOutput.InfernalExertsCount = env.modDB:Sum("BASE", nil, "NumInfernalExerts") or 0
-						globalOutput.InfernalBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 						globalOutput.InfernalUpTimeRatio = m_min((globalOutput.InfernalExertsCount / output.Speed) / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1) * 100
 						if globalBreakdown then
 							globalBreakdown.InfernalUpTimeRatio = { }
@@ -1152,19 +1150,12 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("= %d%%", globalOutput.InfernalUpTimeRatio))
 						end
 					end
-					--if not skillModList:Flag(skillCfg, "CoveredInAsh") then
-						-- Covered in Ash calculation
-						--local buffUptime = m_min(globalOutput.InfernalCryDuration / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1)
-						--local CoveredInAshBuff = env.modDB:Sum("BASE", nil, "InfernalCoveredInAsh") or 0
-						--enemyDB:NewMod("FireDamageTaken", "INC", CoveredInAshBuff * buffUptime, "Infernal Cry Buff")
-					--end
 				elseif value.activeEffect.grantedEffect.name == "Intimidating Cry" and activeSkill.skillTypes[SkillType.Melee] then
 					globalOutput.CreateWarcryOffensiveCalcSection = true
 					globalOutput.IntimidatingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 					globalOutput.IntimidatingCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 					globalOutput.IntimidatingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 					globalOutput.IntimidatingExertsCount = env.modDB:Sum("BASE", nil, "NumIntimidatingExerts") or 0
-					globalOutput.IntimidatingBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.IntimidatingUpTimeRatio = m_min((globalOutput.IntimidatingExertsCount / output.Speed) / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1) * 100
 					if globalBreakdown then
 						globalBreakdown.IntimidatingUpTimeRatio = { }
@@ -1200,18 +1191,12 @@ function calcs.offence(env, actor, activeSkill)
 
 					globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.IntimidatingHitEffect
 					globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.IntimidatingMaxHitEffect
-					
-					-- overwhelm calculation
-					local buffUptime = m_min(globalOutput.IntimidatingCryDuration / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1)
-					local overwhelmBuff = env.modDB:Sum("BASE", cfg, "IntimidatingPDR") or 0
-					skillModList:NewMod("EnemyPhysicalDamageReduction", "BASE", -overwhelmBuff * globalOutput.IntimidatingBuffEffect * buffUptime, "Intimidating Cry Buff")
 				elseif value.activeEffect.grantedEffect.name == "Rallying Cry" and activeSkill.skillTypes[SkillType.Melee] then
 					globalOutput.CreateWarcryOffensiveCalcSection = true
 					globalOutput.RallyingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 					globalOutput.RallyingCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 					globalOutput.RallyingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 					globalOutput.RallyingExertsCount = env.modDB:Sum("BASE", nil, "NumRallyingExerts") or 0
-					globalOutput.RallyingBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.RallyingUpTimeRatio = m_min((globalOutput.RallyingExertsCount / output.Speed) / (globalOutput.RallyingCryCooldown + globalOutput.RallyingCryCastTime), 1) * 100
 					if globalBreakdown then
 						globalBreakdown.RallyingUpTimeRatio = { }
@@ -1254,7 +1239,6 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.SeismicCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 					globalOutput.SeismicCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 					globalOutput.SeismicExertsCount = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
-					globalOutput.SeismicBuffEffect = 1 + actor.activeSkillList[index].skillModList:Sum("INC", actor.activeSkillList[index].skillCfg, "BuffEffect") / 100
 					globalOutput.SeismicUpTimeRatio = m_min((globalOutput.SeismicExertsCount / output.Speed) / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1) * 100
 					if globalBreakdown then
 						globalBreakdown.SeismicUpTimeRatio = { }
@@ -1309,11 +1293,6 @@ function calcs.offence(env, actor, activeSkill)
 					-- account for AoE increase
 					skillModList:NewMod("AreaOfEffect", "INC", m_floor(AvgAoEImpact * globalOutput.SeismicUpTimeRatio), "Avg Seismic Exert AoE")
 					calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
-
-					-- stun reduce threshold calculation
-					local buffUptime = m_min(globalOutput.SeismicCryDuration / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1)
-					local stunBuff = env.modDB:Sum("BASE", cfg, "SeismicStunThreshold") or 0
-					skillModList:NewMod("EnemyStunThreshold", "INC", -stunBuff * globalOutput.SeismicBuffEffect * buffUptime, "Seismic Cry Buff")
 				end
 			end
 
