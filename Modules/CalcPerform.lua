@@ -665,7 +665,7 @@ function calcs.perform(env)
 		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
 			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Enduring Cry" then
+		elseif activeSkill.activeEffect.grantedEffect.name == "Enduring Cry" and not modDB:Flag(nil, "EnduringActive") then
 			local heal_over_1_sec = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryLifeRegen")
 			local resist_all_per_endurance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryElementalResist")
 			local pdr_per_endurance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryPhysicalDamageReduction")
@@ -678,20 +678,24 @@ function calcs.perform(env)
 			local buff_inc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "BuffEffect")
 			env.player.modDB:NewMod("ElementalResist", "BASE", resist_all_per_endurance * uptime * (1 + buff_inc/100), "Enduring Cry", { type = "Multiplier", var = "EnduranceCharge" })
 			env.player.modDB:NewMod("PhysicalDamageReduction", "BASE", pdr_per_endurance * uptime * (1 + buff_inc/100), "Enduring Cry", { type = "Multiplier", var = "EnduranceCharge" })
-		elseif activeSkill.activeEffect.grantedEffect.name == "Seismic Cry" then
+			modDB:NewMod("EnduringActive", "FLAG", true) -- Prevents effect from applying multiple times
+		elseif activeSkill.activeEffect.grantedEffect.name == "Seismic Cry" and not modDB:Flag(nil, "SeismicActive") then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 			env.player.modDB:NewMod("NumSeismicExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions)
 			env.player.modDB:NewMod("SeismicMoreDmgPerExert",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicHitMultiplier"))
 			env.player.modDB:NewMod("SeismicStunThreshold", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicStunThresholdPer5MP"), "Seismic Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
-		elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" then
+			modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
+		elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 			env.player.modDB:NewMod("NumIntimidatingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions)
 			env.player.modDB:NewMod("IntimidatingPDR", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingPDRPer5MP"), "Intimidating Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
-		elseif activeSkill.activeEffect.grantedEffect.name == "Infernal Cry" then
+			modDB:NewMod("IntimidatingActive", "FLAG", true) -- Prevents effect from applying multiple times
+		elseif activeSkill.activeEffect.grantedEffect.name == "Infernal Cry" and not modDB:Flag(nil, "InfernalActive") then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 			env.player.modDB:NewMod("NumInfernalExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalExertedAttacks") + extraExertions)
 			env.player.modDB:NewMod("InfernalCoveredInAsh", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalFireTakenPer5MP"), "Intimidating Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 20, limitTotal = true })
-		elseif activeSkill.activeEffect.grantedEffect.name == "Ancestral Cry" then
+			modDB:NewMod("InfernalActive", "FLAG", true) -- Prevents effect from applying multiple times
+		elseif activeSkill.activeEffect.grantedEffect.name == "Ancestral Cry" and not modDB:Flag(nil, "AncestralActive") then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 			local ancestralArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralArmourPer5MP")
 			local ancestralArmourMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralArmourMax")
@@ -704,7 +708,8 @@ function calcs.perform(env)
 			local buff_inc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "BuffEffect")
 			env.player.modDB:NewMod("Armour", "BASE", ancestralArmour * uptime * (1 + buff_inc/100), "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = ancestralArmourMax, limitTotal = true })
 			env.player.modDB:NewMod("MeleeWeaponRange", "BASE", ancestralStrikeRange * uptime * (1 + buff_inc/100), "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 3})
-		elseif activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" then
+			modDB:NewMod("AncestralActive", "FLAG", true) -- Prevents effect from applying multiple times
+		elseif activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not modDB:Flag(nil, "RallyingActive") then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 			env.player.modDB:NewMod("NumRallyingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions)
 			env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
@@ -723,6 +728,7 @@ function calcs.perform(env)
 					env.minion.modDB:NewMod(damageType.."Max", "BASE", (env.player.weaponData1[damageType.."Max"] or 0) * mult, "Rallying Cry", 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 				end
 			end
+			modDB:NewMod("RallyingActive", "FLAG", true) -- Prevents effect from applying multiple times
 		end
 		if activeSkill.skillData.triggeredByBrand then
 			local spellCount, quality = 0
