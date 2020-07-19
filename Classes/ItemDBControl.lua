@@ -51,7 +51,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	t_insert(self.typeList, 4, "One Handed Melee")
 	t_insert(self.typeList, 5, "Two Handed Melee")
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel" }
-	local baseY = dbType == "RARE" and -22 or -42
+	local baseY = dbType == "RARE" and -22 or -62
 	self.controls.slot = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY, 179, 18, self.slotList, function(index, value)
 		self.listBuildFlag = true
 	end)
@@ -63,6 +63,9 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 			self:SetSortMode(value.sortMode)
 		end)
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
+			self.listBuildFlag = true
+		end)
+		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
 	end
@@ -107,6 +110,14 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		end
 	end
+	if self.dbType == "UNIQUE" and self.controls.requirement.selIndex > 1 then
+		if (self.controls.requirement.selIndex == 2 or self.controls.requirement.selIndex == 4) and item.requirements.level and item.requirements.level > self.itemsTab.build.characterLevel then
+			return false
+		end
+		if self.controls.requirement.selIndex > 2 and item.requirements and (item.requirements.str > self.itemsTab.build.calcsTab.mainOutput.Str or item.requirements.dex > self.itemsTab.build.calcsTab.mainOutput.Dex or item.requirements.int > self.itemsTab.build.calcsTab.mainOutput.Int) then
+			return false
+		end
+	end
 	local searchStr = self.controls.search.buf:lower()
 	if searchStr:match("%S") then
 		local found = false
@@ -117,7 +128,19 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			end
 		end
 		if mode == 1 or mode == 3 then
-			for _, line in pairs(item.modLines) do
+			for _, line in pairs(item.enchantModLines) do
+				if line.line:lower():find(searchStr, 1, true) then
+					found = true
+					break
+				end
+			end
+			for _, line in pairs(item.implicitModLines) do
+				if line.line:lower():find(searchStr, 1, true) then
+					found = true
+					break
+				end
+			end
+			for _, line in pairs(item.explicitModLines) do
 				if line.line:lower():find(searchStr, 1, true) then
 					found = true
 					break

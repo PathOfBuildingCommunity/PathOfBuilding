@@ -151,6 +151,21 @@ local skills, mod, flag, skill = ...
 #skill SupportFirePenetrationPlus
 #mods
 
+#skill AncestralSlamSupport
+	statMap = {
+		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
+			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
+			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.bor(ModFlag.Melee, ModFlag.Ailment)),
+		},
+		["ancestral_slam_interval_duration"] = {
+			mod("FistOfWarCooldown", "BASE", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SupportFortify
 	statMap = {
 		["support_fortify_melee_damage_+%_final"] = {
@@ -174,6 +189,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
+		},
+		["supported_aura_skill_gem_level_+"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
 		},
 	},
 #mods
@@ -300,7 +318,7 @@ local skills, mod, flag, skill = ...
 #skill SupportRage
 	statMap = {
 		["support_rage_gain_rage_on_melee_hit_cooldown_ms"] = {
-			flag("Condition:CanGainRage"),
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
@@ -310,10 +328,10 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
 		},
 		["attack_minimum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
 	},
 #mods
@@ -381,4 +399,13 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportStun
+#mods
+
+#skill SupportUrgentOrders
+	statMap = {	
+		["base_cooldown_modifier_ms"] = {
+			mod("CooldownRecovery", "BASE", nil),
+			div = 1000,
+		},
+	},
 #mods

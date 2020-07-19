@@ -248,21 +248,31 @@ Quartz Flask
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Soul Ripper} via currency{Vial of the Ghost}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 27
 Cannot gain Mana during effect
-Vaal Skills deal (60-100)% increased Damage during effect
-Vaal Skills have 25% reduced Soul Cost during effect
+{variant:2}Vaal Skills have (80-120)% increased Critical Strike Chance during effect
+{variant:1}Vaal Skills deal (60-100)% increased Damage during effect
+{variant:2}Vaal Skills deal (80-120)% increased Damage during effect
+{variant:1}Vaal Skills have 25% reduced Soul Cost during effect
 Vaal Skills used during effect have (20-40)% reduced Soul Gain Prevention Duration
 ]],[[
 Soul Ripper
 Quartz Flask
 League: Incursion
 Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 27
-100% increased Charges used
-Vaal Skills deal (30-40)% more Damage during effect
-Vaal Skills used during effect do not apply Soul Gain Prevention
-Gains no Charges During effect of any Soul Ripper Flask
+{variant:1}100% increased Charges used
+{variant:1}Vaal Skills deal (30-40)% more Damage during effect
+{variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
+{variant:1}Gains no Charges During effect of any Soul Ripper Flask
+{variant:2}+(-40 to 90) maximum Charges
+{variant:2}Loses all Charges when you enter a new area
+{variant:2}Consumes Maximum Charges to use
+{variant:2}Gain Vaal Souls equal to Charges Consumed when used
 ]],[[
 Taste of Hate
 Sapphire Flask

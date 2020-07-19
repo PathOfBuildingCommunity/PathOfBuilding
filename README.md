@@ -1,12 +1,15 @@
 # Path of Building Community Fork
-# Formerly known as LocalIdentity Fork
+## Formerly known as LocalIdentity Fork
 
 This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
-* Adds updated uniques from 3.8 and 3.9 changes
+* Adds updated uniques from 3.8, 3.9 and 3.10 changes
 * Pantheon support
 * Impale DPS support
+* Enemy armour and physical damage reduction calculations
+* Catalysts
+* Dual influence crafting
 * Search for all dropdown boxes
-* Barrage Suport skill gem
+* Barrage Support skill gem
 * Ensnaring Arrow support
 * Thread of Hope support
 * Crimson Dance support
@@ -29,8 +32,7 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 [![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)
 
 ## Download
-Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
-Then head [here](https://github.com/LocalIdentity/PathOfBuilding/wiki/Installing-this-Fork/_edit) to see the install instructions for this fork
+Head over to the [Releases](https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases) page to download the install wizard or portable zip.
 
 ## Contribute
 You can find instructions on how to contribute code and bug reports [here](CONTRIBUTING.md).

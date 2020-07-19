@@ -14,6 +14,7 @@ SetMainObject(launch)
 
 function launch:OnInit()
 	self.devMode = false
+	self.installedMode = false
 	self.versionNumber = "?"
 	self.versionBranch = "?"
 	self.versionPlatform = "?"
@@ -52,6 +53,11 @@ function launch:OnInit()
 		-- Looks like a remote manifest, so we're probably running from a repository
 		-- Enable dev mode to disable updates and set user path to be the script path
 		self.devMode = true
+	end
+	local installedFile = io.open("installed.cfg", "r")
+	if installedFile then
+		self.installedMode = true
+		installedFile:close()
 	end
 	RenderInit()
 	ConPrintf("Loading main script...")
@@ -227,13 +233,14 @@ end
 function launch:DownloadPage(url, callback, cookies)
 	-- Download the given page in the background, and calls the provided callback function when done:
 	-- callback(pageText, errMsg)
-	local id = LaunchSubScript([[
+	local script = [[
 		local url, cookies, proxyURL = ...
 		ConPrintf("Downloading page at: %s", url)
 		local curl = require("lcurl.safe")
 		local page = ""
 		local easy = curl.easy()
 		easy:setopt_url(url)
+		easy:setopt(curl.OPT_USERAGENT, "Path of Building/]]..self.versionNumber..[[")
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 		if cookies then
 			easy:setopt(curl.OPT_COOKIE, cookies)
@@ -262,7 +269,8 @@ function launch:DownloadPage(url, callback, cookies)
 		else
 			return page
 		end
-	]], "", "ConPrintf", url, cookies, self.proxyURL)
+	]]
+	local id = LaunchSubScript(script, "", "ConPrintf", url, cookies, self.proxyURL)
 	if id then
 		self.subScripts[id] = {
 			type = "DOWNLOAD",

@@ -41,17 +41,18 @@ function calcs.initModDB(env, modDB)
 		modDB:NewMod("MineLayingTime", "BASE", 0.5, "Base")
 	else
 		modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
-		modDB:NewMod("MineLayingTime", "BASE", 0.25, "Base")
+		modDB:NewMod("MineLayingTime", "BASE", 0.3, "Base")
 	end
+	modDB:NewMod("WarcryCastTime", "BASE", 0.8, "Base")
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
 	modDB:NewMod("LifeRegenPercent", "BASE", 6, "Base", { type = "Condition", var = "OnConsecratedGround" })
-	modDB:NewMod("HitChance", "MORE", -50, "Base", { type = "Condition", var = "Blinded" })
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
 	modDB:NewMod("Condition:Chilled", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Condition:Poisoned", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "MultiplierThreshold", var = "PoisonStack", threshold = 1 })
+	modDB:NewMod("Blind", "FLAG", true, "Base", { type = "Condition", var = "Blinded" })
 	modDB:NewMod("Chill", "FLAG", true, "Base", { type = "Condition", var = "Chilled" })
 	modDB:NewMod("Freeze", "FLAG", true, "Base", { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Fortify", "FLAG", true, "Base", { type = "Condition", var = "Fortify" })
@@ -191,7 +192,7 @@ function calcs.initEnv(build, mode, override)
 	-- Initialise modifier database with base values
 	local modDB = new("ModDB")
 	env.modDB = modDB
-	local classStats = env.spec.tree.characterData[env.classId]
+	local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
 	for _, stat in pairs({"Str","Dex","Int"}) do
 		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end
@@ -218,9 +219,10 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 	modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 	modDB:NewMod("Multiplier:RageEffect", "BASE", 1, "Base")
-	modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", limit = 50 }, { type = "Multiplier", var = "RageEffect" })
-	modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", limit = 25, div = 2 }, { type = "Multiplier", var = "RageEffect" })
-	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", limit = 10, div = 5 }, { type = "Multiplier", var = "RageEffect" })
+	modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" })
+	modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" })
+	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", div = 5 }, { type = "Multiplier", var = "RageEffect" })
+	modDB:NewMod("MaximumRage", "BASE", 50, "Base")
 	modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 	if build.targetVersion == "2_6" then
@@ -229,11 +231,11 @@ function calcs.initEnv(build, mode, override)
 	else
 		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
 		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
+		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 	end
 	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
-	modDB:NewMod("PhysicalDamage", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
 	if build.targetVersion == "2_6" then
 		modDB:NewMod("Damage", "MORE", 500, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
@@ -311,6 +313,7 @@ function calcs.initEnv(build, mode, override)
 	calcs.initModDB(env, enemyDB)
 	enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
 	enemyDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.enemyLevel], "Base")
+	enemyDB:NewMod("Armour", "BASE", env.data.monsterArmourTable[env.enemyLevel], "Base")
 
 	-- Add mods from the config tab
 	modDB:AddList(build.configTab.modList)
@@ -404,15 +407,15 @@ function calcs.initEnv(build, mode, override)
 				for _, func in ipairs(funcList) do
 					local node = env.spec.nodes[slot.nodeId]
 					t_insert(env.radiusJewelList, {
-						nodes = node.nodesInRadius[item.jewelRadiusIndex],
+						nodes = node.nodesInRadius and node.nodesInRadius[item.jewelRadiusIndex] or { },
 						func = func.func,
 						type = func.type,
 						item = item,
 						nodeId = slot.nodeId,
-						attributes = node.attributesInRadius[item.jewelRadiusIndex],
+						attributes = node.attributesInRadius and node.attributesInRadius[item.jewelRadiusIndex] or { },
 						data = { }
 					})
-					if func.type ~= "Self" then
+					if func.type ~= "Self" and node.nodesInRadius then
 						-- Add nearby unallocated nodes to the extra node list
 						for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
 							if not nodes[nodeId] then
@@ -437,6 +440,12 @@ function calcs.initEnv(build, mode, override)
 				item = nil
 			else
 				scale = parentItem.socketedJewelEffectModifier
+			end
+		end
+		if slot.nodeId and item and item.type == "Jewel" and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
+			local node = env.spec.nodes[slot.nodeId]
+			if node and node.distanceToClassStart then
+				scale = scale + node.distanceToClassStart * (item.jewelData.jewelIncEffectFromClassStart / 100)
 			end
 		end
 		if item then
@@ -659,6 +668,12 @@ function calcs.initEnv(build, mode, override)
 				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
 					local grantedEffect = env.data.skills[value.skillId]
+					-- Some skill gems share the same name as support gems, e.g. Barrage.
+					-- Since a support gem is expected here, if the first lookup returns a skill, then
+					-- prepending "Support" to the skillId will find the support version of the gem.
+					if grantedEffect and not grantedEffect.support then
+						grantedEffect = env.data.skills["Support"..value.skillId]
+					end
 					if grantedEffect then
 						t_insert(supportList, { 
 							grantedEffect = grantedEffect,
