@@ -2683,6 +2683,10 @@ skills["ExplosiveArrow"] = {
 			area = true,
 		},
 		{
+			name = "Explosion (5 fuses)",
+			area = true,
+		},
+		{
 			name = "Explosion (10 fuses)",
 			area = true,
 		},
@@ -2701,13 +2705,17 @@ skills["ExplosiveArrow"] = {
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_explosion_base_damage_+permyriad"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+			div = 100,
 		},
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
@@ -2721,12 +2729,13 @@ skills["ExplosiveArrow"] = {
 	},
 	baseMods = {
 		skill("radius", 15),
-		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }),
-		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
+		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 3 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 4 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 4 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 5 }),
 	},
 	qualityStats = {
 		{ "base_chance_to_ignite_%", 1 },
