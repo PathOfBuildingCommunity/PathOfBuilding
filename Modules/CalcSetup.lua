@@ -243,6 +243,7 @@ function calcs.initEnv(build, mode, override)
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 	end
 	modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
+	modDB:NewMod("Condition:WarcryAverage", "FLAG", true, "Base", { type = "Condition", var = "WarcryMaxHit", neg = true })
 
 	-- Add bandit mods
 	if build.targetVersion == "2_6" then
