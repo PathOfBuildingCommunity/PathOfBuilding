@@ -1296,10 +1296,10 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 
-			if activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
-				globalOutput.AilmentWarcryEffect = globalOutput.OffensiveWarcryEffect
-			else
+			if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 				globalOutput.AilmentWarcryEffect = globalOutput.MaxOffensiveWarcryEffect
+			else
+				globalOutput.AilmentWarcryEffect = globalOutput.OffensiveWarcryEffect
 			end
 
 			-- Calculate Exerted Attack Uptime
@@ -1329,12 +1329,12 @@ function calcs.offence(env, actor, activeSkill)
 			if globalOutput.ExertedAttackUptimeRatio > 0 then
 				local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
 				local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
-				if activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
-					skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
-					skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
-				else
+				if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 					skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks", ModFlag.Melee)
 					skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks", ModFlag.Melee)
+				else
+					skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+					skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
 				end
 				globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
 				globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio / 100
@@ -1384,12 +1384,12 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.AvgFistOfWarAilmentEffect = 1 + globalOutput.FistOfWarAilmentMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
 			globalOutput.MaxFistOfWarHitEffect = 1 + globalOutput.FistOfWarHitMultiplier
 			globalOutput.MaxFistOfWarAilmentEffect = 1 + globalOutput.FistOfWarAilmentMultiplier
-			if activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
-				output.FistOfWarHitEffect = globalOutput.AvgFistOfWarHitEffect
-				output.FistOfWarAilmentEffect = globalOutput.AvgFistOfWarAilmentEffect
-			else
+			if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 				output.FistOfWarHitEffect = globalOutput.MaxFistOfWarHitEffect
 				output.FistOfWarAilmentEffect = globalOutput.MaxFistOfWarAilmentEffect
+			else
+				output.FistOfWarHitEffect = globalOutput.AvgFistOfWarHitEffect
+				output.FistOfWarAilmentEffect = globalOutput.AvgFistOfWarAilmentEffect
 			end
 			globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.AvgFistOfWarHitEffect
 			globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.MaxFistOfWarHitEffect
@@ -1496,10 +1496,10 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
 		output.DoubleDamageChanceOnCrit = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChanceOnCrit"), 100)
 		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + (output.DoubleDamageChanceOnCrit * output.CritChance / 100), 100)
-		if globalOutput.IntimidatingUpTimeRatio and activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
-			output.DoubleDamageChance = m_min(output.DoubleDamageChance + globalOutput.IntimidatingUpTimeRatio, 100)
-		elseif globalOutput.IntimidatingUpTimeRatio and activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
+		if globalOutput.IntimidatingUpTimeRatio and activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 			output.DoubleDamageChance = 100
+		elseif globalOutput.IntimidatingUpTimeRatio then
+			output.DoubleDamageChance = m_min(output.DoubleDamageChance + globalOutput.IntimidatingUpTimeRatio, 100)
 		end
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
 		
@@ -1580,17 +1580,17 @@ function calcs.offence(env, actor, activeSkill)
 						if output.FistOfWarHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
 						end
-						if globalOutput.OffensiveWarcryEffect ~= 1  and activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
+						if globalOutput.OffensiveWarcryEffect ~= 1  and not activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated warcry exerted effect modifier)", globalOutput.OffensiveWarcryEffect))
 						end
 						if globalOutput.MaxOffensiveWarcryEffect ~= 1 and activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated max warcry exerted effect modifier)", globalOutput.MaxOffensiveWarcryEffect))
 						end
 					end
-					if activeSkill.skillModList:Flag(nil, "Condition:WarcryAverage") then
-						output.allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
-					else
+					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 						output.allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.MaxOffensiveWarcryEffect
+					else
+						output.allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
 					end
 					local allMult = output.allMult
 					if pass == 1 then
