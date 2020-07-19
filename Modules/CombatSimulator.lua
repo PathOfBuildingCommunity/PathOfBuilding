@@ -12,8 +12,9 @@ local m_min = math.min
 local m_max = math.max
 
 LoadModule("Common")
+LoadModule("Data")
 
-TICK = 0.03333
+TICK = 1 / data.misc.ServerTickRate
 
 local heroProfile = {
     minDmg = 10,
