@@ -1156,13 +1156,13 @@ return {
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
-} }, { defaultCollapsed = true, label = "Damage Avoidance", data = {
+} }, { defaultCollapsed = false, label = "Damage Avoidance", data = {
 	{ label = "Avoid Physical Ch.", haveOutput = "AvoidPhysicalDamageChance", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
 	{ label = "Avoid Lightning Ch.", haveOutput = "AvoidLightningDamageChance", { format = "{0:output:AvoidLightningDamageChance}%", { modName = "AvoidLightningDamageChance" }, }, },
 	{ label = "Avoid Cold Chance", haveOutput = "AvoidColdDamageChance", { format = "{0:output:AvoidColdDamageChance}%", { modName = "AvoidColdDamageChance" }, }, },
 	{ label = "Avoid Fire Chance", haveOutput = "AvoidFireDamageChance", { format = "{0:output:AvoidFireDamageChance}%", { modName = "AvoidFireDamageChance" }, }, },
 	{ label = "Avoid Chaos Chance", haveOutput = "AvoidChaosDamageChance", { format = "{0:output:AvoidChaosDamageChance}%", { modName = "AvoidChaosDamageChance" }, }, },
-	{ label = "Avoid Projectiles Ch", haveOutput = "AvoidProjectilesChance", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
+	{ label = "Avoid Projectiles Ch.", haveOutput = "AvoidProjectilesChance", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
 } }, { defaultCollapsed = true, label = "Other Avoidance", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
 	{ label = "Interupt Avoid Ch.", haveOutput = "InteruptStunAvoidChance", { format = "{0:output:InteruptStunAvoidChance}%", { modName = "AvoidInteruptStun" }, }, },
@@ -1211,7 +1211,7 @@ return {
 			{ modName = { "DamageTaken", "DamageTakenWhenHit", "ChaosDamageTaken", "ChaosDamageTakenWhenHit", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenAsFire", "ChaosDamageTakenAsCold", "ChaosDamageTakenAsLightning", "SelfIgnoreChaosResistance" } }
 		},
 	},
-	{ label = "Dot taken",
+	{ label = "DoT taken",
 		{ format = "x {2:output:PhysicalTakenDotMult}", 
 			{ breakdown = "PhysicalTakenDotMult" }, 
 			{ modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime" } } 
@@ -1255,12 +1255,12 @@ return {
 			{ modName = { "DamageTaken", "DamageTakenWhenHit", "ChaosDamageTaken", "ChaosDamageTakenWhenHit", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenAsFire", "ChaosDamageTakenAsCold", "ChaosDamageTakenAsLightning" } }
 		},
 	},
-} }, { defaultCollapsed = false, label = "Chance to not be hit", data = {
+} }, { defaultCollapsed = false, label = "Chance to not be Hit", data = {
 	{ label = "Melee Ch.", { format = "{0:output:MeleeNotHitChance}%", { breakdown = "MeleeNotHitChance" }, }, },
 	{ label = "Projectile Ch.", { format = "{0:output:ProjectileNotHitChance}%", { breakdown = "ProjectileNotHitChance" }, }, },
 	{ label = "Spell Ch.", { format = "{0:output:SpellNotHitChance}%", { breakdown = "SpellNotHitChance" }, }, },
 	{ label = "Spell Projectile Ch.", { format = "{0:output:SpellProjectileNotHitChance}%", { breakdown = "SpellProjectileNotHitChance" }, }, },
-}, }, { defaultCollapsed = false, label = "Chance to not take damage when hit", data = {
+}, }, { defaultCollapsed = false, label = "Chance to not take Damage when Hit", data = {
 	colWidth = 114,
 	{ label = "Melee Ch.",
 		{ format = "{1:output:PhysicalMeleeDamageChance}%", 
@@ -1330,7 +1330,7 @@ return {
 			{ breakdown = "ChaosSpellProjectileDamageChance" }, 
 		},
 	},
-}, }, { defaultCollapsed = false, label = "\"Health\" Pool", data = {
+}, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	colWidth = 114,
 	{ label = "ES Bypass%", haveOutput = "AnyBypass",
 		{ format = "{0:output:PhysicalEnergyShieldBypass}", 
@@ -1376,7 +1376,7 @@ return {
 			{ modName = {"DamageTakenFromManaBeforeLife", "ChaosDamageTakenFromManaBeforeLife"} },	
 		},
 	},
-	{ label = "Total pool",
+	{ label = "Total Pool",
 		{ format = "{0:output:PhysicalTotalPool}", 
 			{ breakdown = "PhysicalTotalPool" },			
 		},
@@ -1393,7 +1393,7 @@ return {
 			{ breakdown = "ChaosTotalPool" }, 
 		},
 	}, 
-	{ label = "Maximum Hit taken.",
+	{ label = "Maximum Hit Taken",
 		{ format = "{0:output:PhysicalMaximumHitTaken}", 
 			{ breakdown = "PhysicalMaximumHitTaken" }, 
 		},
