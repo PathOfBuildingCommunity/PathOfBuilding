@@ -240,7 +240,6 @@ return {
 	{ label = "Warcry Skills:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry" } },
 	{ var = "multiplierWarcryPower", type = "count", label = "Warcry Power:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry" }, tooltip = "Power determines how strong your Warcry buffs will be, and is based on the total strength of nearby enemies.\nPower is assumed to be 20 if your target is a Boss, but you can override it here if necessary.\nEach Normal enemy grants 1 Power\nEach Magic enemy grants 2 Power\nEach Rare enemy grants 10 Power\nEach Unique enemy grants 20 Power", apply = function(val, modList, enemyModList)
 		modList:NewMod("WarcryPower", "OVERRIDE", val, "Config")
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("WarcryPower", "OVERRIDE", val, "Config") }, "Config")
 	end },
 	{ label = "Wave of Conviction:", ifSkill = "Wave of Conviction" },
 	{ var = "waveOfConvictionExposureType", type = "list", label = "Exposure Type:", ifSkill = "Wave of Conviction", list = {{val=0,label="None"},{val="Fire",label="Fire"},{val="Cold",label="Cold"},{val="Lightning",label="Lightning"}}, apply = function(val, modList, enemyModList)
@@ -1069,7 +1068,6 @@ return {
 			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 2190202, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
-			modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("WarcryPower", "BASE", 20, "Config") }, "Config")
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
@@ -1078,7 +1076,6 @@ return {
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 44360789, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
-			modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("WarcryPower", "BASE", 20, "Config") }, "Config")
 		elseif val == "Sirus" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
@@ -1087,7 +1084,6 @@ return {
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 37940148, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
-			modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("WarcryPower", "BASE", 20, "Config") }, "Config")
 		end
 	end },
 	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more Life.", apply = function(val, modList, enemyModList)
