@@ -136,6 +136,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.controls.saveAs.enabled = function()
 		return self.dbFileName
 	end
+	self.controls.combatSimulator = new("ButtonControl", {"LEFT",self.controls.saveAs,"RIGHT"}, 8, 0, 170, 20, "Combat Simulator", function()
+		self:OpenCombatSimulator()
+	end)
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = new("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
@@ -1002,6 +1005,11 @@ function buildMode:OpenSaveAsPopup()
 		self.versionOnSave = nil
 	end)
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
+end
+
+function buildMode:OpenCombatSimulator()
+	combatSim = LoadModule("Modules/CombatSimulator")
+	combatSim.runSimulation(1000, 2.0)
 end
 
 -- Open the spectre library popup
