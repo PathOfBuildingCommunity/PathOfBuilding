@@ -3,6 +3,8 @@
 -- Module: Calc Perform
 -- Manages the offence/defence calculations.
 --
+global_env = nil
+
 local calcs = ...
 
 local pairs = pairs
@@ -1415,4 +1417,6 @@ function calcs.perform(env)
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
+
+	global_env = env
 end
