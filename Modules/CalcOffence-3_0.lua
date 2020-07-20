@@ -996,7 +996,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100) * (skillModList:Sum("BASE", cfg, "CastWhileChannellingSpellsLinked") or 1)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
-		elseif skillData.triggeredByBrand then
+		elseif skillData.triggeredByBrand and skillData.triggered then
 			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
