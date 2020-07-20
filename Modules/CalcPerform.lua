@@ -657,10 +657,10 @@ function calcs.perform(env)
 			end
 			modDB:NewMod("AlreadyWithered", "FLAG", true, "Config") -- Prevents effect from applying multiple times
 		end
-		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCD") then
-			local cd = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
+		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCooldown") then
+			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
 			local warcryList = { }
-			local numWarcries, sumWarcryCDs = 0
+			local numWarcries, sumWarcryCooldown = 0
 			for _, activeSkill in ipairs(env.player.activeSkillList) do
 				if activeSkill.skillTypes[SkillType.Warcry] then
 					warcryList[activeSkill.skillCfg.skillName] = true
@@ -668,11 +668,11 @@ function calcs.perform(env)
 			end
 			for _, warcry in pairs(warcryList) do
 				numWarcries = numWarcries + 1
-				sumWarcryCDs = (sumWarcryCDs or 0) + cd
+				sumWarcryCooldown = (sumWarcryCooldown or 0) + cooldown
 			end
-			env.player.modDB:NewMod("GlobalWarcryCooldown", "BASE", sumWarcryCDs)
+			env.player.modDB:NewMod("GlobalWarcryCooldown", "BASE", sumWarcryCooldown)
 			env.player.modDB:NewMod("GlobalWarcryCount", "BASE", numWarcries)
-			modDB:NewMod("AlreadyGlobalWarcryCD", "FLAG", true, "Config") -- Prevents effect from applying multiple times
+			modDB:NewMod("AlreadyGlobalWarcryCooldown", "FLAG", true, "Config") -- Prevents effect from applying multiple times
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")

@@ -1132,7 +1132,7 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown))
 							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.AncestralCryCastTime))
 						else
-							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown))
+							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f ^8(average ooldown)", globalOutput.AncestralCryCooldown))
 						end
 						t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("= %d%%", globalOutput.AncestralUpTimeRatio))
 					end
@@ -1157,7 +1157,7 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown))
 								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.InfernalCryCastTime))
 							else
-								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown))
+								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.InfernalCryCooldown))
 							end
 							t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("= %d%%", globalOutput.InfernalUpTimeRatio))
 						end
@@ -1183,7 +1183,7 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown))
 							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime))
 						else
-							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown))
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.IntimidatingCryCooldown))
 						end
 						t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio))
 					end
@@ -1230,7 +1230,7 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown))
 							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.RallyingCryCastTime))
 						else
-							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown))
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.RallyingCryCooldown))
 						end
 						t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("= %d%%", globalOutput.RallyingUpTimeRatio))
 					end
@@ -1278,7 +1278,7 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown))
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime))
 						else
-							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown))
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.SeismicCryCooldown))
 						end
 						t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 					end
@@ -1291,7 +1291,7 @@ function calcs.offence(env, actor, activeSkill)
 					local MaxSingleHitDmgImpact = 0
 					local MaxSingleAoEImpact = 0
 					for i = 1, globalOutput.SeismicExertsCount do
-						ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert / 100)*LastSeismicImpact
+						ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert / 100) * LastSeismicImpact
 						MaxSingleHitDmgImpact = m_max(MaxSingleHitDmgImpact, ThisSeismicDmgImpact)
 						LastSeismicImpact = LastSeismicImpact + SeismicMoreDmgAndAoEPerExert
 						TotalSeismicDmgImpact = TotalSeismicDmgImpact + ThisSeismicDmgImpact
@@ -1416,7 +1416,7 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.AvgFistOfWarHitEffect = 1 + globalOutput.FistOfWarHitMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
 			if globalBreakdown then
 				globalBreakdown.AvgFistOfWarHitEffect = {
-					s_format("1 + (%.2f ^8(fist of war hit multiplier)", globalOutput.FistOfWarHitMultiplier ),
+					s_format("1 + (%.2f ^8(fist of war hit multiplier)", globalOutput.FistOfWarHitMultiplier),
 					s_format("x %.2f) ^8(fist of war uptime ratio)", globalOutput.FistOfWarUptimeRatio / 100),
 					s_format("= %.2f", globalOutput.AvgFistOfWarHitEffect),
 				}
