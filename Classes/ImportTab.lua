@@ -640,8 +640,10 @@ function ImportTabClass:ImportItem(itemData, slotName)
 
 	-- Import item data
 	item.uniqueID = itemData.id
-	for _, curInfluenceInfo in ipairs(influenceInfo) do
-		item[curInfluenceInfo.key] = itemData[curInfluenceInfo.key]
+	if itemData.influences then
+		for _, curInfluenceInfo in ipairs(influenceInfo) do
+			item[curInfluenceInfo.key] = itemData.influences[curInfluenceInfo.display:lower()]
+		end
 	end
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
