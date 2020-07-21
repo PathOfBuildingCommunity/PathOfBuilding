@@ -601,6 +601,11 @@ function calcs.perform(env)
 	if env.aegisModList then
 		env.player.itemList["Weapon 2"] = nil
 	end
+	if modDB:Flag(nil, "AlchemistsGenius") then
+		local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+		modDB:NewMod("FlaskEffect", "INC", m_floor(20 * effectMod), "Alchemist's Genius")
+		modDB:NewMod("FlaskChargesGained", "INC", m_floor(20 * effectMod), "Alchemist's Genius")
+	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.activeEffect.grantedEffect.name == "Herald of Purity" then
