@@ -268,7 +268,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithImpaleDPS or v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
-		{ stat = "BrandTicks", label = "Brand Activations", fmt = "d", flag = "brand" },
+		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
