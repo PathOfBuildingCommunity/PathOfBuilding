@@ -1262,6 +1262,7 @@ local specialModList = {
 	["modifiers to critical strike multiplier also apply to damage over time multiplier for ailments from critical strikes at (%d+)%% of their value"] = function(num) return { mod("CritMultiplierAppliesToDegen", "BASE", num) } end,
 	["your bleeding does not deal extra damage while the enemy is moving"] = { flag("Condition:NoExtraBleedDamageToMovingEnemy") },
 	["you can inflict bleeding on an enemy up to (%d+) times?"] = function(num) return { mod("BleedStacksMax", "OVERRIDE", num) } end,
+	["your minions spread caustic ground on death, dealing 20%% of their maximum life as chaos damage per second"] = { mod("ExtraMinionSkill", "LIST", { skillId = "SiegebreakerCausticGroud" }) },
 	["you can have an additional brand attached to an enemy"] = { mod("BrandsAttachedLimit", "BASE", 1) },
 	["gain (%d+) grasping vines each second while stationary"] = function(num) return {
 		flag("Condition:Stationary"),
