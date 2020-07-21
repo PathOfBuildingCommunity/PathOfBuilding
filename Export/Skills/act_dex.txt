@@ -692,16 +692,16 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["scorpion_minion_physical_damage_+%"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalDamage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalDamage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent"  })})
 		},
 		["scorpion_minion_attack_speed_+%"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
 		["scorpion_minion_minimum_added_physical_damage"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
 		["scorpion_minion_maximum_added_physical_damage"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
 	},
 #mods
