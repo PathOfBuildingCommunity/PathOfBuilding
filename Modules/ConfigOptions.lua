@@ -50,7 +50,7 @@ return {
 	{ var = "minionsConditionCreatedRecently", type = "check", label = "Have your minions been created Recently?", ifCond = "MinionsCreatedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MinionsCreatedRecently", "FLAG", true, "Config")
 	end },
-	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
+	{ var = "igniteMode", type = "list", label = "Ailment calculation mode:", tooltip = "Controls how the base damage for ailments is calculated:\nAverage Damage: Ailment damage is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ailment damage is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ var = "lifeRegenMode", type = "list", label = "Life regen calculation mode:", tooltip = "Controls how life regeneration is calculated:\nMinimum: Does not include burst regen.\nAverage: Averages out burst regen over time.\nBurst: Includes full burst regen in the calculation.", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="FULL",label="Burst"}}, apply = function(val, modList, enemyModList)
 		if val == "AVERAGE" then
 			modList:NewMod("Condition:LifeRegenBurstAvg", "FLAG", true, "Config")

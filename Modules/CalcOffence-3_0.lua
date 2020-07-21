@@ -372,6 +372,14 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		skillModList:NewMod("Damage", "MORE", 165, "Config", ModFlag.Hit, { type = "Multiplier", var = "SnipeStage" } )
 		skillModList:NewMod("Damage", "MORE", 120, "Config", ModFlag.Ailment, { type = "Multiplier", var = "SnipeStage" } )
 	end
+	if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
+		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "CritMultiplier")) do
+			local mod = value.mod
+			if mod.source ~= "Base" then -- The global base Crit Multi doesn't apply to ailments with Perfect Agony
+				skillModList:NewMod("DotMultiplier", "BASE", m_floor(mod.value / 2), mod.source, ModFlag.Ailment, { type = "Condition", var = "CriticalStrike" }, unpack(mod))
+			end
+		end
+	end
 
 	local isAttack = skillFlags.attack
 
@@ -1369,7 +1377,6 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 			end
 			local critChancePercentage = output.CritChance / 100
 			output.CritEffect = 1 - critChancePercentage + critChancePercentage * output.CritMultiplier * output.CritDoubleDamageEffect
-			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
 			if breakdown and output.CritEffect ~= 1 then
 				breakdown.CritEffect = {
 					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", critChancePercentage),
@@ -2147,7 +2154,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
-					skillCond = { },
+					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = skillCfg.skillCond } ),
 				}
 			end
 			local dotCfg = activeSkill.bleedCfg
@@ -2156,17 +2163,25 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				breakdown.BleedPhysical = { damageTypes = { } }
 			end
 			for pass = 1, 2 do
-				if not skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") then
-					dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or pass == 1 then
+					dotCfg.skillCond["CriticalStrike"] = false
+				else
+					dotCfg.skillCond["CriticalStrike"] = true
 				end
-				local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.BleedPhysical, "Physical", 0)
+				local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.BleedPhysical, "Physical", 0)
 				output.BleedPhysicalMin = min
 				output.BleedPhysicalMax = max
-				if pass == 1 then
-					sourceCritDmg = (min + max) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100 + output.BonusCritDotMultiplier)
+				if pass == 2 then
+					globalOutput.CritBleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
+					sourceCritDmg = (min + max) / 2 * globalOutput.CritBleedDotMulti
 				else
-					sourceHitDmg = (min + max) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100)
+					globalOutput.BleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
+					sourceHitDmg = (min + max) / 2 * globalOutput.BleedDotMulti
 				end
+			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.BleedChanceOnHit = 0
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
 			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect * output.FistOfWarAilmentEffect * output.SeismicHitEffect * output.RallyingHitEffect
@@ -2204,6 +2219,14 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				globalOutput.BleedStacksMax = maxStacks
 				globalOutput.BleedStacks = bleedStacks
 				if breakdown then
+					if globalOutput.CritBleedDotMulti and (globalOutput.CritBleedDotMulti ~= globalOutput.BleedDotMulti) then
+						local chanceFromHit = output.BleedChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
+						local chanceFromCrit = output.BleedChanceOnCrit / 100 * output.CritChance / 100
+						local totalFromHit = chanceFromHit / (chanceFromHit + chanceFromCrit)
+						local totalFromCrit = chanceFromCrit / (chanceFromHit + chanceFromCrit)
+						globalBreakdown.BleedDotMulti = breakdown.critDot(globalOutput.BleedDotMulti, globalOutput.CritBleedDotMulti, totalFromHit, totalFromCrit)
+						globalOutput.BleedDotMulti = (globalOutput.BleedDotMulti * totalFromHit) + (globalOutput.CritBleedDotMulti * totalFromCrit)
+					end
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
 					if effectMod ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
@@ -2258,7 +2281,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
-					skillCond = { },
+					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = skillCfg.skillCond } ),
 				}
 			end
 			local dotCfg = activeSkill.poisonCfg
@@ -2271,12 +2294,14 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				breakdown.PoisonChaos = { damageTypes = { } }
 			end
 			for pass = 1, 2 do
-				if not skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") then
-					dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or pass == 1 then
+					dotCfg.skillCond["CriticalStrike"] = false
+				else
+					dotCfg.skillCond["CriticalStrike"] = true
 				end
 				local totalMin, totalMax = 0, 0
 				do
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonChaos, "Chaos", 0)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.PoisonChaos, "Chaos", 0)
 					output.PoisonChaosMin = min
 					output.PoisonChaosMax = max
 					totalMin = totalMin + min
@@ -2285,44 +2310,50 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				local nonChaosMult = 1
 				if output.ChaosPoisonChance > 0 and output.PoisonChaosMax > 0 then
 					-- Additional chance for chaos
-					local chance = (pass == 1) and "PoisonChanceOnCrit" or "PoisonChanceOnHit"
+					local chance = (pass == 2) and "PoisonChanceOnCrit" or "PoisonChanceOnHit"
 					local chaosChance = m_min(100, output[chance] + output.ChaosPoisonChance)
 					nonChaosMult = output[chance] / chaosChance
 					output[chance] = chaosChance
 				end
 				if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanPoison") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonLightning, "Lightning", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.PoisonLightning, "Lightning", dmgTypeFlags.Chaos)
 					output.PoisonLightningMin = min
 					output.PoisonLightningMax = max
 					totalMin = totalMin + min * nonChaosMult
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if canDeal.Cold and skillModList:Flag(cfg, "ColdCanPoison") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonCold, "Cold", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.PoisonCold, "Cold", dmgTypeFlags.Chaos)
 					output.PoisonColdMin = min
 					output.PoisonColdMax = max
 					totalMin = totalMin + min * nonChaosMult
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if canDeal.Fire and skillModList:Flag(cfg, "FireCanPoison") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonFire, "Fire", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.PoisonFire, "Fire", dmgTypeFlags.Chaos)
 					output.PoisonFireMin = min
 					output.PoisonFireMax = max
 					totalMin = totalMin + min * nonChaosMult
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if canDeal.Physical then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonPhysical, "Physical", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.PoisonPhysical, "Physical", dmgTypeFlags.Chaos)
 					output.PoisonPhysicalMin = min
 					output.PoisonPhysicalMax = max
 					totalMin = totalMin + min * nonChaosMult
 					totalMax = totalMax + max * nonChaosMult
 				end
-				if pass == 1 then
-					sourceCritDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100 + output.BonusCritDotMultiplier)
+				if pass == 2 then
+					globalOutput.CritPoisonDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100
+					sourceCritDmg = (totalMin + totalMax) / 2 * globalOutput.CritPoisonDotMulti
 				else
-					sourceHitDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100)
+					globalOutput.PoisonDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100
+					sourceHitDmg = (totalMin + totalMax) / 2 * globalOutput.PoisonDotMulti
 				end
+			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.PoisonChanceOnHit = 0
 			end
 			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * output.SeismicHitEffect * output.RallyingHitEffect
 			if baseVal > 0 then
@@ -2358,6 +2389,14 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					output.TotalPoisonDPS = output.PoisonDPS * output.TotalPoisonStacks
 				end
 				if breakdown then
+					if globalOutput.CritPoisonDotMulti and (globalOutput.CritPoisonDotMulti ~= globalOutput.PoisonDotMulti) then
+						local chanceFromHit = output.PoisonChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
+						local chanceFromCrit = output.PoisonChanceOnCrit / 100 * output.CritChance / 100
+						local totalFromHit = chanceFromHit / (chanceFromHit + chanceFromCrit)
+						local totalFromCrit = chanceFromCrit / (chanceFromHit + chanceFromCrit)
+						globalBreakdown.PoisonDotMulti = breakdown.critDot(globalOutput.PoisonDotMulti, globalOutput.CritPoisonDotMulti, totalFromHit, totalFromCrit)
+						globalOutput.PoisonDotMulti = (globalOutput.PoisonDotMulti * totalFromHit) + (globalOutput.CritPoisonDotMulti * totalFromCrit)
+					end
 					t_insert(breakdown.PoisonDPS, "x 0.20 ^8(poison deals 20% per second)")
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.PoisonDPS, {
@@ -2418,7 +2457,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
-					skillCond = { },
+					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = skillCfg.skillCond } ),
 				}
 			end
 			local dotCfg = activeSkill.igniteCfg
@@ -2431,49 +2470,53 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 				breakdown.IgniteChaos = { damageTypes = { } }
 			end
 			for pass = 1, 2 do
-				if not skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") then
-					dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or pass == 1 then
+					dotCfg.skillCond["CriticalStrike"] = false
+				else
+					dotCfg.skillCond["CriticalStrike"] = true
 				end
 				local totalMin, totalMax = 0, 0
 				if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.IgnitePhysical, "Physical", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.IgnitePhysical, "Physical", dmgTypeFlags.Fire)
 					output.IgnitePhysicalMin = min
 					output.IgnitePhysicalMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
 				if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.IgniteLightning, "Lightning", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.IgniteLightning, "Lightning", dmgTypeFlags.Fire)
 					output.IgniteLightningMin = min
 					output.IgniteLightningMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
 				if canDeal.Cold and skillModList:Flag(cfg, "ColdCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.IgniteCold, "Cold", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.IgniteCold, "Cold", dmgTypeFlags.Fire)
 					output.IgniteColdMin = min
 					output.IgniteColdMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
 				if canDeal.Fire and not skillModList:Flag(cfg, "FireCannotIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.IgniteFire, "Fire", 0)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.IgniteFire, "Fire", 0)
 					output.IgniteFireMin = min
 					output.IgniteFireMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
 				if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.IgniteChaos, "Chaos", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 1 and breakdown and breakdown.IgniteChaos, "Chaos", dmgTypeFlags.Fire)
 					output.IgniteChaosMin = min
 					output.IgniteChaosMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
-				if pass == 1 then
-					sourceCritDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100 + output.BonusCritDotMultiplier)
+				if pass == 2 then
+					globalOutput.CritIgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
+					sourceCritDmg = (totalMin + totalMax) / 2 * globalOutput.CritIgniteDotMulti
 				else
-					sourceHitDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100)
+					globalOutput.IgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
+					sourceHitDmg = (totalMin + totalMax) / 2 * globalOutput.IgniteDotMulti
 				end
 			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
@@ -2522,6 +2565,14 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 						{ "%.3f ^8(effective DPS modifier)", effMult },
 						total = s_format("= %.1f ^8per second", output.IgniteDPS),
 					})
+					if globalOutput.CritIgniteDotMulti and (globalOutput.CritIgniteDotMulti ~= globalOutput.IgniteDotMulti) then
+						local chanceFromHit = output.IgniteChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
+						local chanceFromCrit = output.IgniteChanceOnCrit / 100 * output.CritChance / 100
+						local totalFromHit = chanceFromHit / (chanceFromHit + chanceFromCrit)
+						local totalFromCrit = chanceFromCrit / (chanceFromHit + chanceFromCrit)
+						globalBreakdown.IgniteDotMulti = breakdown.critDot(globalOutput.IgniteDotMulti, globalOutput.CritIgniteDotMulti, totalFromHit, totalFromCrit)
+						globalOutput.IgniteDotMulti = (globalOutput.IgniteDotMulti * totalFromHit) + (globalOutput.CritIgniteDotMulti * totalFromCrit)
+					end
 					if skillFlags.igniteCanStack then
 						breakdown.IgniteDamage = { }
 						if isAttack then
