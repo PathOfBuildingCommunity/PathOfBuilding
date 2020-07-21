@@ -1042,12 +1042,14 @@ return {
 	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on Consecrated Ground?", tooltip = "In addition to allowing any relevant modifiers to apply,\nthis will cause hits to have 100% increased Critical Strike Chance on the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		modList:NewMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" })
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("CritChance", "INC", 100, { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }) }, "Config")
 	end },
 	{ var = "conditionEnemyOnProfaneGround", type = "check", label = "Is the enemy on Profane Ground?", ifCond = "CreateProfaneGround", tooltip = "Enemies on Profane Ground receive the following modifiers:\n\t-10% to all Resistances\n\t+1% chance to be Critically Hit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("ElementalResist", "BASE", -10, "Config", { type = "Condition", var = "OnProfaneGround" })
 		enemyModList:NewMod("ChaosResist", "BASE", -10, "Config", { type = "Condition", var = "OnProfaneGround" })
 		modList:NewMod("CritChance", "BASE", 1, "Config", { type = "ActorCondition", actor = "enemy", var = "OnProfaneGround" })
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("CritChance", "BASE", 1, { type = "ActorCondition", actor = "enemy", var = "OnProfaneGround" }) }, "Config")
 	end },
 	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = "OnFungalGround", tooltip = "Enemies on your Fungal Ground deal 10% less Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
