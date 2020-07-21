@@ -512,22 +512,22 @@ Implicits: 1
 {variant:3}{tags:jewellery_elemental}Adds (20-24) to (33-36) Cold Damage
 {variant:4}{tags:jewellery_elemental}Adds (10-13) to (43-47) Lightning Damage
 {variant:5}Adds (17-19) to (23-29) Chaos Damage
-{variant:1}{tags:jewellery_defense}+(400-500) to Armour
-{variant:2}{tags:life}1% of Life Regenerated per second
-{variant:3}{tags:mana}(45-50)% increased Mana Regeneration Rate
-{variant:4}{tags:jewellery_defense}1% of Energy Shield Regenerated per second
-{variant:5}(30-40)% increased Damage over Time
 {tags:life}+(50-70) to maximum Life
+{variant:1}{tags:jewellery_defense}+(400-500) to Armour
+{variant:2}{tags:life}Regenerate 1% of Life per second
+{variant:3}{tags:mana}(45-50)% increased Mana Regeneration Rate
+{variant:4}{tags:jewellery_defense}Regenerate 1% of Energy Shield per second
+{variant:5}(30-40)% increased Damage over Time
 {variant:1}(30-40)% increased Stun and Block Recovery
 {variant:2}{tags:jewellery_resistance}+(20-25)% to Fire Resistance
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
 {variant:5}{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}100% reduced Vulnerability Mana Reservation
-{variant:2}100% reduced Flammability Mana Reservation
-{variant:3}100% reduced Frostbite Mana Reservation
-{variant:4}100% reduced Conductivity Mana Reservation
-{variant:5}100% reduced Despair Mana Reservation
+{variant:1}Vulnerability has 100% reduced Mana Reservation if Cast as an Aura
+{variant:2}Flammability has 100% reduced Mana Reservation if Cast as an Aura
+{variant:3}Frostbite has 100% reduced Mana Reservation if Cast as an Aura
+{variant:4}Conductivity has 100% reduced Mana Reservation if Cast as an Aura
+{variant:5}Despair has 100% reduced Mana Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 Elder Item
 ]],[[
