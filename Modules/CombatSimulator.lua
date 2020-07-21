@@ -38,28 +38,31 @@ local function getPlayerData(build)
         calcs.perform(env)
             
         cs.player = { }
-    
-        cs.player.aps, cs.player.minDmg, cs.player.maxDmg, cs.player.baseCriticalStrikeChance = getPlayerWeaponInfo(env)
+
+        cs.player.critChance = env.player.output.CritChance
+        cs.player.critMultiplier = env.player.output.CritMultiplier
+        cs.player.aps = env.player.output.Speed
+        cs.player.attackInterval = env.player.output.Time
+        cs.player.minDmg = env.player.output.MainHand.PhysicalMin
+        cs.player.maxDmg = env.player.output.MainHand.PhysicalMax
+
+        ConPrintf("\n\n=== COMBAT SIMULATOR ===\n")
         ConPrintf("PhysDmg Min: " .. cs.player.minDmg)
         ConPrintf("PhysDmg Max: " .. cs.player.maxDmg)
         ConPrintf("APS: " .. cs.player.aps)
-        ConPrintf("Crit Chance: " .. cs.player.baseCriticalStrikeChance)
-        cs.player.attackInterval = 1/cs.player.aps
+        ConPrintf("Attack Internval: " .. cs.player.attackInterval)
+        ConPrintf("Crit Chance: " .. cs.player.critChance)
+        ConPrintf("Crit Multiplier: " .. cs.player.critMultiplier)
     end
 end
 
 local function getCriticalStrikeChance()
-    local base = cs.player.baseCriticalStrikeChance
-    local moreCriticalStrikeChance = 0
-    local incCriticalStrikeChance = 0
-    local chance = (base + moreCriticalStrikeChance) * (1 + incCriticalStrikeChance)
+    local chance = cs.player.critChance 
     return chance
 end
 
 local function getCriticalStrikeMultiplier()
-    local base = 1.5
-    local additionalCriticalStrikeMultiplier = 0
-    local multiplier = base + additionalCriticalStrikeMultiplier
+    local multiplier = cs.player.critMultiplier
     return multiplier
 end
 
