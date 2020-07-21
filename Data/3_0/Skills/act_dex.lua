@@ -1142,6 +1142,30 @@ skills["BurningArrow"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "5 Stacks",
+		},
+	},
+	statMap = {
+		["base_additional_burning_debuff_%_of_ignite_damage"] = {
+			mod("DebuffEffect", "BASE", nil),
+			div = 100
+		}
+	},
+	preDotFunc = function(activeSkill, output)
+		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
+		local debuff = (output.IgniteDPS or 0) * effect
+		if activeSkill.skillPart == 1 then
+			output.FireDot = debuff
+		end
+		if activeSkill.skillPart == 2 then
+			output.FireDot = 5 * debuff
+		end
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
