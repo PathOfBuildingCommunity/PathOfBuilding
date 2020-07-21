@@ -99,6 +99,13 @@ function calcs.buildModListForNode(env, node)
 			rad.func(node, modList, rad.data)
 		end
 	end
+	
+	if modList:Flag(nil, "PassiveSkillHasOtherEffect") then
+		for i, mod in ipairs(modList:List(skillCfg, "NodeModifier")) do	
+			if i == 1 then wipeTable(modList) end
+			modList:AddMod(mod.mod)
+		end
+	end
 
 	return modList
 end
