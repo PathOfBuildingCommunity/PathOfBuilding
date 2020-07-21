@@ -687,7 +687,7 @@ function calcs.perform(env)
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
 			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
 		end
-		if activeSkill.skillFlags.warcry then
+		if env.mode_buffs and activeSkill.skillFlags.warcry then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 			local full_duration = activeSkill.activeEffect.grantedEffectLevel.duration * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", activeSkill.skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 			local cooldownOverride = activeSkill.skillModList:Override(activeSkill.skillCfg, "CooldownRecovery")
@@ -765,7 +765,7 @@ function calcs.perform(env)
 				modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
 			end
 		end
-		if activeSkill.skillData.triggeredByBrand then
+		if env.mode_combat and activeSkill.skillData.triggeredByBrand then
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggeredByBrand then
@@ -778,7 +778,7 @@ function calcs.perform(env)
 			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
 		end
-		if activeSkill.skillData.triggeredWhileChannelling then
+		if env.mode_combat and activeSkill.skillData.triggeredWhileChannelling then
 			local spellCount, trigTime = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggerTime or 0 > 0 then
@@ -1025,7 +1025,7 @@ function calcs.perform(env)
 	end
 	
 	-- Apply effect of Bonechill support
-	if output.BonechillEffect then 
+	if env.mode_effective and output.BonechillEffect then 
 		enemyDB:NewMod("ColdDamageTaken", "INC", output.BonechillEffect, "Bonechill", { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill Cold DoT Taken" }, { type = "Limit", limit = 30 }, { type = "Condition", var = "Chilled" } )
 	end
 
