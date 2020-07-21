@@ -1,3 +1,28 @@
+### 1.4.170.6 - 2020/07/22
+ * Add breakdown for Warcries and Fist of War
+ * Add calculation mode to select "Max hit" for Warcries
+ * Add count for the max number of Brand activations
+ * Add support for Slipstream from Harbinger of Time
+ * Add support for alternate quality mod implicits
+ * Add support for Fevered Mind, Fortress Covenant and Quickening Covenant
+ * Add support for Emperors Vigilance
+ * Add support for Brewed for Potency, Chilling Presence, Forbidden Words, Lead by Example, Pure Agony
+     and Disciples Cluster Notables
+ * Add output for DoT multiplier for Ailments
+ * Add Attack/Cast speed to the Node/Item Power sorting list
+ * Add override to simulate lucky hits on a character ("Your damage with Hits is Lucky")
+ * Change Ignite Calc Mode to Ailment Calc Mode
+ * Update mods on Impresence
+ * Fix Pressure Points Notable not working
+ * Fix Pride not working when importing an old build
+ * Fix imported influence items not working with the item crafter
+ * Fix Anoint-only nodes appearing in the "Top Node" power list
+ * Fix Wither not showing up for Eternal Suffering Cluster Notables
+ * Fix Eye of Malice not affecting Ignite damage
+ * Fix Minions being supported by Cast while Channelling or Arcanist Brand
+ * Fix the effects of Consecrated and Profane Ground to now work with Minions
+ * Fix damage scaling on Explosive Arrow
+ * Fix Evasion calculations
 ### 1.4.170.5 - 2020/07/15
  * Fix crash related to Vessel of Vinktar and flask effect
  * Fix Rallying Cry not showing the proper configuration option to select number of nearby Allies
