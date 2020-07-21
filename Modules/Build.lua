@@ -1009,7 +1009,7 @@ end
 
 function buildMode:OpenCombatSimulator()
 	local combatSim = LoadModule("Modules/CombatSimulator")
-	combatSim.runSimulation()
+	combatSim.runSimulation(self)
 end
 
 -- Open the spectre library popup

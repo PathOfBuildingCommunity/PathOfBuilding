@@ -6,6 +6,9 @@
 
 math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
 
+local targetVersion = "3_0"
+local calcs = LoadModule("Modules/Calcs", targetVersion)
+
 local cs = {}
 
 local pairs = pairs
@@ -22,10 +25,21 @@ local function getPlayerWeaponInfo(env)
     return weapon1.AttackRate, weapon1.PhysicalMin, weapon1.PhysicalMax, weapon1.CritChance
 end
 
-local function getPlayerData()
-    cs.player = { }
-    if global_env then
-        cs.player.aps, cs.player.minDmg, cs.player.maxDmg, cs.player.baseCriticalStrikeChance = getPlayerWeaponInfo(global_env)
+local function getPlayerData(build)
+    local env = calcs.initEnv(build, "CALCS")
+
+    if env then
+        -- Set settings to "UNBUFFED"
+        env.mode_buffs = false
+        env.mode_combat = false
+        env.mode_effective = false
+
+        -- Run pass on environment to get data
+        calcs.perform(env)
+            
+        cs.player = { }
+    
+        cs.player.aps, cs.player.minDmg, cs.player.maxDmg, cs.player.baseCriticalStrikeChance = getPlayerWeaponInfo(env)
         ConPrintf("PhysDmg Min: " .. cs.player.minDmg)
         ConPrintf("PhysDmg Max: " .. cs.player.maxDmg)
         ConPrintf("APS: " .. cs.player.aps)
@@ -100,11 +114,11 @@ local function runSingleSim(numSec, player)
     return dmg_done / t
 end
 
-function cs.runSimulation()
+function cs.runSimulation(build)
     local numSims = 1000
     local numSecsPerSim = 100
 
-    getPlayerData()
+    getPlayerData(build)
 
     local avg_sim_dmg = 0
     local avg_sim_attacks = 0
