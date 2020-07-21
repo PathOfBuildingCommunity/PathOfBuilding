@@ -173,9 +173,7 @@ return {
 	end },
 	{ label = "Pride:", ifSkill = "Pride" },
 	{ var = "prideEffect", type = "list", label = "Pride Aura Effect:", ifSkill = "Pride", list = {{val="MIN",label="Initial effect"},{val="MAX",label="Maximum effect"}}, apply = function(val, modList, enemyModList)
-		if val == "MIN" then
-			modList:NewMod("Condition:PrideMinEffect", "FLAG", true, "Config")
-		elseif val == "MAX" then
+		if val == "MAX" then
 			modList:NewMod("Condition:PrideMaxEffect", "FLAG", true, "Config")
 		end
 	end },
