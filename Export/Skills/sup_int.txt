@@ -79,7 +79,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannelling
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
 			div = 1000,
 		},
 	},
@@ -88,7 +88,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingTriggered
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
 #baseMod skill("triggeredWhileChannelling", true)
@@ -97,7 +97,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingPlus
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
 			div = 1000,
 		},
 	},
@@ -106,7 +106,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingTriggeredPlus
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
 #baseMod skill("triggeredWhileChannelling", true)
