@@ -144,6 +144,29 @@ function breakdown.dot(out, baseVal, inc, more, mult, rate, aura, effMult, total
 	})
 end
 
+function breakdown.critDot(dotMulti, critMulti, dotChance, critChance)
+	local combined = (dotMulti * dotChance) + (critMulti * critChance)
+	local out = { }
+	if dotChance > 0 then
+		t_insert(out, s_format("Contribution from Non-crits:"))
+		t_insert(out, s_format("%.2f ^8(dot multiplier for non-crits)", dotMulti))
+		t_insert(out, s_format("x %.4f ^8(portion of instances created by non-crits)", dotChance))
+		t_insert(out, s_format("= %.2f", dotMulti * dotChance))
+	end
+	if critChance > 0 then
+		t_insert(out, s_format("Contribution from Crits:"))
+		t_insert(out, s_format("%.2f ^8(dot multiplier for crits)", critMulti))
+		t_insert(out, s_format("x %.4f ^8(portion of instances created by crits)", critChance))
+		t_insert(out, s_format("= %.2f", critMulti * critChance))
+	end
+	if (dotChance > 0 and critChance > 0) and (dotMulti ~= critMulti)then
+		t_insert(out, s_format("Effective DoT Multiplier:"))
+		t_insert(out, s_format("%.2f + %.2f", dotMulti * dotChance, critMulti * critChance))
+		t_insert(out, s_format("= %.2f", combined))
+	end
+	return out
+end		
+		
 function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur)
 	local out = { }
 	if actor.mainSkill.skillData.showAverage then
