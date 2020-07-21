@@ -1080,6 +1080,10 @@ function calcs.offence(env, actor, activeSkill)
 		if skillData.hitTimeOverride then
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
+			--Brands always have hitTimeOverride
+			if skillFlags.brand then
+				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
+			end
 		end
 	end
 
