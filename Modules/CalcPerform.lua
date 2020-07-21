@@ -726,7 +726,9 @@ function calcs.perform(env)
 			elseif activeSkill.activeEffect.grantedEffect.name == "Infernal Cry" and not modDB:Flag(nil, "InfernalActive") then
 				local infernalAshEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalFireTakenPer5MP")
 				env.player.modDB:NewMod("NumInfernalExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalExertedAttacks") + extraExertions)
-				env.player.modDB:NewMod("CoveredInAshEffect", "BASE", infernalAshEffect * uptime, { type = "Multiplier", var = "WarcryPower", div = 5 })
+				if env.mode_effective then
+					env.player.modDB:NewMod("CoveredInAshEffect", "BASE", infernalAshEffect * uptime, { type = "Multiplier", var = "WarcryPower", div = 5 })
+				end
 				modDB:NewMod("InfernalActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
 				local intimidatingOverwhelmEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingPDRPer5MP")
@@ -761,11 +763,13 @@ function calcs.perform(env)
 				end
 				env.player.modDB:NewMod("NumSeismicExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions)
 				env.player.modDB:NewMod("SeismicMoreDmgPerExert",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicHitMultiplier"))
-				env.player.modDB:NewMod("EnemyStunThreshold", "INC", -seismicStunEffect * uptime, "Seismic Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
+				if env.mode_effective then
+					env.player.modDB:NewMod("EnemyStunThreshold", "INC", -seismicStunEffect * uptime, "Seismic Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
+				end
 				modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
 			end
 		end
-		if env.mode_combat and activeSkill.skillData.triggeredByBrand then
+		if activeSkill.skillData.triggeredByBrand then
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggeredByBrand then
@@ -778,7 +782,7 @@ function calcs.perform(env)
 			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
 		end
-		if env.mode_combat and activeSkill.skillData.triggeredWhileChannelling then
+		if activeSkill.skillData.triggeredWhileChannelling then
 			local spellCount, trigTime = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggerTime or 0 > 0 then
