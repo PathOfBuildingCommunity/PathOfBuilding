@@ -482,8 +482,8 @@ return {
 	{ var = "buffAdrenaline", type = "check", label = "Do you have Adrenaline?", tooltip = "This will enable the Adrenaline buff:\n100% increased Damage\n25% increased Attack, Cast and Movement Speed\n10% additional Physical Damage Reduction", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Adrenaline", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffAlchemistsGenius", type = "check", label = "Do you have Alchemist's Genius?", ifCond = "CanHaveAlcehmistGenius", tooltip = "This will enable the Alchemist's Genius buff:\n20% increased Flask Charges gained\n20% increased effect of Flasks", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:AlchemistsGenius", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanHaveAlcehmistGenius" } })
+	{ var = "buffAlchemistsGenius", type = "check", label = "Do you have Alchemist's Genius?", ifCond = "CanHaveAlchemistGenius", tooltip = "This will enable the Alchemist's Genius buff:\n20% increased Flask Charges gained\n20% increased effect of Flasks", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:AlchemistsGenius", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanHaveAlchemistGenius" } })
 	end },
 	{ var = "buffVaalArcLuckyHits", type = "check", label = "Do you have Vaal Arc's Lucky Buff?", ifCond = "CanBeLucky",  tooltip = "Damage with Arc Hits is rolled twice, maximum roll is used", apply = function(val, modList, enemyModList)
 		modList:NewMod("LuckyHits", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanBeLucky" } }, { type = "SkillName", skillNameList = { "Arc", "Vaal Arc" } })

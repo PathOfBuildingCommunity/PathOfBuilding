@@ -2134,8 +2134,8 @@ local specialModList = {
 	["chaos damage does not bypass energy shield during effect"] = { flag("ChaosNotBypassEnergyShield") },
 	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" }) } end,
 	["gain alchemist's genius when you use a flask"] = {
-		flag("Condition:CanHaveAlcehmistGenius"),
-		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanHaveAlcehmistGenius" }), -- Make the Configuration option appear
+		flag("Condition:CanHaveAlchemistGenius"),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanHaveAlchemistGenius" }), -- Make the Configuration option appear
 	},
 	-- Jewels
 	["passives in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeapLike", value = true }) },
