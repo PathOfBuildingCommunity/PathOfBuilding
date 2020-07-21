@@ -320,9 +320,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
 		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, resistOverCapStat = "FireResistOverCap"},
+		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, resistOverCapStat = "ColdResistOverCap" },
+		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, resistOverCapStat = "LightningResistOverCap" },
+		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, resistOverCapStat = "ChaosResistOverCap" },
+		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
@@ -1152,11 +1156,13 @@ function buildMode:AddDisplayStatList(statList, actor)
 							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
 						end
 					end
-					t_insert(statBoxList, {
-						height = 16,
-						labelColor..statData.label..":",
-						self:FormatStat(statData, statVal)..resistOverCapStatLabel,
-					})
+					if not (statData.hideStat) then
+						t_insert(statBoxList, {
+							height = 16,
+							labelColor..statData.label..":",
+							self:FormatStat(statData, statVal)..resistOverCapStatLabel,
+						})
+					end
 				end
 			end
 		elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
