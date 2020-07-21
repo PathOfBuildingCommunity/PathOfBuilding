@@ -65,6 +65,9 @@ return {
 			modList:NewMod("Condition:WarcryMaxHit", "FLAG", true, "Config")
 		end
 	end },
+	{ var = "EVBypass", type = "check", label = "Disable Emperor's Vigilance Bypass", ifCond = "EVBypass", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:EVBypass", "FLAG", true, "Config")
+	end },
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
