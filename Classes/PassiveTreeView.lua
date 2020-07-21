@@ -470,16 +470,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- Calculate color based on a single stat
 					local stat = m_max(node.power.singleStat or 0, 0)
 					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
-					local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
-					local pathCost = #path == 0 and 1 or #path
-					if node.ascendancyName then
-						pathCost = 10000
-					end
 					if(stat ~= 0) then
 						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
-							statCol = stat / pathCost == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
+							statCol = stat / node.pathDist == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
 						elseif self.heatMapStatPerPoint then
-							statCol = statCol / pathCost * 4
+							statCol = statCol / node.pathDist * 4
 						elseif self.heatMapTopPick then
 							statCol = stat == build.calcsTab.powerMax.singleStat and 1.5 ^ 0.5 or 0
 						end
@@ -497,17 +492,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local defence = m_max(node.power.defence or 0, 0)
 					local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
 					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
-					local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
-					local pathCost = #path == 0 and 1 or #path
-					if node.ascendancyName then
-						pathCost = 10000
-					end
 					if(self.heatMapStatPerPoint and self.heatMapTopPick) then
-						dpsCol = offence / pathCost == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
-						defCol = defence / pathCost == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
+						dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
+						defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
 					elseif self.heatMapStatPerPoint then
-						dpsCol = dpsCol / pathCost * 4
-						defCol = defCol / pathCost * 4
+						dpsCol = dpsCol / node.pathDist * 4
+						defCol = defCol / node.pathDist * 4
 					elseif self.heatMapTopPick then
 						dpsCol = offence == build.calcsTab.powerMax.offence and 1.5 ^ 0.5 or 0
 						defCol = defence == build.calcsTab.powerMax.defence and 1.5 ^ 0.5 or 0

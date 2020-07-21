@@ -29,6 +29,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
+	modDB:NewMod("Multiplier:VirulenceStacksMax", "BASE", 40, "Base")
 	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	if env.build.targetVersion ~= "2_6" then
 		modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
@@ -60,6 +61,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
 	modDB:NewMod("Tailwind", "FLAG", true, "Base", { type = "Condition", var = "Tailwind" })
 	modDB:NewMod("Adrenaline", "FLAG", true, "Base", { type = "Condition", var = "Adrenaline" })
+	modDB:NewMod("AlchemistsGenius", "FLAG", true, "Base", { type = "Condition", var = "AlchemistsGenius" })
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB.conditions["Buffed"] = env.mode_buffs
 	modDB.conditions["Combat"] = env.mode_combat
@@ -97,6 +99,13 @@ function calcs.buildModListForNode(env, node)
 	for _, rad in pairs(env.radiusJewelList) do
 		if rad.nodes[node.id] and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
 			rad.func(node, modList, rad.data)
+		end
+	end
+	
+	if modList:Flag(nil, "PassiveSkillHasOtherEffect") then
+		for i, mod in ipairs(modList:List(skillCfg, "NodeModifier")) do	
+			if i == 1 then wipeTable(modList) end
+			modList:AddMod(mod.mod)
 		end
 	end
 
@@ -243,6 +252,7 @@ function calcs.initEnv(build, mode, override)
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 	end
 	modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
+	modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
 
 	-- Add bandit mods
 	if build.targetVersion == "2_6" then

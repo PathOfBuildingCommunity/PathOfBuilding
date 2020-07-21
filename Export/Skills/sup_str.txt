@@ -279,6 +279,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
 		},
 	},
+#baseMod flag("SupportedByMultistrike")
 #mods
 
 #skill SupportMultistrikePlus

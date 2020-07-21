@@ -2370,6 +2370,7 @@ skills["SupportMultistrike"] = {
 		},
 	},
 	baseMods = {
+		flag("SupportedByMultistrike"),
 	},
 	qualityStats = {
 		{ "melee_physical_damage_+%", 0.5 },

@@ -1437,7 +1437,7 @@ skills["KaomWarriorMoltenStrike"] = {
 	name = "Molten Strike",
 	hidden = true,
 	color = 1,
-	description = "Attacks enemies with physical and fire damage, causing balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
+	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, [SkillType.Type97] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -3892,7 +3892,7 @@ skills["WickerManMoltenStrike"] = {
 	name = "Molten Strike",
 	hidden = true,
 	color = 1,
-	description = "Attacks enemies with physical and fire damage, causing balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
+	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, [SkillType.Type97] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
