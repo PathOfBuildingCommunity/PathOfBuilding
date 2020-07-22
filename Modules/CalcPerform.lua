@@ -3,7 +3,6 @@
 -- Module: Calc Perform
 -- Manages the offence/defence calculations.
 --
-
 local calcs = ...
 
 local pairs = pairs
