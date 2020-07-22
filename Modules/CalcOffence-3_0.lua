@@ -1304,7 +1304,7 @@ function calcs.offence(env, actor, activeSkill)
 						local MaxSingleHitDmgImpact = 0
 						local MaxSingleAoEImpact = 0
 						for i = 1, globalOutput.SeismicExertsCount do
-							ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert / 100) * LastSeismicImpact
+							ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert) * LastSeismicImpact
 							MaxSingleHitDmgImpact = m_max(MaxSingleHitDmgImpact, ThisSeismicDmgImpact)
 							LastSeismicImpact = LastSeismicImpact + SeismicMoreDmgAndAoEPerExert
 							TotalSeismicDmgImpact = TotalSeismicDmgImpact + ThisSeismicDmgImpact
@@ -1421,7 +1421,7 @@ function calcs.offence(env, actor, activeSkill)
 			-- If Fist of War & Active Skill is a Slam Skill & NOT a Vaal Skill
 			if globalOutput.FistOfWarCooldown ~= 0 and activeSkill.skillTypes[SkillType.SlamSkill] and not activeSkill.skillTypes[SkillType.Vaal] then
 				globalOutput.FistOfWarHitMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarHitMultiplier") / 100
-				globalOutput.FistOfWarAilmentMultiplier = 1 + skillModList:Sum("BASE", cfg, "FistOfWarAilmentMultiplier") / 100
+				globalOutput.FistOfWarAilmentMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarAilmentMultiplier") / 100
 				globalOutput.FistOfWarUptimeRatio = m_min( (1 / output.Speed) / globalOutput.FistOfWarCooldown, 1) * 100
 				if globalBreakdown then
 					globalBreakdown.FistOfWarUptimeRatio = {
