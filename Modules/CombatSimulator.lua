@@ -28,6 +28,7 @@ local function setPlayerWeaponInfo(env)
     cs.player.MH_HitChance = env.player.output.MainHand.HitChance
     cs.player.MH_CritChance = env.player.output.MainHand.CritChance
     cs.player.MH_CritMultiplier = env.player.output.MainHand.CritMultiplier
+    ConPrintf("MH Hit Chance: " .. cs.player.MH_HitChance)
     ConPrintf("PhysDmg MH Min: " .. cs.player.MH_PhysMinDmg)
     ConPrintf("PhysDmg MH Max: " .. cs.player.MH_PhysMaxDmg)
     ConPrintf("MH Crit Chance: " .. cs.player.MH_CritChance)
@@ -42,6 +43,7 @@ local function setPlayerWeaponInfo(env)
         cs.player.OH_HitChance = env.player.output.OffHand.HitChance
         cs.player.OH_CritChance = env.player.output.OffHand.CritChance
         cs.player.OH_CritMultiplier = env.player.output.OffHand.CritMultiplier
+        ConPrintf("OH Hit Chance: " .. cs.player.OH_HitChance)
         ConPrintf("PhysDmg OH Min: " .. cs.player.OH_PhysMinDmg)
         ConPrintf("PhysDmg OH Max: " .. cs.player.OH_PhysMaxDmg)
         ConPrintf("OH Crit Chance: " .. cs.player.OH_CritChance)
@@ -74,6 +76,17 @@ local function getPlayerData(build)
     end
 end
 
+local function isHit(hitChance)
+    local hitChance = hitChance * 100
+    local randValue = math.random(1, 10000)
+    if randValue <= hitChance then
+        cs.simData.numHits = cs.simData.numHits + 1
+        return true
+    end
+    cs.simData.numMisses = cs.simData.numMisses + 1
+    return false
+end
+
 local function isCrit(critChance)
     local critChance = critChance * 100
     local randValue = math.random(1, 10000)
@@ -85,11 +98,14 @@ local function isCrit(critChance)
 end
 
 local function getMainHandDmg()
-    local dmg = math.random(cs.player.MH_PhysMinDmg, cs.player.MH_PhysMaxDmg)
-    if isCrit(cs.player.MH_CritChance) then
-        dmg = dmg * cs.player.MH_CritMultiplier
+    if isHit(cs.player.MH_HitChance) then
+        local dmg = math.random(cs.player.MH_PhysMinDmg, cs.player.MH_PhysMaxDmg)
+        if isCrit(cs.player.MH_CritChance) then
+            dmg = dmg * cs.player.MH_CritMultiplier
+        end
+        return dmg
     end
-    return dmg
+    return nil
 end
 
 local function getOffHandDmg()
@@ -110,12 +126,20 @@ end
 
 local function getDmg()
     cs.simData.numAttacks = cs.simData.numAttacks + 1
-    return getNextDmg()
+    local res = getNextDmg()
+    if res ~= nil then
+        -- Apply On Hit effects (even if damage is 0)
+        if res > 0 then
+            -- Apply on Damage effect (damage is greater than 0)
+        end
+    end
+    return res
 end
 
 local function runSingleSim(numSec, player)
     cs.simData = {
         numAttacks = 0,
+        numHits = 0,
         numCrits = 0,
         numMisses = 0,
     }
@@ -153,16 +177,19 @@ function cs.runSimulation(build)
 
     local avg_sim_dmg = 0
     local avg_sim_attacks = 0
+    local avg_sim_misses = 0
     local avg_sim_crits = 0
     for i = 1, numSims do
         local ret = runSingleSim(numSecsPerSim)
         --ConPrintf("Num Attacks: " .. cs.simData.numAttacks .. ", Num Crits: " .. cs.simData.numCrits)
         avg_sim_dmg = avg_sim_dmg + ret
         avg_sim_attacks = avg_sim_attacks + cs.simData.numAttacks
+        avg_sim_misses = avg_sim_misses + cs.simData.numMisses
         avg_sim_crits = avg_sim_crits + cs.simData.numCrits
     end
     ConPrintf("\nAvg DPS: " .. avg_sim_dmg / numSims)
     ConPrintf("Avg Num of Attacks: " .. avg_sim_attacks / numSims)
+    ConPrintf("Avg Num of Misses: " .. avg_sim_misses / numSims .. " --> (" .. avg_sim_misses * 100 / avg_sim_attacks .. "%%)")
     ConPrintf("Avg Num of Crits: " .. avg_sim_crits / numSims .. " --> (" .. avg_sim_crits * 100 / avg_sim_attacks .. "%%)")
 end
 
