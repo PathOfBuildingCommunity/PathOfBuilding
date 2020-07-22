@@ -76,10 +76,8 @@ local function isHit(hitChance)
     local hitChance = hitChance * 100
     local randValue = math.random(1, 10000)
     if randValue <= hitChance then
-        cs.simData.numHits = cs.simData.numHits + 1
         return true
     end
-    cs.simData.numMisses = cs.simData.numMisses + 1
     return false
 end
 
@@ -87,7 +85,6 @@ local function isCrit(critChance)
     local critChance = critChance * 100
     local randValue = math.random(1, 10000)
     if randValue <= critChance then
-        cs.simData.numCrits = cs.simData.numCrits + 1
         return true
     end
     return false
@@ -95,23 +92,29 @@ end
 
 local function getMainHandDmg()
     if isHit(cs.player.MH_HitChance) then
+        cs.simData.numMHHits = cs.simData.numMHHits + 1
         local dmg = math.random(cs.player.MH_PhysMinDmg, cs.player.MH_PhysMaxDmg)
         if isCrit(cs.player.MH_CritChance) then
+            cs.simData.numMHCrits = cs.simData.numMHCrits + 1
             dmg = dmg * cs.player.MH_CritMultiplier
         end
         return dmg
     end
+    cs.simData.numMHMisses = cs.simData.numMHMisses + 1
     return nil
 end
 
 local function getOffHandDmg()
     if isHit(cs.player.OH_HitChance) then
+        cs.simData.numOHHits = cs.simData.numOHHits + 1
         local dmg = math.random(cs.player.OH_PhysMinDmg, cs.player.OH_PhysMaxDmg)
         if isCrit(cs.player.OH_CritChance) then
+            cs.simData.numOHCrits = cs.simData.numOHCrits + 1
             dmg = dmg * cs.player.OH_CritMultiplier
         end
         return dmg
     end
+    cs.simData.numOHMisses = cs.simData.numOHMisses + 1
     return nil
 end
 
@@ -141,12 +144,6 @@ local function getDmg()
 end
 
 local function runSingleSim(numSec, player)
-    cs.simData = {
-        numAttacks = 0,
-        numHits = 0,
-        numCrits = 0,
-        numMisses = 0,
-    }
     local t = 0.0
     local t_tenth = 0.1
     local t_next_attack = cs.player.MH_AttackInterval
@@ -174,6 +171,8 @@ local function runSingleSim(numSec, player)
 end
 
 function cs.runSimulation(build)
+    cs.simData = { }
+    cs.player = { }
     ConPrintf("\n\n=== COMBAT SIMULATOR ===")
     local numSims = 10000
     local numSecsPerSim = 100
@@ -184,21 +183,45 @@ function cs.runSimulation(build)
 
     local avg_sim_dmg = 0
     local avg_sim_attacks = 0
-    local avg_sim_misses = 0
-    local avg_sim_crits = 0
+    local avg_sim_mh_hits = 0
+    local avg_sim_oh_hits = 0
+    local avg_sim_mh_misses = 0
+    local avg_sim_mh_crits = 0
+    local avg_sim_oh_misses = 0
+    local avg_sim_oh_crits = 0
     for i = 1, numSims do
+        -- prepare per run simulation data variables
+        cs.simData.numAttacks = 0
+        cs.simData.numMHHits = 0
+        cs.simData.numOHHits = 0
+        cs.simData.numMHCrits = 0
+        cs.simData.numMHMisses = 0
+        cs.simData.numOHCrits = 0
+        cs.simData.numOHMisses = 0
+
         local ret = runSingleSim(numSecsPerSim)
         --ConPrintf("Num Attacks: " .. cs.simData.numAttacks .. ", Num Crits: " .. cs.simData.numCrits)
         avg_sim_dmg = avg_sim_dmg + ret
         avg_sim_attacks = avg_sim_attacks + cs.simData.numAttacks
-        avg_sim_misses = avg_sim_misses + cs.simData.numMisses
-        avg_sim_crits = avg_sim_crits + cs.simData.numCrits
+        avg_sim_mh_hits = avg_sim_mh_hits + cs.simData.numMHHits
+        avg_sim_oh_hits = avg_sim_oh_hits + cs.simData.numOHHits
+        avg_sim_mh_misses = avg_sim_mh_misses + cs.simData.numMHMisses
+        avg_sim_mh_crits = avg_sim_mh_crits + cs.simData.numMHCrits
+        avg_sim_oh_misses = avg_sim_oh_misses + cs.simData.numOHMisses
+        avg_sim_oh_crits = avg_sim_oh_crits + cs.simData.numOHCrits
     end
     ConPrintf("========================")
     ConPrintf("\nAvg DPS: " .. avg_sim_dmg / numSims)
     ConPrintf("Avg Num of Attacks: " .. avg_sim_attacks / numSims)
-    ConPrintf("Avg Num of Misses: " .. avg_sim_misses / numSims .. " --> (" .. avg_sim_misses * 100 / avg_sim_attacks .. "%%)")
-    ConPrintf("Avg Num of Crits: " .. avg_sim_crits / numSims .. " --> (" .. avg_sim_crits * 100 / avg_sim_attacks .. "%%)")
+    if cs.player.isDualWield then
+        ConPrintf("Avg Num of MH Misses: " .. avg_sim_mh_misses / numSims .. " --> (" .. avg_sim_mh_misses * 100 / (avg_sim_mh_hits + avg_sim_mh_misses) .. "%%)")
+        ConPrintf("Avg Num of MH Crits: " .. avg_sim_mh_crits / numSims .. " --> (" .. avg_sim_mh_crits * 100 / (avg_sim_mh_hits + avg_sim_mh_misses) .. "%%)")
+        ConPrintf("Avg Num of OH Misses: " .. avg_sim_oh_misses / numSims .. " --> (" .. avg_sim_oh_misses * 100 / (avg_sim_oh_hits + avg_sim_oh_misses) .. "%%)")
+        ConPrintf("Avg Num of OH Crits: " .. avg_sim_oh_crits / numSims .. " --> (" .. avg_sim_oh_crits * 100 / (avg_sim_oh_hits + avg_sim_oh_misses) .. "%%)")
+    else
+        ConPrintf("Avg Num of Misses: " .. avg_sim_mh_misses / numSims .. " --> (" .. avg_sim_mh_misses * 100 / avg_sim_attacks .. "%%)")
+        ConPrintf("Avg Num of Crits: " .. avg_sim_mh_crits / numSims .. " --> (" .. avg_sim_mh_crits * 100 / avg_sim_attacks .. "%%)")
+    end
     ConPrintf("\n========================")
 end
 
