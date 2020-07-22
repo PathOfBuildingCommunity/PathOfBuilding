@@ -10,6 +10,7 @@ local targetVersion = "3_0"
 local calcs = LoadModule("Modules/Calcs", targetVersion)
 
 local cs = {}
+cs.player = { }
 
 local pairs = pairs
 local ipairs = ipairs
@@ -20,9 +21,34 @@ local m_max = math.max
 
 local TICK = 1 / data.misc.ServerTickRate
 
-local function getPlayerWeaponInfo(env)
-    local weapon1 = env.player.weaponData1
-    return weapon1.AttackRate, weapon1.PhysicalMin, weapon1.PhysicalMax, weapon1.CritChance
+local function setPlayerWeaponInfo(env)
+    cs.player.MH_Aps = env.player.output.MainHand.Speed
+    cs.player.MH_PhysMinDmg = env.player.output.MainHand.PhysicalMin
+    cs.player.MH_PhysMaxDmg = env.player.output.MainHand.PhysicalMax
+    cs.player.MH_HitChance = env.player.output.MainHand.HitChance
+    cs.player.MH_CritChance = env.player.output.MainHand.CritChance
+    cs.player.MH_CritMultiplier = env.player.output.MainHand.CritMultiplier
+    ConPrintf("PhysDmg MH Min: " .. cs.player.MH_PhysMinDmg)
+    ConPrintf("PhysDmg MH Max: " .. cs.player.MH_PhysMaxDmg)
+    ConPrintf("MH Crit Chance: " .. cs.player.MH_CritChance)
+    ConPrintf("MH Crit Multiplier: " .. cs.player.MH_CritMultiplier)
+
+    cs.player.isDualWield = env.player.modDB.conditions.DualWielding
+
+    if cs.player.isDualWield then
+        cs.player.OH_Aps = env.player.output.OffHand.Speed
+        cs.player.OH_PhysMinDmg = env.player.output.OffHand.PhysicalMin
+        cs.player.OH_PhysMaxDmg = env.player.output.OffHand.PhysicalMax
+        cs.player.OH_HitChance = env.player.output.OffHand.HitChance
+        cs.player.OH_CritChance = env.player.output.OffHand.CritChance
+        cs.player.OH_CritMultiplier = env.player.output.OffHand.CritMultiplier
+        ConPrintf("PhysDmg OH Min: " .. cs.player.OH_PhysMinDmg)
+        ConPrintf("PhysDmg OH Max: " .. cs.player.OH_PhysMaxDmg)
+        ConPrintf("OH Crit Chance: " .. cs.player.OH_CritChance)
+        ConPrintf("OH Crit Multiplier: " .. cs.player.OH_CritMultiplier)
+
+        cs.player.LastDmgFunc = nil
+    end
 end
 
 local function getPlayerData(build)
@@ -36,38 +62,20 @@ local function getPlayerData(build)
 
         -- Run pass on environment to get data
         calcs.perform(env)
-            
-        cs.player = { }
 
-        cs.player.critChance = env.player.output.CritChance
-        cs.player.critMultiplier = env.player.output.CritMultiplier
         cs.player.aps = env.player.output.Speed
         cs.player.attackInterval = env.player.output.Time
-        cs.player.minDmg = env.player.output.MainHand.PhysicalMin
-        cs.player.maxDmg = env.player.output.MainHand.PhysicalMax
 
         ConPrintf("\n\n=== COMBAT SIMULATOR ===\n")
-        ConPrintf("PhysDmg Min: " .. cs.player.minDmg)
-        ConPrintf("PhysDmg Max: " .. cs.player.maxDmg)
+        setPlayerWeaponInfo(env)
+
         ConPrintf("APS: " .. cs.player.aps)
         ConPrintf("Attack Internval: " .. cs.player.attackInterval)
-        ConPrintf("Crit Chance: " .. cs.player.critChance)
-        ConPrintf("Crit Multiplier: " .. cs.player.critMultiplier)
     end
 end
 
-local function getCriticalStrikeChance()
-    local chance = cs.player.critChance 
-    return chance
-end
-
-local function getCriticalStrikeMultiplier()
-    local multiplier = cs.player.critMultiplier
-    return multiplier
-end
-
-local function isCrit()
-    local critChance = getCriticalStrikeChance() * 100
+local function isCrit(critChance)
+    local critChance = critChance * 100
     local randValue = math.random(1, 10000)
     if randValue <= critChance then
         cs.simData.numCrits = cs.simData.numCrits + 1
@@ -76,13 +84,33 @@ local function isCrit()
     return false
 end
 
-local function getDmg()
-    cs.simData.numAttacks = cs.simData.numAttacks + 1
-    local dmg = math.random(cs.player.minDmg, cs.player.maxDmg)
-    if isCrit() then
-        dmg = dmg * getCriticalStrikeMultiplier()
+local function getMainHandDmg()
+    local dmg = math.random(cs.player.MH_PhysMinDmg, cs.player.MH_PhysMaxDmg)
+    if isCrit(cs.player.MH_CritChance) then
+        dmg = dmg * cs.player.MH_CritMultiplier
     end
     return dmg
+end
+
+local function getOffHandDmg()
+    local dmg = math.random(cs.player.OH_PhysMinDmg, cs.player.OH_PhysMaxDmg)
+    if isCrit(cs.player.OH_CritChance) then
+        dmg = dmg * cs.player.OH_CritMultiplier
+    end
+    return dmg
+end
+
+local function getNextDmg()
+    if cs.player.isDualWield and cs.player.LastDmgFunc == getMainHandDmg then
+        cs.player.LastDmgFunc = getOffHandDmg
+        return getOffHandDmg()
+    end
+    return getMainHandDmg()
+end
+
+local function getDmg()
+    cs.simData.numAttacks = cs.simData.numAttacks + 1
+    return getNextDmg()
 end
 
 local function runSingleSim(numSec, player)
@@ -133,7 +161,7 @@ function cs.runSimulation(build)
         avg_sim_attacks = avg_sim_attacks + cs.simData.numAttacks
         avg_sim_crits = avg_sim_crits + cs.simData.numCrits
     end
-    ConPrintf("Avg DPS: " .. avg_sim_dmg / numSims)
+    ConPrintf("\nAvg DPS: " .. avg_sim_dmg / numSims)
     ConPrintf("Avg Num of Attacks: " .. avg_sim_attacks / numSims)
     ConPrintf("Avg Num of Crits: " .. avg_sim_crits / numSims .. " --> (" .. avg_sim_crits * 100 / avg_sim_attacks .. "%%)")
 end
