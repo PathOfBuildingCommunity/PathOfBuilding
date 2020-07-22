@@ -21,7 +21,7 @@ local m_max = math.max
 
 local TICK = 1 / data.misc.ServerTickRate
 
-local function setPlayerWeaponInfo(env)
+local function processPlayerInfo(env)
     cs.player.MH_Aps = env.player.output.MainHand.Speed
     cs.player.MH_AttackInterval = 1/cs.player.MH_Aps
     cs.player.MH_PhysMinDmg = env.player.output.MainHand.PhysicalMin
@@ -60,20 +60,16 @@ end
 local function getPlayerData(build)
     local env = calcs.initEnv(build, "CALCS")
 
-    if env then
-        -- Set settings to "UNBUFFED"
-        env.mode_buffs = false
-        env.mode_combat = false
-        env.mode_effective = false
+    -- Set settings to "UNBUFFED"
+    env.mode_buffs = false
+    env.mode_combat = false
+    env.mode_effective = false
 
-        -- Run pass on environment to get data
-        calcs.perform(env)
+    -- Run pass on environment to get data
+    calcs.perform(env)
 
-        cs.player.aps = env.player.output.Speed
-        cs.player.attackInterval = env.player.output.Time
-
-        setPlayerWeaponInfo(env)
-    end
+    -- Get Player Information
+    processPlayerInfo(env)
 end
 
 local function isHit(hitChance)
