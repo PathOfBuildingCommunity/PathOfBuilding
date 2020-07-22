@@ -46,7 +46,7 @@ local function setPlayerWeaponInfo(env)
         cs.player.OH_HitChance = env.player.output.OffHand.HitChance
         cs.player.OH_CritChance = env.player.output.OffHand.CritChance
         cs.player.OH_CritMultiplier = env.player.output.OffHand.CritMultiplier
-        ConPrintf("OH Hit Chance: " .. cs.player.OH_HitChance)
+        ConPrintf("\nOH Hit Chance: " .. cs.player.OH_HitChance)
         ConPrintf("OH APS: " .. cs.player.OH_Aps .. " --> Attack Every " .. cs.player.OH_AttackInterval .. " secs")
         ConPrintf("PhysDmg OH Min: " .. cs.player.OH_PhysMinDmg)
         ConPrintf("PhysDmg OH Max: " .. cs.player.OH_PhysMaxDmg)
