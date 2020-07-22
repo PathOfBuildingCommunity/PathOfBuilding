@@ -624,7 +624,7 @@ return {
 	}, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "INC", cfg = "poison" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "MORE", cfg = "poison" }, }, },
-	{ label = "Eff. DoT Multiplier", { format = "x {2:output:PoisonDotMulti}", { breakdown = "PoisonDotMulti" }, { modName = { "DotMultiplier", "PoisonDotMultiplier" }, modType = "BASE", cfg = "poison" }, }, },
+	{ label = "Eff. DoT Multiplier", { format = "x {2:output:PoisonDotMulti}", { breakdown = "PoisonDotMulti" }, { modName = { "DotMultiplier", "ChaosDotMultiplier" }, modType = "BASE", cfg = "poison" }, }, },
 	{ label = "Source Physical", textSize = 12, notFlag = "attack", haveOutput = "PoisonPhysicalMax", { format = "{0:output:PoisonPhysicalMin} to {0:output:PoisonPhysicalMax}", { breakdown = "PoisonPhysical" }, }, },
 	{ label = "MH Source Physical", bgCol = colorCodes.MAINHANDBG, textSize = 12, flag = "weapon1Attack", haveOutput = "MainHand.PoisonPhysicalMax", { format = "{0:output:MainHand.PoisonPhysicalMin} to {0:output:MainHand.PoisonPhysicalMax}", { breakdown = "MainHand.PoisonPhysical" }, }, },
 	{ label = "OH Source Physical", bgCol = colorCodes.OFFHANDBG, textSize = 12, flag = "weapon2Attack", haveOutput = "OffHand.PoisonPhysicalMax", { format = "{0:output:OffHand.PoisonPhysicalMin} to {0:output:OffHand.PoisonPhysicalMax}", { breakdown = "OffHand.PoisonPhysical" }, }, },
