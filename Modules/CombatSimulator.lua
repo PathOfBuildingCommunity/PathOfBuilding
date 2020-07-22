@@ -23,12 +23,14 @@ local TICK = 1 / data.misc.ServerTickRate
 
 local function setPlayerWeaponInfo(env)
     cs.player.MH_Aps = env.player.output.MainHand.Speed
+    cs.player.MH_AttackInterval = 1/cs.player.MH_Aps
     cs.player.MH_PhysMinDmg = env.player.output.MainHand.PhysicalMin
     cs.player.MH_PhysMaxDmg = env.player.output.MainHand.PhysicalMax
     cs.player.MH_HitChance = env.player.output.MainHand.HitChance
     cs.player.MH_CritChance = env.player.output.MainHand.CritChance
     cs.player.MH_CritMultiplier = env.player.output.MainHand.CritMultiplier
     ConPrintf("MH Hit Chance: " .. cs.player.MH_HitChance)
+    ConPrintf("MH APS: " .. cs.player.MH_Aps .. " --> Attack Every " .. cs.player.MH_AttackInterval .. " secs")
     ConPrintf("PhysDmg MH Min: " .. cs.player.MH_PhysMinDmg)
     ConPrintf("PhysDmg MH Max: " .. cs.player.MH_PhysMaxDmg)
     ConPrintf("MH Crit Chance: " .. cs.player.MH_CritChance)
@@ -38,12 +40,14 @@ local function setPlayerWeaponInfo(env)
 
     if cs.player.isDualWield then
         cs.player.OH_Aps = env.player.output.OffHand.Speed
+        cs.player.OH_AttackInterval = 1/cs.player.OH_Aps
         cs.player.OH_PhysMinDmg = env.player.output.OffHand.PhysicalMin
         cs.player.OH_PhysMaxDmg = env.player.output.OffHand.PhysicalMax
         cs.player.OH_HitChance = env.player.output.OffHand.HitChance
         cs.player.OH_CritChance = env.player.output.OffHand.CritChance
         cs.player.OH_CritMultiplier = env.player.output.OffHand.CritMultiplier
         ConPrintf("OH Hit Chance: " .. cs.player.OH_HitChance)
+        ConPrintf("OH APS: " .. cs.player.OH_Aps .. " --> Attack Every " .. cs.player.OH_AttackInterval .. " secs")
         ConPrintf("PhysDmg OH Min: " .. cs.player.OH_PhysMinDmg)
         ConPrintf("PhysDmg OH Max: " .. cs.player.OH_PhysMaxDmg)
         ConPrintf("OH Crit Chance: " .. cs.player.OH_CritChance)
@@ -69,10 +73,10 @@ local function getPlayerData(build)
         cs.player.attackInterval = env.player.output.Time
 
         ConPrintf("\n\n=== COMBAT SIMULATOR ===\n")
+
         setPlayerWeaponInfo(env)
 
-        ConPrintf("APS: " .. cs.player.aps)
-        ConPrintf("Attack Internval: " .. cs.player.attackInterval)
+        ConPrintf("=======================")
     end
 end
 
@@ -109,31 +113,39 @@ local function getMainHandDmg()
 end
 
 local function getOffHandDmg()
-    local dmg = math.random(cs.player.OH_PhysMinDmg, cs.player.OH_PhysMaxDmg)
-    if isCrit(cs.player.OH_CritChance) then
-        dmg = dmg * cs.player.OH_CritMultiplier
+    if isHit(cs.player.OH_HitChance) then
+        local dmg = math.random(cs.player.OH_PhysMinDmg, cs.player.OH_PhysMaxDmg)
+        if isCrit(cs.player.OH_CritChance) then
+            dmg = dmg * cs.player.OH_CritMultiplier
+        end
+        return dmg
     end
-    return dmg
+    return nil
 end
 
 local function getNextDmg()
-    if cs.player.isDualWield and cs.player.LastDmgFunc == getMainHandDmg then
-        cs.player.LastDmgFunc = getOffHandDmg
-        return getOffHandDmg()
+    if cs.player.isDualWield then
+        if cs.player.LastDmgFunc == getMainHandDmg then
+            cs.player.LastDmgFunc = getOffHandDmg
+            return getOffHandDmg(), cs.player.MH_AttackInterval
+        else
+            cs.player.LastDmgFunc = getMainHandDmg
+            return getMainHandDmg(), cs.player.OH_AttackInterval
+        end
     end
-    return getMainHandDmg()
+    return getMainHandDmg(), cs.player.MH_AttackInterval
 end
 
 local function getDmg()
     cs.simData.numAttacks = cs.simData.numAttacks + 1
-    local res = getNextDmg()
-    if res ~= nil then
+    local dmg, attack_interval = getNextDmg()
+    if dmg ~= nil then
         -- Apply On Hit effects (even if damage is 0)
-        if res > 0 then
+        if dmg > 0 then
             -- Apply on Damage effect (damage is greater than 0)
         end
     end
-    return res
+    return dmg or 0, attack_interval
 end
 
 local function runSingleSim(numSec, player)
@@ -145,14 +157,14 @@ local function runSingleSim(numSec, player)
     }
     local t = 0.0
     local t_tenth = 0.1
-    local t_next_attack = cs.player.attackInterval
+    local t_next_attack = cs.player.MH_AttackInterval
     local dmg_done = 0
     
     while t < numSec + 0.00001 do
         if t_next_attack <= t then
-            local rand_dmg = getDmg()
+            local rand_dmg, attack_interval = getDmg()
             dmg_done = dmg_done + rand_dmg
-            t_next_attack = t_next_attack + cs.player.attackInterval
+            t_next_attack = t_next_attack + attack_interval
             --ConPrintf("T: " .. t .. ", Dmg: " .. rand_dmg)
         end
 
@@ -170,7 +182,7 @@ local function runSingleSim(numSec, player)
 end
 
 function cs.runSimulation(build)
-    local numSims = 1000
+    local numSims = 10000
     local numSecsPerSim = 100
 
     getPlayerData(build)
