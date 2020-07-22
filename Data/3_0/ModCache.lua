@@ -2549,7 +2549,7 @@ c["+6% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="Elemen
 c["Witch: 0.5% of Maximum Mana Regenerated per second"]={{[1]={[1]={type="Condition",var="ConnectedToWitchStart"},flags=0,keywordFlags=0,name="ManaRegenPercent",type="BASE",value=0.5}},nil}
 c["+88 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=88}},nil}
 c["Chills from your Hits always reduce Action Speed by at least 10% 20% more Damage with Ignite 30% increased Effect of non-Damaging Ailments on Enemies"]={nil,"Chills from your Hits always reduce Action Speed by at least 10% 20% more Damage with Ignite 30% increased Effect of non-Damaging Ailments on Enemies "}
-c["Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second"]={{[1]={flags=0,keywordFlags=0,name="ExtraMinionSkill",type="LIST",value={skillId="SiegebreakerCausticGroud"}}},nil}
+c["Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second"]={{[1]={flags=0,keywordFlags=0,name="ExtraMinionSkill",type="LIST",value={skillId="SiegebreakerCausticGround"}}},nil}
 c["60% increased Attack Physical Damage while using Pride"]={{[1]={[1]={type="Condition",var="AffectedByPride"},flags=1,keywordFlags=0,name="PhysicalDamage",type="INC",value=60}},nil}
 c["Nearby Enemies deal 8% less Elemental Damage"]={nil,"Nearby Enemies deal 8% less Elemental Damage "}
 c["20% increased Onslaught duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=20}}," Onslaught  "}

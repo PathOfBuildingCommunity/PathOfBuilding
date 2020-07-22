@@ -1,11 +1,19 @@
+### 1.4.170.7 - 2020/07/22
+ * Fix crash related to the Siegebreaker belt
+ * Fix crash related to Dancing Dervish/Duo
+ * Fix Seismic Cry having incorrect calculations
+ * Fix Fist of War not using the proper Ailment multiplier
+ * Fix Chaos DoT Multiplier not showing up in Poison DoT Multi breakdown
 ### 1.4.170.6 - 2020/07/22
  * Add breakdown for Warcries and Fist of War
  * Add calculation mode to select "Max hit" for Warcries
  * Add count for the max number of Brand activations
  * Add support for Slipstream from Harbinger of Time
+ * Add support for Burning Arrows Fire DoT Debuff
  * Add support for alternate quality mod implicits
  * Add support for Fevered Mind, Fortress Covenant and Quickening Covenant
  * Add support for Emperors Vigilance
+ * Add support for Siegebreaker
  * Add support for Brewed for Potency, Chilling Presence, Forbidden Words, Lead by Example, Pure Agony
      and Disciples Cluster Notables
  * Add output for DoT multiplier for Ailments
