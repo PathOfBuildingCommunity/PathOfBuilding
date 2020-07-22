@@ -72,11 +72,7 @@ local function getPlayerData(build)
         cs.player.aps = env.player.output.Speed
         cs.player.attackInterval = env.player.output.Time
 
-        ConPrintf("\n\n=== COMBAT SIMULATOR ===\n")
-
         setPlayerWeaponInfo(env)
-
-        ConPrintf("=======================")
     end
 end
 
@@ -182,8 +178,11 @@ local function runSingleSim(numSec, player)
 end
 
 function cs.runSimulation(build)
+    ConPrintf("\n\n=== COMBAT SIMULATOR ===")
     local numSims = 10000
     local numSecsPerSim = 100
+    ConPrintf("Num Simulations: " .. numSims)
+    ConPrintf("Simulated " .. numSecsPerSim .. " seconds per Simulation\n")
 
     getPlayerData(build)
 
@@ -199,10 +198,12 @@ function cs.runSimulation(build)
         avg_sim_misses = avg_sim_misses + cs.simData.numMisses
         avg_sim_crits = avg_sim_crits + cs.simData.numCrits
     end
+    ConPrintf("========================")
     ConPrintf("\nAvg DPS: " .. avg_sim_dmg / numSims)
     ConPrintf("Avg Num of Attacks: " .. avg_sim_attacks / numSims)
     ConPrintf("Avg Num of Misses: " .. avg_sim_misses / numSims .. " --> (" .. avg_sim_misses * 100 / avg_sim_attacks .. "%%)")
     ConPrintf("Avg Num of Crits: " .. avg_sim_crits / numSims .. " --> (" .. avg_sim_crits * 100 / avg_sim_attacks .. "%%)")
+    ConPrintf("\n========================")
 end
 
 return cs
