@@ -214,6 +214,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
 			local target = self
+			local limitTarget = self
+			-- Allow limiting a self multiplier on a parent multiplier (eg. Agony Crawler on player virulence)
+			-- This explicit target is necessary because even though the GetMultiplier method does call self.parent.GetMultiplier, it does so with noMod = true,
+			-- disabling the summation (3rd part): (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
+			if tag.limitActor then
+				if self.actor[tag.limitActor] then
+					limitTarget = self.actor[tag.limitActor].modDB
+				else
+					return
+				end
+			end
 			if tag.actor then
 				if self.actor[tag.actor] then
 					target = self.actor[tag.actor].modDB
@@ -232,7 +243,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
+				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else

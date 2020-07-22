@@ -1142,6 +1142,30 @@ skills["BurningArrow"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "5 Stacks",
+		},
+	},
+	statMap = {
+		["base_additional_burning_debuff_%_of_ignite_damage"] = {
+			mod("DebuffEffect", "BASE", nil),
+			div = 100
+		}
+	},
+	preDotFunc = function(activeSkill, output)
+		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
+		local debuff = (output.IgniteDPS or 0) * effect
+		if activeSkill.skillPart == 1 then
+			output.FireDot = debuff
+		end
+		if activeSkill.skillPart == 2 then
+			output.FireDot = 5 * debuff
+		end
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -2683,6 +2707,10 @@ skills["ExplosiveArrow"] = {
 			area = true,
 		},
 		{
+			name = "Explosion (5 fuses)",
+			area = true,
+		},
+		{
 			name = "Explosion (10 fuses)",
 			area = true,
 		},
@@ -2701,13 +2729,17 @@ skills["ExplosiveArrow"] = {
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_explosion_base_damage_+permyriad"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+			div = 100,
 		},
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
@@ -2721,12 +2753,13 @@ skills["ExplosiveArrow"] = {
 	},
 	baseMods = {
 		skill("radius", 15),
-		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }),
-		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
+		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 3 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 4 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 4 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 5 }),
 	},
 	qualityStats = {
 		{ "base_chance_to_ignite_%", 1 },
@@ -3787,16 +3820,16 @@ skills["HeraldOfAgony"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["scorpion_minion_physical_damage_+%"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalDamage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalDamage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent"  })})
 		},
 		["scorpion_minion_attack_speed_+%"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
 		["scorpion_minion_minimum_added_physical_damage"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
 		["scorpion_minion_maximum_added_physical_damage"] = {
-			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
 	},
 	baseFlags = {

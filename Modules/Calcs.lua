@@ -299,6 +299,9 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "Adrenaline") then
 			t_insert(combatList, "Adrenaline")
 		end
+		if env.modDB:Flag(nil, "AlchemistsGenius") then
+			t_insert(combatList, "Alchemist's Genius")
+		end
 		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
 		end

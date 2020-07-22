@@ -2147,6 +2147,8 @@ skills["SummonHarbingerOfTime"] = {
 		minion = true,
 	},
 	baseMods = {
+		mod("ActionSpeed", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" }),
+		skill("buffMinions", true),
 	},
 	qualityStats = {
 	},
@@ -2304,6 +2306,8 @@ skills["SummonHarbingerOfTimeUber"] = {
 		minion = true,
 	},
 	baseMods = {
+		mod("ActionSpeed", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" }),
+		skill("buffMinions", true),
 	},
 	qualityStats = {
 	},
