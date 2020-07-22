@@ -1,3 +1,9 @@
+[1.4.170.7][2020/07/22]
+ * Fix crash related to the Siegebreaker belt
+ * Fix crash related to Dancing Dervish/Duo
+ * Fix Seismic Cry having incorrect calculations
+ * Fix Fist of War not using the proper Ailment multiplier
+ * Fix Chaos DoT Multiplier not showing up in Poison DoT Multi breakdown
 [1.4.170.6][2020/07/22]
  * Add breakdown for Warcries and Fist of War
  * Add calculation mode to select "Max hit" for Warcries

@@ -1310,7 +1310,7 @@ skills["AncestralSlamSupport"] = {
 			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
-			mod("FistOfWarAilmentMultiplier", "BASE", nil, ModFlag.Melee),
+			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.band(ModFlag.Melee, ModFlag.Ailment)),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
