@@ -9,7 +9,7 @@ math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
 local targetVersion = "3_0"
 local calcs = LoadModule("Modules/Calcs", targetVersion)
 
-local cs = {}
+local cs = { }
 cs.player = { }
 
 local pairs = pairs
@@ -21,37 +21,49 @@ local m_max = math.max
 
 local TICK = 1 / data.misc.ServerTickRate
 
+local DmgTypes = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
+
 local function processPlayerInfo(env)
     cs.player.MH_Aps = env.player.output.MainHand.Speed
     cs.player.MH_AttackInterval = 1/cs.player.MH_Aps
-    cs.player.MH_PhysMinDmg = env.player.output.MainHand.PhysicalMin
-    cs.player.MH_PhysMaxDmg = env.player.output.MainHand.PhysicalMax
     cs.player.MH_HitChance = env.player.output.MainHand.HitChance
     cs.player.MH_CritChance = env.player.output.MainHand.CritChance
     cs.player.MH_CritMultiplier = env.player.output.MainHand.CritMultiplier
+    for _, damageType in ipairs(DmgTypes) do
+        cs.player["MH_" .. damageType .. "MinDmg"] = env.player.output.MainHand[damageType .. "Min"] or 0
+        cs.player["MH_" .. damageType .. "MaxDmg"] = env.player.output.MainHand[damageType .. "Max"] or 0
+    end
+    
     ConPrintf("MH Hit Chance: " .. cs.player.MH_HitChance)
     ConPrintf("MH APS: " .. cs.player.MH_Aps .. " --> Attack Every " .. cs.player.MH_AttackInterval .. " secs")
-    ConPrintf("PhysDmg MH Min: " .. cs.player.MH_PhysMinDmg)
-    ConPrintf("PhysDmg MH Max: " .. cs.player.MH_PhysMaxDmg)
     ConPrintf("MH Crit Chance: " .. cs.player.MH_CritChance)
     ConPrintf("MH Crit Multiplier: " .. cs.player.MH_CritMultiplier)
+    for _, damageType in ipairs(DmgTypes) do
+        ConPrintf(damageType .. " Dmg MH Min: " .. cs.player["MH_" .. damageType .. "MinDmg"])
+        ConPrintf(damageType .. " Dmg MH Max: " .. cs.player["MH_" .. damageType .. "MaxDmg"])
+    end
 
     cs.player.isDualWield = env.player.modDB.conditions.DualWielding
 
     if cs.player.isDualWield then
         cs.player.OH_Aps = env.player.output.OffHand.Speed
         cs.player.OH_AttackInterval = 1/cs.player.OH_Aps
-        cs.player.OH_PhysMinDmg = env.player.output.OffHand.PhysicalMin
-        cs.player.OH_PhysMaxDmg = env.player.output.OffHand.PhysicalMax
         cs.player.OH_HitChance = env.player.output.OffHand.HitChance
         cs.player.OH_CritChance = env.player.output.OffHand.CritChance
         cs.player.OH_CritMultiplier = env.player.output.OffHand.CritMultiplier
+        for _, damageType in ipairs(DmgTypes) do
+            cs.player["OH_" .. damageType .. "MinDmg"] = env.player.output.OffHand[damageType .. "Min"] or 0
+            cs.player["OH_" .. damageType .. "MaxDmg"] = env.player.output.OffHand[damageType .. "Max"] or 0
+        end
+
         ConPrintf("\nOH Hit Chance: " .. cs.player.OH_HitChance)
         ConPrintf("OH APS: " .. cs.player.OH_Aps .. " --> Attack Every " .. cs.player.OH_AttackInterval .. " secs")
-        ConPrintf("PhysDmg OH Min: " .. cs.player.OH_PhysMinDmg)
-        ConPrintf("PhysDmg OH Max: " .. cs.player.OH_PhysMaxDmg)
         ConPrintf("OH Crit Chance: " .. cs.player.OH_CritChance)
         ConPrintf("OH Crit Multiplier: " .. cs.player.OH_CritMultiplier)
+        for _, damageType in ipairs(DmgTypes) do
+            ConPrintf(damageType .. " Dmg OH Min: " .. cs.player["OH_" .. damageType .. "MinDmg"])
+            ConPrintf(damageType .. " Dmg OH Max: " .. cs.player["OH_" .. damageType .. "MaxDmg"])
+        end
 
         cs.player.LastDmgFunc = nil
     end
@@ -90,10 +102,10 @@ local function isCrit(critChance)
     return false
 end
 
-local function getMainHandDmg()
+local function getMainHandDmg(dmgType)
     if isHit(cs.player.MH_HitChance) then
         cs.simData.numMHHits = cs.simData.numMHHits + 1
-        local dmg = math.random(cs.player.MH_PhysMinDmg, cs.player.MH_PhysMaxDmg)
+        local dmg = math.random(cs.player["MH_" .. dmgType .. "MinDmg"], cs.player["MH_" .. dmgType .. "MaxDmg"])
         if isCrit(cs.player.MH_CritChance) then
             cs.simData.numMHCrits = cs.simData.numMHCrits + 1
             dmg = dmg * cs.player.MH_CritMultiplier
@@ -104,10 +116,10 @@ local function getMainHandDmg()
     return nil
 end
 
-local function getOffHandDmg()
+local function getOffHandDmg(dmgType)
     if isHit(cs.player.OH_HitChance) then
         cs.simData.numOHHits = cs.simData.numOHHits + 1
-        local dmg = math.random(cs.player.OH_PhysMinDmg, cs.player.OH_PhysMaxDmg)
+        local dmg = math.random(cs.player["OH_" .. dmgType .. "MinDmg"], cs.player["OH_" .. dmgType .. "MaxDmg"])
         if isCrit(cs.player.OH_CritChance) then
             cs.simData.numOHCrits = cs.simData.numOHCrits + 1
             dmg = dmg * cs.player.OH_CritMultiplier
@@ -122,13 +134,13 @@ local function getNextDmg()
     if cs.player.isDualWield then
         if cs.player.LastDmgFunc == getMainHandDmg then
             cs.player.LastDmgFunc = getOffHandDmg
-            return getOffHandDmg(), cs.player.MH_AttackInterval
+            return getOffHandDmg("Physical"), cs.player.MH_AttackInterval
         else
             cs.player.LastDmgFunc = getMainHandDmg
-            return getMainHandDmg(), cs.player.OH_AttackInterval
+            return getMainHandDmg("Physical"), cs.player.OH_AttackInterval
         end
     end
-    return getMainHandDmg(), cs.player.MH_AttackInterval
+    return getMainHandDmg("Physical"), cs.player.MH_AttackInterval
 end
 
 local function getDmg()
