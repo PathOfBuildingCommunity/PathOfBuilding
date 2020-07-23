@@ -194,6 +194,8 @@ function cs.runSimulation(build)
     getPlayerData(build)
 
     local avg_sim_dmg = 0
+    local max_sim_dmg = 0
+    local min_sim_dmg = 1000000000000
     local avg_sim_attacks = 0
     local avg_sim_mh_hits = 0
     local avg_sim_oh_hits = 0
@@ -216,6 +218,8 @@ function cs.runSimulation(build)
 
         -- Updated per-run averages
         avg_sim_dmg = avg_sim_dmg + ret
+        if ret > max_sim_dmg then max_sim_dmg = ret end
+        if ret < min_sim_dmg then min_sim_dmg = ret end
         avg_sim_attacks = avg_sim_attacks + cs.simData.numAttacks
         avg_sim_mh_hits = avg_sim_mh_hits + cs.simData.numMHHits
         avg_sim_oh_hits = avg_sim_oh_hits + cs.simData.numOHHits
@@ -225,6 +229,8 @@ function cs.runSimulation(build)
         avg_sim_oh_crits = avg_sim_oh_crits + cs.simData.numOHCrits
     end
     ConPrintf("========================")
+    ConPrintf("\nMax DPS across all simulations: " .. max_sim_dmg)
+    ConPrintf("Min DPS across all simulations: " .. min_sim_dmg)
     ConPrintf("\nAvg DPS: " .. avg_sim_dmg / numSims)
     ConPrintf("Avg Num of Attacks: " .. avg_sim_attacks / numSims)
     if cs.player.isDualWield then
