@@ -23,7 +23,32 @@ local TICK = 1 / data.misc.ServerTickRate
 
 local DmgTypes = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
 
-local function processPlayerInfo(env)
+local function gainFrenzyCharge(actor)
+    actor.FrenzyCount = m_min(actor.FrenzyCount + 1, cs.player.FrenzyChargesMax)
+    --ConPrintf("PLAYER GAINED A FRENZY CHARGE! Count: " .. actor.FrenzyCount)
+end
+
+local activeSkillListEffects = {
+    Frenzy = function(actor) 
+        t_insert(actor.onHit, gainFrenzyCharge)
+    end
+}
+
+local function processPlayerSkillInfo(env)
+    for _, activeSkill in ipairs(env.player.activeSkillList) do
+        local socketGroupID = activeSkill.socketGroup
+        local skillName = activeSkill.activeEffect.grantedEffect.name
+
+        if activeSkillListEffects[skillName] then
+            activeSkillListEffects[skillName](cs.player)
+        end
+
+        for _, supportSkill in ipairs(activeSkill.supportList) do
+        end
+    end
+end
+
+local function processPlayerWeaponInfo(env)
     cs.player.MH_Aps = env.player.output.MainHand.Speed
     cs.player.MH_AttackInterval = 1/cs.player.MH_Aps
     cs.player.MH_HitChance = env.player.output.MainHand.HitChance
@@ -67,6 +92,16 @@ local function processPlayerInfo(env)
 
         cs.player.LastDmgFunc = nil
     end
+end
+
+local function processPlayerInfo(env)
+    cs.player.onHit = { }
+    cs.player.onDamage = { }
+    cs.player.FrenzyChargesMax = env.player.output.FrenzyChargesMax or 3
+    cs.player.FrenzyChargesMin = env.player.output.FrenzyChargesMin or 0
+
+    processPlayerSkillInfo(env)
+    processPlayerWeaponInfo(env)
 end
 
 local function getPlayerData(build)
@@ -148,6 +183,12 @@ local function getDmg()
     local dmg, attack_interval = getNextDmg()
     if dmg ~= nil then
         -- Apply On Hit effects (even if damage is 0)
+        if #cs.player.onHit > 0 then
+            for _, func in ipairs(cs.player.onHit) do
+                func(cs.player)
+            end
+        end
+
         if dmg > 0 then
             -- Apply on Damage effect (damage is greater than 0)
         end
@@ -182,6 +223,10 @@ local function runSingleSim(numSec, player)
     return dmg_done / t
 end
 
+local function initPlayerData(player)
+    player.FrenzyCount = player.FrenzyChargesMin
+end
+
 function cs.runSimulation(build)
     cs.simData = { }
     cs.player = { }
@@ -212,6 +257,9 @@ function cs.runSimulation(build)
         cs.simData.numMHMisses = 0
         cs.simData.numOHCrits = 0
         cs.simData.numOHMisses = 0
+
+        -- initialize per run environment
+        initPlayerData(cs.player)
 
         -- run single simulation
         local ret = runSingleSim(numSecsPerSim)
