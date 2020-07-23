@@ -199,8 +199,10 @@ function cs.runSimulation(build)
         cs.simData.numOHCrits = 0
         cs.simData.numOHMisses = 0
 
+        -- run single simulation
         local ret = runSingleSim(numSecsPerSim)
-        --ConPrintf("Num Attacks: " .. cs.simData.numAttacks .. ", Num Crits: " .. cs.simData.numCrits)
+
+        -- Updated per-run averages
         avg_sim_dmg = avg_sim_dmg + ret
         avg_sim_attacks = avg_sim_attacks + cs.simData.numAttacks
         avg_sim_mh_hits = avg_sim_mh_hits + cs.simData.numMHHits
