@@ -459,6 +459,15 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
+	for i, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "BaseWeaponDamage")) do
+		local mod = value.mod
+		for _, damageType in ipairs(dmgTypeList) do
+			actor.modDB:NewMod(damageType.."Min", "BASE", m_floor((actor.weaponData1[damageType.."Min"] or 0) * (mod.value/100.0)), mod.source, 0, unpack(mod))
+			actor.modDB:NewMod(damageType.."Max", "BASE", m_floor((actor.weaponData1[damageType.."Max"] or 0) * (mod.value/100.0)), mod.source, 0, unpack(mod))
+		end	
+	end
+	
 
 	local isAttack = skillFlags.attack
 
