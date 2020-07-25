@@ -186,12 +186,12 @@ Requires Level 28, 46 Str, 55 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}+190 to Accuracy Rating
+Socketed Gems are supported by Level 1 Multistrike
 (60-80)% increased Physical Damage
 Adds (5-8) to (10-14) Physical Damage
 (10-15)% increased Attack Speed
-(30-40)% reduced Stun Recovery
 20% chance to Avoid being Stunned
-Socketed Gems are supported by level 1 Multistrike
+(30-40)% reduced Stun and Block Recovery
 ]],[[
 Oni-Goroshi
 Charan's Sword
