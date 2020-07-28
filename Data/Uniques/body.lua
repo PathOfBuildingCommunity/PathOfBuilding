@@ -126,7 +126,7 @@ Requires Level 68, 191 Str
 League: Delirium
 Source: Drops from the Simulacrum Encounter
 (25-40)% increased Melee Damage
-+(60-100) to maximum Life
++(60-90) to maximum Life
 You can have two different Banners at the same time
 Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
 War Banner has (100-200)% increased Adrenaline duration
