@@ -100,8 +100,9 @@ You cannot be Shocked while at maximum Endurance Charges
 Vixen's Entrapment
 Embroidered Gloves
 Requires Level 36, 54 Int
-+(50-90) to maximum Energy Shield
+Implicits: 0
 Trigger Socketed Curse Spells when you cast a Curse
++(50-90) to maximum Energy Shield
 0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
 You can apply an additional Curse
 (10-20)% increased Cast Speed with Curse Skills
