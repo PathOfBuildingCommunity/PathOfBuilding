@@ -2721,7 +2721,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				local maximum = skillModList:Override(nil, "ShockMax") or 50
-				local current = m_min(output.CurrentShock or 0, maximum)
+				local current = m_min(globalOutput.CurrentShock or 0, maximum)
 				local desired = m_min(enemyDB:Sum("BASE", nil, "DesiredShockVal"), maximum)
 				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
 				local effList = { 5, 15, 50 }
