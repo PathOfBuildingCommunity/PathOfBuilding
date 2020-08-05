@@ -675,7 +675,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile triggerable
 #mods
 
-#skill AtlasExileCrusaderMageguardBombExplode Bombs
+#skill AtlasExileCrusaderMageguardBombExplodeSpectre Bombs
 #flags spell hit triggerable
 #mods
 
@@ -683,7 +683,7 @@ local skills, mod, flag, skill = ...
 #flags spell hit triggerable
 #mods
 
-#skill AtlasCrusaderSisterMortar Mortar
+#skill AtlasCrusaderSisterMortarSpectre Mortar
 #flags spell hit triggerable area projectile
 #mods
 
