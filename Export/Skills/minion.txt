@@ -166,14 +166,26 @@ local skills, mod, flag, skill = ...
 
 #skill BoneGolemMultiAttack Combo Attack
 #flags attack melee
+	statMap = {
+		["bone_golem_attack_speed_+%_final_after_third_combo_index"] = {
+			mod("Speed", "MORE", nil, 0, KeywordFlag.Attack),
+            div = 1.5,
+		},
+		["bone_golem_damage_+%_final_after_third_combo_index"] = {
+			mod("Damage", "MORE", nil),
+			div = 1.5,
+		},
+	},
 #mods
 
 #skill BoneGolemCascade Cascade
 #flags attack melee area
+#baseMod skill("showAverage", true)
 #mods
 
 #skill BoneGolemLeapSlam
 #flags attack melee area
+#baseMod skill("showAverage", true)
 #mods
 
 #skill SkitterbotWait Skitterbot Wait
