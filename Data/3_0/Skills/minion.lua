@@ -1106,7 +1106,7 @@ skills["BoneGolemMultiAttack"] = {
 	statMap = {
 		["bone_golem_attack_speed_+%_final_after_third_combo_index"] = {
 			mod("Speed", "MORE", nil, 0, KeywordFlag.Attack),
-            div = 1.5,
+			div = 1.5,
 		},
 		["bone_golem_damage_+%_final_after_third_combo_index"] = {
 			mod("Damage", "MORE", nil),
