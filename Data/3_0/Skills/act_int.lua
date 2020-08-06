@@ -3936,7 +3936,7 @@ skills["FrostBomb"] = {
 	castTime = 0.5,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 		["energy_shield_recharge_rate_+%"] = {
 			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
@@ -7342,7 +7342,7 @@ skills["FireBeam"] = {
 	},
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
 	},
 	baseFlags = {
@@ -9989,9 +9989,9 @@ skills["Purge"] = {
 	castTime = 0.7,
 	statMap = {
 		["purge_expose_resist_%_matching_highest_element_damage"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
-			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
 		},
 	},
 	baseFlags = {

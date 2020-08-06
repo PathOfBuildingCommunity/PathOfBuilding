@@ -1050,6 +1050,15 @@ return {
 	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "count", label = "# of Freeze/Shock/Ignite on enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyFireExposure", type = "check", label = "Is the enemy Exposed to Fire?", ifCond = "ApplyFireExposure", tooltip = "This applies -10% Fire Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("FireExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy Exposed to Cold?", ifCond = "ApplyColdExposure", tooltip = "This applies -10% Cold Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ColdExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyLightningExposure", type = "check", label = "Is the enemy Exposed to Lightning?", ifCond = "ApplyLightningExposure", tooltip = "This applies -10% Lightning Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("LightningExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyIntimidated", type = "check", ifVer = "2_6", label = "Is the enemy Intimidated?", tooltip = "This adds the following modifiers:\n10% increased Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate")
 	end },
