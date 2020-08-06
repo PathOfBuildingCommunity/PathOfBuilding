@@ -4430,3 +4430,66 @@ skills["SandLeaperDodgeRight"] = {
 		[1] = { 1, 22, manaCost = 90, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }
+skills["AtlasCrusaderJudgeBallLightning"] = {
+	name = "Ball Lightning",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.41249999403954,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.6,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_projectile_speed_+%",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, -25, critChance = 32, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, },
+	},
+}
+skills["AtlasCruasderJudgeFadingNova"] = {
+	name = "Nova Spell",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"monster_projectile_variation",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"always_pierce",
+		"use_scaled_contact_offset",
+		"projectiles_nova",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 128, 7, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
