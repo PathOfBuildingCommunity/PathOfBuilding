@@ -1472,6 +1472,19 @@ function calcs.perform(env)
 	end
 	doActorMisc(env, env.enemy)
 
+	-- Apply exposures
+	for _, element in pairs({"Fire", "Cold", "Lightning"}) do
+		if(enemyDB:HasMod("BASE", nil, element.."Exposure")) then
+			local min = math.huge
+			for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
+				if mod.value < min then
+					min = mod.value
+				end
+			end
+			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+		end
+	end
+
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
 	calcs.offence(env, env.player, env.player.mainSkill)
