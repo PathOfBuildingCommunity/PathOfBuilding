@@ -2733,6 +2733,29 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessed
 	modList = {
 	},
 }
+-- Baranite Preacher
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre"] = {
+	name = "Baranite Preacher",
+	life = 1.68,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"AtlasCrusaderJudgeBallLightning",
+		"AtlasCruasderJudgeFadingNova",
+		"WalkEmergeAtlasInfluenceMonster",
+	},
+	modList = {
+	},
+}
 -- Scale of Esh
 minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	name = "Scale of Esh",

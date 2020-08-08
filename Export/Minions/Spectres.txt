@@ -168,6 +168,8 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCasterSpectre
 -- Baranite Sister
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSisterSpectre
+-- Baranite Preacher
+#spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre
 -- Scale of Esh
 #spectre Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_
 -- Redemption Knight

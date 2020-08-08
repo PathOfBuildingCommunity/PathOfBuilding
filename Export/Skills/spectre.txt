@@ -716,3 +716,11 @@ local skills, mod, flag, skill = ...
 #skill MeleeCold Default Attack
 #flags attack melee projectile
 #mods
+
+#skill AtlasCrusaderJudgeBallLightning Ball Lightning
+#flags spell hit triggerable area projectile
+#mods
+
+#skill AtlasCruasderJudgeFadingNova Nova Spell
+#flags spell projectile triggerable
+#mods
