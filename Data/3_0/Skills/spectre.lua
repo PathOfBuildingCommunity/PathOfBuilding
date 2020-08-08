@@ -4180,11 +4180,11 @@ skills["AtlasExilesCrusaderMageguardProjectile"] = {
 		[1] = { 127, 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, },
 	},
 }
-skills["AtlasExileCrusaderMageguardBombExplode"] = {
+skills["AtlasExileCrusaderMageguardBombExplodeSpectre"] = {
 	name = "Bombs",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 4,
+	baseEffectiveness = 2,
 	incrementalEffectiveness = 0.045000001788139,
 	skillTypes = { [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -4234,11 +4234,11 @@ skills["AtlasCrusaderMageguardBeam"] = {
 		[1] = { 0.5, 1.5, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["AtlasCrusaderSisterMortar"] = {
+skills["AtlasCrusaderSisterMortarSpectre"] = {
 	name = "Mortar",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 1.7999999523163,
+	baseEffectiveness = 1.2999999523163,
 	incrementalEffectiveness = 0.03999999910593,
 	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
 	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
@@ -4267,7 +4267,7 @@ skills["AtlasCrusaderSisterMortar"] = {
 		"projectile_uses_contact_position",
 	},
 	levels = {
-		[1] = { 0.69999998807907, 1.2999999523163, 20, 0, 3, 10, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+		[1] = { 0.69999998807907, 1.2999999523163, 20, 1, 3, 10, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
 	},
 }
 skills["BreachLightningWhip"] = {

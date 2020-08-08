@@ -2296,9 +2296,9 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 		-- MonsterCastsProjectileWeaknessCurseText [monster_casts_projectile_vulnerability_curse_text = 1]
 	},
 }
-minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve"] = {
+minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion"] = {
 	name = "Enhanced Vaal Fallen",
-	life = 4.5,
+	life = 2.25,
 	armour = 1,
 	fireResist = 35,
 	coldResist = 35,
@@ -2317,6 +2317,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 	},
 	modList = {
 		-- MonsterCastsElementalHitText [monster_casts_elemental_hit_text = 1]
+		-- MonsterIncursionDropModifiers__ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 35] [monster_dropped_item_rarity_+% = 2500] [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
@@ -2659,7 +2660,7 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 	},
 }
 -- Redemption Sentry
-minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcher"] = {
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre"] = {
 	name = "Redemption Sentry",
 	life = 4.05,
 	fireResist = 0,
@@ -2687,7 +2688,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcher"
 	},
 }
 -- Baranite Thaumaturge
-minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCaster"] = {
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCasterSpectre"] = {
 	name = "Baranite Thaumaturge",
 	life = 4.05,
 	energyShield = 0.8,
@@ -2703,8 +2704,8 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMagegua
 	skillList = {
 		"AtlasExilesCrusaderMageguardProjectile",
 		"EmptyActionSpellCrusaderMageguard",
-		"AtlasCrusaderMageguardSpawnBomb",
-		"AtlasExileCrusaderMageguardBombExplode",
+		"AtlasCrusaderMageguardSpawnBombSpectre",
+		"AtlasExileCrusaderMageguardBombExplodeSpectre",
 		"AtlasCrusaderMageguardBeam",
 		"WalkEmergeAtlasInfluenceMonster",
 	},
@@ -2712,7 +2713,7 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMagegua
 	},
 }
 -- Baranite Sister
-minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSister"] = {
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSisterSpectre"] = {
 	name = "Baranite Sister",
 	life = 1.2,
 	energyShield = 0.4,
@@ -2726,7 +2727,7 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessed
 	attackRange = 8,
 	accuracy = 1,
 	skillList = {
-		"AtlasCrusaderSisterMortar",
+		"AtlasCrusaderSisterMortarSpectre",
 		"WalkEmergeAtlasInfluenceMonster",
 	},
 	modList = {
