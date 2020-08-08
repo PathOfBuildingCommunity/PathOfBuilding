@@ -123,6 +123,10 @@ return {
 	{ var = "BrandsInLastQuarter", type = "check", label = "Last 25% of Attached Duration?", ifCond = "BrandLastQuarter", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BrandLastQuarter", "FLAG", true, "Config")
 	end },
+	{ label = "Carrion Golem:", ifSkill = "Summon Carrion Golem" },
+	{ var = "carrionGolemNearbyMinion", type = "count", label = "# of Nearby Non-Golem Minions:", ifSkill = "Summon Carrion Golem", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:NearbyNonGolemMinion", "BASE", val, "Config")
+	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum Life of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
