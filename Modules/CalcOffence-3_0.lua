@@ -523,7 +523,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output.ProjectileSpeedMod = calcLib.mod(skillModList, skillCfg, "ProjectileSpeed")
 		if breakdown then
-			breakdown.ProjectileSpeedMod = breakdown.mod(skillCfg, "ProjectileSpeed")
+			breakdown.ProjectileSpeedMod = breakdown.mod(skillModList, skillCfg, "ProjectileSpeed")
 		end
 	end
 	if skillFlags.melee then
@@ -555,13 +555,13 @@ function calcs.offence(env, actor, activeSkill)
 	if activeSkill.skillTypes[SkillType.Aura] then
 		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect")
 		if breakdown then
-			breakdown.AuraEffectMod = breakdown.mod(skillCfg, "AuraEffect")
+			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
 		end
 	end
 	if activeSkill.skillTypes[SkillType.Curse] then
 		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
 		if breakdown then
-			breakdown.CurseEffectMod = breakdown.mod(skillCfg, "CurseEffect")
+			breakdown.CurseEffectMod = breakdown.mod(skillModList, skillCfg, "CurseEffect")
 		end
 	end
 	if skillFlags.trap then
@@ -698,7 +698,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
 		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * output.TotemLifeMod)
 		if breakdown then
-			breakdown.TotemLifeMod = breakdown.mod(skillCfg, "TotemLife")
+			breakdown.TotemLifeMod = breakdown.mod(skillModList, skillCfg, "TotemLife")
 			breakdown.TotemLife = {
 				"Totem level: "..skillData.totemLevel,
 				env.data.monsterAllyLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
@@ -725,7 +725,10 @@ function calcs.offence(env, actor, activeSkill)
 	do
 		output.DurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 		if breakdown then
-			breakdown.DurationMod = breakdown.mod(skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+			breakdown.DurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+			if breakdown.DurationMod and skillData.durationSecondary then
+				t_insert(breakdown.DurationMod, 1, "Primary duration:")
+			end
 		end
 		local durationBase = (skillData.duration or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "PrimaryDuration")
 		if durationBase > 0 then
@@ -754,6 +757,10 @@ function calcs.offence(env, actor, activeSkill)
 				output.DurationSecondary = output.DurationSecondary * debuffDurationMult
 			end
 			if breakdown and output.DurationSecondary ~= durationBase then
+				breakdown.SecondaryDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+				if breakdown.SecondaryDurationMod then
+					t_insert(breakdown.SecondaryDurationMod, 1, "Secondary duration:")
+				end
 				breakdown.DurationSecondary = {
 					s_format("%.2fs ^8(base)", durationBase),
 				}
