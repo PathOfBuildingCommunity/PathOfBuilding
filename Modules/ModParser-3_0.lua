@@ -2185,6 +2185,9 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
+	["you can only have one permanent non%-banner aura on you from your skills"] = { flag("OnePermanentNonBannerAuraOnYou") },
+	["you can only have one permanent aura on you from your skills"] = { flag("OnePermanentNonBannerAuraOnYou"), flag("BannerIsPermanentAura") },
+	["you can have two different banners at the same time"] = { flag("TwoBanners") },
 	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
@@ -2372,7 +2375,6 @@ local specialModList = {
 	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
-	["you can have two different banners at the same time"] = { },
 	["can have a second enchantment modifier"] = { },
 	["this item can be anointed by cassia"] = { },
 	["every (%d+) seconds, regenerate (%d+)%% of life over one second"] = function (num, _, percent) return {

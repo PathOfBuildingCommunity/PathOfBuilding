@@ -1067,6 +1067,8 @@ function calcs.perform(env)
 		limit = 1,
 	}
 	local affectedByAura = { }
+	local remainingBanners = (modDB:Flag(nil, "TwoBanners") and (not modDB:Flag(nil, "BannerIsPermanentAura")) and 2) or 1
+	local remainingAuras = (modDB:Flag(nil, "OnePermanentNonBannerAuraOnYou") and 1) or 100000
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -1104,23 +1106,35 @@ function calcs.perform(env)
 			elseif buff.type == "Aura" then
 				if env.mode_buffs then
 					if not activeSkill.skillData.auraCannotAffectSelf then
-						activeSkill.buffSkill = true
-						affectedByAura[env.player] = true
-						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-						local srcList = new("ModList")
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
+						if remainingAuras > 0 or (activeSkill.skillTypes[SkillType.Banner] and (not modDB:Flag(nil, "BannerIsPermanentAura"))) then
+							if not activeSkill.skillTypes[SkillType.Banner] or remainingBanners > 0 then
+								if activeSkill.skillTypes[SkillType.Banner] then
+									remainingBanners = remainingBanners - 1
+									if modDB:Flag(nil, "BannerIsPermanentAura") then
+										remainingAuras = remainingAuras - 1
+									end
+								else 
+									remainingAuras = remainingAuras - 1
+								end
+								activeSkill.buffSkill = true
+								affectedByAura[env.player] = true
+								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = new("ModList")
+								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
 
-						-- Take the Purposeful Harbinger buffs into account.
-						-- These are capped to 40% increased buff effect, no matter the amount allocated
-						local incFromPurposefulHarbinger = math.min(
-							skillModList:Sum("INC", skillCfg, "PurpHarbAuraBuffEffect"),
-							data.misc.PurposefulHarbingerMaxBuffPercent)
-						inc = inc + incFromPurposefulHarbinger
+								-- Take the Purposeful Harbinger buffs into account.
+								-- These are capped to 40% increased buff effect, no matter the amount allocated
+								local incFromPurposefulHarbinger = math.min(
+									skillModList:Sum("INC", skillCfg, "PurpHarbAuraBuffEffect"),
+									data.misc.PurposefulHarbingerMaxBuffPercent)
+								inc = inc + incFromPurposefulHarbinger
 
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
-						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
-						mergeBuff(srcList, buffs, buff.name)
+								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
+								mergeBuff(srcList, buffs, buff.name)
+							end
+						end
 					end
 					if env.minion and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
 						activeSkill.minionBuffSkill = true
