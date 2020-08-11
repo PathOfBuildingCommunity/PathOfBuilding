@@ -1068,6 +1068,7 @@ function calcs.perform(env)
 	}
 	local affectedByAura = { }
 	local remainingBanners = (modDB:Flag(nil, "TwoBanners") and (not modDB:Flag(nil, "BannerIsPermanentAura")) and 2) or 1
+	local remainingBannersOnEnemy = (modDB:Flag(nil, "TwoBanners") and 2) or 1
 	local remainingAuras = (modDB:Flag(nil, "OnePermanentNonBannerAuraOnYou") and 1) or 100000
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
@@ -1149,32 +1150,37 @@ function calcs.perform(env)
 					end
 				end
 			elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
-				local stackCount
-				if buff.stackVar then
-					stackCount = skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
-					if buff.stackLimit then
-						stackCount = m_min(stackCount, buff.stackLimit)
-					elseif buff.stackLimitVar then
-						stackCount = m_min(stackCount, skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+				if not activeSkill.skillTypes[SkillType.Banner] or remainingBannersOnEnemy > 0 then		
+					if activeSkill.skillTypes[SkillType.Banner] then
+						remainingBannersOnEnemy = remainingBannersOnEnemy - 1
 					end
-				else
-					stackCount = activeSkill.skillData.stackCount or 1
-				end
-				if env.mode_effective and stackCount > 0 then
-					activeSkill.debuffSkill = true
-					modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-					local srcList = new("ModList")
-					local mult = 1
-					if buff.type == "AuraDebuff" then
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
-						mult = (1 + inc / 100) * more
+					local stackCount
+					if buff.stackVar then
+						stackCount = skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
+						if buff.stackLimit then
+							stackCount = m_min(stackCount, buff.stackLimit)
+						elseif buff.stackLimitVar then
+							stackCount = m_min(stackCount, skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+						end
+					else
+						stackCount = activeSkill.skillData.stackCount or 1
 					end
-					srcList:ScaleAddList(buff.modList, mult * stackCount)
-					if activeSkill.skillData.stackCount or buff.stackVar then
-						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)
+					if env.mode_effective and stackCount > 0 then
+						activeSkill.debuffSkill = true
+						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						local srcList = new("ModList")
+						local mult = 1
+						if buff.type == "AuraDebuff" then
+							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							mult = (1 + inc / 100) * more
+						end
+						srcList:ScaleAddList(buff.modList, mult * stackCount)
+						if activeSkill.skillData.stackCount or buff.stackVar then
+							srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)
+						end
+						mergeBuff(srcList, debuffs, buff.name)
 					end
-					mergeBuff(srcList, debuffs, buff.name)
 				end
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
 				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")) then
