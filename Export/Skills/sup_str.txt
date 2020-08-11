@@ -157,7 +157,7 @@ local skills, mod, flag, skill = ...
 			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
-			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.bor(ModFlag.Melee, ModFlag.Ailment)),
+			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.band(ModFlag.Melee, ModFlag.Ailment)),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
@@ -279,6 +279,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
 		},
 	},
+#baseMod flag("SupportedByMultistrike")
 #mods
 
 #skill SupportMultistrikePlus

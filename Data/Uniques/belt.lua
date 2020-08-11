@@ -245,7 +245,8 @@ Cloth Belt
 League: Harvest
 Source: Upgraded from unique{The Flow Untethered} via currency{Time-light Scroll}
 Requires Level 60
-(15-25% increased Stun and Block Recovery
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
 Grants Summon Greater Harbinger of Time Skill
 {tags:caster,attack}(10-15)% increased Attack and Cast Speed
 {tags:life}(15-20)% increased Life Recovery rate

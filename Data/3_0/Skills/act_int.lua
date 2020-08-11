@@ -6838,13 +6838,13 @@ skills["SupportBrandSupport"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_brand_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
+			mod("TriggeredDamage", "MORE", nil),
 		},
 		["support_brand_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
 		},
 		["trigger_brand_support_hit_ailment_damage_+%_final_vs_branded_enemy"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
 	addSkillTypes = { SkillType.Brand, },
@@ -7563,6 +7563,9 @@ skills["SummonBoneGolem"] = {
 		},
 		["bone_golem_grants_minion_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil) }, 0, 0, { type = "SkillType", skillType = SkillType.Golem, neg = true }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["bone_golem_damage_+%_final_per_non_golem_minion_nearby"] = {
+			mod("MinionModifier", "LIST", { type = "SummonedCarrionGolem", mod = mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "NearbyNonGolemMinion", limit = 50, limitTotal = true }) }),
 		},
 	},
 	baseFlags = {

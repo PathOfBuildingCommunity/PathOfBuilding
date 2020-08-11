@@ -1103,6 +1103,16 @@ skills["BoneGolemMultiAttack"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["bone_golem_attack_speed_+%_final_after_third_combo_index"] = {
+			mod("Speed", "MORE", nil, 0, KeywordFlag.Attack),
+			div = 1.5,
+		},
+		["bone_golem_damage_+%_final_after_third_combo_index"] = {
+			mod("Damage", "MORE", nil),
+			div = 1.5,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1132,6 +1142,7 @@ skills["BoneGolemCascade"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -1169,6 +1180,7 @@ skills["BoneGolemLeapSlam"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -1225,8 +1237,8 @@ skills["MinionInstability"] = {
 		[1] = { },
 	},
 }
-skills["BeaconCausticCloud"] = {
-	name = "Caustic Cloud",
+skills["SiegebreakerCausticGround"] = {
+	name = "Caustic Ground",
 	hidden = true,
 	color = 4,
 	baseFlags = {
@@ -1236,29 +1248,7 @@ skills["BeaconCausticCloud"] = {
 	},
 	skillTypes = { },
 	baseMods = {
-		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 10 }),
-		skill("dotIsArea", true),
-	},
-	qualityStats = {
-	},
-	stats = {
-	},
-	levels = {
-		[1] = { },
-	},
-}
-skills["BeaconZombieCausticCloud"] = {
-	name = "Caustic Cloud",
-	hidden = true,
-	color = 4,
-	baseFlags = {
-		cast = true,
-		area = true,
-		chaos = true,
-	},
-	skillTypes = { },
-	baseMods = {
-		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 2 }),
+		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
 		skill("dotIsArea", true),
 	},
 	qualityStats = {

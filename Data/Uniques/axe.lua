@@ -11,21 +11,21 @@ Variant: Current
 Requires Level 16, 48 Str
 Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
-5% increased Movement Speed
 (7-10)% Increased Attack Speed
 +(15-25)% to Fire Resistance
+5% increased Movement Speed
 {variant:1}Curse Enemies with Flammability on Hit
-{variant:2}Curse Enemies with level 10 Flammability on Hit
+{variant:2}Curse Enemies with Level 10 Flammability on Hit
 ]],[[
 Dreadsurge
 Cleaver
 Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
-Requires Level 60
+Requires Level 60, 48 Str
 Adds (5-15) to (20-25) Physical Damage
 Adds (223-250) to (264-280) Fire Damage
-5% increased Movement Speed
 (7-10)% increased Attack Speed
 +(15-25)% to Fire Resistance
+5% increased Movement Speed
 Hits ignore Enemy Monster Fire Resistance while you are Ignited
 ]],[[
 Dyadus
