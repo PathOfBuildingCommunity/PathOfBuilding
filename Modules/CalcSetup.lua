@@ -321,6 +321,8 @@ function calcs.initEnv(build, mode, override)
 	env.player.itemList = { }
 	env.itemGrantedSkills = { }
 	env.flasks = { }
+	
+	local items = { }
 	for _, slot in pairs(build.itemsTab.orderedSlots) do
 		local slotName = slot.slotName
 		local item
@@ -409,6 +411,8 @@ function calcs.initEnv(build, mode, override)
 			end
 		end
 		if item then
+			item.scale = scale
+			items[slotName] = item
 			env.player.itemList[slotName] = item
 			-- Merge mods for this item
 			local srcList = item.modList or item.slotModList[slot.slotNum]
@@ -434,6 +438,25 @@ function calcs.initEnv(build, mode, override)
 				end
 				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end
+		end
+	end
+	--check for disabled slots
+	local disabledSlots = {{},{}}
+	-- 2 passes to catch if a slot is disabled which disables another slot
+	for _, pass in pairs({1, 2}) do
+		for _, slot in pairs(build.itemsTab.orderedSlots) do
+			local slotName = slot.slotName
+			if not disabledSlots[1][slotName] then
+				local item = items[slotName]
+				if item then
+					local srcList = item.modList or item.slotModList[slot.slotNum]
+					for _, mod in ipairs(srcList) do
+						-- checks if it disables another slot
+						for _, tag in ipairs(mod) do
+							if tag.type == "DisablesItem" then
+								disabledSlots[pass][tag.slotName] = true
+								break
+							end
 			if item.type == "Shield" and nodes[45175] and nodes[45175].dn == "Necromantic Aegis" then
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = new("ModList")
@@ -446,12 +469,28 @@ function calcs.initEnv(build, mode, override)
 							break
 						end
 					end
-					if add then
-						env.aegisModList:ScaleAddMod(mod, scale)
-					else
-						env.modDB:ScaleAddMod(mod, scale)
-					end
 				end
+			end
+		end
+	end
+	-- Build and merge item modifiers
+	for _, slot in pairs(build.itemsTab.orderedSlots) do
+		local slotName = slot.slotName
+		if not disabledSlots[2][slotName] then
+			local item = items[slotName]
+			if item then
+				local srcList = item.modList or item.slotModList[slot.slotNum]
+				if item.type == "Shield" and nodes[45175] then
+					-- Special handling for Necromantic Aegis
+					env.aegisModList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						-- Filter out mods that apply to socketed gems, or which add supports
+						local add = true
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								add = false
+								break
+							end
 			elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
 				-- Special handling for The Iron Mass
 				env.theIronMass = new("ModList")
@@ -481,45 +520,63 @@ function calcs.initEnv(build, mode, override)
 							add = false
 							break
 						end
+						if add then
+							env.aegisModList:ScaleAddMod(mod, item.scale)
+						else
+							env.modDB:ScaleAddMod(mod, item.scale)
+						end
 					end
-					if add then
-						env.weaponModList1:ScaleAddMod(mod, scale)
+				elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
+					-- Special handling for The Dancing Dervish
+					env.weaponModList1 = new("ModList")
+					for _, mod in ipairs(srcList) do
+						-- Filter out mods that apply to socketed gems, or which add supports
+						local add = true
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								add = false
+								break
+							end
+						end
+						if add then
+							env.weaponModList1:ScaleAddMod(mod, item.scale)
+						else
+							env.modDB:ScaleAddMod(mod, item.scale)
+						end
+					end
+				else
+					env.modDB:ScaleAddList(srcList, item.scale)
+				end
+				if item.type ~= "Jewel" and item.type ~= "Flask" then
+					-- Update item counts
+					local key
+					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
+						key = "UniqueItem"
+					elseif item.rarity == "RARE" then
+						key = "RareItem"
+					elseif item.rarity == "MAGIC" then
+						key = "MagicItem"
 					else
-						env.modDB:ScaleAddMod(mod, scale)
+						key = "NormalItem"
 					end
-				end
-			else
-				env.modDB:ScaleAddList(srcList, scale)
-			end
-			if item.type ~= "Jewel" and item.type ~= "Flask" then
-				-- Update item counts
-				local key
-				if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
-					key = "UniqueItem"
-				elseif item.rarity == "RARE" then
-					key = "RareItem"
-				elseif item.rarity == "MAGIC" then
-					key = "MagicItem"
-				else
-					key = "NormalItem"
-				end
-				env.modDB.multipliers[key] = (env.modDB.multipliers[key] or 0) + 1
-				if item.corrupted then
-					env.modDB.multipliers.CorruptedItem = (env.modDB.multipliers.CorruptedItem or 0) + 1
-				else
-					env.modDB.multipliers.NonCorruptedItem = (env.modDB.multipliers.NonCorruptedItem or 0) + 1
-				end
-				if item.shaper then
-					env.modDB.multipliers.ShaperItem = (env.modDB.multipliers.ShaperItem or 0) + 1
-					env.modDB.conditions["ShaperItemIn"..slotName] = true
-				else
-					env.modDB.multipliers.NonShaperItem = (env.modDB.multipliers.NonShaperItem or 0) + 1
-				end
-				if item.elder then
-					env.modDB.multipliers.ElderItem = (env.modDB.multipliers.ElderItem or 0) + 1
-					env.modDB.conditions["ElderItemIn"..slotName] = true
-				else
-					env.modDB.multipliers.NonElderItem = (env.modDB.multipliers.NonElderItem or 0) + 1
+					env.modDB.multipliers[key] = (env.modDB.multipliers[key] or 0) + 1
+					if item.corrupted then
+						env.modDB.multipliers.CorruptedItem = (env.modDB.multipliers.CorruptedItem or 0) + 1
+					else
+						env.modDB.multipliers.NonCorruptedItem = (env.modDB.multipliers.NonCorruptedItem or 0) + 1
+					end
+					if item.shaper then
+						env.modDB.multipliers.ShaperItem = (env.modDB.multipliers.ShaperItem or 0) + 1
+						env.modDB.conditions["ShaperItemIn"..slotName] = true
+					else
+						env.modDB.multipliers.NonShaperItem = (env.modDB.multipliers.NonShaperItem or 0) + 1
+					end
+					if item.elder then
+						env.modDB.multipliers.ElderItem = (env.modDB.multipliers.ElderItem or 0) + 1
+						env.modDB.conditions["ElderItemIn"..slotName] = true
+					else
+						env.modDB.multipliers.NonElderItem = (env.modDB.multipliers.NonElderItem or 0) + 1
+					end
 				end
 				if item.shaper or item.elder then
 					env.modDB.multipliers.ShaperOrElderItem = (env.modDB.multipliers.ShaperOrElderItem or 0) + 1
