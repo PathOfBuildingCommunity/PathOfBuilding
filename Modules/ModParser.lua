@@ -2383,6 +2383,7 @@ local specialModList = {
 	["can't use helmets"] = { mod("CantUseHelmet", "Flag", 1, { type = "DisablesItem", slotName = "Helmet" }) },
 	["can't use chest armour"] = { mod("CantUseBody", "Flag", 1, { type = "DisablesItem", slotName = "Body Armour" }) },
 	["can't use other rings"] = { mod("CantUseRightRing", "Flag", 1, { type = "DisablesItem", slotName = "Ring 2" }, { type = "SlotNumber", num = 1 }), mod("CantUseLeftRing", "Flag", 1, { type = "DisablesItem", slotName = "Ring 1" }, { type = "SlotNumber", num = 2 }) },
+	["uses both hand slots"] = { mod("CantUseRightWeapon", "Flag", 1, { type = "DisablesItem", slotName = "Weapon 2" }, { type = "SlotNumber", num = 1 }), mod("CantUseLeftWeapon", "Flag", 1, { type = "DisablesItem", slotName = "Weapon 1" }, { type = "SlotNumber", num = 2 }) },
 	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
