@@ -390,8 +390,7 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", rangePlus, "Skill:Cyclone")
 	end,
 #baseMod skill("radius", 11)
-#baseMod mod("Multiplier:CycloneStage", "BASE", 1, 0, 0, { type = "Multiplier", var = "CycloneMaxStages" }, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "CycloneStage" })
+#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "CycloneStage", limitVar = "CycloneMaxStages" }),
 #mods
 
 #skill VaalCyclone

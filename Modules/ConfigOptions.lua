@@ -322,14 +322,6 @@ return {
 			modList:NewMod("Condition:WaveOfConvictionLightningExposureActive", "FLAG", true, "Config")
 		end
 	end },
-	{ label = "Winter Orb:", ifSkill = "Winter Orb" },
-	{ var = "winterOrbStages", type = "count", label = "Stages:", ifSkill = "Winter Orb", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:WinterOrbStage", "BASE", val, "Config", { type = "SkillName", skillName = "Winter Orb" })
-	end },
-	{ label = "Wintertide Brand:", ifSkill = "Wintertide Brand" },
-	{ var = "wintertideBrandStage", type = "count", label = "Wintertide Brand Stages:", ifSkill = "Wintertide Brand", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:WintertideBrandStage", "BASE", val, "Config", { type = "SkillName", skillName = "Wintertide Brand" })
-	end },
 	{ label = "Molten Shell:", ifSkill = "Molten Shell" },
 	{ var = "MoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated.", ifSkill = "Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "MoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })

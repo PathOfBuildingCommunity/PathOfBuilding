@@ -1943,8 +1943,7 @@ skills["Cyclone"] = {
 	},
 	baseMods = {
 		skill("radius", 11),
-		mod("Multiplier:CycloneStage", "BASE", 1, 0, 0, { type = "Multiplier", var = "CycloneMaxStages" }, { type = "SkillPart", skillPart = 2 }),
-		skill("radiusExtra", 1, { type = "Multiplier", var = "CycloneStage" }),
+		skill("radiusExtra", 1, { type = "Multiplier", var = "CycloneStage", limitVar = "CycloneMaxStages" }),
 	},
 	qualityStats = {
 		Default = {

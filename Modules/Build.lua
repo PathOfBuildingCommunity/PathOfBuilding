@@ -525,7 +525,19 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Active Mines:") {
+	self.controls.mainSkillStageCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Stages:") {
+		shown = function()
+			return self.controls.mainSkillStageCount:IsShown()
+		end,
+	}
+	self.controls.mainSkillStageCount = new("EditControl", {"LEFT",self.controls.mainSkillStageCountLabel,"RIGHT",true}, 2, 0, 60, 18, nil, nil, "%D", nil, function(buf)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillStageCount = tonumber(buf)
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillStageCountLabel,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Active Mines:") {
 		shown = function()
 			return self.controls.mainSkillMineCount:IsShown()
 		end,
@@ -1055,6 +1067,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkill.shown = false
 		controls.mainSkillPart.shown = false
 		controls.mainSkillMineCount.shown = false
+		controls.mainSkillStageCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionSkill.shown = false
 	else
@@ -1070,6 +1083,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkill.shown = true
 		controls.mainSkillPart.shown = false
 		controls.mainSkillMineCount.shown = false
+		controls.mainSkillStageCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionLibrary.shown = false
 		controls.mainSkillMinionSkill.shown = false
@@ -1088,6 +1102,10 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 				if activeSkill.skillFlags.mine then
 					controls.mainSkillMineCount.shown = true
 					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
+				end
+				if activeSkill.skillFlags.multiStage then
+					controls.mainSkillStageCount.shown = true
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or "")
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)

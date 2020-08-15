@@ -7407,17 +7407,6 @@ skills["FireBeam"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.CausesBurning] = true, [SkillType.Duration] = true, [SkillType.Channelled] = true, [SkillType.Type59] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
-	parts = {
-		{
-			name = "1 Stage",
-		},
-		{
-			name = "4 Stages",
-		},
-		{
-			name = "8 Stages",
-		},
-	},
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
@@ -7428,9 +7417,9 @@ skills["FireBeam"] = {
 		duration = true,
 	},
 	baseMods = {
-		flag("Condition:ScorchingRayMaxStages", { type = "SkillPart", skillPart = 3 }),
-		mod("Damage", "MORE", 180, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Damage", "MORE", 420, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 } ),
+		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7),
+		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst", limitVar = "ScorchingRayMaxStagesAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
@@ -10184,17 +10173,17 @@ skills["FrostFury"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["frost_fury_fire_speed_+%_per_stage"] = {
-			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStage", limitVar = "WinterOrbMaxStage" }),
+			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStage", limitVar = "WinterOrbMaxStages" }),
 		},
 		["frost_fury_max_number_of_stages"] = {
-			mod("Multiplier:WinterOrbMaxStage", "BASE", nil),
+			mod("Multiplier:WinterOrbMaxStages", "BASE", nil),
 		},
 		["frost_fury_base_fire_interval_ms"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
 		},
 		["frost_fury_duration_+%_per_stage"] = {
-			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStage", limitVar = "WinterOrbMaxStage" }),
+			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStage", limitVar = "WinterOrbMaxStages" }),
 		},
 		["frost_fury_fire_speed_+%_final_while_channelling"] = {
 			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
@@ -10299,10 +10288,10 @@ skills["ImmolationSigil"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["immolation_brand_burn_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStage" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }),
 		},
 		["winter_brand_max_number_of_stages"] = {
-			mod("Multiplier:WintertideBrandMaxStage", "BASE", nil)
+			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil)
 		},
 	},
 	baseFlags = {

@@ -447,6 +447,19 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			skillModList:NewMod("Multiplier:ActiveMineCount", "BASE", activeSkill.activeMineCount, "Base")
 		end
 	end
+	
+	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages", "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst") > 0 then
+		skillFlags.multiStage = true
+		activeSkill.activeStageCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount)
+		if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst") > 0 then
+			activeSkill.activeStageCount = (activeSkill.activeStageCount or 0) - 1
+			if activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
+				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", activeSkill.activeStageCount, "Base")
+			end
+		elseif activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
+			skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."Stage", "BASE", activeSkill.activeStageCount, "Base")
+		end
+	end
 
 	-- Extract skill data
 	for _, value in ipairs(env.modDB:List(activeSkill.skillCfg, "SkillData")) do
