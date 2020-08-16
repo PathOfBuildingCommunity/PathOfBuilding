@@ -138,6 +138,16 @@ return {
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy Deathmarked?", ifSkill = "Deathmark", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
 	end },
+	{ label = "Elemental Army:", ifSkill = "Elemental Army" },
+	{ var = "elementalArmyExposureType", type = "list", label = "Exposure Type:", ifSkill = "Elemental Army", list = {{val=0,label="None"},{val="Fire",label="Fire"},{val="Cold",label="Cold"},{val="Lightning",label="Lightning"}}, apply = function(val, modList, enemyModList)
+		if val == "Fire" then
+			modList:NewMod("FireExposureChance", "BASE", 100, "Config")
+		elseif val == "Cold" then
+			modList:NewMod("ColdExposureChance", "BASE", 100, "Config")
+		elseif val == "Lightning" then
+			modList:NewMod("LightningExposureChance", "BASE", 100, "Config")
+		end
+	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FeedingFrenzyActive", "FLAG", true, "Config")
@@ -1050,14 +1060,14 @@ return {
 	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "count", label = "# of Freeze/Shock/Ignite on enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyFireExposure", type = "check", label = "Is the enemy Exposed to Fire?", ifCond = "ApplyFireExposure", tooltip = "This applies -10% Fire Resistance to the enemy.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("FireExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" })
+	{ var = "conditionEnemyFireExposure", type = "check", label = "Is the enemy Exposed to Fire?", ifFlag = "applyFireExposure", tooltip = "This applies -10% Fire Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("FireExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyFireExposure" })
 	end },
-	{ var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy Exposed to Cold?", ifCond = "ApplyColdExposure", tooltip = "This applies -10% Cold Resistance to the enemy.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ColdExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" })
+	{ var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy Exposed to Cold?", ifFlag = "applyColdExposure", tooltip = "This applies -10% Cold Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ColdExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyColdExposure" })
 	end },
-	{ var = "conditionEnemyLightningExposure", type = "check", label = "Is the enemy Exposed to Lightning?", ifCond = "ApplyLightningExposure", tooltip = "This applies -10% Lightning Resistance to the enemy.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("LightningExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" })
+	{ var = "conditionEnemyLightningExposure", type = "check", label = "Is the enemy Exposed to Lightning?", ifFlag = "applyLightningExposure", tooltip = "This applies -10% Lightning Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("LightningExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyLightningExposure" })
 	end },
 	{ var = "conditionEnemyIntimidated", type = "check", ifVer = "2_6", label = "Is the enemy Intimidated?", tooltip = "This adds the following modifiers:\n10% increased Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate")
