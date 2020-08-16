@@ -413,12 +413,6 @@ local skills, mod, flag, skill = ...
 		["support_minion_totem_resistance_elemental_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("ElementalDamage", "MORE", nil) }),
 		},
-		["minions_inflict_exposure_on_hit_%_chance"] = {
-			flag("Condition:ApplyFireExposure"),
-			flag("Condition:ApplyColdExposure"),
-			flag("Condition:ApplyLightningExposure"),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "ApplyFireExposure" }, { type = "Condition", var = "ApplyColdExposure" }, { type = "Condition", var = "ApplyLightningExposure" }),
-		},
 	},
 #mods
 

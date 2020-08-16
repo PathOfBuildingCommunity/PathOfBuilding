@@ -500,6 +500,9 @@ local modNameList = {
 	["strength and intelligence requirement"] = { "StrRequirement", "IntRequirement" },
 	["attribute requirements"] = { "StrRequirement", "DexRequirement", "IntRequirement" },
 	["effect of socketed jewels"] = "SocketedJewelEffect",
+	["to inflict fire exposure on hit"] = "FireExposureChance",
+	["to inflict cold exposure on hit"] = "ColdExposureChance",
+	["to inflict lightning exposure on hit"] = "LightningExposureChance",
 	-- Flask modifiers
 	["effect"] = "FlaskEffect",
 	["effect of flasks"] = "FlaskEffect",
@@ -1897,30 +1900,9 @@ local specialModList = {
 	["you take (%d+) chaos damage per second for 3 seconds on kill"] = function(num) return { mod("ChaosDegen", "BASE", num, { type = "Condition", var = "KilledLast3Seconds" }) } end,
 	["regenerate (%d+) life over 1 second for each spell you cast"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "CastLast1Seconds" }) } end,
 	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "KilledPosionedLast2Seconds" }) } end,
-	["fire skills have a %d+%% chance to apply fire exposure on hit"] = { 
-		flag("Condition:ApplyFireExposure"),
-		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "ApplyFireExposure" }), -- Make the Configuration option appear
-	},
-	["cold skills have a %d+%% chance to apply cold exposure on hit"] = { 
-		flag("Condition:ApplyColdExposure"),
-		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "ApplyColdExposure" }), -- Make the Configuration option appear
-	},
-	["lightning skills have a %d+%% chance to apply lightning exposure on hit"] = { 
-		flag("Condition:ApplyLightningExposure"),
-		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "ApplyLightningExposure" }), -- Make the Configuration option appear
-	},
-	["%d+%% chance to inflict fire exposure on hit"] = {
-		flag("Condition:ApplyFireExposure"),
-		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "ApplyFireExposure" }), -- Make the Configuration option appear
-	},
-	["%d+%% chance to inflict cold exposure on hit"] = {
-		flag("Condition:ApplyColdExposure"),
-		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "ApplyColdExposure" }), -- Make the Configuration option appear
-	},
-	["%d+%% chance to inflict lightning exposure on hit"] = {
-		flag("Condition:ApplyLightningExposure"),
-		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "ApplyLightningExposure" }), -- Make the Configuration option appear
-	},
+	["fire skills have a (%d+)%% chance to apply fire exposure on hit"] = function(num) return { mod("FireExposureChance", "BASE", num) } end,
+	["cold skills have a (%d+)%% chance to apply cold exposure on hit"] = function(num) return { mod("ColdExposureChance", "BASE", num) } end,
+	["lightning skills have a (%d+)%% chance to apply lightning exposure on hit"] = function(num) return { mod("LightningExposureChance", "BASE", num) } end,
 	["nearby enemies have fire exposure"] = {
 		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }),
 	},
