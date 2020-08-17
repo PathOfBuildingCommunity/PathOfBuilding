@@ -2382,35 +2382,7 @@ local specialModList = {
 	["you take (%d+)%% reduced extra damage from critical strikes"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num) } end,
 	["you take (%d+)%% reduced extra damage from critical strikes while you have no power charges"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true }) } end,
 }
-local keystoneList = {
-	-- List of keystones that can be found on uniques
-	"Acrobatics",
-	"Ancestral Bond",
-	"Arrow Dancing",
-	"Avatar of Fire",
-	"Blood Magic",
-	"Call to Arms",
-	"Conduit",
-	"Crimson Dance",
-	"Eldritch Battery",
-	"Elemental Equilibrium",
-	"Elemental Overload",
-	"Ghost Reaver",
-	"Iron Grip",
-	"Iron Reflexes",
-	"Mind Over Matter",
-	"Minion Instability",
-	"Mortal Conviction",
-	"Pain Attunement",
-	"Perfect Agony",
-	"Phase Acrobatics",
-	"Point Blank",
-	"Resolute Technique",
-	"Unwavering Stance",
-	"Vaal Pact",
-	"Zealot's Oath",
-}
-for _, name in pairs(keystoneList) do
+for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
 end
 local oldList = specialModList

@@ -209,6 +209,35 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
+---@type string[] @List of keystones that can be found on unique items.
+data.keystones = {
+	"Acrobatics",
+	"Ancestral Bond",
+	"Arrow Dancing",
+	"Avatar of Fire",
+	"Blood Magic",
+	"Call to Arms",
+	"Conduit",
+	"Crimson Dance",
+	"Eldritch Battery",
+	"Elemental Equilibrium",
+	"Elemental Overload",
+	"Ghost Reaver",
+	"Iron Grip",
+	"Iron Reflexes",
+	"Mind Over Matter",
+	"Minion Instability",
+	"Mortal Conviction",
+	"Pain Attunement",
+	"Perfect Agony",
+	"Phase Acrobatics",
+	"Point Blank",
+	"Resolute Technique",
+	"Unwavering Stance",
+	"Vaal Pact",
+	"Zealot's Oath",
+}
+
 data.misc = { -- magic numbers
 	ServerTickRate = 30,
 	TemporalChainsEffectCap = 75,
