@@ -56,3 +56,23 @@ for index, name in ipairs(gems) do
 end
 table.insert(forbiddenShako, "+(25-30) to all Attributes")
 table.insert(data.uniques.generated, table.concat(forbiddenShako, "\n"))
+
+local skinOfTheLords = {
+	"Skin of the Lords",
+	"Simple Robe",
+	"League: Breach",
+	"Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}",
+}
+for _, name in ipairs(data.keystones) do
+	table.insert(skinOfTheLords, "Variant: "..name)
+end
+table.insert(skinOfTheLords, "Implicits: 0")
+table.insert(skinOfTheLords, "Sockets cannot be modified")
+table.insert(skinOfTheLords, "+1 to Level of Socketed Gems")
+table.insert(skinOfTheLords, "100% increased Global Defences")
+table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
+for index, name in ipairs(data.keystones) do
+	table.insert(skinOfTheLords, "{variant:"..index.."}"..name)
+end
+table.insert(skinOfTheLords, "Corrupted")
+table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
