@@ -851,10 +851,10 @@ function calcs.defence(env, actor)
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("= %.1f", output.NetEnergyShieldRegen))
 			breakdown.TotalNetRegen = {
-				s_format("Net Life Regen: %d", output.NetLifeRegen),
-				s_format("+ Net Mana Regen: %d", output.NetManaRegen),
-				s_format("+ Net Energy Shield Regen: %d", output.NetEnergyShieldRegen),
-				s_format("= Total Net Regen: %d", output.TotalNetRegen)
+				s_format("Net Life Regen: %.1f", output.NetLifeRegen),
+				s_format("+ Net Mana Regen: %.1f", output.NetManaRegen),
+				s_format("+ Net Energy Shield Regen: %.1f", output.NetEnergyShieldRegen),
+				s_format("= Total Net Regen: %.1f", output.TotalNetRegen)
 			}
 		end
 	end
