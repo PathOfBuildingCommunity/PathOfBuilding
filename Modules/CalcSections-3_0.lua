@@ -1069,7 +1069,7 @@ return {
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{1:output:LifeRecharge}", 
 		{ breakdown = "LifeRecharge" },
-		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecoveryRate", "NoEnergyShieldRecharge", "EnergyShieldRechargeAppliesToLife" }, },
+		{ modName = { "EnergyShieldRecharge", "LifeRecoveryRate", "NoEnergyShieldRecharge", "EnergyShieldRechargeAppliesToLife" }, },
 	}, },
 	{ label = "Recharge Delay", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{2:output:EnergyShieldRechargeDelay}s", 
 		{ breakdown = "EnergyShieldRechargeDelay" },
