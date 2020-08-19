@@ -2309,6 +2309,8 @@ local specialModList = {
 	} end,
 	["herald of thunder's storms hit enemies with (%d+)%% increased frequency"] = function(num) return { mod("HeraldStormFrequency", "INC", num), } end,
 	["your critical strikes have a (%d+)%% chance to deal double damage"] = function(num) return { mod("DoubleDamageChanceOnCrit", "BASE", num) } end,
+	["skills supported by unleash have %+(%d) to maximum number of seals"] = function(num) return { mod("SealCount", "BASE", num) } end,
+	["skills supported by unleash have (%d+)%% increased seal gain frequency"] = function(num) return { mod("SealGainFrequency", "INC", num) } end,
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		flag("Condition:Stationary"),
