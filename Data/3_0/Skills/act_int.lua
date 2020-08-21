@@ -2552,11 +2552,7 @@ skills["DivineTempest"] = {
 			area = false,
 		},
 		{
-			name = "Release at 10 Stages",
-			area = true,
-		},
-		{
-			name = "Release at 20 Stages",
+			name = "Release",
 			area = true,
 		},
 	},
@@ -2565,10 +2561,10 @@ skills["DivineTempest"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["divine_tempest_hit_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "StageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "DivineIreStageAfterFirst", limitVar = "DivineIreMaxStagesAfterFirst" }),
 		},
 		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "StageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst", limitVar = "DivineIreMaxStagesAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -2576,9 +2572,8 @@ skills["DivineTempest"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("showAverage", true, { type = "SkillPart", skillPartList = { 2, 3 } }),
-		mod("Multiplier:StageAfterFirst", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:StageAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 } ),
 		skill("radius", 38),
 	},
 	qualityStats = {
@@ -6288,32 +6283,23 @@ skills["MagmaSigil"] = {
 	end,
 	parts = {
 		{
-			name = "1 Energy Explosion",
+			name = "Energy Explosion",
 		},
 		{
-			name = "5 Energy Explosion",
+			name = "Max Explosion per Brand",
 		},
 		{
-			name = "10 Energy Explosion",
-		},
-		{
-			name = "15 Energy Explosion",
-		},
-		{
-			name = "20 Energy Explosion",
-		},
-		{
-			name = "20 Energy Pulse",
+			name = "Max Stages Energy Pulsing",
 		},
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "EnergyLevel" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" }),
 		},
 		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "EnergyLevel" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -6323,14 +6309,11 @@ skills["MagmaSigil"] = {
 		brand = true,
 	},
 	baseMods = {
-		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }}),
-		mod("Multiplier:EnergyLevel", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:EnergyLevel", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 3 }),
-		mod("Multiplier:EnergyLevel", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 4 }),
-		mod("Multiplier:EnergyLevel", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 5 }),
-		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 6 }),
+		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 }}),
+		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 } ),
 		skill("radius", 8),
-		skill("radiusExtra", 1, { type = "Multiplier", var = "EnergyLevel" }, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 }}),
+		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" } ),
+		mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } )
 	},
 	qualityStats = {
 		Default = {
