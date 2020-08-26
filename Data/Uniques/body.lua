@@ -1028,8 +1028,8 @@ Variant: Current
 Requires Level 68, 103 Dex, 109 Int
 +(60-80) to maximum Life 
 (20-50)% increased Damage if you have Shocked an Enemy Recently 
-{variant:1,2}(25–40)% increased Effect of Shock
-{variant:3}(15–25)% increased Effect of Shock
+{variant:1,2}(25-40)% increased Effect of Shock
+{variant:3}(15-25)% increased Effect of Shock
 Unaffected by Shock 
 {variant:1}Shocked Enemies you Kill Explode, dealing (5-10)% of
 {variant:2,3}Shocked Enemies you Kill Explode, dealing 5% of
