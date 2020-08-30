@@ -785,7 +785,7 @@ Implicits: 1
 (30-50)% increased Cold Damage
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 {variant:1}30% increased Radius of Curse Skills
-{variant:2}60% increased Area of Effect of Curse Skills
+{variant:2,3}60% increased Area of Effect of Curse Skills
 You cannot be Cursed with Silence
 {variant:1,2}Grants level 20 Illusory Warp Skill
 Corrupted

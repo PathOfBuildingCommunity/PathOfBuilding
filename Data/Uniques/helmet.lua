@@ -922,11 +922,11 @@ League: Tempest
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 52, 58 Dex, 58 Int
-{variant:2}+(60-80) to maximum Life
 (150-200)% increased Evasion and Energy Shield
+{variant:2}+(60-80) to maximum Life
 (0.4-0.8)% of Physical Attack Damage Leeched as Life
 Reflects 100 to 150 Physical Damage to Melee Attackers
-30% of Damage you Reflect to enemies is gained as Life
+30% of Damage you Reflect to Enemies when Hit is gained as Life
 ]],[[
 Curtain Call
 Plague Mask

@@ -4180,11 +4180,11 @@ skills["AtlasExilesCrusaderMageguardProjectile"] = {
 		[1] = { 127, 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, },
 	},
 }
-skills["AtlasExileCrusaderMageguardBombExplode"] = {
+skills["AtlasExileCrusaderMageguardBombExplodeSpectre"] = {
 	name = "Bombs",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 4,
+	baseEffectiveness = 2,
 	incrementalEffectiveness = 0.045000001788139,
 	skillTypes = { [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -4234,11 +4234,11 @@ skills["AtlasCrusaderMageguardBeam"] = {
 		[1] = { 0.5, 1.5, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["AtlasCrusaderSisterMortar"] = {
+skills["AtlasCrusaderSisterMortarSpectre"] = {
 	name = "Mortar",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 1.7999999523163,
+	baseEffectiveness = 1.2999999523163,
 	incrementalEffectiveness = 0.03999999910593,
 	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
 	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
@@ -4267,7 +4267,7 @@ skills["AtlasCrusaderSisterMortar"] = {
 		"projectile_uses_contact_position",
 	},
 	levels = {
-		[1] = { 0.69999998807907, 1.2999999523163, 20, 0, 3, 10, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+		[1] = { 0.69999998807907, 1.2999999523163, 20, 1, 3, 10, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
 	},
 }
 skills["BreachLightningWhip"] = {
@@ -4428,5 +4428,98 @@ skills["SandLeaperDodgeRight"] = {
 	},
 	levels = {
 		[1] = { 1, 22, manaCost = 90, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["MeleeCold"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { 75, 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 1, 2, }, },
+		[2] = { 75, 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 1, 2, }, },
+		[3] = { 75, 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 1, 2, }, },
+		[4] = { 75, 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 1, 2, }, },
+	},
+}
+skills["AtlasCrusaderJudgeBallLightning"] = {
+	name = "Ball Lightning",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.41249999403954,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.6,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_projectile_speed_+%",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, -25, critChance = 32, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, },
+	},
+}
+skills["AtlasCruasderJudgeFadingNova"] = {
+	name = "Nova Spell",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"monster_projectile_variation",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"always_pierce",
+		"use_scaled_contact_offset",
+		"projectiles_nova",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 128, 7, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }

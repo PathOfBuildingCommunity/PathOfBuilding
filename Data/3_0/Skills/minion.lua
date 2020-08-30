@@ -1103,6 +1103,16 @@ skills["BoneGolemMultiAttack"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["bone_golem_attack_speed_+%_final_after_third_combo_index"] = {
+			mod("Speed", "MORE", nil, 0, KeywordFlag.Attack),
+			div = 1.5,
+		},
+		["bone_golem_damage_+%_final_after_third_combo_index"] = {
+			mod("Damage", "MORE", nil),
+			div = 1.5,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1132,6 +1142,7 @@ skills["BoneGolemCascade"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -1169,6 +1180,7 @@ skills["BoneGolemLeapSlam"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},

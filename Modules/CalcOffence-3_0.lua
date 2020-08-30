@@ -297,10 +297,10 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Add addition stat bonuses
 	if skillModList:Flag(nil, "IronGrip") then
-		skillModList:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", bor(ModFlag.Attack, ModFlag.Projectile))
+		skillModList:NewMod("PhysicalDamage", "INC", actor.strDmgBonus or 0, "Strength", bor(ModFlag.Attack, ModFlag.Projectile))
 	end
 	if skillModList:Flag(nil, "IronWill") then
-		skillModList:NewMod("Damage", "INC", actor.strDmgBonus, "Strength", ModFlag.Spell)
+		skillModList:NewMod("Damage", "INC", actor.strDmgBonus or 0, "Strength", ModFlag.Spell)
 	end
 	
 	if skillModList:Flag(nil, "TransfigurationOfBody") then
@@ -2730,7 +2730,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				local maximum = skillModList:Override(nil, "ShockMax") or 50
-				local current = m_min(output.CurrentShock or 0, maximum)
+				local current = m_min(globalOutput.CurrentShock or 0, maximum)
 				local desired = m_min(enemyDB:Sum("BASE", nil, "DesiredShockVal"), maximum)
 				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
 				local effList = { 5, 15, 50 }
