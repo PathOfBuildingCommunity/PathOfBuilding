@@ -257,6 +257,18 @@ Implicits: 1
 {tags:attack}+2 to Melee Weapon and Unarmed range
 {tags:attack,life}60% increased Melee Damage when on Full Life
 ]],[[
+The Ephemeral Bond
+Lapis Amulet
+League: Heist
+Requires Level 68
+Implicits: 1
++(20-30) to Intelligence
+(25-40)% increased Mana Regeneration Rate
++(15-25)% to all Elemental Resistances
++(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
+(1-2) to (36-40) Lightning Damage per Power Charge
+90% less Power Charge Duration
+]],[[
 Extractor Mentis
 Agate Amulet
 Variant: {2_6}Pre 3.5.0

@@ -401,6 +401,18 @@ Has 1 Socket
 Socketed Gems Reserve No Mana
 {tags:mana}40% increased Mana Reserved
 ]],[[
+Fated End
+Paua Ring
+League: Heist
+Requires Level 38
+Implicits: 1
++(20-30) to maximum Mana
++(20-40) to Intelligence
+Curse Skills have (8-12)% increased Cast Speed
+Hexes you inflict have their Effect increased by twice their Doom instead
+Hexes have (-20-20)% reduced Doom gain rate
+Hexes expire 0.5 seconds after reaching maximum Doom
+]],[[
 Gifts from Above
 Diamond Ring
 League: Anarchy
@@ -427,6 +439,18 @@ Implicits: 1
 Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect of Area Skills
 350 Physical Damage taken on Minion Death
+]],[[
+The Highwayman
+Gold Ring
+League: Heist
+Requires Level 44
+Implicits: 1
+(6-15)% increased Rarity of Items found
+(15-25)% increased Rarity of Items found
+5% increased Movement Speed
+25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
+0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
+Total Recovery per second from Life Leech is Doubled
 ]],[[
 The Hungry Loop
 Unset Ring

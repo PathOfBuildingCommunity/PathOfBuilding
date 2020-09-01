@@ -3,6 +3,18 @@
 return {
 -- Body: Armour
 [[
+Blunderbore
+Astral Plate
+League: Heist
+Requires Level 62, 180 Str
+Implicits: 1
++(8-12)% to all Elemental Resistances
++(500-700) Strength Requirement
+(80-120)% increased Armour
+(50-75)% increased Effect of Shrine Buffs on you
+You have Lesser Brutal Shrine Buff
+You have Lesser Massive Shrine Buff
+]],[[
 Bramblejack
 Plate Vest
 Upgrade: Upgrades to unique{Wall of Brambles} via prophecy{The King and the Brambles}

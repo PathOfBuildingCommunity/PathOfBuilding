@@ -181,6 +181,16 @@ Requires Level 21, 33 Dex
 {variant:4}Your Critical Strike Multiplier is 300%
 (60-80)% increased Evasion Rating
 ]],[[
+Mercenary's Lot
+Slink Gloves
+League: Heist
+Requires Level 70, 95 Dex
++(80-120) to Evasion Rating
+(5-8)% increased Attack and Cast Speed
+Mark Skills have (10-15)% increased Cast Speed
+(30-50)% increased Damage with Hits and Ailments against Marked Enemy
+Your Mark transfers to another Enemy when Marked Enemy dies
+]],[[
 Oskarm
 Nubuck Gloves
 Requires Level 52, 50 Dex

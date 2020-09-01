@@ -651,6 +651,16 @@ Adds 4 to 8 Physical Damage to Attacks
 +(30-50)% to Fire Resistance
 Curse Enemies with level 5 Vulnerability on Block
 ]],[[
+Shattershard
+Crimson Round Shield
+League: Heist
+Requires Level 49, 64 Str, 64 Dex
+Implicits: 0
+Trigger Level 20 Shield Shatter when you Block
+(120-150)% increased Armour and Evasion
++(80-100) to maximum Life
++(8-12)% Chance to Block
+]],[[
 Vix Lunaris
 Cardinal Round Shield
 Requires Level: 66, 85 Str, 85 Dex
@@ -880,6 +890,18 @@ Implicits: 1
 ]],
 -- Shield: Evasion/Energy Shield
 [[
+Font of Thunder
+Mirrored Spiked Shield
+League: Heist
+Requires Level 66, 85 Dex, 85 Int
+Implicits: 1
+4% chance to Dodge Attack Hits
+(500-600)% increased Evasion and Energy Shield
+(25-40)% increased Mana Regeneration Rate
++50% chance to be Shocked
+40% of Cold Damage taken as Lightning
+40% of Fire Damage taken as Lightning
+]],[[
 Glitterdisc
 Burnished Spiked Shield
 Variant: {2_6}Pre 3.0.0

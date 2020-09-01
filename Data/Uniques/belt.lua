@@ -186,6 +186,19 @@ Implicits: 1
 {variant:4}Your Flasks grant 10% chance to Shock during any Flask Effect
 {variant:8}Your Flasks grant (20-30)% chance to Shock during any Flask Effect
 ]],[[
+The Druggery
+Cloth Belt
+League: Heist
+Requires Level 48
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
++(20-30) to all Attributes
+(15-25)% increased Flask Charges gained
+(10-20)% increased Flask Charges used
+(10-20)% increased Flask Effect Duration
+Life Flasks gain 1 Charge every 3 seconds
+100% of Life Recovery from Flasks is applied to nearby Allies instead of You
+]],[[
 Dyadian Dawn
 Heavy Belt
 Variant: Pre 2.6.0
@@ -469,6 +482,18 @@ Implicits: 1
 {variant:2}{tags:jewellery_elemental,attack}Adds 1 to (30-34) Lightning Damage to Attacks
 {tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
 {tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
+]],[[
+Pyroshock Clasp
+Leather Belt
+League: Heist
+Requires Level 43
+Implicits: 1
++(25-40) to maximum Life
++(30-40) to Dexterity
++(300-500) to Evasion Rating
+(10-15)% increased Duration of Elemental Ailments on Enemies
+Enemies Ignited by you have (10-15)% of Physical Damage they deal converted to Fire
+Enemies Shocked by you have (10-15)% of Physical Damage they deal converted to Lightning
 ]],[[
 The Retch
 Rustic Sash

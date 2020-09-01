@@ -178,6 +178,20 @@ Implicits: 2
 25% of Physical Damage Converted to Chaos Damage
 Attacks with this Weapon Maim on hit
 ]],[[
+The Iron Mass
+Gladius
+League: Heist
+Requires Level 60, 113 Str, 113 Dex
+Implicits: 1
+40% increased Global Accuracy Rating
+(140-175)% increased Physical Damage
+(14-18)% increased Attack Speed
+Unholy Might
+(20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
+Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand
+Summoned Skeleton Warriors deal Triple Damage with this
+Weapon if you've Hit with this Weapon Recently
+]],[[
 Lakishu's Blade
 Elegant Sword
 Variant: Pre 2.6.0

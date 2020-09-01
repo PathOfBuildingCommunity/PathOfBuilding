@@ -111,6 +111,16 @@ Cobalt Jewel
 Radius: Medium
 5% increased Chaos Damage per 10 Intelligence from Allocated Passives in Radius
 ]],[[
+Endless Misery
+Cobalt Jewel
+League: Heist
+Limited to: 1
+Radius: Medium
+(7-10)% increased Elemental Damage
+With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect
+With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms
+With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
+]],[[
 Energised Armour
 Crimson Jewel
 Radius: Large
@@ -318,6 +328,14 @@ Lioneye's Fall
 Viridian Jewel
 Radius: Medium
 Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers
+]],[[
+Lord of Steel
+Viridian Jewel
+League: Heist
+Limited to: 1
+10% chance to Impale Enemies on Hit with Attacks
+Call of Steel deals Reflected Damage with (40-50)% increased Area of Effect
+Call of Steel causes (40-50)% increased Reflected Damage
 ]],[[
 Malicious Intent
 Cobalt Jewel
