@@ -4523,3 +4523,67 @@ skills["AtlasCruasderJudgeFadingNova"] = {
 		[1] = { 0.5, 1.5, 128, 7, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
+skills["LegionTemplarJudgeBallLightning"] = {
+	name = "Ball Lightning",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.51560002565384,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.6,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_projectile_speed_+%",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"base_is_projectile",
+		"visual_hit_effect_elemental_is_holy",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -25, 80, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
+skills["LegionTemplarJudgeStormCall"] = {
+	name = "Storm Call",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.031199999153614,
+	description = "Sets a marker at a location. After a short duration, lightning strikes the marker, dealing damage around it. When this happens, it will also set off the lightning at any other markers you've cast.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_skill_effect_duration",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"is_area_damage",
+		"visual_hit_effect_elemental_is_holy",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 2000, 60, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
