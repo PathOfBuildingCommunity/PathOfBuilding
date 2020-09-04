@@ -2808,3 +2808,30 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 	modList = {
 	},
 }
+-- Templar Tactician
+minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
+	name = "Templar Tactician",
+	life = 3.45,
+	energyShield = 0.4,
+	armour = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"LegionTemplarJudgeStormCall",
+		"LegionTemplarJudgeBallLightning",
+		"GeometryTriggerLegionTemplarCasterStormCall",
+	},
+	modList = {
+		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+	},
+}
