@@ -121,7 +121,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			elseif event.key == "PAGEDOWN" then
 				self:Zoom(IsKeyDown("SHIFT") and -3 or -1, viewPort)
 			elseif itemLib.wiki.matchesKey(event.key) and self.hoverNode then
-				itemLib.wiki.open(self.hoverNode.name)
+				local name = self.hoverNode.name
+
+				if not name then
+					name = self.hoverNode.dn
+				end
+
+				itemLib.wiki.open(name)
 			end
 		elseif event.type == "KeyUp" then
 			if event.key == "LEFTBUTTON" then
