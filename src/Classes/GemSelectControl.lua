@@ -665,17 +665,6 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self:UpdateGem()
 				self:ScrollSelIntoView()
 			end
-		elseif itemLib.wiki.matchesKey(key) then
-			if self.hoverSel and self.gems[self.list[self.hoverSel]] then
-				-- mouse over
-				itemLib.wiki.openGem(self.gems[self.list[self.hoverSel]])
-			elseif self.selIndex > 0 then
-				-- selected
-				itemLib.wiki.openGem(self.gems[self.list[self.selIndex]])
-			elseif not self.noMatches then
-				-- search result
-				itemLib.wiki.openGem(self.gems[self.list[m_max(self.selIndex, 1)]])
-			end
 		end
 	elseif key == "RETURN" or key == "RIGHTBUTTON" then
 		self.dropped = true
@@ -698,6 +687,25 @@ function GemSelectClass:OnKeyUp(key)
 			return self
 		else
 			self.selControl = nil
+		end
+	end
+	if itemLib.wiki.matchesKey(key) and self:IsMouseOver() then
+		if self.dropped then
+			if self.hoverSel and self.gems[self.list[self.hoverSel]] then
+				-- mouse over
+				itemLib.wiki.openGem(self.gems[self.list[self.hoverSel]])
+			elseif self.selIndex and self.selIndex > 0 then
+				-- selected
+				itemLib.wiki.openGem(self.gems[self.list[self.selIndex]])
+			elseif self.selIndex and not self.noMatches then
+				-- search result
+				itemLib.wiki.openGem(self.gems[self.list[m_max(self.selIndex, 1)]])
+			end
+		elseif self.index then
+			local gem = self.skillsTab.displayGroup.gemList[self.index]
+			if gem and gem.gemData then
+				itemLib.wiki.openGem(gem.gemData)
+			end
 		end
 	end
 	local newSel = self.EditControl:OnKeyUp(key)

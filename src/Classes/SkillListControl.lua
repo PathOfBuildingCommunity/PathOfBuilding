@@ -104,3 +104,16 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 		end)
 	end
 end
+
+function SkillListClass:OnHoverKeyUp(index, itemId, key)
+	if itemLib.wiki.matchesKey(key) then
+		local item = self.list[index]
+
+		-- Get the first gem in the group
+		local gem = item.gemList[1]
+
+		if gem then
+			itemLib.wiki.openGem(gem.gemData)
+		end
+	end
+end

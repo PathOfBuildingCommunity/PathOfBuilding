@@ -135,10 +135,10 @@ end
 
 itemLib.wiki = {
 	key = "F1",
-	openGem = function(item)
-		local name = item.name;
+	openGem = function(gemData)
+		local name = gemData.name;
 
-		if item.tags.support then
+		if gemData.tags.support then
 			name = name .. " Support"
 		end
 
