@@ -2561,10 +2561,10 @@ skills["DivineTempest"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["divine_tempest_hit_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "DivineIreStageAfterFirst", limitVar = "DivineIreMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
 		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst", limitVar = "DivineIreMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -5190,24 +5190,18 @@ skills["ExpandingFireCone"] = {
 	castTime = 0.2,
 	parts = {
 		{
-			name = "No stages",
+			name = "Channelling",
 		},
 		{
-			name = "Half stages",
-		},
-		{
-			name = "Maximum stages",
-		},
-		{
-			name = "Release"
+			name = "Release",
 		},
 	},
 	statMap = {
 		["grant_expanding_fire_cone_release_ignite_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 4 }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 2 }),
 		},
 		["expanding_fire_cone_release_hit_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 4 }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
@@ -5216,7 +5210,7 @@ skills["ExpandingFireCone"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
 		},
 		["expanding_fire_cone_final_wave_always_ignite"] = {
-			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 			value = 100,
 		},
 		["expanding_fire_cone_radius_limit"] = {
@@ -5228,9 +5222,9 @@ skills["ExpandingFireCone"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:IncinerateStage", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:IncinerateStage", "BASE", 7, 0, 0, { type = "SkillPart", skillPartList = { 3, 4 }  }),
-		skill("showAverage", true, { type = "SkillPart", skillPart = 4 }),
+		mod("Multiplier:IncinerateMaxStages", "BASE", 8),
+		mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" } ),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 25),
 		skill("radiusLabel", "Flame Length:"),
 		skill("radiusSecondary", 20),
@@ -6296,10 +6290,10 @@ skills["MagmaSigil"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
 		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -6312,7 +6306,7 @@ skills["MagmaSigil"] = {
 		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 }}),
 		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 } ),
 		skill("radius", 8),
-		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" } ),
+		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" } ),
 		mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } )
 	},
 	qualityStats = {
@@ -7402,7 +7396,7 @@ skills["FireBeam"] = {
 	baseMods = {
 		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 } ),
 		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7),
-		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst", limitVar = "ScorchingRayMaxStagesAfterFirst" }),
+		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
@@ -10156,7 +10150,7 @@ skills["FrostFury"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["frost_fury_fire_speed_+%_per_stage"] = {
-			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst", limitVar = "WinterOrbMaxStagesAfterFirst" }),
+			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
 		},
 		["frost_fury_max_number_of_stages"] = {
 			mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", nil),
@@ -10167,7 +10161,7 @@ skills["FrostFury"] = {
 			div = 1000,
 		},
 		["frost_fury_duration_+%_per_stage"] = {
-			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst", limitVar = "WinterOrbMaxStagesAfterFirst" }),
+			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
 		},
 		["frost_fury_fire_speed_+%_final_while_channelling"] = {
 			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),

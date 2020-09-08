@@ -2525,10 +2525,7 @@ local specialModList = {
 	["double strike has a (%d+)%% chance to deal double damage to bleeding enemies"] = function(num) return { mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }, { type = "SkillName", skillName = "Double Strike" }) } end,
 	["ethereal knives pierces an additional target"] = { mod("PierceCount", "BASE", 1, { type = "SkillName", skillName = "Ethereal Knives" }) },
 	["frost bomb has (%d+)%% increased debuff duration"] = function(num) return { mod("SecondaryDuration", "INC", num, { type = "SkillName", skillName = "Frost Bomb" }) } end,
-	["incinerate has %+(%d+) to maximum stages"] = function(num) return {
-		mod("Multiplier:IncinerateStage", "BASE", num / 2, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:IncinerateStage", "BASE", num, 0, 0, { type = "SkillPart", skillPart = 3 }),
-	} end,
+	["incinerate has %+(%d+) to maximum stages"] = function(num) return { mod("Multiplier:IncinerateMaxStages", "BASE", num, { type = "SkillName", skillName = "Incinerate" }) } end,
 	["perforate creates %+(%d+) spikes?"] = function(num) return { mod("Multiplier:PerforateMaxSpikes", "BASE", num) } end,
 	["scourge arrow has (%d+)%% chance to poison per stage"] = function(num) return { mod("PoisonChance", "BASE", num, { type = "SkillName", skillName = "Scourge Arrow" }, { type = "Multiplier", var = "ScourgeArrowStage" }) } end,
 	["winter orb has %+(%d+) maximum stages"] = function(num) return { mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", num) } end,

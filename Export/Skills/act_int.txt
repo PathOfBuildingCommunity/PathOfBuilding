@@ -438,10 +438,10 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["divine_tempest_hit_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "DivineIreStageAfterFirst", limitVar = "DivineIreMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
 		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst", limitVar = "DivineIreMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
@@ -934,13 +934,7 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	parts = {
 		{
-			name = "No stages",
-		},
-		{
-			name = "Half stages",
-		},
-		{
-			name = "Maximum stages",
+			name = "Channelling",
 		},
 		{
 			name = "Release"
@@ -948,10 +942,10 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["grant_expanding_fire_cone_release_ignite_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 4 }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 2 }),
 		},
 		["expanding_fire_cone_release_hit_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 4 }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
@@ -960,16 +954,16 @@ local skills, mod, flag, skill = ...
 			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
 		},
 		["expanding_fire_cone_final_wave_always_ignite"] = {
-			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 			value = 100,
 		},
 		["expanding_fire_cone_radius_limit"] = {
 			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
 	},
-#baseMod mod("Multiplier:IncinerateStage", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("Multiplier:IncinerateStage", "BASE", 7, 0, 0, { type = "SkillPart", skillPartList = { 3, 4 }  })
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 4 })
+#baseMod mod("Multiplier:IncinerateMaxStages", "BASE", 8)
+#baseMod mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" } )
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusLabel", "Flame Length:")
 #baseMod skill("radiusSecondary", 20)
@@ -1114,16 +1108,16 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
 		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 }}),
 #baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 } ),
 #baseMod skill("radius", 8)
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst", limitVar = "PenanceBrandMaxStagesAfterFirst" } ),
+#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" } ),
 #baseMod mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } )
 #mods
 
@@ -1314,7 +1308,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 } )
 #baseMod mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7)
-#baseMod mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst", limitVar = "ScorchingRayMaxStagesAfterFirst" })
+#baseMod mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" })
 #mods
 
 #skill ShockNova
@@ -1714,7 +1708,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["frost_fury_fire_speed_+%_per_stage"] = {
-			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst", limitVar = "WinterOrbMaxStagesAfterFirst" }),
+			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
 		},
 		["frost_fury_max_number_of_stages"] = {
 			mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", nil),
@@ -1725,7 +1719,7 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 		["frost_fury_duration_+%_per_stage"] = {
-			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst", limitVar = "WinterOrbMaxStagesAfterFirst" }),
+			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
 		},
 		["frost_fury_fire_speed_+%_final_while_channelling"] = {
 			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
