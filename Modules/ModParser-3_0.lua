@@ -2489,22 +2489,22 @@ end
 local leaderMods = {
 	-- Lethal Pride
 	["kaom"] = {
-		["Recovery from Life Leech is not applied"] = mod("DamageLifeLeech", "BASE", 0, data.modSource),
-		["1% less Damage taken for every 2% Recovery per second from Life Leech"] = mod("DamageTaken", "MORE", -1, data.modSource, { type = "Multiplier", var = "MaxLifeLeechRate", div = 2 }, { type = "Condition", var = "Leeching" }),
+		["Recovery from Life Leech is not applied"] = mod("DamageLifeLeech", "BASE", 0),
+		["1% less Damage taken for every 2% Recovery per second from Life Leech"] = mod("DamageTaken", "MORE", -1, { type = "Multiplier", var = "LifeLeechRate", div = 2 }, { type = "Condition", var = "Leeching" }),
 	},
 	["kiloava"] = {
-		["Chance to Block Attack Damage is doubled"] = mod("BlockChance", "MORE", 100, data.modSource),
-		["Chance to Block Spell Damage is doubled"] = mod("SpellBlockChance", "MORE", 100, data.modSource),
-		["You take 50% of Damage from Blocked Hits"] = mod("BlockEffect", "BASE", 50, data.modSource),
+		["Chance to Block Attack Damage is doubled"] = mod("BlockChance", "MORE", 100),
+		["Chance to Block Spell Damage is doubled"] = mod("SpellBlockChance", "MORE", 100),
+		["You take 50% of Damage from Blocked Hits"] = mod("BlockEffect", "BASE", 50),
 	},
 	["rakiata"] = {
-		["50% of Cold and Lightning Damage taken as Fire Damage"] = { mod("ColdDamageTakenAsFire", "BASE", 50, data.modSource), mod("LightningDamageTakenAsFire", "BASE", 50, data.modSource)},
-		["50% less Cold Resistance"] = mod("ColdResist", "MORE", -50, data.modSource),
-		["50% less Lightning Resistance"] = mod("LightningResist", "MORE", -50, data.modSource),
+		["50% of Cold and Lightning Damage taken as Fire Damage"] = { mod("ColdDamageTakenAsFire", "BASE", 50), mod("LightningDamageTakenAsFire", "BASE", 50)},
+		["50% less Cold Resistance"] = mod("ColdResist", "MORE", -50),
+		["50% less Lightning Resistance"] = mod("LightningResist", "MORE", -50),
 	},
 	["akoya"] = {
-		["Regenerate 3 Rage per second"] = mod("RageRegen", "BASE", 3, data.modSource),
-		["Increases and Reductions to Mana Regeneration Rate instead apply to Rage Regeneration Rate"] = mod("ManaRegenToRageRegen", "FLAG", true, data.modSource),
+		["Regenerate 3 Rage per second"] = mod("RageRegen", "BASE", 3),
+		["Increases and Reductions to Mana Regeneration Rate instead apply to Rage Regeneration Rate"] = mod("ManaRegenToRageRegen", "FLAG", true),
 		["Lose 5 Rage when you Hit an Enemy, no more than once every 0.3 seconds"] = { },
 	}
 }
@@ -2528,14 +2528,14 @@ local function getLeaderMods(leader)
 			for desc, mod in pairs(leaderMods[leader]) do
 				t_insert(node.sd, desc)
 				if mod.name then
-					mod["source"] = data.modSource
+					mod.source = "Tree:"..node.id
 					out:AddMod(mod)
 					t_insert(node.mods, {list={mod}})
 				else
 					if mod[1] then
 						local modList = {}
 						for _, mod in pairs(mod) do
-							mod["source"] = data.modSource
+							mod.source = "Tree:"..node.id
 							out:AddMod(mod)
 							t_insert(modList, mod)
 						end
