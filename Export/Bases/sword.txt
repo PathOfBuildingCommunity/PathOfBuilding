@@ -16,9 +16,3 @@ local itemBases = ...
 #socketLimit 6
 #baseTags weapon twohand sword two_hand_weapon
 #baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword
-
-#type Charan's Sword
-#socketLimit 3
-#baseTags weapon onehand sword one_hand_weapon
-#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword
-#base Metadata/items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordC

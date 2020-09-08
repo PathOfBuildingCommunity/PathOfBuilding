@@ -75,6 +75,25 @@ function ModStoreClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
+---ReplaceMod
+---  Replaces an existing matching mod with a new mod.
+---  A mod is considered the same if the name, type, flags, keywordFlags, and source exactly match.
+---  If no matching mod exists, the mod is added instead.
+---Notes:
+---    See calls to ModStoreClass:NewMod for additional parameter examples.
+---    1 (string): name
+---    2 (string): type
+---    3 (number): value
+---    4 (string): source
+---    5+ (optional, varies): additional options
+---@param ... any @Parameters to be passed along to the modLib.createMod function
+function ModStoreClass:ReplaceMod(...)
+	local mod = mod_createMod(...)
+	if not self:ReplaceModInternal(mod) then
+		self:AddMod(mod)
+	end
+end
+
 function ModStoreClass:Combine(modType, cfg, ...)
 	if modType == "MORE" then
 		return self:More(cfg, ...)
@@ -159,6 +178,25 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 	return result
 end
 
+---HasMod
+---  Checks if a mod exists with the given properties.
+---  Useful for determining if the other aggregate functions will find
+---  anything to aggregate.
+---@param modType string @Mod type to match
+---@param cfg table @Optional configuration to use - contains flags, keywordFlags, and source to match
+---@param ... string @Mod name(s) to check for.
+---@return boolean @true if the mod is found, false otherwise.
+function ModStoreClass:HasMod(modType, cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	return self:HasModInternal(modType, flags, keywordFlags, source, ...)
+end
+
 function ModStoreClass:GetCondition(var, cfg, noMod)
 	return self.conditions[var] or (self.parent and self.parent:GetCondition(var, cfg, true)) or (not noMod and self:Flag(cfg, conditionName[var]))
 end
@@ -176,6 +214,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
 			local target = self
+			local limitTarget = self
+			-- Allow limiting a self multiplier on a parent multiplier (eg. Agony Crawler on player virulence)
+			-- This explicit target is necessary because even though the GetMultiplier method does call self.parent.GetMultiplier, it does so with noMod = true,
+			-- disabling the summation (3rd part): (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
+			if tag.limitActor then
+				if self.actor[tag.limitActor] then
+					limitTarget = self.actor[tag.limitActor].modDB
+				else
+					return
+				end
+			end
 			if tag.actor then
 				if self.actor[tag.actor] then
 					target = self.actor[tag.actor].modDB
@@ -194,7 +243,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
+				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
@@ -252,6 +301,45 @@ function ModStoreClass:EvalMod(mod, cfg)
 				base = self:GetStat(tag.stat, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
+			local limitTotal
+			if tag.limit or tag.limitVar then
+				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
+				if tag.limitTotal then
+					limitTotal = limit
+				else
+					mult = m_min(mult, limit)
+				end 
+			end
+			if type(value) == "table" then
+				value = copyTable(value)
+				if value.mod then
+					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.mod.value = m_min(value.mod.value, limitTotal)
+					end
+				else
+					value.value = value.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.value = m_min(value.value, limitTotal)
+					end
+				end
+			else
+				value = value * mult + (tag.base or 0)
+				if limitTotal then
+					value = m_min(value, limitTotal)
+				end
+			end
+		elseif tag.type == "PercentStat" then
+			local base
+			if tag.statList then
+				base = 0
+				for _, stat in ipairs(tag.statList) do
+					base = base + self:GetStat(stat, cfg)
+				end
+			else
+				base = self:GetStat(tag.stat, cfg)
+			end
+			local mult = base * (tag.percent and tag.percent / 100 or 1)
 			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
@@ -426,6 +514,20 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "SlotName" then
 			if not cfg or tag.slotName ~= cfg.slotName then
+				return
+			end
+		elseif tag.type == "ModFlagOr" then
+			if not cfg or not cfg.flags then
+				return
+			end
+			if band(cfg.flags, tag.modFlags) == 0 then
+				return
+			end
+		elseif tag.type == "KeywordFlagAnd" then
+			if not cfg or not cfg.keywordFlags then
+				return
+			end
+			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
 				return
 			end
 		end

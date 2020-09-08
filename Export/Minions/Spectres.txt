@@ -139,7 +139,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark
 #spectre Metadata/Monsters/Skeletons/SkeletonBlackCaster1_
 #spectre Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
-#spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion
 #spectre Metadata/Monsters/Skeletons/SkeletonBowKnightElemental
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1
@@ -162,3 +162,15 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades
 -- Wicker Man
 #spectre Metadata/Monsters/WickerMan/WickerMan
+-- Redemption Sentry
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre
+-- Baranite Thaumaturge
+#spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCasterSpectre
+-- Baranite Sister
+#spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSisterSpectre
+-- Baranite Preacher
+#spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre
+-- Scale of Esh
+#spectre Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_
+-- Redemption Knight
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_

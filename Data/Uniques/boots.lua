@@ -162,19 +162,22 @@ Sharkskin Boots
 Variant: Pre 1.0.0
 Variant: Pre 2.1.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 44, 79 Dex
 +(30-40) to Dexterity
 20% increased Movement Speed
 2% increased Movement Speed per Frenzy Charge
-3% reduced Attack and Cast Speed per Frenzy Charge
-{variant:1,2}1% of Life Regenerated per Second per Frenzy Charge
-{variant:3,4}0.5% of Life Regenerated per Second per Frenzy Charge
+{variant:1,2,3,4}3% reduced Attack and Cast Speed per Frenzy Charge
+{variant:5}4% reduced Attack and Cast Speed per Frenzy Charge
+{variant:1,2}Regenerate 1% of Life per second per Frenzy Charge
+{variant:3,4}Regenerate 0.5% of Life per second per Frenzy Charge
+{variant:5}Regenerate 0.8% of Life per second per Frenzy Charge
 (20-30)% chance to gain a Frenzy Charge on Kill
 Gore Footprints
-{variant:1}3% increased Damage against Enemies on Low Life per Frenzy Charge
-{variant:2,3}6% increased Damage against Enemies on Low Life per Frenzy Charge
-{variant:4}6% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
+{variant:1}3% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
+{variant:2,3,4}6% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
+{variant:5}(20-30)% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
 ]],[[
 Deerstalker
 Deerskin Boots
@@ -467,6 +470,18 @@ Requires Level 52, 21 Int
 ]],
 -- Boots: Armour/Evasion
 [[
+Beacon of Madness
+Two-Toned Boots (Armour/Evasion)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Requires Level 70, 62 Str, 62 Dex
+Implicits: 1
++(8-12)% to Fire and Cold Resistances
+Grants Level 1 Embrace Madness Skill
+30% increased Movement Speed
+Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
+All Damage inflicts Poison while affected by Glorious Madness
+]],[[
 Darkray Vectors
 Dragonscale Boots
 Variant: Pre 2.6.0
@@ -512,14 +527,18 @@ Requires Level 18, 19 Str, 19 Dex
 Duskblight
 Ironscale Boots
 Source: Upgraded from unique{Dusktoe} via prophecy{Agony at Dusk}
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 40, 19 Str, 19 Dex
-Socketed Gems are Supported by Level 15 Added Chaos Damage
+{variant:1}Socketed Gems are Supported by Level 15 Added Chaos Damage
+{variant:2}Trigger Level 1 Stalking Pustule on Kill
 (120-150)% increased Armour and Evasion
 +(50-60) to maximum Life
 20% increased Movement Speed
 50% increased Stun and Block Recovery
 20% reduced Light Radius
 +50% to Chaos Resistance during any Flask Effect
+{variant:2}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks during any Flask Effect
 ]],[[
 Lioneye's Paws
 Bronzescale Boots
@@ -577,6 +596,18 @@ Adds 1 to 80 Chaos Damage to Attacks
 +1 to Maximum number of Skeletons
 (15-18)% increased Strength
 ]],[[
+Beacon of Madness
+Two-Toned Boots (Armour/Energy Shield)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Requires Level 70, 62 Str, 62 Int
+Implicits: 1
++(8-12)% to Fire and Lightning Resistances
+Grants Level 1 Embrace Madness Skill
+30% increased Movement Speed
+You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
+Immune to Elemental Ailments while affected by Glorious Madness
+]],[[
 Death's Door
 Crusader Boots
 Source: Drops in The Eternal Labyrinth
@@ -587,7 +618,7 @@ Requires Level 64, 62 Str, 62 Int
 25% increased Movement Speed
 +1 to Maximum Endurance Charges
 50% increased Elemental Ailment Duration on You
-You are Immune to Bleeding
+Bleeding cannot be inflicted on you
 ]],[[
 Gang's Momentum
 Legion Boots
@@ -624,16 +655,30 @@ Lose all Frenzy, Endurance, and Power Charges when you Move
 Wake of Destruction
 Mesh Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 28, 28 Str, 28 Int
-{variant:2}15% increased Movement Speed
 Adds 1 to 120 Lightning Damage to Attacks
-+(10-20) Life gained on Kill
 (20-60)% increased Armour and Energy Shield
-10% Chance to Cause Monsters to Flee
++(10-20) Life gained on Kill
+{variant:2,3}15% increased Movement Speed
+{variant:1,2}10% Chance to Cause Monsters to Flee
+{variant:3}Drops Shocked Ground while moving, lasting 2 seconds
 ]],
 -- Boots: Evasion/Energy Shield
 [[
+Beacon of Madness
+Two-Toned Boots (Evasion/Energy Shield)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Requires Level 70, 62 Dex, 62 Int
+Implicits: 1
++(8-12)% to Cold and Lightning Resistances
+Grants Level 1 Embrace Madness Skill
+30% increased Movement Speed
+60% increased Effect of Fortify on you while affected by Glorious Madness
+20% chance to deal Double Damage while affected by Glorious Madness
+]],[[
 Brinerot Whalers
 Trapper Boots
 League: Warbands
@@ -743,6 +788,7 @@ League: Blight
 Travel Skills have (50-80)% increased Cooldown Recovery Speed
 (30-40)% increased Mana Regeneration Rate while moving
 Your Movement Speed is 150% of its base value
+This item can be anointed by Cassia
 ]],[[
 Sundance
 Clasped Boots

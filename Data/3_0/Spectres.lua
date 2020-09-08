@@ -918,7 +918,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 	weaponType2 = "Shield",
 	skillList = {
 		"Melee",
-		"MonsterFlickerStrike",
+		"MonsterFlickerStrikeExtraRange",
 	},
 	modList = {
 		mod("PhysicalDamageGainAsLightning", "BASE", 100), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
@@ -1433,8 +1433,8 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 	chaosResist = 0,
 	damage = 1.68,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
+	attackTime = 1.11,
+	attackRange = 11,
 	accuracy = 1,
 	damageFixup = 0.11,
 	skillList = {
@@ -1457,8 +1457,8 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 	chaosResist = 0,
 	damage = 1.56,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
+	attackTime = 1.11,
+	attackRange = 11,
 	accuracy = 1,
 	damageFixup = 0.11,
 	skillList = {
@@ -2296,9 +2296,9 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 		-- MonsterCastsProjectileWeaknessCurseText [monster_casts_projectile_vulnerability_curse_text = 1]
 	},
 }
-minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve"] = {
+minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion"] = {
 	name = "Enhanced Vaal Fallen",
-	life = 4.5,
+	life = 2.25,
 	armour = 1,
 	fireResist = 35,
 	coldResist = 35,
@@ -2317,6 +2317,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 	},
 	modList = {
 		-- MonsterCastsElementalHitText [monster_casts_elemental_hit_text = 1]
+		-- MonsterIncursionDropModifiers__ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 35] [monster_dropped_item_rarity_+% = 2500] [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
@@ -2361,7 +2362,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 	modList = {
 		-- MonsterAbyssDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
-		-- CannotBeUsedAsMinion [cannot_be_used_as_minion = 1]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
 	},
@@ -2655,6 +2655,155 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 		"WickerManRighteousFire",
 		"WickerManMoltenStrike",
 		"MonsterRighteousFireWhileSpectred",
+	},
+	modList = {
+	},
+}
+-- Redemption Sentry
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre"] = {
+	name = "Redemption Sentry",
+	life = 4.05,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 70,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"WalkEmergeAtlasInfluenceMonster",
+		"MeleeEyrieArrow",
+		"AtlasEyrieArcherMortar",
+		"AtlasEyrieArcherSnipe",
+		"AtlasEyrieArcherSnipeTrickshot",
+		"EmptyActionAttackEyrieArcherTrickshot",
+		"AtlasEyrieArcherGeometryProjectiles",
+		"AtlasExileEyrieArcherSpawnCrystal",
+		"AtlasEyrieArcherCrystalImpact",
+	},
+	modList = {
+	},
+}
+-- Baranite Thaumaturge
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCasterSpectre"] = {
+	name = "Baranite Thaumaturge",
+	life = 4.05,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"AtlasExilesCrusaderMageguardProjectile",
+		"EmptyActionSpellCrusaderMageguard",
+		"AtlasCrusaderMageguardSpawnBombSpectre",
+		"AtlasExileCrusaderMageguardBombExplodeSpectre",
+		"AtlasCrusaderMageguardBeam",
+		"WalkEmergeAtlasInfluenceMonster",
+	},
+	modList = {
+	},
+}
+-- Baranite Sister
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSisterSpectre"] = {
+	name = "Baranite Sister",
+	life = 1.2,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.8,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"AtlasCrusaderSisterMortarSpectre",
+		"WalkEmergeAtlasInfluenceMonster",
+	},
+	modList = {
+	},
+}
+-- Baranite Preacher
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre"] = {
+	name = "Baranite Preacher",
+	life = 1.68,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"AtlasCrusaderJudgeBallLightning",
+		"AtlasCruasderJudgeFadingNova",
+		"WalkEmergeAtlasInfluenceMonster",
+	},
+	modList = {
+	},
+}
+-- Scale of Esh
+minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
+	name = "Scale of Esh",
+	life = 3,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+		"BreachLightningWhip",
+		"BreachArc",
+		"BreachTeamWarp",
+		"BreachLightningOrbsCommander",
+	},
+	modList = {
+		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
+		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+	},
+}
+-- Redemption Knight
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
+	name = "Redemption Knight",
+	life = 4.05,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	skillList = {
+		"MeleeCold",
+		"WalkEmergeAtlasInfluenceMonster",
+		"AtlasEyrieFighterSlash",
+		"EmptyActionAttackEyrieFighter",
 	},
 	modList = {
 	},

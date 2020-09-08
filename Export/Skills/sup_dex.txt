@@ -47,6 +47,9 @@ local skills, mod, flag, skill = ...
 		["projectiles_barrage"] = {
 			flag("SequentialProjectiles", { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
 		},
+		["number_of_additional_projectiles"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
+		},
 	},
 #mods
 
@@ -262,7 +265,7 @@ local skills, mod, flag, skill = ...
 			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 		},
 	},	
-#baseMod flag("Condition:CanBeElusive", { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true})
+#baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true})
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true})
 #mods
 
@@ -291,6 +294,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
 		},
 	},
+#mods
+
+#skill SupportAdditionalCooldown
 #mods
 
 #skill SupportSlowerProjectiles
@@ -421,8 +427,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["withered_on_hit_chance_%"] = {
 			flag("Condition:CanWither"),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
 		},
 	},
-#baseMod mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 })
 #mods

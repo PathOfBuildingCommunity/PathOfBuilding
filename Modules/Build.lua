@@ -210,11 +210,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
 				self.spec:AddUndoState()
+				self.spec:SetWindowTitleWithBuildClass()
 				self.buildFlag = true
 			else
 				main:OpenConfirmPopup("Class Change", "Changing class to "..value.label.." will reset your passive tree.\nThis can be avoided by connecting one of the "..value.label.." starting nodes to your tree.", "Continue", function()
 					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
+					self.spec:SetWindowTitleWithBuildClass()
 					self.buildFlag = true					
 				end)
 			end
@@ -223,6 +225,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
 		self.spec:SelectAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
 
@@ -233,8 +236,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
 		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
-		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
-		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell" },
+		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return (o.TriggerTime or 0) == 0 end },
+		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell", condFunc = function(v,o) return (o.TriggerTime or 0) == 0 end },
+		{ stat = "Speed", label = "Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
+		{ stat = "WarcryCastTime", label = "Cast Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, flag = "warcry" },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
@@ -247,22 +252,25 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
+		{ stat = "BleedDamage", label = "Total Damage per Bleed", fmt = ".1f", compPercent = true, flag = "showAverage" },
+		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
-		{ stat = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true },
-		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true },
+		{ stat = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true, flag = "showAverage" },
+		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "WithIgniteAverageDamage", label = "Average Dmg. inc. Ignite", fmt = ".1f", compPercent = true },
 		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
 		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
-		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.TotalDPS end },
-		{ stat = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.AverageDamage end },
+		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
-		{ stat = "ImpaleDPS", label = "Impale added Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
-		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
+		{ stat = "ImpaleDPS", label = "Impale Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
+		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end  },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
-		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
-		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS end},
+		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
+		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end },
+		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithImpaleDPS or v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
+		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
@@ -313,15 +321,19 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
 		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, resistOverCapStat = "FireResistOverCap"},
+		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, resistOverCapStat = "ColdResistOverCap" },
+		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, resistOverCapStat = "LightningResistOverCap" },
+		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, resistOverCapStat = "ChaosResistOverCap" },
+		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
 		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
-		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
+		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
@@ -627,6 +639,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self:RefreshStatList()
 	self.buildFlag = false
 
+	self.spec:SetWindowTitleWithBuildClass()
+
 	--[[
 	local testTooltip = new("Tooltip")
 	for _, item in pairs(main.uniqueDB.list) do
@@ -683,6 +697,7 @@ function buildMode:GetArgs()
 end
 
 function buildMode:CloseBuild()
+	main:SetWindowTitleSubtext()
 	main:SetMode("LIST", self.dbFileName and self.buildName, self.dbFileSubPath)
 end
 
@@ -829,6 +844,9 @@ function buildMode:OnFrame(inputEvents)
 	end
 	if main.showThousandsSidebar ~= self.lastShowThousandsSidebar then
 		self:RefreshStatList()
+	end
+	if main.showTitlebarName ~= self.lastShowTitlebarName then
+		self.spec:SetWindowTitleWithBuildClass()
 	end
 
 	-- Update contents of main skill dropdowns
@@ -1116,6 +1134,7 @@ function buildMode:FormatStat(statData, statVal)
 		valStr = color .. valStr
 	end
 	self.lastShowThousandsSidebar = main.showThousandsSidebar
+	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
 end
 
@@ -1138,11 +1157,13 @@ function buildMode:AddDisplayStatList(statList, actor)
 							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
 						end
 					end
-					t_insert(statBoxList, {
-						height = 16,
-						labelColor..statData.label..":",
-						self:FormatStat(statData, statVal)..resistOverCapStatLabel,
-					})
+					if not (statData.hideStat) then
+						t_insert(statBoxList, {
+							height = 16,
+							labelColor..statData.label..":",
+							self:FormatStat(statData, statVal)..resistOverCapStatLabel,
+						})
+					end
 				end
 			end
 		elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
@@ -1179,7 +1200,12 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 					tooltip:AddLine(14, header)
 				end
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
-				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
+				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
+				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
+				if main.showThousandsCalcs then
+					valStr = formatNumSep(valStr)
+				end
+				local line = string.format("%s%s %s", color, valStr, statData.label)
 				local pcPerPt = ""
 				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then
 					local pc = statVal1 / statVal2 * 100 - 100

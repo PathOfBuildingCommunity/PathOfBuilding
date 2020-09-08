@@ -474,6 +474,14 @@ function round(val, dec)
 	end
 end
 
+---@param n number
+---@return number
+function triangular(n)
+	--- Returns the n-th triangular number
+	--- See https://en.wikipedia.org/wiki/Triangular_number
+	return n * (n + 1) / 2
+end
+
 -- Formats "1234.56" -> "1,234.5"
 function formatNumSep(str)
 	return str:gsub("(%d*)(%d%.?)", function(s, e)

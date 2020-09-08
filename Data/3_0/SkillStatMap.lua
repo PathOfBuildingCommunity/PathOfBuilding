@@ -161,6 +161,9 @@ return {
 ["unique_cospris_malice_cold_spells_triggered"] = {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
+["skill_triggered_by_snipe"] = {
+	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
@@ -341,6 +344,9 @@ return {
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
+},
+["warcry_speed_+%"] = {
+	mod("WarcrySpeed", "INC", nil, 0, KeywordFlag.Warcry),
 },
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
@@ -619,6 +625,9 @@ return {
 	mod("EnemyChillEffect", "INC", nil),
 	mod("EnemyShockEffect", "INC", nil),
 	mod("EnemyFreezeEffect", "INC", nil),
+	mod("EnemyScorchEffect", "INC", nil),
+	mod("EnemyBrittleEffect", "INC", nil),
+	mod("EnemySapEffect", "INC", nil),
 },
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
@@ -643,6 +652,9 @@ return {
 	mod("EnemyShockDuration", "INC", nil), 
 	mod("EnemyChillDuration", "INC", nil), 
 	mod("EnemyFreezeDuration", "INC", nil),
+	mod("EnemyScorchDuration", "INC", nil),
+	mod("EnemyBrittleDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
 },
 ["base_all_ailment_duration_+%"] = {
 	mod("EnemyBleedDuration", "INC", nil), 
@@ -651,6 +663,9 @@ return {
 	mod("EnemyShockDuration", "INC", nil), 
 	mod("EnemyChillDuration", "INC", nil), 
 	mod("EnemyFreezeDuration", "INC", nil),
+	mod("EnemyScorchDuration", "INC", nil),
+	mod("EnemyBrittleDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
@@ -670,6 +685,9 @@ return {
 ["fire_dot_multiplier_+"] = {
 	mod("FireDotMultiplier", "BASE", nil),
 },
+["cold_dot_multiplier_+"] = {
+	mod("ColdDotMultiplier", "BASE", nil),
+},
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
 },
@@ -677,6 +695,12 @@ return {
 	mod("BleedFaster", "INC", nil),
 	mod("PoisonFaster", "INC", nil),
 	mod("IgniteBurnFaster", "INC", nil),
+},
+["active_skill_shock_as_though_damage_+%_final"] = {
+	mod("ShockAsThoughDealing", "MORE", nil),
+},
+["active_skill_chill_as_though_damage_+%_final"] = {
+	mod("ChillAsThoughDealing", "MORE", nil),
 },
 -- Global flags
 ["never_ignite"] = {
@@ -706,8 +730,16 @@ return {
 	flag("DealNoChaos"),
 },
 -- Other effects
+["enemy_phys_reduction_%_penalty_vs_hit"] = {
+	mod("EnemyPhysicalDamageReduction", "BASE", nil),
+	mult = -1,
+},
 ["base_stun_threshold_reduction_+%"] = {
 	mod("EnemyStunThreshold", "INC", nil),
+	mult = -1,
+},
+["impale_phys_reduction_%_penalty"] = {
+	mod("EnemyImpalePhysicalDamageReduction", "BASE", nil),
 	mult = -1,
 },
 ["base_stun_duration_+%"] = {
@@ -768,6 +800,14 @@ return {
 },
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
+},
+["projectiles_fork"] = {
+	flag("ForkOnce"),
+	mod("ForkCountMax", "BASE", nil),
+},
+["number_of_additional_forks_base"] = {
+	flag("ForkTwice"),
+	mod("ForkCountMax", "BASE", nil),
 },
 ["active_skill_returning_projectile_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }),
@@ -1053,6 +1093,9 @@ return {
 ["mine_laying_speed_+%"] = {
 	mod("MineLayingSpeed", "INC", nil),
 },
+["mine_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Mine),
+},
 ["mine_detonation_radius_+%"] = {
 	mod("MineDetonationAreaOfEffect", "INC", nil),
 },
@@ -1122,6 +1165,9 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_champions_of_light_allowed"] = {
+    mod("ActiveSentinelOfPurityLimit", "BASE", nil)
+},
 ["base_number_of_spectres_allowed"] = {
 	mod("ActiveSpectreLimit", "BASE", nil),
 },
@@ -1163,9 +1209,19 @@ return {
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
 },
--- Sigil
+-- Brand
 ["sigil_attached_target_damage_+%_final"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BrandAttachedToEnemy" }),
+	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
+},
+["base_number_of_sigils_allowed_per_target"] = {
+	mod("BrandsAttachedLimit", "BASE", nil)
+},
+["base_sigil_repeat_frequency_ms"] = {
+	skill("repeatFrequency", nil),
+	div = 1000,
+},
+["sigil_repeat_frequency_+%"] = {
+	mod("BrandActivationFrequency", "INC", nil)
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
@@ -1176,10 +1232,16 @@ return {
 },
 -- Other
 ["triggered_skill_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+	mod("TriggeredDamage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 },
 ["channelled_skill_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
+},
+["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
+	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage" }),
+},
+["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
+	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
 },
 
 }

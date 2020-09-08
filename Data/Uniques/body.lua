@@ -40,7 +40,7 @@ Grants Level 20 Aspect of the Crab Skill
 (300-350)% increased Armour
 +(100-120) to maximum Life
 +(25-30)% to Fire and Cold Resistances
-Cannot be inflicted with Bleeding
+Bleeding cannot be inflicted on you
 +5 to Maximum number of Crab Barriers
 ]],[[
 Death's Oath
@@ -119,6 +119,18 @@ Chance to Block Spell Damage is Unlucky
 (80-100)% increased Armour
 10% reduced Movement Speed
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
+]],[[
+Perfidy
+Glorious Plate
+Requires Level 68, 191 Str
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+(25-40)% increased Melee Damage
++(60-90) to maximum Life
+You can have two different Banners at the same time
+Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
+War Banner has (100-200)% increased Adrenaline duration
+Dread Banner has (100-200)% increased Fortify duration
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -320,8 +332,6 @@ Vaal Regalia
 League: Betrayal
 Variant: Pre 3.8.0
 Variant: Current
-Energy Shield: (358-407)
-Movement Speed: -3%
 Requires Level 68, 194 Int
 Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds
 Offering Skills Triggered this way also affect you
@@ -329,7 +339,6 @@ Offering Skills Triggered this way also affect you
 (5-10)% increased Cast Speed
 (100-130)% increased Energy Shield
 (6-10)% increased maximum Life
-<Two Veiled Mods>
 ]],[[
 Yriel's Fostering
 Exquisite Leather
@@ -450,6 +459,16 @@ Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50-70)% increased Aspect of the Spider Area of Effect
 ]],[[
+Fleshcrafter
+Necromancer Silks
+League: Harvest
+Requires Level 59, 160 Int
+(100-150)% increased Energy Shield
+Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
+Chaos Damage does not bypass Minions' Energy Shield
+Minions have (50-100)% faster start of Energy Shield Recharge
+While Minions have Energy Shield, their Hits Ignore Monster Elemental Resistances
+]],[[
 Garb of the Ephemeral
 Savant's Robe
 League: Synthesis
@@ -536,6 +555,7 @@ Variant: Iron Grip
 Variant: Iron Reflexes
 Variant: Mind Over Matter
 Variant: Minion Instability
+Variant: Mortal Conviction
 Variant: Pain Attunement
 Variant: Perfect Agony
 Variant: Phase Acrobatics
@@ -564,14 +584,15 @@ You can only Socket Corrupted Gems in this item
 {variant:13}Iron Reflexes
 {variant:14}Mind Over Matter
 {variant:15}Minion Instability
-{variant:16}Pain Attunement
-{variant:17}Perfect Agony
-{variant:18}Phase Acrobatics
-{variant:19}Point Blank
-{variant:20}Resolute Technique
-{variant:21}Unwavering Stance
-{variant:22}Vaal Pact
-{variant:23}Zealot's Oath
+{variant:16}Mortal Conviction
+{variant:17}Pain Attunement
+{variant:18}Perfect Agony
+{variant:19}Phase Acrobatics
+{variant:20}Point Blank
+{variant:21}Resolute Technique
+{variant:22}Unwavering Stance
+{variant:23}Vaal Pact
+{variant:24}Zealot's Oath
 Corrupted
 ]],[[
 Soul Mantle
@@ -763,14 +784,25 @@ Share Endurance Charges with nearby party members
 Chains of Command
 Saintly Chainmail
 Requires Level 70, 99 Str, 115 Int
+Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
+10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 (150-190)% increased Armour and Energy Shield
 +(60-90) to maximum Life
 Animated Guardian deals 5% increased Damage per Animated Weapon
 Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
-Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
-10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 You cannot have non-Animated Minions
+]],[[
+Doryani's Prototype
+Saint's Hauberk
+League: Harvest
+Requires Level 67, 109 Str, 94 Int
+(150-200)% increased Armour and Energy Shield
++(60-90) to maximum Life
+Deal no Non-Lightning Damage
+Armour also applies to Lightning Damage taken from Hits
+Lightning Resistance does not affect Lightning Damage taken
+Nearby Enemies have Lightning Resistance equal to yours
 ]],[[
 Geofri's Sanctuary
 Elegant Ringmail
@@ -906,6 +938,7 @@ Trigger Level 10 Contaminate when you Kill an Enemy
 +(17-23)% to Chaos Resistance
 Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
 You have Fungal Ground around you while stationary
+This item can be anointed by Cassia
 ]],[[
 Voll's Protector
 Holy Chainmail
@@ -1034,13 +1067,13 @@ Shroud of the Lightless
 Carnal Armour
 League: Abyss
 Source: Drops from Abyssal Liches
-Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
+Variant: One Abyssal Socket
 Requires Level: 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana 
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+{variant:1}Has 2 Abyssal Sockets
+{variant:2}Has 1 Abyssal Socket
 Socketed Gems are Supported by Level 20 Elemental Penetration 
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill 
 (160-180)% increased Evasion and Energy Shield 
@@ -1116,15 +1149,18 @@ Requires Level 75, 66 Str, 66 Dex, 66 Int
 Shadowstitch
 Sacrificial Garb
 League: Incursion
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 72, 66 Str, 66 Dex, 66 Int
 Implicits: 0
 Has an additional Implicit Mod
 +(20-30) to all Attributes
+{variant:2}(250-350)% increased Armour, Evasion and Energy Shield
 Recover (3-5)% of Maximum Life on Kill
 Recover (3-5)% of Maximum Energy Shield on Kill
--(6-4)% to all Resistances for each Equipped Corrupted Item
-8% increased Maximum Energy Shield for each Equipped Corrupted Item
 6% increased Maximum Life for each Equipped Corrupted Item
+8% increased Maximum Energy Shield for each Equipped Corrupted Item
+-(6-4)% to all Resistances for each Equipped Corrupted Item
 Corrupted
 ]],
 }

@@ -23,12 +23,23 @@ local groupSlotDropList = {
 	{ label = "Amulet", slotName = "Amulet" },
 	{ label = "Ring 1", slotName = "Ring 1" },
 	{ label = "Ring 2", slotName = "Ring 2" },
+	{ label = "Belt", slotName = "Belt" },
 }
 
 local showSupportGemTypeList = {
 	{ label = "All", show = "ALL" },
 	{ label = "Non-Awakened", show = "NORMAL" },
 	{ label = "Awakened", show = "AWAKENED" },
+}
+
+local sortGemTypeList ={
+	{label = "Combined DPS", type = "CombinedDPS"},
+	{label = "Total DPS", type = "TotalDPS"},
+	{label = "Average Hit", type = "AverageDamage"},
+	{label = "Bleed DPS", type = "BleedDPS"},
+	{label = "Ignite DPS", type = "IgniteDPS"},
+	{label = "Poison DPS", type = "TotalPoisonDPS"},
+	{label = "DoT DPS", type = "TotalDot"},
 }
 
 local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -41,6 +52,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.socketGroupList = { }
 
 	self.sortGemsByDPS = true
+	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
 
 	-- Socket group list
@@ -48,17 +60,20 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupTip = new("LabelControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 8, 0, 14, "^7Tip: You can copy/paste socket groups using Ctrl+C and Ctrl+V.")
 
 	-- Gem options
-	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 300, 130, "Gem Options")
+	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 320, 130, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end)
 	self.controls.sortGemsByDPS.state = true
+	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", {"LEFT", self.controls.sortGemsByDPS, "RIGHT"}, 10, 0, 120, 20, sortGemTypeList, function(index, value)
+		self.sortGemsByDPSField = value.type
+	end)
 	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 94, 60, 20, nil, nil, "%D", 2, function(buf)
-		self.defaultGemLevel = tonumber(buf)
+		self.defaultGemLevel = m_min(tonumber(buf) or 20, 21)
 	end)
 	self.controls.defaultLevelLabel = new("LabelControl", {"RIGHT",self.controls.defaultLevel,"LEFT"}, -4, 0, 0, 16, "^7Default gem level:")
 	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 118, 60, 20, nil, nil, "%D", 2, function(buf)
-		self.defaultGemQuality = tonumber(buf)
+		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
 	self.controls.defaultQualityLabel = new("LabelControl", {"RIGHT",self.controls.defaultQuality,"LEFT"}, -4, 0, 0, 16, "^7Default gem quality:")
 	self.controls.showSupportGemTypes = new("DropDownControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 142, 120, 20, showSupportGemTypeList, function(index, value)
@@ -145,7 +160,9 @@ function SkillsTabClass:Load(xml, fileName)
 	end
 	self.controls.sortGemsByDPS.state = self.sortGemsByDPS
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
+	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
 	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValue("show")
+	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			local socketGroup = { }
@@ -208,6 +225,7 @@ function SkillsTabClass:Save(xml)
 		defaultGemQuality = tostring(self.defaultGemQuality),
 		sortGemsByDPS = tostring(self.sortGemsByDPS),
 		showSupportGemTypes = self.showSupportGemTypes,
+		sortGemsByDPSField = self.sortGemsByDPSField
 	}
 	for _, socketGroup in ipairs(self.socketGroupList) do
 		local node = { elem = "Skill", attrib = {
@@ -570,7 +588,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 		elseif gemInstance.nameSpec:match("%S") then
 			-- Specified by gem/skill name, try to match it
-			-- Used during character import, and to migrate pre-1.4.20 builds
+			-- Used to migrate pre-1.4.20 builds
 			gemInstance.errMsg, gemInstance.gemData = self:FindSkillGem(gemInstance.nameSpec)
 			gemInstance.gemId = gemInstance.gemData and gemInstance.gemData.id
 			gemInstance.skillId = gemInstance.gemData and gemInstance.gemData.grantedEffectId
@@ -597,7 +615,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				gemInstance.color = colorCodes.NORMAL
 			end
 			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.defaultLevel ~= prevDefaultLevel then
-				gemInstance.level = (gemInstance.gemData.defaultLevel == 20) and self.defaultGemLevel or gemInstance.gemData.defaultLevel
+				gemInstance.level = m_min(self.defaultGemLevel or gemInstance.gemData.defaultLevel, gemInstance.gemData.defaultLevel + 1)
 				gemInstance.defaultLevel = gemInstance.level
 			end
 			calcLib.validateGemLevel(gemInstance)

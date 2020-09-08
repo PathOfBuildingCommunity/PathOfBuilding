@@ -7,19 +7,27 @@ Arborix
 Assassin Bow
 Variant: Pre 3.5.0
 Variant: Pre 3.9.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 62, 212 Dex
 Source: Vendor recipe
 Implicits: 1
 {variant:3}+(15-25)% to Global Critical Strike Multiplier
 {variant:1}Adds (60-70) to (180-210) Physical Damage
-{variant:2,3}Adds (95-115) to (240-265) Physical Damage
-(80-100)% increased Evasion Rating
-Bow Attacks fire 2 additional Arrows
-Every 16 seconds you gain Iron Reflexes for 8 seconds
-30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes
-30% increased Attack, Cast and Movement Speed while you do not have Iron Reflexes
-You have Far Shot while you do not have Iron Reflexes
+{variant:2,3,4}Adds (95-115) to (240-265) Physical Damage
+{variant:1,2,3}(80-100)% increased Evasion Rating
+{variant:1,2,3}Bow Attacks fire 2 additional Arrows
+{variant:1,2,3}Every 16 seconds you gain Iron Reflexes for 8 seconds
+{variant:1,2,3}30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes
+{variant:1,2,3}30% increased Attack, Cast and Movement Speed while you do not have Iron Reflexes
+{variant:1,2,3}You have Far Shot while you do not have Iron Reflexes
+{variant:4}Grants Level 30 Dash Skill
+{variant:4}Bow Attacks fire 2 additional Arrows if you haven't Cast Dash recently
+{variant:4}(20-30)% increased Attack Speed if you haven't Cast Dash recently
+{variant:4}(100-160)% increased Evasion Rating if you've Cast Dash recently
+{variant:4}(20-30)% increased Movement Speed if you've Cast Dash recently
+{variant:4}Travel Skills other than Dash are Disabled
+{variant:4}Iron Reflexes
 ]],[[
 Chin Sol
 Assassin Bow
@@ -117,6 +125,7 @@ Death Bow
 Upgrade: Upgrades to unique{Death's Opus} via prophecy{The Bowstring's Music}
 Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 32, 107 Dex
 Implicits: 1
@@ -125,12 +134,14 @@ Implicits: 1
 10% increased Attack Speed
 {variant:1,3}+100% to Global Critical Strike Multiplier
 {variant:2}+150% to Global Critical Strike Multiplier
+{variant:4}+50% to Global Critical Strike Multiplier
 Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
 Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 44, 107 Dex
 Implicits: 1
@@ -140,6 +151,7 @@ Adds (10-20) to (30-35) Physical Damage
 10% increased Attack Speed
 {variant:1}+150% to Global Critical Strike Multiplier
 {variant:2}+100% to Global Critical Strike Multiplier
+{variant:3}+50% to Global Critical Strike Multiplier
 2 additional Arrows
 ]],[[
 Doomfletch
@@ -147,7 +159,6 @@ Royal Bow
 Upgrade: Upgrades to unique{Doomfletch's Prism} via prophecy{Ancient Doom}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
 Requires Level 28, 95 Dex
@@ -165,6 +176,7 @@ Implicits: 2
 Doomfletch's Prism
 Royal Bow
 Source: Upgraded from unique{Doomfletch} via prophecy{Ancient Doom}
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Current
@@ -297,18 +309,23 @@ Source: prophecy{The Feral Lord V}
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 212 Dex
-{variant:4}Socketed Gems are Supported by Level 20 Greater Volley
+{variant:4,5}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
-{variant:4}(50-75)% increased Physical Damage
+{variant:4,5}(50-75)% increased Physical Damage
 {variant:1}Adds (25-40) to (100-115) Physical Damage
-{variant:2,3,4}Adds (15-30) to (70-95) Physical Damage
+{variant:2,3,4,5}Adds (15-30) to (70-95) Physical Damage
 (8-12)% increased Attack Speed
 {variant:1,2}4 additional Arrows
 {variant:3}2 additional Arrows
 20% reduced Projectile Speed
+{variant:5}Arrows fired from the first firing points always Pierce
+{variant:5}Arrows fired from the second firing points Fork
+{variant:5}Arrows fired from the third firing points Return to you
+{variant:5}Arrows fired from the fourth firing points Chain +2 times
 ]],[[
 Roth's Reach
 Recurve Bow

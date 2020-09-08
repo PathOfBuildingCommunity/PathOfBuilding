@@ -34,13 +34,26 @@ local skills, mod, flag, skill = ...
 		},
 		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
 			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-			div = 60,
+			div = 60.0001,
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
 		},
 		["support_arcane_surge_spell_damage_+%_final_while_you_have_arcane_surge"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "AffectedByArcaneSurge" }),
+		},
+	},
+#mods
+
+#skill SupportArchmage
+	statMap = {
+		["manaweave_cost_equals_%_unreserved_mana"] = {
+			skill("baseManaCostIsAtLeastPercentUnreservedMana", nil),
+		},
+		["manaweave_added_lightning_damage_%_cost_if_payable"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			div = 100,
 		},
 	},
 #mods
@@ -57,6 +70,7 @@ local skills, mod, flag, skill = ...
 			mod("ColdDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill", effectEnemyCond = "Chilled" }),
 		},
 	},
+#baseMod skill("supportBonechill", true)
 #mods
 
 #skill SupportCastOnStunned
@@ -65,7 +79,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannelling
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
 			div = 1000,
 		},
 	},
@@ -74,15 +88,16 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingTriggered
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
+#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportCastWhileChannellingPlus
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
 			div = 1000,
 		},
 	},
@@ -91,9 +106,10 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingTriggeredPlus
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
+#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportChanceToIgnite
@@ -149,6 +165,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCurseOnHitPlus
+    statMap = {
+		["number_of_additional_curses_allowed"] = {
+			mod("AdditionalCurse", "BASE", nil),
+			flag("CanHaveAdditionalCurse"),
+		},
+	},
 #mods
 
 #skill SupportMinionFocusFire
@@ -294,11 +316,11 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 		["support_storm_barrier_skill_type_damage_+%_final"] = {
-			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
-			mod("FireDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
-			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
-			mod("LightningDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
-			mod("ChaosDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
+			mod("Condition:HavePhysicalInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
+			mod("Condition:HaveFireInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
+			mod("Condition:HaveColdInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
+			mod("Condition:HaveLightningInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
+			mod("Condition:HaveChaosInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
 		},
 	},
 #baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })
@@ -322,12 +344,13 @@ local skills, mod, flag, skill = ...
 #skill SupportHandcastSpellBoost
 	statMap = {
 		["support_spell_boost_area_damage_+%_final_per_charge"] = {
-			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "Multiplier", var = "Intensity" }),
+			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 		["support_spell_boost_area_of_effect_+%_final_per_charge"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
+#baseMod mod("Multiplier:IntensityLimit", "BASE", 4)
 #mods
 
 #skill SupportItemRarity
@@ -479,6 +502,20 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_number_of_support_ghosts_allowed"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SupportRapidActivation
+	statMap = {
+		["support_rapid_activation_brand_activation_rate_+%_final"] = {
+			mod("BrandActivationFrequency", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
+			mod("PrimaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
+		},
+		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
+			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
 	},
 #mods

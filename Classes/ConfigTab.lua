@@ -7,6 +7,7 @@ local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local s_upper = string.upper
 
 local gameVersionDropList = { }
 for _, version in ipairs(targetVersionList) do
@@ -60,7 +61,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
-			elseif varData.type == "count" or varData.type == "integer" then
+			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
@@ -83,7 +84,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						return true
 					end
 					local node = self.build.spec.nodes[varData.ifNode]
-					if node.type == "Keystone" then
+					if node and node.type == "Keystone" then
 						return self.build.calcsTab.mainEnv.keystonesAdded[node.dn]
 					end
 				end
@@ -94,6 +95,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.shown = function()
 					return self.input[varData.ifOption]
 				end
+				control.tooltipText = varData.tooltip
 			elseif varData.ifCond or varData.ifMinionCond or varData.ifEnemyCond then
 				control.shown = function()
 					local mainEnv = self.build.calcsTab.mainEnv
@@ -235,7 +237,11 @@ function ConfigTabClass:Load(xml, fileName)
 			if node.attrib.number then
 				self.input[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
-				self.input[node.attrib.name] = node.attrib.string
+				if node.attrib.name == "enemyIsBoss" then
+					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
+				else
+					self.input[node.attrib.name] = node.attrib.string
+				end
 			elseif node.attrib.boolean then
 				self.input[node.attrib.name] = node.attrib.boolean == "true"
 			else
@@ -373,8 +379,8 @@ function ConfigTabClass:BuildModList()
 				if input[varData.var] then
 					varData.apply(true, modList, enemyModList, self.build)
 				end
-			elseif varData.type == "count" or varData.type == "integer" then
-				if input[varData.var] and input[varData.var] ~= 0 then
+			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
+				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then

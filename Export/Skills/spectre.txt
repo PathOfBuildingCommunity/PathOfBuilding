@@ -654,3 +654,73 @@ local skills, mod, flag, skill = ...
 #skill VaalIncursionSpecialBeamCannonBlood Physical Beam
 #flags spell area
 #mods
+
+#skill MeleeEyrieArrow Default Attack
+#flags attack melee projectile
+#mods
+
+#skill AtlasEyrieArcherMortar Mortar
+#flags spell hit projectile area triggerable
+#mods
+
+#skill AtlasEyrieArcherSnipe Snipe
+#flags attack hit projectile triggerable
+#mods
+
+#skill AtlasEyrieArcherCrystalImpact Crystal Impact
+#flags spell hit triggerable
+#mods
+
+#skill AtlasExilesCrusaderMageguardProjectile Projectile Spell
+#flags spell projectile triggerable
+#mods
+
+#skill AtlasExileCrusaderMageguardBombExplodeSpectre Bombs
+#flags spell hit triggerable
+#mods
+
+#skill AtlasCrusaderMageguardBeam Beam
+#flags spell hit triggerable
+#mods
+
+#skill AtlasCrusaderSisterMortarSpectre Mortar
+#flags spell hit triggerable area projectile
+#mods
+
+#skill BreachLightningWhip Breach Lightning Whip
+#flags spell area
+#baseMod skill("radius", 30)
+#baseMod skill("showAverage", true)
+#mods
+
+#skill BreachArc Breach Arc
+#flags spell chaining
+#mods
+
+#skill BreachTeamWarp Breach Team Warp
+#flags spell area
+#baseMod skill("showAverage", true)
+#mods
+
+#skill BreachLightningOrbsCommander Breach Lightning Orbs Commander
+#flags spell
+#baseMod skill("showAverage", true)
+#mods
+
+#skill SandLeaperDodgeLeft Sand Leaper Dodge Left
+#mods
+
+#skill SandLeaperDodgeRight Sand Leaper Dodge Right
+#mods
+
+#skill MeleeCold Default Attack
+#flags attack melee projectile
+#mods
+
+#skill AtlasCrusaderJudgeBallLightning Ball Lightning
+#flags spell hit triggerable area projectile
+#mods
+
+#skill AtlasCruasderJudgeFadingNova Nova Spell
+#flags spell projectile triggerable
+#mods

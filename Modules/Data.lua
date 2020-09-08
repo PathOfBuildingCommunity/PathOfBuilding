@@ -82,6 +82,7 @@ data.powerStatList = {
 	{ stat="TotalDPS", label="Total DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
 	{ stat="AverageDamage", label="Average Hit" },
+	{ stat="Speed", label="Attack/Cast Speed" },
 	{ stat="BleedDPS", label="Bleed DPS" },
 	{ stat="IgniteDPS", label="Ignite DPS" },
 	{ stat="PoisonDPS", label="Poison DPS" },
@@ -95,6 +96,10 @@ data.powerStatList = {
 	{ stat="Mana", label="Mana" },
 	{ stat="ManaRegen", label="Mana regen" },
 	{ stat="ManaLeechRate", label="Mana leech" },
+	{ stat="Str", label="Strength" },
+	{ stat="Dex", label="Dexterity" },
+	{ stat="Int", label="Intelligence" },
+	{ stat="TotalAttr", label="Total Attributes" },
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
@@ -104,6 +109,7 @@ data.powerStatList = {
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
 	{ stat="ChaosTakenHitMult", label="Taken Chaos dmg", transform=function(value) return 1-value end },
 	{ stat="CritChance", label="Crit Chance" },
+	{ stat="CritMultiplier", label="Crit Multiplier" },
 	{ stat="BleedChance", label="Bleed Chance" },
 	{ stat="FreezeChance", label="Freeze Chance" },
 	{ stat="IgniteChance", label="Ignite Chance" },
@@ -131,9 +137,25 @@ data.labyrinths = {
 	{ name = "NORMAL", label = "Normal" },
 }
 
-data.monsterExperienceLevelMap = { [71] = 70.94, [72] = 71.82, [73] = 72.64, [74] = 73.40, [75] = 74.10, [76] = 74.74, [77] = 75.32, [78] = 75.84, [79] = 76.30, [80] = 76.70, [81] = 77.04, [82] = 77.32, [83] = 77.54, [84] = 77.70, }
-for i = 1, 70 do
-	data.monsterExperienceLevelMap[i] = i
+local maxPenaltyFreeAreaLevel = 70
+local maxAreaLevel = 87 -- T16 map + side area + three watchstones that grant +1 level
+local penaltyMultiplier = 0.06
+
+---@param areaLevel number
+---@return number
+local function effectiveMonsterLevel(areaLevel)
+	--- Areas with area level above a certain penalty-free level are considered to have
+	--- a scaling lower effective monster level for experience penalty calculations.
+	if areaLevel <= maxPenaltyFreeAreaLevel then
+		return areaLevel
+	end
+	return areaLevel - triangular(areaLevel - maxPenaltyFreeAreaLevel) * penaltyMultiplier
+end
+
+---@type table<number, number>
+data.monsterExperienceLevelMap = {}
+for i = 1, maxAreaLevel do
+	data.monsterExperienceLevelMap[i] = effectiveMonsterLevel(i)
 end
 
 data.weaponTypeInfo = {
@@ -187,12 +209,31 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
--- Uniques
-data.uniques = { }
-for _, type in pairs(itemTypes) do
-	data.uniques[type] = LoadModule("Data/Uniques/"..type)
-end
-LoadModule("Data/New")
+data.misc = { -- magic numbers
+	ServerTickRate = 30,
+	TemporalChainsEffectCap = 75,
+	DamageReductionCap = 90,
+	MaxResistCap = 90,
+	EvadeChanceCap = 95,
+	DodgeChanceCap = 75,
+	AvoidChanceCap = 75,
+	EnergyShieldRechargeBase = 0.2,
+	Transfiguration = 0.3,
+	EnemyMaxResist = 75,
+	LeechRateBase = 0.02,
+	BleedPercentBase = 70,
+	BleedDurationBase = 5,
+	PoisonPercentBase = 0.20,
+	PoisonDurationBase = 2,
+	IgnitePercentBase = 0.50,
+	IgniteDurationBase = 4,
+	ImpaleStoredDamageBase = 0.1,
+	BuffExpirationSlowCap = 0.25,
+	TrapTriggerRadiusBase = 10,
+	MineDetonationRadiusBase = 60,
+	MineAuraRadiusBase = 35,
+	PurposefulHarbingerMaxBuffPercent = 40,
+}
 
 ---------------------------
 -- Version-specific Data --
@@ -219,6 +260,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Flask = dataModule("ModFlask"),
 		Jewel = dataModule("ModJewel"),
 		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
+		JewelCluster = targetVersion ~= "2_6" and dataModule("ModJewelCluster") or { },
 	}
 	verData.masterMods = dataModule("ModMaster")
 	verData.enchantments = {
@@ -229,6 +271,50 @@ for _, targetVersion in ipairs(targetVersionList) do
 	verData.essences = dataModule("Essence")
 	verData.pantheons = targetVersion ~= "2_6" and dataModule("Pantheons") or { }
 	
+
+	-- Cluster jewel data
+	if targetVersion ~= "2_6" then	
+		verData.clusterJewels = dataModule("ClusterJewels")
+
+		-- Create a quick lookup cache from cluster jewel skill to the notables which use that skill
+		---@type table<string, table<string>>
+		local clusterSkillToNotables = { }
+		for notableKey, notableInfo in pairs(verData.itemMods.JewelCluster) do
+			-- Translate the notable key to its name
+			local notableName = notableInfo[1] and notableInfo[1]:match("1 Added Passive Skill is (.*)")
+			if notableName then
+				for weightIndex, clusterSkill in pairs(notableInfo.weightKey) do
+					if notableInfo.weightVal[weightIndex] > 0 then
+						if not clusterSkillToNotables[clusterSkill] then
+							clusterSkillToNotables[clusterSkill] = { }
+						end
+						table.insert(clusterSkillToNotables[clusterSkill], notableName)
+					end
+				end
+			end
+		end
+
+		-- Create easy lookup from cluster node name -> cluster jewel size and types
+		verData.clusterJewelInfoForNotable = { }
+		for size, jewel in pairs(verData.clusterJewels.jewels) do
+			for skill, skillInfo in pairs(jewel.skills) do
+				local notables = clusterSkillToNotables[skill]
+				if notables then
+					for _, notableKey in ipairs(notables) do
+						if not verData.clusterJewelInfoForNotable[notableKey] then
+							verData.clusterJewelInfoForNotable[notableKey] = { }
+							verData.clusterJewelInfoForNotable[notableKey].jewelTypes = { }
+							verData.clusterJewelInfoForNotable[notableKey].size = { }
+						end
+						local curJewelInfo = verData.clusterJewelInfoForNotable[notableKey]
+						curJewelInfo.size[size] = true
+						table.insert(curJewelInfo.jewelTypes, skill)
+					end
+				end
+			end
+		end
+	end
+
 	-- Load skills
 	verData.skills = { }
 	verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
@@ -277,10 +363,12 @@ for _, targetVersion in ipairs(targetVersionList) do
 	-- Load gems
 	verData.gems = dataModule("Gems")
 	verData.gemForSkill = { }
+	verData.gemForBaseName = { }
 	for gemId, gem in pairs(verData.gems) do
 		gem.id = gemId
 		gem.grantedEffect = verData.skills[gem.grantedEffectId]
 		verData.gemForSkill[gem.grantedEffect] = gemId
+		verData.gemForBaseName[gem.name .. (gem.grantedEffect.support and " Support" or "")] = gemId
 		gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and verData.skills[gem.secondaryGrantedEffectId]
 		gem.grantedEffectList = {
 			gem.grantedEffect,
@@ -353,3 +441,11 @@ for _, targetVersion in ipairs(targetVersionList) do
 	-- Rare templates
 	verData.rares = dataModule("Rares")
 end
+
+-- Uniques (loaded after version-specific data because reasons)
+data.uniques = { }
+for _, type in pairs(itemTypes) do
+	data.uniques[type] = LoadModule("Data/Uniques/"..type)
+end
+LoadModule("Data/Generated")
+LoadModule("Data/New")

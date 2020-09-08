@@ -81,8 +81,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
+	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
+		self.controls.treeHeatMapStatSelect.shown = state
 	end)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
@@ -98,6 +99,23 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			t_insert(self.powerStatList, stat)
 		end
 	end
+
+	self.controls.treeHeatMapTopStat = new("CheckBoxControl", {"LEFT", self.controls.treeHeatMapStatSelect,"RIGHT"}, 110, 0, 20, "Show top node:", function(state)
+		self.viewer.heatMapTopPick = state
+	end )
+
+	self.controls.treeHeatMapTopStat.tooltipText = function()
+		return "When enabled, only the strongest node for the selected stat will be highlighted."
+	end
+
+	self.controls.treeHeatMapStatPerPoint = new("CheckBoxControl", {"LEFT", self.controls.treeHeatMapTopStat,"RIGHT"}, 115, 0, 20, "Power per point:", function(state)
+		self.viewer.heatMapStatPerPoint = state
+	end )
+
+	self.controls.treeHeatMapStatPerPoint.tooltipText = function()
+		return "When enabled, node power is divided by the point cost it would take to get there,\nso closer points are considered stronger"
+	end
+
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
@@ -106,7 +124,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local newSpec = new("PassiveSpec", self.build, self.build.targetVersionData.latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:DecodeURL(self.build.spec:EncodeURL())
+		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
+		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
 		self.modFlag = true
@@ -135,7 +154,28 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 
-	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 or 32) }
+	-- Determine positions if one line of controls doesn't fit in the screen width
+	local twoLineHeight = self.controls.treeHeatMap.y == 24 and 26 or 0
+	if(select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize()) > viewPort.x + viewPort.width) then
+		twoLineHeight = 26
+		self.controls.treeHeatMap:SetAnchor("BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT",nil,nil,nil)
+		self.controls.treeHeatMap.y = 24
+		self.controls.treeHeatMap.x = 125
+
+		self.controls.specSelect.y = -24
+		self.controls.specConvertText.y = -16
+	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize())) - viewPort.x  then
+		twoLineHeight = 0
+		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
+		self.controls.treeHeatMap.y = 0
+		self.controls.treeHeatMap.x = 130
+
+		self.controls.specSelect.y = 0
+		self.controls.specConvertText.y = -14
+	end
+	--
+
+	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + twoLineHeight or 32 + twoLineHeight)}
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	self.controls.specSelect.selIndex = self.activeSpec
@@ -160,15 +200,15 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 28, viewPort.width, 28)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + twoLineHeight), viewPort.width, 28 + twoLineHeight)
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 32, viewPort.width, 4)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + twoLineHeight), viewPort.width, 4)
 
 	if self.showConvert then
 		SetDrawColor(0.05, 0.05, 0.05)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 60, viewPort.width, 28)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (60 + twoLineHeight), viewPort.width, 28)
 		SetDrawColor(0.85, 0.85, 0.85)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 64, viewPort.width, 4)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (64 + twoLineHeight), viewPort.width, 4)
 	end
 
 	self:DrawControls(viewPort)
@@ -187,6 +227,10 @@ function TreeTabClass:Load(xml, dbFileName)
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Spec" then
+				if node.attrib.treeVersion and not treeVersions[node.attrib.treeVersion] then
+					main:OpenMessagePopup("Unknown Passive Tree Version", "The build you are trying to load uses an unrecognised version of the passive skill tree.\nYou may need to update the program before loading this build.")
+					return true
+				end
 				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or self.build.targetVersionData.defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
@@ -201,7 +245,7 @@ end
 
 function TreeTabClass:PostLoad()
 	for _, spec in ipairs(self.specList) do
-		spec:BuildAllDependsAndPaths()
+		spec:PostLoad()
 	end
 end
 
@@ -233,6 +277,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	local curSpec = self.specList[self.activeSpec]
 	self.build.spec = curSpec
 	self.build.buildFlag = true
+	self.build.spec:SetWindowTitleWithBuildClass()
 	for _, slot in pairs(self.build.itemsTab.slots) do
 		if slot.nodeId then
 			if prevSpec then
