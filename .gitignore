@@ -264,6 +264,3 @@ ModelManifest.xml
 # VSCode
 .vscode/*
 .history/*
-
-# Temporary disabled 
-Data/3_0/ModCache.lua
