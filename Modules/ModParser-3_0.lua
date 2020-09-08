@@ -2485,6 +2485,70 @@ local function getSimpleConv(srcList, dst, type, remove, factor)
 		end
 	end
 end
+
+local leaderMods = {
+	-- Lethal Pride
+	["kaom"] = {
+		["Recovery from Life Leech is not applied"] = mod("DamageLifeLeech", "BASE", 0, data.modSource),
+		["1% less Damage taken for every 2% Recovery per second from Life Leech"] = mod("DamageTaken", "MORE", -1, data.modSource, { type = "Multiplier", var = "MaxLifeLeechRate", div = 2 }, { type = "Condition", var = "Leeching" }),
+	},
+	["kiloava"] = {
+		["Chance to Block Attack Damage is doubled"] = mod("BlockChance", "MORE", 100, data.modSource),
+		["Chance to Block Spell Damage is doubled"] = mod("SpellBlockChance", "MORE", 100, data.modSource),
+		["You take 50% of Damage from Blocked Hits"] = mod("BlockEffect", "BASE", 50, data.modSource),
+	},
+	["rakiata"] = {
+		["50% of Cold and Lightning Damage taken as Fire Damage"] = { mod("ColdDamageTakenAsFire", "BASE", 50, data.modSource), mod("LightningDamageTakenAsFire", "BASE", 50, data.modSource)},
+		["50% less Cold Resistance"] = mod("ColdResist", "MORE", -50, data.modSource),
+		["50% less Lightning Resistance"] = mod("LightningResist", "MORE", -50, data.modSource),
+	},
+	["akoya"] = {
+		["Regenerate 3 Rage per second"] = mod("RageRegen", "BASE", 3, data.modSource),
+		["Increases and Reductions to Mana Regeneration Rate instead apply to Rage Regeneration Rate"] = mod("ManaRegenToRageRegen", "FLAG", true, data.modSource),
+		["Lose 5 Rage when you Hit an Enemy, no more than once every 0.3 seconds"] = { },
+	}
+}
+
+local leaderKeystones = {
+	["kaom"] = "Strength of Blood",
+	["kiloava"] = "Glancing Blows",
+	["rakiata"] = "Tempered By War",
+	["akoya"] = "Chainbreaker",
+}
+
+local function getLeaderMods(leader)
+	return function(node, out, data)
+		if node and type(node) ~= "string" and node.type == "Keystone" then
+			node.name = leaderKeystones[leader]
+			node.dn = leaderKeystones[leader]
+			wipeTable(node.modList)
+			wipeTable(node.mods)
+			node.mods = {}
+			node.sd = {}
+			for desc, mod in pairs(leaderMods[leader]) do
+				t_insert(node.sd, desc)
+				if mod.name then
+					mod["source"] = data.modSource
+					out:AddMod(mod)
+					t_insert(node.mods, {list={mod}})
+				else
+					if mod[1] then
+						local modList = {}
+						for _, mod in pairs(mod) do
+							mod["source"] = data.modSource
+							out:AddMod(mod)
+							t_insert(modList, mod)
+						end
+						t_insert(node.mods, {list=modList})
+					else
+						t_insert(node.mods, {})
+					end
+				end
+			end
+		end
+	end
+end
+
 local jewelOtherFuncs = {
 	["Strength from Passives in Radius is Transformed to Dexterity"] = getSimpleConv({ "Str" }, "Dex", "BASE", true),
 	["Dexterity from Passives in Radius is Transformed to Strength"] = getSimpleConv({ "Dex" }, "Str", "BASE", true),
@@ -2569,70 +2633,7 @@ local jewelOtherFuncs = {
 		end
 	end,
 	["Commanded leadership over (%d+) warriors under (%w+)"] = function(seed, leader)
-		local leaders = {
-			["kaom"] = function(node, out, data)
-				if node and type(node) ~= "string" and node.type == "Keystone" then
-					node.name = "Strength of Blood"
-					node.dn = "Strength of Blood"
-					node.sd = {"Recovery from Life Leech is not applied", "1% less Damage taken for every 2% Recovery per second from Life Leech"}
-					wipeTable(node.modList)
-					wipeTable(node.mods)
-					node.mods = {{list={mod("DamageLifeLeech", "BASE", 0, data.modSource)}}, {list={mod("DamageTaken", "MORE", -1, data.modSource, { type = "Multiplier", var = "MaxLifeLeechRate", div = 2 }, { type = "Condition", var = "Leeching" })}}}
-
-					out:NewMod("DamageTaken", "MORE", -1, data.modSource, { type = "Multiplier", var = "MaxLifeLeechRate", div = 2 }, { type = "Condition", var = "Leeching" })
-					out:NewMod("LifeLeechRate", "OVERRIDE", 0, data.modSource)
-				end
-			end,
-			["kiloava"] = function(node, out, data)
-				if node and type(node) ~= "string" and node.type == "Keystone" then
-					node.name = "Glancing Blows"
-					node.dn = "Glancing Blows"
-					node.sd = {"Chance to Block Attack Damage is doubled", "Chance to Block Spell Damage is doubled",
-							   "You take 50% of Damage from Blocked Hits"}
-					node.icon = "Art/2DArt/SkillIcons/passives/GlancingBlows.png"
-					wipeTable(node.modList)
-					wipeTable(node.mods)
-					node.mods = {{list={mod("BlockChance", "MORE", 100, data.modSource)}}, {list={mod("SpellBlockChance", "MORE", 100, data.modSource)}}, {list={mod("BlockEffect", "BASE", 50, data.modSource)}}}
-
-					out:NewMod("BlockChance", "MORE", 100, data.modSource)
-					out:NewMod("SpellBlockChance", "MORE", 100, data.modSource)
-					out:NewMod("BlockEffect", "BASE", 50, data.modSource)
-					out:NewMod("Keystone", "LIST", "Glancing Blows")
-				end
-			end,
-			["rakiata"] = function(node, out, data)
-				if node and type(node) ~= "string" and node.type == "Keystone" then
-					node.name = "Tempered by War"
-					node.dn = "Tempered by War"
-					node.sd = {"50% of Cold and Lightning Damage taken as Fire Damage", "50% less Cold Resistance", "50% less Lightning Resistance"}
-					wipeTable(node.modList)
-					wipeTable(node.mods)
-					node.mods = {{list={mod("ColdDamageTakenAsFire", "BASE", 50, data.modSource), mod("LightningDamageTakenAsFire", "BASE", 50, data.modSource)}}, {list={mod("ColdResist", "MORE", -50, data.modSource)}}, { list = { mod("LightningResist", "MORE", -50, data.modSource)}}}
-
-					out:NewMod("ColdDamageTakenAsFire", "BASE", 50, data.modSource)
-					out:NewMod("LightningDamageTakenAsFire", "BASE", 50, data.modSource)
-					out:NewMod("ColdResist", "MORE", -50, data.modSource)
-					out:NewMod("LightningResist", "MORE", -50, data.modSource)
-				end
-			end,
-			["akoya"] = function(node, out, data)
-				if node and type(node) ~= "string" and node.type == "Keystone" then
-					node.name = "Chainbreaker"
-					node.dn = "Chainbreaker"
-					node.sd = {"Regenerate 3 Rage per second", "Increases and Reductions to Mana Regeneration Rate instead apply to Rage Regeneration Rate",
-							   "Lose 5 Rage when you Hit an Enemy, no more than once every 0.3 seconds"}
-					wipeTable(node.modList)
-					wipeTable(node.mods)
-					node.mods = {{list={mod("RageRegen", "BASE", 3, data.modSource)}}, {list={mod("ManaRegenToRageRegen", "FLAG", true, data.modSource)}}, {}}
-
-					out:NewMod("ManaRegenToRageRegen", "FLAG", true, data.modSource)
-					out:NewMod("RageRegen", "BASE", 3, data.modSource)
-					out:NewMod("Condition:CanGainRage", "FLAG", true, data.modSource)
-					out:NewMod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
-				end
-			end
-		}
-		return leaders[leader]
+		return getLeaderMods(leader)
 	end,
 	["Passives in radius are Conquered by the Karui"] = function(node, out, data)
 		local attributes = { "Dexterity", "Intelligence", "Strength" }
