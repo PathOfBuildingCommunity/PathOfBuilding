@@ -532,16 +532,16 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				self:NodeAdditionFromString(node,"+"..str.." to Strength")
 			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
 				local legionNode =legionNodes["vaal_small_fire_resistance"]
-				node.dn = "Vaal small Node"
-				node.sd = {"Right click to set mod"}
+				node.dn = "Vaal small node"
+				--node.sd = {"Right click to set mod"}
 				node.sprites = legionNode.sprites
 				node.mods = {""}
 				node.modList = new("ModList")
 				node.modKey = ""
 			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
 				local legionNode =legionNodes["vaal_notable_curse_1"]
-				node.dn = "Vaal notable Node"
-				node.sd = {"Right click to set mod"}
+				node.dn = "Vaal notable node"
+				--node.sd = {"Right click to set mod"}
 				node.sprites = legionNode.sprites
 				node.mods = {""}
 				node.modList = new("ModList")
