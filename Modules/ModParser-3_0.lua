@@ -1681,26 +1681,10 @@ local specialModList = {
 	["increases and reductions to light radius also apply to area of effect at 50%% of their value"] = { flag("LightRadiusAppliesToAreaOfEffect") },
 	["increases and reductions to light radius also apply to damage"] = { flag("LightRadiusAppliesToDamage") },
 	["increases and reductions to cast speed also apply to trap throwing speed"] = { flag("CastSpeedAppliesToTrapThrowingSpeed") },
-	["gain (%d+)%% of bow physical damage as extra damage of each element"] = function(num) return {
-		mod("PhysicalDamageGainAsLightning", "BASE", num, nil, ModFlag.Bow),
-		mod("PhysicalDamageGainAsCold", "BASE", num, nil, ModFlag.Bow),
-		mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Bow),
-	} end,
-	["gain (%d+)%% of weapon physical damage as extra damage of each element"] = function(num) return {
-		mod("PhysicalDamageGainAsLightning", "BASE", num, nil, ModFlag.Weapon),
-		mod("PhysicalDamageGainAsCold", "BASE", num, nil, ModFlag.Weapon),
-		mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Weapon),
-	} end,
-	["gain (%d+)%% of weapon physical damage as extra damage of an element"] = function(num) return {
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 3, nil, ModFlag.Weapon),
-		mod("PhysicalDamageGainAsCold", "BASE", num / 3, nil, ModFlag.Weapon),
-		mod("PhysicalDamageGainAsFire", "BASE", num / 3, nil, ModFlag.Weapon),
-	} end,
-	["gain (%d+)%% of physical damage as extra damage of a random element"] = function(num) return {
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 3),
-		mod("PhysicalDamageGainAsCold", "BASE", num / 3),
-		mod("PhysicalDamageGainAsFire", "BASE", num / 3),
-	} end,
+	["gain (%d+)%% of bow physical damage as extra damage of each element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num, nil, ModFlag.Bow) } end,
+	["gain (%d+)%% of weapon physical damage as extra damage of each element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num, nil, ModFlag.Weapon) } end,
+	["gain (%d+)%% of weapon physical damage as extra damage of an element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num, nil, ModFlag.Weapon) } end,
+	["gain (%d+)%% of physical damage as extra damage of a random element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num ) } end,
 	-- Crit
 	["your critical strike chance is lucky"] = { flag("CritChanceLucky") },
 	["your critical strike chance is lucky while focussed"] = { flag("CritChanceLucky", { type = "Condition", var = "Focused" }) },
