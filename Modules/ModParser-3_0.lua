@@ -1558,10 +1558,8 @@ local specialModList = {
 	["poisonous hit"] = { mod("PoisonChance", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
 	["attacks with this weapon deal double damage"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	["hits with this weapon gain (%d+)%% of physical damage as extra cold or lightning damage"] = function(num) return {
-		mod("PhysicalDamageGainAsCold", "BASE", num / 4, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 4, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
-		mod("PhysicalDamageGainAsCold", "BASE", num / 2, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding", neg = true}, { type = "SkillType", skillType = SkillType.Attack }),
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 2, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding", neg = true}, { type = "SkillType", skillType = SkillType.Attack })
+		mod("PhysicalDamageGainAsColdOrLightning", "BASE", num / 2, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("PhysicalDamageGainAsColdOrLightning", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding", neg = true}, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
 	["attacks with this weapon deal double damage to chilled enemies"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) },
 	["life leech from hits with this weapon applies instantly"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
