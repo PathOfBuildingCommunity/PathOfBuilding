@@ -246,9 +246,26 @@ local function doActorAttribsPoolsConditions(env, actor)
 			end
 		end
 	end
-	output.Mana = round(calcLib.val(modDB, "Mana"))
+	local manaConv = modDB:Sum("BASE", nil, "ManaConvertToArmour")
+	output.Mana = round(calcLib.val(modDB, "Mana") * (1 - manaConv / 100))
+	local base = modDB:Sum("BASE", nil, "Mana")
+	local inc = modDB:Sum("INC", nil, "Mana")
+	local more = modDB:More(nil, "Mana")
 	if breakdown then
-		breakdown.Mana = breakdown.simple(nil, nil, output.Mana, "Mana")
+		if inc ~= 0 or more ~= 1 or manaConv ~= 0 then
+			breakdown.Mana = { }
+			breakdown.Mana[1] = s_format("%g ^8(base)", base)
+			if inc ~= 0 then
+				t_insert(breakdown.Mana, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
+			end
+			if more ~= 1 then
+				t_insert(breakdown.Mana, s_format("x %.2f ^8(more/less)", more))
+			end
+			if manaConv ~= 0 then
+				t_insert(breakdown.Mana, s_format("x %.2f ^8(converted to Armour)", 1 - manaConv/100))
+			end
+			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
+		end
 	end
 end
 

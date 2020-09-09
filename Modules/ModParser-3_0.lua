@@ -194,6 +194,7 @@ local modNameList = {
 	["elemental damage taken when hit"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken from hits"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken over time"] = "ElementalDamageTakenOverTime",
+	["cold and lightning damage taken"] = {"ColdDamageTaken", "LightningDamageTaken"},
 	["reflected elemental damage taken"] = "ElementalReflectedDamageTaken",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
@@ -1322,6 +1323,9 @@ local specialModList = {
 	["you are blind"] = { flag("Condition:Blinded") },
 	["armour applies to fire, cold and lightning damage taken from hits instead of physical damage"] = { flag("ArmourAppliesToFireDamageTaken"), flag("ArmourAppliesToColdDamageTaken"), flag("ArmourAppliesToLightningDamageTaken"), flag("ArmourDoesNotApplyToPhysicalDamageTaken") },
 	["maximum damage reduction for any damage type is (%d+)%%"] = function(num) return { mod("DamageReductionMax", "OVERRIDE", num) } end,
+	["(%d+)%% of maximum mana is converted to twice that much armour"] = function(num) return {
+		mod("ManaConvertToArmour", "BASE", num),
+	} end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
@@ -1726,6 +1730,7 @@ local specialModList = {
 	["your critical strike chance is lucky while focussed"] = { flag("CritChanceLucky", { type = "Condition", var = "Focused" }) },
 	["your critical strikes do not deal extra damage"] = { flag("NoCritMultiplier") },
 	["lightning damage with non%-critical strikes is lucky"] = { flag("LightningNoCritLucky") },
+	["your damage with critical strikes is lucky"] = { flag("CritLucky") },
 	["critical strikes deal no damage"] = { mod("Damage", "MORE", -100, { type = "Condition", var = "CriticalStrike" }) },
 	["critical strike chance is increased by uncapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistTotal", div = 1 }) },
 	["critical strike chance is increased by lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResist", div = 1 }) },

@@ -21,7 +21,7 @@ return {
 				[12] = "vaal_small_attack_damage", 
 				[13] = "vaal_small_chance_to_shock", 
 				[14] = "templar_notable_minimum_power_charge", 
-				[15] = "eternal_notable_minion_2", 
+				[15] = "vaal_keystone_1", 
 				[16] = "vaal_notable_curse_1", 
 				[17] = "vaal_notable_fire_damage_3", 
 				[18] = "vaal_small_cold_damage", 
@@ -30,133 +30,138 @@ return {
 				[21] = "templar_notable_cold_conversion", 
 				[22] = "vaal_notable_lightning_damage_3", 
 				[23] = "templar_keystone_3", 
-				[24] = "eternal_notable_lightning_attack_1", 
-				[25] = "vaal_keystone_3", 
-				[26] = "vaal_small_spell_block", 
-				[27] = "templar_notable_max_resistances", 
-				[28] = "templar_keystone_1", 
-				[29] = "eternal_notable_rarity_1", 
-				[30] = "vaal_small_minion_damage", 
-				[31] = "eternal_notable_chill_2", 
-				[32] = "eternal_notable_evasion_1", 
-				[33] = "vaal_small_mana", 
-				[34] = "vaal_notable_spell_damage_1", 
-				[35] = "eternal_notable_block_1", 
-				[36] = "vaal_notable_energy_shield_2", 
-				[37] = "eternal_notable_fire_resistance_1", 
-				[38] = "templar_keystone_2", 
-				[39] = "vaal_small_critical_strike_multiplier", 
-				[40] = "vaal_notable_damage_over_time_1", 
-				[41] = "eternal_notable_aura_1", 
-				[42] = "eternal_notable_crit_2", 
-				[43] = "eternal_notable_endurance_1", 
-				[44] = "vaal_notable_fire_resistance_1", 
-				[45] = "vaal_small_cast_speed", 
-				[46] = "vaal_notable_dodge_1", 
-				[47] = "maraketh_keystone_1", 
-				[48] = "vaal_small_fire_resistance", 
-				[49] = "eternal_notable_lightning_resistance_1", 
-				[50] = "vaal_small_chance_to_freeze", 
-				[51] = "vaal_notable_life_1", 
-				[52] = "templar_notable_arcane_surge", 
-				[53] = "templar_notable_mana_added_as_energy_shield", 
-				[54] = "eternal_notable_endurance_3", 
-				[55] = "eternal_notable_endurance_2", 
-				[56] = "vaal_small_movement_speed", 
-				[57] = "vaal_notable_lightning_damage_2", 
-				[58] = "vaal_small_attack_dodge", 
-				[59] = "vaal_notable_lightning_damage_1", 
-				[60] = "eternal_notable_cold_resistance_1", 
-				[61] = "eternal_notable_power_2", 
-				[62] = "vaal_notable_random_defence", 
-				[63] = "eternal_notable_dodge_2", 
-				[64] = "eternal_notable_mana_1", 
-				[65] = "vaal_small_physical_damage", 
-				[66] = "vaal_notable_cold_resistance_1", 
-				[67] = "maraketh_keystone_2", 
-				[68] = "vaal_notable_random_offense", 
-				[69] = "vaal_notable_life_2", 
-				[70] = "vaal_small_aura_effect", 
-				[71] = "vaal_small_duration", 
-				[72] = "vaal_notable_lightning_resistance_1", 
-				[73] = "vaal_notable_chaos_damage_2", 
-				[74] = "eternal_notable_bleed_damage_1", 
-				[75] = "vaal_small_lightning_resistance", 
-				[76] = "vaal_notable_chaos_damage_1", 
-				[77] = "vaal_small_chaos_resistance", 
-				[78] = "vaal_small_projectile_speed", 
-				[79] = "vaal_small_chaos_damage", 
-				[80] = "vaal_notable_aura_1", 
-				[81] = "vaal_small_damage_over_time", 
-				[82] = "eternal_notable_flask_duration_1", 
-				[83] = "eternal_notable_cold_attack_1", 
-				[84] = "eternal_notable_mana_regen_1", 
-				[85] = "eternal_notable_life_1", 
-				[86] = "eternal_notable_chaos_resistance_1", 
-				[87] = "eternal_notable_armour_1", 
-				[88] = "eternal_notable_cast_speed_1", 
-				[89] = "eternal_notable_attack_speed_1", 
-				[90] = "eternal_notable_projectile_attack_damage_1", 
-				[91] = "vaal_small_fire_damage", 
+				[24] = "karui_keystone_3_v2", 
+				[25] = "eternal_notable_lightning_attack_1", 
+				[26] = "vaal_keystone_3", 
+				[27] = "vaal_small_spell_block", 
+				[28] = "templar_notable_max_resistances", 
+				[29] = "templar_keystone_1", 
+				[30] = "eternal_notable_rarity_1", 
+				[31] = "vaal_small_minion_damage", 
+				[32] = "eternal_notable_chill_2", 
+				[33] = "eternal_notable_evasion_1", 
+				[34] = "vaal_small_mana", 
+				[35] = "templar_notable_minimum_endurance_charge", 
+				[36] = "eternal_notable_block_1", 
+				[37] = "vaal_notable_energy_shield_2", 
+				[38] = "eternal_notable_fire_resistance_1", 
+				[39] = "templar_keystone_2", 
+				[40] = "vaal_small_critical_strike_multiplier", 
+				[41] = "vaal_notable_damage_over_time_1", 
+				[42] = "vaal_notable_block_1", 
+				[43] = "eternal_notable_crit_2", 
+				[44] = "eternal_notable_endurance_1", 
+				[45] = "vaal_notable_fire_resistance_1", 
+				[46] = "vaal_small_cast_speed", 
+				[47] = "vaal_notable_dodge_1", 
+				[48] = "maraketh_keystone_1", 
+				[49] = "vaal_small_fire_resistance", 
+				[50] = "eternal_notable_lightning_resistance_1", 
+				[51] = "vaal_small_chance_to_freeze", 
+				[52] = "vaal_notable_life_1", 
+				[53] = "templar_notable_arcane_surge", 
+				[54] = "templar_notable_mana_added_as_energy_shield", 
+				[55] = "eternal_notable_endurance_3", 
+				[56] = "eternal_notable_endurance_2", 
+				[57] = "vaal_small_movement_speed", 
+				[58] = "vaal_notable_lightning_damage_2", 
+				[59] = "vaal_small_attack_dodge", 
+				[60] = "vaal_notable_lightning_damage_1", 
+				[61] = "eternal_notable_cold_resistance_1", 
+				[62] = "eternal_notable_power_2", 
+				[63] = "vaal_notable_random_defence", 
+				[64] = "eternal_notable_dodge_2", 
+				[65] = "eternal_notable_mana_1", 
+				[66] = "vaal_small_physical_damage", 
+				[67] = "vaal_notable_cold_resistance_1", 
+				[68] = "maraketh_keystone_2", 
+				[69] = "vaal_notable_random_offense", 
+				[70] = "vaal_notable_life_2", 
+				[71] = "vaal_small_aura_effect", 
+				[72] = "vaal_small_duration", 
+				[73] = "vaal_notable_lightning_resistance_1", 
+				[74] = "vaal_notable_chaos_damage_2", 
+				[75] = "eternal_notable_bleed_damage_1", 
+				[76] = "vaal_small_lightning_resistance", 
+				[77] = "vaal_notable_chaos_damage_1", 
+				[78] = "vaal_small_chaos_resistance", 
+				[79] = "vaal_small_projectile_speed", 
+				[80] = "eternal_notable_flask_duration_1", 
+				[81] = "vaal_small_chaos_damage", 
+				[82] = "eternal_notable_aura_1", 
+				[83] = "vaal_notable_aura_1", 
+				[84] = "vaal_small_damage_over_time", 
+				[85] = "eternal_notable_mana_regen_1", 
+				[86] = "eternal_notable_life_1", 
+				[87] = "eternal_notable_chaos_resistance_1", 
+				[88] = "eternal_notable_armour_1", 
+				[89] = "eternal_notable_cast_speed_1", 
+				[90] = "eternal_notable_attack_speed_1", 
+				[91] = "eternal_notable_projectile_attack_damage_1", 
 				[92] = "eternal_notable_physical_damage_2", 
 				[93] = "eternal_notable_physical_damage_1", 
-				[94] = "eternal_notable_frenzy_2", 
-				[95] = "eternal_notable_accuracy_1", 
-				[96] = "eternal_notable_frenzy_3", 
-				[97] = "vaal_small_critical_strike_chance", 
-				[98] = "vaal_small_energy_shield", 
-				[99] = "eternal_notable_spell_2", 
-				[100] = "vaal_notable_minion_damage_1", 
-				[101] = "vaal_notable_cold_damage_1", 
-				[102] = "vaal_notable_armour_1", 
-				[103] = "vaal_notable_energy_shield_1", 
-				[104] = "eternal_keystone_2", 
-				[105] = "vaal_small_evasion", 
-				[106] = "vaal_small_attack_block", 
-				[107] = "templar_notable_lightning_exposure", 
-				[108] = "vaal_small_area_of_effect", 
-				[109] = "vaal_notable_evasion_1", 
-				[110] = "eternal_notable_chill_1", 
-				[111] = "vaal_small_mana_regeneration", 
-				[112] = "vaal_small_spell_damage", 
-				[113] = "vaal_notable_chaos_resistance_1", 
-				[114] = "vaal_notable_mana_1", 
-				[115] = "vaal_notable_block_1", 
-				[116] = "eternal_notable_frenzy_1", 
-				[117] = "eternal_notable_power_3", 
-				[118] = "eternal_keystone_3", 
-				[119] = "vaal_notable_block_2", 
-				[120] = "templar_devotion_node", 
-				[121] = "vaal_notable_physical_damage_3", 
-				[122] = "vaal_notable_dodge_2", 
-				[123] = "templar_notable_additional_physical_reduction", 
-				[124] = "templar_notable_fire_exposure", 
-				[125] = "vaal_notable_cold_damage_3", 
-				[126] = "vaal_small_curse_effect", 
+				[94] = "eternal_notable_cold_attack_1", 
+				[95] = "eternal_notable_spell_2", 
+				[96] = "vaal_small_fire_damage", 
+				[97] = "eternal_notable_spell_1", 
+				[98] = "eternal_notable_minion_2", 
+				[99] = "eternal_notable_frenzy_2", 
+				[100] = "eternal_notable_accuracy_1", 
+				[101] = "eternal_notable_frenzy_3", 
+				[102] = "vaal_small_critical_strike_chance", 
+				[103] = "vaal_small_energy_shield", 
+				[104] = "vaal_notable_minion_damage_1", 
+				[105] = "eternal_small_blank", 
+				[106] = "vaal_notable_cold_damage_1", 
+				[107] = "vaal_keystone_2_v2", 
+				[108] = "templar_notable_fire_conversion", 
+				[109] = "eternal_keystone_2", 
+				[110] = "vaal_notable_armour_1", 
+				[111] = "vaal_small_attack_block", 
+				[112] = "vaal_small_area_of_effect", 
+				[113] = "vaal_small_cold_resistance", 
+				[114] = "vaal_notable_evasion_1", 
+				[115] = "vaal_small_mana_regeneration", 
+				[116] = "vaal_notable_mana_1", 
+				[117] = "vaal_small_spell_damage", 
+				[118] = "vaal_notable_chaos_resistance_1", 
+				[119] = "vaal_notable_energy_shield_1", 
+				[120] = "templar_keystone_1_v2", 
+				[121] = "eternal_notable_frenzy_1", 
+				[122] = "eternal_notable_power_3", 
+				[123] = "eternal_keystone_3", 
+				[124] = "vaal_notable_block_2", 
+				[125] = "maraketh_keystone_3", 
+				[126] = "vaal_notable_physical_damage_3", 
 				[127] = "eternal_notable_shock_2", 
-				[128] = "eternal_notable_block_2", 
-				[129] = "eternal_notable_power_1", 
-				[130] = "vaal_small_area_damage", 
-				[131] = "eternal_notable_dodge_1", 
-				[132] = "vaal_notable_fire_damage_1", 
-				[133] = "templar_notable_fire_conversion", 
-				[134] = "templar_notable_lightning_conversion", 
-				[135] = "vaal_keystone_2", 
-				[136] = "eternal_notable_spell_1", 
-				[137] = "vaal_small_projectile_damage", 
-				[138] = "vaal_small_cold_resistance", 
-				[139] = "vaal_small_spell_dodge", 
-				[140] = "templar_notable_minimum_endurance_charge", 
-				[141] = "eternal_small_blank", 
-				[142] = "vaal_notable_physical_damage_2", 
-				[143] = "templar_notable_cold_exposure", 
-				[144] = "maraketh_keystone_3", 
-				[145] = "templar_notable_consecrated_ground_ailments", 
-				[146] = "karui_keystone_2", 
-				[147] = "vaal_small_life", 
-				[148] = "vaal_notable_physical_damage_1", 
-				[149] = "vaal_keystone_1", 
-				[150] = "eternal_notable_shock_1", 
+				[128] = "templar_notable_additional_physical_reduction", 
+				[129] = "templar_notable_cold_exposure", 
+				[130] = "vaal_notable_cold_damage_3", 
+				[131] = "vaal_small_curse_effect", 
+				[132] = "vaal_small_area_damage", 
+				[133] = "eternal_notable_block_2", 
+				[134] = "eternal_notable_power_1", 
+				[135] = "maraketh_keystone_1_v2", 
+				[136] = "eternal_notable_dodge_1", 
+				[137] = "vaal_notable_fire_damage_1", 
+				[138] = "templar_devotion_node", 
+				[139] = "vaal_keystone_2", 
+				[140] = "vaal_small_evasion", 
+				[141] = "eternal_notable_chill_1", 
+				[142] = "vaal_small_projectile_damage", 
+				[143] = "templar_notable_lightning_conversion", 
+				[144] = "templar_notable_lightning_exposure", 
+				[145] = "vaal_notable_spell_damage_1", 
+				[146] = "templar_notable_fire_exposure", 
+				[147] = "vaal_notable_physical_damage_2", 
+				[148] = "vaal_small_life", 
+				[149] = "eternal_keystone_3_v2", 
+				[150] = "templar_notable_consecrated_ground_ailments", 
+				[151] = "karui_keystone_2", 
+				[152] = "vaal_notable_physical_damage_1", 
+				[153] = "vaal_small_spell_dodge", 
+				[154] = "vaal_notable_dodge_2", 
+				[155] = "eternal_notable_shock_1", 
 			}, 
 			["oo"] = {
 			}, 
@@ -169,8 +174,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Cold Damage", 
-				[2] = "0.2% of Cold Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Frost", 
@@ -184,14 +187,12 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 				["base_life_leech_from_cold_damage_permyriad"] = {
-					["max"] = 0.2, 
-					["min"] = 0.2, 
-					["fmt"] = "g", 
+					["min"] = 20, 
+					["max"] = 20, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -245,7 +246,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Lightning Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Lightning Damage", 
@@ -259,9 +259,8 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -280,7 +279,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-6)% chance to Ignite", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ignite Chance", 
@@ -294,9 +292,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_ignite_%"] = {
-					["max"] = 6, 
 					["min"] = 3, 
-					["fmt"] = "d", 
+					["max"] = 6, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -342,7 +339,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 9, 
+			["oidx"] = 12, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_fire_damage_2"] = {
@@ -351,8 +348,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Fire Damage", 
-				[2] = "0.2% of Fire Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Flames", 
@@ -366,14 +361,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_life_leech_from_fire_damage_permyriad"] = {
-					["max"] = 0.2, 
-					["min"] = 0.2, 
-					["fmt"] = "g", 
+					["min"] = 20, 
+					["max"] = 20, 
 				}, 
 				["fire_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -392,7 +385,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-4)% increased Attack Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Attack Speed", 
@@ -406,9 +398,8 @@ return {
 			}, 
 			["stats"] = {
 				["attack_speed_+%"] = {
-					["max"] = 4, 
 					["min"] = 3, 
-					["fmt"] = "d", 
+					["max"] = 4, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -427,7 +418,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "80% increased Fire Damage with Attack Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Night of a Thousand Ribbons", 
@@ -441,9 +431,8 @@ return {
 			}, 
 			["stats"] = {
 				["fire_damage_with_attack_skills_+%"] = {
-					["max"] = 80, 
 					["min"] = 80, 
-					["fmt"] = "d", 
+					["max"] = 80, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -462,7 +451,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Armour", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Armour", 
@@ -476,9 +464,8 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -524,7 +511,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 36, 
+			["oidx"] = 48, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_minion_1"] = {
@@ -533,7 +520,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "Minions deal 80% increased Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Slum Lord", 
@@ -547,9 +533,8 @@ return {
 			}, 
 			["stats"] = {
 				["minion_damage_+%"] = {
-					["max"] = 80, 
 					["min"] = 80, 
-					["fmt"] = "d", 
+					["max"] = 80, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -568,7 +553,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Attack Damage", 
@@ -582,9 +566,8 @@ return {
 			}, 
 			["stats"] = {
 				["attack_damage_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -603,7 +586,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-6)% chance to Shock", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Shock Chance", 
@@ -617,9 +599,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_shock_%"] = {
-					["max"] = 6, 
 					["min"] = 3, 
-					["fmt"] = "d", 
+					["max"] = 6, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -638,7 +619,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1 to Minimum Frenzy Charges while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Frenzied Faith", 
@@ -652,9 +632,8 @@ return {
 			}, 
 			["stats"] = {
 				["minimum_frenzy_charges_at_devotion_threshold"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -667,39 +646,41 @@ return {
 			["oidx"] = 22257, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["eternal_notable_minion_2"] = {
-			["id"] = "eternal_notable_minion_2", 
+		["vaal_keystone_1"] = {
+			["id"] = "vaal_keystone_1", 
 			["in"] = {
 			}, 
-			["not"] = true, 
+			["not"] = false, 
 			["sd"] = {
-				[1] = "Minions have 80% increased maximum Life", 
+				[1] = "All Damage taken bypasses Energy Shield", 
+				[2] = "50% of Elemental Damage taken as Chaos Damage", 
+				[3] = "+10% to maximum Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Axiom Warden", 
+			["dn"] = "Divine Flesh", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/DivineFlesh.dds", 
 			["g"] = 1000000000, 
-			["ks"] = false, 
+			["ks"] = true, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["minion_maximum_life_+%"] = {
-					["max"] = 80, 
-					["min"] = 80, 
+				["keystone_divine_flesh"] = {
+					["max"] = 1, 
+					["min"] = 1, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
-			["o"] = 3, 
+			["o"] = 4, 
 			["legion"] = true, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 19927, 
+			["oidx"] = 0, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_curse_1"] = {
@@ -708,8 +689,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(10-15)% increased Effect of your Curses", 
-				[2] = "Curse Skills have 20% increased Skill Effect Duration", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ancient Hex", 
@@ -723,14 +702,12 @@ return {
 			}, 
 			["stats"] = {
 				["curse_effect_+%"] = {
-					["max"] = 15, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 15, 
 				}, 
 				["curse_skill_effect_duration_+%"] = {
-					["max"] = 20, 
 					["min"] = 20, 
-					["fmt"] = "d", 
+					["max"] = 20, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -749,8 +726,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Fire Damage", 
-				[2] = "10% of Physical Damage Converted to Fire Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Flesh to Flames", 
@@ -764,14 +739,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_physical_damage_%_to_convert_to_fire"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 				["fire_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -790,7 +763,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Cold Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cold Damage", 
@@ -804,9 +776,8 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -853,7 +824,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 15, 
+			["oidx"] = 18, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_minimum_frenzy_charge"] = {
@@ -862,7 +833,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1 to Minimum Power Charges while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Powerful Faith", 
@@ -876,9 +846,8 @@ return {
 			}, 
 			["stats"] = {
 				["minimum_power_charges_at_devotion_threshold"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -897,7 +866,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "15% of Physical Damage Converted to Cold Damage while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Calming Devotion", 
@@ -911,9 +879,8 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_%_to_convert_to_cold_at_devotion_threshold"] = {
-					["max"] = 15, 
 					["min"] = 15, 
-					["fmt"] = "d", 
+					["max"] = 15, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -932,8 +899,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Lightning Damage", 
-				[2] = "10% of Physical Damage Converted to Lightning Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Flesh to Lightning", 
@@ -947,14 +912,12 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 				["base_physical_damage_%_to_convert_to_lightning"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -999,7 +962,44 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 33, 
+			["oidx"] = 45, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["karui_keystone_3_v2"] = {
+			["id"] = "karui_keystone_3_v2", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+				[1] = "Regenerate 3 Rage per second", 
+				[2] = "Increases and Reductions to Mana Regeneration Rate instead apply to Rage Regeneration Rate", 
+				[3] = "Lose 5 Rage when you Hit an Enemy, no more than once every 0.3 seconds", 
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Chainbreaker", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FocusedRage.dds", 
+			["g"] = 1000000000, 
+			["ks"] = true, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["keystone_focused_rage"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 4, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 21, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_lightning_attack_1"] = {
@@ -1008,7 +1008,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "80% increased Lightning Damage with Attack Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Chitus' Heart", 
@@ -1022,9 +1021,8 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_with_attack_skills_+%"] = {
-					["max"] = 80, 
 					["min"] = 80, 
-					["fmt"] = "d", 
+					["max"] = 80, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1070,7 +1068,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 6, 
+			["oidx"] = 9, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_spell_block"] = {
@@ -1079,7 +1077,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "1% Chance to Block Spell Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Spell Block", 
@@ -1093,9 +1090,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_spell_block_%"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1114,7 +1110,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1% to all maximum Resistances if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Intolerance of Sin", 
@@ -1128,9 +1123,8 @@ return {
 			}, 
 			["stats"] = {
 				["additional_maximum_all_resistances_%_at_devotion_threshold"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1176,7 +1170,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 27, 
+			["oidx"] = 36, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_rarity_1"] = {
@@ -1185,7 +1179,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "40% increased Rarity of Items found", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Discerning Taste", 
@@ -1199,9 +1192,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_item_found_rarity_+%"] = {
-					["max"] = 40, 
 					["min"] = 40, 
-					["fmt"] = "d", 
+					["max"] = 40, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1220,7 +1212,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Minions deal (8-13)% increased Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Minion Damage", 
@@ -1234,9 +1225,8 @@ return {
 			}, 
 			["stats"] = {
 				["minion_damage_+%"] = {
-					["max"] = 13, 
 					["min"] = 8, 
-					["fmt"] = "d", 
+					["max"] = 13, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1255,7 +1245,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "50% chance to Avoid being Chilled", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Rites of Solaris", 
@@ -1269,9 +1258,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_avoid_chill_%"] = {
-					["max"] = 50, 
 					["min"] = 50, 
-					["fmt"] = "d", 
+					["max"] = 50, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1290,7 +1278,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "80% increased Evasion Rating", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Shadowy Streets", 
@@ -1304,9 +1291,8 @@ return {
 			}, 
 			["stats"] = {
 				["evasion_rating_+%"] = {
-					["max"] = 80, 
 					["min"] = 80, 
-					["fmt"] = "d", 
+					["max"] = 80, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1325,7 +1311,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(4-6)% increased maximum Mana", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Mana", 
@@ -1339,9 +1324,8 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_mana_+%"] = {
-					["max"] = 6, 
 					["min"] = 4, 
-					["fmt"] = "d", 
+					["max"] = 6, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1354,35 +1338,27 @@ return {
 			["oidx"] = 18201, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_notable_spell_damage_1"] = {
-			["id"] = "vaal_notable_spell_damage_1", 
+		["templar_notable_minimum_endurance_charge"] = {
+			["id"] = "templar_notable_minimum_endurance_charge", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Spell Damage", 
-				[2] = "(35-50)% increased Critical Strike Chance for Spells", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Thaumaturgical Aptitude", 
+			["dn"] = "Enduring Faith", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
 			["g"] = 1000000000, 
 			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["spell_damage_+%"] = {
-					["max"] = 35, 
-					["min"] = 25, 
-					["fmt"] = "d", 
-				}, 
-				["spell_critical_strike_chance_+%"] = {
-					["max"] = 50, 
-					["min"] = 35, 
-					["fmt"] = "d", 
+				["minimum_endurance_charges_at_devotion_threshold"] = {
+					["min"] = 1, 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1392,7 +1368,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 50654, 
+			["oidx"] = 17606, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_block_1"] = {
@@ -1401,7 +1377,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+8% Chance to Block Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "City Walls", 
@@ -1415,9 +1390,8 @@ return {
 			}, 
 			["stats"] = {
 				["additional_block_%"] = {
-					["max"] = 8, 
 					["min"] = 8, 
-					["fmt"] = "d", 
+					["max"] = 8, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1436,8 +1410,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(8-12)% increased maximum Energy Shield", 
-				[2] = "0.3% of Spell Damage Leeched as Energy Shield", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Soul Worship", 
@@ -1451,14 +1423,12 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_energy_shield_+%"] = {
-					["max"] = 12, 
 					["min"] = 8, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 				["base_energy_shield_leech_from_spell_damage_permyriad"] = {
-					["max"] = 0.3, 
-					["min"] = 0.3, 
-					["fmt"] = "g", 
+					["min"] = 30, 
+					["max"] = 30, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1477,7 +1447,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+50% to Fire Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Crematorium Worker", 
@@ -1491,9 +1460,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_fire_damage_resistance_%"] = {
-					["max"] = 50, 
 					["min"] = 50, 
-					["fmt"] = "d", 
+					["max"] = 50, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1539,7 +1507,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 30, 
+			["oidx"] = 42, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_critical_strike_multiplier"] = {
@@ -1583,8 +1551,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Damage over Time", 
-				[2] = "(7-11)% increased Skill Effect Duration", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Exquisite Pain", 
@@ -1598,14 +1564,12 @@ return {
 			}, 
 			["stats"] = {
 				["damage_over_time_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 				["skill_effect_duration_+%"] = {
-					["max"] = 11, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 11, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1618,29 +1582,31 @@ return {
 			["oidx"] = 13953, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["eternal_notable_aura_1"] = {
-			["id"] = "eternal_notable_aura_1", 
+		["vaal_notable_block_1"] = {
+			["id"] = "vaal_notable_block_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "15% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Superiority", 
+			["dn"] = "Blood-Quenched Bulwark", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
 			["g"] = 1000000000, 
 			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["non_curse_aura_effect_+%"] = {
-					["max"] = 15, 
-					["min"] = 15, 
-					["fmt"] = "d", 
+				["additional_block_%"] = {
+					["min"] = 5, 
+					["max"] = 5, 
+				}, 
+				["life_gained_on_block"] = {
+					["min"] = 6, 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1650,7 +1616,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 65124, 
+			["oidx"] = 5394, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_crit_2"] = {
@@ -1694,7 +1660,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "Gain an Endurance Charge every second if you've been Hit Recently", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Resilience", 
@@ -1708,9 +1673,8 @@ return {
 			}, 
 			["stats"] = {
 				["gain_endurance_charge_per_second_if_have_been_hit_recently"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1729,8 +1693,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1% to maximum Fire Resistance", 
-				[2] = "+(20-30)% to Fire Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Fire", 
@@ -1744,14 +1706,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_maximum_fire_damage_resistance_%"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 				["base_fire_damage_resistance_%"] = {
-					["max"] = 30, 
 					["min"] = 20, 
-					["fmt"] = "d", 
+					["max"] = 30, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1770,7 +1730,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(2-3)% increased Cast Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cast Speed", 
@@ -1784,9 +1743,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_cast_speed_+%"] = {
-					["max"] = 3, 
 					["min"] = 2, 
-					["fmt"] = "d", 
+					["max"] = 3, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1805,8 +1763,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(8-10)% chance to Avoid being Stunned", 
-				[2] = "4% chance to Dodge Attack Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Jungle Paths", 
@@ -1820,14 +1776,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_%"] = {
-					["max"] = 4, 
 					["min"] = 4, 
-					["fmt"] = "d", 
+					["max"] = 4, 
 				}, 
 				["base_avoid_stun_%"] = {
-					["max"] = 10, 
 					["min"] = 8, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1874,7 +1828,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 18, 
+			["oidx"] = 24, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_fire_resistance"] = {
@@ -1883,7 +1837,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "+(9-14)% to Fire Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Fire Resistance", 
@@ -1897,9 +1850,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_fire_damage_resistance_%"] = {
-					["max"] = 14, 
 					["min"] = 9, 
-					["fmt"] = "d", 
+					["max"] = 14, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1918,7 +1870,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+50% to Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Baleful Augmentation", 
@@ -1932,9 +1883,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_lightning_damage_resistance_%"] = {
-					["max"] = 50, 
 					["min"] = 50, 
-					["fmt"] = "d", 
+					["max"] = 50, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1953,7 +1903,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-6)% chance to Freeze", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Freeze Chance", 
@@ -1967,9 +1916,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_freeze_%"] = {
-					["max"] = 6, 
 					["min"] = 3, 
-					["fmt"] = "d", 
+					["max"] = 6, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1988,8 +1936,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(6-10)% increased maximum Life", 
-				[2] = "Regenerate (0.7-1.2)% of Life per second", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Flesh", 
@@ -2003,14 +1949,12 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_life_+%"] = {
-					["max"] = 10, 
 					["min"] = 6, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 				["life_regeneration_rate_per_minute_%"] = {
-					["max"] = 1.2, 
-					["min"] = 0.7, 
-					["fmt"] = "g", 
+					["min"] = 42, 
+					["max"] = 72, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2029,7 +1973,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "Gain Arcane Surge on Hit with Spells if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Zealot", 
@@ -2043,9 +1986,8 @@ return {
 			}, 
 			["stats"] = {
 				["gain_arcane_surge_on_hit_at_devotion_threshold"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2064,7 +2006,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "Gain 5% of Maximum Mana as Extra Maximum Energy Shield while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Thoughts and Prayers", 
@@ -2078,9 +2019,8 @@ return {
 			}, 
 			["stats"] = {
 				["mana_%_to_add_as_energy_shield_at_devotion_threshold"] = {
-					["max"] = 5, 
 					["min"] = 5, 
-					["fmt"] = "d", 
+					["max"] = 5, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2099,7 +2039,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "10% increased Damage per Endurance Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Dominance", 
@@ -2113,9 +2052,8 @@ return {
 			}, 
 			["stats"] = {
 				["damage_+%_per_endurance_charge"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2134,7 +2072,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "8% increased Armour per Endurance Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Fortitude", 
@@ -2148,9 +2085,8 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%_per_endurance_charge"] = {
-					["max"] = 8, 
 					["min"] = 8, 
-					["fmt"] = "d", 
+					["max"] = 8, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2169,7 +2105,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(2-3)% increased Movement Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Movement Speed", 
@@ -2183,9 +2118,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_movement_velocity_+%"] = {
-					["max"] = 3, 
 					["min"] = 2, 
-					["fmt"] = "d", 
+					["max"] = 3, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2204,8 +2138,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Lightning Damage", 
-				[2] = "0.2% of Lightning Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Lightning", 
@@ -2219,14 +2151,12 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 				["base_life_leech_from_lightning_damage_permyriad"] = {
-					["max"] = 0.2, 
-					["min"] = 0.2, 
-					["fmt"] = "g", 
+					["min"] = 20, 
+					["max"] = 20, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2245,7 +2175,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "1% chance to Dodge Attack Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Attack Dodge", 
@@ -2259,9 +2188,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_%"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2280,8 +2208,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Lightning Damage", 
-				[2] = "Damage Penetrates (2-4)% Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Thunder", 
@@ -2295,14 +2221,12 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 				["base_reduce_enemy_lightning_resistance_%"] = {
-					["max"] = 4, 
 					["min"] = 2, 
-					["fmt"] = "d", 
+					["max"] = 4, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2321,7 +2245,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+50% to Cold Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Street Urchin", 
@@ -2335,9 +2258,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_cold_damage_resistance_%"] = {
-					["max"] = 50, 
 					["min"] = 50, 
-					["fmt"] = "d", 
+					["max"] = 50, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2356,7 +2278,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "4% increased Energy Shield per Power Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Separation", 
@@ -2370,9 +2291,8 @@ return {
 			}, 
 			["stats"] = {
 				["energy_shield_+%_per_power_charge"] = {
-					["max"] = 4, 
 					["min"] = 4, 
-					["fmt"] = "d", 
+					["max"] = 4, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2420,7 +2340,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "6% chance to Dodge Spell Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Purity Rebel", 
@@ -2434,9 +2353,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_spells_%"] = {
-					["max"] = 6, 
 					["min"] = 6, 
-					["fmt"] = "d", 
+					["max"] = 6, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2455,7 +2373,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "30% increased maximum Mana", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Pooled Resources", 
@@ -2469,9 +2386,8 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_mana_+%"] = {
-					["max"] = 30, 
 					["min"] = 30, 
-					["fmt"] = "d", 
+					["max"] = 30, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2525,8 +2441,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1% to maximum Cold Resistance", 
-				[2] = "+(20-30)% to Cold Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Ice", 
@@ -2540,14 +2454,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_cold_damage_resistance_%"] = {
-					["max"] = 30, 
 					["min"] = 20, 
-					["fmt"] = "d", 
+					["max"] = 30, 
 				}, 
 				["base_maximum_cold_damage_resistance_%"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2595,7 +2507,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 21, 
+			["oidx"] = 30, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_random_offense"] = {
@@ -2633,8 +2545,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(6-10)% increased maximum Life", 
-				[2] = "0.4% of Attack Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Flesh Worship", 
@@ -2648,14 +2558,12 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_life_+%"] = {
-					["max"] = 10, 
 					["min"] = 6, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 				["base_life_leech_from_attack_damage_permyriad"] = {
-					["max"] = 0.4, 
-					["min"] = 0.4, 
-					["fmt"] = "g", 
+					["min"] = 40, 
+					["max"] = 40, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2674,7 +2582,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-5)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Aura Effect", 
@@ -2688,9 +2595,8 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["max"] = 5, 
 					["min"] = 3, 
-					["fmt"] = "d", 
+					["max"] = 5, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2709,7 +2615,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(4-7)% increased Skill Effect Duration", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Skill Duration", 
@@ -2723,9 +2628,8 @@ return {
 			}, 
 			["stats"] = {
 				["skill_effect_duration_+%"] = {
-					["max"] = 7, 
 					["min"] = 4, 
-					["fmt"] = "d", 
+					["max"] = 7, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2744,8 +2648,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1% to maximum Lightning Resistance", 
-				[2] = "+(20-30)% to Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Lightning", 
@@ -2759,14 +2661,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_maximum_lightning_damage_resistance_%"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 				["base_lightning_damage_resistance_%"] = {
-					["max"] = 30, 
 					["min"] = 20, 
-					["fmt"] = "d", 
+					["max"] = 30, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2785,8 +2685,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Chaos Damage", 
-				[2] = "0.2% of Chaos Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Darkness", 
@@ -2800,14 +2698,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_life_leech_from_chaos_damage_permyriad"] = {
-					["max"] = 0.2, 
-					["min"] = 0.2, 
-					["fmt"] = "g", 
+					["min"] = 20, 
+					["max"] = 20, 
 				}, 
 				["chaos_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2826,8 +2722,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "50% increased Damage with Bleeding", 
-				[2] = "Bleeding you inflict deals Damage 10% faster", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Geofri's End", 
@@ -2841,14 +2735,12 @@ return {
 			}, 
 			["stats"] = {
 				["bleeding_damage_+%"] = {
-					["max"] = 50, 
 					["min"] = 50, 
-					["fmt"] = "d", 
+					["max"] = 50, 
 				}, 
 				["faster_bleed_%"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2867,7 +2759,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "+(9-14)% to Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Lightning Resistance", 
@@ -2881,9 +2772,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_lightning_damage_resistance_%"] = {
-					["max"] = 14, 
 					["min"] = 9, 
-					["fmt"] = "d", 
+					["max"] = 14, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2902,8 +2792,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Chaos Damage", 
-				[2] = "25% chance to inflict Withered for 2 seconds on Hit", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Shadows", 
@@ -2917,14 +2805,12 @@ return {
 			}, 
 			["stats"] = {
 				["withered_on_hit_for_2_seconds_%_chance"] = {
-					["max"] = 25, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 25, 
 				}, 
 				["chaos_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2943,7 +2829,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "+(6-10)% to Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Chaos Resistance", 
@@ -2957,9 +2842,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
-					["max"] = 10, 
 					["min"] = 6, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2978,7 +2862,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Projectile Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Projectile Speed", 
@@ -2992,9 +2875,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_projectile_speed_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3007,13 +2889,45 @@ return {
 			["oidx"] = 97416, 
 			["isMultipleChoice"] = false, 
 		}, 
+		["eternal_notable_flask_duration_1"] = {
+			["id"] = "eternal_notable_flask_duration_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Freshly Brewed", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["flask_duration_+%"] = {
+					["min"] = 20, 
+					["max"] = 20, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 66099, 
+			["isMultipleChoice"] = false, 
+		}, 
 		["vaal_small_chaos_damage"] = {
 			["id"] = "vaal_small_chaos_damage", 
 			["in"] = {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Chaos Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Chaos Damage", 
@@ -3027,9 +2941,8 @@ return {
 			}, 
 			["stats"] = {
 				["chaos_damage_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3042,14 +2955,45 @@ return {
 			["oidx"] = 8097, 
 			["isMultipleChoice"] = false, 
 		}, 
+		["eternal_notable_aura_1"] = {
+			["id"] = "eternal_notable_aura_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Superiority", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["non_curse_aura_effect_+%"] = {
+					["min"] = 15, 
+					["max"] = 15, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 65124, 
+			["isMultipleChoice"] = false, 
+		}, 
 		["vaal_notable_aura_1"] = {
 			["id"] = "vaal_notable_aura_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "20% increased Area of Effect of Aura Skills", 
-				[2] = "(10-15)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Commanding Presence", 
@@ -3063,14 +3007,12 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["max"] = 15, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 15, 
 				}, 
 				["base_aura_area_of_effect_+%"] = {
-					["max"] = 20, 
 					["min"] = 20, 
-					["fmt"] = "d", 
+					["max"] = 20, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3089,7 +3031,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Damage over Time", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Damage Over Time", 
@@ -3103,9 +3044,8 @@ return {
 			}, 
 			["stats"] = {
 				["damage_over_time_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3118,83 +3058,12 @@ return {
 			["oidx"] = 11446, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["eternal_notable_flask_duration_1"] = {
-			["id"] = "eternal_notable_flask_duration_1", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "20% increased Flask Effect Duration", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Freshly Brewed", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["flask_duration_+%"] = {
-					["max"] = 20, 
-					["min"] = 20, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 66099, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["eternal_notable_cold_attack_1"] = {
-			["id"] = "eternal_notable_cold_attack_1", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "80% increased Cold Damage with Attack Skills", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Bloody Flowers Rebellion", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["cold_damage_with_attack_skills_+%"] = {
-					["max"] = 80, 
-					["min"] = 80, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 67225, 
-			["isMultipleChoice"] = false, 
-		}, 
 		["eternal_notable_mana_regen_1"] = {
 			["id"] = "eternal_notable_mana_regen_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "50% increased Mana Regeneration Rate", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Laureate", 
@@ -3208,9 +3077,8 @@ return {
 			}, 
 			["stats"] = {
 				["mana_regeneration_rate_+%"] = {
-					["max"] = 50, 
 					["min"] = 50, 
-					["fmt"] = "d", 
+					["max"] = 50, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3229,7 +3097,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "10% increased maximum Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Robust Diet", 
@@ -3243,9 +3110,8 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_life_+%"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3264,7 +3130,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+37% to Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "With Eyes Open", 
@@ -3278,9 +3143,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
-					["max"] = 37, 
 					["min"] = 37, 
-					["fmt"] = "d", 
+					["max"] = 37, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3299,7 +3163,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "80% increased Armour", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Gleaming Legion", 
@@ -3313,9 +3176,8 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%"] = {
-					["max"] = 80, 
 					["min"] = 80, 
-					["fmt"] = "d", 
+					["max"] = 80, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3334,7 +3196,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "15% increased Cast Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Dialla's Wit", 
@@ -3348,9 +3209,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_cast_speed_+%"] = {
-					["max"] = 15, 
 					["min"] = 15, 
-					["fmt"] = "d", 
+					["max"] = 15, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3369,7 +3229,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "15% increased Attack Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Voll's Coup", 
@@ -3383,9 +3242,8 @@ return {
 			}, 
 			["stats"] = {
 				["attack_speed_+%"] = {
-					["max"] = 15, 
 					["min"] = 15, 
-					["fmt"] = "d", 
+					["max"] = 15, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3404,7 +3262,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "80% increased Projectile Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Lioneye's Focus", 
@@ -3418,9 +3275,8 @@ return {
 			}, 
 			["stats"] = {
 				["projectile_attack_damage_+%"] = {
-					["max"] = 80, 
 					["min"] = 80, 
-					["fmt"] = "d", 
+					["max"] = 80, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3433,48 +3289,12 @@ return {
 			["oidx"] = 94297, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_small_fire_damage"] = {
-			["id"] = "vaal_small_fire_damage", 
-			["in"] = {
-			}, 
-			["not"] = false, 
-			["sd"] = {
-				[1] = "(7-12)% increased Fire Damage", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Fire Damage", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalOffensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["fire_damage_+%"] = {
-					["max"] = 12, 
-					["min"] = 7, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 79420, 
-			["isMultipleChoice"] = false, 
-		}, 
 		["eternal_notable_physical_damage_2"] = {
 			["id"] = "eternal_notable_physical_damage_2", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "80% increased Melee Physical Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Rigwald's Might", 
@@ -3488,9 +3308,8 @@ return {
 			}, 
 			["stats"] = {
 				["melee_physical_damage_+%"] = {
-					["max"] = 80, 
 					["min"] = 80, 
-					["fmt"] = "d", 
+					["max"] = 80, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3538,13 +3357,177 @@ return {
 			["oidx"] = 98014, 
 			["isMultipleChoice"] = false, 
 		}, 
+		["eternal_notable_cold_attack_1"] = {
+			["id"] = "eternal_notable_cold_attack_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Bloody Flowers' Rebellion", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["cold_damage_with_attack_skills_+%"] = {
+					["min"] = 80, 
+					["max"] = 80, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 67225, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_spell_2"] = {
+			["id"] = "eternal_notable_spell_2", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Gemling Ambush", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["spell_critical_strike_chance_+%"] = {
+					["min"] = 80, 
+					["max"] = 80, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 68382, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_small_fire_damage"] = {
+			["id"] = "vaal_small_fire_damage", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Fire Damage", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalOffensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["fire_damage_+%"] = {
+					["min"] = 7, 
+					["max"] = 12, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 79420, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_spell_1"] = {
+			["id"] = "eternal_notable_spell_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Gemling Inquisition", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["spell_damage_+%"] = {
+					["min"] = 80, 
+					["max"] = 80, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 80563, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_minion_2"] = {
+			["id"] = "eternal_notable_minion_2", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Axiom Warden", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["minion_maximum_life_+%"] = {
+					["min"] = 80, 
+					["max"] = 80, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 19927, 
+			["isMultipleChoice"] = false, 
+		}, 
 		["eternal_notable_frenzy_2"] = {
 			["id"] = "eternal_notable_frenzy_2", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "8% increased Evasion Rating per Frenzy Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Adaptiveness", 
@@ -3558,9 +3541,8 @@ return {
 			}, 
 			["stats"] = {
 				["evasion_rating_+%_per_frenzy_charge"] = {
-					["max"] = 8, 
 					["min"] = 8, 
-					["fmt"] = "d", 
+					["max"] = 8, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3579,7 +3561,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "25% increased Global Accuracy Rating", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "War Games", 
@@ -3593,9 +3574,8 @@ return {
 			}, 
 			["stats"] = {
 				["accuracy_rating_+%"] = {
-					["max"] = 25, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 25, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3614,7 +3594,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "10% increased Damage per Frenzy Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Bloodlust", 
@@ -3628,9 +3607,8 @@ return {
 			}, 
 			["stats"] = {
 				["damage_+%_per_frenzy_charge"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3684,7 +3662,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-5)% increased maximum Energy Shield", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Energy Shield", 
@@ -3698,9 +3675,8 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_energy_shield_+%"] = {
-					["max"] = 5, 
 					["min"] = 3, 
-					["fmt"] = "d", 
+					["max"] = 5, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3713,49 +3689,12 @@ return {
 			["oidx"] = 14411, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["eternal_notable_spell_2"] = {
-			["id"] = "eternal_notable_spell_2", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "80% increased Critical Strike Chance for Spells", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Gemling Ambush", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["spell_critical_strike_chance_+%"] = {
-					["max"] = 80, 
-					["min"] = 80, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 68382, 
-			["isMultipleChoice"] = false, 
-		}, 
 		["vaal_notable_minion_damage_1"] = {
 			["id"] = "vaal_notable_minion_damage_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "Minions have (15-20)% increased maximum Life", 
-				[2] = "Minions deal (25-35)% increased Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Hierarchy", 
@@ -3769,14 +3708,12 @@ return {
 			}, 
 			["stats"] = {
 				["minion_maximum_life_+%"] = {
-					["max"] = 20, 
 					["min"] = 15, 
-					["fmt"] = "d", 
+					["max"] = 20, 
 				}, 
 				["minion_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3789,14 +3726,41 @@ return {
 			["oidx"] = 85555, 
 			["isMultipleChoice"] = false, 
 		}, 
+		["eternal_small_blank"] = {
+			["id"] = "eternal_small_blank", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Price of Glory", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireBlank.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 20196, 
+			["isMultipleChoice"] = false, 
+		}, 
 		["vaal_notable_cold_damage_1"] = {
 			["id"] = "vaal_notable_cold_damage_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Cold Damage", 
-				[2] = "Damage Penetrates (2-4)% Cold Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Stillness", 
@@ -3810,14 +3774,12 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_+%"] = {
-					["max"] = 35, 
 					["min"] = 25, 
-					["fmt"] = "d", 
+					["max"] = 35, 
 				}, 
 				["base_reduce_enemy_cold_resistance_%"] = {
-					["max"] = 4, 
 					["min"] = 2, 
-					["fmt"] = "d", 
+					["max"] = 4, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3830,76 +3792,61 @@ return {
 			["oidx"] = 35484, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_notable_armour_1"] = {
-			["id"] = "vaal_notable_armour_1", 
+		["vaal_keystone_2_v2"] = {
+			["id"] = "vaal_keystone_2_v2", 
 			["in"] = {
 			}, 
-			["not"] = true, 
+			["not"] = false, 
 			["sd"] = {
-				[1] = "(30-40)% increased Armour", 
-				[2] = "(3-4)% additional Physical Damage Reduction", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Automaton Studies", 
+			["dn"] = "Immortal Ambition", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/SoulTetherKeystone.dds", 
 			["g"] = 1000000000, 
-			["ks"] = false, 
+			["ks"] = true, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["physical_damage_reduction_rating_+%"] = {
-					["max"] = 40, 
-					["min"] = 30, 
-					["fmt"] = "d", 
-				}, 
-				["base_additional_physical_damage_reduction_%"] = {
-					["max"] = 4, 
-					["min"] = 3, 
+				["keystone_soul_tether"] = {
+					["max"] = 1, 
+					["min"] = 1, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
-			["o"] = 3, 
+			["o"] = 4, 
 			["legion"] = true, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 69557, 
+			["oidx"] = 6, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_notable_energy_shield_1"] = {
-			["id"] = "vaal_notable_energy_shield_1", 
+		["templar_notable_fire_conversion"] = {
+			["id"] = "templar_notable_fire_conversion", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(8-12)% increased maximum Energy Shield", 
-				[2] = "(10-15)% increased Energy Shield Recharge Rate", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Energy Flow Studies", 
+			["dn"] = "Heated Devotion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
 			["g"] = 1000000000, 
 			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["maximum_energy_shield_+%"] = {
-					["max"] = 12, 
-					["min"] = 8, 
-					["fmt"] = "d", 
-				}, 
-				["energy_shield_recharge_rate_+%"] = {
+				["physical_damage_%_to_convert_to_fire_at_devotion_threshold"] = {
+					["min"] = 15, 
 					["max"] = 15, 
-					["min"] = 10, 
-					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3909,7 +3856,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 83885, 
+			["oidx"] = 36277, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_keystone_2"] = {
@@ -3946,32 +3893,34 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 39, 
+			["oidx"] = 51, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_small_evasion"] = {
-			["id"] = "vaal_small_evasion", 
+		["vaal_notable_armour_1"] = {
+			["id"] = "vaal_notable_armour_1", 
 			["in"] = {
 			}, 
-			["not"] = false, 
+			["not"] = true, 
 			["sd"] = {
-				[1] = "(7-12)% increased Evasion Rating", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Evasion", 
+			["dn"] = "Automaton Studies", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
 			["g"] = 1000000000, 
 			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["evasion_rating_+%"] = {
-					["max"] = 12, 
-					["min"] = 7, 
-					["fmt"] = "d", 
+				["physical_damage_reduction_rating_+%"] = {
+					["min"] = 30, 
+					["max"] = 40, 
+				}, 
+				["base_additional_physical_damage_reduction_%"] = {
+					["min"] = 3, 
+					["max"] = 4, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3981,7 +3930,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 59672, 
+			["oidx"] = 69557, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_attack_block"] = {
@@ -3990,7 +3939,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "+1% Chance to Block Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Block", 
@@ -4004,9 +3952,8 @@ return {
 			}, 
 			["stats"] = {
 				["additional_block_%"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4019,48 +3966,12 @@ return {
 			["oidx"] = 82991, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["templar_notable_lightning_exposure"] = {
-			["id"] = "templar_notable_lightning_exposure", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "10% chance to inflict Lightning Exposure on Hit if you have at least 150 Devotion", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Smite the Heretical", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["inflict_lightning_exposure_on_hit_%_chance_at_devotion_threshold"] = {
-					["max"] = 10, 
-					["min"] = 10, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 28525, 
-			["isMultipleChoice"] = false, 
-		}, 
 		["vaal_small_area_of_effect"] = {
 			["id"] = "vaal_small_area_of_effect", 
 			["in"] = {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(4-7)% increased Area of Effect", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Area of Effect", 
@@ -4074,9 +3985,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_skill_area_of_effect_+%"] = {
-					["max"] = 7, 
 					["min"] = 4, 
-					["fmt"] = "d", 
+					["max"] = 7, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4089,14 +3999,46 @@ return {
 			["oidx"] = 5489, 
 			["isMultipleChoice"] = false, 
 		}, 
+		["vaal_small_cold_resistance"] = {
+			["id"] = "vaal_small_cold_resistance", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Cold Resistance", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["base_cold_damage_resistance_%"] = {
+					["min"] = 9, 
+					["max"] = 14, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 82675, 
+			["isMultipleChoice"] = false, 
+		}, 
 		["vaal_notable_evasion_1"] = {
 			["id"] = "vaal_notable_evasion_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(30-40)% increased Evasion Rating", 
-				[2] = "(5-7)% chance to Blind Enemies on Hit", 
+				[1] = "(5-7)% chance to Blind Enemies on Hit", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Construct Studies", 
@@ -4115,9 +4057,8 @@ return {
 					["fmt"] = "d", 
 				}, 
 				["evasion_rating_+%"] = {
-					["max"] = 40, 
 					["min"] = 30, 
-					["fmt"] = "d", 
+					["max"] = 40, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4130,48 +4071,12 @@ return {
 			["oidx"] = 64898, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["eternal_notable_chill_1"] = {
-			["id"] = "eternal_notable_chill_1", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "30% increased Effect of Chill", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Rites of Lunaris", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["chill_effect_+%"] = {
-					["max"] = 30, 
-					["min"] = 30, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 68329, 
-			["isMultipleChoice"] = false, 
-		}, 
 		["vaal_small_mana_regeneration"] = {
 			["id"] = "vaal_small_mana_regeneration", 
 			["in"] = {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(12-17)% increased Mana Regeneration Rate", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Mana Regeneration", 
@@ -4185,9 +4090,8 @@ return {
 			}, 
 			["stats"] = {
 				["mana_regeneration_rate_+%"] = {
-					["max"] = 17, 
 					["min"] = 12, 
-					["fmt"] = "d", 
+					["max"] = 17, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4200,13 +4104,49 @@ return {
 			["oidx"] = 65999, 
 			["isMultipleChoice"] = false, 
 		}, 
+		["vaal_notable_mana_1"] = {
+			["id"] = "vaal_notable_mana_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Ritual of Memory", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["maximum_mana_+%"] = {
+					["min"] = 17, 
+					["max"] = 23, 
+				}, 
+				["mana_regeneration_rate_+%"] = {
+					["min"] = 15, 
+					["max"] = 25, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 76549, 
+			["isMultipleChoice"] = false, 
+		}, 
 		["vaal_small_spell_damage"] = {
 			["id"] = "vaal_small_spell_damage", 
 			["in"] = {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Spell Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Spell Damage", 
@@ -4220,9 +4160,8 @@ return {
 			}, 
 			["stats"] = {
 				["spell_damage_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4241,8 +4180,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1% to maximum Chaos Resistance", 
-				[2] = "+(13-19)% to Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Chaos", 
@@ -4256,14 +4193,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
-					["max"] = 19, 
 					["min"] = 13, 
-					["fmt"] = "d", 
+					["max"] = 19, 
 				}, 
 				["base_maximum_chaos_damage_resistance_%"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4276,17 +4211,15 @@ return {
 			["oidx"] = 95624, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_notable_mana_1"] = {
-			["id"] = "vaal_notable_mana_1", 
+		["vaal_notable_energy_shield_1"] = {
+			["id"] = "vaal_notable_energy_shield_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(17-23)% increased maximum Mana", 
-				[2] = "(15-25)% increased Mana Regeneration Rate", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Ritual of Memory", 
+			["dn"] = "Energy Flow Studies", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
@@ -4296,15 +4229,13 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["maximum_mana_+%"] = {
-					["max"] = 23, 
-					["min"] = 17, 
-					["fmt"] = "d", 
+				["maximum_energy_shield_+%"] = {
+					["min"] = 8, 
+					["max"] = 12, 
 				}, 
-				["mana_regeneration_rate_+%"] = {
-					["max"] = 25, 
-					["min"] = 15, 
-					["fmt"] = "d", 
+				["energy_shield_recharge_rate_+%"] = {
+					["min"] = 10, 
+					["max"] = 15, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4314,48 +4245,43 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 76549, 
+			["oidx"] = 83885, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_notable_block_1"] = {
-			["id"] = "vaal_notable_block_1", 
+		["templar_keystone_1_v2"] = {
+			["id"] = "templar_keystone_1_v2", 
 			["in"] = {
 			}, 
-			["not"] = true, 
+			["not"] = false, 
 			["sd"] = {
-				[1] = "+(6-10) Life gained when you Block", 
-				[2] = "+5% Chance to Block Attack Damage", 
+				[1] = "Armour applies to Fire, Cold and Lightning Damage taken from Hits instead of Physical Damage", 
+				[2] = "-5% to all maximum Elemental Resistances", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Blood-Quenched Bulwark", 
+			["dn"] = "Transcendence", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/TranscendenceKeystone.dds", 
 			["g"] = 1000000000, 
-			["ks"] = false, 
+			["ks"] = true, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["additional_block_%"] = {
-					["max"] = 5, 
-					["min"] = 5, 
-					["fmt"] = "d", 
-				}, 
-				["life_gained_on_block"] = {
-					["max"] = 10, 
-					["min"] = 6, 
+				["keystone_prismatic_bulwark"] = {
+					["max"] = 1, 
+					["min"] = 1, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
-			["o"] = 3, 
+			["o"] = 4, 
 			["legion"] = true, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 5394, 
+			["oidx"] = 39, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_frenzy_1"] = {
@@ -4364,7 +4290,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "10% chance to gain a Frenzy Charge on Hit", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Fervour", 
@@ -4378,9 +4303,8 @@ return {
 			}, 
 			["stats"] = {
 				["add_frenzy_charge_on_skill_hit_%"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4399,7 +4323,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "10% increased Damage per Power Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Exploitation", 
@@ -4413,9 +4336,8 @@ return {
 			}, 
 			["stats"] = {
 				["damage_+%_per_power_charge"] = {
-					["max"] = 10, 
 					["min"] = 10, 
-					["fmt"] = "d", 
+					["max"] = 10, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4434,7 +4356,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "You can only have one Aura with no Duration on you from your Skills", 
+				[1] = "You can only have one Permanent Aura on you from your Skills", 
 				[2] = "Auras from your Skills do not affect Allies", 
 				[3] = "Auras from your Skills have 50% more Effect on you", 
 				[4] = "50% more Mana Reserved", 
@@ -4463,7 +4385,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 42, 
+			["oidx"] = 54, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_block_2"] = {
@@ -4472,8 +4394,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "5% Chance to Block Spell Damage", 
-				[2] = "(20-30)% increased Defences from Equipped Shield", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Thaumaturgical Protection", 
@@ -4487,14 +4407,12 @@ return {
 			}, 
 			["stats"] = {
 				["base_spell_block_%"] = {
-					["max"] = 5, 
 					["min"] = 5, 
-					["fmt"] = "d", 
+					["max"] = 5, 
 				}, 
 				["shield_armour_+%"] = {
-					["max"] = 30, 
 					["min"] = 20, 
-					["fmt"] = "d", 
+					["max"] = 30, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4505,6 +4423,455 @@ return {
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
 			["oidx"] = 76907, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["maraketh_keystone_3"] = {
+			["id"] = "maraketh_keystone_3", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+				[1] = "You are Blind", 
+				[2] = "Blind does not affect your Light Radius", 
+				[3] = "25% more Melee Critical Strike Chance while Blinded", 
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Second Sight", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/TheBlindMonk.dds", 
+			["g"] = 1000000000, 
+			["ks"] = true, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["keystone_blind_monk"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 4, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 33, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_notable_physical_damage_3"] = {
+			["id"] = "vaal_notable_physical_damage_3", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+				[1] = "(25-35)% increased Physical Damage", 
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Bloody Savagery", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["physical_damage_+%"] = {
+					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
+				}, 
+				["faster_bleed_%"] = {
+					["min"] = 10, 
+					["max"] = 10, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 3316, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_shock_2"] = {
+			["id"] = "eternal_notable_shock_2", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Rural Life", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["base_avoid_shock_%"] = {
+					["min"] = 50, 
+					["max"] = 50, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 7265, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["templar_notable_additional_physical_reduction"] = {
+			["id"] = "templar_notable_additional_physical_reduction", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Martyr's Might", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["physical_damage_reduction_%_at_devotion_threshold"] = {
+					["min"] = 5, 
+					["max"] = 5, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 42889, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["templar_notable_cold_exposure"] = {
+			["id"] = "templar_notable_cold_exposure", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Smite the Ignorant", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["inflict_cold_exposure_on_hit_%_chance_at_devotion_threshold"] = {
+					["min"] = 10, 
+					["max"] = 10, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 82503, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_notable_cold_damage_3"] = {
+			["id"] = "vaal_notable_cold_damage_3", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Flesh to Frost", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["cold_damage_+%"] = {
+					["min"] = 25, 
+					["max"] = 35, 
+				}, 
+				["base_physical_damage_%_to_convert_to_cold"] = {
+					["min"] = 10, 
+					["max"] = 10, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 2503, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_small_curse_effect"] = {
+			["id"] = "vaal_small_curse_effect", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Curse Effect", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["curse_effect_+%"] = {
+					["min"] = 3, 
+					["max"] = 5, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 82957, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_small_area_damage"] = {
+			["id"] = "vaal_small_area_damage", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Area Damage", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalOffensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["area_damage_+%"] = {
+					["min"] = 7, 
+					["max"] = 12, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 42668, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_block_2"] = {
+			["id"] = "eternal_notable_block_2", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Sceptre Pinnacle", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["base_spell_block_%"] = {
+					["min"] = 8, 
+					["max"] = 8, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 69709, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_power_1"] = {
+			["id"] = "eternal_notable_power_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Eternal Subjugation", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["add_power_charge_on_critical_strike_%"] = {
+					["min"] = 15, 
+					["max"] = 15, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 38654, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["maraketh_keystone_1_v2"] = {
+			["id"] = "maraketh_keystone_1_v2", 
+			["in"] = {
+			}, 
+			["not"] = false, 
+			["sd"] = {
+				[1] = "Gain 4 Flask Charges per empty Flask Slot every 5 seconds", 
+			}, 
+			["sa"] = 0, 
+			["dn"] = "The Traitor", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/OasisKeystone.dds", 
+			["g"] = 1000000000, 
+			["ks"] = true, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["keystone_oasis"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 4, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 27, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_dodge_1"] = {
+			["id"] = "eternal_notable_dodge_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Secret Tunnels", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["base_chance_to_dodge_%"] = {
+					["min"] = 6, 
+					["max"] = 6, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 54984, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_notable_fire_damage_1"] = {
+			["id"] = "vaal_notable_fire_damage_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Ritual of Immolation", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["base_reduce_enemy_fire_resistance_%"] = {
+					["min"] = 2, 
+					["max"] = 4, 
+				}, 
+				["fire_damage_+%"] = {
+					["min"] = 25, 
+					["max"] = 35, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 92114, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_devotion_node"] = {
@@ -4540,520 +4907,6 @@ return {
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
 			["oidx"] = 6194, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_notable_physical_damage_3"] = {
-			["id"] = "vaal_notable_physical_damage_3", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "Bleeding you inflict deals Damage 10% faster", 
-				[2] = "(25-35)% increased Physical Damage", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Bloody Savagery", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["physical_damage_+%"] = {
-					["max"] = 35, 
-					["min"] = 25, 
-					["fmt"] = "d", 
-				}, 
-				["faster_bleed_%"] = {
-					["max"] = 10, 
-					["min"] = 10, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 3316, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_notable_dodge_2"] = {
-			["id"] = "vaal_notable_dodge_2", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "+(8-10)% to all Elemental Resistances", 
-				[2] = "4% chance to Dodge Spell Hits", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Temple Paths", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["base_resist_all_elements_%"] = {
-					["max"] = 10, 
-					["min"] = 8, 
-					["fmt"] = "d", 
-				}, 
-				["base_chance_to_dodge_spells_%"] = {
-					["max"] = 4, 
-					["min"] = 4, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 95964, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["templar_notable_additional_physical_reduction"] = {
-			["id"] = "templar_notable_additional_physical_reduction", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "5% additional Physical Damage Reduction while you have at least 150 Devotion", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Martyr's Might", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["physical_damage_reduction_%_at_devotion_threshold"] = {
-					["max"] = 5, 
-					["min"] = 5, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 42889, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["templar_notable_fire_exposure"] = {
-			["id"] = "templar_notable_fire_exposure", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "10% chance to inflict Fire Exposure on Hit if you have at least 150 Devotion", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Smite the Wicked", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["inflict_fire_exposure_on_hit_%_chance_at_devotion_threshold"] = {
-					["max"] = 10, 
-					["min"] = 10, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 27127, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_notable_cold_damage_3"] = {
-			["id"] = "vaal_notable_cold_damage_3", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "(25-35)% increased Cold Damage", 
-				[2] = "10% of Physical Damage Converted to Cold Damage", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Flesh to Frost", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["cold_damage_+%"] = {
-					["max"] = 35, 
-					["min"] = 25, 
-					["fmt"] = "d", 
-				}, 
-				["base_physical_damage_%_to_convert_to_cold"] = {
-					["max"] = 10, 
-					["min"] = 10, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 2503, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_small_curse_effect"] = {
-			["id"] = "vaal_small_curse_effect", 
-			["in"] = {
-			}, 
-			["not"] = false, 
-			["sd"] = {
-				[1] = "(3-5)% increased Effect of your Curses", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Curse Effect", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["curse_effect_+%"] = {
-					["max"] = 5, 
-					["min"] = 3, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 82957, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["eternal_notable_shock_2"] = {
-			["id"] = "eternal_notable_shock_2", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "50% chance to Avoid being Shocked", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Rural Life", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["base_avoid_shock_%"] = {
-					["max"] = 50, 
-					["min"] = 50, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 7265, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["eternal_notable_block_2"] = {
-			["id"] = "eternal_notable_block_2", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "8% Chance to Block Spell Damage", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Sceptre Pinnacle", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["base_spell_block_%"] = {
-					["max"] = 8, 
-					["min"] = 8, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 69709, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["eternal_notable_power_1"] = {
-			["id"] = "eternal_notable_power_1", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "15% chance to gain a Power Charge on Critical Strike", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Eternal Subjugation", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["add_power_charge_on_critical_strike_%"] = {
-					["max"] = 15, 
-					["min"] = 15, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 38654, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_small_area_damage"] = {
-			["id"] = "vaal_small_area_damage", 
-			["in"] = {
-			}, 
-			["not"] = false, 
-			["sd"] = {
-				[1] = "(7-12)% increased Area Damage", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Area Damage", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalOffensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["area_damage_+%"] = {
-					["max"] = 12, 
-					["min"] = 7, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 42668, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["eternal_notable_dodge_1"] = {
-			["id"] = "eternal_notable_dodge_1", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "6% chance to Dodge Attack Hits", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Secret Tunnels", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["base_chance_to_dodge_%"] = {
-					["max"] = 6, 
-					["min"] = 6, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 54984, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_notable_fire_damage_1"] = {
-			["id"] = "vaal_notable_fire_damage_1", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "(25-35)% increased Fire Damage", 
-				[2] = "Damage Penetrates (2-4)% Fire Resistance", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Ritual of Immolation", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["base_reduce_enemy_fire_resistance_%"] = {
-					["max"] = 4, 
-					["min"] = 2, 
-					["fmt"] = "d", 
-				}, 
-				["fire_damage_+%"] = {
-					["max"] = 35, 
-					["min"] = 25, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 92114, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["templar_notable_fire_conversion"] = {
-			["id"] = "templar_notable_fire_conversion", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "15% of Physical Damage Converted to Fire Damage while you have at least 150 Devotion", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Heated Devotion", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["physical_damage_%_to_convert_to_fire_at_devotion_threshold"] = {
-					["max"] = 15, 
-					["min"] = 15, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 36277, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["templar_notable_lightning_conversion"] = {
-			["id"] = "templar_notable_lightning_conversion", 
-			["in"] = {
-			}, 
-			["not"] = true, 
-			["sd"] = {
-				[1] = "15% of Physical Damage Converted to Lightning Damage while you have at least 150 Devotion", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Thundrous Devotion", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["physical_damage_%_to_convert_to_lightning_at_devotion_threshold"] = {
-					["max"] = 15, 
-					["min"] = 15, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 94707, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_keystone_2"] = {
@@ -5093,28 +4946,61 @@ return {
 			["oidx"] = 3, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["eternal_notable_spell_1"] = {
-			["id"] = "eternal_notable_spell_1", 
+		["vaal_small_evasion"] = {
+			["id"] = "vaal_small_evasion", 
 			["in"] = {
 			}, 
-			["not"] = true, 
+			["not"] = false, 
 			["sd"] = {
-				[1] = "80% increased Spell Damage", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Gemling Inquisition", 
+			["dn"] = "Evasion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
 			["g"] = 1000000000, 
 			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["spell_damage_+%"] = {
-					["max"] = 80, 
-					["min"] = 80, 
+				["evasion_rating_+%"] = {
+					["min"] = 7, 
+					["max"] = 12, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 59672, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["eternal_notable_chill_1"] = {
+			["id"] = "eternal_notable_chill_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+				[1] = "30% increased Effect of Chill", 
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Rites of Lunaris", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["chill_effect_+%"] = {
+					["max"] = 30, 
+					["min"] = 30, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -5125,7 +5011,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 80563, 
+			["oidx"] = 68329, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_projectile_damage"] = {
@@ -5134,7 +5020,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(7-12)% increased Projectile Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Projectile Damage", 
@@ -5148,9 +5033,8 @@ return {
 			}, 
 			["stats"] = {
 				["projectile_damage_+%"] = {
-					["max"] = 12, 
 					["min"] = 7, 
-					["fmt"] = "d", 
+					["max"] = 12, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5163,86 +5047,15 @@ return {
 			["oidx"] = 56859, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_small_cold_resistance"] = {
-			["id"] = "vaal_small_cold_resistance", 
-			["in"] = {
-			}, 
-			["not"] = false, 
-			["sd"] = {
-				[1] = "+(9-14)% to Cold Resistance", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Cold Resistance", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["base_cold_damage_resistance_%"] = {
-					["max"] = 14, 
-					["min"] = 9, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 82675, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_small_spell_dodge"] = {
-			["id"] = "vaal_small_spell_dodge", 
-			["in"] = {
-			}, 
-			["not"] = false, 
-			["sd"] = {
-				[1] = "1% chance to Dodge Spell Hits", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Spell Dodge", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["base_chance_to_dodge_spells_%"] = {
-					["max"] = 1, 
-					["min"] = 1, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 83640, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["templar_notable_minimum_endurance_charge"] = {
-			["id"] = "templar_notable_minimum_endurance_charge", 
+		["templar_notable_lightning_conversion"] = {
+			["id"] = "templar_notable_lightning_conversion", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+1 to Minimum Endurance Charges while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Enduring Faith", 
+			["dn"] = "Thundrous Devotion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
@@ -5252,10 +5065,9 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["minimum_endurance_charges_at_devotion_threshold"] = {
-					["max"] = 1, 
-					["min"] = 1, 
-					["fmt"] = "d", 
+				["physical_damage_%_to_convert_to_lightning_at_devotion_threshold"] = {
+					["min"] = 15, 
+					["max"] = 15, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5265,27 +5077,31 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 17606, 
+			["oidx"] = 94707, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["eternal_small_blank"] = {
-			["id"] = "eternal_small_blank", 
+		["templar_notable_lightning_exposure"] = {
+			["id"] = "templar_notable_lightning_exposure", 
 			["in"] = {
 			}, 
-			["not"] = false, 
+			["not"] = true, 
 			["sd"] = {
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Price of Glory", 
+			["dn"] = "Smite the Heretical", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/EternalEmpireBlank.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
 			["g"] = 1000000000, 
 			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
+				["inflict_lightning_exposure_on_hit_%_chance_at_devotion_threshold"] = {
+					["min"] = 10, 
+					["max"] = 10, 
+				}, 
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
@@ -5294,7 +5110,77 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 20196, 
+			["oidx"] = 28525, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_notable_spell_damage_1"] = {
+			["id"] = "vaal_notable_spell_damage_1", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Thaumaturgical Aptitude", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["spell_damage_+%"] = {
+					["min"] = 25, 
+					["max"] = 35, 
+				}, 
+				["spell_critical_strike_chance_+%"] = {
+					["min"] = 35, 
+					["max"] = 50, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 50654, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["templar_notable_fire_exposure"] = {
+			["id"] = "templar_notable_fire_exposure", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Smite the Wicked", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["inflict_fire_exposure_on_hit_%_chance_at_devotion_threshold"] = {
+					["min"] = 10, 
+					["max"] = 10, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 27127, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_physical_damage_2"] = {
@@ -5303,8 +5189,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "0.2% of Physical Damage Leeched as Life", 
-				[2] = "(25-35)% increased Physical Damage", 
+				[1] = "(25-35)% increased Physical Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Winds", 
@@ -5323,9 +5208,8 @@ return {
 					["fmt"] = "d", 
 				}, 
 				["base_life_leech_from_physical_damage_permyriad"] = {
-					["max"] = 0.2, 
-					["min"] = 0.2, 
-					["fmt"] = "g", 
+					["min"] = 20, 
+					["max"] = 20, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5338,29 +5222,27 @@ return {
 			["oidx"] = 13357, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["templar_notable_cold_exposure"] = {
-			["id"] = "templar_notable_cold_exposure", 
+		["vaal_small_life"] = {
+			["id"] = "vaal_small_life", 
 			["in"] = {
 			}, 
-			["not"] = true, 
+			["not"] = false, 
 			["sd"] = {
-				[1] = "10% chance to inflict Cold Exposure on Hit if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Smite the Ignorant", 
+			["dn"] = "Life", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/DevotionNotable.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
 			["g"] = 1000000000, 
 			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["inflict_cold_exposure_on_hit_%_chance_at_devotion_threshold"] = {
-					["max"] = 10, 
-					["min"] = 10, 
-					["fmt"] = "d", 
+				["maximum_life_+%"] = {
+					["min"] = 2, 
+					["max"] = 4, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5370,31 +5252,30 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 82503, 
+			["oidx"] = 45174, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["maraketh_keystone_3"] = {
-			["id"] = "maraketh_keystone_3", 
+		["eternal_keystone_3_v2"] = {
+			["id"] = "eternal_keystone_3_v2", 
 			["in"] = {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "You are Blind", 
-				[2] = "Blind does not affect your Light Radius", 
-				[3] = "25% more Melee Critical Strike Chance while Blinded", 
+				[1] = "Ignore Attribute Requirements", 
+				[2] = "Gain no inherent bonuses from Attributes", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Second Sight", 
+			["dn"] = "Supreme Ostentation", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/TheBlindMonk.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/SupremeProdigy.dds", 
 			["g"] = 1000000000, 
 			["ks"] = true, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["keystone_blind_monk"] = {
+				["keystone_supreme_prodigy"] = {
 					["max"] = 1, 
 					["min"] = 1, 
 					["fmt"] = "d", 
@@ -5407,7 +5288,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 24, 
+			["oidx"] = 57, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_consecrated_ground_ailments"] = {
@@ -5416,7 +5297,6 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "Immune to Elemental Ailments while on Consecrated Ground if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cloistered", 
@@ -5430,9 +5310,8 @@ return {
 			}, 
 			["stats"] = {
 				["immune_to_elemental_ailments_while_on_consecrated_ground_at_devotion_threshold"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5479,42 +5358,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 12, 
-			["isMultipleChoice"] = false, 
-		}, 
-		["vaal_small_life"] = {
-			["id"] = "vaal_small_life", 
-			["in"] = {
-			}, 
-			["not"] = false, 
-			["sd"] = {
-				[1] = "(2-4)% increased maximum Life", 
-			}, 
-			["sa"] = 0, 
-			["dn"] = "Life", 
-			["isJewelSocket"] = false, 
-			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
-			["g"] = 1000000000, 
-			["ks"] = false, 
-			["passivePointsGranted"] = 0, 
-			["spc"] = {
-			}, 
-			["stats"] = {
-				["maximum_life_+%"] = {
-					["max"] = 4, 
-					["min"] = 2, 
-					["fmt"] = "d", 
-				}, 
-			}, 
-			["da"] = 0, 
-			["o"] = 3, 
-			["legion"] = true, 
-			["out"] = {
-			}, 
-			["ia"] = 0, 
-			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 45174, 
+			["oidx"] = 15, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_physical_damage_1"] = {
@@ -5523,8 +5367,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(2-4)% chance to deal Double Damage", 
-				[2] = "(25-35)% increased Physical Damage", 
+				[1] = "(25-35)% increased Physical Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Might", 
@@ -5543,9 +5386,8 @@ return {
 					["fmt"] = "d", 
 				}, 
 				["chance_to_deal_double_damage_%"] = {
-					["max"] = 4, 
 					["min"] = 2, 
-					["fmt"] = "d", 
+					["max"] = 4, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5558,41 +5400,74 @@ return {
 			["oidx"] = 11777, 
 			["isMultipleChoice"] = false, 
 		}, 
-		["vaal_keystone_1"] = {
-			["id"] = "vaal_keystone_1", 
+		["vaal_small_spell_dodge"] = {
+			["id"] = "vaal_small_spell_dodge", 
 			["in"] = {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "All Damage taken bypasses Energy Shield", 
-				[2] = "50% of Elemental Damage taken as Chaos Damage", 
-				[3] = "+10% to maximum Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
-			["dn"] = "Divine Flesh", 
+			["dn"] = "Spell Dodge", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/DivineFlesh.dds", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
 			["g"] = 1000000000, 
-			["ks"] = true, 
+			["ks"] = false, 
 			["passivePointsGranted"] = 0, 
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["keystone_divine_flesh"] = {
-					["max"] = 1, 
+				["base_chance_to_dodge_spells_%"] = {
 					["min"] = 1, 
-					["fmt"] = "d", 
+					["max"] = 1, 
 				}, 
 			}, 
 			["da"] = 0, 
-			["o"] = 4, 
+			["o"] = 3, 
 			["legion"] = true, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 0, 
+			["oidx"] = 83640, 
+			["isMultipleChoice"] = false, 
+		}, 
+		["vaal_notable_dodge_2"] = {
+			["id"] = "vaal_notable_dodge_2", 
+			["in"] = {
+			}, 
+			["not"] = true, 
+			["sd"] = {
+			}, 
+			["sa"] = 0, 
+			["dn"] = "Temple Paths", 
+			["isJewelSocket"] = false, 
+			["m"] = false, 
+			["icon"] = "Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds", 
+			["g"] = 1000000000, 
+			["ks"] = false, 
+			["passivePointsGranted"] = 0, 
+			["spc"] = {
+			}, 
+			["stats"] = {
+				["base_resist_all_elements_%"] = {
+					["min"] = 8, 
+					["max"] = 10, 
+				}, 
+				["base_chance_to_dodge_spells_%"] = {
+					["min"] = 4, 
+					["max"] = 4, 
+				}, 
+			}, 
+			["da"] = 0, 
+			["o"] = 3, 
+			["legion"] = true, 
+			["out"] = {
+			}, 
+			["ia"] = 0, 
+			["isMultipleChoiceOption"] = false, 
+			["oidx"] = 95964, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_shock_1"] = {
