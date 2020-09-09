@@ -14,18 +14,23 @@ local conquerorList = {
 	["xibaqua"] 	= 	{id = 1, type = "vaal"},
  	["doryani"]		=	{id = 2, type = "vaal"},
 	["zerphi"]		=	{id = 3, type = "vaal"},
+	["ahuana"]		=	{id = "2_v2", type = "vaal"},
 	["deshret"]		=	{id = 1, type = "maraketh"},
 	["asenath"]		=	{id = 2, type = "maraketh"},
 	["nasima"]		=	{id = 3, type = "maraketh"},
+	["balbala"]		=	{id = "1_v2", type = "maraketh"},
 	["cadiro"]		=	{id = 1, type = "eternal"},
 	["victario"]	=	{id = 2, type = "eternal"},
 	["chitus"]		=	{id = 3, type = "eternal"},
+	["caspiro"]		=	{id = "3_v2", type = "eternal"},
 	["kaom"]		=	{id = 1, type = "karui"},
 	["rakiata"]		=	{id = 2, type = "karui"},
 	["kiloava"]		=	{id = 3, type = "karui"},
+	["akoya"]		=	{id = "3_v2", type = "karui"},
 	["venarius"]	=	{id = 1, type = "templar"},
 	["dominus"]		=	{id = 2, type = "templar"},
 	["avarius"]		=	{id = 3, type = "templar"},
+	["maxarius"]	=	{id = "1_v2", type = "templar"},
 }
 -- List of modifier forms
 local formList = {

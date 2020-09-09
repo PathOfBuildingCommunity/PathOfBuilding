@@ -5,22 +5,27 @@ return  {
 			["Art/2DArt/SkillIcons/passives/DivineFlesh.dds"]={["x"]=0,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/EternalYouth.dds"]={["x"]=53,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/CorruptedDefences.dds"]={["x"]=106,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/SoulTetherKeystone.dds"]={["x"]=54,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/StrengthOfBlood.dds"]={["x"]=159,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/GlancingBlows.dds"]={["x"]=212,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/TemperedByWar.dds"]={["x"]=265,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/FocusedRage.dds"]={["x"]=0,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/WindDancer.dds"]={["x"]=318,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/SharpandBrittle.dds"]={["x"]=371,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/TheBlindMonk.dds"]={["x"]=424,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/OasisKeystone.dds"]={["x"]=108,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/MiracleMaker.dds"]={["x"]=477,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/InnerConviction.dds"]={["x"]=530,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/PowerOfPurpose.dds"]={["x"]=583,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/TranscendenceKeystone.dds"]={["x"]=162,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/SupremeDecadence.dds"]={["x"]=636,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/SupremeGrandstand.dds"]={["x"]=689,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/SupremeEgo.dds"]={["x"]=742,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/SupremeProdigy.dds"]={["x"]=216,["y"]=119,["w"]=54,["h"]=54},
 		}
 		}
 	},
@@ -30,22 +35,27 @@ return  {
 			["Art/2DArt/SkillIcons/passives/DivineFlesh.dds"]={["x"]=0,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/EternalYouth.dds"]={["x"]=53,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/CorruptedDefences.dds"]={["x"]=106,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/SoulTetherKeystone.dds"]={["x"]=54,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/StrengthOfBlood.dds"]={["x"]=159,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/GlancingBlows.dds"]={["x"]=212,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/TemperedByWar.dds"]={["x"]=265,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/FocusedRage.dds"]={["x"]=0,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/WindDancer.dds"]={["x"]=318,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/SharpandBrittle.dds"]={["x"]=371,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/TheBlindMonk.dds"]={["x"]=424,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/OasisKeystone.dds"]={["x"]=108,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/MiracleMaker.dds"]={["x"]=477,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/InnerConviction.dds"]={["x"]=530,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/PowerOfPurpose.dds"]={["x"]=583,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/TranscendenceKeystone.dds"]={["x"]=162,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/SupremeDecadence.dds"]={["x"]=636,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/SupremeGrandstand.dds"]={["x"]=689,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/SupremeEgo.dds"]={["x"]=742,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/SupremeProdigy.dds"]={["x"]=216,["y"]=119,["w"]=54,["h"]=54},
 		}
 		}
 	},

@@ -1431,11 +1431,13 @@ Limited to: 1 Historic
 Variant: Asenath
 Variant: Deshret
 Variant: Nasima
+Variant: Balbala
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
 {variant:2}Denoted service of (500-8000) dekhara in the akhara of Deshret
 {variant:3}Denoted service of (500-8000) dekhara in the akhara of Nasima
+{variant:4}Denoted service of (500-8000) dekhara in the akhara of Balbala
 Passives in radius are Conquered by the Maraketh
 Historic
 ]],[[
@@ -1448,11 +1450,13 @@ Limited to: 1 Historic
 Variant: Cadiro
 Variant: Chitus
 Variant: Victario
+Variant: Caspiro
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
 {variant:2}Commissioned (2000-160000) coins to commemorate Chitus
 {variant:3}Commissioned (2000-160000) coins to commemorate Victario
+{variant:4}Commissioned (2000-160000) coins to commemorate Caspiro
 Passives in radius are Conquered by the Eternal Empire
 Historic
 ]],[[
@@ -1465,11 +1469,13 @@ Limited to: 1 Historic
 Variant: Doryani
 Variant: Xibaqua
 Variant: Zerphi
+Variant: Ahuana
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 {variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
 {variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
+{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Ahuana
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
@@ -1482,11 +1488,13 @@ Limited to: 1 Historic
 Variant: Kaom
 Variant: Kiloava
 Variant: Rakiata
+Variant: Akoya
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over (10000-18000) warriors under Kaom
 {variant:2}Commanded leadership over (10000-18000) warriors under Kiloava
 {variant:3}Commanded leadership over (10000-18000) warriors under Rakiata
+{variant:4}Commanded leadership over (10000-18000) warriors under Akoya
 Passives in radius are Conquered by the Karui
 Historic
 ]],[[
@@ -1499,11 +1507,13 @@ Limited to: 1 Historic
 Variant: Avarius
 Variant: Dominus
 Variant: Venarius
+Variant: Maxarius
 Radius: Large
 Implicits: 0
 {variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
 {variant:2}Carved to glorify (2000-10000) new faithful converted by High Templar Dominus
 {variant:3}Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
+{variant:4}Carved to glorify (2000-10000) new faithful converted by High Templar Maxarius
 Passives in radius are Conquered by the Templars
 Historic
 ]],
