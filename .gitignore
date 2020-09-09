@@ -260,7 +260,3 @@ ModelManifest.xml
 .fake/
 *.lnk
 /pack-tree.lua
-
-# VSCode
-.vscode/*
-.history/*
