@@ -533,7 +533,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
 				local legionNode =legionNodes["vaal_small_fire_resistance"]
 				node.dn = "Vaal small node"
-				--node.sd = {"Right click to set mod"}
+				node.sd = {""}
 				node.sprites = legionNode.sprites
 				node.mods = {""}
 				node.modList = new("ModList")
@@ -541,7 +541,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
 				local legionNode =legionNodes["vaal_notable_curse_1"]
 				node.dn = "Vaal notable node"
-				--node.sd = {"Right click to set mod"}
+				node.sd = {""}
 				node.sprites = legionNode.sprites
 				node.mods = {""}
 				node.modList = new("ModList")
