@@ -525,15 +525,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				local legionNode =legionNodes["templar_devotion_node"]
 				self:ReplaceNode(node,legionNode)
 			elseif conqueredBy.conqueror.type == "maraketh" and (node.type == "Normal" or node.type ==  "Notable") then
-				local str = isValueInArray(attributes, node.dn) and "2" or "4"
-				self:NodeAdditionFromString(node,"+"..str.." to Dexterity")
+				local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+				self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity")
 			elseif conqueredBy.conqueror.type == "karui" and (node.type == "Normal" or node.type ==  "Notable") then
 				local str = isValueInArray(attributes, node.dn) and "2" or "4"
-				self:NodeAdditionFromString(node,"+"..str.." to Strength")
+				self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength")
 			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
 				local legionNode =legionNodes["vaal_small_fire_resistance"]
 				node.dn = "Vaal small node"
-				--node.sd = {"Right click to set mod"}
+				node.sd = {"Right click to set mod"}
 				node.sprites = legionNode.sprites
 				node.mods = {""}
 				node.modList = new("ModList")
@@ -541,7 +541,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
 				local legionNode =legionNodes["vaal_notable_curse_1"]
 				node.dn = "Vaal notable node"
-				--node.sd = {"Right click to set mod"}
+				node.sd = {"Right click to set mod"}
 				node.sprites = legionNode.sprites
 				node.mods = {""}
 				node.modList = new("ModList")
@@ -1050,7 +1050,7 @@ function PassiveSpecClass:SetWindowTitleWithBuildClass()
 	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName))
 end
 
-function PassiveSpecClass:NodeAdditionFromString(node,sd)
+function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacement)
 	local addition = {}
 	addition.sd = {sd}
 	addition.mods = { }
@@ -1060,16 +1060,16 @@ function PassiveSpecClass:NodeAdditionFromString(node,sd)
 	while addition.sd[i] do
 		if addition.sd[i]:match("\n") then
 			local line = addition.sd[i]
-			local il = i
+			local lineIdx = i
 			t_remove(addition.sd, i)
 			for line in line:gmatch("[^\n]+") do
-				t_insert(addition.sd, il, line)
-				il = il + 1
+				t_insert(addition.sd, lineIdx, line)
+				lineIdx = lineIdx + 1
 			end
 		end
 		local line = addition.sd[i]
-		local list, extra = modLib.parseMod[self.build.targetVersion](line)
-		if not list or extra then
+		local parsedMod, unrecognizedMod = modLib.parseMod[self.build.targetVersion](line)
+		if not parsedMod or unrecognizedMod then
 			-- Try to combine it with one or more of the lines that follow this one
 			local endI = i + 1
 			while addition.sd[endI] do
@@ -1077,8 +1077,8 @@ function PassiveSpecClass:NodeAdditionFromString(node,sd)
 				for ci = i + 1, endI do
 					comb = comb .. " " .. addition.sd[ci]
 				end
-				list, extra = modLib.parseMod[self.build.targetVersion](comb, true)
-				if list and not extra then
+				parsedMod, unrecognizedMod = modLib.parseMod[self.build.targetVersion](comb, true)
+				if parsedMod and not unrecognizedMod then
 					-- Success, add dummy mod lists to the other lines that were combined with this one
 					for ci = i + 1, endI do
 						addition.mods[ci] = { list = { } }
@@ -1088,18 +1088,18 @@ function PassiveSpecClass:NodeAdditionFromString(node,sd)
 				endI = endI + 1
 			end
 		end
-		if not list then
+		if not parsedMod then
 			-- Parser had no idea how to read this modifier
 			addition.unknown = true
-		elseif extra then
+		elseif unrecognizedMod then
 			-- Parser recognised this as a modifier but couldn't understand all of it
 			addition.extra = true
 		else
-			for _, mod in ipairs(list) do
+			for _, mod in ipairs(parsedMod) do
 				addition.modKey = addition.modKey.."["..modLib.formatMod(mod).."]"
 			end
 		end
-	addition.mods[i] = { list = list, extra = extra }
+		addition.mods[i] = { list = parsedMod, extra = unrecognizedMod }
 		i = i + 1
 		while addition.mods[i] do
 			-- Skip any lines with dummy lists added by the line combining code
@@ -1119,10 +1119,17 @@ function PassiveSpecClass:NodeAdditionFromString(node,sd)
 			end
 		end
 	end
-	node.sd = TableConcat(self.tree.nodes[node.id].sd, addition.sd)
-	node.mods = TableConcat(self.tree.nodes[node.id].mods,  addition.mods)
+	if replacement then
+		node.sd = addition.sd
+		node.mods = addition.mods
+	else
+		node.sd = TableConcat(self.tree.nodes[node.id].sd, addition.sd)
+		node.mods = TableConcat(self.tree.nodes[node.id].mods, addition.mods)
+	end
 	local modList = new("ModList")
 	modList:AddList(addition.modList)
-	modList:AddList(self.tree.nodes[node.id].modList)
+	if not replacement then
+		modList:AddList(self.tree.nodes[node.id].modList)
+	end
 	node.modList = modList
 end

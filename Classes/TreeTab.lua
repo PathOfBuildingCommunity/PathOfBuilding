@@ -406,76 +406,128 @@ end
 
 function TreeTabClass:ModifyNodePopup(selectedNode)
 	local controls = { }
-	local sourceList = { }
-	local modList = { }
-	local function buildMods(sourceId)
-		wipeTable(modList)
-		for _, node in ipairs(self.build.tree.legion.nodes) do
-			if node.dn == "vaal" then
-				local label
-				if craft.master then
-					label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]"
-				else
-					label = table.concat(craft, "/")
-				end
-				t_insert(modList, {
-					label = label,
-					mod = craft,
-					type = "crafted",
+	local modGroups = { }
+	local specificList = { }
+	local tempNode = selectedNode
+	local function buildMods(selectedNode)
+		wipeTable(modGroups)
+		for _, node in pairs(self.build.latestTree.legion.nodes) do
+			if node.id:match("^vaal_.+") and node["not"] == (selectedNode.isNotable or false) and not node.ks then
+				t_insert(modGroups, {
+					label = node.dn,
+					mods = copyTable(node.mods),
+					descriptions = copyTable(node.sd),
+					modList = node.modList,
+					type = "vaal",
+					rangeIdxs = node.rangeIdxs,
+					id = node.id,
 				})
 			end
 		end
 	end
-	local function addModifier()
-		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
-		item.id = self.displayItem.id
-		local sourceId = sourceList[controls.source.selIndex].sourceId
-		if sourceId == "CUSTOM" then
-			if controls.custom.buf:match("%S") then
-				t_insert(item.modLines, { line = controls.custom.buf, custom = true })
+	local function populateTemp(modGroup)
+		tempNode = selectedNode
+		specificList = { }
+		local additionalModList = new("ModList")
+		for _, idx in ipairs(modGroup.rangeIdxs) do
+			t_insert(specificList, modGroup.descriptions[idx])
+		end
+
+	end
+	local function addModifier(selectedNode)
+		local i = 1
+		local newNode = self.build.latestTree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
+		while i <= #controls do
+			local modDesc = controls[i].label
+			if selectedNode.conqueredBy.conqueror.type == "vaal" then
+--[[				self.specList[1]:ReplaceNode(selectedNode, newNode)
+				selectedNode.mods = { }
+				selectedNode.modList = new("ModList")
+				selectedNode.sd = { }
+				local newMod = modLib.parseMod[self.build.targetVersion](modDesc)
+				t_insert(selectedNode.mods, { list = newMod, extra = {}})
+				selectedNode.modList:AddMod(newMod)
+				t_insert(selectedNode.sd, modDesc)]]
+				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, i == 1)
+				selectedNode.dn = newNode.dn
+			elseif selectedNode.conqueredBy.conqueror.type == "karui" then
+				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc)
 			end
+			i = i + 1
+		end
+
+--[[		if listMod.type == "vaal" then
+			selectedNode.sd = listMod.descriptions
+			selectedNode.mods = listMod.mods
+			selectedNode.dn = listMod.label
 		else
-			local listMod = modList[controls.modSelect.selIndex]
-			for _, line in ipairs(listMod.mod) do
-				t_insert(item.modLines, { line = line, [listMod.type] = true })
+			selectedNode.sd = TableConcat(self.build.latestTree.nodes[selectedNode.id].sd, listMod.descriptions)
+			selectedNode.mods = TableConcat(self.build.latestTree.nodes[selectedNode.id].mods, listMod.mods)
+		end
+		selectedNode.source = "Tree:"..selectedNode.id
+		local modList = new("ModList")
+		modList:AddList(listMod.modList)
+		if listMod.type ~= "vaal" then
+			modList:AddList(self.build.latestTree.nodes[selectedNode.id].modList)
+		end
+		selectedNode.modList = modList
+		return selectedNode]]
+		end
+
+	local function constructUI(modGroup)
+		for idx, desc in ipairs(modGroup.descriptions) do
+			controls[idx] = new("LabelControl", {"TOPLEFT",controls[idx-1] or controls.modSelect,"TOPLEFT"}, 100, 15, 600, 18, desc)
+			if desc:match("%(%-?[%d%.]+%-[%d%.]+%)") then
+				controls["slider"..idx] = new("SliderControl", {"TOPLEFT",controls[idx],"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
+					controls[idx].label = itemLib.applyRange(controls[idx].label, val)
+				end)
+				controls["slider"..idx].width = function()
+					return controls["slider"..idx].divCount and 300 or 100
+				end
 			end
 		end
-		item:BuildAndParseRaw()
-		return item
 	end
-	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
-	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
-		buildMods(value.sourceId)
-		controls.modSelect:SetSel(1)
-	end)
-	controls.source.enabled = #sourceList > 1
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
-	controls.modSelect.shown = function()
-		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
-	end
+
+	buildMods(selectedNode)
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 35, 0, 16, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 35, 600, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
 	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value then
-			for _, line in ipairs(value.mod) do
+			for _, line in ipairs(value.descriptions) do
 				tooltip:AddLine(16, "^7"..line)
 			end
 		end
 	end
-	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
-	controls.custom.shown = function()
-		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
+--[[	controls.modSelectSpecific = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 55, 600, 18, specificList)
+	controls.modSelectSpecific.enabled = #specificList > 1
+	controls.slider = new("SliderControl", {"TOPLEFT",controls.modSelectSpecific,"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
+		local listMod = modGroups[controls.modSelect.selIndex]
+		local currentDesc = listMod.descriptions[controls.modSelectSpecific.selIndex]
+		listMod.descriptions[controls.modSelectSpecific.selIndex] = itemLib.applyRange(currentDesc, val)
+		local newMod = modLib.parseMod[self.build.targetVersion](listMod.descriptions[controls.modSelectSpecific.selIndex])
+		listMod.modList
+		listMod.modList:AddMod(newMod[1])
+		listMod.mods[controls.modSelectSpecific.selIndex] = { list = { newMod[1] } }
+	end)
+	controls.slider.width = function()
+		return controls.slider.divCount and 300 or 100
 	end
+	controls.slider.shown = controls.modSelectSpecific.shown]]
 	controls.save = new("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
-		self:SetDisplayItem(addModifier())
+		addModifier(selectedNode)
 		main:ClosePopup()
 	end)
-	controls.save.tooltipFunc = function(tooltip)
+--[[	controls.save.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		self:AddItemTooltip(tooltip, addModifier())
-	end
+		local dummyNode = selectedNode
+		addModifier(dummyNode)
+		for _, line in ipairs(dummyNode.sd) do
+			tooltip:AddLine(16, "^7" .. line)
+		end
+	end]]
 	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(710, 105, "Replace Modifier of Node", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")
+	main:OpenPopup(710, 105, "Replace Modifier of Node", controls, "save")
 end
