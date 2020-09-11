@@ -289,8 +289,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		]]--
 
 		elseif hoverNode and hoverNode.conqueredBy and
-				hoverNode.conqueredBy.conqueror.type == "vaal"
-				or hoverNode.isNotable then
+				(hoverNode.conqueredBy.conqueror.type == "vaal"
+				or hoverNode.isNotable) then
 			build.treeTab:ModifyNodePopup(hoverNode)
 			build.buildFlag = true
 		end

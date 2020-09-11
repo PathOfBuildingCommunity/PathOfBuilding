@@ -537,14 +537,14 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						local legionNode =legionNodes["templar_devotion_node"]
 						self:ReplaceNode(node,legionNode)
 					else
-						self:NodeAdditionOrReplacementFromString(node,"+5 to Devotion",false,self.tree.nodes[node.id])
+						self:NodeAdditionOrReplacementFromString(node,"+5 to Devotion")
 					end
 				elseif conqueredBy.conqueror.type == "maraketh" and node.type == "Normal" then
 					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity",false,self.tree.nodes[node.id])
+					self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity")
 				elseif conqueredBy.conqueror.type == "karui" and node.type == "Normal" then
 					local str = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength",false,self.tree.nodes[node.id])
+					self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength")
 				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
 					local legionNode =legionNodes["vaal_small_fire_resistance"]
 					node.dn = "Vaal small node"
@@ -1066,7 +1066,11 @@ function PassiveSpecClass:SetWindowTitleWithBuildClass()
 	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName))
 end
 
-function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacement,originalNode)
+--- Adds a line to or replaces a node given a line to add/replace with
+--- @param node table The node to replace/add to
+--- @param sd string The line being parsed and added
+--- @param replacement boolean true to replace the node with the new mod, false to simply add it
+function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacement)
 	local addition = {}
 	addition.sd = {sd}
 	addition.mods = { }
@@ -1139,13 +1143,13 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 		node.sd = addition.sd
 		node.mods = addition.mods
 	else
-		node.sd = TableConcat(originalNode.sd, addition.sd)
-		node.mods = TableConcat(originalNode.mods, addition.mods)
+		node.sd = TableConcat(node.sd, addition.sd)
+		node.mods = TableConcat(node.mods, addition.mods)
 	end
 	local modList = new("ModList")
 	modList:AddList(addition.modList)
 	if not replacement then
-		modList:AddList(originalNode.modList)
+		modList:AddList(node.modList)
 	end
 	node.modList = modList
 end

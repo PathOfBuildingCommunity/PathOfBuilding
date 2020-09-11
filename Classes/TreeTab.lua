@@ -441,21 +441,27 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		end
 	end
 	local function addModifier(selectedNode)
-		local i = 1
-		local newNode = self.build.latestTree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
-		while i <= #controls do
-			local modDesc = string.gsub(controls[i].label, "%^7", "")
-			if selectedNode.conqueredBy.conqueror.type == "vaal"
-					or selectedNode.conqueredBy.conqueror.type == "eternal"
-					or selectedNode.conqueredBy.conqueror.type == "templar" then
-				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, i == 1, self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type][selectedNode.id] or self.build.latestTree.nodes[selectedNode.id])
-				selectedNode.dn = newNode.dn
-			else
-				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false, self.build.latestTree.nodes[selectedNode.id])
+		local newLegionNode = self.build.latestTree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
+		-- most nodes only replace or add 1 mod, so we need to just get the first control
+		local modDesc = string.gsub(controls[1].label, "%^7", "")
+		if  selectedNode.conqueredBy.conqueror.type == "eternal" or selectedNode.conqueredBy.conqueror.type == "templar" then
+			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
+			selectedNode.dn = newLegionNode.dn
+			selectedNode.sprites = newLegionNode.sprites
+		elseif selectedNode.conqueredBy.conqueror.type == "vaal" then
+			selectedNode.dn = newLegionNode.dn
+			selectedNode.sprites = newLegionNode.sprites
+			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
+
+			-- Vaal is the exception
+			if controls[2] then
+				modDesc = string.gsub(controls[2].label, "%^7", "")
+				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
 			end
-			t_insert(self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type], selectedNode.id, copyTable(selectedNode, true))
-			i = i + 1
+		else
+			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
 		end
+		t_insert(self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type], selectedNode.id, copyTable(selectedNode, true))
 	end
 
 	local function constructUI(modGroup)
