@@ -648,7 +648,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 end
 
 function PassiveSpecClass:ReplaceNode(old, new)
-	if old.dn == new.dn then return 1 end
+	-- Edited nodes can share a name
+	if old.sd == new.sd then return 1 end
 	old.dn = new.dn
 	old.sd = new.sd
 	old.mods = new.mods
