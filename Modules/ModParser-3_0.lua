@@ -98,6 +98,7 @@ local modNameList = {
 	["dexterity and intelligence"] = { "Dex", "Int" },
 	["attributes"] = { "Str", "Dex", "Int" },
 	["all attributes"] = { "Str", "Dex", "Int" },
+	["devotion"] = "Devotion",
 	-- Life/mana
 	["life"] = "Life",
 	["maximum life"] = "Life",
@@ -930,6 +931,7 @@ local modTagList = {
 	["against targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["against pierced targets"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["to targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
+	["while you have at least (%d+) devotion"] = function(num) return { tag = { type = "StatThreshold", stat = "Devotion", threshold = num } } end,
 	-- Slot conditions
 	["when in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
 	["when in off hand"] = { tag = { type = "SlotNumber", num = 2 } },

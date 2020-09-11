@@ -369,6 +369,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 				end
 			end
 		elseif tag.type == "StatThreshold" then
+			if tag.stat == "Devotion" then
+				tag.stat = "Devotion"
+			end
 			local stat
 			if tag.statList then
 				stat = 0
