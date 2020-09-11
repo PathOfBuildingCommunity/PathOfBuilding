@@ -280,8 +280,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
-		elseif hoverNode and hoverNode.conqueredBy and hoverNode.conqueredBy.conqueror.type == "vaal" then
+		--[[ Only allow node editing in these situations:
+				Vaal (Glorious Vanity): 		any non-keystone
+				Maraketh (Brutal Restraint): 	only notables, +dex already set
+				Eternal (Elegant Hubris):		only notables, other passives are blank
+				Karui (Lethal Pride):			only notables, +str already set
+				Templar (Militant Faith):		any non-keystone, non-notables add devotion or replace with devotion
+		]]--
+
+		elseif hoverNode and hoverNode.conqueredBy and
+				hoverNode.conqueredBy.conqueror.type == "vaal"
+				or hoverNode.isNotable then
 			build.treeTab:ModifyNodePopup(hoverNode)
+			build.buildFlag = true
 		end
 	end
 

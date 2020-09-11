@@ -174,6 +174,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Cold Damage", 
+				[2] = "0.2% of Cold Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Frost", 
@@ -187,12 +189,14 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["base_life_leech_from_cold_damage_permyriad"] = {
-					["min"] = 20, 
-					["max"] = 20, 
+					["max"] = 0.2, 
+					["min"] = 0.2, 
+					["fmt"] = "g", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -246,6 +250,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Lightning Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Lightning Damage", 
@@ -259,8 +264,9 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -279,6 +285,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(3-6)% chance to Ignite", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ignite Chance", 
@@ -292,8 +299,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_ignite_%"] = {
-					["min"] = 3, 
 					["max"] = 6, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -348,6 +356,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Fire Damage", 
+				[2] = "0.2% of Fire Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Flames", 
@@ -361,12 +371,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_life_leech_from_fire_damage_permyriad"] = {
-					["min"] = 20, 
-					["max"] = 20, 
+					["max"] = 0.2, 
+					["min"] = 0.2, 
+					["fmt"] = "g", 
 				}, 
 				["fire_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -385,6 +397,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(3-4)% increased Attack Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Attack Speed", 
@@ -398,8 +411,9 @@ return {
 			}, 
 			["stats"] = {
 				["attack_speed_+%"] = {
-					["min"] = 3, 
 					["max"] = 4, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -418,6 +432,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Fire Damage with Attack Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Night of a Thousand Ribbons", 
@@ -431,8 +446,9 @@ return {
 			}, 
 			["stats"] = {
 				["fire_damage_with_attack_skills_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -451,6 +467,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Armour", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Armour", 
@@ -464,8 +481,9 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -520,6 +538,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "Minions deal 80% increased Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Slum Lord", 
@@ -533,8 +552,9 @@ return {
 			}, 
 			["stats"] = {
 				["minion_damage_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -553,6 +573,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Attack Damage", 
@@ -566,8 +587,9 @@ return {
 			}, 
 			["stats"] = {
 				["attack_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -586,6 +608,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(3-6)% chance to Shock", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Shock Chance", 
@@ -599,8 +622,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_shock_%"] = {
-					["min"] = 3, 
 					["max"] = 6, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -619,6 +643,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1 to Minimum Frenzy Charges while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Frenzied Faith", 
@@ -632,8 +657,9 @@ return {
 			}, 
 			["stats"] = {
 				["minimum_frenzy_charges_at_devotion_threshold"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -689,6 +715,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(10-15)% increased Effect of your Curses", 
+				[2] = "Curse Skills have 20% increased Skill Effect Duration", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ancient Hex", 
@@ -702,12 +730,14 @@ return {
 			}, 
 			["stats"] = {
 				["curse_effect_+%"] = {
-					["min"] = 10, 
 					["max"] = 15, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 				["curse_skill_effect_duration_+%"] = {
-					["min"] = 20, 
 					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -726,6 +756,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Fire Damage", 
+				[2] = "10% of Physical Damage Converted to Fire Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Flesh to Flames", 
@@ -739,12 +771,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_physical_damage_%_to_convert_to_fire"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 				["fire_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -763,6 +797,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Cold Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cold Damage", 
@@ -776,8 +811,9 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -833,6 +869,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1 to Minimum Power Charges while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Powerful Faith", 
@@ -846,8 +883,9 @@ return {
 			}, 
 			["stats"] = {
 				["minimum_power_charges_at_devotion_threshold"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -866,6 +904,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "15% of Physical Damage Converted to Cold Damage while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Calming Devotion", 
@@ -879,8 +918,9 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_%_to_convert_to_cold_at_devotion_threshold"] = {
-					["min"] = 15, 
 					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -899,6 +939,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Lightning Damage", 
+				[2] = "10% of Physical Damage Converted to Lightning Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Flesh to Lightning", 
@@ -912,12 +954,14 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["base_physical_damage_%_to_convert_to_lightning"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1008,6 +1052,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Lightning Damage with Attack Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Chitus' Heart", 
@@ -1021,8 +1066,9 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_with_attack_skills_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1077,6 +1123,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "1% Chance to Block Spell Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Spell Block", 
@@ -1090,8 +1137,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_spell_block_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1110,6 +1158,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1% to all maximum Resistances if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Intolerance of Sin", 
@@ -1123,8 +1172,9 @@ return {
 			}, 
 			["stats"] = {
 				["additional_maximum_all_resistances_%_at_devotion_threshold"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1179,6 +1229,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "40% increased Rarity of Items found", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Discerning Taste", 
@@ -1192,8 +1243,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_item_found_rarity_+%"] = {
-					["min"] = 40, 
 					["max"] = 40, 
+					["min"] = 40, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1212,6 +1264,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "Minions deal (8-13)% increased Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Minion Damage", 
@@ -1225,8 +1278,9 @@ return {
 			}, 
 			["stats"] = {
 				["minion_damage_+%"] = {
-					["min"] = 8, 
 					["max"] = 13, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1245,6 +1299,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "50% chance to Avoid being Chilled", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Rites of Solaris", 
@@ -1258,8 +1313,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_avoid_chill_%"] = {
-					["min"] = 50, 
 					["max"] = 50, 
+					["min"] = 50, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1278,6 +1334,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Evasion Rating", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Shadowy Streets", 
@@ -1291,8 +1348,9 @@ return {
 			}, 
 			["stats"] = {
 				["evasion_rating_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1311,6 +1369,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(4-6)% increased maximum Mana", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Mana", 
@@ -1324,8 +1383,9 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_mana_+%"] = {
-					["min"] = 4, 
 					["max"] = 6, 
+					["min"] = 4, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1344,6 +1404,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1 to Minimum Endurance Charges while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Enduring Faith", 
@@ -1357,8 +1418,9 @@ return {
 			}, 
 			["stats"] = {
 				["minimum_endurance_charges_at_devotion_threshold"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1377,6 +1439,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+8% Chance to Block Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "City Walls", 
@@ -1390,8 +1453,9 @@ return {
 			}, 
 			["stats"] = {
 				["additional_block_%"] = {
-					["min"] = 8, 
 					["max"] = 8, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1410,6 +1474,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(8-12)% increased maximum Energy Shield", 
+				[2] = "0.3% of Spell Damage Leeched as Energy Shield", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Soul Worship", 
@@ -1423,12 +1489,14 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_energy_shield_+%"] = {
-					["min"] = 8, 
 					["max"] = 12, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 				["base_energy_shield_leech_from_spell_damage_permyriad"] = {
-					["min"] = 30, 
-					["max"] = 30, 
+					["max"] = 0.3, 
+					["min"] = 0.3, 
+					["fmt"] = "g", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1447,6 +1515,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+50% to Fire Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Crematorium Worker", 
@@ -1460,8 +1529,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_fire_damage_resistance_%"] = {
-					["min"] = 50, 
 					["max"] = 50, 
+					["min"] = 50, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1551,6 +1621,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Damage over Time", 
+				[2] = "(7-11)% increased Skill Effect Duration", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Exquisite Pain", 
@@ -1564,12 +1636,14 @@ return {
 			}, 
 			["stats"] = {
 				["damage_over_time_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["skill_effect_duration_+%"] = {
-					["min"] = 7, 
 					["max"] = 11, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1588,6 +1662,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+(6-10) Life gained when you Block", 
+				[2] = "+5% Chance to Block Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Blood-Quenched Bulwark", 
@@ -1601,12 +1677,14 @@ return {
 			}, 
 			["stats"] = {
 				["additional_block_%"] = {
-					["min"] = 5, 
 					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
 				}, 
 				["life_gained_on_block"] = {
-					["min"] = 6, 
 					["max"] = 10, 
+					["min"] = 6, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1660,6 +1738,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "Gain 1 Endurance Charge every second if you've been Hit Recently", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Resilience", 
@@ -1673,8 +1752,9 @@ return {
 			}, 
 			["stats"] = {
 				["gain_endurance_charge_per_second_if_have_been_hit_recently"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1693,6 +1773,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1% to maximum Fire Resistance", 
+				[2] = "+(20-30)% to Fire Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Fire", 
@@ -1706,12 +1788,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_maximum_fire_damage_resistance_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 				["base_fire_damage_resistance_%"] = {
-					["min"] = 20, 
 					["max"] = 30, 
+					["min"] = 20, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1730,6 +1814,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(2-3)% increased Cast Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cast Speed", 
@@ -1743,8 +1828,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_cast_speed_+%"] = {
-					["min"] = 2, 
 					["max"] = 3, 
+					["min"] = 2, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1763,6 +1849,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(8-10)% chance to Avoid being Stunned", 
+				[2] = "4% chance to Dodge Attack Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Jungle Paths", 
@@ -1776,12 +1864,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_%"] = {
-					["min"] = 4, 
 					["max"] = 4, 
+					["min"] = 4, 
+					["fmt"] = "d", 
 				}, 
 				["base_avoid_stun_%"] = {
-					["min"] = 8, 
 					["max"] = 10, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1837,6 +1927,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "+(9-14)% to Fire Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Fire Resistance", 
@@ -1850,8 +1941,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_fire_damage_resistance_%"] = {
-					["min"] = 9, 
 					["max"] = 14, 
+					["min"] = 9, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1870,6 +1962,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+50% to Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Baleful Augmentation", 
@@ -1883,8 +1976,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_lightning_damage_resistance_%"] = {
-					["min"] = 50, 
 					["max"] = 50, 
+					["min"] = 50, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1903,6 +1997,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(3-6)% chance to Freeze", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Freeze Chance", 
@@ -1916,8 +2011,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_freeze_%"] = {
-					["min"] = 3, 
 					["max"] = 6, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1936,6 +2032,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(6-10)% increased maximum Life", 
+				[2] = "Regenerate (0.7-1.2)% of Life per second", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Flesh", 
@@ -1949,12 +2047,14 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_life_+%"] = {
-					["min"] = 6, 
 					["max"] = 10, 
+					["min"] = 6, 
+					["fmt"] = "d", 
 				}, 
 				["life_regeneration_rate_per_minute_%"] = {
-					["min"] = 42, 
-					["max"] = 72, 
+					["max"] = 1.2, 
+					["min"] = 0.7, 
+					["fmt"] = "g", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -1973,6 +2073,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "Gain Arcane Surge on Hit with Spells if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Zealot", 
@@ -1986,8 +2087,9 @@ return {
 			}, 
 			["stats"] = {
 				["gain_arcane_surge_on_hit_at_devotion_threshold"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2006,6 +2108,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "Gain 5% of Maximum Mana as Extra Maximum Energy Shield while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Thoughts and Prayers", 
@@ -2019,8 +2122,9 @@ return {
 			}, 
 			["stats"] = {
 				["mana_%_to_add_as_energy_shield_at_devotion_threshold"] = {
-					["min"] = 5, 
 					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2039,6 +2143,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% increased Damage per Endurance Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Dominance", 
@@ -2052,8 +2157,9 @@ return {
 			}, 
 			["stats"] = {
 				["damage_+%_per_endurance_charge"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2072,6 +2178,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "8% increased Armour per Endurance Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Fortitude", 
@@ -2085,8 +2192,9 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%_per_endurance_charge"] = {
-					["min"] = 8, 
 					["max"] = 8, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2105,6 +2213,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(2-3)% increased Movement Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Movement Speed", 
@@ -2118,8 +2227,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_movement_velocity_+%"] = {
-					["min"] = 2, 
 					["max"] = 3, 
+					["min"] = 2, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2138,6 +2248,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Lightning Damage", 
+				[2] = "0.2% of Lightning Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Lightning", 
@@ -2151,12 +2263,14 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["base_life_leech_from_lightning_damage_permyriad"] = {
-					["min"] = 20, 
-					["max"] = 20, 
+					["max"] = 0.2, 
+					["min"] = 0.2, 
+					["fmt"] = "g", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2175,6 +2289,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "1% chance to Dodge Attack Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Attack Dodge", 
@@ -2188,8 +2303,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2208,6 +2324,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Lightning Damage", 
+				[2] = "Damage Penetrates (2-4)% Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Thunder", 
@@ -2221,12 +2339,14 @@ return {
 			}, 
 			["stats"] = {
 				["lightning_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["base_reduce_enemy_lightning_resistance_%"] = {
-					["min"] = 2, 
 					["max"] = 4, 
+					["min"] = 2, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2245,6 +2365,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+50% to Cold Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Street Urchin", 
@@ -2258,8 +2379,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_cold_damage_resistance_%"] = {
-					["min"] = 50, 
 					["max"] = 50, 
+					["min"] = 50, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2278,6 +2400,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "4% increased Energy Shield per Power Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Separation", 
@@ -2291,8 +2414,9 @@ return {
 			}, 
 			["stats"] = {
 				["energy_shield_+%_per_power_charge"] = {
-					["min"] = 4, 
 					["max"] = 4, 
+					["min"] = 4, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2340,6 +2464,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "6% chance to Dodge Spell Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Purity Rebel", 
@@ -2353,8 +2478,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_spells_%"] = {
-					["min"] = 6, 
 					["max"] = 6, 
+					["min"] = 6, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2373,6 +2499,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "30% increased maximum Mana", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Pooled Resources", 
@@ -2386,8 +2513,9 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_mana_+%"] = {
-					["min"] = 30, 
 					["max"] = 30, 
+					["min"] = 30, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2441,6 +2569,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1% to maximum Cold Resistance", 
+				[2] = "+(20-30)% to Cold Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Ice", 
@@ -2454,12 +2584,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_cold_damage_resistance_%"] = {
-					["min"] = 20, 
 					["max"] = 30, 
+					["min"] = 20, 
+					["fmt"] = "d", 
 				}, 
 				["base_maximum_cold_damage_resistance_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2545,6 +2677,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(6-10)% increased maximum Life", 
+				[2] = "0.4% of Attack Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Flesh Worship", 
@@ -2558,12 +2692,14 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_life_+%"] = {
-					["min"] = 6, 
 					["max"] = 10, 
+					["min"] = 6, 
+					["fmt"] = "d", 
 				}, 
 				["base_life_leech_from_attack_damage_permyriad"] = {
-					["min"] = 40, 
-					["max"] = 40, 
+					["max"] = 0.4, 
+					["min"] = 0.4, 
+					["fmt"] = "g", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2582,6 +2718,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(3-5)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Aura Effect", 
@@ -2595,8 +2732,9 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["min"] = 3, 
 					["max"] = 5, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2615,6 +2753,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(4-7)% increased Skill Effect Duration", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Skill Duration", 
@@ -2628,8 +2767,9 @@ return {
 			}, 
 			["stats"] = {
 				["skill_effect_duration_+%"] = {
-					["min"] = 4, 
 					["max"] = 7, 
+					["min"] = 4, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2648,6 +2788,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1% to maximum Lightning Resistance", 
+				[2] = "+(20-30)% to Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Lightning", 
@@ -2661,12 +2803,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_maximum_lightning_damage_resistance_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 				["base_lightning_damage_resistance_%"] = {
-					["min"] = 20, 
 					["max"] = 30, 
+					["min"] = 20, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2685,6 +2829,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Chaos Damage", 
+				[2] = "0.2% of Chaos Damage Leeched as Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Darkness", 
@@ -2698,12 +2844,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_life_leech_from_chaos_damage_permyriad"] = {
-					["min"] = 20, 
-					["max"] = 20, 
+					["max"] = 0.2, 
+					["min"] = 0.2, 
+					["fmt"] = "g", 
 				}, 
 				["chaos_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2722,6 +2870,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "50% increased Damage with Bleeding", 
+				[2] = "Bleeding you inflict deals Damage 10% faster", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Geofri's End", 
@@ -2735,12 +2885,14 @@ return {
 			}, 
 			["stats"] = {
 				["bleeding_damage_+%"] = {
-					["min"] = 50, 
 					["max"] = 50, 
+					["min"] = 50, 
+					["fmt"] = "d", 
 				}, 
 				["faster_bleed_%"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2759,6 +2911,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "+(9-14)% to Lightning Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Lightning Resistance", 
@@ -2772,8 +2925,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_lightning_damage_resistance_%"] = {
-					["min"] = 9, 
 					["max"] = 14, 
+					["min"] = 9, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2792,6 +2946,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Chaos Damage", 
+				[2] = "25% chance to inflict Withered for 2 seconds on Hit", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Shadows", 
@@ -2805,12 +2961,14 @@ return {
 			}, 
 			["stats"] = {
 				["withered_on_hit_for_2_seconds_%_chance"] = {
-					["min"] = 25, 
 					["max"] = 25, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["chaos_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2829,6 +2987,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "+(6-10)% to Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Chaos Resistance", 
@@ -2842,8 +3001,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
-					["min"] = 6, 
 					["max"] = 10, 
+					["min"] = 6, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2862,6 +3022,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Projectile Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Projectile Speed", 
@@ -2875,8 +3036,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_projectile_speed_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2895,6 +3057,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "20% increased Flask Effect Duration", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Freshly Brewed", 
@@ -2908,8 +3071,9 @@ return {
 			}, 
 			["stats"] = {
 				["flask_duration_+%"] = {
-					["min"] = 20, 
 					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2928,6 +3092,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Chaos Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Chaos Damage", 
@@ -2941,8 +3106,9 @@ return {
 			}, 
 			["stats"] = {
 				["chaos_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2961,6 +3127,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "15% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Superiority", 
@@ -2974,8 +3141,9 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["min"] = 15, 
 					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -2994,6 +3162,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "20% increased Area of Effect of Aura Skills", 
+				[2] = "(10-15)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Commanding Presence", 
@@ -3007,12 +3177,14 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["min"] = 10, 
 					["max"] = 15, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 				["base_aura_area_of_effect_+%"] = {
-					["min"] = 20, 
 					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3031,6 +3203,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Damage over Time", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Damage Over Time", 
@@ -3044,8 +3217,9 @@ return {
 			}, 
 			["stats"] = {
 				["damage_over_time_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3064,6 +3238,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "50% increased Mana Regeneration Rate", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Laureate", 
@@ -3077,8 +3252,9 @@ return {
 			}, 
 			["stats"] = {
 				["mana_regeneration_rate_+%"] = {
-					["min"] = 50, 
 					["max"] = 50, 
+					["min"] = 50, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3097,6 +3273,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% increased maximum Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Robust Diet", 
@@ -3110,8 +3287,9 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_life_+%"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3130,6 +3308,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+37% to Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "With Eyes Open", 
@@ -3143,8 +3322,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
-					["min"] = 37, 
 					["max"] = 37, 
+					["min"] = 37, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3163,6 +3343,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Armour", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Gleaming Legion", 
@@ -3176,8 +3357,9 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3196,6 +3378,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "15% increased Cast Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Dialla's Wit", 
@@ -3209,8 +3392,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_cast_speed_+%"] = {
-					["min"] = 15, 
 					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3229,6 +3413,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "15% increased Attack Speed", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Voll's Coup", 
@@ -3242,8 +3427,9 @@ return {
 			}, 
 			["stats"] = {
 				["attack_speed_+%"] = {
-					["min"] = 15, 
 					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3262,6 +3448,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Projectile Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Lioneye's Focus", 
@@ -3275,8 +3462,9 @@ return {
 			}, 
 			["stats"] = {
 				["projectile_attack_damage_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3295,6 +3483,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Melee Physical Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Rigwald's Might", 
@@ -3308,8 +3497,9 @@ return {
 			}, 
 			["stats"] = {
 				["melee_physical_damage_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3363,6 +3553,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Cold Damage with Attack Skills", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Bloody Flowers' Rebellion", 
@@ -3376,8 +3567,9 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_with_attack_skills_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3396,6 +3588,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Critical Strike Chance for Spells", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Gemling Ambush", 
@@ -3409,8 +3602,9 @@ return {
 			}, 
 			["stats"] = {
 				["spell_critical_strike_chance_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3429,6 +3623,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Fire Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Fire Damage", 
@@ -3442,8 +3637,9 @@ return {
 			}, 
 			["stats"] = {
 				["fire_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3462,6 +3658,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "80% increased Spell Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Gemling Inquisition", 
@@ -3475,8 +3672,9 @@ return {
 			}, 
 			["stats"] = {
 				["spell_damage_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3495,6 +3693,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "Minions have 80% increased maximum Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Axiom Warden", 
@@ -3508,8 +3707,9 @@ return {
 			}, 
 			["stats"] = {
 				["minion_maximum_life_+%"] = {
-					["min"] = 80, 
 					["max"] = 80, 
+					["min"] = 80, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3528,6 +3728,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "8% increased Evasion Rating per Frenzy Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Adaptiveness", 
@@ -3541,8 +3742,9 @@ return {
 			}, 
 			["stats"] = {
 				["evasion_rating_+%_per_frenzy_charge"] = {
-					["min"] = 8, 
 					["max"] = 8, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3561,6 +3763,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "25% increased Global Accuracy Rating", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "War Games", 
@@ -3574,8 +3777,9 @@ return {
 			}, 
 			["stats"] = {
 				["accuracy_rating_+%"] = {
-					["min"] = 25, 
 					["max"] = 25, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3594,6 +3798,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% increased Damage per Frenzy Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Bloodlust", 
@@ -3607,8 +3812,9 @@ return {
 			}, 
 			["stats"] = {
 				["damage_+%_per_frenzy_charge"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3662,6 +3868,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(3-5)% increased maximum Energy Shield", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Energy Shield", 
@@ -3675,8 +3882,9 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_energy_shield_+%"] = {
-					["min"] = 3, 
 					["max"] = 5, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3695,6 +3903,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "Minions have (15-20)% increased maximum Life", 
+				[2] = "Minions deal (25-35)% increased Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Hierarchy", 
@@ -3708,12 +3918,14 @@ return {
 			}, 
 			["stats"] = {
 				["minion_maximum_life_+%"] = {
-					["min"] = 15, 
 					["max"] = 20, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 				["minion_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3761,6 +3973,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Cold Damage", 
+				[2] = "Damage Penetrates (2-4)% Cold Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Stillness", 
@@ -3774,12 +3988,14 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["base_reduce_enemy_cold_resistance_%"] = {
-					["min"] = 2, 
 					["max"] = 4, 
+					["min"] = 2, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3832,6 +4048,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "15% of Physical Damage Converted to Fire Damage while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Heated Devotion", 
@@ -3845,8 +4062,9 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_%_to_convert_to_fire_at_devotion_threshold"] = {
-					["min"] = 15, 
 					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3902,6 +4120,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(30-40)% increased Armour", 
+				[2] = "(3-4)% additional Physical Damage Reduction", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Automaton Studies", 
@@ -3915,12 +4135,14 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%"] = {
-					["min"] = 30, 
 					["max"] = 40, 
+					["min"] = 30, 
+					["fmt"] = "d", 
 				}, 
 				["base_additional_physical_damage_reduction_%"] = {
-					["min"] = 3, 
 					["max"] = 4, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3939,6 +4161,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "+1% Chance to Block Attack Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Block", 
@@ -3952,8 +4175,9 @@ return {
 			}, 
 			["stats"] = {
 				["additional_block_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -3972,6 +4196,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(4-7)% increased Area of Effect", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Area of Effect", 
@@ -3985,8 +4210,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_skill_area_of_effect_+%"] = {
-					["min"] = 4, 
 					["max"] = 7, 
+					["min"] = 4, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4005,6 +4231,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "+(9-14)% to Cold Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cold Resistance", 
@@ -4018,8 +4245,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_cold_damage_resistance_%"] = {
-					["min"] = 9, 
 					["max"] = 14, 
+					["min"] = 9, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4038,7 +4266,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(5-7)% chance to Blind Enemies on Hit", 
+				[1] = "(30-40)% increased Evasion Rating", 
+				[2] = "(5-7)% chance to Blind Enemies on Hit", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Construct Studies", 
@@ -4057,8 +4286,9 @@ return {
 					["fmt"] = "d", 
 				}, 
 				["evasion_rating_+%"] = {
-					["min"] = 30, 
 					["max"] = 40, 
+					["min"] = 30, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4077,6 +4307,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(12-17)% increased Mana Regeneration Rate", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Mana Regeneration", 
@@ -4090,8 +4321,9 @@ return {
 			}, 
 			["stats"] = {
 				["mana_regeneration_rate_+%"] = {
-					["min"] = 12, 
 					["max"] = 17, 
+					["min"] = 12, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4110,6 +4342,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(17-23)% increased maximum Mana", 
+				[2] = "(15-25)% increased Mana Regeneration Rate", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Memory", 
@@ -4123,12 +4357,14 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_mana_+%"] = {
-					["min"] = 17, 
 					["max"] = 23, 
+					["min"] = 17, 
+					["fmt"] = "d", 
 				}, 
 				["mana_regeneration_rate_+%"] = {
-					["min"] = 15, 
 					["max"] = 25, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4147,6 +4383,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Spell Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Spell Damage", 
@@ -4160,8 +4397,9 @@ return {
 			}, 
 			["stats"] = {
 				["spell_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4180,6 +4418,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+1% to maximum Chaos Resistance", 
+				[2] = "+(13-19)% to Chaos Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cult of Chaos", 
@@ -4193,12 +4433,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
-					["min"] = 13, 
 					["max"] = 19, 
+					["min"] = 13, 
+					["fmt"] = "d", 
 				}, 
 				["base_maximum_chaos_damage_resistance_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4217,6 +4459,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(8-12)% increased maximum Energy Shield", 
+				[2] = "(10-15)% increased Energy Shield Recharge Rate", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Energy Flow Studies", 
@@ -4230,12 +4474,14 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_energy_shield_+%"] = {
-					["min"] = 8, 
 					["max"] = 12, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 				["energy_shield_recharge_rate_+%"] = {
-					["min"] = 10, 
 					["max"] = 15, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4290,6 +4536,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% chance to gain a Frenzy Charge on Hit", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Fervour", 
@@ -4303,8 +4550,9 @@ return {
 			}, 
 			["stats"] = {
 				["add_frenzy_charge_on_skill_hit_%"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4323,6 +4571,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% increased Damage per Power Charge", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Exploitation", 
@@ -4336,8 +4585,9 @@ return {
 			}, 
 			["stats"] = {
 				["damage_+%_per_power_charge"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4394,6 +4644,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "5% Chance to Block Spell Damage", 
+				[2] = "(20-30)% increased Defences from Equipped Shield", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Thaumaturgical Protection", 
@@ -4407,12 +4659,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_spell_block_%"] = {
-					["min"] = 5, 
 					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
 				}, 
 				["shield_armour_+%"] = {
-					["min"] = 20, 
 					["max"] = 30, 
+					["min"] = 20, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4468,7 +4722,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Physical Damage", 
+				[1] = "Bleeding you inflict deals Damage 10% faster", 
+				[2] = "(25-35)% increased Physical Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Bloody Savagery", 
@@ -4487,8 +4742,9 @@ return {
 					["fmt"] = "d", 
 				}, 
 				["faster_bleed_%"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4507,6 +4763,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "50% chance to Avoid being Shocked", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Rural Life", 
@@ -4520,8 +4777,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_avoid_shock_%"] = {
-					["min"] = 50, 
 					["max"] = 50, 
+					["min"] = 50, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4540,6 +4798,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "5% additional Physical Damage Reduction while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Martyr's Might", 
@@ -4553,8 +4812,9 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_reduction_%_at_devotion_threshold"] = {
-					["min"] = 5, 
 					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4573,6 +4833,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% chance to inflict Cold Exposure on Hit if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Smite the Ignorant", 
@@ -4586,8 +4847,9 @@ return {
 			}, 
 			["stats"] = {
 				["inflict_cold_exposure_on_hit_%_chance_at_devotion_threshold"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4606,6 +4868,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Cold Damage", 
+				[2] = "10% of Physical Damage Converted to Cold Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Flesh to Frost", 
@@ -4619,12 +4883,14 @@ return {
 			}, 
 			["stats"] = {
 				["cold_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["base_physical_damage_%_to_convert_to_cold"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4643,6 +4909,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(3-5)% increased Effect of your Curses", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Curse Effect", 
@@ -4656,8 +4923,9 @@ return {
 			}, 
 			["stats"] = {
 				["curse_effect_+%"] = {
-					["min"] = 3, 
 					["max"] = 5, 
+					["min"] = 3, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4676,6 +4944,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Area Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Area Damage", 
@@ -4689,8 +4958,9 @@ return {
 			}, 
 			["stats"] = {
 				["area_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4709,6 +4979,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "8% Chance to Block Spell Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Sceptre Pinnacle", 
@@ -4722,8 +4993,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_spell_block_%"] = {
-					["min"] = 8, 
 					["max"] = 8, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4742,6 +5014,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "15% chance to gain a Power Charge on Critical Strike", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Eternal Subjugation", 
@@ -4755,8 +5028,9 @@ return {
 			}, 
 			["stats"] = {
 				["add_power_charge_on_critical_strike_%"] = {
-					["min"] = 15, 
 					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4810,6 +5084,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "6% chance to Dodge Attack Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Secret Tunnels", 
@@ -4823,8 +5098,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_%"] = {
-					["min"] = 6, 
 					["max"] = 6, 
+					["min"] = 6, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4843,6 +5119,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Fire Damage", 
+				[2] = "Damage Penetrates (2-4)% Fire Resistance", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Immolation", 
@@ -4856,12 +5134,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_reduce_enemy_fire_resistance_%"] = {
-					["min"] = 2, 
 					["max"] = 4, 
+					["min"] = 2, 
+					["fmt"] = "d", 
 				}, 
 				["fire_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -4952,6 +5232,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Evasion Rating", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Evasion", 
@@ -4965,8 +5246,9 @@ return {
 			}, 
 			["stats"] = {
 				["evasion_rating_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5020,6 +5302,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(7-12)% increased Projectile Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Projectile Damage", 
@@ -5033,8 +5316,9 @@ return {
 			}, 
 			["stats"] = {
 				["projectile_damage_+%"] = {
-					["min"] = 7, 
 					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5053,6 +5337,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "15% of Physical Damage Converted to Lightning Damage while you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Thundrous Devotion", 
@@ -5066,8 +5351,9 @@ return {
 			}, 
 			["stats"] = {
 				["physical_damage_%_to_convert_to_lightning_at_devotion_threshold"] = {
-					["min"] = 15, 
 					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5086,6 +5372,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% chance to inflict Lightning Exposure on Hit if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Smite the Heretical", 
@@ -5099,8 +5386,9 @@ return {
 			}, 
 			["stats"] = {
 				["inflict_lightning_exposure_on_hit_%_chance_at_devotion_threshold"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5119,6 +5407,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "(25-35)% increased Spell Damage", 
+				[2] = "(35-50)% increased Critical Strike Chance for Spells", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Thaumaturgical Aptitude", 
@@ -5132,12 +5422,14 @@ return {
 			}, 
 			["stats"] = {
 				["spell_damage_+%"] = {
-					["min"] = 25, 
 					["max"] = 35, 
+					["min"] = 25, 
+					["fmt"] = "d", 
 				}, 
 				["spell_critical_strike_chance_+%"] = {
-					["min"] = 35, 
 					["max"] = 50, 
+					["min"] = 35, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5156,6 +5448,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "10% chance to inflict Fire Exposure on Hit if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Smite the Wicked", 
@@ -5169,8 +5462,9 @@ return {
 			}, 
 			["stats"] = {
 				["inflict_fire_exposure_on_hit_%_chance_at_devotion_threshold"] = {
-					["min"] = 10, 
 					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5189,7 +5483,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Physical Damage", 
+				[1] = "0.2% of Physical Damage Leeched as Life", 
+				[2] = "(25-35)% increased Physical Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Revitalising Winds", 
@@ -5208,8 +5503,9 @@ return {
 					["fmt"] = "d", 
 				}, 
 				["base_life_leech_from_physical_damage_permyriad"] = {
-					["min"] = 20, 
-					["max"] = 20, 
+					["max"] = 0.2, 
+					["min"] = 0.2, 
+					["fmt"] = "g", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5228,6 +5524,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "(2-4)% increased maximum Life", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Life", 
@@ -5241,8 +5538,9 @@ return {
 			}, 
 			["stats"] = {
 				["maximum_life_+%"] = {
-					["min"] = 2, 
 					["max"] = 4, 
+					["min"] = 2, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5297,6 +5595,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "Immune to Elemental Ailments while on Consecrated Ground if you have at least 150 Devotion", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Cloistered", 
@@ -5310,8 +5609,9 @@ return {
 			}, 
 			["stats"] = {
 				["immune_to_elemental_ailments_while_on_consecrated_ground_at_devotion_threshold"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5367,7 +5667,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(25-35)% increased Physical Damage", 
+				[1] = "(2-4)% chance to deal Double Damage", 
+				[2] = "(25-35)% increased Physical Damage", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Ritual of Might", 
@@ -5386,8 +5687,9 @@ return {
 					["fmt"] = "d", 
 				}, 
 				["chance_to_deal_double_damage_%"] = {
-					["min"] = 2, 
 					["max"] = 4, 
+					["min"] = 2, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5406,6 +5708,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "1% chance to Dodge Spell Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Spell Dodge", 
@@ -5419,8 +5722,9 @@ return {
 			}, 
 			["stats"] = {
 				["base_chance_to_dodge_spells_%"] = {
-					["min"] = 1, 
 					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5439,6 +5743,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
+				[1] = "+(8-10)% to all Elemental Resistances", 
+				[2] = "4% chance to Dodge Spell Hits", 
 			}, 
 			["sa"] = 0, 
 			["dn"] = "Temple Paths", 
@@ -5452,12 +5758,14 @@ return {
 			}, 
 			["stats"] = {
 				["base_resist_all_elements_%"] = {
-					["min"] = 8, 
 					["max"] = 10, 
+					["min"] = 8, 
+					["fmt"] = "d", 
 				}, 
 				["base_chance_to_dodge_spells_%"] = {
-					["min"] = 4, 
 					["max"] = 4, 
+					["min"] = 4, 
+					["fmt"] = "d", 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -5504,6 +5812,1324 @@ return {
 			["isMultipleChoiceOption"] = false, 
 			["oidx"] = 79878, 
 			["isMultipleChoice"] = false, 
+		}, 
+	}, 
+	["additions"] = {
+		["vaal_small_movement_speed"] = {
+			["stats"] = {
+				["base_movement_velocity_+%"] = {
+					["max"] = 3, 
+					["min"] = 2, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(2-3)% increased Movement Speed", 
+			}, 
+			["id"] = "vaal_small_movement_speed", 
+			["dn"] = "Movement Speed", 
+		}, 
+		["karui_notable_add_life_regen"] = {
+			["stats"] = {
+				["life_regeneration_rate_per_minute_%"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "g", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Regenerate 1% of Life per second", 
+			}, 
+			["id"] = "karui_notable_add_life_regen", 
+			["dn"] = "Add Life Regen", 
+		}, 
+		["vaal_small_lightning_damage"] = {
+			["stats"] = {
+				["lightning_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Lightning Damage", 
+			}, 
+			["id"] = "vaal_small_lightning_damage", 
+			["dn"] = "Lightning Damage", 
+		}, 
+		["vaal_small_attack_dodge"] = {
+			["stats"] = {
+				["base_chance_to_dodge_%"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "1% chance to Dodge Attack Hits", 
+			}, 
+			["id"] = "vaal_small_attack_dodge", 
+			["dn"] = "Attack Dodge", 
+		}, 
+		["karui_notable_add_damage_from_crits"] = {
+			["stats"] = {
+				["base_self_critical_strike_multiplier_-%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "You take 10% reduced Extra Damage from Critical Strikes", 
+			}, 
+			["id"] = "karui_notable_add_damage_from_crits", 
+			["dn"] = "Add Damage From Crits", 
+		}, 
+		["vaal_small_chance_to_ignite"] = {
+			["stats"] = {
+				["base_chance_to_ignite_%"] = {
+					["max"] = 6, 
+					["min"] = 3, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(3-6)% chance to Ignite", 
+			}, 
+			["id"] = "vaal_small_chance_to_ignite", 
+			["dn"] = "Chance To Ignite", 
+		}, 
+		["vaal_small_spell_dodge"] = {
+			["stats"] = {
+				["base_chance_to_dodge_spells_%"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "1% chance to Dodge Spell Hits", 
+			}, 
+			["id"] = "vaal_small_spell_dodge", 
+			["dn"] = "Spell Dodge", 
+		}, 
+		["maraketh_notable_add_minion_movement_speed"] = {
+			["stats"] = {
+				["minion_movement_speed_+%"] = {
+					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Minions have 15% increased Movement Speed", 
+			}, 
+			["id"] = "maraketh_notable_add_minion_movement_speed", 
+			["dn"] = "Add Minion Movement Speed", 
+		}, 
+		["vaal_small_armour"] = {
+			["stats"] = {
+				["physical_damage_reduction_rating_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Armour", 
+			}, 
+			["id"] = "vaal_small_armour", 
+			["dn"] = "Armour", 
+		}, 
+		["karui_notable_add_leech"] = {
+			["stats"] = {
+				["base_life_leech_from_attack_damage_permyriad"] = {
+					["max"] = 0.4, 
+					["min"] = 0.4, 
+					["fmt"] = "g", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "0.4% of Attack Damage Leeched as Life", 
+			}, 
+			["id"] = "karui_notable_add_leech", 
+			["dn"] = "Add Leech", 
+		}, 
+		["vaal_small_physical_damage"] = {
+			["stats"] = {
+				["physical_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Physical Damage", 
+			}, 
+			["id"] = "vaal_small_physical_damage", 
+			["dn"] = "Physical Damage", 
+		}, 
+		["maraketh_notable_add_global_crit_chance"] = {
+			["stats"] = {
+				["critical_strike_chance_+%"] = {
+					["max"] = 25, 
+					["min"] = 25, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "25% increased Critical Strike Chance", 
+			}, 
+			["id"] = "maraketh_notable_add_global_crit_chance", 
+			["dn"] = "Add Global Crit Chance", 
+		}, 
+		["vaal_small_attack_damage"] = {
+			["stats"] = {
+				["attack_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Attack Damage", 
+			}, 
+			["id"] = "vaal_small_attack_damage", 
+			["dn"] = "Attack Damage", 
+		}, 
+		["vaal_small_chance_to_shock"] = {
+			["stats"] = {
+				["base_chance_to_shock_%"] = {
+					["max"] = 6, 
+					["min"] = 3, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(3-6)% chance to Shock", 
+			}, 
+			["id"] = "vaal_small_chance_to_shock", 
+			["dn"] = "Chance To Shock", 
+		}, 
+		["maraketh_notable_add_projectile_damage"] = {
+			["stats"] = {
+				["projectile_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Projectile Damage", 
+			}, 
+			["id"] = "maraketh_notable_add_projectile_damage", 
+			["dn"] = "Add Projectile Damage", 
+		}, 
+		["maraketh_notable_add_dexterity"] = {
+			["stats"] = {
+				["base_dexterity"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+20 to Dexterity", 
+			}, 
+			["id"] = "maraketh_notable_add_dexterity", 
+			["dn"] = "Add Dexterity", 
+		}, 
+		["maraketh_notable_add_elemental_damage"] = {
+			["stats"] = {
+				["elemental_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Elemental Damage", 
+			}, 
+			["id"] = "maraketh_notable_add_elemental_damage", 
+			["dn"] = "Add Elemental Damage", 
+		}, 
+		["karui_notable_add_reduced_stun_threshold"] = {
+			["stats"] = {
+				["base_stun_threshold_reduction_+%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% reduced Enemy Stun Threshold", 
+			}, 
+			["id"] = "karui_notable_add_reduced_stun_threshold", 
+			["dn"] = "Add Reduced Stun Threshold", 
+		}, 
+		["vaal_small_aura_effect"] = {
+			["stats"] = {
+				["non_curse_aura_effect_+%"] = {
+					["max"] = 5, 
+					["min"] = 3, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(3-5)% increased effect of Non-Curse Auras from your Skills", 
+			}, 
+			["id"] = "vaal_small_aura_effect", 
+			["dn"] = "Aura Effect", 
+		}, 
+		["vaal_small_duration"] = {
+			["stats"] = {
+				["skill_effect_duration_+%"] = {
+					["max"] = 7, 
+					["min"] = 4, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(4-7)% increased Skill Effect Duration", 
+			}, 
+			["id"] = "vaal_small_duration", 
+			["dn"] = "Duration", 
+		}, 
+		["vaal_small_mana_regeneration"] = {
+			["stats"] = {
+				["mana_regeneration_rate_+%"] = {
+					["max"] = 17, 
+					["min"] = 12, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(12-17)% increased Mana Regeneration Rate", 
+			}, 
+			["id"] = "vaal_small_mana_regeneration", 
+			["dn"] = "Mana Regeneration", 
+		}, 
+		["maraketh_notable_add_blind"] = {
+			["stats"] = {
+				["global_chance_to_blind_on_hit_%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% chance to Blind Enemies on Hit", 
+			}, 
+			["id"] = "maraketh_notable_add_blind", 
+			["dn"] = "Add Blind", 
+		}, 
+		["vaal_small_lightning_resistance"] = {
+			["stats"] = {
+				["base_lightning_damage_resistance_%"] = {
+					["max"] = 14, 
+					["min"] = 9, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+(9-14)% to Lightning Resistance", 
+			}, 
+			["id"] = "vaal_small_lightning_resistance", 
+			["dn"] = "Lightning Resistance", 
+		}, 
+		["vaal_small_area_damage"] = {
+			["stats"] = {
+				["area_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Area Damage", 
+			}, 
+			["id"] = "vaal_small_area_damage", 
+			["dn"] = "Area Damage", 
+		}, 
+		["maraketh_small_dex"] = {
+			["stats"] = {
+				["base_dexterity"] = {
+					["max"] = 4, 
+					["min"] = 4, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+4 to Dexterity", 
+			}, 
+			["id"] = "maraketh_small_dex", 
+			["dn"] = "Dex", 
+		}, 
+		["maraketh_notable_add_onslaught"] = {
+			["stats"] = {
+				["onslaught_buff_duration_on_kill_ms"] = {
+					["max"] = 8, 
+					["min"] = 8, 
+					["fmt"] = "g", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "You gain Onslaught for 8 seconds on Kill", 
+			}, 
+			["id"] = "maraketh_notable_add_onslaught", 
+			["dn"] = "Add Onslaught", 
+		}, 
+		["karui_notable_add_faster_burn"] = {
+			["stats"] = {
+				["faster_burn_%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Ignites you inflict deal Damage 10% faster", 
+			}, 
+			["id"] = "karui_notable_add_faster_burn", 
+			["dn"] = "Add Faster Burn", 
+		}, 
+		["karui_notable_add_armour"] = {
+			["stats"] = {
+				["physical_damage_reduction_rating_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Armour", 
+			}, 
+			["id"] = "karui_notable_add_armour", 
+			["dn"] = "Add Armour", 
+		}, 
+		["karui_notable_add_physical_taken_as_fire"] = {
+			["stats"] = {
+				["physical_damage_taken_%_as_fire"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% of Physical Damage from Hits taken as Fire Damage", 
+			}, 
+			["id"] = "karui_notable_add_physical_taken_as_fire", 
+			["dn"] = "Add Physical Taken As Fire", 
+		}, 
+		["vaal_small_projectile_speed"] = {
+			["stats"] = {
+				["base_projectile_speed_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Projectile Speed", 
+			}, 
+			["id"] = "vaal_small_projectile_speed", 
+			["dn"] = "Projectile Speed", 
+		}, 
+		["karui_notable_add_totem_damage"] = {
+			["stats"] = {
+				["totem_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Totem Damage", 
+			}, 
+			["id"] = "karui_notable_add_totem_damage", 
+			["dn"] = "Add Totem Damage", 
+		}, 
+		["vaal_small_chaos_damage"] = {
+			["stats"] = {
+				["chaos_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Chaos Damage", 
+			}, 
+			["id"] = "vaal_small_chaos_damage", 
+			["dn"] = "Chaos Damage", 
+		}, 
+		["vaal_small_damage_over_time"] = {
+			["stats"] = {
+				["damage_over_time_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Damage over Time", 
+			}, 
+			["id"] = "vaal_small_damage_over_time", 
+			["dn"] = "Damage Over Time", 
+		}, 
+		["karui_notable_add_warcry_buff_effect"] = {
+			["stats"] = {
+				["warcry_buff_effect_+%"] = {
+					["max"] = 8, 
+					["min"] = 8, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "8% increased Warcry Buff Effect", 
+			}, 
+			["id"] = "karui_notable_add_warcry_buff_effect", 
+			["dn"] = "Add Warcry Buff Effect", 
+		}, 
+		["vaal_small_spell_block"] = {
+			["stats"] = {
+				["base_spell_block_%"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "1% Chance to Block Spell Damage", 
+			}, 
+			["id"] = "vaal_small_spell_block", 
+			["dn"] = "Spell Block", 
+		}, 
+		["karui_notable_add_burning_damage"] = {
+			["stats"] = {
+				["burn_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Burning Damage", 
+			}, 
+			["id"] = "karui_notable_add_burning_damage", 
+			["dn"] = "Add Burning Damage", 
+		}, 
+		["karui_notable_add_double_damage"] = {
+			["stats"] = {
+				["chance_to_deal_double_damage_%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% chance to deal Double Damage", 
+			}, 
+			["id"] = "karui_notable_add_double_damage", 
+			["dn"] = "Add Double Damage", 
+		}, 
+		["vaal_small_minion_damage"] = {
+			["stats"] = {
+				["minion_damage_+%"] = {
+					["max"] = 13, 
+					["min"] = 8, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Minions deal (8-13)% increased Damage", 
+			}, 
+			["id"] = "vaal_small_minion_damage", 
+			["dn"] = "Minion Damage", 
+		}, 
+		["karui_notable_add_totem_placement_speed"] = {
+			["stats"] = {
+				["summon_totem_cast_speed_+%"] = {
+					["max"] = 12, 
+					["min"] = 12, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "12% increased Totem Placement speed", 
+			}, 
+			["id"] = "karui_notable_add_totem_placement_speed", 
+			["dn"] = "Add Totem Placement Speed", 
+		}, 
+		["karui_notable_add_life"] = {
+			["stats"] = {
+				["maximum_life_+%"] = {
+					["max"] = 4, 
+					["min"] = 4, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "4% increased maximum Life", 
+			}, 
+			["id"] = "karui_notable_add_life", 
+			["dn"] = "Add Life", 
+		}, 
+		["vaal_small_fire_damage"] = {
+			["stats"] = {
+				["fire_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Fire Damage", 
+			}, 
+			["id"] = "vaal_small_fire_damage", 
+			["dn"] = "Fire Damage", 
+		}, 
+		["vaal_small_mana"] = {
+			["stats"] = {
+				["maximum_mana_+%"] = {
+					["max"] = 6, 
+					["min"] = 4, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(4-6)% increased maximum Mana", 
+			}, 
+			["id"] = "vaal_small_mana", 
+			["dn"] = "Mana", 
+		}, 
+		["vaal_small_critical_strike_chance"] = {
+			["stats"] = {
+				["critical_strike_chance_+%"] = {
+					["max"] = 14, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-14)% increased Critical Strike Chance", 
+			}, 
+			["id"] = "vaal_small_critical_strike_chance", 
+			["dn"] = "Critical Strike Chance", 
+		}, 
+		["vaal_small_energy_shield"] = {
+			["stats"] = {
+				["maximum_energy_shield_+%"] = {
+					["max"] = 5, 
+					["min"] = 3, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(3-5)% increased maximum Energy Shield", 
+			}, 
+			["id"] = "vaal_small_energy_shield", 
+			["dn"] = "Energy Shield", 
+		}, 
+		["templar_small_devotion"] = {
+			["stats"] = {
+				["base_devotion"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+5 to Devotion", 
+			}, 
+			["id"] = "templar_small_devotion", 
+			["dn"] = "Devotion", 
+		}, 
+		["vaal_small_critical_strike_multiplier"] = {
+			["stats"] = {
+				["base_critical_strike_multiplier_+"] = {
+					["max"] = 10, 
+					["min"] = 6, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+(6-10)% to Critical Strike Multiplier", 
+			}, 
+			["id"] = "vaal_small_critical_strike_multiplier", 
+			["dn"] = "Critical Strike Multiplier", 
+		}, 
+		["maraketh_attribute_dex"] = {
+			["stats"] = {
+				["base_dexterity"] = {
+					["max"] = 2, 
+					["min"] = 2, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+2 to Dexterity", 
+			}, 
+			["id"] = "maraketh_attribute_dex", 
+			["dn"] = "Dex", 
+		}, 
+		["vaal_small_cold_resistance"] = {
+			["stats"] = {
+				["base_cold_damage_resistance_%"] = {
+					["max"] = 14, 
+					["min"] = 9, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+(9-14)% to Cold Resistance", 
+			}, 
+			["id"] = "vaal_small_cold_resistance", 
+			["dn"] = "Cold Resistance", 
+		}, 
+		["vaal_small_evasion"] = {
+			["stats"] = {
+				["evasion_rating_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Evasion Rating", 
+			}, 
+			["id"] = "vaal_small_evasion", 
+			["dn"] = "Evasion", 
+		}, 
+		["vaal_small_attack_block"] = {
+			["stats"] = {
+				["additional_block_%"] = {
+					["max"] = 1, 
+					["min"] = 1, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+1% Chance to Block Attack Damage", 
+			}, 
+			["id"] = "vaal_small_attack_block", 
+			["dn"] = "Attack Block", 
+		}, 
+		["templar_notable_devotion"] = {
+			["stats"] = {
+				["base_devotion"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+5 to Devotion", 
+			}, 
+			["id"] = "templar_notable_devotion", 
+			["dn"] = "Devotion", 
+		}, 
+		["karui_notable_add_endurance_charge_on_kill"] = {
+			["stats"] = {
+				["endurance_charge_on_kill_%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% chance to gain an Endurance Charge on Kill", 
+			}, 
+			["id"] = "karui_notable_add_endurance_charge_on_kill", 
+			["dn"] = "Add Endurance Charge On Kill", 
+		}, 
+		["karui_notable_add_percent_strength"] = {
+			["stats"] = {
+				["strength_+%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% increased Strength", 
+			}, 
+			["id"] = "karui_notable_add_percent_strength", 
+			["dn"] = "Add Percent Strength", 
+		}, 
+		["maraketh_notable_add_frenzy_charge_on_kill"] = {
+			["stats"] = {
+				["add_frenzy_charge_on_kill_%_chance"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% chance to gain a Frenzy Charge on Kill", 
+			}, 
+			["id"] = "maraketh_notable_add_frenzy_charge_on_kill", 
+			["dn"] = "Add Frenzy Charge On Kill", 
+		}, 
+		["maraketh_notable_add_poison_damage"] = {
+			["stats"] = {
+				["base_poison_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Damage with Poison", 
+			}, 
+			["id"] = "maraketh_notable_add_poison_damage", 
+			["dn"] = "Add Poison Damage", 
+		}, 
+		["vaal_small_spell_damage"] = {
+			["stats"] = {
+				["spell_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Spell Damage", 
+			}, 
+			["id"] = "vaal_small_spell_damage", 
+			["dn"] = "Spell Damage", 
+		}, 
+		["karui_small_strength"] = {
+			["stats"] = {
+				["base_strength"] = {
+					["max"] = 4, 
+					["min"] = 4, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+4 to Strength", 
+			}, 
+			["id"] = "karui_small_strength", 
+			["dn"] = "Strength", 
+		}, 
+		["karui_notable_add_physical_damage"] = {
+			["stats"] = {
+				["physical_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Physical Damage", 
+			}, 
+			["id"] = "karui_notable_add_physical_damage", 
+			["dn"] = "Add Physical Damage", 
+		}, 
+		["maraketh_notable_add_movement_speed"] = {
+			["stats"] = {
+				["base_movement_velocity_+%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% increased Movement Speed", 
+			}, 
+			["id"] = "maraketh_notable_add_movement_speed", 
+			["dn"] = "Add Movement Speed", 
+		}, 
+		["maraketh_notable_add_flask_effect"] = {
+			["stats"] = {
+				["non_unique_flask_effect_+%"] = {
+					["max"] = 8, 
+					["min"] = 8, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Non-Unique Flasks applied to you have 8% increased Effect", 
+			}, 
+			["id"] = "maraketh_notable_add_flask_effect", 
+			["dn"] = "Add Flask Effect", 
+		}, 
+		["maraketh_notable_add_physical_added_as_cold"] = {
+			["stats"] = {
+				["physical_damage_%_to_add_as_cold"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Gain 5% of Physical Damage as Extra Cold Damage", 
+			}, 
+			["id"] = "maraketh_notable_add_physical_added_as_cold", 
+			["dn"] = "Add Physical Added As Cold", 
+		}, 
+		["maraketh_notable_add_ailment_effect"] = {
+			["stats"] = {
+				["non_damaging_ailment_effect_+%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% increased Effect of Non-Damaging Ailments", 
+			}, 
+			["id"] = "maraketh_notable_add_ailment_effect", 
+			["dn"] = "Add Ailment Effect", 
+		}, 
+		["maraketh_notable_add_faster_poison"] = {
+			["stats"] = {
+				["faster_poison_%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Poisons you inflict deal Damage 10% faster", 
+			}, 
+			["id"] = "maraketh_notable_add_faster_poison", 
+			["dn"] = "Add Faster Poison", 
+		}, 
+		["maraketh_notable_add_ailment_duration"] = {
+			["stats"] = {
+				["base_elemental_status_ailment_duration_+%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% increased Duration of Elemental Ailments on Enemies", 
+			}, 
+			["id"] = "maraketh_notable_add_ailment_duration", 
+			["dn"] = "Add Ailment Duration", 
+		}, 
+		["maraketh_notable_add_speed"] = {
+			["stats"] = {
+				["attack_and_cast_speed_+%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% increased Attack and Cast Speed", 
+			}, 
+			["id"] = "maraketh_notable_add_speed", 
+			["dn"] = "Add Speed", 
+		}, 
+		["vaal_small_cast_speed"] = {
+			["stats"] = {
+				["base_cast_speed_+%"] = {
+					["max"] = 3, 
+					["min"] = 2, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(2-3)% increased Cast Speed", 
+			}, 
+			["id"] = "vaal_small_cast_speed", 
+			["dn"] = "Cast Speed", 
+		}, 
+		["maraketh_notable_add_accuracy"] = {
+			["stats"] = {
+				["accuracy_rating_+%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% increased Global Accuracy Rating", 
+			}, 
+			["id"] = "maraketh_notable_add_accuracy", 
+			["dn"] = "Add Accuracy", 
+		}, 
+		["maraketh_notable_add_minion_damage"] = {
+			["stats"] = {
+				["minion_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Minions deal 20% increased Damage", 
+			}, 
+			["id"] = "maraketh_notable_add_minion_damage", 
+			["dn"] = "Add Minion Damage", 
+		}, 
+		["maraketh_notable_add_ailment_avoid"] = {
+			["stats"] = {
+				["base_avoid_stun_%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% chance to Avoid being Stunned", 
+			}, 
+			["id"] = "maraketh_notable_add_ailment_avoid", 
+			["dn"] = "Add Ailment Avoid", 
+		}, 
+		["karui_attribute_strength"] = {
+			["stats"] = {
+				["base_strength"] = {
+					["max"] = 2, 
+					["min"] = 2, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+2 to Strength", 
+			}, 
+			["id"] = "karui_attribute_strength", 
+			["dn"] = "Strength", 
+		}, 
+		["maraketh_notable_add_cold_resistance"] = {
+			["stats"] = {
+				["base_cold_damage_resistance_%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+20% to Cold Resistance", 
+			}, 
+			["id"] = "maraketh_notable_add_cold_resistance", 
+			["dn"] = "Add Cold Resistance", 
+		}, 
+		["karui_notable_add_strength"] = {
+			["stats"] = {
+				["base_strength"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+20 to Strength", 
+			}, 
+			["id"] = "karui_notable_add_strength", 
+			["dn"] = "Add Strength", 
+		}, 
+		["maraketh_notable_add_aura_effect"] = {
+			["stats"] = {
+				["non_curse_aura_effect_+%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% increased effect of Non-Curse Auras from your Skills", 
+			}, 
+			["id"] = "maraketh_notable_add_aura_effect", 
+			["dn"] = "Add Aura Effect", 
+		}, 
+		["maraketh_notable_add_flask_charges"] = {
+			["stats"] = {
+				["charges_gained_+%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% increased Flask Charges gained", 
+			}, 
+			["id"] = "maraketh_notable_add_flask_charges", 
+			["dn"] = "Add Flask Charges", 
+		}, 
+		["maraketh_notable_add_evasion"] = {
+			["stats"] = {
+				["evasion_rating_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Evasion Rating", 
+			}, 
+			["id"] = "maraketh_notable_add_evasion", 
+			["dn"] = "Add Evasion", 
+		}, 
+		["maraketh_notable_add_percent_dexterity"] = {
+			["stats"] = {
+				["dexterity_+%"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "5% increased Dexterity", 
+			}, 
+			["id"] = "maraketh_notable_add_percent_dexterity", 
+			["dn"] = "Add Percent Dexterity", 
+		}, 
+		["karui_notable_add_melee_crit_chance"] = {
+			["stats"] = {
+				["melee_critical_strike_chance_+%"] = {
+					["max"] = 30, 
+					["min"] = 30, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "30% increased Melee Critical Strike Chance", 
+			}, 
+			["id"] = "karui_notable_add_melee_crit_chance", 
+			["dn"] = "Add Melee Crit Chance", 
+		}, 
+		["karui_notable_add_intimidate"] = {
+			["stats"] = {
+				["chance_to_intimidate_on_hit_%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% chance to Intimidate Enemies for 4 seconds on Hit", 
+			}, 
+			["id"] = "karui_notable_add_intimidate", 
+			["dn"] = "Add Intimidate", 
+		}, 
+		["vaal_small_attack_speed"] = {
+			["stats"] = {
+				["attack_speed_+%"] = {
+					["max"] = 4, 
+					["min"] = 3, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(3-4)% increased Attack Speed", 
+			}, 
+			["id"] = "vaal_small_attack_speed", 
+			["dn"] = "Attack Speed", 
+		}, 
+		["maraketh_notable_add_life"] = {
+			["stats"] = {
+				["maximum_life_+%"] = {
+					["max"] = 4, 
+					["min"] = 4, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "4% increased maximum Life", 
+			}, 
+			["id"] = "maraketh_notable_add_life", 
+			["dn"] = "Add Life", 
+		}, 
+		["vaal_small_projectile_damage"] = {
+			["stats"] = {
+				["projectile_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Projectile Damage", 
+			}, 
+			["id"] = "vaal_small_projectile_damage", 
+			["dn"] = "Projectile Damage", 
+		}, 
+		["vaal_small_life"] = {
+			["stats"] = {
+				["maximum_life_+%"] = {
+					["max"] = 4, 
+					["min"] = 2, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(2-4)% increased maximum Life", 
+			}, 
+			["id"] = "vaal_small_life", 
+			["dn"] = "Life", 
+		}, 
+		["vaal_small_chance_to_freeze"] = {
+			["stats"] = {
+				["base_chance_to_freeze_%"] = {
+					["max"] = 6, 
+					["min"] = 3, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(3-6)% chance to Freeze", 
+			}, 
+			["id"] = "vaal_small_chance_to_freeze", 
+			["dn"] = "Chance To Freeze", 
+		}, 
+		["karui_notable_add_fire_resistance"] = {
+			["stats"] = {
+				["base_fire_damage_resistance_%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+20% to Fire Resistance", 
+			}, 
+			["id"] = "karui_notable_add_fire_resistance", 
+			["dn"] = "Add Fire Resistance", 
+		}, 
+		["vaal_small_fire_resistance"] = {
+			["stats"] = {
+				["base_fire_damage_resistance_%"] = {
+					["max"] = 14, 
+					["min"] = 9, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+(9-14)% to Fire Resistance", 
+			}, 
+			["id"] = "vaal_small_fire_resistance", 
+			["dn"] = "Fire Resistance", 
+		}, 
+		["vaal_small_chaos_resistance"] = {
+			["stats"] = {
+				["base_chaos_damage_resistance_%"] = {
+					["max"] = 10, 
+					["min"] = 6, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+(6-10)% to Chaos Resistance", 
+			}, 
+			["id"] = "vaal_small_chaos_resistance", 
+			["dn"] = "Chaos Resistance", 
+		}, 
+		["karui_notable_add_fortify_effect"] = {
+			["stats"] = {
+				["fortify_effect_on_self_+%"] = {
+					["max"] = 10, 
+					["min"] = 10, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "10% increased Effect of Fortify on you", 
+			}, 
+			["id"] = "karui_notable_add_fortify_effect", 
+			["dn"] = "Add Fortify Effect", 
+		}, 
+		["vaal_small_curse_effect"] = {
+			["stats"] = {
+				["curse_effect_+%"] = {
+					["max"] = 5, 
+					["min"] = 3, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(3-5)% increased Effect of your Curses", 
+			}, 
+			["id"] = "vaal_small_curse_effect", 
+			["dn"] = "Curse Effect", 
+		}, 
+		["vaal_small_area_of_effect"] = {
+			["stats"] = {
+				["base_skill_area_of_effect_+%"] = {
+					["max"] = 7, 
+					["min"] = 4, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(4-7)% increased Area of Effect", 
+			}, 
+			["id"] = "vaal_small_area_of_effect", 
+			["dn"] = "Area Of Effect", 
+		}, 
+		["karui_notable_add_melee_damage"] = {
+			["stats"] = {
+				["melee_damage_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Melee Damage", 
+			}, 
+			["id"] = "karui_notable_add_melee_damage", 
+			["dn"] = "Add Melee Damage", 
+		}, 
+		["vaal_small_cold_damage"] = {
+			["stats"] = {
+				["cold_damage_+%"] = {
+					["max"] = 12, 
+					["min"] = 7, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "(7-12)% increased Cold Damage", 
+			}, 
+			["id"] = "vaal_small_cold_damage", 
+			["dn"] = "Cold Damage", 
+		}, 
+		["karui_notable_add_melee_crit_multi"] = {
+			["stats"] = {
+				["melee_weapon_critical_strike_multiplier_+"] = {
+					["max"] = 15, 
+					["min"] = 15, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "+15% to Melee Critical Strike Multiplier", 
+			}, 
+			["id"] = "karui_notable_add_melee_crit_multi", 
+			["dn"] = "Add Melee Crit Multi", 
+		}, 
+		["karui_notable_add_stun_duration"] = {
+			["stats"] = {
+				["base_stun_duration_+%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "20% increased Stun Duration on Enemies", 
+			}, 
+			["id"] = "karui_notable_add_stun_duration", 
+			["dn"] = "Add Stun Duration", 
+		}, 
+		["karui_notable_add_physical_added_as_fire"] = {
+			["stats"] = {
+				["physical_damage_%_to_add_as_fire"] = {
+					["max"] = 5, 
+					["min"] = 5, 
+					["fmt"] = "d", 
+				}, 
+			}, 
+			["sd"] = {
+				[1] = "Gain 5% of Physical Damage as Extra Fire Damage", 
+			}, 
+			["id"] = "karui_notable_add_physical_added_as_fire", 
+			["dn"] = "Add Physical Added As Fire", 
 		}, 
 	}, 
 }

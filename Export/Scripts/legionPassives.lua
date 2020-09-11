@@ -6,12 +6,13 @@ loadStatFile("passive_skill_stat_descriptions.txt")
 
 local out = io.open("../Data/3_0/LegionPassives.lua", "w")
 
-local keys = { }
 local stats = dat"Stats"
-local dat = dat"AlternatePassiveSkills"
+local alternatePassiveSkillDat = dat"AlternatePassiveSkills"
+local alternatePassiveAdditionsDat = dat"AlternatePassiveAdditions"
 
 local LEGION_PASSIVE_GROUP = 1e9
 
+---@type fun(thing:string|table|number):string
 function stringify(thing)
 	if type(thing) == 'string' then
 		return thing
@@ -51,86 +52,86 @@ function stringify(thing)
 	end
 end 
 
+---@type table <string, table> @this is the structure used to generate the final data file Data/3_0/LegionPassives
 local data = {};
 data.nodes = {};
 data.groups = {};
+data.additions = {};
 
 local ksCount = -1;
 
-for i=1,dat.rowCount do
-	-- intermediate data
-	local inter = {};
+for i=1, alternatePassiveSkillDat.rowCount do
+	---@type table<string, boolean|string|number>
+	local datFileRow = {};
 
-	for j=1,#dat.cols-1 do
-		local key = dat.spec[j].name
-		inter[key] = dat:ReadCell(i, j)
+	for j=1,#alternatePassiveSkillDat.cols-1 do
+		local key = alternatePassiveSkillDat.spec[j].name
+		datFileRow[key] = alternatePassiveSkillDat:ReadCell(i, j)
 	end
 
-	local t = {};
+	---@type table<string, boolean|string|number|table>
+	local legionPassiveNode = {};
 
 	-- id
-	t.id = inter.Id;
+	legionPassiveNode.id = datFileRow.Id;
 	-- icon
-	t.icon = inter.DDSIcon;
+	legionPassiveNode.icon = datFileRow.DDSIcon;
 	-- is keystone
-	t.ks = isValueInTable(inter.PassiveType, 4) and true or false
+	legionPassiveNode.ks = isValueInTable(datFileRow.PassiveType, 4) and true or false
 
-	if t.ks then ksCount = ksCount + 1 end
+	if legionPassiveNode.ks then ksCount = ksCount + 1 end
 
 	-- is notable
-	t['not'] = isValueInTable(inter.PassiveType, 3) and true or false
+	legionPassiveNode['not'] = isValueInTable(datFileRow.PassiveType, 3) and true or false
 	-- node name
-	t.dn = inter.Name;
+	legionPassiveNode.dn = datFileRow.Name;
 	-- is "mastery" ??
-	t.m = false
+	legionPassiveNode.m = false
 	-- self explanatory
-	t.isJewelSocket = false
-	t.isMultipleChoice = false
-	t.isMultipleChoiceOption = false
-	t.passivePointsGranted = 0
+	legionPassiveNode.isJewelSocket = false
+	legionPassiveNode.isMultipleChoice = false
+	legionPassiveNode.isMultipleChoiceOption = false
+	legionPassiveNode.passivePointsGranted = 0
 	-- something to do with tree starting positions
-	t.spc = {}
+	legionPassiveNode.spc = {}
 	-- display text TODO
-	t.sd = {}
+	legionPassiveNode.sd = {}
 
-	t.stats = {}
+	legionPassiveNode.stats = {}
 
-	for idx,statKey in pairs(inter.StatsKeys) do
-		local stat = {}
+	for idx,statKey in pairs(datFileRow.StatsKeys) do
 		refRow = statKey._rowIndex
 		statId = stats:ReadCell(refRow, 1)
-		range = inter["Stat"..idx]
+		range = datFileRow["Stat"..idx]
 
-		t.stats[statId] = {
+		legionPassiveNode.stats[statId] = {
 			["min"] = range[1],
 			["max"] = range[2],
 		}
 	end
-			
-	for _, line in ipairs(describeStats(t.stats)) do
-		table.insert(t.sd, line)
+
+	for _, line in ipairs(describeStats(legionPassiveNode.stats)) do
+		table.insert(legionPassiveNode.sd, line)
 	end
 
 	--
 
 	-- TODO node group. everything has a group
-	t.g = LEGION_PASSIVE_GROUP
+	legionPassiveNode.g = LEGION_PASSIVE_GROUP
 	-- 
 	-- group orbit distance
-	t.o = t.ks and 4 or 3
-	t.oidx = t.ks and ksCount * 3 or math.floor(math.random() * 1e5)
+	legionPassiveNode.o = legionPassiveNode.ks and 4 or 3
+	legionPassiveNode.oidx = legionPassiveNode.ks and ksCount * 3 or math.floor(math.random() * 1e5)
 	-- attributes granted 
-	t.sa = 0
-	t.da = 0
-	t.ia = 0
+	legionPassiveNode.sa = 0
+	legionPassiveNode.da = 0
+	legionPassiveNode.ia = 0
 	-- connected nodes
-	t.out = {}
-	t["in"] = {}
+	legionPassiveNode.out = {}
+	legionPassiveNode["in"] = {}
 	-- legion flag, so pob knows to handle the data in special ways
-	t.legion = true
-
-
-	data.nodes[t.id] = t;
+	legionPassiveNode.legion = true
+	data.nodes[legionPassiveNode.id] = legionPassiveNode;
 end
 
 data.groups[LEGION_PASSIVE_GROUP] = {
@@ -142,6 +143,46 @@ data.groups[LEGION_PASSIVE_GROUP] = {
 
 for k,v in pairs(data.nodes) do
 	table.insert(data.groups[LEGION_PASSIVE_GROUP].n, k)
+end
+
+for i=1, alternatePassiveAdditionsDat.rowCount do
+	---@type table<string, boolean|string|number>
+	local datFileRow = {};
+
+	for j=1,#alternatePassiveAdditionsDat.cols-1 do
+		local key = alternatePassiveAdditionsDat.spec[j].name
+		datFileRow[key] = alternatePassiveAdditionsDat:ReadCell(i, j)
+	end
+
+	---@type table<string, boolean|string|number|table>
+	local legionPassiveAddition = {};
+
+	-- id
+	legionPassiveAddition.id = datFileRow.Id;
+	-- Additions have no name, so we construct one for the UI (also, Lua regex is too limiting :( )
+	legionPassiveAddition.dn = string.gsub(string.gsub(string.gsub(datFileRow.Id, "_", " "), "^%w* ", ""), "^%w* ", "")
+	legionPassiveAddition.dn = legionPassiveAddition.dn:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
+	-- stat descriptions
+	legionPassiveAddition.sd = {};
+
+	legionPassiveAddition.stats = {}
+
+	for idx,statKey in pairs(datFileRow.StatsKeys) do
+		refRow = statKey + 1
+		statId = stats:ReadCell(refRow, 1)
+		range = datFileRow["Stat"..idx]
+
+		legionPassiveAddition.stats[statId] = {
+			["min"] = range[1],
+			["max"] = range[2],
+		}
+	end
+
+	for _, line in ipairs(describeStats(legionPassiveAddition.stats)) do
+		table.insert(legionPassiveAddition.sd, line)
+	end
+
+	data.additions[legionPassiveAddition.id] = legionPassiveAddition;
 end
 
 str = stringify(data)
