@@ -347,6 +347,20 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "CastSpeedAppliesToAttacks") or skillModList:Flag(nil, "ImprovedCastSpeedAppliesToAttacks") then
+		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
+		local multiplier = 1
+		if skillModList:Flag(nil, "ImprovedCastSpeedAppliesToAttacks") then
+			multiplier = 1
+		end
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Cast }, "Speed")) do
+			local mod = value.mod
+			if band(mod.flags, ModFlag.Cast) ~= 0 then
+				skillModList:NewMod("Speed", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Cast)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+			end
+		end
+	end
+	
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw, keywordFlags = KeywordFlag.Hit }, "Damage")) do
