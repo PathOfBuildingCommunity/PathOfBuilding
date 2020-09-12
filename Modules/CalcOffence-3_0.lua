@@ -347,14 +347,20 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "CastSpeedAppliesToAttacks") or skillModList:Flag(nil, "ImprovedCastSpeedAppliesToAttacks") then
-		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
-		local multiplier = 1
-		if skillModList:Flag(nil, "ImprovedCastSpeedAppliesToAttacks") then
-			multiplier = 1
+
+	if skillModList:Flag(nil, "CastSpeedAppliesToAttacks") then
+		-- Get all increases for this; assumption is that multiple sources would not stack, so find the max
+		local maxIncrease = 0
+		for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "ImprovedCastSpeedAppliesToAttacks")) do
+			print("Mod:"..value.mod.value)
+			maxIncrease = m_max(maxIncrease, value.mod.value)
 		end
+		-- Convert from percent to fraction
+		local multiplier = maxIncrease / 100.
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Cast }, "Speed")) do
 			local mod = value.mod
+			-- Add a new mod for all mods that are cast only
+			-- Replace this with a single mod for the sum?
 			if band(mod.flags, ModFlag.Cast) ~= 0 then
 				skillModList:NewMod("Speed", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Cast)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
 			end
