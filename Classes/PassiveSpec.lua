@@ -480,7 +480,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		-- Reset Node to default
 		node.conqueredBy = nil
 
-		self:ReplaceNode(node,self.tree.nodes[id])
+		-- ignore cluster jewel nodes that don't have an id in the tree
+		if self.tree.nodes[id] then
+			self:ReplaceNode(node,self.tree.nodes[id])
+		end
 
 		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
