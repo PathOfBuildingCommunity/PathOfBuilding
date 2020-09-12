@@ -352,7 +352,6 @@ function calcs.offence(env, actor, activeSkill)
 		-- Get all increases for this; assumption is that multiple sources would not stack, so find the max
 		local maxIncrease = 0
 		for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "ImprovedCastSpeedAppliesToAttacks")) do
-			print("Mod:"..value.mod.value)
 			maxIncrease = m_max(maxIncrease, value.mod.value)
 		end
 		-- Convert from percent to fraction
