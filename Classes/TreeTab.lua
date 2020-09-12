@@ -459,6 +459,10 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
 			end
 		else
+			-- Replace the node first before adding the new line so we don't get multiple lines
+			if self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type][selectedNode.id] then
+				self.specList[1]:ReplaceNode(selectedNode, self.build.latestTree.nodes[selectedNode.id])
+			end
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
 		end
 		t_insert(self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type], selectedNode.id, copyTable(selectedNode, true))

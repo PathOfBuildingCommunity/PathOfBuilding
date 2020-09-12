@@ -500,7 +500,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								node.dependsOnIntuitiveLeapLike = true
 							end
 							node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
-							break
 						end
 					end
 				end

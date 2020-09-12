@@ -485,7 +485,7 @@ function calcs.initEnv(build, mode, override)
 				end
 				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end
-			if item.type == "Shield" and nodes[45175] then
+			if item.type == "Shield" and (nodes[45175] and nodes[45175].dn == "Necromantic Aegis") then
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = new("ModList")
 				for _, mod in ipairs(srcList) do
