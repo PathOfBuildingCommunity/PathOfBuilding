@@ -499,7 +499,9 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								-- 3. Prevents allocation of path nodes when this node is being allocated
 								node.dependsOnIntuitiveLeapLike = true
 							end
-							node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
+							if self.build.itemsTab.items[itemId].jewelData.conqueredBy then
+								node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
+							end
 						end
 					end
 				end
