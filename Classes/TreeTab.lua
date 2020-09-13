@@ -432,15 +432,36 @@ function TreeTabClass:ShowPowerReport()
 	end
 
 	local currentStatLabel = currentStat.label
+	local displayStat = nil
+
+	for index, ds in ipairs(self.build.displayStats) do
+		if ds.stat == currentStat.stat then
+			displayStat = ds
+			break
+		end
+	end
+
+	if not displayStat then
+		displayStat = {
+			fmt = ".1f"
+		}
+	end
 
 	-- search all nodes, ignoring ascendcies, sockets, etc.
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		local isAlloc = node.alloc or self.build.calcsTab.mainEnv.grantedPassives[nodeId]
 		if not isAlloc and (node.type == "Normal" or node.type == "Keystone" or node.type == "Notable") and not node.ascendancyName then
-			local nodePower = node.power.singleStat or 0
-			local nodePowerStr = s_format("%.1f", nodePower)
+			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
+
 			if main.showThousandsCalcs then
 				nodePowerStr = formatNumSep(nodePowerStr)
+			end
+			
+			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
 			end
 			
 			t_insert(report, {
@@ -449,7 +470,8 @@ function TreeTabClass:ShowPowerReport()
 				powerStr = nodePowerStr,
 				id = nodeId,
 				x = node.x,
-				y = node.y
+				y = node.y,
+				type = node.type
 			})
 		end
 	end
@@ -462,6 +484,8 @@ function TreeTabClass:ShowPowerReport()
 	-- present the UI
 	local controls = {}
 	controls.list = new("PowerReportListControl", nil, 0, 40, 450, 400, report, currentStatLabel, function(selectedNode)
+		-- this code is called by the list control when the user "selects" one of the passives in the list.
+		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
 		self.jumpToNode = true
 		self.jumpToX = selectedNode.x
 		self.jumpToY = selectedNode.y
