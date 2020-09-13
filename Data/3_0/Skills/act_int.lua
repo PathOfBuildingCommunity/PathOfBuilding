@@ -895,12 +895,22 @@ skills["Blight"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Channelled] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type59] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.3,
+	parts = {
+		{
+			name = "Manual Stacks"
+		},
+		{
+			name = "Maximum Stacks"
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
 		area = true,
 	},
 	baseMods = {
+		mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } ),
+		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" } ),
 		skill("debuff", true),
 		skill("debuffSecondary", true),
 		skill("radius", 26),
@@ -3493,23 +3503,15 @@ skills["Flameblast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.FireSkill] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
-	parts = {
-		{
-			name = "1 Stage",
-		},
-		{
-			name = "10 Stages",
-		},
-	},
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 		["flameblast_ignite_chance_+%_per_stage"] = {
-			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
@@ -3525,10 +3527,10 @@ skills["Flameblast"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 }),
-		skill("radius", 2, { type = "SkillPart", skillPart = 1 }),
-		skill("radius", 29, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", 9),
+		skill("radius", 2),
+		skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" } ),
+		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
@@ -7384,6 +7386,14 @@ skills["FireBeam"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.CausesBurning] = true, [SkillType.Duration] = true, [SkillType.Channelled] = true, [SkillType.Type59] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
+	parts = {
+		{
+			name = "Manual Stacks"
+		},
+		{
+			name = "Maximum Stacks"
+		},
+	},
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
@@ -7395,7 +7405,7 @@ skills["FireBeam"] = {
 	},
 	baseMods = {
 		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 } ),
-		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7),
+		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7, 0, 0, { type = "SkillPart", skillPart = 1 } ),
 		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
 	},
 	qualityStats = {

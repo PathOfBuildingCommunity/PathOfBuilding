@@ -147,6 +147,16 @@ local skills, mod, flag, skill = ...
 
 #skill Blight
 #flags spell duration area
+	parts = {
+		{
+			name = "Manual Stacks"
+		},
+		{
+			name = "Maximum Stacks"
+		},
+	},
+#baseMod mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } )
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" } )
 #baseMod skill("debuff", true)
 #baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 26)
@@ -609,23 +619,15 @@ local skills, mod, flag, skill = ...
 
 #skill Flameblast
 #flags spell area
-	parts = {
-		{
-			name = "1 Stage",
-		},
-		{
-			name = "10 Stages",
-		},
-	},
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStageFirst" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 		["flameblast_ignite_chance_+%_per_stage"] = {
-			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
@@ -636,10 +638,10 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 	},
-#baseMod mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("radius", 2, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("radius", 29, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", 9)
+#baseMod skill("radius", 2)
+#baseMod skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" } )
+#baseMod skill("showAverage", true)
 #mods
 
 #skill VaalFlameblast

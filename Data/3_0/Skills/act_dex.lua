@@ -6532,12 +6532,12 @@ skills["ScourgeArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:ScourgeArrowStage"), 1)
+	end,
 	parts = {
 		{
-			name = "No stages",
-		},
-		{
-			name = "Release at 5 Stages",
+			name = "Release",
 		},
 		{ 
 			name = "Thorn Arrows"
@@ -6548,7 +6548,7 @@ skills["ScourgeArrow"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ScourgeArrowStage" }),
 		},
 		["virulent_arrow_pod_projectile_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type= "SkillPart", skillPart = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type= "SkillPart", skillPart = 2 }),
 		},
 	},
 	baseFlags = {
@@ -6556,8 +6556,7 @@ skills["ScourgeArrow"] = {
 		projectile = true,
 	},
 	baseMods = {
-		mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
-		skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:ScourgeArrowMaxStages", "BASE", 5),
 	},
 	qualityStats = {
 		Default = {
