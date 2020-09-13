@@ -424,13 +424,16 @@ function TreeTabClass:ShowPowerReport()
 	local report = {}
 	local currentStat = self.build.calcsTab.powerStat
 	
-	-- doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
+	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
 	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
 	if not currentStat or not currentStat.stat then
 		main:OpenMessagePopup("Select a specific stat", "This feature does not report for the \"Offense/Defense\" heat map. Select a specific stat from the dropdown.")
 		return
 	end
 
+	-- locate formatting information for the type of heat map being used.
+	-- maybe a better place to find this? At the moment, it is the only place
+	-- in the code that has this information in a tidy place.
 	local currentStatLabel = currentStat.label
 	local displayStat = nil
 
@@ -441,6 +444,10 @@ function TreeTabClass:ShowPowerReport()
 		end
 	end
 
+	-- not every heat map has an associated "stat" in the displayStats table
+	-- this is due to not every stat being displayed in the sidebar, I believe.
+	-- But, we do want to use the formatting knowledge stored in that table rather than duplicating it here.
+	-- If no corresponding stat is found, just default to a generic stat display (>0=good, one digit of precision).
 	if not displayStat then
 		displayStat = {
 			fmt = ".1f"
@@ -476,10 +483,16 @@ function TreeTabClass:ShowPowerReport()
 		end
 	end
 
-	-- sort by the power, by default.
-	t_sort(report, function (a,b)
-		return (a.power) > (b.power)
-	end)
+	-- sort it
+	if displayStat.lowerIsBetter then
+		t_sort(report, function (a,b)
+			return (a.power) < (b.power)
+		end)
+	else
+		t_sort(report, function (a,b)
+			return (a.power) > (b.power)
+		end)
+	end
 
 	-- present the UI
 	local controls = {}
@@ -494,6 +507,6 @@ function TreeTabClass:ShowPowerReport()
 	controls.done = new("ButtonControl", nil, 0, 450, 100, 20, "Close", function()
 		main:ClosePopup()
 	end)
-		
+
 	popup = main:OpenPopup(500, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
 end
