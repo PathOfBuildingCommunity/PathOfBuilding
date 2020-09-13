@@ -494,6 +494,6 @@ function TreeTabClass:ShowPowerReport()
 	controls.done = new("ButtonControl", nil, 0, 450, 100, 20, "Close", function()
 		main:ClosePopup()
 	end)
-	
-	popup = main:OpenPopup(500, 500, "Power Report: " .. currentStatLabel, controls, "done", "done")
+		
+	popup = main:OpenPopup(500, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
 end
