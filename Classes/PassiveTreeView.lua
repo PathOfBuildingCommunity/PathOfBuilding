@@ -694,6 +694,9 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 end
 
 function PassiveTreeViewClass:Focus(x, y, viewPort, build)
+	self.zoomLevel = 12
+	self.zoom = 1.2 ^ self.zoomLevel
+
 	local tree = build.spec.tree
 	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
 	
