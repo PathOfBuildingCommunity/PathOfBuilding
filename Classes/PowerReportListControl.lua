@@ -6,7 +6,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 		{ width = width * 0.55, label = "Node Name" },
 		{ width = width * 0.2, label = powerLabel }
 	}
-	self.label = "Double-click to focus on tree"
+	self.label = "Click to focus node on tree"
 	self.colLabels = true
 	self.nodeSelectCallback = nodeSelectCallback
 end)
