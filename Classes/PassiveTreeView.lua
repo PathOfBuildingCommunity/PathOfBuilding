@@ -693,6 +693,14 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 	self.zoomY = relY + (self.zoomY - relY) * factor
 end
 
+function PassiveTreeViewClass:Focus(x, y, viewPort, build)
+	local tree = build.spec.tree
+	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
+	
+	self.zoomX = -x * scale
+	self.zoomY = -y * scale
+end
+
 function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	if node.type == "ClassStart" or node.type == "Mastery" then
 		return
