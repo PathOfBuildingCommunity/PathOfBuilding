@@ -688,6 +688,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		local node = {
 			type = "Keystone",
 			id = nodeId,
+			name = keystoneNode.name,
 			dn = keystoneNode.dn,
 			sd = keystoneNode.sd,
 			icon = keystoneNode.icon,
@@ -850,6 +851,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		local node = {
 			type = "Notable",
 			id = nodeId + nodeIndex,
+			name = baseNode.name,
 			dn = baseNode.dn,
 			sd = baseNode.sd,
 			icon = baseNode.icon,
