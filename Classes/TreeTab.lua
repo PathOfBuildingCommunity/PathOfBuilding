@@ -472,7 +472,7 @@ function TreeTabClass:ShowPowerReport()
 			end
 			
 			t_insert(report, {
-				name = node.name,
+				name = node.dn,
 				power = nodePower,
 				powerStr = nodePowerStr,
 				id = nodeId,
