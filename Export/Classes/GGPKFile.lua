@@ -10,6 +10,7 @@ local t_remove = table.remove
 local GGPKClass = newClass("GGPKFile", function(self, path)
 	self.path = path
 	self.temp = io.popen"cd":read'*l'
+	self.ooz_path = "C:\\Users\\nostr\\Documents\\Projects\\ooz\\x64\\Release\\"
 
 	os.execute("mkdir " .. self.temp .. "\\ggpk")
 	self.temp = self.temp .. "\\ggpk\\"
@@ -23,6 +24,13 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 	self.dump = true
 	self:IterateBundle("", "Bundles2")
 	self.dump = false
+
+	-- copy over the _.index.bin file into the OOZ Release folder
+	local cmd = "copy ggpk\\_.index.bin " .. self.ooz_path .. "_.index.bin"
+	--ConPrintf("[CMD] %s\n", cmd)
+	os.execute(cmd)
+
+	self:DecodeBundle("Data.bundle.bin")
 end)
 
 function GGPKClass:IterateBundle(topdir, subdir)
@@ -49,8 +57,14 @@ function GGPKClass:IterateBundle(topdir, subdir)
 	end
 end
 
-function GGPKClass:DecodeBundle(name)
-	--os.execute(.\ooz.exe -p --dll -e _Preload.bundle.bin output _.index.bin _.index.txt)
+function GGPKClass:DecodeBundle(bundleName)
+	local cmd = "copy ggpk\\" .. bundleName .. " " .. self.ooz_path .. bundleName
+	ConPrintf("[CMD] %s\n", cmd)
+	os.execute(cmd)
+	
+	cmd = "cd " .. self.ooz_path .. " && ooz.exe -p --dll -e " .. bundleName .. " output _.index.bin _.index.txt"
+	ConPrintf("[CMD] %s\n", cmd)
+	os.execute(cmd)
 end
 
 function GGPKClass:Write(path, raw)
