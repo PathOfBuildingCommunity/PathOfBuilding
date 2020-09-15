@@ -42,7 +42,7 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 		self:ReadRecord(self.ggpk.recordList[i])
 	end
 	
-	--self:HandleBundles()
+	self:HandleBundles()
 	self:AddDATFiles()
 end)
 
