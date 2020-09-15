@@ -245,7 +245,7 @@ function GGPKClass:Find(path, name)
 			result.name = record.name
 			result.dir = record.tag == "PDIR"
 			result.fullName = path .. "/" .. record.name
-			if result.tag == "FILE" then
+			if record.tag == "FILE" then
 				self.file:seek("set", record.dataOffset)
 				result.data = self.file:read(record.dataLength)
 			end
