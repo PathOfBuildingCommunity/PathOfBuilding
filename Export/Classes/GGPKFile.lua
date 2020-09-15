@@ -23,7 +23,7 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 			bundle_results = self:Find(result.name, "")
 			for _, b_result in ipairs(bundle_results) do
 				if not b_result.dir and b_result.name == '_.index.bin' then
-					self:DecodeBundle(b_result.data)
+					self:DecodeBundle(b_result.data, b_result.name)
 				elseif b_result.dir and b_result.name == "Metadata" then
 					ConPrintf("\nParsing Path: %s\n", b_result.fullName)
 					meta_results = self:Find(b_result.fullName, "")
@@ -33,7 +33,7 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 	end
 end)
 
-function GGPKClass:DecodeBundle(raw)
+function GGPKClass:DecodeBundle(raw, fname)
 	local uncompressed_size = bytesToUInt(raw, 1)
 	local total_payload_size = bytesToUInt(raw, 5)
 	local head_payload_size = bytesToUInt(raw, 9)
@@ -66,30 +66,20 @@ function GGPKClass:DecodeBundle(raw)
 	while index < entry_count do
 		local unpacked_size = (index == lastEntry) and (uncompressed_size - (lastEntry * 262144)) or 262144
 		ConPrintf("Decompressing [%02d] @ Offset: %d     Size: %d ----> %d", index, input_offset, sizes[index], unpacked_size)
-		local dst = {}
-		self:Kraken_Decompress(raw, input_offset, sizes[index], dst, unpacked_size)
 		index = index + 1
 		input_offset = input_offset + sizes[index]
 	end
+
+	self:Write(fname, raw)
 end
 
-function GGPKClass:Kraken_Decompress(data, offset, size, dst, max_size)
-	
-	local offset = 1
-	--[[
-	local kraken_hdr = {decoder_type = 0, restart_decoder = false, uncompressed = true, use_checksum = false}
-	local dec = {src_used = 0, dst_used = 0, scratch_size = 0, hdr = kraken_hdr}
-	while max_size ~= 0 do
-		if not self:Kraken_DecodeStep(dec, dst, offset, max_size, data, size) then
-			return -1
-		end
-		if dec['src_used'] == 0 then
-			return -1
-		end
-		break
+function GGPKClass:Write(path, raw)
+	local output = io.open(path, "wb")
+	if output then
+		--ConPrintf("Writing %s\n", path)
+		output:write(raw)
+		output:close()
 	end
-	--]]
-	return offset
 end
 
 function GGPKClass:Open()
