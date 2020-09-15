@@ -7,6 +7,26 @@ local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
 
+local function scandir(directory, ext)
+	ext = ext or nil
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('dir "'..directory..'" /b')
+	for filename in pfile:lines() do
+		--ConPrintf("%s\n", filename)
+		if ext then
+			if filename:match(ext) then
+				i = i + 1
+				t[i] = filename
+			end
+		else
+			i = i + 1
+			t[i] = filename
+		end
+    end
+    pfile:close()
+    return t
+end
+
 local GGPKClass = newClass("GGPKFile", function(self, path)
 	self.path = path
 	self.temp = io.popen"cd":read'*l'
@@ -16,11 +36,17 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 	self.temp = self.temp .. "\\ggpk\\"
 
 	self.ggpk = { }
+	self.dat = { }
 	self:ReadRecord(self.ggpk)
 	for i = 1, self.ggpk.numRecord do
 		self:ReadRecord(self.ggpk.recordList[i])
 	end
 	
+	--self:HandleBundles()
+	self:AddDATFiles()
+end)
+
+function GGPKClass:HandleBundles()
 	self.dump = true
 	self:IterateBundle("", "Bundles2")
 	self.dump = false
@@ -30,8 +56,28 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 	--ConPrintf("[CMD] %s\n", cmd)
 	os.execute(cmd)
 
-	self:DecodeBundle("Data.bundle.bin")
-end)
+	self:DecodeBundle("Data.dat.bundle.bin")
+end
+
+function GGPKClass:AddDATFiles()
+	dat_files = scandir(self.ooz_path, '%w+%.dat$')
+	for _, f in ipairs(dat_files) do
+		local s, e = string.find(f, "_")
+		if s > 0 then
+			local s2, e2 = string.find(f, "_", s+1)
+			if s2 == nil then
+				fname = string.sub(f, s+1)
+				record = { }
+				record.name = fname
+				raw_file = io.open(self.ooz_path .. f, 'rb')
+				record.data = raw_file:read("*all")
+				raw_file:close()
+				--ConPrintf("FILENAME: %s", fname)
+				t_insert(self.dat, record)
+			end
+		end
+	end
+end
 
 function GGPKClass:IterateBundle(topdir, subdir)
 	results = self:Find(topdir, subdir)
@@ -71,7 +117,7 @@ function GGPKClass:Write(path, raw)
 	path = path or ""
 	local output = io.open(self.temp .. path, "wb")
 	if output then
-		ConPrintf("Writing %s\n", self.temp .. path)
+		--ConPrintf("Writing %s\n", self.temp .. path)
 		output:write(raw)
 		output:close()
 	else
@@ -125,7 +171,7 @@ function GGPKClass:ReadRecord(record)
 				offset = bytesToULong(raw, nameLength * 2 + (i-1) * 12 + 5),
 			}
 		end
-		ConPrintf("PDIR '%s': %d records", record.name, record.numRecord)
+		--ConPrintf("PDIR '%s': %d records", record.name, record.numRecord)
 	elseif record.tag == "FILE" then
 		raw = self.file:read(36)
 		local nameLength = bytesToUInt(raw, 1)
@@ -134,14 +180,14 @@ function GGPKClass:ReadRecord(record)
 		local headLength = 44 + nameLength * 2 -- 44 = 36 read + (4 for rec_leng + 4 for type) pulled outside of 'if'
 		record.dataOffset = record.offset + headLength
 		record.dataLength = record.length - headLength
-		ConPrintf("FILE '%s': %d bytes", record.name, record.dataLength)
+		--ConPrintf("FILE '%s': %d bytes", record.name, record.dataLength)
 		if self.dump then
 			self.file:seek("set", record.dataOffset)
 			self:Write(record.name, self.file:read(record.dataLength))
 		end
 	elseif record.tag == "FREE" then
 		record.nextFree = bytesToULong(self.file:read(8))
-		ConPrintf("FREE")
+		--ConPrintf("FREE")
 	else
 		ConPrintf("Unhandled Tag: %s", record.tag)
 	end

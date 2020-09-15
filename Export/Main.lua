@@ -305,7 +305,8 @@ function main:LoadDatFiles()
 		ConPrintf("GGPK: %d ms", GetTime() - now)
 
 		now = GetTime()
-		for i, record in ipairs(self.ggpk:Find("Data", "%w+%.dat$")) do
+		--for i, record in ipairs(self.ggpk:Find("Data", "%w+%.dat$")) do
+		for i, record in ipairs(self.ggpk.dat) do
 			if i == 1 then
 				ConPrintf("DAT find: %d ms", GetTime() - now)
 				now = GetTime()
