@@ -114,7 +114,7 @@ dbg.tcpListen('localhost', 9966)
 5. Start Path of Building Community
 6. Attach the debugger
 
-##### IntelliJ Idea Community
+##### PyCharm Community / IntelliJ Idea Community
 
 1. Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
 2. Select 'x86' version.
