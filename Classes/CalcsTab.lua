@@ -449,7 +449,7 @@ end
 
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
-	local calcFunc, calcBase = self:GetNodeCalculator()
+	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local newPowerMax = {
 		singleStat = 0,
@@ -470,7 +470,7 @@ function CalcsTabClass:PowerBuilder()
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" then
 			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({node})
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
 			end
 			local output = cache[node.modKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
