@@ -28035,7 +28035,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/KeystoneIronGrip.png",
             ["isKeystone"]= true,
             ["stats"]= {
-                "Strength's damage bonus applies to Projectile Damage as well as Melee Damgae"
+                "Strength's damage bonus applies to Projectile Damage as well as Melee Damage"
             },
             ["flavourText"]= {
                 "Legend tells of bows so powerful that only giants could draw them back."
@@ -32443,7 +32443,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/lightningint.png",
             ["stats"]= {
                 "10% increased Lightning Damage",
-                "{[0]=DNT} 30% increased Duration of Lightning Ailments"
+                "30% increased Duration of Lightning Ailments"
             },
             ["reminderText"]= {
                 "(Lightning Ailments are Shocked and Sapped)"
@@ -32470,7 +32470,7 @@ return {
             ["stats"]= {
                 "20% increased Lightning Damage",
                 "15% chance to Shock",
-                "{[0]=DNT} 20% increased Duration of Lightning Ailments",
+                "20% increased Duration of Lightning Ailments",
                 "20% increased Effect of Lightning Ailments"
             },
             ["reminderText"]= {
@@ -34462,7 +34462,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/colddamage.png",
             ["stats"]= {
                 "10% increased Cold Damage",
-                "{[0]=DNT} 30% increased Duration of Cold Ailments"
+                "30% increased Duration of Cold Ailments"
             },
             ["reminderText"]= {
                 "(Cold Ailments are Chilled, Frozen and Brittle)"
@@ -36378,7 +36378,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/lightningint.png",
             ["stats"]= {
                 "5% chance to Shock",
-                "{[0]=DNT} 30% increased Duration of Lightning Ailments",
+                "30% increased Duration of Lightning Ailments",
                 "10% increased Effect of Lightning Ailments"
             },
             ["reminderText"]= {
@@ -50402,7 +50402,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/colddamage.png",
             ["stats"]= {
                 "10% increased Cold Damage",
-                "{[0]=DNT} 20% increased Duration of Cold Ailments",
+                "20% increased Duration of Cold Ailments",
                 "10% increased Effect of Cold Ailments"
             },
             ["reminderText"]= {
@@ -55075,7 +55075,7 @@ return {
             ["isNotable"]= true,
             ["stats"]= {
                 "+20% to Damage over Time Multiplier for Ignite from Critical Strikes",
-                "{[0]=DNT} 20% increased Effect of non-Damaging Ailments you inflict with Critical Strikes",
+                "20% increased Effect of non-Damaging Ailments you inflict with Critical Strikes",
                 "40% increased Critical Strike Chance"
             },
             ["reminderText"]= {
