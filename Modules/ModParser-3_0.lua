@@ -345,6 +345,7 @@ local modNameList = {
 	["trap trigger area of effect"] = "TrapTriggerAreaOfEffect",
 	["trap duration"] = "TrapDuration",
 	["cooldown recovery speed for throwing traps"] = { "CooldownRecovery", keywordFlags = KeywordFlag.Trap },
+	["cooldown recovery rate for throwing traps"] = { "CooldownRecovery", keywordFlags = KeywordFlag.Trap },
 	["mine laying speed"] = "MineLayingSpeed",
 	["mine throwing speed"] = "MineLayingSpeed",
 	["mine detonation area of effect"] = "MineDetonationAreaOfEffect",
