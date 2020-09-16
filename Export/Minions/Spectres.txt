@@ -172,5 +172,9 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre
 -- Scale of Esh
 #spectre Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_
+-- Scinteel Synthete
+#spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre
 -- Redemption Knight
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_
+-- Templar Tactician
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre

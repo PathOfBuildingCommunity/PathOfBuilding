@@ -458,6 +458,11 @@ skills["SupportBlasphemyPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["supported_curse_skill_gem_level_+"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Curse }),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

@@ -67,9 +67,9 @@ function breakdown.simple(extraBase, cfg, total, ...)
 	end
 end
 
-function breakdown.mod(cfg, ...)
-	local inc = modDB:Sum("INC", cfg, ...)
-	local more = modDB:More(cfg, ...)
+function breakdown.mod(modList, cfg, ...)
+	local inc = modList:Sum("INC", cfg, ...)
+	local more = modList:More(cfg, ...)
 	if inc ~= 0 and more ~= 1 then
 		return { 
 			s_format("%.2f ^8(increased/reduced)", 1 + inc/100),

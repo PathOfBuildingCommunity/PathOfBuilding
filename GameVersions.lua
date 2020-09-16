@@ -12,13 +12,13 @@ targetVersions = {
 	["3_0"] = {
 		short = "3.11",
 		long = "3.11 (Conquerors of the Atlas)",
-		treeVersionList = { "3_6", "3_7", "3_8", "3_9", "3_10", "3_11" },
+		treeVersionList = { "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12" },
 		defaultTreeVersion = "3_6",
-		latestTreeVersion = "3_11",
+		latestTreeVersion = "3_12",
 	},
 }
 
-treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11" }
+treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12" }
 treeVersions = {
 	["2_6"] = {
 		short = "2.6",
@@ -60,6 +60,12 @@ treeVersions = {
 		short = "3.11",
 		num = 3.11,
 		export = "https://www.pathofexile.com/passive-skill-tree/3.11.0/",
+		targetVersion = "3_0",
+	},
+	["3_12"] = {
+		short = "3.12",
+		num = 3.12,
+		export = "https://www.pathofexile.com/passive-skill-tree/3.12.0/",
 		targetVersion = "3_0",
 	},
 }

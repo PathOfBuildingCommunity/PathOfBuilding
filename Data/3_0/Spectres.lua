@@ -2784,6 +2784,32 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
+-- Scinteel Synthete
+minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
+	name = "Scinteel Synthete",
+	life = 5,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 85,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"SynthesisSoulstealerProjectileLightning",
+		"EmptyActionSynthesisSoulstealerArc",
+		"SynthesisSoulstealerLaser",
+		"SynthesisSoulstealerBolt",
+		"GeometryTriggerSynthesisSoulstealer3",
+	},
+	modList = {
+		-- MonsterTagSynthesised
+		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+	},
+}
 -- Redemption Knight
 minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
 	name = "Redemption Knight",
@@ -2806,5 +2832,32 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 		"EmptyActionAttackEyrieFighter",
 	},
 	modList = {
+	},
+}
+-- Templar Tactician
+minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
+	name = "Templar Tactician",
+	life = 3.45,
+	energyShield = 0.4,
+	armour = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"LegionTemplarJudgeStormCall",
+		"LegionTemplarJudgeBallLightning",
+		"GeometryTriggerLegionTemplarCasterStormCall",
+	},
+	modList = {
+		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
