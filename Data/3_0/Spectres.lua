@@ -2785,26 +2785,30 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	},
 }
 -- Scinteel Synthete
-minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3"] = {
-    name = "Scinteel Synthete",
-    life = 5,
-    energyShield = 2,
-    fireResist = 0,
-    coldResist = 0,
-    lightningResist = 85,
-    chaosResist = 0,
-    damage = 1.5,
-    damageSpread = 0.2,
-    attackTime = 1.305,
-    attackRange = 8,
-    accuracy = 1,
-    skillList = {
-        "SynthesisSoulstealerProjectileLightning",
-        "SynthesisSoulstealerBolt",
-        "SynthesisSoulstealerLaser",
-    },
-    modList = {
-    },
+minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
+	name = "Scinteel Synthete",
+	life = 5,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 85,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"SynthesisSoulstealerProjectileLightning",
+		"EmptyActionSynthesisSoulstealerArc",
+		"SynthesisSoulstealerLaser",
+		"SynthesisSoulstealerBolt",
+		"GeometryTriggerSynthesisSoulstealer3",
+	},
+	modList = {
+		-- MonsterTagSynthesised
+		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+	},
 }
 -- Redemption Knight
 minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
