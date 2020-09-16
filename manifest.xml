@@ -156,7 +156,7 @@
 	<File name="Data/3_0/Gems.lua" part="program" sha1="2c85a6f50186ee18c117e22b9b10c2d0e4b77f7f" />
 	<File name="Data/3_0/Minions.lua" part="program" sha1="23b478033953ad37c8f3dc45454e08bc5533a329" />
 	<File name="Data/3_0/Misc.lua" part="program" sha1="15a1acdcf6ca2980bd5d7424048c7db1d31295c6" />
-	<File name="Data/3_0/ModCache.lua" part="program" sha1="49f36d31fc0695a1b06a4c6277a16e230d1eae36" />
+	<File name="Data/3_0/ModCache.lua" part="program" sha1="bbd75d6fbbc09991f979cbff34b7204760e56e9c" />
 	<File name="Data/3_0/ModFlask.lua" part="program" sha1="f6febb9f6d121b2d83a975af56d615b1edb9a6a1" />
 	<File name="Data/3_0/ModItem.lua" part="program" sha1="510995f9ab2971fcaaaa5fd2aeb349199c35c81f" />
 	<File name="Data/3_0/ModJewel.lua" part="program" sha1="7010c8956361777306998b468a911e3c1dd90913" />
@@ -233,7 +233,7 @@
 	<File name="Modules/ItemTools.lua" part="program" sha1="08d24df856a31835234fa2d569ebf4c1295d63e3" />
 	<File name="Modules/Main.lua" part="program" sha1="180eb8c8fdda9215ccc8fc80d20e6c3d1159790e" />
 	<File name="Modules/ModParser-2_6.lua" part="program" sha1="40816503edfc2023a070491d4d69ae02032e2312" />
-	<File name="Modules/ModParser-3_0.lua" part="program" sha1="6a4cec9757e324c88cae7b7257871c85b8ad3159" />
+	<File name="Modules/ModParser-3_0.lua" part="program" sha1="6458ad7c83949da854b9934fd93be2284e327f7c" />
 	<File name="Modules/ModTools.lua" part="program" sha1="2ce4f3b83db992a286bd92f3849d037d6dcc8db2" />
 	<File name="Modules/StatDescriber.lua" part="program" sha1="cb77b8c6931a5c4c4695fc66f222422365d19a73" />
 	<File name="Modules/PantheonTools.lua" part="program" sha1="ebe91a7d8f8444a6061acf4758da0e775cc8c314" />
