@@ -121,7 +121,16 @@ function main:Init()
 		if not self.ggpk then
 			error("GGPK not loaded; set path first")
 		end
-		return self.ggpk:ReadFile(name)
+		if not self.ggpk.txt[name] then
+			local f = io.open(self.ggpk.ooz_path .. name, 'rb')
+			if f then
+				self.ggpk.txt[name] = f:read("*all")
+				f:close()
+			else
+				ConPrintf("Cannot Find File: %s", self.ggpk.ooz_path .. name)
+			end
+		end
+		return self.ggpk.txt[name] --self.ggpk:ReadFile(name)
 	end
 
 	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "Key" }

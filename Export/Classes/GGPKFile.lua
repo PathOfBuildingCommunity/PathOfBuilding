@@ -37,6 +37,8 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 
 	self.ggpk = { }
 	self.dat = { }
+	self.txt = { }
+
 	self:ReadRecord(self.ggpk)
 	for i = 1, self.ggpk.numRecord do
 		self:ReadRecord(self.ggpk.recordList[i])
@@ -56,7 +58,9 @@ function GGPKClass:HandleBundles()
 	--ConPrintf("[CMD] %s\n", cmd)
 	os.execute(cmd)
 
-	self:DecodeBundle("Data.dat.bundle.bin")
+	--self:DecodeBundle("Data.dat.bundle.bin")
+	--self:DecodeBundle("_Preload.bundle.bin")
+	--self:DecodeBundle("Data.dat_4.bundle.bin")
 end
 
 function GGPKClass:AddDATFiles()
