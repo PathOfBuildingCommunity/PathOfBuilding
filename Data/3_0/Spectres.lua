@@ -2784,6 +2784,28 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
+-- Scinteel Synthete
+minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3"] = {
+    name = "Scinteel Synthete",
+    life = 5,
+    energyShield = 2,
+    fireResist = 0,
+    coldResist = 0,
+    lightningResist = 85,
+    chaosResist = 0,
+    damage = 1.5,
+    damageSpread = 0.2,
+    attackTime = 1.305,
+    attackRange = 8,
+    accuracy = 1,
+    skillList = {
+        "SynthesisSoulstealerProjectileLightning",
+        "SynthesisSoulstealerBolt",
+        "SynthesisSoulstealerLaser",
+    },
+    modList = {
+    },
+}
 -- Redemption Knight
 minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
 	name = "Redemption Knight",

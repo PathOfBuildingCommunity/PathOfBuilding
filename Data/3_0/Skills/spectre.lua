@@ -4430,6 +4430,105 @@ skills["SandLeaperDodgeRight"] = {
 		[1] = { 1, 22, manaCost = 90, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }
+skills["SynthesisSoulstealerProjectileLightning"] = {
+    name = "Lightning Projectile",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 2.5,
+    incrementalEffectiveness = 0.038,
+    skillTypes = {
+        [SkillType.Spell] = true,
+        [SkillType.Projectile] = true,
+        [SkillType.SkillCanVolley] = true,
+        [SkillType.Triggerable] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1.33,
+    baseFlags = {
+        spell = true,
+        projectile = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "monster_projectile_variation",
+        "spell_minimum_base_lightning_damage",
+        "spell_maximum_base_lightning_damage",
+        "base_is_projectile",
+        "projectile_uses_contact_position",
+    },
+    levels = {
+        [1] = {103, 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = {1, 3, 3},  },
+    },
+}
+skills["SynthesisSoulstealerBolt"] = {
+    name = "Lightning Bolt",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0.6,
+    incrementalEffectiveness = 0.04,
+    skillTypes = {
+        [SkillType.Triggerable] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+    	spell = true,
+        area = true,
+        hit = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "spell_minimum_base_lightning_damage",
+        "spell_maximum_base_lightning_damage",
+        "monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+        "spell_maximum_action_distance_+%",
+        "base_skill_effect_duration",
+        "skill_range_+%",
+        "is_area_damage",
+    },
+    levels = {
+        [1] = {0.7, 1.3, 0, -50, 260, -75, critChance = 5, levelRequirement = 1, statInterpolation = {3, 3, 1, 1, 1, 1},  },
+    },
+}
+skills["SynthesisSoulstealerLaser"] = {
+    name = "Lightning Laser",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0.6,
+    incrementalEffectiveness = 0.05,
+    skillTypes = {
+        [SkillType.Triggerable] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+    	spell = true,
+        area = true,
+        hit = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "spell_minimum_base_lightning_damage",
+        "spell_maximum_base_lightning_damage",
+        "skill_physical_damage_%_to_convert_to_lightning",
+        "skill_physical_damage_%_to_convert_to_chaos",
+        "monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+        "is_area_damage",
+        "cannot_stun",
+    },
+    levels = {
+        [1] = {0.5, 1.5, 0, 0, 0, critChance = 5, levelRequirement = 0, statInterpolation = {3, 3, 1, 1, 1},  },
+    },
+}
 skills["MeleeCold"] = {
 	name = "Default Attack",
 	hidden = true,

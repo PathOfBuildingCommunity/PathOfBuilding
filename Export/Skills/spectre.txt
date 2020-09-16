@@ -713,6 +713,18 @@ local skills, mod, flag, skill = ...
 #skill SandLeaperDodgeRight Sand Leaper Dodge Right
 #mods
 
+#skill SynthesisSoulstealerProjectileLightning Lightning Projectile
+#flags spell triggerable projectile
+#mods
+
+#skill SynthesisSoulstealerLaser Lightning Laser
+#flags spell hit area triggerable
+#mods
+
+#skill SynthesisSoulstealerBolt Lightning Bolt
+#flags spell hit area triggerable
+#mods
+
 #skill MeleeCold Default Attack
 #flags attack melee projectile
 #mods
