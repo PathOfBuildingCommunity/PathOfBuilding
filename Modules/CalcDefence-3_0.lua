@@ -571,7 +571,7 @@ function calcs.defence(env, actor)
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
-		breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
+		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
 
 	-- Energy Shield bypass

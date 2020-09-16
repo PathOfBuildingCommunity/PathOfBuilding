@@ -47,7 +47,7 @@ local function mergeKeystones(env)
 	local modDB = env.modDB
 
 	for _, name in ipairs(modDB:List(nil, "Keystone")) do
-		if not env.keystonesAdded[name] then
+		if not env.keystonesAdded[name] and env.spec.tree.keystoneMap[name] then
 			env.keystonesAdded[name] = true
 			modDB:AddList(env.spec.tree.keystoneMap[name].modList)
 		end
