@@ -504,8 +504,30 @@ skills["BallLightning"] = {
 		spell = true,
 		projectile = true,
 	},
+	preDamageFunc = function(activeSkill, output)
+		if(activeSkill.skillPart == 1) then
+			return
+		end
+
+		local aoe = output.AreaOfEffectRadius
+		local blBaseSpeed = 48
+		local projSpeed = blBaseSpeed * output.ProjectileSpeedMod
+		local enemyRadius = 2
+		local dpsDuration = (aoe * 2 + enemyRadius * 2) / projSpeed
+		local hitsPerCast = math.min(math.floor(dpsDuration / .15), 13)
+
+		activeSkill.skillData.dpsMultiplier = hitsPerCast
+	end,
 	baseMods = {
 		skill("radius", 22),
+	},
+	parts = {
+		{
+			name = "Single Hit"
+		},
+		{
+			name = "Single Target",
+		}
 	},
 	qualityStats = {
 		{ "lightning_damage_+%", 1 },
