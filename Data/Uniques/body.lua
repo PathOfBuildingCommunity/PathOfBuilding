@@ -536,65 +536,6 @@ Sockets cannot be modified
 +1 to Level of Socketed Gems
 100% increased Global Defences
 ]],[[
-Skin of the Lords
-Simple Robe
-League: Breach
-Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}
-Variant: Acrobatics
-Variant: Ancestral Bond
-Variant: Arrow Dancing
-Variant: Avatar of Fire
-Variant: Blood Magic
-Variant: Conduit
-Variant: Crimson Dance
-Variant: Eldritch Battery
-Variant: Elemental Equilibrium
-Variant: Elemental Overload
-Variant: Ghost Reaver
-Variant: Iron Grip
-Variant: Iron Reflexes
-Variant: Mind Over Matter
-Variant: Minion Instability
-Variant: Mortal Conviction
-Variant: Pain Attunement
-Variant: Perfect Agony
-Variant: Phase Acrobatics
-Variant: Point Blank
-Variant: Resolute Technique
-Variant: Unwavering Stance
-Variant: Vaal Pact
-Variant: Zealot's Oath
-Implicits: 0
-Sockets cannot be modified
-+1 to Level of Socketed Gems
-100% increased Global Defences
-You can only Socket Corrupted Gems in this item
-{variant:1}Acrobatics
-{variant:2}Ancestral Bond
-{variant:3}Arrow Dancing
-{variant:4}Avatar of Fire
-{variant:5}Blood Magic
-{variant:6}Conduit
-{variant:7}Crimson Dance
-{variant:8}Eldritch Battery
-{variant:9}Elemental Equilibrium
-{variant:10}Elemental Overload
-{variant:11}Ghost Reaver
-{variant:12}Iron Grip
-{variant:13}Iron Reflexes
-{variant:14}Mind Over Matter
-{variant:15}Minion Instability
-{variant:16}Mortal Conviction
-{variant:17}Pain Attunement
-{variant:18}Perfect Agony
-{variant:19}Phase Acrobatics
-{variant:20}Point Blank
-{variant:21}Resolute Technique
-{variant:22}Unwavering Stance
-{variant:23}Vaal Pact
-{variant:24}Zealot's Oath
-Corrupted
-]],[[
 Soul Mantle
 Spidersilk Robe
 Variant: Pre 1.2.0
