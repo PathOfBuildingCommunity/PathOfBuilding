@@ -1,3 +1,9 @@
+### 1.4.170.9 - 2020/09/17
+ * Add better breakdown for duration mods on gems
+ * Fix crash related to new Keystones and old trees
+ * Fix support for Iron Grip Notable
+ * Fix support for new ailment scaling nodes
+ * Fix support for new cooldown recovery wording on nodes
 ### 1.4.170.8 - 2020/09/16
  * Add support for 3.12 Tree
  * Add proper support for Carrion Golem
