@@ -107,9 +107,9 @@ Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}20% Chance to Block Attack Damage while wielding a Staff
 {variant:3}25% Chance to Block Attack Damage while wielding a Staff
-{variant:1}Adds (270–300) to (340–380) Physical Damage
-{variant:2}Adds (250–280) to (315–355) Physical Damage
-{variant:3}Adds (220–240) to (270–300) Physical Damage
+{variant:1}Adds (270-300) to (340-380) Physical Damage
+{variant:2}Adds (250-280) to (315-355) Physical Damage
+{variant:3}Adds (220-240) to (270-300) Physical Damage
 Adds (376-400) to (568-600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
@@ -195,9 +195,9 @@ Implicits: 1
 Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Greater Harbinger of Brutality Skill
 +5% Chance to Block Attack Damage while wielding a Staff
-+(30–40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
-Adds (160–185) to (200–225) Physical Damage
-(30–40)% increased Critical Strike Chance
++(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
+Adds (160-185) to (200-225) Physical Damage
+(30-40)% increased Critical Strike Chance
 ]],[[
 Femurs of the Saints
 Primordial Staff

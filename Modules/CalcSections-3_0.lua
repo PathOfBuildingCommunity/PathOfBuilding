@@ -1069,7 +1069,7 @@ return {
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{1:output:LifeRecharge}", 
 		{ breakdown = "LifeRecharge" },
-		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecoveryRate", "NoEnergyShieldRecharge", "EnergyShieldRechargeAppliesToLife" }, },
+		{ modName = { "EnergyShieldRecharge", "LifeRecoveryRate", "NoEnergyShieldRecharge", "EnergyShieldRechargeAppliesToLife" }, },
 	}, },
 	{ label = "Recharge Delay", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{2:output:EnergyShieldRechargeDelay}s", 
 		{ breakdown = "EnergyShieldRechargeDelay" },
@@ -1542,9 +1542,12 @@ return {
 		{ breakdown = "TotalDegen" },
 		{ label = "Sources", modName = { "PhysicalDegen", "FireDegen", "ColdDegen", "LightningDegen", "ChaosDegen" }, modType = "BASE" },
 	}, },
+	{ label = "Total Net Regen", haveOutput = "TotalNetRegen", { format = "{1:output:TotalNetRegen}", 
+		{ breakdown = "TotalNetRegen" },
+	}, },
 	{ label = "Net Life Regen", haveOutput = "NetLifeRegen", { format = "{1:output:NetLifeRegen}", { breakdown = "NetLifeRegen" }, }, },
 	{ label = "Net Mana Regen", haveOutput = "NetManaRegen", { format = "{1:output:NetManaRegen}", { breakdown = "NetManaRegen" }, }, },
-	{ label = "Net Energy Shield Regen", haveOutput = "NetEnergyShieldRegen", { format = "{1:output:NetEnergyShieldRegen}", { breakdown = "NetEnergyShieldRegen" }, }, },
+	{ label = "Net ES Regen", haveOutput = "NetEnergyShieldRegen", { format = "{1:output:NetEnergyShieldRegen}", { breakdown = "NetEnergyShieldRegen" }, }, },
 } }
 } },
 }

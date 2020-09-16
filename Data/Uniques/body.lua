@@ -126,7 +126,7 @@ Requires Level 68, 191 Str
 League: Delirium
 Source: Drops from the Simulacrum Encounter
 (25-40)% increased Melee Damage
-+(60-100) to maximum Life
++(60-90) to maximum Life
 You can have two different Banners at the same time
 Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
 War Banner has (100-200)% increased Adrenaline duration
@@ -535,65 +535,6 @@ Implicits: 0
 Sockets cannot be modified
 +1 to Level of Socketed Gems
 100% increased Global Defences
-]],[[
-Skin of the Lords
-Simple Robe
-League: Breach
-Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}
-Variant: Acrobatics
-Variant: Ancestral Bond
-Variant: Arrow Dancing
-Variant: Avatar of Fire
-Variant: Blood Magic
-Variant: Conduit
-Variant: Crimson Dance
-Variant: Eldritch Battery
-Variant: Elemental Equilibrium
-Variant: Elemental Overload
-Variant: Ghost Reaver
-Variant: Iron Grip
-Variant: Iron Reflexes
-Variant: Mind Over Matter
-Variant: Minion Instability
-Variant: Mortal Conviction
-Variant: Pain Attunement
-Variant: Perfect Agony
-Variant: Phase Acrobatics
-Variant: Point Blank
-Variant: Resolute Technique
-Variant: Unwavering Stance
-Variant: Vaal Pact
-Variant: Zealot's Oath
-Implicits: 0
-Sockets cannot be modified
-+1 to Level of Socketed Gems
-100% increased Global Defences
-You can only Socket Corrupted Gems in this item
-{variant:1}Acrobatics
-{variant:2}Ancestral Bond
-{variant:3}Arrow Dancing
-{variant:4}Avatar of Fire
-{variant:5}Blood Magic
-{variant:6}Conduit
-{variant:7}Crimson Dance
-{variant:8}Eldritch Battery
-{variant:9}Elemental Equilibrium
-{variant:10}Elemental Overload
-{variant:11}Ghost Reaver
-{variant:12}Iron Grip
-{variant:13}Iron Reflexes
-{variant:14}Mind Over Matter
-{variant:15}Minion Instability
-{variant:16}Mortal Conviction
-{variant:17}Pain Attunement
-{variant:18}Perfect Agony
-{variant:19}Phase Acrobatics
-{variant:20}Point Blank
-{variant:21}Resolute Technique
-{variant:22}Unwavering Stance
-{variant:23}Vaal Pact
-{variant:24}Zealot's Oath
-Corrupted
 ]],[[
 Soul Mantle
 Spidersilk Robe
@@ -1028,8 +969,8 @@ Variant: Current
 Requires Level 68, 103 Dex, 109 Int
 +(60-80) to maximum Life 
 (20-50)% increased Damage if you have Shocked an Enemy Recently 
-{variant:1,2}(25–40)% increased Effect of Shock
-{variant:3}(15–25)% increased Effect of Shock
+{variant:1,2}(25-40)% increased Effect of Shock
+{variant:3}(15-25)% increased Effect of Shock
 Unaffected by Shock 
 {variant:1}Shocked Enemies you Kill Explode, dealing (5-10)% of
 {variant:2,3}Shocked Enemies you Kill Explode, dealing 5% of

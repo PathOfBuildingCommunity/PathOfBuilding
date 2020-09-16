@@ -675,7 +675,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile triggerable
 #mods
 
-#skill AtlasExileCrusaderMageguardBombExplode Bombs
+#skill AtlasExileCrusaderMageguardBombExplodeSpectre Bombs
 #flags spell hit triggerable
 #mods
 
@@ -683,7 +683,7 @@ local skills, mod, flag, skill = ...
 #flags spell hit triggerable
 #mods
 
-#skill AtlasCrusaderSisterMortar Mortar
+#skill AtlasCrusaderSisterMortarSpectre Mortar
 #flags spell hit triggerable area projectile
 #mods
 
@@ -711,4 +711,36 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SandLeaperDodgeRight Sand Leaper Dodge Right
+#mods
+
+#skill SynthesisSoulstealerProjectileLightning Lightning Projectile
+#flags spell triggerable projectile
+#mods
+
+#skill SynthesisSoulstealerLaser Lightning Laser
+#flags spell hit area triggerable
+#mods
+
+#skill SynthesisSoulstealerBolt Lightning Bolt
+#flags spell hit area triggerable
+#mods
+
+#skill MeleeCold Default Attack
+#flags attack melee projectile
+#mods
+
+#skill AtlasCrusaderJudgeBallLightning Ball Lightning
+#flags spell hit triggerable area projectile
+#mods
+
+#skill AtlasCruasderJudgeFadingNova Nova Spell
+#flags spell projectile triggerable
+#mods
+
+#skill LegionTemplarJudgeBallLightning Ball Lightning
+#flags spell hit triggerable area projectile
+#mods
+
+#skill LegionTemplarJudgeStormCall Storm Call
+#flags spell area duration
 #mods

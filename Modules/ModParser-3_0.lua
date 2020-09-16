@@ -600,6 +600,7 @@ local modFlagList = {
 	["totem"] = { keywordFlags = KeywordFlag.Totem },
 	["with totem skills"] = { keywordFlags = KeywordFlag.Totem },
 	["for skills used by totems"] = { keywordFlags = KeywordFlag.Totem },
+	["totem skills that cast an aura"] = { tag = { type = "SkillType", skillType = SkillType.Aura }, keywordFlags = KeywordFlag.Totem },
 	["of aura skills"] = { tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["of curse skills"] = { keywordFlags = KeywordFlag.Curse },
 	["with curse skills"] = { keywordFlags = KeywordFlag.Curse },
@@ -746,6 +747,7 @@ local preFlagList = {
 	["^area skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Area } },
 	["^warcry skills have "] = { tag = { type = "SkillType", skillType = SkillType.Warcry } },
 	["^non%-curse aura skills have "] = { tag = { type = "SkillType", skillType = SkillType.Aura } },
+	["^non%-channelling skills have "] = { tag = { type = "SkillType", skillType = SkillType.Channelled, neg = true } },
 	["^skills [hdfg][aei][vari][eln] "] = { },
 	-- Slot specific
 	["^left ring slot: "] = { tag = { type = "SlotNumber", num = 1 } },
@@ -2381,35 +2383,7 @@ local specialModList = {
 	["you take (%d+)%% reduced extra damage from critical strikes"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num) } end,
 	["you take (%d+)%% reduced extra damage from critical strikes while you have no power charges"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true }) } end,
 }
-local keystoneList = {
-	-- List of keystones that can be found on uniques
-	"Acrobatics",
-	"Ancestral Bond",
-	"Arrow Dancing",
-	"Avatar of Fire",
-	"Blood Magic",
-	"Call to Arms",
-	"Conduit",
-	"Crimson Dance",
-	"Eldritch Battery",
-	"Elemental Equilibrium",
-	"Elemental Overload",
-	"Ghost Reaver",
-	"Iron Grip",
-	"Iron Reflexes",
-	"Mind Over Matter",
-	"Minion Instability",
-	"Mortal Conviction",
-	"Pain Attunement",
-	"Perfect Agony",
-	"Phase Acrobatics",
-	"Point Blank",
-	"Resolute Technique",
-	"Unwavering Stance",
-	"Vaal Pact",
-	"Zealot's Oath",
-}
-for _, name in pairs(keystoneList) do
+for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
 end
 local oldList = specialModList
