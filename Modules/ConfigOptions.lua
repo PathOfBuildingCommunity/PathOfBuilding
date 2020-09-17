@@ -151,8 +151,8 @@ return {
 		modList:NewMod("Condition:HarbingerOfTime", "FLAG", true, "Config")
 	end },
 	{ label = "Hex:", ifSkillFlag = "hex" },
-	{ var = "hexDoom", type = "count", label = "Doom on Hex:", ifSkillFlag = "hex", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:HexDoom", "BASE", val, "Config")
+	{ var = "multiplierHexDoom", type = "count", label = "Doom on Hex:", ifSkillFlag = "hex", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:HexDoomStack", "BASE", val, "Config")
 	end },
 	{ label = "Herald of Agony:", ifSkill = "Herald of Agony" },
 	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)

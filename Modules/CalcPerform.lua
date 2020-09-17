@@ -636,10 +636,10 @@ function calcs.perform(env)
 			enemyDB.multipliers["BrandsAttached"] = m_max(actual, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
 		if activeSkill.skillFlags.hex then
-			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoom")
-			local maxDoom = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MaxDoom")
+			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
+			local maxDoom = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MaxDoom") or 30
 			output.HexDoomLimit = m_max(maxDoom, output.HexDoomLimit or 0)
-			modDB.multipliers["HexDoom"] = m_min(hexDoom, output.HexDoomLimit)
+			modDB:NewMod("Multiplier:HexDoom", "BASE", 1, "Base", { type = "Multiplier", var = "HexDoomStack", limit = output.HexDoomLimit })
 		end
 		if activeSkill.skillData.supportBonechill then
 			if activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) and not (activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" and activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill")) then
