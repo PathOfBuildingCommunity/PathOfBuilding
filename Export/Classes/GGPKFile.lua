@@ -33,7 +33,7 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 	self.ooz_path = self.temp .. "\\ggpk\\"
 
 	-- make the Metadata subdir
-	os.execute("mkdir " .. self.ooz_path .. "\\Metadata")
+	--os.execute("mkdir " .. self.ooz_path .. "\\Metadata")
 
 	self.ggpk = { }
 	self.dat = { }
@@ -44,72 +44,37 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 		self:ReadRecord(self.ggpk.recordList[i])
 	end
 	
-	self:IterateBundle("", "Bundles2")
-	self:HandleBundles()
+	self:ExtractFiles()
+
 	self:AddDATFiles()
 end)
 
-function GGPKClass:HandleBundles()
-	-- iterate over all the needed files and extract them
-	datFileList, txtFileList = self:GetNeededFiles()
-	for _, datFile in ipairs(datFileList) do
-		self:FindBundle(datFile)
+function GGPKClass:ExtractFiles()
+	datList, txtList = self:GetNeededFiles()
+	
+	local file_list = ''
+	for _, fname in ipairs(datList) do
+		file_list = file_list .. '"' .. fname .. '" '
 	end
-	for _, txtFile in ipairs(txtFileList) do
-		self:FindBundle(txtFile)
+	for _, fname in ipairs(txtList) do
+		file_list = file_list .. '"' .. fname .. '" '
 	end
-end
-
-function GGPKClass:AddDATFiles()
-	dat_files = scandir(self.ooz_path, '%w+%.dat$')
-	for _, f in ipairs(dat_files) do
-		local s, e = string.find(f, "_")
-		if s > 0 then
-			local s2, e2 = string.find(f, "_", s+1)
-			if s2 == nil then
-				fname = string.sub(f, s+1)
-				record = { }
-				record.name = fname
-				raw_file = io.open(self.ooz_path .. f, 'rb')
-				record.data = raw_file:read("*all")
-				raw_file:close()
-				--ConPrintf("FILENAME: %s", fname)
-				t_insert(self.dat, record)
-			end
-		end
-	end
-end
-
-function GGPKClass:FindBundle(path)
-	local cmd = "cd " .. self.ooz_path .. " && python ggpk_find_files.py " .. path
-	ConPrintf("[CMD] %s\n", cmd)
+	
+	cmd = 'cd ' .. self.ooz_path .. '&& bun_extract_file.exe "' .. self.path .. '" . ' .. file_list
+	ConPrintf(cmd)
 	os.execute(cmd)
 end
 
-function GGPKClass:IterateBundle(topdir, subdir)
-	results = self:Find(topdir, subdir)
-	if results then
-		for index, result in ipairs(results) do
-			ConPrintf("\nParsing: %s\n", result.name)
-			bundle_results = self:Find(result.name, "")
-			for _, b_result in ipairs(bundle_results) do
-				if b_result.dir and b_result.name == "Metadata" then
-					ConPrintf("\nParsing Path: %s\n", b_result.fullName)
-					meta_results = self:Find(b_result.fullName, "")
-				end
-			end
-		end
-	end
-end
-
-function GGPKClass:Write(path, raw)
-	path = path or ""
-	local output = io.open(self.ooz_path .. path, "wb")
-	if output then
-		output:write(raw)
-		output:close()
-	else
-		ConPrintf("Failed to open '%s' for writing.\n", self.ooz_path )
+function GGPKClass:AddDATFiles()
+	dat_files = scandir(self.ooz_path .. "Data\\", '%w+%.dat$')
+	for _, f in ipairs(dat_files) do
+		record = { }
+		record.name = f
+		raw_file = io.open(self.ooz_path .. "Data\\" .. f, 'rb')
+		record.data = raw_file:read("*all")
+		raw_file:close()
+		--ConPrintf("FILENAME: %s", fname)
+		t_insert(self.dat, record)
 	end
 end
 
@@ -223,32 +188,6 @@ function GGPKClass:ReadFile(name)
 	end
 end
 
-function GGPKClass:Find(path, name)
-	local out = { }
-	local dir = self:GetRecord(path)
-	if not dir.read then
-		self:ReadRecord(dir)
-	end
-	for _, record in ipairs(dir.recordList) do
-		if not record.read then
-			self:ReadRecord(record)
-		end
-		if record.name and record.name:match(name) then
-			local result =  { }
-			result.name = record.name
-			result.dir = record.tag == "PDIR"
-			result.fullName = path .. "/" .. record.name
-			if record.tag == "FILE" then
-				self.file:seek("set", record.dataOffset)
-				result.data = self.file:read(record.dataLength)
-			end
-			t_insert(out, result)
-		end
-	end
-	table.sort(out, function(a,b) return a.name < b.name end)
-	return out
-end
-
 function GGPKClass:GetNeededFiles()
 	local datFiles = {
 		"Data/Stats.dat",
@@ -333,28 +272,4 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 	}
 	return datFiles, txtFiles
-end
-
-function GGPKClass:RecordNeeded(name)
-	basedir_list = {}
-	basedir_list["_.index.bin"] = true
-	basedir_list["Data.dat_4.bundle.bin"] = true
-	basedir_list["Data.dat.bundle.bin"] = true
-	basedir_list["_Tiny_1.bundle.bin"] = true
-	basedir_list["Data.dat_5.bundle.bin"] = true
-	basedir_list["Data.dat_2.bundle.bin"] = true
-	basedir_list["Data.dat_3.bundle.bin"] = true
-	basedir_list["Data.dat_1.bundle.bin"] = true
-	basedir_list["_Preload.bundle.bin"] = true
-	
-	metadata_list = {}
-	metadata_list["StatDescriptions.bundle.bin"] = true
-
-	
-	if basedir_list[name] ~= nil then
-		return 1
-	elseif metadata_list[name] ~= nil then
-		return 2
-	end
-	return 0
 end

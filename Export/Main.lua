@@ -121,7 +121,6 @@ function main:Init()
 		if not self.ggpk then
 			error("GGPK not loaded; set path first")
 		end
-		name = name:gsub("/","_")
 		if not self.ggpk.txt[name] then
 			local f = io.open(self.ggpk.ooz_path .. name, 'rb')
 			if f then

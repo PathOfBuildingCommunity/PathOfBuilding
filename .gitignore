@@ -262,9 +262,7 @@ ModelManifest.xml
 /pack-tree.lua
 
 # Temp GGPK Resolution
-Export/ggpk/*.bin
-Export/ggpk/*.decoded
-Export/ggpk/*.dat
-Export/ggpk/*.txt
 Export/ggpk/Metadata/*
+Export/ggpk/Data/*
 Export/ggpk/*.exe
+Export/ggpk/*.dll
