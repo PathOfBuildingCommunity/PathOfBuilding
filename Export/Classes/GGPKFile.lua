@@ -30,10 +30,10 @@ end
 local GGPKClass = newClass("GGPKFile", function(self, path)
 	self.path = path
 	self.temp = io.popen"cd":read'*l'
-	self.ooz_path = "C:\\Users\\nostr\\Documents\\Projects\\ooz\\x64\\Release\\"
+	self.ooz_path = self.temp .. "\\ggpk\\"
 
-	os.execute("mkdir " .. self.temp .. "\\ggpk")
-	self.temp = self.temp .. "\\ggpk\\"
+	-- make the Metadata subdir
+	os.execute("mkdir " .. self.ooz_path .. "\\Metadata")
 
 	self.ggpk = { }
 	self.dat = { }
@@ -44,23 +44,20 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 		self:ReadRecord(self.ggpk.recordList[i])
 	end
 	
+	self:IterateBundle("", "Bundles2")
 	self:HandleBundles()
 	self:AddDATFiles()
 end)
 
 function GGPKClass:HandleBundles()
-	self.dump = true
-	self:IterateBundle("", "Bundles2")
-	self.dump = false
-
-	-- copy over the _.index.bin file into the OOZ Release folder
-	local cmd = "copy ggpk\\_.index.bin " .. self.ooz_path .. "_.index.bin"
-	--ConPrintf("[CMD] %s\n", cmd)
-	os.execute(cmd)
-
-	--self:DecodeBundle("Data.dat.bundle.bin")
-	--self:DecodeBundle("_Preload.bundle.bin")
-	--self:DecodeBundle("Data.dat_4.bundle.bin")
+	-- iterate over all the needed files and extract them
+	datFileList, txtFileList = self:GetNeededFiles()
+	for _, datFile in ipairs(datFileList) do
+		self:FindBundle(datFile)
+	end
+	for _, txtFile in ipairs(txtFileList) do
+		self:FindBundle(txtFile)
+	end
 end
 
 function GGPKClass:AddDATFiles()
@@ -83,6 +80,12 @@ function GGPKClass:AddDATFiles()
 	end
 end
 
+function GGPKClass:FindBundle(path)
+	local cmd = "cd " .. self.ooz_path .. " && python ggpk_find_files.py " .. path
+	ConPrintf("[CMD] %s\n", cmd)
+	os.execute(cmd)
+end
+
 function GGPKClass:IterateBundle(topdir, subdir)
 	results = self:Find(topdir, subdir)
 	if results then
@@ -91,41 +94,22 @@ function GGPKClass:IterateBundle(topdir, subdir)
 			bundle_results = self:Find(result.name, "")
 			for _, b_result in ipairs(bundle_results) do
 				if b_result.dir and b_result.name == "Metadata" then
-					-- make the directory
-					local cmd = "mkdir " .. self.temp .. "Metadata"
-					ConPrintf("Executing CMD: '%s'\n", cmd)
-					os.execute(cmd)
-
-					local old_path = self.temp
-					self.temp = self.temp .. "Metadata\\"
 					ConPrintf("\nParsing Path: %s\n", b_result.fullName)
 					meta_results = self:Find(b_result.fullName, "")
-					self.temp = old_path
 				end
 			end
 		end
 	end
 end
 
-function GGPKClass:DecodeBundle(bundleName)
-	local cmd = "copy ggpk\\" .. bundleName .. " " .. self.ooz_path .. bundleName
-	ConPrintf("[CMD] %s\n", cmd)
-	os.execute(cmd)
-	
-	cmd = "cd " .. self.ooz_path .. " && ooz.exe -p --dll -e " .. bundleName .. " output _.index.bin _.index.txt"
-	ConPrintf("[CMD] %s\n", cmd)
-	os.execute(cmd)
-end
-
 function GGPKClass:Write(path, raw)
 	path = path or ""
-	local output = io.open(self.temp .. path, "wb")
+	local output = io.open(self.ooz_path .. path, "wb")
 	if output then
-		--ConPrintf("Writing %s\n", self.temp .. path)
 		output:write(raw)
 		output:close()
 	else
-		ConPrintf("Failed to open '%s' for writing.\n", self.temp )
+		ConPrintf("Failed to open '%s' for writing.\n", self.ooz_path )
 	end
 end
 
@@ -185,9 +169,14 @@ function GGPKClass:ReadRecord(record)
 		record.dataOffset = record.offset + headLength
 		record.dataLength = record.length - headLength
 		--ConPrintf("FILE '%s': %d bytes", record.name, record.dataLength)
-		if self.dump then
+		--if self.dump then
+		is_needed = self:RecordNeeded(record.name)
+		if is_needed == 1 then
 			self.file:seek("set", record.dataOffset)
 			self:Write(record.name, self.file:read(record.dataLength))
+		elseif is_needed == 2 then
+			self.file:seek("set", record.dataOffset)
+			self:Write("Metadata\\" .. record.name, self.file:read(record.dataLength))
 		end
 	elseif record.tag == "FREE" then
 		record.nextFree = bytesToULong(self.file:read(8))
@@ -269,7 +258,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/ComponentArmour.dat",
 		"Data/Flasks.dat",
 		"Data/ComponentCharges.dat",
-		"Data/ComponentAttributeRequirements",
+		"Data/ComponentAttributeRequirements.dat",
 		"Data/PassiveSkills.dat",
 		"Data/PassiveSkillBuffs.dat",
 		"Data/PassiveTreeExpansionJewelSizes.dat",
@@ -296,8 +285,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/EssenceType.dat",
 		"Data/Characters.dat",
 		"Data/BuffDefinitions.dat",
-		"Data/BuffMagnitudes.dat",
-		"Data/BuffCategory.dat",
+		"Data/BuffCategories.dat",
 		"Data/BuffVisuals.dat",
 		"Data/HideoutNPCs.dat",
 		"Data/NPCs.dat",
@@ -344,4 +332,29 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 	}
+	return datFiles, txtFiles
+end
+
+function GGPKClass:RecordNeeded(name)
+	basedir_list = {}
+	basedir_list["_.index.bin"] = true
+	basedir_list["Data.dat_4.bundle.bin"] = true
+	basedir_list["Data.dat.bundle.bin"] = true
+	basedir_list["_Tiny_1.bundle.bin"] = true
+	basedir_list["Data.dat_5.bundle.bin"] = true
+	basedir_list["Data.dat_2.bundle.bin"] = true
+	basedir_list["Data.dat_3.bundle.bin"] = true
+	basedir_list["Data.dat_1.bundle.bin"] = true
+	basedir_list["_Preload.bundle.bin"] = true
+	
+	metadata_list = {}
+	metadata_list["StatDescriptions.bundle.bin"] = true
+
+	
+	if basedir_list[name] ~= nil then
+		return 1
+	elseif metadata_list[name] ~= nil then
+		return 2
+	end
+	return 0
 end
