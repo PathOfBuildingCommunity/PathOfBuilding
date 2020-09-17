@@ -698,21 +698,65 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 		return
 	end
 
+	local delimiter = " "
+	local matches = {}
+
+	local rest_result = self.searchStr:lower()
+	for match in (self.searchStr..delimiter):gmatch("\"(.-)\""..delimiter) do
+		table.insert(matches, match);
+	end
+
+	for key, match in pairs(matches) do
+		print(key, match)
+	end
+
+	for key, stringresult in pairs(matches) do
+		stringToRemove = ("\"" .. stringresult .. "\"")
+		rest_result = string.gsub(rest_result, stringToRemove, "")
+	end
+
+	for match in (rest_result..delimiter):gmatch("(.-)"..delimiter) do
+		table.insert(matches, match);
+	end
+
+	function matchAll(sstring, matches)
+		local matched = true
+
+		for key, match in pairs(matches) do
+			errMsg, pre_matched = PCall(string.match, sstring,  match:lower())
+			matched = matched and pre_matched
+		end
+
+		return matched
+	end
+
 	-- Check node name
-	local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
+	local match = matchAll(node.dn:lower(), matches)
+	if match then
+		return true
+	end
+
+	-- Check node type
+	local match = matchAll(node.type:lower(), matches)
 	if match then
 		return true
 	end
 
 	-- Check node description
+	allLinesSum = ""
+	for index, data in ipairs(node.sd) do
+		allLinesSum = (allLinesSum .. " " .. data)
+	end
+
+	local match = matchAll(allLinesSum:lower(), matches)
+	if match then
+		return true
+	end
+
+	-- Check node modifiers
 	for index, line in ipairs(node.sd) do
-		-- Check display text first
-		errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
-		if match then
-			return true
-		end
 		if not match and node.mods[index].list then
-			-- Then check modifiers
+
 			for _, mod in ipairs(node.mods[index].list) do
 				errMsg, match = PCall(string.match, mod.name, self.searchStr)
 				if match then
@@ -720,12 +764,6 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 				end
 			end
 		end
-	end
-
-	-- Check node type
-	local errMsg, match = PCall(string.match, node.type:lower(), self.searchStr:lower())
-	if match then
-		return true
 	end
 end
 
