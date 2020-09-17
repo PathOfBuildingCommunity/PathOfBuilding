@@ -15,7 +15,7 @@ function loadStatFile(fileName)
 	local function processLine(line)
 		local include = line:match('include "Metadata/StatDescriptions/(.+)"$')
 		if include then
-			local text = convertUTF16to8(getFile("Metadata_StatDescriptions_"..include))
+			local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..include))
 			for line in text:gmatch("[^\r\n]+") do
 				processLine(line)
 			end
@@ -74,7 +74,7 @@ function loadStatFile(fileName)
 			end
 		end
 	end
-	local text = convertUTF16to8(getFile("Metadata_StatDescriptions_"..fileName))
+	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..fileName))
 	for line in text:gmatch("[^\r\n]+") do
 		processLine(line)
 	end

@@ -2,19 +2,6 @@
 -- export The Pantheon data
 --
 
-local function dump(o)
-    if type(o) == 'table' then
-       local s = '{ '
-       for k,v in pairs(o) do
-          if type(k) ~= 'number' then k = '"'..k..'"' end
-          s = s .. '['..k..'] = ' .. dump(v) .. ','
-       end
-       return s .. '} '
-    else
-       return tostring(o)
-    end
- end
-
 local function zip(a, b)
     local zipped = { }
 	for i, _ in pairs(a) do
