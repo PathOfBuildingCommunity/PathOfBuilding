@@ -492,15 +492,17 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local defence = m_max(node.power.defence or 0, 0)
 					local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
 					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
-					if(self.heatMapStatPerPoint and self.heatMapTopPick) then
-						dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
-						defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
-					elseif self.heatMapStatPerPoint then
-						dpsCol = dpsCol / node.pathDist * 4
-						defCol = defCol / node.pathDist * 4
-					elseif self.heatMapTopPick then
-						dpsCol = offence == build.calcsTab.powerMax.offence and 1.5 ^ 0.5 or 0
-						defCol = defence == build.calcsTab.powerMax.defence and 1.5 ^ 0.5 or 0
+					if (offence ~= 0) then
+						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
+							dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
+							defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
+						elseif self.heatMapStatPerPoint then
+							dpsCol = dpsCol / node.pathDist * 4
+							defCol = defCol / node.pathDist * 4
+						elseif self.heatMapTopPick then
+							dpsCol = offence == build.calcsTab.powerMax.offence and 1.5 ^ 0.5 or 0
+							defCol = defence == build.calcsTab.powerMax.defence and 1.5 ^ 0.5 or 0
+						end
 					end
 					local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
 					if main.nodePowerTheme == "RED/BLUE" then
