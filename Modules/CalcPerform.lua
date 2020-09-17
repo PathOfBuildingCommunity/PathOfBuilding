@@ -635,6 +635,12 @@ function calcs.perform(env)
 			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(actual, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
 			enemyDB.multipliers["BrandsAttached"] = m_max(actual, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
+		if activeSkill.skillFlags.hex then
+			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoom")
+			local maxDoom = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MaxDoom")
+			output.HexDoomLimit = m_max(maxDoom, output.HexDoomLimit or 0)
+			modDB.multipliers["HexDoom"] = m_min(hexDoom, output.HexDoomLimit)
+		end
 		if activeSkill.skillData.supportBonechill then
 			if activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) and not (activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" and activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill")) then
 				output.BonechillDotEffect = m_floor(10 * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyChillEffect") / 100))
