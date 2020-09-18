@@ -85,7 +85,7 @@ for k, v in pairs(nk) do
 	print("'"..k.."' = '"..v.."'")
 end
 
-local function matchLimit(lang, val) 
+local function matchLimit(lang, val)
 	for _, desc in ipairs(lang) do
 		local match = true
 		for i, limit in ipairs(desc.limit) do
@@ -191,22 +191,22 @@ function describeStats(stats)
 					val[spec.v].max = 100 + val[spec.v].max
 				end
 			end
-			local statDesc = desc.text:gsub("%%(%d)%%", function(n) 
-				local v = val[tonumber(n)]
+			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%d", function() 
+			end):gsub("{:(%+?)d}", function() 
 				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%(%d)$(%+?)d", function(n, fmt)
-				local v = val[tonumber(n)]
+			end):gsub("{(%d):(%+?)d}", function(n, fmt)
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..fmt..v.fmt, v.min)
 				elseif fmt == "+" then
@@ -233,14 +233,18 @@ function describeStats(stats)
 end
 
 function describeMod(mod)
+	ConPrintf("HERE2")
 	local stats = { }
 	for i = 1, 6 do
 		if mod["Stat"..i] then
 			stats[mod["Stat"..i].Id] = { min = mod["Stat"..i.."Value"][1], max = mod["Stat"..i.."Value"][2] }
+			ConPrintf("Has Stat %d - %s %s %s", i, mod["Stat"..i].Id, mod["Stat"..i.."Value"][1], mod["Stat"..i.."Value"][2])
 		end
 	end
 	if mod.Type then
+		ConPrintf("HAS MOD TYPE: %s", mod.Type)
 		stats.Type = mod.Type
 	end
+	ConPrintf("HERE2 DONE")
 	return describeStats(stats)
 end
