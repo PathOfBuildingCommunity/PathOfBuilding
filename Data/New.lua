@@ -53,6 +53,20 @@ Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand
 Summoned Skeleton Warriors deal Triple Damage with this Weapon if you've Hit with this Weapon recently
 ]],
 
+-- Threshold jewels
+
+[[
+Endless Misery
+Cobalt Jewel
+League: Heist
+Limited to: 1
+Radius: Medium
+8% increased Elemental Damage
+With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect
+With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms
+With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
+]],
+
 -- Reworked
 
 }
