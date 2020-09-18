@@ -121,7 +121,16 @@ function main:Init()
 		if not self.ggpk then
 			error("GGPK not loaded; set path first")
 		end
-		return self.ggpk:ReadFile(name)
+		if not self.ggpk.txt[name] then
+			local f = io.open(self.ggpk.oozPath .. name, 'rb')
+			if f then
+				self.ggpk.txt[name] = f:read("*all")
+				f:close()
+			else
+				ConPrintf("Cannot Find File: %s", self.ggpk.oozPath .. name)
+			end
+		end
+		return self.ggpk.txt[name] --self.ggpk:ReadFile(name)
 	end
 
 	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "Key" }
@@ -305,7 +314,8 @@ function main:LoadDatFiles()
 		ConPrintf("GGPK: %d ms", GetTime() - now)
 
 		now = GetTime()
-		for i, record in ipairs(self.ggpk:Find("Data", "%w+%.dat$")) do
+		--for i, record in ipairs(self.ggpk:Find("Data", "%w+%.dat$")) do
+		for i, record in ipairs(self.ggpk.dat) do
 			if i == 1 then
 				ConPrintf("DAT find: %d ms", GetTime() - now)
 				now = GetTime()
