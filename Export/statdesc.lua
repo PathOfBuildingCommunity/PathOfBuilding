@@ -233,18 +233,14 @@ function describeStats(stats)
 end
 
 function describeMod(mod)
-	ConPrintf("HERE2")
 	local stats = { }
 	for i = 1, 6 do
 		if mod["Stat"..i] then
 			stats[mod["Stat"..i].Id] = { min = mod["Stat"..i.."Value"][1], max = mod["Stat"..i.."Value"][2] }
-			ConPrintf("Has Stat %d - %s %s %s", i, mod["Stat"..i].Id, mod["Stat"..i.."Value"][1], mod["Stat"..i.."Value"][2])
 		end
 	end
 	if mod.Type then
-		ConPrintf("HAS MOD TYPE: %s", mod.Type)
 		stats.Type = mod.Type
 	end
-	ConPrintf("HERE2 DONE")
 	return describeStats(stats)
 end
