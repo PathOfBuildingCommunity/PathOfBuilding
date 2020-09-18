@@ -49,10 +49,11 @@ function loadStatFile(fileName)
 					local desc = { text = text, limit = { } }
 					for statLimit in statLimits:gmatch("[%d%-#|]+") do
 						local limit = { }
+						
 						if statLimit == "#" then
 							limit[1] = "#"
 							limit[2] = "#"
-						elseif statLimit:match("^%d+$") then
+						elseif statLimit:match("^%-?%d+$") then
 							limit[1] = tonumber(statLimit)
 							limit[2] = tonumber(statLimit)
 						else
@@ -198,7 +199,7 @@ function describeStats(stats)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{:(%+?)d}", function() 
+			end):gsub("{:%+?d}", function() 
 				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
