@@ -238,6 +238,9 @@ function GGPKClass:GetNeededFiles()
 		"Data/AchievementItems.dat",
 		"Data/MultiPartAchievements.dat",
 		"Data/PantheonPanelLayout.dat",
+		"Data/AlternatePassiveAdditions.dat",
+		"Data/AlternatePassiveSkills.dat",
+		"Data/AlternateTreeVersions.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
