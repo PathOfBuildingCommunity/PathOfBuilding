@@ -59,7 +59,7 @@ function GGPKClass:ExtractFiles()
 		fileList = fileList .. '"' .. fname .. '" '
 	end
 	
-	cmd = 'cd ' .. self.oozPath .. '&& bun_extract_file.exe "' .. self.path .. '" . ' .. fileList
+	cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
 	ConPrintf(cmd)
 	os.execute(cmd)
 end
@@ -243,6 +243,9 @@ function GGPKClass:GetNeededFiles()
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
 		"Data/AlternateTreeVersions.dat",
+		"Data/GrantedEffectQualityTypes.dat",
+		"Data/GrantedEffectQualityStats.dat",
+		"Data/GrantedEffectGroups.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

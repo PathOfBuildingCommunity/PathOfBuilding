@@ -619,7 +619,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=370
+			width=480
 		},
 		[2]={
 			list=false,
