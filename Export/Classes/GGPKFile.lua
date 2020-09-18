@@ -10,21 +10,23 @@ local t_remove = table.remove
 local function scanDir(directory, extension)
 	local i = 0
 	local t = { }
-    local pFile = io.popen('dir "'..directory..'" /b')
+	local pFile = io.popen('dir "'..directory..'" /b')
 	for filename in pFile:lines() do
 		--ConPrintf("%s\n", filename)
 		if extension then
 			if filename:match(extension) then
 				i = i + 1
 				t[i] = filename
+			else
+				--ConPrintf("No Files Found matching extension '%s'", extension)
 			end
 		else
 			i = i + 1
 			t[i] = filename
 		end
-    end
-    pFile:close()
-    return t
+	end
+	pFile:close()
+	return t
 end
 
 local GGPKClass = newClass("GGPKFile", function(self, path)
