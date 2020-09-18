@@ -122,12 +122,12 @@ function main:Init()
 			error("GGPK not loaded; set path first")
 		end
 		if not self.ggpk.txt[name] then
-			local f = io.open(self.ggpk.ooz_path .. name, 'rb')
+			local f = io.open(self.ggpk.oozPath .. name, 'rb')
 			if f then
 				self.ggpk.txt[name] = f:read("*all")
 				f:close()
 			else
-				ConPrintf("Cannot Find File: %s", self.ggpk.ooz_path .. name)
+				ConPrintf("Cannot Find File: %s", self.ggpk.oozPath .. name)
 			end
 		end
 		return self.ggpk.txt[name] --self.ggpk:ReadFile(name)

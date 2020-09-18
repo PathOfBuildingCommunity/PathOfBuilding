@@ -7,14 +7,14 @@ local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
 
-local function scandir(directory, ext)
-	ext = ext or nil
-    local i, t, popen = 0, {}, io.popen
-    local pfile = popen('dir "'..directory..'" /b')
-	for filename in pfile:lines() do
+local function scanDir(directory, extension)
+	local i = 0
+	local t = { }
+    local pFile = io.popen('dir "'..directory..'" /b')
+	for filename in pFile:lines() do
 		--ConPrintf("%s\n", filename)
-		if ext then
-			if filename:match(ext) then
+		if extension then
+			if filename:match(extension) then
 				i = i + 1
 				t[i] = filename
 			end
@@ -23,18 +23,16 @@ local function scandir(directory, ext)
 			t[i] = filename
 		end
     end
-    pfile:close()
+    pFile:close()
     return t
 end
 
 local GGPKClass = newClass("GGPKFile", function(self, path)
 	self.path = path
-	self.temp = io.popen"cd":read'*l'
-	self.ooz_path = self.temp .. "\\ggpk\\"
+	self.temp = io.popen("cd"):read('*l')
+	self.oozPath = self.temp .. "\\ggpk\\"
 
-	-- make the Metadata subdir
-	--os.execute("mkdir " .. self.ooz_path .. "\\Metadata")
-
+	-- prepare our tables
 	self.ggpk = { }
 	self.dat = { }
 	self.txt = { }
@@ -45,34 +43,33 @@ local GGPKClass = newClass("GGPKFile", function(self, path)
 	end
 	
 	self:ExtractFiles()
-
-	self:AddDATFiles()
+	self:AddDatFiles()
 end)
 
 function GGPKClass:ExtractFiles()
 	datList, txtList = self:GetNeededFiles()
 	
-	local file_list = ''
+	local fileList = ''
 	for _, fname in ipairs(datList) do
-		file_list = file_list .. '"' .. fname .. '" '
+		fileList = fileList .. '"' .. fname .. '" '
 	end
 	for _, fname in ipairs(txtList) do
-		file_list = file_list .. '"' .. fname .. '" '
+		fileList = fileList .. '"' .. fname .. '" '
 	end
 	
-	cmd = 'cd ' .. self.ooz_path .. '&& bun_extract_file.exe "' .. self.path .. '" . ' .. file_list
+	cmd = 'cd ' .. self.oozPath .. '&& bun_extract_file.exe "' .. self.path .. '" . ' .. fileList
 	ConPrintf(cmd)
 	os.execute(cmd)
 end
 
-function GGPKClass:AddDATFiles()
-	dat_files = scandir(self.ooz_path .. "Data\\", '%w+%.dat$')
-	for _, f in ipairs(dat_files) do
+function GGPKClass:AddDatFiles()
+	datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat$')
+	for _, f in ipairs(datFiles) do
 		record = { }
 		record.name = f
-		raw_file = io.open(self.ooz_path .. "Data\\" .. f, 'rb')
-		record.data = raw_file:read("*all")
-		raw_file:close()
+		local rawFile = io.open(self.oozPath .. "Data\\" .. f, 'rb')
+		record.data = rawFile:read("*all")
+		rawFile:close()
 		--ConPrintf("FILENAME: %s", fname)
 		t_insert(self.dat, record)
 	end
@@ -115,7 +112,8 @@ function GGPKClass:ReadRecord(record)
 		local nameLength = bytesToUInt(raw, 1)
 		record.numRecord = bytesToUInt(raw, 5)
 		record.hash = raw:sub(9)
-		raw = self.file:read(nameLength * 2 + record.numRecord * 12) -- 12 as there is a u32 hash, u64 offset for each record
+		-- Multiplier of 12 used below as there is a u32 hash, u64 offset for each record
+		raw = self.file:read(nameLength * 2 + record.numRecord * 12)
 		record.name = convertUTF16to8(raw)
 		record.recordList = { }
 		for i = 1, record.numRecord do
@@ -128,26 +126,19 @@ function GGPKClass:ReadRecord(record)
 	elseif record.tag == "FILE" then
 		raw = self.file:read(36)
 		local nameLength = bytesToUInt(raw, 1)
-		record.hash = raw:sub(5) -- 32 bytes starting at [4:36]
+		-- hash is 32 bytes at offset [4:36]
+		record.hash = raw:sub(5)
 		record.name = convertUTF16to8(self.file:read(nameLength * 2))
-		local headLength = 44 + nameLength * 2 -- 44 = 36 read + (4 for rec_leng + 4 for type) pulled outside of 'if'
+		-- 44 = 36 read + (4 for record.length + 4 for record.tag pulled outside of 'if')
+		local headLength = 44 + nameLength * 2
 		record.dataOffset = record.offset + headLength
 		record.dataLength = record.length - headLength
 		--ConPrintf("FILE '%s': %d bytes", record.name, record.dataLength)
-		--if self.dump then
-		is_needed = self:RecordNeeded(record.name)
-		if is_needed == 1 then
-			self.file:seek("set", record.dataOffset)
-			self:Write(record.name, self.file:read(record.dataLength))
-		elseif is_needed == 2 then
-			self.file:seek("set", record.dataOffset)
-			self:Write("Metadata\\" .. record.name, self.file:read(record.dataLength))
-		end
 	elseif record.tag == "FREE" then
 		record.nextFree = bytesToULong(self.file:read(8))
 		--ConPrintf("FREE")
 	else
-		ConPrintf("Unhandled Tag: %s", record.tag)
+		ConPrintf("Unhandled Tag: '%s' found at offset: %d", record.tag, record.offset)
 	end
 	record.read = true
 end
