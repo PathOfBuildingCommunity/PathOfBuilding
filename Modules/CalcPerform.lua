@@ -637,7 +637,7 @@ function calcs.perform(env)
 		end
 		if activeSkill.skillFlags.hex then
 			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
-			local maxDoom = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MaxDoom") or 30
+			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") or 30
 			output.HexDoomLimit = m_max(maxDoom, output.HexDoomLimit or 0)
 			modDB:NewMod("Multiplier:HexDoom", "BASE", 1, "Base", { type = "Multiplier", var = "HexDoomStack", limit = output.HexDoomLimit })
 		end
