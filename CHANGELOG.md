@@ -1,3 +1,8 @@
+### 1.4.170.10 - 2020/09/19
+ * Add partial support for new 3.12 gems and enchantments
+ * Update gems with 3.12 changes
+ * Add new 3.12 bases
+ * Add partial support for alternate quality gems
 ### 1.4.170.9 - 2020/09/17
  * Add better breakdown for duration mods on gems
  * Fix crash related to new Keystones and old trees
