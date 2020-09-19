@@ -2277,6 +2277,7 @@ skills["Discharge"] = {
 	},
 	baseMods = {
 		skill("radius", 30),
+		skill("showAverage", true)
 	},
 	qualityStats = {
 		Default = {
