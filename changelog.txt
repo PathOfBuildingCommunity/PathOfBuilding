@@ -1,3 +1,5 @@
+[1.4.170.11][2020/09/19]
+ * Fix issue where many skills tags were incorrect which caused supports and other mechanics to stop working
 [1.4.170.10][2020/09/19]
  * Add partial support for new 3.12 gems and enchantments
  * Update gems with 3.12 changes
