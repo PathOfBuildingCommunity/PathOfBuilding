@@ -95,6 +95,8 @@ local skillTypes = { "Attack",
 	"StanceSkill",
 	"Type101",
 	"Type102",
+	"Hex",
+	"Mark",
 }
 
 local function mapAST(ast)
@@ -147,7 +149,8 @@ directiveTable.skill = function(state, args, out)
 	out:write('skills["', grantedId, '"] = {\n')
 	local granted = dat("GrantedEffects"):GetRow("Id", grantedId)
 	if not granted then
-		print('Unknown GE: "'..grantedId..'"')
+		ConPrintf('Unknown GE: "'..grantedId..'"')
+		return
 	end
 	local skillGem = dat("SkillGems"):GetRow("GrantedEffect", granted) or dat("SkillGems"):GetRow("SecondaryGrantedEffect", granted)
 	local skill = { }
@@ -297,10 +300,18 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 			end
 		end
-		if not skill.qualityStats then
-			skill.qualityStats = { }
-			for i, stat in ipairs(levelRow.QualityStats) do
-				table.insert(skill.qualityStats, { stat.Id, levelRow.QualityStatValues[i] / 1000 })
+	end
+	if not skill.qualityStats then
+		skill.qualityStats = { }
+		local divisor = nil
+		for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
+			skill.qualityStats[i] = { }
+			if not divisor then
+				divisor = qualityStatsRow.Divisor * 20
+			end
+			for j, stat in ipairs(qualityStatsRow.GrantedStats) do
+				table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / divisor })
+				--ConPrintf("[%d] %s %s", i, granted.ActiveSkill.DisplayName, stat.Id)
 			end
 		end
 	end
@@ -339,8 +350,17 @@ directiveTable.mods = function(state, args, out)
 	end
 	out:write('\t},\n')
 	out:write('\tqualityStats = {\n')
-	for _, stat in ipairs(skill.qualityStats) do
-		out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+	for i, alternates in ipairs(skill.qualityStats) do
+		for _, stat in ipairs(alternates) do
+			if i == 1 then
+				out:write('\t\tDefault = {\n')
+			else
+				local value = i - 1
+				out:write('\t\tAlternate' .. value .. ' = {\n')
+			end
+			out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+			out:write('\t\t},\n')
+		end
 	end
 	out:write('\t},\n')
 	out:write('\tstats = {\n')

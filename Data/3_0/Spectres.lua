@@ -1807,12 +1807,12 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 	skillList = {
 		"Melee",
 		"NecromancerReviveSkeleton",
-		"NecromancerProjectileWeakness",
+		"NecromancerEnfeeble",
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
 		mod("Speed", "INC", -80, ModFlag.Cast, KeywordFlag.Curse), -- MonsterCurseCastSpeedPenalty [curse_cast_speed_+% = -80]
-		-- MonsterCastsProjectileWeaknessCurseText [monster_casts_projectile_vulnerability_curse_text = 1]
+		-- MonsterCastsEnfeebleCurseText [monster_casts_enfeeble_curse_text = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
@@ -2662,12 +2662,12 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 -- Redemption Sentry
 minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre"] = {
 	name = "Redemption Sentry",
-	life = 4.05,
+	life = 2.7,
 	fireResist = 0,
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.5,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 70,
@@ -2813,12 +2813,12 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
 -- Redemption Knight
 minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
 	name = "Redemption Knight",
-	life = 4.05,
+	life = 2.7,
 	fireResist = 0,
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.5,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.17,
 	attackRange = 14,

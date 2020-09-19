@@ -277,6 +277,9 @@ local skills, mod, flag, skill = ...
 #skill SupportImmolation
 #mods
 
+#skill ViciousHexSupport
+#mods
+
 #skill SupportIncreasedAreaOfEffect
 #mods
 
@@ -422,6 +425,20 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportPhysicalToLightning
+#mods
+
+#skill SupportProjectileIntensity
+    statMap = {
+	    ["additional_projectiles_per_intensity"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+		},
+		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+		},
+	},
 #mods
 
 #skill SupportPowerChargeOnCrit

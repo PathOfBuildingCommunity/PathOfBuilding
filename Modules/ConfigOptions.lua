@@ -166,8 +166,8 @@ return {
 	{ var = "innervateInnervation", type = "check", label = "Is Innervation active?", ifSkill = "Innervate", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:InnervationActive", "FLAG", true, "Config")
 	end },
-	{ label = "Intensify:", ifSkill = "Intensify" },
-	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkill = "Intensify", apply = function(val, modList, enemyModList)
+	{ label = "Intensify:", ifSkillList = { "Intensify", "Crackling Lance"} },
+	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkillList = { "Intensify", "Crackling Lance"}, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },

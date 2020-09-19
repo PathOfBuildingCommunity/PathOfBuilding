@@ -178,12 +178,12 @@ return {
 	["Bear Trap"] = {
 		["MERCILESS"] = {
 			"25% increased Bear Trap Damage",
-			"10% increased Bear Trap Cooldown Recovery Speed",
+			"Bear Trap has 10% increased Cooldown Recovery Rate",
 			"Enemies affected by Bear Trap take 5% increased Damage from Trap or Mine Hits",
 		},
 		["ENDGAME"] = {
 			"40% increased Bear Trap Damage",
-			"15% increased Bear Trap Cooldown Recovery Speed",
+			"Bear Trap has 15% increased Cooldown Recovery Rate",
 			"Enemies affected by Bear Trap take 10% increased Damage from Trap or Mine Hits",
 		},
 	},
@@ -270,6 +270,17 @@ return {
 			"Blast Rain fires an additional Arrow",
 		},
 	},
+	["Blazing Salvo"] = {
+		["MERCILESS"] = {
+			"Blazing Salvo deals 25% increased Damage",
+			"Blazing Salvo Projectiles land in a 20% increased Area",
+		},
+		["ENDGAME"] = {
+			"Blazing Salvo deals 40% increased Damage",
+			"Blazing Salvo fires an additional Projectile",
+			"Blazing Salvo Projectiles land in a 30% increased Area",
+		},
+	},
 	["Blight"] = {
 		["MERCILESS"] = {
 			"25% increased Blight Damage",
@@ -286,12 +297,12 @@ return {
 		["MERCILESS"] = {
 			"Blink Arrow and Blink Arrow Clones have 25% increased Damage",
 			"Blink Arrow and Blink Arrow Clones have 10% increased Attack Speed",
-			"20% increased Blink Arrow Cooldown Recovery Speed",
+			"Blink Arrow has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"Blink Arrow and Blink Arrow Clones have 40% increased Damage",
 			"Blink Arrow and Blink Arrow Clones have 15% increased Attack Speed",
-			"30% increased Blink Arrow Cooldown Recovery Speed",
+			"Blink Arrow has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Blood Rage"] = {
@@ -420,12 +431,12 @@ return {
 	["Cold Snap"] = {
 		["MERCILESS"] = {
 			"25% increased Cold Snap Damage",
-			"20% increased Cold Snap Cooldown Recovery Speed",
+			"Cold Snap has 20% increased Cooldown Recovery Rate",
 			"16% increased Cold Snap Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Cold Snap Damage",
-			"30% increased Cold Snap Cooldown Recovery Speed",
+			"Cold Snap has 30% increased Cooldown Recovery Rate",
 			"24% increased Cold Snap Area of Effect",
 		},
 	},
@@ -471,21 +482,33 @@ return {
 	["Conversion Trap"] = {
 		["MERCILESS"] = {
 			"Converted Enemies have 25% increased Damage",
-			"20% increased Conversion Trap Cooldown Recovery Speed",
+			"Conversion Trap 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"Converted Enemies have 40% increased Damage",
-			"30% increased Conversion Trap Cooldown Recovery Speed",
+			"Conversion Trap 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Convocation"] = {
 		["MERCILESS"] = {
-			"20% increased Convocation Cooldown Recovery Speed",
+			"Convocation has 20% increased Cooldown Recovery Rate",
 			"24% increased Convocation Buff Effect",
 		},
 		["ENDGAME"] = {
-			"30% increased Convocation Cooldown Recovery Speed",
+			"Convocation has 30% increased Cooldown Recovery Rate",
 			"36% increased Convocation Buff Effect",
+		},
+	},
+	["Crackling Lance"] = {
+		["MERCILESS"] = {
+			"Crackling Lance deals 25% increased Damage",
+			"Crackling Lance has 8% increased Cast Speed",
+			"Crackling Lance has 24% increased branching angle",
+		},
+		["ENDGAME"] = {
+			"Crackling Lance deals 40% increased Damage",
+			"Crackling Lance has 16% increased Cast Speed",
+			"Crackling Lance has 18% increased branching angle",
 		},
 	},
 	["Creeping Frost"] = {
@@ -604,13 +627,13 @@ return {
 	},
 	["Discharge"] = {
 		["MERCILESS"] = {
-			"16% increased Discharge Radius",
 			"20% chance for Discharge to deal Damage without removing Charges",
+			"Discharge has +3 to Radius",
 			"25% increased Discharge Damage",
 		},
 		["ENDGAME"] = {
-			"24% increased Discharge Radius",
 			"30% chance for Discharge to deal Damage without removing Charges",
+			"Discharge has +5 to Radius",
 			"40% increased Discharge Damage",
 		},
 	},
@@ -726,10 +749,10 @@ return {
 	},
 	["Enduring Cry"] = {
 		["MERCILESS"] = {
-			"20% increased Enduring Cry Cooldown Recovery Speed",
+			"Enduring Cry has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
-			"30% increased Enduring Cry Cooldown Recovery Speed",
+			"Enduring Cry has 30% increased Cooldown Recovery Rate",
 			"Enduring Cry grants 1 additional Endurance Charge",
 		},
 	},
@@ -841,11 +864,11 @@ return {
 	["Flame Dash"] = {
 		["MERCILESS"] = {
 			"25% increased Flame Dash Damage",
-			"20% increased Flame Dash Cooldown Recovery Speed",
+			"Flame Dash has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"40% increased Flame Dash Damage",
-			"30% increased Flame Dash Cooldown Recovery Speed",
+			"Flame Dash has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Flame Surge"] = {
@@ -858,6 +881,16 @@ return {
 			"40% increased Flame Surge Damage",
 			"90% increased Flame Surge Critical Strike Chance",
 			"60% increased Flame Surge Damage against Burning Enemies",
+		},
+	},
+	["Flame Wall"] = {
+		["MERCILESS"] = {
+			"Flame Wall deals 25% increased Damage",
+			"Flame Wall grants 19 to 28 Added Fire Damage to Projectiles",
+		},
+		["ENDGAME"] = {
+			"Flame Wall deals 40% increased Damage",
+			"Flame Wall grants 31 to 47 Added Fire Damage to Projectiles",
 		},
 	},
 	["Flameblast"] = {
@@ -876,14 +909,14 @@ return {
 		["MERCILESS"] = {
 			"Flamethrower Trap deals 25% increased Damage",
 			"Flamethrower Trap has 8% increased Cast Speed",
-			"Flamethrower Trap has 10% increased Cooldown Recovery Speed",
+			"Flamethrower Trap has 10% increased Cooldown Recovery Rate",
 			"Flamethrower Trap has 20% increased Skill Effect Duration",
 			"Flamethrower Trap has an additional Flame",
 		},
 		["ENDGAME"] = {
 			"Flamethrower Trap deals 40% increased Damage",
 			"Flamethrower Trap has 12% increased Cast Speed",
-			"Flamethrower Trap has 15% increased Cooldown Recovery Speed",
+			"Flamethrower Trap has 15% increased Cooldown Recovery Rate",
 			"Flamethrower Trap has 30% increased Skill Effect Duration",
 			"Flamethrower Trap has 2 additional Flames",
 		},
@@ -919,12 +952,12 @@ return {
 	["Flicker Strike"] = {
 		["MERCILESS"] = {
 			"25% increased Flicker Strike Damage",
-			"20% increased Flicker Strike Cooldown Recovery Speed",
+			"Flicker Strike has 20% increased Cooldown Recovery Rate",
 			"6% increased Flicker Strike Damage per Frenzy Charge",
 		},
 		["ENDGAME"] = {
 			"40% increased Flicker Strike Damage",
-			"30% increased Flicker Strike Cooldown Recovery Speed",
+			"Flicker Strike has 30% increased Cooldown Recovery Rate",
 			"9% increased Flicker Strike Damage per Frenzy Charge",
 		},
 	},
@@ -965,24 +998,29 @@ return {
 	["Frost Bomb"] = {
 		["MERCILESS"] = {
 			"25% increased Frost Bomb Damage",
-			"20% increased Frost Bomb Cooldown Recovery Speed",
+			"Frost Bomb has 20% increased Cooldown Recovery Rate",
 			"16% increased Frost Bomb Area of Effect",
 			"Frost Bomb has 20% increased Debuff Duration",
 		},
 		["ENDGAME"] = {
 			"40% increased Frost Bomb Damage",
-			"30% increased Frost Bomb Cooldown Recovery Speed",
+			"Frost Bomb has 30% increased Cooldown Recovery Rate",
 			"24% increased Frost Bomb Area of Effect",
 			"Frost Bomb has 30% increased Debuff Duration",
 		},
 	},
+	["Frost Shield"] = {
+		["ENDGAME"] = {
+			"Frost Shield has +1 Cooldown Use",
+		},
+	},
 	["Frost Wall"] = {
 		["MERCILESS"] = {
-			"20% increased Frost Wall Cooldown Recovery Speed",
+			"Frost Wall has 20% increased Cooldown Recovery Rate",
 			"24% increased Frost Wall Duration",
 		},
 		["ENDGAME"] = {
-			"30% increased Frost Wall Cooldown Recovery Speed",
+			"Frost Wall has 30% increased Cooldown Recovery Rate",
 			"36% increased Frost Wall Duration",
 		},
 	},
@@ -998,11 +1036,11 @@ return {
 	},
 	["Frostblink"] = {
 		["MERCILESS"] = {
-			"Frostblink has 20% increased Cooldown Recovery Speed",
+			"Frostblink has 20% increased Cooldown Recovery Rate",
 			"Frostblink has 50% increased maximum travel distance",
 		},
 		["ENDGAME"] = {
-			"Frostblink has 30% increased Cooldown Recovery Speed",
+			"Frostblink has 30% increased Cooldown Recovery Rate",
 			"Frostblink has 75% increased maximum travel distance",
 		},
 	},
@@ -1032,23 +1070,23 @@ return {
 	},
 	["General's Cry"] = {
 		["MERCILESS"] = {
-			"General's Cry has 20% increased Cooldown Recovery Speed",
+			"General's Cry has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
-			"General's Cry has 30% increased Cooldown Recovery Speed",
+			"General's Cry has 30% increased Cooldown Recovery Rate",
 			"General's Cry has +1 to maximum number of Mirage Warriors",
 		},
 	},
 	["Glacial Cascade"] = {
 		["MERCILESS"] = {
 			"25% increased Glacial Cascade Damage",
-			"30% of Glacial Cascade Physical Damage Converted to Cold Damage",
 			"16% increased Glacial Cascade Area of Effect",
+			"Glacial Cascade gains 6% of Physical Damage as Extra Cold Damage",
 		},
 		["ENDGAME"] = {
 			"40% increased Glacial Cascade Damage",
-			"40% of Glacial Cascade Physical Damage Converted to Cold Damage",
 			"24% increased Glacial Cascade Area of Effect",
+			"Glacial Cascade gains 10% of Physical Damage as Extra Cold Damage",
 		},
 	},
 	["Glacial Hammer"] = {
@@ -1157,6 +1195,18 @@ return {
 		["ENDGAME"] = {
 			"40% increased Herald of Thunder Damage",
 			"Herald of Thunder has 30% reduced Mana Reservation",
+		},
+	},
+	["Hexblast"] = {
+		["MERCILESS"] = {
+			"Hexblast deals 25% increased Damage",
+			"Hexblast has 16% increased Area of Effect",
+			"Hexblast has 10% chance to not remove a Hex",
+		},
+		["ENDGAME"] = {
+			"Hexblast deals 40% increased Damage",
+			"Hexblast has 24% increased Area of Effect",
+			"Hexblast has 15% chance to not remove a Hex",
 		},
 	},
 	["Holy Flame Totem"] = {
@@ -1285,19 +1335,19 @@ return {
 	},
 	["Infernal Cry"] = {
 		["MERCILESS"] = {
-			"Infernal Cry has 20% increased Cooldown Recovery Speed",
+			"Infernal Cry has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
-			"Infernal Cry has 30% increased Cooldown Recovery Speed",
+			"Infernal Cry has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Intimidating Cry"] = {
 		["MERCILESS"] = {
-			"Intimidating Cry has 20% increased Cooldown Recovery Speed",
+			"Intimidating Cry has 20% increased Cooldown Recovery Rate",
 			"Intimidating Cry has 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
-			"Intimidating Cry has 30% increased Cooldown Recovery Speed",
+			"Intimidating Cry has 30% increased Cooldown Recovery Rate",
 			"Intimidating Cry has 24% increased Area of Effect",
 		},
 	},
@@ -1342,13 +1392,12 @@ return {
 	["Lancing Steel"] = {
 		["MERCILESS"] = {
 			"Lancing Steel deals 25% increased Damage",
-			"Lancing Steel's primary Projectile Pierces 3 additional Targets",
-			"Lancing Steel's additional Projectiles have +20% chance to Impale Enemies",
+			"Lancing Steel has 20% chance count as consumeing Steel Shards without Consuming them",
 		},
 		["ENDGAME"] = {
 			"Lancing Steel deals 40% increased Damage",
-			"Lancing Steel's primary Projectile Pierces 5 additional Targets",
-			"Lancing Steel's additional Projectiles have +30% chance to Impale Enemies",
+			"Lancing Steel has 30% chance count as consumeing Steel Shards without Consuming them",
+			"Lancing Steel fires an additional Projectile",
 		},
 	},
 	["Leap Slam"] = {
@@ -1380,13 +1429,13 @@ return {
 			"Lightning Spire Trap deals 25% increased Damage",
 			"Lightning Spire Trap has 8% increased Cast Speed",
 			"Lightning Spire Trap has 20% increased Skill Effect Duration",
-			"Lightning Spire Trap has 10% increased Cooldown Recovery Speed",
+			"Lightning Spire Trap has 10% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"Lightning Spire Trap deals 40% increased Damage",
 			"Lightning Spire Trap has 12% increased Cast Speed",
 			"Lightning Spire Trap has 30% increased Skill Effect Duration",
-			"Lightning Spire Trap has 15% increased Cooldown Recovery Speed",
+			"Lightning Spire Trap has 15% increased Cooldown Recovery Rate",
 			"Lightning Spire Trap strikes an additional area",
 		},
 	},
@@ -1419,13 +1468,13 @@ return {
 			"25% increased Lightning Trap Damage",
 			"Lightning Trap pierces 2 additional Targets",
 			"Lightning Trap Damage Penetrates 6% Lightning Resistance",
-			"25% increased Lightning Trap Shock Effect",
+			"25% increased Lightning Trap Lightning Ailment Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Trap Damage",
 			"Lightning Trap pierces 3 additional Targets",
 			"Lightning Trap Damage Penetrates 10% Lightning Resistance",
-			"40% increased Lightning Trap Shock Effect",
+			"40% increased Lightning Trap Lightning Ailment Effect",
 		},
 	},
 	["Lightning Warp"] = {
@@ -1463,12 +1512,12 @@ return {
 		["MERCILESS"] = {
 			"Mirror Arrow and Mirror Arrow Clones deal 25% increased Damage",
 			"Mirror Arrow and Mirror Arrow Clones have 10% increased Attack Speed",
-			"20% increased Mirror Arrow Cooldown Recovery Speed",
+			"Mirror Arrow has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"Mirror Arrow and Mirror Arrow Clones deal 40% increased Damage",
 			"Mirror Arrow and Mirror Arrow Clones have 15% increased Attack Speed",
-			"30% increased Mirror Arrow Cooldown Recovery Speed",
+			"Mirror Arrow has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Molten Shell"] = {
@@ -1601,16 +1650,6 @@ return {
 		},
 		["ENDGAME"] = {
 			"Pride has 15% reduced Mana Reservation",
-		},
-	},
-	["Projectile Weakness"] = {
-		["MERCILESS"] = {
-			"20% increased Projectile Weakness Curse Effect",
-			"30% increased Projectile Weakness Duration",
-		},
-		["ENDGAME"] = {
-			"30% increased Projectile Weakness Curse Effect",
-			"45% increased Projectile Weakness Duration",
 		},
 	},
 	["Puncture"] = {
@@ -1750,11 +1789,11 @@ return {
 	["Reckoning"] = {
 		["MERCILESS"] = {
 			"25% increased Reckoning Damage",
-			"20% increased Reckoning Cooldown Recovery Speed",
+			"Reckoning has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"40% increased Reckoning Damage",
-			"30% increased Reckoning Cooldown Recovery Speed",
+			"Reckoning has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Rejuvenation Totem"] = {
@@ -1782,11 +1821,11 @@ return {
 	["Riposte"] = {
 		["MERCILESS"] = {
 			"25% increased Riposte Damage",
-			"20% increased Riposte Cooldown Recovery Speed",
+			"Riposte has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"40% increased Riposte Damage",
-			"30% increased Riposte Cooldown Recovery Speed",
+			"Riposte has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Scorching Ray"] = {
@@ -1837,23 +1876,24 @@ return {
 		["MERCILESS"] = {
 			"Seismic Trap deals 25% increased Damage",
 			"Seismic Trap has 20% increased Skill Effect Duration",
-			"Seismic Trap has 10% increased Cooldown Recovery Speed",
+			"Seismic Trap has 10% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"Seismic Trap deals 40% increased Damage",
 			"Seismic Trap has 30% increased Skill Effect Duration",
-			"Seismic Trap has 15% increased Cooldown Recovery Speed",
+			"Seismic Trap has 15% increased Cooldown Recovery Rate",
 			"Seismic Trap releases an additional Wave",
 		},
 	},
 	["Shattering Steel"] = {
 		["MERCILESS"] = {
 			"Shattering Steel deals 25% increased Damage",
+			"Shattering Steel has 20% chance to not consume Steel Shards",
 		},
 		["ENDGAME"] = {
 			"Shattering Steel deals 40% increased Damage",
-			"Shattering Steel fires an additional Projectile",
 			"Shattering Steel grants Fortify on Hitting an Enemy at Close Range",
+			"Shattering Steel has 30% chance to not consume Steel Shards",
 		},
 	},
 	["Shield Charge"] = {
@@ -1913,6 +1953,16 @@ return {
 			"Siege Ballista has 45% increased Totem Placement Speed",
 		},
 	},
+	["Sigil of Power"] = {
+		["MERCILESS"] = {
+			"Sigil of Power requires 10% reduced Mana Spent to gain a Stage",
+			"Sigil of Power's Buff also grants 20% increased Critical Strike Chance per Stage",
+		},
+		["ENDGAME"] = {
+			"Sigil of Power requires 20% reduced Mana Spent to gain a Stage",
+			"Sigil of Power's Buff also grants 30% increased Critical Strike Chance per Stage",
+		},
+	},
 	["Siphoning Trap"] = {
 		["MERCILESS"] = {
 			"Siphoning Trap deals 25% increased Damage",
@@ -1946,6 +1996,16 @@ return {
 		["ENDGAME"] = {
 			"30% increased Smoke Mine Duration",
 			"Smoke Mine grants additional 30% increased Movement Speed",
+		},
+	},
+	["Sniper's Mark"] = {
+		["MERCILESS"] = {
+			"Sniper's Mark has 20% increased Curse Effect",
+			"Sniper's Mark has 30% increased Duration",
+		},
+		["ENDGAME"] = {
+			"Sniper's Mark has 30% increased Curse Effect",
+			"Sniper's Mark has 45% increased Duration",
 		},
 	},
 	["Soulrend"] = {
@@ -1998,11 +2058,11 @@ return {
 	["Spellslinger"] = {
 		["MERCILESS"] = {
 			"Skills Supported by Spellslinger have 10% reduced Mana Reservation",
-			"Skills Supported by Spellslinger have 20% increased Cooldown Recovery Speed",
+			"Skills Supported by Spellslinger have 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"Skills Supported by Spellslinger have 15% reduced Mana Reservation",
-			"Skills Supported by Spellslinger have 30% increased Cooldown Recovery Speed",
+			"Skills Supported by Spellslinger have 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Spirit Offering"] = {
@@ -2025,6 +2085,18 @@ return {
 			"40% increased Split Arrow Damage",
 			"90% increased Split Arrow Critical Strike Chance",
 			"Split Arrow fires 3 additional Projectiles",
+		},
+	},
+	["Splitting Steel"] = {
+		["MERCILESS"] = {
+			"Splitting Steel deals 25% increased Damage",
+			"Splitting Steel has 16% increased Area of Effect",
+			"Splitting Steel has 20% chance to not consume Steel Shards",
+		},
+		["ENDGAME"] = {
+			"Splitting Steel deals 40% increased Damage",
+			"Splitting Steel has 24% increased Area of Effect",
+			"Splitting Steel has 30% chance to not consume Steel Shards",
 		},
 	},
 	["Static Strike"] = {
@@ -2320,11 +2392,11 @@ return {
 	["Vengeance"] = {
 		["MERCILESS"] = {
 			"25% increased Vengeance Damage",
-			"20% increased Vengeance Cooldown Recovery Speed",
+			"Vengeance has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"40% increased Vengeance Damage",
-			"30% increased Vengeance Cooldown Recovery Speed",
+			"Vengeance has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Venom Gyre"] = {
@@ -2362,10 +2434,22 @@ return {
 	},
 	["Vitality"] = {
 		["MERCILESS"] = {
-			"Vitality has 14% reduced Mana Reservation",
+			"Vitality has 20% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"Vitality has 20% reduced Mana Reservation",
+			"Vitality has 30% reduced Mana Reservation",
+		},
+	},
+	["Void Sphere"] = {
+		["MERCILESS"] = {
+			"Void Sphere has 20% increased Cooldown Recovery Rate",
+			"Enemies in Void Sphere's range take up to 6% increased Damage, based on distance from the Void Sphere",
+			"Void Sphere has 12% increased Pulse Frequency",
+		},
+		["ENDGAME"] = {
+			"Void Sphere has 30% increased Cooldown Recovery Rate",
+			"Enemies in Void Sphere's range take up to 10% increased Damage, based on distance from the Void Sphere",
+			"Void Sphere has 18% increased Pulse Frequency",
 		},
 	},
 	["Volatile Dead"] = {
@@ -2384,13 +2468,13 @@ return {
 			"25% increased Vortex Damage",
 			"20% increased Vortex Duration",
 			"Vortex has 30% increased Area of Effect when Cast on Frostbolt",
-			"Vortex has 20% increased Cooldown Recovery Speed",
+			"Vortex has 20% increased Cooldown Recovery Rate",
 		},
 		["ENDGAME"] = {
 			"40% increased Vortex Damage",
 			"30% increased Vortex Duration",
 			"Vortex has 45% increased Area of Effect when Cast on Frostbolt",
-			"Vortex has 30% increased Cooldown Recovery Speed",
+			"Vortex has 30% increased Cooldown Recovery Rate",
 		},
 	},
 	["Vulnerability"] = {

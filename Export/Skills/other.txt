@@ -203,6 +203,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill CorpseWalk
+#flags area lightning
+	fromItem = true,
+#mods
+
 #skill TriggeredConsecrate Consecrate
 #flags spell duration area
 	fromItem = true,
@@ -430,6 +435,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill HiddenBlade
+#flags attack projectile lightning
+	fromItem = true,
+#mods
+
 #skill SummonBeastialRhoa
 #flags spell minion
 	fromItem = true,
@@ -576,10 +586,20 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SummonTauntingContraption
+#flags spell minion duration lightning
+	fromItem = true,
+#mods
+
 #skill SummonVoidSphere Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
+#mods
+
+#skill ShieldShatter
+#flags spell area
+	fromItem = true,
 #mods
 
 #skill TentacleSmash

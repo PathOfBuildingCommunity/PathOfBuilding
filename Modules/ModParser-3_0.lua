@@ -1225,7 +1225,7 @@ local specialModList = {
 	["no critical strike multiplier"] = { flag("NoCritMultiplier") },
 	["ailments never count as being from critical strikes"] = { flag("AilmentsAreNeverFromCrit") },
 	["the increase to physical damage from strength applies to projectile attacks as well as melee attacks"] = { flag("IronGrip") },
-	["strength%'s damage bonus applies to projectile damage as well as melee damage"] = { flag("IronGrip") },
+	["strength%'s damage bonus applies to projectile attack damage as well as melee damage"] = { flag("IronGrip") },
 	["converts all evasion rating to armour%. dexterity provides no bonus to evasion rating"] = { flag("IronReflexes") },
 	["30%% chance to dodge attack hits%. 50%% less armour, 30%% less energy shield, 30%% less chance to block spell and attack damage"] = {
 		mod("AttackDodgeChance", "BASE", 30),

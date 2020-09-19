@@ -7,7 +7,10 @@ local itemBases = ...
 #baseMatch Metadata/Items/Amulets/Amulet%d+
 #base Metadata/Items/Amulet/AmuletAtlas1
 #base Metadata/Items/Amulet/AmuletAtlas2
-
+#forceShow true
+#base Metadata/Items/Amulets/AmuletE1
+#base Metadata/Items/Amulets/AmuletE2
+#forceShow false
 #base Metadata/Items/Amulet/AmuletVictor1
 
 #subType Talisman

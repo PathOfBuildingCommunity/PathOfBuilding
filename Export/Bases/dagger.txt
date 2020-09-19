@@ -5,3 +5,4 @@ local itemBases = ...
 #baseTags weapon onehand dagger one_hand_weapon
 #socketLimit 3
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/Daggers/RuneDaggerE%d+
