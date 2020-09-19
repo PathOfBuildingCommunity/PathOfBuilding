@@ -2443,6 +2443,10 @@ skills["ViciousHexExplosion"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
+		area = true,
+		chaos = true,
+		hex = true,
 	},
 	baseMods = {
 	},
