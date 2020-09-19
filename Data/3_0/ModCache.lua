@@ -10186,7 +10186,7 @@ c["Socketed Gems are Supported by level 18 Added Lightning Damage"]={{[1]={[1]={
 c["Culling Strike against Burning Enemies Gain a Frenzy Charge if an Attack Ignites an Enemy"]={nil,"Culling Strike against Burning Enemies Gain a Frenzy Charge if an Attack Ignites an Enemy "}
 c["Hexes have 50% increased Doom gain rate"]={nil,"Hexes have 50% increased Doom gain rate "}
 c["Debuffs on you expire 15% faster while affected by Haste You gain Onslaught for 4 seconds on Kill while affected by Haste"]={nil,"Debuffs on you expire 15% faster while affected by Haste You gain Onslaught for 4 seconds on Kill while affected by Haste "}
-c["Strength's Damage bonus applies to Projectile Attack Damage as well as Melee Damage"]={nil,"Strength's Damage bonus applies to Projectile Attack Damage as well as Melee Damage "}
+c["Strength's Damage bonus applies to Projectile Attack Damage as well as Melee Damage"]={{[1]={flags=0,keywordFlags=0,name="IronGrip",type="FLAG",value=true}},nil}
 c["Brand Recall has 10% increased Cooldown Recovery Rate"]={{[1]={[1]={skillName="Brand Recall",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=10}},nil}
 c["5% increased Cooldown Recovery Rate for throwing Traps"]={{[1]={flags=0,keywordFlags=4096,name="CooldownRecovery",type="INC",value=5}},nil}
 c["20% increased Cooldown Recovery Rate of Movement Skills"]={{[1]={flags=0,keywordFlags=8,name="CooldownRecovery",type="INC",value=20}},nil}
