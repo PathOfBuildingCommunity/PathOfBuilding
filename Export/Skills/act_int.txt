@@ -702,6 +702,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("ChaosCanIgnite")
 #baseMod flag("ChaosCanChill")
 #baseMod flag("ChaosCanShock")
+#baseMod flag("ChaosDamageUsesLowestResistance")
 #mods
 
 #skill HeraldOfThunder

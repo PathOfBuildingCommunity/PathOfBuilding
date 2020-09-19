@@ -4521,7 +4521,8 @@ skills["DoomBlast"] = {
 		skill("showAverage", true),
 		flag("ChaosCanIgnite"),
 		flag("ChaosCanChill"),
-		flag("ChaosCanShock")
+		flag("ChaosCanShock"),
+		flag("ChaosDamageUsesLowestResistance")
 	},
 	qualityStats = {
 		Default = {

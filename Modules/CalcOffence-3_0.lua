@@ -1697,6 +1697,16 @@ function calcs.offence(env, actor, activeSkill)
 								takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 							elseif damageType == "Chaos" then
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
+								if skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") then
+									--Find the lowest resist of all the elements and use that
+									for _, damageTypeForChaos in ipairs(dmgTypeList) do
+										if isElemental[damageTypeForChaos] then
+											local elementalResistForChaos = enemyDB:Sum("BASE", nil, damageTypeForChaos.."Resist")
+											local base = elementalResistForChaos + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+											resist = m_min(resist, base * calcLib.mod(enemyDB, nil, damageType.."Resist"))
+										end
+									end
+								end
 							end
 							resist = m_min(resist, data.misc.EnemyMaxResist)
 						end
