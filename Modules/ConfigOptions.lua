@@ -231,6 +231,13 @@ return {
 	{ var = "changedStance", type = "check", label = "Changed Stance recently?", ifCond = "ChangedStanceRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChangedStanceRecently", "FLAG", true, "Config")
 	end },
+	{ label = "Steel Skills:", ifSkillList = { "Splitting Steel", "Shattering Steel", "Lancing Steel" } },
+	{ var = "shardsConsumed", type = "count", label = "Steel Shards consumed:", ifSkillList = { "Splitting Steel", "Shattering Steel", "Lancing Steel" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SteelShardConsumed", "BASE", m_min(val, 12), "Config")
+	end },
+	{ var = "steelWards", type = "count", label = "Steel Wards:", ifSkill = "Shattering Steel", tooltip = "Steel Wards are gained from using Shattering Steel with at least 2 Steel Shards.\nYou can have up to 6 Steel Wards, and each grants +4% chance to Block Projectile Attack Damage.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ProjectileBlockChance", "BASE", m_min(val * 4, 24), "Config")
+	end },
 	{ label = "Summon Holy Relic:", ifSkill = "Summon Holy Relic" },
 	{ var = "summonHolyRelicEnableHolyRelicBoon", type = "check", label = "Enable Holy Relic's Boon Aura:", ifSkill = "Summon Holy Relic", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "RelicTriggeredNova" })

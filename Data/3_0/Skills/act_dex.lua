@@ -4677,6 +4677,11 @@ skills["LancingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["number_of_projectiles_to_fire_+%_final_per_steel_ammo_consumed"] = {
+			mod("ProjectileCount", "MORE", nil, 0, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 4 } )
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -6520,22 +6525,18 @@ skills["ShatteringSteel"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Single Projectile Hit",
+			name = "Projectile",
 			area = false,
 		},
 		{
-			name = "All Projectiles Hit",
-			area = false,
-		},
-		{
-			name = "Single Cone AoE",
+			name = "Cone AoE",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-		end
-	end,
+	statMap = {
+		["shattering_steel_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } )
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -7447,6 +7448,22 @@ skills["ImpactingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Main Projectile",
+		},
+		{
+			name = "Split Projectile",
+		},
+	},
+	statMap = {
+		["impacting_steel_secondary_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
+		},
+		["splitting_steel_area_+%_final_after_splitting"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
