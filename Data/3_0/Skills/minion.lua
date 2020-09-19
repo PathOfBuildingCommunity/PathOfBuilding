@@ -13,7 +13,7 @@ skills["ChaosElementalCascadeSummoned"] = {
 	baseEffectiveness = 1.9800000190735,
 	incrementalEffectiveness = 0.037999998778105,
 	description = "Icicles emerge from the ground in a series of small bursts, each damaging enemies caught in the area.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.LightningSkill] = true, [SkillType.FireSkill] = true, [SkillType.Curse] = true, [SkillType.AppliesCurse] = true, [SkillType.AuraDuration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -44,7 +44,7 @@ skills["SandstormChaosElementalSummoned"] = {
 	color = 4,
 	baseEffectiveness = 11,
 	incrementalEffectiveness = 0.043000001460314,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AuraDuration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -75,7 +75,7 @@ skills["FireElementalFlameRedSummoned"] = {
 	baseEffectiveness = 1.3999999761581,
 	incrementalEffectiveness = 0.041999999433756,
 	description = "Summons a totem that fires a stream of flame at nearby enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Totem] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Totem] = true, [SkillType.FireSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 8,
 	castTime = 0.25,
@@ -108,7 +108,7 @@ skills["FireElementalMortarSummoned"] = {
 	baseEffectiveness = 4.2666997909546,
 	incrementalEffectiveness = 0.032000001519918,
 	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -138,7 +138,7 @@ skills["FireElementalConeSummoned"] = {
 	color = 3,
 	baseEffectiveness = 2.9867000579834,
 	incrementalEffectiveness = 0.031700000166893,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Type95] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.935,
 	baseFlags = {
@@ -192,7 +192,7 @@ skills["IceElementalIceCyclone"] = {
 	hidden = true,
 	color = 2,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Trap] = true, [SkillType.AuraDebuff] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -239,7 +239,7 @@ skills["IceElementalSpearSummoned"] = {
 	color = 3,
 	baseEffectiveness = 2.5455000400543,
 	incrementalEffectiveness = 0.032000001519918,
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -266,7 +266,7 @@ skills["LightningGolemArcSummoned"] = {
 	color = 3,
 	baseEffectiveness = 0.875,
 	incrementalEffectiveness = 0.026000000536442,
-	skillTypes = { [SkillType.Duration] = true, [SkillType.ColdSkill] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.ProjectileDamage] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Duration] = true, [SkillType.LightningSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.ProjectileDamage] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -293,7 +293,7 @@ skills["MonsterProjectileSpellLightningGolemSummoned"] = {
 	color = 4,
 	baseEffectiveness = 3.6749999523163,
 	incrementalEffectiveness = 0.033500000834465,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -322,7 +322,7 @@ skills["LightningGolemWrath"] = {
 	color = 3,
 	baseEffectiveness = 0.16249999403954,
 	incrementalEffectiveness = 0.019999999552965,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostPercent] = true, [SkillType.Vaal] = true, [SkillType.ColdSkill] = true, [SkillType.Duration] = true, [SkillType.AuraDuration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostPercent] = true, [SkillType.Aura] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -366,7 +366,7 @@ skills["SpectralSkullShieldCharge"] = {
 	hidden = true,
 	color = 4,
 	description = "Charges at an enemy, bashing it with the character's shield and striking it. This knocks it back and stuns it. Enemies in the way are pushed to the side. Damage and stun are proportional to distance travelled. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Trap] = true, [SkillType.GuardSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["Claw"] = true,
@@ -404,7 +404,7 @@ skills["RagingSpiritMeleeAttack"] = {
 	hidden = true,
 	color = 4,
 	description = "Strike your foes down with a powerful blow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Type46] = true, [SkillType.SkillCanVolley] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SpellCanCascade] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -450,7 +450,7 @@ skills["SkeletonMinionProjectileCold"] = {
 	color = 4,
 	baseEffectiveness = 1.4817999601364,
 	incrementalEffectiveness = 0.045400001108646,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
 	baseFlags = {
@@ -476,7 +476,7 @@ skills["SkeletonMinionProjectileFire"] = {
 	color = 4,
 	baseEffectiveness = 1.8111000061035,
 	incrementalEffectiveness = 0.045400001108646,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
 	baseFlags = {
@@ -502,7 +502,7 @@ skills["SkeletonMinionProjectileLightning"] = {
 	color = 4,
 	baseEffectiveness = 2.0374999046326,
 	incrementalEffectiveness = 0.045400001108646,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
 	baseFlags = {
@@ -526,7 +526,7 @@ skills["RockGolemSlam"] = {
 	name = "Slam",
 	hidden = true,
 	color = 1,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -554,7 +554,7 @@ skills["RockGolemWhirlingBlades"] = {
 	hidden = true,
 	color = 4,
 	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Trap] = true, [SkillType.GuardSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["Claw"] = true,
@@ -587,7 +587,7 @@ skills["ZombieSlam"] = {
 	name = "Slam",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -622,7 +622,7 @@ skills["SummonedSpiderViperStrike"] = {
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.025499999523163,
 	description = "Hits enemies, adding some of your physical damage as chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MovementSkill] = true, [SkillType.ProjectileAttack] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, },
 	weaponTypes = {
 		["Claw"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -656,7 +656,7 @@ skills["DancingDervishCyclone"] = {
 	hidden = true,
 	color = 2,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Trap] = true, [SkillType.AuraDebuff] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -729,7 +729,7 @@ skills["HeraldOfAgonyMinionMortar"] = {
 	hidden = true,
 	color = 4,
 	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2,
 	baseFlags = {
@@ -760,7 +760,7 @@ skills["HeraldOfAgonyMinionTailSpike"] = {
 	name = "Tail Spike",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Type46] = true, [SkillType.SkillCanVolley] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.3,
 	baseFlags = {
@@ -788,7 +788,7 @@ skills["HeraldOfAgonyMinionCleave"] = {
 	hidden = true,
 	color = 1,
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Type51] = true, [SkillType.Curse] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Type53] = true, [SkillType.PhysicalSkill] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -819,7 +819,7 @@ skills["HeraldOfLightMinionSlam"] = {
 	name = "Slam",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -843,7 +843,7 @@ skills["SentinelHolySlam"] = {
 	name = "Crusade Slam",
 	hidden = true,
 	color = 1,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -869,7 +869,7 @@ skills["RelicTriggeredNova"] = {
 	color = 4,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.064000003039837,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Type59] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -940,7 +940,7 @@ skills["DominatingBlowMinionCharge"] = {
 	hidden = true,
 	color = 4,
 	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.GuardSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["Claw"] = true,
@@ -977,7 +977,7 @@ skills["SummonedRhoaShieldCharge"] = {
 	hidden = true,
 	color = 4,
 	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.GuardSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["Claw"] = true,
@@ -1016,7 +1016,7 @@ skills["SummonedSnakeProjectile"] = {
 	name = "Chaos Projectile",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Type46] = true, [SkillType.SkillCanVolley] = true, [SkillType.Projectile] = true, [SkillType.SpellCanCascade] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -1040,7 +1040,7 @@ skills["DropBearSummonedGroundSlam"] = {
 	hidden = true,
 	color = 4,
 	description = "The character slams the ground in front of them with a Staff, Mace or Sceptre, creating a wave that travels forward and damages enemies with an increased chance to stun.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1072,7 +1072,7 @@ skills["DropBearSummonedRallyingCry"] = {
 	hidden = true,
 	color = 1,
 	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Type73] = true, [SkillType.Type95] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
 	statMap = {
@@ -1164,7 +1164,7 @@ skills["BoneGolemLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Trap] = true, [SkillType.GuardSkill] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
