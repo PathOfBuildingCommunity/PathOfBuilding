@@ -1173,11 +1173,12 @@ function calcs.perform(env)
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
-						priority = (activeSkill.skillTypes[SkillType.Aura] and 3) or (activeSkill.skillTypes[SkillType.Mark] and 2) or 1,
+						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
 						isMark = activeSkill.skillTypes[SkillType.Mark],
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 					local more = skillModList:More(skillCfg, "CurseEffect")
+					-- This is non-ideal, but the only More for enemy is the boss effect
 					if not curse.isMark then
 						more = more * enemyDB:More(nil, "CurseEffectOnSelf")
 					end
