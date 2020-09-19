@@ -1226,7 +1226,7 @@ return {
 },
 -- Hex
 ["curse_maximum_doom"] = {
-	mod("MaxDoom", "BASE")
+	mod("MaxDoom", "BASE", nil),
 },
 -- Aura
 ["non_curse_aura_effect_+%"] = {

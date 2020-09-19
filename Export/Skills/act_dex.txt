@@ -854,7 +854,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoachersMark
-#flags spell curse duration
+#flags spell curse duration mark
 	statMap = {
 		["evasion_rating_+%_final_from_poachers_mark"] = {
 			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -883,7 +883,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SnipersMark
-#flags spell curse duration
+#flags spell curse duration mark
 	statMap = {
 		["projectiles_always_pierce_you"] = {
 			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
@@ -1132,7 +1132,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TemporalChains
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["temporal_chains_action_speed_+%_final"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),

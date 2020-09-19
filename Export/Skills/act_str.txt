@@ -656,7 +656,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Punishment
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["newpunishment_attack_speed_+%"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff" }),
@@ -913,7 +913,7 @@ end,
 #mods
 
 #skill Vulnerability
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -931,7 +931,7 @@ end,
 #mods
 
 #skill WarlordsMark
-#flags spell curse duration
+#flags spell curse duration mark
 	statMap = {
 		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),

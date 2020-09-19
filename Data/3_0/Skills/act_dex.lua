@@ -5425,6 +5425,7 @@ skills["PoachersMark"] = {
 		spell = true,
 		curse = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -5601,6 +5602,7 @@ skills["SnipersMark"] = {
 		spell = true,
 		curse = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -7648,10 +7650,12 @@ skills["TemporalChains"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {

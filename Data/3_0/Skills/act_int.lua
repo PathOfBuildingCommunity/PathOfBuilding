@@ -469,6 +469,7 @@ skills["AssassinsMark"] = {
 		spell = true,
 		curse = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -1643,10 +1644,12 @@ skills["Conductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2183,10 +2186,12 @@ skills["Despair"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2635,10 +2640,12 @@ skills["ElementalWeakness"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2730,10 +2737,12 @@ skills["Enfeeble"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -3653,11 +3662,12 @@ skills["Flammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
-		skill("MaxDoom", 30)
+		mod("MaxDoom", "BASE", 30)
 	},
 	qualityStats = {
 		Default = {
@@ -4175,10 +4185,12 @@ skills["Frostbite"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -4504,6 +4516,7 @@ skills["DoomBlast"] = {
 		spell = true,
 		area = true,
 		chaos = true,
+		hex = true
 	},
 	baseMods = {
 		mod("MaxDoom", "BASE", 30),
@@ -4530,7 +4543,7 @@ skills["DoomBlast"] = {
 	},
 	statMap = {
 		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
-			mod("Damage", "MORE", { type = "Multiplier", var = "HexDoom" })
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom" })
 		},
 		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom" })
