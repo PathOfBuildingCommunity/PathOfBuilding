@@ -1676,6 +1676,10 @@ function calcs.offence(env, actor, activeSkill)
 						local pen = 0
 						local takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
 						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
+						-- Check if player is supposed to ignore a damage type, or if it's ignored on enemy side
+						local useThisResist = function(damageType) 
+							return not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance")
+						end
 						if damageType == "Physical" then
                             if isAttack then
 								-- store pre-armour physical damage from attacks for impale calculations
@@ -1698,9 +1702,9 @@ function calcs.offence(env, actor, activeSkill)
 							elseif damageType == "Chaos" then
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 								if skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") then
-									--Find the lowest resist of all the elements and use that
+									--Find the lowest resist of all the elements and use that if it's lower than chaos
 									for _, damageTypeForChaos in ipairs(dmgTypeList) do
-										if isElemental[damageTypeForChaos] then
+										if isElemental[damageTypeForChaos] and useThisResist(damageTypeForChaos) then
 											local elementalResistForChaos = enemyDB:Sum("BASE", nil, damageTypeForChaos.."Resist")
 											local base = elementalResistForChaos + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
 											resist = m_min(resist, base * calcLib.mod(enemyDB, nil, damageType.."Resist"))
@@ -1722,7 +1726,7 @@ function calcs.offence(env, actor, activeSkill)
 						local effMult = (1 + takenInc / 100) * takenMore
 						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							effMult = effMult * (1 - resist / 100)
-						elseif not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
+						elseif useThisResist(damageType) then
 							effMult = effMult * (1 - (resist - pen) / 100)
 						end
 						damageTypeHitMin = damageTypeHitMin * effMult
