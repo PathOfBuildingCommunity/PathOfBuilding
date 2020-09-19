@@ -468,12 +468,10 @@ skills["AssassinsMark"] = {
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -1965,10 +1963,10 @@ skills["Disintegrate"] = {
 	castTime = 0.7,
 	statMap = {
 	    ["disintegrate_base_radius_+_per_intensify"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limit = 3  }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity"}),
 		},
 		["disintegrate_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limit = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity"}),
 		},
 	},
 	baseFlags = {
@@ -3659,6 +3657,7 @@ skills["Flammability"] = {
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		skill("MaxDoom", 30)
 	},
 	qualityStats = {
 		Default = {
@@ -4507,6 +4506,10 @@ skills["DoomBlast"] = {
 		chaos = true,
 	},
 	baseMods = {
+		mod("MaxDoom", "BASE", 30),
+		flag("ChaosCanIgnite"),
+		flag("ChaosCanChill"),
+		flag("ChaosCanShock")
 	},
 	qualityStats = {
 		Default = {
@@ -4523,6 +4526,14 @@ skills["DoomBlast"] = {
 		},
 		Alternate3 = {
 			{ "hexblast_%_chance_to_not_consume_hex", 0.5 },
+		},
+	},
+	statMap = {
+		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", { type = "Multiplier", var = "HexDoom" })
+		},
+		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom" })
 		},
 	},
 	stats = {

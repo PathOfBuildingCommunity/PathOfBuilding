@@ -60,7 +60,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AssassinsMark
-#flags spell curse area duration
+#flags spell curse duration
 	statMap = {
 		["base_self_critical_strike_multiplier_-%"] = {
 			mod("SelfCritMultiplier", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -78,7 +78,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill BallLightning
@@ -257,6 +256,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Contagion
@@ -285,10 +285,10 @@ local skills, mod, flag, skill = ...
 #flags spell area lightning
 	statMap = {
 	    ["disintegrate_base_radius_+_per_intensify"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limit = 3  }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity"}),
 		},
 		["disintegrate_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limit = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity"}),
 		},
 	},
 #mods
@@ -350,6 +350,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Discharge
@@ -427,6 +428,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Enfeeble
@@ -450,6 +452,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill EssenceDrain
@@ -596,6 +599,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill FleshOffering
@@ -663,6 +667,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill IceDash
@@ -685,6 +690,18 @@ local skills, mod, flag, skill = ...
 
 #skill DoomBlast
 #flags spell area chaos
+	statMap = {
+		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", { type = "Multiplier", var = "HexDoom" })
+		},
+		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom" })
+		},
+	},
+#baseMod mod("MaxDoom", "BASE", 30)
+#baseMod flag("ChaosCanIgnite")
+#baseMod flag("ChaosCanChill")
+#baseMod flag("ChaosCanShock")
 #mods
 
 #skill HeraldOfThunder

@@ -6336,19 +6336,14 @@ skills["WarlordsMark"] = {
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_stun_recovery_+%"] = {
-			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {

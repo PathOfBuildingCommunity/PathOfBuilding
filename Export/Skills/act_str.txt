@@ -667,6 +667,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill FireResistAura
@@ -926,10 +927,11 @@ end,
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill WarlordsMark
-#flags spell curse area duration
+#flags spell curse duration
 	statMap = {
 		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -937,12 +939,8 @@ end,
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_stun_recovery_+%"] = {
-			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill BloodstainedBanner

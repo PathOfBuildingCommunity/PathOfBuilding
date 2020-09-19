@@ -5424,12 +5424,10 @@ skills["PoachersMark"] = {
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -5602,12 +5600,10 @@ skills["SnipersMark"] = {
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {

@@ -854,7 +854,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoachersMark
-#flags spell curse area duration
+#flags spell curse duration
 	statMap = {
 		["evasion_rating_+%_final_from_poachers_mark"] = {
 			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -867,7 +867,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill AccuracyAndCritsAura
@@ -884,7 +883,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SnipersMark
-#flags spell curse area duration
+#flags spell curse duration
 	statMap = {
 		["projectiles_always_pierce_you"] = {
 			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
@@ -897,7 +896,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill Puncture
@@ -1151,6 +1149,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill TornadoShot
