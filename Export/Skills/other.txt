@@ -204,7 +204,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CorpseWalk
-#flags area lightning
+#flags area
 	fromItem = true,
 #mods
 
@@ -436,7 +436,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HiddenBlade
-#flags attack projectile lightning
+#flags attack projectile
 	fromItem = true,
 #mods
 
@@ -587,7 +587,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonTauntingContraption
-#flags spell minion duration lightning
+#flags spell minion duration
 	fromItem = true,
 #mods
 
