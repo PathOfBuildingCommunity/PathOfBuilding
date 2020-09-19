@@ -2722,14 +2722,8 @@ skills["Enfeeble"] = {
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {

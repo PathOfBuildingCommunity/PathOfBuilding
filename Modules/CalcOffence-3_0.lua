@@ -2311,7 +2311,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster")
+				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
 				local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
 				local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
 				local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
@@ -2478,7 +2478,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster")
+				local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster") + enemyDB:Sum("INC", nil, "SelfPoisonFaster")  / 100
 				output.PoisonDPS = baseVal * effectMod * rateMod * effMult
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
@@ -2650,7 +2650,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local rateMod = calcLib.mod(skillModList, cfg, "IgniteBurnFaster") / calcLib.mod(skillModList, cfg, "IgniteBurnSlower")
+				local rateMod = (calcLib.mod(skillModList, cfg, "IgniteBurnFaster") + enemyDB:Sum("INC", nil, "SelfIgniteBurnFaster") / 100)  / calcLib.mod(skillModList, cfg, "IgniteBurnSlower")
 				output.IgniteDPS = baseVal * effectMod * rateMod * effMult
 				local incDur = skillModList:Sum("INC", dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:More(nil, "SelfIgniteDuration")

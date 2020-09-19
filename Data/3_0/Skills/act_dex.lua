@@ -5411,14 +5411,20 @@ skills["PoachersMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["evasion_rating_+%_final_from_poachers_mark"] = {
-			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["life_granted_when_hit_by_attacks"] = {
 			mod("SelfLifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["mana_granted_when_hit_by_attacks"] = {
 			mod("SelfManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_additional_physical_damage_reduction_%"] = {
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["minimum_added_physical_damage_taken"] = {
+			mod("SelfPhysicalMin", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["maximum_added_physical_damage_taken"] = {
+			mod("SelfPhysicalMax", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {

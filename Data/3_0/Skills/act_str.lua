@@ -4279,11 +4279,8 @@ skills["Punishment"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["newpunishment_attack_speed_+%"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff" }),
-		},
-		["newpunishment_melee_damage_+%_final"] = {
-			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "CurseBuff" }),
+		["damage_taken_+%_on_low_life"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "CurseBuff" }, {type = "ActorCondition", actor = "enemy", var="LowLife" }),
 		},
 	},
 	baseFlags = {
@@ -4297,6 +4294,7 @@ skills["Punishment"] = {
 		skill("debuff", true),
 		skill("radius", 22),
 		mod("MaxDoom", "BASE", 30),
+		mod("DebilitateChance", "BASE", 100)
 	},
 	qualityStats = {
 		Default = {
@@ -6244,8 +6242,10 @@ skills["Vulnerability"] = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_physical_damage_over_time_taken_+%"] = {
-			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),

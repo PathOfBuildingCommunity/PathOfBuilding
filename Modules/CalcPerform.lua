@@ -1404,6 +1404,9 @@ function calcs.perform(env)
 	local affectedByCurse = { }
 	for _, slot in ipairs(curseSlots) do
 		enemyDB.conditions["Cursed"] = true
+		if slot.isMark then
+			enemyDB.conditions["Marked"] = true
+		end
 		if slot.fromPlayer then
 			affectedByCurse[env.enemy] = true
 		end
