@@ -883,7 +883,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
-#skill ProjectileWeakness
+#skill SnipersMark
 #flags spell curse area duration
 	statMap = {
 		["projectiles_always_pierce_you"] = {
