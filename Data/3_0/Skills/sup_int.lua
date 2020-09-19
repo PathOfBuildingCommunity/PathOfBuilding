@@ -2446,7 +2446,6 @@ skills["ViciousHexExplosion"] = {
 		spell = true,
 		area = true,
 		chaos = true,
-		hex = true,
 	},
 	baseMods = {
 	},
