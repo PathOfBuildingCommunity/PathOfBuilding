@@ -1173,7 +1173,8 @@ function calcs.perform(env)
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
-						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
+						priority = (activeSkill.skillTypes[SkillType.Aura] and 3) or (activeSkill.skillTypes[SkillType.Mark] and 2) or 1,
+						isMark = activeSkill.skillTypes[SkillType.Mark],
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 					local more = skillModList:More(skillCfg, "CurseEffect") * enemyDB:More(nil, "CurseEffectOnSelf")
@@ -1330,10 +1331,19 @@ function calcs.perform(env)
 	-- Assign curses to slots
 	local curseSlots = { }
 	env.curseSlots = curseSlots
+	-- Currently assume only 1 mark is possible
+	local markSlotted = false
 	for _, source in ipairs({curses, minionCurses}) do
 		for _, curse in ipairs(source) do
 			local slot
 			for i = 1, source.limit do
+				--Prevent multiple marks from being considered
+				if curse.isMark then
+					if markSlotted then
+						slot = nil
+						break
+					end
+				end
 				if not curseSlots[i] then
 					slot = i
 					break
@@ -1349,7 +1359,13 @@ function calcs.perform(env)
 				end
 			end
 			if slot then
+				if curseSlots[slot] and curseSlots[slot].isMark then
+					markSlotted = false
+				end
 				curseSlots[slot] = curse
+				if curse.isMark then
+					markSlotted = true
+				end
 			end
 		end
 	end
