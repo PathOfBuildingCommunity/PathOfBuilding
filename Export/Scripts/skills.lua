@@ -305,7 +305,7 @@ directiveTable.skill = function(state, args, out)
 		for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
 			skill.qualityStats[i] = { }
 			if not divisor then
-				divisor = qualityStatsRow.Divisor
+				divisor = qualityStatsRow.Divisor * 20
 			end
 			for j, stat in ipairs(qualityStatsRow.GrantedStats) do
 				table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / divisor })
