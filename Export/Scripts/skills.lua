@@ -301,11 +301,12 @@ directiveTable.skill = function(state, args, out)
 	end
 	if not skill.qualityStats then
 		skill.qualityStats = { }
-		for _, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
-			skill.qualityStats[qualityStatsRow.AlternateID] = { }
-			for i, stat in ipairs(qualityStatsRow.GrantedStats) do
-				table.insert(skill.qualityStats[qualityStatsRow.AlternateID], { stat.Id, qualityStatsRow.StatValues[i] / qualityStatsRow.Divisor })
-				-- ConPrintf("%s %s", granted.ActiveSkill.DisplayName, stat.Id)
+		for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
+			ConPrintf('i: %d', i)
+			skill.qualityStats[i] = { }
+			for j, stat in ipairs(qualityStatsRow.GrantedStats) do
+				table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / qualityStatsRow.Divisor })
+				--ConPrintf("[%d] %s %s", i, granted.ActiveSkill.DisplayName, stat.Id)
 			end
 		end
 	end
@@ -344,14 +345,16 @@ directiveTable.mods = function(state, args, out)
 	end
 	out:write('\t},\n')
 	out:write('\tqualityStats = {\n')
-	for _, alternates in ipairs(skill.qualityStats) do
-		for i, stat in ipairs(alternates) do
+	for i, alternates in ipairs(skill.qualityStats) do
+		for _, stat in ipairs(alternates) do
 			if i == 1 then
 				out:write('\t\tDefault = {\n')
 			else
-				out:write('\t\tAlternate%d = {\n', i-1)
+				local value = i - 1
+				out:write('\t\tAlternate' .. value .. ' = {\n')
 			end
 			out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+			out:write('\t\t},\n')
 		end
 	end
 	out:write('\t},\n')
