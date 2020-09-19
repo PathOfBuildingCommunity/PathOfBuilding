@@ -4516,10 +4516,8 @@ skills["DoomBlast"] = {
 		spell = true,
 		area = true,
 		chaos = true,
-		hex = true
 	},
 	baseMods = {
-		mod("MaxDoom", "BASE", 30),
 		flag("ChaosCanIgnite"),
 		flag("ChaosCanChill"),
 		flag("ChaosCanShock")

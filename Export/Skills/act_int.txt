@@ -698,7 +698,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 	},
-#baseMod mod("MaxDoom", "BASE", 30)
 #baseMod flag("ChaosCanIgnite")
 #baseMod flag("ChaosCanChill")
 #baseMod flag("ChaosCanShock")
