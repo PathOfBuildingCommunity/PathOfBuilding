@@ -280,6 +280,9 @@ local skills, mod, flag, skill = ...
 #skill ViciousHexSupport
 #mods
 
+#skill ViciousHexExplosion
+#mods
+
 #skill SupportIncreasedAreaOfEffect
 #mods
 
