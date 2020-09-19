@@ -1369,9 +1369,9 @@ skills["IcestormUniqueStaff12"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 }),
-		skill("radius", 25),
-		skill("radiusSecondary", 10),
+		skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 }),
+		skill("radius", 22),
+		skill("radiusSecondary", 16),
 	},
 	qualityStats = {
 	},
