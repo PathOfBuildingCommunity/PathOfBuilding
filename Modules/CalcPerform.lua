@@ -1177,7 +1177,10 @@ function calcs.perform(env)
 						isMark = activeSkill.skillTypes[SkillType.Mark],
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
-					local more = skillModList:More(skillCfg, "CurseEffect") * enemyDB:More(nil, "CurseEffectOnSelf")
+					local more = skillModList:More(skillCfg, "CurseEffect")
+					if not curse.isMark then
+						more = more * enemyDB:More(nil, "CurseEffectOnSelf")
+					end
 					if buff.type == "Curse" then
 						curse.modList = new("ModList")
 						curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
