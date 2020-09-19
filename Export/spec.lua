@@ -2436,6 +2436,66 @@ return {
 	},
 	GrantedEffectGroups={
 	},
+	GrantedEffectQualityStats={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="AlternateIndex",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	GrantedEffectQualityTypes={
+	},
 	GrantedEffects={
 		[1]={
 			list=false,
@@ -2777,14 +2837,14 @@ return {
 		[25]={
 			list=true,
 			name="QualityStats",
-			refTo="Stats",
-			type="Key",
+			refTo="GrantedEffectQualityStats",
+			type="Int",
 			width=150
 		},
 		[26]={
-			list=true,
+			list=false,
 			name="QualityStatValues",
-			refTo="",
+			refTo="GrantedEffectQualityStats",
 			type="Int",
 			width=100
 		},

@@ -299,9 +299,9 @@ directiveTable.skill = function(state, args, out)
 		end
 		if not skill.qualityStats then
 			skill.qualityStats = { }
-			for i, stat in ipairs(levelRow.QualityStats) do
-				table.insert(skill.qualityStats, { stat.Id, levelRow.QualityStatValues[i] / 1000 })
-			end
+			--for i, stat in ipairs(levelRow.QualityStats) do
+			--	table.insert(skill.qualityStats, { stat.Id, levelRow.QualityStatValues[i] / 1000 })
+			--end
 		end
 	end
 end
