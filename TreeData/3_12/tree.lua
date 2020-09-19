@@ -10020,7 +10020,7 @@ return {
                 "Regenerate 2% of Life per second",
                 "5% reduced Damage taken",
                 "Armour received from Body Armour is doubled",
-                "0.2% of Total Physical Damage prevented from Hits in the past 10 seconds is Regenerated as Life per second"
+                "1.5% of Total Physical Damage prevented from Hits in the past 10 seconds is Regenerated as Life per second"
             },
             ["group"]= 7,
             ["orbit"]= 3,
@@ -22131,7 +22131,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/DoomsdayKeystone.png",
             ["isKeystone"]= true,
             ["stats"]= {
-                "Your Hex Curse Spells create a Hexed Area for 1 second\nEnemies in the Hexed Area are Hexed, and the Hex does not expire while in the Hexed Area\nHexes applied this way do not gain Doom over time\nHexes in the Hexed Area gain up to maximum Doom when the Hexed Area ends"
+                "Your Hex Curse Spells create a Hexed Area for 1 second if you Cast them yourself\nEnemies in the Hexed Area are Hexed, and the Hex does not expire while in the Hexed Area\nHexes applied this way do not gain Doom over time\nHexes in the Hexed Area gain up to maximum Doom when the Hexed Area ends"
             },
             ["flavourText"]= {
                 "Look past the veil and behold the end of all."
@@ -25723,8 +25723,8 @@ return {
         },
         [14003]= {
             ["skill"]= 14003,
-            ["name"]= "Chaos and Power Charge Mastery",
-            ["icon"]= "Art/2DArt/SkillIcons/passives/MasteryChaosDamagePowerCharge.png",
+            ["name"]= "Curse and Power Charge Mastery",
+            ["icon"]= "Art/2DArt/SkillIcons/passives/CurseChargeMastery.png",
             ["isMastery"]= true,
             ["stats"]= {},
             ["group"]= 266,
@@ -28035,7 +28035,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/KeystoneIronGrip.png",
             ["isKeystone"]= true,
             ["stats"]= {
-                "Strength's damage bonus applies to Projectile Damage as well as Melee Damage"
+                "Strength's Damage bonus applies to Projectile Attack Damage as well as Melee Damage"
             },
             ["flavourText"]= {
                 "Legend tells of bows so powerful that only giants could draw them back."
@@ -38950,7 +38950,7 @@ return {
                 "BlackOil"
             },
             ["stats"]= {
-                "Skills supported by Intensify have +1 to maximum Intensity"
+                "Spells which can gain Intensity have +1 to maximum Intensity"
             },
             ["group"]= 453,
             ["orbit"]= 2,
@@ -55148,7 +55148,7 @@ return {
             ["isNotable"]= true,
             ["stats"]= {
                 "10% increased Area Damage",
-                "Skills supported by Intensify have +1 to maximum Intensity"
+                "Spells which can gain Intensity have +1 to maximum Intensity"
             }
         },
         [48550]= {
@@ -58973,667 +58973,667 @@ return {
     ["max_y"]= 8284,
     ["assets"]= {
         ["PSSkillFrame"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MCwic3AiOjAuMTI0Nn1d/4874910c47/Skill_Frame_Unallocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MCwic3AiOjAuMjEwOX1d/3e5b817806/Skill_Frame_Unallocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MCwic3AiOjAuMjk3Mn1d/157ccd3eb9/Skill_Frame_Unallocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MCwic3AiOjAuMzgzNX1d/31b37b4c99/Skill_Frame_Unallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjowLCJzcCI6MC4xMjQ2fV0/e53b90ce4f/Skill_Frame_Unallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjowLCJzcCI6MC4yMTA5fV0/b05922eb82/Skill_Frame_Unallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjowLCJzcCI6MC4yOTcyfV0/8cf341f02e/Skill_Frame_Unallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjowLCJzcCI6MC4zODM1fV0/a58faf9495/Skill_Frame_Unallocated.png"
         },
         ["PSSkillFrameHighlighted"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Miwic3AiOjAuMTI0Nn1d/12a5c40b4b/Skill_Frame_CanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Miwic3AiOjAuMjEwOX1d/138e133fba/Skill_Frame_CanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Miwic3AiOjAuMjk3Mn1d/afd4b6bad5/Skill_Frame_CanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Miwic3AiOjAuMzgzNX1d/9354a3e29e/Skill_Frame_CanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjoyLCJzcCI6MC4xMjQ2fV0/73c8cff087/Skill_Frame_CanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjoyLCJzcCI6MC4yMTA5fV0/3bfc231e8c/Skill_Frame_CanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjoyLCJzcCI6MC4yOTcyfV0/0a83663479/Skill_Frame_CanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmZTIzNmFmYzNlODVlMjE5OGE4Mjc5NDljOTg3MjE4ZCIseyJ0IjoyLCJzcCI6MC4zODM1fV0/5985d375d0/Skill_Frame_CanAllocate.png"
         },
         ["PSSkillFrameActive"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MSwic3AiOjAuMTI0Nn1d/0ae0582589/Skill_Frame_Allocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MSwic3AiOjAuMjEwOX1d/8f675d6cc4/Skill_Frame_Allocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MSwic3AiOjAuMjk3Mn1d/544d5706b4/Skill_Frame_Allocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MSwic3AiOjAuMzgzNX1d/70d8e5ba02/Skill_Frame_Allocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiMjc2Mjk0ODA5N2MyODUzOTQ1YWUzNTdhNDcxYzZlOCIseyJ0IjoxLCJzcCI6MC4xMjQ2fV0/3174f60d6b/Skill_Frame_Allocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiMjc2Mjk0ODA5N2MyODUzOTQ1YWUzNTdhNDcxYzZlOCIseyJ0IjoxLCJzcCI6MC4yMTA5fV0/91e3fc4606/Skill_Frame_Allocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiMjc2Mjk0ODA5N2MyODUzOTQ1YWUzNTdhNDcxYzZlOCIseyJ0IjoxLCJzcCI6MC4yOTcyfV0/337c5355d7/Skill_Frame_Allocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiMjc2Mjk0ODA5N2MyODUzOTQ1YWUzNTdhNDcxYzZlOCIseyJ0IjoxLCJzcCI6MC4zODM1fV0/a70a46fca1/Skill_Frame_Allocated.png"
         },
         ["KeystoneFrameUnallocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Mywic3AiOjAuMTI0Nn1d/e4d6465f09/KeystoneFrameUnallocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Mywic3AiOjAuMjEwOX1d/e154dfadf6/KeystoneFrameUnallocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Mywic3AiOjAuMjk3Mn1d/39a4035ad7/KeystoneFrameUnallocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Mywic3AiOjAuMzgzNX1d/4ba547e08c/KeystoneFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0ZDE3MzRkYTYyMjg5NmVmM2E2MDBjNzhiM2VmMDZiOCIseyJ0IjozLCJzcCI6MC4xMjQ2fV0/e6a1394776/KeystoneFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0ZDE3MzRkYTYyMjg5NmVmM2E2MDBjNzhiM2VmMDZiOCIseyJ0IjozLCJzcCI6MC4yMTA5fV0/383e139e9c/KeystoneFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0ZDE3MzRkYTYyMjg5NmVmM2E2MDBjNzhiM2VmMDZiOCIseyJ0IjozLCJzcCI6MC4yOTcyfV0/dfe8c3b67c/KeystoneFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0ZDE3MzRkYTYyMjg5NmVmM2E2MDBjNzhiM2VmMDZiOCIseyJ0IjozLCJzcCI6MC4zODM1fV0/9319b3a516/KeystoneFrameUnallocated.png"
         },
         ["KeystoneFrameCanAllocate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NSwic3AiOjAuMTI0Nn1d/87c33b6288/KeystoneFrameCanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NSwic3AiOjAuMjEwOX1d/702f9d1d6d/KeystoneFrameCanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NSwic3AiOjAuMjk3Mn1d/d46752122e/KeystoneFrameCanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NSwic3AiOjAuMzgzNX1d/b7c93603d4/KeystoneFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJlNjUzNTZjNTY5MDFlNGYyN2QyMDIwYzcxYjQxMzVjNyIseyJ0Ijo1LCJzcCI6MC4xMjQ2fV0/1535166a19/KeystoneFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJlNjUzNTZjNTY5MDFlNGYyN2QyMDIwYzcxYjQxMzVjNyIseyJ0Ijo1LCJzcCI6MC4yMTA5fV0/2065fde6a6/KeystoneFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJlNjUzNTZjNTY5MDFlNGYyN2QyMDIwYzcxYjQxMzVjNyIseyJ0Ijo1LCJzcCI6MC4yOTcyfV0/6428f725d7/KeystoneFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJlNjUzNTZjNTY5MDFlNGYyN2QyMDIwYzcxYjQxMzVjNyIseyJ0Ijo1LCJzcCI6MC4zODM1fV0/1c34dd49a6/KeystoneFrameCanAllocate.png"
         },
         ["KeystoneFrameAllocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NCwic3AiOjAuMTI0Nn1d/dd9f39f1b7/KeystoneFrameAllocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NCwic3AiOjAuMjEwOX1d/bcd9fd8788/KeystoneFrameAllocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NCwic3AiOjAuMjk3Mn1d/f623ec4270/KeystoneFrameAllocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NCwic3AiOjAuMzgzNX1d/88938886c7/KeystoneFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyM2ZkMDUwZjE0OGNjYzhkZDdiM2Y3MWJhNWQ3Mjc1MyIseyJ0Ijo0LCJzcCI6MC4xMjQ2fV0/ce69509536/KeystoneFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyM2ZkMDUwZjE0OGNjYzhkZDdiM2Y3MWJhNWQ3Mjc1MyIseyJ0Ijo0LCJzcCI6MC4yMTA5fV0/bd358e3720/KeystoneFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyM2ZkMDUwZjE0OGNjYzhkZDdiM2Y3MWJhNWQ3Mjc1MyIseyJ0Ijo0LCJzcCI6MC4yOTcyfV0/1ee9886d95/KeystoneFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyM2ZkMDUwZjE0OGNjYzhkZDdiM2Y3MWJhNWQ3Mjc1MyIseyJ0Ijo0LCJzcCI6MC4zODM1fV0/0e52f6989e/KeystoneFrameAllocated.png"
         },
         ["PSGroupBackground1"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbCIsInNwIjowLjEyNDZ9XQ/2b0ea50b94/Group_Background_1.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbCIsInNwIjowLjIxMDl9XQ/c9cace5e95/Group_Background_1.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbCIsInNwIjowLjI5NzJ9XQ/8cd72f9533/Group_Background_1.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbCIsInNwIjowLjM4MzV9XQ/79a297401b/Group_Background_1.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJmMGE4YzQwOTA3MGY2ZWIzMTVjNTBiM2FjNTk0MDQwNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsIiwic3AiOjAuMTI0Nn1d/f7b3f43ca4/Group_Background_1.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCJmMGE4YzQwOTA3MGY2ZWIzMTVjNTBiM2FjNTk0MDQwNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsIiwic3AiOjAuMjEwOX1d/1d64c7c6cc/Group_Background_1.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCJmMGE4YzQwOTA3MGY2ZWIzMTVjNTBiM2FjNTk0MDQwNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsIiwic3AiOjAuMjk3Mn1d/5c50af9349/Group_Background_1.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCJmMGE4YzQwOTA3MGY2ZWIzMTVjNTBiM2FjNTk0MDQwNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsIiwic3AiOjAuMzgzNX1d/fa2ebba04f/Group_Background_1.png"
         },
         ["PSGroupBackground2"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW0iLCJzcCI6MC4xMjQ2fV0/9fa88538cd/Group_Background_2.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW0iLCJzcCI6MC4yMTA5fV0/19980d72a6/Group_Background_2.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW0iLCJzcCI6MC4yOTcyfV0/e11d327a4e/Group_Background_2.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW0iLCJzcCI6MC4zODM1fV0/113612444d/Group_Background_2.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI3ZjA0MjA4ZjRhYzVjNzM2MzYxYTJhODEwNmExODA0YSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bSIsInNwIjowLjEyNDZ9XQ/65ebb5cda7/Group_Background_2.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI3ZjA0MjA4ZjRhYzVjNzM2MzYxYTJhODEwNmExODA0YSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bSIsInNwIjowLjIxMDl9XQ/2e108421d8/Group_Background_2.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI3ZjA0MjA4ZjRhYzVjNzM2MzYxYTJhODEwNmExODA0YSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bSIsInNwIjowLjI5NzJ9XQ/71d5d1676f/Group_Background_2.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI3ZjA0MjA4ZjRhYzVjNzM2MzYxYTJhODEwNmExODA0YSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bSIsInNwIjowLjM4MzV9XQ/d1d91ea7e0/Group_Background_2.png"
         },
         ["PSGroupBackground3"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGYiLCJzcCI6MC4xMjQ2fV0/b555832d17/Group_Background_3.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGYiLCJzcCI6MC4yMTA5fV0/17e30e56dc/Group_Background_3.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGYiLCJzcCI6MC4yOTcyfV0/110e8f1edc/Group_Background_3.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGYiLCJzcCI6MC4zODM1fV0/0e8bab014c/Group_Background_3.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI3NGQ0NzNmYTVkYTA1NmM0MDg2NGZmNWIwZmM5N2ViZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZiIsInNwIjowLjEyNDZ9XQ/35ff4b063a/Group_Background_3.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI3NGQ0NzNmYTVkYTA1NmM0MDg2NGZmNWIwZmM5N2ViZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZiIsInNwIjowLjIxMDl9XQ/21c40b4aad/Group_Background_3.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI3NGQ0NzNmYTVkYTA1NmM0MDg2NGZmNWIwZmM5N2ViZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZiIsInNwIjowLjI5NzJ9XQ/55ce6e1f2e/Group_Background_3.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI3NGQ0NzNmYTVkYTA1NmM0MDg2NGZmNWIwZmM5N2ViZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZiIsInNwIjowLjM4MzV9XQ/7b20e81f1b/Group_Background_3.png"
         },
         ["GroupBackgroundSmallAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbEFsdCIsInNwIjowLjEyNDZ9XQ/c17bbdf09d/GroupBackgroundSmallAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbEFsdCIsInNwIjowLjIxMDl9XQ/dff2b20a5e/GroupBackgroundSmallAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbEFsdCIsInNwIjowLjI5NzJ9XQ/6b386e8d74/GroupBackgroundSmallAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRTbWFsbEFsdCIsInNwIjowLjM4MzV9XQ/9ac98a02d0/GroupBackgroundSmallAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCIyZjQ4MDc1ZTMyNDBhMjU5YTNiMjY0ODQ3MDMzNzQwMCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsQWx0Iiwic3AiOjAuMTI0Nn1d/2f8249c1af/GroupBackgroundSmallAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCIyZjQ4MDc1ZTMyNDBhMjU5YTNiMjY0ODQ3MDMzNzQwMCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsQWx0Iiwic3AiOjAuMjEwOX1d/3cfd33549b/GroupBackgroundSmallAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCIyZjQ4MDc1ZTMyNDBhMjU5YTNiMjY0ODQ3MDMzNzQwMCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsQWx0Iiwic3AiOjAuMjk3Mn1d/378ee3a65d/GroupBackgroundSmallAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCIyZjQ4MDc1ZTMyNDBhMjU5YTNiMjY0ODQ3MDMzNzQwMCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZFNtYWxsQWx0Iiwic3AiOjAuMzgzNX1d/9e40cd76f3/GroupBackgroundSmallAlt.png"
         },
         ["GroupBackgroundMediumAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW1BbHQiLCJzcCI6MC4xMjQ2fV0/d788dde12e/GroupBackgroundMediumAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW1BbHQiLCJzcCI6MC4yMTA5fV0/9d4d2db920/GroupBackgroundMediumAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW1BbHQiLCJzcCI6MC4yOTcyfV0/49a89e527f/GroupBackgroundMediumAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRNZWRpdW1BbHQiLCJzcCI6MC4zODM1fV0/c6cbf730e6/GroupBackgroundMediumAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI1ZTc2NzU1NjhiZmExNGVhMzRlNTMzNmRiNjBlOWFkNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bUFsdCIsInNwIjowLjEyNDZ9XQ/77d6c28af4/GroupBackgroundMediumAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI1ZTc2NzU1NjhiZmExNGVhMzRlNTMzNmRiNjBlOWFkNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bUFsdCIsInNwIjowLjIxMDl9XQ/9855f8e934/GroupBackgroundMediumAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI1ZTc2NzU1NjhiZmExNGVhMzRlNTMzNmRiNjBlOWFkNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bUFsdCIsInNwIjowLjI5NzJ9XQ/d04ae43e62/GroupBackgroundMediumAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI1ZTc2NzU1NjhiZmExNGVhMzRlNTMzNmRiNjBlOWFkNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZE1lZGl1bUFsdCIsInNwIjowLjM4MzV9XQ/0df9d313d9/GroupBackgroundMediumAlt.png"
         },
         ["GroupBackgroundLargeHalfAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGZBbHQiLCJzcCI6MC4xMjQ2fV0/96def0e77f/GroupBackgroundLargeHalfAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGZBbHQiLCJzcCI6MC4yMTA5fV0/fd20e4e07d/GroupBackgroundLargeHalfAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGZBbHQiLCJzcCI6MC4yOTcyfV0/5ea4cd9335/GroupBackgroundLargeHalfAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Hcm91cEJhY2tncm91bmRMYXJnZUhhbGZBbHQiLCJzcCI6MC4zODM1fV0/a3acbe0a9d/GroupBackgroundLargeHalfAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI5MTc4NGIwZTRiMWMzNTllYTBmODkwZDJhZmYwMzlmZCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZkFsdCIsInNwIjowLjEyNDZ9XQ/e15176d3f1/GroupBackgroundLargeHalfAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI5MTc4NGIwZTRiMWMzNTllYTBmODkwZDJhZmYwMzlmZCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZkFsdCIsInNwIjowLjIxMDl9XQ/5d4820ef55/GroupBackgroundLargeHalfAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI5MTc4NGIwZTRiMWMzNTllYTBmODkwZDJhZmYwMzlmZCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZkFsdCIsInNwIjowLjI5NzJ9XQ/49982528bb/GroupBackgroundLargeHalfAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI5MTc4NGIwZTRiMWMzNTllYTBmODkwZDJhZmYwMzlmZCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlbkdyb3VwQmFja2dyb3VuZExhcmdlSGFsZkFsdCIsInNwIjowLjM4MzV9XQ/bb9c8ca4b7/GroupBackgroundLargeHalfAlt.png"
         },
         ["Orbit1Normal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6MSwic3AiOjAuMTI0Nn1d/8e94be2c29/PSOrbit1Normal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6MSwic3AiOjAuMjEwOX1d/d6b26ae7b3/PSOrbit1Normal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6MSwic3AiOjAuMjk3Mn1d/7f9eaa2b01/PSOrbit1Normal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6MSwic3AiOjAuMzgzNX1d/b3a3b31939/PSOrbit1Normal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiOGQ5ZmU5ODAwNmM0YWQwMzkxZTc0ZjcwNDViYmJjNiIseyJ0Ijo5LCJvIjoxLCJzcCI6MC4xMjQ2fV0/4b52cbcfe5/PSOrbit1Normal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiOGQ5ZmU5ODAwNmM0YWQwMzkxZTc0ZjcwNDViYmJjNiIseyJ0Ijo5LCJvIjoxLCJzcCI6MC4yMTA5fV0/a921fd9377/PSOrbit1Normal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiOGQ5ZmU5ODAwNmM0YWQwMzkxZTc0ZjcwNDViYmJjNiIseyJ0Ijo5LCJvIjoxLCJzcCI6MC4yOTcyfV0/c48f388ed3/PSOrbit1Normal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiOGQ5ZmU5ODAwNmM0YWQwMzkxZTc0ZjcwNDViYmJjNiIseyJ0Ijo5LCJvIjoxLCJzcCI6MC4zODM1fV0/cc7405ea65/PSOrbit1Normal.png"
         },
         ["Orbit1Intermediate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjEsInNwIjowLjEyNDZ9XQ/e2499118d3/Orbit1Intermediate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjEsInNwIjowLjIxMDl9XQ/e4cf503fec/Orbit1Intermediate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjEsInNwIjowLjI5NzJ9XQ/fd9dcf6d0e/Orbit1Intermediate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjEsInNwIjowLjM4MzV9XQ/12f2022f07/Orbit1Intermediate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxZTdhNmJkNTM5ZmUxZWNmNGM3NzViNTY4YzhmYWIxMyIseyJ0IjoxMCwibyI6MSwic3AiOjAuMTI0Nn1d/618765f48c/Orbit1Intermediate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxZTdhNmJkNTM5ZmUxZWNmNGM3NzViNTY4YzhmYWIxMyIseyJ0IjoxMCwibyI6MSwic3AiOjAuMjEwOX1d/0028f33815/Orbit1Intermediate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxZTdhNmJkNTM5ZmUxZWNmNGM3NzViNTY4YzhmYWIxMyIseyJ0IjoxMCwibyI6MSwic3AiOjAuMjk3Mn1d/26d11641b1/Orbit1Intermediate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxZTdhNmJkNTM5ZmUxZWNmNGM3NzViNTY4YzhmYWIxMyIseyJ0IjoxMCwibyI6MSwic3AiOjAuMzgzNX1d/b13b4ba632/Orbit1Intermediate.png"
         },
         ["Orbit1Active"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjEsInNwIjowLjEyNDZ9XQ/843999d904/Orbit1Active.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjEsInNwIjowLjIxMDl9XQ/6ac810784d/Orbit1Active.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjEsInNwIjowLjI5NzJ9XQ/d29f19876d/Orbit1Active.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjEsInNwIjowLjM4MzV9XQ/a66fdd9072/Orbit1Active.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjNzYzNTdkOGE1ZjQ5YzIyNjYyNjhhZTU1M2FhZjBiZCIseyJ0IjoxMSwibyI6MSwic3AiOjAuMTI0Nn1d/1002ed727c/Orbit1Active.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjNzYzNTdkOGE1ZjQ5YzIyNjYyNjhhZTU1M2FhZjBiZCIseyJ0IjoxMSwibyI6MSwic3AiOjAuMjEwOX1d/a940d5deee/Orbit1Active.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjNzYzNTdkOGE1ZjQ5YzIyNjYyNjhhZTU1M2FhZjBiZCIseyJ0IjoxMSwibyI6MSwic3AiOjAuMjk3Mn1d/08eac63d7d/Orbit1Active.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjNzYzNTdkOGE1ZjQ5YzIyNjYyNjhhZTU1M2FhZjBiZCIseyJ0IjoxMSwibyI6MSwic3AiOjAuMzgzNX1d/e20f9b2f56/Orbit1Active.png"
         },
         ["Orbit2Normal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Miwic3AiOjAuMTI0Nn1d/9d1150b854/Orbit2Normal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Miwic3AiOjAuMjEwOX1d/eb3a2a06ff/Orbit2Normal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Miwic3AiOjAuMjk3Mn1d/b98f0cf0a6/Orbit2Normal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Miwic3AiOjAuMzgzNX1d/6eebff774f/Orbit2Normal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyNDMwMzM2Y2IyNGVkYWU5YTE4NGNhMzU3MjU2MDQyYSIseyJ0Ijo5LCJvIjoyLCJzcCI6MC4xMjQ2fV0/80a126596c/Orbit2Normal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyNDMwMzM2Y2IyNGVkYWU5YTE4NGNhMzU3MjU2MDQyYSIseyJ0Ijo5LCJvIjoyLCJzcCI6MC4yMTA5fV0/4864c1a5e6/Orbit2Normal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyNDMwMzM2Y2IyNGVkYWU5YTE4NGNhMzU3MjU2MDQyYSIseyJ0Ijo5LCJvIjoyLCJzcCI6MC4yOTcyfV0/132bd3d937/Orbit2Normal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyNDMwMzM2Y2IyNGVkYWU5YTE4NGNhMzU3MjU2MDQyYSIseyJ0Ijo5LCJvIjoyLCJzcCI6MC4zODM1fV0/6a2166b37d/Orbit2Normal.png"
         },
         ["Orbit2Intermediate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjIsInNwIjowLjEyNDZ9XQ/d9790b6a66/Orbit2Intermediate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjIsInNwIjowLjIxMDl9XQ/f233cce39d/Orbit2Intermediate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjIsInNwIjowLjI5NzJ9XQ/bc96f06da2/Orbit2Intermediate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjIsInNwIjowLjM4MzV9XQ/2678cfc0bc/Orbit2Intermediate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyZTBlYTIyYTY4Y2Q3MDQ4ZDA2ZDQwNTU0MjhmYjM1YSIseyJ0IjoxMCwibyI6Miwic3AiOjAuMTI0Nn1d/f908cc7d65/Orbit2Intermediate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyZTBlYTIyYTY4Y2Q3MDQ4ZDA2ZDQwNTU0MjhmYjM1YSIseyJ0IjoxMCwibyI6Miwic3AiOjAuMjEwOX1d/cd33c5dc84/Orbit2Intermediate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyZTBlYTIyYTY4Y2Q3MDQ4ZDA2ZDQwNTU0MjhmYjM1YSIseyJ0IjoxMCwibyI6Miwic3AiOjAuMjk3Mn1d/42ee7042cd/Orbit2Intermediate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyZTBlYTIyYTY4Y2Q3MDQ4ZDA2ZDQwNTU0MjhmYjM1YSIseyJ0IjoxMCwibyI6Miwic3AiOjAuMzgzNX1d/6fef0ff374/Orbit2Intermediate.png"
         },
         ["Orbit2Active"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjIsInNwIjowLjEyNDZ9XQ/aa4da2ed0a/Orbit2Active.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjIsInNwIjowLjIxMDl9XQ/ee16f0fb1f/Orbit2Active.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjIsInNwIjowLjI5NzJ9XQ/76636321db/Orbit2Active.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjIsInNwIjowLjM4MzV9XQ/76e3393326/Orbit2Active.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhNmFhYWU1YjMzYTI0ZjBiYzFiODRmY2VkNWU5MDUzYSIseyJ0IjoxMSwibyI6Miwic3AiOjAuMTI0Nn1d/2068a14974/Orbit2Active.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhNmFhYWU1YjMzYTI0ZjBiYzFiODRmY2VkNWU5MDUzYSIseyJ0IjoxMSwibyI6Miwic3AiOjAuMjEwOX1d/550987375d/Orbit2Active.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhNmFhYWU1YjMzYTI0ZjBiYzFiODRmY2VkNWU5MDUzYSIseyJ0IjoxMSwibyI6Miwic3AiOjAuMjk3Mn1d/c90967df00/Orbit2Active.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhNmFhYWU1YjMzYTI0ZjBiYzFiODRmY2VkNWU5MDUzYSIseyJ0IjoxMSwibyI6Miwic3AiOjAuMzgzNX1d/d2e48d8707/Orbit2Active.png"
         },
         ["Orbit3Normal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Mywic3AiOjAuMTI0Nn1d/b4d191aae5/Orbit3Normal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Mywic3AiOjAuMjEwOX1d/e8c1e9440d/Orbit3Normal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Mywic3AiOjAuMjk3Mn1d/1a7869b3dc/Orbit3Normal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6Mywic3AiOjAuMzgzNX1d/010b8760de/Orbit3Normal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4YjQzZTZmMjgzMTYyYWEyMTJkZWI2ZTBiMmIzZWY0OSIseyJ0Ijo5LCJvIjozLCJzcCI6MC4xMjQ2fV0/4039cd1ef6/Orbit3Normal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4YjQzZTZmMjgzMTYyYWEyMTJkZWI2ZTBiMmIzZWY0OSIseyJ0Ijo5LCJvIjozLCJzcCI6MC4yMTA5fV0/f9955ad9b0/Orbit3Normal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4YjQzZTZmMjgzMTYyYWEyMTJkZWI2ZTBiMmIzZWY0OSIseyJ0Ijo5LCJvIjozLCJzcCI6MC4yOTcyfV0/3254b74ca9/Orbit3Normal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4YjQzZTZmMjgzMTYyYWEyMTJkZWI2ZTBiMmIzZWY0OSIseyJ0Ijo5LCJvIjozLCJzcCI6MC4zODM1fV0/049b76dac1/Orbit3Normal.png"
         },
         ["Orbit3Intermediate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjMsInNwIjowLjEyNDZ9XQ/3d1d2639fc/Orbit3Intermediate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjMsInNwIjowLjIxMDl9XQ/5e8b9cef37/Orbit3Intermediate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjMsInNwIjowLjI5NzJ9XQ/e5aa095c89/Orbit3Intermediate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjMsInNwIjowLjM4MzV9XQ/0d93dcbcbf/Orbit3Intermediate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhNDVjYTVkYWVlMzMzNmEwNzdhZDdmZmU2MmU0NTY5MSIseyJ0IjoxMCwibyI6Mywic3AiOjAuMTI0Nn1d/9854b2de52/Orbit3Intermediate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhNDVjYTVkYWVlMzMzNmEwNzdhZDdmZmU2MmU0NTY5MSIseyJ0IjoxMCwibyI6Mywic3AiOjAuMjEwOX1d/5fd741e821/Orbit3Intermediate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhNDVjYTVkYWVlMzMzNmEwNzdhZDdmZmU2MmU0NTY5MSIseyJ0IjoxMCwibyI6Mywic3AiOjAuMjk3Mn1d/51abf65577/Orbit3Intermediate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhNDVjYTVkYWVlMzMzNmEwNzdhZDdmZmU2MmU0NTY5MSIseyJ0IjoxMCwibyI6Mywic3AiOjAuMzgzNX1d/2ddd51c8c0/Orbit3Intermediate.png"
         },
         ["Orbit3Active"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjMsInNwIjowLjEyNDZ9XQ/d066389076/Orbit3Active.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjMsInNwIjowLjIxMDl9XQ/18bde9c442/Orbit3Active.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjMsInNwIjowLjI5NzJ9XQ/49cb9e33f1/Orbit3Active.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjMsInNwIjowLjM4MzV9XQ/fbb31b0c6b/Orbit3Active.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1MTcwZWMzOTI0YTRmMzUwNTdhMWUwZGIxNTliOTczZSIseyJ0IjoxMSwibyI6Mywic3AiOjAuMTI0Nn1d/86b2d1b864/Orbit3Active.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1MTcwZWMzOTI0YTRmMzUwNTdhMWUwZGIxNTliOTczZSIseyJ0IjoxMSwibyI6Mywic3AiOjAuMjEwOX1d/e7bc7886bb/Orbit3Active.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1MTcwZWMzOTI0YTRmMzUwNTdhMWUwZGIxNTliOTczZSIseyJ0IjoxMSwibyI6Mywic3AiOjAuMjk3Mn1d/91ca42f66c/Orbit3Active.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1MTcwZWMzOTI0YTRmMzUwNTdhMWUwZGIxNTliOTczZSIseyJ0IjoxMSwibyI6Mywic3AiOjAuMzgzNX1d/e18a85f3c6/Orbit3Active.png"
         },
         ["Orbit4Normal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6NCwic3AiOjAuMTI0Nn1d/e846f3c973/Orbit4Normal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6NCwic3AiOjAuMjEwOX1d/c8ea70d8c0/Orbit4Normal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6NCwic3AiOjAuMjk3Mn1d/d241f4656d/Orbit4Normal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OSwibyI6NCwic3AiOjAuMzgzNX1d/f694a72748/Orbit4Normal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmNjI2YmI3NjExMTdjNjQwOTc4MzQ0YmQ5YmMyODk4NiIseyJ0Ijo5LCJvIjo0LCJzcCI6MC4xMjQ2fV0/1e531c0931/Orbit4Normal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmNjI2YmI3NjExMTdjNjQwOTc4MzQ0YmQ5YmMyODk4NiIseyJ0Ijo5LCJvIjo0LCJzcCI6MC4yMTA5fV0/b2d7bec65a/Orbit4Normal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmNjI2YmI3NjExMTdjNjQwOTc4MzQ0YmQ5YmMyODk4NiIseyJ0Ijo5LCJvIjo0LCJzcCI6MC4yOTcyfV0/96c768f6c5/Orbit4Normal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmNjI2YmI3NjExMTdjNjQwOTc4MzQ0YmQ5YmMyODk4NiIseyJ0Ijo5LCJvIjo0LCJzcCI6MC4zODM1fV0/664059b2ce/Orbit4Normal.png"
         },
         ["Orbit4Intermediate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjQsInNwIjowLjEyNDZ9XQ/3f20a3a748/Orbit4Intermediate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjQsInNwIjowLjIxMDl9XQ/c60d9a9cd0/Orbit4Intermediate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjQsInNwIjowLjI5NzJ9XQ/0f75396011/Orbit4Intermediate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTAsIm8iOjQsInNwIjowLjM4MzV9XQ/9af509d0a3/Orbit4Intermediate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0OTZjZTM1YTFhZTE2ZTUyY2EwMTFlMzhmZDkxODU5MiIseyJ0IjoxMCwibyI6NCwic3AiOjAuMTI0Nn1d/37aa18dd96/Orbit4Intermediate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0OTZjZTM1YTFhZTE2ZTUyY2EwMTFlMzhmZDkxODU5MiIseyJ0IjoxMCwibyI6NCwic3AiOjAuMjEwOX1d/73899153da/Orbit4Intermediate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0OTZjZTM1YTFhZTE2ZTUyY2EwMTFlMzhmZDkxODU5MiIseyJ0IjoxMCwibyI6NCwic3AiOjAuMjk3Mn1d/3b40138e89/Orbit4Intermediate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0OTZjZTM1YTFhZTE2ZTUyY2EwMTFlMzhmZDkxODU5MiIseyJ0IjoxMCwibyI6NCwic3AiOjAuMzgzNX1d/a75b71e02d/Orbit4Intermediate.png"
         },
         ["Orbit4Active"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjQsInNwIjowLjEyNDZ9XQ/cc31c040ef/Orbit4Active.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjQsInNwIjowLjIxMDl9XQ/9fbad9b09b/Orbit4Active.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjQsInNwIjowLjI5NzJ9XQ/c88e6f9bdf/Orbit4Active.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTEsIm8iOjQsInNwIjowLjM4MzV9XQ/a0d3ed6176/Orbit4Active.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjMzRlNzZmODUwYjE2Y2FlZTFjZjM0NjY0ZDgzN2EwNSIseyJ0IjoxMSwibyI6NCwic3AiOjAuMTI0Nn1d/278423ecfe/Orbit4Active.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjMzRlNzZmODUwYjE2Y2FlZTFjZjM0NjY0ZDgzN2EwNSIseyJ0IjoxMSwibyI6NCwic3AiOjAuMjEwOX1d/ce58ab11df/Orbit4Active.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjMzRlNzZmODUwYjE2Y2FlZTFjZjM0NjY0ZDgzN2EwNSIseyJ0IjoxMSwibyI6NCwic3AiOjAuMjk3Mn1d/a2b4d7ee84/Orbit4Active.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjMzRlNzZmODUwYjE2Y2FlZTFjZjM0NjY0ZDgzN2EwNSIseyJ0IjoxMSwibyI6NCwic3AiOjAuMzgzNX1d/5cd2d72fb6/Orbit4Active.png"
         },
         ["LineConnectorNormal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTIsInNwIjowLjEyNDZ9XQ/b4b2edad5f/LineConnectorNormal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTIsInNwIjowLjIxMDl9XQ/4df3d575c1/LineConnectorNormal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTIsInNwIjowLjI5NzJ9XQ/85f4f1d715/LineConnectorNormal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTIsInNwIjowLjM4MzV9XQ/e6dac036cb/LineConnectorNormal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmMGE2MmM3MWZlYzYyZGJlNmFjOGMzYTFkNjkwNGJlMyIseyJ0IjoxMiwic3AiOjAuMTI0Nn1d/66550f9203/LineConnectorNormal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmMGE2MmM3MWZlYzYyZGJlNmFjOGMzYTFkNjkwNGJlMyIseyJ0IjoxMiwic3AiOjAuMjEwOX1d/60d6bd7f92/LineConnectorNormal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmMGE2MmM3MWZlYzYyZGJlNmFjOGMzYTFkNjkwNGJlMyIseyJ0IjoxMiwic3AiOjAuMjk3Mn1d/3a5d6dedf3/LineConnectorNormal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmMGE2MmM3MWZlYzYyZGJlNmFjOGMzYTFkNjkwNGJlMyIseyJ0IjoxMiwic3AiOjAuMzgzNX1d/645bf9967c/LineConnectorNormal.png"
         },
         ["LineConnectorIntermediate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTMsInNwIjowLjEyNDZ9XQ/90b74fc68e/LineConnectorIntermediate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTMsInNwIjowLjIxMDl9XQ/8558b71bcc/LineConnectorIntermediate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTMsInNwIjowLjI5NzJ9XQ/e0c84ab501/LineConnectorIntermediate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTMsInNwIjowLjM4MzV9XQ/2032a9e5f9/LineConnectorIntermediate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwMmE2OWE2NTViNWYzMzk3OWZkMGIyODQ0ZDY0ZjUwNSIseyJ0IjoxMywic3AiOjAuMTI0Nn1d/3148b489e4/LineConnectorIntermediate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwMmE2OWE2NTViNWYzMzk3OWZkMGIyODQ0ZDY0ZjUwNSIseyJ0IjoxMywic3AiOjAuMjEwOX1d/240ed0ae1d/LineConnectorIntermediate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwMmE2OWE2NTViNWYzMzk3OWZkMGIyODQ0ZDY0ZjUwNSIseyJ0IjoxMywic3AiOjAuMjk3Mn1d/cee4bf7791/LineConnectorIntermediate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwMmE2OWE2NTViNWYzMzk3OWZkMGIyODQ0ZDY0ZjUwNSIseyJ0IjoxMywic3AiOjAuMzgzNX1d/7b97fba063/LineConnectorIntermediate.png"
         },
         ["LineConnectorActive"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTQsInNwIjowLjEyNDZ9XQ/bff270bf00/LineConnectorActive.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTQsInNwIjowLjIxMDl9XQ/22b772bf21/LineConnectorActive.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTQsInNwIjowLjI5NzJ9XQ/b79bbb2558/LineConnectorActive.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTQsInNwIjowLjM4MzV9XQ/56754ae609/LineConnectorActive.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0ZWNkZjAxNTAzMzk5OWE2NGE3MjkwODA0YzU1NDg3YyIseyJ0IjoxNCwic3AiOjAuMTI0Nn1d/1bbca7c274/LineConnectorActive.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0ZWNkZjAxNTAzMzk5OWE2NGE3MjkwODA0YzU1NDg3YyIseyJ0IjoxNCwic3AiOjAuMjEwOX1d/c32db9308b/LineConnectorActive.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0ZWNkZjAxNTAzMzk5OWE2NGE3MjkwODA0YzU1NDg3YyIseyJ0IjoxNCwic3AiOjAuMjk3Mn1d/25bdf43487/LineConnectorActive.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0ZWNkZjAxNTAzMzk5OWE2NGE3MjkwODA0YzU1NDg3YyIseyJ0IjoxNCwic3AiOjAuMzgzNX1d/5dd51d0b32/LineConnectorActive.png"
         },
         ["PSLineDeco"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjEyNDZ9XQ/f5f36d1cea/Line_Deco.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjIxMDl9XQ/2489b0afd1/Line_Deco.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjI5NzJ9XQ/190e462ecb/Line_Deco.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjM4MzV9XQ/ba8f9fc2ea/Line_Deco.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjEyNDZ9XQ/f5f36d1cea/Line_Deco.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjIxMDl9XQ/2489b0afd1/Line_Deco.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjI5NzJ9XQ/190e462ecb/Line_Deco.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6ZmFsc2UsInNwIjowLjM4MzV9XQ/ba8f9fc2ea/Line_Deco.png"
         },
         ["PSLineDecoHighlighted"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMTI0Nn1d/4f9c115f09/Line_Deco_Highlighted.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMjEwOX1d/525b316df4/Line_Deco_Highlighted.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMjk3Mn1d/7153e29585/Line_Deco_Highlighted.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMzgzNX1d/141a3d6daa/Line_Deco_Highlighted.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMTI0Nn1d/4f9c115f09/Line_Deco_Highlighted.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMjEwOX1d/525b316df4/Line_Deco_Highlighted.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMjk3Mn1d/7153e29585/Line_Deco_Highlighted.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIwLDE0LHsiaCI6dHJ1ZSwic3AiOjAuMzgzNX1d/141a3d6daa/Line_Deco_Highlighted.png"
         },
         ["PSStartNodeBackgroundInactive"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5TdGFydE5vZGVCYWNrZ3JvdW5kSW5hY3RpdmUiLCJzcCI6MC4xMjQ2fV0/0d323dbc6e/Start_Node_Background.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5TdGFydE5vZGVCYWNrZ3JvdW5kSW5hY3RpdmUiLCJzcCI6MC4yMTA5fV0/fc8dc07786/Start_Node_Background.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5TdGFydE5vZGVCYWNrZ3JvdW5kSW5hY3RpdmUiLCJzcCI6MC4yOTcyfV0/9bf89fce07/Start_Node_Background.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5TdGFydE5vZGVCYWNrZ3JvdW5kSW5hY3RpdmUiLCJzcCI6MC4zODM1fV0/f222a6e86a/Start_Node_Background.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCIyMDVmMTAwMzVmNzJhM2E3YmNjMDA0NzM3MTA3ZjhjNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmRJbmFjdGl2ZSIsInNwIjowLjEyNDZ9XQ/9069587502/Start_Node_Background.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCIyMDVmMTAwMzVmNzJhM2E3YmNjMDA0NzM3MTA3ZjhjNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmRJbmFjdGl2ZSIsInNwIjowLjIxMDl9XQ/62a0f625d4/Start_Node_Background.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCIyMDVmMTAwMzVmNzJhM2E3YmNjMDA0NzM3MTA3ZjhjNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmRJbmFjdGl2ZSIsInNwIjowLjI5NzJ9XQ/f168962120/Start_Node_Background.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCIyMDVmMTAwMzVmNzJhM2E3YmNjMDA0NzM3MTA3ZjhjNiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmRJbmFjdGl2ZSIsInNwIjowLjM4MzV9XQ/ce8ef2fda4/Start_Node_Background.png"
         },
         ["centerduelist"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4xMjQ2fV0/41ff2c2f83/StartNodeBackgroundStrDex.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yMTA5fV0/ea9676d937/StartNodeBackgroundStrDex.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yOTcyfV0/baaed10c1d/StartNodeBackgroundStrDex.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4zODM1fV0/ec9ac43843/StartNodeBackgroundStrDex.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCIwMjJiZmEzZGRmMmMzYmVlNjMzMjI5MGZmOTY0ODUyZiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjEyNDZ9XQ/7acb241199/StartNodeBackgroundStrDex.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCIwMjJiZmEzZGRmMmMzYmVlNjMzMjI5MGZmOTY0ODUyZiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjIxMDl9XQ/d5444943e9/StartNodeBackgroundStrDex.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCIwMjJiZmEzZGRmMmMzYmVlNjMzMjI5MGZmOTY0ODUyZiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjI5NzJ9XQ/847b218f4b/StartNodeBackgroundStrDex.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCIwMjJiZmEzZGRmMmMzYmVlNjMzMjI5MGZmOTY0ODUyZiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjM4MzV9XQ/025b6ec0c5/StartNodeBackgroundStrDex.png"
         },
         ["centermarauder"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4xMjQ2fV0/e9ff51cd81/StartNodeBackgroundStr.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yMTA5fV0/18847d8274/StartNodeBackgroundStr.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yOTcyfV0/7e161af432/StartNodeBackgroundStr.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4zODM1fV0/c6c953edfd/StartNodeBackgroundStr.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCIwYmQzMDUyMGExNzc1YzNlZDg1YjQxMTFkNGQxNTZkNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0clwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjEyNDZ9XQ/1152f0294b/StartNodeBackgroundStr.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCIwYmQzMDUyMGExNzc1YzNlZDg1YjQxMTFkNGQxNTZkNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0clwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjIxMDl9XQ/f1d3ddef16/StartNodeBackgroundStr.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCIwYmQzMDUyMGExNzc1YzNlZDg1YjQxMTFkNGQxNTZkNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0clwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjI5NzJ9XQ/72bbf79d7b/StartNodeBackgroundStr.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCIwYmQzMDUyMGExNzc1YzNlZDg1YjQxMTFkNGQxNTZkNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0clwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjM4MzV9XQ/16ff01bb16/StartNodeBackgroundStr.png"
         },
         ["centerranger"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4xMjQ2fV0/2bed160c61/StartNodeBackgroundDex.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yMTA5fV0/7810bdfbf9/StartNodeBackgroundDex.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yOTcyfV0/cb2c2c60fd/StartNodeBackgroundDex.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4zODM1fV0/a24ee33125/StartNodeBackgroundDex.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCIxMzU3NzYwNGRmNDBlYmMwY2Y0NmRmMjI0YzRjYTY4NCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjEyNDZ9XQ/41689c183c/StartNodeBackgroundDex.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCIxMzU3NzYwNGRmNDBlYmMwY2Y0NmRmMjI0YzRjYTY4NCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjIxMDl9XQ/b635dc1f99/StartNodeBackgroundDex.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCIxMzU3NzYwNGRmNDBlYmMwY2Y0NmRmMjI0YzRjYTY4NCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjI5NzJ9XQ/f7bae459a3/StartNodeBackgroundDex.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCIxMzU3NzYwNGRmNDBlYmMwY2Y0NmRmMjI0YzRjYTY4NCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjM4MzV9XQ/e5979dc9db/StartNodeBackgroundDex.png"
         },
         ["centershadow"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4xMjQ2fV0/37d94e6b30/StartNodeBackgroundDexInt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yMTA5fV0/6242328de0/StartNodeBackgroundDexInt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yOTcyfV0/ae3538261b/StartNodeBackgroundDexInt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9EZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4zODM1fV0/76cf23d904/StartNodeBackgroundDexInt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJjZTQ1NmRhODRiMWNiOTZiMzU3YmQxYjM0MGU3YTI5MSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjEyNDZ9XQ/1acc5344f5/StartNodeBackgroundDexInt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCJjZTQ1NmRhODRiMWNiOTZiMzU3YmQxYjM0MGU3YTI5MSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjIxMDl9XQ/9abb3266f6/StartNodeBackgroundDexInt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCJjZTQ1NmRhODRiMWNiOTZiMzU3YmQxYjM0MGU3YTI5MSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjI5NzJ9XQ/be4d9e4397/StartNodeBackgroundDexInt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCJjZTQ1NmRhODRiMWNiOTZiMzU3YmQxYjM0MGU3YTI5MSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0RleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjM4MzV9XQ/0517561f23/StartNodeBackgroundDexInt.png"
         },
         ["centertemplar"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4xMjQ2fV0/171c162e60/StartNodeBackgroundStrInt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yMTA5fV0/fa921736a2/StartNodeBackgroundStrInt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yOTcyfV0/97d7042396/StartNodeBackgroundStrInt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4zODM1fV0/694b13a733/StartNodeBackgroundStrInt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI1ZmM2ODdhMzE3OTI0NWFhM2UwMGE4MmY3ODMyNjgwOCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjEyNDZ9XQ/b6a9443a5b/StartNodeBackgroundStrInt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI1ZmM2ODdhMzE3OTI0NWFhM2UwMGE4MmY3ODMyNjgwOCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjIxMDl9XQ/406de52afa/StartNodeBackgroundStrInt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI1ZmM2ODdhMzE3OTI0NWFhM2UwMGE4MmY3ODMyNjgwOCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjI5NzJ9XQ/7010d180bd/StartNodeBackgroundStrInt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI1ZmM2ODdhMzE3OTI0NWFhM2UwMGE4MmY3ODMyNjgwOCIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjM4MzV9XQ/7fd7426c30/StartNodeBackgroundStrInt.png"
         },
         ["centerwitch"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9JbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4xMjQ2fV0/fd5405ba16/StartNodeBackgroundInt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9JbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yMTA5fV0/0e496c9c7d/StartNodeBackgroundInt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9JbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yOTcyfV0/c9cbcdd987/StartNodeBackgroundInt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9JbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4zODM1fV0/b1aaa17159/StartNodeBackgroundInt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI0NmU1Yjg2ZTQ4NmNmZjhhMTdjYTJjOTgzNGZmNjdmNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0ludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjEyNDZ9XQ/ea3483e43d/StartNodeBackgroundInt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI0NmU1Yjg2ZTQ4NmNmZjhhMTdjYTJjOTgzNGZmNjdmNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0ludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjIxMDl9XQ/310b67b72c/StartNodeBackgroundInt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI0NmU1Yjg2ZTQ4NmNmZjhhMTdjYTJjOTgzNGZmNjdmNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0ludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjI5NzJ9XQ/e89ea2dd4a/StartNodeBackgroundInt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI0NmU1Yjg2ZTQ4NmNmZjhhMTdjYTJjOTgzNGZmNjdmNSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL0ludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjM4MzV9XQ/b211e1b238/StartNodeBackgroundInt.png"
         },
         ["centerscion"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4xMjQ2fV0/b00ea9db2b/StartNodeBackgroundStrDexInt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yMTA5fV0/3994e06da2/StartNodeBackgroundStrDexInt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4yOTcyfV0/b8320f3b41/StartNodeBackgroundStrDexInt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9DbGFzc2VzXC9TdHJEZXhJbnRcL1Bhc3NpdmVTa2lsbFNjcmVlblN0YXJ0Tm9kZUJhY2tncm91bmQiLCJzcCI6MC4zODM1fV0/e810889aee/StartNodeBackgroundStrDexInt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI4YmUzODc2NTljMzc3OGQ5NGQ2NDc3ZWFjMjEyZTA5MiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjEyNDZ9XQ/47b05cebae/StartNodeBackgroundStrDexInt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI4YmUzODc2NTljMzc3OGQ5NGQ2NDc3ZWFjMjEyZTA5MiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjIxMDl9XQ/91fcf02e2b/StartNodeBackgroundStrDexInt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI4YmUzODc2NTljMzc3OGQ5NGQ2NDc3ZWFjMjEyZTA5MiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjI5NzJ9XQ/3e12d9cfd8/StartNodeBackgroundStrDexInt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI4YmUzODc2NTljMzc3OGQ5NGQ2NDc3ZWFjMjEyZTA5MiIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0NsYXNzZXNcL1N0ckRleEludFwvUGFzc2l2ZVNraWxsU2NyZWVuU3RhcnROb2RlQmFja2dyb3VuZCIsInNwIjowLjM4MzV9XQ/4519b0f2cd/StartNodeBackgroundStrDexInt.png"
         },
         ["PSPointsFrame"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9QYXNzaXZlU2tpbGxTY3JlZW5Qb2ludHNCYWNrZ3JvdW5kIiwic3AiOjF9XQ/f041805efe/PointsBackground.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIxLCI3NDk1NTFmODZkODAwZjI3OTA1YmQ2MzNhOWY3OWNhNyIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL1Bhc3NpdmVTa2lsbFNjcmVlblBvaW50c0JhY2tncm91bmQiLCJzcCI6MX1d/36208c17de/PointsBackground.png"
         },
         ["NotableFrameUnallocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Niwic3AiOjAuMTI0Nn1d/510ed57317/NotableFrameUnallocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Niwic3AiOjAuMjEwOX1d/352e60eb39/NotableFrameUnallocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Niwic3AiOjAuMjk3Mn1d/9a4b472a2f/NotableFrameUnallocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Niwic3AiOjAuMzgzNX1d/f457cc3d80/NotableFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjNDRlMjdiNzBlOWVhZTZmMDNjYTYxODI2ODI0N2U2ZSIseyJ0Ijo2LCJzcCI6MC4xMjQ2fV0/a69fdbfc7b/NotableFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjNDRlMjdiNzBlOWVhZTZmMDNjYTYxODI2ODI0N2U2ZSIseyJ0Ijo2LCJzcCI6MC4yMTA5fV0/ec404571f9/NotableFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjNDRlMjdiNzBlOWVhZTZmMDNjYTYxODI2ODI0N2U2ZSIseyJ0Ijo2LCJzcCI6MC4yOTcyfV0/4487a3e953/NotableFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjNDRlMjdiNzBlOWVhZTZmMDNjYTYxODI2ODI0N2U2ZSIseyJ0Ijo2LCJzcCI6MC4zODM1fV0/bec18bab8c/NotableFrameUnallocated.png"
         },
         ["NotableFrameCanAllocate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OCwic3AiOjAuMTI0Nn1d/f6d0355624/NotableFrameCanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OCwic3AiOjAuMjEwOX1d/7994ce77b2/NotableFrameCanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OCwic3AiOjAuMjk3Mn1d/33bb815795/NotableFrameCanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6OCwic3AiOjAuMzgzNX1d/b93c7f89bc/NotableFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjYzU4ZjM4OTc4OWQxMDEyNjZkM2ZmNTI4MDg0YzBkYiIseyJ0Ijo4LCJzcCI6MC4xMjQ2fV0/6a589f9ffb/NotableFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjYzU4ZjM4OTc4OWQxMDEyNjZkM2ZmNTI4MDg0YzBkYiIseyJ0Ijo4LCJzcCI6MC4yMTA5fV0/78bf10e7d1/NotableFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjYzU4ZjM4OTc4OWQxMDEyNjZkM2ZmNTI4MDg0YzBkYiIseyJ0Ijo4LCJzcCI6MC4yOTcyfV0/ea6779e8cd/NotableFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjYzU4ZjM4OTc4OWQxMDEyNjZkM2ZmNTI4MDg0YzBkYiIseyJ0Ijo4LCJzcCI6MC4zODM1fV0/7ecb288059/NotableFrameCanAllocate.png"
         },
         ["NotableFrameAllocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Nywic3AiOjAuMTI0Nn1d/4b42e8359a/NotableFrameAllocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Nywic3AiOjAuMjEwOX1d/18e45f6767/NotableFrameAllocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Nywic3AiOjAuMjk3Mn1d/1f628f6311/NotableFrameAllocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6Nywic3AiOjAuMzgzNX1d/624500d681/NotableFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjYTcyYjkyMjM0ZmFlNWRjMzI0YWUxY2FlNWVhY2NkZCIseyJ0Ijo3LCJzcCI6MC4xMjQ2fV0/cf36194eca/NotableFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjYTcyYjkyMjM0ZmFlNWRjMzI0YWUxY2FlNWVhY2NkZCIseyJ0Ijo3LCJzcCI6MC4yMTA5fV0/93ead46100/NotableFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjYTcyYjkyMjM0ZmFlNWRjMzI0YWUxY2FlNWVhY2NkZCIseyJ0Ijo3LCJzcCI6MC4yOTcyfV0/4ddda18681/NotableFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjYTcyYjkyMjM0ZmFlNWRjMzI0YWUxY2FlNWVhY2NkZCIseyJ0Ijo3LCJzcCI6MC4zODM1fV0/3671783062/NotableFrameAllocated.png"
         },
         ["BlightedNotableFrameUnallocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjMsInNwIjowLjEyNDZ9XQ/ed1ec0fdd2/BlightedNotableFrameUnallocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjMsInNwIjowLjIxMDl9XQ/300df98c29/BlightedNotableFrameUnallocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjMsInNwIjowLjI5NzJ9XQ/75d4a437bb/BlightedNotableFrameUnallocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjMsInNwIjowLjM4MzV9XQ/fec2ecc7ff/BlightedNotableFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyMTZmZTUzNGQ5N2EwNWE4NzcwYjJjNzQyMDIwYTJjMSIseyJ0Ijo2Mywic3AiOjAuMTI0Nn1d/056aa4b224/BlightedNotableFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyMTZmZTUzNGQ5N2EwNWE4NzcwYjJjNzQyMDIwYTJjMSIseyJ0Ijo2Mywic3AiOjAuMjEwOX1d/8f0efd2617/BlightedNotableFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyMTZmZTUzNGQ5N2EwNWE4NzcwYjJjNzQyMDIwYTJjMSIseyJ0Ijo2Mywic3AiOjAuMjk3Mn1d/6edc614feb/BlightedNotableFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyMTZmZTUzNGQ5N2EwNWE4NzcwYjJjNzQyMDIwYTJjMSIseyJ0Ijo2Mywic3AiOjAuMzgzNX1d/4cdb70ed83/BlightedNotableFrameUnallocated.png"
         },
         ["BlightedNotableFrameCanAllocate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjEyNDZ9XQ/b37ad19155/BlightedNotableFrameCanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjIxMDl9XQ/793db53051/BlightedNotableFrameCanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjI5NzJ9XQ/121927bf12/BlightedNotableFrameCanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjZTc1NWY0ZjQ4ZjllYTg2YjkxM2VjM2M2ZTNkMThmOSIseyJ0Ijo2NSwic3AiOjAuMTI0Nn1d/f038c7397a/BlightedNotableFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjZTc1NWY0ZjQ4ZjllYTg2YjkxM2VjM2M2ZTNkMThmOSIseyJ0Ijo2NSwic3AiOjAuMjEwOX1d/ad1284137c/BlightedNotableFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjZTc1NWY0ZjQ4ZjllYTg2YjkxM2VjM2M2ZTNkMThmOSIseyJ0Ijo2NSwic3AiOjAuMjk3Mn1d/f78394edcf/BlightedNotableFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjZTc1NWY0ZjQ4ZjllYTg2YjkxM2VjM2M2ZTNkMThmOSIseyJ0Ijo2NSwic3AiOjAuMzgzNX1d/eea9af2539/BlightedNotableFrameCanAllocate.png"
         },
         ["BlightedNotableFrameAllocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjQsInNwIjowLjEyNDZ9XQ/7c24050f40/BlightedNotableFrameAllocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjQsInNwIjowLjIxMDl9XQ/790ea8bff6/BlightedNotableFrameAllocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjQsInNwIjowLjI5NzJ9XQ/f08a7ffbd4/BlightedNotableFrameAllocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjQsInNwIjowLjM4MzV9XQ/c33c04720a/BlightedNotableFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxODg0MzIwYWUxZTFiNjllZTEzNDRhNjUxZGJhMTIwZSIseyJ0Ijo2NCwic3AiOjAuMTI0Nn1d/fe75f572a4/BlightedNotableFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxODg0MzIwYWUxZTFiNjllZTEzNDRhNjUxZGJhMTIwZSIseyJ0Ijo2NCwic3AiOjAuMjEwOX1d/dae4a528a2/BlightedNotableFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxODg0MzIwYWUxZTFiNjllZTEzNDRhNjUxZGJhMTIwZSIseyJ0Ijo2NCwic3AiOjAuMjk3Mn1d/765c3b391f/BlightedNotableFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxODg0MzIwYWUxZTFiNjllZTEzNDRhNjUxZGJhMTIwZSIseyJ0Ijo2NCwic3AiOjAuMzgzNX1d/2a03404f83/BlightedNotableFrameAllocated.png"
         },
         ["JewelFrameUnallocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTUsInNwIjowLjEyNDZ9XQ/2a6166e9f7/JewelFrameUnallocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTUsInNwIjowLjIxMDl9XQ/607cbc61a5/JewelFrameUnallocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTUsInNwIjowLjI5NzJ9XQ/d68cc4a3c4/JewelFrameUnallocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTUsInNwIjowLjM4MzV9XQ/09486068b0/JewelFrameUnallocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyOWIwMGU1OGYzNjQ3M2U5ZWE0MTVhYTc5MDg3OGY3NyIseyJ0IjoxNSwic3AiOjAuMTI0Nn1d/7516f87429/JewelFrameUnallocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyOWIwMGU1OGYzNjQ3M2U5ZWE0MTVhYTc5MDg3OGY3NyIseyJ0IjoxNSwic3AiOjAuMjEwOX1d/5be46ecda5/JewelFrameUnallocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyOWIwMGU1OGYzNjQ3M2U5ZWE0MTVhYTc5MDg3OGY3NyIseyJ0IjoxNSwic3AiOjAuMjk3Mn1d/89efa3c303/JewelFrameUnallocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyOWIwMGU1OGYzNjQ3M2U5ZWE0MTVhYTc5MDg3OGY3NyIseyJ0IjoxNSwic3AiOjAuMzgzNX1d/8836867bb5/JewelFrameUnallocated.png"
         },
         ["JewelFrameCanAllocate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTYsInNwIjowLjEyNDZ9XQ/d0c4e25bec/JewelFrameCanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTYsInNwIjowLjIxMDl9XQ/64bedd4d71/JewelFrameCanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTYsInNwIjowLjI5NzJ9XQ/41a991b801/JewelFrameCanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTYsInNwIjowLjM4MzV9XQ/972c23ddb2/JewelFrameCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0NmQ0ZTBlNDVlMDBhZGI0Njg5NWQxYzdkY2I2NzIyYyIseyJ0IjoxNiwic3AiOjAuMTI0Nn1d/5476cda779/JewelFrameCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0NmQ0ZTBlNDVlMDBhZGI0Njg5NWQxYzdkY2I2NzIyYyIseyJ0IjoxNiwic3AiOjAuMjEwOX1d/dc55b47f9a/JewelFrameCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0NmQ0ZTBlNDVlMDBhZGI0Njg5NWQxYzdkY2I2NzIyYyIseyJ0IjoxNiwic3AiOjAuMjk3Mn1d/c64bd3d2ff/JewelFrameCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0NmQ0ZTBlNDVlMDBhZGI0Njg5NWQxYzdkY2I2NzIyYyIseyJ0IjoxNiwic3AiOjAuMzgzNX1d/1a47e38eab/JewelFrameCanAllocate.png"
         },
         ["JewelFrameAllocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTcsInNwIjowLjEyNDZ9XQ/05ab58d579/JewelFrameAllocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTcsInNwIjowLjIxMDl9XQ/442be1408c/JewelFrameAllocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTcsInNwIjowLjI5NzJ9XQ/b4a136b96b/JewelFrameAllocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTcsInNwIjowLjM4MzV9XQ/cdd494786b/JewelFrameAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI5ZmExOGY2OThmNDdhNzIzMDYxY2ViZDkwZGE3M2M1NCIseyJ0IjoxNywic3AiOjAuMTI0Nn1d/a97f85697d/JewelFrameAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI5ZmExOGY2OThmNDdhNzIzMDYxY2ViZDkwZGE3M2M1NCIseyJ0IjoxNywic3AiOjAuMjEwOX1d/ca5d0bcd6d/JewelFrameAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI5ZmExOGY2OThmNDdhNzIzMDYxY2ViZDkwZGE3M2M1NCIseyJ0IjoxNywic3AiOjAuMjk3Mn1d/ee9b271e4d/JewelFrameAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI5ZmExOGY2OThmNDdhNzIzMDYxY2ViZDkwZGE3M2M1NCIseyJ0IjoxNywic3AiOjAuMzgzNX1d/03b928cf05/JewelFrameAllocated.png"
         },
         ["JewelSocketActiveBlue"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTgsInNwIjowLjEyNDZ9XQ/3aa709035c/JewelSocketActiveBlue.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTgsInNwIjowLjIxMDl9XQ/a15856f207/JewelSocketActiveBlue.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTgsInNwIjowLjI5NzJ9XQ/ee8ec384dd/JewelSocketActiveBlue.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTgsInNwIjowLjM4MzV9XQ/15ae030fbe/JewelSocketActiveBlue.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1MjViMjRlNDc1YzdlNjAxYThhMmIyMjU3ZTQxYWM0NCIseyJ0IjoxOCwic3AiOjAuMTI0Nn1d/dcc4571157/JewelSocketActiveBlue.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1MjViMjRlNDc1YzdlNjAxYThhMmIyMjU3ZTQxYWM0NCIseyJ0IjoxOCwic3AiOjAuMjEwOX1d/9decf0b0e7/JewelSocketActiveBlue.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1MjViMjRlNDc1YzdlNjAxYThhMmIyMjU3ZTQxYWM0NCIseyJ0IjoxOCwic3AiOjAuMjk3Mn1d/c28b3cbe65/JewelSocketActiveBlue.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1MjViMjRlNDc1YzdlNjAxYThhMmIyMjU3ZTQxYWM0NCIseyJ0IjoxOCwic3AiOjAuMzgzNX1d/ad7afc2883/JewelSocketActiveBlue.png"
         },
         ["JewelSocketActiveGreen"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTksInNwIjowLjEyNDZ9XQ/bc4536a095/JewelSocketActiveGreen.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTksInNwIjowLjIxMDl9XQ/5fe8932ab8/JewelSocketActiveGreen.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTksInNwIjowLjI5NzJ9XQ/3cd5a0b92f/JewelSocketActiveGreen.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MTksInNwIjowLjM4MzV9XQ/943213c412/JewelSocketActiveGreen.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2MjZkNjQ1ZmQ3OGMzNWRhZTMyODViMzJlNjYzNmJiZSIseyJ0IjoxOSwic3AiOjAuMTI0Nn1d/a800468039/JewelSocketActiveGreen.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2MjZkNjQ1ZmQ3OGMzNWRhZTMyODViMzJlNjYzNmJiZSIseyJ0IjoxOSwic3AiOjAuMjEwOX1d/a877f70eb4/JewelSocketActiveGreen.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2MjZkNjQ1ZmQ3OGMzNWRhZTMyODViMzJlNjYzNmJiZSIseyJ0IjoxOSwic3AiOjAuMjk3Mn1d/ebcbac0976/JewelSocketActiveGreen.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2MjZkNjQ1ZmQ3OGMzNWRhZTMyODViMzJlNjYzNmJiZSIseyJ0IjoxOSwic3AiOjAuMzgzNX1d/a2cfa22072/JewelSocketActiveGreen.png"
         },
         ["JewelSocketActiveRed"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjAsInNwIjowLjEyNDZ9XQ/7eceb234b2/JewelSocketActiveRed.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjAsInNwIjowLjIxMDl9XQ/e0f2086423/JewelSocketActiveRed.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjAsInNwIjowLjI5NzJ9XQ/7a3913b57d/JewelSocketActiveRed.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjAsInNwIjowLjM4MzV9XQ/833581ea60/JewelSocketActiveRed.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxMjhkZjBmNDQyZGQwMTBmMDE0Y2IxNTBhMjE5ODcwZiIseyJ0IjoyMCwic3AiOjAuMTI0Nn1d/9330f58159/JewelSocketActiveRed.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxMjhkZjBmNDQyZGQwMTBmMDE0Y2IxNTBhMjE5ODcwZiIseyJ0IjoyMCwic3AiOjAuMjEwOX1d/0a8e785e03/JewelSocketActiveRed.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxMjhkZjBmNDQyZGQwMTBmMDE0Y2IxNTBhMjE5ODcwZiIseyJ0IjoyMCwic3AiOjAuMjk3Mn1d/a74c5bce11/JewelSocketActiveRed.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxMjhkZjBmNDQyZGQwMTBmMDE0Y2IxNTBhMjE5ODcwZiIseyJ0IjoyMCwic3AiOjAuMzgzNX1d/fdf0da53d0/JewelSocketActiveRed.png"
         },
         ["JewelSocketActivePrismatic"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjEyNDZ9XQ/4e4e882f35/JewelSocketActivePrismatic.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjIxMDl9XQ/9929f0bc81/JewelSocketActivePrismatic.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjI5NzJ9XQ/2b54940844/JewelSocketActivePrismatic.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjM4MzV9XQ/ccb99b0afa/JewelSocketActivePrismatic.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmNzU3MTkzOWViNDc4MTM5NGYyZjhmYjk1MWZlZmU1MSIseyJ0Ijo1MSwic3AiOjAuMTI0Nn1d/4b7f740560/JewelSocketActivePrismatic.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmNzU3MTkzOWViNDc4MTM5NGYyZjhmYjk1MWZlZmU1MSIseyJ0Ijo1MSwic3AiOjAuMjEwOX1d/05815c9544/JewelSocketActivePrismatic.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmNzU3MTkzOWViNDc4MTM5NGYyZjhmYjk1MWZlZmU1MSIseyJ0Ijo1MSwic3AiOjAuMjk3Mn1d/52f9631c74/JewelSocketActivePrismatic.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmNzU3MTkzOWViNDc4MTM5NGYyZjhmYjk1MWZlZmU1MSIseyJ0Ijo1MSwic3AiOjAuMzgzNX1d/cbb900726b/JewelSocketActivePrismatic.png"
         },
         ["JewelSocketActiveAbyss"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTAsInNwIjowLjEyNDZ9XQ/8019d1a08c/JewelSocketActiveAbyss.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTAsInNwIjowLjIxMDl9XQ/0b5da2b55e/JewelSocketActiveAbyss.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTAsInNwIjowLjI5NzJ9XQ/f10d2d8172/JewelSocketActiveAbyss.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTAsInNwIjowLjM4MzV9XQ/af82e63b3a/JewelSocketActiveAbyss.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjZjBmZmFiNzkyMDgxMzdkNjQ5YzQwM2JkNjljZTZiMCIseyJ0Ijo1MCwic3AiOjAuMTI0Nn1d/9d1d45e076/JewelSocketActiveAbyss.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjZjBmZmFiNzkyMDgxMzdkNjQ5YzQwM2JkNjljZTZiMCIseyJ0Ijo1MCwic3AiOjAuMjEwOX1d/695f9dc48a/JewelSocketActiveAbyss.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjZjBmZmFiNzkyMDgxMzdkNjQ5YzQwM2JkNjljZTZiMCIseyJ0Ijo1MCwic3AiOjAuMjk3Mn1d/c3e46589c5/JewelSocketActiveAbyss.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjZjBmZmFiNzkyMDgxMzdkNjQ5YzQwM2JkNjljZTZiMCIseyJ0Ijo1MCwic3AiOjAuMzgzNX1d/1cdbd1b642/JewelSocketActiveAbyss.png"
         },
         ["JewelSocketActiveLegion"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODEsInNwIjowLjEyNDZ9XQ/c3ca842fc4/JewelSocketActiveLegion.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODEsInNwIjowLjIxMDl9XQ/d8dfd731dc/JewelSocketActiveLegion.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODEsInNwIjowLjI5NzJ9XQ/4d2fecf07a/JewelSocketActiveLegion.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODEsInNwIjowLjM4MzV9XQ/f093832173/JewelSocketActiveLegion.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3OGFiMzViNTM4YzZhNzczNGYxYThkZTMxZjM2NjczOSIseyJ0Ijo4MSwic3AiOjAuMTI0Nn1d/a7c62479e4/JewelSocketActiveLegion.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3OGFiMzViNTM4YzZhNzczNGYxYThkZTMxZjM2NjczOSIseyJ0Ijo4MSwic3AiOjAuMjEwOX1d/a6da918d7d/JewelSocketActiveLegion.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3OGFiMzViNTM4YzZhNzczNGYxYThkZTMxZjM2NjczOSIseyJ0Ijo4MSwic3AiOjAuMjk3Mn1d/98a93be365/JewelSocketActiveLegion.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3OGFiMzViNTM4YzZhNzczNGYxYThkZTMxZjM2NjczOSIseyJ0Ijo4MSwic3AiOjAuMzgzNX1d/6c44d885d5/JewelSocketActiveLegion.png"
         },
         ["JewelCircle1"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTIsInNwIjoxfV0/ef0d666e02/JewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI4YzMwODA4MTU1MTk5Yjc4NzIwZDQwYzI0NzdlMWE3YSIseyJ0Ijo1Miwic3AiOjF9XQ/bf15bcaeca/JewelCircle1.png"
         },
         ["JewelCircle1Inverse"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjYsInNwIjoxfV0/b59015cfa2/JewelCircle1inverse.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJkMzNiZDI3Nzk4ZWQwOGEzYWVmM2M1YzU1MWRjMGNjZCIseyJ0Ijo2Niwic3AiOjF9XQ/2175ed3b6e/JewelCircle1inverse.png"
         },
         ["VaalJewelCircle1"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTMsInNwIjoxfV0/19d31a18eb/VaalJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI1YWZjZDA0NGFlYzgwMWZlZTMxYjgzZDMzNjJhYjZiNSIseyJ0Ijo1Mywic3AiOjF9XQ/7b2c602352/VaalJewelCircle1.png"
         },
         ["VaalJewelCircle2"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTQsInNwIjoxfV0/5c3f8709c9/VaalJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJjN2E4ZmE4NGM1ZGU2YTU0NWJjNzg4NGNiOGYxMDMwMyIseyJ0Ijo1NCwic3AiOjF9XQ/b99b5194d7/VaalJewelCircle2.png"
         },
         ["KaruiJewelCircle1"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTUsInNwIjoxfV0/dfc00800de/KaruiJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJmNTU5ZDE0YjEzYTA0ODVjZGI5MDEyYWFlYjI5MzVhYyIseyJ0Ijo1NSwic3AiOjF9XQ/20fa3d18e4/KaruiJewelCircle1.png"
         },
         ["KaruiJewelCircle2"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTYsInNwIjoxfV0/dff93bcea7/KaruiJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI1MDE2ZGViZGE2MzdiN2EyODQwZDEwNzllOWRkM2U2MiIseyJ0Ijo1Niwic3AiOjF9XQ/ce8681a20d/KaruiJewelCircle2.png"
         },
         ["MarakethJewelCircle1"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTcsInNwIjoxfV0/a0276bfd1c/MarakethJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCJjZjAzNWVlYjQ0ZWY3MTkwZjViNzIzNGM0MzE3MGJmNyIseyJ0Ijo1Nywic3AiOjF9XQ/12a0a86246/MarakethJewelCircle1.png"
         },
         ["MarakethJewelCircle2"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTgsInNwIjoxfV0/8d27e5e07d/MarakethJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI1NmE3NGY3ODg1ZjI5MjRkZjdjNjE3ODllMTJkZDQ0YyIseyJ0Ijo1OCwic3AiOjF9XQ/5283924d02/MarakethJewelCircle2.png"
         },
         ["TemplarJewelCircle1"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NTksInNwIjoxfV0/b064c6f281/TemplarJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI0MzBhN2RmZTVlNmM2OGYzYjJiMDQ0NGQ3NTY5OGE0OCIseyJ0Ijo1OSwic3AiOjF9XQ/73d4456cfe/TemplarJewelCircle1.png"
         },
         ["TemplarJewelCircle2"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjAsInNwIjoxfV0/790dc45727/TemplarJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCIzNjQ0NGQ5YjQ1YWYzYjVhZGQwMjE2NWFiYmZiZDYxZCIseyJ0Ijo2MCwic3AiOjF9XQ/f360759f2f/TemplarJewelCircle2.png"
         },
         ["EternalEmpireJewelCircle1"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjEsInNwIjoxfV0/d0d8e5221e/EternalEmpireJewelCircle1.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCI3MTJjMzU5ZmE2MGQ0OWM2MjBjMGY3MGUxNGMwNTMxNiIseyJ0Ijo2MSwic3AiOjF9XQ/62710386de/EternalEmpireJewelCircle1.png"
         },
         ["EternalEmpireJewelCircle2"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjIsInNwIjoxfV0/376b3b761d/EternalEmpireJewelCircle2.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIyLCIyYzlhYmJkMmJjMjljZjZlMjdkMjk4NDE1MzU0ZmM3OCIseyJ0Ijo2Miwic3AiOjF9XQ/b91aca21b2/EternalEmpireJewelCircle2.png"
         },
         ["JewelSocketAltNormal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjcsInNwIjowLjEyNDZ9XQ/1d9acd1961/JewelSocketAltNormal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjcsInNwIjowLjIxMDl9XQ/0d4944b6d9/JewelSocketAltNormal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjcsInNwIjowLjI5NzJ9XQ/049b7a15ed/JewelSocketAltNormal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjcsInNwIjowLjM4MzV9XQ/013b13f4f7/JewelSocketAltNormal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0OWJiMmYyMmVjODkxYzc4OGNhYjQ1YWQ0NTBhNmM3ZCIseyJ0Ijo2Nywic3AiOjAuMTI0Nn1d/dd4ef64841/JewelSocketAltNormal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0OWJiMmYyMmVjODkxYzc4OGNhYjQ1YWQ0NTBhNmM3ZCIseyJ0Ijo2Nywic3AiOjAuMjEwOX1d/f66af011d1/JewelSocketAltNormal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0OWJiMmYyMmVjODkxYzc4OGNhYjQ1YWQ0NTBhNmM3ZCIseyJ0Ijo2Nywic3AiOjAuMjk3Mn1d/719aa07697/JewelSocketAltNormal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0OWJiMmYyMmVjODkxYzc4OGNhYjQ1YWQ0NTBhNmM3ZCIseyJ0Ijo2Nywic3AiOjAuMzgzNX1d/27e7ba2f40/JewelSocketAltNormal.png"
         },
         ["JewelSocketAltCanAllocate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjgsInNwIjowLjEyNDZ9XQ/c29792c83f/JewelSocketAltCanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjgsInNwIjowLjIxMDl9XQ/d823ff4595/JewelSocketAltCanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjgsInNwIjowLjI5NzJ9XQ/edef1e018d/JewelSocketAltCanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjgsInNwIjowLjM4MzV9XQ/ce48c2275b/JewelSocketAltCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkMTM3Y2VhY2NlYzVlMTZkOTRjMTg4NWVjYWQzYzg3ZSIseyJ0Ijo2OCwic3AiOjAuMTI0Nn1d/51721b62bd/JewelSocketAltCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkMTM3Y2VhY2NlYzVlMTZkOTRjMTg4NWVjYWQzYzg3ZSIseyJ0Ijo2OCwic3AiOjAuMjEwOX1d/65ffa9d695/JewelSocketAltCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkMTM3Y2VhY2NlYzVlMTZkOTRjMTg4NWVjYWQzYzg3ZSIseyJ0Ijo2OCwic3AiOjAuMjk3Mn1d/3f49773385/JewelSocketAltCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkMTM3Y2VhY2NlYzVlMTZkOTRjMTg4NWVjYWQzYzg3ZSIseyJ0Ijo2OCwic3AiOjAuMzgzNX1d/61afde2274/JewelSocketAltCanAllocate.png"
         },
         ["JewelSocketAltActive"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjksInNwIjowLjEyNDZ9XQ/4f4a2d0f0c/JewelSocketAltActive.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjksInNwIjowLjIxMDl9XQ/4e7d9cd9de/JewelSocketAltActive.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjksInNwIjowLjI5NzJ9XQ/28998fa19e/JewelSocketAltActive.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NjksInNwIjowLjM4MzV9XQ/19f9b3d285/JewelSocketAltActive.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkNjNmOGFjNjU0ODEyODc5OTlkNTI1ZDE1YWEyNjRiNiIseyJ0Ijo2OSwic3AiOjAuMTI0Nn1d/2df8119af7/JewelSocketAltActive.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkNjNmOGFjNjU0ODEyODc5OTlkNTI1ZDE1YWEyNjRiNiIseyJ0Ijo2OSwic3AiOjAuMjEwOX1d/8292e40adc/JewelSocketAltActive.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkNjNmOGFjNjU0ODEyODc5OTlkNTI1ZDE1YWEyNjRiNiIseyJ0Ijo2OSwic3AiOjAuMjk3Mn1d/adb500681f/JewelSocketAltActive.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkNjNmOGFjNjU0ODEyODc5OTlkNTI1ZDE1YWEyNjRiNiIseyJ0Ijo2OSwic3AiOjAuMzgzNX1d/ea2031a470/JewelSocketAltActive.png"
         },
         ["JewelSocketActiveBlueAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzYsInNwIjowLjEyNDZ9XQ/04d13b27a5/JewelSocketActiveBlueAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzYsInNwIjowLjIxMDl9XQ/9e1ecb989a/JewelSocketActiveBlueAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzYsInNwIjowLjI5NzJ9XQ/5b148cbcb8/JewelSocketActiveBlueAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzYsInNwIjowLjM4MzV9XQ/7ab3f91099/JewelSocketActiveBlueAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJiYjFlNzg0MTNiZmYwNzY4ZTgzNzc0NDc2Zjc2OGU1NCIseyJ0Ijo3Niwic3AiOjAuMTI0Nn1d/679297956f/JewelSocketActiveBlueAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJiYjFlNzg0MTNiZmYwNzY4ZTgzNzc0NDc2Zjc2OGU1NCIseyJ0Ijo3Niwic3AiOjAuMjEwOX1d/b2798257f6/JewelSocketActiveBlueAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJiYjFlNzg0MTNiZmYwNzY4ZTgzNzc0NDc2Zjc2OGU1NCIseyJ0Ijo3Niwic3AiOjAuMjk3Mn1d/29b543e803/JewelSocketActiveBlueAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJiYjFlNzg0MTNiZmYwNzY4ZTgzNzc0NDc2Zjc2OGU1NCIseyJ0Ijo3Niwic3AiOjAuMzgzNX1d/3950ffb1b8/JewelSocketActiveBlueAlt.png"
         },
         ["JewelSocketActiveGreenAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzcsInNwIjowLjEyNDZ9XQ/7b433e7043/JewelSocketActiveGreenAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzcsInNwIjowLjIxMDl9XQ/8882b09a1f/JewelSocketActiveGreenAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzcsInNwIjowLjI5NzJ9XQ/2c61f4f045/JewelSocketActiveGreenAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzcsInNwIjowLjM4MzV9XQ/2a75880144/JewelSocketActiveGreenAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyYjc5NWU2NGQxZmI3NDNlZDFkYjM4OWQ1ZDUyNzM5OSIseyJ0Ijo3Nywic3AiOjAuMTI0Nn1d/e5fed6e7bd/JewelSocketActiveGreenAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyYjc5NWU2NGQxZmI3NDNlZDFkYjM4OWQ1ZDUyNzM5OSIseyJ0Ijo3Nywic3AiOjAuMjEwOX1d/a3d277e3ac/JewelSocketActiveGreenAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyYjc5NWU2NGQxZmI3NDNlZDFkYjM4OWQ1ZDUyNzM5OSIseyJ0Ijo3Nywic3AiOjAuMjk3Mn1d/fbed30cde0/JewelSocketActiveGreenAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyYjc5NWU2NGQxZmI3NDNlZDFkYjM4OWQ1ZDUyNzM5OSIseyJ0Ijo3Nywic3AiOjAuMzgzNX1d/cc0cefc534/JewelSocketActiveGreenAlt.png"
         },
         ["JewelSocketActiveRedAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzgsInNwIjowLjEyNDZ9XQ/5fec37c91e/JewelSocketActiveRedAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzgsInNwIjowLjIxMDl9XQ/562d24d793/JewelSocketActiveRedAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzgsInNwIjowLjI5NzJ9XQ/e766392876/JewelSocketActiveRedAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzgsInNwIjowLjM4MzV9XQ/1b6b6202d0/JewelSocketActiveRedAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhYTRjMzAxMmUzOGQ5ZmRkMjIxZjI1YjQwYTExMzhmYSIseyJ0Ijo3OCwic3AiOjAuMTI0Nn1d/affc521aab/JewelSocketActiveRedAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhYTRjMzAxMmUzOGQ5ZmRkMjIxZjI1YjQwYTExMzhmYSIseyJ0Ijo3OCwic3AiOjAuMjEwOX1d/634c640bdd/JewelSocketActiveRedAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhYTRjMzAxMmUzOGQ5ZmRkMjIxZjI1YjQwYTExMzhmYSIseyJ0Ijo3OCwic3AiOjAuMjk3Mn1d/3286e447fb/JewelSocketActiveRedAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhYTRjMzAxMmUzOGQ5ZmRkMjIxZjI1YjQwYTExMzhmYSIseyJ0Ijo3OCwic3AiOjAuMzgzNX1d/5811eaad26/JewelSocketActiveRedAlt.png"
         },
         ["JewelSocketActivePrismaticAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzksInNwIjowLjEyNDZ9XQ/6bfe1d2ac9/JewelSocketActivePrismaticAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzksInNwIjowLjIxMDl9XQ/f95d11bb8b/JewelSocketActivePrismaticAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzksInNwIjowLjI5NzJ9XQ/25fc35764e/JewelSocketActivePrismaticAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzksInNwIjowLjM4MzV9XQ/0021a8aac2/JewelSocketActivePrismaticAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2NDI1ODJhNzVmYmQzZTk0MDIyYmY0MGZiZDI0ZDE1ZCIseyJ0Ijo3OSwic3AiOjAuMTI0Nn1d/8c9aef82f0/JewelSocketActivePrismaticAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2NDI1ODJhNzVmYmQzZTk0MDIyYmY0MGZiZDI0ZDE1ZCIseyJ0Ijo3OSwic3AiOjAuMjEwOX1d/22a5221327/JewelSocketActivePrismaticAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2NDI1ODJhNzVmYmQzZTk0MDIyYmY0MGZiZDI0ZDE1ZCIseyJ0Ijo3OSwic3AiOjAuMjk3Mn1d/fddf14e4de/JewelSocketActivePrismaticAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2NDI1ODJhNzVmYmQzZTk0MDIyYmY0MGZiZDI0ZDE1ZCIseyJ0Ijo3OSwic3AiOjAuMzgzNX1d/1c9911c3d0/JewelSocketActivePrismaticAlt.png"
         },
         ["JewelSocketActiveAbyssAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODAsInNwIjowLjEyNDZ9XQ/856e3f126c/JewelSocketActiveAbyssAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODAsInNwIjowLjIxMDl9XQ/de2d49afc3/JewelSocketActiveAbyssAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODAsInNwIjowLjI5NzJ9XQ/018cf6af3a/JewelSocketActiveAbyssAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODAsInNwIjowLjM4MzV9XQ/b1795513b9/JewelSocketActiveAbyssAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhMzhkZjdmOWNjOTk4ZTQyYjU2MThjYWI5YzhhZTU4ZiIseyJ0Ijo4MCwic3AiOjAuMTI0Nn1d/78d695b8e2/JewelSocketActiveAbyssAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhMzhkZjdmOWNjOTk4ZTQyYjU2MThjYWI5YzhhZTU4ZiIseyJ0Ijo4MCwic3AiOjAuMjEwOX1d/afb3a86245/JewelSocketActiveAbyssAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhMzhkZjdmOWNjOTk4ZTQyYjU2MThjYWI5YzhhZTU4ZiIseyJ0Ijo4MCwic3AiOjAuMjk3Mn1d/caa7d98653/JewelSocketActiveAbyssAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhMzhkZjdmOWNjOTk4ZTQyYjU2MThjYWI5YzhhZTU4ZiIseyJ0Ijo4MCwic3AiOjAuMzgzNX1d/4863865df1/JewelSocketActiveAbyssAlt.png"
         },
         ["JewelSocketActiveLegionAlt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODIsInNwIjowLjEyNDZ9XQ/5b9ff4442c/JewelSocketActiveLegionAlt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODIsInNwIjowLjIxMDl9XQ/d282dcf9c4/JewelSocketActiveLegionAlt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODIsInNwIjowLjI5NzJ9XQ/6def233517/JewelSocketActiveLegionAlt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6ODIsInNwIjowLjM4MzV9XQ/2b5b6937a8/JewelSocketActiveLegionAlt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1OWRiOTJiZmRiODU5MjZmYWE0OWE2NzAyNGFjY2IzMSIseyJ0Ijo4Miwic3AiOjAuMTI0Nn1d/470ada20ff/JewelSocketActiveLegionAlt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1OWRiOTJiZmRiODU5MjZmYWE0OWE2NzAyNGFjY2IzMSIseyJ0Ijo4Miwic3AiOjAuMjEwOX1d/4df31f4b09/JewelSocketActiveLegionAlt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1OWRiOTJiZmRiODU5MjZmYWE0OWE2NzAyNGFjY2IzMSIseyJ0Ijo4Miwic3AiOjAuMjk3Mn1d/fa45138a40/JewelSocketActiveLegionAlt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1OWRiOTJiZmRiODU5MjZmYWE0OWE2NzAyNGFjY2IzMSIseyJ0Ijo4Miwic3AiOjAuMzgzNX1d/4e675684bc/JewelSocketActiveLegionAlt.png"
         },
         ["JewelSocketClusterAltNormal1Small"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzAsInNwIjowLjEyNDZ9XQ/b35c08bede/JewelSocketClusterAltNormal1Small.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzAsInNwIjowLjIxMDl9XQ/3d81f63307/JewelSocketClusterAltNormal1Small.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzAsInNwIjowLjI5NzJ9XQ/db21206392/JewelSocketClusterAltNormal1Small.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzAsInNwIjowLjM4MzV9XQ/3c59d04fc0/JewelSocketClusterAltNormal1Small.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJlMzU2Nzg2ZWViNzk2YjhlYjI5ODhlM2FiZWQ1NjkxMCIseyJ0Ijo3MCwic3AiOjAuMTI0Nn1d/e6d6bad7aa/JewelSocketClusterAltNormal1Small.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJlMzU2Nzg2ZWViNzk2YjhlYjI5ODhlM2FiZWQ1NjkxMCIseyJ0Ijo3MCwic3AiOjAuMjEwOX1d/1609826013/JewelSocketClusterAltNormal1Small.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJlMzU2Nzg2ZWViNzk2YjhlYjI5ODhlM2FiZWQ1NjkxMCIseyJ0Ijo3MCwic3AiOjAuMjk3Mn1d/225cbb1146/JewelSocketClusterAltNormal1Small.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJlMzU2Nzg2ZWViNzk2YjhlYjI5ODhlM2FiZWQ1NjkxMCIseyJ0Ijo3MCwic3AiOjAuMzgzNX1d/cf9d5c03cb/JewelSocketClusterAltNormal1Small.png"
         },
         ["JewelSocketClusterAltCanAllocate1Small"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzEsInNwIjowLjEyNDZ9XQ/5dea89141a/JewelSocketClusterAltCanAllocate1Small.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzEsInNwIjowLjIxMDl9XQ/4fb886bf10/JewelSocketClusterAltCanAllocate1Small.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzEsInNwIjowLjI5NzJ9XQ/ada635f296/JewelSocketClusterAltCanAllocate1Small.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzEsInNwIjowLjM4MzV9XQ/85688bd75e/JewelSocketClusterAltCanAllocate1Small.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3Y2Y4YTg0ZGZmMWI2YWUzZjM4ZDI5Y2E2MGMxNDgyNSIseyJ0Ijo3MSwic3AiOjAuMTI0Nn1d/fe3ba519b2/JewelSocketClusterAltCanAllocate1Small.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3Y2Y4YTg0ZGZmMWI2YWUzZjM4ZDI5Y2E2MGMxNDgyNSIseyJ0Ijo3MSwic3AiOjAuMjEwOX1d/bcb9ddb195/JewelSocketClusterAltCanAllocate1Small.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3Y2Y4YTg0ZGZmMWI2YWUzZjM4ZDI5Y2E2MGMxNDgyNSIseyJ0Ijo3MSwic3AiOjAuMjk3Mn1d/3226ac6901/JewelSocketClusterAltCanAllocate1Small.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3Y2Y4YTg0ZGZmMWI2YWUzZjM4ZDI5Y2E2MGMxNDgyNSIseyJ0Ijo3MSwic3AiOjAuMzgzNX1d/2a703daaa4/JewelSocketClusterAltCanAllocate1Small.png"
         },
         ["JewelSocketClusterAltNormal1Medium"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzIsInNwIjowLjEyNDZ9XQ/ea3c5f4254/JewelSocketClusterAltNormal1Medium.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzIsInNwIjowLjIxMDl9XQ/8b90b15c52/JewelSocketClusterAltNormal1Medium.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzIsInNwIjowLjI5NzJ9XQ/bfc4a4c5a1/JewelSocketClusterAltNormal1Medium.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzIsInNwIjowLjM4MzV9XQ/9c0eeba656/JewelSocketClusterAltNormal1Medium.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhNjY5ZDNmNGFiNDkyOWU4N2ZlOWU4Y2E3ODFmZjY3NyIseyJ0Ijo3Miwic3AiOjAuMTI0Nn1d/1e4ce67480/JewelSocketClusterAltNormal1Medium.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhNjY5ZDNmNGFiNDkyOWU4N2ZlOWU4Y2E3ODFmZjY3NyIseyJ0Ijo3Miwic3AiOjAuMjEwOX1d/71c56580bb/JewelSocketClusterAltNormal1Medium.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhNjY5ZDNmNGFiNDkyOWU4N2ZlOWU4Y2E3ODFmZjY3NyIseyJ0Ijo3Miwic3AiOjAuMjk3Mn1d/8adab6453e/JewelSocketClusterAltNormal1Medium.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhNjY5ZDNmNGFiNDkyOWU4N2ZlOWU4Y2E3ODFmZjY3NyIseyJ0Ijo3Miwic3AiOjAuMzgzNX1d/36e813fb56/JewelSocketClusterAltNormal1Medium.png"
         },
         ["JewelSocketClusterAltCanAllocate1Medium"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzMsInNwIjowLjEyNDZ9XQ/cdc5f29581/JewelSocketClusterAltCanAllocate1Medium.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzMsInNwIjowLjIxMDl9XQ/8444b6c8e6/JewelSocketClusterAltCanAllocate1Medium.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzMsInNwIjowLjI5NzJ9XQ/05e9d43876/JewelSocketClusterAltCanAllocate1Medium.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzMsInNwIjowLjM4MzV9XQ/6cd231a4e1/JewelSocketClusterAltCanAllocate1Medium.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI5OGI4ZGMzYjAwOWY1YzY3YWQ4ZWZkMGY5YjRmOGQzMCIseyJ0Ijo3Mywic3AiOjAuMTI0Nn1d/9bfa64587d/JewelSocketClusterAltCanAllocate1Medium.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI5OGI4ZGMzYjAwOWY1YzY3YWQ4ZWZkMGY5YjRmOGQzMCIseyJ0Ijo3Mywic3AiOjAuMjEwOX1d/dbcad50f20/JewelSocketClusterAltCanAllocate1Medium.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI5OGI4ZGMzYjAwOWY1YzY3YWQ4ZWZkMGY5YjRmOGQzMCIseyJ0Ijo3Mywic3AiOjAuMjk3Mn1d/b7b6fbd4db/JewelSocketClusterAltCanAllocate1Medium.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI5OGI4ZGMzYjAwOWY1YzY3YWQ4ZWZkMGY5YjRmOGQzMCIseyJ0Ijo3Mywic3AiOjAuMzgzNX1d/f19c8dfdf6/JewelSocketClusterAltCanAllocate1Medium.png"
         },
         ["JewelSocketClusterAltNormal1Large"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzQsInNwIjowLjEyNDZ9XQ/0a5113f47f/JewelSocketClusterAltNormal1Large.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzQsInNwIjowLjIxMDl9XQ/b18ed6a4d6/JewelSocketClusterAltNormal1Large.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzQsInNwIjowLjI5NzJ9XQ/c18b707969/JewelSocketClusterAltNormal1Large.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzQsInNwIjowLjM4MzV9XQ/17dcbf7c5a/JewelSocketClusterAltNormal1Large.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxMTk0Mjk4YTA4ZjQ4MGQ5NTQ5OGQ5OGI2YzNkNTAxMyIseyJ0Ijo3NCwic3AiOjAuMTI0Nn1d/3b8a93d4d9/JewelSocketClusterAltNormal1Large.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxMTk0Mjk4YTA4ZjQ4MGQ5NTQ5OGQ5OGI2YzNkNTAxMyIseyJ0Ijo3NCwic3AiOjAuMjEwOX1d/ce830cb61d/JewelSocketClusterAltNormal1Large.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxMTk0Mjk4YTA4ZjQ4MGQ5NTQ5OGQ5OGI2YzNkNTAxMyIseyJ0Ijo3NCwic3AiOjAuMjk3Mn1d/e6b0b43b91/JewelSocketClusterAltNormal1Large.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxMTk0Mjk4YTA4ZjQ4MGQ5NTQ5OGQ5OGI2YzNkNTAxMyIseyJ0Ijo3NCwic3AiOjAuMzgzNX1d/30bdd0f22b/JewelSocketClusterAltNormal1Large.png"
         },
         ["JewelSocketClusterAltCanAllocate1Large"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzUsInNwIjowLjEyNDZ9XQ/c75e953a91/JewelSocketClusterAltCanAllocate1Large.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzUsInNwIjowLjIxMDl9XQ/0ed268d8e4/JewelSocketClusterAltCanAllocate1Large.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzUsInNwIjowLjI5NzJ9XQ/5cc5894fa5/JewelSocketClusterAltCanAllocate1Large.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NzUsInNwIjowLjM4MzV9XQ/7817182821/JewelSocketClusterAltCanAllocate1Large.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxYjM1ZDFkYmRmMDg5ODg3MjBlMDc2ZTk0NDc0MDk1NCIseyJ0Ijo3NSwic3AiOjAuMTI0Nn1d/c2e401c075/JewelSocketClusterAltCanAllocate1Large.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxYjM1ZDFkYmRmMDg5ODg3MjBlMDc2ZTk0NDc0MDk1NCIseyJ0Ijo3NSwic3AiOjAuMjEwOX1d/da442b4ef2/JewelSocketClusterAltCanAllocate1Large.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxYjM1ZDFkYmRmMDg5ODg3MjBlMDc2ZTk0NDc0MDk1NCIseyJ0Ijo3NSwic3AiOjAuMjk3Mn1d/6075dd580c/JewelSocketClusterAltCanAllocate1Large.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxYjM1ZDFkYmRmMDg5ODg3MjBlMDc2ZTk0NDc0MDk1NCIseyJ0Ijo3NSwic3AiOjAuMzgzNX1d/c6c76bba05/JewelSocketClusterAltCanAllocate1Large.png"
         },
         ["AscendancyButton"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjEsInNwIjowLjEyNDZ9XQ/bf89df6d3f/AscendancyButton.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjEsInNwIjowLjIxMDl9XQ/0e3b102c66/AscendancyButton.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjEsInNwIjowLjI5NzJ9XQ/37c616d133/AscendancyButton.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjEsInNwIjowLjM4MzV9XQ/73491d25bb/AscendancyButton.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJlNjkwOGNiZDU4ZGFhYmNiOTIxZDJhNjY5ZjBhMmM2NiIseyJ0IjoyMSwic3AiOjAuMTI0Nn1d/d32aab8b97/AscendancyButton.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJlNjkwOGNiZDU4ZGFhYmNiOTIxZDJhNjY5ZjBhMmM2NiIseyJ0IjoyMSwic3AiOjAuMjEwOX1d/6f64c0d010/AscendancyButton.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJlNjkwOGNiZDU4ZGFhYmNiOTIxZDJhNjY5ZjBhMmM2NiIseyJ0IjoyMSwic3AiOjAuMjk3Mn1d/fc3578c87c/AscendancyButton.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJlNjkwOGNiZDU4ZGFhYmNiOTIxZDJhNjY5ZjBhMmM2NiIseyJ0IjoyMSwic3AiOjAuMzgzNX1d/2da36eb6fc/AscendancyButton.png"
         },
         ["AscendancyButtonHighlight"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjIsInNwIjowLjEyNDZ9XQ/001098e513/AscendancyButtonHighlight.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjIsInNwIjowLjIxMDl9XQ/a39b3a2afc/AscendancyButtonHighlight.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjIsInNwIjowLjI5NzJ9XQ/5bc0517310/AscendancyButtonHighlight.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjIsInNwIjowLjM4MzV9XQ/80824c398a/AscendancyButtonHighlight.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmN2EwYjJjZTg0YjgyNTRhNWZiYjcwY2M5ZTg5NDhkNiIseyJ0IjoyMiwic3AiOjAuMTI0Nn1d/071d32813e/AscendancyButtonHighlight.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmN2EwYjJjZTg0YjgyNTRhNWZiYjcwY2M5ZTg5NDhkNiIseyJ0IjoyMiwic3AiOjAuMjEwOX1d/c7173206db/AscendancyButtonHighlight.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmN2EwYjJjZTg0YjgyNTRhNWZiYjcwY2M5ZTg5NDhkNiIseyJ0IjoyMiwic3AiOjAuMjk3Mn1d/54a20ebd25/AscendancyButtonHighlight.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmN2EwYjJjZTg0YjgyNTRhNWZiYjcwY2M5ZTg5NDhkNiIseyJ0IjoyMiwic3AiOjAuMzgzNX1d/4fbbcf3976/AscendancyButtonHighlight.png"
         },
         ["AscendancyButtonPressed"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjMsInNwIjowLjEyNDZ9XQ/b23486ef40/AscendancyButtonPressed.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjMsInNwIjowLjIxMDl9XQ/579aea0e61/AscendancyButtonPressed.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjMsInNwIjowLjI5NzJ9XQ/b9d20c09ed/AscendancyButtonPressed.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjMsInNwIjowLjM4MzV9XQ/0499cc58eb/AscendancyButtonPressed.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkZmJjYzJhMTM4MTU4NzM3MGE3ZGU4NmJkNTRiMWZkMSIseyJ0IjoyMywic3AiOjAuMTI0Nn1d/c51d7946d0/AscendancyButtonPressed.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkZmJjYzJhMTM4MTU4NzM3MGE3ZGU4NmJkNTRiMWZkMSIseyJ0IjoyMywic3AiOjAuMjEwOX1d/c69b53bcba/AscendancyButtonPressed.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkZmJjYzJhMTM4MTU4NzM3MGE3ZGU4NmJkNTRiMWZkMSIseyJ0IjoyMywic3AiOjAuMjk3Mn1d/d31733f506/AscendancyButtonPressed.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkZmJjYzJhMTM4MTU4NzM3MGE3ZGU4NmJkNTRiMWZkMSIseyJ0IjoyMywic3AiOjAuMzgzNX1d/6a45602099/AscendancyButtonPressed.png"
         },
         ["AscendancyFrameLargeAllocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDMsInNwIjowLjEyNDZ9XQ/7aa2419fdf/AscendancyFrameLargeAllocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDMsInNwIjowLjIxMDl9XQ/69751952fc/AscendancyFrameLargeAllocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDMsInNwIjowLjI5NzJ9XQ/a5a6601de0/AscendancyFrameLargeAllocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDMsInNwIjowLjM4MzV9XQ/cc3dd260a2/AscendancyFrameLargeAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2OTBhNjQ3MjU5ZmNkYjBjMjhkNzZjNjEyOTE4N2VjNyIseyJ0Ijo0Mywic3AiOjAuMTI0Nn1d/1e287c39ba/AscendancyFrameLargeAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2OTBhNjQ3MjU5ZmNkYjBjMjhkNzZjNjEyOTE4N2VjNyIseyJ0Ijo0Mywic3AiOjAuMjEwOX1d/8f5d99302e/AscendancyFrameLargeAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2OTBhNjQ3MjU5ZmNkYjBjMjhkNzZjNjEyOTE4N2VjNyIseyJ0Ijo0Mywic3AiOjAuMjk3Mn1d/0e84fa6799/AscendancyFrameLargeAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2OTBhNjQ3MjU5ZmNkYjBjMjhkNzZjNjEyOTE4N2VjNyIseyJ0Ijo0Mywic3AiOjAuMzgzNX1d/3d8a945a05/AscendancyFrameLargeAllocated.png"
         },
         ["AscendancyFrameLargeCanAllocate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDQsInNwIjowLjEyNDZ9XQ/e418b090c7/AscendancyFrameLargeCanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDQsInNwIjowLjIxMDl9XQ/957aa4bff0/AscendancyFrameLargeCanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDQsInNwIjowLjI5NzJ9XQ/717b852d70/AscendancyFrameLargeCanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDQsInNwIjowLjM4MzV9XQ/86971a7e82/AscendancyFrameLargeCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyYTFkNzkwNTRlMGUzODM5NDQ5ZjdiMWVhODg1N2MxMyIseyJ0Ijo0NCwic3AiOjAuMTI0Nn1d/9e6ec96839/AscendancyFrameLargeCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyYTFkNzkwNTRlMGUzODM5NDQ5ZjdiMWVhODg1N2MxMyIseyJ0Ijo0NCwic3AiOjAuMjEwOX1d/226def0eac/AscendancyFrameLargeCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyYTFkNzkwNTRlMGUzODM5NDQ5ZjdiMWVhODg1N2MxMyIseyJ0Ijo0NCwic3AiOjAuMjk3Mn1d/c598102e6d/AscendancyFrameLargeCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyYTFkNzkwNTRlMGUzODM5NDQ5ZjdiMWVhODg1N2MxMyIseyJ0Ijo0NCwic3AiOjAuMzgzNX1d/50f5a7fa69/AscendancyFrameLargeCanAllocate.png"
         },
         ["AscendancyFrameLargeNormal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDUsInNwIjowLjEyNDZ9XQ/a2e8449833/AscendancyFrameLargeNormal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDUsInNwIjowLjIxMDl9XQ/5e5bf52ba2/AscendancyFrameLargeNormal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDUsInNwIjowLjI5NzJ9XQ/5a692718fa/AscendancyFrameLargeNormal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDUsInNwIjowLjM4MzV9XQ/acf8fea7a5/AscendancyFrameLargeNormal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmZmUxNmI4YTBlNGFlNTZmMzJhYmU5MTVjZDFiOTc4ZSIseyJ0Ijo0NSwic3AiOjAuMTI0Nn1d/377b3e5373/AscendancyFrameLargeNormal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmZmUxNmI4YTBlNGFlNTZmMzJhYmU5MTVjZDFiOTc4ZSIseyJ0Ijo0NSwic3AiOjAuMjEwOX1d/147f2b1ab4/AscendancyFrameLargeNormal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmZmUxNmI4YTBlNGFlNTZmMzJhYmU5MTVjZDFiOTc4ZSIseyJ0Ijo0NSwic3AiOjAuMjk3Mn1d/2b344c4f52/AscendancyFrameLargeNormal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmZmUxNmI4YTBlNGFlNTZmMzJhYmU5MTVjZDFiOTc4ZSIseyJ0Ijo0NSwic3AiOjAuMzgzNX1d/583713ab86/AscendancyFrameLargeNormal.png"
         },
         ["AscendancyFrameSmallAllocated"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDYsInNwIjowLjEyNDZ9XQ/a8e9a07913/AscendancyFrameSmallAllocated.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDYsInNwIjowLjIxMDl9XQ/741dda9eec/AscendancyFrameSmallAllocated.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDYsInNwIjowLjI5NzJ9XQ/3a55e267c7/AscendancyFrameSmallAllocated.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDYsInNwIjowLjM4MzV9XQ/24bccd31cf/AscendancyFrameSmallAllocated.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2YjBhMWZmOTFlYjM4MTk3ZTVmMGEwYmJkNDg2MzRlZSIseyJ0Ijo0Niwic3AiOjAuMTI0Nn1d/85d2784c2c/AscendancyFrameSmallAllocated.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2YjBhMWZmOTFlYjM4MTk3ZTVmMGEwYmJkNDg2MzRlZSIseyJ0Ijo0Niwic3AiOjAuMjEwOX1d/e8b8e4a2ad/AscendancyFrameSmallAllocated.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2YjBhMWZmOTFlYjM4MTk3ZTVmMGEwYmJkNDg2MzRlZSIseyJ0Ijo0Niwic3AiOjAuMjk3Mn1d/763a49aa64/AscendancyFrameSmallAllocated.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2YjBhMWZmOTFlYjM4MTk3ZTVmMGEwYmJkNDg2MzRlZSIseyJ0Ijo0Niwic3AiOjAuMzgzNX1d/5b7481206e/AscendancyFrameSmallAllocated.png"
         },
         ["AscendancyFrameSmallCanAllocate"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDcsInNwIjowLjEyNDZ9XQ/2a87932283/AscendancyFrameSmallCanAllocate.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDcsInNwIjowLjIxMDl9XQ/8518089bc5/AscendancyFrameSmallCanAllocate.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDcsInNwIjowLjI5NzJ9XQ/8bade0440b/AscendancyFrameSmallCanAllocate.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDcsInNwIjowLjM4MzV9XQ/c3c5b8e6b4/AscendancyFrameSmallCanAllocate.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI2ZmZmYzhmMjAyZjUzMzI0ZWVhOWUxZTJiOTg1OGZlZiIseyJ0Ijo0Nywic3AiOjAuMTI0Nn1d/082a8fb2d0/AscendancyFrameSmallCanAllocate.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI2ZmZmYzhmMjAyZjUzMzI0ZWVhOWUxZTJiOTg1OGZlZiIseyJ0Ijo0Nywic3AiOjAuMjEwOX1d/5b8ae80cb3/AscendancyFrameSmallCanAllocate.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI2ZmZmYzhmMjAyZjUzMzI0ZWVhOWUxZTJiOTg1OGZlZiIseyJ0Ijo0Nywic3AiOjAuMjk3Mn1d/f5b2a4bbc0/AscendancyFrameSmallCanAllocate.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI2ZmZmYzhmMjAyZjUzMzI0ZWVhOWUxZTJiOTg1OGZlZiIseyJ0Ijo0Nywic3AiOjAuMzgzNX1d/8171e6dfb5/AscendancyFrameSmallCanAllocate.png"
         },
         ["AscendancyFrameSmallNormal"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDgsInNwIjowLjEyNDZ9XQ/a2845d0644/AscendancyFrameSmallNormal.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDgsInNwIjowLjIxMDl9XQ/a3af209fb2/AscendancyFrameSmallNormal.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDgsInNwIjowLjI5NzJ9XQ/f58d971316/AscendancyFrameSmallNormal.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDgsInNwIjowLjM4MzV9XQ/adb84c8e9c/AscendancyFrameSmallNormal.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxYWYwY2RlOThlNDkwMjIyYTUyZTkzMTM3OGNkY2Y0NSIseyJ0Ijo0OCwic3AiOjAuMTI0Nn1d/046736aeb2/AscendancyFrameSmallNormal.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxYWYwY2RlOThlNDkwMjIyYTUyZTkzMTM3OGNkY2Y0NSIseyJ0Ijo0OCwic3AiOjAuMjEwOX1d/793a34c017/AscendancyFrameSmallNormal.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxYWYwY2RlOThlNDkwMjIyYTUyZTkzMTM3OGNkY2Y0NSIseyJ0Ijo0OCwic3AiOjAuMjk3Mn1d/e53f96205e/AscendancyFrameSmallNormal.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxYWYwY2RlOThlNDkwMjIyYTUyZTkzMTM3OGNkY2Y0NSIseyJ0Ijo0OCwic3AiOjAuMzgzNX1d/cbdec81559/AscendancyFrameSmallNormal.png"
         },
         ["AscendancyMiddle"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDksInNwIjowLjEyNDZ9XQ/fedb72f066/AscendancyMiddle.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDksInNwIjowLjIxMDl9XQ/0b6e964b2b/AscendancyMiddle.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDksInNwIjowLjI5NzJ9XQ/3fc982ef90/AscendancyMiddle.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDksInNwIjowLjM4MzV9XQ/2fb2a675bd/AscendancyMiddle.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmZTYxOTMyYjM2N2MxYjQ0ZmU4ZGFiZmExYjJmYjdlZCIseyJ0Ijo0OSwic3AiOjAuMTI0Nn1d/cfa69aaaa2/AscendancyMiddle.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmZTYxOTMyYjM2N2MxYjQ0ZmU4ZGFiZmExYjJmYjdlZCIseyJ0Ijo0OSwic3AiOjAuMjEwOX1d/bfd0ce83a3/AscendancyMiddle.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmZTYxOTMyYjM2N2MxYjQ0ZmU4ZGFiZmExYjJmYjdlZCIseyJ0Ijo0OSwic3AiOjAuMjk3Mn1d/5d12302fcc/AscendancyMiddle.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmZTYxOTMyYjM2N2MxYjQ0ZmU4ZGFiZmExYjJmYjdlZCIseyJ0Ijo0OSwic3AiOjAuMzgzNX1d/debfa178a8/AscendancyMiddle.png"
         },
         ["ClassesAscendant"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjQsInNwIjowLjEyNDZ9XQ/c892af122c/ClassesAscendant.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjQsInNwIjowLjIxMDl9XQ/990cf9880d/ClassesAscendant.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjQsInNwIjowLjI5NzJ9XQ/e46cfacf28/ClassesAscendant.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjQsInNwIjowLjM4MzV9XQ/002a2f0ed6/ClassesAscendant.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhY2NhNGJkMmU5NmZjYmY0ZjA5ZWExOTMxMTAzNGQ4MCIseyJ0IjoyNCwic3AiOjAuMTI0Nn1d/2e51cd0813/ClassesAscendant.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhY2NhNGJkMmU5NmZjYmY0ZjA5ZWExOTMxMTAzNGQ4MCIseyJ0IjoyNCwic3AiOjAuMjEwOX1d/723e18420d/ClassesAscendant.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhY2NhNGJkMmU5NmZjYmY0ZjA5ZWExOTMxMTAzNGQ4MCIseyJ0IjoyNCwic3AiOjAuMjk3Mn1d/746fe7ad96/ClassesAscendant.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhY2NhNGJkMmU5NmZjYmY0ZjA5ZWExOTMxMTAzNGQ4MCIseyJ0IjoyNCwic3AiOjAuMzgzNX1d/fddf27a623/ClassesAscendant.png"
         },
         ["ClassesJuggernaut"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjUsInNwIjowLjEyNDZ9XQ/fcdb3b1053/ClassesJuggernaut.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjUsInNwIjowLjIxMDl9XQ/441de3fa31/ClassesJuggernaut.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjUsInNwIjowLjI5NzJ9XQ/f8e5fd3b6c/ClassesJuggernaut.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjUsInNwIjowLjM4MzV9XQ/8d27d27078/ClassesJuggernaut.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxODY4MTM4YmY1YzA5ODVkNjQ4ZjY1YzBhOGE1NDM1YSIseyJ0IjoyNSwic3AiOjAuMTI0Nn1d/5111eee397/ClassesJuggernaut.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxODY4MTM4YmY1YzA5ODVkNjQ4ZjY1YzBhOGE1NDM1YSIseyJ0IjoyNSwic3AiOjAuMjEwOX1d/69062609c9/ClassesJuggernaut.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxODY4MTM4YmY1YzA5ODVkNjQ4ZjY1YzBhOGE1NDM1YSIseyJ0IjoyNSwic3AiOjAuMjk3Mn1d/9ea3c643f2/ClassesJuggernaut.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxODY4MTM4YmY1YzA5ODVkNjQ4ZjY1YzBhOGE1NDM1YSIseyJ0IjoyNSwic3AiOjAuMzgzNX1d/b9b203d1cc/ClassesJuggernaut.png"
         },
         ["ClassesBerserker"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjYsInNwIjowLjEyNDZ9XQ/9291bc6470/ClassesBerserker.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjYsInNwIjowLjIxMDl9XQ/f07f56b965/ClassesBerserker.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjYsInNwIjowLjI5NzJ9XQ/09fe6ed5ef/ClassesBerserker.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjYsInNwIjowLjM4MzV9XQ/d8e972769e/ClassesBerserker.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIwYjcxZTE2MWQ1NjZkZTk1Zjc4ZGNjODE2NzgyNzJjOSIseyJ0IjoyNiwic3AiOjAuMTI0Nn1d/bc1c858958/ClassesBerserker.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIwYjcxZTE2MWQ1NjZkZTk1Zjc4ZGNjODE2NzgyNzJjOSIseyJ0IjoyNiwic3AiOjAuMjEwOX1d/20d00a8a79/ClassesBerserker.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIwYjcxZTE2MWQ1NjZkZTk1Zjc4ZGNjODE2NzgyNzJjOSIseyJ0IjoyNiwic3AiOjAuMjk3Mn1d/594c26c36d/ClassesBerserker.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIwYjcxZTE2MWQ1NjZkZTk1Zjc4ZGNjODE2NzgyNzJjOSIseyJ0IjoyNiwic3AiOjAuMzgzNX1d/869c64a725/ClassesBerserker.png"
         },
         ["ClassesChieftain"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjcsInNwIjowLjEyNDZ9XQ/500d61d116/ClassesChieftain.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjcsInNwIjowLjIxMDl9XQ/f187ab7993/ClassesChieftain.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjcsInNwIjowLjI5NzJ9XQ/69aca71f12/ClassesChieftain.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjcsInNwIjowLjM4MzV9XQ/a126f98c74/ClassesChieftain.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI1MGRlZTAxMTViYWU3YWIzMTIzN2NhZjQ4NjI4NzNlMyIseyJ0IjoyNywic3AiOjAuMTI0Nn1d/29281c5398/ClassesChieftain.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI1MGRlZTAxMTViYWU3YWIzMTIzN2NhZjQ4NjI4NzNlMyIseyJ0IjoyNywic3AiOjAuMjEwOX1d/be4c80e7df/ClassesChieftain.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI1MGRlZTAxMTViYWU3YWIzMTIzN2NhZjQ4NjI4NzNlMyIseyJ0IjoyNywic3AiOjAuMjk3Mn1d/362a421cce/ClassesChieftain.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI1MGRlZTAxMTViYWU3YWIzMTIzN2NhZjQ4NjI4NzNlMyIseyJ0IjoyNywic3AiOjAuMzgzNX1d/699045b022/ClassesChieftain.png"
         },
         ["ClassesRaider"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjgsInNwIjowLjEyNDZ9XQ/c8a997e37f/ClassesRaider.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjgsInNwIjowLjIxMDl9XQ/6b844f3e47/ClassesRaider.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjgsInNwIjowLjI5NzJ9XQ/c0b3dd5bba/ClassesRaider.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjgsInNwIjowLjM4MzV9XQ/48bccd1d4c/ClassesRaider.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI3OGMxZjczOGZkZjI2MzU0OTY2ZjkxZjRjMzk3MDc3YiIseyJ0IjoyOCwic3AiOjAuMTI0Nn1d/0ac81dd150/ClassesRaider.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI3OGMxZjczOGZkZjI2MzU0OTY2ZjkxZjRjMzk3MDc3YiIseyJ0IjoyOCwic3AiOjAuMjEwOX1d/70d3bf12fb/ClassesRaider.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI3OGMxZjczOGZkZjI2MzU0OTY2ZjkxZjRjMzk3MDc3YiIseyJ0IjoyOCwic3AiOjAuMjk3Mn1d/de01da3c5e/ClassesRaider.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI3OGMxZjczOGZkZjI2MzU0OTY2ZjkxZjRjMzk3MDc3YiIseyJ0IjoyOCwic3AiOjAuMzgzNX1d/8343d86a18/ClassesRaider.png"
         },
         ["ClassesDeadeye"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjksInNwIjowLjEyNDZ9XQ/09a5027d45/ClassesDeadeye.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjksInNwIjowLjIxMDl9XQ/8976b2882e/ClassesDeadeye.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjksInNwIjowLjI5NzJ9XQ/8471de633d/ClassesDeadeye.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MjksInNwIjowLjM4MzV9XQ/187c9cc9cf/ClassesDeadeye.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0MGJhNjllZmU4NmM0NDIzZDgxY2NmMmQ0NjUyODI3MSIseyJ0IjoyOSwic3AiOjAuMTI0Nn1d/967fd6325c/ClassesDeadeye.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0MGJhNjllZmU4NmM0NDIzZDgxY2NmMmQ0NjUyODI3MSIseyJ0IjoyOSwic3AiOjAuMjEwOX1d/ab1dae15db/ClassesDeadeye.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0MGJhNjllZmU4NmM0NDIzZDgxY2NmMmQ0NjUyODI3MSIseyJ0IjoyOSwic3AiOjAuMjk3Mn1d/d66858a601/ClassesDeadeye.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0MGJhNjllZmU4NmM0NDIzZDgxY2NmMmQ0NjUyODI3MSIseyJ0IjoyOSwic3AiOjAuMzgzNX1d/343dc61ccc/ClassesDeadeye.png"
         },
         ["ClassesPathfinder"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzAsInNwIjowLjEyNDZ9XQ/9c0f481838/ClassesPathfinder.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzAsInNwIjowLjIxMDl9XQ/15b19257e1/ClassesPathfinder.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzAsInNwIjowLjI5NzJ9XQ/af1ad2906e/ClassesPathfinder.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzAsInNwIjowLjM4MzV9XQ/67e63c4671/ClassesPathfinder.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyZGEyZjc3NjUwNTU3YTllY2JmMGFjYmEyMzIyZWU1MiIseyJ0IjozMCwic3AiOjAuMTI0Nn1d/06e3d45d8f/ClassesPathfinder.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyZGEyZjc3NjUwNTU3YTllY2JmMGFjYmEyMzIyZWU1MiIseyJ0IjozMCwic3AiOjAuMjEwOX1d/4ec4e13031/ClassesPathfinder.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyZGEyZjc3NjUwNTU3YTllY2JmMGFjYmEyMzIyZWU1MiIseyJ0IjozMCwic3AiOjAuMjk3Mn1d/204156c3eb/ClassesPathfinder.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyZGEyZjc3NjUwNTU3YTllY2JmMGFjYmEyMzIyZWU1MiIseyJ0IjozMCwic3AiOjAuMzgzNX1d/5b4daa3b2a/ClassesPathfinder.png"
         },
         ["ClassesOccultist"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzEsInNwIjowLjEyNDZ9XQ/11aebdb4a4/ClassesOccultist.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzEsInNwIjowLjIxMDl9XQ/be03d4549e/ClassesOccultist.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzEsInNwIjowLjI5NzJ9XQ/2509cc68fe/ClassesOccultist.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzEsInNwIjowLjM4MzV9XQ/6476953928/ClassesOccultist.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI4MzkyZmFiMDdiYzhiMTM0MjUyNDk4NWU5YmU3YTY3ZiIseyJ0IjozMSwic3AiOjAuMTI0Nn1d/6df4d3a35b/ClassesOccultist.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI4MzkyZmFiMDdiYzhiMTM0MjUyNDk4NWU5YmU3YTY3ZiIseyJ0IjozMSwic3AiOjAuMjEwOX1d/40bafa0c34/ClassesOccultist.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI4MzkyZmFiMDdiYzhiMTM0MjUyNDk4NWU5YmU3YTY3ZiIseyJ0IjozMSwic3AiOjAuMjk3Mn1d/0d7d8b7bf6/ClassesOccultist.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI4MzkyZmFiMDdiYzhiMTM0MjUyNDk4NWU5YmU3YTY3ZiIseyJ0IjozMSwic3AiOjAuMzgzNX1d/c3ada1ecfc/ClassesOccultist.png"
         },
         ["ClassesElementalist"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzIsInNwIjowLjEyNDZ9XQ/630749442c/ClassesElementalist.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzIsInNwIjowLjIxMDl9XQ/1e5c0ab140/ClassesElementalist.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzIsInNwIjowLjI5NzJ9XQ/382f7232f2/ClassesElementalist.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzIsInNwIjowLjM4MzV9XQ/0579da7306/ClassesElementalist.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJmNGVkZWU2NmY3MDJkYWQ3NTExMTM3ODUzM2Q5YmIwZiIseyJ0IjozMiwic3AiOjAuMTI0Nn1d/8d2cb64cb5/ClassesElementalist.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJmNGVkZWU2NmY3MDJkYWQ3NTExMTM3ODUzM2Q5YmIwZiIseyJ0IjozMiwic3AiOjAuMjEwOX1d/fd4ec1ce00/ClassesElementalist.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJmNGVkZWU2NmY3MDJkYWQ3NTExMTM3ODUzM2Q5YmIwZiIseyJ0IjozMiwic3AiOjAuMjk3Mn1d/6d653546d6/ClassesElementalist.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJmNGVkZWU2NmY3MDJkYWQ3NTExMTM3ODUzM2Q5YmIwZiIseyJ0IjozMiwic3AiOjAuMzgzNX1d/708afb218f/ClassesElementalist.png"
         },
         ["ClassesNecromancer"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzMsInNwIjowLjEyNDZ9XQ/05c9d71697/ClassesNecromancer.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzMsInNwIjowLjIxMDl9XQ/c673559770/ClassesNecromancer.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzMsInNwIjowLjI5NzJ9XQ/6e3682468c/ClassesNecromancer.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzMsInNwIjowLjM4MzV9XQ/5185a0674b/ClassesNecromancer.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyOGUxMDhhYmI5NDk4ZGU4YjlmZTkyYjc4MDY3YzU1ZCIseyJ0IjozMywic3AiOjAuMTI0Nn1d/2de7e1ad08/ClassesNecromancer.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyOGUxMDhhYmI5NDk4ZGU4YjlmZTkyYjc4MDY3YzU1ZCIseyJ0IjozMywic3AiOjAuMjEwOX1d/7a555f089d/ClassesNecromancer.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyOGUxMDhhYmI5NDk4ZGU4YjlmZTkyYjc4MDY3YzU1ZCIseyJ0IjozMywic3AiOjAuMjk3Mn1d/295d9bd42e/ClassesNecromancer.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyOGUxMDhhYmI5NDk4ZGU4YjlmZTkyYjc4MDY3YzU1ZCIseyJ0IjozMywic3AiOjAuMzgzNX1d/1867840c14/ClassesNecromancer.png"
         },
         ["ClassesSlayer"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzQsInNwIjowLjEyNDZ9XQ/5374b44144/ClassesSlayer.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzQsInNwIjowLjIxMDl9XQ/0f4152c7ec/ClassesSlayer.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzQsInNwIjowLjI5NzJ9XQ/129eaa99ba/ClassesSlayer.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzQsInNwIjowLjM4MzV9XQ/7a8bed9f18/ClassesSlayer.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJhYTE5YjAyMTAwYThmYmQ1Y2U1ZWRkNDAyZGRhN2MyYSIseyJ0IjozNCwic3AiOjAuMTI0Nn1d/eb34ea5157/ClassesSlayer.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJhYTE5YjAyMTAwYThmYmQ1Y2U1ZWRkNDAyZGRhN2MyYSIseyJ0IjozNCwic3AiOjAuMjEwOX1d/a91285f6c2/ClassesSlayer.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJhYTE5YjAyMTAwYThmYmQ1Y2U1ZWRkNDAyZGRhN2MyYSIseyJ0IjozNCwic3AiOjAuMjk3Mn1d/c95abb5690/ClassesSlayer.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJhYTE5YjAyMTAwYThmYmQ1Y2U1ZWRkNDAyZGRhN2MyYSIseyJ0IjozNCwic3AiOjAuMzgzNX1d/21cfb083a7/ClassesSlayer.png"
         },
         ["ClassesGladiator"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzUsInNwIjowLjEyNDZ9XQ/638c6e03fe/ClassesGladiator.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzUsInNwIjowLjIxMDl9XQ/8f1a3b9226/ClassesGladiator.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzUsInNwIjowLjI5NzJ9XQ/a97c99bafe/ClassesGladiator.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzUsInNwIjowLjM4MzV9XQ/c76dc27f1b/ClassesGladiator.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJjYjE0NDFhZDUwZjEyZGRlNGU1OGY0ZjQ3YjU1ZGMxNyIseyJ0IjozNSwic3AiOjAuMTI0Nn1d/3263d42a1c/ClassesGladiator.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJjYjE0NDFhZDUwZjEyZGRlNGU1OGY0ZjQ3YjU1ZGMxNyIseyJ0IjozNSwic3AiOjAuMjEwOX1d/ab7811873a/ClassesGladiator.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJjYjE0NDFhZDUwZjEyZGRlNGU1OGY0ZjQ3YjU1ZGMxNyIseyJ0IjozNSwic3AiOjAuMjk3Mn1d/066ec4316d/ClassesGladiator.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJjYjE0NDFhZDUwZjEyZGRlNGU1OGY0ZjQ3YjU1ZGMxNyIseyJ0IjozNSwic3AiOjAuMzgzNX1d/ef5ca8c584/ClassesGladiator.png"
         },
         ["ClassesChampion"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzYsInNwIjowLjEyNDZ9XQ/3de23d7684/ClassesChampion.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzYsInNwIjowLjIxMDl9XQ/1ef58150a8/ClassesChampion.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzYsInNwIjowLjI5NzJ9XQ/53f323d53e/ClassesChampion.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzYsInNwIjowLjM4MzV9XQ/b2ce9a6403/ClassesChampion.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIzYWFkYTRiNmFkNjdhNjg2ZjEyMDQwYjRlYWRjYzkyZiIseyJ0IjozNiwic3AiOjAuMTI0Nn1d/a53cfe7bba/ClassesChampion.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIzYWFkYTRiNmFkNjdhNjg2ZjEyMDQwYjRlYWRjYzkyZiIseyJ0IjozNiwic3AiOjAuMjEwOX1d/9e339863ca/ClassesChampion.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIzYWFkYTRiNmFkNjdhNjg2ZjEyMDQwYjRlYWRjYzkyZiIseyJ0IjozNiwic3AiOjAuMjk3Mn1d/0e17715670/ClassesChampion.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIzYWFkYTRiNmFkNjdhNjg2ZjEyMDQwYjRlYWRjYzkyZiIseyJ0IjozNiwic3AiOjAuMzgzNX1d/67b9c192ff/ClassesChampion.png"
         },
         ["ClassesInquisitor"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzcsInNwIjowLjEyNDZ9XQ/b0daf62ff5/ClassesInquisitor.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzcsInNwIjowLjIxMDl9XQ/fd54a4e1b6/ClassesInquisitor.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzcsInNwIjowLjI5NzJ9XQ/a1683058a4/ClassesInquisitor.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzcsInNwIjowLjM4MzV9XQ/ab6e08771b/ClassesInquisitor.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCI0MzFkYTZjMjJlNmVhOGI1MThhMzBhMzhiODc3OWRjYiIseyJ0IjozNywic3AiOjAuMTI0Nn1d/f6447b2934/ClassesInquisitor.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCI0MzFkYTZjMjJlNmVhOGI1MThhMzBhMzhiODc3OWRjYiIseyJ0IjozNywic3AiOjAuMjEwOX1d/e0b15d025f/ClassesInquisitor.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCI0MzFkYTZjMjJlNmVhOGI1MThhMzBhMzhiODc3OWRjYiIseyJ0IjozNywic3AiOjAuMjk3Mn1d/720727e29f/ClassesInquisitor.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCI0MzFkYTZjMjJlNmVhOGI1MThhMzBhMzhiODc3OWRjYiIseyJ0IjozNywic3AiOjAuMzgzNX1d/8fc7fb42f5/ClassesInquisitor.png"
         },
         ["ClassesHierophant"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzgsInNwIjowLjEyNDZ9XQ/74bcc62f78/ClassesHierophant.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzgsInNwIjowLjIxMDl9XQ/08a49e9f06/ClassesHierophant.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzgsInNwIjowLjI5NzJ9XQ/cabaf51eb3/ClassesHierophant.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzgsInNwIjowLjM4MzV9XQ/2980a78eab/ClassesHierophant.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJkYzA0Y2Q1OGE2NWNlZTljMzRjMmFjYzg2NDBjMzM3MSIseyJ0IjozOCwic3AiOjAuMTI0Nn1d/7822f3509c/ClassesHierophant.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJkYzA0Y2Q1OGE2NWNlZTljMzRjMmFjYzg2NDBjMzM3MSIseyJ0IjozOCwic3AiOjAuMjEwOX1d/f0cf07f9a2/ClassesHierophant.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJkYzA0Y2Q1OGE2NWNlZTljMzRjMmFjYzg2NDBjMzM3MSIseyJ0IjozOCwic3AiOjAuMjk3Mn1d/bd84acf416/ClassesHierophant.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJkYzA0Y2Q1OGE2NWNlZTljMzRjMmFjYzg2NDBjMzM3MSIseyJ0IjozOCwic3AiOjAuMzgzNX1d/0832b33096/ClassesHierophant.png"
         },
         ["ClassesGuardian"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzksInNwIjowLjEyNDZ9XQ/bf859214dd/ClassesGuardian.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzksInNwIjowLjIxMDl9XQ/2bebd4d97f/ClassesGuardian.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzksInNwIjowLjI5NzJ9XQ/93e49970ba/ClassesGuardian.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6MzksInNwIjowLjM4MzV9XQ/c257564e31/ClassesGuardian.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJlYzk1OTI2NTNkMDVlYWVhMjM5MzQzZmYyYzQ3NTkyOSIseyJ0IjozOSwic3AiOjAuMTI0Nn1d/01b41e2fc4/ClassesGuardian.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJlYzk1OTI2NTNkMDVlYWVhMjM5MzQzZmYyYzQ3NTkyOSIseyJ0IjozOSwic3AiOjAuMjEwOX1d/fd4d5ddbbc/ClassesGuardian.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJlYzk1OTI2NTNkMDVlYWVhMjM5MzQzZmYyYzQ3NTkyOSIseyJ0IjozOSwic3AiOjAuMjk3Mn1d/ae3ab5069d/ClassesGuardian.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJlYzk1OTI2NTNkMDVlYWVhMjM5MzQzZmYyYzQ3NTkyOSIseyJ0IjozOSwic3AiOjAuMzgzNX1d/7715b272fc/ClassesGuardian.png"
         },
         ["ClassesAssassin"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDAsInNwIjowLjEyNDZ9XQ/fb31ff616b/ClassesAssassin.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDAsInNwIjowLjIxMDl9XQ/0353235953/ClassesAssassin.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDAsInNwIjowLjI5NzJ9XQ/e69dcfa325/ClassesAssassin.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDAsInNwIjowLjM4MzV9XQ/94c99fb165/ClassesAssassin.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIyZDYwZTk3OGFmOTYxODhkN2UxM2MzMzNhZjgxZWViNCIseyJ0Ijo0MCwic3AiOjAuMTI0Nn1d/fc43b7bbf6/ClassesAssassin.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIyZDYwZTk3OGFmOTYxODhkN2UxM2MzMzNhZjgxZWViNCIseyJ0Ijo0MCwic3AiOjAuMjEwOX1d/1de543edc9/ClassesAssassin.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIyZDYwZTk3OGFmOTYxODhkN2UxM2MzMzNhZjgxZWViNCIseyJ0Ijo0MCwic3AiOjAuMjk3Mn1d/c6bd1ffad2/ClassesAssassin.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIyZDYwZTk3OGFmOTYxODhkN2UxM2MzMzNhZjgxZWViNCIseyJ0Ijo0MCwic3AiOjAuMzgzNX1d/48e795e24c/ClassesAssassin.png"
         },
         ["ClassesTrickster"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDIsInNwIjowLjEyNDZ9XQ/734f7c4c7b/ClassesTrickster.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDIsInNwIjowLjIxMDl9XQ/2f0b9bf34b/ClassesTrickster.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDIsInNwIjowLjI5NzJ9XQ/51379d8fef/ClassesTrickster.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDIsInNwIjowLjM4MzV9XQ/e62b4211e1/ClassesTrickster.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCIxMmJjZmMyZDFkNTA4Y2VlMTM0MDZhMTk4YjlhM2JlYyIseyJ0Ijo0Miwic3AiOjAuMTI0Nn1d/fe275b5329/ClassesTrickster.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCIxMmJjZmMyZDFkNTA4Y2VlMTM0MDZhMTk4YjlhM2JlYyIseyJ0Ijo0Miwic3AiOjAuMjEwOX1d/48ebd0e2a6/ClassesTrickster.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCIxMmJjZmMyZDFkNTA4Y2VlMTM0MDZhMTk4YjlhM2JlYyIseyJ0Ijo0Miwic3AiOjAuMjk3Mn1d/902af0ae5a/ClassesTrickster.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCIxMmJjZmMyZDFkNTA4Y2VlMTM0MDZhMTk4YjlhM2JlYyIseyJ0Ijo0Miwic3AiOjAuMzgzNX1d/e2e70ed2ba/ClassesTrickster.png"
         },
         ["ClassesSaboteur"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDEsInNwIjowLjEyNDZ9XQ/4595533dd1/ClassesSaboteur.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDEsInNwIjowLjIxMDl9XQ/c3451b1352/ClassesSaboteur.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDEsInNwIjowLjI5NzJ9XQ/7247985a69/ClassesSaboteur.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIyLDE0LHsidCI6NDEsInNwIjowLjM4MzV9XQ/ca378864c7/ClassesSaboteur.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIyLCJlZjI1YmY3MWM0MzRmYjlhMGFhOWI0YTZhODlmYTZmZiIseyJ0Ijo0MSwic3AiOjAuMTI0Nn1d/078c9121a7/ClassesSaboteur.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIyLCJlZjI1YmY3MWM0MzRmYjlhMGFhOWI0YTZhODlmYTZmZiIseyJ0Ijo0MSwic3AiOjAuMjEwOX1d/c55087bdba/ClassesSaboteur.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIyLCJlZjI1YmY3MWM0MzRmYjlhMGFhOWI0YTZhODlmYTZmZiIseyJ0Ijo0MSwic3AiOjAuMjk3Mn1d/efbf43c740/ClassesSaboteur.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIyLCJlZjI1YmY3MWM0MzRmYjlhMGFhOWI0YTZhODlmYTZmZiIseyJ0Ijo0MSwic3AiOjAuMzgzNX1d/670b0ba5e7/ClassesSaboteur.png"
         },
         ["Background1"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvQ29tbW9uXC9CYWNrZ3JvdW5kMSIsInNwIjowLjEyNDZ9XQ/911757ce0c/Background1.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvQ29tbW9uXC9CYWNrZ3JvdW5kMSIsInNwIjowLjIxMDl9XQ/8b599cf2b0/Background1.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvQ29tbW9uXC9CYWNrZ3JvdW5kMSIsInNwIjowLjI5NzJ9XQ/32067f99f6/Background1.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvQ29tbW9uXC9CYWNrZ3JvdW5kMSIsInNwIjowLjM4MzV9XQ/f75b3b5666/Background1.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCI0ODRjMTBmZTljMjNhMmNkYjE2ZjBjNzkyYjE1MTRkZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9Db21tb25cL0JhY2tncm91bmQxIiwic3AiOjAuMTI0Nn1d/5c45fbabbf/Background1.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCI0ODRjMTBmZTljMjNhMmNkYjE2ZjBjNzkyYjE1MTRkZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9Db21tb25cL0JhY2tncm91bmQxIiwic3AiOjAuMjEwOX1d/1ac1b7b621/Background1.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCI0ODRjMTBmZTljMjNhMmNkYjE2ZjBjNzkyYjE1MTRkZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9Db21tb25cL0JhY2tncm91bmQxIiwic3AiOjAuMjk3Mn1d/4c3acf5b53/Background1.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCI0ODRjMTBmZTljMjNhMmNkYjE2ZjBjNzkyYjE1MTRkZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9Db21tb25cL0JhY2tncm91bmQxIiwic3AiOjAuMzgzNX1d/4e153fb8a2/Background1.png"
         },
         ["BackgroundDex"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXgiLCJzcCI6MC4xMjQ2fV0/3bc58b0e1f/BackgroundDex.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXgiLCJzcCI6MC4yMTA5fV0/534eb3c034/BackgroundDex.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXgiLCJzcCI6MC4yOTcyfV0/5877bf21a0/BackgroundDex.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXgiLCJzcCI6MC4zODM1fV0/6b9ae6313e/BackgroundDex.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJhMjM4ZTlmZjk2Yzc3YjQ2NmY5ZTNmODk3MzA3ZTg1YiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleCIsInNwIjowLjEyNDZ9XQ/991a0005a3/BackgroundDex.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCJhMjM4ZTlmZjk2Yzc3YjQ2NmY5ZTNmODk3MzA3ZTg1YiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleCIsInNwIjowLjIxMDl9XQ/39ec69c245/BackgroundDex.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCJhMjM4ZTlmZjk2Yzc3YjQ2NmY5ZTNmODk3MzA3ZTg1YiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleCIsInNwIjowLjI5NzJ9XQ/0f53fa3b2a/BackgroundDex.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCJhMjM4ZTlmZjk2Yzc3YjQ2NmY5ZTNmODk3MzA3ZTg1YiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleCIsInNwIjowLjM4MzV9XQ/4a3d72c920/BackgroundDex.png"
         },
         ["BackgroundDexInt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXhJbnQiLCJzcCI6MC4xMjQ2fV0/e5b3508017/BackgroundDexInt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXhJbnQiLCJzcCI6MC4yMTA5fV0/ec71734f89/BackgroundDexInt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXhJbnQiLCJzcCI6MC4yOTcyfV0/e17a9c0309/BackgroundDexInt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9EZXhJbnQiLCJzcCI6MC4zODM1fV0/23e26a7e99/BackgroundDexInt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJlM2YxYTlkYWUwY2M1ZTgyOGNkMGI1NDgyYzQ3ZmMyMSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleEludCIsInNwIjowLjEyNDZ9XQ/adb470364f/BackgroundDexInt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCJlM2YxYTlkYWUwY2M1ZTgyOGNkMGI1NDgyYzQ3ZmMyMSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleEludCIsInNwIjowLjIxMDl9XQ/f869b80256/BackgroundDexInt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCJlM2YxYTlkYWUwY2M1ZTgyOGNkMGI1NDgyYzQ3ZmMyMSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleEludCIsInNwIjowLjI5NzJ9XQ/42f17819aa/BackgroundDexInt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCJlM2YxYTlkYWUwY2M1ZTgyOGNkMGI1NDgyYzQ3ZmMyMSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0RleEludCIsInNwIjowLjM4MzV9XQ/9ebf931fde/BackgroundDexInt.png"
         },
         ["BackgroundInt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9JbnQiLCJzcCI6MC4xMjQ2fV0/5beddacf2b/BackgroundInt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9JbnQiLCJzcCI6MC4yMTA5fV0/b2ec4cdde9/BackgroundInt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9JbnQiLCJzcCI6MC4yOTcyfV0/b8083bf291/BackgroundInt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9JbnQiLCJzcCI6MC4zODM1fV0/28ab4aeafa/BackgroundInt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJkYzFhYzRkNGVkMmZiNzg3MzBjZWMzZjNkODhmYzM2NCIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0ludCIsInNwIjowLjEyNDZ9XQ/f554cb74bc/BackgroundInt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCJkYzFhYzRkNGVkMmZiNzg3MzBjZWMzZjNkODhmYzM2NCIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0ludCIsInNwIjowLjIxMDl9XQ/9583b2221e/BackgroundInt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCJkYzFhYzRkNGVkMmZiNzg3MzBjZWMzZjNkODhmYzM2NCIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0ludCIsInNwIjowLjI5NzJ9XQ/3d1d8e2bb6/BackgroundInt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCJkYzFhYzRkNGVkMmZiNzg3MzBjZWMzZjNkODhmYzM2NCIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL0ludCIsInNwIjowLjM4MzV9XQ/c991d1593a/BackgroundInt.png"
         },
         ["BackgroundStr"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHIiLCJzcCI6MC4xMjQ2fV0/825967713f/BackgroundStr.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHIiLCJzcCI6MC4yMTA5fV0/5a171f9a38/BackgroundStr.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHIiLCJzcCI6MC4yOTcyfV0/241e8cb248/BackgroundStr.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHIiLCJzcCI6MC4zODM1fV0/3a405698f6/BackgroundStr.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJjMjZmYjU5YWVhMzE5OTZjZTViOTE1MWIxZjNlYWVjYiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ciIsInNwIjowLjEyNDZ9XQ/462da312ac/BackgroundStr.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCJjMjZmYjU5YWVhMzE5OTZjZTViOTE1MWIxZjNlYWVjYiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ciIsInNwIjowLjIxMDl9XQ/55b4e294b4/BackgroundStr.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCJjMjZmYjU5YWVhMzE5OTZjZTViOTE1MWIxZjNlYWVjYiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ciIsInNwIjowLjI5NzJ9XQ/ddb8f0a689/BackgroundStr.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCJjMjZmYjU5YWVhMzE5OTZjZTViOTE1MWIxZjNlYWVjYiIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ciIsInNwIjowLjM4MzV9XQ/c1dce55c7c/BackgroundStr.png"
         },
         ["BackgroundStrDex"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJEZXgiLCJzcCI6MC4xMjQ2fV0/aee5ed2485/BackgroundStrDex.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJEZXgiLCJzcCI6MC4yMTA5fV0/f74c6e9920/BackgroundStrDex.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJEZXgiLCJzcCI6MC4yOTcyfV0/c5b3d3092e/BackgroundStrDex.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJEZXgiLCJzcCI6MC4zODM1fV0/39665c6156/BackgroundStrDex.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCIyMTVmNjYzY2NiNTIxYmVlNzY1YjRhMzFkOWUyOWMzYSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckRleCIsInNwIjowLjEyNDZ9XQ/9ba90f8817/BackgroundStrDex.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCIyMTVmNjYzY2NiNTIxYmVlNzY1YjRhMzFkOWUyOWMzYSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckRleCIsInNwIjowLjIxMDl9XQ/b4d17c1c84/BackgroundStrDex.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCIyMTVmNjYzY2NiNTIxYmVlNzY1YjRhMzFkOWUyOWMzYSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckRleCIsInNwIjowLjI5NzJ9XQ/b3ded486e0/BackgroundStrDex.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCIyMTVmNjYzY2NiNTIxYmVlNzY1YjRhMzFkOWUyOWMzYSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckRleCIsInNwIjowLjM4MzV9XQ/8894a0afd6/BackgroundStrDex.png"
         },
         ["BackgroundStrInt"]= {
-            [0.1246]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJJbnQiLCJzcCI6MC4xMjQ2fV0/02178ae553/BackgroundStrInt.png",
-            [0.2109]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJJbnQiLCJzcCI6MC4yMTA5fV0/564511328b/BackgroundStrInt.png",
-            [0.2972]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJJbnQiLCJzcCI6MC4yOTcyfV0/754cf55754/BackgroundStrInt.png",
-            [0.3835]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9CYXNlQ2xhc3NJbGx1c3RyYXRpb25zXC9TdHJJbnQiLCJzcCI6MC4zODM1fV0/6bc6c01fbc/BackgroundStrInt.png"
+            [0.1246]= "https://web.poecdn.com/gen/image/WzIxLCJmNjgwYzk0NGNhMzU2Y2MzNmYzZGZiZmJlNTdjYmY1ZSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckludCIsInNwIjowLjEyNDZ9XQ/446fa9e68a/BackgroundStrInt.png",
+            [0.2109]= "https://web.poecdn.com/gen/image/WzIxLCJmNjgwYzk0NGNhMzU2Y2MzNmYzZGZiZmJlNTdjYmY1ZSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckludCIsInNwIjowLjIxMDl9XQ/1afc737219/BackgroundStrInt.png",
+            [0.2972]= "https://web.poecdn.com/gen/image/WzIxLCJmNjgwYzk0NGNhMzU2Y2MzNmYzZGZiZmJlNTdjYmY1ZSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckludCIsInNwIjowLjI5NzJ9XQ/5817b02960/BackgroundStrInt.png",
+            [0.3835]= "https://web.poecdn.com/gen/image/WzIxLCJmNjgwYzk0NGNhMzU2Y2MzNmYzZGZiZmJlNTdjYmY1ZSIseyJrIjoiMkRBcnRcL0Jhc2VDbGFzc0lsbHVzdHJhdGlvbnNcL1N0ckludCIsInNwIjowLjM4MzV9XQ/fee3990d70/BackgroundStrInt.png"
         },
         ["imgPSFadeCorner"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9GYWRlQ29ybmVyIiwic3AiOjF9XQ/0fb0445eae/Fade_Corner.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIxLCJiZGYwODUzYzNjNzc5NzZjNjUxNDgxNDM0OGVjODYxZSIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0ZhZGVDb3JuZXIiLCJzcCI6MX1d/2e8440cfeb/Fade_Corner.png"
         },
         ["imgPSFadeSide"]= {
-            [1]= "https://testingcdn.office.grindinggear.com/gen/image/WzIxLDE0LHsiayI6IjJEQXJ0XC9VSUltYWdlc1wvSW5HYW1lXC9GYWRlU2lkZSIsInNwIjoxfV0/33673d61a8/Fade_Side.png"
+            [1]= "https://web.poecdn.com/gen/image/WzIxLCI1NjIxOGVmZjZlYTMwYmFiMmI0NTUyODhhZDZjYzQzMyIseyJrIjoiMkRBcnRcL1VJSW1hZ2VzXC9JbkdhbWVcL0ZhZGVTaWRlIiwic3AiOjF9XQ/6e6aacf69a/Fade_Side.png"
         }
     },
     ["constants"]= {
@@ -59670,7 +59670,7 @@ return {
     ["skillSprites"]= {
         ["normalActive"]= {
             {
-                ["filename"]= "skills-0.jpg?d8e079cc90a24c7e37a0c60338e6211b",
+                ["filename"]= "skills-0.jpg?36d0a6fce729daf603a35d1f3f611a89",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -61775,7 +61775,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-1.jpg?246cbd5db9e4d5cf154683a8cbec25b7",
+                ["filename"]= "skills-1.jpg?e56e4c857749309351b86965cdb3958a",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -63880,7 +63880,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-2.jpg?1f411ceb858d0e7461461523edc9aa70",
+                ["filename"]= "skills-2.jpg?a646271b5b550aa3b19914881643e788",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -65985,7 +65985,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-3.jpg?65c66e921f6dc5c0c5f8820afe14d67a",
+                ["filename"]= "skills-3.jpg?80c3eb1e74230eec731c6d44ded42fdd",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -68092,7 +68092,7 @@ return {
         },
         ["notableActive"]= {
             {
-                ["filename"]= "skills-0.jpg?d8e079cc90a24c7e37a0c60338e6211b",
+                ["filename"]= "skills-0.jpg?36d0a6fce729daf603a35d1f3f611a89",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -71283,7 +71283,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-1.jpg?246cbd5db9e4d5cf154683a8cbec25b7",
+                ["filename"]= "skills-1.jpg?e56e4c857749309351b86965cdb3958a",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -74474,7 +74474,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-2.jpg?1f411ceb858d0e7461461523edc9aa70",
+                ["filename"]= "skills-2.jpg?a646271b5b550aa3b19914881643e788",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -77665,7 +77665,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-3.jpg?65c66e921f6dc5c0c5f8820afe14d67a",
+                ["filename"]= "skills-3.jpg?80c3eb1e74230eec731c6d44ded42fdd",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -80858,7 +80858,7 @@ return {
         },
         ["keystoneActive"]= {
             {
-                ["filename"]= "skills-0.jpg?d8e079cc90a24c7e37a0c60338e6211b",
+                ["filename"]= "skills-0.jpg?36d0a6fce729daf603a35d1f3f611a89",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -81133,7 +81133,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-1.jpg?246cbd5db9e4d5cf154683a8cbec25b7",
+                ["filename"]= "skills-1.jpg?e56e4c857749309351b86965cdb3958a",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -81408,7 +81408,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-2.jpg?1f411ceb858d0e7461461523edc9aa70",
+                ["filename"]= "skills-2.jpg?a646271b5b550aa3b19914881643e788",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -81683,7 +81683,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-3.jpg?65c66e921f6dc5c0c5f8820afe14d67a",
+                ["filename"]= "skills-3.jpg?80c3eb1e74230eec731c6d44ded42fdd",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -81960,7 +81960,7 @@ return {
         },
         ["normalInactive"]= {
             {
-                ["filename"]= "skills-disabled-0.jpg?a4cdc4911e0b08a6809191bd0c4d8e6d",
+                ["filename"]= "skills-disabled-0.jpg?a6229afb98278a32619d302c5314aaf0",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -84065,7 +84065,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-1.jpg?087ab3a7b60cefc08c7197aeb7719332",
+                ["filename"]= "skills-disabled-1.jpg?3522362dac2ca4c06c67578387028944",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -86170,7 +86170,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-2.jpg?9f5142b846dd3c1cf20b6618f58532e0",
+                ["filename"]= "skills-disabled-2.jpg?c3bf73a2ccc56dde4c6255a0ea5eacd2",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -88275,7 +88275,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-3.jpg?498ecf559542c18164d4bff3e4260edc",
+                ["filename"]= "skills-disabled-3.jpg?6e5570e4abeea88410657e2338272b37",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/DmgLeech.png"]= {
                         ["x"]= 0,
@@ -90382,7 +90382,7 @@ return {
         },
         ["notableInactive"]= {
             {
-                ["filename"]= "skills-disabled-0.jpg?a4cdc4911e0b08a6809191bd0c4d8e6d",
+                ["filename"]= "skills-disabled-0.jpg?a6229afb98278a32619d302c5314aaf0",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -93573,7 +93573,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-1.jpg?087ab3a7b60cefc08c7197aeb7719332",
+                ["filename"]= "skills-disabled-1.jpg?3522362dac2ca4c06c67578387028944",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -96764,7 +96764,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-2.jpg?9f5142b846dd3c1cf20b6618f58532e0",
+                ["filename"]= "skills-disabled-2.jpg?c3bf73a2ccc56dde4c6255a0ea5eacd2",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -99955,7 +99955,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-3.jpg?498ecf559542c18164d4bff3e4260edc",
+                ["filename"]= "skills-disabled-3.jpg?6e5570e4abeea88410657e2338272b37",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/Berserker/CloakedAgony.png"]= {
                         ["x"]= 0,
@@ -103148,7 +103148,7 @@ return {
         },
         ["keystoneInactive"]= {
             {
-                ["filename"]= "skills-disabled-0.jpg?a4cdc4911e0b08a6809191bd0c4d8e6d",
+                ["filename"]= "skills-disabled-0.jpg?a6229afb98278a32619d302c5314aaf0",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -103423,7 +103423,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-1.jpg?087ab3a7b60cefc08c7197aeb7719332",
+                ["filename"]= "skills-disabled-1.jpg?3522362dac2ca4c06c67578387028944",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -103698,7 +103698,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-2.jpg?9f5142b846dd3c1cf20b6618f58532e0",
+                ["filename"]= "skills-disabled-2.jpg?c3bf73a2ccc56dde4c6255a0ea5eacd2",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -103973,7 +103973,7 @@ return {
                 }
             },
             {
-                ["filename"]= "skills-disabled-3.jpg?498ecf559542c18164d4bff3e4260edc",
+                ["filename"]= "skills-disabled-3.jpg?6e5570e4abeea88410657e2338272b37",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/KeystoneResoluteTechnique.png"]= {
                         ["x"]= 0,
@@ -104250,7 +104250,7 @@ return {
         },
         ["mastery"]= {
             {
-                ["filename"]= "groups-0.png?4b9f753a2abe3eb21982e6b43febf81a",
+                ["filename"]= "groups-0.png?a987b743c35aae7065a384c7cb46c4cc",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/ElementalMastery2.png"]= {
                         ["x"]= 0,
@@ -104438,7 +104438,7 @@ return {
                         ["w"]= 32,
                         ["h"]= 32
                     },
-                    ["Art/2DArt/SkillIcons/passives/MasteryChaosDamagePowerCharge.png"]= {
+                    ["Art/2DArt/SkillIcons/passives/CurseChargeMastery.png"]= {
                         ["x"]= 32,
                         ["y"]= 96,
                         ["w"]= 32,
@@ -104843,7 +104843,7 @@ return {
                 }
             },
             {
-                ["filename"]= "groups-1.png?81b5499b71667185e0e93d91f2f8569f",
+                ["filename"]= "groups-1.png?59caa8be3407bafe3165ce22ffc66b3b",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/ElementalMastery2.png"]= {
                         ["x"]= 0,
@@ -105031,7 +105031,7 @@ return {
                         ["w"]= 55,
                         ["h"]= 55
                     },
-                    ["Art/2DArt/SkillIcons/passives/MasteryChaosDamagePowerCharge.png"]= {
+                    ["Art/2DArt/SkillIcons/passives/CurseChargeMastery.png"]= {
                         ["x"]= 55,
                         ["y"]= 165,
                         ["w"]= 55,
@@ -105436,7 +105436,7 @@ return {
                 }
             },
             {
-                ["filename"]= "groups-2.png?d0ea8bb37780a77c5cf308bb74d755a3",
+                ["filename"]= "groups-2.png?be8e2a3c19008d18cd79fa1d33864751",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/ElementalMastery2.png"]= {
                         ["x"]= 0,
@@ -105624,7 +105624,7 @@ return {
                         ["w"]= 77,
                         ["h"]= 77
                     },
-                    ["Art/2DArt/SkillIcons/passives/MasteryChaosDamagePowerCharge.png"]= {
+                    ["Art/2DArt/SkillIcons/passives/CurseChargeMastery.png"]= {
                         ["x"]= 77,
                         ["y"]= 231,
                         ["w"]= 77,
@@ -106029,7 +106029,7 @@ return {
                 }
             },
             {
-                ["filename"]= "groups-3.png?80ab97b00717ee4a5d7ec5e64e87db80",
+                ["filename"]= "groups-3.png?658b74da560716563b02812fc5a8ef37",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/ElementalMastery2.png"]= {
                         ["x"]= 0,
@@ -106217,7 +106217,7 @@ return {
                         ["w"]= 99,
                         ["h"]= 99
                     },
-                    ["Art/2DArt/SkillIcons/passives/MasteryChaosDamagePowerCharge.png"]= {
+                    ["Art/2DArt/SkillIcons/passives/CurseChargeMastery.png"]= {
                         ["x"]= 99,
                         ["y"]= 297,
                         ["w"]= 99,
