@@ -556,6 +556,7 @@ return {
 ["base_physical_damage_%_to_convert_to_chaos"] = {
 	mod("PhysicalDamageConvertToChaos", "BASE", nil),
 },
+-- Skill Physical
 ["skill_physical_damage_%_to_convert_to_lightning"] = {
 	mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
 },
@@ -568,8 +569,26 @@ return {
 ["skill_physical_damage_%_to_convert_to_chaos"] = {
 	mod("SkillPhysicalDamageConvertToChaos", "BASE", nil),
 },
+-- Skill Lightning Conversion
+["skill_lightning_damage_%_to_convert_to_chaos"] = {
+	mod("SkillLightningDamageConvertToChaos", "BASE", nil),
+},
+["skill_lightning_damage_%_to_convert_to_fire"] = {
+	mod("SkillLightningDamageConvertToFire", "BASE", nil),
+},
+["skill_lightning_damage_%_to_convert_to_cold"] = {
+	mod("SkillLightningDamageConvertToCold", "BASE", nil),
+},
+-- Skill Cold Conversion
 ["skill_cold_damage_%_to_convert_to_fire"] = {
 	mod("SkillColdDamageConvertToFire", "BASE", nil),
+},
+["skill_cold_damage_%_to_convert_to_chaos"] = {
+	mod("SkillColdDamageConvertToChaos", "BASE", nil),
+},
+-- Skill Fire Conversion
+["skill_fire_damage_%_to_convert_to_chaos"] = {
+	mod("SkillFireDamageConvertToChaos", "BASE", nil),
 },
 -- Ailments
 ["bleed_on_hit_with_attacks_%"] = {
@@ -1204,6 +1223,10 @@ return {
 },
 ["base_curse_duration_+%"] = {
 	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
+},
+-- Hex
+["curse_maximum_doom"] = {
+	mod("MaxDoom", "BASE", nil),
 },
 -- Aura
 ["non_curse_aura_effect_+%"] = {

@@ -656,18 +656,16 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Punishment
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
-		["newpunishment_attack_speed_+%"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff" }),
-		},
-		["newpunishment_melee_damage_+%_final"] = {
-			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "CurseBuff" }),
+		["damage_taken_+%_on_low_life"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "CurseBuff" }, {type = "ActorCondition", actor = "enemy", var="LowLife" }),
 		},
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#mods
+#baseMod mod("MaxDoom", "BASE", 30)
+#baseMod mod("DebilitateChance", "BASE", 100)
 
 #skill FireResistAura
 #flags spell aura area
@@ -912,13 +910,15 @@ end,
 #mods
 
 #skill Vulnerability
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_physical_damage_over_time_taken_+%"] = {
-			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" })
 		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -926,10 +926,11 @@ end,
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill WarlordsMark
-#flags spell curse area duration
+#flags spell curse duration mark
 	statMap = {
 		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -937,12 +938,8 @@ end,
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_stun_recovery_+%"] = {
-			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill BloodstainedBanner

@@ -60,7 +60,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AssassinsMark
-#flags spell curse area duration
+#flags spell curse duration mark
 	statMap = {
 		["base_self_critical_strike_multiplier_-%"] = {
 			mod("SelfCritMultiplier", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -78,7 +78,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill BallLightning
@@ -242,7 +241,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Conductivity
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["base_lightning_damage_resistance_%"] = {
 			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -257,6 +256,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Contagion
@@ -285,10 +285,10 @@ local skills, mod, flag, skill = ...
 #flags spell area lightning
 	statMap = {
 	    ["disintegrate_base_radius_+_per_intensify"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limit = 3  }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity"}),
 		},
 		["disintegrate_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limit = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity"}),
 		},
 	},
 #mods
@@ -333,7 +333,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Despair
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["degen_effect_+%"] = {
 			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -350,6 +350,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Discharge
@@ -419,7 +420,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ElementalWeakness
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -427,10 +428,11 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Enfeeble
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["enfeeble_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
@@ -438,18 +440,13 @@ local skills, mod, flag, skill = ...
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill EssenceDrain
@@ -581,7 +578,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Flammability
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -596,6 +593,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill FleshOffering
@@ -648,7 +646,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Frostbite
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
 			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -663,6 +661,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill IceDash
@@ -685,6 +684,19 @@ local skills, mod, flag, skill = ...
 
 #skill DoomBlast
 #flags spell area chaos
+	statMap = {
+		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+	},
+#baseMod skill("showAverage", true)
+#baseMod flag("ChaosCanIgnite")
+#baseMod flag("ChaosCanChill")
+#baseMod flag("ChaosCanShock")
+#baseMod flag("ChaosDamageUsesLowestResistance")
 #mods
 
 #skill HeraldOfThunder

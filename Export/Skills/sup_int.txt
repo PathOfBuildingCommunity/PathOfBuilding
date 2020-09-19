@@ -280,6 +280,11 @@ local skills, mod, flag, skill = ...
 #skill ViciousHexSupport
 #mods
 
+#skill ViciousHexExplosion
+#flags spell area chaos
+#baseMod skill("showAverage", true),
+#mods
+
 #skill SupportIncreasedAreaOfEffect
 #mods
 
