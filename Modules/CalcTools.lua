@@ -147,7 +147,12 @@ end
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
 	if skillInstance.quality > 0 then
-		for _, stat in ipairs(grantedEffect.qualityStats) do
+		local qualityId = skillInstance.qualityId or "Default"
+		local qualityStats = grantedEffect.qualityStats[qualityId]
+		if not qualityStats then
+			qualityStats = grantedEffect.qualityStats
+		end
+		for _, stat in ipairs(qualityStats) do
 			stats[stat[1]] = (stats[stat[1]] or 0) + m_floor(stat[2] * skillInstance.quality)
 		end
 	end
