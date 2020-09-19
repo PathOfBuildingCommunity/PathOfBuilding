@@ -156,7 +156,7 @@
 	<File name="Data/3_0/Gems.lua" part="program" sha1="4b38b22fb31aa56023178a84c5ebf2e99bb0ddde" />
 	<File name="Data/3_0/Minions.lua" part="program" sha1="912d38d43ffff6b082973cbab6683a3f2865515a" />
 	<File name="Data/3_0/Misc.lua" part="program" sha1="15a1acdcf6ca2980bd5d7424048c7db1d31295c6" />
-	<File name="Data/3_0/ModCache.lua" part="program" sha1="ec2fbadd3d6b3a5f28e48cdfaa920b5cb549ae87" />
+	<File name="Data/3_0/ModCache.lua" part="program" sha1="2fadd6bfdf2d9ee0b0a26761b4866b5cb2898fb2" />
 	<File name="Data/3_0/ModFlask.lua" part="program" sha1="de932eae251ab343b06e78c525691102652071bf" />
 	<File name="Data/3_0/ModItem.lua" part="program" sha1="0dfce9831c251b1a5f74de18ade5c90590beb3e6" />
 	<File name="Data/3_0/ModJewel.lua" part="program" sha1="b926ac324f078f4d40eb230c9cf00455c1663290" />
