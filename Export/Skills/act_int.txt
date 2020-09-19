@@ -120,6 +120,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Ember
+#flags spell area fire projectile
+#mods
+
 #skill Blight
 #flags spell duration area
 #baseMod skill("debuff", true)
@@ -275,6 +279,18 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill Disintegrate
+#flags spell area lightning
+	statMap = {
+	    ["disintegrate_base_radius_+_per_intensify"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limit = 3  }),
+		},
+		["disintegrate_damage_+%_final_per_intensity"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limit = 3 }),
+		},
+	},
 #mods
 
 #skill DarkPact
@@ -486,6 +502,17 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true)
 #mods
 
+#skill Firewall
+#flags spell area duration fire
+    statMap = {
+		["wall_maximum_length"] = {
+			skill("radius", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Flame Wall Length:")
+#baseMod skill("dotIsArea", true)
+#mods
+
 #skill FlameWhip
 #flags spell area
 	statMap = {
@@ -610,6 +637,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 24)
 #mods
 
+#skill FrostGlobe
+#flags spell area duration cold
+	statMap = {
+	},
+#mods
+
 #skill FrostWall
 #flags spell duration
 #mods
@@ -648,6 +681,10 @@ local skills, mod, flag, skill = ...
 #skill GlacialCascade
 #flags spell area
 #baseMod skill("radius", 12)
+#mods
+
+#skill DoomBlast
+#flags spell area chaos
 #mods
 
 #skill HeraldOfThunder
@@ -1121,6 +1158,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 26)
 #mods
 
+#skill CircleOfPower
+#flags spell area duration lightning
+#mods
+
 #skill IceSiphonTrap
 #flags spell trap duration
 	statMap = {
@@ -1382,6 +1423,11 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
 		},
 	},
+#mods
+
+#skill BlackHole
+#flags spell area duration physical chaos
+#baseMod skill("hitTimeOverride", 0.4)
 #mods
 
 #skill Skitterbots

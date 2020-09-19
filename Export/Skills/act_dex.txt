@@ -1111,6 +1111,11 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill ImpactingSteel
+#flags attack projectile area
+#baseMod flag("NoAdditionalProjectiles")
+#mods
+
 #skill SummonIceGolem
 #flags spell minion golem
 	minionList = {

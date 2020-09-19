@@ -245,4 +245,6 @@ SkillType = {
 	StanceSkill = 103,
 	Type101 = 104,
 	Type102 = 105,
+	Hex = 106,
+	Mark = 107,
 }

@@ -39,7 +39,7 @@ itemBases["Recurve Bow"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
-	implicitModTypes = { { "critical" }, },
+	implicitModTypes = { { "damage", "critical" }, },
 	weapon = { PhysicalMin = 11, PhysicalMax = 34, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 18, dex = 65, },
 }
@@ -56,7 +56,7 @@ itemBases["Royal Bow"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
-	implicitModTypes = { { "attack", "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 10, PhysicalMax = 41, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
 	req = { level = 28, dex = 95, },
 }
@@ -107,7 +107,7 @@ itemBases["Sniper Bow"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
-	implicitModTypes = { { "critical" }, },
+	implicitModTypes = { { "damage", "critical" }, },
 	weapon = { PhysicalMin = 23, PhysicalMax = 68, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 44, dex = 143, },
 }
@@ -124,7 +124,7 @@ itemBases["Highborn Bow"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
-	implicitModTypes = { { "attack", "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 17, PhysicalMax = 67, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
 	req = { level = 50, dex = 161, },
 }
@@ -175,7 +175,7 @@ itemBases["Assassin Bow"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
-	implicitModTypes = { { "critical" }, },
+	implicitModTypes = { { "damage", "critical" }, },
 	weapon = { PhysicalMin = 30, PhysicalMax = 89, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 62, dex = 212, },
 }
@@ -192,7 +192,7 @@ itemBases["Imperial Bow"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
-	implicitModTypes = { { "attack", "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 20, PhysicalMax = 78, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
 	req = { level = 66, dex = 212, },
 }
@@ -213,4 +213,31 @@ itemBases["Maraketh Bow"] = {
 	implicitModTypes = { { "speed" }, },
 	weapon = { PhysicalMin = 44, PhysicalMax = 66, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 71, dex = 222, },
+}
+itemBases["Hedron Bow"] = {
+	type = "Bow",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "Adds (40-48) to (60-72) Fire Damage",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	weapon = { PhysicalMin = 9, PhysicalMax = 13, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
+	req = { level = 30, dex = 101, },
+}
+itemBases["Foundry Bow"] = {
+	type = "Bow",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "Adds (70-84) to (110-124) Fire Damage",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	weapon = { PhysicalMin = 13, PhysicalMax = 20, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
+	req = { level = 50, dex = 161, },
+}
+itemBases["Solarine Bow"] = {
+	type = "Bow",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "Adds (105-116) to (160-172) Fire Damage",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	weapon = { PhysicalMin = 16, PhysicalMax = 24, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
+	req = { level = 70, dex = 212, },
 }

@@ -7,21 +7,21 @@ itemBases["Iron Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "Adds 1 to 4 Physical Damage to Attacks",
-	implicitModTypes = { { "attack", "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { },
 }
 itemBases["Coral Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	req = { },
 }
 itemBases["Paua Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(20-30) to maximum Mana",
-	implicitModTypes = { { "mana" }, },
+	implicitModTypes = { { "resource", "mana" }, },
 	req = { },
 }
 itemBases["Gold Ring"] = {
@@ -35,42 +35,42 @@ itemBases["Topaz Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(20-30)% to Lightning Resistance",
-	implicitModTypes = { { "lightning", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "lightning", "resistance" }, },
 	req = { level = 12, },
 }
 itemBases["Sapphire Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(20-30)% to Cold Resistance",
-	implicitModTypes = { { "cold", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "cold", "resistance" }, },
 	req = { level = 8, },
 }
 itemBases["Ruby Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(20-30)% to Fire Resistance",
-	implicitModTypes = { { "fire", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "resistance" }, },
 	req = { level = 16, },
 }
 itemBases["Prismatic Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(8-10)% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	req = { level = 30, },
 }
 itemBases["Moonstone Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(15-25) to maximum Energy Shield",
-	implicitModTypes = { { "defences", "jewellery_defense" }, },
+	implicitModTypes = { { "energy_shield", "defences" }, },
 	req = { level = 20, },
 }
 itemBases["Amethyst Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	implicit = "+(9-13)% to Chaos Resistance",
-	implicitModTypes = { { "chaos", "jewellery_resistance" }, },
+	implicitModTypes = { { "chaos", "resistance" }, },
 	req = { level = 30, },
 }
 itemBases["Diamond Ring"] = {
@@ -84,7 +84,7 @@ itemBases["Two-Stone Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	implicit = "+(12-16)% to Fire and Lightning Resistances",
-	implicitModTypes = { { "fire", "lightning", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
@@ -92,7 +92,7 @@ itemBases["Two-Stone Ring"] = {
 	hidden = true,
 	tags = { default = true, ring = true, twostonering = true, },
 	implicit = "+(12-16)% to Cold and Lightning Resistances",
-	implicitModTypes = { { "cold", "lightning", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
@@ -100,7 +100,7 @@ itemBases["Two-Stone Ring"] = {
 	hidden = true,
 	tags = { default = true, ring = true, twostonering = true, },
 	implicit = "+(12-16)% to Fire and Cold Resistances",
-	implicitModTypes = { { "fire", "cold", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
 	req = { level = 20, },
 }
 itemBases["Unset Ring"] = {
@@ -114,49 +114,63 @@ itemBases["Two-Stone Ring (Fire/Lightning)"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	implicit = "+(12-16)% to Fire and Lightning Resistances",
-	implicitModTypes = { { "fire", "lightning", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring (Cold/Lightning)"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	implicit = "+(12-16)% to Cold and Lightning Resistances",
-	implicitModTypes = { { "cold", "lightning", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring (Fire/Cold)"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, twostonering = true, },
 	implicit = "+(12-16)% to Fire and Cold Resistances",
-	implicitModTypes = { { "fire", "cold", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
 	req = { level = 20, },
+}
+itemBases["Cogwork Ring"] = {
+	type = "Ring",
+	tags = { default = true, ring = true, not_for_sale = true, },
+	implicit = "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
+	implicitModTypes = { {  }, {  }, {  }, },
+	req = { level = 24, },
+}
+itemBases["Geodesic Ring"] = {
+	type = "Ring",
+	tags = { default = true, ring = true, not_for_sale = true, },
+	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
+	implicitModTypes = { {  }, {  }, {  }, },
+	req = { level = 24, },
 }
 itemBases["Steel Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas1 = true, },
 	implicit = "Adds (3-4) to (10-14) Physical Damage to Attacks",
-	implicitModTypes = { { "attack", "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 80, },
 }
 itemBases["Opal Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas2 = true, },
 	implicit = "(15-25)% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	req = { level = 80, },
 }
 itemBases["Vermillion Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas3 = true, },
 	implicit = "(5-7)% increased maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	req = { level = 80, },
 }
 itemBases["Cerulean Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas4 = true, },
 	implicit = "(8-10)% increased maximum Mana",
-	implicitModTypes = { { "mana" }, },
+	implicitModTypes = { { "resource", "mana" }, },
 	req = { level = 80, },
 }
 
@@ -172,7 +186,7 @@ itemBases["Golden Hoop"] = {
 	hidden = true,
 	tags = { default = true, ring = true, not_for_sale = true, },
 	implicit = "+(8-12) to all Attributes",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 12, },
 }
 itemBases["Jet Ring"] = {
@@ -180,6 +194,6 @@ itemBases["Jet Ring"] = {
 	hidden = true,
 	tags = { default = true, ring = true, not_for_sale = true, },
 	implicit = "(5-10)% increased Global Defences",
-	implicitModTypes = { { "defences", "jewellery_defense" }, },
+	implicitModTypes = { { "defences" }, },
 	req = { },
 }

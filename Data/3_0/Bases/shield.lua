@@ -18,7 +18,7 @@ itemBases["Corroded Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(10-20) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 23, ArmourBase = 46, MovementPenalty = 3, },
 	req = { level = 5, str = 20, },
 }
@@ -28,7 +28,7 @@ itemBases["Rawhide Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(10-20) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 26, ArmourBase = 53, MovementPenalty = 3, },
 	req = { level = 11, str = 33, },
 }
@@ -38,7 +38,7 @@ itemBases["Cedar Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 25, ArmourBase = 108, MovementPenalty = 3, },
 	req = { level = 17, str = 46, },
 }
@@ -48,7 +48,7 @@ itemBases["Copper Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(30-40) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 24, ArmourBase = 191, MovementPenalty = 3, },
 	req = { level = 24, str = 62, },
 }
@@ -58,7 +58,7 @@ itemBases["Reinforced Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(10-20) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 23, ArmourBase = 287, MovementPenalty = 3, },
 	req = { level = 30, str = 76, },
 }
@@ -68,7 +68,7 @@ itemBases["Painted Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 25, ArmourBase = 217, MovementPenalty = 3, },
 	req = { level = 35, str = 87, },
 }
@@ -78,7 +78,7 @@ itemBases["Buckskin Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(10-20) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 26, ArmourBase = 177, MovementPenalty = 3, },
 	req = { level = 39, str = 96, },
 }
@@ -88,7 +88,7 @@ itemBases["Mahogany Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 25, ArmourBase = 265, MovementPenalty = 3, },
 	req = { level = 43, str = 105, },
 }
@@ -98,7 +98,7 @@ itemBases["Bronze Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(30-40) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 24, ArmourBase = 367, MovementPenalty = 3, },
 	req = { level = 47, str = 114, },
 }
@@ -108,7 +108,7 @@ itemBases["Girded Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(10-20) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 23, ArmourBase = 481, MovementPenalty = 3, },
 	req = { level = 51, str = 123, },
 }
@@ -118,7 +118,7 @@ itemBases["Crested Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 25, ArmourBase = 338, MovementPenalty = 3, },
 	req = { level = 55, str = 132, },
 }
@@ -128,7 +128,7 @@ itemBases["Shagreen Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(10-20) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 26, ArmourBase = 261, MovementPenalty = 3, },
 	req = { level = 58, str = 139, },
 }
@@ -138,7 +138,7 @@ itemBases["Ebony Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 25, ArmourBase = 412, MovementPenalty = 3, },
 	req = { level = 61, str = 159, },
 }
@@ -148,7 +148,7 @@ itemBases["Ezomyte Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(30-40) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 24, ArmourBase = 522, MovementPenalty = 3, },
 	req = { level = 64, str = 159, },
 }
@@ -158,7 +158,7 @@ itemBases["Colossal Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(10-20) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 23, ArmourBase = 632, MovementPenalty = 3, },
 	req = { level = 67, str = 159, },
 }
@@ -168,8 +168,38 @@ itemBases["Pinnacle Tower Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { BlockChance = 25, ArmourBase = 467, MovementPenalty = 3, },
+	req = { level = 70, str = 159, },
+}
+itemBases["Exothermic Tower Shield"] = {
+	type = "Shield",
+	subType = "Armour",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, not_for_sale = true, },
+	implicit = "Scorch Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 23, ArmourBase = 125, MovementPenalty = 3, },
+	req = { level = 30, str = 76, },
+}
+itemBases["Magmatic Tower Shield"] = {
+	type = "Shield",
+	subType = "Armour",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, not_for_sale = true, },
+	implicit = "Scorch Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 23, ArmourBase = 205, MovementPenalty = 3, },
+	req = { level = 50, str = 121, },
+}
+itemBases["Heat-attuned Tower Shield"] = {
+	type = "Shield",
+	subType = "Armour",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, str_armour = true, str_shield = true, not_for_sale = true, },
+	implicit = "Scorch Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 23, ArmourBase = 440, MovementPenalty = 3, },
 	req = { level = 70, str = 159, },
 }
 
@@ -333,6 +363,36 @@ itemBases["Imperial Buckler"] = {
 	armour = { BlockChance = 25, EvasionBase = 385, MovementPenalty = 3, },
 	req = { level = 69, dex = 159, },
 }
+itemBases["Endothermic Buckler"] = {
+	type = "Shield",
+	subType = "Evasion",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, dex_armour = true, dex_shield = true, not_for_sale = true, },
+	implicit = "Inflict Brittle on Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 22, EvasionBase = 112, MovementPenalty = 3, },
+	req = { level = 30, dex = 76, },
+}
+itemBases["Polar Buckler"] = {
+	type = "Shield",
+	subType = "Evasion",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, dex_armour = true, dex_shield = true, not_for_sale = true, },
+	implicit = "Inflict Brittle on Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 22, EvasionBase = 185, MovementPenalty = 3, },
+	req = { level = 50, dex = 121, },
+}
+itemBases["Cold-attuned Buckler"] = {
+	type = "Shield",
+	subType = "Evasion",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, dex_armour = true, dex_shield = true, not_for_sale = true, },
+	implicit = "Inflict Brittle on Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 22, EvasionBase = 302, MovementPenalty = 3, },
+	req = { level = 70, dex = 159, },
+}
 
 itemBases["Twig Spirit Shield"] = {
 	type = "Shield",
@@ -340,7 +400,7 @@ itemBases["Twig Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(10-15)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 22, EnergyShieldBase = 5, MovementPenalty = 3, },
 	req = { int = 15, },
 }
@@ -350,7 +410,7 @@ itemBases["Yew Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(5-10)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 24, EnergyShieldBase = 9, MovementPenalty = 3, },
 	req = { level = 9, int = 28, },
 }
@@ -360,7 +420,7 @@ itemBases["Bone Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(15-20)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 22, EnergyShieldBase = 14, MovementPenalty = 3, },
 	req = { level = 15, int = 42, },
 }
@@ -370,7 +430,7 @@ itemBases["Tarnished Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(5-10)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 24, EnergyShieldBase = 20, MovementPenalty = 3, },
 	req = { level = 23, int = 60, },
 }
@@ -380,7 +440,7 @@ itemBases["Jingling Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(10-15)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 23, EnergyShieldBase = 24, MovementPenalty = 3, },
 	req = { level = 28, int = 71, },
 }
@@ -399,7 +459,7 @@ itemBases["Walnut Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(5-10)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 24, EnergyShieldBase = 30, MovementPenalty = 3, },
 	req = { level = 37, int = 92, },
 }
@@ -409,7 +469,7 @@ itemBases["Ivory Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(15-20)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 22, EnergyShieldBase = 33, MovementPenalty = 3, },
 	req = { level = 41, int = 100, },
 }
@@ -419,7 +479,7 @@ itemBases["Ancient Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(5-10)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 24, EnergyShieldBase = 36, MovementPenalty = 3, },
 	req = { level = 45, int = 110, },
 }
@@ -429,7 +489,7 @@ itemBases["Chiming Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(10-15)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 23, EnergyShieldBase = 39, MovementPenalty = 3, },
 	req = { level = 49, int = 118, },
 }
@@ -448,7 +508,7 @@ itemBases["Lacewood Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(5-10)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 24, EnergyShieldBase = 45, MovementPenalty = 3, },
 	req = { level = 56, int = 134, },
 }
@@ -458,7 +518,7 @@ itemBases["Fossilised Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(15-20)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 22, EnergyShieldBase = 47, MovementPenalty = 3, },
 	req = { level = 59, int = 141, },
 }
@@ -468,7 +528,7 @@ itemBases["Vaal Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(5-10)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 24, EnergyShieldBase = 53, MovementPenalty = 3, },
 	req = { level = 62, int = 159, },
 }
@@ -478,7 +538,7 @@ itemBases["Harmonic Spirit Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, },
 	implicit = "(10-15)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { BlockChance = 23, EnergyShieldBase = 55, MovementPenalty = 3, },
 	req = { level = 65, int = 159, },
 }
@@ -491,6 +551,36 @@ itemBases["Titanium Spirit Shield"] = {
 	armour = { BlockChance = 25, EnergyShieldBase = 64, MovementPenalty = 3, },
 	req = { level = 68, int = 159, },
 }
+itemBases["Exhausting Spirit Shield"] = {
+	type = "Shield",
+	subType = "Energy Shield",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, not_for_sale = true, },
+	implicit = "Sap Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 20, EnergyShieldBase = 23, MovementPenalty = 3, },
+	req = { level = 30, int = 76, },
+}
+itemBases["Subsuming Spirit Shield"] = {
+	type = "Shield",
+	subType = "Energy Shield",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, not_for_sale = true, },
+	implicit = "Sap Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 20, EnergyShieldBase = 36, MovementPenalty = 3, },
+	req = { level = 50, int = 121, },
+}
+itemBases["Transfer-attuned Spirit Shield"] = {
+	type = "Shield",
+	subType = "Energy Shield",
+	socketLimit = 3,
+	tags = { default = true, armour = true, shield = true, int_armour = true, focus = true, not_for_sale = true, },
+	implicit = "Sap Enemies when you Block their Damage",
+	implicitModTypes = { {  }, },
+	armour = { BlockChance = 20, EnergyShieldBase = 53, MovementPenalty = 3, },
+	req = { level = 70, int = 159, },
+}
 
 itemBases["Rotted Round Shield"] = {
 	type = "Shield",
@@ -498,7 +588,7 @@ itemBases["Rotted Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "60% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 23, ArmourBase = 13, EvasionBase = 13, MovementPenalty = 3, },
 	req = { level = 5, str = 10, dex = 10, },
 }
@@ -508,7 +598,7 @@ itemBases["Fir Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "180% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 23, ArmourBase = 29, EvasionBase = 29, MovementPenalty = 3, },
 	req = { level = 12, str = 19, dex = 19, },
 }
@@ -518,7 +608,7 @@ itemBases["Studded Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "60% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 26, ArmourBase = 46, EvasionBase = 46, MovementPenalty = 3, },
 	req = { level = 20, str = 28, dex = 28, },
 }
@@ -537,7 +627,7 @@ itemBases["Splendid Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "120% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 24, ArmourBase = 75, EvasionBase = 75, MovementPenalty = 3, },
 	req = { level = 33, str = 44, dex = 44, },
 }
@@ -547,7 +637,7 @@ itemBases["Maple Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "180% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 23, ArmourBase = 88, EvasionBase = 88, MovementPenalty = 3, },
 	req = { level = 39, str = 52, dex = 52, },
 }
@@ -557,7 +647,7 @@ itemBases["Spiked Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "60% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 26, ArmourBase = 102, EvasionBase = 102, MovementPenalty = 3, },
 	req = { level = 45, str = 58, dex = 58, },
 }
@@ -576,7 +666,7 @@ itemBases["Baroque Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "120% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 24, ArmourBase = 122, EvasionBase = 122, MovementPenalty = 3, },
 	req = { level = 54, str = 70, dex = 70, },
 }
@@ -586,7 +676,7 @@ itemBases["Teak Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "180% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 23, ArmourBase = 131, EvasionBase = 131, MovementPenalty = 3, },
 	req = { level = 58, str = 74, dex = 74, },
 }
@@ -596,7 +686,7 @@ itemBases["Spiny Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "60% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 26, ArmourBase = 154, EvasionBase = 154, MovementPenalty = 3, },
 	req = { level = 62, str = 85, dex = 85, },
 }
@@ -615,7 +705,7 @@ itemBases["Elegant Round Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_dex_armour = true, str_dex_shield = true, },
 	implicit = "120% increased Block Recovery",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	armour = { BlockChance = 24, ArmourBase = 148, EvasionBase = 148, MovementPenalty = 3, },
 	req = { level = 70, str = 85, dex = 85, },
 }
@@ -626,7 +716,7 @@ itemBases["Plank Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+4% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 22, ArmourBase = 18, EnergyShieldBase = 4, MovementPenalty = 3, },
 	req = { level = 7, str = 13, int = 13, },
 }
@@ -636,7 +726,7 @@ itemBases["Linden Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+4% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 24, ArmourBase = 43, EnergyShieldBase = 10, MovementPenalty = 3, },
 	req = { level = 13, str = 20, int = 20, },
 }
@@ -655,7 +745,7 @@ itemBases["Layered Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+8% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 24, ArmourBase = 62, EnergyShieldBase = 13, MovementPenalty = 3, },
 	req = { level = 27, str = 37, int = 37, },
 }
@@ -665,7 +755,7 @@ itemBases["Ceremonial Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+12% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 22, ArmourBase = 77, EnergyShieldBase = 16, MovementPenalty = 3, },
 	req = { level = 34, str = 46, int = 46, },
 }
@@ -675,7 +765,7 @@ itemBases["Etched Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+4% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 24, ArmourBase = 127, EnergyShieldBase = 25, MovementPenalty = 3, },
 	req = { level = 40, str = 52, int = 52, },
 }
@@ -694,7 +784,7 @@ itemBases["Laminated Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+8% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 24, ArmourBase = 113, EnergyShieldBase = 22, MovementPenalty = 3, },
 	req = { level = 50, str = 64, int = 64, },
 }
@@ -704,7 +794,7 @@ itemBases["Angelic Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+12% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 22, ArmourBase = 124, EnergyShieldBase = 24, MovementPenalty = 3, },
 	req = { level = 55, str = 70, int = 70, },
 }
@@ -714,7 +804,7 @@ itemBases["Branded Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+4% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 24, ArmourBase = 186, EnergyShieldBase = 36, MovementPenalty = 3, },
 	req = { level = 59, str = 76, int = 76, },
 }
@@ -733,7 +823,7 @@ itemBases["Mosaic Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+8% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 24, ArmourBase = 147, EnergyShieldBase = 28, MovementPenalty = 3, },
 	req = { level = 65, str = 85, int = 85, },
 }
@@ -743,7 +833,7 @@ itemBases["Archon Kite Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, str_int_armour = true, str_int_shield = true, },
 	implicit = "+12% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { BlockChance = 22, ArmourBase = 156, EnergyShieldBase = 30, MovementPenalty = 3, },
 	req = { level = 68, str = 85, int = 85, },
 }
@@ -754,7 +844,7 @@ itemBases["Spiked Bundle"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "2% chance to Dodge Attack Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 24, EvasionBase = 13, EnergyShieldBase = 4, MovementPenalty = 3, },
 	req = { level = 5, dex = 10, int = 10, },
 }
@@ -764,7 +854,7 @@ itemBases["Driftwood Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "2% chance to Dodge Attack Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 24, EvasionBase = 46, EnergyShieldBase = 10, MovementPenalty = 3, },
 	req = { level = 12, dex = 19, int = 19, },
 }
@@ -774,7 +864,7 @@ itemBases["Alloyed Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "2% chance to Dodge Spell Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 25, EvasionBase = 56, EnergyShieldBase = 12, MovementPenalty = 3, },
 	req = { level = 20, dex = 28, int = 28, },
 }
@@ -784,7 +874,7 @@ itemBases["Burnished Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "4% chance to Dodge Attack Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 26, EvasionBase = 62, EnergyShieldBase = 13, MovementPenalty = 3, },
 	req = { level = 27, dex = 37, int = 37, },
 }
@@ -794,7 +884,7 @@ itemBases["Ornate Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "4% chance to Dodge Spell Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 24, EvasionBase = 120, EnergyShieldBase = 24, MovementPenalty = 3, },
 	req = { level = 33, dex = 44, int = 44, },
 }
@@ -804,7 +894,7 @@ itemBases["Redwood Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "2% chance to Dodge Attack Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 24, EvasionBase = 142, EnergyShieldBase = 28, MovementPenalty = 3, },
 	req = { level = 39, dex = 52, int = 52, },
 }
@@ -814,7 +904,7 @@ itemBases["Compound Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "2% chance to Dodge Spell Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 25, EvasionBase = 122, EnergyShieldBase = 24, MovementPenalty = 3, },
 	req = { level = 45, dex = 58, int = 58, },
 }
@@ -824,7 +914,7 @@ itemBases["Polished Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "4% chance to Dodge Attack Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 26, EvasionBase = 111, EnergyShieldBase = 22, MovementPenalty = 3, },
 	req = { level = 49, dex = 64, int = 64, },
 }
@@ -834,7 +924,7 @@ itemBases["Sovereign Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "4% chance to Dodge Spell Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 24, EvasionBase = 195, EnergyShieldBase = 38, MovementPenalty = 3, },
 	req = { level = 54, dex = 70, int = 70, },
 }
@@ -844,7 +934,7 @@ itemBases["Alder Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "2% chance to Dodge Attack Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 24, EvasionBase = 209, EnergyShieldBase = 41, MovementPenalty = 3, },
 	req = { level = 58, dex = 74, int = 74, },
 }
@@ -854,7 +944,7 @@ itemBases["Ezomyte Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "2% chance to Dodge Spell Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 25, EvasionBase = 181, EnergyShieldBase = 35, MovementPenalty = 3, },
 	req = { level = 62, dex = 85, int = 85, },
 }
@@ -864,7 +954,7 @@ itemBases["Mirrored Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "4% chance to Dodge Attack Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 26, EvasionBase = 151, EnergyShieldBase = 29, MovementPenalty = 3, },
 	req = { level = 66, dex = 85, int = 85, },
 }
@@ -874,7 +964,7 @@ itemBases["Supreme Spiked Shield"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
 	implicit = "4% chance to Dodge Spell Hits",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "dodge" }, },
 	armour = { BlockChance = 24, EvasionBase = 242, EnergyShieldBase = 47, MovementPenalty = 3, },
 	req = { level = 70, dex = 85, int = 85, },
 }
@@ -885,7 +975,7 @@ itemBases["Golden Flame"] = {
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, not_for_sale = true, },
 	implicit = "+(11-19)% to Chaos Resistance",
-	implicitModTypes = { { "chaos", "jewellery_resistance" }, },
+	implicitModTypes = { { "chaos", "resistance" }, },
 	armour = { BlockChance = 20, MovementPenalty = 3, },
 	req = { level = 15, },
 }

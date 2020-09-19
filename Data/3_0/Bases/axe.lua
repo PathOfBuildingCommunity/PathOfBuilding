@@ -71,7 +71,7 @@ itemBases["Etched Hatchet"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "8% increased Global Physical Damage",
-	implicitModTypes = { { "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
 	weapon = { PhysicalMin = 26, PhysicalMax = 46, CritChanceBase = 5, AttackRateBase = 1.35, Range = 11, },
 	req = { level = 35, str = 93, dex = 43, },
 }
@@ -136,7 +136,7 @@ itemBases["Engraved Hatchet"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "8% increased Global Physical Damage",
-	implicitModTypes = { { "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
 	weapon = { PhysicalMin = 40, PhysicalMax = 71, CritChanceBase = 5, AttackRateBase = 1.35, Range = 11, },
 	req = { level = 56, str = 143, dex = 66, },
 }
@@ -201,9 +201,36 @@ itemBases["Runic Hatchet"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "12% increased Global Physical Damage",
-	implicitModTypes = { { "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
 	weapon = { PhysicalMin = 44, PhysicalMax = 79, CritChanceBase = 5, AttackRateBase = 1.35, Range = 11, },
 	req = { level = 71, str = 163, dex = 82, },
+}
+itemBases["Maltreatment Axe"] = {
+	type = "One Handed Axe",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "+10 to Maximum Rage",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 44, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	req = { level = 30, str = 78, dex = 34, },
+}
+itemBases["Disapprobation Axe"] = {
+	type = "One Handed Axe",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "+10 to Maximum Rage",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 32, PhysicalMax = 67, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	req = { level = 50, str = 124, dex = 54, },
+}
+itemBases["Psychotic Axe"] = {
+	type = "One Handed Axe",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "+10 to Maximum Rage",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 38, PhysicalMax = 79, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	req = { level = 70, str = 163, dex = 84, },
 }
 
 itemBases["Stone Axe"] = {
@@ -341,7 +368,7 @@ itemBases["Sundering Axe"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, axe = true, two_hand_weapon = true, },
 	implicit = "+20% to Damage over Time Multiplier for Bleeding",
-	implicitModTypes = { { "bleed" }, },
+	implicitModTypes = { { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, },
 	weapon = { PhysicalMin = 74, PhysicalMax = 155, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 60, str = 149, dex = 76, },
 }
@@ -358,7 +385,7 @@ itemBases["Vaal Axe"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, axe = true, two_hand_weapon = true, },
 	implicit = "25% chance to Maim on Hit",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 104, PhysicalMax = 174, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 64, str = 158, dex = 76, },
 }
@@ -386,4 +413,31 @@ itemBases["Fleshripper"] = {
 	implicitModTypes = { { "attack", "critical" }, },
 	weapon = { PhysicalMin = 97, PhysicalMax = 152, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 70, str = 156, dex = 84, },
+}
+itemBases["Prime Cleaver"] = {
+	type = "Two Handed Axe",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, axe = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "20% to Maximum Quality",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 36, PhysicalMax = 56, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	req = { level = 30, },
+}
+itemBases["Honed Cleaver"] = {
+	type = "Two Handed Axe",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, axe = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "20% to Maximum Quality",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 55, PhysicalMax = 86, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	req = { level = 50, },
+}
+itemBases["Apex Cleaver"] = {
+	type = "Two Handed Axe",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, axe = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "20% to Maximum Quality",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 65, PhysicalMax = 101, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
+	req = { level = 70, },
 }

@@ -20,7 +20,15 @@ skills["SupportAddedColdDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "cold_damage_+%", 0.5 },
+		Default = {
+			{ "cold_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_cold", 1 },
+		},
 	},
 	stats = {
 		"global_minimum_added_cold_damage",
@@ -77,7 +85,7 @@ skills["SupportAddedColdDamagePlus"] = {
 	requireSkillTypes = { SkillType.Attack, SkillType.Hit, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportAddedColdDamage",
+	plusVersionOf = "SupportArrowNova",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_cold_skill_gem_level_+"] = {
@@ -87,7 +95,9 @@ skills["SupportAddedColdDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "cold_damage_+%", 0.5 },
+		Default = {
+			{ "cold_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"global_minimum_added_cold_damage",
@@ -122,14 +132,22 @@ skills["SupportAdditionalAccuracy"] = {
 	description = "Supports attack skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Attack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Attack, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "accuracy_rating_+%", 1 },
+		Default = {
+			{ "accuracy_rating_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_critical_strike_multiplier_+", 1 },
+		},
+		Alternate2 = {
+			{ "attack_damage_+%_per_1000_accuracy_rating", 0.2 },
+		},
 	},
 	stats = {
 		"accuracy_rating",
@@ -182,9 +200,9 @@ skills["SupportArrowNova"] = {
 	description = "Supports bow attack skills that fire arrows forwards as projectiles. These skills will instead fire a payload arrow into the air to land at a targeted location. The supported skills' arrows will then fire out in a circle from where it lands. Cannot support skills that already fire arrows into the air, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.OR, SkillType.ProjectileAttack, SkillType.Type56, SkillType.OR, SkillType.AND, SkillType.SkillCanVolley, SkillType.AND, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.AreaSpell, SkillType.Type46, SkillType.Type55, SkillType.AreaSpell, SkillType.OR, SkillType.SpellCanCascade, SkillType.OR, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Type83, },
+	excludeSkillTypes = { SkillType.Type56, SkillType.Maims, SkillType.CanHaveBlessing, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -195,7 +213,18 @@ skills["SupportArrowNova"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", -2 },
+		},
+		Alternate2 = {
+			{ "damage_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -253,9 +282,9 @@ skills["SupportArrowNovaPlus"] = {
 	description = "Supports bow attack skills that fire arrows forwards as projectiles. These skills will instead fire a payload arrow into the air to land at a targeted location. The supported skills' arrows will then fire out in a circle from where it lands. Cannot support skills that already fire arrows into the air, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.OR, SkillType.ProjectileAttack, SkillType.Type56, SkillType.OR, SkillType.AND, SkillType.SkillCanVolley, SkillType.AND, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.AreaSpell, SkillType.Type46, SkillType.Type55, SkillType.AreaSpell, SkillType.OR, SkillType.SpellCanCascade, SkillType.OR, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Type83, },
+	excludeSkillTypes = { SkillType.Type56, SkillType.Maims, SkillType.CanHaveBlessing, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportArrowNova",
 	statDescriptionScope = "gem_stat_descriptions",
@@ -267,7 +296,9 @@ skills["SupportArrowNovaPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 1 },
+		Default = {
+			{ "attack_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -305,9 +336,9 @@ skills["SupportBarrage"] = {
 	description = "Supports projectile attack skills that use bows or wands. Cannot support triggered skills, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.OR, SkillType.Type73, SkillType.OR, SkillType.ProjectileAttack, SkillType.Type56, SkillType.OR, SkillType.AND, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.AreaSpell, SkillType.Type72, SkillType.AreaSpell, SkillType.Type46, SkillType.Type55, SkillType.AreaSpell, SkillType.OR, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
+	excludeSkillTypes = { SkillType.Type56, SkillType.Maims, SkillType.Mine, SkillType.Type59, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	weaponTypes = {
@@ -328,7 +359,15 @@ skills["SupportBarrage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "barrage_support_projectile_spread_+%", 5 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -393,7 +432,15 @@ skills["SupportBlind"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "blind_duration_+%", 1 },
+		Default = {
+			{ "blind_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "global_chance_to_blind_on_hit_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "critical_strike_chance_+%_vs_blinded_enemies", 2 },
+		},
 	},
 	stats = {
 		"global_chance_to_blind_on_hit_%",
@@ -454,7 +501,12 @@ skills["SupportBlockReduction"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "global_reduce_enemy_block_%", 0.25 },
+		Default = {
+			{ "global_reduce_enemy_block_%", 0.25 },
+		},
+		Alternate1 = {
+			{ "overpowered_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"support_reduce_enemy_block_and_spell_block_%",
@@ -512,13 +564,21 @@ skills["SupportCastOnCrit"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Attack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.ManaCostReserved, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_critical_strike_chance_+%", 1 },
+		Default = {
+			{ "attack_critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "support_cast_on_crit_quality_attack_damage_+%_final", 1 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"cast_linked_spells_on_attack_crit_%",
@@ -571,9 +631,9 @@ skills["SupportCastOnCritTriggered"] = {
 	description = "Must support both an attack skill and a spell skill to work. The attack skill will trigger a spell when it critically strikes an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills that reserve mana cannot be triggered.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
+	requireSkillTypes = { SkillType.Spell, SkillType.LightningSkill, SkillType.OR, },
+	addSkillTypes = { SkillType.Mine, SkillType.Type95, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.ManaCostReserved, SkillType.Type59, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -585,7 +645,15 @@ skills["SupportCastOnCritTriggered"] = {
 		skill("showAverage", true),
 	},
 	qualityStats = {
-		{ "spell_critical_strike_chance_+%", 1 },
+		Default = {
+			{ "spell_critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"support_cast_on_crit_spell_damage_+%_final",
@@ -643,14 +711,16 @@ skills["SupportCastOnCritPlus"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Attack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.ManaCostReserved, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCastOnCrit",
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_critical_strike_chance_+%", 1 },
+		Default = {
+			{ "attack_critical_strike_chance_+%", 1 },
+		},
 	},
 	stats = {
 		"cast_linked_spells_on_attack_crit_%",
@@ -683,9 +753,9 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 	description = "Must support both an attack skill and a spell skill to work. The attack skill will trigger a spell when it critically strikes an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills that reserve mana cannot be triggered.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
+	requireSkillTypes = { SkillType.Spell, SkillType.LightningSkill, SkillType.OR, },
+	addSkillTypes = { SkillType.Mine, SkillType.Type95, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.ManaCostReserved, SkillType.Type59, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCastOnCritTriggered",
 	statDescriptionScope = "gem_stat_descriptions",
@@ -698,7 +768,9 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 		skill("showAverage", true),
 	},
 	qualityStats = {
-		{ "spell_critical_strike_chance_+%", 1 },
+		Default = {
+			{ "spell_critical_strike_chance_+%", 1 },
+		},
 	},
 	stats = {
 		"support_cast_on_crit_spell_damage_+%_final",
@@ -735,9 +807,9 @@ skills["SupportCastOnDeath"] = {
 	description = "Each supported spell skill will be triggered when you die. Cannot support skills used by totems, traps, or mines. Vaal skills, channelling skills, and skills that reserve mana cannot be triggered.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, },
-	excludeSkillTypes = { SkillType.Minion, SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
+	requireSkillTypes = { SkillType.Spell, SkillType.LightningSkill, SkillType.OR, },
+	addSkillTypes = { SkillType.Mine, },
+	excludeSkillTypes = { SkillType.Minion, SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.Vaal, SkillType.Type59, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["area_of_effect_+%_while_dead"] = {
@@ -750,7 +822,15 @@ skills["SupportCastOnDeath"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "area_of_effect_+%_while_dead", 3 },
+		Default = {
+			{ "area_of_effect_+%_while_dead", 3 },
+		},
+		Alternate1 = {
+			{ "additional_critical_strike_chance_permyriad_while_dead", 500 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%_while_dead", 3 },
+		},
 	},
 	stats = {
 		"cast_on_death_%",
@@ -807,7 +887,7 @@ skills["SupportChain"] = {
 	description = "Supports projectile skills, and any other skills that chain.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Chaining, SkillType.Projectile, SkillType.Type54, SkillType.Type56, SkillType.Type97, },
+	requireSkillTypes = { SkillType.Chaining, SkillType.Projectile, SkillType.Type53, SkillType.Type55, SkillType.Type96, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -819,7 +899,15 @@ skills["SupportChain"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_projectile_speed_+%", 1 },
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "chaining_range_+%", 1 },
+		},
+		Alternate2 = {
+			{ "projectile_chance_to_not_pierce_%", 4 },
+		},
 	},
 	stats = {
 		"number_of_chains",
@@ -874,7 +962,7 @@ skills["SupportChainPlus"] = {
 	description = "Supports projectile skills, and any other skills that chain.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Chaining, SkillType.Projectile, SkillType.Type54, SkillType.Type56, SkillType.Type97, },
+	requireSkillTypes = { SkillType.Chaining, SkillType.Projectile, SkillType.Type53, SkillType.Type55, SkillType.Type96, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportChain",
@@ -887,8 +975,12 @@ skills["SupportChainPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_projectile_speed_+%", 1 },
-		{ "attack_and_cast_speed_+%", 0.5 },
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Default = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"number_of_chains",
@@ -930,7 +1022,12 @@ skills["SupportChanceToFlee"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "global_hit_causes_monster_flee_%", 1 },
+		Default = {
+			{ "global_hit_causes_monster_flee_%", 0.005 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", -0.0025 },
+		},
 	},
 	stats = {
 		"global_hit_causes_monster_flee_%",
@@ -983,14 +1080,25 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 	description = "Supports skills which throw traps.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Trap, },
+	requireSkillTypes = { SkillType.Triggerable, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "trap_damage_+%", 0.5 },
+		Default = {
+			{ "trap_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy", 0.5 },
+		},
+		Alternate1 = {
+			{ "%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy", 0.5 },
+		},
+		Alternate2 = {
+			{ "trap_trigger_radius_+%_per_power_charge", 0.5 },
+		},
 	},
 	stats = {
 		"%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy",
@@ -1048,13 +1156,21 @@ skills["SupportSlashingWeapon"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { SkillType.Duration, SkillType.Buff, },
-	excludeSkillTypes = { SkillType.CreatesMinion, },
+	excludeSkillTypes = { SkillType.Maims, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "melee_damage_+%", 0.5 },
+		Default = {
+			{ "melee_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "combat_rush_effect_+%", 2 },
+		},
+		Alternate2 = {
+			{ "close_combat_damage_to_close_range_+%", 1 },
+		},
 	},
 	stats = {
 		"support_slashing_damage_+%_final_from_distance",
@@ -1111,7 +1227,7 @@ skills["SupportClusterTrap"] = {
 	description = "Supports traps skills, making them throw extra traps randomly around the targeted location.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Trap, },
+	requireSkillTypes = { SkillType.Triggerable, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1123,7 +1239,15 @@ skills["SupportClusterTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "trap_damage_+%", 0.5 },
+		Default = {
+			{ "trap_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "trap_throwing_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "trap_spread_+%", -2 },
+		},
 	},
 	stats = {
 		"number_of_additional_traps_to_throw",
@@ -1187,7 +1311,15 @@ skills["SupportColdPenetration"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "cold_damage_+%", 0.5 },
+		Default = {
+			{ "cold_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_chance_to_freeze_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "cold_ailment_effect_+%", 1 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
@@ -1248,7 +1380,9 @@ skills["SupportColdPenetrationPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "cold_damage_+%", 1 },
+		Default = {
+			{ "cold_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
@@ -1288,8 +1422,18 @@ skills["SupportCullingStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
-		{ "base_cast_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_vs_enemies_on_low_life_+%", 3 },
+		},
+		Alternate2 = {
+			{ "recover_%_maximum_life_on_cull", 0.1 },
+		},
 	},
 	stats = {
 		"kill_enemy_on_hit_if_under_10%_life",
@@ -1360,7 +1504,18 @@ skills["SupportDeadlyAilments"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_over_time_+%", 0.5 },
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_all_ailment_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "dot_multiplier_+", 0.5 },
+		},
+		Alternate2 = {
+			{ "support_better_ailments_hit_damage_+%_final", -3 },
+		},
 	},
 	stats = {
 		"support_better_ailments_ailment_damage_+%_final",
@@ -1430,7 +1585,9 @@ skills["SupportDeadlyAilmentsPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_over_time_+%", 0.5 },
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_better_ailments_ailment_damage_+%_final",
@@ -1478,7 +1635,12 @@ skills["SupportAdditionalQuality"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "local_gem_experience_gain_+%", 5 },
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+		Alternate1 = {
+			{ "local_gem_dex_requirement_+%", -3 },
+		},
 	},
 	stats = {
 		"supported_active_skill_gem_quality_%",
@@ -1501,14 +1663,22 @@ skills["SupportFasterAttack"] = {
 	description = "Supports attack skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Attack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Attack, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "faster_bleed_%", 0.5 },
+		},
 	},
 	stats = {
 		"attack_speed_+%",
@@ -1561,15 +1731,28 @@ skills["SupportFasterProjectiles"] = {
 	description = "Supports projectile skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.ProjectileDamage, SkillType.Type54, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.ProjectileDamage, SkillType.Type53, SkillType.Type55, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Type51, },
+	excludeSkillTypes = { SkillType.ChaosSkill, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
-		{ "base_cast_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectiles_chance_to_return_%", 3 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "projectile_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_projectile_speed_+%",
@@ -1623,7 +1806,7 @@ skills["SupportFork"] = {
 	description = "Supports projectile skills, making their projectiles fork into two projectiles the first time they hit an enemy and don't pierce it.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1635,7 +1818,15 @@ skills["SupportFork"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 0.5 },
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chance_to_fork_extra_projectile_%", 1 },
+		},
+		Alternate2 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.05 },
+		},
 	},
 	stats = {
 		"support_fork_projectile_damage_+%_final",
@@ -1690,7 +1881,7 @@ skills["SupportForkPlus"] = {
 	description = "Supports projectile skills, making their projectiles fork into two projectiles the first two times they hit an enemy and don't pierce it.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportFork",
@@ -1703,7 +1894,9 @@ skills["SupportForkPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 1 },
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_forks_base",
@@ -1739,7 +1932,7 @@ skills["SupportGreaterMultipleProjectiles"] = {
 	description = "Supports projectile skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.Type56, SkillType.Type73, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.Type55, SkillType.Type72, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1751,8 +1944,21 @@ skills["SupportGreaterMultipleProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
-		{ "base_cast_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_mana_cost_-%", 1 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "multiple_projectiles_projectile_spread_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -1808,7 +2014,7 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 	description = "Supports projectile skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.Type56, SkillType.Type73, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.Type55, SkillType.Type72, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportGreaterMultipleProjectiles",
@@ -1821,8 +2027,12 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 1 },
-		{ "base_cast_speed_+%", 1 },
+		Default = {
+			{ "attack_speed_+%", 1 },
+		},
+		Default = {
+			{ "base_cast_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -1858,9 +2068,9 @@ skills["SupportGreaterVolley"] = {
 	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.SkillCanVolley, },
+	requireSkillTypes = { SkillType.SpellCanCascade, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Type70, SkillType.Type71, SkillType.Type83, },
+	excludeSkillTypes = { SkillType.SkillCanMirageArcher, SkillType.Type70, SkillType.CanHaveBlessing, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_greater_volley_projectile_damage_+%_final"] = {
@@ -1870,7 +2080,15 @@ skills["SupportGreaterVolley"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 1 },
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "parallel_projectile_firing_point_x_dist_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"support_parallel_projectile_number_of_points_per_side",
@@ -1927,7 +2145,7 @@ skills["SupportDamageAgainstChilled"] = {
 	description = "Supports any skill that deals damage.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.DamageOverTime, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.MovementSkill, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1942,7 +2160,15 @@ skills["SupportDamageAgainstChilled"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "chill_duration_+%", 1.5 },
+		Default = {
+			{ "chill_duration_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "additional_chance_to_freeze_chilled_enemies_%", 1 },
+		},
+		Alternate2 = {
+			{ "freeze_applies_cold_resistance_+", -0.2 },
+		},
 	},
 	stats = {
 		"support_hypothermia_damage_+%_vs_chilled_enemies_final",
@@ -2010,7 +2236,15 @@ skills["SupportImpale"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "impale_debuff_effect_+%", 0.5 },
+		Default = {
+			{ "impale_debuff_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attacks_impale_on_hit_%_chance", 0.5 },
+		},
+		Alternate2 = {
+			{ "chance_to_inflict_additional_impale_%", 0.25 },
+		},
 	},
 	stats = {
 		"attacks_impale_on_hit_%_chance",
@@ -2070,12 +2304,20 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Hit, SkillType.Attack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_+%_vs_frozen_enemies", 1 },
+		Default = {
+			{ "damage_+%_vs_frozen_enemies", 1 },
+		},
+		Alternate1 = {
+			{ "damage_+%_per_frenzy_charge", 0.1 },
+		},
+		Alternate2 = {
+			{ "chance_to_gain_frenzy_charge_on_killing_frozen_enemy_%", 1 },
+		},
 	},
 	stats = {
 		"chance_to_gain_frenzy_charge_on_killing_frozen_enemy_%",
@@ -2133,7 +2375,7 @@ skills["SupportLesserMultipleProjectiles"] = {
 	description = "Supports projectile skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.Type56, SkillType.Type73, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.Type55, SkillType.Type72, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2145,8 +2387,21 @@ skills["SupportLesserMultipleProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
-		{ "base_cast_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_mana_cost_-%", 1 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "multiple_projectiles_projectile_spread_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -2211,7 +2466,15 @@ skills["SupportLesserPoison"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_poison_damage_+%", 0.5 },
+		Default = {
+			{ "base_poison_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "gain_frenzy_charge_on_kill_vs_enemies_with_5+_poisons_%", 0.2 },
+		},
+		Alternate2 = {
+			{ "hit_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"global_minimum_added_chaos_damage",
@@ -2273,7 +2536,15 @@ skills["SupportManaLeech"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_+%_while_mana_leeching", 0.5 },
+		Default = {
+			{ "damage_+%_while_mana_leeching", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%_per_200_mana_spent_recently", 0.5 },
+		},
+		Alternate2 = {
+			{ "mana_gain_per_target", 0.2 },
+		},
 	},
 	stats = {
 		"attack_skill_mana_leech_from_any_damage_permyriad",
@@ -2326,15 +2597,26 @@ skills["SupportGemMirageArcher"] = {
 	description = "Supports attack skills that can be used with bows. Supported skills can only be used with bows. Cannot support Vaal skills, minion skills, movement skills, or skills used by totems, traps, or mines.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.SkillCanMirageArcher, },
+	requireSkillTypes = { SkillType.SkillCanVolley, },
 	addSkillTypes = { SkillType.Duration, },
-	excludeSkillTypes = { SkillType.Vaal, SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Minion, },
+	excludeSkillTypes = { SkillType.Triggered, SkillType.Totem, SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Minion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_damage_+%", 0.5 },
+		Default = {
+			{ "attack_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "mirage_archer_number_of_additional_projectiles", 0.1 },
+		},
+		Alternate1 = {
+			{ "support_mirage_archer_base_duration", -100 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
 	},
 	stats = {
 		"support_mirage_archer_base_duration",
@@ -2393,7 +2675,7 @@ skills["SupportMultiTrap"] = {
 	description = "Supports traps skills, making them throw extra traps in a line.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Trap, },
+	requireSkillTypes = { SkillType.Triggerable, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2405,7 +2687,15 @@ skills["SupportMultiTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "trap_trigger_radius_+%", 1 },
+		Default = {
+			{ "trap_trigger_radius_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_traps_allowed", 0.1 },
+		},
+		Alternate2 = {
+			{ "support_additional_trap_%_chance_for_1_additional_trap", 0.2 },
+		},
 	},
 	stats = {
 		"number_of_additional_traps_to_throw",
@@ -2463,7 +2753,7 @@ skills["SupportPuncturingWeapon"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Attack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.CreatesMinion, },
+	excludeSkillTypes = { SkillType.Maims, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -2476,7 +2766,15 @@ skills["SupportPuncturingWeapon"] = {
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
 	},
 	qualityStats = {
-		{ "critical_strike_chance_+%", 1 },
+		Default = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "elusive_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "critical_strike_chance_against_enemies_on_full_life_+%", 5 },
+		},
 	},
 	stats = {
 		"gain_elusive_on_crit_%_chance",
@@ -2540,7 +2838,15 @@ skills["SupportOnslaught"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_and_cast_speed_+%", 0.5 },
+		Default = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "onslaught_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "attack_and_cast_speed_+%_during_onslaught", 1 },
+		},
 	},
 	stats = {
 		"support_scion_onslaught_on_killing_blow_%_chance",
@@ -2595,7 +2901,7 @@ skills["SupportPierce"] = {
 	description = "Supports projectile skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type53, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2607,7 +2913,15 @@ skills["SupportPierce"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 0.5 },
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "projectile_damage_+%_if_pierced_enemy", 2 },
+		},
 	},
 	stats = {
 		"projectile_base_number_of_targets_to_pierce",
@@ -2661,7 +2975,7 @@ skills["SupportPointBlank"] = {
 	description = "Supports projectile skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Type46, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2673,7 +2987,15 @@ skills["SupportPointBlank"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 0.5 },
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "knockback_chance_%_at_close_range", 2 },
+		},
+		Alternate2 = {
+			{ "projectiles_pierce_all_targets_in_x_range", 1 },
+		},
 	},
 	stats = {
 		"keystone_point_blank",
@@ -2739,7 +3061,15 @@ skills["SupportPoison"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_poison_damage_+%", 0.5 },
+		Default = {
+			{ "base_poison_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_chance_to_poison_on_hit_%", 1 },
+		},
+		Alternate2 = {
+			{ "faster_poison_%", 0.5 },
+		},
 	},
 	stats = {
 		"base_chance_to_poison_on_hit_%",
@@ -2793,14 +3123,25 @@ skills["SupportAdditionalCooldown"] = {
 	description = "Supports skills with cooldowns.\nCannot support triggered skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Type96, },
+	requireSkillTypes = { SkillType.Type95, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Mine, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_cooldown_speed_+%", 0.25 },
+		Default = {
+			{ "base_cooldown_speed_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "support_added_cooldown_count_if_not_instant", 0.05 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", -0.5 },
+		},
+		Alternate2 = {
+			{ "regenerate_%_life_over_1_second_on_cast", 0.05 },
+		},
 	},
 	stats = {
 		"support_added_cooldown_count_if_not_instant",
@@ -2854,9 +3195,9 @@ skills["SupportSlowerProjectiles"] = {
 	description = "Supports projectile skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.ProjectileDamage, SkillType.Type54, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.ProjectileDamage, SkillType.Type53, SkillType.Type55, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Type51, },
+	excludeSkillTypes = { SkillType.ChaosSkill, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_slower_projectiles_projectile_speed_+%_final"] = {
@@ -2869,7 +3210,15 @@ skills["SupportSlowerProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 0.5 },
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectiles_damage_+%_to_nearby_targets", 0.75 },
+		},
+		Alternate2 = {
+			{ "projectile_chance_to_not_pierce_%", 3 },
+		},
 	},
 	stats = {
 		"support_slower_projectiles_projectile_speed_+%_final",
@@ -2923,7 +3272,7 @@ skills["SupportRapidDecay"] = {
 	description = "Supports any skill that has a duration, or can hit enemies to inflict ailments on them.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Duration, SkillType.Type55, SkillType.Hit, SkillType.Attack, },
+	requireSkillTypes = { SkillType.Duration, SkillType.Type54, SkillType.Hit, SkillType.Attack, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2935,7 +3284,18 @@ skills["SupportRapidDecay"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_over_time_+%", 0.5 },
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "you_and_enemy_movement_velocity_+%_while_affected_by_ailment_you_inflicted", 1 },
+		},
 	},
 	stats = {
 		"support_rapid_decay_damage_over_time_+%_final",
@@ -2989,7 +3349,7 @@ skills["SupportSwiftAfflictionPlus"] = {
 	description = "Supports any skill that has a duration, or can hit enemies to inflict ailments on them.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Duration, SkillType.Type55, SkillType.Hit, SkillType.Attack, },
+	requireSkillTypes = { SkillType.Duration, SkillType.Type54, SkillType.Hit, SkillType.Attack, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportRapidDecay",
@@ -3002,8 +3362,12 @@ skills["SupportSwiftAfflictionPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_over_time_+%", 0.5 },
-		{ "dot_multiplier_+", 0.5 },
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
+		Default = {
+			{ "dot_multiplier_+", 0.5 },
+		},
 	},
 	stats = {
 		"support_rapid_decay_damage_over_time_+%_final",
@@ -3037,15 +3401,28 @@ skills["SupportAdditionalTrapMine"] = {
 	description = "Supports skills which throw Traps or Mines.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Trap, SkillType.Mine, },
+	requireSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "mine_laying_speed_+%", 0.5 },
-		{ "trap_throwing_speed_+%", 0.5 },
+		Default = {
+			{ "mine_laying_speed_+%", 0.5 },
+		},
+		Default = {
+			{ "trap_throwing_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "trap_duration_+%", -2 },
+		},
+		Alternate2 = {
+			{ "trap_throwing_speed_+%_per_frenzy_charge", 0.1 },
+		},
+		Alternate2 = {
+			{ "mine_throwing_speed_+%_per_frenzy_charge", 0.1 },
+		},
 	},
 	stats = {
 		"support_additional_trap_mine_%_chance_for_1_additional_trap_mine",
@@ -3103,8 +3480,8 @@ skills["SupportTrap"] = {
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.SkillCanTrap, },
-	addSkillTypes = { SkillType.Trap, },
-	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, SkillType.ManaCostReserved, SkillType.Mine, SkillType.NOT, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggerable, },
+	excludeSkillTypes = { SkillType.Type59, SkillType.ManaCostReserved, SkillType.DamageOverTime, SkillType.AND, SkillType.OR, },
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
 		trap = true,
@@ -3117,7 +3494,15 @@ skills["SupportTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "trap_throwing_speed_+%", 0.5 },
+		Default = {
+			{ "trap_throwing_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "trap_trigger_radius_+%", 1 },
+		},
 	},
 	stats = {
 		"is_trap",
@@ -3176,14 +3561,22 @@ skills["SupportTrapCooldown"] = {
 	description = "Supports skills which throw traps.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Trap, },
+	requireSkillTypes = { SkillType.Triggerable, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "trap_damage_+%", 0.5 },
+		Default = {
+			{ "trap_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
 	},
 	stats = {
 		"placing_traps_cooldown_recovery_+%",
@@ -3239,7 +3632,7 @@ skills["SupportTrapAndMineDamage"] = {
 	description = "Supports skills which throw Traps or Mines.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Trap, SkillType.Mine, },
+	requireSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -3251,7 +3644,18 @@ skills["SupportTrapAndMineDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_+%", 0.5 },
+		Default = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_mana_cost_-%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_mana_reservation_+%", -0.5 },
+		},
+		Alternate2 = {
+			{ "damage_+%_per_power_charge", 0.1 },
+		},
 	},
 	stats = {
 		"support_trap_and_mine_damage_+%_final",
@@ -3306,7 +3710,7 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 	description = "Supports projectile attack skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Type46, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -3327,7 +3731,18 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "physical_damage_+%", 0.5 },
+		Default = {
+			{ "physical_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "bleed_on_hit_with_attacks_%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_chance_to_poison_on_hit_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "attacks_impale_on_hit_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"support_projectile_attack_physical_damage_+%_final",
@@ -3383,7 +3798,7 @@ skills["SupportViciousProjectilesPlus"] = {
 	description = "Supports projectile attack skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Type46, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportPhysicalProjectileAttackDamage",
@@ -3405,7 +3820,9 @@ skills["SupportViciousProjectilesPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "physical_damage_+%", 1 },
+		Default = {
+			{ "physical_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"support_projectile_attack_physical_damage_+%_final",
@@ -3459,7 +3876,15 @@ skills["SupportDebilitate"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_poison_damage_+%", 1 },
+		Default = {
+			{ "base_poison_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_poison_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "faster_poison_%", 0.25 },
+		},
 	},
 	stats = {
 		"support_debilitate_poison_damage_+%_final",
@@ -3514,7 +3939,7 @@ skills["SupportVoidManipulation"] = {
 	description = "Supports any skill that deals damage.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.DamageOverTime, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.MovementSkill, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -3526,7 +3951,18 @@ skills["SupportVoidManipulation"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "chaos_damage_+%", 0.5 },
+		Default = {
+			{ "chaos_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_life_leech_from_chaos_damage_permyriad", 2 },
+		},
 	},
 	stats = {
 		"support_void_manipulation_chaos_damage_+%_final",
@@ -3580,7 +4016,7 @@ skills["SupportVoidManipulationPlus"] = {
 	description = "Supports any skill that deals damage.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.DamageOverTime, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.MovementSkill, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportVoidManipulation",
@@ -3593,7 +4029,9 @@ skills["SupportVoidManipulationPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "chaos_damage_+%", 1 },
+		Default = {
+			{ "chaos_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"support_void_manipulation_chaos_damage_+%_final",
@@ -3627,9 +4065,9 @@ skills["SupportParallelProjectiles"] = {
 	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.SkillCanVolley, },
+	requireSkillTypes = { SkillType.SpellCanCascade, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Type70, SkillType.Type71, SkillType.Type83, },
+	excludeSkillTypes = { SkillType.SkillCanMirageArcher, SkillType.Type70, SkillType.CanHaveBlessing, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_parallel_projectiles_damage_+%_final"] = {
@@ -3639,7 +4077,15 @@ skills["SupportParallelProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 1 },
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "parallel_projectile_firing_point_x_dist_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_parallel_projectile_number_of_points_per_side",
@@ -3707,7 +4153,15 @@ skills["SupportChaosAttacks"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "chaos_damage_+%", 0.5 },
+		Default = {
+			{ "chaos_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "wither_applies_additional_wither_%", 1 },
+		},
 	},
 	stats = {
 		"support_withered_base_duration_ms",

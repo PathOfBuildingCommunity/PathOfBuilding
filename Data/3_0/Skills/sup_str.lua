@@ -18,7 +18,18 @@ skills["SupportAddedFireDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "fire_damage_+%", 0.5 },
+		Default = {
+			{ "fire_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "fire_damage_+%", -1 },
+		},
+		Alternate1 = {
+			{ "fire_dot_multiplier_+", 1 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_fire", 1 },
+		},
 	},
 	stats = {
 		"physical_damage_%_to_add_as_fire",
@@ -84,7 +95,9 @@ skills["SupportAddedFireDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "fire_damage_+%", 1 },
+		Default = {
+			{ "fire_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"physical_damage_%_to_add_as_fire",
@@ -120,7 +133,7 @@ skills["SupportSpiritStrike"] = {
 	support = true,
 	requireSkillTypes = { SkillType.MeleeSingleTarget, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, SkillType.Vaal, },
+	excludeSkillTypes = { SkillType.Type59, SkillType.Triggered, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -131,7 +144,15 @@ skills["SupportSpiritStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "melee_range_+", 0.2 },
+		},
 	},
 	stats = {
 		"melee_attack_number_of_spirit_strikes",
@@ -187,7 +208,7 @@ skills["SupportAncestralCallPlus"] = {
 	support = true,
 	requireSkillTypes = { SkillType.MeleeSingleTarget, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, SkillType.Vaal, },
+	excludeSkillTypes = { SkillType.Type59, SkillType.Triggered, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportSpiritStrike",
 	statDescriptionScope = "gem_stat_descriptions",
@@ -199,8 +220,12 @@ skills["SupportAncestralCallPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
-		{ "extra_target_targeting_distance_+%", 1 },
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Default = {
+			{ "extra_target_targeting_distance_+%", 1 },
+		},
 	},
 	stats = {
 		"melee_attack_number_of_spirit_strikes",
@@ -241,7 +266,15 @@ skills["SupportBloodMagic"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_mana_cost_-%", 0.5 },
+		Default = {
+			{ "base_mana_cost_-%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_mana_reservation_+%", -0.05 },
+		},
+		Alternate2 = {
+			{ "damage_+%_when_on_low_life", 3 },
+		},
 	},
 	stats = {
 		"base_use_life_in_place_of_mana",
@@ -306,7 +339,15 @@ skills["SupportBloodlust"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "melee_damage_vs_bleeding_enemies_+%", 0.5 },
+		Default = {
+			{ "melee_damage_vs_bleeding_enemies_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "crush_for_2_seconds_on_hit_%_chance", 0.5 },
+		},
+		Alternate2 = {
+			{ "refresh_bleeding_duration_on_hit_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies",
@@ -372,7 +413,15 @@ skills["SupportBrutality"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "physical_damage_+%", 0.5 },
+		Default = {
+			{ "physical_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "bleed_on_hit_with_attacks_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.25 },
+		},
 	},
 	stats = {
 		"support_brutality_physical_damage_+%_final",
@@ -440,8 +489,12 @@ skills["SupportBrutalityPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "physical_damage_+%", 0.5 },
-		{ "enemy_phys_reduction_%_penalty_vs_hit", 0.5 },
+		Default = {
+			{ "physical_damage_+%", 0.5 },
+		},
+		Default = {
+			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.5 },
+		},
 	},
 	stats = {
 		"support_brutality_physical_damage_+%_final",
@@ -488,7 +541,15 @@ skills["SupportIncreasedBurningDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "burn_damage_+%", 0.5 },
+		Default = {
+			{ "burn_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "ignite_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "non_damaging_ailment_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"support_burning_damage_+%_final",
@@ -554,8 +615,12 @@ skills["SupportBurningDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "burn_damage_+%", 0.5 },
-		{ "fire_dot_multiplier_+", 0.5 },
+		Default = {
+			{ "burn_damage_+%", 0.5 },
+		},
+		Default = {
+			{ "fire_dot_multiplier_+", 0.5 },
+		},
 	},
 	stats = {
 		"support_burning_damage_+%_final",
@@ -590,13 +655,21 @@ skills["SupportCastOnMeleeKill"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.ManaCostReserved, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_damage_+%", 0.5 },
+		Default = {
+			{ "attack_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_damage_+%", 3 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"cast_linked_spells_on_melee_kill_%",
@@ -649,9 +722,9 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 	description = "Must support both a melee attack skill and a spell skill to work. The attack skill will trigger a spell when it kills an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills that reserve mana cannot be triggered.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
+	requireSkillTypes = { SkillType.Spell, SkillType.LightningSkill, SkillType.OR, },
+	addSkillTypes = { SkillType.Mine, SkillType.Type95, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.ManaCostReserved, SkillType.Type59, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -662,7 +735,15 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "spell_damage_+%", 0.5 },
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "base_cooldown_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"support_cast_on_melee_kill_spell_damage_+%_final",
@@ -718,9 +799,9 @@ skills["SupportCastOnDamageTaken"] = {
 	description = "Each supported spell skill will track damage you take, and be triggered when the total damage taken reaches a threshold. Cannot support skills used by totems, traps, or mines. Vaal skills, channelling skills, and skills that reserve mana cannot be triggered.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
+	requireSkillTypes = { SkillType.Spell, SkillType.LightningSkill, SkillType.OR, },
+	addSkillTypes = { SkillType.Mine, SkillType.Type95, },
+	excludeSkillTypes = { SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Totem, SkillType.Vaal, SkillType.Type59, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_on_damage_taken_damage_+%_final"] = {
@@ -730,7 +811,15 @@ skills["SupportCastOnDamageTaken"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_+%", 0.5 },
+		Default = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "cast_when_damage_taken_trigger_threshold_+%", -1 },
+		},
 	},
 	stats = {
 		"cast_on_damage_taken_%",
@@ -792,7 +881,7 @@ skills["SupportChanceToBleed"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Attack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.CreatesMinion, },
+	excludeSkillTypes = { SkillType.Maims, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_chance_to_bleed_bleeding_damage_+%_final"] = {
@@ -802,7 +891,15 @@ skills["SupportChanceToBleed"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "bleeding_damage_+%", 0.5 },
+		Default = {
+			{ "bleeding_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_bleed_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "added_damage_+%_final", 1 },
+		},
 	},
 	stats = {
 		"bleed_on_hit_with_attacks_%",
@@ -865,8 +962,18 @@ skills["SupportColdToFire"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "cold_damage_+%", 0.5 },
-		{ "fire_damage_+%", 0.5 },
+		Default = {
+			{ "cold_damage_+%", 0.5 },
+		},
+		Default = {
+			{ "fire_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_cold_damage_%_to_convert_to_fire", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_poison_damage_+%", 3 },
+		},
 	},
 	stats = {
 		"skill_cold_damage_%_to_convert_to_fire",
@@ -932,7 +1039,15 @@ skills["SupportMeleeDamageOnFullLife"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_+%", 0.5 },
+		Default = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_life_leech_from_attack_damage_permyriad", 2.5 },
+		},
+		Alternate2 = {
+			{ "damage_+%_vs_enemies_on_full_life", 2 },
+		},
 	},
 	stats = {
 		"support_damage_while_on_full_life_+%_final",
@@ -985,7 +1100,7 @@ skills["SupportWeaponElementalDamage"] = {
 	description = "Supports attack skills.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Attack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Attack, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -997,7 +1112,15 @@ skills["SupportWeaponElementalDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "elemental_damage_with_attack_skills_+%", 0.5 },
+		Default = {
+			{ "elemental_damage_with_attack_skills_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chance_to_freeze_shock_ignite_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_mana_leech_from_elemental_damage_permyriad", 2.5 },
+		},
 	},
 	stats = {
 		"support_attack_skills_elemental_damage_+%_final",
@@ -1050,7 +1173,7 @@ skills["SupportWeaponElementalDamagePlus"] = {
 	description = "Supports attack skills.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Attack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Attack, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportWeaponElementalDamage",
@@ -1063,7 +1186,9 @@ skills["SupportWeaponElementalDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "elemental_damage_with_attack_skills_+%", 1 },
+		Default = {
+			{ "elemental_damage_with_attack_skills_+%", 1 },
+		},
 	},
 	stats = {
 		"support_attack_skills_elemental_damage_+%_final",
@@ -1109,7 +1234,12 @@ skills["SupportAdditionalLevel"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "local_gem_experience_gain_+%", 5 },
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+		Alternate1 = {
+			{ "local_gem_str_requirement_+%", -3 },
+		},
 	},
 	stats = {
 		"supported_active_skill_gem_level_+",
@@ -1144,7 +1274,15 @@ skills["EnduranceChargeOnMeleeStun"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_stun_duration_+%", 1 },
+		Default = {
+			{ "base_stun_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "damage_+%_per_endurance_charge", 0.1 },
+		},
+		Alternate2 = {
+			{ "damage_+%_if_lost_endurance_charge_in_past_8_seconds", 1 },
+		},
 	},
 	stats = {
 		"base_stun_threshold_reduction_+%",
@@ -1206,7 +1344,15 @@ skills["SupportFirePenetration"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "fire_damage_+%", 0.5 },
+		Default = {
+			{ "fire_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "burn_damage_+%", 3 },
+		},
+		Alternate2 = {
+			{ "base_chance_to_destroy_corpse_on_kill_%_vs_ignited", 5 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_fire_resistance_%",
@@ -1267,7 +1413,9 @@ skills["SupportFirePenetrationPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "fire_damage_+%", 1 },
+		Default = {
+			{ "fire_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_fire_resistance_%",
@@ -1300,9 +1448,9 @@ skills["AncestralSlamSupport"] = {
 	description = "Supports slam skills, providing a powerful boost when they're used, with a delay before they can be boosted again. Cannot support Vaal skills or triggered skills. Cannot modify the skills of minions. Only skills you use yourself can receive the boost.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.SlamSkill, },
+	requireSkillTypes = { SkillType.CantUseFistOfWar, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Type102, SkillType.Vaal, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Triggerable, SkillType.DamageOverTime, SkillType.Type101, SkillType.Triggered, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -1320,7 +1468,18 @@ skills["AncestralSlamSupport"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_skill_area_of_effect_+%", 0.5 },
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_speed_+%", -1 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 3 },
+		},
+		Alternate2 = {
+			{ "ancestral_slam_stun_threshold_reduction_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_ancestral_slam_big_hit_max_count",
@@ -1379,7 +1538,7 @@ skills["SupportFortify"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Mine, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_fortify_melee_damage_+%_final"] = {
@@ -1392,7 +1551,15 @@ skills["SupportFortify"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_damage_+%", 0.5 },
+		Default = {
+			{ "attack_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "fortify_effect_+%", 0.2 },
+		},
+		Alternate2 = {
+			{ "overwhelm_%_physical_damage_reduction_while_fortified", 0.25 },
+		},
 	},
 	stats = {
 		"chance_to_fortify_on_melee_hit_+%",
@@ -1448,9 +1615,9 @@ skills["SupportGenerosity"] = {
 	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Aura, },
+	requireSkillTypes = { SkillType.Vaal, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Curse, SkillType.AuraDebuff, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.ChillingArea, SkillType.Herald, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["aura_cannot_affect_self"] = {
@@ -1460,7 +1627,18 @@ skills["SupportGenerosity"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_aura_area_of_effect_+%", 2 },
+		Default = {
+			{ "base_aura_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "non_curse_aura_effect_+%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_aura_area_of_effect_+%", 5 },
+		},
+		Alternate2 = {
+			{ "base_mana_reservation_+%", 0.5 },
+		},
 	},
 	stats = {
 		"non_curse_aura_effect_+%",
@@ -1514,9 +1692,9 @@ skills["SupportGenerosityPlus"] = {
 	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Aura, },
+	requireSkillTypes = { SkillType.Vaal, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Curse, SkillType.AuraDebuff, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.ChillingArea, SkillType.Herald, },
 	plusVersionOf = "SupportGenerosity",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -1530,8 +1708,12 @@ skills["SupportGenerosityPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_aura_area_of_effect_+%", 2 },
-		{ "supported_aura_skill_gem_level_+", 0.05 },
+		Default = {
+			{ "base_aura_area_of_effect_+%", 2 },
+		},
+		Default = {
+			{ "supported_aura_skill_gem_level_+", 0.05 },
+		},
 	},
 	stats = {
 		"non_curse_aura_effect_+%",
@@ -1565,14 +1747,25 @@ skills["SupportIncreasedDuration"] = {
 	description = "Supports any skill with a duration.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Duration, SkillType.Type55, },
+	requireSkillTypes = { SkillType.Duration, SkillType.Type54, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "skill_effect_duration_+%", 0.5 },
+		Default = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_mana_cost_-%", 1 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", -0.5 },
+		},
+		Alternate2 = {
+			{ "base_all_ailment_duration_+%", 1 },
+		},
 	},
 	stats = {
 		"skill_effect_duration_+%",
@@ -1625,14 +1818,25 @@ skills["SupportIronGrip"] = {
 	description = "Supports attack skills that fire projectiles, making the increase to physical melee damage from strength also increase their physical projectile damage.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Type46, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "projectile_damage_+%", 0.5 },
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_speed_+%", -0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"projectile_damage_+%",
@@ -1686,14 +1890,25 @@ skills["SupportIronWill"] = {
 	description = "Supports spell skills, making the increase to physical melee damage from strength also increase their spell damage.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Type59, SkillType.Type66, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Channelled, SkillType.Type65, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "spell_damage_+%", 0.5 },
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", -0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_damage_+%",
@@ -1747,14 +1962,16 @@ skills["SupportItemQuantity"] = {
 	description = "Supports any skill that can kill enemies.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.DamageOverTime, },
+	requireSkillTypes = { SkillType.Hit, SkillType.Attack, SkillType.MovementSkill, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_killed_monster_dropped_item_quantity_+%", 0.35 },
+		Default = {
+			{ "base_killed_monster_dropped_item_quantity_+%", 0.35 },
+		},
 	},
 	stats = {
 		"base_killed_monster_dropped_item_quantity_+%",
@@ -1814,7 +2031,15 @@ skills["SupportKnockback"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_global_chance_to_knockback_%", 0.5 },
+		Default = {
+			{ "base_global_chance_to_knockback_%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "knockback_distance_+%", 2 },
+		},
 	},
 	stats = {
 		"base_global_chance_to_knockback_%",
@@ -1868,7 +2093,7 @@ skills["SupportReducedDuration"] = {
 	description = "Supports any skill that has a duration.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Duration, SkillType.Type55, },
+	requireSkillTypes = { SkillType.Duration, SkillType.Type54, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1883,7 +2108,15 @@ skills["SupportReducedDuration"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "support_reduced_duration_skill_effect_duration_+%_final", -0.5 },
+		Default = {
+			{ "support_reduced_duration_skill_effect_duration_+%_final", -0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "faster_bleed_%", 0.5 },
+		},
 	},
 	stats = {
 		"support_reduced_duration_skill_effect_duration_+%_final",
@@ -1937,14 +2170,22 @@ skills["SupportLifeGainOnHit"] = {
 	description = "Supports attack skills.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Attack, SkillType.Type56, },
+	requireSkillTypes = { SkillType.Attack, SkillType.Type55, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_life_gain_per_target", 0.5 },
+		Default = {
+			{ "base_life_gain_per_target", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%_when_on_full_life", 2 },
+		},
+		Alternate2 = {
+			{ "mana_gain_per_target", 0.1 },
+		},
 	},
 	stats = {
 		"base_life_gain_per_target",
@@ -2004,7 +2245,15 @@ skills["SupportLifeLeech"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "damage_+%_while_life_leeching", 0.5 },
+		Default = {
+			{ "damage_+%_while_life_leeching", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%_when_on_full_life", 2 },
+		},
+		Alternate2 = {
+			{ "maximum_life_leech_amount_per_leech_+%", 5 },
+		},
 	},
 	stats = {
 		"life_leech_from_any_damage_permyriad",
@@ -2057,7 +2306,7 @@ skills["SupportMaim"] = {
 	description = "Supports attack skills, or other skills that can maim enemies.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Attack, SkillType.Maims, },
+	requireSkillTypes = { SkillType.Attack, SkillType.NOT, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2072,7 +2321,15 @@ skills["SupportMaim"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "physical_damage_+%", 0.5 },
+		Default = {
+			{ "physical_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "maim_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "chance_to_bleed_on_hit_%_vs_maimed", 0.5 },
+		},
 	},
 	stats = {
 		"maim_on_hit_%",
@@ -2142,7 +2399,15 @@ skills["SupportMeleePhysicalDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "melee_physical_damage_+%", 0.5 },
+		Default = {
+			{ "melee_physical_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "melee_range_+", 0.1 },
+		},
+		Alternate2 = {
+			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.25 },
+		},
 	},
 	stats = {
 		"support_melee_physical_damage_+%_final",
@@ -2212,8 +2477,12 @@ skills["SupportMeleePhysicalDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "melee_physical_damage_+%", 0.5 },
-		{ "chance_to_intimidate_on_hit_%", 0.5 },
+		Default = {
+			{ "melee_physical_damage_+%", 0.5 },
+		},
+		Default = {
+			{ "chance_to_intimidate_on_hit_%", 0.5 },
+		},
 	},
 	stats = {
 		"support_melee_physical_damage_+%_final",
@@ -2254,13 +2523,22 @@ skills["SupportMeleeSplash"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_skill_area_of_effect_+%", 0.5 },
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "melee_damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "support_melee_splash_damage_+%_final_for_splash", 2 },
+		},
 	},
 	stats = {
 		"support_melee_splash_damage_+%_final",
 		"support_melee_splash_damage_+%_final_for_splash",
 		"melee_splash_area_of_effect_+%_final",
 		"melee_splash",
+		"quality_display_melee_splash_is_gem",
 	},
 	levels = {
 		[1] = { 0, -50, 0, manaMultiplier = 40, levelRequirement = 8, statInterpolation = { 1, 1, 1, }, },
@@ -2318,13 +2596,16 @@ skills["SupportMeleeSplashPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_skill_area_of_effect_+%", 1 },
+		Default = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
 	},
 	stats = {
 		"support_melee_splash_damage_+%_final",
 		"support_melee_splash_damage_+%_final_for_splash",
 		"melee_splash_area_of_effect_+%_final",
 		"melee_splash",
+		"quality_display_melee_splash_is_gem",
 	},
 	levels = {
 		[1] = { 0, -40, 60, manaMultiplier = 40, levelRequirement = 72, statInterpolation = { 1, 1, 1, }, },
@@ -2356,7 +2637,7 @@ skills["SupportMultistrike"] = {
 	support = true,
 	requireSkillTypes = { SkillType.AttackCanRepeat, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Vaal, SkillType.Type101, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	excludeSkillTypes = { SkillType.Triggered, SkillType.StanceSkill, SkillType.Maims, SkillType.AND, SkillType.OR, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
@@ -2373,7 +2654,18 @@ skills["SupportMultistrike"] = {
 		flag("SupportedByMultistrike"),
 	},
 	qualityStats = {
-		{ "melee_physical_damage_+%", 0.5 },
+		Default = {
+			{ "melee_physical_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_speed_+%", -1 },
+		},
+		Alternate1 = {
+			{ "multistrike_area_of_effect_+%_per_repeat", 1 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_melee_attack_repeat_count",
@@ -2433,7 +2725,7 @@ skills["SupportMultistrikePlus"] = {
 	support = true,
 	requireSkillTypes = { SkillType.AttackCanRepeat, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Vaal, SkillType.Type101, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	excludeSkillTypes = { SkillType.Triggered, SkillType.StanceSkill, SkillType.Maims, SkillType.AND, SkillType.OR, },
 	plusVersionOf = "SupportMultistrike",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -2451,8 +2743,12 @@ skills["SupportMultistrikePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "melee_physical_damage_+%", 0.5 },
-		{ "attack_speed_+%", 0.5 },
+		Default = {
+			{ "melee_physical_damage_+%", 0.5 },
+		},
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_melee_attack_repeat_count",
@@ -2503,7 +2799,15 @@ skills["SupportMultiTotem"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "summon_totem_cast_speed_+%", 1 },
+		Default = {
+			{ "summon_totem_cast_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "totem_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "totem_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_number_of_totems_allowed",
@@ -2573,7 +2877,18 @@ skills["SupportPulverise"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "area_damage_+%", 0.5 },
+		Default = {
+			{ "area_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "support_pulverise_attack_speed_+%_final", -0.5 },
+		},
+		Alternate2 = {
+			{ "support_pulverise_melee_area_damage_+%_final", 1 },
+		},
 	},
 	stats = {
 		"support_pulverise_melee_area_damage_+%_final",
@@ -2656,7 +2971,15 @@ skills["SupportRage"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_damage_+%", 0.5 },
+		Default = {
+			{ "attack_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_speed_+%_with_atleast_20_rage", 0.5 },
+		},
+		Alternate2 = {
+			{ "gain_1_rage_on_use_%_chance", 1 },
+		},
 	},
 	stats = {
 		"support_rage_gain_rage_on_melee_hit_cooldown_ms",
@@ -2713,9 +3036,9 @@ skills["SupportRangedAttackTotem"] = {
 	description = "Supports any bow or wand attack skill, causing it to summon a ballista totem that uses the skill for you.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Attack, SkillType.SkillCanTotem, SkillType.AND, },
+	requireSkillTypes = { SkillType.Attack, SkillType.SkillCanTotem, SkillType.OR, },
 	addSkillTypes = { SkillType.SkillCanTrap, SkillType.SkillCanMine, SkillType.Totem, },
-	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, },
+	excludeSkillTypes = { SkillType.Type59, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
@@ -2733,13 +3056,23 @@ skills["SupportRangedAttackTotem"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "summon_totem_cast_speed_+%", 1 },
+		Default = {
+			{ "summon_totem_cast_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "totem_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "totem_range_+%", 1 },
+		},
+		Alternate3 = {
+			{ "projectile_return_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"is_totem",
 		"base_totem_duration",
 		"base_totem_range",
-		"totem_support_gem_level",
 		"support_totem_damage_+%_final",
 		"support_attack_totem_attack_speed_+%_final",
 		"attack_skills_additional_ballista_totems_allowed",
@@ -2749,46 +3082,46 @@ skills["SupportRangedAttackTotem"] = {
 		"is_ranged_attack_totem",
 	},
 	levels = {
-		[1] = { 1, 8000, 60, 8, -42, -50, 2, 200, manaMultiplier = 20, levelRequirement = 8, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[2] = { 1, 8000, 60, 10, -42, -50, 2, 200, manaMultiplier = 20, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[3] = { 1, 8000, 60, 13, -41, -50, 2, 200, manaMultiplier = 20, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[4] = { 1, 8000, 60, 17, -41, -50, 2, 200, manaMultiplier = 20, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[5] = { 1, 8000, 60, 21, -40, -50, 2, 200, manaMultiplier = 20, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[6] = { 1, 8000, 60, 25, -40, -50, 2, 200, manaMultiplier = 20, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[7] = { 1, 8000, 60, 29, -39, -50, 2, 200, manaMultiplier = 20, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[8] = { 1, 8000, 60, 33, -39, -50, 2, 200, manaMultiplier = 20, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[9] = { 1, 8000, 60, 37, -38, -50, 2, 200, manaMultiplier = 20, levelRequirement = 37, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[10] = { 1, 8000, 60, 40, -38, -50, 2, 200, manaMultiplier = 20, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[11] = { 1, 8000, 60, 43, -37, -50, 2, 200, manaMultiplier = 20, levelRequirement = 43, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[12] = { 1, 8000, 60, 46, -37, -50, 2, 200, manaMultiplier = 20, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[13] = { 1, 8000, 60, 49, -36, -50, 2, 200, manaMultiplier = 20, levelRequirement = 49, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[14] = { 1, 8000, 60, 52, -36, -50, 2, 200, manaMultiplier = 20, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[15] = { 1, 8000, 60, 55, -35, -50, 2, 200, manaMultiplier = 20, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[16] = { 1, 8000, 60, 58, -35, -50, 2, 200, manaMultiplier = 20, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[17] = { 1, 8000, 60, 61, -34, -50, 2, 200, manaMultiplier = 20, levelRequirement = 61, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[18] = { 1, 8000, 60, 64, -34, -50, 2, 200, manaMultiplier = 20, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[19] = { 1, 8000, 60, 67, -33, -50, 2, 200, manaMultiplier = 20, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 1, 8000, 60, 70, -33, -50, 2, 200, manaMultiplier = 20, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[21] = { 1, 8000, 60, 72, -33, -50, 2, 200, manaMultiplier = 20, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[22] = { 1, 8000, 60, 74, -32, -50, 2, 200, manaMultiplier = 20, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[23] = { 1, 8000, 60, 76, -32, -50, 2, 200, manaMultiplier = 20, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[24] = { 1, 8000, 60, 78, -31, -50, 2, 200, manaMultiplier = 20, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[25] = { 1, 8000, 60, 80, -31, -50, 2, 200, manaMultiplier = 20, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[26] = { 1, 8000, 60, 82, -30, -50, 2, 200, manaMultiplier = 20, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[27] = { 1, 8000, 60, 84, -30, -50, 2, 200, manaMultiplier = 20, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[28] = { 1, 8000, 60, 86, -29, -50, 2, 200, manaMultiplier = 20, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[29] = { 1, 8000, 60, 88, -29, -50, 2, 200, manaMultiplier = 20, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[30] = { 1, 8000, 60, 90, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[31] = { 1, 8000, 60, 91, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[32] = { 1, 8000, 60, 92, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[33] = { 1, 8000, 60, 93, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[34] = { 1, 8000, 60, 94, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[35] = { 1, 8000, 60, 95, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[36] = { 1, 8000, 60, 96, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[37] = { 1, 8000, 60, 97, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[38] = { 1, 8000, 60, 98, -26, -50, 2, 200, manaMultiplier = 20, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[39] = { 1, 8000, 60, 99, -26, -50, 2, 200, manaMultiplier = 20, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
-		[40] = { 1, 8000, 60, 100, -26, -50, 2, 200, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 1, 8000, 60, -42, -50, 2, 200, manaMultiplier = 20, levelRequirement = 8, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[2] = { 1, 8000, 60, -42, -50, 2, 200, manaMultiplier = 20, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[3] = { 1, 8000, 60, -41, -50, 2, 200, manaMultiplier = 20, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[4] = { 1, 8000, 60, -41, -50, 2, 200, manaMultiplier = 20, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[5] = { 1, 8000, 60, -40, -50, 2, 200, manaMultiplier = 20, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[6] = { 1, 8000, 60, -40, -50, 2, 200, manaMultiplier = 20, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[7] = { 1, 8000, 60, -39, -50, 2, 200, manaMultiplier = 20, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[8] = { 1, 8000, 60, -39, -50, 2, 200, manaMultiplier = 20, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[9] = { 1, 8000, 60, -38, -50, 2, 200, manaMultiplier = 20, levelRequirement = 37, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[10] = { 1, 8000, 60, -38, -50, 2, 200, manaMultiplier = 20, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[11] = { 1, 8000, 60, -37, -50, 2, 200, manaMultiplier = 20, levelRequirement = 43, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[12] = { 1, 8000, 60, -37, -50, 2, 200, manaMultiplier = 20, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[13] = { 1, 8000, 60, -36, -50, 2, 200, manaMultiplier = 20, levelRequirement = 49, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[14] = { 1, 8000, 60, -36, -50, 2, 200, manaMultiplier = 20, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[15] = { 1, 8000, 60, -35, -50, 2, 200, manaMultiplier = 20, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[16] = { 1, 8000, 60, -35, -50, 2, 200, manaMultiplier = 20, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[17] = { 1, 8000, 60, -34, -50, 2, 200, manaMultiplier = 20, levelRequirement = 61, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[18] = { 1, 8000, 60, -34, -50, 2, 200, manaMultiplier = 20, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[19] = { 1, 8000, 60, -33, -50, 2, 200, manaMultiplier = 20, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 1, 8000, 60, -33, -50, 2, 200, manaMultiplier = 20, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[21] = { 1, 8000, 60, -33, -50, 2, 200, manaMultiplier = 20, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[22] = { 1, 8000, 60, -32, -50, 2, 200, manaMultiplier = 20, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[23] = { 1, 8000, 60, -32, -50, 2, 200, manaMultiplier = 20, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[24] = { 1, 8000, 60, -31, -50, 2, 200, manaMultiplier = 20, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[25] = { 1, 8000, 60, -31, -50, 2, 200, manaMultiplier = 20, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[26] = { 1, 8000, 60, -30, -50, 2, 200, manaMultiplier = 20, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[27] = { 1, 8000, 60, -30, -50, 2, 200, manaMultiplier = 20, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[28] = { 1, 8000, 60, -29, -50, 2, 200, manaMultiplier = 20, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[29] = { 1, 8000, 60, -29, -50, 2, 200, manaMultiplier = 20, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[30] = { 1, 8000, 60, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[31] = { 1, 8000, 60, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[32] = { 1, 8000, 60, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[33] = { 1, 8000, 60, -28, -50, 2, 200, manaMultiplier = 20, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[34] = { 1, 8000, 60, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[35] = { 1, 8000, 60, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[36] = { 1, 8000, 60, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[37] = { 1, 8000, 60, -27, -50, 2, 200, manaMultiplier = 20, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[38] = { 1, 8000, 60, -26, -50, 2, 200, manaMultiplier = 20, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[39] = { 1, 8000, 60, -26, -50, 2, 200, manaMultiplier = 20, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[40] = { 1, 8000, 60, -26, -50, 2, 200, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SupportReducedMana"] = {
@@ -2811,7 +3144,15 @@ skills["SupportReducedMana"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "inspiration_charge_duration_+%", 1 },
+		Default = {
+			{ "inspiration_charge_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_mana_cost_-%", 0.5 },
+		},
 	},
 	stats = {
 		"base_mana_cost_-%",
@@ -2870,7 +3211,7 @@ skills["SupportRuthless"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Channelled, SkillType.Type65, },
+	excludeSkillTypes = { SkillType.Type56, SkillType.AuraDebuff, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_ruthless_big_hit_stun_base_duration_override_ms"] = {
@@ -2887,7 +3228,18 @@ skills["SupportRuthless"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "attack_damage_+%", 0.5 },
+		Default = {
+			{ "attack_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%", -1 },
+		},
+		Alternate2 = {
+			{ "support_ruthless_big_hit_damage_+%_final", 1 },
+		},
 	},
 	stats = {
 		"support_ruthless_big_hit_max_count",
@@ -2945,13 +3297,21 @@ skills["SupportBluntWeapon"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Triggered, SkillType.CreatesMinion, SkillType.Totem, },
+	excludeSkillTypes = { SkillType.Mine, SkillType.Maims, SkillType.Totem, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
 	qualityStats = {
-		{ "melee_damage_+%", 0.5 },
+		Default = {
+			{ "melee_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"support_blunt_chance_to_trigger_shockwave_on_hit_%",
@@ -3004,7 +3364,7 @@ skills["SupportBluntWeaponShockwave"] = {
 	name = "Shockwave",
 	color = 1,
 	description = "Deals attack damage in an area.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Two Handed Mace"] = true,
 		["Staff"] = true,
@@ -3021,7 +3381,15 @@ skills["SupportBluntWeaponShockwave"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "melee_damage_+%", 0.5 },
+		Default = {
+			{ "melee_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_cooldown_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"active_skill_base_radius_+",
@@ -3077,9 +3445,9 @@ skills["SupportSpellTotem"] = {
 	description = "Supports spell skills that are not triggered. Instead of casting that spell, you will summon a totem that casts the spell for you.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.SkillCanTotem, SkillType.AND, },
+	requireSkillTypes = { SkillType.Spell, SkillType.SkillCanTotem, SkillType.OR, },
 	addSkillTypes = { SkillType.SkillCanTrap, SkillType.SkillCanMine, SkillType.Totem, },
-	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, },
+	excludeSkillTypes = { SkillType.Type59, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
@@ -3096,58 +3464,65 @@ skills["SupportSpellTotem"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "summon_totem_cast_speed_+%", 1 },
+		Default = {
+			{ "summon_totem_cast_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "totem_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "totem_range_+%", 1 },
+		},
 	},
 	stats = {
 		"is_totem",
 		"base_totem_duration",
 		"base_totem_range",
-		"totem_support_gem_level",
 		"support_totem_damage_+%_final",
 		"support_spell_totem_cast_speed_+%_final",
 		"base_skill_is_totemified",
 	},
 	levels = {
-		[1] = { 1, 8000, 60, 8, -35, -30, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[2] = { 1, 8000, 60, 10, -35, -30, manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[3] = { 1, 8000, 60, 13, -34, -30, manaMultiplier = 100, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[4] = { 1, 8000, 60, 17, -34, -30, manaMultiplier = 100, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[5] = { 1, 8000, 60, 21, -33, -30, manaMultiplier = 100, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[6] = { 1, 8000, 60, 25, -33, -30, manaMultiplier = 100, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[7] = { 1, 8000, 60, 29, -32, -30, manaMultiplier = 100, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[8] = { 1, 8000, 60, 33, -32, -30, manaMultiplier = 100, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[9] = { 1, 8000, 60, 37, -31, -30, manaMultiplier = 100, levelRequirement = 37, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[10] = { 1, 8000, 60, 40, -31, -30, manaMultiplier = 100, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[11] = { 1, 8000, 60, 43, -30, -30, manaMultiplier = 100, levelRequirement = 43, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[12] = { 1, 8000, 60, 46, -30, -30, manaMultiplier = 100, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[13] = { 1, 8000, 60, 49, -29, -30, manaMultiplier = 100, levelRequirement = 49, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[14] = { 1, 8000, 60, 52, -29, -30, manaMultiplier = 100, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[15] = { 1, 8000, 60, 55, -28, -30, manaMultiplier = 100, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[16] = { 1, 8000, 60, 58, -28, -30, manaMultiplier = 100, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[17] = { 1, 8000, 60, 61, -27, -30, manaMultiplier = 100, levelRequirement = 61, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[18] = { 1, 8000, 60, 64, -27, -30, manaMultiplier = 100, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[19] = { 1, 8000, 60, 67, -26, -30, manaMultiplier = 100, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 1, 8000, 60, 70, -26, -30, manaMultiplier = 100, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[21] = { 1, 8000, 60, 72, -25, -30, manaMultiplier = 100, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[22] = { 1, 8000, 60, 74, -25, -30, manaMultiplier = 100, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[23] = { 1, 8000, 60, 76, -24, -30, manaMultiplier = 100, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[24] = { 1, 8000, 60, 78, -24, -30, manaMultiplier = 100, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[25] = { 1, 8000, 60, 80, -23, -30, manaMultiplier = 100, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[26] = { 1, 8000, 60, 82, -23, -30, manaMultiplier = 100, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[27] = { 1, 8000, 60, 84, -22, -30, manaMultiplier = 100, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[28] = { 1, 8000, 60, 86, -22, -30, manaMultiplier = 100, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[29] = { 1, 8000, 60, 88, -21, -30, manaMultiplier = 100, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[30] = { 1, 8000, 60, 90, -21, -30, manaMultiplier = 100, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[31] = { 1, 8000, 60, 91, -21, -30, manaMultiplier = 100, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[32] = { 1, 8000, 60, 92, -20, -30, manaMultiplier = 100, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[33] = { 1, 8000, 60, 93, -20, -30, manaMultiplier = 100, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[34] = { 1, 8000, 60, 94, -20, -30, manaMultiplier = 100, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[35] = { 1, 8000, 60, 95, -20, -30, manaMultiplier = 100, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[36] = { 1, 8000, 60, 96, -19, -30, manaMultiplier = 100, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[37] = { 1, 8000, 60, 97, -19, -30, manaMultiplier = 100, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[38] = { 1, 8000, 60, 98, -19, -30, manaMultiplier = 100, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[39] = { 1, 8000, 60, 99, -19, -30, manaMultiplier = 100, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[40] = { 1, 8000, 60, 100, -18, -30, manaMultiplier = 100, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 1, 8000, 60, -35, -30, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[2] = { 1, 8000, 60, -35, -30, manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[3] = { 1, 8000, 60, -34, -30, manaMultiplier = 100, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[4] = { 1, 8000, 60, -34, -30, manaMultiplier = 100, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[5] = { 1, 8000, 60, -33, -30, manaMultiplier = 100, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[6] = { 1, 8000, 60, -33, -30, manaMultiplier = 100, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[7] = { 1, 8000, 60, -32, -30, manaMultiplier = 100, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[8] = { 1, 8000, 60, -32, -30, manaMultiplier = 100, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[9] = { 1, 8000, 60, -31, -30, manaMultiplier = 100, levelRequirement = 37, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[10] = { 1, 8000, 60, -31, -30, manaMultiplier = 100, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[11] = { 1, 8000, 60, -30, -30, manaMultiplier = 100, levelRequirement = 43, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[12] = { 1, 8000, 60, -30, -30, manaMultiplier = 100, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[13] = { 1, 8000, 60, -29, -30, manaMultiplier = 100, levelRequirement = 49, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[14] = { 1, 8000, 60, -29, -30, manaMultiplier = 100, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[15] = { 1, 8000, 60, -28, -30, manaMultiplier = 100, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[16] = { 1, 8000, 60, -28, -30, manaMultiplier = 100, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[17] = { 1, 8000, 60, -27, -30, manaMultiplier = 100, levelRequirement = 61, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[18] = { 1, 8000, 60, -27, -30, manaMultiplier = 100, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[19] = { 1, 8000, 60, -26, -30, manaMultiplier = 100, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[20] = { 1, 8000, 60, -26, -30, manaMultiplier = 100, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[21] = { 1, 8000, 60, -25, -30, manaMultiplier = 100, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[22] = { 1, 8000, 60, -25, -30, manaMultiplier = 100, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[23] = { 1, 8000, 60, -24, -30, manaMultiplier = 100, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[24] = { 1, 8000, 60, -24, -30, manaMultiplier = 100, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[25] = { 1, 8000, 60, -23, -30, manaMultiplier = 100, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[26] = { 1, 8000, 60, -23, -30, manaMultiplier = 100, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[27] = { 1, 8000, 60, -22, -30, manaMultiplier = 100, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[28] = { 1, 8000, 60, -22, -30, manaMultiplier = 100, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[29] = { 1, 8000, 60, -21, -30, manaMultiplier = 100, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[30] = { 1, 8000, 60, -21, -30, manaMultiplier = 100, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[31] = { 1, 8000, 60, -21, -30, manaMultiplier = 100, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[32] = { 1, 8000, 60, -20, -30, manaMultiplier = 100, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[33] = { 1, 8000, 60, -20, -30, manaMultiplier = 100, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[34] = { 1, 8000, 60, -20, -30, manaMultiplier = 100, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[35] = { 1, 8000, 60, -20, -30, manaMultiplier = 100, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[36] = { 1, 8000, 60, -19, -30, manaMultiplier = 100, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[37] = { 1, 8000, 60, -19, -30, manaMultiplier = 100, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[38] = { 1, 8000, 60, -19, -30, manaMultiplier = 100, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[39] = { 1, 8000, 60, -19, -30, manaMultiplier = 100, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[40] = { 1, 8000, 60, -18, -30, manaMultiplier = 100, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SupportStun"] = {
@@ -3162,7 +3537,15 @@ skills["SupportStun"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_stun_duration_+%", 1.5 },
+		Default = {
+			{ "base_stun_duration_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "chance_to_double_stun_duration_%", 0.2 },
+		},
+		Alternate2 = {
+			{ "recover_%_life_when_stunning_an_enemy_permyriad", 5 },
+		},
 	},
 	stats = {
 		"base_stun_threshold_reduction_+%",
@@ -3215,7 +3598,7 @@ skills["SupportUrgentOrders"] = {
 	description = "Supports warcry skills.",
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Warcry, },
+	requireSkillTypes = { SkillType.Type73, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -3228,7 +3611,18 @@ skills["SupportUrgentOrders"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "warcry_speed_+%", 0.5 },
+		Default = {
+			{ "warcry_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", -1 },
+		},
+		Alternate1 = {
+			{ "skill_buff_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "minimum_power_from_quality", 0.5 },
+		},
 	},
 	stats = {
 		"warcry_speed_+%",
