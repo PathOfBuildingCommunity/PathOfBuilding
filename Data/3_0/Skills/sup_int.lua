@@ -2428,6 +2428,7 @@ skills["ViciousHexExplosion"] = {
 		chaos = true,
 	},
 	baseMods = {
+		skill("showAverage", true),,
 	},
 	qualityStats = {
 		Default = {
