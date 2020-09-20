@@ -468,12 +468,11 @@ skills["AssassinsMark"] = {
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -1641,10 +1640,12 @@ skills["Conductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -1957,10 +1958,10 @@ skills["Disintegrate"] = {
 	castTime = 0.7,
 	statMap = {
 	    ["disintegrate_base_radius_+_per_intensify"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limit = 3  }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity"}),
 		},
 		["disintegrate_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limit = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity"}),
 		},
 	},
 	baseFlags = {
@@ -2177,10 +2178,12 @@ skills["Despair"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2627,10 +2630,12 @@ skills["ElementalWeakness"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2707,14 +2712,8 @@ skills["Enfeeble"] = {
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -2722,10 +2721,12 @@ skills["Enfeeble"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -3629,10 +3630,12 @@ skills["Flammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30)
 	},
 	qualityStats = {
 		Default = {
@@ -4146,10 +4149,12 @@ skills["Frostbite"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -4473,6 +4478,11 @@ skills["DoomBlast"] = {
 		chaos = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
+		flag("ChaosCanIgnite"),
+		flag("ChaosCanChill"),
+		flag("ChaosCanShock"),
+		flag("ChaosDamageUsesLowestResistance")
 	},
 	qualityStats = {
 		Default = {
@@ -4487,6 +4497,14 @@ skills["DoomBlast"] = {
 		},
 		Alternate3 = {
 			{ "hexblast_%_chance_to_not_consume_hex", 0.5 },
+		},
+	},
+	statMap = {
+		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 	},
 	stats = {

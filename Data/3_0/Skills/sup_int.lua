@@ -2355,6 +2355,7 @@ skills["ViciousHexSupport"] = {
 	excludeSkillTypes = { SkillType.Triggered, SkillType.TriggeredGrantedSkill, SkillType.Aura, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
+
 	},
 	qualityStats = {
 		Default = {
@@ -2425,7 +2426,7 @@ skills["ViciousHexExplosion"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		chaos = true,
+		chaos = true
 	},
 	baseMods = {
 		skill("showAverage", true),
@@ -2448,6 +2449,11 @@ skills["ViciousHexExplosion"] = {
 		"doom_blast_damage_+%_final_per_5_doom_on_hex",
 		"triggered_vicious_hex_explosion",
 		"is_area_damage",
+	},
+	statMap = {
+		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 50, damageEffectiveness = 0.5, cooldown = 0.15, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, 1, }, },

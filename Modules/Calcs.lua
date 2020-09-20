@@ -407,7 +407,7 @@ function calcs.buildOutput(build, mode)
 			output.Minion.CurseList = output.CurseList
 		end
 
-		infoDump(env)
+		-- infoDump(env)
 	end
 
 	return env
