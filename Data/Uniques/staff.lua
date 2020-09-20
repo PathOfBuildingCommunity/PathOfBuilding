@@ -232,6 +232,21 @@ Socketed Gems are Supported by level 8 Trap
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
 ]],[[
+The Fulcrum
+Ezomyte Staff
+League: Heist
+Requires Level 60, 113 Str, 113 Int
+Implicits: 1
++20% Chance to Block Attack Damage while wielding a Staff
+(140-180)% increased Physical Damage
+(0-50)% of Physical Damage Converted to Fire Damage
+(0-50)% of Physical Damage Converted to Cold Damage
+(0-50)% of Physical Damage Converted to Lightning Damage
+Elemental Ailments you inflict are Reflected to you
+Elemental Damage with Hits is Lucky while you are Shocked
+Damage Penetrates (8-10)% Elemental Resistances while you are Chilled
+Gain (30-40)% of Physical Damage as Extra Damage of a random Element while you are Ignited
+]],[[
 Mirebough
 Gnarled Branch
 Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}

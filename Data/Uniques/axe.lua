@@ -3,6 +3,15 @@
 return {
 -- Weapon: One Handed Axe
 [[
+Actum
+Butcher Axe
+League: Heist
+Requires Level 63, 149 Str, 76 Dex
+Has no Sockets
+(200-250)% increased Physical Damage
+You have no Intelligence
+Critical Strike Chance is (20-30)% for Hits with this Weapon
+]],[[
 Dreadarc
 Cleaver
 Upgrade: Upgrades to unique{Dreadsurge} via prophecy{Burning Dread}

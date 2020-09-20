@@ -135,6 +135,17 @@ Implicits: 1
 10% faster start of Energy Shield Recharge
 Your Spells have Culling Strike
 ]],[[
+The Hidden Blade
+Ambusher
+League: Heist
+Requires Level 60, 113 Dex, 113 Int
+Implicits: 1
+30% increased Global Critical Strike Chance
+Trigger Level 20 Unseen Strike every 0.5 seconds while Phasing
++(20-40) to Dexterity
+(230-260)% increased Physical Damage
+30% reduced Attack Speed while Phasing
+]],[[
 Mark of the Doubting Knight
 Platinum Kris
 Variant: Pre 2.0.0

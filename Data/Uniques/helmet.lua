@@ -584,6 +584,16 @@ Adds 20 to 30 Physical Damage to Attacks
 Extra gore
 Can't use Chest armour
 ]],[[
+Crest of Desire
+Fluted Bascinet
+League: Heist
+Requires Level 58, 64 Str, 64 Dex
+Has 1 Socket
++(5-8) to Level of Socketed Gems
++(30-50)% to Quality of Socketed Gems
+Socketed Skills deal Double Damage
+(100-150)% increased Armour and Evasion
+]],[[
 Deidbell
 Gilded Sallet
 Upgrade: Upgrades to unique{Deidbellow} via prophecy{Dying Cry}

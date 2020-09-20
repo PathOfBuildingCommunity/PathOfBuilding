@@ -651,6 +651,20 @@ Adds 4 to 8 Physical Damage to Attacks
 +(30-50)% to Fire Resistance
 Curse Enemies with level 5 Vulnerability on Block
 ]],[[
+The Ghastly Theatre
+Teak Round Shield
+League: Heist
+Requires Level 58, 74 Str, 74 Dex
+Implicits: 1
+180% increased Block Recovery
++2 to Level of Socketed Support Gems
+Triggers Level 20 Physical Aegis when Equipped
+340% increased Armour and Evasion
+33% chance to avoid Bleeding
+12% increased Attack and Cast Speed while Physical Aegis is depleted
+50% increased Critical Strike Chance while Physical Aegis is depleted
+Nearby Enemies are Blinded while Physical Aegis is not depleted
+]],[[
 Shattershard
 Crimson Round Shield
 League: Heist

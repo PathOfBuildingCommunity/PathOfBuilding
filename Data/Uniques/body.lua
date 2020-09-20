@@ -1032,6 +1032,16 @@ Trigger Level 20 Glimpse of Eternity when Hit
 Gain (3-5)% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped
 Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Items
 ]],[[
+Expedition's End
+Sentinel Jacket
+League: Heist
+Requires Level 59, 86 Dex, 86 Int
+(100-150)% increased Evasion and Energy Shield
+(5-10)% increased maximum Life
+All your Damage can Freeze
+Freeze Chilled Enemies as though dealing (50-100)% more Damage
+Nearby Enemies are Chilled
+]],[[
 Inpulsa's Broken Heart
 Sadist Garb
 Variant: Pre 3.5.0
