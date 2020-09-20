@@ -1270,6 +1270,9 @@ skills["EnduranceChargeOnMeleeStun"] = {
 		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
+		["damage_+%_if_lost_endurance_charge_in_past_8_seconds"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
+		}
 	},
 	baseMods = {
 	},
@@ -1464,6 +1467,9 @@ skills["AncestralSlamSupport"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
 			div = 1000,
 		},
+		["ancestral_slam_stun_threshold_reduction_+%"] = {
+			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack)
+		},
 	},
 	baseMods = {
 	},
@@ -1546,6 +1552,12 @@ skills["SupportFortify"] = {
 		},
 		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
+		},
+		["fortify_effect_+%"] = {
+			mod("FortifyEffectOnSelf", "INC", nil)
+		},
+		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
+			mod("EnemyPhysicalDamageReduction", "INC", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment), 0, { type = "Condition", var = "Fortify"}),
 		},
 	},
 	baseMods = {
@@ -2244,6 +2256,11 @@ skills["SupportLifeLeech"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
+	statMap = {
+		["maximum_life_leech_amount_per_leech_+%"] = {
+			mod("MaxLifeLeechRate", "INC", nil)
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%_while_life_leeching", 0.5 },
@@ -2317,6 +2334,9 @@ skills["SupportMaim"] = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
+		["chance_to_bleed_on_hit_%_vs_maimed"] = {
+			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", condition = "Maimed"})
+		}
 	},
 	baseMods = {
 	},
@@ -2649,6 +2669,9 @@ skills["SupportMultistrike"] = {
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
 		},
+		["multistrike_area_of_effect_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil)
+		}
 	},
 	baseMods = {
 		flag("SupportedByMultistrike"),
@@ -2967,6 +2990,9 @@ skills["SupportRage"] = {
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
+		["attack_speed_+%_with_atleast_20_rage"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 20 })
+		}
 	},
 	baseMods = {
 	},
