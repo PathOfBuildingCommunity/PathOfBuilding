@@ -351,16 +351,16 @@ directiveTable.mods = function(state, args, out)
 	out:write('\t},\n')
 	out:write('\tqualityStats = {\n')
 	for i, alternates in ipairs(skill.qualityStats) do
-		for _, stat in ipairs(alternates) do
-			if i == 1 then
-				out:write('\t\tDefault = {\n')
-			else
-				local value = i - 1
-				out:write('\t\tAlternate' .. value .. ' = {\n')
-			end
-			out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
-			out:write('\t\t},\n')
+		if i == 1 then
+			out:write('\t\tDefault = {\n')
+		else
+			local value = i - 1
+			out:write('\t\tAlternate' .. value .. ' = {\n')
 		end
+		for _, stat in ipairs(alternates) do
+			out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+		end
+		out:write('\t\t},\n')
 	end
 	out:write('\t},\n')
 	out:write('\tstats = {\n')
