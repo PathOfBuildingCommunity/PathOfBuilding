@@ -1040,14 +1040,10 @@ skills["BloodSandStance"] = {
 		},
 		Alternate1 = {
 			{ "projectile_attack_damage_+%_in_blood_stance", 1 },
-		},
-		Alternate1 = {
 			{ "projectile_speed_+%_in_sand_stance", 1 },
 		},
 		Alternate2 = {
 			{ "spell_area_damage_+%_in_blood_stance", 1 },
-		},
-		Alternate2 = {
 			{ "spell_area_of_effect_+%_in_sand_stance", 0.5 },
 		},
 	},
@@ -1751,8 +1747,6 @@ skills["PuresteelBanner"] = {
 		},
 		Alternate1 = {
 			{ "puresteel_banner_damage_+%_final", -0.1 },
-		},
-		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -3 },
 		},
 		Alternate2 = {
@@ -1867,8 +1861,6 @@ skills["Earthquake"] = {
 		},
 		Alternate1 = {
 			{ "damage_+%", 3 },
-		},
-		Alternate1 = {
 			{ "skill_effect_duration_+%", 1 },
 		},
 		Alternate2 = {
@@ -2080,8 +2072,6 @@ skills["SpikeSlam"] = {
 		},
 		Alternate3 = {
 			{ "spike_slam_fissure_damage_+%_final", 3 },
-		},
-		Alternate3 = {
 			{ "spike_slam_spike_damage_+%_final", -3 },
 		},
 	},
@@ -2170,8 +2160,6 @@ skills["EnduringCry"] = {
 		},
 		Alternate2 = {
 			{ "skill_buff_effect_+%", 1 },
-		},
-		Alternate2 = {
 			{ "base_cooldown_speed_+%", -2 },
 		},
 	},
@@ -2678,8 +2666,6 @@ skills["GroundSlam"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -2687,8 +2673,6 @@ skills["GroundSlam"] = {
 		},
 		Alternate2 = {
 			{ "base_skill_area_of_effect_+%", 3 },
-		},
-		Alternate2 = {
 			{ "ground_slam_angle_+%", -2 },
 		},
 	},
@@ -2776,8 +2760,6 @@ skills["VaalGroundSlam"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
 	},
@@ -2865,8 +2847,6 @@ skills["HeavyStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Default = {
 			{ "damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -2968,8 +2948,6 @@ skills["HeraldOfAsh"] = {
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", -1 },
-		},
-		Alternate1 = {
 			{ "burn_damage_+%", 3 },
 		},
 		Alternate2 = {
@@ -3147,8 +3125,6 @@ skills["FlameTotem"] = {
 		},
 		Alternate3 = {
 			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate3 = {
 			{ "totem_duration_+%", 1 },
 		},
 	},
@@ -3270,8 +3246,6 @@ skills["IceCrash"] = {
 		},
 		Alternate3 = {
 			{ "ice_crash_first_stage_damage_+%_final", -2 },
-		},
-		Alternate3 = {
 			{ "ice_crash_third_hit_damage_+%_final", 1.5 },
 		},
 	},
@@ -3360,8 +3334,6 @@ skills["ImmortalCall"] = {
 		},
 		Alternate2 = {
 			{ "mortal_call_physical_damage_taken_per_endurance_charge_consumed_final_permyriad", 10 },
-		},
-		Alternate2 = {
 			{ "immortal_call_elemental_damage_taken_+%_final_per_endurance_charge_consumed", -0.1 },
 		},
 	},
@@ -3523,8 +3495,6 @@ skills["InfernalBlow"] = {
 		},
 		Alternate2 = {
 			{ "burn_damage_+%", 3 },
-		},
-		Alternate2 = {
 			{ "base_chance_to_ignite_%", 1 },
 		},
 		Alternate3 = {
@@ -4130,8 +4100,6 @@ skills["BloodSpears"] = {
 		},
 		Alternate3 = {
 			{ "blood_spears_base_number_of_spears", -0.05 },
-		},
-		Alternate3 = {
 			{ "blood_spears_additional_number_of_spears_if_changed_stance_recently", 0.1 },
 		},
 	},
@@ -5104,8 +5072,6 @@ skills["ShockwaveTotem"] = {
 		},
 		Alternate1 = {
 			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -5339,14 +5305,10 @@ end,
 		},
 		Alternate2 = {
 			{ "number_of_chains", 0.05 },
-		},
-		Alternate2 = {
 			{ "damage_+%", -2 },
 		},
 		Alternate3 = {
 			{ "static_strike_zap_speed_+%", 1 },
-		},
-		Alternate3 = {
 			{ "base_skill_area_of_effect_+%", -1 },
 		},
 	},
@@ -5504,8 +5466,6 @@ skills["SummonFireGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -5595,8 +5555,6 @@ skills["SummonRockGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -5716,8 +5674,6 @@ skills["NewSunder"] = {
 		},
 		Alternate3 = {
 			{ "sunder_shockwave_area_of_effect_+%", -1 },
-		},
-		Alternate3 = {
 			{ "sunder_wave_area_of_effect_+%", 1 },
 		},
 	},
@@ -5905,8 +5861,6 @@ skills["EnduranceChargeSlam"] = {
 		},
 		Alternate1 = {
 			{ "burn_damage_+%", 3 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_ignite_%", 1 },
 		},
 		Alternate2 = {
@@ -6441,8 +6395,6 @@ skills["BloodstainedBanner"] = {
 		},
 		Alternate1 = {
 			{ "accuracy_rating_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -3 },
 		},
 		Alternate2 = {

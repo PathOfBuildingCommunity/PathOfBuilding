@@ -366,8 +366,6 @@ skills["SupportArchmage"] = {
 		},
 		Alternate1 = {
 			{ "manaweave_added_cold_damage_%_cost_if_payable", 3 },
-		},
-		Alternate1 = {
 			{ "manaweave_added_lightning_damage_%_cost_if_payable", -3 },
 		},
 		Alternate2 = {
@@ -441,8 +439,6 @@ skills["SupportBlasphemy"] = {
 		},
 		Alternate1 = {
 			{ "curse_effect_+%", -0.5 },
-		},
-		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 2 },
 		},
 		Alternate2 = {
@@ -518,8 +514,6 @@ skills["SupportBlasphemyPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "curse_effect_+%", 0.5 },
-		},
-		Default = {
 			{ "supported_curse_skill_gem_level_+", 0.05 },
 		},
 	},
@@ -977,8 +971,6 @@ skills["SupportChanceToIgnite"] = {
 		},
 		Alternate2 = {
 			{ "faster_burn_%", -0.5 },
-		},
-		Alternate2 = {
 			{ "fire_damage_+%", 1 },
 		},
 	},
@@ -1055,8 +1047,6 @@ skills["SupportChargedMines"] = {
 		},
 		Alternate1 = {
 			{ "%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy", 0.5 },
-		},
-		Alternate1 = {
 			{ "%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy", 0.5 },
 		},
 		Alternate2 = {
@@ -1211,8 +1201,6 @@ skills["SupportControlledDestruction"] = {
 		},
 		Alternate1 = {
 			{ "critical_strike_chance_+%", -3 },
-		},
-		Alternate1 = {
 			{ "chance_to_freeze_shock_ignite_%", 0.5 },
 		},
 		Alternate2 = {
@@ -1286,8 +1274,6 @@ skills["SupportControlledDestructionPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 	},
@@ -1339,8 +1325,6 @@ skills["SupportCurseOnHit"] = {
 		},
 		Alternate2 = {
 			{ "curse_effect_+%", -0.5 },
-		},
-		Alternate2 = {
 			{ "base_curse_duration_+%", 2 },
 		},
 	},
@@ -1414,8 +1398,6 @@ skills["SupportCurseOnHitPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "curse_effect_+%", 0.5 },
-		},
-		Default = {
 			{ "chance_to_ignore_hexproof_%", 0.5 },
 		},
 	},
@@ -1476,8 +1458,6 @@ skills["SupportMinionFocusFire"] = {
 		},
 		Alternate2 = {
 			{ "support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target", 1.5 },
-		},
-		Alternate2 = {
 			{ "support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target", 0.75 },
 		},
 	},
@@ -2458,8 +2438,6 @@ skills["ViciousHexExplosion"] = {
 		},
 		Alternate2 = {
 			{ "base_added_cooldown_count", 0.05 },
-		},
-		Alternate2 = {
 			{ "doom_blast_damage_+%_final_per_5_doom_on_hex", -1.25 },
 		},
 	},
@@ -3802,8 +3780,6 @@ skills["SupportPhysicalToLightning"] = {
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "lightning_damage_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -4133,8 +4109,6 @@ skills["SupportSpellCascade"] = {
 		},
 		Alternate2 = {
 			{ "base_skill_area_of_effect_+%", 1 },
-		},
-		Alternate2 = {
 			{ "support_spell_cascade_area_delay_+%", 5 },
 		},
 	},
@@ -4210,8 +4184,6 @@ skills["SupportSpellCascadePlus"] = {
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Default = {
 			{ "spell_damage_+%", 0.5 },
 		},
 	},
@@ -4273,8 +4245,6 @@ skills["SupportMulticast"] = {
 		},
 		Alternate2 = {
 			{ "support_echo_damage_+%_final", -1 },
-		},
-		Alternate2 = {
 			{ "support_spell_echo_final_repeat_damage_+%_final", 3 },
 		},
 	},
@@ -4356,8 +4326,6 @@ skills["SupportSpellEchoPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 	},
@@ -4503,8 +4471,6 @@ skills["SupportRapidActivation"] = {
 		},
 		Alternate1 = {
 			{ "support_rapid_activation_brand_skill_only_primary_duration_+%_final", 1 },
-		},
-		Alternate1 = {
 			{ "support_rapid_activation_brand_skill_only_secondary_duration_+%_final", -1 },
 		},
 		Alternate2 = {
@@ -4655,8 +4621,6 @@ skills["SupportUnboundAilmentsPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "base_all_ailment_duration_+%", 0.5 },
-		},
-		Default = {
 			{ "dot_multiplier_+", 0.5 },
 		},
 	},
@@ -4705,14 +4669,10 @@ skills["SupportHandcastAnticipation"] = {
 		},
 		Alternate1 = {
 			{ "base_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
 			{ "support_anticipation_charge_gain_frequency_+%", -0.5 },
 		},
 		Alternate2 = {
 			{ "unleash_support_seal_gain_frequency_+%_while_channelling", 2.5 },
-		},
-		Alternate2 = {
 			{ "unleash_support_seal_gain_frequency_+%_while_not_channelling", -5 },
 		},
 	},
