@@ -113,6 +113,9 @@ return {
 	skill("ChaosDot", nil),
 	div = 60,
 },
+["critical_ailment_dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil, 0, 0, {type = "Condition", var = "CriticalStrike"})
+},
 ["base_skill_show_average_damage_instead_of_dps"] = {
 	skill("showAverage", true),
 },
@@ -333,6 +336,9 @@ return {
 ["base_avoid_stun_%"] = {
 	mod("AvoidStun", "BASE", nil),
 },
+["avoid_interruption_while_using_this_skill_%"] = {
+	mod("AvoidInterruptStun", "BASE", nil)
+},
 ["life_leech_does_not_stop_at_full_life"] = {
 	flag("CanLeechLifeOnFullLife"),
 },
@@ -449,6 +455,9 @@ return {
 ["burn_damage_+%"] = {
 	mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot),
 },
+["faster_burn_%"] = {
+	mod("IgniteBurnFaster", "INC", nil)
+},
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
@@ -487,6 +496,9 @@ return {
 },
 ["base_reduce_enemy_lightning_resistance_%"] = {
 	mod("LightningPenetration", "BASE", nil),
+},
+["reduce_enemy_chaos_resistance_%"] = {
+	mod("ChaosPenetration", "BASE", nil),
 },
 ["reduce_enemy_elemental_resistance_%"] = {
 	mod("ElementalPenetration", "BASE", nil),
@@ -536,7 +548,9 @@ return {
 ["support_slashing_damage_+%_final_from_distance"] = {
 	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
 },
-
+["damage_+%_on_full_energy_shield"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield"})
+},
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
 	mod("PhysicalDamageGainAsLightning", "BASE", nil),
@@ -594,6 +608,9 @@ return {
 ["faster_bleed_%"] = {
 	mod("BleedFaster", "INC", nil),
 },
+["base_ailment_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Ailment)
+},
 ["base_chance_to_poison_on_hit_%"] = {
 	mod("PoisonChance", "BASE", nil),
 },
@@ -636,6 +653,10 @@ return {
 	mod("EnemyFreezeEffect", "INC", nil),
 	mod("EnemyScorchEffect", "INC", nil),
 	mod("EnemyBrittleEffect", "INC", nil),
+	mod("EnemySapEffect", "INC", nil),
+},
+["lightning_ailment_effect_+%"] = {
+	mod("EnemyShockEffect", "INC", nil),
 	mod("EnemySapEffect", "INC", nil),
 },
 ["base_poison_duration_+%"] = {
@@ -942,6 +963,9 @@ return {
 ["base_attack_speed_+%_per_frenzy_charge"] = {
 	mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
+["damage_+%_per_power_charge"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" })
+},
 ["accuracy_rating"] = {
 	mod("Accuracy", "BASE", nil),
 },
@@ -1174,6 +1198,13 @@ return {
 ["minion_maximum_all_elemental_resistances_%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResistMax", "BASE", nil) }),
 },
+["minion_cooldown_recovery_+%"] = {
+	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)})
+},
+["minion_life_regeneration_rate_per_minute_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
+	div = 60
+},
 ["base_number_of_zombies_allowed"] = {
 	mod("ActiveZombieLimit", "BASE", nil),
 },
@@ -1237,9 +1268,15 @@ return {
 ["base_curse_duration_+%"] = {
 	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
 },
+["curse_skill_effect_duration_+%"] = {
+	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
+},
 -- Aura
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
+},
+["base_mana_reservation_+%"] = {
+	mod("ManaReserved", "INC", nil)
 },
 -- Brand
 ["sigil_attached_target_damage_+%_final"] = {
