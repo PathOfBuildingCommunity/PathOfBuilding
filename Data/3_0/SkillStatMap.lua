@@ -1413,5 +1413,7 @@ return {
 ["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
 	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
 },
-
+["withered_on_hit_chance_%"] = {
+	flag("Condition:CanWither"),
+},
 }

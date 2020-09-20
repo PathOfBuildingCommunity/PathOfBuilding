@@ -460,9 +460,4 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportChaosAttacks
-	statMap = {
-		["withered_on_hit_chance_%"] = {
-			flag("Condition:CanWither"),
-		},
-	},
 #mods

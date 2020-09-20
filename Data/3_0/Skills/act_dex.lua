@@ -4289,6 +4289,9 @@ skills["HeraldOfAgony"] = {
 		},
 		["active_skill_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["withered_on_hit_for_2_seconds_%_chance"] = {
+			flag("Condition:CanWither"),
 		}
 	},
 	baseFlags = {

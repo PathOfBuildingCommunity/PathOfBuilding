@@ -4191,11 +4191,6 @@ skills["SupportChaosAttacks"] = {
 	addSkillTypes = { SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["withered_on_hit_chance_%"] = {
-			flag("Condition:CanWither"),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
