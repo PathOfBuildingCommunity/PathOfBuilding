@@ -19,6 +19,9 @@ skills["Arc"] = {
 		["arc_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
 		},
+		["damage_+%_per_chain"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -106,6 +109,9 @@ skills["VaalArcChain"] = {
 	statMap = {
 		["arc_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+		},
+		["damage_+%_per_chain"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
 		},
 	},
 	baseFlags = {
@@ -363,6 +369,9 @@ skills["CataclysmSigil"] = {
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["chance_to_deal_double_damage_%"] = {
+		    mod("DoubleDamageChance", "BASE", nil)
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -464,6 +473,12 @@ skills["AssassinsMark"] = {
 		["mana_granted_when_killed"] = {
 			mod("SelfManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["base_damage_taken_+%"] = {
+		    mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", nil) }),
+		},
+		["enemy_additional_critical_strike_chance_against_self"] = {
+		    mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Cursed" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -546,6 +561,13 @@ skills["BallLightning"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+    statMap = {
+        ["ball_lightning_superball_%_chance"] = {
+            mod("Damage", "MORE", nil, 0, 0),
+            mod("AreaOfEffect", "MORE", nil, 0, 0),
+            div = 2
+        },
+    },
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -1162,6 +1184,10 @@ skills["BoneOffering"] = {
 		["minion_recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["active_skill_quality_duration_+%_final"] = {
+	        mod("Duration", "MORE", nil),
+	        mult = -2
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1303,6 +1329,9 @@ skills["Clarity"] = {
 		["base_mana_regeneration_rate_per_minute"] = {
 			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			div = 60,
+		},
+		["flask_mana_to_recover_+%"] = {
+		    mod("FlaskManaRecovery", "INC", nil, 0, 0)
 		},
 	},
 	baseFlags = {
@@ -1458,6 +1487,11 @@ skills["ColdSnap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.85,
+    statMap = {
+        ["damage_+%_with_hits_and_ailments"] = {
+            mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+        }
+    },
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -1796,6 +1830,11 @@ skills["ConversionTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanMine] = true, [SkillType.Trap] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+    statMap = {
+        ["conversation_trap_converted_enemy_damage_+%"] = {
+            mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
+        }
+    },
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -2354,6 +2393,12 @@ skills["Discipline"] = {
 		["base_maximum_energy_shield"] = {
 			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["damage_+%_on_full_energy_shield"] = {
+		    mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }),
+		},
+		["energy_shield_delay_-%"] = {
+		    mod("EnergyShieldRechargeFaster", "INC", nil),
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -3630,12 +3675,12 @@ skills["Flammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		hex = true
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
-		mod("MaxDoom", "BASE", 30)
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -4472,6 +4517,14 @@ skills["DoomBlast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ChaosSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Hex] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
+	statMap = {
+		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -4482,7 +4535,7 @@ skills["DoomBlast"] = {
 		flag("ChaosCanIgnite"),
 		flag("ChaosCanChill"),
 		flag("ChaosCanShock"),
-		flag("ChaosDamageUsesLowestResistance")
+		flag("ChaosDamageUsesLowestResistance"),
 	},
 	qualityStats = {
 		Default = {
@@ -4497,14 +4550,6 @@ skills["DoomBlast"] = {
 		},
 		Alternate3 = {
 			{ "hexblast_%_chance_to_not_consume_hex", 0.5 },
-		},
-	},
-	statMap = {
-		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
-		},
-		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 	},
 	stats = {

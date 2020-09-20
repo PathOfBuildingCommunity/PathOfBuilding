@@ -415,6 +415,9 @@ return {
 ["skill_effect_duration_+%"] = {
 	mod("Duration", "INC", nil),
 },
+["secondary_skill_effect_duration_+%"] = {
+	mod("SecondaryDuration", "INC", nil),
+},
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
 },
@@ -552,6 +555,9 @@ return {
 },
 ["cold_damage_%_to_add_as_fire"] = {
 	mod("ColdDamageGainAsFire", "BASE", nil),
+},
+["fire_damage_%_to_add_as_chaos"] = {
+	mod("FireDamageGainAsChaos", "BASE", nil),
 },
 ["base_physical_damage_%_to_convert_to_lightning"] = {
 	mod("PhysicalDamageConvertToLightning", "BASE", nil),
@@ -1256,6 +1262,9 @@ return {
 ["base_curse_duration_+%"] = {
 	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
 },
+["curse_cast_speed_+%"] = {
+	mod("Speed", "INC", nil, 0, 0),
+},
 -- Hex
 ["curse_maximum_doom"] = {
 	mod("MaxDoom", "BASE", nil),
@@ -1297,6 +1306,9 @@ return {
 },
 ["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
 	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
+},
+["hit_damage_+%"] = {
+	mod("Damage", "INC", nil, ModFlag.Hit, 0),
 },
 
 }

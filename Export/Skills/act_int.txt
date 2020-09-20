@@ -11,6 +11,9 @@ local skills, mod, flag, skill = ...
 		["arc_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
 		},
+		["damage_+%_per_chain"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
+		},
 	},
 #mods
 
@@ -19,6 +22,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["arc_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+		},
+		["damage_+%_per_chain"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
 		},
 	},
 #baseMod flag("Condition:CanBeLucky")
@@ -54,6 +60,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["chance_to_deal_double_damage_%"] = {
+		    mod("DoubleDamageChance", "BASE", nil)
+		},
 	},
 #baseMod skill("radius", 18)
 #baseMod skill("radiusSecondary", 8)
@@ -76,12 +85,25 @@ local skills, mod, flag, skill = ...
 		["mana_granted_when_killed"] = {
 			mod("SelfManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["base_damage_taken_+%"] = {
+		    mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", nil) }),
+		},
+		["enemy_additional_critical_strike_chance_against_self"] = {
+		    mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Cursed" }),
+		},
 	},
 #baseMod skill("debuff", true)
 #mods
 
 #skill BallLightning
 #flags spell projectile
+    statMap = {
+        ["ball_lightning_superball_%_chance"] = {
+            mod("Damage", "MORE", nil, 0, 0),
+            mod("AreaOfEffect", "MORE", nil, 0, 0),
+            div = 2
+        },
+    },
 #baseMod skill("radius", 22)
 #mods
 
@@ -193,6 +215,10 @@ local skills, mod, flag, skill = ...
 		["minion_recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["active_skill_quality_duration_+%_final"] = {
+	        mod("Duration", "MORE", nil),
+	        mult = -2
+		},
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
@@ -208,6 +234,9 @@ local skills, mod, flag, skill = ...
 		["base_mana_regeneration_rate_per_minute"] = {
 			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			div = 60,
+		},
+		["flask_mana_to_recover_+%"] = {
+		    mod("FlaskManaRecovery", "INC", nil, 0, 0)
 		},
 	},
 #baseMod skill("radius", 40)
@@ -226,6 +255,11 @@ local skills, mod, flag, skill = ...
 
 #skill ColdSnap
 #flags spell area
+    statMap = {
+        ["damage_+%_with_hits_and_ailments"] = {
+            mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+        }
+    },
 #baseMod skill("showAverage", false)
 #baseMod skill("radius", 16)
 #baseMod skill("dotIsArea", true)
@@ -267,6 +301,11 @@ local skills, mod, flag, skill = ...
 
 #skill ConversionTrap
 #flags spell duration trap
+    statMap = {
+        ["conversation_trap_converted_enemy_damage_+%"] = {
+            mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
+        }
+    },
 #mods
 
 #skill Convocation
@@ -372,6 +411,12 @@ local skills, mod, flag, skill = ...
 		["base_maximum_energy_shield"] = {
 			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["damage_+%_on_full_energy_shield"] = {
+		    mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }),
+		},
+		["energy_shield_delay_-%"] = {
+		    mod("EnergyShieldRechargeFaster", "INC", nil),
+		}
 	},
 #baseMod skill("radius", 40)
 #mods
