@@ -138,6 +138,11 @@ skills["SupportAdditionalAccuracy"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
+	statMap = {
+		["attack_damage_+%_per_1000_accuracy_rating"] = {
+			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "accuracy_rating_+%", 1 },
@@ -430,6 +435,11 @@ skills["SupportBlind"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
+	},
+	statMap = {
+		["critical_strike_chance_+%_vs_blinded_enemies"] = {
+			mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
+		}
 	},
 	qualityStats = {
 		Default = {
