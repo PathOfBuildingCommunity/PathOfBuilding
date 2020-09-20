@@ -600,8 +600,20 @@ return {
 ["skill_physical_damage_%_to_convert_to_chaos"] = {
 	mod("SkillPhysicalDamageConvertToChaos", "BASE", nil),
 },
+["skill_lightning_damage_%_to_convert_to_fire"] = {
+	mod("SkillLightningDamageConvertToFire", "BASE", nil),
+},
 ["skill_cold_damage_%_to_convert_to_fire"] = {
 	mod("SkillColdDamageConvertToFire", "BASE", nil),
+},
+["skill_cold_damage_%_to_convert_to_chaos"] = {
+	mod("SkillColdDamageConvertToFire", "BASE", nil),
+},
+["skill_lightning_damage_%_to_convert_to_chaos"] = {
+	mod("SkillLightningDamageConvertToFire", "BASE", nil),
+},
+["skill_fire_damage_%_to_convert_to_chaos"] = {
+	mod("SkillFireDamageConvertToFire", "BASE", nil),
 },
 ["skill_convert_%_physical_damage_to_random_element"] = {
 	mod("PhysicalDamageConvertToRandom", "BASE", nil)
