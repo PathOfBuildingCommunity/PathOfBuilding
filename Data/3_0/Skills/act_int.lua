@@ -468,12 +468,11 @@ skills["AssassinsMark"] = {
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -1178,14 +1177,10 @@ skills["BoneOffering"] = {
 		},
 		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -2 },
-		},
-		Alternate1 = {
 			{ "minion_recover_X_life_on_block", 5 },
 		},
 		Alternate2 = {
 			{ "monster_base_block_%", 0.1 },
-		},
-		Alternate2 = {
 			{ "base_spell_block_%", 0.1 },
 		},
 	},
@@ -1645,10 +1640,12 @@ skills["Conductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -1892,8 +1889,6 @@ skills["Convocation"] = {
 	qualityStats = {
 		Default = {
 			{ "skill_effect_duration_+%", 1 },
-		},
-		Default = {
 			{ "base_cooldown_speed_+%", 1 },
 		},
 		Alternate1 = {
@@ -1901,8 +1896,6 @@ skills["Convocation"] = {
 		},
 		Alternate2 = {
 			{ "base_cooldown_speed_+%", -2 },
-		},
-		Alternate2 = {
 			{ "unnerve_nearby_enemies_on_use_for_ms", 200 },
 		},
 	},
@@ -1965,10 +1958,10 @@ skills["Disintegrate"] = {
 	castTime = 0.7,
 	statMap = {
 	    ["disintegrate_base_radius_+_per_intensify"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limit = 3  }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity"}),
 		},
 		["disintegrate_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limit = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity"}),
 		},
 	},
 	baseFlags = {
@@ -2185,10 +2178,12 @@ skills["Despair"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2377,8 +2372,6 @@ skills["Discipline"] = {
 		},
 		Alternate2 = {
 			{ "energy_shield_delay_-%", -1.5 },
-		},
-		Alternate2 = {
 			{ "energy_shield_recharge_rate_+%", 2 },
 		},
 	},
@@ -2637,10 +2630,12 @@ skills["ElementalWeakness"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2717,14 +2712,8 @@ skills["Enfeeble"] = {
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -2732,10 +2721,12 @@ skills["Enfeeble"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2915,14 +2906,10 @@ skills["Fireball"] = {
 		},
 		Alternate1 = {
 			{ "base_projectile_speed_+%", -2 },
-		},
-		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 3 },
 		},
 		Alternate2 = {
 			{ "non_damaging_ailment_effect_+%", 3 },
-		},
-		Alternate2 = {
 			{ "active_skill_ignite_damage_+%_final", -2 },
 		},
 		Alternate3 = {
@@ -3093,8 +3080,6 @@ skills["Firestorm"] = {
 		},
 		Alternate1 = {
 			{ "firestorm_initial_impact_damage_+%_final", 3 },
-		},
-		Alternate1 = {
 			{ "base_skill_effect_duration", -3 },
 		},
 		Alternate2 = {
@@ -3182,8 +3167,6 @@ skills["FlameDash"] = {
 		},
 		Alternate2 = {
 			{ "base_chance_to_ignite_%", 2 },
-		},
-		Alternate2 = {
 			{ "flame_dash_burning_damage_+%_final", 2 },
 		},
 	},
@@ -3268,8 +3251,6 @@ skills["Firewall"] = {
 		},
 		Alternate1 = {
 			{ "fire_dot_multiplier_+", 0.5 },
-		},
-		Alternate1 = {
 			{ "skill_effect_duration_+%", -1 },
 		},
 		Alternate2 = {
@@ -3462,20 +3443,14 @@ skills["Flameblast"] = {
 		},
 		Alternate1 = {
 			{ "skill_fire_damage_%_to_convert_to_chaos", 2 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_poison_on_hit_%", 1 },
 		},
 		Alternate2 = {
 			{ "flameblast_maximum_stages", 0.1 },
-		},
-		Alternate2 = {
 			{ "active_skill_cast_speed_+%_final", -2 },
 		},
 		Alternate3 = {
 			{ "active_skill_base_radius_+", 0.5 },
-		},
-		Alternate3 = {
 			{ "flameblast_area_+%_final_per_stage", -0.5 },
 		},
 	},
@@ -3655,10 +3630,12 @@ skills["Flammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30)
 	},
 	qualityStats = {
 		Default = {
@@ -3835,8 +3812,6 @@ skills["FreezingPulse"] = {
 		},
 		Alternate1 = {
 			{ "freezing_pulse_damage_+%_final_at_long_range", 3 },
-		},
-		Alternate1 = {
 			{ "active_skill_damage_+%_final", -1 },
 		},
 		Alternate2 = {
@@ -3932,8 +3907,6 @@ skills["FrostBomb"] = {
 		},
 		Alternate3 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
-		},
-		Alternate3 = {
 			{ "base_cooldown_speed_+%", 1 },
 		},
 	},
@@ -4176,10 +4149,12 @@ skills["Frostbite"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -4348,8 +4323,6 @@ skills["FrostBolt"] = {
 		},
 		Alternate1 = {
 			{ "damage_+%", -5 },
-		},
-		Alternate1 = {
 			{ "base_inflict_cold_exposure_on_hit_%_chance", 1 },
 		},
 		Alternate2 = {
@@ -4433,8 +4406,6 @@ skills["GlacialCascade"] = {
 		},
 		Alternate2 = {
 			{ "base_skill_area_of_effect_+%", -1 },
-		},
-		Alternate2 = {
 			{ "glacial_cascade_final_spike_damage_+%_final", 2 },
 		},
 	},
@@ -4507,6 +4478,11 @@ skills["DoomBlast"] = {
 		chaos = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
+		flag("ChaosCanIgnite"),
+		flag("ChaosCanChill"),
+		flag("ChaosCanShock"),
+		flag("ChaosDamageUsesLowestResistance")
 	},
 	qualityStats = {
 		Default = {
@@ -4517,12 +4493,18 @@ skills["DoomBlast"] = {
 		},
 		Alternate2 = {
 			{ "base_ailment_damage_+%", 2 },
-		},
-		Alternate2 = {
 			{ "non_damaging_ailment_effect_+%", 1 },
 		},
 		Alternate3 = {
 			{ "hexblast_%_chance_to_not_consume_hex", 0.5 },
+		},
+	},
+	statMap = {
+		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 	},
 	stats = {
@@ -4629,8 +4611,6 @@ skills["HeraldOfThunder"] = {
 		},
 		Alternate2 = {
 			{ "skill_buff_grants_damage_+%", 1.5 },
-		},
-		Alternate2 = {
 			{ "base_damage_taken_+%", 0.5 },
 		},
 	},
@@ -5115,11 +5095,7 @@ skills["ExpandingFireCone"] = {
 		},
 		Alternate2 = {
 			{ "flamethrower_damage_+%_per_stage_final", 0.2 },
-		},
-		Alternate2 = {
 			{ "expanding_fire_cone_release_hit_damage_+%_final", -10 },
-		},
-		Alternate2 = {
 			{ "grant_expanding_fire_cone_release_ignite_damage_+%_final", -10 },
 		},
 	},
@@ -5377,8 +5353,6 @@ skills["LightningTowerTrap"] = {
 		},
 		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
-		},
-		Alternate1 = {
 			{ "base_cooldown_speed_+%", 3 },
 		},
 		Alternate2 = {
@@ -5469,8 +5443,6 @@ skills["LightningTendrilsChannelled"] = {
 		},
 		Alternate3 = {
 			{ "active_skill_damage_+%_final", -2 },
-		},
-		Alternate3 = {
 			{ "lightning_tendrils_channelled_larger_pulse_damage_+%_final", 10 },
 		},
 	},
@@ -5545,8 +5517,6 @@ skills["LightningTrap"] = {
 	qualityStats = {
 		Default = {
 			{ "lightning_damage_+%", 1 },
-		},
-		Default = {
 			{ "lightning_ailment_effect_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -5728,8 +5698,6 @@ skills["LightningWarp"] = {
 		},
 		Alternate2 = {
 			{ "skill_effect_duration_+%", 1 },
-		},
-		Alternate2 = {
 			{ "damage_+%", 3 },
 		},
 		Alternate3 = {
@@ -6066,8 +6034,6 @@ skills["OrbOfStorms"] = {
 		},
 		Alternate2 = {
 			{ "base_cast_speed_+%", 1 },
-		},
-		Alternate2 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
 		},
 	},
@@ -6803,8 +6769,6 @@ skills["MortarBarrageMine"] = {
 		},
 		Alternate1 = {
 			{ "burn_damage_+%", 5 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_ignite_%", 1 },
 		},
 		Alternate2 = {
@@ -6906,8 +6870,6 @@ skills["RaiseSpectre"] = {
 		},
 		Alternate1 = {
 			{ "minion_melee_damage_+%", 1 },
-		},
-		Alternate1 = {
 			{ "minion_maximum_life_+%", 1 },
 		},
 		Alternate2 = {
@@ -6996,8 +6958,6 @@ skills["RaiseZombie"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_movement_speed_+%", 1 },
 		},
 		Alternate1 = {
@@ -7008,8 +6968,6 @@ skills["RaiseZombie"] = {
 		},
 		Alternate3 = {
 			{ "minions_take_%_of_life_as_chaos_damage_when_summoned_over_1_second", 1 },
-		},
-		Alternate3 = {
 			{ "minions_deal_%_of_physical_damage_as_additional_chaos_damage", 0.5 },
 		},
 	},
@@ -7290,8 +7248,6 @@ skills["FireBeam"] = {
 		},
 		Alternate2 = {
 			{ "base_cast_speed_+%", 2 },
-		},
-		Alternate2 = {
 			{ "active_skill_quality_duration_+%_final", -2 },
 		},
 	},
@@ -7381,8 +7337,6 @@ skills["ShockNova"] = {
 		},
 		Alternate1 = {
 			{ "shock_nova_ring_chance_to_shock_+%", 2 },
-		},
-		Alternate1 = {
 			{ "shock_nova_ring_shocks_as_if_dealing_damage_+%_final", 5 },
 		},
 		Alternate2 = {
@@ -7469,8 +7423,6 @@ skills["CircleOfPower"] = {
 		},
 		Alternate3 = {
 			{ "circle_of_power_skill_cost_mana_cost_+%", -0.5 },
-		},
-		Alternate3 = {
 			{ "spell_damage_+%", 1 },
 		},
 	},
@@ -7970,8 +7922,6 @@ skills["SupportSpellslinger"] = {
 		},
 		Alternate2 = {
 			{ "gain_%_of_base_wand_damage_as_added_spell_damage", 2 },
-		},
-		Alternate2 = {
 			{ "base_cooldown_speed_+%", -2 },
 		},
 	},
@@ -8404,8 +8354,6 @@ skills["LightningExplosionMine"] = {
 	qualityStats = {
 		Default = {
 			{ "base_chance_to_shock_%", 0.5 },
-		},
-		Default = {
 			{ "lightning_ailment_effect_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -8529,8 +8477,6 @@ skills["Stormbind"] = {
 		},
 		Alternate3 = {
 			{ "active_skill_quality_damage_+%_final", 1 },
-		},
-		Alternate3 = {
 			{ "rune_paint_damage_+%_final_per_rune_level", -3 },
 		},
 	},
@@ -8688,8 +8634,6 @@ skills["StormBurstNew"] = {
 		},
 		Alternate2 = {
 			{ "storm_burst_zap_area_of_effect_+%", 2 },
-		},
-		Alternate2 = {
 			{ "storm_burst_explosion_area_of_effect_+%", -2 },
 		},
 	},
@@ -8775,8 +8719,6 @@ skills["StormCall"] = {
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 2 },
-		},
-		Alternate1 = {
 			{ "base_cast_speed_+%", -2 },
 		},
 		Alternate2 = {
@@ -8955,8 +8897,6 @@ skills["SummonBoneGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -9049,8 +8989,6 @@ skills["SummonChaosGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -9224,8 +9162,6 @@ skills["SummonLightningGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -9565,8 +9501,6 @@ skills["BlackHole"] = {
 		},
 		Alternate1 = {
 			{ "skill_effect_duration_+%", -2 },
-		},
-		Alternate1 = {
 			{ "base_cooldown_speed_+%", 2 },
 		},
 		Alternate2 = {
@@ -9747,8 +9681,6 @@ skills["TempestShield"] = {
 		},
 		Alternate2 = {
 			{ "shield_block_%", 0.05 },
-		},
-		Alternate2 = {
 			{ "shield_spell_block_%", 0.05 },
 		},
 	},
@@ -9834,8 +9766,6 @@ skills["FrostBoltNova"] = {
 		},
 		Alternate2 = {
 			{ "base_cooldown_speed_+%", 1 },
-		},
-		Alternate2 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
 		},
 		Alternate3 = {
@@ -10154,8 +10084,6 @@ skills["ImmolationSigil"] = {
 		},
 		Alternate2 = {
 			{ "skill_effect_duration_+%", 2 },
-		},
-		Alternate2 = {
 			{ "base_cast_speed_+%", -2 },
 		},
 	},

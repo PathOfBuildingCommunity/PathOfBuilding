@@ -23,8 +23,6 @@ skills["SupportAddedFireDamage"] = {
 		},
 		Alternate1 = {
 			{ "fire_damage_+%", -1 },
-		},
-		Alternate1 = {
 			{ "fire_dot_multiplier_+", 1 },
 		},
 		Alternate2 = {
@@ -222,8 +220,6 @@ skills["SupportAncestralCallPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "extra_target_targeting_distance_+%", 1 },
 		},
 	},
@@ -491,8 +487,6 @@ skills["SupportBrutalityPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.5 },
 		},
 	},
@@ -617,8 +611,6 @@ skills["SupportBurningDamagePlus"] = {
 	qualityStats = {
 		Default = {
 			{ "burn_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "fire_dot_multiplier_+", 0.5 },
 		},
 	},
@@ -964,8 +956,6 @@ skills["SupportColdToFire"] = {
 	qualityStats = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "fire_damage_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -1479,8 +1469,6 @@ skills["AncestralSlamSupport"] = {
 		},
 		Alternate1 = {
 			{ "attack_speed_+%", -1 },
-		},
-		Alternate1 = {
 			{ "damage_+%", 3 },
 		},
 		Alternate2 = {
@@ -1647,8 +1635,6 @@ skills["SupportGenerosity"] = {
 		},
 		Alternate2 = {
 			{ "base_aura_area_of_effect_+%", 5 },
-		},
-		Alternate2 = {
 			{ "base_mana_reservation_+%", 0.5 },
 		},
 	},
@@ -1722,8 +1708,6 @@ skills["SupportGenerosityPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "base_aura_area_of_effect_+%", 2 },
-		},
-		Default = {
 			{ "supported_aura_skill_gem_level_+", 0.05 },
 		},
 	},
@@ -1771,8 +1755,6 @@ skills["SupportIncreasedDuration"] = {
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 1 },
-		},
-		Alternate1 = {
 			{ "skill_effect_duration_+%", -0.5 },
 		},
 		Alternate2 = {
@@ -1842,8 +1824,6 @@ skills["SupportIronGrip"] = {
 		},
 		Alternate1 = {
 			{ "attack_speed_+%", -0.5 },
-		},
-		Alternate1 = {
 			{ "damage_+%", 2 },
 		},
 		Alternate2 = {
@@ -1914,8 +1894,6 @@ skills["SupportIronWill"] = {
 		},
 		Alternate1 = {
 			{ "base_cast_speed_+%", -0.5 },
-		},
-		Alternate1 = {
 			{ "damage_+%", 2 },
 		},
 		Alternate2 = {
@@ -2499,8 +2477,6 @@ skills["SupportMeleePhysicalDamagePlus"] = {
 	qualityStats = {
 		Default = {
 			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "chance_to_intimidate_on_hit_%", 0.5 },
 		},
 	},
@@ -2682,8 +2658,6 @@ skills["SupportMultistrike"] = {
 		},
 		Alternate1 = {
 			{ "attack_speed_+%", -1 },
-		},
-		Alternate1 = {
 			{ "multistrike_area_of_effect_+%_per_repeat", 1 },
 		},
 		Alternate2 = {
@@ -2768,8 +2742,6 @@ skills["SupportMultistrikePlus"] = {
 	qualityStats = {
 		Default = {
 			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "attack_speed_+%", 0.5 },
 		},
 	},
@@ -2908,8 +2880,6 @@ skills["SupportPulverise"] = {
 		},
 		Alternate2 = {
 			{ "support_pulverise_attack_speed_+%_final", -0.5 },
-		},
-		Alternate2 = {
 			{ "support_pulverise_melee_area_damage_+%_final", 1 },
 		},
 	},
@@ -3262,8 +3232,6 @@ skills["SupportRuthless"] = {
 		},
 		Alternate2 = {
 			{ "attack_speed_+%", -1 },
-		},
-		Alternate2 = {
 			{ "support_ruthless_big_hit_damage_+%_final", 1 },
 		},
 	},
@@ -3642,8 +3610,6 @@ skills["SupportUrgentOrders"] = {
 		},
 		Alternate1 = {
 			{ "base_cooldown_speed_+%", -1 },
-		},
-		Alternate1 = {
 			{ "skill_buff_effect_+%", 0.5 },
 		},
 		Alternate2 = {

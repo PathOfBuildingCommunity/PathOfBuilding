@@ -149,8 +149,6 @@ skills["ArcticArmour"] = {
 		},
 		Alternate2 = {
 			{ "new_arctic_armour_physical_damage_taken_when_hit_+%_final", -0.05 },
-		},
-		Alternate2 = {
 			{ "new_arctic_armour_fire_damage_taken_when_hit_+%_final", -0.05 },
 		},
 	},
@@ -2659,8 +2657,6 @@ skills["DualStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "critical_strike_chance_+%", 1 },
-		},
-		Default = {
 			{ "base_critical_strike_multiplier_+", 0.5 },
 		},
 		Alternate1 = {
@@ -3088,8 +3084,6 @@ skills["ExplosiveArrow"] = {
 	qualityStats = {
 		Default = {
 			{ "base_chance_to_ignite_%", 1 },
-		},
-		Default = {
 			{ "skill_effect_duration_+%", 1 },
 		},
 		Alternate1 = {
@@ -3097,8 +3091,6 @@ skills["ExplosiveArrow"] = {
 		},
 		Alternate2 = {
 			{ "explosive_arrow_stack_limit", 0.2 },
-		},
-		Alternate2 = {
 			{ "active_skill_quality_duration_+%_final", -2 },
 		},
 	},
@@ -3270,8 +3262,6 @@ skills["FireTrap"] = {
 		},
 		Alternate2 = {
 			{ "base_chance_to_ignite_%", 3 },
-		},
-		Alternate2 = {
 			{ "active_skill_area_of_effect_+%_final", -1 },
 		},
 	},
@@ -3362,8 +3352,6 @@ skills["FlamethrowerTrap"] = {
 		},
 		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
-		},
-		Alternate1 = {
 			{ "base_cooldown_speed_+%", 3 },
 		},
 		Alternate2 = {
@@ -3656,8 +3644,6 @@ skills["FrostBlades"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 1 },
-		},
-		Default = {
 			{ "base_projectile_speed_+%", 1 },
 		},
 		Alternate1 = {
@@ -4306,8 +4292,6 @@ skills["HeraldOfAgony"] = {
 		},
 		Alternate1 = {
 			{ "active_skill_minion_damage_+%_final", -2 },
-		},
-		Alternate1 = {
 			{ "withered_on_hit_for_2_seconds_%_chance", 1 },
 		},
 		Alternate2 = {
@@ -4988,8 +4972,6 @@ skills["LightningStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 1 },
-		},
-		Default = {
 			{ "base_projectile_speed_+%", 1 },
 		},
 		Alternate1 = {
@@ -5101,8 +5083,6 @@ skills["VaalLightningStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 1 },
-		},
-		Default = {
 			{ "base_projectile_speed_+%", 1 },
 		},
 	},
@@ -5515,25 +5495,30 @@ skills["PoachersMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["evasion_rating_+%_final_from_poachers_mark"] = {
-			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["life_granted_when_hit_by_attacks"] = {
 			mod("SelfLifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["mana_granted_when_hit_by_attacks"] = {
 			mod("SelfManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["base_additional_physical_damage_reduction_%"] = {
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["minimum_added_physical_damage_taken"] = {
+			mod("SelfPhysicalMin", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["maximum_added_physical_damage_taken"] = {
+			mod("SelfPhysicalMax", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -5637,8 +5622,6 @@ skills["AccuracyAndCritsAura"] = {
 		},
 		Alternate2 = {
 			{ "auras_grant_damage_+%_to_you_and_your_allies", 0.5 },
-		},
-		Alternate2 = {
 			{ "precision_grants_area_of_effect_+%_final", -0.5 },
 		},
 	},
@@ -5712,12 +5695,11 @@ skills["SnipersMark"] = {
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -6666,8 +6648,6 @@ skills["ShatteringSteel"] = {
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "base_projectile_speed_+%", 1 },
 		},
 		Alternate2 = {
@@ -6763,8 +6743,6 @@ skills["PhysCascadeTrap"] = {
 		},
 		Alternate3 = {
 			{ "base_cast_speed_+%", -3 },
-		},
-		Alternate3 = {
 			{ "damage_+%", 5 },
 		},
 	},
@@ -6941,8 +6919,6 @@ skills["SiegeBallista"] = {
 		},
 		Alternate1 = {
 			{ "number_of_additional_projectiles", 0.1 },
-		},
-		Alternate1 = {
 			{ "attack_speed_+%", -1 },
 		},
 		Alternate2 = {
@@ -7238,8 +7214,6 @@ skills["ThrownWeapon"] = {
 		},
 		Alternate2 = {
 			{ "base_projectile_speed_+%", -0.5 },
-		},
-		Alternate2 = {
 			{ "number_of_additional_projectiles", 0.05 },
 		},
 	},
@@ -7412,8 +7386,6 @@ skills["RainOfSpores"] = {
 		},
 		Alternate3 = {
 			{ "skill_buff_effect_+%", -1 },
-		},
-		Alternate3 = {
 			{ "base_number_of_additional_arrows", 0.1 },
 		},
 	},
@@ -7586,14 +7558,10 @@ skills["ImpactingSteel"] = {
 		},
 		Alternate2 = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
 			{ "base_projectile_speed_+%", 1 },
 		},
 		Alternate3 = {
 			{ "attacks_impale_on_hit_%_chance", -2 },
-		},
-		Alternate3 = {
 			{ "damage_+%", 2 },
 		},
 	},
@@ -7685,8 +7653,6 @@ skills["SummonIceGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -7774,10 +7740,12 @@ skills["TemporalChains"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -8134,8 +8102,6 @@ skills["ViperStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_poison_duration_+%", 0.5 },
 		},
 		Alternate1 = {

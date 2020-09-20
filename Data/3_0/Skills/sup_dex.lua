@@ -226,8 +226,6 @@ skills["SupportArrowNova"] = {
 		},
 		Alternate2 = {
 			{ "base_projectile_speed_+%", -2 },
-		},
-		Alternate2 = {
 			{ "damage_+%", 1 },
 		},
 	},
@@ -999,8 +997,6 @@ skills["SupportChainPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "base_projectile_speed_+%", 1 },
-		},
-		Default = {
 			{ "attack_and_cast_speed_+%", 0.5 },
 		},
 	},
@@ -1119,8 +1115,6 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 		},
 		Alternate1 = {
 			{ "%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy", 0.5 },
-		},
-		Alternate1 = {
 			{ "%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy", 0.5 },
 		},
 		Alternate2 = {
@@ -1451,8 +1445,6 @@ skills["SupportCullingStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -1539,8 +1531,6 @@ skills["SupportDeadlyAilments"] = {
 		},
 		Alternate2 = {
 			{ "dot_multiplier_+", 0.5 },
-		},
-		Alternate2 = {
 			{ "support_better_ailments_hit_damage_+%_final", -3 },
 		},
 	},
@@ -1767,8 +1757,6 @@ skills["SupportFasterProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -1776,8 +1764,6 @@ skills["SupportFasterProjectiles"] = {
 		},
 		Alternate2 = {
 			{ "base_projectile_speed_+%", 0.5 },
-		},
-		Alternate2 = {
 			{ "projectile_damage_+%", 0.5 },
 		},
 	},
@@ -1973,14 +1959,10 @@ skills["SupportGreaterMultipleProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 1 },
-		},
-		Alternate1 = {
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -2056,8 +2038,6 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 1 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 1 },
 		},
 	},
@@ -2419,14 +2399,10 @@ skills["SupportLesserMultipleProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 1 },
-		},
-		Alternate1 = {
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -2645,8 +2621,6 @@ skills["SupportGemMirageArcher"] = {
 		},
 		Alternate1 = {
 			{ "mirage_archer_number_of_additional_projectiles", 0.1 },
-		},
-		Alternate1 = {
 			{ "support_mirage_archer_base_duration", -100 },
 		},
 		Alternate2 = {
@@ -3178,8 +3152,6 @@ skills["SupportAdditionalCooldown"] = {
 		},
 		Alternate1 = {
 			{ "support_added_cooldown_count_if_not_instant", 0.05 },
-		},
-		Alternate1 = {
 			{ "base_cooldown_speed_+%", -0.5 },
 		},
 		Alternate2 = {
@@ -3335,8 +3307,6 @@ skills["SupportRapidDecay"] = {
 		},
 		Alternate1 = {
 			{ "attack_and_cast_speed_+%", 0.25 },
-		},
-		Alternate1 = {
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -3410,8 +3380,6 @@ skills["SupportSwiftAfflictionPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_over_time_+%", 0.5 },
-		},
-		Default = {
 			{ "dot_multiplier_+", 0.5 },
 		},
 	},
@@ -3456,8 +3424,6 @@ skills["SupportAdditionalTrapMine"] = {
 	qualityStats = {
 		Default = {
 			{ "mine_laying_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "trap_throwing_speed_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -3465,8 +3431,6 @@ skills["SupportAdditionalTrapMine"] = {
 		},
 		Alternate2 = {
 			{ "trap_throwing_speed_+%_per_frenzy_charge", 0.1 },
-		},
-		Alternate2 = {
 			{ "mine_throwing_speed_+%_per_frenzy_charge", 0.1 },
 		},
 	},
@@ -3695,8 +3659,6 @@ skills["SupportTrapAndMineDamage"] = {
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 0.5 },
-		},
-		Alternate1 = {
 			{ "base_mana_reservation_+%", -0.5 },
 		},
 		Alternate2 = {
@@ -3782,8 +3744,6 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 		},
 		Alternate1 = {
 			{ "bleed_on_hit_with_attacks_%", 0.5 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_poison_on_hit_%", 0.5 },
 		},
 		Alternate2 = {
@@ -4002,8 +3962,6 @@ skills["SupportVoidManipulation"] = {
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 0.25 },
-		},
-		Alternate1 = {
 			{ "attack_and_cast_speed_+%", 0.25 },
 		},
 		Alternate2 = {
