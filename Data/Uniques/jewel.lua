@@ -16,6 +16,15 @@ Limited to: 1
 Can Summon up to 1 additional Golem at a time
 +1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
+Apex Mode
+Cobalt Jewel
+League: Heist
+Limited to: 1
+Requires Level 20
+(20-25)% increased Spell Damage
+Spells have 10% reduced Critical Strike Chance per Intensity
+Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
+]],[[
 Apparitions
 Viridian Jewel
 Minions have (5-10)% increased Movement Speed
