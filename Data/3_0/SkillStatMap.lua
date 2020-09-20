@@ -375,6 +375,9 @@ return {
 ["active_skill_area_of_effect_radius_+%_final"] = {
 	mod("AreaOfEffect", "MORE", nil),
 },
+["active_skill_area_of_effect_+%_final"] = {
+	mod("AreaOfEffect", "MORE", nil),
+},
 -- Critical strikes
 ["additional_base_critical_strike_chance"] = {
 	mod("CritChance", "BASE", nil),
@@ -426,6 +429,12 @@ return {
 },
 ["skill_effect_and_damaging_ailment_duration_+%"] = {
 	mod("SkillAndDamagingAilmentDuration", "INC", nil),
+},
+["base_bleed_duration_+%"] = {
+	mod("BleedDuration", "INC", nil),
+},
+["active_skill_quality_duration_+%_final"] = {
+	mod("Duration", "INC", nil),
 },
 -- Damage
 ["damage_+%"] = {
@@ -594,6 +603,9 @@ return {
 ["skill_cold_damage_%_to_convert_to_fire"] = {
 	mod("SkillColdDamageConvertToFire", "BASE", nil),
 },
+["skill_convert_%_physical_damage_to_random_element"] = {
+	mod("PhysicalDamageConvertToRandom", "BASE", nil)
+},
 -- Ailments
 ["bleed_on_hit_with_attacks_%"] = {
 	mod("BleedChance", "BASE", nil, ModFlag.Attack),
@@ -659,6 +671,15 @@ return {
 	mod("EnemyShockEffect", "INC", nil),
 	mod("EnemySapEffect", "INC", nil),
 },
+["cold_ailment_duration_+%"] = {
+	mod("EnemyChillDuration", "INC", nil),
+	mod("EnemyFreezeDuration", "INC", nil),
+	mod("EnemyBrittleDuration", "INC", nil),
+},
+["chill_and_freeze_duration_+%"] = {
+	mod("EnemyChillDuration", "INC", nil),
+	mod("EnemyFreezeDuration", "INC", nil),
+},
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
 },
@@ -715,6 +736,9 @@ return {
 ["fire_dot_multiplier_+"] = {
 	mod("FireDotMultiplier", "BASE", nil),
 },
+["chaos_dot_multiplier_+"] = {
+	mod("ChaosDotMultiplier", "BASE", nil),
+},
 ["cold_dot_multiplier_+"] = {
 	mod("ColdDotMultiplier", "BASE", nil),
 },
@@ -731,6 +755,9 @@ return {
 },
 ["active_skill_chill_as_though_damage_+%_final"] = {
 	mod("ChillAsThoughDealing", "MORE", nil),
+},
+["ailment_damage_+%_per_frenzy_charge"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FrenzyCharge"})
 },
 -- Global flags
 ["never_ignite"] = {
@@ -801,6 +828,9 @@ return {
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
+["base_arrow_speed_+%"] = {
+	mod("ProjectileSpeed", "INC", nil),
+},
 ["projectile_base_number_of_targets_to_pierce"] = {
 	mod("PierceCount", "BASE", nil),
 },
@@ -821,6 +851,9 @@ return {
 },
 ["number_of_additional_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
+},
+["projectile_damage_+%_per_remaining_chain"] = {
+	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
 },
 ["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
@@ -1046,7 +1079,13 @@ return {
 },
 -- Impale
 ["attacks_impale_on_hit_%_chance"] = {
+    mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack)
+},
+["impale_on_hit_%_chance"] = {
     mod("ImpaleChance", "BASE", nil, 0, 0)
+},
+["spells_impale_on_hit_%_chance"] = {
+    mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Spell)
 },
 ["impale_debuff_effect_+%"] = {
     mod("ImpaleEffect", "INC", nil, 0, 0)

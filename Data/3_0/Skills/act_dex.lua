@@ -39,6 +39,9 @@ skills["AnimateWeapon"] = {
 		["attack_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["minion_global_maximum_added_lightning_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -317,6 +320,13 @@ skills["Barrage"] = {
 		projectile = true,
 	},
 	baseMods = {
+	},
+	statMap = {
+		["non_damaging_ailments_as_though_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil),
+			mod("ChillAsThoughDealing", "MORE", nil),
+			mod("FreezeAsThoughDealing", "MORE", nil)
+		}
 	},
 	qualityStats = {
 		Default = {
@@ -610,6 +620,12 @@ skills["ChargedAttack"] = {
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["blade_flurry_elemental_damage_+%_while_channeling"] = {
+			mod("ElementalDamage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} })
+		},
+		["blade_flurry_final_flurry_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 3 })
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -715,6 +731,9 @@ skills["BladeVortex"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["blade_vortex_damage_+%_with_5_or_fewer_blades"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} }),
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -999,6 +1018,14 @@ skills["BlastRain"] = {
 		skill("radius", 24),
 		flag("OneShotProj"),
 	},
+	statMap = {
+		["blast_rain_damage_+%_vs_distant_enemies"] = { 
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) 
+		},
+		["blast_rain_area_of_effect_+%"] = {
+			-- Only affects primary area for overlaps
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1180,6 +1207,12 @@ skills["BloodRage"] = {
 		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["blood_rage_life_leech_from_elemental_damage_permyriad"] = {
+			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			div = 100
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -1275,7 +1308,7 @@ skills["BurningArrow"] = {
 		["base_additional_burning_debuff_%_of_ignite_damage"] = {
 			mod("DebuffEffect", "BASE", nil),
 			div = 100
-		}
+		},
 	},
 	preDotFunc = function(activeSkill, output)
 		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
@@ -1741,6 +1774,21 @@ skills["CorpseEruption"] = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 15),
 	},
+	statMap = {
+		["cremation_base_fires_projectile_every_x_ms"] = {
+			skill("cremationFireRate", nil),
+			div = 1000
+		},
+		["cremation_fires_projectiles_faster_+%_final"] = {
+			skill("cremationFireRateIncrease", nil),
+			div = 100
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate * ((activeSkill.skillData.cremationFireRateIncrease or 0) + 1)
+		end
+	end,
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 1 },
@@ -2589,6 +2637,21 @@ skills["DualStrike"] = {
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
+		["damage_+%_vs_enemies_on_full_life"] = {
+			mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
+		},
+		["active_skill_added_damage_+%_final"] = {
+			mod("PhysicalMax", "MORE", nil),
+			mod("FireMax", "MORE", nil),
+			mod("ColdMax", "MORE", nil),
+			mod("LightningMax", "MORE", nil),
+			mod("ChaosMax", "MORE", nil),
+			mod("PhysicalMin", "MORE", nil),
+			mod("FireMin", "MORE", nil),
+			mod("ColdMin", "MORE", nil),
+			mod("LightningMin", "MORE", nil),
+			mod("ChaosMin", "MORE", nil),
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -2794,6 +2857,9 @@ skills["EnsnaringArrow"] = {
 	statMap = {
 		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
 			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
+		},
+		["ensnaring_arrow_enemy_spell_damage_taken_+%"] = {
+			mod("SpellDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
 		},
 	},
 	baseFlags = {
@@ -3002,6 +3068,9 @@ skills["ExplosiveArrow"] = {
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
+		["active_skill_quality_duration_+%_final"] = {
+			mod("Duration", "INC", nil)
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -3759,6 +3828,15 @@ skills["Grace"] = {
 		["base_evasion_rating"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["avoid_all_elemental_status_%"] = {
+			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["avoid_chaos_damage_%"] = {
+			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3924,6 +4002,15 @@ skills["Haste"] = {
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["summon_totem_cast_speed_+%"] = {
+			mod("TotemPlacementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["base_projectile_speed_+%"] = {
+			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["buff_time_passed_+%_only_buff_category"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 	},
 	baseFlags = {
@@ -4099,6 +4186,9 @@ skills["Hatred"] = {
 		["hatred_aura_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["movement_velocity_+%_on_chilled_ground"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "OnChilledGround"})
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -4200,6 +4290,9 @@ skills["HeraldOfAgony"] = {
 		["scorpion_minion_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
+		["active_skill_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		}
 	},
 	baseFlags = {
 		cast = true,
@@ -4301,6 +4394,9 @@ skills["HeraldOfIce"] = {
 		["attack_maximum_added_cold_damage"] = {
 			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["skill_buff_grants_chance_to_freeze_%"] = {
+			mod("FreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		}
 	},
 	baseFlags = {
 		cast = true,
@@ -4683,6 +4779,11 @@ skills["LancingSteel"] = {
 	},
 	baseMods = {
 	},
+	statMap = {
+		["lancing_steel_damage_+%_at_close_range"] = {
+
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "impale_debuff_effect_+%", 1 },
@@ -4873,6 +4974,9 @@ skills["LightningStrike"] = {
 		["active_skill_damage_over_time_from_projectile_hits_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
 		},
+		["projectile_base_number_of_targets_to_pierce"] = {
+			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -5509,6 +5613,12 @@ skills["AccuracyAndCritsAura"] = {
 		["critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["auras_grant_damage_+%_to_you_and_your_allies"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["precision_grants_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5782,6 +5892,12 @@ skills["ColdResistAura"] = {
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_avoid_freeze_%"] = {
+			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_reduce_enemy_cold_resistance_%"] = {
+			mod("ColdPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -6901,6 +7017,9 @@ skills["SmokeMine"] = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["skill_buff_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7002,6 +7121,9 @@ skills["ThrownShield"] = {
 		["thrown_shield_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["critical_multiplier_+%_per_100_max_es_on_shield"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, {type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2"})
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -8192,6 +8314,11 @@ skills["WhirlingBlades"] = {
 		melee = true,
 	},
 	baseMods = {
+	},
+	statMap = {
+		["whirling_blades_evasion_rating_+%_while_moving"] = {
+			mod("Evasion", "INC", nil, 0, 0, { type = "Condition", var = "Moving" } )
+		},
 	},
 	qualityStats = {
 		Default = {
