@@ -319,7 +319,7 @@ skills["AncestralCry"] = {
 		["ancestral_cry_max_physical_damage_reduction_rating"] = {
 			mod("AncestralArmourMax", "BASE", nil),
 		},
-		["ancestral_cry_max_physical_damage_reduction_rating"] = {
+		["physical_damage_reduction_rating_+%"] = {
 			mod("AncestralArmourMax", "INC", nil),
 		},
 		
