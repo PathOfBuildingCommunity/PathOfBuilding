@@ -23,9 +23,6 @@ local skills, mod, flag, skill = ...
 		["arc_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
 		},
-		["damage_+%_per_chain"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
-		},
 	},
 #baseMod flag("Condition:CanBeLucky")
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeLucky" })
@@ -86,10 +83,7 @@ local skills, mod, flag, skill = ...
 			mod("SelfManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_damage_taken_+%"] = {
-		    mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", nil) }),
-		},
-		["enemy_additional_critical_strike_chance_against_self"] = {
-		    mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Cursed" }),
+		    mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
@@ -217,7 +211,6 @@ local skills, mod, flag, skill = ...
 		},
 		["active_skill_quality_duration_+%_final"] = {
 	        mod("Duration", "MORE", nil),
-	        mult = -2
 		},
 	},
 #baseMod skill("buffMinions", true)

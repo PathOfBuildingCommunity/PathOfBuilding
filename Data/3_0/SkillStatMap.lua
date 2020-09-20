@@ -1307,8 +1307,5 @@ return {
 ["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
 	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
 },
-["hit_damage_+%"] = {
-	mod("Damage", "INC", nil, ModFlag.Hit, 0),
-},
 
 }
