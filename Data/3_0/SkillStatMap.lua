@@ -171,7 +171,7 @@ return {
 	skill("doubleHitsWhenDualWielding", true),
 },
 ["area_of_effect_+%_while_not_dual_wielding"] = {
-	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding" })
+	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
 	skill("repeatCount", nil),
