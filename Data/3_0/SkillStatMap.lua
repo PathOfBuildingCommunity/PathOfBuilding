@@ -1356,7 +1356,7 @@ return {
 },
 --Golem
 ["golem_buff_effect_+%"] = {
-	mod("BuffEffect", "INC", nil, 0, 0, { type = "SkillType", SkillType = SkillType.Golem})
+	mod("BuffEffect", "INC", nil, 0, 0)
 },
 ["golem_cooldown_recovery_+%"] = {
 	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil, 0, 0)})
