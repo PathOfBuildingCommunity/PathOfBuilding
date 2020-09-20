@@ -304,13 +304,15 @@ return {
 	div = 100,
 },
 ["base_mana_leech_from_elemental_damage_permyriad"] = {
-	mod("FireDamageManaLeech", "BASE", nil),
-	mod("ColdDamageManaLeech", "BASE", nil),
-	mod("LightningDamageManaLeech", "BASE", nil),
+	mod("ElementalDamageManaLeech", "BASE", nil),
 	div = 100,
 },
 ["base_life_leech_from_attack_damage_permyriad"] = {
 	mod("DamageLifeLeech", "BASE", nil, ModFlag.Attack),
+	div = 100,
+},
+["base_life_leech_from_chaos_damage_permyriad"] = {
+	mod("ChaosDamageLifeLeech", "BASE", nil),
 	div = 100,
 },
 ["energy_shield_leech_from_any_damage_permyriad"] = {
@@ -420,13 +422,18 @@ return {
 ["damage_+%_per_endurance_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 },
-
+["damage_+%_per_frenzy_charge"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+},
 ["additional_critical_strike_chance_permyriad_while_affected_by_elusive"] = {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger"} }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 	div = 100,
 },
 ["nightblade_elusive_grants_critical_strike_multiplier_+_to_supported_skills"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
+},
+["critical_strike_chance_against_enemies_on_full_life_+%"] = {
+	mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 },
 -- Duration
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {
@@ -483,6 +490,9 @@ return {
 },
 ["faster_burn_%"] = {
 	mod("IgniteBurnFaster", "INC", nil)
+},
+["faster_poison_%"] = {
+	mod("PoisonFaster", "INC", nil)
 },
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
@@ -580,11 +590,17 @@ return {
 ["damage_+%_when_on_low_life"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LowLife"})
 },
+["damage_vs_enemies_on_low_life_+%"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "LowLife"})
+},
 ["damage_+%_when_on_full_life"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullLife"})
 },
 ["damage_+%_vs_enemies_on_full_life"] = {
 	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
+},
+["hit_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Hit)
 },
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
@@ -717,6 +733,11 @@ return {
 ["chill_and_freeze_duration_+%"] = {
 	mod("EnemyChillDuration", "INC", nil),
 	mod("EnemyFreezeDuration", "INC", nil),
+},
+["cold_ailment_effect_+%"] = {
+	mod("EnemyChillEffect", "INC", nil),
+	mod("EnemyFreezeEffect", "INC", nil),
+	mod("EnemyBrittleEffect", "INC", nil),
 },
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
@@ -1208,6 +1229,9 @@ return {
 },
 ["mine_detonation_radius_+%"] = {
 	mod("MineDetonationAreaOfEffect", "INC", nil),
+},
+["mine_throwing_speed_+%_per_frenzy_charge"] = {
+	mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
 -- Totem
 ["totem_damage_+%"] = {

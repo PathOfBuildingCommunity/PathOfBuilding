@@ -579,6 +579,11 @@ skills["SupportCastOnCrit"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
+	statMap = {
+		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "attack_critical_strike_chance_+%", 1 },
@@ -827,6 +832,13 @@ skills["SupportCastOnDeath"] = {
 		},
 		["cast_on_death_damage_+%_final_while_dead"] = {
 			mod("Damage", "MORE", nil),
+		},
+		["additional_critical_strike_chance_permyriad_while_dead"] = {
+			mod("CritChance", "BASE", nil),
+			div = 100
+		},
+		["skill_effect_duration_+%_while_dead"] = {
+			mod("Duration", "INC", nil),
 		},
 	},
 	baseMods = {
@@ -1095,6 +1107,11 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
+	},
+	statMap = {
+		["trap_trigger_radius_"] = {
+			mod("TrapTriggerAreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" } )
+		},
 	},
 	qualityStats = {
 		Default = {
@@ -2166,6 +2183,9 @@ skills["SupportDamageAgainstChilled"] = {
 		["support_hypothermia_cold_damage_over_time_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
 		},
+		["freeze_applies_cold_resistance_+"] = {
+			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", nil, 0, 0, {type = "Condition", var = "Frozen" }) }),
+		},
 	},
 	baseMods = {
 	},
@@ -2545,6 +2565,11 @@ skills["SupportManaLeech"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
+	statMap = {
+		["damage_+%_per_200_mana_spent_recently"] = {
+			mod("Damage", "INC", nil, 0, 0, {type = "Multiplier", div = 200, var = "ManaSpentRecently"})
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%_while_mana_leeching", 0.5 },
@@ -2847,6 +2872,11 @@ skills["SupportOnslaught"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
+	statMap = {
+		["attack_and_cast_speed_+%_during_onslaught"] = {
+			mod("Speed", "INC", nil, 0, 0, {type = "Condition", var = "Onslaught"})
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "attack_and_cast_speed_+%", 0.5 },
@@ -2992,6 +3022,9 @@ skills["SupportPointBlank"] = {
 	statMap = {
 		["keystone_point_blank"] = {
 			flag("PointBlank"),
+		},
+		["knockback_chance_%_at_close_range"] = {
+			mod("EnemyKnockbackChance", "BASE", nil, 0, KeywordFlag.Hit),
 		},
 	},
 	baseMods = {
@@ -3216,6 +3249,9 @@ skills["SupportSlowerProjectiles"] = {
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
+		["projectiles_damage_+%_to_nearby_targets"] = {
+			mod("Damage", "INC", nil, ModFlag.Projectile)
+		}
 	},
 	baseMods = {
 	},
