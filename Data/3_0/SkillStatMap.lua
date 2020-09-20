@@ -143,6 +143,9 @@ return {
 ["additive_arrow_speed_modifiers_apply_to_area_of_effect"] = {
 	skill("arrowSpeedAppliesToAreaOfEffect", true),
 },
+["skill_buff_effect_+%"] = {
+	mod("BuffEffect", "INC", nil)
+},
 ["base_use_life_in_place_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
@@ -166,6 +169,9 @@ return {
 },
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
+},
+["area_of_effect_+%_while_not_dual_wielding"] = {
+	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding" })
 },
 ["base_spell_repeat_count"] = {
 	skill("repeatCount", nil),
@@ -324,10 +330,12 @@ return {
 ["cannot_be_stunned_while_leeching"] = {
 	mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching"}),
 },
+["base_avoid_stun_%"] = {
+	mod("AvoidStun", "BASE", nil),
+},
 ["life_leech_does_not_stop_at_full_life"] = {
 	flag("CanLeechLifeOnFullLife"),
 },
-
 --
 -- Offensive modifiers
 --
@@ -528,6 +536,7 @@ return {
 ["support_slashing_damage_+%_final_from_distance"] = {
 	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
 },
+
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
 	mod("PhysicalDamageGainAsLightning", "BASE", nil),
@@ -1137,6 +1146,12 @@ return {
 ["summon_totem_cast_speed_+%"] = {
 	mod("TotemPlacementSpeed", "INC", nil),
 },
+["totems_regenerate_%_life_per_second"] = {
+	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+},
+["totem_duration_+%"] = {
+	mod("TotemDuration", "INC", nil),
+},
 -- Minion
 ["minion_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) }),
@@ -1159,6 +1174,12 @@ return {
 ["minion_elemental_resistance_30%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
 	value=30
+},
+["base_minion_duration_+%"] = {
+	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreateMinion }),
+},
+["minion_skill_area_of_effect_+%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
 },
 ["summon_fire_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("FireResist", "BASE", nil) }),
@@ -1210,6 +1231,17 @@ return {
 },
 ["active_skill_minion_movement_velocity_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "MORE", nil) }),
+},
+--Golem
+["golem_buff_effect_+%"] = {
+	mod("BuffEffect", "INC", nil, 0, 0, { type = "SkillType", SkillType = SkillType.Golem})
+},
+["golem_cooldown_recovery_+%"] = {
+	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil, 0, 0)})
+},
+-- Slam
+["empowered_attack_damage_+%"] = {
+	mod("ExertIncrease", "INC", nil, ModFlag.Attack, 0)
 },
 -- Curse
 ["curse_effect_+%"] = {

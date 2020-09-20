@@ -44,9 +44,9 @@ local sortGemTypeList ={
 
 local alternateGemQualityList ={
 	{label = "Default", type = "Default"},
-	{label = "Alternate 1", type = "Alternate1"},
-	{label = "Alternate 2", type = "Alternate2"},
-	{label = "Alternate 3", type = "Alternate3"},
+	{label = "Anomalous", type = "Alternate1"},
+	{label = "Divergent", type = "Alternate2"},
+	{label = "Phantasmal", type = "Alternate3"},
 }
 
 local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -469,8 +469,6 @@ function SkillsTabClass:CreateGemSlot(index)
 	end)
 	slot.quality:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."Quality"] = slot.quality
-
-
 
 	-- Enable gem
 	slot.enabled = new("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, 18, 0, 20, nil, function(state)
