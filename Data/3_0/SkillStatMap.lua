@@ -303,6 +303,16 @@ return {
 	mod("DamageManaLeech", "BASE", nil, ModFlag.Attack),
 	div = 100,
 },
+["base_mana_leech_from_elemental_damage_permyriad"] = {
+	mod("FireDamageManaLeech", "BASE", nil),
+	mod("ColdDamageManaLeech", "BASE", nil),
+	mod("LightningDamageManaLeech", "BASE", nil),
+	div = 100,
+},
+["base_life_leech_from_attack_damage_permyriad"] = {
+	mod("DamageLifeLeech", "BASE", nil, ModFlag.Attack),
+	div = 100,
+},
 ["energy_shield_leech_from_any_damage_permyriad"] = {
 	mod("DamageEnergyShieldLeech", "BASE", nil),
 	div = 100,
@@ -314,6 +324,9 @@ return {
 ["base_energy_shield_leech_from_spell_damage_permyriad"] = {
 	mod("DamageEnergyShieldLeech", "BASE", nil, ModFlag.Spell),
 	div = 100,
+},
+["mana_gain_per_target"] = {
+	mod("ManaOnHit", "BASE", nil)
 },
 ["damage_+%_while_life_leeching"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LeechingLife" }),
@@ -404,6 +417,10 @@ return {
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
+["damage_+%_per_endurance_charge"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+},
+
 ["additional_critical_strike_chance_permyriad_while_affected_by_elusive"] = {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger"} }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 	div = 100,
@@ -559,6 +576,15 @@ return {
 },
 ["damage_+%_on_full_energy_shield"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield"})
+},
+["damage_+%_when_on_low_life"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LowLife"})
+},
+["damage_+%_when_on_full_life"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullLife"})
+},
+["damage_+%_vs_enemies_on_full_life"] = {
+	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
 },
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {

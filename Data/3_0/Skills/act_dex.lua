@@ -2637,9 +2637,6 @@ skills["DualStrike"] = {
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
-		["damage_+%_vs_enemies_on_full_life"] = {
-			mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
-		},
 		["active_skill_added_damage_+%_final"] = {
 			mod("PhysicalMax", "MORE", nil),
 			mod("FireMax", "MORE", nil),
