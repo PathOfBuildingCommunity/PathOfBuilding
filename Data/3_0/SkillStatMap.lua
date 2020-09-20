@@ -1131,7 +1131,7 @@ return {
 	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
 },
 ["totem_duration_+%"] = {
-	mod("Duration", "INC", nil, 0, KeywordFlag.Totem),
+	mod("TotemDuration", "INC", nil),
 },
 -- Minion
 ["minion_damage_+%"] = {
