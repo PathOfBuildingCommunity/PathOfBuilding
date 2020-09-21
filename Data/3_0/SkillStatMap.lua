@@ -273,6 +273,9 @@ return {
 	mod("ManaCost", "MORE", nil),
 	value = -100,
 },
+["flask_mana_to_recover_+%"] = {
+	mod("FlaskManaRecovery", "INC", nil, 0, 0)
+},
 ["base_chance_to_dodge_%"] = {
 	mod("AttackDodgeChance", "BASE", nil),
 },
@@ -430,6 +433,12 @@ return {
 -- Damage
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
+},
+["chance_to_deal_double_damage_%"] = {
+	mod("DoubleDamageChance", "BASE", nil)
+},
+["damage_+%_with_hits_and_ailments"] = {
+	mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 },
 ["physical_damage_+%"] = {
 	mod("PhysicalDamage", "INC", nil),
@@ -649,6 +658,9 @@ return {
 ["additional_chance_to_freeze_chilled_enemies_%"] = {
 	mod("EnemyFreezeChance", "BASE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 },
+["chance_to_scorch_%"] = {
+	mod("ScorchChance", "BASE", nil)
+},
 ["cannot_inflict_status_ailments"] = {
 	flag("CannotShock"),
 	flag("CannotChill"),
@@ -722,6 +734,9 @@ return {
 },
 ["poison_dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison),
+},
+["critical_ailment_dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil, KeywordFlag.Ailment, { type = "Condition", var = "CriticalStrike" }),
 },
 ["dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil),
@@ -814,6 +829,9 @@ return {
 ["number_of_additional_curses_allowed"] = {
 	mod("EnemyCurseLimit", "BASE", nil),
 },
+["consecrated_ground_enemy_damage_taken_+%"] = {
+	mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", nil, 0, 0, { type = "Condition", var = "OnConsecratedGround" }) }),
+},
 -- Projectiles
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
@@ -844,6 +862,9 @@ return {
 },
 ["additional_beam_only_chains"] = {
 	mod("BeamChainCountMax", "BASE", nil),
+},
+["damage_+%_per_chain"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
 },
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
@@ -1253,6 +1274,13 @@ return {
 },
 ["active_skill_minion_movement_velocity_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "MORE", nil) }),
+},
+["minion_life_regeneration_rate_per_minute_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("LifeRegen", "BASE", nil) }),
+	div = 60,
+},
+["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
+	mod("MinionModifier", "LIST", { mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
 },
 --Golem
 ["golem_buff_effect_+%"] = {
