@@ -4658,7 +4658,7 @@ c["You have Unholy Might while you have no Energy Shield"]={{[1]={[1]={neg=true,
 c["Every 16 seconds you gain Elemental Overload for 8 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:HaveAugyre",type="FLAG",value=true},[2]={[1]={type="Condition",var="HaveAugyre"},flags=0,keywordFlags=0,name="Dummy",type="DUMMY",value=1}},nil}
 c["Adds 1 to 2 Physical Damage to Attacks per Level"]={{[1]={[1]={type="Multiplier",var="Level"},flags=0,keywordFlags=65536,name="PhysicalMin",type="BASE",value=1},[2]={[1]={type="Multiplier",var="Level"},flags=0,keywordFlags=65536,name="PhysicalMax",type="BASE",value=2}},nil}
 c["Grants Level 22 Precision Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=22,skillId="AccuracyAndCritsAura"}}},nil}
-c["Spells which can gain Intensity have +1 to maximum Intensity"]={nil,"Spells which can gain Intensity have +1 to maximum Intensity "}
+c["Spells which can gain Intensity have +1 to maximum Intensity"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:IntensityLimit",type="BASE",value=1}},nil}
 c["+5% chance to Evade Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="EvadeChance",type="BASE",value=5}},nil}
 c["+10 to maximum Divine Charges Gain a Divine Charge on Hit"]={{}," maximum Divine Charges Gain a Divine Charge on Hit "}
 c["Black Oil - Opalescent Oil - Opalescent Oil 16% increased Lightning Damage 4% increased Cast Speed +15% to Critical Strike Multiplier 10% increased Effect of Shock"]={nil,"Black Oil - Opalescent Oil - Opalescent Oil 16% increased Lightning Damage 4% increased Cast Speed +15% to Critical Strike Multiplier 10% increased Effect of Shock "}
