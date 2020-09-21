@@ -6240,17 +6240,6 @@ skills["Reave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "No stages",
-		},
-		{
-			name = "4 stages",
-		},
-		{ 
-			name = "8 stages",
-		},
-	},
 	statMap = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
@@ -6263,8 +6252,7 @@ skills["Reave"] = {
 	},
 	baseMods = {
 		skill("radius", 20),
-		mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -6342,17 +6330,6 @@ skills["VaalReave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "No Stages",
-		},
-		{
-			name = "4 Stages",
-		},
-		{ 
-			name = "8 Stages",
-		},
-	},
 	statMap = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
@@ -6366,8 +6343,7 @@ skills["VaalReave"] = {
 	},
 	baseMods = {
 		skill("radius", 12),
-		mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
