@@ -117,6 +117,9 @@ return {
 		modList:NewMod("DesiredBonechillEffect", "BASE", m_min(val, 30), "Config")
 	end },
 	{ label = "Brand Skills:", ifSkillList = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
+	{ var = "ActiveBrands", type = "count", label = "# of active Brands:", ifSkillList = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:ConfigActiveBrands", "BASE", val, "Config")
+	end },
 	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy:", ifSkillList = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigBrandsAttachedToEnemy", "BASE", val, "Config")
 	end },
