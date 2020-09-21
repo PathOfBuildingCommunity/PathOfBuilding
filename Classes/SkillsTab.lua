@@ -401,6 +401,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		gemInstance.gemId = gemId
 		gemInstance.skillId = nil
 		self:ProcessSocketGroup(self.displayGroup)
+		-- Gem changed, update the list and default the quality id
+		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
+		slot.qualityId:SelByValue("Default", "type")
 		slot.level:SetText(tostring(gemInstance.level))
 		if addUndo then
 			self:AddUndoState()
@@ -417,6 +420,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.quality:SetText(gemInstance.quality)
+
 			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
@@ -440,11 +444,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 		end
 		
-		if gemInstance.gemData and gemInstance.gemData.grantedEffect.qualityStats[value.type] then
-			gemInstance.qualityId = value.type
-		else
-			slot.qualityId:SelByValue("Default", "type")
-		end
+		gemInstance.qualityId = value.type
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -545,6 +545,16 @@ function SkillsTabClass:CreateGemSlot(index)
 		return "Enable "..self.displayGroup.gemList[index].gemData.grantedEffectList[2].name..":"
 	end
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
+end
+
+function SkillsTabClass:getGemAltQualityList(gemData)
+	local altQualList = { }
+	for indx, entry in ipairs(alternateGemQualityList) do
+		if (gemData and gemData.grantedEffect.qualityStats[entry.type]) or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[entry.type]) then
+			t_insert(altQualList, entry)
+		end
+	end
+	return altQualList
 end
 
 -- Update the gem slot controls to reflect the currently displayed socket group
