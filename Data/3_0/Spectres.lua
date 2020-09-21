@@ -2834,6 +2834,34 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 	modList = {
 	},
 }
+-- Primal Crushclaw
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
+	name = "Primal Crushclaw",
+	life = 12,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"MeleeCold",
+		"HarvestCrabDashSlam",
+		"GAHarvestCrabDashSlam",
+		"HarvestNessaCrabScreech",
+		"HarvestCrabAbyssSlam",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 720] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
+	},
+}
 -- Templar Tactician
 minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	name = "Templar Tactician",

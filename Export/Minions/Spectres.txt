@@ -176,5 +176,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre
 -- Redemption Knight
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_
+-- Primal Crushclaw
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre

@@ -347,6 +347,25 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+
+	if skillModList:Flag(nil, "CastSpeedAppliesToAttacks") then
+		-- Get all increases for this; assumption is that multiple sources would not stack, so find the max
+		local maxIncrease = 0
+		for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "ImprovedCastSpeedAppliesToAttacks")) do
+			maxIncrease = m_max(maxIncrease, value.mod.value)
+		end
+		-- Convert from percent to fraction
+		local multiplier = maxIncrease / 100.
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Cast }, "Speed")) do
+			local mod = value.mod
+			-- Add a new mod for all mods that are cast only
+			-- Replace this with a single mod for the sum?
+			if band(mod.flags, ModFlag.Cast) ~= 0 then
+				skillModList:NewMod("Speed", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Cast)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+			end
+		end
+	end
+	
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw, keywordFlags = KeywordFlag.Hit }, "Damage")) do

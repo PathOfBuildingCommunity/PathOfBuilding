@@ -316,9 +316,9 @@ local skills, mod, flag, skill = ...
 #skill IcestormUniqueStaff12
 #flags spell area duration
 	fromItem = true,
-#baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
-#baseMod skill("radius", 25)
-#baseMod skill("radiusSecondary", 10)
+#baseMod skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 })
+#baseMod skill("radius", 22)
+#baseMod skill("radiusSecondary", 16)
 #mods
 
 #skill TriggeredIcicleNova

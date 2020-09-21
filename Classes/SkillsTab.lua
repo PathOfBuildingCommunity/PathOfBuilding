@@ -153,7 +153,7 @@ will automatically apply to the skill.]]
 	self:CreateGemSlot(1)
 	self.controls.gemNameHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].nameSpec,"TOPLEFT"}, 0, -2, 0, 16, "^7Gem name:")
 	self.controls.gemLevelHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].level,"TOPLEFT"}, 0, -2, 0, 16, "^7Level:")
-	self.controls.gemQualityIdHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].qualityId,"TOPLEFT"}, 0, -2, 0, 16, "^7Alt Id:")
+	self.controls.gemQualityIdHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].qualityId,"TOPLEFT"}, 0, -2, 0, 16, "^7Variant:")
 	self.controls.gemQualityHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].quality,"TOPLEFT"}, 0, -2, 0, 16, "^7Quality:")
 	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].enabled,"TOPLEFT"}, -16, -2, 0, 16, "^7Enabled:")
 end)
@@ -202,6 +202,9 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
 				gemInstance.qualityId = child.attrib.qualityId
+				if gemInstance.gemData then
+					gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
+				end
 				gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
 				gemInstance.enableGlobal1 = not child.attrib.enableGlobal1 or child.attrib.enableGlobal1 == "true"
 				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
@@ -401,6 +404,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		gemInstance.gemId = gemId
 		gemInstance.skillId = nil
 		self:ProcessSocketGroup(self.displayGroup)
+		-- Gem changed, update the list and default the quality id
+		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
+		slot.qualityId:SelByValue("Default", "type")
 		slot.level:SetText(tostring(gemInstance.level))
 		if addUndo then
 			self:AddUndoState()
@@ -416,6 +422,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, new = true }
 			self.displayGroup.gemList[index] = gemInstance
+			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.quality:SetText(gemInstance.quality)
 			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
 			slot.enabled.state = true
@@ -439,12 +446,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
 		end
-		
-		if gemInstance.gemData and gemInstance.gemData.grantedEffect.qualityStats[value.type] then
-			gemInstance.qualityId = value.type
-		else
-			slot.qualityId:SelByValue("Default", "type")
-		end
+		gemInstance.qualityId = value.type
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -478,6 +480,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.quality:SetText(gemInstance.quality)
+			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
 			slot.enableGlobal1.state = true
 		end
@@ -545,6 +548,16 @@ function SkillsTabClass:CreateGemSlot(index)
 		return "Enable "..self.displayGroup.gemList[index].gemData.grantedEffectList[2].name..":"
 	end
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
+end
+
+function SkillsTabClass:getGemAltQualityList(gemData)
+	local altQualList = { }
+	for indx, entry in ipairs(alternateGemQualityList) do
+		if gemData and (gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
+			t_insert(altQualList, entry)
+		end
+	end
+	return altQualList
 end
 
 -- Update the gem slot controls to reflect the currently displayed socket group
@@ -684,6 +697,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].nameSpec:SetText(gemInstance.nameSpec)
 			self.gemSlots[index].level:SetText(gemInstance.level)
 			self.gemSlots[index].quality:SetText(gemInstance.quality)
+			self.gemSlots[index].qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			self.gemSlots[index].qualityId:SelByValue(gemInstance.qualityId, "type")
 			self.gemSlots[index].enabled.state = gemInstance.enabled
 			self.gemSlots[index].enableGlobal1.state = gemInstance.enableGlobal1

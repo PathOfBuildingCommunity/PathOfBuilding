@@ -312,12 +312,12 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexExplosion
 #flags spell area chaos
+    statMap = {
+		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		},
+	},
 #baseMod skill("showAverage", true)
-#mods
-
-#skill ViciousHexExplosion
-#flags spell area chaos
-#baseMod skill("showAverage", true),
 #mods
 
 #skill SupportIncreasedAreaOfEffect

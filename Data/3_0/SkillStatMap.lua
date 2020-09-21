@@ -276,6 +276,9 @@ return {
 	mod("ManaCost", "MORE", nil),
 	value = -100,
 },
+["flask_mana_to_recover_+%"] = {
+	mod("FlaskManaRecovery", "INC", nil),
+},
 ["base_chance_to_dodge_%"] = {
 	mod("AttackDodgeChance", "BASE", nil),
 },
@@ -448,6 +451,12 @@ return {
 ["skill_effect_duration_+%"] = {
 	mod("Duration", "INC", nil),
 },
+["secondary_skill_effect_duration_+%"] = {
+	mod("SecondaryDuration", "INC", nil),
+},
+["active_skill_quality_duration_+%_final"] = {
+	mod("Duration", "MORE", nil),
+},
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
 },
@@ -463,6 +472,12 @@ return {
 -- Damage
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
+},
+["chance_to_deal_double_damage_%"] = {
+	mod("DoubleDamageChance", "BASE", nil)
+},
+["damage_+%_with_hits_and_ailments"] = {
+	mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 },
 ["physical_damage_+%"] = {
 	mod("PhysicalDamage", "INC", nil),
@@ -602,6 +617,9 @@ return {
 ["hit_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Hit)
 },
+["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+},
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
 	mod("PhysicalDamageGainAsLightning", "BASE", nil),
@@ -617,6 +635,9 @@ return {
 },
 ["cold_damage_%_to_add_as_fire"] = {
 	mod("ColdDamageGainAsFire", "BASE", nil),
+},
+["fire_damage_%_to_add_as_chaos"] = {
+	mod("FireDamageGainAsChaos", "BASE", nil),
 },
 ["base_physical_damage_%_to_convert_to_lightning"] = {
 	mod("PhysicalDamageConvertToLightning", "BASE", nil),
@@ -710,6 +731,9 @@ return {
 ["additional_chance_to_freeze_chilled_enemies_%"] = {
 	mod("EnemyFreezeChance", "BASE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 },
+["chance_to_scorch_%"] = {
+	mod("ScorchChance", "BASE", nil)
+},
 ["cannot_inflict_status_ailments"] = {
 	flag("CannotShock"),
 	flag("CannotChill"),
@@ -798,6 +822,9 @@ return {
 ["poison_dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison),
 },
+["critical_ailment_dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil, KeywordFlag.Ailment, { type = "Condition", var = "CriticalStrike" }),
+},
 ["dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil),
 },
@@ -826,6 +853,9 @@ return {
 },
 ["ailment_damage_+%_per_frenzy_charge"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FrenzyCharge"})
+},
+["freeze_as_though_dealt_damage_+%"] = {
+	mod("FreezeAsThoughDealing", "MORE", nil),
 },
 -- Global flags
 ["never_ignite"] = {
@@ -892,6 +922,9 @@ return {
 ["number_of_additional_curses_allowed"] = {
 	mod("EnemyCurseLimit", "BASE", nil),
 },
+["consecrated_ground_enemy_damage_taken_+%"] = {
+	mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", nil, 0, 0, { type = "Condition", var = "OnConsecratedGround" }) }),
+},
 -- Projectiles
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
@@ -928,6 +961,9 @@ return {
 },
 ["additional_beam_only_chains"] = {
 	mod("BeamChainCountMax", "BASE", nil),
+},
+["damage_+%_per_chain"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
 },
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
@@ -1156,7 +1192,7 @@ return {
     mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Spell)
 },
 ["impale_debuff_effect_+%"] = {
-    mod("ImpaleEffect", "INC", nil, 0, 0)
+	mod("ImpaleEffect", "INC", nil)
 },
 --
 -- Spell modifiers
@@ -1271,6 +1307,9 @@ return {
 ["minion_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) }),
 },
+["minion_melee_damage_+%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, ModFlag.Melee) }),
+},
 ["minion_maximum_life_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }),
 },
@@ -1328,7 +1367,7 @@ return {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
 ["base_number_of_champions_of_light_allowed"] = {
-    mod("ActiveSentinelOfPurityLimit", "BASE", nil)
+	mod("ActiveSentinelOfPurityLimit", "BASE", nil),
 },
 ["base_number_of_spectres_allowed"] = {
 	mod("ActiveSpectreLimit", "BASE", nil),
@@ -1354,12 +1393,19 @@ return {
 ["active_skill_minion_movement_velocity_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "MORE", nil) }),
 },
+["minion_life_regeneration_rate_per_minute_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("LifeRegen", "BASE", nil) }),
+	div = 60,
+},
+["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
+	mod("MinionModifier", "LIST", { mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+},
 --Golem
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
 },
 ["golem_cooldown_recovery_+%"] = {
-	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil, 0, 0)})
+	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)})
 },
 -- Slam
 ["empowered_attack_damage_+%"] = {
@@ -1380,6 +1426,9 @@ return {
 },
 ["curse_skill_effect_duration_+%"] = {
 	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
+},
+["curse_cast_speed_+%"] = {
+	mod("Speed", "INC", nil),
 },
 -- Hex
 ["curse_maximum_doom"] = {
