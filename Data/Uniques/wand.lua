@@ -326,6 +326,16 @@ Adds (5-8) to (13-17) Physical Damage
 (10-20)% increased Critical Strike Chance
 Socketed Gems fire an additional Projectile
 ]],[[
+Replica Twyzel
+Sage Wand
+League: Heist
+Requires Level 30, 119 Int
+Implicits: 1
+(17-21)% increased Spell Damage
+(5-10)% increased Attack Speed
+(20-40)% increased Critical Strike Chance
+Attacks fire an additional Projectile
+]],[[
 Void Battery
 Prophecy Wand
 Variant: Pre 2.3.0

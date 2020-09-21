@@ -59,6 +59,18 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}20% increased maximum Energy Shield
 {tags:jewellery_defense}50% increased Energy Shield Recharge Rate
 ]],[[
+Replica Bated Breath
+Chain Belt
+League: Heist
+Requires Level 22
+Implicits: 1
++(9-20) to maximum Energy Shield
++(15-25) to Intelligence
+10% increased Damage
+50% increased Fishing Pool Consumption
+20% increased Fishing Range
+(20-30)% increased Rarity of Fish Caught
+]],[[
 Bear's Girdle
 Leather Belt
 League: Harvest
