@@ -495,7 +495,7 @@ Precision has 50% less Mana Reservation
 Replica Hyrri's Truth
 Jade Amulet
 League: Heist
-Requires Level 5
+Requires Level 64
 Implicits: 1
 +(20-30) to Dexterity
 Grants Level 22 Hatred Skill
