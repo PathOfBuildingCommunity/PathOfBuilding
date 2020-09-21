@@ -1548,7 +1548,7 @@ function calcs.offence(env, actor, activeSkill)
 			if skillModList:Flag(cfg, "NoCritMultiplier") then
 				output.CritMultiplier = 1
 			else
-				local extraDamage = skillModList:Sum("BASE", cfg, "CritMultiplier") / 100
+				local extraDamage = (skillModList:Sum("BASE", cfg, "CritMultiplier") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritMultiplier") or 0)) / 100
 				local multiOverride = skillModList:Override(skillCfg, "CritMultiplier")
 				if multiOverride then
 					extraDamage = (multiOverride - 100) / 100
