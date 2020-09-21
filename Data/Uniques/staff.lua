@@ -80,6 +80,17 @@ Implicits: 2
 Reflects (22-44) Physical Damage to Attackers on Block
 Curse Enemies with level 5 Vulnerability on Block
 ]],[[
+Replica Blood Thorn
+Gnarled Branch
+League: Heist
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
++12% Chance to Block Attack Damage while wielding a Staff
+100% increased Fire Damage
+(5-10)% increased Attack Speed
+Curse Enemies with Flammability on Block, with 20% increased Effect
+Reflects (22-44) Fire Damage to Attackers on Block
+]],[[
 Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0
@@ -140,6 +151,19 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 +60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 {variant:1,2}120% increased Spell Damage if you've dealt a Critical Strike Recently
 {variant:3,4}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
+]],[[
+Replica Duskdawn
+Maelström Staff
+League: Heist
+Requires Level 64, 113 Str, 113 Int
+Implicits: 1
++25% Chance to Block Attack Damage while wielding a Staff
++10% Chance to Block Attack Damage while wielding a Staff
+(40-50)% increased Critical Strike Chance
+Gain (10-20)% of Elemental Damage as Extra Chaos Damage
++1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage
++60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
+(120-150)% increased Elemental Damage if you've dealt a Critical Strike Recently
 ]],[[
 Dying Breath
 Coiled Staff
@@ -229,6 +253,16 @@ Implicits: 2
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by level 8 Trap
 (40-50)% increased Damage
+(10-20)% increased maximum Life
+(10-20)% increased maximum Mana
+]],[[
+Replica Fencoil
+Gnarled Branch
+League: Heist
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Socketed Gems are Supported by Level 1 Multiple Totems
+(40-50)% increased Global Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
 ]],[[

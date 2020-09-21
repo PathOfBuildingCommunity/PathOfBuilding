@@ -293,6 +293,19 @@ Implicits: 1
 {variant:2}(20-30)% increased Damage with Hits against Rare monsters
 When you Kill a Rare monster, you gain its mods for 20 seconds
 ]],[[
+Replica Headhunter
+Leather Belt
+League: Heist
+Requires Level 40
+Implicits: 1
++(25-40) to maximum Life
++(40-55) to Strength
++(40-55) to Dexterity
++(50-60) to maximum Life
+(20-30)% increased Damage with Hits against Magic monsters
+20% chance when you Kill a Magic Monster to gain
+its Non-Bloodline Modifiers for 20 seconds
+]],[[
 Hyperboreus
 Leather Belt
 League: Betrayal
@@ -483,6 +496,19 @@ Implicits: 1
 {tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
 {tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
 ]],[[
+Replica Prismweave
+Rustic Sash
+League: Heist
+Requires Level 25
+Implicits: 1
+(12-24)% increased Global Physical Damage
+Adds (7-8) to (15-16) Fire Damage to Spells
+Adds (5-6) to (12-14) Cold Damage to Spells
+Adds 1 to (30-34) Lightning Damage to Spells
++(6-8)% to all Elemental Resistances
+10% increased Elemental Damage
+30% increased Elemental Damage during any Flask Effect
+]],[[
 Pyroshock Clasp
 Leather Belt
 League: Heist
@@ -537,6 +563,18 @@ Implicits: 1
 Minions have 5% chance to Taunt on Hit with Attacks
 Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second
 ]],[[
+Replica Siegebreaker
+Heavy Belt
+League: Heist
+Requires Level 44
+Implicits: 1
++(25-35) to Strength
+(6-10)% increased maximum Energy Shield
+(6-10)% increased maximum Life
++(15-25)% to Fire Resistance
+Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second
+Minions have 5% chance to Maim Enemies on Hit with Attacks
+]],[[
 Soul Tether
 Cloth Belt
 Variant: Pre 3.11.0
@@ -553,6 +591,16 @@ Implicits: 1
 {variant:1}{tags:life}Life Leech effects are not removed at Full Life
 {variant:1}{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
 {variant:2}Immortal Ambition
+]],[[
+Replica Soul Tether
+Cloth Belt
+League: Heist
+Requires Level 48
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
++(20-40) to Strength
+Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+Corrupted Soul
 ]],[[
 Soulthirst
 Cloth Belt

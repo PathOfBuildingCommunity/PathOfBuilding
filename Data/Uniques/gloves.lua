@@ -16,6 +16,16 @@ Requires Level 75, 100 Str
 {variant:1}Life and Mana Leech from Critical Strikes are instant
 {variant:2}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
+Replica Atziri's Acuity
+Vaal Gauntlets
+League: Heist
+Requires Level 63, 100 Str
++(60-80) to Intelligence
+(25-35)% increased Global Critical Strike Chance
+(200-220)% increased Armour
++(60-75) to maximum Life
+You have Perfect Agony if you've dealt a Critical Strike recently
+]],[[
 Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
@@ -223,6 +233,17 @@ Grants level 22 Blight Skill
 Blight has (20-30)% increased Hinder Duration
 You cannot be Hindered
 ]],[[
+Replica Allelopathy
+Sorcerer Gloves
+League: Heist
+Requires Level 69, 97 Int
+Grants Level 22 Wintertide Brand
+(20-30)% increased Damage over Time
+(100-120)% increased Energy Shield
+10% increased Area of Effect
+Immune to Chill
+Wintertide Brand has (20-30)% increased Chill Effect
+]],[[
 Asenath's Gentle Touch
 Silk Gloves
 League: Legion
@@ -291,6 +312,17 @@ Minions have 10% reduced Movement Speed
 Minions have +40% to Cold Resistance
 Minions gain 20% of Physical Damage as Extra Cold Damage
 ]],[[
+Replica Grip of the Council
+Arcanist Gloves
+League: Heist
+Requires Level 60, 95 Int
++30 to Strength
++(30-50) to maximum Life
++(20-40)% to Fire Resistance
+Minions have 10% reduced maximum Life
+Minions have +40% to Fire Resistance
+Minions gain 20% of Physical Damage as Extra Fire Damage
+]],[[
 Kalisa's Grace
 Samite Gloves
 Requires Level 55, 68 Int
@@ -299,6 +331,16 @@ Socketed Gems are Supported by Level 18 Faster Casting
 +(50-80) to maximum Energy Shield
 +(50-70) to maximum Life
 Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 Mana
+]],[[
+Replica Kalisa's Grace
+Samite Gloves
+League: Heist
+Requires Level 55, 68 Int
+Socketed Gems are Supported by Level 18 Unleash
++(20-30) to Intelligence
++(50-80) to maximum Energy Shield
++(50-70) to maximum Life
+Gain 40% increased Area of Effect for 2 seconds after Spending a total of 800 Mana
 ]],[[
 Sadima's Touch
 Wool Gloves
@@ -610,6 +652,17 @@ Requires Level 43, 34 Str, 34 Int
 {variant:1}Fire Skills have 20% chance to Poison on Hit
 {variant:2}Cold Skills have 20% chance to Poison on Hit
 {variant:3}Lightning Skills have 20% chance to Poison on Hit
+]],[[
+Replica Volkuur's Guidance
+Zealot Gloves
+League: Heist
+Requires Level 43, 34 Str, 34 Int
+Adds (17-23) to (29-31) Chaos Damage
++(50-70) to maximum Life
++(29-41)% to Chaos Resistance
+Your Chaos Damage can Ignite
+Chaos Skills have 20% chance to Ignite
+50% less Ignite Duration
 ]],
 -- Gloves: Evasion/Energy Shield
 [[

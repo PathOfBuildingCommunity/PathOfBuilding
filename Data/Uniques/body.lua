@@ -97,6 +97,14 @@ Has no Sockets
 {variant:2}+500 to maximum Life
 {variant:2}(20-40)% increased Fire Damage
 ]],[[
+Replica Kaom's Heart
+Glorious Plate
+League: Heist
+Requires Level 68, 191 Str
+Has no Sockets
+(30-40)% increased Lightning Damage
++500 to maximum Mana
+]],[[
 Lioneye's Vision
 Crusader Plate
 Variant: {2_6}Pre 3.0.0
@@ -338,6 +346,18 @@ Requires Level 65, 197 Dex
 100% reduced Arctic Armour Mana Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Phase Acrobatics
+]],[[
+Replica Perfect Form
+Zodiac Leather
+League: Heist
+Requires Level 65, 197 Dex
+(5-10)% increased Dexterity
+(30-50)% increased Evasion Rating
++(50-80) to maximum Life
+-30% to Cold Resistance
+Flesh and Stone has 100% reduced Mana Reservation
+Evasion Rating is increased by Uncapped Cold Resistance
+Hollow Palm Technique
 ]],[[
 The Queen's Hunger
 Vaal Regalia
@@ -734,6 +754,17 @@ Aspect of the Cat Reserves no Mana
 Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
 You have Phasing while you have Cat's Stealth
 ]],[[
+Replica Farrul's Fur
+Triumphant Lamellar
+League: Heist
+Requires Level 69, 95 Str, 116 Dex
+(100-150)% increased Armour and Evasion
++(80-100) to maximum Life
++2.00 seconds to Cat's Agility Duration
+Aspect of the Cat Reserves no Mana
+Gain up to your maximum number of Frenzy and Endurance Charges when you gain Cat's Agility
+You have Onslaught while you have Cat's Agility
+]],[[
 Gruthkul's Pelt
 Wyrmscale Doublet
 Variant: Pre 3.5.0
@@ -792,6 +823,17 @@ Gain an Endurance Charge when you take a Critical Strike
 {variant:1,2,3}2% of Life Regenerated per Second while on Low Life
 {variant:4}2% of Life Regenerated per Second if you've been Hit Recently
 Share Endurance Charges with nearby party members
+]],[[
+Replica Ambu's Charge
+Crusader Chainmail
+League: Heist
+Requires Level 43, 64 Str, 64 Int
+(180-220)% increased Armour and Energy Shield
++(60-80) to maximum Life
++15% to all Elemental Resistances
+Share Endurance Charges with nearby party members
+Gain an Endurance Charge when you are Hit
+Lose 2% of Life per second if you have been Hit Recently
 ]],[[
 Chains of Command
 Saintly Chainmail
@@ -929,6 +971,21 @@ Adds (4-10) to (14-36) Physical Damage to Attacks
 {variant:1}Your Maximum Resistances are (76-80)%
 {variant:2}Your Maximum Resistances are (76-78)%
 ]],[[
+Replica Loreweave
+Elegant Ringmail
+League: Heist
+Requires Level 64, 90 Str, 105 Int
+Has 6 Sockets
++(8-24) to all Attributes
+Adds (4-10) to (14-36) Physical Damage to Attacks
+(120-160)% increased Global Critical Strike Chance
++(150-200) to maximum Energy Shield
++(120-160) to maximum Life
++(120-160) to maximum Mana
+(6-30)% increased Rarity of Items found
+(15-50)% increased Elemental Damage
+Your Maximum Resistances are (70-72)%
+]],[[
 Rotting Legion
 Loricated Ringmail
 Requires Level 58, 84 Str, 84 Int
@@ -1032,6 +1089,18 @@ Trigger Level 20 Glimpse of Eternity when Hit
 Gain (3-5)% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped
 Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Items
 ]],[[
+Replica Eternity Shroud
+Blood Raiment
+Elder Item
+League: Heist
+Requires Level 65, 107 Dex, 90 Int
+Trigger Level 20 Shade Form when Hit
+(100-150)% increased Evasion and Energy Shield
++(70-100) to maximum Life
++(17-23)% to Chaos Resistance
+Gain (3-5)% of Physical Damage as Extra Chaos Damage per Elder Item Equipped
+Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Elder Items
+]],[[
 Expedition's End
 Sentinel Jacket
 League: Heist
@@ -1073,6 +1142,19 @@ Implicits: 1
 {variant:1}(15-20) Life Regenerated per second per Endurance Charge
 {variant:2}(20-30) Life Regenerated per second per Endurance Charge
 ]],[[
+Replica Restless Ward
+Carnal Armour
+League: Heist
+Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
++(20-25) to maximum Mana
+(220-250)% increased Evasion and Energy Shield
++(60-80) to maximum Life
+6% increased Movement Speed per Frenzy Charge
+-2 to Maximum Endurance Charges
+-2 to Maximum Frenzy Charges
+Regenerate (100.0-140.0) Life per second per Endurance Charge
+]],[[
 Saqawal's Nest
 Blood Raiment
 League: Bestiary
@@ -1103,6 +1185,14 @@ Socketed Gems are Supported by Level 20 Elemental Penetration
 (9-15)% increased maximum Mana 
 1% increased Maximum Life per Abyss Jewel affecting you 
 1% increased Maximum Mana per Abyss Jewel affecting you
+]],[[
+Replica Shroud of the Lightless
+Carnal Armour
+League: Heist
+Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
++(20-25) to maximum Mana
+Has 6 Abyssal Sockets
 ]],[[
 Tinkerskin
 Sadist Garb

@@ -179,6 +179,19 @@ Can have up to 1 additional Totem summoned at a time
 +300 Armour per Summoned Totem
 Blood Magic
 {variant:3}Mortal Conviction
+]],[[
+Replica Tukohama's Fortress
+Ebony Tower Shield
+League: Heist
+Requires Level 61, 159 Str
+Implicits: 1
++(20-30) to maximum Life
++(80-100) to maximum Life
+You can Cast an additional Brand
+20% increased Critical Strike Chance per Brand
+40% increased Brand Damage
+Blood Magic
+Mortal Conviction
 ]],
 -- Shield: Evasion
 [[
@@ -321,6 +334,19 @@ Implicits: 1
 +(10-20)% to Fire and Cold Resistances
 +(8-15)% chance to Avoid Elemental Damage from Hits while Phasing
 You are at Maximum Chance to Block Attack Damage if you have not Blocked Recently
+You have Phasing if you have Blocked Recently
+]],[[
+Replica Mistwall
+Lacquered Buckler
+League: Heist
+Requires Level 60, 159 Dex
+Implicits: 1
+6% increased Movement Speed
+(120-150)% increased Evasion Rating
+10% increased Movement Speed
++(10-20)% to Fire and Cold Resistances
++75% Chance to Block Spell Damage if you have not Blocked Recently
++(8-15)% chance to Avoid Physical Damage from Hits while Phasing
 You have Phasing if you have Blocked Recently
 ]],[[
 Mutewind Pennant
@@ -901,6 +927,19 @@ Implicits: 1
 {variant:2}20% increased Area of Effect of Aura Skills
 10% chance to grant a Power Charge to nearby Allies on Kill
 5% chance to grant a Frenzy Charge to nearby Allies on Hit
+]],[[
+Replica Victario's Charity
+Laminated Kite Shield
+League: Heist
+Requires Level 50, 64 Str, 64 Int
+Implicits: 1
++8% to all Elemental Resistances
++(50-70) to maximum Life
++(20-30)% to Lightning Resistance
++11% to Chaos Resistance
+10% increased effect of Non-Curse Auras from your Skills
+5% chance to grant an Endurance Charge to nearby Allies on Hit
+10% chance to grant a Frenzy Charge to nearby Allies on Kill
 ]],
 -- Shield: Evasion/Energy Shield
 [[

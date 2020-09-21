@@ -80,6 +80,16 @@ Implicits: 1
 {variant:2}{tags:mana}(80-100)% increased Mana Regeneration Rate
 {tags:jewellery_attribute}Items and Gems have 25% reduced Attribute Requirements
 ]],[[
+Replica Atziri's Foible
+Paua Amulet
+League: Heist
+Requires Level 16
+Implicits: 1
+Regenerate (1.00-2.00)% of Life per second
++100 to maximum Life
+(20-25)% increased Life Recovery rate
+Items and Gems have 25% reduced Attribute Requirements
+]],[[
 Aul's Uprising
 Onyx Amulet
 League: Delve
@@ -482,6 +492,20 @@ Grants Level 22 Precision Skill
 {tags:attack,life}(0.8-1)% of Physical Attack Damage Leeched as Life
 Precision has 50% less Mana Reservation
 ]],[[
+Replica Hyrri's Truth
+Jade Amulet
+League: Heist
+Requires Level 5
+Implicits: 1
++(20-30) to Dexterity
+Grants Level 22 Hatred Skill
++(25-35) to Dexterity
+Adds (12-15) to (24-28) Physical Damage to Attacks
+Adds (11-15) to (23-28) Cold Damage to Attacks
++(23-28)% to Global Critical Strike Multiplier
+(0.8-1.0)% of Cold Damage Leeched as Life
+Hatred has 50% less Mana Reservation
+]],[[
 The Ignomon
 Gold Amulet
 Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
@@ -556,6 +580,18 @@ Implicits: 1
 {variant:2}30% increased Projectile Damage
 30% increased Projectile Speed
 10% increased Movement Speed
+]],[[
+Replica Karui Ward
+Jade Amulet
+League: Heist
+Requires Level 5
+Implicits: 1
++(20-30) to Dexterity
++(20-30) to Intelligence
++100 to Accuracy Rating
+10% increased Movement Speed
+30% increased Area of Effect
+30% increased Area Damage
 ]],[[
 Karui Charge
 Jade Amulet
@@ -946,6 +982,18 @@ Implicits: 1
 {tags:jewellery_resistance}+75% to Cold Resistance
 Cannot be Chilled
 {tags:life}20% of Life Regenerated per Second while Frozen
+]],[[
+Replica Winterheart
+Gold Amulet
+League: Heist
+Requires Level 42
+Implicits: 1
+(12-20)% increased Rarity of Items found
++(20-30) to Dexterity
++(50-70) to maximum Energy Shield
++75% to Lightning Resistance
+Regenerate 5% of Energy Shield per second while Shocked
+Unaffected by Shock
 ]],[[
 Xoph's Heart
 Amber Amulet

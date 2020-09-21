@@ -65,6 +65,19 @@ Gain a Frenzy Charge on Hit while Bleeding
 50% chance to be inflicted with Bleeding when Hit by an Attack
 Gore Footprints
 ]],[[
+Replica Red Trail
+Titan Greaves
+League: Heist
+Requires Level 68, 120 Str
+(60-80)% increased Armour
++(60-70) to maximum Life
+25% increased Movement Speed
+Gain a Power Charge on Hit while Poisoned
++30% to Chaos Resistance while stationary
+15% increased Movement Speed while Poisoned
+Necrotic Footprints
+50% chance for Spell Hits against you to inflict Poison
+]],[[
 Kaom's Roots
 Titan Greaves
 Variant: Pre 2.6.0
@@ -291,6 +304,17 @@ Requires Level 55, 97 Dex
 {variant:2}25% increased Movement Speed
 10% chance to Dodge Spells while Phasing
 ]],[[
+Replica Three-step Assault
+Shagreen Boots
+League: Heist
+Requires Level 55, 97 Dex
++(25-35) to Dexterity
+(20-40)% increased Evasion Rating
++(50-70) to maximum Life
+25% increased Movement Speed
+(10-30)% increased Elusive Effect
+10% increased Movement Speed if you've Hit an Enemy Recently
+]],[[
 Victario's Flight
 Goathide Boots
 Variant: Pre 2.6.0
@@ -319,6 +343,17 @@ Requires Level 22, 42 Int
 {variant:1}+1 to Maximum number of Spectres
 {variant:2}+1 to Level of all Raise Zombie Gems
 {variant:2}+1 to Level of all Raise Spectre Gems
+]],[[
+Replica Bones of Ullr
+Silk Slippers
+League: Heist
+Requires Level 22, 42 Int
+(40-60)% increased Energy Shield
++20 to maximum Life
++20 to maximum Mana
+(5-15)% increased Movement Speed
+Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Unique Enemy
+Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Unique Enemy
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
@@ -354,6 +389,16 @@ Requires Level 61, 119 Int
 5% increased Damage per Power Charge
 25% chance that if you would gain Power Charges, you instead gain up to
 your maximum number of Power Charges
+]],[[
+Replica Inya's Epiphany
+Arcanist Slippers
+League: Heist
+Requires Level 61, 119 Int
+(5-8)% increased Intelligence
++(50-70) to maximum Life
+5% increased Damage per Power Charge
+Regenerate 0.5% of Life per second per Power Charge
+5% increased Movement Speed per Power Charge
 ]],[[
 Rainbowstride
 Conjurer Boots
@@ -556,6 +601,17 @@ Adds 12 to 24 Fire Damage to Attacks
 {variant:1}20% increased Stun and Block Recovery
 {variant:1}Cannot be Stunned when on Low Life
 ]],[[
+Replica Lioneye's Paws
+Bronzescale Boots
+League: Heist
+Requires Level 30, 30 Str, 30 Dex
+Trigger Level 5 Toxic Rain when you Attack with a Bow
++(40-60) to Strength
++(40-60) to Dexterity
+Adds 12 to 24 Chaos Damage to Attacks
+20% increased Movement Speed
+40% reduced Movement Speed when on Low Life
+]],[[
 Mutewind Whispersteps
 Serpentscale Boots
 League: Warbands
@@ -595,6 +651,17 @@ Adds 1 to 80 Chaos Damage to Attacks
 20% increased Movement Speed
 +1 to Maximum number of Skeletons
 (15-18)% increased Strength
+]],[[
+Replica Alberon's Warpath
+Soldier Boots
+League: Heist
+Requires Level 49, 47 Str, 47 Int
+(15-18)% increased Strength
++(180-220) to Armour
++(9-12)% to Chaos Resistance
+20% increased Movement Speed
+Cannot deal non-Chaos Damage
+Adds 1 to 80 Chaos Damage to Attacks per 50 Strength
 ]],[[
 Beacon of Madness
 Two-Toned Boots (Armour/Energy Shield)
@@ -790,6 +857,17 @@ Travel Skills have (50-80)% increased Cooldown Recovery Speed
 Your Movement Speed is 150% of its base value
 This item can be anointed by Cassia
 ]],[[
+Replica Stampede
+Assassin's Boots
+League: Heist
+Requires Level 63, 62 Dex, 62 Int
+(100-150)% increased Evasion and Energy Shield
+(30-40)% increased Stun and Block Recovery
+Socketed Travel Skills deal 80% more Damage
+(30-40)% increased Mana Regeneration Rate while moving
+Your Movement Speed is 150% of its base value
+This item can be anointed by Cassia
+]],[[
 Sundance
 Clasped Boots
 Upgrade: Upgrades to unique{Sunspite} via prophecy{Sun's Punishment}
@@ -831,5 +909,18 @@ You have Phasing if you've Killed Recently
 {variant:2}Projectiles Pierce 5 additional Targets while you have Phasing
 Celestial Footprints
 Shaper Item
+]],[[
+Replica Voidwalker
+Murder Boots
+Shaper Item
+League: Heist
+Requires Level 69, 82 Dex, 42 Int
++(30-50) to Dexterity
+(140-180)% increased Evasion and Energy Shield
+30% increased Movement Speed
+10% increased Damage taken while Phasing
+You have Phasing if you've Killed Recently
+Projectiles Chain +1 times while you have Phasing
+Celestial Footprints
 ]],
 }

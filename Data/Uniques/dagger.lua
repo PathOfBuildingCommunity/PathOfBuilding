@@ -49,6 +49,19 @@ Extra Gore
 {variant:1}10% chance to cause Bleeding on Hit
 {variant:2}30% chance to cause Bleeding on Hit
 ]],[[
+Replica Bloodplay
+Stiletto
+League: Heist
+Requires Level 15, 30 Dex, 30 Int
+Implicits: 1
+30% increased Global Critical Strike Chance
++20 to Strength
+(20-40)% increased Physical Damage
+Adds (3-6) to (9-13) Physical Damage
+30% chance to cause Bleeding on Hit
+(100-150)% increased Critical Strike Chance against Bleeding Enemies
+Extra gore
+]],[[
 Cold Iron Point
 Ezomyte Dagger
 Requires Level 62, 95 Dex, 131 Int
@@ -56,6 +69,15 @@ Implicits: 1
 30% increased Global Critical Strike Chance
 +3 to Level of all Physical Spell Skill Gems
 Deal no Elemental Damage
+]],[[
+Replica Cold Iron Point
+Ezomyte Dagger
+League: Heist
+Requires Level 62, 95 Dex, 131 Int
+Implicits: 1
+30% increased Global Critical Strike Chance
++3 to Level of all Cold Spell Skill Gems
+Deal no Cold Damage
 ]],[[
 The Consuming Dark
 Fiend Dagger
@@ -135,6 +157,19 @@ Implicits: 1
 10% faster start of Energy Shield Recharge
 Your Spells have Culling Strike
 ]],[[
+Replica Heartbreaker
+Royal Skean
+League: Heist
+Requires Level 50, 71 Dex, 102 Int
+Implicits: 1
+30% increased Global Critical Strike Chance
+(60-70)% increased Spell Damage
++50 to maximum Energy Shield
+10% faster start of Energy Shield Recharge
++(40-50) to maximum Life
+20% increased Impale Effect
+20% chance to Impale on Spell Hit
+]],[[
 The Hidden Blade
 Ambusher
 League: Heist
@@ -203,6 +238,19 @@ Implicits: 1
 Adds 3 to 30 Lightning Damage
 10% increased Attack Speed
 50% increased Global Critical Strike Chance
+]],[[
+Replica Ungil's Gauche
+Boot Knife
+League: Heist
+Requires Level 20, 31 Dex, 45 Int
+Implicits: 1
+30% increased Global Critical Strike Chance
++18% Chance to Block Attack Damage while Dual Wielding
++(10-20) to Dexterity
+10% increased Attack Speed
+50% increased Global Critical Strike Chance
+Chill Attackers for 4 seconds on Block
+Shock Attackers for 4 seconds on Block
 ]],[[
 Vulconus
 Demon Dagger

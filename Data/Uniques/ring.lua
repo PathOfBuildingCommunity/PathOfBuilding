@@ -359,6 +359,17 @@ Implicits: 1
 {tags:mana}+5 Mana Gained on Kill
 Enemies can have 1 additional Curse
 ]],[[
+Replica Doedre's Damning
+Paua Ring
+League: Heist
+Implicits: 1
++(20-30) to maximum Mana
++(5-10) to Intelligence
++5% to all Elemental Resistances
++5 Mana gained on Kill
+You can apply one fewer Curse
+(25-35)% increased Effect of your Curses
+]],[[
 Dream Fragments
 Sapphire Ring
 Variant: Pre 2.6.0
@@ -391,6 +402,18 @@ Implicits: 1
 {variant:1}80% less Burning Damage
 {variant:2}Ignited Enemies Burn 65% slower
 {variant:3}Ignited Enemies Burn (65-50)% slower
+]],[[
+Replica Emberwake
+Ruby Ring
+League: Heist
+Requires Level 16
+Implicits: 1
++(20-30)% to Fire Resistance
+(30-40)% increased Fire Damage
+(5-10)% increased Cast Speed
+90% reduced Ignite Duration on Enemies
+10% chance to Ignite
+Ignites you inflict deal Damage (35-45)% faster
 ]],[[
 Essence Worm
 Unset Ring
@@ -556,6 +579,19 @@ Has 1 Socket
 {tags:jewellery_resistance}+(75-100)% to Lightning Resistance when Socketed with a Blue Gem
 All Sockets are White
 Socketed Gems have Elemental Equilibrium
+]],[[
+Replica Malachai's Artifice
+Unset Ring
+League: Heist
+Requires Level 5
+Implicits: 1
+Has 1 Socket
+Socketed Gems have Secrets of Suffering
+-20% to all Elemental Resistances
++(75-100)% to Fire Resistance when Socketed with a Red Gem
++(75-100)% to Cold Resistance when Socketed with a Green Gem
++(75-100)% to Lightning Resistance when Socketed with a Blue Gem
+All Sockets are White
 ]],[[
 Mark of Submission
 Unset Ring
@@ -922,6 +958,18 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental}5% chance to Freeze
 {variant:2}{tags:jewellery_elemental}10% chance to Freeze
 ]],[[
+Replica Tasalio's Sign
+Sapphire Ring
+League: Heist
+Requires Level 20
+Implicits: 1
++(20-30)% to Cold Resistance
+Adds (15-20) to (25-35) Cold Damage to Spells and Attacks
++(200-300) to Evasion Rating
+Your Cold Damage cannot Freeze
+Immune to Chill
+Adds 60 to 80 Cold Damage against Chilled Enemies
+]],[[
 Thief's Torment
 Prismatic Ring
 Variant: Pre 1.0.0
@@ -1108,6 +1156,14 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Gems
+]],[[
+Replica Voideye
+Unset Ring
+League: Heist
+Requires Level 45
+Implicits: 1
+Has 1 Socket
++30% to Quality of Socketed Gems
 ]],[[
 The Warden's Brand
 Iron Ring

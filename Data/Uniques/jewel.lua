@@ -88,6 +88,12 @@ Viridian Jewel
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
+Replica Cheap Construction
+Viridian Jewel
+League: Heist
+(100-120)% increased Critical Strike Chance with Traps
+Can have 5 fewer Traps placed at a time
+]],[[
 Clear Mind
 Cobalt Jewel
 Limited to: 1
@@ -189,6 +195,16 @@ Variant: Current
 {variant:2}Maximum 10 Fragile Regrowth
 {variant:2}0.7% of Life Regenerated per second per Fragile Regrowth
 {variant:2}Lose all Fragile Regrowth when Hit
+]],[[
+Replica Fragile Bloom
+Crimson Jewel
+League: Heist
+Limited to: 1
+Implicits: 0
+Maximum 5 Fragile Regrowth
+0.7% of Life Regenerated per second per Fragile Regrowth
+Gain up to maximum Fragile Regrowth when Hit
+Lose 1 Fragile Regrowth each second
 ]],[[
 From Dust
 Cobalt Jewel
@@ -296,6 +312,14 @@ Variant: Current
 {variant:2}(10-20)% increased Movement Speed while Ignited
 {variant:2}(10-20)% increased Attack Speed while Ignited
 {variant:2}(10-20)% increased Cast Speed while Ignited
+]],[[
+Replica Hotheaded
+Viridian Jewel
+League: Heist
+Limited to: 1
+(10-20)% increased Attack Speed while Chilled
+(10-20)% increased Cast Speed while Chilled
+(10-20)% increased Movement Speed while Chilled
 ]],[[
 Inertia
 Crimson Jewel
@@ -415,6 +439,16 @@ Golems have (18-22)% increased Maximum Life
 Your Golems are aggressive
 Primordial
 ]],[[
+Replica Primordial Might
+Crimson Jewel
+League: Heist
+-1 to maximum number of Golems
+(25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
+Golems Summoned in the past 8 seconds deal (100-125)% increased Damage
+Golems have (18-22)% increased Maximum Life
+Primordial
+Summoned Golems are Aggressive
+]],[[
 Pugilist
 Viridian Jewel
 Radius: Large
@@ -433,6 +467,19 @@ Shadow: +0.5 to Critical Strike Chance
 Witch: 0.5% of Maximum Mana Regenerated per second
 Templar: Damage Penetrates 5% Elemental Resistances
 Scion: +25 to All Attributes
+]],[[
+Replica Pure Talent
+Viridian Jewel
+League: Heist
+Limited to: 1
+While your Passive Skill Tree connects to a class' starting location, you gain:
+Marauder: 1% of Life Regenerated per second
+Duelist: +2 to Melee Strike Range
+Ranger: 20% increased Flask Charges gained
+Shadow: 12% increased Attack and Cast Speed
+Witch: 20% increased Skill Effect Duration
+Templar: +4% Chance to Block Attack and Spell Damage
+Scion: 30% increased Damage
 ]],[[
 Quickening Covenant
 Viridian Jewel
@@ -461,6 +508,13 @@ Variant: Current
 {variant:3}+(2-4)% chance to Block Spell Damage
 (2-4)% chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
+]],[[
+Replica Reckless Defence
+Cobalt Jewel
+League: Heist
++(2-4)% Chance to Block Spell Damage
++(2-4)% Chance to Block Attack Damage
++10% chance to be Frozen, Shocked and Ignited
 ]],[[
 The Red Dream
 Crimson Jewel
@@ -633,6 +687,12 @@ Grants all bonuses of Unallocated Small Passive Skills in Radius
 Unstable Payload
 Cobalt Jewel
 (8-12)% Chance for Traps to Trigger an additional time
+]],[[
+Replica Unstable Payload
+Cobalt Jewel
+League: Heist
+Implicits: 0
+Recover (20-30) Life when your Trap is triggered by an Enemy
 ]],[[
 Voices
 Large Cluster Jewel
@@ -1256,6 +1316,14 @@ Removes 1% of maximum Life on Kill
 Removes 1% of maximum Energy Shield on Kill
 Corrupted
 ]],[[
+Replica Blood Sacrifice
+Crimson Jewel
+League: Heist
+Implicits: 0
+Recover 1% of Life on Kill
+Recover 1% of Energy Shield on Kill
+Cannot Leech or Regenerate Mana
+]],[[
 Brittle Barrier
 Cobalt Jewel
 20% faster start of Energy Shield Recharge
@@ -1361,6 +1429,14 @@ Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
 2% reduced Mana Reserved
+]],[[
+Replica Conqueror's Efficiency
+Crimson Jewel
+League: Heist
+Limited to: 1
+4% increased Skill Effect Duration
++5 to Maximum Rage
+Non-Channelling Skills have -9 to Total Mana Cost
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
