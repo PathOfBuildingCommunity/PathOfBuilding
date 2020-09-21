@@ -4609,6 +4609,40 @@ skills["AtlasCruasderJudgeFadingNova"] = {
 		[1] = { 0.5, 1.5, 128, 7, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
+skills["HarvestCrabAbyssSlam"] = {
+	name = "Slam Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"upheaval_number_of_spikes",
+		"main_hand_base_maximum_attack_distance",
+		"active_skill_damage_+%_final",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0, 4, 50, -30, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+		[2] = { 0, 4, 50, 0, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 19, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+		[3] = { 0, 4, 50, 1, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 20, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+		[4] = { 0, 4, 50, 60, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+	},
+}
 skills["LegionTemplarJudgeBallLightning"] = {
 	name = "Ball Lightning",
 	hidden = true,

@@ -737,6 +737,11 @@ local skills, mod, flag, skill = ...
 #flags spell projectile triggerable
 #mods
 
+#skill HarvestCrabAbyssSlam Slam Attack
+#flags attack hit area triggerable
+#baseMod skill("showAverage", true)
+#mods
+
 #skill LegionTemplarJudgeBallLightning Ball Lightning
 #flags spell hit triggerable area projectile
 #mods
