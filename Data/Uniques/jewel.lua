@@ -401,6 +401,15 @@ Radius: Large
 50% increased Effect of non-Keystone Passive Skills in Radius
 Notable Passive Skills in Radius grant nothing
 ]],[[
+Nadir Mode
+Cobalt Jewel
+League: Heist
+Limited to: 1
+Item Level: 82
+(20-25)% increased Spell Damage
+Spells have 30% increased Critical Strike Chance per Intensity
+Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
+]],[[
 Natural Affinity
 Small Cluster Jewel
 League: Delirium

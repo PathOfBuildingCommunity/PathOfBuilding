@@ -96,6 +96,18 @@ Implicits: 1
 Rampage
 1% increased Rarity of Items found per 15 Rampage Kills
 ]],[[
+Chains of Emancipation
+Chain Belt
+League: Heist
+Requires Level 61
+Implicits: 1
++(9-20) to maximum Energy Shield
++(60-80) to maximum Life
++(17-23)% to Chaos Resistance
+Enemy Hits inflict Temporal Chains on you
+When you lose Temporal Chains you gain maximum Rage
+Immune to Curses while you have at least 25 Rage
+]],[[
 Coward's Chains
 Chain Belt
 League: Incursion

@@ -777,6 +777,17 @@ Triggers level 20 Death Walk when Equipped
 30% increased Movement Speed
 10% increased Damage for each type of Abyssal Jewel affecting you
 ]],[[
+Corpsewalker
+Carnal Boots
+League: Heist
+Requires Level 55, 52 Dex, 52 Int
+Implicits: 0
+Triggers Level 20 Corpse Walk when Equipped
+(80-120)% increased Evasion and Energy Shield
+25% increased Movement Speed
+(20-40)% increased Damage if you have Consumed a corpse Recently
+For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+]],[[
 Dance of the Offered
 Shackled Boots
 League: Incursion

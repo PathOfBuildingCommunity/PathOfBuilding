@@ -1222,6 +1222,16 @@ Requires Level 52, 76 Dex, 76 Int
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
+The Admiral
+Varnished Coat
+League: Heist
+Requires Level 62, 96 Dex, 96 Int
++(30-40) to Intelligence
+(100-140)% increased Evasion and Energy Shield
++(10-20)% to all Elemental Resistances
+(5-10)% chance to Freeze, Shock and Ignite
+Elemental Damage you Deal with Hits is Resisted by lowest Elemental Resistance instead
+]],[[
 Atziri's Splendour
 Sacrificial Garb
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
