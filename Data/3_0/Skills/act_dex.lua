@@ -4677,6 +4677,19 @@ skills["LancingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Single Projectile Hit",
+		},
+		{
+			name = "All Projectiles Hit",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = 1 + 0.6 * (output.ProjectileCount - 1)
+		end
+	end,
 	statMap = {
 		["number_of_projectiles_to_fire_+%_final_per_steel_ammo_consumed"] = {
 			mod("ProjectileCount", "MORE", nil, 0, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 4 } )
