@@ -542,6 +542,9 @@ return {
 ["support_slashing_damage_+%_final_from_distance"] = {
 	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
 },
+["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+},
 
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
@@ -664,6 +667,10 @@ return {
 	mod("EnemyFreezeEffect", "INC", nil),
 	mod("EnemyScorchEffect", "INC", nil),
 	mod("EnemyBrittleEffect", "INC", nil),
+	mod("EnemySapEffect", "INC", nil),
+},
+["lightning_ailment_effect_+%"] = {
+	mod("EnemyShockEffect", "INC", nil),
 	mod("EnemySapEffect", "INC", nil),
 },
 ["base_poison_duration_+%"] = {
@@ -1167,6 +1174,9 @@ return {
 -- Minion
 ["minion_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) }),
+},
+["minion_melee_damage_+%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, ModFlag.Melee) }),
 },
 ["minion_maximum_life_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }),
