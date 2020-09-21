@@ -509,9 +509,26 @@ local skills, mod, flag, skill = ...
 
 #skill Firestorm
 #flags spell area duration
-#baseMod skill("radius", 25)
+	parts = {
+		{
+			name = "First Impact",
+		},
+		{
+			name = "Subsequent Impacts",
+		},
+	},
+	statMap = {
+	    ["firestorm_initial_impact_damage_+%_final"] = {
+	        mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
+	    },
+	    ["firestorm_initial_impact_area_of_effect_+%_final"] = {
+	        mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
+	    },
+	},
+#baseMod skill("showAverage", false, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 22)
 #baseMod skill("radiusLabel", "Area in which fireballs fall:")
-#baseMod skill("radiusSecondary", 10)
+#baseMod skill("radiusSecondary", 16)
 #baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
