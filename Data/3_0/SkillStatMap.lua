@@ -274,7 +274,7 @@ return {
 	value = -100,
 },
 ["flask_mana_to_recover_+%"] = {
-	mod("FlaskManaRecovery", "INC", nil, 0, 0)
+	mod("FlaskManaRecovery", "INC", nil),
 },
 ["base_chance_to_dodge_%"] = {
 	mod("AttackDodgeChance", "BASE", nil),
@@ -1081,10 +1081,10 @@ return {
 },
 -- Impale
 ["attacks_impale_on_hit_%_chance"] = {
-    mod("ImpaleChance", "BASE", nil, 0, 0)
+	mod("ImpaleChance", "BASE", nil)
 },
 ["impale_debuff_effect_+%"] = {
-    mod("ImpaleEffect", "INC", nil, 0, 0)
+	mod("ImpaleEffect", "INC", nil)
 },
 --
 -- Spell modifiers
@@ -1249,7 +1249,7 @@ return {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
 ["base_number_of_champions_of_light_allowed"] = {
-    mod("ActiveSentinelOfPurityLimit", "BASE", nil)
+	mod("ActiveSentinelOfPurityLimit", "BASE", nil),
 },
 ["base_number_of_spectres_allowed"] = {
 	mod("ActiveSpectreLimit", "BASE", nil),
@@ -1287,7 +1287,7 @@ return {
 	mod("BuffEffect", "INC", nil, 0, 0, { type = "SkillType", SkillType = SkillType.Golem})
 },
 ["golem_cooldown_recovery_+%"] = {
-	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil, 0, 0)})
+	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)})
 },
 -- Slam
 ["empowered_attack_damage_+%"] = {
@@ -1307,7 +1307,7 @@ return {
 	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
 },
 ["curse_cast_speed_+%"] = {
-	mod("Speed", "INC", nil, 0, 0),
+	mod("Speed", "INC", nil),
 },
 -- Hex
 ["curse_maximum_doom"] = {
