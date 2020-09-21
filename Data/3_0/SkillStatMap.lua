@@ -418,6 +418,9 @@ return {
 ["secondary_skill_effect_duration_+%"] = {
 	mod("SecondaryDuration", "INC", nil),
 },
+["active_skill_quality_duration_+%_final"] = {
+	mod("Duration", "MORE", nil),
+},
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
 },
@@ -735,6 +738,9 @@ return {
 },
 ["active_skill_chill_as_though_damage_+%_final"] = {
 	mod("ChillAsThoughDealing", "MORE", nil),
+},
+["freeze_as_though_dealt_damage_+%"] = {
+	mod("FreezeAsThoughDealing", "MORE", nil),
 },
 -- Global flags
 ["never_ignite"] = {

@@ -209,9 +209,6 @@ local skills, mod, flag, skill = ...
 		["minion_recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["active_skill_quality_duration_+%_final"] = {
-	        mod("Duration", "MORE", nil),
-		},
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
@@ -534,6 +531,11 @@ local skills, mod, flag, skill = ...
 
 #skill FlameDash
 #flags spell area duration
+    statMap = {
+        ["flame_dash_burning_damage_+%_final"] = {
+            mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
+        }
+    },
 #baseMod skill("dotIsArea", true)
 #mods
 
@@ -543,6 +545,9 @@ local skills, mod, flag, skill = ...
 		["wall_maximum_length"] = {
 			skill("radius", nil),
 		},
+		["firewall_applies_%_fire_exposure"] = {
+		    mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }),
+		}
 	},
 #baseMod skill("radiusLabel", "Flame Wall Length:")
 #baseMod skill("dotIsArea", true)
@@ -553,6 +558,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["flame_whip_damage_+%_final_vs_burning_enemies"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
+		},
+		["chance_to_scorch_%"] = {
+		    mod("ScorchChance", "BASE", nil)
+		},
+		["active_skill_base_area_length_+"] = {
+		    mod("AreaOfEffect", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 30)
@@ -579,6 +590,12 @@ local skills, mod, flag, skill = ...
 			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["flameblast_maximum_stages"] = {
+		    mod("Multiplier:FlameblastMaxStages", "BASE", nil),
+		},
+		["flameblast_area_+%_final_per_stage"] = {
+		    mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 	},
 #baseMod mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 })
@@ -657,6 +674,11 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillModList:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 		activeSkill.skillModList:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
+	statMap = {
+	    ["active_skill_damage_+%_final"] = {
+	        mod("Damage", "BASE", nil)
+	    },
+	},
 #mods
 
 #skill FrostBomb
@@ -713,6 +735,14 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBolt
 #flags spell projectile
+    statMap = {
+        ["base_inflict_cold_exposure_on_hit_%_chance"] = {
+            mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -25) }, { type = "Condition", var = "Effective" }),
+        },
+        ["frostbolt_projectile_speed_+%_final"] = {
+            mod("ProjectileSpeed", "MORE", nil),
+        },
+    },
 #mods
 
 #skill GlacialCascade
@@ -762,6 +792,12 @@ local skills, mod, flag, skill = ...
 			skill("repeatFrequency", nil),
 			div = 1000,
 		},
+		["skill_buff_grants_damage_+%"] = {
+		    mod("Damage", "INC", nil),
+		},
+		["base_damage_taken_+%"] = {
+		    mod("DamageTaken", "INC", nil),
+		},
 	},
 #baseMod skill("radius", 32)
 #baseMod skill("showAverage", false)
@@ -769,6 +805,11 @@ local skills, mod, flag, skill = ...
 
 #skill IceNova
 #flags spell area
+    statMap = {
+        ["damage_+%_vs_chilled_enemies"] = {
+            mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+        },
+    },
 #baseMod skill("radius", 30)
 #mods
 
@@ -876,6 +917,11 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+	statMap = {
+		["kinetic_blast_projectiles_gain_%_aoe_after_forking"] = {
+		    mod("AreaOfEffect", "INC", nil, 0, 0, { type = "StatThreshold", stat = "ForkedCount", threshold = 1 }),
+		},
+	},
 #baseMod skill("radius", 14)
 #mods
 
@@ -884,6 +930,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
 			flag("ImprovedSpellDamageAppliesToAttacks"),
+		},
+		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
+
+		},
+		["mana_gain_per_target"] = {
+		    mod("ManaOnHit", "BASE", nil),
 		},
 	},
 #mods
@@ -895,6 +947,19 @@ local skills, mod, flag, skill = ...
 
 #skill LightningTendrilsChannelled
 #flags spell area
+    parts = {
+        {
+            name = "Normal pulse",
+        },
+        {
+            name = "Stronger pulse",
+        },
+    },
+    statMap = {
+        ["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
+            mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+        },
+    },
 #baseMod skill("radius", 22)
 #mods
 
