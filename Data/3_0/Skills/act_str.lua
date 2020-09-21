@@ -322,7 +322,6 @@ skills["AncestralCry"] = {
 		["physical_damage_reduction_rating_+%"] = {
 			mod("AncestralArmourMax", "INC", nil),
 		},
-		
 	},
 	baseFlags = {
 		warcry = true,
@@ -830,7 +829,7 @@ skills["Berserk"] = {
 		},
 		["berserk_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		}
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -930,7 +929,7 @@ skills["Bladestorm"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["bladestorm_blood_stance_ailment_damage_+%"] = {
-			mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 2 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"}),
+			mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 2 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance" }),
 		},
 		["bladestorm_attack_speed_+%_final_while_in_bloodstorm"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
@@ -1039,16 +1038,16 @@ skills["BloodSandStance"] = {
 			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"}, { type = "SkillType", skillType = SkillType.Melee })
 		},
 		["projectile_attack_damage_+%_in_blood_stance"] = {
-			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"})
+			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance" })
 		},
 		["projectile_speed_+%_in_sand_stance"] = {
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"})
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance" })
 		},
 		["spell_area_damage_+%_in_blood_stance"] = {
-			mod("AreaOfEffect", "INC", nil, bit.bor(ModFlag.Area, ModFlag.Spell), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"})
+			mod("AreaOfEffect", "INC", nil, bit.bor(ModFlag.Area, ModFlag.Spell), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance" })
 		},
 		["spell_area_of_effect_+%_in_sand_stance"] = {
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Area, ModFlag.Spell), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"})
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Area, ModFlag.Spell), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance" })
 		},
 	},
 	baseFlags = {
@@ -1214,7 +1213,6 @@ skills["Cleave"] = {
 		["cleave_damage_+%_final_while_dual_wielding"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
 		},
-		
 	},
 	baseFlags = {
 		attack = true,
@@ -1664,6 +1662,11 @@ skills["DominatingBlow"] = {
 	minionList = {
 		"AxisEliteSoldierDominatingBlow",
 	},
+	statMap = {
+		["sentinel_minion_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		}
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1671,11 +1674,6 @@ skills["DominatingBlow"] = {
 		minion = true,
 	},
 	baseMods = {
-	},
-	statMap = {
-		["sentinel_minion_cooldown_speed_+%"] = {
-			mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil, 0, 0)})
-		}
 	},
 	qualityStats = {
 		Default = {
@@ -1875,10 +1873,8 @@ skills["Earthquake"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
 		},
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			-- flag("ImprovedSpellDamageAppliesToAttacks"),
-			-- mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
+			-- mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil)
 		},
-		
 	},
 	baseFlags = {
 		attack = true,
@@ -2095,7 +2091,6 @@ skills["SpikeSlam"] = {
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		}
-
 	},
 	baseFlags = {
 		attack = true,
@@ -2274,8 +2269,8 @@ skills["BloodSandArmour"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
 		},
 		["evasion_and_physical_damage_reduction_rating_+%"] = {
-			mod("Evasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff"}),
-			mod("Armor", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff"})
+			mod("Evasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Armor", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
 		["damage_+%_if_changed_stances_recently"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff"}, { type = "Condition", var = "ChangedStanceRecently" })
@@ -3079,7 +3074,7 @@ skills["HeraldOfPurity"] = {
 			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["sentinel_minion_cooldown_speed_+%"] = {
-			mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil, 0, 0)})
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
 		}
 	},
 	baseFlags = {
@@ -4138,10 +4133,10 @@ skills["BloodSpears"] = {
 			mod("Multiplier:PerforateMaxSpikes", "BASE", nil),
 		},
 		["blood_spears_damage_+%_final_in_blood_stance"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" })
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" }),
 		},
 		["blood_spears_additional_number_of_spears_if_changed_stance_recently"] = {
-			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently"}),
+			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently" }),
 		},
 	},
 	baseFlags = {
@@ -4238,10 +4233,10 @@ skills["PhysicalDamageAura"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
 		},
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
-			mod("BleedChance", "BASE", nil, ModFlag.Attack, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "AuraDebuff"}),
+			mod("BleedChance", "BASE", nil, ModFlag.Attack, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 		["base_additional_physical_damage_reduction_%"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff"}),
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 	baseFlags = {
@@ -4320,7 +4315,7 @@ skills["Punishment"] = {
 	castTime = 0.5,
 	statMap = {
 		["damage_taken_+%_on_low_life"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "CurseBuff" }, {type = "ActorCondition", actor = "enemy", var="LowLife" }),
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "CurseBuff" }, { type = "ActorCondition", actor = "enemy", var="LowLife" }),
 		},
 	},
 	baseFlags = {
@@ -4334,7 +4329,7 @@ skills["Punishment"] = {
 		skill("debuff", true),
 		skill("radius", 22),
 		mod("MaxDoom", "BASE", 30),
-		mod("DebilitateChance", "BASE", 100)
+		mod("DebilitateChance", "BASE", 100),
 	},
 	qualityStats = {
 		Default = {
@@ -4585,7 +4580,7 @@ skills["RallyingCry"] = {
 		},
 		["rallying_cry_weapon_damage_%_for_allies_per_5_monster_power"] = {
 			mod("RallyingCryAllyDamageBonusPer5Power", "BASE", nil),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "NearbyAlly"}),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "NearbyAlly" }),
 		},
 		["rallying_cry_buff_effect_on_minions_+%_final"] = {
 			mod("RallyingCryMinionDamageBonusMultiplier", "BASE", nil),
@@ -4690,6 +4685,11 @@ skills["Reckoning"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["debilitate_enemies_for_1_second_on_hit_%_chance"] = {
+			mod("DebilitateChance", "BASE", nil)
+		},
+	},
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -4697,11 +4697,6 @@ skills["Reckoning"] = {
 	},
 	baseMods = {
 		skill("radius", 35),
-	},
-	statMap = {
-		["debilitate_enemies_for_1_second_on_hit_%_chance"] = {
-			mod("DebilitateChance", "BASE", nil)
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -5466,16 +5461,16 @@ skills["QuickGuard"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["resist_all_%"] = {
+			mod("ElementalResist", "BASE", nil)
+		}
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
 	},
 	baseMods = {
-	},
-	statMap = {
-		["resist_all_%"] = {
-			mod("ElementalResist", "BASE", nil, 0, 0)
-		}
 	},
 	qualityStats = {
 		Default = {
@@ -5552,7 +5547,6 @@ skills["SummonFireGolem"] = {
 		["fire_golem_grants_damage_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		
 	},
 	baseFlags = {
 		spell = true,
@@ -6054,18 +6048,18 @@ skills["Vengeance"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["gain_rage_on_hit_%_chance"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
+		}
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 	},
 	baseMods = {
-	},
-	statMap = {
-		["gain_rage_on_hit_%_chance"] = {
-			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
-		}
 	},
 	qualityStats = {
 		Default = {
@@ -6234,7 +6228,7 @@ skills["Vitality"] = {
 			div = 60,
 		},
 		["damage_+%_when_on_full_life"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "FullLife"})
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "FullLife" })
 		},
 	},
 	baseFlags = {
@@ -6329,7 +6323,7 @@ skills["Vulnerability"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		hex = true
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -6412,9 +6406,6 @@ skills["WarlordsMark"] = {
 		},
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {

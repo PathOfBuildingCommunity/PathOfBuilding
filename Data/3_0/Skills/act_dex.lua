@@ -5572,12 +5572,6 @@ skills["SnipersMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["projectiles_always_pierce_you"] = {
-			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
@@ -7456,6 +7450,7 @@ skills["ImpactingSteel"] = {
 		"already_split_if_no_steel_shards",
 		"projectiles_can_split_at_end_of_range",
 		"projectiles_can_split_from_terrain",
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { 2, 1, 60, 0.80000001192093, 1.2000000476837, -35, -50, 0, manaCost = 5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 3, 3, 1, 1, 1, }, },

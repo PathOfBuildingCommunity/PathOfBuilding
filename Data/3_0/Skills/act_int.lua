@@ -551,8 +551,8 @@ skills["BallLightning"] = {
 	castTime = 0.7,
 	statMap = {
 		["ball_lightning_superball_%_chance"] = {
-			mod("Damage", "MORE", nil, 0, 0),
-			mod("AreaOfEffect", "MORE", nil, 0, 0),
+			mod("Damage", "MORE", nil),
+			mod("AreaOfEffect", "MORE", nil),
 			div = 2
 		},
 	},
@@ -829,6 +829,7 @@ skills["Ember"] = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
 		"number_of_additional_projectiles",
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 0.4, critChance = 6, levelRequirement = 12, manaCost = 8, statInterpolation = { 3, 3, 1, }, },

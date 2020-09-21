@@ -87,8 +87,8 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 	statMap = {
 		["ball_lightning_superball_%_chance"] = {
-			mod("Damage", "MORE", nil, 0, 0),
-			mod("AreaOfEffect", "MORE", nil, 0, 0),
+			mod("Damage", "MORE", nil),
+			mod("AreaOfEffect", "MORE", nil),
 			div = 2
 		},
 	},
