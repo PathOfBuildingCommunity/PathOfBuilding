@@ -366,9 +366,15 @@ Lord of Steel
 Viridian Jewel
 League: Heist
 Limited to: 1
-10% chance to Impale Enemies on Hit with Attacks
-Call of Steel deals Reflected Damage with (40-50)% increased Area of Effect
-Call of Steel causes (40-50)% increased Reflected Damage
+Variant: Impale Chance
+Variant: Impale Overwhelm
+Variant: Impale Effect
+{variant:1}10% chance to Impale Enemies on Hit with Attacks
+{variant:2}Impale Damage dealt to Enemies Impaled by you Overwhelms 10% Physical Damage Reduction
+{variant:3}5% increased Impale Effect
+{variant:1,3}Call of Steel deals Reflected Damage with (40-50)% increased Area of Effect
+{variant:2,3}Call of Steel has (80-100)% increased Use Speed
+{variant:1,2}Call of Steel causes (40-50)% increased Reflected Damage
 ]],[[
 Malicious Intent
 Cobalt Jewel
