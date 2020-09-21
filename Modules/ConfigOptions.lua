@@ -134,8 +134,8 @@ return {
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum Life of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
 	end },
-	{ label = "Deathmark:", ifSkill = "Deathmark" },
-	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy Deathmarked?", ifSkill = "Deathmark", apply = function(val, modList, enemyModList)
+	{ label = "Predator:", ifSkill = "Predator" },
+	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
 	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
