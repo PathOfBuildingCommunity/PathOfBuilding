@@ -451,6 +451,54 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.qualityId.tooltipFunc = function()
+		--Reset the tooltip
+		slot.qualityId.tooltip:Clear()
+		--Get the gem instance from the skills
+		local gemInstance = self.displayGroup.gemList[index]
+		if not gemInstance then
+			return
+		end
+		local gemData = gemInstance.gemData
+		-- Get the hovered quality item
+		local hoveredQuality = alternateGemQualityList[slot.qualityId.hoverSel]
+		-- gem data may not be initialized yet, or the quality may be nil, which happens when just floating over the dropdown
+		if not gemData or not hoveredQuality then
+			return
+		end
+		-- Function for both granted effect and secondary such as vaal
+		local addQualityLines = function(qualityList, grantedEffect)
+			slot.qualityId.tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
+			for k, qual in pairs(qualityList) do
+				-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
+				local stats = { }
+				-- Modify by the quality of the gem
+				stats[qual[1]] = qual[2] * gemInstance.quality
+				local descriptions = self.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
+				-- line may be nil if the value results in no line due to not being enough quality
+				for _, line in ipairs(descriptions) do
+					if line then
+						-- Check if we have a handler for the mod in the gem's statMap or in the shared stat map for skills
+						if (gemData.statMap and gemData.statMap[qual[1]]) or self.build.data.skillStatMap[qual[1]] then
+							slot.qualityId.tooltip:AddLine(16, colorCodes.MAGIC..line)
+						else
+							slot.qualityId.tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
+						end
+					end
+				end
+			end
+		end
+		-- Check if there is a quality of this type for the effect
+		if gemData and gemData.grantedEffect.qualityStats[hoveredQuality.type] then
+			local qualityTable = gemData.grantedEffect.qualityStats[hoveredQuality.type]
+			addQualityLines(qualityTable, gemData.grantedEffect)
+		end
+		if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type] then
+			local qualityTable = gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type]
+			slot.qualityId.tooltip:AddSeparator(10)
+			addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
+		end
+	end
 	slot.qualityId:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."QualityId"] = slot.qualityId
 
@@ -550,8 +598,11 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
 end
 
+
+
 function SkillsTabClass:getGemAltQualityList(gemData)
 	local altQualList = { }
+	
 	for indx, entry in ipairs(alternateGemQualityList) do
 		if gemData and (gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
 			t_insert(altQualList, entry)
