@@ -469,11 +469,12 @@ function SkillsTabClass:CreateGemSlot(index)
 		-- Function for both granted effect and secondary such as vaal
 		local addQualityLines = function(qualityList, grantedEffect)
 			slot.qualityId.tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
+			slot.qualityId.tooltip:AddLine(16, colorCodes.NORMAL.."At +20% Quality:")
 			for k, qual in pairs(qualityList) do
 				-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
 				local stats = { }
 				-- Modify by the quality of the gem
-				stats[qual[1]] = qual[2] * gemInstance.quality
+				stats[qual[1]] = qual[2] * 20
 				local descriptions = self.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
 				-- line may be nil if the value results in no line due to not being enough quality
 				for _, line in ipairs(descriptions) do
