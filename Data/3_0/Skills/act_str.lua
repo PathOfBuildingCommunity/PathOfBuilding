@@ -1038,7 +1038,7 @@ skills["BloodSandStance"] = {
 			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"}, { type = "SkillType", skillType = SkillType.Melee })
 		},
 		["projectile_attack_damage_+%_in_blood_stance"] = {
-        	mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"})
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"})
 		},
 		["projectile_speed_+%_in_sand_stance"] = {
 			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"})
