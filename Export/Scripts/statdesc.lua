@@ -1,6 +1,7 @@
 local nk = { }
 
 local function processStatFile(name)
+	--ConPrintf("Processing File: '%s'", name)
 	local statDescriptor = { }
 	local curLang
 	local curDescriptor = { }
@@ -14,7 +15,7 @@ local function processStatFile(name)
 			if noDesc then
 				table.insert(statDescriptor, { stats = { noDesc } })
 				statDescriptor[noDesc] = #statDescriptor
-			elseif line:match("description") then	
+			elseif line:match("description") and not line:match("_description") then	
 				local name = line:match("description ([%w_]+)")
 				curLang = { }
 				curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
@@ -73,7 +74,7 @@ local function processStatFile(name)
 	end
 	local out = io.open("../Data/3_0/StatDescriptions/"..name..".lua", "w")
 	out:write("return ")
-	writeLuaTable(out, statDescriptor)
+	writeLuaTable(out, statDescriptor, 1)
 	out:close()
 end
 
