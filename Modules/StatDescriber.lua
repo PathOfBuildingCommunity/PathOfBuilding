@@ -188,6 +188,13 @@ return function(stats, scopeName)
 				else
 					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
+			end):gsub("{}", function()
+				local v = val[1]
+				if v.min == v.max then
+					return s_format("%"..v.fmt, v.min)
+				else
+					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
+				end
 			end):gsub("{:%+?d}", function() 
 				local v = val[1]
 				if v.min == v.max then
