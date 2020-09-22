@@ -492,6 +492,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		end
 		main.popups[1].height = totalHeight + 30
 		controls.save.y = totalHeight
+		controls.reset.y = totalHeight
 		controls.close.y = totalHeight
 	end
 
@@ -506,11 +507,37 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			end
 		end
 	end
-	controls.save = new("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
+	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
 		addModifier(selectedNode)
 		main:ClosePopup()
 	end)
-	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
+	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
+		self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type][selectedNode.id] = nil
+		if selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Normal" then
+			local legionNode = self.build.latestTree.legion.nodes["vaal_small_fire_resistance"]
+			selectedNode.dn = "Vaal small node"
+			selectedNode.sd = {"Right click to set mod"}
+			selectedNode.sprites = legionNode.sprites
+			selectedNode.mods = {""}
+			selectedNode.modList = new("ModList")
+			selectedNode.modKey = ""
+		elseif selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Notable" then
+			local legionNode = self.build.latestTree.legion.nodes["vaal_notable_curse_1"]
+			selectedNode.dn = "Vaal notable node"
+			selectedNode.sd = {"Right click to set mod"}
+			selectedNode.sprites = legionNode.sprites
+			selectedNode.mods = {""}
+			selectedNode.modList = new("ModList")
+			selectedNode.modKey = ""
+		else
+			self.specList[1]:ReplaceNode(selectedNode, self.build.latestTree.nodes[selectedNode.id])
+			if selectedNode.conqueredBy.conqueror.type == "templar" then
+				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
+			end
+		end
+		main:ClosePopup()
+	end)
+	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(800, 105, "Replace Modifier of Node", controls, "save")
