@@ -15,7 +15,7 @@ local function processStatFile(name)
 			if noDesc then
 				table.insert(statDescriptor, { stats = { noDesc } })
 				statDescriptor[noDesc] = #statDescriptor
-			elseif line:match("description") and not line:match("_description") then	
+			elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 				local name = line:match("description ([%w_]+)")
 				curLang = { }
 				curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
