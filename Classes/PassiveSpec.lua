@@ -521,8 +521,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			--self.tree.nodes[id].isConquered = true
 
 			-- Replace with edited node if applicable
-			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.conqueror.type] and self.tree.legion.editedNodes[conqueredBy.conqueror.type][node.id] then
-				local editedNode = self.tree.legion.editedNodes[conqueredBy.conqueror.type][node.id]
+			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
+				local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]
 				node.dn = editedNode.dn
 				node.sd = editedNode.sd
 				node.sprites = editedNode.sprites
@@ -1147,9 +1147,11 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 	if replacement then
 		node.sd = addition.sd
 		node.mods = addition.mods
+		node.modKey = addition.modKey
 	else
 		node.sd = TableConcat(node.sd, addition.sd)
 		node.mods = TableConcat(node.mods, addition.mods)
+		node.modKey = node.modKey .. addition.modKey
 	end
 	local modList = new("ModList")
 	modList:AddList(addition.modList)

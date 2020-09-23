@@ -410,11 +410,6 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local smallAdditions = {"Strength", "Dex", "Devotion"}
 	if not self.build.latestTree.legion.editedNodes then
 		self.build.latestTree.legion.editedNodes = { }
-		self.build.latestTree.legion.editedNodes["vaal"] = { }
-		self.build.latestTree.legion.editedNodes["karui"] = { }
-		self.build.latestTree.legion.editedNodes["eternal"] = { }
-		self.build.latestTree.legion.editedNodes["templar"] = { }
-		self.build.latestTree.legion.editedNodes["maraketh"] = { }
 	end
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
@@ -460,12 +455,15 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			end
 		else
 			-- Replace the node first before adding the new line so we don't get multiple lines
-			if self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type][selectedNode.id] then
+			if self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id] and self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] then
 				self.specList[1]:ReplaceNode(selectedNode, self.build.latestTree.nodes[selectedNode.id])
 			end
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
 		end
-		t_insert(self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type], selectedNode.id, copyTable(selectedNode, true))
+		if not self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id] then
+			t_insert(self.build.latestTree.legion.editedNodes, selectedNode.conqueredBy.id, {})
+		end
+		t_insert(self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id], selectedNode.id, copyTable(selectedNode, true))
 	end
 
 	local function constructUI(modGroup)
@@ -512,7 +510,9 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
-		self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.conqueror.type][selectedNode.id] = nil
+		if self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id] then
+			self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] = nil
+		end
 		if selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Normal" then
 			local legionNode = self.build.latestTree.legion.nodes["vaal_small_fire_resistance"]
 			selectedNode.dn = "Vaal small node"
