@@ -205,7 +205,7 @@ function describeStats(stats)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{}", function()
+			end):gsub("{}", function() 
 				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
