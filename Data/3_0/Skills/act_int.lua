@@ -450,9 +450,8 @@ skills["AssassinsMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["base_self_critical_strike_multiplier_-%"] = {
-			mod("SelfCritMultiplier", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mult = -1,
+		["enemy_additional_critical_strike_multiplier_against_self"] = {
+			mod("SelfCritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["enemy_additional_critical_strike_chance_against_self"] = {
 			mod("SelfCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
