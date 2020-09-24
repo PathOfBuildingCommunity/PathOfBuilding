@@ -2222,6 +2222,13 @@ local specialModList = {
 		flag("CanLeechLifeOnFullLife"),
 		mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = 5 }) 
 	},
+	["corrupted soul"] = {
+		mod("PhysicalEnergyShieldBypass", "BASE", 50),
+		mod("LightningEnergyShieldBypass", "BASE", 50),
+		mod("ColdEnergyShieldBypass", "BASE", 50),
+		mod("FireEnergyShieldBypass", "BASE", 50),
+		mod("LifeGainAsEnergyShield", "BASE", 20)
+	},
 	["deal no physical damage"] = { flag("DealNoPhysical") },
 	["deal no elemental damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire") },
 	["deal no chaos damage"] = { flag("DealNoChaos") },
