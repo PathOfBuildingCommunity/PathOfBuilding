@@ -1559,7 +1559,7 @@ function calcs.offence(env, actor, activeSkill)
 					extraDamage = round(extraDamage * enemyInc, 2)
 					if breakdown and enemyInc ~= 1 then
 						breakdown.CritMultiplier = {
-							s_format("%d%% ^8(additional extra damage)", (enemyDB:Sum("BASE", nil, "SelfCritMultiplier")+skillModList:Sum("BASE", cfg, "CritMultiplier")) / 100),
+							s_format("%d%% ^8(additional extra damage)", (enemyDB:Sum("BASE", nil, "SelfCritMultiplier") + skillModList:Sum("BASE", cfg, "CritMultiplier")) / 100),
 							s_format("x %.2f ^8(increased/reduced extra crit damage taken by enemy)", enemyInc),
 							s_format("= %d%% ^8(extra crit damage)", extraDamage * 100),
 						}
