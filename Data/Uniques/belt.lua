@@ -624,7 +624,7 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-40) to Strength
 {tags:jewellery_defense}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
-{tags:jewellery_defense}Corrupted Soul
+Corrupted Soul
 ]],[[
 Soulthirst
 Cloth Belt
