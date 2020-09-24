@@ -452,9 +452,13 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.qualityId.tooltipFunc = function()
-		--Reset the tooltip
+		-- Reset the tooltip
 		slot.qualityId.tooltip:Clear()
-		--Get the gem instance from the skills
+		-- Only show the tooltip if the combo box is expanded; this is to prevent multiple tooltips from appearing due to mouse being over other skills' combo boxes
+		if not slot.qualityId.dropped then
+			return
+		end
+		-- Get the gem instance from the skills
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			return
@@ -469,12 +473,11 @@ function SkillsTabClass:CreateGemSlot(index)
 		-- Function for both granted effect and secondary such as vaal
 		local addQualityLines = function(qualityList, grantedEffect)
 			slot.qualityId.tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
-			-- Hardcoded to use 20% quality instead of grabbing from gem
+			-- Hardcoded to use 20% quality instead of grabbing from gem, this is for consistency and so we always show something
 			slot.qualityId.tooltip:AddLine(16, colorCodes.NORMAL.."At +20% Quality:")
 			for k, qual in pairs(qualityList) do
 				-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
 				local stats = { }
-				-- Modify by the quality of the gem
 				stats[qual[1]] = qual[2] * 20
 				local descriptions = self.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
 				-- line may be nil if the value results in no line due to not being enough quality
