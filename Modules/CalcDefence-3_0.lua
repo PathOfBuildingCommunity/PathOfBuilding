@@ -25,7 +25,7 @@ local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 
 -- Calculate hit chance
 function calcs.hitChance(evasion, accuracy)
-	if (accuracy < 0) then
+	if accuracy < 0 then
 		return 5
 	end
 	local rawChance = accuracy / (accuracy + (evasion / 4) ^ 0.8) * 115
