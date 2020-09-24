@@ -64,8 +64,8 @@ Chain Belt
 League: Heist
 Requires Level 22
 Implicits: 1
-+(9-20) to maximum Energy Shield
-+(15-25) to Intelligence
+{tags:jewellery_defense}+(9-20) to maximum Energy Shield
+{tags:jewellery_attribute}+(15-25) to Intelligence
 10% increased Damage
 50% increased Fishing Pool Consumption
 20% increased Fishing Range
@@ -322,10 +322,10 @@ Leather Belt
 League: Heist
 Requires Level 40
 Implicits: 1
-+(25-40) to maximum Life
-+(40-55) to Strength
-+(40-55) to Dexterity
-+(50-60) to maximum Life
+{tags:life}+(25-40) to maximum Life
+{tags:jewellery_attribute}+(40-55) to Strength
+{tags:jewellery_attribute}+(40-55) to Dexterity
+{tags:life}+(50-60) to maximum Life
 (20-30)% increased Damage with Hits against Magic monsters
 20% chance when you Kill a Magic Monster to gain
 its Non-Bloodline Modifiers for 20 seconds
@@ -526,12 +526,12 @@ League: Heist
 Requires Level 25
 Implicits: 1
 (12-24)% increased Global Physical Damage
-Adds (7-8) to (15-16) Fire Damage to Spells
-Adds (5-6) to (12-14) Cold Damage to Spells
-Adds 1 to (30-34) Lightning Damage to Spells
-+(6-8)% to all Elemental Resistances
-10% increased Elemental Damage
-30% increased Elemental Damage during any Flask Effect
+{tags:jewellery_elemental,caster}Adds (7-8) to (15-16) Fire Damage to Spells
+{tags:jewellery_elemental,caster}Adds (5-6) to (12-14) Cold Damage to Spells
+{tags:jewellery_elemental,caster}Adds 1 to (30-34) Lightning Damage to Spells
+{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
+{tags:jewellery_elemental}10% increased Elemental Damage
+{tags:jewellery_elemental}30% increased Elemental Damage during any Flask Effect
 ]],[[
 Pyroshock Clasp
 Leather Belt
@@ -592,12 +592,12 @@ Heavy Belt
 League: Heist
 Requires Level 44
 Implicits: 1
-+(25-35) to Strength
-(6-10)% increased maximum Energy Shield
-(6-10)% increased maximum Life
-+(15-25)% to Fire Resistance
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_defense}(6-10)% increased maximum Energy Shield
+{tags:life}(6-10)% increased maximum Life
+{tags:jewellery_resistance}+(15-25)% to Fire Resistance
 Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second
-Minions have 5% chance to Maim Enemies on Hit with Attacks
+{tags:attack}Minions have 5% chance to Maim Enemies on Hit with Attacks
 ]],[[
 Soul Tether
 Cloth Belt
@@ -622,9 +622,9 @@ League: Heist
 Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-+(20-40) to Strength
-Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
-Corrupted Soul
+{tags:jewellery_attribute}+(20-40) to Strength
+{tags:jewellery_defense}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+{tags:jewellery_defense}Corrupted Soul
 ]],[[
 Soulthirst
 Cloth Belt

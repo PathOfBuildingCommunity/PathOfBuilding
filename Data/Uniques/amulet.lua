@@ -85,9 +85,9 @@ Paua Amulet
 League: Heist
 Requires Level 16
 Implicits: 1
-Regenerate (1.00-2.00)% of Life per second
-+100 to maximum Life
-(20-25)% increased Life Recovery rate
+{tags:life}Regenerate (1.00-2.00)% of Life per second
+{tags:life}+100 to maximum Life
+{tags:life}(20-25)% increased Life Recovery rate
 Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 Aul's Uprising
@@ -497,14 +497,14 @@ Jade Amulet
 League: Heist
 Requires Level 64
 Implicits: 1
-+(20-30) to Dexterity
+{tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
-+(25-35) to Dexterity
-Adds (12-15) to (24-28) Physical Damage to Attacks
-Adds (11-15) to (23-28) Cold Damage to Attacks
+{tags:jewellery_attribute}+(25-35) to Dexterity
+{tags:attack}Adds (12-15) to (24-28) Physical Damage to Attacks
+{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
-(0.8-1.0)% of Cold Damage Leeched as Life
-Hatred has 50% less Mana Reservation
+{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
+{tags:life}Hatred has 50% less Mana Reservation
 ]],[[
 The Ignomon
 Gold Amulet
@@ -586,9 +586,9 @@ Jade Amulet
 League: Heist
 Requires Level 5
 Implicits: 1
-+(20-30) to Dexterity
-+(20-30) to Intelligence
-+100 to Accuracy Rating
+{tags:jewellery_attribute}+(20-30) to Dexterity
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:attack}+100 to Accuracy Rating
 10% increased Movement Speed
 30% increased Area of Effect
 30% increased Area Damage
@@ -989,10 +989,10 @@ League: Heist
 Requires Level 42
 Implicits: 1
 (12-20)% increased Rarity of Items found
-+(20-30) to Dexterity
-+(50-70) to maximum Energy Shield
-+75% to Lightning Resistance
-Regenerate 5% of Energy Shield per second while Shocked
+{tags:jewellery_attribute}+(20-30) to Dexterity
+{tags:jewellery_defense}+(50-70) to maximum Energy Shield
+{tags:jewellery_elemental}+75% to Lightning Resistance
+{tags:jewellery_defense}Regenerate 5% of Energy Shield per second while Shocked
 Unaffected by Shock
 ]],[[
 Xoph's Heart

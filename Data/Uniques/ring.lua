@@ -363,12 +363,12 @@ Replica Doedre's Damning
 Paua Ring
 League: Heist
 Implicits: 1
-+(20-30) to maximum Mana
-+(5-10) to Intelligence
-+5% to all Elemental Resistances
-+5 Mana gained on Kill
-You can apply one fewer Curse
-(25-35)% increased Effect of your Curses
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(5-10) to Intelligence
+{tags:jewellery_resistance}+5% to all Elemental Resistances
+{tags:mana}+5 Mana gained on Kill
+{tags:caster}You can apply one fewer Curse
+{tags:caster}(25-35)% increased Effect of your Curses
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -408,12 +408,12 @@ Ruby Ring
 League: Heist
 Requires Level 16
 Implicits: 1
-+(20-30)% to Fire Resistance
-(30-40)% increased Fire Damage
-(5-10)% increased Cast Speed
+{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{tags:jewellery_elemental}(30-40)% increased Fire Damage
+{tags:caster}(5-10)% increased Cast Speed
 90% reduced Ignite Duration on Enemies
 10% chance to Ignite
-Ignites you inflict deal Damage (35-45)% faster
+{tags:jewellery_elemental}Ignites you inflict deal Damage (35-45)% faster
 ]],[[
 Essence Worm
 Unset Ring
@@ -587,10 +587,10 @@ Requires Level 5
 Implicits: 1
 Has 1 Socket
 Socketed Gems have Secrets of Suffering
--20% to all Elemental Resistances
-+(75-100)% to Fire Resistance when Socketed with a Red Gem
-+(75-100)% to Cold Resistance when Socketed with a Green Gem
-+(75-100)% to Lightning Resistance when Socketed with a Blue Gem
+{tags:jewellery_resistance}-20% to all Elemental Resistances
+{tags:jewellery_resistance}+(75-100)% to Fire Resistance when Socketed with a Red Gem
+{tags:jewellery_resistance}+(75-100)% to Cold Resistance when Socketed with a Green Gem
+{tags:jewellery_resistance}+(75-100)% to Lightning Resistance when Socketed with a Blue Gem
 All Sockets are White
 ]],[[
 Mark of Submission
@@ -963,12 +963,12 @@ Sapphire Ring
 League: Heist
 Requires Level 20
 Implicits: 1
-+(20-30)% to Cold Resistance
-Adds (15-20) to (25-35) Cold Damage to Spells and Attacks
-+(200-300) to Evasion Rating
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:jewellery_elemental,attack,caster}Adds (15-20) to (25-35) Cold Damage to Spells and Attacks
+{tags:jewellery_defense}+(200-300) to Evasion Rating
 Your Cold Damage cannot Freeze
 Immune to Chill
-Adds 60 to 80 Cold Damage against Chilled Enemies
+{tags:jewellery_elemental}Adds 60 to 80 Cold Damage against Chilled Enemies
 ]],[[
 Thief's Torment
 Prismatic Ring
