@@ -272,11 +272,11 @@ Lapis Amulet
 League: Heist
 Requires Level 68
 Implicits: 1
-+(20-30) to Intelligence
-(25-40)% increased Mana Regeneration Rate
-+(15-25)% to all Elemental Resistances
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:mana}(25-40)% increased Mana Regeneration Rate
+{tags:jewellery_resistance}+(15-25)% to all Elemental Resistances
 +(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
-(1-2) to (36-40) Lightning Damage per Power Charge
+{tags:jewellery_elemental}(1-2) to (36-40) Lightning Damage per Power Charge
 90% less Power Charge Duration
 ]],[[
 Extractor Mentis

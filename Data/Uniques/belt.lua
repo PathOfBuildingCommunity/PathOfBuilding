@@ -113,9 +113,9 @@ Chain Belt
 League: Heist
 Requires Level 61
 Implicits: 1
-+(9-20) to maximum Energy Shield
-+(60-80) to maximum Life
-+(17-23)% to Chaos Resistance
+{tags:jewellery_defense}+(9-20) to maximum Energy Shield
+{tags:life}+(60-80) to maximum Life
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 Enemy Hits inflict Temporal Chains on you
 When you lose Temporal Chains you gain maximum Rage
 Immune to Curses while you have at least 25 Rage
@@ -216,7 +216,7 @@ League: Heist
 Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-+(20-30) to all Attributes
+{tags:jewellery_attribute}+(20-30) to all Attributes
 (15-25)% increased Flask Charges gained
 (10-20)% increased Flask Charges used
 (10-20)% increased Flask Effect Duration
@@ -538,9 +538,9 @@ Leather Belt
 League: Heist
 Requires Level 43
 Implicits: 1
-+(25-40) to maximum Life
-+(30-40) to Dexterity
-+(300-500) to Evasion Rating
+{tags:life}+(25-40) to maximum Life
+{tags:jewellery_attribute}+(30-40) to Dexterity
+{tags:jewellery_defense}+(300-500) to Evasion Rating
 (10-15)% increased Duration of Elemental Ailments on Enemies
 Enemies Ignited by you have (10-15)% of Physical Damage they deal converted to Fire
 Enemies Shocked by you have (10-15)% of Physical Damage they deal converted to Lightning

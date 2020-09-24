@@ -429,8 +429,8 @@ Paua Ring
 League: Heist
 Requires Level 38
 Implicits: 1
-+(20-30) to maximum Mana
-+(20-40) to Intelligence
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(20-40) to Intelligence
 Curse Skills have (8-12)% increased Cast Speed
 Hexes you inflict have their Effect increased by twice their Doom instead
 Hexes have (-20-20)% reduced Doom gain rate
