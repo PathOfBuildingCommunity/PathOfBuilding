@@ -203,6 +203,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill PhysicalAegis
+#flags spell
+	fromItem = true,
+#mods
+
 #skill CorpseWalk
 #flags area
 	fromItem = true,
@@ -229,6 +234,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #baseMod skill("explodeCorpse", true)
 #baseMod skill("showAverage", true)
+#mods
+
+#skill DeathWish
+#flags spell area
+	fromItem = true,
 #mods
 
 #noGem

@@ -623,7 +623,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
 		end
 	end
-	if activeSkill.skillTypes[SkillType.Curse] then
+	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
 		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
 		if breakdown then
 			breakdown.CurseEffectMod = breakdown.mod(skillModList, skillCfg, "CurseEffect")
@@ -1731,7 +1731,7 @@ function calcs.offence(env, actor, activeSkill)
 					end				
 					damageTypeHitMin = damageTypeHitMin * allMult
 					damageTypeHitMax = damageTypeHitMax * allMult
-					if skillModList:Flag(skillCfg, "LuckyHits") or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky")) then
+					if skillModList:Flag(skillCfg, "LuckyHits") or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky")) or (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire" and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
 						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
 					else
 						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
@@ -3014,9 +3014,25 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
 				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
 			end
+			if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
+			end
 			if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanFreeze") then
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
+			end
+			if canDeal.Cold and skillModList:Flag(cfg, "ColdCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
+				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
+			end
+			if canDeal.Fire and skillModList:Flag(cfg, "FireCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.FireHitAverage
+				sourceCritDmg = sourceCritDmg + output.FireCritAverage
+			end
+			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
+				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
 			end
 			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then

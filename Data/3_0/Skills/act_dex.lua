@@ -1554,6 +1554,30 @@ skills["PoisonArrow"] = {
 		[40] = { 2000, 16.666667039196, 60, 12, 12, damageEffectiveness = 0.74, baseMultiplier = 0.743, levelRequirement = 100, manaCost = 15, statInterpolation = { 1, 3, 1, 1, 1, }, },
 	},
 }
+skills["ImpactingSteelReload"] = {
+	name = "Call of Steel",
+	hidden = true,
+	color = 1,
+	description = "Removes impale debuffs from enemies, alive or dead, in a large area around you to gain steel shards. Deals reflected damage in a smaller area around each such enemy based on the impales removed from them. Continues to grant shards over time until you reach maximum or spend them.",
+	skillTypes = { [SkillType.Type96] = true, [SkillType.Area] = true, [SkillType.SteelSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"call_of_steel_reload_amount",
+		"call_of_steel_reload_time",
+		"skill_is_steel_skill_reload",
+	},
+	levels = {
+		[1] = { 4, 500, damageEffectiveness = 1.3, cooldown = 0.2, baseMultiplier = 1.3, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["ChargedDash"] = {
 	name = "Charged Dash",
 	color = 2,
