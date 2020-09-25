@@ -4673,47 +4673,6 @@ skills["LegionTemplarJudgeStormCall"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, 2000, 60, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
-skills["MeleeCold"] = {
-    name = "Default Attack",
-    hidden = true,
-    color = 4,
-    baseEffectiveness = 0,
-    incrementalEffectiveness = 0,
-    description = "Strike your foes down with a powerful blow.",
-    skillTypes = {
-        [SkillType.Attack] = true,
-        [SkillType.ProjectileAttack] = true,
-        [SkillType.SkillCanMirageArcher] = true,
-        [SkillType.Projectile] = true,
-        [SkillType.MeleeSingleTarget] = true,
-        [SkillType.AttackCanRepeat] = true,
-        [SkillType.Melee] = true,
-        [SkillType.SkillCanVolley] = true,
-    },
-    statDescriptionScope = "skill_stat_descriptions",
-    castTime = 1,
-    baseFlags = {
-        attack = true,
-        melee = true,
-        projectile = true,
-    },
-    baseMods = {
-    },
-    qualityStats = {
-    },
-    stats = {
-        "skill_physical_damage_%_to_convert_to_cold",
-        "active_skill_damage_+%_final",
-        "skill_can_fire_arrows",
-        "skill_can_fire_wand_projectiles",
-    },
-    levels = {
-        [1] = {75, 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = {1, 2},  },
-        [2] = {75, 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = {1, 2},  },
-        [3] = {75, 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = {1, 2},  },
-        [4] = {75, 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = {1, 2},  },
-    },
-}
 skills["AtlasEyrieKiwethMortarShards"] = {
     name = "AtlasEyrieKiwethMortarShards",
     hidden = true,
@@ -4784,28 +4743,5 @@ skills["AtlasEyrieKiwethMortar"] = {
     },
     levels = {
         [1] = {0, 0.8, 1.2, critChance = 5, levelRequirement = 0, statInterpolation = {1, 3, 3},  },
-    },
-}
-skills["WalkEmergeAtlasInfluenceMonster"] = {
-    name = "WalkEmergeAtlasInfluenceMonster",
-    hidden = true,
-    color = 4,
-    baseEffectiveness = 1,
-    incrementalEffectiveness = 0,
-    skillTypes = {
-    },
-    statDescriptionScope = "skill_stat_descriptions",
-    castTime = 1.25,
-    baseFlags = {
-    },
-    baseMods = {
-    },
-    qualityStats = {
-    },
-    stats = {
-        "walk_emerge_distance",
-    },
-    levels = {
-        [1] = {225, levelRequirement = 0, statInterpolation = {1},  },
     },
 }
