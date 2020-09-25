@@ -2837,8 +2837,24 @@ local jewelThresholdFuncs = {
 
 -- Unified list of jewel functions
 local jewelFuncList = { }
+-- Jewels that modify nodes
 for k, v in pairs(jewelOtherFuncs) do
-	jewelFuncList[k:lower()] = { func = v, type = "Other" }
+	jewelFuncList[k:lower()] = { func = function(cap1, cap2, cap3, cap4, cap5)
+		-- Need to not modify any nodes already modified by timeless jewels
+		-- Some functions return a function instead of simply adding mods, so if
+		-- we don't see a node right away, run the outer function first
+		if cap1 and type(cap1) == "table" and cap1.conqueredBy then
+			return
+		end
+		local innerFuncOrNil = v(cap1, cap2, cap3, cap4, cap5)
+		-- In all (current) cases, there is only one nested layer, so no need for recursion
+		return function(node, out, other)
+			if node and type(node) == "table" and node.conqueredBy then
+				return
+			end
+			return innerFuncOrNil(node, out, other)
+		end
+	end, type = "Other" }
 end
 for k, v in pairs(jewelSelfFuncs) do
 	jewelFuncList[k:lower()] = { func = v, type = "Self" }
@@ -2846,6 +2862,7 @@ end
 for k, v in pairs(jewelSelfUnallocFuncs) do
 	jewelFuncList[k:lower()] = { func = v, type = "SelfUnalloc" }
 end
+-- Threshold Jewels
 for k, v in pairs(jewelThresholdFuncs) do
 	jewelFuncList[k:lower()] = { func = v, type = "Threshold" }
 end
