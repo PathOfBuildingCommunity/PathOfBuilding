@@ -2889,3 +2889,28 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
+-- Syndicate Operative
+minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
+	name = "Syndicate Operative",
+	life = 2.1,
+	energyShield = 0.08,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.12,
+	damageSpread = 0.2,
+	attackTime = 0.6,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"WalkEmergeBetrayal",
+		"BetrayalSecretPoliceCurveDagger1",
+		"BetrayalSecretPoliceCurveDagger2",
+		"BetrayalSecretPoliceCurveDagger3",
+		"EmptyActionSpellSecretPoliceDaggers",
+	},
+	modList = {
+	},
+}
