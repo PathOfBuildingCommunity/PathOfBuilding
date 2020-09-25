@@ -1585,10 +1585,8 @@ local specialModList = {
 	["poisonous hit"] = { mod("PoisonChance", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
 	["attacks with this weapon deal double damage"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	["hits with this weapon gain (%d+)%% of physical damage as extra cold or lightning damage"] = function(num) return {
-		mod("PhysicalDamageGainAsCold", "BASE", num / 4, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 4, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
-		mod("PhysicalDamageGainAsCold", "BASE", num / 2, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding", neg = true}, { type = "SkillType", skillType = SkillType.Attack }),
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 2, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding", neg = true}, { type = "SkillType", skillType = SkillType.Attack })
+		mod("PhysicalDamageGainAsColdOrLightning", "BASE", num / 2, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("PhysicalDamageGainAsColdOrLightning", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding", neg = true}, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
 	["attacks with this weapon deal double damage to chilled enemies"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) },
 	["life leech from hits with this weapon applies instantly"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
@@ -1719,16 +1717,9 @@ local specialModList = {
 		mod("PhysicalDamageGainAsCold", "BASE", num, nil, ModFlag.Weapon),
 		mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Weapon),
 	} end,
-	["gain (%d+)%% of weapon physical damage as extra damage of an element"] = function(num) return {
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 3, nil, ModFlag.Weapon),
-		mod("PhysicalDamageGainAsCold", "BASE", num / 3, nil, ModFlag.Weapon),
-		mod("PhysicalDamageGainAsFire", "BASE", num / 3, nil, ModFlag.Weapon),
-	} end,
-	["gain (%d+)%% of physical damage as extra damage of a random element"] = function(num) return {
-		mod("PhysicalDamageGainAsLightning", "BASE", num / 3),
-		mod("PhysicalDamageGainAsCold", "BASE", num / 3),
-		mod("PhysicalDamageGainAsFire", "BASE", num / 3),
-	} end,
+	["gain (%d+)%% of weapon physical damage as extra damage of an element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num, nil, ModFlag.Weapon) } end,
+	["gain (%d+)%% of physical damage as extra damage of a random element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num ) } end,
+	["(%d+)%% of physical damage from hits with this weapon is converted to a random element"] = function(num) return { mod("PhysicalDamageConvertToRandom", "BASE", num ) } end,
 	-- Crit
 	["your critical strike chance is lucky"] = { flag("CritChanceLucky") },
 	["your critical strike chance is lucky while focussed"] = { flag("CritChanceLucky", { type = "Condition", var = "Focused" }) },
