@@ -10173,7 +10173,7 @@ c["80% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC"
 c["8% chance to gain a Frenzy Charge on Kill"]={{}," to gain aCharge on Kill "}
 c["Poisons you inflict deal Damage 6% faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=6}},nil}
 c["When you create a Banner, it gains 20% of the Stages of your placed Banner When you place a Banner, you and nearby Allies recover 0.5% of Life for\neach Stage the Banner has"]={nil,"When you create a Banner, it gains 20% of the Stages of your placed Banner When you place a Banner, you and nearby Allies recover 0.5% of Life for\neach Stage the Banner has "}
-c["You take 65% of Damage from Blocked Hits"]={{[1]={flags=0,keywordFlags=0,name="BlockEffect",type="BASE",value=65}},nil}
+c["You take 65% of Damage from Blocked Hits"]={{[1]={flags=0,keywordFlags=0,name="BlockEffect",type="BASE",value=35}},nil}
 c["25% chance to gain an Endurance Charge each second while Channelling"]={{}," to gain an Endurance Charge each second  "}
 c["15% increased Cooldown Recovery Rate of Movement Skills"]={{[1]={flags=0,keywordFlags=8,name="CooldownRecovery",type="INC",value=15}},nil}
 c["28% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=28}},nil}
