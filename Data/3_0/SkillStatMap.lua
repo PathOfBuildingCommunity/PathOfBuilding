@@ -440,7 +440,7 @@ return {
 },
 ["critical_strike_chance_+%_vs_blinded_enemies"] = {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
-}
+},
 -- Duration
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {
 	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),

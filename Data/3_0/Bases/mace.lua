@@ -710,7 +710,8 @@ itemBases["Blunt Force Condenser"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, },
-	implicitModTypes = { },
+	implicit = "Warcries Exert 1 additional Attack",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 39, PhysicalMax = 64, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 30, str = 101, },
 }
@@ -718,7 +719,8 @@ itemBases["Crushing Force Magnifier"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, },
-	implicitModTypes = { },
+	implicit = "Warcries Exert 1 additional Attack",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 62, PhysicalMax = 103, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 50, str = 161, },
 }
@@ -726,7 +728,8 @@ itemBases["Impact Force Propagator "] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, },
-	implicitModTypes = { },
+	implicit = "Warcries Exert 1 additional Attack",
+	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 81, PhysicalMax = 135, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 70, str = 220, },
 }
