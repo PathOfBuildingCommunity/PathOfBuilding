@@ -307,7 +307,7 @@ function writeLuaTable(out, t, indent)
 		if indent then
 			out:write(string.rep("\t", indent))
 		end
-		if type(k) == "string" and k:match("^%a[%a%d]*$") then
+		if type(k) == "string" and k:match("^%a[%a%d]*$") and k ~= "hexproof" then
 			out:write(k, '=')
 		else
 			out:write('[')
