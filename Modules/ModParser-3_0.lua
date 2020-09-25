@@ -2231,6 +2231,9 @@ local specialModList = {
 		mod("LifeGainAsEnergyShield", "BASE", 20)
 	},
 	["deal no physical damage"] = { flag("DealNoPhysical") },
+	["deal no cold damage"] = { flag("DealNoCold") },
+	["deal no fire damage"] = { flag("DealNoFire") },
+	["deal no lightning damage"] = { flag("DealNoLightning") },
 	["deal no elemental damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire") },
 	["deal no chaos damage"] = { flag("DealNoChaos") },
 	["deal no non%-elemental damage"] = { flag("DealNoPhysical"), flag("DealNoChaos") },
