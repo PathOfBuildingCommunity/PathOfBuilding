@@ -34,8 +34,6 @@ local minions, mod = ...
 #spectre Metadata/Monster/CageSpider/CageSpider2
 -- Cannibals
 #spectre Metadata/Monsters/Cannibal/CannibalMaleChampion
--- Cloud retch
-#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 -- Goatmen
 #spectre Metadata/Monsters/Goatman/GoatmanLeapSlam
 #spectre Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps
@@ -180,3 +178,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
+-- Cloud retch
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
