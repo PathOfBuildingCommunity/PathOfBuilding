@@ -420,7 +420,7 @@ function prettyPrintTable(tbl, pre)
 	end
 end
 
-function TableConcat(t1,t2)
+function tableConcat(t1,t2)
 	local t3 = {}
 	for i=1,#t1 do
         t3[#t3+1] = t1[i]

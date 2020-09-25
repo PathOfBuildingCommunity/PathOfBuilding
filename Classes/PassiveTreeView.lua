@@ -280,6 +280,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+
 		--[[ Only allow node editing in these situations:
 				Vaal (Glorious Vanity): 		any non-keystone
 				Maraketh (Brutal Restraint): 	only notables, +dex already set
@@ -287,7 +288,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				Karui (Lethal Pride):			only notables, +str already set
 				Templar (Militant Faith):		any non-keystone, non-notables add devotion or replace with devotion
 		]]--
-
 		elseif hoverNode and hoverNode.conqueredBy and
 				(hoverNode.conqueredBy.conqueror.type == "vaal"
 				or hoverNode.isNotable) then
@@ -827,7 +827,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					end
 				end
 			end
-				tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 		end
 	end
 

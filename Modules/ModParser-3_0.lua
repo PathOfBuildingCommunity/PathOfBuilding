@@ -11,8 +11,8 @@ local bor = bit.bor
 local bnot = bit.bnot
 
 local conquerorList = {
-	["xibaqua"] 	= 	{id = 1, type = "vaal"},
- 	["doryani"]		=	{id = 2, type = "vaal"},
+	["xibaqua"]		=	{id = 1, type = "vaal"},
+	["doryani"]		=	{id = 2, type = "vaal"},
 	["zerphi"]		=	{id = 3, type = "vaal"},
 	["ahuana"]		=	{id = "2_v2", type = "vaal"},
 	["deshret"]		=	{id = 1, type = "maraketh"},
@@ -195,7 +195,7 @@ local modNameList = {
 	["elemental damage taken when hit"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken from hits"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken over time"] = "ElementalDamageTakenOverTime",
-	["cold and lightning damage taken"] = {"ColdDamageTaken", "LightningDamageTaken"},
+	["cold and lightning damage taken"] = { "ColdDamageTaken", "LightningDamageTaken" },
 	["reflected elemental damage taken"] = "ElementalReflectedDamageTaken",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",

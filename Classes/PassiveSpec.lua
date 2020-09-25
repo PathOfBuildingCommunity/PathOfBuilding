@@ -476,8 +476,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeapLike = false
-
-		-- Reset Node to default
 		node.conqueredBy = nil
 
 		-- ignore cluster jewel nodes that don't have an id in the tree
@@ -507,7 +505,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end
 			end
 		end
-
 		if node.alloc then
 			node.depends[1] = node -- All nodes depend on themselves
 		end
@@ -518,7 +515,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.conqueredBy and node.type ~= "Socket" then
 			local conqueredBy = node.conqueredBy
 			local legionNodes = self.tree.legion.nodes
-			--self.tree.nodes[id].isConquered = true
 
 			-- Replace with edited node if applicable
 			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
@@ -1149,8 +1145,8 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 		node.mods = addition.mods
 		node.modKey = addition.modKey
 	else
-		node.sd = TableConcat(node.sd, addition.sd)
-		node.mods = TableConcat(node.mods, addition.mods)
+		node.sd = tableConcat(node.sd, addition.sd)
+		node.mods = tableConcat(node.mods, addition.mods)
 		node.modKey = node.modKey .. addition.modKey
 	end
 	local modList = new("ModList")

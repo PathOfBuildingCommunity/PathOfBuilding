@@ -442,7 +442,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.type = "Normal"
 		end
 
-		---- Assign node artwork assets
+		-- Assign node artwork assets
 		node.sprites = self.spriteMap[node.icon]
 		if not node.sprites then
 			--error("missing sprite "..node.icon)
