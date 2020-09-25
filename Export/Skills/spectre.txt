@@ -744,3 +744,11 @@ local skills, mod, flag, skill = ...
 #skill LegionTemplarJudgeStormCall Storm Call
 #flags spell area duration
 #mods
+
+#skill AtlasEyrieKiwethMortar Mortar
+#flags spell hit area projectile triggerable
+#mods
+
+#skill AtlasEyrieKiwethMortarShards
+#flags spell projectile triggerable
+#mods
