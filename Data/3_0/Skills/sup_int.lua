@@ -1322,12 +1322,12 @@ skills["SupportCurseOnHit"] = {
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.AuraDebuff, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
 	statMap = {
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
 		}
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {
@@ -1968,6 +1968,11 @@ skills["SupportAdditionalXP"] = {
 	excludeSkillTypes = { },
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["local_gem_int_requirement_+%"] = {
+			mod("IntRequirement", "INC", nil)
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -1979,11 +1984,6 @@ skills["SupportAdditionalXP"] = {
 		},
 	},
 	stats = {
-	},
-	statMap = {
-		["local_gem_int_requirement_+%"] = {
-			mod("IntRequirement", "INC", nil)
-		}
 	},
 	levels = {
 		[1] = { levelRequirement = 1, statInterpolation = { }, },
@@ -3422,7 +3422,6 @@ skills["SupportMinefield"] = {
 		["support_minefield_mine_throwing_speed_+%_final"] = {
 			mod("MineLayingSpeed", "MORE", nil),
 		},
-		
 	},
 	baseMods = {
 	},
@@ -3847,12 +3846,12 @@ skills["SupportPhysicalToLightning"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
 	statMap = {
 		["enemies_you_shock_take_%_increased_physical_damage"] = {
 			mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", nil) }, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
 		}
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {

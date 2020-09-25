@@ -313,18 +313,18 @@ skills["Barrage"] = {
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
-	baseFlags = {
-		attack = true,
-		projectile = true,
-	},
-	baseMods = {
-	},
 	statMap = {
 		["non_damaging_ailments_as_though_damage_+%_final"] = {
 			mod("ShockAsThoughDealing", "MORE", nil),
 			mod("ChillAsThoughDealing", "MORE", nil),
 			mod("FreezeAsThoughDealing", "MORE", nil)
 		}
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {
@@ -1007,6 +1007,14 @@ skills["BlastRain"] = {
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
+	statMap = {
+		["blast_rain_damage_+%_vs_distant_enemies"] = { 
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) 
+		},
+		["blast_rain_area_of_effect_+%"] = {
+			-- Only affects primary area for overlaps
+		}
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -1015,14 +1023,6 @@ skills["BlastRain"] = {
 	baseMods = {
 		skill("radius", 24),
 		flag("OneShotProj"),
-	},
-	statMap = {
-		["blast_rain_damage_+%_vs_distant_enemies"] = { 
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) 
-		},
-		["blast_rain_area_of_effect_+%"] = {
-			-- Only affects primary area for overlaps
-		}
 	},
 	qualityStats = {
 		Default = {
@@ -1763,15 +1763,6 @@ skills["CorpseEruption"] = {
 			cast =  true,
 		},
 	},
-	baseFlags = {
-		spell = true,
-		projectile = true,
-		area = true,
-	},
-	baseMods = {
-		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
-		skill("radius", 15),
-	},
 	statMap = {
 		["cremation_base_fires_projectile_every_x_ms"] = {
 			skill("cremationFireRate", nil),
@@ -1787,6 +1778,15 @@ skills["CorpseEruption"] = {
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate * ((activeSkill.skillData.cremationFireRateIncrease or 0) + 1)
 		end
 	end,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 15),
+	},
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 1 },
@@ -3063,7 +3063,7 @@ skills["ExplosiveArrow"] = {
 		},
 		["active_skill_quality_duration_+%_final"] = {
 			mod("Duration", "INC", nil)
-		}
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -4757,16 +4757,16 @@ skills["LancingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["lancing_steel_damage_+%_at_close_range"] = {
+
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-	},
-	statMap = {
-		["lancing_steel_damage_+%_at_close_range"] = {
-
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -4960,7 +4960,7 @@ skills["LightningStrike"] = {
 		},
 		["projectile_base_number_of_targets_to_pierce"] = {
 			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		}
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -8270,16 +8270,16 @@ skills["WhirlingBlades"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.6,
+	statMap = {
+		["whirling_blades_evasion_rating_+%_while_moving"] = {
+			mod("Evasion", "INC", nil, 0, 0, { type = "Condition", var = "Moving" } )
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 	},
 	baseMods = {
-	},
-	statMap = {
-		["whirling_blades_evasion_rating_+%_while_moving"] = {
-			mod("Evasion", "INC", nil, 0, 0, { type = "Condition", var = "Moving" } )
-		},
 	},
 	qualityStats = {
 		Default = {

@@ -477,7 +477,7 @@ local skills, mod, flag, skill = ...
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
 		},
-		["support_minion_maximum_life_+%_final"] = {
+		["minion_damage_+%_on_full_life"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
 		},
 	},
@@ -520,7 +520,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
 		},
 	},
-#baseMod mod("Multiplier:IntensityLimit", "BASE", 3),
+#baseMod mod("Multiplier:IntensityLimit", "BASE", 3)
 #mods
 
 #skill SupportPowerChargeOnCrit

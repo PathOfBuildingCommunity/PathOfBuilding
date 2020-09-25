@@ -469,9 +469,6 @@ local skills, mod, flag, skill = ...
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
-		["damage_+%_vs_enemies_on_full_life"] = {
-			mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
-		},
 		["active_skill_added_damage_+%_final"] = {
 			mod("PhysicalMax", "MORE", nil),
 			mod("FireMax", "MORE", nil),
@@ -795,6 +792,9 @@ local skills, mod, flag, skill = ...
 		},
 		["active_skill_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["withered_on_hit_for_2_seconds_%_chance"] = {
+			flag("Condition:CanWither"),
 		}
 	},
 #mods

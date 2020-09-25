@@ -2232,12 +2232,12 @@ skills["SupportLifeLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
 	statMap = {
 		["maximum_life_leech_amount_per_leech_+%"] = {
 			mod("MaxLifeLeechRate", "INC", nil)
 		}
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {

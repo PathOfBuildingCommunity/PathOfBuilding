@@ -136,12 +136,12 @@ skills["SupportAdditionalAccuracy"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
-	statMap = {
+    statMap = {
 		["attack_damage_+%_per_1000_accuracy_rating"] = {
 			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
 		}
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {
@@ -434,11 +434,6 @@ skills["SupportBlind"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
-	statMap = {
-		["critical_strike_chance_+%_vs_blinded_enemies"] = {
-			mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "blind_duration_+%", 1 },
@@ -575,12 +570,12 @@ skills["SupportCastOnCrit"] = {
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
 	statMap = {
 		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
 		}
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {
@@ -1102,12 +1097,12 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
 	statMap = {
 		["trap_trigger_radius_"] = {
 			mod("TrapTriggerAreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" } )
 		},
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {
@@ -2539,12 +2534,12 @@ skills["SupportManaLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
 	statMap = {
 		["damage_+%_per_200_mana_spent_recently"] = {
 			mod("Damage", "INC", nil, 0, 0, {type = "Multiplier", div = 200, var = "ManaSpentRecently"})
 		}
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {
@@ -2844,12 +2839,12 @@ skills["SupportOnslaught"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-	},
 	statMap = {
 		["attack_and_cast_speed_+%_during_onslaught"] = {
 			mod("Speed", "INC", nil, 0, 0, {type = "Condition", var = "Onslaught"})
 		}
+	},
+	baseMods = {
 	},
 	qualityStats = {
 		Default = {
