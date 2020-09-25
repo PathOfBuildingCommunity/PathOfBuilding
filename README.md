@@ -1,6 +1,6 @@
 # Path of Building Community Fork
 ## Formerly known as LocalIdentity Fork
-
+### これはいい歌、聞いてください　－　https://www.youtube.com/watch?v=ZSBnCOGj2t4　ｗｗｗ　(　・∀・)ｲｲ!!
 This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
 * Adds updated uniques from 3.8, 3.9 and 3.10 changes
 * Pantheon support
