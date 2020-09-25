@@ -1351,5 +1351,8 @@ return {
 ["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
 	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
 },
+["discharge_damage_+%_if_3_charge_types_removed"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 1 }, { type = "Multiplier", var = "RemovableFrenzyCharge", limit = 1 }, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
+},
 
 }

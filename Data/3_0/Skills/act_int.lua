@@ -2274,8 +2274,13 @@ skills["Discharge"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
-		["discharge_triggered_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
+		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+		},
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil,  ModFlag.Ailment),
 		},
 	},
 	baseFlags = {
