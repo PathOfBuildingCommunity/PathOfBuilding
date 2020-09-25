@@ -478,6 +478,52 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Sum("BASE", skillCfg, "PhysicalDamageGainAsRandom", "PhysicalDamageConvertToRandom", "PhysicalDamageGainAsColdOrLightning") > 0 then
+		skillFlags.randomPhys = true
+		local physMode = env.configInput.physMode or "AVERAGE"
+		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageGainAsRandom")) do
+			local mod = value.mod
+			local effVal = mod.value / 3
+			if physMode == "AVERAGE" then
+				skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "FIRE" then
+				skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "COLD" then
+				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "LIGHTNING" then
+				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+		end
+		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageConvertToRandom")) do
+			local mod = value.mod
+			local effVal = mod.value / 3
+			if physMode == "AVERAGE" then
+				skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "FIRE" then
+				skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "COLD" then
+				skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "LIGHTNING" then
+				skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+		end
+		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageGainAsColdOrLightning")) do
+			local mod = value.mod
+			local effVal = mod.value / 2
+			if physMode == "AVERAGE" or physMode == "FIRE" then
+				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "COLD" then
+				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			elseif physMode == "LIGHTNING" then
+				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+		end
+	end
 
 	local isAttack = skillFlags.attack
 
@@ -577,7 +623,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
 		end
 	end
-	if activeSkill.skillTypes[SkillType.Curse] then
+	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
 		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
 		if breakdown then
 			breakdown.CurseEffectMod = breakdown.mod(skillModList, skillCfg, "CurseEffect")
@@ -1686,8 +1732,9 @@ function calcs.offence(env, actor, activeSkill)
 					damageTypeHitMin = damageTypeHitMin * allMult
 					damageTypeHitMax = damageTypeHitMax * allMult
 					if skillModList:Flag(skillCfg, "LuckyHits")
-							or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky"))
-							or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky")) then
+              or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky"))
+              or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky")) then
+              or (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire" and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
 						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
 					else
 						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
@@ -2172,7 +2219,16 @@ function calcs.offence(env, actor, activeSkill)
             output.ImpaleChance = 0
         else
             output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
-        end
+		end
+		if skillModList:Sum("BASE", cfg, "FireExposureChance") > 0 then
+			skillFlags.applyFireExposure = true
+		end
+		if skillModList:Sum("BASE", cfg, "ColdExposureChance") > 0 then
+			skillFlags.applyColdExposure = true
+		end
+		if skillModList:Sum("BASE", cfg, "LightningExposureChance") > 0 then
+			skillFlags.applyLightningExposure = true
+		end
 		if env.mode_effective then
 			local bleedMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBleed") / 100)
 			output.BleedChanceOnHit = output.BleedChanceOnHit * bleedMult
@@ -2516,6 +2572,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.PoisonDamage = output.PoisonDPS * globalOutput.PoisonDuration
 				if skillData.showAverage then
 					output.TotalPoisonAverageDamage = output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage
+					output.TotalPoisonDPS = output.PoisonDPS
 				else
 					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
 					output.TotalPoisonDPS = output.PoisonDPS * output.TotalPoisonStacks
@@ -2963,9 +3020,25 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
 				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
 			end
+			if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
+			end
 			if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanFreeze") then
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
+			end
+			if canDeal.Cold and skillModList:Flag(cfg, "ColdCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
+				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
+			end
+			if canDeal.Fire and skillModList:Flag(cfg, "FireCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.FireHitAverage
+				sourceCritDmg = sourceCritDmg + output.FireCritAverage
+			end
+			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanFreeze") then
+				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
+				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
 			end
 			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then
@@ -3296,9 +3369,13 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Calculate combined DPS estimate, including DoTs
-	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"] + output.TotalDot
+	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"]
 	output.CombinedDPS = baseDPS
 	output.CombinedAvg = baseDPS
+	if skillFlags.dot then
+		output.CombinedDPS = output.CombinedDPS + (output.TotalDot or 0)
+		output.WithDotDPS = baseDPS + (output.TotalDot or 0)
+	end
 	if skillData.showAverage then
 		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
 		output.CombinedAvg = output.CombinedAvg + (output.PoisonDamage or 0)
@@ -3338,6 +3415,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.decay then
 		output.CombinedDPS = output.CombinedDPS + output.DecayDPS
 	end
+	output.TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
 	if skillFlags.impale then
 		output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
 		if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then

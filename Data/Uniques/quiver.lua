@@ -153,6 +153,18 @@ Trigger a Socketed Bow Skill when you Attack with a Bow
 +(50-70) to maximum Life
 5% chance to Blind Enemies on Hit with Attacks
 ]],[[
+Replica Maloney's Mechanism
+Ornate Quiver
+League: Heist
+Requires Level 45
+Implicits: 1
+Has 1 Socket
+Has 2 Sockets
+Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow
+(7-12)% increased Cast Speed
++(50-70) to maximum Life
+5% chance to Blind Enemies on Hit with Attacks
+]],[[
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0
@@ -249,6 +261,19 @@ Adds (13-18) to (26-32) Chaos Damage to Attacks
 40% reduced Energy Shield Recharge Rate
 {variant:1}150% faster start of Energy Shield Recharge
 {variant:2}80% faster start of Energy Shield Recharge
+]],[[
+Replica Soul Strike
+Spike-Point Arrow Quiver
+League: Heist
+Requires Level 64
+Implicits: 1
+(20-30)% increased Global Critical Strike Chance
++30 to Dexterity
+Adds (13-18) to (26-32) Physical Damage to Attacks
+(8-12)% increased Attack Speed
++(60-80) to maximum Life
+80% reduced Maximum Recovery per Life Leech
+40% increased Maximum total Recovery per second from Life Leech
 ]],[[
 Voidfletcher
 Penetrating Arrow Quiver

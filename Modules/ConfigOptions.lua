@@ -51,6 +51,7 @@ return {
 		modList:NewMod("Condition:MinionsCreatedRecently", "FLAG", true, "Config")
 	end },
 	{ var = "igniteMode", type = "list", label = "Ailment calculation mode:", tooltip = "Controls how the base damage for Damaging Ailments is calculated:\n\tAverage: damage is based on the average application, including both crits and non-crits\n\tCrits Only: damage is based solely on Ailments inflicted with crits", list = {{val="AVERAGE",label="Average"},{val="CRIT",label="Crits Only"}} },
+	{ var = "physMode", type = "list", label = "Random element mode:", ifFlag = "randomPhys", tooltip = "Controls how modifiers which choose a random element will function.\n\tAverage: Modifiers will grant one third of their value to Fire, Cold, and Lightning simultaneously\n\tFire/Cold/Lightning: Modifiers will grant their full value as the specified element\nIf a modifier chooses between just two elements, the full value can only be given as those two elements.", list = {{val="AVERAGE",label="Average"},{val="FIRE",label="Fire"},{val="COLD",label="Cold"},{val="LIGHTNING",label="Lightning"}} },
 	{ var = "lifeRegenMode", type = "list", label = "Life regen calculation mode:", tooltip = "Controls how life regeneration is calculated:\n\tMinimum: does not include burst regen\n\tAverage: includes burst regen, averaged based on uptime\n\tBurst: includes full burst regen", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="FULL",label="Burst"}}, apply = function(val, modList, enemyModList)
 		if val == "AVERAGE" then
 			modList:NewMod("Condition:LifeRegenBurstAvg", "FLAG", true, "Config")
@@ -138,6 +139,16 @@ return {
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
 	end },
+	{ label = "Elemental Army:", ifSkill = "Elemental Army" },
+	{ var = "elementalArmyExposureType", type = "list", label = "Exposure Type:", ifSkill = "Elemental Army", list = {{val=0,label="None"},{val="Fire",label="Fire"},{val="Cold",label="Cold"},{val="Lightning",label="Lightning"}}, apply = function(val, modList, enemyModList)
+		if val == "Fire" then
+			modList:NewMod("FireExposureChance", "BASE", 100, "Config")
+		elseif val == "Cold" then
+			modList:NewMod("ColdExposureChance", "BASE", 100, "Config")
+		elseif val == "Lightning" then
+			modList:NewMod("LightningExposureChance", "BASE", 100, "Config")
+		end
+	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FeedingFrenzyActive", "FLAG", true, "Config")
@@ -184,6 +195,10 @@ return {
 	{ label = "Perforate:", ifSkill = "Perforate"},
 	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillName = "Perforate" })
+	end },
+	{ label = "Physical Aegis:", ifSkill = "Physical Aegis" },
+	{ var = "innervateInnervation", type = "check", label = "Is Physical Aegis depleted?", ifSkill = "Physical Aegis", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:PhysicalAegisDepleted", "FLAG", true, "Config")
 	end },
 	{ label = "Pride:", ifSkill = "Pride" },
 	{ var = "prideEffect", type = "list", label = "Pride Aura Effect:", ifSkill = "Pride", list = {{val="MIN",label="Initial effect"},{val="MAX",label="Maximum effect"}}, apply = function(val, modList, enemyModList)
@@ -568,6 +583,9 @@ return {
 		modList:NewMod("TotemsSummoned", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:HaveTotem", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionSummonedGolemInPast8Sec", type = "check", label = "Summoned a Golem in the past 8 Seconds?", ifCond = "SummonedGolemInPast8Sec", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SummonedGolemInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierNearbyAlly", type = "count", label = "# of Nearby Allies:", ifMult = "NearbyAlly", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyAlly", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -733,6 +751,9 @@ return {
 	end },
 	{ var = "conditionBeenCritRecently", type = "check", label = "Have you been Crit Recently?", ifCond = "BeenCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBeenSavageHitRecently", type = "check", label = "Have you taken a Savage Hit Recently?", ifCond = "BeenSavageHitRecently", implyCond = "BeenHitRecently", tooltip = "This also implies that you have been Hit Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenSavageHitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1056,6 +1077,15 @@ return {
 	end },
 	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "count", label = "# of Freeze/Shock/Ignite on enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyFireExposure", type = "check", label = "Is the enemy Exposed to Fire?", ifFlag = "applyFireExposure", tooltip = "This applies -10% Fire Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("FireExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyFireExposure" })
+	end },
+	{ var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy Exposed to Cold?", ifFlag = "applyColdExposure", tooltip = "This applies -10% Cold Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ColdExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyColdExposure" })
+	end },
+	{ var = "conditionEnemyLightningExposure", type = "check", label = "Is the enemy Exposed to Lightning?", ifFlag = "applyLightningExposure", tooltip = "This applies -10% Lightning Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("LightningExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyLightningExposure" })
 	end },
 	{ var = "conditionEnemyIntimidated", type = "check", ifVer = "2_6", label = "Is the enemy Intimidated?", tooltip = "This adds the following modifiers:\n10% increased Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate")

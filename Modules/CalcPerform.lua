@@ -173,6 +173,17 @@ local function doActorAttribsPoolsConditions(env, actor)
 			condList["CanInflictSap"] = true
 		end
 	end
+	if env.mode_effective then
+		if modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
+			condList["CanApplyFireExposure"] = true
+		end
+		if modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
+			condList["CanApplyColdExposure"] = true
+		end
+		if modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
+			condList["CanApplyLightningExposure"] = true
+		end
+	end
 
 	-- Calculate attributes
 	local calculateAttributes = function()
@@ -373,6 +384,7 @@ local function doActorMisc(env, actor)
 
 	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
+	output.TotalCharges = output.PowerCharges + output.FrenzyCharges + output.EnduranceCharges
 	modDB.multipliers["WarcryPower"] = output.WarcryPower
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
@@ -380,6 +392,7 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["RemovableFrenzyCharge"] = output.RemovableFrenzyCharges
 	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
 	modDB.multipliers["RemovableEnduranceCharge"] = output.RemovableEnduranceCharges
+	modDB.multipliers["TotalCharges"] = output.TotalCharges
 	modDB.multipliers["SiphoningCharge"] = output.SiphoningCharges
 	modDB.multipliers["ChallengerCharge"] = output.ChallengerCharges
 	modDB.multipliers["BlitzCharge"] = output.BlitzCharges
@@ -664,9 +677,11 @@ function calcs.perform(env)
 		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.Type31] then
 			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
 			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") or 30
+			local doomEffect = modDB:Sum("BASE", nil, "DoomEffect") or 1
 			-- Update the max doom limit
 			output.HexDoomLimit = m_max(maxDoom, output.HexDoomLimit or 0)
 			-- Update the Hex Doom to apply
+			modDB:NewMod("CurseEffect", "INC", m_min(hexDoom, output.HexDoomLimit) * doomEffect, "Doom")
 			modDB.multipliers["HexDoom"] =  m_min(m_max(hexDoom, modDB.multipliers["HexDoom"] or 0), output.HexDoomLimit)
 		end
 		if activeSkill.skillData.supportBonechill then
@@ -722,6 +737,9 @@ function calcs.perform(env)
 		elseif activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
 			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
+		elseif activeSkill.activeEffect.grantedEffect.name == "Summoned Phantasm" then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActivePhantasmLimit")
+			output.ActivePhantasmLimit = m_max(limit, output.ActivePhantasmLimit or 0)
 		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
 			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
@@ -1528,6 +1546,19 @@ function calcs.perform(env)
 		doActorMisc(env, env.minion)
 	end
 	doActorMisc(env, env.enemy)
+
+	-- Apply exposures
+	for _, element in pairs({"Fire", "Cold", "Lightning"}) do
+		local min = math.huge
+		for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
+			if mod.value < min then
+				min = mod.value
+			end
+		end
+		if min ~= math.huge then
+			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+		end
+	end
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)

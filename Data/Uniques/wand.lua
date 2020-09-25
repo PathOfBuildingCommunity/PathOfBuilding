@@ -121,6 +121,20 @@ Implicits: 2
 Reserves 30% of Life
 Cannot be used with Chaos Inoculation
 ]],[[
+Replica Midnight Bargain
+Engraved Wand
+League: Heist
+Requires Level 40, 131 Int
+Implicits: 1
+(22-26)% increased Spell Damage
+Cannot be used with Chaos Inoculation
++(10-20) to Intelligence
+Minions have (40-50)% increased Movement Speed
+Minions deal (50-70)% increased Damage
++6 to maximum number of Raging Spirits
+Reserves 30% of Life
++3 to maximum number of Summoned Phantasms
+]],[[
 Moonsorrow
 Imbued Wand
 Variant: Pre 2.0.0
@@ -285,6 +299,19 @@ Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
 (10-15)% increased Cold Damage per Frenzy Charge
 ]],[[
+Replica Tulfall
+Tornado Wand
+League: Heist
+Requires Level 65, 212 Int
+Implicits: 1
+(35-39)% increased Spell Damage
+(15-25)% increased Cast Speed
+Lose all Power Charges on reaching Maximum Power Charges
+Gain a Frenzy Charge on reaching Maximum Power Charges
+(15-20)% increased Cold Damage per Frenzy Charge
+50% chance to gain a Power Charge when you Hit a Frozen Enemy
+Take 500 Cold Damage on reaching Maximum Power Charges
+]],[[
 Twyzel
 Sage Wand
 Variant: Pre 2.3.0
@@ -298,6 +325,16 @@ Adds (5-8) to (13-17) Physical Damage
 (5-10)% increased Attack Speed
 (10-20)% increased Critical Strike Chance
 Socketed Gems fire an additional Projectile
+]],[[
+Replica Twyzel
+Sage Wand
+League: Heist
+Requires Level 30, 119 Int
+Implicits: 1
+(17-21)% increased Spell Damage
+(5-10)% increased Attack Speed
+(20-40)% increased Critical Strike Chance
+Attacks fire an additional Projectile
 ]],[[
 Void Battery
 Prophecy Wand

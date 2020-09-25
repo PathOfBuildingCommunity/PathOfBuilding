@@ -16,6 +16,15 @@ Limited to: 1
 Can Summon up to 1 additional Golem at a time
 +1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
+Apex Mode
+Cobalt Jewel
+League: Heist
+Limited to: 1
+Requires Level 20
+(20-25)% increased Spell Damage
+Spells have 10% reduced Critical Strike Chance per Intensity
+Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
+]],[[
 Apparitions
 Viridian Jewel
 Minions have (5-10)% increased Movement Speed
@@ -79,6 +88,12 @@ Viridian Jewel
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
+Replica Cheap Construction
+Viridian Jewel
+League: Heist
+(100-120)% increased Critical Strike Chance with Traps
+Can have 5 fewer Traps placed at a time
+]],[[
 Clear Mind
 Cobalt Jewel
 Limited to: 1
@@ -110,6 +125,16 @@ Eldritch Knowledge
 Cobalt Jewel
 Radius: Medium
 5% increased Chaos Damage per 10 Intelligence from Allocated Passives in Radius
+]],[[
+Endless Misery
+Cobalt Jewel
+League: Heist
+Limited to: 1
+Radius: Medium
+(7-10)% increased Elemental Damage
+With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect
+With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms
+With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
 ]],[[
 Energised Armour
 Crimson Jewel
@@ -170,6 +195,16 @@ Variant: Current
 {variant:2}Maximum 10 Fragile Regrowth
 {variant:2}0.7% of Life Regenerated per second per Fragile Regrowth
 {variant:2}Lose all Fragile Regrowth when Hit
+]],[[
+Replica Fragile Bloom
+Crimson Jewel
+League: Heist
+Limited to: 1
+Implicits: 0
+Maximum 5 Fragile Regrowth
+0.7% of Life Regenerated per second per Fragile Regrowth
+Gain up to maximum Fragile Regrowth when Hit
+Lose 1 Fragile Regrowth each second
 ]],[[
 From Dust
 Cobalt Jewel
@@ -278,6 +313,14 @@ Variant: Current
 {variant:2}(10-20)% increased Attack Speed while Ignited
 {variant:2}(10-20)% increased Cast Speed while Ignited
 ]],[[
+Replica Hotheaded
+Viridian Jewel
+League: Heist
+Limited to: 1
+(10-20)% increased Attack Speed while Chilled
+(10-20)% increased Cast Speed while Chilled
+(10-20)% increased Movement Speed while Chilled
+]],[[
 Inertia
 Crimson Jewel
 Radius: Large
@@ -319,6 +362,20 @@ Viridian Jewel
 Radius: Medium
 Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers
 ]],[[
+Lord of Steel
+Viridian Jewel
+League: Heist
+Limited to: 1
+Variant: Impale Chance
+Variant: Impale Overwhelm
+Variant: Impale Effect
+{variant:1}10% chance to Impale Enemies on Hit with Attacks
+{variant:2}Impale Damage dealt to Enemies Impaled by you Overwhelms 10% Physical Damage Reduction
+{variant:3}5% increased Impale Effect
+{variant:1,3}Call of Steel deals Reflected Damage with (40-50)% increased Area of Effect
+{variant:2,3}Call of Steel has (80-100)% increased Use Speed
+{variant:1,2}Call of Steel causes (40-50)% increased Reflected Damage
+]],[[
 Malicious Intent
 Cobalt Jewel
 5% chance to Gain Unholy Might for 4 seconds on Melee Kill
@@ -349,6 +406,15 @@ Crimson Jewel
 Radius: Large
 50% increased Effect of non-Keystone Passive Skills in Radius
 Notable Passive Skills in Radius grant nothing
+]],[[
+Nadir Mode
+Cobalt Jewel
+League: Heist
+Limited to: 1
+Item Level: 82
+(20-25)% increased Spell Damage
+Spells have 30% increased Critical Strike Chance per Intensity
+Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
 ]],[[
 Natural Affinity
 Small Cluster Jewel
@@ -388,6 +454,16 @@ Golems have (18-22)% increased Maximum Life
 Your Golems are aggressive
 Primordial
 ]],[[
+Replica Primordial Might
+Crimson Jewel
+League: Heist
+-1 to maximum number of Golems
+(25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
+Golems Summoned in the past 8 seconds deal (100-125)% increased Damage
+Golems have (18-22)% increased Maximum Life
+Primordial
+Summoned Golems are Aggressive
+]],[[
 Pugilist
 Viridian Jewel
 Radius: Large
@@ -406,6 +482,19 @@ Shadow: +0.5 to Critical Strike Chance
 Witch: 0.5% of Maximum Mana Regenerated per second
 Templar: Damage Penetrates 5% Elemental Resistances
 Scion: +25 to All Attributes
+]],[[
+Replica Pure Talent
+Viridian Jewel
+League: Heist
+Limited to: 1
+While your Passive Skill Tree connects to a class' starting location, you gain:
+Marauder: 1% of Life Regenerated per second
+Duelist: +2 to Melee Strike Range
+Ranger: 20% increased Flask Charges gained
+Shadow: 12% increased Attack and Cast Speed
+Witch: 20% increased Skill Effect Duration
+Templar: +4% Chance to Block Attack and Spell Damage
+Scion: 30% increased Damage
 ]],[[
 Quickening Covenant
 Viridian Jewel
@@ -434,6 +523,13 @@ Variant: Current
 {variant:3}+(2-4)% chance to Block Spell Damage
 (2-4)% chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
+]],[[
+Replica Reckless Defence
+Cobalt Jewel
+League: Heist
++(2-4)% Chance to Block Spell Damage
++(2-4)% Chance to Block Attack Damage
++10% chance to be Frozen, Shocked and Ignited
 ]],[[
 The Red Dream
 Crimson Jewel
@@ -606,6 +702,12 @@ Grants all bonuses of Unallocated Small Passive Skills in Radius
 Unstable Payload
 Cobalt Jewel
 (8-12)% Chance for Traps to Trigger an additional time
+]],[[
+Replica Unstable Payload
+Cobalt Jewel
+League: Heist
+Implicits: 0
+Recover (20-30) Life when your Trap is triggered by an Enemy
 ]],[[
 Voices
 Large Cluster Jewel
@@ -1229,6 +1331,14 @@ Removes 1% of maximum Life on Kill
 Removes 1% of maximum Energy Shield on Kill
 Corrupted
 ]],[[
+Replica Blood Sacrifice
+Crimson Jewel
+League: Heist
+Implicits: 0
+Recover 1% of Life on Kill
+Recover 1% of Energy Shield on Kill
+Cannot Leech or Regenerate Mana
+]],[[
 Brittle Barrier
 Cobalt Jewel
 20% faster start of Energy Shield Recharge
@@ -1334,6 +1444,14 @@ Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
 2% reduced Mana Reserved
+]],[[
+Replica Conqueror's Efficiency
+Crimson Jewel
+League: Heist
+Limited to: 1
+4% increased Skill Effect Duration
++5 to Maximum Rage
+Non-Channelling Skills have -9 to Total Mana Cost
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
