@@ -196,6 +196,10 @@ return {
 	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillName = "Perforate" })
 	end },
+	{ label = "Physical Aegis:", ifSkill = "Physical Aegis" },
+	{ var = "innervateInnervation", type = "check", label = "Is Physical Aegis depleted?", ifSkill = "Physical Aegis", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:PhysicalAegisDepleted", "FLAG", true, "Config")
+	end },
 	{ label = "Pride:", ifSkill = "Pride" },
 	{ var = "prideEffect", type = "list", label = "Pride Aura Effect:", ifSkill = "Pride", list = {{val="MIN",label="Initial effect"},{val="MAX",label="Maximum effect"}}, apply = function(val, modList, enemyModList)
 		if val == "MAX" then
@@ -579,6 +583,9 @@ return {
 		modList:NewMod("TotemsSummoned", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:HaveTotem", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionSummonedGolemInPast8Sec", type = "check", label = "Summoned a Golem in the past 8 Seconds?", ifCond = "SummonedGolemInPast8Sec", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SummonedGolemInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierNearbyAlly", type = "count", label = "# of Nearby Allies:", ifMult = "NearbyAlly", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyAlly", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -744,6 +751,9 @@ return {
 	end },
 	{ var = "conditionBeenCritRecently", type = "check", label = "Have you been Crit Recently?", ifCond = "BeenCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBeenSavageHitRecently", type = "check", label = "Have you taken a Savage Hit Recently?", ifCond = "BeenSavageHitRecently", implyCond = "BeenHitRecently", tooltip = "This also implies that you have been Hit Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenSavageHitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

@@ -225,6 +225,7 @@ data.keystones = {
 	"Eternal Youth",
 	"Ghost Reaver",
 	"Glancing Blows",
+	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Iron Grip",
 	"Iron Reflexes",
