@@ -700,19 +700,15 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 
 	local delimiter = " "
 	local matches = {}
+	local rest_result = self.searchStr
 
-	local rest_result = self.searchStr:lower()
 	for match in (self.searchStr..delimiter):gmatch("\"(.-)\""..delimiter) do
 		table.insert(matches, match);
 	end
 
-	for key, match in pairs(matches) do
-		print(key, match)
-	end
-
 	for key, stringresult in pairs(matches) do
 		stringToRemove = ("\"" .. stringresult .. "\"")
-		rest_result = string.gsub(rest_result, stringToRemove, "")
+		rest_result = rest_result:gsub(stringToRemove, "")
 	end
 
 	for match in (rest_result..delimiter):gmatch("(.-)"..delimiter) do
@@ -723,7 +719,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 		local matched = true
 
 		for key, match in pairs(matches) do
-			errMsg, pre_matched = PCall(string.match, sstring,  match:lower())
+			errMsg, pre_matched = PCall(string.match, sstring, match:lower())
 			matched = matched and pre_matched
 		end
 
@@ -756,7 +752,6 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	-- Check node modifiers
 	for index, line in ipairs(node.sd) do
 		if not match and node.mods[index].list then
-
 			for _, mod in ipairs(node.mods[index].list) do
 				errMsg, match = PCall(string.match, mod.name, self.searchStr)
 				if match then
