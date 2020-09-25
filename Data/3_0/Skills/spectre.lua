@@ -4673,3 +4673,139 @@ skills["LegionTemplarJudgeStormCall"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, 2000, 60, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
+skills["MeleeCold"] = {
+    name = "Default Attack",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0,
+    incrementalEffectiveness = 0,
+    description = "Strike your foes down with a powerful blow.",
+    skillTypes = {
+        [SkillType.Attack] = true,
+        [SkillType.ProjectileAttack] = true,
+        [SkillType.SkillCanMirageArcher] = true,
+        [SkillType.Projectile] = true,
+        [SkillType.MeleeSingleTarget] = true,
+        [SkillType.AttackCanRepeat] = true,
+        [SkillType.Melee] = true,
+        [SkillType.SkillCanVolley] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        attack = true,
+        melee = true,
+        projectile = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "skill_physical_damage_%_to_convert_to_cold",
+        "active_skill_damage_+%_final",
+        "skill_can_fire_arrows",
+        "skill_can_fire_wand_projectiles",
+    },
+    levels = {
+        [1] = {75, 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = {1, 2},  },
+        [2] = {75, 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = {1, 2},  },
+        [3] = {75, 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = {1, 2},  },
+        [4] = {75, 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = {1, 2},  },
+    },
+}
+skills["AtlasEyrieKiwethMortarShards"] = {
+    name = "AtlasEyrieKiwethMortarShards",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 1.5,
+    incrementalEffectiveness = 0.045,
+    skillTypes = {
+        [SkillType.Triggerable] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        projectile = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "spell_minimum_base_cold_damage",
+        "spell_maximum_base_cold_damage",
+        "base_is_projectile",
+        "projectile_uses_contact_position",
+    },
+    levels = {
+        [1] = {0.8, 1.2, critChance = 5, levelRequirement = 0, statInterpolation = {3, 3},  },
+    },
+}
+skills["AtlasEyrieKiwethMortar"] = {
+    name = "AtlasEyrieKiwethMortar",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 2.5,
+    incrementalEffectiveness = 0.04,
+    description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+    skillTypes = {
+        [SkillType.Projectile] = true,
+        [SkillType.SkillCanVolley] = true,
+        [SkillType.Spell] = true,
+        [SkillType.Hit] = true,
+        [SkillType.Area] = true,
+        [SkillType.SkillCanTrap] = true,
+        [SkillType.SkillCanTotem] = true,
+        [SkillType.SkillCanMine] = true,
+        [SkillType.SpellCanRepeat] = true,
+        [SkillType.Triggerable] = true,
+        [SkillType.AreaSpell] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1.67,
+    baseFlags = {
+        area = true,
+        spell = true,
+        projectile = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "projectile_spread_radius",
+        "spell_minimum_base_cold_damage",
+        "spell_maximum_base_cold_damage",
+        "is_area_damage",
+        "base_is_projectile",
+        "projectile_uses_contact_position",
+        "use_scaled_contact_offset",
+    },
+    levels = {
+        [1] = {0, 0.8, 1.2, critChance = 5, levelRequirement = 0, statInterpolation = {1, 3, 3},  },
+    },
+}
+skills["WalkEmergeAtlasInfluenceMonster"] = {
+    name = "WalkEmergeAtlasInfluenceMonster",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 1,
+    incrementalEffectiveness = 0,
+    skillTypes = {
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1.25,
+    baseFlags = {
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "walk_emerge_distance",
+    },
+    levels = {
+        [1] = {225, levelRequirement = 0, statInterpolation = {1},  },
+    },
+}
