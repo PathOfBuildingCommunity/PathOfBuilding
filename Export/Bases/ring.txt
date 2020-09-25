@@ -9,6 +9,8 @@ local itemBases = ...
 #base Metadata/Items/Rings/Ring12 Two-Stone Ring (Fire/Lightning)
 #base Metadata/Items/Rings/Ring13 Two-Stone Ring (Cold/Lightning)
 #base Metadata/Items/Rings/Ring14 Two-Stone Ring (Fire/Cold)
+#base Metadata/Items/Rings/RingE1
+#base Metadata/Items/Rings/RingE2
 #forceShow false
 #base Metadata/Items/Rings/RingAtlas1
 #base Metadata/Items/Rings/RingAtlas2

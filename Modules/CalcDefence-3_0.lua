@@ -571,7 +571,7 @@ function calcs.defence(env, actor)
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
-		breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
+		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
 
 	-- Energy Shield bypass
@@ -839,6 +839,7 @@ function calcs.defence(env, actor)
 		output.NetLifeRegen = output.NetLifeRegen - totalLifeDegen
 		output.NetManaRegen = output.NetManaRegen - totalManaDegen
 		output.NetEnergyShieldRegen = output.NetEnergyShieldRegen - totalEnergyShieldDegen
+		output.TotalNetRegen = output.NetLifeRegen + output.NetManaRegen + output.NetEnergyShieldRegen
 		if breakdown then
 			t_insert(breakdown.NetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegen))
 			t_insert(breakdown.NetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
@@ -849,6 +850,12 @@ function calcs.defence(env, actor)
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("= %.1f", output.NetEnergyShieldRegen))
+			breakdown.TotalNetRegen = {
+				s_format("Net Life Regen: %.1f", output.NetLifeRegen),
+				s_format("+ Net Mana Regen: %.1f", output.NetManaRegen),
+				s_format("+ Net Energy Shield Regen: %.1f", output.NetEnergyShieldRegen),
+				s_format("= Total Net Regen: %.1f", output.TotalNetRegen)
+			}
 		end
 	end
 

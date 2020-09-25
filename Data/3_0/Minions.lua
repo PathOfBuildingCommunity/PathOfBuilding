@@ -243,6 +243,7 @@ minions["RaisedSkeleton"] = {
 	},
 	modList = {
 		mod("BlockChance", "BASE", 30), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30] [base_block_%_damage_taken = 15]
+		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 	},
 }
 

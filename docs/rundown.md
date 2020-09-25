@@ -154,10 +154,6 @@
     MIT licence
 * **manifest.xml**
     Contains file name : SHA-1 hash pairings used to determine which files to update.
-* **patch_fork.ps1**
-    Script for programmatically switching the references in `manifest.xml` over to the fork.
-* **PathOfBuilding.sln**
-    Unused configuration file
 * **README.md**
     Project overview
 * **runtime-win32.zip**
@@ -167,6 +163,9 @@
 * **tree-3_7.zip**
 * **tree-3_8.zip**
 * **tree-3_9.zip**
+* **tree-3_10.zip**
+* **tree-3_11.zip**
+* **tree-3_12.zip**
 * **UpdateApply.lua**
     Consumes and applies table of update instructions. Updating the runtime itself is done from a separate host environment.
 * **UpdateCheck.lua**

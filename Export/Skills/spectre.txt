@@ -713,6 +713,18 @@ local skills, mod, flag, skill = ...
 #skill SandLeaperDodgeRight Sand Leaper Dodge Right
 #mods
 
+#skill SynthesisSoulstealerProjectileLightning Lightning Projectile
+#flags spell triggerable projectile
+#mods
+
+#skill SynthesisSoulstealerLaser Lightning Laser
+#flags spell hit area triggerable
+#mods
+
+#skill SynthesisSoulstealerBolt Lightning Bolt
+#flags spell hit area triggerable
+#mods
+
 #skill MeleeCold Default Attack
 #flags attack melee projectile
 #mods
@@ -723,4 +735,17 @@ local skills, mod, flag, skill = ...
 
 #skill AtlasCruasderJudgeFadingNova Nova Spell
 #flags spell projectile triggerable
+#mods
+
+#skill HarvestCrabAbyssSlam Slam Attack
+#flags attack hit area triggerable
+#baseMod skill("showAverage", true)
+#mods
+
+#skill LegionTemplarJudgeBallLightning Ball Lightning
+#flags spell hit triggerable area projectile
+#mods
+
+#skill LegionTemplarJudgeStormCall Storm Call
+#flags spell area duration
 #mods

@@ -62,6 +62,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBlasphemyPlus
+	statMap = {
+		["supported_curse_skill_gem_level_+"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Curse }),
+		},
+	},
 #mods
 
 #skill SupportBonechill
@@ -272,6 +277,20 @@ local skills, mod, flag, skill = ...
 #skill SupportImmolation
 #mods
 
+#skill ViciousHexSupport
+#flags spell area chaos hex
+#mods
+
+#skill ViciousHexExplosion
+#flags spell area chaos
+    statMap = {
+		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		},
+	},
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SupportIncreasedAreaOfEffect
 #mods
 
@@ -417,6 +436,20 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportPhysicalToLightning
+#mods
+
+#skill SupportProjectileIntensity
+    statMap = {
+	    ["additional_projectiles_per_intensity"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+		},
+		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+		},
+	},
 #mods
 
 #skill SupportPowerChargeOnCrit

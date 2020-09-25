@@ -534,3 +534,11 @@ function copyFile(srcName, dstName)
 	outFile:close()
 	return true
 end
+
+function zip(a, b)
+    local zipped = { }
+	for i, _ in pairs(a) do
+		table.insert(zipped, { a[i], b[i] })
+    end
+    return zipped
+end

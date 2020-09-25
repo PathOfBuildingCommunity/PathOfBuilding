@@ -854,20 +854,25 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoachersMark
-#flags spell curse area duration
+#flags spell curse duration mark
 	statMap = {
-		["evasion_rating_+%_final_from_poachers_mark"] = {
-			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["life_granted_when_hit_by_attacks"] = {
 			mod("SelfLifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["mana_granted_when_hit_by_attacks"] = {
 			mod("SelfManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["base_additional_physical_damage_reduction_%"] = {
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["minimum_added_physical_damage_taken"] = {
+			mod("SelfPhysicalMin", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["maximum_added_physical_damage_taken"] = {
+			mod("SelfPhysicalMax", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill AccuracyAndCritsAura
@@ -883,21 +888,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
-#skill ProjectileWeakness
-#flags spell curse area duration
+#skill SnipersMark
+#flags spell curse duration mark
 	statMap = {
-		["projectiles_always_pierce_you"] = {
-			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 22)
 #mods
 
 #skill Puncture
@@ -1111,6 +1109,11 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill ImpactingSteel
+#flags attack projectile area
+#baseMod flag("NoAdditionalProjectiles")
+#mods
+
 #skill SummonIceGolem
 #flags spell minion golem
 	minionList = {
@@ -1129,7 +1132,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TemporalChains
-#flags spell curse area duration
+#flags spell curse area duration hex
 	statMap = {
 		["temporal_chains_action_speed_+%_final"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
@@ -1146,6 +1149,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill TornadoShot
