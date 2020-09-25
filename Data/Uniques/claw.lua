@@ -19,6 +19,19 @@ Socketed Gems are Supported by level 12 Fortify
 Reflects (71-90) Physical Damage to Melee Attackers
 15% Chance to Block
 ]],[[
+Replica Advancing Fortress
+Gut Ripper
+League: Heist
+Requires Level 46, 80 Dex, 80 Int
+Implicits: 1
++44 Life gained for each Enemy hit by Attacks
+Socketed Gems are Supported by Level 12 Cast when Damage Taken
+15% Chance to Block Attack Damage
+(100-120)% increased Physical Damage
++(30-50) to maximum Life
+50% increased Defences from Equipped Shield
+Adds 45 to 75 Fire Damage if you've Blocked Recently
+]],[[
 Allure
 Vaal Claw
 Variant: {2_6}Pre 3.0.0
@@ -33,6 +46,19 @@ Adds (15-20) to (30-40) Physical Damage
 15% increased Movement Speed while Phasing
 {variant:1}You gain Phasing for 3 seconds on using a Vaal Skill
 {variant:2}You gain Phasing for 10 seconds on using a Vaal Skill
+]],[[
+Replica Allure
+Vaal Claw
+League: Heist
+Requires Level 66, 95 Dex, 131 Int
+Implicits: 1
+2% of Physical Attack Damage Leeched as Life
+(110-130)% increased Physical Damage
+Adds (15-20) to (30-40) Physical Damage
+(8-12)% increased Attack Speed
+Gain +50 Life when you Taunt an Enemy
+You gain Onslaught for 1 seconds on Killing Taunted Enemies
+Enemies Taunted by you take 10% increased Damage
 ]],[[
 Al Dhih
 Timeworn Claw
@@ -193,6 +219,17 @@ Implicits: 1
 Adds 2 to 10 Physical Damage
 100% increased Claw Physical Damage when on Low Life
 100% increased Accuracy Rating when on Low Life
+]],[[
+Replica Last Resort
+Nailed Fist
+League: Heist
+Implicits: 1
++3 Life gained for each Enemy hit by Attacks
+50% increased Attack Speed when on Low Life
+(80-100)% increased Physical Damage
+100% increased Accuracy Rating when on Low Life
+200% increased Damage with Claws while on Low Life
+Deal no Damage when not on Low Life
 ]],[[
 Law of the Wilds
 Hellion's Paw

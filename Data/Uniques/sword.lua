@@ -51,6 +51,19 @@ Implicits: 2
 {variant:4}+(280-300) to Accuracy Rating
 1% increased Attack Damage per 450 Evasion Rating
 ]],[[
+Replica Dreamfeather
+Eternal Sword
+League: Heist
+Requires Level 66, 104 Str, 122 Dex
+Implicits: 1
++475 to Accuracy Rating
+Adds (40-65) to (70-100) Physical Damage
+(5-10)% increased Attack Speed
++(180-200) to Armour
+3% reduced Movement Speed
++(280-300) to Accuracy Rating
+1% increased Attack Damage per 450 Armour
+]],[[
 Ephemeral Edge
 Dusk Blade
 Variant: Pre 2.0.0
@@ -177,6 +190,32 @@ Implicits: 2
 0.2% of Chaos Damage Leeched as Life
 25% of Physical Damage Converted to Chaos Damage
 Attacks with this Weapon Maim on hit
+]],[[
+Replica Innsbury Edge
+Elder Sword
+League: Heist
+Requires Level 47, 81 Str, 81 Dex
+Implicits: 1
++330 to Accuracy Rating
+(100-140)% increased Physical Damage
+0.2% of Chaos Damage Leeched as Life
+50% of Physical Damage Converted to Chaos Damage
+10% of Physical Damage from Hits taken as Chaos Damage
+Inflict Withered for 2 seconds on Hit with this Weapon
+]],[[
+The Iron Mass
+Gladius
+League: Heist
+Requires Level 60, 113 Str, 113 Dex
+Implicits: 1
+40% increased Global Accuracy Rating
+(140-175)% increased Physical Damage
+(14-18)% increased Attack Speed
+Unholy Might
+(20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
+Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand
+Summoned Skeleton Warriors deal Triple Damage with this
+Weapon if you've Hit with this Weapon Recently
 ]],[[
 Lakishu's Blade
 Elegant Sword
@@ -486,6 +525,20 @@ Attacks with this Weapon Penetrate 30% Elemental Resistances
 15% of Physical Attack Damage Added as Lightning Damage
 15% of Physical Attack Damage Added as Fire Damage
 ]],[[
+Replica Tempestuous Steel
+War Sword
+League: Heist
+Requires Level 20, 41 Str, 35 Dex
+Implicits: 1
+40% increased Global Accuracy Rating
+Adds (5-8) to (15-20) Physical Damage
+(8-14)% increased Attack Speed
+100% reduced Global Accuracy Rating
++(60-100)% to Critical Strike Multiplier with One Handed Melee Weapons
+Attacks with this Weapon Penetrate 30% Elemental Resistances
+Gain 15% of Physical Attack Damage as Extra Fire Damage
+Gain 15% of Physical Attack Damage as Extra Lightning Damage
+]],[[
 Varunastra
 Vaal Blade
 League: Perandus
@@ -753,6 +806,21 @@ Adds (425-475) to (550-600) Fire Damage
 {variant:2,3}10% increased Fire Damage taken
 Culling Strike against Burning Enemies
 Gain a Frenzy Charge if an Attack Ignites an Enemy
+]],[[
+Replica Oro's Sacrifice
+Infernal Sword
+League: Heist
+Requires Level 67, 113 Str, 113 Dex
+Implicits: 1
+30% increased Elemental Damage with Attack Skills
+No Physical Damage
+Adds (385-440) to (490-545) Cold Damage
+(10-15)% increased Attack Speed
+1% of Damage against Frozen Enemies Leeched as Life
+20% chance to Freeze
+10% increased Physical Damage taken
+10% increased Cold Damage taken
+Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
 Queen's Decree
 Ornate Sword

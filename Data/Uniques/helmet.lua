@@ -17,6 +17,18 @@ Adds 40 to 60 Physical Damage to Attacks
 (100-120)% increased Armour
 (40-50)% increased Physical Damage taken
 ]],[[
+Replica Abyssus
+Ezomyte Burgonet
+League: Heist
+Requires Level 60, 138 Str
++(20-25) to all Attributes
+Adds 40 to 75 Fire Damage to Attacks
+Adds 30 to 65 Cold Damage to Attacks
+Adds 10 to 130 Lightning Damage to Attacks
++(100-125)% to Melee Critical Strike Multiplier
+(100-120)% increased Armour
+(40-50)% increased Elemental Damage taken
+]],[[
 The Baron
 Close Helmet
 Variant: Pre 3.10.0
@@ -99,6 +111,17 @@ Requires Level 64, 138 Dex
 25% chance to Avoid being Chilled
 Cannot be Frozen
 8% reduced Mana Reserved
+]],[[
+Replica Alpha's Howl
+Sinner Tricorne
+League: Heist
+Requires Level 64, 138 Dex
++4 to Level of Socketed Herald Gems
+(80-100)% increased Evasion Rating
++(20-30)% to Chaos Resistance
+25% chance to Avoid being Poisoned
+8% reduced Mana Reserved
+You cannot be Hindered
 ]],[[
 Assailum
 Sinner Tricorne
@@ -584,6 +607,16 @@ Adds 20 to 30 Physical Damage to Attacks
 Extra gore
 Can't use Chest armour
 ]],[[
+Crest of Desire
+Fluted Bascinet
+League: Heist
+Requires Level 58, 64 Str, 64 Dex
+Has 1 Socket
++(5-8) to Level of Socketed Gems
++(30-50)% to Quality of Socketed Gems
+Socketed Skills deal Double Damage
+(100-150)% increased Armour and Evasion
+]],[[
 Deidbell
 Gilded Sallet
 Upgrade: Upgrades to unique{Deidbellow} via prophecy{Dying Cry}
@@ -904,6 +937,16 @@ Reflects 1 to (180-220) Lightning Damage to Attackers on Block
 (18-22)% increased Global Defences
 Elemental Resistances are Zero
 ]],[[
+Replica Veil of the Night
+Great Helmet
+League: Heist
+Requires Level 22, 27 Str, 27 Int
+(20-22)% increased Stun and Block Recovery
+40% reduced Light Radius
+Reflects 1 to (180-220) Lightning Damage to Attackers on Block
+Defences are Zero
+(18-22)% increased Elemental Resistances
+]],[[
 Voll's Vision
 Praetor Crown
 Requires Level 68, 62 Str, 91 Int
@@ -1022,6 +1065,16 @@ Requires Level 28, 33 Dex, 33 Int
 +(20-30) to maximum Mana
 You and nearby allies gain 15% increased Damage
 ]],[[
+Replica Leer Cast
+Festival Mask
+League: Heist
+Requires Level 28, 33 Dex, 33 Int
++(20-30) to Dexterity
++(20-30) to maximum Life
++(20-30) to maximum Mana
+60% reduced Mana Regeneration Rate
+You and nearby Allies have 30% increased Mana Regeneration Rate
+]],[[
 Malachai's Simula
 Iron Mask
 Upgrade: Upgrades to unique{Malachai's Awakening} via prophecy{The Nightmare Awakens}
@@ -1114,5 +1167,15 @@ Requires Level 62, 79 Dex, 72 Int
 +(24-30)% to Chaos Resistance
 Enemies cannot Leech Mana from You
 Socketed Gems have 50% reduced Mana Cost
+]],[[
+Willclash
+Golden Mask
+League: Heist
+Requires Level 35, 40 Dex, 40 Int
+(350-400)% increased Evasion and Energy Shield
++5% Chance to Block Spell Damage per Power Charge
+(3-5)% increased Elemental Damage per Power charge
+Gain a Power Charge every Second if you haven't lost Power Charges Recently
+Lose all Power Charges when you Block
 ]],
 }

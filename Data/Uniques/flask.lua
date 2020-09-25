@@ -38,6 +38,16 @@ Requires Level 50
 100% increased Recovery Speed
 Your Skills have no Mana Cost during Flask effect
 ]],[[
+Replica Lavianga's Spirit
+Sanctified Mana Flask
+League: Heist
+Requires Level 50
+(30-50)% increased Amount Recovered
+50% reduced Recovery rate
+(5-15)% increased Attack Speed during Flask effect
+(5-15)% increased Cast Speed during Flask effect
+10% increased Mana Cost of Skills during Flask Effect
+]],[[
 Zerphi's Last Breath
 Grand Mana Flask
 Variant: {2_6}Pre 3.5.0
@@ -223,6 +233,16 @@ Requires Level 68
 {variant:2}(10-15)% Chance to Block Spells during Flask effect
 {variant:3}(6-10)% Chance to Block Spells during Flask effect
 ]],[[
+Replica Rumi's Concoction
+Granite Flask
+League: Heist
+Requires Level 68
+You gain an Endurance Charge on use
++(35-50)% Chance to Block Attack Damage during Flask effect
++(20-30)% Chance to Block Spell Damage during Flask effect
+Petrified during Flask Effect
+90% reduced Duration
+]],[[
 Sin's Rebirth
 Stibnite Flask
 Requires Level 14
@@ -241,6 +261,16 @@ Implicits: 1
 Creates Consecrated Ground on Use
 (25-50)% increased Duration
 Zealot's Oath during Flask effect
+Life Recovery from Flasks also applies to Energy Shield during Flask Effect
+]],[[
+Replica Sorrow of the Divine
+Sulphur Flask
+League: Heist
+Requires Level 35
+Implicits: 1
+Creates Consecrated Ground on Use
+(25-50)% increased Duration
+Eldritch Battery during Flask effect
 Life Recovery from Flasks also applies to Energy Shield during Flask Effect
 ]],[[
 Soul Catcher
