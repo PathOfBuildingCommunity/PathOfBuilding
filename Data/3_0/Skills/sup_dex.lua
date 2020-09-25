@@ -136,6 +136,11 @@ skills["SupportAdditionalAccuracy"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+    statMap = {
+		["attack_damage_+%_per_1000_accuracy_rating"] = {
+			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -565,6 +570,11 @@ skills["SupportCastOnCrit"] = {
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -815,6 +825,13 @@ skills["SupportCastOnDeath"] = {
 		},
 		["cast_on_death_damage_+%_final_while_dead"] = {
 			mod("Damage", "MORE", nil),
+		},
+		["additional_critical_strike_chance_permyriad_while_dead"] = {
+			mod("CritChance", "BASE", nil),
+			div = 100
+		},
+		["skill_effect_duration_+%_while_dead"] = {
+			mod("Duration", "INC", nil),
 		},
 	},
 	baseMods = {
@@ -1080,6 +1097,11 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["trap_trigger_radius_"] = {
+			mod("TrapTriggerAreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" } )
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2136,6 +2158,9 @@ skills["SupportDamageAgainstChilled"] = {
 		["support_hypothermia_cold_damage_over_time_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
 		},
+		["freeze_applies_cold_resistance_+"] = {
+			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", nil, 0, 0, {type = "Condition", var = "Frozen" }) }),
+		},
 	},
 	baseMods = {
 	},
@@ -2509,6 +2534,11 @@ skills["SupportManaLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["damage_+%_per_200_mana_spent_recently"] = {
+			mod("Damage", "INC", nil, 0, 0, {type = "Multiplier", div = 200, var = "ManaSpentRecently"})
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2809,6 +2839,11 @@ skills["SupportOnslaught"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["attack_and_cast_speed_+%_during_onslaught"] = {
+			mod("Speed", "INC", nil, 0, 0, {type = "Condition", var = "Onslaught"})
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2956,6 +2991,9 @@ skills["SupportPointBlank"] = {
 	statMap = {
 		["keystone_point_blank"] = {
 			flag("PointBlank"),
+		},
+		["knockback_chance_%_at_close_range"] = {
+			mod("EnemyKnockbackChance", "BASE", nil, 0, KeywordFlag.Hit),
 		},
 	},
 	baseMods = {
@@ -3178,6 +3216,9 @@ skills["SupportSlowerProjectiles"] = {
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
+		["projectiles_damage_+%_to_nearby_targets"] = {
+			mod("Damage", "INC", nil, ModFlag.Projectile)
+		}
 	},
 	baseMods = {
 	},
@@ -4103,11 +4144,6 @@ skills["SupportChaosAttacks"] = {
 	addSkillTypes = { SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["withered_on_hit_chance_%"] = {
-			flag("Condition:CanWither"),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
