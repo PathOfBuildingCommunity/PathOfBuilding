@@ -2167,7 +2167,16 @@ function calcs.offence(env, actor, activeSkill)
             output.ImpaleChance = 0
         else
             output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
-        end
+		end
+		if skillModList:Sum("BASE", cfg, "FireExposureChance") > 0 then
+			skillFlags.applyFireExposure = true
+		end
+		if skillModList:Sum("BASE", cfg, "ColdExposureChance") > 0 then
+			skillFlags.applyColdExposure = true
+		end
+		if skillModList:Sum("BASE", cfg, "LightningExposureChance") > 0 then
+			skillFlags.applyLightningExposure = true
+		end
 		if env.mode_effective then
 			local bleedMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBleed") / 100)
 			output.BleedChanceOnHit = output.BleedChanceOnHit * bleedMult

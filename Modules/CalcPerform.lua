@@ -173,6 +173,17 @@ local function doActorAttribsPoolsConditions(env, actor)
 			condList["CanInflictSap"] = true
 		end
 	end
+	if env.mode_effective then
+		if modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
+			condList["CanApplyFireExposure"] = true
+		end
+		if modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
+			condList["CanApplyColdExposure"] = true
+		end
+		if modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
+			condList["CanApplyLightningExposure"] = true
+		end
+	end
 
 	-- Calculate attributes
 	local calculateAttributes = function()
@@ -1508,6 +1519,19 @@ function calcs.perform(env)
 		doActorMisc(env, env.minion)
 	end
 	doActorMisc(env, env.enemy)
+
+	-- Apply exposures
+	for _, element in pairs({"Fire", "Cold", "Lightning"}) do
+		local min = math.huge
+		for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
+			if mod.value < min then
+				min = mod.value
+			end
+		end
+		if min ~= math.huge then
+			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+		end
+	end
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
