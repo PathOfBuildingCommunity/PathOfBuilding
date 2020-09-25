@@ -253,7 +253,6 @@ directiveTable.skill = function(state, args, out)
 	for _, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
 		local level = { extra = { }, statInterpolation = { } }
 		level.level = levelRow.Level
-		table.insert(skill.levels, level)
 		level.extra.levelRequirement = levelRow.PlayerLevel
 		if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
 			level.extra.manaCost = levelRow.ManaCost
@@ -288,8 +287,13 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 			end
 			level.statInterpolation[i] = levelRow.InterpolationTypes[i]
-			if level.statInterpolation[i] == 3 and levelRow.EffectivenessCost[i].Value ~= 0 then
-				table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
+			if level.statInterpolation[i] == 3 then
+				if levelRow.EffectivenessCost[i].Value ~= 0 then
+					table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
+				else
+					level.statInterpolation[i] = 1
+					table.insert(level, levelRow["Stat"..i])
+				end
 			else
 				table.insert(level, levelRow["Stat"..i])
 			end
@@ -300,6 +304,7 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 			end
 		end
+		table.insert(skill.levels, level)
 	end
 	if not skill.qualityStats then
 		skill.qualityStats = { }

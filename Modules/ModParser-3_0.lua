@@ -874,6 +874,7 @@ local modTagList = {
 	["per (%d+) reserved life"] = function(num) return { tag = { type = "PerStat", stat = "LifeReserved", div = num } } end,
 	["per (%d+) unreserved maximum mana"] = function(num) return { tag = { type = "PerStat", stat = "ManaUnreserved", div = num } } end,
 	["per (%d+) unreserved maximum mana, up to (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "ManaUnreserved", div = num, limit = tonumber(limit), limitTotal = true } } end,
+	["per (%d+) armour"] = function(num) return { tag = { type = "PerStat", stat = "Armour", div = num } } end,
 	["per (%d+) evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "Evasion", div = num } } end,
 	["per (%d+) evasion rating, up to (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "Evasion", div = num, limit = tonumber(limit), limitTotal = true } } end,
 	["per (%d+) maximum energy shield"] = function(num) return { tag = { type = "PerStat", stat = "EnergyShield", div = num } } end,
@@ -1300,7 +1301,7 @@ local specialModList = {
 	["critical strikes inflict scorch, brittle and sapped"] = { flag("CritAlwaysAltAilments") },
 	["chance to block attack damage is doubled"] = { mod("BlockChance", "MORE", 100) },
 	["chance to block spell damage is doubled"] = { mod("SpellBlockChance", "MORE", 100) },
-	["you take (%d+)%% of damage from blocked hits"] = function(num) return { mod("BlockEffect", "BASE", num) } end,
+	["you take (%d+)%% of damage from blocked hits"] = function(num) return { mod("BlockEffect", "BASE", 100 - num) } end,
 	["ignore attribute requirements"] = { flag("IgnoreAttributeRequirements") },
 	["gain no inherent bonuses from attributes"] = { flag("NoAttributeBonuses") },
 	["all damage taken bypasses energy shield"] = {
@@ -2222,6 +2223,13 @@ local specialModList = {
 		flag("CanLeechLifeOnFullLife"),
 		mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = 5 }) 
 	},
+	["corrupted soul"] = {
+		mod("PhysicalEnergyShieldBypass", "BASE", 50),
+		mod("LightningEnergyShieldBypass", "BASE", 50),
+		mod("ColdEnergyShieldBypass", "BASE", 50),
+		mod("FireEnergyShieldBypass", "BASE", 50),
+		mod("LifeGainAsEnergyShield", "BASE", 20)
+	},
 	["deal no physical damage"] = { flag("DealNoPhysical") },
 	["deal no cold damage"] = { flag("DealNoCold") },
 	["deal no fire damage"] = { flag("DealNoFire") },
@@ -2230,6 +2238,7 @@ local specialModList = {
 	["deal no chaos damage"] = { flag("DealNoChaos") },
 	["deal no non%-elemental damage"] = { flag("DealNoPhysical"), flag("DealNoChaos") },
 	["deal no non%-lightning damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
+	["cannot deal non%-chaos damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoLightning") },
 	["attacks have blood magic"] = { flag("SkillBloodMagic", nil, ModFlag.Attack) },
 	["(%d+)%% chance to cast a? ?socketed lightning spells? on hit"] = function(num) return { mod("ExtraSupport", "LIST", { name = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["cast a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { name = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
