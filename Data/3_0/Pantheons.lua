@@ -17,13 +17,13 @@ return {
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Shadow of the Vaal",
+			[3] = { name = "Champion of the Hollows",
 				mods = {
 					-- cannot_be_frozen_if_you_have_been_frozen_recently
 					[1] = { line = "You cannot be Frozen if you've been Frozen Recently", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Nassar, Lion of the Seas",
+			[4] = { name = "Fragment of Winter",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -75,7 +75,7 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "The Gorgon",
+			[2] = { name = "Vision of Justice",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },

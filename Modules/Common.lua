@@ -307,7 +307,7 @@ function writeLuaTable(out, t, indent)
 		if indent then
 			out:write(string.rep("\t", indent))
 		end
-		if type(k) == "string" and k:match("^%a[%a%d]*$") then
+		if type(k) == "string" and k:match("^%a[%a%d]*$") and k ~= "hexproof" then
 			out:write(k, '=')
 		else
 			out:write('[')
@@ -544,4 +544,12 @@ function copyFile(srcName, dstName)
 	inFile:close()
 	outFile:close()
 	return true
+end
+
+function zip(a, b)
+    local zipped = { }
+	for i, _ in pairs(a) do
+		table.insert(zipped, { a[i], b[i] })
+    end
+    return zipped
 end

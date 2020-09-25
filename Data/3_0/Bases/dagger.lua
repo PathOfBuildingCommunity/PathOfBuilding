@@ -79,7 +79,7 @@ itemBases["Prong Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block Attack Damage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 14, PhysicalMax = 54, CritChanceBase = 6.2, AttackRateBase = 1.35, Range = 10, },
 	req = { level = 36, dex = 55, int = 77, },
 }
@@ -151,7 +151,7 @@ itemBases["Trisula"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block Attack Damage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.5, AttackRateBase = 1.35, Range = 10, },
 	req = { level = 51, dex = 83, int = 99, },
 }
@@ -223,7 +223,61 @@ itemBases["Sai"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "6% Chance to Block Attack Damage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 88, CritChanceBase = 6.2, AttackRateBase = 1.35, Range = 10, },
+	req = { level = 70, dex = 121, int = 121, },
+}
+itemBases["Hollowpoint Dagger"] = {
+	type = "Dagger",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "All Damage from Hits with This Weapon can Poison",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
+	req = { level = 30, dex = 54, int = 54, },
+}
+itemBases["Pressurised Dagger"] = {
+	type = "Dagger",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "All Damage from Hits with This Weapon can Poison",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 18, PhysicalMax = 71, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
+	req = { level = 50, dex = 86, int = 86, },
+}
+itemBases["Pneumatic Dagger"] = {
+	type = "Dagger",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "All Damage from Hits with This Weapon can Poison",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
+	req = { level = 70, dex = 121, int = 121, },
+}
+itemBases["Flickerflame Blade"] = {
+	type = "Dagger",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Trigger Level 10 Flame Dash when you use a Socketed Skill",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 12, PhysicalMax = 47, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
+	req = { level = 30, dex = 54, int = 54, },
+}
+itemBases["Flashfire Blade"] = {
+	type = "Dagger",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Trigger Level 20 Flame Dash when you use a Socketed Skill",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 18, PhysicalMax = 73, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
+	req = { level = 50, dex = 86, int = 86, },
+}
+itemBases["Infernal Blade"] = {
+	type = "Dagger",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Trigger Level 30 Flame Dash when you use a Socketed Skill",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 85, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 70, dex = 121, int = 121, },
 }

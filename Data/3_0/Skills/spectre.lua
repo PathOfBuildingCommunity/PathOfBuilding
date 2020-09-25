@@ -68,7 +68,6 @@ skills["AxisDoubleStrikeTrigger"] = {
 		skill("dpsMultiplier", 2),
 	},
 	qualityStats = {
-		{ "attack_speed_+%", 0.5 },
 	},
 	stats = {
 		"physical_damage_+%",
@@ -1770,6 +1769,7 @@ skills["MonsterCausticArrow"] = {
 		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
 		"ground_caustic_art_variation",
 		"projectile_damage_modifiers_apply_to_skill_dot",
+		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
 		[1] = { 1200, 16.666667039196, 34, 1, 0, -25, 2, manaCost = 10, levelRequirement = 3, statInterpolation = { 1, 3, 1, 1, 1, 1, 1, }, },
@@ -1835,7 +1835,7 @@ skills["MonsterDischarge"] = {
 	baseEffectiveness = 2.2111001014709,
 	incrementalEffectiveness = 0.028500000014901,
 	description = "Discharge all the character's charges to deal elemental damage to all nearby monsters.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -1870,7 +1870,7 @@ skills["MonsterEnduringCry"] = {
 	description = "Performs a warcry, taunting all nearby enemies to attack the user and granting endurance charges. Gives a brief burst of life regeneration, as well as a buff which grants resistances and physical damage reduction based on your endurance charges.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
-	castTime = 0.25,
+	castTime = 0.8,
 	baseFlags = {
 		warcry = true,
 		area = true,
@@ -1881,53 +1881,53 @@ skills["MonsterEnduringCry"] = {
 	qualityStats = {
 	},
 	stats = {
-		"endurance_charge_granted_per_X_monster_power_during_endurance_warcry",
+		"enduring_cry_grants_x_additional_endurance_charges",
 		"base_skill_effect_duration",
-		"base_life_regeneration_rate_per_minute",
+		"life_regeneration_rate_per_minute_%",
 	},
 	levels = {
-		[1] = { 300, 750, 300, cooldown = 4, levelRequirement = 4, statInterpolation = { 1, 1, 1, }, },
-		[2] = { 300, 750, 456, cooldown = 4, levelRequirement = 7, statInterpolation = { 1, 1, 1, }, },
-		[3] = { 300, 750, 660, cooldown = 4, levelRequirement = 10, statInterpolation = { 1, 1, 1, }, },
-		[4] = { 300, 750, 1020, cooldown = 4, levelRequirement = 14, statInterpolation = { 1, 1, 1, }, },
-		[5] = { 300, 750, 1512, cooldown = 4, levelRequirement = 18, statInterpolation = { 1, 1, 1, }, },
-		[6] = { 300, 750, 2184, cooldown = 4, levelRequirement = 22, statInterpolation = { 1, 1, 1, }, },
-		[7] = { 300, 750, 2604, cooldown = 4, levelRequirement = 24, statInterpolation = { 1, 1, 1, }, },
-		[8] = { 300, 750, 3648, cooldown = 4, levelRequirement = 28, statInterpolation = { 1, 1, 1, }, },
-		[9] = { 300, 750, 5064, cooldown = 4, levelRequirement = 32, statInterpolation = { 1, 1, 1, }, },
-		[10] = { 300, 750, 6924, cooldown = 4, levelRequirement = 36, statInterpolation = { 1, 1, 1, }, },
-		[11] = { 300, 750, 9396, cooldown = 4, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, },
-		[12] = { 300, 750, 12660, cooldown = 4, levelRequirement = 44, statInterpolation = { 1, 1, 1, }, },
-		[13] = { 300, 750, 16932, cooldown = 4, levelRequirement = 48, statInterpolation = { 1, 1, 1, }, },
-		[14] = { 300, 750, 22536, cooldown = 4, levelRequirement = 52, statInterpolation = { 1, 1, 1, }, },
-		[15] = { 300, 750, 29832, cooldown = 4, levelRequirement = 56, statInterpolation = { 1, 1, 1, }, },
-		[16] = { 300, 750, 39348, cooldown = 4, levelRequirement = 60, statInterpolation = { 1, 1, 1, }, },
-		[17] = { 300, 750, 48300, cooldown = 4, levelRequirement = 63, statInterpolation = { 1, 1, 1, }, },
-		[18] = { 300, 750, 59184, cooldown = 4, levelRequirement = 66, statInterpolation = { 1, 1, 1, }, },
-		[19] = { 300, 750, 63312, cooldown = 4, levelRequirement = 67, statInterpolation = { 1, 1, 1, }, },
-		[20] = { 300, 750, 67704, cooldown = 4, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, },
-		[21] = { 300, 750, 72396, cooldown = 4, levelRequirement = 69, statInterpolation = { 1, 1, 1, }, },
-		[22] = { 300, 750, 77388, cooldown = 4, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
-		[23] = { 300, 750, 82728, cooldown = 4, levelRequirement = 71, statInterpolation = { 1, 1, 1, }, },
-		[24] = { 300, 750, 88404, cooldown = 4, levelRequirement = 72, statInterpolation = { 1, 1, 1, }, },
-		[25] = { 300, 750, 94464, cooldown = 4, levelRequirement = 73, statInterpolation = { 1, 1, 1, }, },
-		[26] = { 300, 750, 100920, cooldown = 4, levelRequirement = 74, statInterpolation = { 1, 1, 1, }, },
-		[27] = { 300, 750, 107808, cooldown = 4, levelRequirement = 75, statInterpolation = { 1, 1, 1, }, },
-		[28] = { 300, 750, 115140, cooldown = 4, levelRequirement = 76, statInterpolation = { 1, 1, 1, }, },
-		[29] = { 300, 750, 122952, cooldown = 4, levelRequirement = 77, statInterpolation = { 1, 1, 1, }, },
-		[30] = { 300, 750, 131280, cooldown = 4, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, },
-		[31] = { 300, 750, 140148, cooldown = 4, levelRequirement = 79, statInterpolation = { 1, 1, 1, }, },
-		[32] = { 300, 750, 149592, cooldown = 4, levelRequirement = 80, statInterpolation = { 1, 1, 1, }, },
-		[33] = { 300, 750, 159648, cooldown = 4, levelRequirement = 81, statInterpolation = { 1, 1, 1, }, },
-		[34] = { 300, 750, 170376, cooldown = 4, levelRequirement = 82, statInterpolation = { 1, 1, 1, }, },
+		[1] = { 2, 1000, 600, cooldown = 8, levelRequirement = 4, statInterpolation = { 1, 1, 1, }, },
+		[2] = { 2, 1000, 600, cooldown = 8, levelRequirement = 7, statInterpolation = { 1, 1, 1, }, },
+		[3] = { 2, 1000, 600, cooldown = 8, levelRequirement = 10, statInterpolation = { 1, 1, 1, }, },
+		[4] = { 2, 1000, 600, cooldown = 8, levelRequirement = 14, statInterpolation = { 1, 1, 1, }, },
+		[5] = { 2, 1000, 600, cooldown = 8, levelRequirement = 18, statInterpolation = { 1, 1, 1, }, },
+		[6] = { 2, 1000, 600, cooldown = 8, levelRequirement = 22, statInterpolation = { 1, 1, 1, }, },
+		[7] = { 2, 1000, 600, cooldown = 8, levelRequirement = 24, statInterpolation = { 1, 1, 1, }, },
+		[8] = { 2, 1000, 600, cooldown = 8, levelRequirement = 28, statInterpolation = { 1, 1, 1, }, },
+		[9] = { 2, 1000, 600, cooldown = 8, levelRequirement = 32, statInterpolation = { 1, 1, 1, }, },
+		[10] = { 2, 1000, 600, cooldown = 8, levelRequirement = 36, statInterpolation = { 1, 1, 1, }, },
+		[11] = { 2, 1000, 600, cooldown = 8, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, },
+		[12] = { 2, 1000, 600, cooldown = 8, levelRequirement = 44, statInterpolation = { 1, 1, 1, }, },
+		[13] = { 2, 1000, 600, cooldown = 8, levelRequirement = 48, statInterpolation = { 1, 1, 1, }, },
+		[14] = { 2, 1000, 600, cooldown = 8, levelRequirement = 52, statInterpolation = { 1, 1, 1, }, },
+		[15] = { 2, 1000, 600, cooldown = 8, levelRequirement = 56, statInterpolation = { 1, 1, 1, }, },
+		[16] = { 2, 1000, 600, cooldown = 8, levelRequirement = 60, statInterpolation = { 1, 1, 1, }, },
+		[17] = { 2, 1000, 600, cooldown = 8, levelRequirement = 63, statInterpolation = { 1, 1, 1, }, },
+		[18] = { 2, 1000, 600, cooldown = 8, levelRequirement = 66, statInterpolation = { 1, 1, 1, }, },
+		[19] = { 2, 1000, 600, cooldown = 8, levelRequirement = 67, statInterpolation = { 1, 1, 1, }, },
+		[20] = { 2, 1000, 600, cooldown = 8, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, },
+		[21] = { 2, 1000, 600, cooldown = 8, levelRequirement = 69, statInterpolation = { 1, 1, 1, }, },
+		[22] = { 2, 1000, 600, cooldown = 8, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
+		[23] = { 2, 1000, 600, cooldown = 8, levelRequirement = 71, statInterpolation = { 1, 1, 1, }, },
+		[24] = { 2, 1000, 600, cooldown = 8, levelRequirement = 72, statInterpolation = { 1, 1, 1, }, },
+		[25] = { 2, 1000, 600, cooldown = 8, levelRequirement = 73, statInterpolation = { 1, 1, 1, }, },
+		[26] = { 2, 1000, 600, cooldown = 8, levelRequirement = 74, statInterpolation = { 1, 1, 1, }, },
+		[27] = { 2, 1000, 600, cooldown = 8, levelRequirement = 75, statInterpolation = { 1, 1, 1, }, },
+		[28] = { 2, 1000, 600, cooldown = 8, levelRequirement = 76, statInterpolation = { 1, 1, 1, }, },
+		[29] = { 2, 1000, 600, cooldown = 8, levelRequirement = 77, statInterpolation = { 1, 1, 1, }, },
+		[30] = { 2, 1000, 600, cooldown = 8, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, },
+		[31] = { 2, 1000, 600, cooldown = 8, levelRequirement = 79, statInterpolation = { 1, 1, 1, }, },
+		[32] = { 2, 1000, 600, cooldown = 8, levelRequirement = 80, statInterpolation = { 1, 1, 1, }, },
+		[33] = { 2, 1000, 600, cooldown = 8, levelRequirement = 81, statInterpolation = { 1, 1, 1, }, },
+		[34] = { 2, 1000, 600, cooldown = 8, levelRequirement = 82, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["MonsterEnfeeble"] = {
 	name = "Enfeeble",
 	hidden = true,
 	color = 3,
-	description = "Curses all targets in an area, making their attacks and spells less effective.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -1961,13 +1961,11 @@ skills["MonsterEnfeeble"] = {
 		"base_skill_effect_duration",
 		"active_skill_area_of_effect_radius_+%_final",
 		"accuracy_rating_+%",
-		"critical_strike_chance_+%",
 		"enfeeble_damage_+%_final",
-		"base_critical_strike_multiplier_+",
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 5000, 0, -40, -40, -40, -60, -15, manaCost = 35, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 5000, 0, -40, -40, -15, manaCost = 35, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["MonsterFireball"] = {
@@ -2438,8 +2436,8 @@ skills["MonsterProjectileWeakness"] = {
 	name = "Projectile Weakness",
 	hidden = true,
 	color = 2,
-	description = "Curses all targets in an area, making them easier to pierce and to knock back, and increasing the damage they take from projectiles.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can gain charges for your life and mana flasks by hitting the cursed enemy. You can only have one Mark at a time.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2465,15 +2463,15 @@ skills["MonsterProjectileWeakness"] = {
 	},
 	stats = {
 		"base_skill_effect_duration",
-		"active_skill_area_of_effect_radius_+%_final",
-		"projectiles_always_pierce_you",
-		"chance_to_be_knocked_back_%",
+		"projectiles_hitting_self_split_into_x",
 		"projectile_damage_taken_+%",
+		"grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms",
+		"grant_attacker_x_life_flask_charges_when_hit_once_per_500ms",
 	},
 	levels = {
-		[1] = { 10400, 0, 54, 22, 32, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[2] = { 10900, 0, 70, 24, 34, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[3] = { 10900, 0, 95, 24, 34, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[1] = { 10400, 3, 32, 0, 0, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[2] = { 10900, 3, 34, 0, 0, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[3] = { 10900, 3, 34, 0, 0, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["MonsterProximityShield"] = {
@@ -2543,7 +2541,7 @@ skills["MonsterRighteousFireWhileSpectred"] = {
 	incrementalEffectiveness = 0.056000001728535,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. Your spell damage is substantially increased while under this effect. The effect ends when you have 1 life remaining.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
 		spell = true,
@@ -2695,8 +2693,8 @@ skills["MonsterWarlordsMark"] = {
 	name = "Warlord's Mark",
 	hidden = true,
 	color = 1,
-	description = "Curses all targets in an area, making them more vulnerable to stuns. Hitting the cursed targets will leech life and mana, and killing them will result in a chance to gain an endurance charge.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses a single enemy, giving a chance to double the duration of stuns on them. Attacking the cursed enemy will leech life and mana, stunning them will grant rage, and killing it will grant an endurance charge. You can only have one Mark at a time.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2722,15 +2720,14 @@ skills["MonsterWarlordsMark"] = {
 	},
 	stats = {
 		"base_skill_effect_duration",
-		"active_skill_area_of_effect_radius_+%_final",
-		"base_stun_recovery_+%",
-		"chance_to_be_stunned_%",
+		"enemy_chance_to_double_stun_duration_%_vs_self",
+		"enemy_rage_regeneration_on_stun",
 		"life_leech_on_any_damage_when_hit_by_attack_permyriad",
 		"mana_leech_on_any_damage_when_hit_by_attack_permyriad",
 		"chance_to_grant_endurance_charge_on_death_%",
 	},
 	levels = {
-		[1] = { 8800, 0, -27, 10, 128, 108, 37, manaCost = 50, levelRequirement = 5, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 8800, 40, 0, 200, 200, 100, manaCost = 50, levelRequirement = 5, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["MotherOfFlamesMagmaOrb3"] = {
@@ -2772,8 +2769,8 @@ skills["NecromancerConductivity"] = {
 	name = "Conductivity",
 	hidden = true,
 	color = 3,
-	description = "Curses all targets in an area, making them less resistant to lightning damage and giving them a chance to be shocked by lightning damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses all targets in an area, lowering their lightning resistance and giving them a chance to be shocked when hit.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2803,18 +2800,18 @@ skills["NecromancerConductivity"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 6000, 0, -20, 14, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[2] = { 6000, 0, -25, 16, 1, cooldown = 10, levelRequirement = 41, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[3] = { 6000, 0, -30, 18, 1, cooldown = 10, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[4] = { 6000, 0, -40, 20, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[1] = { 6000, 0, -20, 25, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[2] = { 6000, 0, -25, 25, 1, cooldown = 10, levelRequirement = 41, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[3] = { 6000, 0, -30, 25, 1, cooldown = 10, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[4] = { 6000, 0, -40, 25, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["NecromancerElementalWeakness"] = {
 	name = "Elemental Weakness",
 	hidden = true,
 	color = 3,
-	description = "Curses all targets in an area, making them less resistant to elemental damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses all targets in an area, lowering their elemental resistances.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2852,8 +2849,8 @@ skills["NecromancerEnfeeble"] = {
 	name = "Enfeeble",
 	hidden = true,
 	color = 3,
-	description = "Curses all targets in an area, making their attacks and spells less effective.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2887,22 +2884,20 @@ skills["NecromancerEnfeeble"] = {
 		"base_skill_effect_duration",
 		"active_skill_area_of_effect_radius_+%_final",
 		"accuracy_rating_+%",
-		"critical_strike_chance_+%",
 		"enfeeble_damage_+%_final",
-		"base_critical_strike_multiplier_+",
 		"skill_art_variation",
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 5000, 0, -40, -40, -40, -60, 1, -15, manaCost = 35, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 5000, 0, -40, -40, 1, -15, manaCost = 35, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["NecromancerFlammability"] = {
 	name = "Flammability",
 	hidden = true,
 	color = 3,
-	description = "Curses all targets in an area, making them less resistant to fire damage and giving them a chance to be ignited by fire damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2931,18 +2926,18 @@ skills["NecromancerFlammability"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 6000, 0, -20, 14, 1, cooldown = 10, levelRequirement = 10, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[2] = { 6000, 0, -25, 16, 1, cooldown = 10, levelRequirement = 41, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[3] = { 6000, 0, -30, 18, 1, cooldown = 10, levelRequirement = 58, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[4] = { 6000, 0, -40, 20, 1, cooldown = 10, levelRequirement = 71, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[1] = { 6000, 0, -20, 25, 1, cooldown = 10, levelRequirement = 10, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[2] = { 6000, 0, -25, 25, 1, cooldown = 10, levelRequirement = 41, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[3] = { 6000, 0, -30, 25, 1, cooldown = 10, levelRequirement = 58, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[4] = { 6000, 0, -40, 25, 1, cooldown = 10, levelRequirement = 71, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["NecromancerFrostbite"] = {
 	name = "Frostbite",
 	hidden = true,
 	color = 3,
-	description = "Curses all targets in an area, making them less resistant to cold damage and giving them a chance to be frozen by cold damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses all targets in an area, lowering their cold resistance and giving them a chance to be frozen when hit.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2971,18 +2966,18 @@ skills["NecromancerFrostbite"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 6000, 0, -20, 14, 1, cooldown = 10, levelRequirement = 10, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[2] = { 6000, 0, -25, 16, 1, cooldown = 10, levelRequirement = 41, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[3] = { 6000, 0, -30, 18, 1, cooldown = 10, levelRequirement = 58, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[4] = { 6000, 0, -40, 20, 1, cooldown = 10, levelRequirement = 71, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[1] = { 6000, 0, -20, 25, 1, cooldown = 10, levelRequirement = 10, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[2] = { 6000, 0, -25, 25, 1, cooldown = 10, levelRequirement = 41, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[3] = { 6000, 0, -30, 25, 1, cooldown = 10, levelRequirement = 58, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[4] = { 6000, 0, -40, 25, 1, cooldown = 10, levelRequirement = 71, manaCost = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["NecromancerProjectileWeakness"] = {
 	name = "Projectile Weakness",
 	hidden = true,
 	color = 2,
-	description = "Curses all targets in an area, making them easier to pierce and to knock back, and increasing the damage they take from projectiles.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can gain charges for your life and mana flasks by hitting the cursed enemy. You can only have one Mark at a time.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3008,16 +3003,16 @@ skills["NecromancerProjectileWeakness"] = {
 	},
 	stats = {
 		"base_skill_effect_duration",
-		"active_skill_area_of_effect_radius_+%_final",
-		"projectiles_always_pierce_you",
-		"chance_to_be_knocked_back_%",
+		"projectiles_hitting_self_split_into_x",
 		"projectile_damage_taken_+%",
+		"grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms",
+		"grant_attacker_x_life_flask_charges_when_hit_once_per_500ms",
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 10400, 0, 54, 22, 32, 1, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[2] = { 10900, 0, 70, 24, 34, 1, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[3] = { 10900, 0, 95, 24, 34, 1, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 10400, 3, 22, 0, 0, 1, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[2] = { 10900, 3, 24, 0, 0, 1, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[3] = { 10900, 3, 24, 0, 0, 1, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["NecromancerRaiseZombie"] = {
@@ -3052,8 +3047,8 @@ skills["NecromancerVulnerability"] = {
 	name = "Vulnerability",
 	hidden = true,
 	color = 4,
-	description = "Curse all targets in an area, causing them to take increased physical damage and further increased physical damage over time. Attacks against cursed enemies have a chance to inflict bleeding and maim.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3081,13 +3076,12 @@ skills["NecromancerVulnerability"] = {
 		"base_skill_effect_duration",
 		"active_skill_area_of_effect_radius_+%_final",
 		"physical_damage_taken_+%",
-		"base_physical_damage_over_time_taken_+%",
 		"skill_art_variation",
 		"receive_bleeding_chance_%_when_hit_by_attack",
-		"chance_to_be_maimed_when_hit_%",
+		"enemy_damaging_ailments_deal_damage_+%_faster_against_self",
 	},
 	levels = {
-		[1] = { 10900, 0, 50, 50, 1, 20, 20, manaCost = 110, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 10900, 0, 50, 1, 20, 20, manaCost = 110, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["PyroChaosFireball"] = {
@@ -3564,8 +3558,8 @@ skills["SkeletonTemporalChains"] = {
 	name = "Temporal Chains",
 	hidden = true,
 	color = 4,
-	description = "Curses all targets in an area, Slowing them, and making effects on them expire more slowly.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.67,
 	statMap = {
@@ -3606,8 +3600,8 @@ skills["SkeletonVulnerability"] = {
 	name = "Vulnerability",
 	hidden = true,
 	color = 4,
-	description = "Curse all targets in an area, causing them to take increased physical damage and further increased physical damage over time. Attacks against cursed enemies have a chance to inflict bleeding and maim.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3633,14 +3627,13 @@ skills["SkeletonVulnerability"] = {
 	},
 	stats = {
 		"base_skill_effect_duration",
-		"active_skill_area_of_effect_radius_+%_final",
+		"active_skill_base_radius_+",
 		"physical_damage_taken_+%",
-		"base_physical_damage_over_time_taken_+%",
 		"receive_bleeding_chance_%_when_hit_by_attack",
-		"chance_to_be_maimed_when_hit_%",
+		"enemy_damaging_ailments_deal_damage_+%_faster_against_self",
 	},
 	levels = {
-		[1] = { 10900, 0, 50, 50, 20, 20, manaCost = 110, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 10900, 0, 50, 20, 20, manaCost = 110, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SlavedriverFlameWhip"] = {
@@ -4430,6 +4423,99 @@ skills["SandLeaperDodgeRight"] = {
 		[1] = { 1, 22, manaCost = 90, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }
+skills["SynthesisSoulstealerProjectileLightning"] = {
+	name = "Lightning Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.037999998778105,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		spell = true,
+		triggerable = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_projectile_variation",
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 103, 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, },
+	},
+}
+skills["SynthesisSoulstealerLaser"] = {
+	name = "Lightning Laser",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.60000002384186,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"skill_physical_damage_%_to_convert_to_chaos",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"is_area_damage",
+		"cannot_stun",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 0, 0, 0, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, 1, }, },
+	},
+}
+skills["SynthesisSoulstealerBolt"] = {
+	name = "Lightning Bolt",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.60000002384186,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"spell_maximum_action_distance_+%",
+		"base_skill_effect_duration",
+		"skill_range_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.69999998807907, 1.2999999523163, 0, -50, 260, -75, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+	},
+}
 skills["MeleeCold"] = {
 	name = "Default Attack",
 	hidden = true,
@@ -4521,5 +4607,103 @@ skills["AtlasCruasderJudgeFadingNova"] = {
 	},
 	levels = {
 		[1] = { 0.5, 1.5, 128, 7, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
+skills["HarvestCrabAbyssSlam"] = {
+	name = "Slam Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"upheaval_number_of_spikes",
+		"main_hand_base_maximum_attack_distance",
+		"active_skill_damage_+%_final",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0, 4, 50, -30, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+		[2] = { 0, 4, 50, 0, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 19, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+		[3] = { 0, 4, 50, 1, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 20, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+		[4] = { 0, 4, 50, 60, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 2, 1, 1, }, },
+	},
+}
+skills["LegionTemplarJudgeBallLightning"] = {
+	name = "Ball Lightning",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.51560002565384,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.6,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_projectile_speed_+%",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"base_is_projectile",
+		"visual_hit_effect_elemental_is_holy",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -25, 80, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
+skills["LegionTemplarJudgeStormCall"] = {
+	name = "Storm Call",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.031199999153614,
+	description = "Sets a marker at a location. After a short duration, lightning strikes the marker, dealing damage around it. When this happens, it will also set off the lightning at any other markers you've cast.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_skill_effect_duration",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"is_area_damage",
+		"visual_hit_effect_elemental_is_holy",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 2000, 60, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }

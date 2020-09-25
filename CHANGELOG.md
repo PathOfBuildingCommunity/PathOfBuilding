@@ -1,3 +1,36 @@
+### 1.4.170.11 - 2020/09/19
+ * Fix issue where many skills tags were incorrect which caused supports and other mechanics to stop working
+### 1.4.170.10 - 2020/09/19
+ * Add partial support for new 3.12 gems and enchantments
+ * Update gems with 3.12 changes
+ * Add new 3.12 bases
+ * Add partial support for alternate quality gems
+### 1.4.170.9 - 2020/09/17
+ * Add better breakdown for duration mods on gems
+ * Fix crash related to new Keystones and old trees
+ * Fix support for Iron Grip Notable
+ * Fix support for new ailment scaling nodes
+ * Fix support for new cooldown recovery wording on nodes
+### 1.4.170.8 - 2020/09/16
+ * Add support for 3.12 Tree
+ * Add proper support for Carrion Golem
+ * Add support for Ancient Waystone unique
+ * Add support for +1 gems on Awakened Blasphemy
+ * Add configurable charges for Minions
+ * Add support to generate mods for Skin of the Lords
+ * Add Redemption Knight spectre
+ * Add Baranite Preacher spectre
+ * Add Templar Tactician spectre
+ * Add Scinteel Synthete spectre
+ * Add support for Non-Channelling Mana cost
+ * Fix crash when trying to add support gems to any spell while having "Gain no inherent bonuses from Attributes"
+ * Fix crash related to Minion Critical Strike Chance
+ * Fix mods on several uniques
+ * Fix current Shock note not showing in Shock effect breakdown for attack builds
+ * Fix Second Wind CDR numbers
+ * Fix stats on Enhanced Vaal Fallen, Baranite Thaumaturge, Baranite Sister
+ * Fix Life regen not showing in the sidebar
+ * Fix top node power calculations
 ### 1.4.170.7 - 2020/07/22
  * Fix crash related to the Siegebreaker belt
  * Fix crash related to Dancing Dervish/Duo

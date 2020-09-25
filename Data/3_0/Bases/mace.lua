@@ -191,7 +191,7 @@ itemBases["Legion Hammer"] = {
 	weapon = { PhysicalMin = 35, PhysicalMax = 81, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 62, str = 212, },
 }
-itemBases["Pernarch"] = {
+itemBases["Pernach"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, },
@@ -227,13 +227,40 @@ itemBases["Behemoth Mace"] = {
 	weapon = { PhysicalMin = 49, PhysicalMax = 74, CritChanceBase = 5, AttackRateBase = 1.35, Range = 11, },
 	req = { level = 70, str = 220, },
 }
+itemBases["Flare Mace"] = {
+	type = "One Handed Mace",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Trigger Level 10 Fiery Impact on Melee Hit with this Weapon",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 41, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	req = { level = 30, str = 101, },
+}
+itemBases["Crack Mace"] = {
+	type = "One Handed Mace",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Trigger Level 15 Fiery Impact on Melee Hit with this Weapon",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 31, PhysicalMax = 64, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	req = { level = 50, str = 161, },
+}
+itemBases["Boom Mace"] = {
+	type = "One Handed Mace",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Trigger Level 20 Fiery Impact on Melee Hit with this Weapon",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 39, PhysicalMax = 81, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	req = { level = 70, str = 218, },
+}
 
 itemBases["Driftwood Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "10% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 5, PhysicalMax = 8, CritChanceBase = 6, AttackRateBase = 1.55, Range = 11, },
 	req = { str = 8, int = 8, },
 }
@@ -242,7 +269,7 @@ itemBases["Darkwood Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "12% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 8, PhysicalMax = 12, CritChanceBase = 6, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 5, str = 14, int = 14, },
 }
@@ -251,7 +278,7 @@ itemBases["Bronze Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "12% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 10, PhysicalMax = 19, CritChanceBase = 6, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 10, str = 22, int = 22, },
 }
@@ -260,7 +287,7 @@ itemBases["Quartz Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "20% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 14, PhysicalMax = 22, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 15, str = 25, int = 35, },
 }
@@ -269,7 +296,7 @@ itemBases["Iron Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "14% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 18, PhysicalMax = 27, CritChanceBase = 6, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 20, str = 38, int = 38, },
 }
@@ -278,7 +305,7 @@ itemBases["Ochre Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "16% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 17, PhysicalMax = 31, CritChanceBase = 6, AttackRateBase = 1.45, Range = 11, },
 	req = { level = 24, str = 44, int = 44, },
 }
@@ -287,7 +314,7 @@ itemBases["Ritual Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "16% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 21, PhysicalMax = 50, CritChanceBase = 6, AttackRateBase = 1.2, Range = 11, },
 	req = { level = 28, str = 51, int = 51, },
 }
@@ -296,7 +323,7 @@ itemBases["Shadow Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "22% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 44, CritChanceBase = 6.2, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 32, str = 52, int = 62, },
 }
@@ -305,7 +332,7 @@ itemBases["Horned Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, not_for_sale = true, maraketh = true, },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 27, PhysicalMax = 50, CritChanceBase = 6, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 36, str = 66, int = 66, },
 }
@@ -314,7 +341,7 @@ itemBases["Grinning Fetish"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "18% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 24, PhysicalMax = 36, CritChanceBase = 6, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 35, str = 62, int = 62, },
 }
@@ -323,7 +350,7 @@ itemBases["Sekhem"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "18% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 6, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 38, str = 67, int = 67, },
 }
@@ -332,7 +359,7 @@ itemBases["Crystal Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "30% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 52, CritChanceBase = 6.5, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 41, str = 59, int = 85, },
 }
@@ -341,7 +368,7 @@ itemBases["Lead Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "22% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 38, PhysicalMax = 57, CritChanceBase = 6, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 44, str = 77, int = 77, },
 }
@@ -350,7 +377,7 @@ itemBases["Blood Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "24% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 6, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 47, str = 81, int = 81, },
 }
@@ -359,7 +386,7 @@ itemBases["Royal Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "24% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 34, PhysicalMax = 80, CritChanceBase = 6, AttackRateBase = 1.2, Range = 11, },
 	req = { level = 50, str = 86, int = 86, },
 }
@@ -368,7 +395,7 @@ itemBases["Abyssal Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "30% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 45, PhysicalMax = 67, CritChanceBase = 6.2, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 53, str = 83, int = 99, },
 }
@@ -377,7 +404,7 @@ itemBases["Stag Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, not_for_sale = true, maraketh = true, },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 39, PhysicalMax = 72, CritChanceBase = 6, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 55, str = 98, int = 98, },
 }
@@ -386,7 +413,7 @@ itemBases["Karui Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "26% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 37, PhysicalMax = 55, CritChanceBase = 6, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 56, str = 96, int = 96, },
 }
@@ -395,7 +422,7 @@ itemBases["Tyrant's Sekhem"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "26% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 43, PhysicalMax = 80, CritChanceBase = 6, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 58, str = 99, int = 99, },
 }
@@ -404,7 +431,7 @@ itemBases["Opal Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "40% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 49, PhysicalMax = 73, CritChanceBase = 6.5, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 60, str = 95, int = 131, },
 }
@@ -413,7 +440,7 @@ itemBases["Platinum Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "30% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 51, PhysicalMax = 76, CritChanceBase = 6, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 62, str = 113, int = 113, },
 }
@@ -422,7 +449,7 @@ itemBases["Vaal Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "32% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 37, PhysicalMax = 70, CritChanceBase = 6, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 64, str = 113, int = 113, },
 }
@@ -431,7 +458,7 @@ itemBases["Carnal Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "32% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 41, PhysicalMax = 95, CritChanceBase = 6, AttackRateBase = 1.2, Range = 11, },
 	req = { level = 66, str = 113, int = 113, },
 }
@@ -440,7 +467,7 @@ itemBases["Void Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "40% increased Elemental Damage",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 50, PhysicalMax = 76, CritChanceBase = 6.2, AttackRateBase = 1.25, Range = 11, },
 	req = { level = 68, str = 104, int = 122, },
 }
@@ -449,9 +476,36 @@ itemBases["Sambar Sceptre"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, not_for_sale = true, maraketh = true, },
 	implicit = "Damage Penetrates 6% Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 42, PhysicalMax = 78, CritChanceBase = 6, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 70, str = 121, int = 113, },
+}
+itemBases["Oscillating Sceptre"] = {
+	type = "Sceptre",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Elemental Overload",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "critical" }, },
+	weapon = { PhysicalMin = 23, PhysicalMax = 34, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
+	req = { level = 30, str = 44, int = 64, },
+}
+itemBases["Stabilising Sceptre"] = {
+	type = "Sceptre",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Elemental Equilibrium",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
+	weapon = { PhysicalMin = 35, PhysicalMax = 52, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
+	req = { level = 50, str = 71, int = 102, },
+}
+itemBases["Alternating Sceptre"] = {
+	type = "Sceptre",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, not_for_sale = true, },
+	implicit = "Secrets of Suffering",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 41, PhysicalMax = 61, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
+	req = { level = 70, str = 95, int = 131, },
 }
 
 itemBases["Driftwood Maul"] = {
@@ -603,7 +657,7 @@ itemBases["Colossus Mallet"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "30% increased Area Damage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "damage" }, },
 	weapon = { PhysicalMin = 65, PhysicalMax = 135, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 59, str = 188, },
 }
@@ -621,7 +675,7 @@ itemBases["Meatgrinder"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "5% chance to deal Double Damage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "damage" }, },
 	weapon = { PhysicalMin = 74, PhysicalMax = 138, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 63, str = 212, },
 }
@@ -630,7 +684,7 @@ itemBases["Imperial Maul"] = {
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, },
 	implicit = "10% increased Strength",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	weapon = { PhysicalMin = 102, PhysicalMax = 153, CritChanceBase = 5, AttackRateBase = 1.1, Range = 13, },
 	req = { level = 65, str = 212, },
 }
@@ -651,4 +705,31 @@ itemBases["Coronal Maul"] = {
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 91, PhysicalMax = 136, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
 	req = { level = 69, str = 220, },
+}
+itemBases["Blunt Force Condenser"] = {
+	type = "Two Handed Mace",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "Warcries Exert 1 additional Attack",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 39, PhysicalMax = 64, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
+	req = { level = 30, str = 101, },
+}
+itemBases["Crushing Force Magnifier"] = {
+	type = "Two Handed Mace",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "Warcries Exert 1 additional Attack",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 62, PhysicalMax = 103, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
+	req = { level = 50, str = 161, },
+}
+itemBases["Impact Force Propagator "] = {
+	type = "Two Handed Mace",
+	socketLimit = 6,
+	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, },
+	implicit = "Warcries Exert 1 additional Attack",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 81, PhysicalMax = 135, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
+	req = { level = 70, str = 220, },
 }

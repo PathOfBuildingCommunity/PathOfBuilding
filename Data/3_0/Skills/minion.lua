@@ -645,6 +645,7 @@ skills["SummonedSpiderViperStrike"] = {
 		"base_chance_to_poison_on_hit_%",
 		"base_skill_effect_duration",
 		"poison_duration_is_skill_duration",
+		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
 		[1] = { 25, 100, 8000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
@@ -749,6 +750,7 @@ skills["HeraldOfAgonyMinionMortar"] = {
 		"is_area_damage",
 		"base_is_projectile",
 		"distribute_additional_projectiles_over_contact_points",
+		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
 		[1] = { 20, 10, 5, -35, 50, damageEffectiveness = 0.4, cooldown = 7.5, baseMultiplier = 0.4, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
@@ -775,6 +777,7 @@ skills["HeraldOfAgonyMinionTailSpike"] = {
 		"active_skill_attack_speed_+%_final",
 		"number_of_additional_projectiles",
 		"base_is_projectile",
+		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
 		[1] = { 39, 0, 0, 4, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, },
@@ -806,6 +809,7 @@ skills["HeraldOfAgonyMinionCleave"] = {
 	},
 	stats = {
 		"is_area_damage",
+		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
 		[1] = { levelRequirement = 1, statInterpolation = { }, },

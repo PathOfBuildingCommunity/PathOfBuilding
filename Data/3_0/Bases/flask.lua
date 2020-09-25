@@ -330,7 +330,7 @@ itemBases["Aquamarine Flask"] = {
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
 	implicit = "Creates Chilled Ground on Use",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "flask" }, },
 	flask = { duration = 5, chargesUsed = 15, chargesMax = 40, buff = { "20% chance to Avoid Cold Damage from Hits" }, },
 	req = { level = 27, },
 }
@@ -339,7 +339,7 @@ itemBases["Stibnite Flask"] = {
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
 	implicit = "Creates a Smoke Cloud on Use",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "flask" }, },
 	flask = { duration = 5, chargesUsed = 10, chargesMax = 30, buff = { "100% increased Evasion Rating" }, },
 	req = { level = 14, },
 }
@@ -348,7 +348,7 @@ itemBases["Sulphur Flask"] = {
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
 	implicit = "Creates Consecrated Ground on Use",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "flask" }, },
 	flask = { duration = 4, chargesUsed = 20, chargesMax = 60, buff = { "40% increased Damage" }, },
 	req = { level = 35, },
 }

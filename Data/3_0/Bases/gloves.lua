@@ -90,7 +90,7 @@ itemBases["Spiked Gloves"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, atlas_base_type = true, glovesatlasstr = true, str_armour = true, },
 	implicit = "(16-20)% increased Melee Damage",
-	implicitModTypes = { { "attack" }, },
+	implicitModTypes = { { "damage", "attack" }, },
 	armour = { ArmourBase = 220, },
 	req = { level = 70, str = 95, },
 }
@@ -182,7 +182,7 @@ itemBases["Gripped Gloves"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, atlas_base_type = true, glovesatlasdex = true, dex_armour = true, },
 	implicit = "(14-18)% increased Projectile Attack Damage",
-	implicitModTypes = { { "attack" }, },
+	implicitModTypes = { { "damage", "attack" }, },
 	armour = { EvasionBase = 220, },
 	req = { level = 70, dex = 95, },
 }
@@ -274,7 +274,7 @@ itemBases["Fingerless Silk Gloves"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, atlas_base_type = true, glovesatlasint = true, int_armour = true, },
 	implicit = "(12-16)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { EnergyShieldBase = 43, },
 	req = { level = 70, int = 95, },
 }
@@ -504,7 +504,7 @@ itemBases["Golden Bracers"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, },
 	implicit = "+(20-30) to maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	armour = { },
 	req = { level = 12, },
 }

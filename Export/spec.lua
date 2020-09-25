@@ -459,6 +459,13 @@ return {
 	AlternateTreePassiveSizes={
 	},
 	AlternateTreeVersions={
+		[1]={
+			list=false,
+			name="ConquerorType",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	Animation={
 		[1]={
@@ -612,7 +619,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=370
+			width=480
 		},
 		[2]={
 			list=false,
@@ -2429,6 +2436,73 @@ return {
 	},
 	GrantedEffectGroups={
 	},
+	GrantedEffectQualityStats={
+		[1]={
+			list=false,
+			name="GrantedEffect",
+			refTo="GrantedEffects",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="AlternateID",
+			refTo="",
+			type="Int",
+			width=90
+		},
+		[3]={
+			list=true,
+			name="GrantedStats",
+			refTo="Stats",
+			type="Key",
+			width=460
+		},
+		[4]={
+			list=true,
+			name="StatValues",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="Divisor",
+			refTo="",
+			type="Int",
+			width=90
+		}
+	},
+	GrantedEffectQualityTypes={
+		[1]={
+			list=false,
+			name="AlternateId",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	GrantedEffects={
 		[1]={
 			list=false,
@@ -2677,109 +2751,109 @@ return {
 			width=60
 		},
 		[12]={
+			list=false,
+			name="StatEff9",
+			refTo="",
+			type="Float",
+			width=60
+		},
+		[13]={
 			list=true,
 			name="EffectivenessCost",
 			refTo="EffectivenessCostConstants",
 			type="Key",
 			width=250
 		},
-		[13]={
+		[14]={
 			list=false,
 			name="Stat1",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[14]={
+		[15]={
 			list=false,
 			name="Stat2",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[15]={
+		[16]={
 			list=false,
 			name="Stat3",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[16]={
+		[17]={
 			list=false,
 			name="Stat4",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[17]={
+		[18]={
 			list=false,
 			name="Stat5",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[18]={
+		[19]={
 			list=false,
 			name="Stat6",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[19]={
+		[20]={
 			list=false,
 			name="Stat7",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[20]={
+		[21]={
 			list=false,
 			name="Stat8",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[21]={
+		[22]={
+			list=false,
+			name="Stat9",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[23]={
 			list=false,
 			name="PlayerLevel",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[22]={
+		[24]={
 			list=false,
 			name="ManaMultiplier",
 			refTo="",
 			type="Int",
 			width=80
 		},
-		[23]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=40
-		},
-		[24]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=40
-		},
 		[25]={
-			list=true,
-			name="QualityStats",
-			refTo="Stats",
-			type="Key",
-			width=150
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=40
 		},
 		[26]={
-			list=true,
-			name="QualityStatValues",
+			list=false,
+			name="",
 			refTo="",
 			type="Int",
-			width=100
+			width=40
 		},
 		[27]={
 			list=false,
@@ -2922,20 +2996,6 @@ return {
 			width=80
 		},
 		[47]={
-			list=false,
-			name="StatEff9",
-			refTo="",
-			type="Float",
-			width=150
-		},
-		[48]={
-			list=false,
-			name="Stat9",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[49]={
 			list=false,
 			name="AttackSpeedMultiplier",
 			refTo="",

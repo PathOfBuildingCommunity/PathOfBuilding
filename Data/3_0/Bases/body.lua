@@ -135,7 +135,7 @@ itemBases["Astral Plate"] = {
 	socketLimit = 6,
 	tags = { default = true, armour = true, body_armour = true, str_armour = true, },
 	implicit = "+(8-12)% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { ArmourBase = 711, MovementPenalty = 5, },
 	req = { level = 62, str = 180, },
 }
@@ -445,7 +445,7 @@ itemBases["Occultist's Vestment"] = {
 	socketLimit = 6,
 	tags = { default = true, armour = true, body_armour = true, int_armour = true, },
 	implicit = "(3-10)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	armour = { EnergyShieldBase = 130, MovementPenalty = 3, },
 	req = { level = 62, int = 180, },
 }
@@ -926,7 +926,7 @@ itemBases["Carnal Armour"] = {
 	socketLimit = 6,
 	tags = { default = true, armour = true, body_armour = true, dex_int_armour = true, },
 	implicit = "+(20-25) to maximum Mana",
-	implicitModTypes = { { "mana" }, },
+	implicitModTypes = { { "resource", "mana" }, },
 	armour = { EvasionBase = 353, EnergyShieldBase = 98, MovementPenalty = 3, },
 	req = { level = 71, dex = 88, int = 122, },
 }
@@ -947,7 +947,7 @@ itemBases["Golden Mantle"] = {
 	socketLimit = 6,
 	tags = { default = true, armour = true, body_armour = true, str_dex_int_armour = true, not_for_sale = true, },
 	implicit = "+(15-25)% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { ArmourBase = 75, EvasionBase = 75, EnergyShieldBase = 16, },
 	req = { level = 20, str = 8, dex = 8, int = 8, },
 }

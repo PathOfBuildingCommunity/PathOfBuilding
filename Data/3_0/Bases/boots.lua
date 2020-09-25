@@ -327,7 +327,7 @@ itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas2 = true, str_dex_armour = true, },
 	implicit = "+(8-12)% to Fire and Cold Resistances",
-	implicitModTypes = { { "fire", "cold", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
 	armour = { ArmourBase = 126, EvasionBase = 126, },
 	req = { level = 70, str = 62, dex = 62, },
 }
@@ -410,7 +410,7 @@ itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas3 = true, str_int_armour = true, },
 	implicit = "+(8-12)% to Fire and Lightning Resistances",
-	implicitModTypes = { { "fire", "lightning", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
 	armour = { ArmourBase = 126, EnergyShieldBase = 24, },
 	req = { level = 70, str = 62, int = 62, },
 }
@@ -502,7 +502,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas1 = true, dex_int_armour = true, },
 	implicit = "+(8-12)% to Cold and Lightning Resistances",
-	implicitModTypes = { { "cold", "lightning", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
 	armour = { EvasionBase = 126, EnergyShieldBase = 24, },
 	req = { level = 70, dex = 62, int = 62, },
 }
@@ -513,7 +513,7 @@ itemBases["Golden Caligae"] = {
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, },
 	implicit = "+(8-16)% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { },
 	req = { level = 12, },
 }

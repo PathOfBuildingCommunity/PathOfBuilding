@@ -5,7 +5,9 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local t_sort = table.sort
 local m_min = math.min
+local s_format = string.format
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
@@ -116,6 +118,13 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return "When enabled, node power is divided by the point cost it would take to get there,\nso closer points are considered stronger"
 	end
 
+	self.controls.powerReport = new("ButtonControl", {"LEFT", self.controls.treeHeatMapStatPerPoint, "RIGHT"}, 8, 0, 120, 20, "Power Report", function()
+		self:ShowPowerReport()
+	end)
+	self.controls.powerReport.tooltipText = function()
+		return "View a report of node efficacy based on current heat map selection"
+	end
+
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
@@ -131,6 +140,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.modFlag = true
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end)
+	self.jumpToNode = false
+	self.jumpToX = 0
+	self.jumpToY = 0
 end)
 
 function TreeTabClass:Draw(viewPort, inputEvents)
@@ -176,6 +188,10 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	--
 
 	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + twoLineHeight or 32 + twoLineHeight)}
+	if self.jumpToNode then
+		self.viewer:Focus(self.jumpToX, self.jumpToY, treeViewPort, self.build)
+		self.jumpToNode = false
+	end
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	self.controls.specSelect.selIndex = self.activeSpec
@@ -542,4 +558,95 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end)
 	main:OpenPopup(800, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
+end
+
+function TreeTabClass:ShowPowerReport()
+	local report = {}
+	local currentStat = self.build.calcsTab.powerStat
+	
+	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
+	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
+	if not currentStat or not currentStat.stat then
+		main:OpenMessagePopup("Select a specific stat", "This feature does not report for the \"Offense/Defense\" heat map. Select a specific stat from the dropdown.")
+		return
+	end
+
+	-- locate formatting information for the type of heat map being used.
+	-- maybe a better place to find this? At the moment, it is the only place
+	-- in the code that has this information in a tidy place.
+	local currentStatLabel = currentStat.label
+	local displayStat = nil
+
+	for index, ds in ipairs(self.build.displayStats) do
+		if ds.stat == currentStat.stat then
+			displayStat = ds
+			break
+		end
+	end
+
+	-- not every heat map has an associated "stat" in the displayStats table
+	-- this is due to not every stat being displayed in the sidebar, I believe.
+	-- But, we do want to use the formatting knowledge stored in that table rather than duplicating it here.
+	-- If no corresponding stat is found, just default to a generic stat display (>0=good, one digit of precision).
+	if not displayStat then
+		displayStat = {
+			fmt = ".1f"
+		}
+	end
+
+	-- search all nodes, ignoring ascendcies, sockets, etc.
+	for nodeId, node in pairs(self.build.spec.nodes) do
+		local isAlloc = node.alloc or self.build.calcsTab.mainEnv.grantedPassives[nodeId]
+		if not isAlloc and (node.type == "Normal" or node.type == "Keystone" or node.type == "Notable") and not node.ascendancyName then
+			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
+
+			if main.showThousandsCalcs then
+				nodePowerStr = formatNumSep(nodePowerStr)
+			end
+			
+			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+			end
+			
+			t_insert(report, {
+				name = node.dn,
+				power = nodePower,
+				powerStr = nodePowerStr,
+				id = nodeId,
+				x = node.x,
+				y = node.y,
+				type = node.type
+			})
+		end
+	end
+
+	-- sort it
+	if displayStat.lowerIsBetter then
+		t_sort(report, function (a,b)
+			return (a.power) < (b.power)
+		end)
+	else
+		t_sort(report, function (a,b)
+			return (a.power) > (b.power)
+		end)
+	end
+
+	-- present the UI
+	local controls = {}
+	controls.list = new("PowerReportListControl", nil, 0, 40, 450, 400, report, currentStatLabel, function(selectedNode)
+		-- this code is called by the list control when the user "selects" one of the passives in the list.
+		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
+		self.jumpToNode = true
+		self.jumpToX = selectedNode.x
+		self.jumpToY = selectedNode.y
+		main:ClosePopup()
+	end)
+	controls.done = new("ButtonControl", nil, 0, 450, 100, 20, "Close", function()
+		main:ClosePopup()
+	end)
+
+	popup = main:OpenPopup(500, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
 end
