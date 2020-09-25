@@ -34,6 +34,8 @@ local minions, mod = ...
 #spectre Metadata/Monster/CageSpider/CageSpider2
 -- Cannibals
 #spectre Metadata/Monsters/Cannibal/CannibalMaleChampion
+-- Cloud retch
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 -- Goatmen
 #spectre Metadata/Monsters/Goatman/GoatmanLeapSlam
 #spectre Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps
