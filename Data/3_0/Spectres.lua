@@ -2889,27 +2889,34 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
--- Frost Auto-Scout
-minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = {
-	name = "Frost Auto-Scout",
-	life = 3.6,
-	armour = 1,
-	fireResist = 40,
-	coldResist = 0,
+-- Artless Assassin
+minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
+	name = "Artless Assassin",
+	life = 5.2,
+	fireResist = 0,
+	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.2,
+	damage = 1.56,
 	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 10,
+	attackTime = 1,
+	attackRange = 60,
 	accuracy = 1,
+	weaponType1 = "Bow",
 	skillList = {
+		"MPWHeistThugRangedBurningArrow",
 		"DoLiterallyNothing",
-		"MPSHeistRobotClockworkGolemBasicProjectile",
-		"MMSHeistRobotClockworkGolemMortarSpectre",
+		"GAHeistThugRangedArrowShotgun",
+		"EAAHeistThugRangedExplosiveArrowBarrage",
+		"HeistThugRangedExplosiveArrow",
+		"GAHeistThugRangedShotgun",
+		"WalkEmergeHeistThug",
+		"EAAHeistThugRangedExplosiveArrowBarrageChokepoint",
 		"ChangeToStance1Heist",
+		"EASHeistMindControlSuicide",
 	},
 	modList = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
 	},
 }

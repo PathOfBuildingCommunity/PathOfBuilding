@@ -750,10 +750,18 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 #mods
 
-#skill MPSHeistRobotClockworkGolemBasicProjectile Frost Projectile
-#flags spell projectile triggerable
+#skill MPWHeistThugRangedBurningArrow Burning Arrow
+#flags attack projectile hit triggerable
 #mods
 
-#skill MMSHeistRobotClockworkGolemMortarSpectre Frost Mortar
-#flags spell hit triggerable area projectile
+#skill HeistThugRangedExplosiveArrow Explosive Arrow
+#flags attack projectile hit area duration triggerable
+#mods
+
+#skill GAHeistThugRangedArrowShotgun Arrow Shotgun
+#flags attack hit triggerable
+#mods
+
+#skill GAHeistThugRangedShotgun Ranged Shotgun
+#flags attack hit triggerable
 #mods

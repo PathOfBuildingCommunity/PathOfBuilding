@@ -180,5 +180,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
--- Frost Auto-Scout
-#spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre
+-- Artless Assassin
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre
