@@ -536,10 +536,6 @@ function ImportTabClass:ImportItemsAndSkills(json)
 		table.sort(self.build.skillsTab.socketGroupList, function(a, b)
 			local orderA
 			for _, gem in ipairs(a.gemList) do
-				ConPrintf("~~~~~~~~~~~~~")
-
-				ConPrintf(gem.nameSpec)
-
 				if gem.grantedEffect and not gem.grantedEffect.support then
 					local i = isValueInArray(skillOrder, gem.grantedEffect.name)
 					if i and (not orderA or i < orderA) then
