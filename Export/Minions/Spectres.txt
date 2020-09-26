@@ -184,4 +184,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_
 -- Frost Auto-Scout
 #spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre
-
+-- Ashblessed Warden
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre

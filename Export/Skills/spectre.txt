@@ -765,3 +765,19 @@ local skills, mod, flag, skill = ...
 #skill MMSHeistRobotClockworkGolemMortarSpectre Frost Mortar
 #flags spell hit triggerable area projectile
 #mods
+
+#skill GSHeistRobotPyreBeamBlast Beam Blast
+#flags area triggerable 
+#mods
+
+#skill GSHeistRobotPyreNukeBeam Nuke Beam
+#flags area triggerable 
+#mods
+
+#skill GSHeistRobotPyreNukeBeamChannelled Nuke Beam Channelled
+#flags area triggerable 
+#mods
+
+#skill GSHeistRobotPyreBeamSweepBeam Beam Sweep
+#flags area triggerable
+#mods
