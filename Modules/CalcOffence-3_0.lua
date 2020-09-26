@@ -1723,9 +1723,6 @@ function calcs.offence(env, actor, activeSkill)
 						if output.DoubleDamageEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(chance to deal double damage)", output.DoubleDamageEffect))
 						end
-						if output.ScaledDamageEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(scaled damage)", output.ScaledDamageEffect))
-						end
 						if output.RuthlessBlowEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
 						end
