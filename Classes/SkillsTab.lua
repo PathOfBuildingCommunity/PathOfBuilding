@@ -224,7 +224,7 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
 				gemInstance.qualityId = SkillsTabClass:ParseGemAltQuality(gemInstance.nameSpec, child.attrib.qualityId)
-				gemInstance.nameSpec=SkillsTabClass:ParseBaseGemName(gemInstance)
+				gemInstance.nameSpec = SkillsTabClass:ParseBaseGemName(gemInstance)
 
 				if gemInstance.gemData then
 					gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)

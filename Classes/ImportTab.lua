@@ -793,22 +793,19 @@ end
 
 
 -- parse real gem name by ommiting the first word if alt qual is set
-function ImportTabClass:ParseBaseGemName(gemTypeLine)
+function ImportTabClass:GetBaseNameAndQuality(gemTypeLine)
 	if gemTypeLine then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
 		if firstword and otherwords then
 			for indx, entry in ipairs(self.build.skillsTab.getAlternateGemQualityList()) do
-				ConPrintf("checking if '"..firstword.."' matches label '"..entry.label.."'? "..tostring(firstword==entry.label))
-
 				if firstword == entry.label then
-					ConPrintf("Match! returning '"..otherwords.."'")
-					return otherwords
+					return otherwords, entry.type
 				end
 			end
 		end
 	end
 
-	return gemTypeLine
+	return gemTypeLine, "Default"
 end
 
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
@@ -821,20 +818,19 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local normalizedBasename = self:ParseBaseGemName(socketedItem.typeLine)
+			local normalizedBasename, qualityType = self:GetBaseNameAndQuality(socketedItem.typeLine)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename] 
 			if not gemId and socketedItem.hybrid then
 				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
 				-- Luckily the primary skill name is also there, so we can find the gem using that
-				normalizedBasename = self:ParseBaseGemName(socketedItem.hybrid.baseTypeName)
+				normalizedBasename, qualityType  = self:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName)
 				gemId = self.build.data.gemForBaseName[normalizedBasename]
 			end
 			if gemId then
-				ConPrintf("||||||||||||")
-				ConPrintf(gemId)
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
 				gemInstance.nameSpec = self.build.data.gems[gemId].name
 				gemInstance.support = socketedItem.support
+				gemInstance.qualityId = qualityType
 				for _, property in pairs(socketedItem.properties) do
 					if property.name == "Level" then
 						gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
