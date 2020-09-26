@@ -2889,26 +2889,27 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
--- Syndicate Operative
-minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
-	name = "Syndicate Operative",
-	life = 2.1,
-	energyShield = 0.08,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
+-- Frost Auto-Scout
+minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = {
+	name = "Frost Auto-Scout",
+	life = 3.6,
+	armour = 1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.12,
+	damage = 1.2,
 	damageSpread = 0.2,
-	attackTime = 0.6,
-	attackRange = 6,
+	attackTime = 1.17,
+	attackRange = 10,
 	accuracy = 1,
 	skillList = {
-		"Melee",
-		"WalkEmergeBetrayal",
-		"BetrayalSecretPoliceCurveDagger1",
-		"EmptyActionSpellSecretPoliceDaggers",
+		"DoLiterallyNothing",
+		"MPSHeistRobotClockworkGolemBasicProjectile",
+		"MMSHeistRobotClockworkGolemMortarSpectre",
+		"ChangeToStance1Heist",
 	},
 	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }

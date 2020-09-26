@@ -750,10 +750,10 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 #mods
 
-#skill EmptyActionSpellSecretPoliceDaggers Dagger Trigger Spell
-#flags spell
+#skill MPSHeistRobotClockworkGolemBasicProjectile Frost Projectile
+#flags spell projectile triggerable
 #mods
 
-#skill BetrayalSecretPoliceCurveDagger1 Secret Police Daggers
-#flags attack projectile triggerable
+#skill MMSHeistRobotClockworkGolemMortarSpectre Frost Mortar
+#flags spell hit triggerable area projectile
 #mods
