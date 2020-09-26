@@ -891,3 +891,7 @@ function SkillsTabClass:RestoreUndoState(state)
 		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
 	end
 end
+
+function SkillsTabClass:getAlternateGemQualityList()
+	return alternateGemQualityList
+end

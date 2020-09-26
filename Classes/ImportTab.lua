@@ -536,6 +536,10 @@ function ImportTabClass:ImportItemsAndSkills(json)
 		table.sort(self.build.skillsTab.socketGroupList, function(a, b)
 			local orderA
 			for _, gem in ipairs(a.gemList) do
+				ConPrintf("~~~~~~~~~~~~~")
+
+				ConPrintf(gem.nameSpec)
+
 				if gem.grantedEffect and not gem.grantedEffect.support then
 					local i = isValueInArray(skillOrder, gem.grantedEffect.name)
 					if i and (not orderA or i < orderA) then
@@ -787,22 +791,47 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 end
 
+
+-- parse real gem name by ommiting the first word if alt qual is set
+function ImportTabClass:ParseBaseGemName(gemTypeLine)
+	if gemTypeLine then
+		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
+		if firstword and otherwords then
+			for indx, entry in ipairs(self.build.skillsTab.getAlternateGemQualityList()) do
+				ConPrintf("checking if '"..firstword.."' matches label '"..entry.label.."'? "..tostring(firstword==entry.label))
+
+				if firstword == entry.label then
+					ConPrintf("Match! returning '"..otherwords.."'")
+					return otherwords
+				end
+			end
+		end
+	end
+
+	return gemTypeLine
+end
+
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	-- Build socket group list
 	local itemSocketGroupList = { }
 	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
+		ConPrintf("socketed item id="..socketedItem.id..", name="..socketedItem.name..", typeline="..socketedItem.typeLine)
 		if socketedItem.abyssJewel then
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local gemId = self.build.data.gemForBaseName[socketedItem.typeLine] 
+			local normalizedBasename = self:ParseBaseGemName(socketedItem.typeLine)
+			local gemId = self.build.data.gemForBaseName[normalizedBasename] 
 			if not gemId and socketedItem.hybrid then
 				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
 				-- Luckily the primary skill name is also there, so we can find the gem using that
-				gemId = self.build.data.gemForBaseName[socketedItem.hybrid.baseTypeName]
+				normalizedBasename = self:ParseBaseGemName(socketedItem.hybrid.baseTypeName)
+				gemId = self.build.data.gemForBaseName[normalizedBasename]
 			end
 			if gemId then
+				ConPrintf("||||||||||||")
+				ConPrintf(gemId)
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
 				gemInstance.nameSpec = self.build.data.gems[gemId].name
 				gemInstance.support = socketedItem.support
