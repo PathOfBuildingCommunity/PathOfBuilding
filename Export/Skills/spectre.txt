@@ -749,3 +749,19 @@ local skills, mod, flag, skill = ...
 #skill LegionTemplarJudgeStormCall Storm Call
 #flags spell area duration
 #mods
+
+#skill EmptyActionSpellSecretPoliceDaggers Dagger Trigger Spell
+#flags spell
+#mods
+
+#skill BetrayalSecretPoliceCurveDagger1 Secret Police Daggers
+#flags attack projectile triggerable
+#mods
+
+#skill MPSHeistRobotClockworkGolemBasicProjectile Frost Projectile
+#flags spell projectile triggerable
+#mods
+
+#skill MMSHeistRobotClockworkGolemMortarSpectre Frost Mortar
+#flags spell hit triggerable area projectile
+#mods

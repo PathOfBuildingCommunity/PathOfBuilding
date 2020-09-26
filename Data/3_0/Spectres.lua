@@ -2914,3 +2914,28 @@ minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
 	modList = {
 	},
 }
+-- Frost Auto-Scout
+minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = {
+	name = "Frost Auto-Scout",
+	life = 3.6,
+	armour = 1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"DoLiterallyNothing",
+		"MPSHeistRobotClockworkGolemBasicProjectile",
+		"MMSHeistRobotClockworkGolemMortarSpectre",
+		"ChangeToStance1Heist",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+

@@ -4728,7 +4728,7 @@ skills["EmptyActionSpellSecretPoliceDaggers"] = {
 	},
 }
 skills["BetrayalSecretPoliceCurveDagger1"] = {
-	name = "Secret Police Dagger 1",
+	name = "Secret Police Daggers",
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 1.5,
@@ -4760,17 +4760,17 @@ skills["BetrayalSecretPoliceCurveDagger1"] = {
 		[2] = { -20, 1500, 20, 50, 0, 0, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
 	},
 }
-skills["BetrayalSecretPoliceCurveDagger2"] = {
-	name = "Secret Police Dagger 2",
+skills["MPSHeistRobotClockworkGolemBasicProjectile"] = {
+	name = "Frost Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 1.5,
-	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, },
+	baseEffectiveness = 3.2000000476837,
+	incrementalEffectiveness = 0.041999999433756,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
-		attack = true,
+		spell = true,
 		projectile = true,
 		triggerable = true,
 	},
@@ -4779,50 +4779,49 @@ skills["BetrayalSecretPoliceCurveDagger2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"lunaris_glaive_angle",
-		"lunaris_glaive_acceleration_x",
-		"active_skill_attack_speed_+%_final",
-		"melee_weapon_range_+",
-		"active_skill_damage_+%_final",
-		"base_projectile_speed_+%",
+		"monster_projectile_variation",
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"spell_maximum_action_distance_+%",
 		"base_is_projectile",
+		"use_scaled_contact_offset",
 		"projectile_uses_contact_position",
 	},
 	levels = {
-		[1] = { -10, 1500, 20, 50, -50, 0, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
-		[2] = { -10, 1500, 20, 50, 0, 0, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
+		[1] = { 163, 0.80000001192093, 1.2000000476837, -50, levelRequirement = 0, statInterpolation = { 1, 3, 3, 1, }, },
 	},
 }
-skills["BetrayalSecretPoliceCurveDagger3"] = {
-	name = "Secret Police Dagger 3",
+skills["MMSHeistRobotClockworkGolemMortarSpectre"] = {
+	name = "Frost Mortar",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 1.5,
-	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, },
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
-		attack = true,
-		projectile = true,
+		spell = true,
+		hit = true,
 		triggerable = true,
+		area = true,
+		projectile = true,
 	},
 	baseMods = {
 	},
 	qualityStats = {
 	},
 	stats = {
-		"lunaris_glaive_angle",
-		"lunaris_glaive_acceleration_x",
-		"active_skill_attack_speed_+%_final",
-		"melee_weapon_range_+",
-		"active_skill_damage_+%_final",
-		"base_projectile_speed_+%",
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"spell_maximum_action_distance_+%",
+		"is_area_damage",
 		"base_is_projectile",
 		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { 0, 1500, 20, 50, -50, 0, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
-		[2] = { 0, 1500, 20, 50, 0, 0, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -35, cooldown = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
