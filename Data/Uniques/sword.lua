@@ -214,8 +214,7 @@ Implicits: 1
 Unholy Might
 (20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
 Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand
-Summoned Skeleton Warriors deal Triple Damage with this
-Weapon if you've Hit with this Weapon Recently
+Summoned Skeleton Warriors deal Triple Damage with this Weapon if you've Hit with this Weapon Recently
 ]],[[
 Lakishu's Blade
 Elegant Sword

@@ -502,6 +502,24 @@ function calcs.initEnv(build, mode, override)
 						env.modDB:ScaleAddMod(mod, scale)
 					end
 				end
+			elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
+				-- Special handling for The Iron Mass
+				env.theIronMass = new("ModList")
+				for _, mod in ipairs(srcList) do
+					-- Filter out mods that apply to socketed gems, or which add supports
+					local add = true
+					for _, tag in ipairs(mod) do
+						if tag.type == "SocketedIn" then
+							add = false
+							break
+						end
+					end
+					if add then
+						env.theIronMass:ScaleAddMod(mod, scale)
+					else
+						env.modDB:ScaleAddMod(mod, scale)
+					end
+				end
 			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 				-- Special handling for The Dancing Dervish
 				env.weaponModList1 = new("ModList")
