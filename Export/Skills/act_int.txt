@@ -835,6 +835,9 @@ local skills, mod, flag, skill = ...
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
 			flag("ImprovedSpellDamageAppliesToAttacks"),
 		},
+		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
+			mod("CastSpeedAppliesToAttackSpeed", "BASE", nil),
+		},
 	},
 #mods
 
