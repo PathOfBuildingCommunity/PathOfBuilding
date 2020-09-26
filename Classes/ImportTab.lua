@@ -809,7 +809,6 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	local itemSocketGroupList = { }
 	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
-		ConPrintf("socketed item id="..socketedItem.id..", name="..socketedItem.name..", typeline="..socketedItem.typeLine)
 		if socketedItem.abyssJewel then
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
