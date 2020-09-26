@@ -585,10 +585,7 @@ function calcs.perform(env)
 		if env.theIronMass and env.minion.type == "RaisedSkeleton" then
 			env.minion.itemList["Weapon 1"] = env.player.itemList["Weapon 1"]
 			env.minion.modDB:AddList(env.theIronMass)
-			-- if player hit recently, minions deal triple damage
-			if env.player.modDB.conditions["HitRecently"] then
-				env.minion.modDB:NewMod("Damage", "MORE", 300, "The Iron Mass Triple Damage")
-			end
+			env.minion.modDB:NewMod("TripleDamageChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "HitRecentlyWithWeapon" })
 		end
 		if env.player.mainSkill.skillData.minionUseBowAndQuiver then
 			if env.player.weaponData1.type == "Bow" then

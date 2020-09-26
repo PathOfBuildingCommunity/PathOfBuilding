@@ -516,9 +516,9 @@ function calcs.initEnv(build, mode, override)
 					end
 					if add then
 						env.theIronMass:ScaleAddMod(mod, scale)
-					else
-						env.modDB:ScaleAddMod(mod, scale)
 					end
+					-- Add all the stats to player as well
+					env.modDB:ScaleAddMod(mod, scale)
 				end
 			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 				-- Special handling for The Dancing Dervish

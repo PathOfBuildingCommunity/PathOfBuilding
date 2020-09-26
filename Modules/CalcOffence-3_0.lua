@@ -1630,7 +1630,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate chance and multiplier for dealing triple damage on Normal and Crit
 		output.TripleDamageChanceOnCrit = m_min(skillModList:Sum("BASE", cfg, "TripleDamageChanceOnCrit"), 100)
 		output.TripleDamageChance = m_min(skillModList:Sum("BASE", cfg, "TripleDamageChance") or 0 + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfTripleDamageChance") or 0) + (output.TripleDamageChanceOnCrit * output.CritChance / 100), 100)
-		output.TripleDamageEffect = 1 + output.TripleDamageChance / 100
+		output.TripleDamageEffect = 1 + (2 * output.TripleDamageChance / 100)
 		output.ScaledDamageEffect = output.ScaledDamageEffect * output.TripleDamageEffect
 
 		-- Calculate chance and multiplier for dealing double damage on Normal and Crit
@@ -1718,10 +1718,10 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(breakdown[damageType], s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
 						end
 						if output.TripleDamageEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(chance to deal triple damage)", output.TripleDamageEffect))
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(multiplier from %.2f%% chance to deal triple damage)", output.TripleDamageEffect, output.TripleDamageChance))
 						end
 						if output.DoubleDamageEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(chance to deal double damage)", output.DoubleDamageEffect))
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(multiplier from %.2f%% chance to deal double damage)", output.DoubleDamageEffect, output.DoubleDamageChance))
 						end
 						if output.RuthlessBlowEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
