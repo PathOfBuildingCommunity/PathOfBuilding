@@ -182,3 +182,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
 -- Syndicate Operative
 #spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_
+-- Frost Auto-Scout
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre
