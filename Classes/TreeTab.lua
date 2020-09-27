@@ -618,7 +618,8 @@ function TreeTabClass:ShowPowerReport()
 				id = nodeId,
 				x = node.x,
 				y = node.y,
-				type = node.type
+				type = node.type,
+				pathDist = node.pathDist
 			})
 		end
 	end
