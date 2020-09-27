@@ -2913,3 +2913,26 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = 
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+-- Syndicate Operative
+minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
+	name = "Syndicate Operative",
+	life = 2.1,
+	energyShield = 0.08,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.12,
+	damageSpread = 0.2,
+	attackTime = 0.6,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"WalkEmergeBetrayal",
+		"BetrayalSecretPoliceCurveDagger1",
+		"EmptyActionSpellSecretPoliceDaggers",
+	},
+	modList = {
+	},
+}

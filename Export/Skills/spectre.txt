@@ -757,3 +757,11 @@ local skills, mod, flag, skill = ...
 #skill MMSHeistRobotClockworkGolemMortarSpectre Frost Mortar
 #flags spell hit triggerable area projectile
 #mods
+
+#skill EmptyActionSpellSecretPoliceDaggers Dagger Trigger Spell
+#flags spell
+#mods
+
+#skill BetrayalSecretPoliceCurveDagger1 Secret Police Daggers
+#flags attack projectile triggerable
+#mods
