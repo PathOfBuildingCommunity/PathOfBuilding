@@ -4554,10 +4554,22 @@ skills["DoomBlast"] = {
 	},
 	baseMods = {
 		skill("showAverage", true),
-		flag("ChaosCanIgnite"),
-		flag("ChaosCanChill"),
-		flag("ChaosCanShock"),
 		flag("ChaosDamageUsesLowestResistance"),
+		-- All damage can Ignite
+		flag("PhysicalCanIgnite"),
+		flag("LightningCanIgnite"),
+		flag("ColdCanIgnite"),
+		flag("ChaosCanIgnite"),
+		-- All damage can Freeze
+		flag("PhysicalCanFreeze"),
+		flag("LightningCanFreeze"),
+		flag("FireCanFreeze"),
+		flag("ChaosCanFreeze"),
+		-- All damage can Shock
+		flag("PhysicalCanShock"),
+		flag("ColdCanShock"),
+		flag("FireCanShock"),
+		flag("ChaosCanShock"),
 	},
 	qualityStats = {
 		Default = {
