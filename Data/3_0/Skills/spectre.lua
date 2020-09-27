@@ -4743,7 +4743,7 @@ skills["MPWHeistThugRangedBurningArrow"] = {
 	},
 }
 skills["HeistThugRangedExplosiveArrow"] = {
-	name = "Explosive Arrow",
+	name = "Explosive Arrow (20 Fuses)",
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 1.5,
@@ -4755,6 +4755,24 @@ skills["HeistThugRangedExplosiveArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil),
+		},
+		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil),
+		},
+		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_explosion_base_damage_+permyriad"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+			div = 100,
+		},
+		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -4764,6 +4782,10 @@ skills["HeistThugRangedExplosiveArrow"] = {
 		triggerable = true,
 	},
 	baseMods = {
+		skill("radius", 15),
+		skill("showAverage", true),
+		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20),
 	},
 	qualityStats = {
 	},
@@ -4794,6 +4816,7 @@ skills["GAHeistThugRangedArrowShotgun"] = {
 	baseFlags = {
 		attack = true,
 		hit = true,
+		area = true,
 		triggerable = true,
 	},
 	baseMods = {
@@ -4819,6 +4842,7 @@ skills["GAHeistThugRangedShotgun"] = {
 	baseFlags = {
 		attack = true,
 		hit = true,
+		area = true,
 		triggerable = true,
 	},
 	baseMods = {
