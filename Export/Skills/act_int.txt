@@ -804,6 +804,16 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 	},
+	parts = {
+		{
+			name = "Target",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
 #baseMod skill("showAverage", true)
 #baseMod flag("ChaosDamageUsesLowestResistance")
 #baseMod flag("PhysicalCanIgnite")
