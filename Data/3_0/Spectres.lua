@@ -2961,7 +2961,6 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 	modList = {
 	},
 }
-
 -- Artless Assassin
 minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 	name = "Artless Assassin",
