@@ -319,6 +319,9 @@ skills["AncestralCry"] = {
 		["ancestral_cry_max_physical_damage_reduction_rating"] = {
 			mod("AncestralArmourMax", "BASE", nil),
 		},
+		["physical_damage_reduction_rating_+%"] = {
+			mod("AncestralArmourMax", "INC", nil),
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -824,6 +827,9 @@ skills["Berserk"] = {
 		["attack_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["berserk_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -921,6 +927,9 @@ skills["Bladestorm"] = {
 	statMap = {
 		["bladestorm_storm_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["bladestorm_blood_stance_ailment_damage_+%"] = {
+			mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 2 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance" }),
 		},
 		["bladestorm_attack_speed_+%_final_while_in_bloodstorm"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
@@ -1028,6 +1037,18 @@ skills["BloodSandStance"] = {
 		["blood_sand_stance_melee_skills_area_damage_+%_final_in_sand_stance"] = {
 			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"}, { type = "SkillType", skillType = SkillType.Melee })
 		},
+		["projectile_attack_damage_+%_in_blood_stance"] = {
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"})
+		},
+		["projectile_speed_+%_in_sand_stance"] = {
+			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"})
+		},
+		["spell_area_damage_+%_in_blood_stance"] = {
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Area, ModFlag.Spell), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"})
+		},
+		["spell_area_of_effect_+%_in_sand_stance"] = {
+			mod("AreaOfEffect", "INC", nil, bit.bor(ModFlag.Area, ModFlag.Spell), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"})
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1040,14 +1061,10 @@ skills["BloodSandStance"] = {
 		},
 		Alternate1 = {
 			{ "projectile_attack_damage_+%_in_blood_stance", 1 },
-		},
-		Alternate1 = {
 			{ "projectile_speed_+%_in_sand_stance", 1 },
 		},
 		Alternate2 = {
 			{ "spell_area_damage_+%_in_blood_stance", 1 },
-		},
-		Alternate2 = {
 			{ "spell_area_of_effect_+%_in_sand_stance", 0.5 },
 		},
 	},
@@ -1645,6 +1662,11 @@ skills["DominatingBlow"] = {
 	minionList = {
 		"AxisEliteSoldierDominatingBlow",
 	},
+	statMap = {
+		["sentinel_minion_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		}
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1751,8 +1773,6 @@ skills["PuresteelBanner"] = {
 		},
 		Alternate1 = {
 			{ "puresteel_banner_damage_+%_final", -0.1 },
-		},
-		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -3 },
 		},
 		Alternate2 = {
@@ -1849,6 +1869,12 @@ skills["Earthquake"] = {
 		["earthquake_aftershock_maximum_added_physical_damage"] = {
 			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["earthquake_initial_slam_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
+		},
+		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+			-- mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil)
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -1867,8 +1893,6 @@ skills["Earthquake"] = {
 		},
 		Alternate1 = {
 			{ "damage_+%", 3 },
-		},
-		Alternate1 = {
 			{ "skill_effect_duration_+%", 1 },
 		},
 		Alternate2 = {
@@ -2058,6 +2082,15 @@ skills["SpikeSlam"] = {
 		["active_skill_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
 		},
+		["spike_slam_fissure_length_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
+		},
+		["spike_slam_fissure_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spike_slam_spike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -2080,8 +2113,6 @@ skills["SpikeSlam"] = {
 		},
 		Alternate3 = {
 			{ "spike_slam_fissure_damage_+%_final", 3 },
-		},
-		Alternate3 = {
 			{ "spike_slam_spike_damage_+%_final", -3 },
 		},
 	},
@@ -2170,8 +2201,6 @@ skills["EnduringCry"] = {
 		},
 		Alternate2 = {
 			{ "skill_buff_effect_+%", 1 },
-		},
-		Alternate2 = {
 			{ "base_cooldown_speed_+%", -2 },
 		},
 	},
@@ -2238,6 +2267,13 @@ skills["BloodSandArmour"] = {
 	statMap = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
+		},
+		["evasion_and_physical_damage_reduction_rating_+%"] = {
+			mod("Evasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Armor", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["damage_+%_if_changed_stances_recently"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff"}, { type = "Condition", var = "ChangedStanceRecently" })
 		},
 	},
 	baseFlags = {
@@ -2678,8 +2714,6 @@ skills["GroundSlam"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -2687,8 +2721,6 @@ skills["GroundSlam"] = {
 		},
 		Alternate2 = {
 			{ "base_skill_area_of_effect_+%", 3 },
-		},
-		Alternate2 = {
 			{ "ground_slam_angle_+%", -2 },
 		},
 	},
@@ -2776,8 +2808,6 @@ skills["VaalGroundSlam"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
 	},
@@ -2865,8 +2895,6 @@ skills["HeavyStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Default = {
 			{ "damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -2968,8 +2996,6 @@ skills["HeraldOfAsh"] = {
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", -1 },
-		},
-		Alternate1 = {
 			{ "burn_damage_+%", 3 },
 		},
 		Alternate2 = {
@@ -3047,6 +3073,9 @@ skills["HeraldOfPurity"] = {
 		["herald_of_purity_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["sentinel_minion_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -3147,8 +3176,6 @@ skills["FlameTotem"] = {
 		},
 		Alternate3 = {
 			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate3 = {
 			{ "totem_duration_+%", 1 },
 		},
 	},
@@ -3243,6 +3270,9 @@ skills["IceCrash"] = {
 		},
 	},
 	statMap = {
+		["ice_crash_first_stage_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
 		["ice_crash_second_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
@@ -3270,8 +3300,6 @@ skills["IceCrash"] = {
 		},
 		Alternate3 = {
 			{ "ice_crash_first_stage_damage_+%_final", -2 },
-		},
-		Alternate3 = {
 			{ "ice_crash_third_hit_damage_+%_final", 1.5 },
 		},
 	},
@@ -3360,8 +3388,6 @@ skills["ImmortalCall"] = {
 		},
 		Alternate2 = {
 			{ "mortal_call_physical_damage_taken_per_endurance_charge_consumed_final_permyriad", 10 },
-		},
-		Alternate2 = {
 			{ "immortal_call_elemental_damage_taken_+%_final_per_endurance_charge_consumed", -0.1 },
 		},
 	},
@@ -3523,8 +3549,6 @@ skills["InfernalBlow"] = {
 		},
 		Alternate2 = {
 			{ "burn_damage_+%", 3 },
-		},
-		Alternate2 = {
 			{ "base_chance_to_ignite_%", 1 },
 		},
 		Alternate3 = {
@@ -3597,6 +3621,10 @@ skills["IntimidatingCry"] = {
 		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
 			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
+		["exerted_attacks_overwhelm_%_physical_damage_reduction"] = {
+			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
+		}
 	},
 	baseFlags = {
 		warcry = true,
@@ -3786,6 +3814,9 @@ skills["MoltenShell"] = {
 		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
 			skill("moltenShellReflect", nil),
 		},
+		["molten_shell_explosion_damage_penetrates_%_fire_resistance"] = {
+			mod("FirePenetration", "BASE", nil)
+		}
 	},
 	baseFlags = {
 		hit = true,
@@ -4102,10 +4133,10 @@ skills["BloodSpears"] = {
 			mod("Multiplier:PerforateMaxSpikes", "BASE", nil),
 		},
 		["blood_spears_damage_+%_final_in_blood_stance"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" })
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" }),
 		},
 		["blood_spears_additional_number_of_spears_if_changed_stance_recently"] = {
-			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently"}),
+			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently" }),
 		},
 	},
 	baseFlags = {
@@ -4130,8 +4161,6 @@ skills["BloodSpears"] = {
 		},
 		Alternate3 = {
 			{ "blood_spears_base_number_of_spears", -0.05 },
-		},
-		Alternate3 = {
 			{ "blood_spears_additional_number_of_spears_if_changed_stance_recently", 0.1 },
 		},
 	},
@@ -4147,46 +4176,46 @@ skills["BloodSpears"] = {
 		"console_skill_dont_chase",
 	},
 	levels = {
-		[1] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 0, baseMultiplier = 1.25, manaCost = 6, damageEffectiveness = 1.25, attackSpeedMultiplier = -20, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[2] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 4, baseMultiplier = 1.274, manaCost = 6, damageEffectiveness = 1.27, attackSpeedMultiplier = -20, levelRequirement = 2, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[3] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 8, baseMultiplier = 1.297, manaCost = 6, damageEffectiveness = 1.3, attackSpeedMultiplier = -20, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[4] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 12, baseMultiplier = 1.321, manaCost = 6, damageEffectiveness = 1.32, attackSpeedMultiplier = -20, levelRequirement = 7, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[5] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 16, baseMultiplier = 1.345, manaCost = 6, damageEffectiveness = 1.34, attackSpeedMultiplier = -20, levelRequirement = 11, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[6] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 20, baseMultiplier = 1.368, manaCost = 6, damageEffectiveness = 1.37, attackSpeedMultiplier = -20, levelRequirement = 16, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[7] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 24, baseMultiplier = 1.392, manaCost = 6, damageEffectiveness = 1.39, attackSpeedMultiplier = -20, levelRequirement = 20, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[8] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 28, baseMultiplier = 1.416, manaCost = 6, damageEffectiveness = 1.42, attackSpeedMultiplier = -20, levelRequirement = 24, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[9] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 32, baseMultiplier = 1.439, manaCost = 6, damageEffectiveness = 1.44, attackSpeedMultiplier = -20, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[10] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 36, baseMultiplier = 1.463, manaCost = 6, damageEffectiveness = 1.46, attackSpeedMultiplier = -20, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[11] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 40, baseMultiplier = 1.487, manaCost = 6, damageEffectiveness = 1.49, attackSpeedMultiplier = -20, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[12] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 44, baseMultiplier = 1.511, manaCost = 6, damageEffectiveness = 1.51, attackSpeedMultiplier = -20, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[13] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 48, baseMultiplier = 1.534, manaCost = 6, damageEffectiveness = 1.53, attackSpeedMultiplier = -20, levelRequirement = 44, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[14] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 52, baseMultiplier = 1.558, manaCost = 6, damageEffectiveness = 1.56, attackSpeedMultiplier = -20, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[15] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 56, baseMultiplier = 1.582, manaCost = 6, damageEffectiveness = 1.58, attackSpeedMultiplier = -20, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[16] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 60, baseMultiplier = 1.605, manaCost = 6, damageEffectiveness = 1.61, attackSpeedMultiplier = -20, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[17] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 64, baseMultiplier = 1.629, manaCost = 6, damageEffectiveness = 1.63, attackSpeedMultiplier = -20, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[18] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 68, baseMultiplier = 1.653, manaCost = 6, damageEffectiveness = 1.65, attackSpeedMultiplier = -20, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[19] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 72, baseMultiplier = 1.676, manaCost = 6, damageEffectiveness = 1.68, attackSpeedMultiplier = -20, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[20] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 76, baseMultiplier = 1.7, manaCost = 6, damageEffectiveness = 1.7, attackSpeedMultiplier = -20, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[21] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 80, baseMultiplier = 1.724, manaCost = 6, damageEffectiveness = 1.72, attackSpeedMultiplier = -20, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[22] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 84, baseMultiplier = 1.747, manaCost = 6, damageEffectiveness = 1.75, attackSpeedMultiplier = -20, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[23] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 88, baseMultiplier = 1.771, manaCost = 6, damageEffectiveness = 1.77, attackSpeedMultiplier = -20, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[24] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 92, baseMultiplier = 1.795, manaCost = 6, damageEffectiveness = 1.79, attackSpeedMultiplier = -20, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[25] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 96, baseMultiplier = 1.818, manaCost = 6, damageEffectiveness = 1.82, attackSpeedMultiplier = -20, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[26] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 100, baseMultiplier = 1.842, manaCost = 6, damageEffectiveness = 1.84, attackSpeedMultiplier = -20, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[27] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 104, baseMultiplier = 1.866, manaCost = 6, damageEffectiveness = 1.87, attackSpeedMultiplier = -20, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[28] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 108, baseMultiplier = 1.889, manaCost = 6, damageEffectiveness = 1.89, attackSpeedMultiplier = -20, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[29] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 112, baseMultiplier = 1.913, manaCost = 6, damageEffectiveness = 1.91, attackSpeedMultiplier = -20, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[30] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 116, baseMultiplier = 1.937, manaCost = 6, damageEffectiveness = 1.94, attackSpeedMultiplier = -20, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[31] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 118, baseMultiplier = 1.949, manaCost = 6, damageEffectiveness = 1.95, attackSpeedMultiplier = -20, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[32] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 120, baseMultiplier = 1.961, manaCost = 6, damageEffectiveness = 1.96, attackSpeedMultiplier = -20, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[33] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 122, baseMultiplier = 1.972, manaCost = 6, damageEffectiveness = 1.97, attackSpeedMultiplier = -20, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[34] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 124, baseMultiplier = 1.984, manaCost = 6, damageEffectiveness = 1.98, attackSpeedMultiplier = -20, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[35] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 126, baseMultiplier = 1.996, manaCost = 6, damageEffectiveness = 2, attackSpeedMultiplier = -20, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[36] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 128, baseMultiplier = 2.008, manaCost = 6, damageEffectiveness = 2.01, attackSpeedMultiplier = -20, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[37] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 130, baseMultiplier = 2.02, manaCost = 6, damageEffectiveness = 2.02, attackSpeedMultiplier = -20, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[38] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 132, baseMultiplier = 2.032, manaCost = 6, damageEffectiveness = 2.03, attackSpeedMultiplier = -20, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[39] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 134, baseMultiplier = 2.043, manaCost = 6, damageEffectiveness = 2.04, attackSpeedMultiplier = -20, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
-		[40] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 136, baseMultiplier = 2.055, manaCost = 6, damageEffectiveness = 2.06, attackSpeedMultiplier = -20, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, }, },
+		[1] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 0, baseMultiplier = 1.25, manaCost = 6, damageEffectiveness = 1.25, attackSpeedMultiplier = -20, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[2] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 4, baseMultiplier = 1.274, manaCost = 6, damageEffectiveness = 1.27, attackSpeedMultiplier = -20, levelRequirement = 2, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[3] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 8, baseMultiplier = 1.297, manaCost = 6, damageEffectiveness = 1.3, attackSpeedMultiplier = -20, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[4] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 12, baseMultiplier = 1.321, manaCost = 6, damageEffectiveness = 1.32, attackSpeedMultiplier = -20, levelRequirement = 7, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[5] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 16, baseMultiplier = 1.345, manaCost = 6, damageEffectiveness = 1.34, attackSpeedMultiplier = -20, levelRequirement = 11, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[6] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 20, baseMultiplier = 1.368, manaCost = 6, damageEffectiveness = 1.37, attackSpeedMultiplier = -20, levelRequirement = 16, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[7] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 24, baseMultiplier = 1.392, manaCost = 6, damageEffectiveness = 1.39, attackSpeedMultiplier = -20, levelRequirement = 20, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[8] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 28, baseMultiplier = 1.416, manaCost = 6, damageEffectiveness = 1.42, attackSpeedMultiplier = -20, levelRequirement = 24, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[9] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 32, baseMultiplier = 1.439, manaCost = 6, damageEffectiveness = 1.44, attackSpeedMultiplier = -20, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[10] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 36, baseMultiplier = 1.463, manaCost = 6, damageEffectiveness = 1.46, attackSpeedMultiplier = -20, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[11] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 40, baseMultiplier = 1.487, manaCost = 6, damageEffectiveness = 1.49, attackSpeedMultiplier = -20, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[12] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 44, baseMultiplier = 1.511, manaCost = 6, damageEffectiveness = 1.51, attackSpeedMultiplier = -20, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[13] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 48, baseMultiplier = 1.534, manaCost = 6, damageEffectiveness = 1.53, attackSpeedMultiplier = -20, levelRequirement = 44, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[14] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 52, baseMultiplier = 1.558, manaCost = 6, damageEffectiveness = 1.56, attackSpeedMultiplier = -20, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[15] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 56, baseMultiplier = 1.582, manaCost = 6, damageEffectiveness = 1.58, attackSpeedMultiplier = -20, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[16] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 60, baseMultiplier = 1.605, manaCost = 6, damageEffectiveness = 1.61, attackSpeedMultiplier = -20, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[17] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 64, baseMultiplier = 1.629, manaCost = 6, damageEffectiveness = 1.63, attackSpeedMultiplier = -20, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[18] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 68, baseMultiplier = 1.653, manaCost = 6, damageEffectiveness = 1.65, attackSpeedMultiplier = -20, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[19] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 72, baseMultiplier = 1.676, manaCost = 6, damageEffectiveness = 1.68, attackSpeedMultiplier = -20, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[20] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 76, baseMultiplier = 1.7, manaCost = 6, damageEffectiveness = 1.7, attackSpeedMultiplier = -20, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[21] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 80, baseMultiplier = 1.724, manaCost = 6, damageEffectiveness = 1.72, attackSpeedMultiplier = -20, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[22] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 84, baseMultiplier = 1.747, manaCost = 6, damageEffectiveness = 1.75, attackSpeedMultiplier = -20, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[23] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 88, baseMultiplier = 1.771, manaCost = 6, damageEffectiveness = 1.77, attackSpeedMultiplier = -20, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[24] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 92, baseMultiplier = 1.795, manaCost = 6, damageEffectiveness = 1.79, attackSpeedMultiplier = -20, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[25] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 96, baseMultiplier = 1.818, manaCost = 6, damageEffectiveness = 1.82, attackSpeedMultiplier = -20, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[26] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 100, baseMultiplier = 1.842, manaCost = 6, damageEffectiveness = 1.84, attackSpeedMultiplier = -20, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[27] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 104, baseMultiplier = 1.866, manaCost = 6, damageEffectiveness = 1.87, attackSpeedMultiplier = -20, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[28] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 108, baseMultiplier = 1.889, manaCost = 6, damageEffectiveness = 1.89, attackSpeedMultiplier = -20, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[29] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 112, baseMultiplier = 1.913, manaCost = 6, damageEffectiveness = 1.91, attackSpeedMultiplier = -20, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[30] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 116, baseMultiplier = 1.937, manaCost = 6, damageEffectiveness = 1.94, attackSpeedMultiplier = -20, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[31] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 118, baseMultiplier = 1.949, manaCost = 6, damageEffectiveness = 1.95, attackSpeedMultiplier = -20, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[32] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 120, baseMultiplier = 1.961, manaCost = 6, damageEffectiveness = 1.96, attackSpeedMultiplier = -20, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[33] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 122, baseMultiplier = 1.972, manaCost = 6, damageEffectiveness = 1.97, attackSpeedMultiplier = -20, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[34] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 124, baseMultiplier = 1.984, manaCost = 6, damageEffectiveness = 1.98, attackSpeedMultiplier = -20, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[35] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 126, baseMultiplier = 1.996, manaCost = 6, damageEffectiveness = 2, attackSpeedMultiplier = -20, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[36] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 128, baseMultiplier = 2.008, manaCost = 6, damageEffectiveness = 2.01, attackSpeedMultiplier = -20, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[37] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 130, baseMultiplier = 2.02, manaCost = 6, damageEffectiveness = 2.02, attackSpeedMultiplier = -20, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[38] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 132, baseMultiplier = 2.032, manaCost = 6, damageEffectiveness = 2.03, attackSpeedMultiplier = -20, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[39] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 134, baseMultiplier = 2.043, manaCost = 6, damageEffectiveness = 2.04, attackSpeedMultiplier = -20, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
+		[40] = { 7, -75, 2, 50, 0.80000001192093, 1.2000000476837, 136, baseMultiplier = 2.055, manaCost = 6, damageEffectiveness = 2.06, attackSpeedMultiplier = -20, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, }, },
 	},
 }
 skills["PhysicalDamageAura"] = {
@@ -4202,6 +4231,12 @@ skills["PhysicalDamageAura"] = {
 		},
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
+		},
+		["receive_bleeding_chance_%_when_hit_by_attack"] = {
+			mod("BleedChance", "BASE", nil, ModFlag.Attack, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+		},
+		["base_additional_physical_damage_reduction_%"] = {
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 	baseFlags = {
@@ -4279,11 +4314,8 @@ skills["Punishment"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["newpunishment_attack_speed_+%"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff" }),
-		},
-		["newpunishment_melee_damage_+%_final"] = {
-			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "CurseBuff" }),
+		["damage_taken_+%_on_low_life"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "CurseBuff" }, { type = "ActorCondition", actor = "enemy", var="LowLife" }),
 		},
 	},
 	baseFlags = {
@@ -4291,10 +4323,13 @@ skills["Punishment"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
+		mod("DebilitateChance", "BASE", 100),
 	},
 	qualityStats = {
 		Default = {
@@ -4372,6 +4407,12 @@ skills["FireResistAura"] = {
 		},
 		["base_maximum_fire_damage_resistance_%"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_avoid_ignite_%"] = {
+			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["base_reduce_enemy_fire_resistance_%"] = {
+			mod("FirePenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -4539,7 +4580,7 @@ skills["RallyingCry"] = {
 		},
 		["rallying_cry_weapon_damage_%_for_allies_per_5_monster_power"] = {
 			mod("RallyingCryAllyDamageBonusPer5Power", "BASE", nil),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "NearbyAlly"}),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "NearbyAlly" }),
 		},
 		["rallying_cry_buff_effect_on_minions_+%_final"] = {
 			mod("RallyingCryMinionDamageBonusMultiplier", "BASE", nil),
@@ -4644,6 +4685,11 @@ skills["Reckoning"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["debilitate_enemies_for_1_second_on_hit_%_chance"] = {
+			mod("DebilitateChance", "BASE", nil)
+		},
+	},
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -4904,6 +4950,10 @@ skills["SeismicCry"] = {
 		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
 			mod("SeismicStunThresholdPer5MP", "BASE", nil),
 		},
+		["exerted_attack_knockback_chance_%"] = {
+			-- Not limited to exerted but should be okay because the cry will flag them as exerted
+			mod("EnemyKnockbackChance", "BASE", nil),
+		}
 	},
 	baseFlags = {
 		warcry = true,
@@ -5104,8 +5154,6 @@ skills["ShockwaveTotem"] = {
 		},
 		Alternate1 = {
 			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -5199,6 +5247,9 @@ skills["Smite"] = {
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["skill_buff_grants_attack_and_cast_speed_"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -5316,10 +5367,14 @@ skills["StaticStrike"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
 		},
+		["static_strike_zap_speed_+%"] = {
+			skill("repeatFrequencyIncrease", nil),
+			div = 100
+		},
 	},
 preDamageFunc = function(activeSkill, output)
 	if activeSkill.skillPart == 2 then
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency * ((activeSkill.skillData.repeatFrequencyIncrease or 0) + 1)
 	end
 end,
 	baseFlags = {
@@ -5339,14 +5394,10 @@ end,
 		},
 		Alternate2 = {
 			{ "number_of_chains", 0.05 },
-		},
-		Alternate2 = {
 			{ "damage_+%", -2 },
 		},
 		Alternate3 = {
 			{ "static_strike_zap_speed_+%", 1 },
-		},
-		Alternate3 = {
 			{ "base_skill_area_of_effect_+%", -1 },
 		},
 	},
@@ -5410,6 +5461,11 @@ skills["QuickGuard"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["resist_all_%"] = {
+			mod("ElementalResist", "BASE", nil)
+		}
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -5504,8 +5560,6 @@ skills["SummonFireGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -5595,8 +5649,6 @@ skills["SummonRockGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -5694,6 +5746,12 @@ skills["NewSunder"] = {
 		["sunder_wave_radius_+_per_step"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "SunderWaveArea" }),
 		},
+		["sunder_shockwave_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["sunder_wave_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} }),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -5716,8 +5774,6 @@ skills["NewSunder"] = {
 		},
 		Alternate3 = {
 			{ "sunder_shockwave_area_of_effect_+%", -1 },
-		},
-		Alternate3 = {
 			{ "sunder_wave_area_of_effect_+%", 1 },
 		},
 	},
@@ -5887,6 +5943,10 @@ skills["EnduranceChargeSlam"] = {
 		["active_skill_area_of_effect_+%_final_per_endurance_charge"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
+		["base_life_leech_from_fire_damage_permyriad"] = {
+			mod("FireDamageLifeLeech", "BASE", nil),
+			div = 100,
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -5905,8 +5965,6 @@ skills["EnduranceChargeSlam"] = {
 		},
 		Alternate1 = {
 			{ "burn_damage_+%", 3 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_ignite_%", 1 },
 		},
 		Alternate2 = {
@@ -5990,6 +6048,12 @@ skills["Vengeance"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["gain_rage_on_hit_%_chance"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
+		}
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -6159,9 +6223,12 @@ skills["Vitality"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["life_regeneration_rate_per_minute_%"] = {
-			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			div = 60,
+		},
+		["damage_+%_when_on_full_life"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "FullLife" })
 		},
 	},
 	baseFlags = {
@@ -6242,8 +6309,10 @@ skills["Vulnerability"] = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_physical_damage_over_time_taken_+%"] = {
-			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -6254,10 +6323,12 @@ skills["Vulnerability"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -6336,19 +6407,15 @@ skills["WarlordsMark"] = {
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_stun_recovery_+%"] = {
-			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -6441,8 +6508,6 @@ skills["BloodstainedBanner"] = {
 		},
 		Alternate1 = {
 			{ "accuracy_rating_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -3 },
 		},
 		Alternate2 = {

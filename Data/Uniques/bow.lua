@@ -231,6 +231,21 @@ Implicits: 1
 {variant:1,2}Cannot Leech
 {variant:3,4,5}Cannot Leech Life
 ]],[[
+Replica Infractem
+Decimation Bow
+League: Heist
+Requires Level 53, 170 Dex
+Implicits: 1
+(30-50)% increased Critical Strike Chance
++(20-30) to Dexterity
+(110-125)% increased Physical Damage
+Adds (25-35) to (36-45) Physical Damage
+10% increased Movement Speed
++(350-400) to Accuracy Rating
+Cannot Leech Mana
+Projectiles from Attacks Fork
+Projectiles from Attacks Fork an additional time
+]],[[
 Iron Commander
 Death Bow
 Requires Level 32, 107 Dex
@@ -242,6 +257,19 @@ Adds (8-12) to (16-24) Physical Damage
 (14-20)% increased Totem Placement speed
 Can have 1 additional Siege Ballista Totem per 200 Dexterity
 Adds 1 to 3 Physical Damage to Attacks per 25 Dexterity
+]],[[
+Replica Iron Commander
+Death Bow
+League: Heist
+Requires Level 32, 107 Dex
+Implicits: 1
+(30-50)% increased Critical Strike Chance
+Adds (8-12) to (16-24) Physical Damage
+(14-20)% increased Attack Speed
+(14-20)% increased Totem Life
+(14-20)% increased Totem Placement speed
+Shrapnel Ballista has +1 to maximum number of Summoned Totems per 200 Strength
+Adds 1 to 3 Physical Damage to Attacks per 25 Strength
 ]],[[
 Lioneye's Glare
 Imperial Bow
@@ -302,6 +330,18 @@ Requires Level 5, 26 Dex
 {variant:3}40% less Damage
 {variant:4}30% less Damage
 {variant:2,3,4}+2 Mana gained for each Enemy hit by Attacks
+]],[[
+Replica Quill Rain
+Short Bow
+League: Heist
+Requires Level 5, 26 Dex
+Socketed Gems are Supported by Level 1 Arrow Nova
++(10-20) to Dexterity
+100% increased Physical Damage
+(25-30)% increased Attack Speed
++2 Mana gained for each Enemy hit by Attacks
+(50-100)% increased Projectile Speed
++(25-50) to Accuracy Rating
 ]],[[
 Reach of the Council
 Spine Bow
@@ -440,6 +480,19 @@ Implicits: 2
 {variant:2,3,4,5}15% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:1}50% increased Rarity of Items Dropped by Slain Shocked enemies
 {variant:2,3,4,5}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+]],[[
+Replica Windripper
+Imperial Bow
+League: Heist
+Requires Level 66, 212 Dex
+Implicits: 1
+(20-24)% increased Elemental Damage with Attack Skills
+Adds (48-60) to (72-90) Cold Damage
+Adds 1 to (120-150) Lightning Damage
+(10-15)% increased Attack Speed
+(30-40)% increased Critical Strike Chance
+Enemies Frozen by you take 20% increased Damage
++(90-120) Energy Shield gained on Killing a Shocked Enemy
 ]],[[
 Xoph's Inception
 Bone Bow

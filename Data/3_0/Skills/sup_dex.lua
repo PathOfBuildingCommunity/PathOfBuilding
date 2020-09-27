@@ -136,6 +136,11 @@ skills["SupportAdditionalAccuracy"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+    statMap = {
+		["attack_damage_+%_per_1000_accuracy_rating"] = {
+			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -221,8 +226,6 @@ skills["SupportArrowNova"] = {
 		},
 		Alternate2 = {
 			{ "base_projectile_speed_+%", -2 },
-		},
-		Alternate2 = {
 			{ "damage_+%", 1 },
 		},
 	},
@@ -567,6 +570,11 @@ skills["SupportCastOnCrit"] = {
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -818,6 +826,13 @@ skills["SupportCastOnDeath"] = {
 		["cast_on_death_damage_+%_final_while_dead"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["additional_critical_strike_chance_permyriad_while_dead"] = {
+			mod("CritChance", "BASE", nil),
+			div = 100
+		},
+		["skill_effect_duration_+%_while_dead"] = {
+			mod("Duration", "INC", nil),
+		},
 	},
 	baseMods = {
 	},
@@ -977,8 +992,6 @@ skills["SupportChainPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "base_projectile_speed_+%", 1 },
-		},
-		Default = {
 			{ "attack_and_cast_speed_+%", 0.5 },
 		},
 	},
@@ -1084,6 +1097,11 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["trap_trigger_radius_"] = {
+			mod("TrapTriggerAreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" } )
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -1092,8 +1110,6 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 		},
 		Alternate1 = {
 			{ "%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy", 0.5 },
-		},
-		Alternate1 = {
 			{ "%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy", 0.5 },
 		},
 		Alternate2 = {
@@ -1424,8 +1440,6 @@ skills["SupportCullingStrike"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -1512,8 +1526,6 @@ skills["SupportDeadlyAilments"] = {
 		},
 		Alternate2 = {
 			{ "dot_multiplier_+", 0.5 },
-		},
-		Alternate2 = {
 			{ "support_better_ailments_hit_damage_+%_final", -3 },
 		},
 	},
@@ -1740,8 +1752,6 @@ skills["SupportFasterProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -1749,8 +1759,6 @@ skills["SupportFasterProjectiles"] = {
 		},
 		Alternate2 = {
 			{ "base_projectile_speed_+%", 0.5 },
-		},
-		Alternate2 = {
 			{ "projectile_damage_+%", 0.5 },
 		},
 	},
@@ -1946,14 +1954,10 @@ skills["SupportGreaterMultipleProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 1 },
-		},
-		Alternate1 = {
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -2029,8 +2033,6 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 1 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 1 },
 		},
 	},
@@ -2155,6 +2157,9 @@ skills["SupportDamageAgainstChilled"] = {
 		},
 		["support_hypothermia_cold_damage_over_time_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
+		},
+		["freeze_applies_cold_resistance_+"] = {
+			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", nil, 0, 0, {type = "Condition", var = "Frozen" }) }),
 		},
 	},
 	baseMods = {
@@ -2389,14 +2394,10 @@ skills["SupportLesserMultipleProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 1 },
-		},
-		Alternate1 = {
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -2533,6 +2534,11 @@ skills["SupportManaLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["damage_+%_per_200_mana_spent_recently"] = {
+			mod("Damage", "INC", nil, 0, 0, {type = "Multiplier", div = 200, var = "ManaSpentRecently"})
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2610,8 +2616,6 @@ skills["SupportGemMirageArcher"] = {
 		},
 		Alternate1 = {
 			{ "mirage_archer_number_of_additional_projectiles", 0.1 },
-		},
-		Alternate1 = {
 			{ "support_mirage_archer_base_duration", -100 },
 		},
 		Alternate2 = {
@@ -2835,6 +2839,11 @@ skills["SupportOnslaught"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["attack_and_cast_speed_+%_during_onslaught"] = {
+			mod("Speed", "INC", nil, 0, 0, {type = "Condition", var = "Onslaught"})
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2982,6 +2991,9 @@ skills["SupportPointBlank"] = {
 	statMap = {
 		["keystone_point_blank"] = {
 			flag("PointBlank"),
+		},
+		["knockback_chance_%_at_close_range"] = {
+			mod("EnemyKnockbackChance", "BASE", nil, 0, KeywordFlag.Hit),
 		},
 	},
 	baseMods = {
@@ -3135,8 +3147,6 @@ skills["SupportAdditionalCooldown"] = {
 		},
 		Alternate1 = {
 			{ "support_added_cooldown_count_if_not_instant", 0.05 },
-		},
-		Alternate1 = {
 			{ "base_cooldown_speed_+%", -0.5 },
 		},
 		Alternate2 = {
@@ -3206,6 +3216,9 @@ skills["SupportSlowerProjectiles"] = {
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
+		["projectiles_damage_+%_to_nearby_targets"] = {
+			mod("Damage", "INC", nil, ModFlag.Projectile)
+		}
 	},
 	baseMods = {
 	},
@@ -3289,8 +3302,6 @@ skills["SupportRapidDecay"] = {
 		},
 		Alternate1 = {
 			{ "attack_and_cast_speed_+%", 0.25 },
-		},
-		Alternate1 = {
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -3364,8 +3375,6 @@ skills["SupportSwiftAfflictionPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_over_time_+%", 0.5 },
-		},
-		Default = {
 			{ "dot_multiplier_+", 0.5 },
 		},
 	},
@@ -3410,8 +3419,6 @@ skills["SupportAdditionalTrapMine"] = {
 	qualityStats = {
 		Default = {
 			{ "mine_laying_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "trap_throwing_speed_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -3419,8 +3426,6 @@ skills["SupportAdditionalTrapMine"] = {
 		},
 		Alternate2 = {
 			{ "trap_throwing_speed_+%_per_frenzy_charge", 0.1 },
-		},
-		Alternate2 = {
 			{ "mine_throwing_speed_+%_per_frenzy_charge", 0.1 },
 		},
 	},
@@ -3649,8 +3654,6 @@ skills["SupportTrapAndMineDamage"] = {
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 0.5 },
-		},
-		Alternate1 = {
 			{ "base_mana_reservation_+%", -0.5 },
 		},
 		Alternate2 = {
@@ -3736,8 +3739,6 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 		},
 		Alternate1 = {
 			{ "bleed_on_hit_with_attacks_%", 0.5 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_poison_on_hit_%", 0.5 },
 		},
 		Alternate2 = {
@@ -3956,8 +3957,6 @@ skills["SupportVoidManipulation"] = {
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 0.25 },
-		},
-		Alternate1 = {
 			{ "attack_and_cast_speed_+%", 0.25 },
 		},
 		Alternate2 = {
@@ -4145,11 +4144,6 @@ skills["SupportChaosAttacks"] = {
 	addSkillTypes = { SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["withered_on_hit_chance_%"] = {
-			flag("Condition:CanWither"),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {

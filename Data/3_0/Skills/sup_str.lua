@@ -23,8 +23,6 @@ skills["SupportAddedFireDamage"] = {
 		},
 		Alternate1 = {
 			{ "fire_damage_+%", -1 },
-		},
-		Alternate1 = {
 			{ "fire_dot_multiplier_+", 1 },
 		},
 		Alternate2 = {
@@ -222,8 +220,6 @@ skills["SupportAncestralCallPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Default = {
 			{ "extra_target_targeting_distance_+%", 1 },
 		},
 	},
@@ -491,8 +487,6 @@ skills["SupportBrutalityPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.5 },
 		},
 	},
@@ -617,8 +611,6 @@ skills["SupportBurningDamagePlus"] = {
 	qualityStats = {
 		Default = {
 			{ "burn_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "fire_dot_multiplier_+", 0.5 },
 		},
 	},
@@ -964,8 +956,6 @@ skills["SupportColdToFire"] = {
 	qualityStats = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "fire_damage_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -1270,6 +1260,9 @@ skills["EnduranceChargeOnMeleeStun"] = {
 		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
+		["damage_+%_if_lost_endurance_charge_in_past_8_seconds"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
+		}
 	},
 	baseMods = {
 	},
@@ -1464,6 +1457,9 @@ skills["AncestralSlamSupport"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
 			div = 1000,
 		},
+		["ancestral_slam_stun_threshold_reduction_+%"] = {
+			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack)
+		},
 	},
 	baseMods = {
 	},
@@ -1473,8 +1469,6 @@ skills["AncestralSlamSupport"] = {
 		},
 		Alternate1 = {
 			{ "attack_speed_+%", -1 },
-		},
-		Alternate1 = {
 			{ "damage_+%", 3 },
 		},
 		Alternate2 = {
@@ -1546,6 +1540,12 @@ skills["SupportFortify"] = {
 		},
 		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
+		},
+		["fortify_effect_+%"] = {
+			mod("FortifyEffectOnSelf", "INC", nil)
+		},
+		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
+			mod("EnemyPhysicalDamageReduction", "INC", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment), 0, { type = "Condition", var = "Fortify"}),
 		},
 	},
 	baseMods = {
@@ -1635,8 +1635,6 @@ skills["SupportGenerosity"] = {
 		},
 		Alternate2 = {
 			{ "base_aura_area_of_effect_+%", 5 },
-		},
-		Alternate2 = {
 			{ "base_mana_reservation_+%", 0.5 },
 		},
 	},
@@ -1710,8 +1708,6 @@ skills["SupportGenerosityPlus"] = {
 	qualityStats = {
 		Default = {
 			{ "base_aura_area_of_effect_+%", 2 },
-		},
-		Default = {
 			{ "supported_aura_skill_gem_level_+", 0.05 },
 		},
 	},
@@ -1759,8 +1755,6 @@ skills["SupportIncreasedDuration"] = {
 		},
 		Alternate1 = {
 			{ "base_mana_cost_-%", 1 },
-		},
-		Alternate1 = {
 			{ "skill_effect_duration_+%", -0.5 },
 		},
 		Alternate2 = {
@@ -1830,8 +1824,6 @@ skills["SupportIronGrip"] = {
 		},
 		Alternate1 = {
 			{ "attack_speed_+%", -0.5 },
-		},
-		Alternate1 = {
 			{ "damage_+%", 2 },
 		},
 		Alternate2 = {
@@ -1902,8 +1894,6 @@ skills["SupportIronWill"] = {
 		},
 		Alternate1 = {
 			{ "base_cast_speed_+%", -0.5 },
-		},
-		Alternate1 = {
 			{ "damage_+%", 2 },
 		},
 		Alternate2 = {
@@ -2242,6 +2232,11 @@ skills["SupportLifeLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["maximum_life_leech_amount_per_leech_+%"] = {
+			mod("MaxLifeLeechRate", "INC", nil)
+		}
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2317,6 +2312,9 @@ skills["SupportMaim"] = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
+		["chance_to_bleed_on_hit_%_vs_maimed"] = {
+			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", condition = "Maimed"})
+		}
 	},
 	baseMods = {
 	},
@@ -2479,8 +2477,6 @@ skills["SupportMeleePhysicalDamagePlus"] = {
 	qualityStats = {
 		Default = {
 			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "chance_to_intimidate_on_hit_%", 0.5 },
 		},
 	},
@@ -2649,6 +2645,9 @@ skills["SupportMultistrike"] = {
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
 		},
+		["multistrike_area_of_effect_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil)
+		}
 	},
 	baseMods = {
 		flag("SupportedByMultistrike"),
@@ -2659,8 +2658,6 @@ skills["SupportMultistrike"] = {
 		},
 		Alternate1 = {
 			{ "attack_speed_+%", -1 },
-		},
-		Alternate1 = {
 			{ "multistrike_area_of_effect_+%_per_repeat", 1 },
 		},
 		Alternate2 = {
@@ -2745,8 +2742,6 @@ skills["SupportMultistrikePlus"] = {
 	qualityStats = {
 		Default = {
 			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Default = {
 			{ "attack_speed_+%", 0.5 },
 		},
 	},
@@ -2885,8 +2880,6 @@ skills["SupportPulverise"] = {
 		},
 		Alternate2 = {
 			{ "support_pulverise_attack_speed_+%_final", -0.5 },
-		},
-		Alternate2 = {
 			{ "support_pulverise_melee_area_damage_+%_final", 1 },
 		},
 	},
@@ -2967,6 +2960,9 @@ skills["SupportRage"] = {
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
+		["attack_speed_+%_with_atleast_20_rage"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 20 })
+		}
 	},
 	baseMods = {
 	},
@@ -3236,8 +3232,6 @@ skills["SupportRuthless"] = {
 		},
 		Alternate2 = {
 			{ "attack_speed_+%", -1 },
-		},
-		Alternate2 = {
 			{ "support_ruthless_big_hit_damage_+%_final", 1 },
 		},
 	},
@@ -3616,8 +3610,6 @@ skills["SupportUrgentOrders"] = {
 		},
 		Alternate1 = {
 			{ "base_cooldown_speed_+%", -1 },
-		},
-		Alternate1 = {
 			{ "skill_buff_effect_+%", 0.5 },
 		},
 		Alternate2 = {

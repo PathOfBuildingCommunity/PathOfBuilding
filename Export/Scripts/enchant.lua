@@ -152,7 +152,7 @@ local skillMap = {
 	["CracklingLance"] = "Crackling Lance",
 	["SigilOfPower"] = "Sigil of Power",
 	["Hexblast"] = "Hexblast",
-	
+	["FlameWall"] = "Flame Wall",
 }
 
 local bySkill = { }

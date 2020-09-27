@@ -737,10 +737,77 @@ local skills, mod, flag, skill = ...
 #flags spell projectile triggerable
 #mods
 
+#skill HarvestCrabAbyssSlam Slam Attack
+#flags attack hit area triggerable
+#baseMod skill("showAverage", true)
+#mods
+
 #skill LegionTemplarJudgeBallLightning Ball Lightning
 #flags spell hit triggerable area projectile
 #mods
 
 #skill LegionTemplarJudgeStormCall Storm Call
 #flags spell area duration
+#mods
+
+#skill MPWHeistThugRangedBurningArrow Burning Arrow
+#flags attack projectile hit triggerable
+#mods
+
+#skill MPSHeistRobotClockworkGolemBasicProjectile Frost Projectile
+#flags spell projectile triggerable
+#mods
+
+#skill MMSHeistRobotClockworkGolemMortarSpectre Frost Mortar
+#flags spell hit triggerable area projectile
+#mods
+
+#skill HeistThugRangedExplosiveArrow Explosive Arrow (20 Fuses)
+#flags attack projectile hit area duration triggerable
+	statMap = {
+		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil),
+		},
+		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil),
+		},
+		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_explosion_base_damage_+permyriad"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+			div = 100,
+		},
+		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+	},
+#baseMod skill("radius", 15)
+#baseMod skill("showAverage", true)
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20)
+#mods
+
+#skill EmptyActionSpellSecretPoliceDaggers Dagger Trigger Spell
+#flags spell
+#mods
+
+#skill BetrayalSecretPoliceCurveDagger1 Secret Police Daggers
+#flags attack projectile triggerable
+#mods
+
+#skill AtlasEyrieKiwethMortar Mortar
+#flags spell hit area projectile triggerable
+#mods
+
+#skill AtlasEyrieKiwethMortarShards Mortar Shards
+#flags projectile triggerable
+#mods
+
+#skill GAHeistThugRangedArrowShotgun Arrow Shotgun
+#flags attack hit area triggerable
+#mods
+
+#skill GAHeistThugRangedShotgun Ranged Shotgun
+#flags attack hit area triggerable
 #mods

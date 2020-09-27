@@ -450,9 +450,8 @@ skills["AssassinsMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["base_self_critical_strike_multiplier_-%"] = {
-			mod("SelfCritMultiplier", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mult = -1,
+		["enemy_additional_critical_strike_multiplier_against_self"] = {
+			mod("SelfCritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["enemy_additional_critical_strike_chance_against_self"] = {
 			mod("SelfCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -464,16 +463,18 @@ skills["AssassinsMark"] = {
 		["mana_granted_when_killed"] = {
 			mod("SelfManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
 		curse = true,
-		area = true,
 		duration = true,
+		mark = true,
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -547,6 +548,13 @@ skills["BallLightning"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["ball_lightning_superball_%_chance"] = {
+			mod("Damage", "MORE", nil),
+			mod("AreaOfEffect", "MORE", nil),
+			div = 2
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -793,10 +801,23 @@ skills["Ember"] = {
 	color = 3,
 	baseEffectiveness = 0.67449998855591,
 	incrementalEffectiveness = 0.034600000828505,
-	description = "Fires projectiles which fly in an arc, exploding on impact with either enemies or the ground near where you target. Targeting further away causes the projectiles to spread out and land over a wider area.",
+	description = "Fires projectiles which fly in an arc, exploding on impact with either enemies or the ground near where you target. Targeting farther away causes the projectiles to spread out and land over a wider area.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -820,6 +841,7 @@ skills["Ember"] = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
 		"number_of_additional_projectiles",
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 0.4, critChance = 6, levelRequirement = 12, manaCost = 8, statInterpolation = { 3, 3, 1, }, },
@@ -1178,14 +1200,10 @@ skills["BoneOffering"] = {
 		},
 		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -2 },
-		},
-		Alternate1 = {
 			{ "minion_recover_X_life_on_block", 5 },
 		},
 		Alternate2 = {
 			{ "monster_base_block_%", 0.1 },
-		},
-		Alternate2 = {
 			{ "base_spell_block_%", 0.1 },
 		},
 	},
@@ -1645,10 +1663,12 @@ skills["Conductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -1799,6 +1819,11 @@ skills["ConversionTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanMine] = true, [SkillType.Trap] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["conversation_trap_converted_enemy_damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
+		}
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -1892,8 +1917,6 @@ skills["Convocation"] = {
 	qualityStats = {
 		Default = {
 			{ "skill_effect_duration_+%", 1 },
-		},
-		Default = {
 			{ "base_cooldown_speed_+%", 1 },
 		},
 		Alternate1 = {
@@ -1901,8 +1924,6 @@ skills["Convocation"] = {
 		},
 		Alternate2 = {
 			{ "base_cooldown_speed_+%", -2 },
-		},
-		Alternate2 = {
 			{ "unnerve_nearby_enemies_on_use_for_ms", 200 },
 		},
 	},
@@ -1964,11 +1985,8 @@ skills["Disintegrate"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	statMap = {
-	    ["disintegrate_base_radius_+_per_intensify"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limit = 3  }),
-		},
 		["disintegrate_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limit = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
 	baseFlags = {
@@ -2185,10 +2203,12 @@ skills["Despair"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2264,8 +2284,13 @@ skills["Discharge"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
-		["discharge_triggered_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
+		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+		},
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil,  ModFlag.Ailment),
 		},
 	},
 	baseFlags = {
@@ -2304,45 +2329,45 @@ skills["Discharge"] = {
 	},
 	levels = {
 		[1] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 13, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 28, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[2] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 14, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 31, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[3] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 15, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 34, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[4] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 16, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 37, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[5] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 16, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 40, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[6] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 17, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 42, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[7] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 18, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[8] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 18, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 46, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[9] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 19, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 48, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[10] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 19, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 50, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[11] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 20, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 52, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[12] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 20, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 54, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[13] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 21, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[14] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 21, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 58, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[15] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 22, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[16] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 22, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 62, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[17] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 23, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[18] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 24, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 66, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[19] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 24, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[20] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 25, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[21] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 25, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[22] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 26, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[23] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 26, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[24] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 27, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[25] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 27, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[26] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 28, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[27] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 28, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[28] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 29, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[29] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 30, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[30] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 30, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[31] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 30, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[32] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[33] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[34] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[35] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[36] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 32, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[37] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 32, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[38] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 32, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[39] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 33, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
-		[40] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCostOverride = 2, manaCost = 33, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[2] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 14, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 31, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[3] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 15, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 34, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[4] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 16, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 37, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[5] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 16, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 40, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[6] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 17, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 42, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[7] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 18, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[8] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 18, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 46, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[9] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 19, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 48, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[10] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 19, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 50, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[11] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 20, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 52, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[12] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 20, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 54, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[13] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 21, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[14] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 21, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 58, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[15] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 22, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[16] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 22, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 62, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[17] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 23, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[18] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 24, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 66, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[19] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 24, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[20] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 25, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[21] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 25, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[22] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 26, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[23] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 26, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[24] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 27, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[25] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 27, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[26] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 28, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[27] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 28, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[28] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 29, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[29] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 30, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[30] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 30, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[31] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 30, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[32] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[33] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[34] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[35] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 31, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[36] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 32, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[37] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 32, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[38] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 32, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[39] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 33, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
+		[40] = { 0.45550000667572, 1.6445000171661, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, 20, -30, critChance = 7, manaCost = 33, damageEffectiveness = 4.5, cooldown = 2, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, },
 	},
 }
 skills["Discipline"] = {
@@ -2359,6 +2384,12 @@ skills["Discipline"] = {
 		["base_maximum_energy_shield"] = {
 			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["damage_+%_on_full_energy_shield"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["energy_shield_delay_-%"] = {
+			mod("EnergyShieldRechargeFaster", "INC", nil, { type = "GlobalEffect", effectType = "Aura" }),
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -2377,8 +2408,6 @@ skills["Discipline"] = {
 		},
 		Alternate2 = {
 			{ "energy_shield_delay_-%", -1.5 },
-		},
-		Alternate2 = {
 			{ "energy_shield_recharge_rate_+%", 2 },
 		},
 	},
@@ -2637,10 +2666,12 @@ skills["ElementalWeakness"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2717,14 +2748,8 @@ skills["Enfeeble"] = {
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -2732,10 +2757,12 @@ skills["Enfeeble"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2915,14 +2942,10 @@ skills["Fireball"] = {
 		},
 		Alternate1 = {
 			{ "base_projectile_speed_+%", -2 },
-		},
-		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 3 },
 		},
 		Alternate2 = {
 			{ "non_damaging_ailment_effect_+%", 3 },
-		},
-		Alternate2 = {
 			{ "active_skill_ignite_damage_+%_final", -2 },
 		},
 		Alternate3 = {
@@ -3076,15 +3099,32 @@ skills["Firestorm"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	parts = {
+		{
+			name = "First Impact",
+		},
+		{
+			name = "Subsequent Impacts",
+		},
+	},
+	statMap = {
+	    ["firestorm_initial_impact_damage_+%_final"] = {
+	        mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
+	    },
+	    ["firestorm_initial_impact_area_of_effect_+%_final"] = {
+	        mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
+	    },
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 25),
+		skill("showAverage", false, { type = "SkillPart", skillPart = 1 }),
+		skill("radius", 22),
 		skill("radiusLabel", "Area in which fireballs fall:"),
-		skill("radiusSecondary", 10),
+		skill("radiusSecondary", 16),
 		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {
@@ -3093,8 +3133,6 @@ skills["Firestorm"] = {
 		},
 		Alternate1 = {
 			{ "firestorm_initial_impact_damage_+%_final", 3 },
-		},
-		Alternate1 = {
 			{ "base_skill_effect_duration", -3 },
 		},
 		Alternate2 = {
@@ -3111,7 +3149,6 @@ skills["Firestorm"] = {
 		"firestorm_max_number_of_storms",
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
-		"quality_display_base_duration_is_gem",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 200, 450, 150, 100, 3, critChance = 6, duration = 1.4, manaCost = 13, damageEffectiveness = 0.5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, },
@@ -3165,6 +3202,11 @@ skills["FlameDash"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, [SkillType.Hit] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.TravelSkill] = true, [SkillType.BlinkSkill] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["flame_dash_burning_damage_+%_final"] = {
+			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
+		}
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -3182,8 +3224,6 @@ skills["FlameDash"] = {
 		},
 		Alternate2 = {
 			{ "base_chance_to_ignite_%", 2 },
-		},
-		Alternate2 = {
 			{ "flame_dash_burning_damage_+%_final", 2 },
 		},
 	},
@@ -3247,10 +3287,29 @@ skills["Firewall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SkillCanTotem] = true, [SkillType.FireSkill] = true, [SkillType.Type59] = true, [SkillType.CanRapidFire] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.CausesBurning] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
-    statMap = {
+	parts = {
+		{
+			name = "Primary Debuff",
+		},
+		{
+			name = "Secondary Debuff",
+		},
+	},
+	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 60,
+		},
+		["secondary_base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
 		["wall_maximum_length"] = {
 			skill("radius", nil),
 		},
+		["firewall_applies_%_fire_exposure"] = {
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -3268,8 +3327,6 @@ skills["Firewall"] = {
 		},
 		Alternate1 = {
 			{ "fire_dot_multiplier_+", 0.5 },
-		},
-		Alternate1 = {
 			{ "skill_effect_duration_+%", -1 },
 		},
 		Alternate2 = {
@@ -3282,8 +3339,8 @@ skills["Firewall"] = {
 	stats = {
 		"base_fire_damage_to_deal_per_minute",
 		"secondary_base_fire_damage_to_deal_per_minute",
-		"global_minimum_added_fire_damage",
-		"global_maximum_added_fire_damage",
+		"flame_wall_minimum_added_fire_damage",
+		"flame_wall_maximum_added_fire_damage",
 		"base_secondary_skill_effect_duration",
 		"number_of_allowed_firewalls",
 		"wall_maximum_length",
@@ -3345,6 +3402,9 @@ skills["FlameWhip"] = {
 	statMap = {
 		["flame_whip_damage_+%_final_vs_burning_enemies"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
+		},
+		["active_skill_base_area_length_+"] = {
+			mod("AreaOfEffect", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -3445,6 +3505,12 @@ skills["Flameblast"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["flameblast_maximum_stages"] = {
+			mod("Multiplier:FlameblastMaxStages", "BASE", nil),
+		},
+		["flameblast_area_+%_final_per_stage"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3462,20 +3528,14 @@ skills["Flameblast"] = {
 		},
 		Alternate1 = {
 			{ "skill_fire_damage_%_to_convert_to_chaos", 2 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_poison_on_hit_%", 1 },
 		},
 		Alternate2 = {
 			{ "flameblast_maximum_stages", 0.1 },
-		},
-		Alternate2 = {
 			{ "active_skill_cast_speed_+%_final", -2 },
 		},
 		Alternate3 = {
 			{ "active_skill_base_radius_+", 0.5 },
-		},
-		Alternate3 = {
 			{ "flameblast_area_+%_final_per_stage", -0.5 },
 		},
 	},
@@ -3542,7 +3602,7 @@ skills["VaalFlameblast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
-    parts = {
+	parts = {
 		{
 			name = "1 Stage",
 		},
@@ -3655,10 +3715,12 @@ skills["Flammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -3835,8 +3897,6 @@ skills["FreezingPulse"] = {
 		},
 		Alternate1 = {
 			{ "freezing_pulse_damage_+%_final_at_long_range", 3 },
-		},
-		Alternate1 = {
 			{ "active_skill_damage_+%_final", -1 },
 		},
 		Alternate2 = {
@@ -3905,7 +3965,7 @@ skills["FrostBomb"] = {
 	castTime = 0.5,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 		["energy_shield_recharge_rate_+%"] = {
 			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
@@ -3932,8 +3992,6 @@ skills["FrostBomb"] = {
 		},
 		Alternate3 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
-		},
-		Alternate3 = {
 			{ "base_cooldown_speed_+%", 1 },
 		},
 	},
@@ -4000,6 +4058,14 @@ skills["FrostGlobe"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
+		["frost_globe_additional_spell_base_critical_strike_chance_per_stage"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 100,
+		},
+		["energy_shield_lost_per_minute"] = {
+			mod("EnergyShieldDegen", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "FrostShieldStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 60,
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -4176,10 +4242,12 @@ skills["Frostbite"] = {
 		curse = true,
 		area = true,
 		duration = true,
+		hex = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -4336,6 +4404,11 @@ skills["FrostBolt"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	statMap = {
+		["frostbolt_projectile_speed_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -4348,8 +4421,6 @@ skills["FrostBolt"] = {
 		},
 		Alternate1 = {
 			{ "damage_+%", -5 },
-		},
-		Alternate1 = {
 			{ "base_inflict_cold_exposure_on_hit_%_chance", 1 },
 		},
 		Alternate2 = {
@@ -4417,12 +4488,26 @@ skills["GlacialCascade"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
+	parts = {
+		{
+			name = "Initial Bursts",
+		},
+		{
+			name = "Final Burst",
+		},
+	},
+	statMap = {
+		["glacial_cascade_final_spike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
 		skill("radius", 12),
+		mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -4433,8 +4518,6 @@ skills["GlacialCascade"] = {
 		},
 		Alternate2 = {
 			{ "base_skill_area_of_effect_+%", -1 },
-		},
-		Alternate2 = {
 			{ "glacial_cascade_final_spike_damage_+%_final", 2 },
 		},
 	},
@@ -4501,12 +4584,34 @@ skills["DoomBlast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ChaosSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Hex] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
+	statMap = {
+		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		chaos = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
+		flag("ChaosDamageUsesLowestResistance"),
+		flag("PhysicalCanIgnite"),
+		flag("LightningCanIgnite"),
+		flag("ColdCanIgnite"),
+		flag("ChaosCanIgnite"),
+		flag("PhysicalCanFreeze"),
+		flag("LightningCanFreeze"),
+		flag("FireCanFreeze"),
+		flag("ChaosCanFreeze"),
+		flag("PhysicalCanShock"),
+		flag("ColdCanShock"),
+		flag("FireCanShock"),
+		flag("ChaosCanShock"),
 	},
 	qualityStats = {
 		Default = {
@@ -4517,8 +4622,6 @@ skills["DoomBlast"] = {
 		},
 		Alternate2 = {
 			{ "base_ailment_damage_+%", 2 },
-		},
-		Alternate2 = {
 			{ "non_damaging_ailment_effect_+%", 1 },
 		},
 		Alternate3 = {
@@ -4611,6 +4714,12 @@ skills["HeraldOfThunder"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
 		},
+		["skill_buff_grants_damage_+%"] = {
+			mod("Damage", "INC", nil),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil),
+		},
 	},
 	baseFlags = {
 		cast = true,
@@ -4629,8 +4738,6 @@ skills["HeraldOfThunder"] = {
 		},
 		Alternate2 = {
 			{ "skill_buff_grants_damage_+%", 1.5 },
-		},
-		Alternate2 = {
 			{ "base_damage_taken_+%", 0.5 },
 		},
 	},
@@ -4702,6 +4809,11 @@ skills["IceNova"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["damage_+%_vs_chilled_enemies"] = {
+			mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -5115,11 +5227,7 @@ skills["ExpandingFireCone"] = {
 		},
 		Alternate2 = {
 			{ "flamethrower_damage_+%_per_stage_final", 0.2 },
-		},
-		Alternate2 = {
 			{ "expanding_fire_cone_release_hit_damage_+%_final", -10 },
-		},
-		Alternate2 = {
 			{ "grant_expanding_fire_cone_release_ignite_damage_+%_final", -10 },
 		},
 	},
@@ -5200,6 +5308,11 @@ skills["ClusterBurst"] = {
 		{
 			name = "Explosions",
 			area = true,
+		},
+	},
+	statMap = {
+		["kinetic_blast_projectiles_gain_%_aoe_after_forking"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "StatThreshold", stat = "ForkedCount", threshold = 1 }),
 		},
 	},
 	baseFlags = {
@@ -5284,6 +5397,13 @@ skills["KineticBolt"] = {
 	statMap = {
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
 			flag("ImprovedSpellDamageAppliesToAttacks"),
+		},
+		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
+			flag("CastSpeedAppliesToAttacks"),
+			mod("ImprovedCastSpeedAppliesToAttacks", "INC", nil)
+		},
+		["mana_gain_per_target"] = {
+			mod("ManaOnHit", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -5377,8 +5497,6 @@ skills["LightningTowerTrap"] = {
 		},
 		Alternate1 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
-		},
-		Alternate1 = {
 			{ "base_cooldown_speed_+%", 3 },
 		},
 		Alternate2 = {
@@ -5450,6 +5568,19 @@ skills["LightningTendrilsChannelled"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.23,
+	parts = {
+		{
+			name = "Normal pulse",
+		},
+		{
+			name = "Stronger pulse",
+		},
+	},
+	statMap = {
+		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -5469,8 +5600,6 @@ skills["LightningTendrilsChannelled"] = {
 		},
 		Alternate3 = {
 			{ "active_skill_damage_+%_final", -2 },
-		},
-		Alternate3 = {
 			{ "lightning_tendrils_channelled_larger_pulse_damage_+%_final", 10 },
 		},
 	},
@@ -5545,8 +5674,6 @@ skills["LightningTrap"] = {
 	qualityStats = {
 		Default = {
 			{ "lightning_damage_+%", 1 },
-		},
-		Default = {
 			{ "lightning_ailment_effect_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -5728,8 +5855,6 @@ skills["LightningWarp"] = {
 		},
 		Alternate2 = {
 			{ "skill_effect_duration_+%", 1 },
-		},
-		Alternate2 = {
 			{ "damage_+%", 3 },
 		},
 		Alternate3 = {
@@ -5962,6 +6087,9 @@ skills["DamageOverTimeAura"] = {
 		["delirium_skill_effect_duration_+%"] = {
 			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_ailment_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Ailment, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -6066,8 +6194,6 @@ skills["OrbOfStorms"] = {
 		},
 		Alternate2 = {
 			{ "base_cast_speed_+%", 1 },
-		},
-		Alternate2 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
 		},
 	},
@@ -6525,6 +6651,12 @@ skills["Purity"] = {
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["avoid_all_elemental_status_%"] = {
+			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -6609,6 +6741,9 @@ skills["LightningResistAura"] = {
 		},
 		["base_maximum_lightning_damage_resistance_%"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_avoid_shock_%"] = {
+			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -6782,6 +6917,9 @@ skills["MortarBarrageMine"] = {
 		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
 			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Limit" }),
 		},
+		["damage_+%_if_firing_atleast_7_projectiles"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "StatThreshold", stat = "ProjectileCount", threshold = 7 }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -6803,8 +6941,6 @@ skills["MortarBarrageMine"] = {
 		},
 		Alternate1 = {
 			{ "burn_damage_+%", 5 },
-		},
-		Alternate1 = {
 			{ "base_chance_to_ignite_%", 1 },
 		},
 		Alternate2 = {
@@ -6906,8 +7042,6 @@ skills["RaiseSpectre"] = {
 		},
 		Alternate1 = {
 			{ "minion_melee_damage_+%", 1 },
-		},
-		Alternate1 = {
 			{ "minion_maximum_life_+%", 1 },
 		},
 		Alternate2 = {
@@ -6996,8 +7130,6 @@ skills["RaiseZombie"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_movement_speed_+%", 1 },
 		},
 		Alternate1 = {
@@ -7008,8 +7140,6 @@ skills["RaiseZombie"] = {
 		},
 		Alternate3 = {
 			{ "minions_take_%_of_life_as_chaos_damage_when_summoned_over_1_second", 1 },
-		},
-		Alternate3 = {
 			{ "minions_deal_%_of_physical_damage_as_additional_chaos_damage", 0.5 },
 		},
 	},
@@ -7269,7 +7399,7 @@ skills["FireBeam"] = {
 	},
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
 	},
 	baseFlags = {
@@ -7290,8 +7420,6 @@ skills["FireBeam"] = {
 		},
 		Alternate2 = {
 			{ "base_cast_speed_+%", 2 },
-		},
-		Alternate2 = {
 			{ "active_skill_quality_duration_+%_final", -2 },
 		},
 	},
@@ -7367,6 +7495,12 @@ skills["ShockNova"] = {
 		["newshocknova_first_ring_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
+		["shock_nova_ring_chance_to_shock_+%"] =  {
+			mod("EnemyShockChance", "BASE", nil),
+		},
+		["shock_nova_ring_shocks_as_if_dealing_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7381,8 +7515,6 @@ skills["ShockNova"] = {
 		},
 		Alternate1 = {
 			{ "shock_nova_ring_chance_to_shock_+%", 2 },
-		},
-		Alternate1 = {
 			{ "shock_nova_ring_shocks_as_if_dealing_damage_+%_final", 5 },
 		},
 		Alternate2 = {
@@ -7449,6 +7581,19 @@ skills["CircleOfPower"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["circle_of_power_skill_cost_mana_cost_+%"] = {
+			mod("ManaCost", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_min_added_lightning_per_stage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_max_added_lightning_per_stage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -7456,6 +7601,7 @@ skills["CircleOfPower"] = {
 		lightning = true,
 	},
 	baseMods = {
+		skill("buffAllies", true),
 	},
 	qualityStats = {
 		Default = {
@@ -7469,8 +7615,6 @@ skills["CircleOfPower"] = {
 		},
 		Alternate3 = {
 			{ "circle_of_power_skill_cost_mana_cost_+%", -0.5 },
-		},
-		Alternate3 = {
 			{ "spell_damage_+%", 1 },
 		},
 	},
@@ -7550,6 +7694,10 @@ skills["IceSiphonTrap"] = {
 		},
 		["skill_mana_regeneration_per_minute_with_at_least_1_affected_enemy"] = {
 			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" }),
+			div = 60,
+		},
+		["skill_energy_shield_regeneration_%_per_minute_per_affected_enemy"] = {
+			mod("EnergyShieldRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" }),
 			div = 60,
 		},
 	},
@@ -7970,8 +8118,6 @@ skills["SupportSpellslinger"] = {
 		},
 		Alternate2 = {
 			{ "gain_%_of_base_wand_damage_as_added_spell_damage", 2 },
-		},
-		Alternate2 = {
 			{ "base_cooldown_speed_+%", -2 },
 		},
 	},
@@ -8404,8 +8550,6 @@ skills["LightningExplosionMine"] = {
 	qualityStats = {
 		Default = {
 			{ "base_chance_to_shock_%", 0.5 },
-		},
-		Default = {
 			{ "lightning_ailment_effect_+%", 0.5 },
 		},
 		Alternate1 = {
@@ -8505,6 +8649,12 @@ skills["Stormbind"] = {
 		["rune_paint_area_of_effect_+%_final_per_rune_level"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
+		["rune_paint_area_of_effect_+%_per_rune_level"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["active_skill_quality_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8529,8 +8679,6 @@ skills["Stormbind"] = {
 		},
 		Alternate3 = {
 			{ "active_skill_quality_damage_+%_final", 1 },
-		},
-		Alternate3 = {
 			{ "rune_paint_damage_+%_final_per_rune_level", -3 },
 		},
 	},
@@ -8688,8 +8836,6 @@ skills["StormBurstNew"] = {
 		},
 		Alternate2 = {
 			{ "storm_burst_zap_area_of_effect_+%", 2 },
-		},
-		Alternate2 = {
 			{ "storm_burst_explosion_area_of_effect_+%", -2 },
 		},
 	},
@@ -8775,8 +8921,6 @@ skills["StormCall"] = {
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 2 },
-		},
-		Alternate1 = {
 			{ "base_cast_speed_+%", -2 },
 		},
 		Alternate2 = {
@@ -8955,8 +9099,6 @@ skills["SummonBoneGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -9049,8 +9191,6 @@ skills["SummonChaosGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -9125,6 +9265,9 @@ skills["SummonRelic"] = {
 	statMap = {
 		["base_number_of_relics_allowed"] = {
 			mod("ActiveHolyRelicLimit", "BASE", nil)
+		},
+		["holy_relic_cooldown_recovery_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil) }),
 		},
 	},
 	baseFlags = {
@@ -9224,8 +9367,6 @@ skills["SummonLightningGolem"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_life_+%", 1 },
-		},
-		Default = {
 			{ "minion_damage_+%", 1 },
 		},
 		Alternate1 = {
@@ -9549,6 +9690,19 @@ skills["BlackHole"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, [SkillType.SkillCanTotem] = true, [SkillType.PhysicalSkill] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
+		 / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "VoidSphereFrequency") / 100)
+	end,
+	statMap = {
+		["blackhole_pulse_frequency_+%"] = {
+			mod("VoidSphereFrequency", "INC", nil),
+		},
+		["base_blackhole_tick_rate_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -9557,7 +9711,6 @@ skills["BlackHole"] = {
 		chaos = true,
 	},
 	baseMods = {
-		skill("hitTimeOverride", 0.4),
 	},
 	qualityStats = {
 		Default = {
@@ -9565,8 +9718,6 @@ skills["BlackHole"] = {
 		},
 		Alternate1 = {
 			{ "skill_effect_duration_+%", -2 },
-		},
-		Alternate1 = {
 			{ "base_cooldown_speed_+%", 2 },
 		},
 		Alternate2 = {
@@ -9747,8 +9898,6 @@ skills["TempestShield"] = {
 		},
 		Alternate2 = {
 			{ "shield_block_%", 0.05 },
-		},
-		Alternate2 = {
 			{ "shield_spell_block_%", 0.05 },
 		},
 	},
@@ -9834,8 +9983,6 @@ skills["FrostBoltNova"] = {
 		},
 		Alternate2 = {
 			{ "base_cooldown_speed_+%", 1 },
-		},
-		Alternate2 = {
 			{ "active_skill_quality_duration_+%_final", -1 },
 		},
 		Alternate3 = {
@@ -9908,9 +10055,9 @@ skills["Purge"] = {
 	castTime = 0.7,
 	statMap = {
 		["purge_expose_resist_%_matching_highest_element_damage"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
-			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
 		},
 	},
 	baseFlags = {
@@ -10154,8 +10301,6 @@ skills["ImmolationSigil"] = {
 		},
 		Alternate2 = {
 			{ "skill_effect_duration_+%", 2 },
-		},
-		Alternate2 = {
 			{ "base_cast_speed_+%", -2 },
 		},
 	},
