@@ -19,7 +19,6 @@ function PowerReportListClass:OnSelClick(index, report, doubleClick)
 end
 
 function PowerReportListClass:GetRowValue(column, index, report)
-	-- ConPrintTable(report)
 	if column == 1 then
 		return report.type
 	elseif column == 2 then
