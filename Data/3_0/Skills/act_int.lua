@@ -3311,7 +3311,7 @@ skills["Firewall"] = {
 			skill("radius", nil),
 		},
 		["firewall_applies_%_fire_exposure"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		}
 	},
 	baseFlags = {
@@ -4408,9 +4408,6 @@ skills["FrostBolt"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
-		["base_inflict_cold_exposure_on_hit_%_chance"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -25) }, { type = "Condition", var = "Effective" }),
-		},
 		["frostbolt_projectile_speed_+%_final"] = {
 			mod("ProjectileSpeed", "MORE", nil),
 		},
