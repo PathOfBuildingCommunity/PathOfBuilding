@@ -177,7 +177,6 @@ return {
 				[1] = "(25-35)% increased Cold Damage", 
 				[2] = "0.2% of Cold Damage Leeched as Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Revitalising Frost", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -201,7 +200,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -217,7 +216,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Critical Strike Chance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Flawless Execution", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -236,7 +234,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -252,7 +250,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Lightning Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Lightning Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -271,7 +268,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -287,7 +284,6 @@ return {
 			["sd"] = {
 				[1] = "(3-6)% chance to Ignite", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ignite Chance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -306,7 +302,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -323,7 +319,6 @@ return {
 				[1] = "Recovery from Life Leech is not applied", 
 				[2] = "1% less Damage taken for every 2% Recovery per second from Life Leech", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Strength of Blood", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -342,7 +337,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -359,7 +354,6 @@ return {
 				[1] = "(25-35)% increased Fire Damage", 
 				[2] = "0.2% of Fire Damage Leeched as Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Revitalising Flames", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -383,7 +377,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -399,7 +393,6 @@ return {
 			["sd"] = {
 				[1] = "(3-4)% increased Attack Speed", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Attack Speed", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -418,7 +411,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -434,7 +427,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Fire Damage with Attack Skills", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Night of a Thousand Ribbons", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -453,7 +445,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -469,7 +461,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Armour", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Armour", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -488,7 +479,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -505,7 +496,6 @@ return {
 				[1] = "Life Recovery from Flasks also applies to Energy Shield", 
 				[2] = "30% less Life Recovery from Flasks", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Supreme Decadence", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -524,7 +514,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -540,7 +530,6 @@ return {
 			["sd"] = {
 				[1] = "Minions deal 80% increased Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Slum Lord", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -559,7 +548,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -575,7 +564,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Attack Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Attack Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -594,7 +582,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -610,7 +598,6 @@ return {
 			["sd"] = {
 				[1] = "(3-6)% chance to Shock", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Shock Chance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -629,7 +616,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -645,7 +632,6 @@ return {
 			["sd"] = {
 				[1] = "+1 to Minimum Frenzy Charges while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Frenzied Faith", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -664,7 +650,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -680,9 +666,8 @@ return {
 			["sd"] = {
 				[1] = "All Damage taken bypasses Energy Shield", 
 				[2] = "50% of Elemental Damage taken as Chaos Damage", 
-				[3] = "+10% to maximum Chaos Resistance", 
+				[3] = "+5% to maximum Chaos Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Divine Flesh", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -701,7 +686,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -718,7 +703,6 @@ return {
 				[1] = "(10-15)% increased Effect of your Curses", 
 				[2] = "Curse Skills have 20% increased Skill Effect Duration", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ancient Hex", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -742,7 +726,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -759,7 +743,6 @@ return {
 				[1] = "(25-35)% increased Fire Damage", 
 				[2] = "10% of Physical Damage Converted to Fire Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Flesh to Flames", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -783,7 +766,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -799,7 +782,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Cold Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cold Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -818,7 +800,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -834,9 +816,8 @@ return {
 			["sd"] = {
 				[1] = "Chance to Block Attack Damage is doubled", 
 				[2] = "Chance to Block Spell Damage is doubled", 
-				[3] = "You take 50% of Damage from Blocked Hits", 
+				[3] = "You take 65% of Damage from Blocked Hits", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Glancing Blows", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -855,7 +836,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -871,7 +852,6 @@ return {
 			["sd"] = {
 				[1] = "+1 to Minimum Power Charges while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Powerful Faith", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -890,7 +870,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -906,7 +886,6 @@ return {
 			["sd"] = {
 				[1] = "15% of Physical Damage Converted to Cold Damage while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Calming Devotion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -925,7 +904,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -942,7 +921,6 @@ return {
 				[1] = "(25-35)% increased Lightning Damage", 
 				[2] = "10% of Physical Damage Converted to Lightning Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Flesh to Lightning", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -966,7 +944,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -982,7 +960,6 @@ return {
 			["sd"] = {
 				[1] = "80% of Maximum Mana is Converted to twice that much Armour", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Power of Purpose", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1001,7 +978,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1019,7 +996,6 @@ return {
 				[2] = "Increases and Reductions to Mana Regeneration Rate instead apply to Rage Regeneration Rate", 
 				[3] = "Lose 5 Rage when you Hit an Enemy, no more than once every 0.3 seconds", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Chainbreaker", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1038,7 +1014,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1054,7 +1030,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Lightning Damage with Attack Skills", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Chitus' Heart", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1073,7 +1048,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1090,7 +1065,6 @@ return {
 				[1] = "50% of Non-Chaos Damage taken bypasses Energy Shield", 
 				[2] = "Gain 20% of Maximum Life as Extra Maximum Energy Shield", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Corrupted Soul", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1109,7 +1083,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1125,7 +1099,6 @@ return {
 			["sd"] = {
 				[1] = "1% Chance to Block Spell Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Spell Block", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1144,7 +1117,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1160,7 +1133,6 @@ return {
 			["sd"] = {
 				[1] = "+1% to all maximum Resistances if you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Intolerance of Sin", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1179,7 +1151,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1196,7 +1168,6 @@ return {
 				[1] = "Maximum Energy Shield is 0", 
 				[2] = "While not on Full Life, Sacrifice 20% of Mana per Second to Recover that much Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "The Agnostic", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1215,7 +1186,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1231,7 +1202,6 @@ return {
 			["sd"] = {
 				[1] = "40% increased Rarity of Items found", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Discerning Taste", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1250,7 +1220,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1266,7 +1236,6 @@ return {
 			["sd"] = {
 				[1] = "Minions deal (8-13)% increased Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Minion Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1285,7 +1254,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1301,7 +1270,6 @@ return {
 			["sd"] = {
 				[1] = "50% chance to Avoid being Chilled", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Rites of Solaris", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1320,7 +1288,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1336,7 +1304,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Evasion Rating", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Shadowy Streets", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1355,7 +1322,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1371,7 +1338,6 @@ return {
 			["sd"] = {
 				[1] = "(4-6)% increased maximum Mana", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Mana", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1390,7 +1356,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1406,7 +1372,6 @@ return {
 			["sd"] = {
 				[1] = "+1 to Minimum Endurance Charges while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Enduring Faith", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1425,7 +1390,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1441,7 +1406,6 @@ return {
 			["sd"] = {
 				[1] = "+8% Chance to Block Attack Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "City Walls", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1460,7 +1424,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1477,7 +1441,6 @@ return {
 				[1] = "(8-12)% increased maximum Energy Shield", 
 				[2] = "0.3% of Spell Damage Leeched as Energy Shield", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Soul Worship", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1501,7 +1464,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1517,7 +1480,6 @@ return {
 			["sd"] = {
 				[1] = "+50% to Fire Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Crematorium Worker", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1536,7 +1498,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1553,7 +1515,6 @@ return {
 				[1] = "3% more Spell Damage per Power Charge", 
 				[2] = "Gain Power Charges instead of Frenzy Charges", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Inner Conviction", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1572,7 +1533,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1588,7 +1549,6 @@ return {
 			["sd"] = {
 				[1] = "+(6-10)% to Critical Strike Multiplier", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Critical Strike Multiplier", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1607,7 +1567,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1624,7 +1584,6 @@ return {
 				[1] = "(25-35)% increased Damage over Time", 
 				[2] = "(7-11)% increased Skill Effect Duration", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Exquisite Pain", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1648,7 +1607,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1665,7 +1624,6 @@ return {
 				[1] = "+(6-10) Life gained when you Block", 
 				[2] = "+5% Chance to Block Attack Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Blood-Quenched Bulwark", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1689,7 +1647,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1705,7 +1663,6 @@ return {
 			["sd"] = {
 				[1] = "+40% to Critical Strike Multiplier", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Brutal Execution", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1724,7 +1681,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1740,7 +1697,6 @@ return {
 			["sd"] = {
 				[1] = "Gain 1 Endurance Charge every second if you've been Hit Recently", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Resilience", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1759,7 +1715,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1776,7 +1732,6 @@ return {
 				[1] = "+1% to maximum Fire Resistance", 
 				[2] = "+(20-30)% to Fire Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cult of Fire", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1800,7 +1755,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1816,7 +1771,6 @@ return {
 			["sd"] = {
 				[1] = "(2-3)% increased Cast Speed", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cast Speed", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1835,7 +1789,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1852,7 +1806,6 @@ return {
 				[1] = "(8-10)% chance to Avoid being Stunned", 
 				[2] = "4% chance to Dodge Attack Hits", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Jungle Paths", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1876,7 +1829,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1894,7 +1847,6 @@ return {
 				[2] = "40% less Evasion Rating if you haven't been Hit Recently", 
 				[3] = "20% more Evasion Rating if you've been Hit Recently", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Wind Dancer", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1913,7 +1865,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1929,7 +1881,6 @@ return {
 			["sd"] = {
 				[1] = "+(9-14)% to Fire Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Fire Resistance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1948,7 +1899,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1964,7 +1915,6 @@ return {
 			["sd"] = {
 				[1] = "+50% to Lightning Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Baleful Augmentation", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -1983,7 +1933,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -1999,7 +1949,6 @@ return {
 			["sd"] = {
 				[1] = "(3-6)% chance to Freeze", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Freeze Chance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2018,7 +1967,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2035,7 +1984,6 @@ return {
 				[1] = "(6-10)% increased maximum Life", 
 				[2] = "Regenerate (0.7-1.2)% of Life per second", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ritual of Flesh", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2059,7 +2007,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2075,7 +2023,6 @@ return {
 			["sd"] = {
 				[1] = "Gain Arcane Surge on Hit with Spells if you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Zealot", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2094,7 +2041,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2110,7 +2057,6 @@ return {
 			["sd"] = {
 				[1] = "Gain 5% of Maximum Mana as Extra Maximum Energy Shield while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Thoughts and Prayers", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2129,7 +2075,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2145,7 +2091,6 @@ return {
 			["sd"] = {
 				[1] = "10% increased Damage per Endurance Charge", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Dominance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2164,7 +2109,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2180,7 +2125,6 @@ return {
 			["sd"] = {
 				[1] = "8% increased Armour per Endurance Charge", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Fortitude", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2199,7 +2143,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2215,7 +2159,6 @@ return {
 			["sd"] = {
 				[1] = "(2-3)% increased Movement Speed", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Movement Speed", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2234,7 +2177,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2251,7 +2194,6 @@ return {
 				[1] = "(25-35)% increased Lightning Damage", 
 				[2] = "0.2% of Lightning Damage Leeched as Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Revitalising Lightning", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2275,7 +2217,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2291,7 +2233,6 @@ return {
 			["sd"] = {
 				[1] = "1% chance to Dodge Attack Hits", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Attack Dodge", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2310,7 +2251,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2327,7 +2268,6 @@ return {
 				[1] = "(25-35)% increased Lightning Damage", 
 				[2] = "Damage Penetrates (2-4)% Lightning Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ritual of Thunder", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2351,7 +2291,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2367,7 +2307,6 @@ return {
 			["sd"] = {
 				[1] = "+50% to Cold Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Street Urchin", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2386,7 +2325,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2402,7 +2341,6 @@ return {
 			["sd"] = {
 				[1] = "4% increased Energy Shield per Power Charge", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Separation", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2421,7 +2359,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2436,7 +2374,6 @@ return {
 			["not"] = true, 
 			["sd"] = {
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Legacy of the Vaal", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2450,7 +2387,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2466,7 +2403,6 @@ return {
 			["sd"] = {
 				[1] = "6% chance to Dodge Spell Hits", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Purity Rebel", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2485,7 +2421,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2501,7 +2437,6 @@ return {
 			["sd"] = {
 				[1] = "30% increased maximum Mana", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Pooled Resources", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2520,7 +2455,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2536,7 +2471,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Physical Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Physical Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2555,7 +2489,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2572,7 +2506,6 @@ return {
 				[1] = "+1% to maximum Cold Resistance", 
 				[2] = "+(20-30)% to Cold Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cult of Ice", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2596,7 +2529,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2615,7 +2548,6 @@ return {
 				[3] = "Your Damage with Critical Strikes is Lucky", 
 				[4] = "Enemies' Damage with Critical Strikes against you is Lucky", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Dance with Death", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2634,7 +2566,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2649,7 +2581,6 @@ return {
 			["not"] = true, 
 			["sd"] = {
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Might of the Vaal", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2663,7 +2594,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2680,7 +2611,6 @@ return {
 				[1] = "(6-10)% increased maximum Life", 
 				[2] = "0.4% of Attack Damage Leeched as Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Flesh Worship", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2704,7 +2634,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2720,7 +2650,6 @@ return {
 			["sd"] = {
 				[1] = "(3-5)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Aura Effect", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2739,7 +2668,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2755,7 +2684,6 @@ return {
 			["sd"] = {
 				[1] = "(4-7)% increased Skill Effect Duration", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Skill Duration", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2774,7 +2702,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2791,7 +2719,6 @@ return {
 				[1] = "+1% to maximum Lightning Resistance", 
 				[2] = "+(20-30)% to Lightning Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cult of Lightning", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2815,7 +2742,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2832,7 +2759,6 @@ return {
 				[1] = "(25-35)% increased Chaos Damage", 
 				[2] = "0.2% of Chaos Damage Leeched as Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Revitalising Darkness", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2856,7 +2782,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2873,7 +2799,6 @@ return {
 				[1] = "50% increased Damage with Bleeding", 
 				[2] = "Bleeding you inflict deals Damage 10% faster", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Geofri's End", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2897,7 +2822,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2913,7 +2838,6 @@ return {
 			["sd"] = {
 				[1] = "+(9-14)% to Lightning Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Lightning Resistance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2932,7 +2856,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2949,7 +2873,6 @@ return {
 				[1] = "(25-35)% increased Chaos Damage", 
 				[2] = "25% chance to inflict Withered for 2 seconds on Hit", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ritual of Shadows", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -2973,7 +2896,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -2989,7 +2912,6 @@ return {
 			["sd"] = {
 				[1] = "+(6-10)% to Chaos Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Chaos Resistance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3008,7 +2930,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3024,7 +2946,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Projectile Speed", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Projectile Speed", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3043,7 +2964,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3059,7 +2980,6 @@ return {
 			["sd"] = {
 				[1] = "20% increased Flask Effect Duration", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Freshly Brewed", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3078,7 +2998,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3094,7 +3014,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Chaos Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Chaos Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3113,7 +3032,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3129,7 +3048,6 @@ return {
 			["sd"] = {
 				[1] = "15% increased effect of Non-Curse Auras from your Skills", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Superiority", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3148,7 +3066,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3165,7 +3083,6 @@ return {
 				[1] = "20% increased Area of Effect of Aura Skills", 
 				[2] = "(10-15)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Commanding Presence", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3189,7 +3106,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3205,7 +3122,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Damage over Time", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Damage Over Time", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3224,7 +3140,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3240,7 +3156,6 @@ return {
 			["sd"] = {
 				[1] = "50% increased Mana Regeneration Rate", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Laureate", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3259,7 +3174,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3275,7 +3190,6 @@ return {
 			["sd"] = {
 				[1] = "10% increased maximum Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Robust Diet", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3294,7 +3208,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3310,7 +3224,6 @@ return {
 			["sd"] = {
 				[1] = "+37% to Chaos Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "With Eyes Open", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3329,7 +3242,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3345,7 +3258,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Armour", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Gleaming Legion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3364,7 +3276,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3380,7 +3292,6 @@ return {
 			["sd"] = {
 				[1] = "15% increased Cast Speed", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Dialla's Wit", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3399,7 +3310,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3415,7 +3326,6 @@ return {
 			["sd"] = {
 				[1] = "15% increased Attack Speed", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Voll's Coup", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3434,7 +3344,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3450,7 +3360,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Projectile Attack Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Lioneye's Focus", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3469,7 +3378,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3485,7 +3394,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Melee Physical Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Rigwald's Might", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3504,7 +3412,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3520,7 +3428,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Physical Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Gemling Training", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3539,7 +3446,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3555,7 +3462,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Cold Damage with Attack Skills", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Bloody Flowers' Rebellion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3574,7 +3480,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3590,7 +3496,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Critical Strike Chance for Spells", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Gemling Ambush", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3609,7 +3514,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3625,7 +3530,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Fire Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Fire Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3644,7 +3548,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3660,7 +3564,6 @@ return {
 			["sd"] = {
 				[1] = "80% increased Spell Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Gemling Inquisition", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3679,7 +3582,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3695,7 +3598,6 @@ return {
 			["sd"] = {
 				[1] = "Minions have 80% increased maximum Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Axiom Warden", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3714,7 +3616,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3730,7 +3632,6 @@ return {
 			["sd"] = {
 				[1] = "8% increased Evasion Rating per Frenzy Charge", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Adaptiveness", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3749,7 +3650,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3765,7 +3666,6 @@ return {
 			["sd"] = {
 				[1] = "25% increased Global Accuracy Rating", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "War Games", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3784,7 +3684,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3800,7 +3700,6 @@ return {
 			["sd"] = {
 				[1] = "10% increased Damage per Frenzy Charge", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Bloodlust", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3819,7 +3718,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3835,7 +3734,6 @@ return {
 			["sd"] = {
 				[1] = "(7-14)% increased Critical Strike Chance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Critical Strike Chance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3854,7 +3752,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3870,7 +3768,6 @@ return {
 			["sd"] = {
 				[1] = "(3-5)% increased maximum Energy Shield", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Energy Shield", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3889,7 +3786,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3906,7 +3803,6 @@ return {
 				[1] = "Minions have (15-20)% increased maximum Life", 
 				[2] = "Minions deal (25-35)% increased Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Hierarchy", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3930,7 +3826,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3945,7 +3841,6 @@ return {
 			["not"] = false, 
 			["sd"] = {
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Price of Glory", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -3959,7 +3854,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -3976,7 +3871,6 @@ return {
 				[1] = "(25-35)% increased Cold Damage", 
 				[2] = "Damage Penetrates (2-4)% Cold Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ritual of Stillness", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4000,7 +3894,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4014,8 +3908,12 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
+				[1] = "Energy Shield starts at zero",
+				[2] = "Cannot Recharge or Regenerate Energy Shield",
+				[3] = "Lose 5% of Energy Shield per second",
+				[4] = "Life Leech effects are not removed at Full Life",
+				[5] = "Life Leech effects Recover Energy Shield instead while on Full Life",
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Immortal Ambition", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4034,7 +3932,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4050,7 +3948,6 @@ return {
 			["sd"] = {
 				[1] = "15% of Physical Damage Converted to Fire Damage while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Heated Devotion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4069,7 +3966,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4087,7 +3984,6 @@ return {
 				[2] = "Enemies Hitting you have 10% chance to gain an Endurance, ", 
 				[3] = "Frenzy or Power Charge", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Supreme Grandstanding", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4106,7 +4002,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4123,7 +4019,6 @@ return {
 				[1] = "(30-40)% increased Armour", 
 				[2] = "(3-4)% additional Physical Damage Reduction", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Automaton Studies", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4147,7 +4042,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4163,7 +4058,6 @@ return {
 			["sd"] = {
 				[1] = "+1% Chance to Block Attack Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Block", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4182,7 +4076,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4198,7 +4092,6 @@ return {
 			["sd"] = {
 				[1] = "(4-7)% increased Area of Effect", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Area of Effect", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4217,7 +4110,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4233,7 +4126,6 @@ return {
 			["sd"] = {
 				[1] = "+(9-14)% to Cold Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cold Resistance", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4252,7 +4144,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4269,7 +4161,6 @@ return {
 				[1] = "(30-40)% increased Evasion Rating", 
 				[2] = "(5-7)% chance to Blind Enemies on Hit", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Construct Studies", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4293,7 +4184,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4309,7 +4200,6 @@ return {
 			["sd"] = {
 				[1] = "(12-17)% increased Mana Regeneration Rate", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Mana Regeneration", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4328,7 +4218,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4345,7 +4235,6 @@ return {
 				[1] = "(17-23)% increased maximum Mana", 
 				[2] = "(15-25)% increased Mana Regeneration Rate", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ritual of Memory", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4369,7 +4258,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4385,7 +4274,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Spell Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Spell Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4404,7 +4292,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4421,7 +4309,6 @@ return {
 				[1] = "+1% to maximum Chaos Resistance", 
 				[2] = "+(13-19)% to Chaos Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cult of Chaos", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4445,7 +4332,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4462,7 +4349,6 @@ return {
 				[1] = "(8-12)% increased maximum Energy Shield", 
 				[2] = "(10-15)% increased Energy Shield Recharge Rate", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Energy Flow Studies", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4486,7 +4372,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4503,7 +4389,6 @@ return {
 				[1] = "Armour applies to Fire, Cold and Lightning Damage taken from Hits instead of Physical Damage", 
 				[2] = "-5% to all maximum Elemental Resistances", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Transcendence", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4522,7 +4407,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4538,7 +4423,6 @@ return {
 			["sd"] = {
 				[1] = "10% chance to gain a Frenzy Charge on Hit", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Fervour", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4557,7 +4441,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4573,7 +4457,6 @@ return {
 			["sd"] = {
 				[1] = "10% increased Damage per Power Charge", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Exploitation", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4592,7 +4475,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4611,7 +4494,6 @@ return {
 				[3] = "Auras from your Skills have 50% more Effect on you", 
 				[4] = "50% more Mana Reserved", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Supreme Ego", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4630,7 +4512,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4647,7 +4529,6 @@ return {
 				[1] = "5% Chance to Block Spell Damage", 
 				[2] = "(20-30)% increased Defences from Equipped Shield", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Thaumaturgical Protection", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4671,7 +4552,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4689,7 +4570,6 @@ return {
 				[2] = "Blind does not affect your Light Radius", 
 				[3] = "25% more Melee Critical Strike Chance while Blinded", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Second Sight", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4708,7 +4588,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4725,7 +4605,6 @@ return {
 				[1] = "Bleeding you inflict deals Damage 10% faster", 
 				[2] = "(25-35)% increased Physical Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Bloody Savagery", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4749,7 +4628,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4765,7 +4644,6 @@ return {
 			["sd"] = {
 				[1] = "50% chance to Avoid being Shocked", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Rural Life", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4784,7 +4662,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4800,7 +4678,6 @@ return {
 			["sd"] = {
 				[1] = "5% additional Physical Damage Reduction while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Martyr's Might", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4819,7 +4696,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4835,7 +4712,6 @@ return {
 			["sd"] = {
 				[1] = "10% chance to inflict Cold Exposure on Hit if you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Smite the Ignorant", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4854,7 +4730,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4871,7 +4747,6 @@ return {
 				[1] = "(25-35)% increased Cold Damage", 
 				[2] = "10% of Physical Damage Converted to Cold Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Flesh to Frost", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4895,7 +4770,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4911,7 +4786,6 @@ return {
 			["sd"] = {
 				[1] = "(3-5)% increased Effect of your Curses", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Curse Effect", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4930,7 +4804,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4946,7 +4820,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Area Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Area Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4965,7 +4838,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -4981,7 +4854,6 @@ return {
 			["sd"] = {
 				[1] = "8% Chance to Block Spell Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Sceptre Pinnacle", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5000,7 +4872,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5016,7 +4888,6 @@ return {
 			["sd"] = {
 				[1] = "15% chance to gain a Power Charge on Critical Strike", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Subjugation", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5035,7 +4906,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5051,7 +4922,6 @@ return {
 			["sd"] = {
 				[1] = "Gain 4 Flask Charges per empty Flask Slot every 5 seconds", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "The Traitor", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5070,7 +4940,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5086,7 +4956,6 @@ return {
 			["sd"] = {
 				[1] = "6% chance to Dodge Attack Hits", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Secret Tunnels", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5105,7 +4974,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5122,7 +4991,6 @@ return {
 				[1] = "(25-35)% increased Fire Damage", 
 				[2] = "Damage Penetrates (2-4)% Fire Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ritual of Immolation", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5146,7 +5014,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5162,7 +5030,6 @@ return {
 			["sd"] = {
 				[1] = "+10 to Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Devotion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5181,7 +5048,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5199,7 +5066,6 @@ return {
 				[2] = "50% less maximum Total Recovery per Second from Life Leech", 
 				[3] = "Energy Shield Recharge instead applies to Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Eternal Youth", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5218,7 +5084,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5234,7 +5100,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Evasion Rating", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Evasion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5253,7 +5118,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5269,7 +5134,6 @@ return {
 			["sd"] = {
 				[1] = "30% increased Effect of Chill", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Rites of Lunaris", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5288,7 +5152,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5304,7 +5168,6 @@ return {
 			["sd"] = {
 				[1] = "(7-12)% increased Projectile Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Projectile Damage", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5323,7 +5186,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5339,7 +5202,6 @@ return {
 			["sd"] = {
 				[1] = "15% of Physical Damage Converted to Lightning Damage while you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Thundrous Devotion", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5358,7 +5220,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5374,7 +5236,6 @@ return {
 			["sd"] = {
 				[1] = "10% chance to inflict Lightning Exposure on Hit if you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Smite the Heretical", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5393,7 +5254,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5410,7 +5271,6 @@ return {
 				[1] = "(25-35)% increased Spell Damage", 
 				[2] = "(35-50)% increased Critical Strike Chance for Spells", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Thaumaturgical Aptitude", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5434,7 +5294,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5450,7 +5310,6 @@ return {
 			["sd"] = {
 				[1] = "10% chance to inflict Fire Exposure on Hit if you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Smite the Wicked", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5469,7 +5328,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5486,7 +5345,6 @@ return {
 				[1] = "0.2% of Physical Damage Leeched as Life", 
 				[2] = "(25-35)% increased Physical Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Revitalising Winds", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5510,7 +5368,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5526,7 +5384,6 @@ return {
 			["sd"] = {
 				[1] = "(2-4)% increased maximum Life", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Life", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5545,7 +5402,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5562,7 +5419,6 @@ return {
 				[1] = "Ignore Attribute Requirements", 
 				[2] = "Gain no inherent bonuses from Attributes", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Supreme Ostentation", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5581,7 +5437,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5597,7 +5453,6 @@ return {
 			["sd"] = {
 				[1] = "Immune to Elemental Ailments while on Consecrated Ground if you have at least 150 Devotion", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Cloistered", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5616,7 +5471,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5634,7 +5489,6 @@ return {
 				[2] = "50% less Cold Resistance", 
 				[3] = "50% less Lightning Resistance", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Tempered by War", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5653,7 +5507,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 4, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5670,7 +5524,6 @@ return {
 				[1] = "(2-4)% chance to deal Double Damage", 
 				[2] = "(25-35)% increased Physical Damage", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Ritual of Might", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5694,7 +5547,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5710,7 +5563,6 @@ return {
 			["sd"] = {
 				[1] = "1% chance to Dodge Spell Hits", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Spell Dodge", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5729,7 +5581,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5746,7 +5598,6 @@ return {
 				[1] = "+(8-10)% to all Elemental Resistances", 
 				[2] = "4% chance to Dodge Spell Hits", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Temple Paths", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5770,7 +5621,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 
@@ -5786,7 +5637,6 @@ return {
 			["sd"] = {
 				[1] = "30% increased Effect of Shock", 
 			}, 
-			["sa"] = 0, 
 			["dn"] = "Virtue Gem Surgery", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -5805,7 +5655,7 @@ return {
 			}, 
 			["da"] = 0, 
 			["o"] = 3, 
-			["legion"] = true, 
+			["sa"] = 0, 
 			["out"] = {
 			}, 
 			["ia"] = 0, 

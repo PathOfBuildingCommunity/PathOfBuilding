@@ -1373,6 +1373,7 @@ local specialModList = {
 	["(%d+)%% of maximum mana is converted to twice that much armour"] = function(num) return {
 		mod("ManaConvertToArmour", "BASE", num),
 	} end,
+	["life leech effects recover energy shield instead while on full life"] = function(num) return { flag("GhostReaver", { type = "Condition", var = "FullLife" }) } end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
@@ -2154,6 +2155,7 @@ local specialModList = {
 	["left ring slot: you cannot recharge or regenerate energy shield"] = { flag("NoEnergyShieldRecharge", { type = "SlotNumber", num = 1 }), flag("NoEnergyShieldRegen", { type = "SlotNumber", num = 1 }) },
 	["cannot gain energy shield"] = { flag("NoEnergyShieldRegen"), flag("NoEnergyShieldRecharge"), flag("CannotLeechEnergyShield") },
 	["you lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
+	["lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
 	["lose (%d+)%% of life per second if you have been hit recently"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Condition", var = "BeenHitRecently" }) } end,
 	["you have no armour or energy shield"] = {
 		mod("Armour", "MORE", -100),
@@ -2329,19 +2331,6 @@ local specialModList = {
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
 	["you have zealot's oath if you haven't been hit recently"] = { mod("Keystone", "LIST", "Zealot's Oath", { type = "Condition", var = "BeenHitRecently", neg = true }) },
-	["immortal ambition"] = {
-		flag("NoEnergyShieldRecharge"),
-		flag("NoEnergyShieldRegen"),
-		flag("CanLeechLifeOnFullLife"),
-		mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = 5 }) 
-	},
-	["corrupted soul"] = {
-		mod("PhysicalEnergyShieldBypass", "BASE", 50),
-		mod("LightningEnergyShieldBypass", "BASE", 50),
-		mod("ColdEnergyShieldBypass", "BASE", 50),
-		mod("FireEnergyShieldBypass", "BASE", 50),
-		mod("LifeGainAsEnergyShield", "BASE", 20)
-	},
 	["deal no physical damage"] = { flag("DealNoPhysical") },
 	["deal no cold damage"] = { flag("DealNoCold") },
 	["deal no fire damage"] = { flag("DealNoFire") },
@@ -2555,6 +2544,8 @@ local specialModList = {
 	["denoted service of (%d+) dekhara in the akhara of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
 				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["passives in radius are conquered by the (%D+)"] = { },
+	["historic"] = { },
 	["you can have two different banners at the same time"] = { },
 	["can have a second enchantment modifier"] = { },
 	["this item can be anointed by cassia"] = { },
