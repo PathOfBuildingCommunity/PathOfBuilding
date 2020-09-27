@@ -3348,7 +3348,7 @@ c["6% increased Movement Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier"
 c["Projectiles from Attacks have 20% chance to Maim on Hit while you have a Bestial Minion Projectiles from Attacks have 20% chance to Poison on Hit while you have a Bestial Minion"]={{[1]={[1]={skillType=1,type="SkillType"},[2]={skillType=3,type="SkillType"},[3]={type="Condition",var="HaveBestialMinion"},[4]={type="Condition",var="HaveBestialMinion"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=20}}," to Maim on Hit   from Attacks have 20% chance to Poison on Hit  "}
 c["Verdant Oil - Azure Oil - Crimson Oil 24% increased Cold Damage 20% increased Projectile Speed 10% chance to Freeze 10% increased Effect of Chill"]={nil,"Verdant Oil - Azure Oil - Crimson Oil 24% increased Cold Damage 20% increased Projectile Speed 10% chance to Freeze 10% increased Effect of Chill "}
 c["Gain a Flask Charge when you deal a Critical Strike"]={nil,"Gain a Flask Charge when you deal a Critical Strike "}
-c["Bathed in the blood of 8000 sacrificed in the name of Zerphi"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="vaal"},id=8000}}}},nil}
+c["Bathed in the blood of 8000 sacrificed in the name of Zerphi"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="vaal"},id=8000}}}},nil}
 c["Returning Projectiles Pierce all Targets"]={nil,"Returning Projectiles Pierce all Targets "}
 c["Azure Oil - Azure Oil - Crimson Oil +12% to all Elemental Resistances 12% increased Elemental Damage 5% chance to Freeze, Shock and Ignite 12% increased Physical Damage"]={nil,"Azure Oil - Azure Oil - Crimson Oil +12% to all Elemental Resistances 12% increased Elemental Damage 5% chance to Freeze, Shock and Ignite 12% increased Physical Damage "}
 c["+1 to Maximum Power Charges"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},nil}
@@ -3645,7 +3645,7 @@ c["Bow Attacks fire 2 additional Arrows if you haven't Cast Dash recently 30% in
 c["Verdant Oil - Black Oil - Opalescent Oil 18% increased Physical Damage with Maces and Sceptres"]={nil,"Verdant Oil - Black Oil - Opalescent Oil 18% increased Physical Damage with Maces and Sceptres "}
 c["Azure Oil - Black Oil - Golden Oil 8% increased Attack Speed while you have Fortify"]={nil,"Azure Oil - Black Oil - Golden Oil 8% increased Attack Speed while you have Fortify "}
 c["Every second, inflict Withered on nearby Enemies for 15 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true}},nil}
-c["Bathed in the blood of 8000 sacrificed in the name of Doryani"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="vaal"},id=8000}}}},nil}
+c["Bathed in the blood of 8000 sacrificed in the name of Doryani"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="vaal"},id=8000}}}},nil}
 c["1 Added Passive Skill is Cremator"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Cremator"}},nil}
 c["Inherent loss of Rage is 20% slower"]={nil,"Inherent loss of Rage is 20% slower "}
 c["3% increased Character Size 6% increased Dexterity"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="INC",value=3}}," Character Size 6% increased  "}
