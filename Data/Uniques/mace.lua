@@ -71,12 +71,12 @@ Requires Level 41, 134 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
+Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 Minions have (20-30)% increased maximum Life
-Minions' Attacks deal (5-8) to (12-16) additional Physical Damage
 +1 to maximum number of Golems
-Grants level 12 Summon Stone Golem
+Minions deal (5-8) to (12-16) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
