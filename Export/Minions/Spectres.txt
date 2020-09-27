@@ -186,3 +186,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_
 -- Cloud retch
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
+-- Artless Assassin
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre

@@ -4707,6 +4707,41 @@ skills["LegionTemplarJudgeStormCall"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, 2000, 60, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
+skills["MPWHeistThugRangedBurningArrow"] = {
+	name = "Burning Arrow",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		hit = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_projectile_variation",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"spell_maximum_action_distance_+%",
+		"active_skill_damage_+%_final",
+		"base_is_projectile",
+		"use_scaled_contact_offset",
+		"projectile_uses_contact_position",
+		"maintain_projectile_direction_when_using_contact_position",
+		"always_ignite",
+	},
+	levels = {
+		[1] = { 124, 75, -50, -30, levelRequirement = 1, statInterpolation = { 1, 1, 1, 2, }, },
+		[2] = { 124, 75, -50, 0, levelRequirement = 19, statInterpolation = { 1, 1, 1, 2, }, },
+		[3] = { 124, 75, -50, 1, levelRequirement = 20, statInterpolation = { 1, 1, 1, 2, }, },
+		[4] = { 124, 75, -50, 60, levelRequirement = 84, statInterpolation = { 1, 1, 1, 2, }, },
+	},
+}
 skills["MPSHeistRobotClockworkGolemBasicProjectile"] = {
 	name = "Frost Projectile",
 	hidden = true,
@@ -4770,6 +4805,70 @@ skills["MMSHeistRobotClockworkGolemMortarSpectre"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -35, cooldown = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
+	},
+}
+skills["HeistThugRangedExplosiveArrow"] = {
+	name = "Explosive Arrow (20 Fuses)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.037999998778105,
+	description = "Fires an arrow which will stick into an enemy or wall, and then explode, dealing area damage around it, either after a duration or when the maximum number of arrows stuck to that target is reached. If an enemy has multiple Explosive Arrows stuck in them, the first one to explode will consume the others, adding their damage to its explosion.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil),
+		},
+		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil),
+		},
+		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_explosion_base_damage_+permyriad"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+			div = 100,
+		},
+		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		hit = true,
+		area = true,
+		duration = true,
+		triggerable = true,
+	},
+	baseMods = {
+		skill("radius", 15),
+		skill("showAverage", true),
+		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"fuse_arrow_explosion_radius_+_per_fuse_arrow_orb",
+		"explosive_arrow_explosion_minimum_added_fire_damage",
+		"explosive_arrow_explosion_maximum_added_fire_damage",
+		"explosive_arrow_explosion_base_damage_+permyriad",
+		"explosive_arrow_maximum_bonus_explosion_radius",
+		"explosive_arrow_hit_and_ailment_damage_+%_final_per_stack",
+		"explosive_arrow_stack_limit",
+		"base_is_projectile",
+		"use_scaled_contact_offset",
+		"projectile_uses_contact_position",
+		"maintain_projectile_direction_when_using_contact_position",
+	},
+	levels = {
+		[1] = { 2, 0.80000001192093, 1.2000000476837, -5000, 12, 3, 20, duration = 2, levelRequirement = 1, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, },
 	},
 }
 skills["EmptyActionSpellSecretPoliceDaggers"] = {
@@ -4884,5 +4983,61 @@ skills["AtlasEyrieKiwethMortarShards"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GAHeistThugRangedArrowShotgun"] = {
+	name = "Arrow Shotgun",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_fire",
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { 50, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["GAHeistThugRangedShotgun"] = {
+	name = "Ranged Shotgun",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.33,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { 50, -30, baseMultiplier = 1.3, levelRequirement = 1, statInterpolation = { 1, 2, }, },
+		[2] = { 50, 0, baseMultiplier = 1.3, levelRequirement = 19, statInterpolation = { 1, 2, }, },
+		[3] = { 50, 1, baseMultiplier = 1.3, levelRequirement = 20, statInterpolation = { 1, 2, }, },
+		[4] = { 50, 60, baseMultiplier = 1.3, levelRequirement = 84, statInterpolation = { 1, 2, }, },
 	},
 }
