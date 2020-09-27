@@ -765,3 +765,11 @@ local skills, mod, flag, skill = ...
 #skill BetrayalSecretPoliceCurveDagger1 Secret Police Daggers
 #flags attack projectile triggerable
 #mods
+
+#skill AtlasEyrieKiwethMortar Mortar
+#flags spell hit area projectile triggerable
+#mods
+
+#skill AtlasEyrieKiwethMortarShards Mortar Shards
+#flags projectile triggerable
+#mods

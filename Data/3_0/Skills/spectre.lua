@@ -4825,3 +4825,64 @@ skills["BetrayalSecretPoliceCurveDagger1"] = {
 		[2] = { -20, 1500, 20, 50, 0, 0, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
 	},
 }
+skills["AtlasEyrieKiwethMortar"] = {
+	name = "Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.67,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		projectile = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"projectile_spread_radius",
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0, 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 10, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, },
+	},
+}
+skills["AtlasEyrieKiwethMortarShards"] = {
+	name = "Mortar Shards",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		projectile = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}

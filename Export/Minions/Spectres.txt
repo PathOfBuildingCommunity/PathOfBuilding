@@ -184,3 +184,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre
 -- Syndicate Operative
 #spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_
+-- Cloud retch
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
