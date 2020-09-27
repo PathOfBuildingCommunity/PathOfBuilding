@@ -174,8 +174,10 @@ end
 -- parse real gem name by ommiting the first word if alt qual is set
 function SkillsTabClass:ParseBaseGemName(gemInstance)
 	if gemInstance.qualityId and gemInstance.nameSpec then
-		_, gemName = gemInstance.nameSpec:match("(%w+)(.+)")
-		return gemName
+		_, gemName = gemInstance.nameSpec:match("(%w+)%s(.+)")
+		if gemName then
+			return gemName
+		end
 	end
 	return gemInstance.nameSpec
 end
