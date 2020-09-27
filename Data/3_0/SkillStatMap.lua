@@ -479,6 +479,9 @@ return {
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
 },
+["base_chance_to_deal_triple_damage_%"] = {
+	mod("TripleDamageChance", "BASE", nil)
+},
 ["damage_+%_with_hits_and_ailments"] = {
 	mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 },
