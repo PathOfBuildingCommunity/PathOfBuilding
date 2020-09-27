@@ -439,11 +439,11 @@ Primordial Harmony
 Cobalt Jewel
 Variant: Pre 3.3.0
 Variant: Current
-Golem Skills have (20-30)% increased Cooldown Recovery Speed
-{variant:1}Golems have (10-15)% increased Cooldown Recovery Speed
-{variant:2}Golems have (30-45)% increased Cooldown Recovery Speed
+Golem Skills have (20-30)% increased Cooldown Recovery Rate
+{variant:1}Summoned Golems have (10-15)% increased Cooldown Recovery Rate
+{variant:2}Summoned Golems have (30-45)% increased Cooldown Recovery Rate
 (16-20)% increased Golem Damage for each Type of Golem you have Summoned
-Golems regenerate 2% of their Maximum Life per second
+Summoned Golems Regenerate 2% of their Life per second
 Primordial
 ]],[[
 Primordial Might
@@ -451,7 +451,7 @@ Crimson Jewel
 (25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
 Golems Summoned in the past 8 seconds deal (35-45)% increased Damage
 Golems have (18-22)% increased Maximum Life
-Your Golems are aggressive
+Summoned Golems are Aggressive
 Primordial
 ]],[[
 Replica Primordial Might
