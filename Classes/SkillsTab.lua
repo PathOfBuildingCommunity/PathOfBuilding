@@ -158,6 +158,30 @@ will automatically apply to the skill.]]
 	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].enabled,"TOPLEFT"}, -16, -2, 0, 16, "^7Enabled:")
 end)
 
+-- parse alt qual from existing quality list
+function SkillsTabClass:ParseGemAltQuality(gemName, qualityId)
+	if qualityId then
+		return qualityId
+	end if gemName then
+		for indx, entry in ipairs(alternateGemQualityList) do
+			if gemName:sub(1, #entry.label) == entry.label then
+				return entry.type
+			end
+		end
+	end
+end
+
+-- parse real gem name by ommiting the first word if alt qual is set
+function SkillsTabClass:ParseBaseGemName(gemInstance)
+	if gemInstance.qualityId and gemInstance.nameSpec then
+		_, gemName = gemInstance.nameSpec:match("(%w+)%s(.+)")
+		if gemName then
+			return gemName
+		end
+	end
+	return gemInstance.nameSpec
+end
+
 function SkillsTabClass:Load(xml, fileName)
 	self.defaultGemLevel = tonumber(xml.attrib.defaultGemLevel)
 	self.defaultGemQuality = tonumber(xml.attrib.defaultGemQuality)
@@ -201,7 +225,9 @@ function SkillsTabClass:Load(xml, fileName)
 				end
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
-				gemInstance.qualityId = child.attrib.qualityId
+				gemInstance.qualityId = SkillsTabClass:ParseGemAltQuality(gemInstance.nameSpec, child.attrib.qualityId)
+				gemInstance.nameSpec = SkillsTabClass:ParseBaseGemName(gemInstance)
+
 				if gemInstance.gemData then
 					gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 				end
@@ -866,4 +892,8 @@ function SkillsTabClass:RestoreUndoState(state)
 	if self.controls.groupList.selValue then
 		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
 	end
+end
+
+function SkillsTabClass:getAlternateGemQualityList()
+	return alternateGemQualityList
 end
