@@ -697,7 +697,7 @@ League: Delve
 Requires Level 34
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
-Can Summon up to 3 additional Golems at a time
++3 to maximum number of Golems
 You cannot have non-Golem Minions
 25% reduced Golem Size
 Golems Deal (35-45)% less Damage

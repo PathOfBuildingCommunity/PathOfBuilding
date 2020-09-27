@@ -13,7 +13,7 @@ The Anima Stone
 Prismatic Jewel
 Source: Vendor Recipe
 Limited to: 1
-Can Summon up to 1 additional Golem at a time
++1 to maximum number of Golems
 +1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
 Apex Mode
