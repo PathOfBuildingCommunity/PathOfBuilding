@@ -749,6 +749,6 @@ local skills, mod, flag, skill = ...
 #flags spell hit area projectile triggerable
 #mods
 
-#skill AtlasEyrieKiwethMortarShards
-#flags spell projectile triggerable
+#skill AtlasEyrieKiwethMortarShards Mortar Shards
+#flags projectile triggerable
 #mods

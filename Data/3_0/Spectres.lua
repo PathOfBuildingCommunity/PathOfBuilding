@@ -2861,26 +2861,26 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
--- Cloud Retch
-minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiweth"] = {
-    name = "Cloud Retch",
-    life = 2.52,
-    energyShield = 0.5,
-    fireResist = 0,
-    coldResist = 40,
-    lightningResist = 0,
-    chaosResist = 0,
-    damage = 1.68,
-    damageSpread = 0.2,
-    attackTime = 1.005,
-    attackRange = 11,
-    accuracy = 1,
-    skillList = {
-        "MeleeCold",
-        "AtlasEyrieKiwethMortarShards",
-        "AtlasEyrieKiwethMortar",
-        "WalkEmergeAtlasInfluenceMonster",
-    },
-    modList = {
-    },
+-- Cloud retch
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre"] = {
+	name = "Cloud Retch",
+	life = 2.52,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.68,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"MeleeCold",
+		"WalkEmergeAtlasInfluenceMonster",
+		"AtlasEyrieKiwethMortarSpectre",
+		"AtlasEyrieKiwethMortarShards",
+	},
+	modList = {
+	},
 }
