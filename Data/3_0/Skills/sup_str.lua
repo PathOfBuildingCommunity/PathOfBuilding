@@ -1545,7 +1545,7 @@ skills["SupportFortify"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
 		},
 		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
-			mod("EnemyPhysicalDamageReduction", "INC", nil, ModFlag.MeleeHit, 0, { type = "Condition", var = "Fortify"}),
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
 		},
 	},
 	baseMods = {
