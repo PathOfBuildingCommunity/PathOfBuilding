@@ -422,7 +422,6 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
-#baseMod mod("Multiplier:IntensityLimit", "BASE", 3)
 #mods
 
 #skill SupportItemRarity
@@ -514,16 +513,15 @@ local skills, mod, flag, skill = ...
 #skill SupportProjectileIntensity
     statMap = {
 	    ["additional_projectiles_per_intensity"] = {
-			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 	},
-#baseMod mod("Multiplier:IntensityLimit", "BASE", 3)
 #mods
 
 #skill SupportPowerChargeOnCrit

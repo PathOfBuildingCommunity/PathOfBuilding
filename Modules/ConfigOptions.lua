@@ -131,6 +131,10 @@ return {
 	{ var = "carrionGolemNearbyMinion", type = "count", label = "# of Nearby Non-Golem Minions:", ifSkill = "Summon Carrion Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyNonGolemMinion", "BASE", val, "Config")
 	end },
+	{ label = "Cyclone:", ifSkill = "Cyclone" },
+	{ var = "channellingCycloneCheck", type = "check", label = "Are you Channelling Cyclone?", ifSkill = "Cyclone", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:ChannellingCyclone", "FLAG", true, "Config")
+	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum Life of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
@@ -155,6 +159,10 @@ return {
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Damage", "MORE", 10, "Feeding Frenzy") }, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("MovementSpeed", "INC", 10, "Feeding Frenzy") }, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Speed", "INC", 10, "Feeding Frenzy") }, "Config")
+	end },
+	{ label = "Frost Shield:", ifSkill = "Frost Shield" },
+	{ var = "frostShieldStages", type = "count", label = "Stages:", ifSkill = "Frost Shield", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:FrostShieldStage", "BASE", val, "Config")
 	end },
 	{ label = "Greater Harbinger of Time:", ifSkill =  "Summon Greater Harbinger of Time" },
 	{ var = "greaterHarbingerOfTimeSlipstream", type = "check", label = "Is Slipstream active?:", ifSkill =  "Summon Greater Harbinger of Time", tooltip = "Greater Harbinger of Time Slipstream buff grants:\n20% increased Action Speed\nBuff affects the player and allies\nBuff has a base duration of 8s with a 10s Cooldown", apply = function(val, modList, enemyModList)
@@ -184,8 +192,8 @@ return {
 	{ var = "innervateInnervation", type = "check", label = "Is Innervation active?", ifSkill = "Innervate", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:InnervationActive", "FLAG", true, "Config")
 	end },
-	{ label = "Intensify:", ifSkillList = { "Intensify", "Crackling Lance"} },
-	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkillList = { "Intensify", "Crackling Lance"}, apply = function(val, modList, enemyModList)
+	{ label = "Intensify:", ifSkillList = { "Intensify", "Crackling Lance", "Pinpoint" } },
+	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkillList = { "Intensify", "Crackling Lance", "Pinpoint" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
@@ -230,6 +238,10 @@ return {
 	{ label = "Animate Weapon:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"} },
 	{ var = "animateWeaponWeaponCount", type = "count", label = "# of Weapons:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"}, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:AnimatedWeapon", "BASE", m_min(val, 50), "Config")
+	end },
+	{ label = "Sigil of Power:", ifSkill = "Sigil of Power" },
+	{ var = "sigilOfPowerStages", type = "count", label = "Stages:", ifSkill = "Sigil of Power", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SigilOfPowerStage", "BASE", val, "Config")
 	end },
 	{ label = "Siphoning Trap:", ifSkill = "Siphoning Trap" },
 	{ var = "siphoningTrapAffectedEnemies", type = "count", label = "# of Enemies affected:", ifSkill = "Siphoning Trap", tooltip = "Sets the number of enemies affected by Siphoning Trap.", apply = function(val, modList, enemyModList)

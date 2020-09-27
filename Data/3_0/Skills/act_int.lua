@@ -805,6 +805,19 @@ skills["Ember"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -3277,7 +3290,23 @@ skills["Firewall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SkillCanTotem] = true, [SkillType.FireSkill] = true, [SkillType.Type59] = true, [SkillType.CanRapidFire] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.CausesBurning] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
+	parts = {
+		{
+			name = "Primary Debuff",
+		},
+		{
+			name = "Secondary Debuff",
+		},
+	},
 	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 60,
+		},
+		["secondary_base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
 		["wall_maximum_length"] = {
 			skill("radius", nil),
 		},
@@ -4032,6 +4061,14 @@ skills["FrostGlobe"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
+		["frost_globe_additional_spell_base_critical_strike_chance_per_stage"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 100,
+		},
+		["energy_shield_lost_per_minute"] = {
+			mod("EnergyShieldDegen", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "FrostShieldStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 60,
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -4457,12 +4494,26 @@ skills["GlacialCascade"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
+	parts = {
+		{
+			name = "Initial Bursts",
+		},
+		{
+			name = "Final Burst",
+		},
+	},
+	statMap = {
+		["glacial_cascade_final_spike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
 		skill("radius", 12),
+		mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -4554,10 +4605,19 @@ skills["DoomBlast"] = {
 	},
 	baseMods = {
 		skill("showAverage", true),
-		flag("ChaosCanIgnite"),
-		flag("ChaosCanChill"),
-		flag("ChaosCanShock"),
 		flag("ChaosDamageUsesLowestResistance"),
+		flag("PhysicalCanIgnite"),
+		flag("LightningCanIgnite"),
+		flag("ColdCanIgnite"),
+		flag("ChaosCanIgnite"),
+		flag("PhysicalCanFreeze"),
+		flag("LightningCanFreeze"),
+		flag("FireCanFreeze"),
+		flag("ChaosCanFreeze"),
+		flag("PhysicalCanShock"),
+		flag("ColdCanShock"),
+		flag("FireCanShock"),
+		flag("ChaosCanShock"),
 	},
 	qualityStats = {
 		Default = {
@@ -7529,7 +7589,15 @@ skills["CircleOfPower"] = {
 	castTime = 0.5,
 	statMap = {
 		["circle_of_power_skill_cost_mana_cost_+%"] = {
-			mod("ManaCost", "INC", nil, 0, 0, { type = "Condition", var = "InSigilOfPower" }),
+			mod("ManaCost", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_min_added_lightning_per_stage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_max_added_lightning_per_stage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 	},
 	baseFlags = {
@@ -7539,6 +7607,7 @@ skills["CircleOfPower"] = {
 		lightning = true,
 	},
 	baseMods = {
+		skill("buffAllies", true),
 	},
 	qualityStats = {
 		Default = {

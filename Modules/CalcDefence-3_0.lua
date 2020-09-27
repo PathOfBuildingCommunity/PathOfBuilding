@@ -379,7 +379,7 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRegen = esBase * output.EnergyShieldRecoveryRateMod * calcLib.mod(modDB, nil, "EnergyShieldRegen") - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 		else
-			output.EnergyShieldRegen = 0
+			output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 		end
 	end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then

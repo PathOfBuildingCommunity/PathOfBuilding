@@ -3153,7 +3153,6 @@ skills["SupportHandcastSpellBoost"] = {
 		},
 	},
 	baseMods = {
-		mod("Multiplier:IntensityLimit", "BASE", 3),
 	},
 	qualityStats = {
 		Default = {
@@ -3991,17 +3990,16 @@ skills["SupportProjectileIntensity"] = {
 	statDescriptionScope = "gem_stat_descriptions",
     statMap = {
 	    ["additional_projectiles_per_intensity"] = {
-			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 	},
 	baseMods = {
-		mod("Multiplier:IntensityLimit", "BASE", 3),
 	},
 	qualityStats = {
 		Default = {

@@ -1920,6 +1920,9 @@ skills["Cyclone"] = {
 		["cyclone_area_of_effect_+%_per_additional_melee_range"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "AdditionalMeleeRange"}),
 		},
+		["cyclone_movement_speed_+%_final"] = {
+			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	initialFunc = function(activeSkill, output)
 		local rangePlus = 0

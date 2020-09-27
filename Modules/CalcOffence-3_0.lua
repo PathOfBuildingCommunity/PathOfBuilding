@@ -393,6 +393,24 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "ClawCritChanceAppliesToMinions") then
+		-- Claw Crit Chance conversion from Law of the Wilds
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Hit) }, "CritChance")) do
+			local mod = value.mod
+			if band(mod.flags, ModFlag.Claw) ~= 0 then
+            env.minion.modDB:NewMod("CritChance", mod.type, mod.value, mod.source)
+			end
+		end
+	end
+   if skillModList:Flag(nil, "ClawCritMultiplierAppliesToMinions") then
+		-- Claw Crit Multi conversion from Law of the Wilds
+		for i, value in ipairs(skillModList:Tabulate("BASE", { flags = bor(ModFlag.Claw, ModFlag.Hit) }, "CritMultiplier")) do
+			local mod = value.mod
+			if band(mod.flags, ModFlag.Claw) ~= 0 then
+				env.minion.modDB:NewMod("CritMultiplier", mod.type, mod.value, mod.source)
+			end
+		end
+	end
 	if skillModList:Flag(nil, "LightRadiusAppliesToAccuracy") then
 		-- Light Radius conversion from Corona Solaris
 		for i, value in ipairs(skillModList:Tabulate("INC",  { }, "LightRadius")) do

@@ -130,6 +130,19 @@ local skills, mod, flag, skill = ...
 
 #skill Ember
 #flags spell area fire projectile
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 #mods
 
 #skill Blight
@@ -548,7 +561,23 @@ local skills, mod, flag, skill = ...
 
 #skill Firewall
 #flags spell area duration fire
+	parts = {
+		{
+			name = "Primary Debuff",
+		},
+		{
+			name = "Secondary Debuff",
+		},
+	},
 	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 60,
+		},
+		["secondary_base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
 		["wall_maximum_length"] = {
 			skill("radius", nil),
 		},
@@ -697,6 +726,14 @@ local skills, mod, flag, skill = ...
 #skill FrostGlobe
 #flags spell area duration cold
 	statMap = {
+		["frost_globe_additional_spell_base_critical_strike_chance_per_stage"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 100,
+		},
+		["energy_shield_lost_per_minute"] = {
+			mod("EnergyShieldDegen", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "FrostShieldStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 60,
+		},
 	},
 #mods
 
@@ -746,7 +783,21 @@ local skills, mod, flag, skill = ...
 
 #skill GlacialCascade
 #flags spell area
+	parts = {
+		{
+			name = "Initial Bursts",
+		},
+		{
+			name = "Final Burst",
+		},
+	},
+	statMap = {
+		["glacial_cascade_final_spike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 #baseMod skill("radius", 12)
+#baseMod mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill DoomBlast
@@ -760,10 +811,19 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", true)
-#baseMod flag("ChaosCanIgnite")
-#baseMod flag("ChaosCanChill")
-#baseMod flag("ChaosCanShock")
 #baseMod flag("ChaosDamageUsesLowestResistance")
+#baseMod flag("PhysicalCanIgnite")
+#baseMod flag("LightningCanIgnite")
+#baseMod flag("ColdCanIgnite")
+#baseMod flag("ChaosCanIgnite")
+#baseMod flag("PhysicalCanFreeze")
+#baseMod flag("LightningCanFreeze")
+#baseMod flag("FireCanFreeze")
+#baseMod flag("ChaosCanFreeze")
+#baseMod flag("PhysicalCanShock")
+#baseMod flag("ColdCanShock")
+#baseMod flag("FireCanShock")
+#baseMod flag("ChaosCanShock")
 #mods
 
 #skill HeraldOfThunder
@@ -1298,9 +1358,18 @@ local skills, mod, flag, skill = ...
 #flags spell area duration lightning
 	statMap = {
 		["circle_of_power_skill_cost_mana_cost_+%"] = {
-			mod("ManaCost", "INC", nil, 0, 0, { type = "Condition", var = "InSigilOfPower" }),
+			mod("ManaCost", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_min_added_lightning_per_stage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_max_added_lightning_per_stage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 	},
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill IceSiphonTrap

@@ -2546,6 +2546,12 @@ skills["SummonRigwaldsPack"] = {
 		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
 			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
 		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
 	},
 	baseFlags = {
 		spell = true,
