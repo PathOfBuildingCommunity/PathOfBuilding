@@ -282,6 +282,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
 		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
 		{ },
+		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
+		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
 		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true },

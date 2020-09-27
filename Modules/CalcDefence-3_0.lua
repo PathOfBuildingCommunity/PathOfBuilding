@@ -191,6 +191,15 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
+		local convManaToArmour = modDB:Sum("BASE", nil, "ManaConvertToArmour")
+		if convManaToArmour > 0 then
+			armourBase = modDB:Sum("BASE", nil, "Mana") * convManaToArmour / 100
+			local total = armourBase * calcLib.mod(modDB, nil, "Mana", "Armour", "Defences")
+			armour = armour + total
+			if breakdown then
+				breakdown.slot("Conversion", "Mana to Armour", nil, armourBase, total, "Armour", "Defences", "Mana")
+			end
+		end
 		local convManaToES = modDB:Sum("BASE", nil, "ManaGainAsEnergyShield")
 		if convManaToES > 0 then
 			energyShieldBase = modDB:Sum("BASE", nil, "Mana") * convManaToES / 100

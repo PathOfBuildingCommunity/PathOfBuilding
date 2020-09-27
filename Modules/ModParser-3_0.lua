@@ -10,6 +10,28 @@ local band = bit.band
 local bor = bit.bor
 local bnot = bit.bnot
 
+local conquerorList = {
+	["xibaqua"]		=	{id = 1, type = "vaal"},
+	["doryani"]		=	{id = 2, type = "vaal"},
+	["zerphi"]		=	{id = 3, type = "vaal"},
+	["ahuana"]		=	{id = "2_v2", type = "vaal"},
+	["deshret"]		=	{id = 1, type = "maraketh"},
+	["asenath"]		=	{id = 2, type = "maraketh"},
+	["nasima"]		=	{id = 3, type = "maraketh"},
+	["balbala"]		=	{id = "1_v2", type = "maraketh"},
+	["cadiro"]		=	{id = 1, type = "eternal"},
+	["victario"]	=	{id = 2, type = "eternal"},
+	["chitus"]		=	{id = 3, type = "eternal"},
+	["caspiro"]		=	{id = "3_v2", type = "eternal"},
+	["kaom"]		=	{id = 1, type = "karui"},
+	["rakiata"]		=	{id = 2, type = "karui"},
+	["kiloava"]		=	{id = 3, type = "karui"},
+	["akoya"]		=	{id = "3_v2", type = "karui"},
+	["venarius"]	=	{id = 1, type = "templar"},
+	["dominus"]		=	{id = 2, type = "templar"},
+	["avarius"]		=	{id = 3, type = "templar"},
+	["maxarius"]	=	{id = "1_v2", type = "templar"},
+}
 -- List of modifier forms
 local formList = {
 	["^(%d+)%% increased"] = "INC",
@@ -76,6 +98,7 @@ local modNameList = {
 	["dexterity and intelligence"] = { "Dex", "Int" },
 	["attributes"] = { "Str", "Dex", "Int" },
 	["all attributes"] = { "Str", "Dex", "Int" },
+	["devotion"] = "Devotion",
 	-- Life/mana
 	["life"] = "Life",
 	["maximum life"] = "Life",
@@ -173,6 +196,7 @@ local modNameList = {
 	["elemental damage taken when hit"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken from hits"] = "ElementalDamageTakenWhenHit",
 	["elemental damage taken over time"] = "ElementalDamageTakenOverTime",
+	["cold and lightning damage taken"] = { "ColdDamageTaken", "LightningDamageTaken" },
 	["reflected elemental damage taken"] = "ElementalReflectedDamageTaken",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
@@ -906,6 +930,7 @@ local modTagList = {
 	["per (%d+) maximum energy shield on shield"] = function(num) return { tag = { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = num } } end,
 	["per (%d+)%% cold resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "ColdResistOver75", div = num } } end,
 	["per (%d+)%% lightning resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "LightningResistOver75", div = num } } end,
+	["per (%d+) devotion"] = function(num) return { tag = { type = "PerStat", stat = "Devotion", div = num } } end,
 	["per (%d+)%% missing fire resistance"] = function(num) return { tag = { type = "PerStat", stat = "MissingFireResist", div = num } } end,
 	["per (%d+)%% missing cold resistance"] = function(num) return { tag = { type = "PerStat", stat = "MissingColdResist", div = num } } end,
 	["per totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } }, 
@@ -934,6 +959,7 @@ local modTagList = {
 	["against targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["against pierced targets"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["to targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
+	["while you have at least (%d+) devotion"] = function(num) return { tag = { type = "StatThreshold", stat = "Devotion", threshold = num } } end,
 	-- Slot conditions
 	["when in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
 	["when in off hand"] = { tag = { type = "SlotNumber", num = 2 } },
@@ -1345,6 +1371,10 @@ local specialModList = {
 	["you are blind"] = { flag("Condition:Blinded") },
 	["armour applies to fire, cold and lightning damage taken from hits instead of physical damage"] = { flag("ArmourAppliesToFireDamageTaken"), flag("ArmourAppliesToColdDamageTaken"), flag("ArmourAppliesToLightningDamageTaken"), flag("ArmourDoesNotApplyToPhysicalDamageTaken") },
 	["maximum damage reduction for any damage type is (%d+)%%"] = function(num) return { mod("DamageReductionMax", "OVERRIDE", num) } end,
+	["(%d+)%% of maximum mana is converted to twice that much armour"] = function(num) return {
+		mod("ManaConvertToArmour", "BASE", num),
+	} end,
+	["life leech effects recover energy shield instead while on full life"] = function(num) return { flag("GhostReaver", { type = "Condition", var = "FullLife" }) } end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
@@ -1753,6 +1783,7 @@ local specialModList = {
 	["your critical strike chance is lucky while focussed"] = { flag("CritChanceLucky", { type = "Condition", var = "Focused" }) },
 	["your critical strikes do not deal extra damage"] = { flag("NoCritMultiplier") },
 	["lightning damage with non%-critical strikes is lucky"] = { flag("LightningNoCritLucky") },
+	["your damage with critical strikes is lucky"] = { flag("CritLucky") },
 	["critical strikes deal no damage"] = { mod("Damage", "MORE", -100, { type = "Condition", var = "CriticalStrike" }) },
 	["critical strike chance is increased by uncapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistTotal", div = 1 }) },
 	["critical strike chance is increased by lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResist", div = 1 }) },
@@ -2131,6 +2162,7 @@ local specialModList = {
 	["left ring slot: you cannot recharge or regenerate energy shield"] = { flag("NoEnergyShieldRecharge", { type = "SlotNumber", num = 1 }), flag("NoEnergyShieldRegen", { type = "SlotNumber", num = 1 }) },
 	["cannot gain energy shield"] = { flag("NoEnergyShieldRegen"), flag("NoEnergyShieldRecharge"), flag("CannotLeechEnergyShield") },
 	["you lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
+	["lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
 	["lose (%d+)%% of life per second if you have been hit recently"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Condition", var = "BeenHitRecently" }) } end,
 	["you have no armour or energy shield"] = {
 		mod("Armour", "MORE", -100),
@@ -2306,19 +2338,6 @@ local specialModList = {
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
 	["you have zealot's oath if you haven't been hit recently"] = { mod("Keystone", "LIST", "Zealot's Oath", { type = "Condition", var = "BeenHitRecently", neg = true }) },
-	["immortal ambition"] = {
-		flag("NoEnergyShieldRecharge"),
-		flag("NoEnergyShieldRegen"),
-		flag("CanLeechLifeOnFullLife"),
-		mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = 5 }) 
-	},
-	["corrupted soul"] = {
-		mod("PhysicalEnergyShieldBypass", "BASE", 50),
-		mod("LightningEnergyShieldBypass", "BASE", 50),
-		mod("ColdEnergyShieldBypass", "BASE", 50),
-		mod("FireEnergyShieldBypass", "BASE", 50),
-		mod("LifeGainAsEnergyShield", "BASE", 20)
-	},
 	["deal no physical damage"] = { flag("DealNoPhysical") },
 	["deal no cold damage"] = { flag("DealNoCold") },
 	["deal no fire damage"] = { flag("DealNoFire") },
@@ -2518,6 +2537,24 @@ local specialModList = {
 	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
+	-- Legion modifiers
+	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] =  function(num, _, name)
+		return { mod("JewelData", "LIST",
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["carved to glorify (%d+) new faithful converted by high templar (.+)"] =  function(num, _, name)
+		return { mod("JewelData", "LIST",
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["commanded leadership over (%d+) warriors under (.+)"] =  function(num, _, name)
+		return { mod("JewelData", "LIST",
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["commissioned (%d+) coins to commemorate (.+)"] =  function(num, _, name)
+		return { mod("JewelData", "LIST",
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["denoted service of (%d+) dekhara in the akhara of (.+)"] =  function(num, _, name)
+		return { mod("JewelData", "LIST",
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["passives in radius are conquered by the (%D+)"] = { },
+	["historic"] = { },
 	["you can have two different banners at the same time"] = { },
 	["can have a second enchantment modifier"] = { },
 	["this item can be anointed by cassia"] = { },
@@ -2769,36 +2806,6 @@ local jewelOtherFuncs = {
 			out:NewMod("NodeModifier", "LIST", { mod = mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", -25, data.modSource) } ) }, data.modSource)
 		end
 	end,
-	["Passives in radius are Conquered by the Eternal Empire"] = function(node, out, data)
-		if node and node.type ~= "Keystone" then
-			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
-		end
-	end,
-	["Passives in radius are Conquered by the Karui"] = function(node, out, data)
-		local attributes = { "Dexterity", "Intelligence", "Strength" }
-		if node and node.type == "Normal" then
-			if isValueInArray(attributes, node.dn) then
-				out:NewMod("Str", "BASE", 2, data.modSource)
-			else
-				out:NewMod("Str", "BASE", 4, data.modSource)
-			end
-		end
-	end,
-	["Passives in radius are Conquered by the Maraketh"] = function(node, out, data)
-		local attributes = { "Dexterity", "Intelligence", "Strength" }
-		if node and node.type == "Normal" then
-			if isValueInArray(attributes, node.dn) then
-				out:NewMod("Dex", "BASE", 2, data.modSource)
-			else
-				out:NewMod("Dex", "BASE", 4, data.modSource)
-			end
-		end
-	end,
-	["Passives in radius are Conquered by the Vaal"] = function(node, out, data)
-		if node and node.type ~= "Keystone" then
-			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
-		end
-	end,
 }
 
 -- Radius jewels that modify the jewel itself based on nearby allocated nodes
@@ -2943,8 +2950,24 @@ local jewelThresholdFuncs = {
 
 -- Unified list of jewel functions
 local jewelFuncList = { }
+-- Jewels that modify nodes
 for k, v in pairs(jewelOtherFuncs) do
-	jewelFuncList[k:lower()] = { func = v, type = "Other" }
+	jewelFuncList[k:lower()] = { func = function(cap1, cap2, cap3, cap4, cap5)
+		-- Need to not modify any nodes already modified by timeless jewels
+		-- Some functions return a function instead of simply adding mods, so if
+		-- we don't see a node right away, run the outer function first
+		if cap1 and type(cap1) == "table" and cap1.conqueredBy then
+			return
+		end
+		local innerFuncOrNil = v(cap1, cap2, cap3, cap4, cap5)
+		-- In all (current) cases, there is only one nested layer, so no need for recursion
+		return function(node, out, other)
+			if node and type(node) == "table" and node.conqueredBy then
+				return
+			end
+			return innerFuncOrNil(node, out, other)
+		end
+	end, type = "Other" }
 end
 for k, v in pairs(jewelSelfFuncs) do
 	jewelFuncList[k:lower()] = { func = v, type = "Self" }
@@ -2952,6 +2975,7 @@ end
 for k, v in pairs(jewelSelfUnallocFuncs) do
 	jewelFuncList[k:lower()] = { func = v, type = "SelfUnalloc" }
 end
+-- Threshold Jewels
 for k, v in pairs(jewelThresholdFuncs) do
 	jewelFuncList[k:lower()] = { func = v, type = "Threshold" }
 end

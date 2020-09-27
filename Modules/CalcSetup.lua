@@ -210,6 +210,7 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
 	modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
 	modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
+	modDB:NewMod("Devotion", "BASE", 0, "Base")
 	modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
 	modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
 	modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
@@ -485,7 +486,7 @@ function calcs.initEnv(build, mode, override)
 				end
 				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end
-			if item.type == "Shield" and nodes[45175] then
+			if item.type == "Shield" and nodes[45175] and nodes[45175].dn == "Necromantic Aegis" then
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = new("ModList")
 				for _, mod in ipairs(srcList) do

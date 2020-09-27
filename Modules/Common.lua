@@ -420,6 +420,17 @@ function prettyPrintTable(tbl, pre)
 	end
 end
 
+function tableConcat(t1,t2)
+	local t3 = {}
+	for i=1,#t1 do
+        t3[#t3+1] = t1[i]
+    end
+    for i=1,#t2 do
+        t3[#t3+1] = t2[i]
+    end
+    return t3
+end
+
 -- Natural sort comparator
 function naturalSortCompare(a, b)
 	local aIndex, bIndex = 1, 1
