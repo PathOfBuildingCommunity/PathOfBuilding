@@ -102,6 +102,41 @@ function PassiveSpecClass:Load(xml, dbFileName)
 	elseif url then
 		self:DecodeURL(url)
 	end
+	for _, node in pairs(xml) do
+		if type(node) == "table" then
+			if node.elem == "EditedNodes" then
+				for _, child in ipairs(node) do
+					if not child.attrib.nodeId then
+						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'nodeId' attribute", dbFileName)
+						return true
+					end
+					if not child.attrib.editorSeed then
+						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'editorSeed' attribute", dbFileName)
+						return true
+					end
+
+					local editorSeed = tonumber(child.attrib.editorSeed)
+					local nodeId = tonumber(child.attrib.nodeId)
+					if not self.tree.legion.editedNodes then
+						self.tree.legion.editedNodes = { }
+					end
+					if self.tree.legion.editedNodes[editorSeed] then
+						self.tree.legion.editedNodes[editorSeed][nodeId] = copyTable(self.nodes[nodeId], true)
+					else
+						self.tree.legion.editedNodes[editorSeed] = { [nodeId] = copyTable(self.nodes[nodeId], true) }
+					end
+					self.tree.legion.editedNodes[editorSeed][nodeId].id = nodeId
+					local loopCount = 0
+					local first, second = child.attrib.node:match("([^,]+),*(.*)")
+					while first do
+						self:NodeAdditionOrReplacementFromString(self.tree.legion.editedNodes[editorSeed][nodeId], first, loopCount == 0)
+						first, second = second:match("([^,]+),*(.*)") or second
+						loopCount = loopCount + 1
+					end
+				end
+			end
+		end
+	end
 	self:ResetUndo()
 end
 
@@ -110,6 +145,17 @@ function PassiveSpecClass:Save(xml)
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	local editedNodes = {
+		elem = "EditedNodes"
+	}
+	if self.tree.legion.editedNodes then
+		for seed, nodes in pairs(self.tree.legion.editedNodes) do
+			for nodeId, node in pairs(nodes) do
+				t_insert(editedNodes, { elem = "EditedNode", attrib = { nodeId = tostring(nodeId), editorSeed = tostring(seed), node = table.concat(node.sd, ",") } })
+			end
+		end
+	end
+	t_insert(xml, editedNodes)
 	xml.attrib = { 
 		title = self.title,
 		treeVersion = self.treeVersion,

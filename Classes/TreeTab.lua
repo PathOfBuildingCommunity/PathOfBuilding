@@ -551,6 +551,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
 			end
 		end
+		self.modFlag = true
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
