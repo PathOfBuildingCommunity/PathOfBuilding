@@ -469,9 +469,6 @@ return {
 ["base_bleed_duration_+%"] = {
 	mod("BleedDuration", "INC", nil),
 },
-["active_skill_quality_duration_+%_final"] = {
-	mod("Duration", "INC", nil),
-},
 -- Damage
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
