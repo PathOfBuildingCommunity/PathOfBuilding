@@ -523,6 +523,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
 		addModifier(selectedNode)
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
@@ -551,6 +552,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
 			end
 		end
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
