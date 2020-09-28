@@ -518,6 +518,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			end
 			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
 				minion.weaponData1 = env.player.weaponData1
+			elseif env.theIronMass then
+				minion.weaponData1 = env.player.weaponData1
 			else
 				minion.weaponData1 = {
 					type = minion.minionData.weaponType1 or "None",
