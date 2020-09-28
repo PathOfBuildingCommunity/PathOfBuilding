@@ -540,7 +540,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						end
 					else
 						minion.weaponData1 = env.player.weaponData1
-						ConAdd()
 					end
 				end
 				if minion.uses["Weapon 2"] then	
