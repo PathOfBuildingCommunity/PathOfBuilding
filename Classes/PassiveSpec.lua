@@ -126,12 +126,17 @@ function PassiveSpecClass:Load(xml, dbFileName)
 						self.tree.legion.editedNodes[editorSeed] = { [nodeId] = copyTable(self.nodes[nodeId], true) }
 					end
 					self.tree.legion.editedNodes[editorSeed][nodeId].id = nodeId
-					local loopCount = 0
-					local first, second = child.attrib.node:match("([^,]+),*(.*)")
-					while first do
-						self:NodeAdditionOrReplacementFromString(self.tree.legion.editedNodes[editorSeed][nodeId], first, loopCount == 0)
-						first, second = second:match("([^,]+),*(.*)") or second
-						loopCount = loopCount + 1
+					self.tree.legion.editedNodes[editorSeed][nodeId].dn = child.attrib.nodeName
+					self.tree.legion.editedNodes[editorSeed][nodeId].icon = child.attrib.icon
+					if self.tree.legion.nodes[child.attrib.spriteId] then
+						self.tree.legion.editedNodes[editorSeed][nodeId].sprites = self.tree.legion.nodes[child.attrib.spriteId].sprites
+					end
+					local modCount = 0
+					for _, modLine in ipairs(child) do
+						for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
+							self:NodeAdditionOrReplacementFromString(self.tree.legion.editedNodes[editorSeed][nodeId], line, modCount == 0)
+							modCount = modCount + 1
+						end
 					end
 				end
 			end
@@ -151,7 +156,11 @@ function PassiveSpecClass:Save(xml)
 	if self.tree.legion.editedNodes then
 		for seed, nodes in pairs(self.tree.legion.editedNodes) do
 			for nodeId, node in pairs(nodes) do
-				t_insert(editedNodes, { elem = "EditedNode", attrib = { nodeId = tostring(nodeId), editorSeed = tostring(seed), node = table.concat(node.sd, ",") } })
+				local editedNode = { elem = "EditedNode", attrib = { nodeId = tostring(nodeId), editorSeed = tostring(seed), nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
+				for _, modLine in ipairs(node.sd) do
+					t_insert(editedNode, modLine)
+				end
+				t_insert(editedNodes, editedNode)
 			end
 		end
 	end
@@ -571,6 +580,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				node.mods = editedNode.mods
 				node.modList = editedNode.modList
 				node.modKey = editedNode.modKey
+				node.icon = editedNode.icon
+				node.spriteId = editedNode.spriteId
 			else
 				if node.type == "Keystone" then
 					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
@@ -703,6 +714,8 @@ function PassiveSpecClass:ReplaceNode(old, new)
 	old.modList = new.modList
 	old.sprites = new.sprites
 	old.keystoneMod = new.keystoneMod
+	old.icon = new.icon
+	old.spriteId = new.spriteId
 end
 
 function PassiveSpecClass:BuildClusterJewelGraphs()
