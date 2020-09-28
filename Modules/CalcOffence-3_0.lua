@@ -2002,9 +2002,8 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.AverageHit = { }
 				if skillModList:Flag(skillCfg, "LuckyHits") then
 					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from non-crits)", totalHitMin, totalHitMax, totalHitAvg))
-					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
-					t_insert(breakdown.AverageHit, "")
-				elseif skillModList:Flag(skillCfg, "CritLucky") then
+				end
+				if skillModList:Flag(skillCfg, "CritLucky") or skillModList:Flag(skillCfg, "LuckyHits") then
 					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
 					t_insert(breakdown.AverageHit, "")
 				end
