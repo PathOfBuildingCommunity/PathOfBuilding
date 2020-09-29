@@ -1404,7 +1404,7 @@ return {
 	div = 60,
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
-	mod("MinionModifier", "LIST", { mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
 },
 --Golem
 ["golem_buff_effect_+%"] = {
