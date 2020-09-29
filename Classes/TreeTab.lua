@@ -701,7 +701,7 @@ function TreeTabClass:ShowPowerReport()
 
 	-- present the UI
 	local controls = {}
-	controls.list = new("PowerReportListControl", nil, 0, 40, 450, 400, report, currentStatLabel, function(selectedNode)
+	controls.list = new("PowerReportListControl", nil, 0, 40, 550, 400, report, currentStatLabel, function(selectedNode)
 		-- this code is called by the list control when the user "selects" one of the passives in the list.
 		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
 		self.jumpToNode = true
@@ -713,5 +713,5 @@ function TreeTabClass:ShowPowerReport()
 		main:ClosePopup()
 	end)
 
-	popup = main:OpenPopup(500, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
+	popup = main:OpenPopup(600, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
 end
