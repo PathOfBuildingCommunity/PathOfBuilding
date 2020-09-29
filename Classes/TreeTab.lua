@@ -168,7 +168,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = self.controls.treeHeatMap.y == 24 and 26 or 0
-	if(select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize()) > viewPort.x + viewPort.width) then
+	if(select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize()) > viewPort.x + viewPort.width) then
 		twoLineHeight = 26
 		self.controls.treeHeatMap:SetAnchor("BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 24
@@ -176,7 +176,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 		self.controls.specSelect.y = -24
 		self.controls.specConvertText.y = -16
-	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize())) - viewPort.x  then
+	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
 		twoLineHeight = 0
 		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 0
