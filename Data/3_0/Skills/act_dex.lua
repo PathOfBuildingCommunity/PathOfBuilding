@@ -3090,9 +3090,6 @@ skills["ExplosiveArrow"] = {
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
-		["active_skill_quality_duration_+%_final"] = {
-			mod("Duration", "INC", nil)
-		},
 	},
 	baseFlags = {
 		attack = true,
