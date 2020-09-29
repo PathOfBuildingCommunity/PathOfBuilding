@@ -1387,6 +1387,9 @@ return {
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },
+["active_skill_minion_attack_speed_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Speed", "MORE", nil, ModFlag.Attack) }),
+},
 ["active_skill_minion_physical_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", nil) }),
 },
