@@ -1488,4 +1488,10 @@ return {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 1 }, { type = "Multiplier", var = "RemovableFrenzyCharge", limit = 1 }, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
 },
 
+-- Explosion deals base Fire Damage equal to {0}% of the Minion's maximum Life
+["skill_minion_explosion_life_%"] = {
+	skill("selfFireExplosionLifeMultiplier", nil),
+	div = 100,
+},
+
 }
