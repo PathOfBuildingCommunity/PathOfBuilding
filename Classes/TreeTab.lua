@@ -528,6 +528,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
 		addModifier(selectedNode)
 		self.modFlag = true
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
@@ -557,6 +558,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			end
 		end
 		self.modFlag = true
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
