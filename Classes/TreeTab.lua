@@ -6,7 +6,9 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_sort = table.sort
+local m_max = math.max
 local m_min = math.min
+local m_floor = math.floor
 local s_format = string.format
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
@@ -620,6 +622,68 @@ function TreeTabClass:ShowPowerReport()
 				y = node.y,
 				type = node.type,
 				pathDist = node.pathDist
+			})
+		end
+	end
+
+	-- search all cluster notables and add to the list
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		local isAlloc = node.alloc
+		if not isAlloc then
+			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+			local cache = { }
+			local newPowerMax = {
+				singleStat = 0,
+				singleStatPerPoint = 0,
+				offence = 0,
+				offencePerPoint = 0,
+				defence = 0,
+				defencePerPoint = 0
+			}		
+			if not node.power then
+				node.power = { }
+				if node.modKey ~= "" and not self.build.calcsTab.mainEnv.grantedPassives[nodeId] then
+					if not cache[node.modKey] then
+						cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
+					end
+					local output = cache[node.modKey]
+					if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat and not self.build.calcsTab.powerStat.ignoreForNodes then
+						node.power.singleStat = self.build.calcsTab:CalculatePowerStat(self.build.calcsTab.powerStat, output, calcBase)
+					else
+						if calcBase.Minion then
+							node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
+						else
+							node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
+						end
+						node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
+										(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
+										(output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) +
+										(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
+										(output.LifeRegen - calcBase.LifeRegen) / 500 +
+										(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
+					end
+				end				
+			end
+			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
+
+			if main.showThousandsCalcs then
+				nodePowerStr = formatNumSep(nodePowerStr)
+			end
+			
+			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+			end
+			
+			t_insert(report, {
+				name = node.dn,
+				power = nodePower,
+				powerStr = nodePowerStr,
+				id = node.id,
+				type = node.type,
+				pathDist = "Cluster"
 			})
 		end
 	end
