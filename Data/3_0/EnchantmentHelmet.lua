@@ -226,13 +226,11 @@ return {
 			"25% increased Blade Vortex Spell Damage",
 			"20% increased Blade Vortex Duration",
 			"16% increased Blade Vortex Area of Effect",
-			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
 		},
 		["ENDGAME"] = {
 			"40% increased Blade Vortex Spell Damage",
 			"30% increased Blade Vortex Duration",
 			"24% increased Blade Vortex Area of Effect",
-			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Bladefall"] = {
@@ -891,6 +889,7 @@ return {
 		["ENDGAME"] = {
 			"Flame Wall deals 40% increased Damage",
 			"Flame Wall grants 31 to 47 Added Fire Damage to Projectiles",
+			"+1 to maximum number of Flame Walls",
 		},
 	},
 	["Flameblast"] = {
@@ -1010,8 +1009,12 @@ return {
 		},
 	},
 	["Frost Shield"] = {
+		["MERCILESS"] = {
+			"Frost Shield has +125 to maximum Life per Stage",
+		},
 		["ENDGAME"] = {
 			"Frost Shield has +1 Cooldown Use",
+			"Frost Shield has +180 to maximum Life per Stage",
 		},
 	},
 	["Frost Wall"] = {
@@ -2387,6 +2390,14 @@ return {
 			"Unearth Spawns corpses with +5 Level",
 			"40% increased Unearth Damage",
 			"12% increased Unearth Cast Speed",
+		},
+	},
+	["Vaal Blade Vortex"] = {
+		["MERCILESS"] = {
+			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
+		},
+		["ENDGAME"] = {
+			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Vengeance"] = {

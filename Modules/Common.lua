@@ -307,7 +307,7 @@ function writeLuaTable(out, t, indent)
 		if indent then
 			out:write(string.rep("\t", indent))
 		end
-		if type(k) == "string" and k:match("^%a[%a%d]*$") then
+		if type(k) == "string" and k:match("^%a[%a%d]*$") and k ~= "hexproof" then
 			out:write(k, '=')
 		else
 			out:write('[')
@@ -418,6 +418,17 @@ function prettyPrintTable(tbl, pre)
 			ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
 		end
 	end
+end
+
+function tableConcat(t1,t2)
+	local t3 = {}
+	for i=1,#t1 do
+        t3[#t3+1] = t1[i]
+    end
+    for i=1,#t2 do
+        t3[#t3+1] = t2[i]
+    end
+    return t3
 end
 
 -- Natural sort comparator

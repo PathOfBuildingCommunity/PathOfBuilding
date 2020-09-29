@@ -1118,7 +1118,7 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 	self.items[item.id] = item
 	item:BuildModList()
 	
-	if replacing and (replacing.clusterJewel or item.clusterJewel) then
+	if replacing and (replacing.clusterJewel or item.clusterJewel or replacing.baseName == "Timeless Jewel") then
 		-- We're replacing an existing item, and either the new or old one is a cluster jewel
 		if isValueInTable(self.build.spec.jewels, item.id) then
 			-- Item is currently equipped, so we need to rebuild the graphs

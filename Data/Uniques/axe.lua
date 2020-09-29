@@ -3,6 +3,15 @@
 return {
 -- Weapon: One Handed Axe
 [[
+Actum
+Butcher Axe
+League: Heist
+Requires Level 63, 149 Str, 76 Dex
+Has no Sockets
+(200-250)% increased Physical Damage
+You have no Intelligence
+Critical Strike Chance is (20-30)% for Hits with this Weapon
+]],[[
 Dreadarc
 Cleaver
 Upgrade: Upgrades to unique{Dreadsurge} via prophecy{Burning Dread}
@@ -140,6 +149,17 @@ Adds 10 to 20 Physical Damage
 +(20-25)% to Cold Resistance
 Insufficient Mana doesn't prevent your Melee Attacks
 Your Physical Damage can Chill
+]],[[
+Replica Soul Taker
+Siege Axe
+League: Heist
+Requires Level 59, 119 Str, 82 Dex
+(100-140)% increased Physical Damage
+Adds 10 to 20 Physical Damage
+(60-80)% increased Critical Strike Chance
++(20-25)% to Cold Resistance
+Your Physical Damage can Freeze
+Eldritch Battery
 ]],
 -- Weapon: Two Handed Axe
 [[
@@ -190,6 +210,15 @@ Requires Level 37, 100 Str, 29 Dex
 1.2% of Damage Leeched as Life on Critical Strike
 3% increased Global Critical Strike Chance per Level
 Gain Flask Charges when you deal a Critical Strike
+]],[[
+Replica Harvest
+Jasper Chopper
+League: Heist
+Requires Level 37, 100 Str, 29 Dex
+(120-140)% increased Physical Damage
+1.2% of Damage Leeched as Life on Critical Strike
+3% increased Global Critical Strike Chance per Level
+Gain Elusive on Critical Strike
 ]],[[
 Hezmana's Bloodlust
 Vaal Axe
@@ -372,6 +401,17 @@ Requires Level 62, 140 Str, 86 Dex
 Adds (75-100) to (165-200) Fire Damage in Main Hand
 Adds (75-100) to (165-200) Chaos Damage in Off Hand
 Counts as Dual Wielding
+]],[[
+Replica Wings of Entropy
+Ezomyte Axe
+League: Heist
+Requires Level 62, 140 Str, 86 Dex
+(7-10)% Chance to Block Spell Damage
++(8-12)% Chance to Block Attack Damage while Dual Wielding
+(60-80)% increased Physical Damage
+Counts as Dual Wielding
++(8.00-10.00)% to Off Hand Critical Strike Chance
+(50-70)% more Main Hand attack speed
 ]],[[
 Wings of Entropy
 Sundering Axe

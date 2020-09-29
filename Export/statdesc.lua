@@ -24,7 +24,7 @@ function loadStatFile(fileName)
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
 			statDescriptor[noDesc] = { order = 0 }
-		elseif line:match("description") then	
+		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
 			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
@@ -47,7 +47,7 @@ function loadStatFile(fileName)
 				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
 				if statLimits then
 					local desc = { text = text, limit = { } }
-					for statLimit in statLimits:gmatch("[%d%-#|]+") do
+					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
 						local limit = { }
 						
 						if statLimit == "#" then
@@ -57,9 +57,15 @@ function loadStatFile(fileName)
 							limit[1] = tonumber(statLimit)
 							limit[2] = tonumber(statLimit)
 						else
-							limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
-							limit[1] = tonumber(limit[1]) or limit[1]
-							limit[2] = tonumber(limit[2]) or limit[2]
+							local negate = statLimit:match("^!(-?%d+)$")
+							if negate then
+								limit[1] = "!"
+								limit[2] = tonumber(negate)
+							else
+								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+								limit[1] = tonumber(limit[1]) or limit[1]
+								limit[2] = tonumber(limit[2]) or limit[2]
+							end
 						end
 						table.insert(desc.limit, limit)
 					end
@@ -194,6 +200,13 @@ function describeStats(stats)
 			end
 			local statDesc = desc.text:gsub("{(%d)}", function(n) 
 				local v = val[tonumber(n)+1]
+				if v.min == v.max then
+					return string.format("%"..v.fmt, v.min)
+				else
+					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
+				end
+			end):gsub("{}", function() 
+				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else

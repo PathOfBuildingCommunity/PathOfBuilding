@@ -39,6 +39,9 @@ skills["AnimateWeapon"] = {
 		["attack_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["minion_global_maximum_added_lightning_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -310,6 +313,13 @@ skills["Barrage"] = {
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
+	statMap = {
+		["non_damaging_ailments_as_though_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil),
+			mod("ChillAsThoughDealing", "MORE", nil),
+			mod("FreezeAsThoughDealing", "MORE", nil)
+		}
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -608,6 +618,12 @@ skills["ChargedAttack"] = {
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["blade_flurry_elemental_damage_+%_while_channeling"] = {
+			mod("ElementalDamage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} })
+		},
+		["blade_flurry_final_flurry_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 3 })
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -713,6 +729,9 @@ skills["BladeVortex"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["blade_vortex_damage_+%_with_5_or_fewer_blades"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} }),
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -988,6 +1007,14 @@ skills["BlastRain"] = {
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
+	statMap = {
+		["blast_rain_damage_+%_vs_distant_enemies"] = { 
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) 
+		},
+		["blast_rain_area_of_effect_+%"] = {
+			-- Only affects primary area for overlaps
+		}
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -1178,6 +1205,12 @@ skills["BloodRage"] = {
 		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["blood_rage_life_leech_from_elemental_damage_permyriad"] = {
+			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			div = 100
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -1273,7 +1306,7 @@ skills["BurningArrow"] = {
 		["base_additional_burning_debuff_%_of_ignite_damage"] = {
 			mod("DebuffEffect", "BASE", nil),
 			div = 100
-		}
+		},
 	},
 	preDotFunc = function(activeSkill, output)
 		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
@@ -1521,6 +1554,30 @@ skills["PoisonArrow"] = {
 		[40] = { 2000, 16.666667039196, 60, 12, 12, damageEffectiveness = 0.74, baseMultiplier = 0.743, levelRequirement = 100, manaCost = 15, statInterpolation = { 1, 3, 1, 1, 1, }, },
 	},
 }
+skills["ImpactingSteelReload"] = {
+	name = "Call of Steel",
+	hidden = true,
+	color = 1,
+	description = "Removes impale debuffs from enemies, alive or dead, in a large area around you to gain steel shards. Deals reflected damage in a smaller area around each such enemy based on the impales removed from them. Continues to grant shards over time until you reach maximum or spend them.",
+	skillTypes = { [SkillType.Type96] = true, [SkillType.Area] = true, [SkillType.SteelSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"call_of_steel_reload_amount",
+		"call_of_steel_reload_time",
+		"skill_is_steel_skill_reload",
+	},
+	levels = {
+		[1] = { 4, 500, damageEffectiveness = 1.3, cooldown = 0.2, baseMultiplier = 1.3, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["ChargedDash"] = {
 	name = "Charged Dash",
 	color = 2,
@@ -1730,6 +1787,21 @@ skills["CorpseEruption"] = {
 			cast =  true,
 		},
 	},
+	statMap = {
+		["cremation_base_fires_projectile_every_x_ms"] = {
+			skill("cremationFireRate", nil),
+			div = 1000
+		},
+		["cremation_fires_projectiles_faster_+%_final"] = {
+			skill("cremationFireRateIncrease", nil),
+			div = 100
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate * ((activeSkill.skillData.cremationFireRateIncrease or 0) + 1)
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -1847,6 +1919,9 @@ skills["Cyclone"] = {
 		},
 		["cyclone_area_of_effect_+%_per_additional_melee_range"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "AdditionalMeleeRange"}),
+		},
+		["cyclone_movement_speed_+%_final"] = {
+			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	initialFunc = function(activeSkill, output)
@@ -2521,46 +2596,46 @@ skills["VaalDoubleStrike"] = {
 		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
-		[1] = { 1, 6000, 1, 0, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.28, baseMultiplier = 0.28, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[2] = { 1, 6000, 1, 3, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.28, baseMultiplier = 0.283, levelRequirement = 2, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[3] = { 1, 6000, 1, 6, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.285, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[4] = { 1, 6000, 1, 9, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.288, levelRequirement = 7, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[5] = { 1, 6000, 1, 12, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.291, levelRequirement = 11, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[6] = { 1, 6000, 1, 15, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.293, levelRequirement = 16, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[7] = { 1, 6000, 1, 18, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.296, levelRequirement = 20, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[8] = { 1, 6000, 1, 21, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.298, levelRequirement = 24, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[9] = { 1, 6000, 1, 24, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.301, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[10] = { 1, 6000, 1, 27, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.304, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[11] = { 1, 6000, 1, 30, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.31, baseMultiplier = 0.306, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[12] = { 1, 6000, 1, 33, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.31, baseMultiplier = 0.309, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[13] = { 1, 6000, 1, 36, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.31, baseMultiplier = 0.312, levelRequirement = 44, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[14] = { 1, 6000, 1, 39, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.31, baseMultiplier = 0.314, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[15] = { 1, 6000, 1, 42, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.317, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[16] = { 1, 6000, 1, 45, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.319, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[17] = { 1, 6000, 1, 48, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.322, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[18] = { 1, 6000, 1, 51, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.325, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[19] = { 1, 6000, 1, 54, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.33, baseMultiplier = 0.327, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[20] = { 1, 6000, 1, 57, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.33, baseMultiplier = 0.33, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[21] = { 1, 6000, 1, 60, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.33, baseMultiplier = 0.333, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[22] = { 1, 6000, 1, 63, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.335, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[23] = { 1, 6000, 1, 66, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.338, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[24] = { 1, 6000, 1, 69, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.341, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[25] = { 1, 6000, 1, 72, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.343, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[26] = { 1, 6000, 1, 75, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.35, baseMultiplier = 0.346, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[27] = { 1, 6000, 1, 78, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.35, baseMultiplier = 0.348, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[28] = { 1, 6000, 1, 81, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.35, baseMultiplier = 0.351, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[29] = { 1, 6000, 1, 84, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.35, baseMultiplier = 0.354, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[30] = { 1, 6000, 1, 87, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.356, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[31] = { 1, 6000, 1, 88, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.358, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[32] = { 1, 6000, 1, 90, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.359, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[33] = { 1, 6000, 1, 92, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.36, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[34] = { 1, 6000, 1, 93, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.362, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[35] = { 1, 6000, 1, 94, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.36, baseMultiplier = 0.363, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[36] = { 1, 6000, 1, 96, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.36, baseMultiplier = 0.364, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[37] = { 1, 6000, 1, 98, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.366, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[38] = { 1, 6000, 1, 99, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.367, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[39] = { 1, 6000, 1, 100, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.368, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
-		[40] = { 1, 6000, 1, 102, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.369, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 3, 3, 3, 1, }, },
+		[1] = { 1, 6000, 1, 0, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.28, baseMultiplier = 0.28, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[2] = { 1, 6000, 1, 3, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.28, baseMultiplier = 0.283, levelRequirement = 2, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[3] = { 1, 6000, 1, 6, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.285, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[4] = { 1, 6000, 1, 9, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.288, levelRequirement = 7, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[5] = { 1, 6000, 1, 12, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.291, levelRequirement = 11, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[6] = { 1, 6000, 1, 15, 0.80000001192093, 1.2000000476837, 0, 25, damageEffectiveness = 0.29, baseMultiplier = 0.293, levelRequirement = 16, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[7] = { 1, 6000, 1, 18, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.296, levelRequirement = 20, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[8] = { 1, 6000, 1, 21, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.298, levelRequirement = 24, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[9] = { 1, 6000, 1, 24, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.301, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[10] = { 1, 6000, 1, 27, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.3, baseMultiplier = 0.304, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[11] = { 1, 6000, 1, 30, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.31, baseMultiplier = 0.306, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[12] = { 1, 6000, 1, 33, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.31, baseMultiplier = 0.309, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[13] = { 1, 6000, 1, 36, 0.80000001192093, 1.2000000476837, 1, 25, damageEffectiveness = 0.31, baseMultiplier = 0.312, levelRequirement = 44, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[14] = { 1, 6000, 1, 39, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.31, baseMultiplier = 0.314, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[15] = { 1, 6000, 1, 42, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.317, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[16] = { 1, 6000, 1, 45, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.319, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[17] = { 1, 6000, 1, 48, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.322, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[18] = { 1, 6000, 1, 51, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.32, baseMultiplier = 0.325, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[19] = { 1, 6000, 1, 54, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.33, baseMultiplier = 0.327, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[20] = { 1, 6000, 1, 57, 0.80000001192093, 1.2000000476837, 2, 25, damageEffectiveness = 0.33, baseMultiplier = 0.33, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[21] = { 1, 6000, 1, 60, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.33, baseMultiplier = 0.333, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[22] = { 1, 6000, 1, 63, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.335, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[23] = { 1, 6000, 1, 66, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.338, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[24] = { 1, 6000, 1, 69, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.341, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[25] = { 1, 6000, 1, 72, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.34, baseMultiplier = 0.343, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[26] = { 1, 6000, 1, 75, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.35, baseMultiplier = 0.346, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[27] = { 1, 6000, 1, 78, 0.80000001192093, 1.2000000476837, 3, 25, damageEffectiveness = 0.35, baseMultiplier = 0.348, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[28] = { 1, 6000, 1, 81, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.35, baseMultiplier = 0.351, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[29] = { 1, 6000, 1, 84, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.35, baseMultiplier = 0.354, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[30] = { 1, 6000, 1, 87, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.356, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[31] = { 1, 6000, 1, 88, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.358, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[32] = { 1, 6000, 1, 90, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.359, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[33] = { 1, 6000, 1, 92, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.36, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[34] = { 1, 6000, 1, 93, 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.36, baseMultiplier = 0.362, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[35] = { 1, 6000, 1, 94, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.36, baseMultiplier = 0.363, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[36] = { 1, 6000, 1, 96, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.36, baseMultiplier = 0.364, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[37] = { 1, 6000, 1, 98, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.366, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[38] = { 1, 6000, 1, 99, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.367, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[39] = { 1, 6000, 1, 100, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.368, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
+		[40] = { 1, 6000, 1, 102, 0.80000001192093, 1.2000000476837, 5, 25, damageEffectiveness = 0.37, baseMultiplier = 0.369, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, },
 	},
 }
 skills["DualStrike"] = {
@@ -2587,6 +2662,18 @@ skills["DualStrike"] = {
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
+		["active_skill_added_damage_+%_final"] = {
+			mod("PhysicalMax", "MORE", nil),
+			mod("FireMax", "MORE", nil),
+			mod("ColdMax", "MORE", nil),
+			mod("LightningMax", "MORE", nil),
+			mod("ChaosMax", "MORE", nil),
+			mod("PhysicalMin", "MORE", nil),
+			mod("FireMin", "MORE", nil),
+			mod("ColdMin", "MORE", nil),
+			mod("LightningMin", "MORE", nil),
+			mod("ChaosMin", "MORE", nil),
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -2790,6 +2877,9 @@ skills["EnsnaringArrow"] = {
 	statMap = {
 		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
 			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
+		},
+		["ensnaring_arrow_enemy_spell_damage_taken_+%"] = {
+			mod("SpellDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
 		},
 	},
 	baseFlags = {
@@ -2997,6 +3087,9 @@ skills["ExplosiveArrow"] = {
 		},
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["active_skill_quality_duration_+%_final"] = {
+			mod("Duration", "INC", nil)
 		},
 	},
 	baseFlags = {
@@ -3745,6 +3838,15 @@ skills["Grace"] = {
 		["base_evasion_rating"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["avoid_all_elemental_status_%"] = {
+			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["avoid_chaos_damage_%"] = {
+			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3910,6 +4012,15 @@ skills["Haste"] = {
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["summon_totem_cast_speed_+%"] = {
+			mod("TotemPlacementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["base_projectile_speed_+%"] = {
+			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["buff_time_passed_+%_only_buff_category"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 	},
 	baseFlags = {
@@ -4085,6 +4196,9 @@ skills["Hatred"] = {
 		["hatred_aura_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["movement_velocity_+%_on_chilled_ground"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "OnChilledGround"})
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -4186,6 +4300,12 @@ skills["HeraldOfAgony"] = {
 		["scorpion_minion_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
+		["active_skill_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["withered_on_hit_for_2_seconds_%_chance"] = {
+			flag("Condition:CanWither"),
+		}
 	},
 	baseFlags = {
 		cast = true,
@@ -4285,6 +4405,9 @@ skills["HeraldOfIce"] = {
 		["attack_maximum_added_cold_damage"] = {
 			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["skill_buff_grants_chance_to_freeze_%"] = {
+			mod("FreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		}
 	},
 	baseFlags = {
 		cast = true,
@@ -4661,6 +4784,24 @@ skills["LancingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Single Projectile Hit",
+		},
+		{
+			name = "All Projectiles Hit",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = 1 + 0.4 * (output.ProjectileCount - 1)
+		end
+	end,
+	statMap = {
+		["number_of_projectiles_to_fire_+%_final_per_steel_ammo_consumed"] = {
+			mod("ProjectileCount", "MORE", nil, 0, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 4 } )
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -4856,6 +4997,9 @@ skills["LightningStrike"] = {
 	statMap = {
 		["active_skill_damage_over_time_from_projectile_hits_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
+		},
+		["projectile_base_number_of_targets_to_pierce"] = {
+			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
 	baseFlags = {
@@ -5494,6 +5638,12 @@ skills["AccuracyAndCritsAura"] = {
 		["critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["auras_grant_damage_+%_to_you_and_your_allies"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["precision_grants_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5758,6 +5908,12 @@ skills["ColdResistAura"] = {
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_avoid_freeze_%"] = {
+			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_reduce_enemy_cold_resistance_%"] = {
+			mod("ColdPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -6496,22 +6652,18 @@ skills["ShatteringSteel"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Single Projectile Hit",
+			name = "Projectile",
 			area = false,
 		},
 		{
-			name = "All Projectiles Hit",
-			area = false,
-		},
-		{
-			name = "Single Cone AoE",
+			name = "Cone AoE",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-		end
-	end,
+	statMap = {
+		["shattering_steel_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -6871,6 +7023,9 @@ skills["SmokeMine"] = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["skill_buff_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -6972,6 +7127,9 @@ skills["ThrownShield"] = {
 		["thrown_shield_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["critical_multiplier_+%_per_100_max_es_on_shield"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, {type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2"})
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -7413,6 +7571,22 @@ skills["ImpactingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Main Projectile",
+		},
+		{
+			name = "Split Projectile",
+		},
+	},
+	statMap = {
+		["impacting_steel_secondary_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
+		},
+		["splitting_steel_area_+%_final_after_splitting"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -8148,6 +8322,11 @@ skills["WhirlingBlades"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.6,
+	statMap = {
+		["whirling_blades_evasion_rating_+%_while_moving"] = {
+			mod("Evasion", "INC", nil, 0, 0, { type = "Condition", var = "Moving" } )
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,

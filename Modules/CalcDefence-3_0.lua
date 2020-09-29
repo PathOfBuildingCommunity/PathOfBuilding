@@ -25,6 +25,9 @@ local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 
 -- Calculate hit chance
 function calcs.hitChance(evasion, accuracy)
+	if accuracy < 0 then
+		return 5
+	end
 	local rawChance = accuracy / (accuracy + (evasion / 4) ^ 0.8) * 115
 	return m_max(m_min(round(rawChance), 100), 5)	
 end
@@ -91,6 +94,7 @@ function calcs.defence(env, actor)
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
+		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
 				"Max: "..max.."%",
@@ -185,6 +189,15 @@ function calcs.defence(env, actor)
 				if breakdown then
 					breakdown.slot("Global", nil, nil, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
 				end
+			end
+		end
+		local convManaToArmour = modDB:Sum("BASE", nil, "ManaConvertToArmour")
+		if convManaToArmour > 0 then
+			armourBase = modDB:Sum("BASE", nil, "Mana") * convManaToArmour / 100
+			local total = armourBase * calcLib.mod(modDB, nil, "Mana", "Armour", "Defences")
+			armour = armour + total
+			if breakdown then
+				breakdown.slot("Conversion", "Mana to Armour", nil, armourBase, total, "Armour", "Defences", "Mana")
 			end
 		end
 		local convManaToES = modDB:Sum("BASE", nil, "ManaGainAsEnergyShield")
@@ -375,7 +388,7 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRegen = esBase * output.EnergyShieldRecoveryRateMod * calcLib.mod(modDB, nil, "EnergyShieldRegen") - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 		else
-			output.EnergyShieldRegen = 0
+			output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 		end
 	end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then

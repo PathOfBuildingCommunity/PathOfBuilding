@@ -55,6 +55,11 @@ local skills, mod, flag, skill = ...
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
 			div = 100,
 		},
+		["manaweave_added_cold_damage_%_cost_if_payable"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			div = 100,
+		},
 	},
 #mods
 
@@ -136,6 +141,9 @@ local skills, mod, flag, skill = ...
 		["mine_critical_strike_chance_+%_per_power_charge"] = {
 			mod("CritChance", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "PowerCharge" }),
 		},
+		["mine_projectile_speed_+%_per_frenzy_charge"] = {
+			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" })
+		},
 	},
 #mods
 
@@ -167,6 +175,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCurseOnHit
+	statMap = {
+		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
+		}
+	},
 #mods
 
 #skill SupportCurseOnHitPlus
@@ -186,7 +199,16 @@ local skills, mod, flag, skill = ...
 		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
+		["support_minion_focus_fire_critical_strike_chance_+%_final_vs_focussed_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		},
+		["support_minion_focus_fire_critical_strike_multiplier_+%_final_vs_focussed_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		},
 	},
+#mods
+
+#skill MinionFocusFire
 #mods
 
 #skill SupportDecay
@@ -221,9 +243,11 @@ local skills, mod, flag, skill = ...
 
 #skill SupportElementalProliferation
 	statMap = {
-		["support_elemental_proliferation_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
-		},
+		["damage_+%_vs_enemies_per_freeze_shock_ignite"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
+		}
 	},
 #mods
 
@@ -235,10 +259,18 @@ local skills, mod, flag, skill = ...
 		["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "LeechingEnergyShield" }),
 		},
+		["maximum_energy_shield_leech_amount_per_leech_+%"] = {
+			mod("MaxEnergyShieldLeechRate", "INC", nil)
+		}
 	},
 #mods
 
 #skill SupportAdditionalXP
+	statMap = {
+		["local_gem_int_requirement_+%"] = {
+			mod("IntRequirement", "INC", nil)
+		}
+	},
 #mods
 
 #skill SupportFasterCast
@@ -319,6 +351,12 @@ local skills, mod, flag, skill = ...
 			div = 60,
 			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
 		},
+		["minion_burning_damage_"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot) }),
+		},
+		["minion_fire_damage_taken_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDamageTaken", "INC", nil) }),
+		}
 	},
 #mods
 
@@ -340,6 +378,21 @@ local skills, mod, flag, skill = ...
 			mod("Condition:HaveColdInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
 			mod("Condition:HaveLightningInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
 			mod("Condition:HaveChaosInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
+		},
+		["infusion_grants_life_regeneration_rate_per_minute_%"] = {
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
+			div = 60
+		},
+		["infusion_effect_+%"] = {
+			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
 		},
 	},
 #baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })
@@ -369,7 +422,6 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
-#baseMod mod("Multiplier:IntensityLimit", "BASE", 4)
 #mods
 
 #skill SupportItemRarity
@@ -389,6 +441,9 @@ local skills, mod, flag, skill = ...
 		["support_minion_defensive_stance_minion_damage_+%_final_against_enemies_near_you"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "MeatShieldEnemyNearYou" }),
 		},
+		["minion_block_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("BlockChance", "BASE", nil) }),
+		}
 	},
 #mods
 
@@ -404,6 +459,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["minion_ailment_damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment) }),
 		},
 	},
 #mods
@@ -421,6 +479,9 @@ local skills, mod, flag, skill = ...
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
 		},
+		["minion_damage_+%_on_full_life"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
+		},
 	},
 #mods
 
@@ -432,22 +493,33 @@ local skills, mod, flag, skill = ...
 		["support_minion_totem_resistance_elemental_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("ElementalDamage", "MORE", nil) }),
 		},
+		["minion_life_leech_from_elemental_damage_permyriad"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDamageLeech", "BASE", nil) }),
+			mod("MinionModifier", "LIST", { mod = mod("LightningDamageLeech", "BASE", nil) }),
+			mod("MinionModifier", "LIST", { mod = mod("ColdDamageLeech", "BASE", nil) }),
+			div = 100
+		}
 	},
 #mods
 
 #skill SupportPhysicalToLightning
+	statMap = {
+		["enemies_you_shock_take_%_increased_physical_damage"] = {
+			mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", nil) }, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
+		}
+	},
 #mods
 
 #skill SupportProjectileIntensity
     statMap = {
 	    ["additional_projectiles_per_intensity"] = {
-			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limit = 3 }),
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 	},
 #mods
@@ -504,6 +576,11 @@ local skills, mod, flag, skill = ...
 		["support_multicast_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
+		["support_spell_echo_final_repeat_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+			--Average out over the casts
+			div = 3
+		}
 	},
 #baseMod flag("Condition:HaveSpellEcho")
 #mods
@@ -536,6 +613,9 @@ local skills, mod, flag, skill = ...
 		["base_number_of_support_ghosts_allowed"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
 		},
+		["damage_+%_for_non_minions"] = {
+			-- mod("Damage", "INC", nil, 0, 0, {type = "Actor"})
+		}
 	},
 #mods
 
@@ -550,6 +630,9 @@ local skills, mod, flag, skill = ...
 		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
 			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
+		["from_quality_brand_activation_rate_+%_final_if_75%_attached_duration_expired"] = {
+			mod("BrandActivationFrequency", "MORE", nil, 0, 0, {type = "Condition", var = "BrandLastQuarter"})
+		},
 	},
 #mods
 
@@ -558,6 +641,9 @@ local skills, mod, flag, skill = ...
 		["support_unbound_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
 		},
+		["base_damage_+%_while_an_ailment_on_you"] = {
+			mod("Damage", "INC", nil, 0, 0, {type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped","Poisoned","Bleeding" }})
+		}
 	},
 #mods
 

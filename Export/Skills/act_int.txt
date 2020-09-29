@@ -62,9 +62,8 @@ local skills, mod, flag, skill = ...
 #skill AssassinsMark
 #flags spell curse duration mark
 	statMap = {
-		["base_self_critical_strike_multiplier_-%"] = {
-			mod("SelfCritMultiplier", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mult = -1,
+		["enemy_additional_critical_strike_multiplier_against_self"] = {
+			mod("SelfCritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["enemy_additional_critical_strike_chance_against_self"] = {
 			mod("SelfCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -131,6 +130,19 @@ local skills, mod, flag, skill = ...
 
 #skill Ember
 #flags spell area fire projectile
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 #mods
 
 #skill Blight
@@ -299,11 +311,8 @@ local skills, mod, flag, skill = ...
 #skill Disintegrate
 #flags spell area lightning
 	statMap = {
-		["disintegrate_base_radius_+_per_intensify"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity"}),
-		},
 		["disintegrate_damage_+%_final_per_intensity"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity"}),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
 #mods
@@ -371,8 +380,13 @@ local skills, mod, flag, skill = ...
 #skill Discharge
 #flags spell area
 	statMap = {
-		["discharge_triggered_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
+		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+		},
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil,  ModFlag.Ailment),
 		},
 	},
 #baseMod skill("radius", 30)
@@ -544,12 +558,28 @@ local skills, mod, flag, skill = ...
 
 #skill Firewall
 #flags spell area duration fire
+	parts = {
+		{
+			name = "Primary Debuff",
+		},
+		{
+			name = "Secondary Debuff",
+		},
+	},
 	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 60,
+		},
+		["secondary_base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
 		["wall_maximum_length"] = {
 			skill("radius", nil),
 		},
 		["firewall_applies_%_fire_exposure"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		}
 	},
 #baseMod skill("radiusLabel", "Flame Wall Length:")
@@ -680,7 +710,7 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 		["energy_shield_recharge_rate_+%"] = {
 			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
@@ -693,6 +723,14 @@ local skills, mod, flag, skill = ...
 #skill FrostGlobe
 #flags spell area duration cold
 	statMap = {
+		["frost_globe_additional_spell_base_critical_strike_chance_per_stage"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 100,
+		},
+		["energy_shield_lost_per_minute"] = {
+			mod("EnergyShieldDegen", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "FrostShieldStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 60,
+		},
 	},
 #mods
 
@@ -731,9 +769,6 @@ local skills, mod, flag, skill = ...
 #skill FrostBolt
 #flags spell projectile
 	statMap = {
-		["base_inflict_cold_exposure_on_hit_%_chance"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -25) }, { type = "Condition", var = "Effective" }),
-		},
 		["frostbolt_projectile_speed_+%_final"] = {
 			mod("ProjectileSpeed", "MORE", nil),
 		},
@@ -742,7 +777,21 @@ local skills, mod, flag, skill = ...
 
 #skill GlacialCascade
 #flags spell area
+	parts = {
+		{
+			name = "Initial Bursts",
+		},
+		{
+			name = "Final Burst",
+		},
+	},
+	statMap = {
+		["glacial_cascade_final_spike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 #baseMod skill("radius", 12)
+#baseMod mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill DoomBlast
@@ -756,10 +805,19 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", true)
-#baseMod flag("ChaosCanIgnite")
-#baseMod flag("ChaosCanChill")
-#baseMod flag("ChaosCanShock")
 #baseMod flag("ChaosDamageUsesLowestResistance")
+#baseMod flag("PhysicalCanIgnite")
+#baseMod flag("LightningCanIgnite")
+#baseMod flag("ColdCanIgnite")
+#baseMod flag("ChaosCanIgnite")
+#baseMod flag("PhysicalCanFreeze")
+#baseMod flag("LightningCanFreeze")
+#baseMod flag("FireCanFreeze")
+#baseMod flag("ChaosCanFreeze")
+#baseMod flag("PhysicalCanShock")
+#baseMod flag("ColdCanShock")
+#baseMod flag("FireCanShock")
+#baseMod flag("ChaosCanShock")
 #mods
 
 #skill HeraldOfThunder
@@ -1258,7 +1316,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
 	},
 #baseMod flag("Condition:ScorchingRayMaxStages", { type = "SkillPart", skillPart = 3 })
@@ -1294,9 +1352,18 @@ local skills, mod, flag, skill = ...
 #flags spell area duration lightning
 	statMap = {
 		["circle_of_power_skill_cost_mana_cost_+%"] = {
-			mod("ManaCost", "INC", nil, 0, 0, { type = "Condition", var = "InSigilOfPower" }),
+			mod("ManaCost", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_min_added_lightning_per_stage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_max_added_lightning_per_stage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 	},
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill IceSiphonTrap
@@ -1628,9 +1695,9 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 	statMap = {
 		["purge_expose_resist_%_matching_highest_element_damage"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
-			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
 		},
 	},
 #mods

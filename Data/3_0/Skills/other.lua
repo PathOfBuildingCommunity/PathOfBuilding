@@ -805,6 +805,33 @@ skills["ColdAegis"] = {
 		[20] = { 1000, 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }
+skills["PhysicalAegis"] = {
+	name = "Physical Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes physical damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking physical damage from hits.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"aegis_unique_shield_max_value",
+		"active_skill_display_aegis_variation",
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[20] = { 1000, 4, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["CorpseWalk"] = {
 	name = "Corpse Walk",
 	hidden = true,
@@ -941,6 +968,40 @@ skills["DeathWalk"] = {
 	},
 	levels = {
 		[20] = { 5, levelRequirement = 60, statInterpolation = { 1, }, },
+	},
+}
+skills["DeathWish"] = {
+	name = "Death Wish",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5319999456406,
+	incrementalEffectiveness = 0.032299999147654,
+	description = "As you channel this spell, it spreads its effect to more of your minions. When you stop channelling, each affected minion explodes, and this skill deals spell damage around them.  The explosion of the minion is not affected by modifiers to spell damage, and cannot be reflected.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.FireSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.2,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"skill_minion_explosion_life_%",
+		"death_wish_hit_and_ailment_damage_+%_final_per_stage",
+		"death_wish_attack_speed_+%",
+		"death_wish_cast_speed_+%",
+		"death_wish_movement_speed_+%",
+		"death_wish_max_stages",
+		"is_area_damage",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 13, 10, 40, 40, 40, 13, critChance = 6, levelRequirement = 70, manaCost = 7, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["TouchOfGod"] = {
@@ -2484,6 +2545,12 @@ skills["SummonRigwaldsPack"] = {
 		},
 		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
 			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
 		},
 	},
 	baseFlags = {
