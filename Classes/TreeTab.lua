@@ -459,9 +459,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
 			selectedNode.dn = newLegionNode.dn
 			selectedNode.sprites = newLegionNode.sprites
+			selectedNode.icon = newLegionNode.icon
+			selectedNode.spriteId = newLegionNode.id
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" then
 			selectedNode.dn = newLegionNode.dn
 			selectedNode.sprites = newLegionNode.sprites
+			selectedNode.icon = newLegionNode.icon
+			selectedNode.spriteId = newLegionNode.id
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
 
 			-- Vaal is the exception
@@ -523,6 +527,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
 		addModifier(selectedNode)
+		self.modFlag = true
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
@@ -551,6 +556,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
 			end
 		end
+		self.modFlag = true
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
