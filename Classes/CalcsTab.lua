@@ -474,9 +474,14 @@ function CalcsTabClass:PowerBuilder()
 			local output = cache[node.modKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
-				if node.path and not node.ascendancyName then
+				if node.path and not node.ascendancyName and node.power.singleStat ~= 0 then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
-					newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / node.pathDist, newPowerMax.singleStatPerPoint)
+					--newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / node.pathDist, newPowerMax.singleStatPerPoint)
+					node.power.pathPower = node.power.singleStat
+					for _, pathNode in pairs(node.path) do
+						node.power.pathPower = node.power.pathPower + self:CalculatePowerStat(self.powerStat, cache[pathNode.modKey] or calcFunc({ addNodes = { [node] = true } }), calcBase)
+					end
+					newPowerMax.singleStatPerPoint = m_max(node.power.pathPower, newPowerMax.singleStatPerPoint)
 				end
 			else
 				if calcBase.Minion then

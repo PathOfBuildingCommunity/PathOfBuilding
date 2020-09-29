@@ -485,7 +485,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
 					if(stat ~= 0) then
 						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
-							statCol = stat / node.pathDist == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
+							statCol = node.power.pathPower == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
 						elseif self.heatMapStatPerPoint then
 							statCol = statCol / node.pathDist * 4
 						elseif self.heatMapTopPick then
