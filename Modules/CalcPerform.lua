@@ -603,7 +603,6 @@ function calcs.perform(env)
 			env.minion.modDB:AddList(env.aegisModList)
 		end
 		if env.theIronMass and env.minion.type == "RaisedSkeleton" then
-			env.minion.itemList["Weapon 1"] = env.player.itemList["Weapon 1"]
 			env.minion.modDB:AddList(env.theIronMass)
 			env.minion.modDB:NewMod("TripleDamageChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "HitRecentlyWithWeapon" })
 		end
