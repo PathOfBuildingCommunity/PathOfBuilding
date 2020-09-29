@@ -4924,7 +4924,7 @@ skills["BetrayalSecretPoliceCurveDagger1"] = {
 		[2] = { -20, 1500, 20, 50, 0, 0, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
 	},
 }
-skills["AtlasEyrieKiwethMortar"] = {
+skills["AtlasEyrieKiwethMortarSpectre"] = {
 	name = "Mortar",
 	hidden = true,
 	color = 4,
@@ -4949,13 +4949,14 @@ skills["AtlasEyrieKiwethMortar"] = {
 		"projectile_spread_radius",
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"number_of_projectiles_override",
 		"is_area_damage",
 		"base_is_projectile",
 		"projectile_uses_contact_position",
 		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { 0, 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 10, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, },
+		[1] = { 0, 0.80000001192093, 1.2000000476837, 1, critChance = 5, cooldown = 10, levelRequirement = 0, statInterpolation = { 1, 3, 3, 1, }, },
 	},
 }
 skills["AtlasEyrieKiwethMortarShards"] = {
@@ -4968,6 +4969,8 @@ skills["AtlasEyrieKiwethMortarShards"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
+		hit = true,
 		projectile = true,
 		triggerable = true,
 	},
@@ -5039,5 +5042,119 @@ skills["GAHeistThugRangedShotgun"] = {
 		[2] = { 50, 0, baseMultiplier = 1.3, levelRequirement = 19, statInterpolation = { 1, 2, }, },
 		[3] = { 50, 1, baseMultiplier = 1.3, levelRequirement = 20, statInterpolation = { 1, 2, }, },
 		[4] = { 50, 60, baseMultiplier = 1.3, levelRequirement = 84, statInterpolation = { 1, 2, }, },
+	},
+}
+
+skills["GSHeistRobotPyreBeamBlast"] = {
+	name = "Beam Blast",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.2000000476837,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"spell_maximum_action_distance_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
+	},
+}
+skills["GSHeistRobotPyreNukeBeam"] = {
+	name = "Nuke Beam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 4.5,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 13, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSHeistRobotPyreNukeBeamChannelled"] = {
+	name = "Nuke Beam Channelled",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.54,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 13, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSHeistRobotPyreBeamSweepBeam"] = {
+	name = "Beam Sweep",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }

@@ -469,9 +469,6 @@ return {
 ["base_bleed_duration_+%"] = {
 	mod("BleedDuration", "INC", nil),
 },
-["active_skill_quality_duration_+%_final"] = {
-	mod("Duration", "INC", nil),
-},
 -- Damage
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
@@ -1387,6 +1384,9 @@ return {
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },
+["active_skill_minion_attack_speed_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Speed", "MORE", nil, ModFlag.Attack) }),
+},
 ["active_skill_minion_physical_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", nil) }),
 },
@@ -1404,7 +1404,7 @@ return {
 	div = 60,
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
-	mod("MinionModifier", "LIST", { mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
 },
 --Golem
 ["golem_buff_effect_+%"] = {
