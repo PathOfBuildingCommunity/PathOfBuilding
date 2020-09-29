@@ -3315,7 +3315,7 @@ skills["Firewall"] = {
 		},
 		["flame_wall_maximum_added_fire_damage"] = {
 			mod("FireMax", "BASE", nil, ModFlag.Projectile, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flame Wall", effectCond = "FlameWallAddedDamage" }),
-		},
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -10577,7 +10577,7 @@ skills["SpellDamageAura"] = {
 		},
 		["base_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		}
+		},
 	},
 	baseFlags = {
 		spell = true,
