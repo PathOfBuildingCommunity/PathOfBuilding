@@ -280,6 +280,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+
+		--[[ Only allow node editing in these situations:
+				Vaal (Glorious Vanity): 		any non-keystone
+				Maraketh (Brutal Restraint): 	only notables, +dex already set
+				Eternal (Elegant Hubris):		only notables, other passives are blank
+				Karui (Lethal Pride):			only notables, +str already set
+				Templar (Militant Faith):		any non-keystone, non-notables add devotion or replace with devotion
+		]]--
+		elseif hoverNode and hoverNode.conqueredBy and
+				(hoverNode.conqueredBy.conqueror.type == "vaal"
+				or hoverNode.isNotable) then
+			build.treeTab:ModifyNodePopup(hoverNode)
+			build.buildFlag = true
 		end
 	end
 
@@ -492,15 +505,17 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local defence = m_max(node.power.defence or 0, 0)
 					local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
 					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
-					if(self.heatMapStatPerPoint and self.heatMapTopPick) then
-						dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
-						defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
-					elseif self.heatMapStatPerPoint then
-						dpsCol = dpsCol / node.pathDist * 4
-						defCol = defCol / node.pathDist * 4
-					elseif self.heatMapTopPick then
-						dpsCol = offence == build.calcsTab.powerMax.offence and 1.5 ^ 0.5 or 0
-						defCol = defence == build.calcsTab.powerMax.defence and 1.5 ^ 0.5 or 0
+					if offence ~= 0 then
+						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
+							dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
+							defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
+						elseif self.heatMapStatPerPoint then
+							dpsCol = dpsCol / node.pathDist * 4
+							defCol = defCol / node.pathDist * 4
+						elseif self.heatMapTopPick then
+							dpsCol = offence == build.calcsTab.powerMax.offence and 1.5 ^ 0.5 or 0
+							defCol = defence == build.calcsTab.powerMax.defence and 1.5 ^ 0.5 or 0
+						end
 					end
 					local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
 					if main.nodePowerTheme == "RED/BLUE" then
@@ -693,6 +708,17 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 	self.zoomY = relY + (self.zoomY - relY) * factor
 end
 
+function PassiveTreeViewClass:Focus(x, y, viewPort, build)
+	self.zoomLevel = 12
+	self.zoom = 1.2 ^ self.zoomLevel
+
+	local tree = build.spec.tree
+	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
+	
+	self.zoomX = -x * scale
+	self.zoomY = -y * scale
+end
+
 function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	if node.type == "ClassStart" or node.type == "Mastery" then
 		return
@@ -796,7 +822,6 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	-- Node description
 	if node.sd[1] then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(node.sd) do

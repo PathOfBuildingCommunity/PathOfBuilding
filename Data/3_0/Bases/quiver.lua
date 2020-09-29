@@ -7,7 +7,7 @@ itemBases["Cured Quiver"] = {
 	hidden = true,
 	tags = { default = true, quiver = true, },
 	implicit = "Adds 2 to 4 Fire Damage to Attacks",
-	implicitModTypes = { { "attack", "fire", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	req = { },
 }
 itemBases["Rugged Quiver"] = {
@@ -15,7 +15,7 @@ itemBases["Rugged Quiver"] = {
 	hidden = true,
 	tags = { default = true, quiver = true, },
 	implicit = "Adds 2 to 3 Cold Damage to Attacks",
-	implicitModTypes = { { "attack", "cold", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold", "attack" }, },
 	req = { },
 }
 itemBases["Conductive Quiver"] = {
@@ -23,7 +23,7 @@ itemBases["Conductive Quiver"] = {
 	hidden = true,
 	tags = { default = true, quiver = true, },
 	implicit = "Adds 1 to 5 Lightning Damage to Attacks",
-	implicitModTypes = { { "attack", "lightning", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning", "attack" }, },
 	req = { },
 }
 itemBases["Heavy Quiver"] = {
@@ -31,7 +31,7 @@ itemBases["Heavy Quiver"] = {
 	hidden = true,
 	tags = { default = true, quiver = true, },
 	implicit = "Adds 1 to 4 Physical Damage to Attacks",
-	implicitModTypes = { { "attack", "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 5, },
 }
 itemBases["Light Quiver"] = {
@@ -39,14 +39,14 @@ itemBases["Light Quiver"] = {
 	hidden = true,
 	tags = { default = true, quiver = true, },
 	implicit = "+(30-40) to Dexterity",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 12, },
 }
 itemBases["Serrated Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	implicit = "Adds 1 to 4 Physical Damage to Bow Attacks",
-	implicitModTypes = { { "attack", "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 5, },
 }
 itemBases["Two-Point Arrow Quiver"] = {
@@ -60,7 +60,7 @@ itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	implicit = "+(3-4) Life gained for each Enemy hit by your Attacks",
-	implicitModTypes = { { "attack", "life" }, },
+	implicitModTypes = { { "resource", "life", "attack" }, },
 	req = { level = 10, },
 }
 itemBases["Blunt Arrow Quiver"] = {
@@ -74,21 +74,21 @@ itemBases["Fire Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	implicit = "Adds 4 to 8 Fire Damage to Bow Attacks",
-	implicitModTypes = { { "attack", "fire" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	req = { level = 22, },
 }
 itemBases["Broadhead Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	implicit = "Adds 6 to 12 Physical Damage to Bow Attacks",
-	implicitModTypes = { { "attack", "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 28, },
 }
 itemBases["Penetrating Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	implicit = "Arrows Pierce an additional Target",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "attack" }, },
 	req = { level = 36, },
 }
 itemBases["Spike-Point Arrow Quiver"] = {

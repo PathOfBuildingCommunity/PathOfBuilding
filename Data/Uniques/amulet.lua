@@ -80,6 +80,16 @@ Implicits: 1
 {variant:2}{tags:mana}(80-100)% increased Mana Regeneration Rate
 {tags:jewellery_attribute}Items and Gems have 25% reduced Attribute Requirements
 ]],[[
+Replica Atziri's Foible
+Paua Amulet
+League: Heist
+Requires Level 16
+Implicits: 1
+{tags:life}Regenerate (1.00-2.00)% of Life per second
+{tags:life}+100 to maximum Life
+{tags:life}(20-25)% increased Life Recovery rate
+Items and Gems have 25% reduced Attribute Requirements
+]],[[
 Aul's Uprising
 Onyx Amulet
 League: Delve
@@ -256,6 +266,18 @@ Implicits: 1
 {tags:life}10% increased Movement Speed when on Full Life
 {tags:attack}+2 to Melee Weapon and Unarmed range
 {tags:attack,life}60% increased Melee Damage when on Full Life
+]],[[
+The Ephemeral Bond
+Lapis Amulet
+League: Heist
+Requires Level 68
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:mana}(25-40)% increased Mana Regeneration Rate
+{tags:jewellery_resistance}+(15-25)% to all Elemental Resistances
++(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
+{tags:jewellery_elemental}(1-2) to (36-40) Lightning Damage per Power Charge
+90% less Power Charge Duration
 ]],[[
 Extractor Mentis
 Agate Amulet
@@ -470,6 +492,20 @@ Grants Level 22 Precision Skill
 {tags:attack,life}(0.8-1)% of Physical Attack Damage Leeched as Life
 Precision has 50% less Mana Reservation
 ]],[[
+Replica Hyrri's Truth
+Jade Amulet
+League: Heist
+Requires Level 64
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Dexterity
+Grants Level 22 Hatred Skill
+{tags:jewellery_attribute}+(25-35) to Dexterity
+{tags:attack}Adds (12-15) to (24-28) Physical Damage to Attacks
+{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
++(23-28)% to Global Critical Strike Multiplier
+{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
+{tags:life}Hatred has 50% less Mana Reservation
+]],[[
 The Ignomon
 Gold Amulet
 Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
@@ -544,6 +580,18 @@ Implicits: 1
 {variant:2}30% increased Projectile Damage
 30% increased Projectile Speed
 10% increased Movement Speed
+]],[[
+Replica Karui Ward
+Jade Amulet
+League: Heist
+Requires Level 5
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Dexterity
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:attack}+100 to Accuracy Rating
+10% increased Movement Speed
+30% increased Area of Effect
+30% increased Area Damage
 ]],[[
 Karui Charge
 Jade Amulet
@@ -785,7 +833,7 @@ Implicits: 1
 (30-50)% increased Cold Damage
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 {variant:1}30% increased Radius of Curse Skills
-{variant:2}60% increased Area of Effect of Curse Skills
+{variant:2,3}60% increased Area of Effect of Curse Skills
 You cannot be Cursed with Silence
 {variant:1,2}Grants level 20 Illusory Warp Skill
 Corrupted
@@ -934,6 +982,18 @@ Implicits: 1
 {tags:jewellery_resistance}+75% to Cold Resistance
 Cannot be Chilled
 {tags:life}20% of Life Regenerated per Second while Frozen
+]],[[
+Replica Winterheart
+Gold Amulet
+League: Heist
+Requires Level 42
+Implicits: 1
+(12-20)% increased Rarity of Items found
+{tags:jewellery_attribute}+(20-30) to Dexterity
+{tags:jewellery_defense}+(50-70) to maximum Energy Shield
+{tags:jewellery_elemental}+75% to Lightning Resistance
+{tags:jewellery_defense}Regenerate 5% of Energy Shield per second while Shocked
+Unaffected by Shock
 ]],[[
 Xoph's Heart
 Amber Amulet

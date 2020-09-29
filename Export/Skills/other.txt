@@ -203,6 +203,16 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill PhysicalAegis
+#flags spell
+	fromItem = true,
+#mods
+
+#skill CorpseWalk
+#flags area
+	fromItem = true,
+#mods
+
 #skill TriggeredConsecrate Consecrate
 #flags spell duration area
 	fromItem = true,
@@ -224,6 +234,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #baseMod skill("explodeCorpse", true)
 #baseMod skill("showAverage", true)
+#mods
+
+#skill DeathWish
+#flags spell area
+	fromItem = true,
 #mods
 
 #noGem
@@ -311,9 +326,9 @@ local skills, mod, flag, skill = ...
 #skill IcestormUniqueStaff12
 #flags spell area duration
 	fromItem = true,
-#baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
-#baseMod skill("radius", 25)
-#baseMod skill("radiusSecondary", 10)
+#baseMod skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 })
+#baseMod skill("radius", 22)
+#baseMod skill("radiusSecondary", 16)
 #mods
 
 #skill TriggeredIcicleNova
@@ -427,6 +442,11 @@ local skills, mod, flag, skill = ...
 
 #skill StormCascadeTriggered
 #flags spell area
+	fromItem = true,
+#mods
+
+#skill HiddenBlade
+#flags attack projectile
 	fromItem = true,
 #mods
 
@@ -573,13 +593,29 @@ local skills, mod, flag, skill = ...
 		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
 			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
 		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
 	},
+#mods
+
+#skill SummonTauntingContraption
+#flags spell minion duration
+	fromItem = true,
 #mods
 
 #skill SummonVoidSphere Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
+#mods
+
+#skill ShieldShatter
+#flags spell area
+	fromItem = true,
 #mods
 
 #skill TentacleSmash

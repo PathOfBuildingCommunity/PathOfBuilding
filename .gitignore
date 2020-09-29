@@ -260,3 +260,9 @@ ModelManifest.xml
 .fake/
 *.lnk
 /pack-tree.lua
+
+# Temp GGPK Resolution
+Export/ggpk/Metadata/*
+Export/ggpk/Data/*
+Export/ggpk/*.exe
+Export/ggpk/*.dll

@@ -24,7 +24,7 @@ function loadStatFile(fileName)
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
 			statDescriptor[noDesc] = { order = 0 }
-		elseif line:match("description") then	
+		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
 			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
@@ -47,18 +47,25 @@ function loadStatFile(fileName)
 				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
 				if statLimits then
 					local desc = { text = text, limit = { } }
-					for statLimit in statLimits:gmatch("[%d%-#|]+") do
+					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
 						local limit = { }
+						
 						if statLimit == "#" then
 							limit[1] = "#"
 							limit[2] = "#"
-						elseif statLimit:match("^%d+$") then
+						elseif statLimit:match("^%-?%d+$") then
 							limit[1] = tonumber(statLimit)
 							limit[2] = tonumber(statLimit)
 						else
-							limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
-							limit[1] = tonumber(limit[1]) or limit[1]
-							limit[2] = tonumber(limit[2]) or limit[2]
+							local negate = statLimit:match("^!(-?%d+)$")
+							if negate then
+								limit[1] = "!"
+								limit[2] = tonumber(negate)
+							else
+								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+								limit[1] = tonumber(limit[1]) or limit[1]
+								limit[2] = tonumber(limit[2]) or limit[2]
+							end
 						end
 						table.insert(desc.limit, limit)
 					end
@@ -85,7 +92,7 @@ for k, v in pairs(nk) do
 	print("'"..k.."' = '"..v.."'")
 end
 
-local function matchLimit(lang, val) 
+local function matchLimit(lang, val)
 	for _, desc in ipairs(lang) do
 		local match = true
 		for i, limit in ipairs(desc.limit) do
@@ -191,22 +198,29 @@ function describeStats(stats)
 					val[spec.v].max = 100 + val[spec.v].max
 				end
 			end
-			local statDesc = desc.text:gsub("%%(%d)%%", function(n) 
-				local v = val[tonumber(n)]
+			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%d", function() 
+			end):gsub("{}", function() 
 				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%(%d)$(%+?)d", function(n, fmt)
-				local v = val[tonumber(n)]
+			end):gsub("{:%+?d}", function() 
+				local v = val[1]
+				if v.min == v.max then
+					return string.format("%"..v.fmt, v.min)
+				else
+					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
+				end
+			end):gsub("{(%d):(%+?)d}", function(n, fmt)
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..fmt..v.fmt, v.min)
 				elseif fmt == "+" then

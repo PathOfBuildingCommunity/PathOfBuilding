@@ -471,26 +471,35 @@ end
 function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- This table will keep track of which nodes have been visited during each path-finding attempt
 	local visited = { }
-
+	local attributes = { "Dexterity", "Intelligence", "Strength" }
 	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeapLike = false
+		node.conqueredBy = nil
+
+		-- ignore cluster jewel nodes that don't have an id in the tree
+		if self.tree.nodes[id] then
+			self:ReplaceNode(node,self.tree.nodes[id])
+		end
+
 		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
 				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
 					local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
 					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
-						if itemId ~= 0
-							and self.build.itemsTab.items[itemId].jewelData
-							and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
-							-- This node depends on Intuitive Leap-like behaviour
-							-- This flag:
-							-- 1. Prevents generation of paths from this node
-							-- 2. Prevents this node from being deallocated via dependency
-							-- 3. Prevents allocation of path nodes when this node is being allocated
-							node.dependsOnIntuitiveLeapLike = true
-							break
+						if itemId ~= 0 and self.build.itemsTab.items[itemId].jewelData then
+							if self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
+								-- This node depends on Intuitive Leap-like behaviour
+								-- This flag:
+								-- 1. Prevents generation of paths from this node
+								-- 2. Prevents this node from being deallocted via dependancy
+								-- 3. Prevents allocation of path nodes when this node is being allocated
+								node.dependsOnIntuitiveLeapLike = true
+							end
+							if self.build.itemsTab.items[itemId].jewelData.conqueredBy then
+								node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
+							end
 						end
 					end
 				end
@@ -500,6 +509,64 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			node.depends[1] = node -- All nodes depend on themselves
 		end
 	end
+
+	for id, node in pairs(self.nodes) do
+		-- If node is conquered, replace it or add mods
+		if node.conqueredBy and node.type ~= "Socket" then
+			local conqueredBy = node.conqueredBy
+			local legionNodes = self.tree.legion.nodes
+
+			-- Replace with edited node if applicable
+			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
+				local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]
+				node.dn = editedNode.dn
+				node.sd = editedNode.sd
+				node.sprites = editedNode.sprites
+				node.mods = editedNode.mods
+				node.modList = editedNode.modList
+				node.modKey = editedNode.modKey
+			else
+				if node.type == "Keystone" then
+					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
+					self:ReplaceNode(node, legionNode)
+				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
+					local legionNode =legionNodes["eternal_small_blank"]
+					self:ReplaceNode(node,legionNode)
+				elseif conqueredBy.conqueror.type == "templar" then
+					if isValueInArray(attributes, node.dn) then
+						local legionNode =legionNodes["templar_devotion_node"]
+						self:ReplaceNode(node,legionNode)
+					else
+						self:NodeAdditionOrReplacementFromString(node,"+5 to Devotion")
+					end
+				elseif conqueredBy.conqueror.type == "maraketh" and node.type == "Normal" then
+					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+					self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity")
+				elseif conqueredBy.conqueror.type == "karui" and node.type == "Normal" then
+					local str = isValueInArray(attributes, node.dn) and "2" or "4"
+					self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength")
+				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
+					local legionNode =legionNodes["vaal_small_fire_resistance"]
+					node.dn = "Vaal small node"
+					node.sd = {"Right click to set mod"}
+					node.sprites = legionNode.sprites
+					node.mods = {""}
+					node.modList = new("ModList")
+					node.modKey = ""
+				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
+					local legionNode =legionNodes["vaal_notable_curse_1"]
+					node.dn = "Vaal notable node"
+					node.sd = {"Right click to set mod"}
+					node.sprites = legionNode.sprites
+					node.mods = {""}
+					node.modList = new("ModList")
+					node.modKey = ""
+				end
+			end
+		end
+	end
+
+
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
 
@@ -578,6 +645,18 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 		end
 	end
+end
+
+function PassiveSpecClass:ReplaceNode(old, new)
+	-- Edited nodes can share a name
+	if old.sd == new.sd then return 1 end
+	old.dn = new.dn
+	old.sd = new.sd
+	old.mods = new.mods
+	old.modKey = new.modKey
+	old.modList = new.modList
+	old.sprites = new.sprites
+	old.keystoneMod = new.keystoneMod
 end
 
 function PassiveSpecClass:BuildClusterJewelGraphs()
@@ -845,7 +924,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 			-- Silently fail to handle cases of jewels with more notables than should be allowed
 			break
 		end
-		
+
 		-- Construct the new node
 		local node = {
 			type = "Notable",
@@ -916,7 +995,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 
 	assert(indicies[0], "No entrance to subgraph")
 	subGraph.entranceNode = indicies[0]
-	
+
 	-- Correct position to account for index of proxy node
 	for _, node in pairs(indicies) do
 		node.oidx = (node.oidx + proxyNode.oidx) % clusterJewel.totalIndicies
@@ -986,4 +1065,94 @@ end
 
 function PassiveSpecClass:SetWindowTitleWithBuildClass()
 	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName))
+end
+
+--- Adds a line to or replaces a node given a line to add/replace with
+--- @param node table The node to replace/add to
+--- @param sd string The line being parsed and added
+--- @param replacement boolean true to replace the node with the new mod, false to simply add it
+function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacement)
+	local addition = {}
+	addition.sd = {sd}
+	addition.mods = { }
+	addition.modList = new("ModList")
+	addition.modKey = ""
+	local i = 1
+	while addition.sd[i] do
+		if addition.sd[i]:match("\n") then
+			local line = addition.sd[i]
+			local lineIdx = i
+			t_remove(addition.sd, i)
+			for line in line:gmatch("[^\n]+") do
+				t_insert(addition.sd, lineIdx, line)
+				lineIdx = lineIdx + 1
+			end
+		end
+		local line = addition.sd[i]
+		local parsedMod, unrecognizedMod = modLib.parseMod[self.build.targetVersion](line)
+		if not parsedMod or unrecognizedMod then
+			-- Try to combine it with one or more of the lines that follow this one
+			local endI = i + 1
+			while addition.sd[endI] do
+				local comb = line
+				for ci = i + 1, endI do
+					comb = comb .. " " .. addition.sd[ci]
+				end
+				parsedMod, unrecognizedMod = modLib.parseMod[self.build.targetVersion](comb, true)
+				if parsedMod and not unrecognizedMod then
+					-- Success, add dummy mod lists to the other lines that were combined with this one
+					for ci = i + 1, endI do
+						addition.mods[ci] = { list = { } }
+					end
+					break
+				end
+				endI = endI + 1
+			end
+		end
+		if not parsedMod then
+			-- Parser had no idea how to read this modifier
+			addition.unknown = true
+		elseif unrecognizedMod then
+			-- Parser recognised this as a modifier but couldn't understand all of it
+			addition.extra = true
+		else
+			for _, mod in ipairs(parsedMod) do
+				addition.modKey = addition.modKey.."["..modLib.formatMod(mod).."]"
+			end
+		end
+		addition.mods[i] = { list = parsedMod, extra = unrecognizedMod }
+		i = i + 1
+		while addition.mods[i] do
+			-- Skip any lines with dummy lists added by the line combining code
+			i = i + 1
+		end
+	end
+
+	-- Build unified list of modifiers from all recognised modifier lines
+	for _, mod in pairs(addition.mods) do
+		if mod.list and not mod.extra then
+			for i, mod in ipairs(mod.list) do
+				mod.source = "Tree:"..node.id
+				if type(mod.value) == "table" and mod.value.mod then
+					mod.value.mod.source = mod.source
+				end
+				addition.modList:AddMod(mod)
+			end
+		end
+	end
+	if replacement then
+		node.sd = addition.sd
+		node.mods = addition.mods
+		node.modKey = addition.modKey
+	else
+		node.sd = tableConcat(node.sd, addition.sd)
+		node.mods = tableConcat(node.mods, addition.mods)
+		node.modKey = node.modKey .. addition.modKey
+	end
+	local modList = new("ModList")
+	modList:AddList(addition.modList)
+	if not replacement then
+		modList:AddList(node.modList)
+	end
+	node.modList = modList
 end

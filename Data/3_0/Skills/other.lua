@@ -71,7 +71,12 @@ skills["GemDetonateMines"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "mine_detonation_speed_+%", 1 },
+		Default = {
+			{ "mine_detonation_speed_+%", 0.05 },
+		},
+		Alternate1 = {
+			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 0.05 },
+		},
 	},
 	stats = {
 		"display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine",
@@ -103,7 +108,12 @@ skills["Portal"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_cast_speed_+%", 3 },
+		Default = {
+			{ "base_cast_speed_+%", 0.015 },
+		},
+		Alternate1 = {
+			{ "portal_alternate_destination_chance_permyriad", 0.005 },
+		},
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -134,7 +144,9 @@ skills["VaalBreach"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_cast_speed_+%", 3 },
+		Default = {
+			{ "base_cast_speed_+%", 3 },
+		},
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -255,7 +267,6 @@ skills["VolatileDeadChaos"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -512,14 +523,14 @@ skills["CatAspect"] = {
 	stats = {
 		"critical_strike_chance_+%",
 		"avoid_damage_%",
-		"enemy_aggro_radius_+%",
+		"stealth_+%",
 		"attack_speed_+%_granted_from_skill",
 		"cast_speed_+%_granted_from_skill",
 		"base_skill_effect_duration",
 		"base_secondary_skill_effect_duration",
 	},
 	levels = {
-		[20] = { 100, 15, -50, 10, 10, 4000, 6000, cooldown = 0.5, levelRequirement = 1, manaCost = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 100, 15, 100, 10, 10, 4000, 6000, cooldown = 0.5, levelRequirement = 1, manaCost = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["CatsStealthTriggeredIntimidatingCry"] = {
@@ -723,7 +734,6 @@ skills["BloodOffering"] = {
 		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
-		{ "skill_effect_duration_+%", 0.5 },
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -793,6 +803,57 @@ skills["ColdAegis"] = {
 	},
 	levels = {
 		[20] = { 1000, 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["PhysicalAegis"] = {
+	name = "Physical Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes physical damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking physical damage from hits.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"aegis_unique_shield_max_value",
+		"active_skill_display_aegis_variation",
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[20] = { 1000, 4, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["CorpseWalk"] = {
+	name = "Corpse Walk",
+	hidden = true,
+	color = 4,
+	description = "Spawns corpses around you while you move.",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[20] = { levelRequirement = 60, statInterpolation = { }, },
 	},
 }
 skills["TriggeredConsecrate"] = {
@@ -909,6 +970,40 @@ skills["DeathWalk"] = {
 		[20] = { 5, levelRequirement = 60, statInterpolation = { 1, }, },
 	},
 }
+skills["DeathWish"] = {
+	name = "Death Wish",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5319999456406,
+	incrementalEffectiveness = 0.032299999147654,
+	description = "As you channel this spell, it spreads its effect to more of your minions. When you stop channelling, each affected minion explodes, and this skill deals spell damage around them.  The explosion of the minion is not affected by modifiers to spell damage, and cannot be reflected.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.FireSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.2,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"skill_minion_explosion_life_%",
+		"death_wish_hit_and_ailment_damage_+%_final_per_stage",
+		"death_wish_attack_speed_+%",
+		"death_wish_cast_speed_+%",
+		"death_wish_movement_speed_+%",
+		"death_wish_max_stages",
+		"is_area_damage",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 13, 10, 40, 40, 40, 13, critChance = 6, levelRequirement = 70, manaCost = 7, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, },
+	},
+}
 skills["TouchOfGod"] = {
 	name = "Doryani's Touch",
 	hidden = true,
@@ -929,7 +1024,6 @@ skills["TouchOfGod"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "area_damage_+%", 0.5 },
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_lightning",
@@ -1010,7 +1104,7 @@ skills["ElementalAegis"] = {
 }
 skills["SupportElementalPenetration"] = {
 	name = "Elemental Penetration",
-	hidden = true,
+	description = "Supports any skill that hits enemies, making those hits penetrate enemy elemental resistances.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Hit, SkillType.Attack, },
@@ -1021,12 +1115,57 @@ skills["SupportElementalPenetration"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "non_damaging_ailment_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"reduce_enemy_elemental_resistance_%",
 	},
 	levels = {
-		[20] = { 37, manaMultiplier = 40, levelRequirement = 70, statInterpolation = { 1, }, },
+		[1] = { 13, manaMultiplier = 40, levelRequirement = 31, statInterpolation = { 1, }, },
+		[2] = { 14, manaMultiplier = 40, levelRequirement = 34, statInterpolation = { 1, }, },
+		[3] = { 15, manaMultiplier = 40, levelRequirement = 36, statInterpolation = { 1, }, },
+		[4] = { 16, manaMultiplier = 40, levelRequirement = 38, statInterpolation = { 1, }, },
+		[5] = { 17, manaMultiplier = 40, levelRequirement = 40, statInterpolation = { 1, }, },
+		[6] = { 18, manaMultiplier = 40, levelRequirement = 42, statInterpolation = { 1, }, },
+		[7] = { 19, manaMultiplier = 40, levelRequirement = 44, statInterpolation = { 1, }, },
+		[8] = { 20, manaMultiplier = 40, levelRequirement = 46, statInterpolation = { 1, }, },
+		[9] = { 21, manaMultiplier = 40, levelRequirement = 48, statInterpolation = { 1, }, },
+		[10] = { 22, manaMultiplier = 40, levelRequirement = 50, statInterpolation = { 1, }, },
+		[11] = { 23, manaMultiplier = 40, levelRequirement = 52, statInterpolation = { 1, }, },
+		[12] = { 24, manaMultiplier = 40, levelRequirement = 54, statInterpolation = { 1, }, },
+		[13] = { 25, manaMultiplier = 40, levelRequirement = 56, statInterpolation = { 1, }, },
+		[14] = { 26, manaMultiplier = 40, levelRequirement = 58, statInterpolation = { 1, }, },
+		[15] = { 27, manaMultiplier = 40, levelRequirement = 60, statInterpolation = { 1, }, },
+		[16] = { 28, manaMultiplier = 40, levelRequirement = 62, statInterpolation = { 1, }, },
+		[17] = { 29, manaMultiplier = 40, levelRequirement = 64, statInterpolation = { 1, }, },
+		[18] = { 30, manaMultiplier = 40, levelRequirement = 66, statInterpolation = { 1, }, },
+		[19] = { 31, manaMultiplier = 40, levelRequirement = 68, statInterpolation = { 1, }, },
+		[20] = { 32, manaMultiplier = 40, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { 33, manaMultiplier = 40, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { 34, manaMultiplier = 40, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { 35, manaMultiplier = 40, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { 36, manaMultiplier = 40, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { 37, manaMultiplier = 40, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { 38, manaMultiplier = 40, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { 39, manaMultiplier = 40, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { 40, manaMultiplier = 40, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { 41, manaMultiplier = 40, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { 42, manaMultiplier = 40, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { 42, manaMultiplier = 40, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { 43, manaMultiplier = 40, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { 43, manaMultiplier = 40, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { 44, manaMultiplier = 40, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { 44, manaMultiplier = 40, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { 45, manaMultiplier = 40, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { 45, manaMultiplier = 40, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { 46, manaMultiplier = 40, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { 46, manaMultiplier = 40, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { 47, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
 skills["OnHitWhileCursedTriggeredCurseNova"] = {
@@ -1234,7 +1373,6 @@ skills["SupportGreaterSpellEcho"] = {
 		mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
 	},
 	qualityStats = {
-		{ "base_cast_speed_+%", 0.5 },
 	},
 	stats = {
 		"base_spell_repeat_count",
@@ -1291,9 +1429,9 @@ skills["IcestormUniqueStaff12"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 }),
-		skill("radius", 25),
-		skill("radiusSecondary", 10),
+		skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 }),
+		skill("radius", 22),
+		skill("radiusSecondary", 16),
 	},
 	qualityStats = {
 	},
@@ -1304,13 +1442,14 @@ skills["IcestormUniqueStaff12"] = {
 		"fire_storm_fireball_delay_ms",
 		"skill_override_pvp_scaling_time_ms",
 		"firestorm_drop_ground_ice_duration_ms",
-		"skill_art_variation",
 		"skill_effect_duration_per_100_int",
+		"firestorm_max_number_of_storms",
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
+		"skill_is_ice_storm",
 	},
 	levels = {
-		[1] = { 1, 3, 1500, 100, 450, 500, 4, 150, damageEffectiveness = 0.45, critChance = 6, levelRequirement = 1, manaCost = 22, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 2, 4, 1000, 200, 450, 500, 100, 5, damageEffectiveness = 0.6, critChance = 6, levelRequirement = 1, manaCost = 22, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["TriggeredIcicleNova"] = {
@@ -1681,11 +1820,11 @@ skills["ShadeForm"] = {
 	},
 	stats = {
 		"base_skill_effect_duration",
-		"enemy_aggro_radius_+%",
+		"stealth_+%",
 		"trigger_on_skill_use_from_chest_%",
 	},
 	levels = {
-		[20] = { 3000, -50, 20, cooldown = 45, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+		[20] = { 3000, 100, 20, cooldown = 45, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["TriggeredShockedGround"] = {
@@ -1812,6 +1951,41 @@ skills["StormCascadeTriggered"] = {
 		[30] = { 0.80000001192093, 1.2000000476837, 5, 60, 3, 100, critChance = 5, cooldown = 0.5, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
 	},
 }
+skills["HiddenBlade"] = {
+	name = "Unseen Strike",
+	hidden = true,
+	color = 2,
+	description = "Launches a spinning blade that deals weapon damage to enemies. If firing multiple projectiles, they will be fired in a circle.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanVolley] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type96] = true, },
+	weaponTypes = {
+		["Claw"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_has_trigger_from_unique_item",
+		"projectiles_nova",
+		"base_is_projectile",
+	},
+	levels = {
+		[20] = { damageEffectiveness = 2.5, cooldown = 0.5, baseMultiplier = 2.5, levelRequirement = 70, statInterpolation = { }, },
+	},
+}
 skills["SummonBeastialRhoa"] = {
 	name = "Summon Bestial Rhoa",
 	hidden = true,
@@ -1839,8 +2013,6 @@ skills["SummonBeastialRhoa"] = {
 		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		{ "minion_maximum_life_+%", 1 },
-		{ "minion_damage_+%", 1 },
 	},
 	stats = {
 		"base_actor_scale_+%",
@@ -1881,8 +2053,6 @@ skills["SummonBeastialSnake"] = {
 		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		{ "minion_maximum_life_+%", 1 },
-		{ "minion_damage_+%", 1 },
 	},
 	stats = {
 		"base_actor_scale_+%",
@@ -1923,8 +2093,6 @@ skills["SummonBeastialUrsa"] = {
 		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		{ "minion_maximum_life_+%", 1 },
-		{ "minion_damage_+%", 1 },
 	},
 	stats = {
 		"base_actor_scale_+%",
@@ -2344,7 +2512,6 @@ skills["TriggeredSummonGhostOnKill"] = {
 	baseMods = {
 	},
 	qualityStats = {
-		{ "chance_to_summon_support_ghost_on_killing_blow_%", 0.5 },
 	},
 	stats = {
 		"trigger_on_corpse_consume_%_chance",
@@ -2379,6 +2546,12 @@ skills["SummonRigwaldsPack"] = {
 		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
 			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
 		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2405,6 +2578,36 @@ skills["SummonRigwaldsPack"] = {
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 		[20] = { 30000, 10, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+	},
+}
+skills["SummonTauntingContraption"] = {
+	name = "Summon Taunting Contraption",
+	hidden = true,
+	color = 4,
+	description = "Summons a Taunting Contraption that taunts nearby enemies to attack it.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Buff] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"cast_on_flask_use_%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minion_maximum_life_+%",
+		"base_deal_no_damage",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[20] = { 100, 17, 70, 150, levelRequirement = 70, duration = 4, cooldown = 8, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
 skills["SummonVoidSphere"] = {
@@ -2444,6 +2647,36 @@ skills["SummonVoidSphere"] = {
 	},
 	levels = {
 		[20] = { 20, 8000, 4000, 5, 10, 0.80000001192093, 1.2000000476837, 83.333335195979, cooldown = 2, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 3, 3, 3, }, },
+	},
+}
+skills["ShieldShatter"] = {
+	name = "Shield Shatter",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 0.34000000357628,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Your shield shatters, dealing physical spell damage to enemies in an area, based on the shield's quality. For a short duration after this, you will be unable to block and will gain no defences from your shield, but your spells will deal added physical damage.",
+	skillTypes = { [SkillType.Hit] = true, [SkillType.PhysicalSkill] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	statDescriptionScope = "buff_skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"trigger_on_block_%_chance",
+		"spell_minimum_base_physical_damage_per_shield_quality",
+		"spell_maximum_base_physical_damage_per_shield_quality",
+		"buff_added_spell_minimum_base_physical_damage_per_shield_quality",
+		"buff_added_spell_maximum_base_physical_damage_per_shield_quality",
+	},
+	levels = {
+		[20] = { 100, 0.80000001192093, 1.2000000476837, 10, 16, duration = 4, levelRequirement = 70, statInterpolation = { 1, 3, 3, 1, 1, }, },
 	},
 }
 skills["TentacleSmash"] = {
