@@ -9,6 +9,7 @@ local pairs = pairs
 local ipairs = ipairs
 local unpack = unpack
 local t_insert = table.insert
+local m_abs = math.abs
 local m_floor = math.floor
 local m_ceil = math.ceil
 local m_modf = math.modf
@@ -892,7 +893,10 @@ function calcs.offence(env, actor, activeSkill)
 		if skillData.baseManaCostIsAtLeastPercentUnreservedMana then
 			manaCost = m_max(manaCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 		end
-		output.ManaCost = m_floor(m_max(0, manaCost * mult * more * (1 + inc / 100) + base))
+		output.ManaCost = m_floor(manaCost * mult)
+		output.ManaCost = m_floor(m_abs(inc / 100) * output.ManaCost) * (inc >= 0 and 1 or -1) + output.ManaCost
+		output.ManaCost = m_floor(m_abs(more - 1) * output.ManaCost) * (more >= 1 and 1 or -1) + output.ManaCost
+		output.ManaCost = m_max(0, m_floor(output.ManaCost + base))
 		if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
 			output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
 		end
@@ -906,7 +910,7 @@ function calcs.offence(env, actor, activeSkill)
 			if inc ~= 0 then
 				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(increased/reduced mana cost)", 1 + inc/100))
 			end	
-			if more ~= 0 then
+			if more ~= 1 then
 				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(more/less mana cost)", more))
 			end	
 			if base ~= 0 then
