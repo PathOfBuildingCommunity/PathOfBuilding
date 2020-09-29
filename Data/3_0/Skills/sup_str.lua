@@ -2313,7 +2313,7 @@ skills["SupportMaim"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
 		["chance_to_bleed_on_hit_%_vs_maimed"] = {
-			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", condition = "Maimed"})
+			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
 		}
 	},
 	baseMods = {

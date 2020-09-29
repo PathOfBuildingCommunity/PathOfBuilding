@@ -1795,11 +1795,13 @@ skills["CorpseEruption"] = {
 		["cremation_fires_projectiles_faster_+%_final"] = {
 			skill("cremationFireRateIncrease", nil),
 			div = 100
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
 		}
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 1 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate * ((activeSkill.skillData.cremationFireRateIncrease or 0) + 1)
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
 		end
 	end,
 	baseFlags = {

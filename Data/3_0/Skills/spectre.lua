@@ -4924,7 +4924,7 @@ skills["BetrayalSecretPoliceCurveDagger1"] = {
 		[2] = { -20, 1500, 20, 50, 0, 0, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 2, 1, }, },
 	},
 }
-skills["AtlasEyrieKiwethMortar"] = {
+skills["AtlasEyrieKiwethMortarSpectre"] = {
 	name = "Mortar",
 	hidden = true,
 	color = 4,
@@ -4949,13 +4949,14 @@ skills["AtlasEyrieKiwethMortar"] = {
 		"projectile_spread_radius",
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"number_of_projectiles_override",
 		"is_area_damage",
 		"base_is_projectile",
 		"projectile_uses_contact_position",
 		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { 0, 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 10, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, },
+		[1] = { 0, 0.80000001192093, 1.2000000476837, 1, critChance = 5, cooldown = 10, levelRequirement = 0, statInterpolation = { 1, 3, 3, 1, }, },
 	},
 }
 skills["AtlasEyrieKiwethMortarShards"] = {
@@ -4968,6 +4969,8 @@ skills["AtlasEyrieKiwethMortarShards"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
+		hit = true,
 		projectile = true,
 		triggerable = true,
 	},

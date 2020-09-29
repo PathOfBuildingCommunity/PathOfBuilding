@@ -160,6 +160,10 @@ return {
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("MovementSpeed", "INC", 10, "Feeding Frenzy") }, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Speed", "INC", 10, "Feeding Frenzy") }, "Config")
 	end },
+	{ label = "Flame Wall:", ifSkill = "Flame Wall" },
+	{ var = "flameWallAddedDamage", type = "check", label = "Projectile Travelled through Flame Wall?", ifSkill = "Flame Wall", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:FlameWallAddedDamage", "FLAG", true, "Config")
+	end },
 	{ label = "Frostbolt:", ifSkill = "Frostbolt" },
 	{ var = "frostboltExposure", type = "check", label = "Can you apply Exposure?", ifSkill = "Frostbolt", apply = function(val, modList, enemyModList)
 		modList:NewMod("ColdExposureChance", "BASE", 20, "Config")
