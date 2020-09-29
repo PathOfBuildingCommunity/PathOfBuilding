@@ -2,10 +2,10 @@
 local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, x, y, width, height, report, powerLabel, nodeSelectCallback)
 	self.ListControl(anchor, x, y, width, height, 20, false, false, report)
 	self.colList = {
-		{ width = width * 0.20, label = "Type" },
-		{ width = width * 0.45, label = "Node Name" },
-		{ width = width * 0.15, label = powerLabel },
-		{ width = width * 0.15, label = "Distance"}
+		{ width = width * 0.15, label = "Type" },
+		{ width = width * 0.50, label = "Node Name" },
+		{ width = width * 0.18, label = powerLabel },
+		{ width = width * 0.12, label = "Distance"}
 	}
 	self.label = "Click to focus node on tree"
 	self.colLabels = true
@@ -27,7 +27,7 @@ function PowerReportListClass:GetRowValue(column, index, report)
 		return report.powerStr
 	elseif column == 4 then
 		if report.pathDist == 1000 then
-			return "Annoint"
+			return "Anoint"
 		else
 			return report.pathDist
 		end
