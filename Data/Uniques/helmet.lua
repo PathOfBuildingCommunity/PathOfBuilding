@@ -898,6 +898,8 @@ Maw of Mischief
 Bone Helmet
 League: Heist
 Requires Level 73, 76 Str, 76 Int
+Implicits: 1
+Minions deal (15-20)% increased Damage
 Grants Level 20 Death Wish Skill
 +(45-65) to maximum Life
 (30-20)% reduced Mana Cost of Minion Skills
