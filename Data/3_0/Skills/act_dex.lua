@@ -27,17 +27,17 @@ skills["AnimateWeapon"] = {
 		["base_movement_velocity_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
 		},
-		["active_skill_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
-		},
-		["attack_speed_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack) }),
-		},
 		["attack_minimum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
 		["attack_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_minimum_added_physical_damage_for_ethereal_blades"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
+		},
+		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
 		},
 		["minion_global_maximum_added_lightning_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
@@ -1795,11 +1795,13 @@ skills["CorpseEruption"] = {
 		["cremation_fires_projectiles_faster_+%_final"] = {
 			skill("cremationFireRateIncrease", nil),
 			div = 100
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
 		}
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 1 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate * ((activeSkill.skillData.cremationFireRateIncrease or 0) + 1)
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
 		end
 	end,
 	baseFlags = {
@@ -3087,9 +3089,6 @@ skills["ExplosiveArrow"] = {
 		},
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
-		},
-		["active_skill_quality_duration_+%_final"] = {
-			mod("Duration", "INC", nil)
 		},
 	},
 	baseFlags = {

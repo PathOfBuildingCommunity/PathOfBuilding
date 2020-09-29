@@ -14,12 +14,12 @@ local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local catalystList = {"Abrasive", "Fertile", "Imbued", "Intrinsic", "Prismatic", "Tempering", "Turbulent"}
 local catalystTags = {
 	{ "attack" },
-	{ "life", "mana" },
+	{ "life", "mana", "resource" },
 	{ "caster" },
-	{ "jewellery_attribute" },
-	{ "jewellery_resistance" },
-	{ "jewellery_defense" },
-	{ "jewellery_elemental" },
+	{ "jewellery_attribute", "attribute" },
+	{ "jewellery_resistance", "resistance" },
+	{ "jewellery_defense", "defences" },
+	{ "jewellery_elemental" ,"elemental_damage" },
 }
 
 local function getCatalystScalar(catalystId, tags, quality)

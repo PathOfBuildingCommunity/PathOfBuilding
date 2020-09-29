@@ -2992,3 +2992,32 @@ minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
 	},
 }
+-- Ashblessed Warden
+minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
+	name = "Ashblessed Warden",
+	life = 6,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.58,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"DoLiterallyNothing",
+		"WalkEmergeHeistRobotElevator",
+		"GSHeistRobotPyreBeamBlast",
+		"GSHeistRobotPyreNukeBeam",
+		"GSHeistRobotPyreNukeBeamChannelled",
+		"EASHeistRobotPyreBeamSweep",
+		"GSHeistRobotPyreBeamSweepBeam",
+		"ChangeToStance1Heist",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
+	},
+}

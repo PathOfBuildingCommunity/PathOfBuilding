@@ -168,7 +168,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = self.controls.treeHeatMap.y == 24 and 26 or 0
-	if(select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize()) > viewPort.x + viewPort.width) then
+	if(select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize()) > viewPort.x + viewPort.width) then
 		twoLineHeight = 26
 		self.controls.treeHeatMap:SetAnchor("BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 24
@@ -176,7 +176,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 		self.controls.specSelect.y = -24
 		self.controls.specConvertText.y = -16
-	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize())) - viewPort.x  then
+	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
 		twoLineHeight = 0
 		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 0
@@ -459,9 +459,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
 			selectedNode.dn = newLegionNode.dn
 			selectedNode.sprites = newLegionNode.sprites
+			selectedNode.icon = newLegionNode.icon
+			selectedNode.spriteId = newLegionNode.id
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" then
 			selectedNode.dn = newLegionNode.dn
 			selectedNode.sprites = newLegionNode.sprites
+			selectedNode.icon = newLegionNode.icon
+			selectedNode.spriteId = newLegionNode.id
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
 
 			-- Vaal is the exception
@@ -523,6 +527,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
 		addModifier(selectedNode)
+		self.modFlag = true
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
@@ -551,6 +557,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
 			end
 		end
+		self.modFlag = true
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()

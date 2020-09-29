@@ -160,6 +160,10 @@ return {
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("MovementSpeed", "INC", 10, "Feeding Frenzy") }, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Speed", "INC", 10, "Feeding Frenzy") }, "Config")
 	end },
+	{ label = "Flame Wall:", ifSkill = "Flame Wall" },
+	{ var = "flameWallAddedDamage", type = "check", label = "Projectile Travelled through Flame Wall?", ifSkill = "Flame Wall", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:FlameWallAddedDamage", "FLAG", true, "Config")
+	end },
 	{ label = "Frostbolt:", ifSkill = "Frostbolt" },
 	{ var = "frostboltExposure", type = "check", label = "Can you apply Exposure?", ifSkill = "Frostbolt", apply = function(val, modList, enemyModList)
 		modList:NewMod("ColdExposureChance", "BASE", 20, "Config")
@@ -242,6 +246,9 @@ return {
 	{ label = "Animate Weapon:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"} },
 	{ var = "animateWeaponWeaponCount", type = "count", label = "# of Weapons:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"}, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:AnimatedWeapon", "BASE", m_min(val, 50), "Config")
+	end },
+	{ var = "animateWeaponLingeringBlade", type = "check", label = "Are you animating Lingering Blades?", ifSkill = "Animate Weapon", tooltip = "Enables additional damage given to Lingering Blades\nThe exact weapon is unknown but should be similar to Glass Shank", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:AnimatingLingeringBlades", "FLAG", true, "Config")
 	end },
 	{ label = "Sigil of Power:", ifSkill = "Sigil of Power" },
 	{ var = "sigilOfPowerStages", type = "count", label = "Stages:", ifSkill = "Sigil of Power", apply = function(val, modList, enemyModList)
@@ -599,8 +606,11 @@ return {
 		modList:NewMod("TotemsSummoned", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:HaveTotem", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionSummonedGolemInPast8Sec", type = "check", label = "Summoned a Golem in the past 8 Seconds?", ifCond = "SummonedGolemInPast8Sec", apply = function(val, modList, enemyModList)
+	{ var = "conditionSummonedGolemInPast8Sec", type = "check", label = "Summoned a Golem in the past 8 Seconds?", ifCond = "SummonedGolemInPast8Sec", implyCond = "SummonedGolemInPast10Sec", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SummonedGolemInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionSummonedGolemInPast10Sec", type = "check", label = "Summoned a Golem in the past 10 Seconds?", ifCond = "SummonedGolemInPast10Sec", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SummonedGolemInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierNearbyAlly", type = "count", label = "# of Nearby Allies:", ifMult = "NearbyAlly", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyAlly", "BASE", val, "Config", { type = "Condition", var = "Combat" })
