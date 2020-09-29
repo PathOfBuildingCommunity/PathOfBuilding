@@ -4598,6 +4598,16 @@ skills["DoomBlast"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 	},
+	parts = {
+		{
+			name = "Target",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
