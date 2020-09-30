@@ -2623,7 +2623,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 30000, 10, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
