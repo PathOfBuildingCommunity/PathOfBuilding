@@ -6,41 +6,75 @@
 
 local t_insert = table.insert
 local t_remove = table.remove
+local t_sort = table.sort
 
 local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, x, y, width, height, report, powerLabel, nodeSelectCallback)
 
 	self.originalList = report
 
-	self.ListControl(anchor, 0, 75, width, height-50, 20, false, false, self:Relist())
+	self.ListControl(anchor, 0, 75, width, height-50, 20, false, false, self:ReList())
 
 	self.colList = {
 		{ width = width * 0.15, label = "Type" },
 		{ width = width * 0.50, label = "Node Name" },
 		{ width = width * 0.18, label = powerLabel },
-		{ width = width * 0.12, label = "Distance"}
+		{ width = width * 0.12, label = "Distance" }
 	}
 	self.label = "Click to focus node on tree"
 	self.colLabels = true
 	self.nodeSelectCallback = nodeSelectCallback
 	self.showClusters = false
 	self.onlyNotables = false
-	self.controls.showClusters = new("CheckBoxControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -1, 18, "Show Clusters:", function(state)
+	
+	self.controls.showClusters = new("CheckBoxControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 18, "Show Clusters:", function(state)
 		self.showClusters = state
-		self:Relist()
+		self:ReList()
+		self:ReSort()
 	end, "Show Cluster Jewel Notables")
 	self.controls.onlyNotables = new("CheckBoxControl", {"BOTTOMRIGHT", self.controls.showClusters, "TOPRIGHT"}, 0, 0, 18, "Only Notables:", function(state)
 		self.onlyNotables = state
-		self:Relist()
+		self:ReList()
+		self:ReSort()
+	end)
+
+	self.controls.sortLabel = new("LabelControl", {"BOTTOMLEFT", self, "TOPLEFT"}, 0, -22, 0, 16, "^7Sort by:")
+	self.controls.sortBy = new("DropDownControl", {"LEFT", self.controls.sortLabel, "RIGHT"}, 5, 0, 150, 20, {powerLabel, "Distance"}, function(sel)
+		self:ReSort()		
 	end)
 
 end)
 
-function PowerReportListClass:Relist()
+function PowerReportListClass:ReSort()
+	if (self.controls.sortBy.selIndex == 1) then
+		t_sort(self.list, function (a,b)
+			return (a.power) > (b.power)
+		end)
+	elseif (self.controls.sortBy.selIndex == 2) then
+		t_sort(self.list, function (a,b)
+			if (a.pathDist == "Anoint") or (a.pathDist == "Cluster") then
+				return false
+			end
+			if (b.pathDist == "Anoint") or (b.pathDist == "Cluster") then
+				return true
+			end
+			if (a.pathDist == b.pathDist) then
+				return (a.power) > (b.power)
+			end
+			return (a.pathDist) < (b.pathDist)
+		end)
+	end
+end
+
+function PowerReportListClass:ReList()
 	local filteredList = { }
 	local iterate = 1
 	local insert = true
 
 	while(true) do
+
+		if (self.originalList[iterate].power <= 0) then
+			insert = false
+		end
 		if (not self.showClusters) and (self.originalList[iterate].pathDist == "Cluster") then
 			insert = false
 		end
