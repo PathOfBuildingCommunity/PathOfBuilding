@@ -217,8 +217,9 @@ function SkillsTabClass:Load(xml, fileName)
 				end
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
-				gemInstance.qualityId = SkillsTabClass:ParseGemAltQuality(gemInstance.nameSpec, child.attrib.qualityId)
-				gemInstance.nameSpec = SkillsTabClass:ParseBaseGemName(gemInstance)
+				local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec)
+                gemInstance.nameSpec=nameSpecOverride
+                gemInstance.qualityId=qualityOverrideId
 
 				if gemInstance.gemData then
 					gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
