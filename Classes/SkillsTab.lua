@@ -87,6 +87,10 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.showSupportGemTypes = value.show
 	end)
 	self.controls.showSupportGemTypesLabel = new("LabelControl", {"RIGHT",self.controls.showSupportGemTypes,"LEFT"}, -4, 0, 0, 16, "^7Show support gems:")
+
+	-- Gem obtained by
+	self.controls.gemObtainedBySection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 200, 320, 450, "Gems Obtained By")
+	self.controls.gemObtainedByGroupList = new("SkillObtainedByListControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 10, 215, 300, 420, self)
 	
 	-- Socket group details
 	self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
@@ -390,6 +394,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		self:AddUndoState()
 		self.build.buildFlag = true
+		
+		-- Update obtained by list on delete
+		self.controls.gemObtainedByGroupList:UpdateAllGems(self)
 	end)
 	if index == 1 then
 		slot.delete:SetAnchor("TOPLEFT", self.anchorGemSlots, "TOPLEFT", 0, 0)
@@ -628,6 +635,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		return "Enable "..self.displayGroup.gemList[index].gemData.grantedEffectList[2].name..":"
 	end
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
+
+	-- Update obtained by list on add
+	self.controls.gemObtainedByGroupList:UpdateAllGems(self)
 end
 
 
