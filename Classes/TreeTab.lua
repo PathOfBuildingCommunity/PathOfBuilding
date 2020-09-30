@@ -6,7 +6,9 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_sort = table.sort
+local m_max = math.max
 local m_min = math.min
+local m_floor = math.floor
 local s_format = string.format
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
@@ -623,10 +625,39 @@ function TreeTabClass:ShowPowerReport()
 				name = node.dn,
 				power = nodePower,
 				powerStr = nodePowerStr,
-				id = nodeId,
+				id = node.id,
 				x = node.x,
 				y = node.y,
-				type = node.type
+				type = node.type,
+				pathDist = node.pathDist
+			})
+		end
+	end
+
+	-- search all cluster notables and add to the list
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		local isAlloc = node.alloc
+		if not isAlloc then			
+			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
+
+			if main.showThousandsCalcs then
+				nodePowerStr = formatNumSep(nodePowerStr)
+			end
+			
+			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+			end
+			
+			t_insert(report, {
+				name = node.dn,
+				power = nodePower,
+				powerStr = nodePowerStr,
+				id = node.id,
+				type = node.type,
+				pathDist = "Cluster"
 			})
 		end
 	end
@@ -644,17 +675,20 @@ function TreeTabClass:ShowPowerReport()
 
 	-- present the UI
 	local controls = {}
-	controls.list = new("PowerReportListControl", nil, 0, 40, 450, 400, report, currentStatLabel, function(selectedNode)
+	controls.powerReport = new("PowerReportListControl", nil, 0, 0, 550, 450, report, currentStatLabel, function(selectedNode)
 		-- this code is called by the list control when the user "selects" one of the passives in the list.
 		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
-		self.jumpToNode = true
-		self.jumpToX = selectedNode.x
-		self.jumpToY = selectedNode.y
-		main:ClosePopup()
+		if(selectedNode.x) then
+			self.jumpToNode = true
+			self.jumpToX = selectedNode.x
+			self.jumpToY = selectedNode.y
+			main:ClosePopup()
+		end		
 	end)
-	controls.done = new("ButtonControl", nil, 0, 450, 100, 20, "Close", function()
+	
+	controls.done = new("ButtonControl", nil, 0, 490, 100, 20, "Close", function()
 		main:ClosePopup()
 	end)
 
-	popup = main:OpenPopup(500, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
+	popup = main:OpenPopup(600, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
 end

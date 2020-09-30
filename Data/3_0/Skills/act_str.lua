@@ -4138,6 +4138,9 @@ skills["BloodSpears"] = {
 		["blood_spears_additional_number_of_spears_if_changed_stance_recently"] = {
 			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently" }),
 		},
+		["skill_area_of_effect_+%_final_in_sand_stance"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "SandStance" }),
+		}
 	},
 	baseFlags = {
 		attack = true,

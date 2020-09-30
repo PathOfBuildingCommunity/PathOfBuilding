@@ -981,11 +981,57 @@ skills["DeathWish"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	fromItem = true,
+	parts = {
+		{
+			name = "Channelling",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Minion Explosion",
+			spell = false,
+			cast = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local skillData = activeSkill.skillData
+			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+		end
+	end,
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["death_wish_attack_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_movement_speed_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_hit_and_ailment_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishStageCount", limitVar = "DeathWishMaxStages" }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["death_wish_max_stages"] = {
+			mod("Multiplier:DeathWishMaxStages", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 10, { type = "SkillPart", skillPart = 2 }),
+		skill("buffMinions", true),
+		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
 	},

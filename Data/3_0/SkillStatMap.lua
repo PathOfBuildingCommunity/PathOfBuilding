@@ -203,6 +203,11 @@ return {
 	skill("selfFireExplosionLifeMultiplier", nil),
 	div = 100,
 },
+-- for some reason DeathWish adds another stat with same effect as above
+["skill_minion_explosion_life_%"] = {
+	skill("selfFireExplosionLifeMultiplier", nil),
+	div = 100,
+},
 ["deal_chaos_damage_per_second_for_10_seconds_on_hit"] = {
 	mod("SkillData", "LIST", { key = "decay", value = nil, merge = "MAX" }),
 },
@@ -439,7 +444,7 @@ return {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 },
 ["critical_strike_chance_+%_vs_blinded_enemies"] = {
-	mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
+	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
 },
 -- Duration
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {

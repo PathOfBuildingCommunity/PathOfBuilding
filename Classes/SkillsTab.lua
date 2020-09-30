@@ -158,29 +158,20 @@ will automatically apply to the skill.]]
 	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].enabled,"TOPLEFT"}, -16, -2, 0, 16, "^7Enabled:")
 end)
 
--- parse alt qual from existing quality list
-function SkillsTabClass:ParseGemAltQuality(gemName, qualityId)
-	if qualityId then
-		return qualityId
-	end if gemName then
-		for indx, entry in ipairs(alternateGemQualityList) do
-			if gemName:sub(1, #entry.label) == entry.label then
-				return entry.type
+-- parse real gem name and quality by ommiting the first word if alt qual is set
+function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine)
+	if gemTypeLine then
+		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
+		if firstword and otherwords then
+			for indx, entry in ipairs(alternateGemQualityList) do
+				if firstword == entry.label then
+					return otherwords, entry.type
+				end
 			end
 		end
 	end
-	return "Default"
-end
 
--- parse real gem name by ommiting the first word if alt qual is set
-function SkillsTabClass:ParseBaseGemName(gemInstance)
-	if gemInstance.qualityId and gemInstance.nameSpec then
-		_, gemName = gemInstance.nameSpec:match("(%w+)%s(.+)")
-		if gemName then
-			return gemName
-		end
-	end
-	return gemInstance.nameSpec
+	return gemTypeLine, "Default"
 end
 
 function SkillsTabClass:Load(xml, fileName)
@@ -226,8 +217,9 @@ function SkillsTabClass:Load(xml, fileName)
 				end
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
-				gemInstance.qualityId = SkillsTabClass:ParseGemAltQuality(gemInstance.nameSpec, child.attrib.qualityId)
-				gemInstance.nameSpec = SkillsTabClass:ParseBaseGemName(gemInstance)
+				local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec)
+                gemInstance.nameSpec=nameSpecOverride
+                gemInstance.qualityId=qualityOverrideId
 
 				if gemInstance.gemData then
 					gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
