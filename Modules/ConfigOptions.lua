@@ -702,16 +702,6 @@ return {
 	{ var = "conditionChannelling", type = "check", label = "Are you Channelling?", ifCond = "Channelling", tooltip = "You will automatically be considered to be Channeling if your main skill is a channelled skill,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Channelling", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionHitRecentlyWithMainHandWeapon", type = "check", label = "Hit with your Main Hand Weapon Recently?", ifCond = "HitRecentlyWithMainHandWeapon", tooltip = "Auto-sets 'Hit Recently and 'Hit Recently with your Weapon' condition as well.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:HitRecentlyWithMainHandWeapon", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Condition:HitRecentlyWithWeapon", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Condition:HitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionHitRecentlyWithOffHandWeapon", type = "check", label = "Hit with your Off Hand Weapon Recently?", ifCond = "HitRecentlyWithOffHandWeapon", tooltip = "Auto-sets 'Hit Recently' and 'Hit Recently with your Weapon' condition as well.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:HitRecentlyWithOffHandWeapon", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Condition:HitRecentlyWithWeapon", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Condition:HitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
 	{ var = "conditionHitRecentlyWithWeapon", type = "check", label = "Hit Recently with Your Weapon?", ifCond = "HitRecentlyWithWeapon", tooltip = "Auto-sets 'Hit Recently' condition as well.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HitRecentlyWithWeapon", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
