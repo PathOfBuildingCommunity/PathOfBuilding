@@ -1008,16 +1008,16 @@ skills["DeathWish"] = {
 			skill("FireMax", nil, { type = "SkillPart", skillPart = 2 }),
 		},
 		["death_wish_attack_speed_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 1 }) }),
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["death_wish_cast_speed_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "SkillPart", skillPart = 1 }) }),
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["death_wish_movement_speed_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil, { type = "SkillPart", skillPart = 1 }) }),
+			mod("MovementSpeed", "INC", nil, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["death_wish_hit_and_ailment_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishMaxStages" }, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishStageCount", limitVar = "DeathWishMaxStages" }, { type = "SkillPart", skillPart = 2 }),
 		},
 		["death_wish_max_stages"] = {
 			mod("Multiplier:DeathWishMaxStages", "BASE", nil),
@@ -1029,7 +1029,9 @@ skills["DeathWish"] = {
 	},
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
-		skill("radius", 10),
+		skill("radius", 10, { type = "SkillPart", skillPart = 2 }),
+		skill("buffMinions", true),
+		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
 	},
