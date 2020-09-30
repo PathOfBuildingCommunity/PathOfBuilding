@@ -796,12 +796,12 @@ local skills, mod, flag, skill = ...
 #flags attack projectile triggerable
 #mods
 
-#skill AtlasEyrieKiwethMortar Mortar
+#skill AtlasEyrieKiwethMortarSpectre Mortar
 #flags spell hit area projectile triggerable
 #mods
 
 #skill AtlasEyrieKiwethMortarShards Mortar Shards
-#flags projectile triggerable
+#flags spell hit projectile triggerable
 #mods
 
 #skill GAHeistThugRangedArrowShotgun Arrow Shotgun
@@ -810,4 +810,21 @@ local skills, mod, flag, skill = ...
 
 #skill GAHeistThugRangedShotgun Ranged Shotgun
 #flags attack hit area triggerable
+#mods
+
+
+#skill GSHeistRobotPyreBeamBlast Beam Blast
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreNukeBeam Nuke Beam
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreNukeBeamChannelled Nuke Beam Channelled
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreBeamSweepBeam Beam Sweep
+#flags spell hit area triggerable
 #mods
