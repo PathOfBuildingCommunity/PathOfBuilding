@@ -1014,7 +1014,7 @@ skills["DeathWish"] = {
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["death_wish_movement_speed_+%"] = {
-			mod("MovementSpeed", "INC", nil, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["death_wish_hit_and_ailment_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishStageCount", limitVar = "DeathWishMaxStages" }, { type = "SkillPart", skillPart = 2 }),
@@ -2623,7 +2623,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 30000, 10, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
