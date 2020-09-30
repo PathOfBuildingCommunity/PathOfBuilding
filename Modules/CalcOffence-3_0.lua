@@ -925,8 +925,8 @@ function calcs.offence(env, actor, activeSkill)
 	-- Handle corpse explosions
 	if skillData.explodeCorpse and skillData.corpseLife then
 		local damageType = skillData.corpseExplosionDamageType or "Fire"
-		skillData[damageType.."BonusMin"] = skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
-		skillData[damageType.."BonusMax"] = skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
+		skillData[damageType.."BonusMin"] = skillData.corpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
+		skillData[damageType.."BonusMax"] = skillData.corpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
 	end
 
 	-- Cache global damage disabling flags

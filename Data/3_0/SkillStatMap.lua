@@ -203,6 +203,11 @@ return {
 	skill("selfFireExplosionLifeMultiplier", nil),
 	div = 100,
 },
+-- for some reason DeathWish adds another stat with same effect as above
+["skill_minion_explosion_life_%"] = {
+	skill("selfFireExplosionLifeMultiplier", nil),
+	div = 100,
+},
 ["deal_chaos_damage_per_second_for_10_seconds_on_hit"] = {
 	mod("SkillData", "LIST", { key = "decay", value = nil, merge = "MAX" }),
 },

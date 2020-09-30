@@ -894,6 +894,17 @@ Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you h
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
 1% reduced Mana Reserved per 250 total attributes
 ]],[[
+Maw of Mischief
+Bone Helmet
+League: Heist
+Requires Level 73, 76 Str, 76 Int
+Implicits: 1
+Minions deal (15-20)% increased Damage
+Grants Level 20 Death Wish Skill
++(45-65) to maximum Life
+(30-20)% reduced Mana Cost of Minion Skills
+Minions are Aggressive
+]],[[
 Memory Vault
 Praetor Crown
 Source: Drops from unique{The Enslaver}
