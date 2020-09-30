@@ -252,7 +252,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 1 then
+		if activeSkill.skillPart == 2 then
 			local skillData = activeSkill.skillData
 			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
 			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
@@ -281,10 +281,10 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:DeathWishMaxStages", "BASE", nil),
 		},
 	},
-	#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
-	#baseMod skill("radius", 10),
-	#baseMod skill("buffMinions", true),
-	#baseMod skill("buffNotPlayer", true),
+	#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+	#baseMod skill("radius", 10, { type = "SkillPart", skillPart = 2 })
+	#baseMod skill("buffMinions", true)
+	#baseMod skill("buffNotPlayer", true)
 #mods
 
 #noGem
