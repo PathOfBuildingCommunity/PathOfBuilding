@@ -1,3 +1,11 @@
+### 1.4.170.14 - 2020/10/01
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add Combat Rhythm Cluster Notable
+ * Fix Doom calculations for multiple curse builds
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod's staves
+ * Fix Divergent Blind Crit Chance calculation
 ### 1.4.170.13 - 2020/09/30
  * Add Flame Wall Projectile added damage buff
  * Add Ashblessed Warden Spectre
@@ -8,7 +16,7 @@
  * Fix crash related to Divergent Maim
  * Fix crash related to Phantasmal Raise Zombie
  * Fix Hexblast not taking into account elemental penetration
- * Fix implmentation of the Iron Mass unique
+ * Fix implementation of the Iron Mass unique
  * Fix second mod on Growing Agony not appearing
  * Fix Power Report being cut off from the UI at certain resolutions
  * Fix Fortify Support alternate quality
@@ -18,7 +26,7 @@
  * Fix Lucky Damage applying to all elements
  * Fix Animate Weapon more Attack Speed from gem
  * Fix mods on Cloud Retch Spectre
- * Fix parsing for some tool tips
+ * Fix parsing for some tooltips
  * Fix Cremation Hit Time override
  * Fix Catalysts not working in the item crafter
 ### 1.4.170.12 - 2020/09/28
