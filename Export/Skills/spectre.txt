@@ -828,3 +828,11 @@ local skills, mod, flag, skill = ...
 #skill GSHeistRobotPyreBeamSweepBeam Beam Sweep
 #flags spell hit area triggerable
 #mods
+
+#skill MeleeEyrieBird Knockback Attack
+#flags attack melee projectile
+#mods
+
+#skill AtlasEyrieBirdBreath Chilling Breath
+#flags attack hit area triggerable 
+#mods
