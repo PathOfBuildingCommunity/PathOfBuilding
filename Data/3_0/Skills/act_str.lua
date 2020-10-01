@@ -932,7 +932,7 @@ skills["Bladestorm"] = {
 			mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 2 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance" }),
 		},
 		["bladestorm_attack_speed_+%_final_while_in_bloodstorm"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
 		},
 		["bladestorm_movement_speed_+%_while_in_sandstorm"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sandstorm", effectCond = "BladestormInSandstorm" }),
