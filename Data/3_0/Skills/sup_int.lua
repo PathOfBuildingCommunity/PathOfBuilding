@@ -511,7 +511,7 @@ skills["SupportBlasphemyPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_curse_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Curse }),
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
 		},
 	},
 	baseMods = {
