@@ -1477,11 +1477,11 @@ function calcs.offence(env, actor, activeSkill)
 					local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
 					local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-						skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks", ModFlag.Melee)
-						skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks", ModFlag.Melee)
+						skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks")
+						skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks")
 					else
-						skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
-						skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks", ModFlag.Melee)
+						skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
+						skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 					end
 					globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
 					globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio / 100
