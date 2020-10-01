@@ -16,9 +16,10 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 
 	self.colList = {
 		{ width = width * 0.15, label = "Type" },
-		{ width = width * 0.50, label = "Node Name" },
+		{ width = width * 0.32, label = "Node Name" },
 		{ width = width * 0.18, label = powerLabel },
-		{ width = width * 0.12, label = "Distance" }
+		{ width = width * 0.12, label = "Distance" },
+		{ width = width * 0.18, label = powerLabel .. "/Distance" }
 	}
 	self.label = "Click to focus node on tree"
 	self.colLabels = true
@@ -38,7 +39,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 	end)
 
 	self.controls.sortLabel = new("LabelControl", {"BOTTOMLEFT", self, "TOPLEFT"}, 0, -22, 0, 16, "^7Sort by:")
-	self.controls.sortBy = new("DropDownControl", {"LEFT", self.controls.sortLabel, "RIGHT"}, 5, 0, 150, 20, {powerLabel, "Distance"}, function(sel)
+	self.controls.sortBy = new("DropDownControl", {"LEFT", self.controls.sortLabel, "RIGHT"}, 5, 0, 150, 20, {powerLabel, "Distance", powerLabel .. "/Distance"}, function(sel)
 		self:ReSort()		
 	end)
 
@@ -61,6 +62,16 @@ function PowerReportListClass:ReSort()
 				return (a.power) > (b.power)
 			end
 			return (a.pathDist) < (b.pathDist)
+		end)
+	elseif (self.controls.sortBy.selIndex == 3) then
+		t_sort(self.list, function (a,b)
+			if (a.pathDist == "Anoint") or (a.pathDist == "Cluster") then
+				return false
+			end
+			if (b.pathDist == "Anoint") or (b.pathDist == "Cluster") then
+				return true
+			end
+			return (a.powerPerDist) > (b.powerPerDist)
 		end)
 	end
 end
@@ -122,6 +133,8 @@ function PowerReportListClass:GetRowValue(column, index, report)
 		else
 			return report.pathDist
 		end
+	elseif column == 5 then
+		return report.powerPerDistStr
 	else
 		return ""
 	end

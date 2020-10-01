@@ -610,21 +610,29 @@ function TreeTabClass:ShowPowerReport()
 		if not isAlloc and (node.type == "Normal" or node.type == "Keystone" or node.type == "Notable") and not node.ascendancyName then
 			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-
+			
+			local nodePowerPerDist = nodePower / node.pathDist
+			local nodePowerPerDistStr = s_format("%"..displayStat.fmt, nodePowerPerDist)
+			
 			if main.showThousandsCalcs then
 				nodePowerStr = formatNumSep(nodePowerStr)
+				nodePowerPerDistStr = formatNumSep(nodePowerPerDistStr)
 			end
 			
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+				nodePowerPerDistStr = colorCodes.POSITIVE .. nodePowerPerDistStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+				nodePowerPerDistStr = colorCodes.NEGATIVE .. nodePowerPerDistStr
 			end
 			
 			t_insert(report, {
 				name = node.dn,
 				power = nodePower,
 				powerStr = nodePowerStr,
+				powerPerDist = nodePowerPerDist,
+				powerPerDistStr = nodePowerPerDistStr,
 				id = node.id,
 				x = node.x,
 				y = node.y,
@@ -640,6 +648,9 @@ function TreeTabClass:ShowPowerReport()
 		if not isAlloc then			
 			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
+			
+			local nodePowerPerDist = 0
+			local nodePowerPerDistStr = "-"
 
 			if main.showThousandsCalcs then
 				nodePowerStr = formatNumSep(nodePowerStr)
@@ -647,14 +658,18 @@ function TreeTabClass:ShowPowerReport()
 			
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+				nodePowerPerDistStr = colorCodes.POSITIVE .. nodePowerPerDistStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+				nodePowerPerDistStr = colorCodes.NEGATIVE .. nodePowerPerDistStr
 			end
 			
 			t_insert(report, {
 				name = node.dn,
 				power = nodePower,
 				powerStr = nodePowerStr,
+				powerPerDist = nodePowerPerDist,
+				powerPerDistStr = nodePowerPerDistStr,
 				id = node.id,
 				type = node.type,
 				pathDist = "Cluster"
