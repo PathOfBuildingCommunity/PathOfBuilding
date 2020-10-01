@@ -1817,7 +1817,7 @@ function calcs.offence(env, actor, activeSkill)
 										if isElemental[damageTypeForChaos] and useThisResist(damageTypeForChaos) then
 											local elementalResistForChaos = enemyDB:Sum("BASE", nil, damageTypeForChaos.."Resist")
 											local base = elementalResistForChaos + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
-											local currentElementResist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
+											local currentElementResist = base * calcLib.mod(enemyDB, nil, damageTypeForChaos.."Resist")
 											-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
 											if resist > currentElementResist then
 												resist = currentElementResist
