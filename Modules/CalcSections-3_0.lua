@@ -659,6 +659,7 @@ return {
 		{ breakdown = "BleedChance" },
 		{ label = "Main Hand", flag = "weapon1Attack", modName = "BleedChance", modType = "BASE", cfg = "weapon1" },
 		{ label = "Off Hand", flag = "weapon2Attack", modName = "BleedChance", modType = "BASE", cfg = "weapon2" },
+		{ label = "Enemy modifiers", modName = "SelfBleedChance", modType = "BASE", enemy = true },
 	}, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "PhysicalDamage" }, modType = "INC", cfg = "bleed" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "PhysicalDamage" }, modType = "MORE", cfg = "bleed" }, }, },
