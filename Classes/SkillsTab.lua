@@ -159,19 +159,20 @@ will automatically apply to the skill.]]
 end)
 
 -- parse real gem name and quality by ommiting the first word if alt qual is set
-function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine)
-	if gemTypeLine then
+function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
+	if gemTypeLine and (quality == nil or quality == 'Default') then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
 		if firstword and otherwords then
-			for indx, entry in ipairs(alternateGemQualityList) do
+			for _, entry in ipairs(alternateGemQualityList) do
 				if firstword == entry.label then
 					return otherwords, entry.type
 				end
 			end
+		else
+			return gemTypeLine, 'Default'
 		end
 	end
-
-	return gemTypeLine, "Default"
+    return gemTypeLine, quality
 end
 
 function SkillsTabClass:Load(xml, fileName)
@@ -217,9 +218,9 @@ function SkillsTabClass:Load(xml, fileName)
 				end
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
-				local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec)
-                gemInstance.nameSpec=nameSpecOverride
-                gemInstance.qualityId=qualityOverrideId
+				local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec, child.attrib.qualityId)
+				gemInstance.nameSpec = nameSpecOverride
+				gemInstance.qualityId = qualityOverrideId
 
 				if gemInstance.gemData then
 					gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
@@ -302,7 +303,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	self.height = viewPort.height
 
 	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then	
+		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
 				self.build.buildFlag = true
@@ -626,7 +627,7 @@ end
 
 function SkillsTabClass:getGemAltQualityList(gemData)
 	local altQualList = { }
-	
+
 	for indx, entry in ipairs(alternateGemQualityList) do
 		if gemData and (gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
 			t_insert(altQualList, entry)
@@ -796,10 +797,10 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 		tooltip:AddLine(16, "^7Active Skill #"..index..":")
 		for _, skillEffect in ipairs(activeSkill.effectList) do
-			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s", 
-				data.skillColorMap[skillEffect.grantedEffect.color], 
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s",
+				data.skillColorMap[skillEffect.grantedEffect.color],
 				skillEffect.grantedEffect.name,
-				skillEffect.level, 
+				skillEffect.level,
 				(skillEffect.srcInstance and skillEffect.level > skillEffect.srcInstance.level) and colorCodes.MAGIC.."+"..(skillEffect.level - skillEffect.srcInstance.level).."^7" or "",
 				skillEffect.quality,
 				(skillEffect.srcInstance and skillEffect.quality > skillEffect.srcInstance.quality) and colorCodes.MAGIC.."+"..(skillEffect.quality - skillEffect.srcInstance.quality).."^7" or ""
@@ -812,10 +813,10 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			tooltip:AddSeparator(10)
 			tooltip:AddLine(16, "^7Active Skill #"..index.."'s Main Minion Skill:")
 			local activeEffect = activeSkill.minion.mainSkill.effectList[1]
-			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s", 
-				data.skillColorMap[activeEffect.grantedEffect.color], 
-				activeEffect.grantedEffect.name, 
-				activeEffect.level, 
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s",
+				data.skillColorMap[activeEffect.grantedEffect.color],
+				activeEffect.grantedEffect.name,
+				activeEffect.level,
 				(activeEffect.srcInstance and activeEffect.level > activeEffect.srcInstance.level) and colorCodes.MAGIC.."+"..(activeEffect.level - activeEffect.srcInstance.level).."^7" or "",
 				activeEffect.quality,
 				(activeEffect.srcInstance and activeEffect.quality > activeEffect.srcInstance.quality) and colorCodes.MAGIC.."+"..(activeEffect.quality - activeEffect.srcInstance.quality).."^7" or ""
@@ -848,10 +849,10 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 					reason = "(Cannot apply to any of the active skills)"
 				end
 			end
-			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s", 
-				gemInstance.color, 
-				(gemInstance.grantedEffect and gemInstance.grantedEffect.name) or (gemInstance.gemData and gemInstance.gemData.name) or gemInstance.nameSpec, 
-				displayEffect.level, 
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s",
+				gemInstance.color,
+				(gemInstance.grantedEffect and gemInstance.grantedEffect.name) or (gemInstance.gemData and gemInstance.gemData.name) or gemInstance.nameSpec,
+				displayEffect.level,
 				displayEffect.level > gemInstance.level and colorCodes.MAGIC.."+"..(displayEffect.level - gemInstance.level).."^7" or "",
 				displayEffect.quality,
 				displayEffect.quality > gemInstance.quality and colorCodes.MAGIC.."+"..(displayEffect.quality - gemInstance.quality).."^7" or "",
@@ -885,8 +886,4 @@ function SkillsTabClass:RestoreUndoState(state)
 	if self.controls.groupList.selValue then
 		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
 	end
-end
-
-function SkillsTabClass:getAlternateGemQualityList()
-	return alternateGemQualityList
 end
