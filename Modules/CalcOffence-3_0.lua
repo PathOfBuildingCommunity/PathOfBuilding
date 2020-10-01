@@ -1782,6 +1782,7 @@ function calcs.offence(env, actor, activeSkill)
 						-- Apply enemy resistances and damage taken modifiers
 						local resist = 0
 						local pen = 0
+						local sourceRes = 0
 						local takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
 						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
 						-- Check if player is supposed to ignore a damage type, or if it's ignored on enemy side
@@ -1827,6 +1828,7 @@ function calcs.offence(env, actor, activeSkill)
 									end
 									-- Update the penetration based on the element used
 									pen = skillModList:Sum("BASE", cfg, elementUsed.."Penetration", "ElementalPenetration")
+									sourceRes = elementUsed
 								end
 							end
 							resist = m_min(resist, data.misc.EnemyMaxResist)
@@ -1854,10 +1856,10 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if pass == 2 and breakdown and effMult ~= 1 and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes)
 						elseif pass == 2 and breakdown and effMult ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes)
 						end
 					end
 					if pass == 2 and breakdown then
@@ -2434,7 +2436,7 @@ function calcs.offence(env, actor, activeSkill)
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["BleedEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore)
+						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore, sourceRes)
 					end
 				end
 				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
@@ -2602,7 +2604,7 @@ function calcs.offence(env, actor, activeSkill)
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["PoisonEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
+						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
@@ -2775,7 +2777,7 @@ function calcs.offence(env, actor, activeSkill)
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["IgniteEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore)
+						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore, sourceRes)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
@@ -3300,7 +3302,7 @@ function calcs.offence(env, actor, activeSkill)
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			output["DecayEffMult"] = effMult
 			if breakdown and effMult ~= 1 then
-				breakdown.DecayEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
+				breakdown.DecayEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes)
 			end
 		end
 		local inc = skillModList:Sum("INC", dotCfg, "Damage", "ChaosDamage")
@@ -3380,7 +3382,7 @@ function calcs.offence(env, actor, activeSkill)
 				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 				output[damageType.."DotEffMult"] = effMult
 				if breakdown and effMult ~= 1 then
-					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore)
+					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes)
 				end
 			end
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
