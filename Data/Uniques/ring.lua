@@ -400,8 +400,8 @@ Implicits: 1
 {variant:2,3}You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}80% less Burning Damage
-{variant:2}Ignited Enemies Burn 65% slower
-{variant:3}Ignited Enemies Burn (65-50)% slower
+{variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
+{variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
 ]],[[
 Replica Emberwake
 Ruby Ring
