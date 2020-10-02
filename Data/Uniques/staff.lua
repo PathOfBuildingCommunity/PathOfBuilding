@@ -78,7 +78,7 @@ Implicits: 2
 100% increased Physical Damage
 (5-10)% increased Attack Speed
 Reflects (22-44) Physical Damage to Attackers on Block
-Curse Enemies with level 5 Vulnerability on Block
+Curse Enemies with Vulnerability on Block, with 20% increased Effect
 ]],[[
 Replica Blood Thorn
 Gnarled Branch

@@ -406,11 +406,11 @@ Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-50) to Intelligence
-{tags:caster,speed}(10-15)% increased Cast Speed
+{tags:caster}(10-15)% increased Cast Speed
 (10-15)% increased Area of Effect
-Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
-Your Curses have 25% increased Effect if 50% of Curse Duration expired
-Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
+{tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
+{tags:caster}Your Curses have 25% increased Effect if 50% of Curse Duration expired
+{tags:caster}Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
 ]],[[
 Fury Valve
 Turquoise Amulet
@@ -830,12 +830,13 @@ Requires Level 28
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:3}Grants Level 10 Frostblink Skill
-(30-50)% increased Cold Damage
+{tags:jewellery_elemental}(30-50)% increased Cold Damage
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
-{variant:1}30% increased Radius of Curse Skills
-{variant:2,3}60% increased Area of Effect of Curse Skills
-You cannot be Cursed with Silence
+{variant:1}{tags:caster}30% increased Area of Effect of Hex Skills
+{variant:2,3}{tags:caster}60% increased Area of Effect of Hex Skills
+{tags:caster}You cannot be Cursed with Silence
 {variant:1,2}Grants level 20 Illusory Warp Skill
+{variant:3}{tags:caster}Frostblink has 50% increased Duration
 Corrupted
 ]],[[
 Stone of Lazhwar

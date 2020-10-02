@@ -67,9 +67,9 @@ Implicits: 1
 {variant:3,4}+(60-80) to maximum Life
 +(35-50)% to Fire Resistance
 25% of Physical Damage Converted to Fire Damage
-{variant:1}5% chance to Curse Enemies with Enfeeble on Hit
-{variant:2}10% chance to Curse Enemies with Enfeeble on Hit
-{variant:3,4}25% chance to Curse un-cursed Enemies with Enfeeble on Hit
+{variant:1}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
+{variant:2}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
+{variant:3,4}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
 ]],[[
 Lioneye's Remorse
 Pinnacle Tower Shield
@@ -211,7 +211,7 @@ Implicits: 1
 {variant:2,3}50% reduced Duration of Curses on you
 {variant:3}10% additional Block chance while not Cursed
 {variant:3}20% additional Spell Block chance while Cursed
-Curse Reflection
+Hex Reflection
 ]],[[
 Atziri's Reflection
 Golden Buckler
@@ -223,7 +223,7 @@ Implicits: 1
 (180-200)% increased Evasion Rating
 +(180-200) to maximum Energy Shield
 +(20-30)% to all Elemental Resistances
-Curse Reflection
+Hex Reflection
 Unaffected by Curses
 (15-20)% increased Effect of your Curses
 ]],[[
@@ -576,7 +576,7 @@ equal to 25% of Sacrificed Mana for 4 seconds
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
-Source: Upgrades to unique{Matua Tupuna} via prophecy{The Mentor}
+Source: Upgrades to unique{Whakatutuki o Matua} via prophecy{The Mentor}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 23, 60 Int
@@ -586,9 +586,24 @@ Implicits: 2
 +2 to Level of Socketed Minion Gems
 +(15-25) to maximum Mana
 (40-80)% increased Energy Shield
-10% increased Effect of Auras on You
-10% increased Effect of Auras on your Minions
+10% increased effect of Non-Curse Auras from your Skills on your Minions
+10% increased effect of Non-Curse Auras from your Skills
 Spreads Tar when you take a Critical Strike
+]],[[
+Whakatutuki o Matua
+Tarnished Spirit Shield
+Source: Upgraded from unique{Matua Tupuna} via prophecy{The Mentor}
+Requires Level 63, 60 Int
+Implicits: 1
+(5-10)% increased Spell Damage
++3 to Level of Socketed Minion Gems
++(40-80) to maximum Energy Shield
+(40-80)% increased Energy Shield
++(15-25) to maximum Mana
+20% increased effect of Non-Curse Auras from your Skills on your Minions
+20% increased effect of Non-Curse Auras from your Skills
+Spreads Tar when you Block
+If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per second
 ]],[[
 Rathpith Globe
 Titanium Spirit Shield
@@ -620,24 +635,9 @@ Requires Level 33, 82 Int
 +(20-30) to Intelligence
 (4-8)% increased Quantity of Items found
 +5% Chance to Block
-Applies level 15 Punishment on Blocking a Melee Attack, ignoring Curse Limit
-Applies level 15 Temporal Chains on Blocking a Projectile Attack, ignoring Curse Limit
-Applies level 15 Elemental Weakness on Blocking a Spell, ignoring Curse Limit
-]],[[
-Whakatutuki o Matua
-Tarnished Spirit Shield
-Source: Upgraded from unique{Matua Tupuna} via prophecy{The Mentor}
-Requires Level 63, 60 Int
-Implicits: 1
-(5-10)% increased Spell Damage
-+3 to Level of Socketed Minion Gems
-+(40-80) to maximum Energy Shield
-(40-80)% increased Energy Shield
-+(15-25) to maximum Mana
-20% increased Effect of Auras on you
-20% increased Effect of Auras on your Minions
-Spreads Tar when you Block
-If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per second
+Curse Enemies with Punishment when you Block their Melee Damage, with 60% increased Effect and ignoring Curse Limit
+Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, with 60% increased Effect and ignoring Curse Limit
+Curse Enemies with Elemental Weakness when you Block their Spell Damage, with 60% increased Effect and ignoring Curse Limit
 ]],
 -- Shield: Armour/Evasion
 [[
@@ -675,7 +675,7 @@ Adds 4 to 8 Physical Damage to Attacks
 {variant:2}Adds 12 to 15 Cold Damage to Attacks
 (90-130)% increased Armour and Evasion
 +(30-50)% to Fire Resistance
-Curse Enemies with level 5 Vulnerability on Block
+Curse Enemies with Vulnerability on Block, with 20% increased Effect
 ]],[[
 The Ghastly Theatre
 Teak Round Shield
