@@ -80,6 +80,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill RepeatingShockwave
