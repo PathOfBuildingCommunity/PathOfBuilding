@@ -1141,11 +1141,13 @@ function calcs.perform(env)
 						local srcList = new("ModList")
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer", buff.name:gsub(" ", "").."Effect")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						if activeSkill.skillData.thisIsNotABuff then
+							inc = 0
+							more = 1
+						end
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
-						if activeSkill.skillData.thisIsNotABuff then
-							buffs[buff.name].notBuff = true
-						end
+						buffs[buff.name].notBuff = activeSkill.skillData.thisIsNotABuff
 					end
 					if env.minion and (buff.applyMinions or buff.applyAllies) then
 						activeSkill.minionBuffSkill = true
