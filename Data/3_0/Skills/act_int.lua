@@ -3326,6 +3326,7 @@ skills["Firewall"] = {
 	baseMods = {
 		skill("radiusLabel", "Flame Wall Length:"),
 		skill("dotIsArea", true),
+		skill("buffAllies", true),
 	},
 	qualityStats = {
 		Default = {

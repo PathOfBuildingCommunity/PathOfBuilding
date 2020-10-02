@@ -590,6 +590,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radiusLabel", "Flame Wall Length:")
 #baseMod skill("dotIsArea", true)
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill FlameWhip
