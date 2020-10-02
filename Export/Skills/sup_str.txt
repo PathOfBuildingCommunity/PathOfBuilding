@@ -409,6 +409,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportBluntWeaponShockwave
 #flags attack melee area
+#baseMod skill("showAverage", true),
 #mods
 
 #skill SupportSpellTotem
