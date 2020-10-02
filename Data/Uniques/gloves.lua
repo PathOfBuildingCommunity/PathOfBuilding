@@ -56,7 +56,7 @@ Requires Level 63, 100 Str
 {variant:3,4}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
 {variant:1,2,3}+30 Energy Shield gained on Killing a Shocked Enemy
 {variant:4}+(200-250) Energy Shield gained on Killing a Shocked Enemy
-{variant:4}30% increased Effect of Shock
+{variant:4}30% increased Effect of Lightning Ailments
 ]],[[
 Empire's Grasp
 Goliath Gauntlets
@@ -860,7 +860,7 @@ Socketed Gems are Supported by level 18 Added Lightning Damage
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
 +(25-30) to maximum Energy Shield
-100% increased Shock Duration on Enemies
 10% increased Stun Duration on Enemies
+100% increased Duration of Lightning Ailments
 ]],
 }

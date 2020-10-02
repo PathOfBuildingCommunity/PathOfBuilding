@@ -11,13 +11,13 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Spell Skill Gems
-{variant:2}+2 to Level of all Lightning Spell Skill Gems
+40% increased Strength Requirement
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
-100% increased Shock Duration on Enemies
-40% increased Strength Requirement
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 Damage Penetrates 20% Lightning Resistance
+100% increased Duration of Lightning Ailments
 ]],[[
 Agnerod North
 Imperial Staff

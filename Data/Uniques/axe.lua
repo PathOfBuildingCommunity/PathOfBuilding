@@ -183,16 +183,18 @@ Implicits: 1
 The Blood Reaper
 Headsman Axe
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.12.0
 Variant: Current
 Requires Level 45, 99 Str, 57 Dex
 {variant:1}(100-120)% increased Physical Damage
-{variant:2}(180-200)% increased Physical Damage
+{variant:2,3}(180-200)% increased Physical Damage
 +100 to maximum Life
-10.0 Life Regenerated per second
+{variant:1,2}Regenerate 10 Life per second
+{variant:3}Regenerate 20 Life per second
 1% of Physical Attack Damage Leeched as Life
 50% increased Mana Cost of Skills
 {variant:1}Causes Bleeding on Hit
-{variant:2}50% chance to cause Bleeding on Hit
+{variant:2,3}50% chance to cause Bleeding on Hit
 ]],[[
 Debeon's Dirge
 Despot Axe

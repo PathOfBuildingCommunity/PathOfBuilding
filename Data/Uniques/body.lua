@@ -840,7 +840,7 @@ Requires Level 49, 59 Str, 59 Int
 Cannot be Chilled
 20% of Physical Damage from Hits taken as Cold Damage
 30% of Fire Damage from Hits taken as Cold Damage
-(15-20)% increased Effect of Chill
+(15-20)% increased Effect of Cold Ailments
 ]],[[
 Incandescent Heart
 Saintly Chainmail

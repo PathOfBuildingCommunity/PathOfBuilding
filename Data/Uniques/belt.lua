@@ -293,14 +293,19 @@ Debuffs on you expire (15-20)% faster
 ]],[[
 Gluttony
 Leather Belt
+Variant: Pre 3.12.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
+{variant:1}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy
 {tags:life}+(60-80) to maximum Life
-Culling Strike against Enemies Cursed with Poacher's Mark
-Curse Enemies with Level 30 Poacher's Mark on Hit, which can apply to Hexproof Enemies
+{variant:1}Culling Strike against Enemies Cursed with Poacher's Mark
+{variant:2}You have Culling Strike against Cursed Enemies
+{variant:2}(20-28) Life gained for each Cursed Enemy hit by your Attacks
+{variant:2}(10-14) Mana gained for each Cursed Enemy hit by your Attacks
 Take (100-200) Physical Damage when you use a Movement Skill
-You have no Armour or Energy Shield
+You have no Armour or Maximum Energy Shield
 ]],[[
 Headhunter
 Leather Belt
