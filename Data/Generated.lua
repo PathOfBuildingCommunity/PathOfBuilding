@@ -28,11 +28,11 @@ end
 table.insert(data.uniques.generated, table.concat(megalomaniac, "\n"))
 
 local forbiddenShako = {
-    "Forbidden Shako",
-    "Great Crown",
+	"Forbidden Shako",
+	"Great Crown",
 	"League: Harvest",
 	"Source: Drops from unique{Avatar of the Grove}",
-    "Requires Level 68, 59 Str, 59 Int",
+	"Requires Level 68, 59 Str, 59 Int",
 	"Has Alt Variant: true"
 }
 local replicaForbiddenShako = {
@@ -40,7 +40,7 @@ local replicaForbiddenShako = {
 	"Great Crown",
 	"League: Heist",
 	"Source: Steal from a unique{Curio Display} during a Grand Heist",
-    "Requires Level 68, 59 Str, 59 Int",
+	"Requires Level 68, 59 Str, 59 Int",
 	"Has Alt Variant: true"
 }
 local excludedGems = {
