@@ -1,3 +1,120 @@
+### 1.4.170.14 - 2020/10/01
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add Combat Rhythm Cluster Notable
+ * Fix Doom calculations for multiple curse builds
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod's staves
+ * Fix Divergent Blind Crit Chance calculation
+### 1.4.170.13 - 2020/09/30
+ * Add Flame Wall Projectile added damage buff
+ * Add Ashblessed Warden Spectre
+ * Add parsing for new Golem mods lines on Uniques
+ * Add support for Zealotry alternate quality
+ * Add support for Lingering Blades with Animate Weapon
+ * Add support for new Curse/Mark on Hit mods
+ * Fix crash related to Divergent Maim
+ * Fix crash related to Phantasmal Raise Zombie
+ * Fix Hexblast not taking into account elemental penetration
+ * Fix implementation of the Iron Mass unique
+ * Fix second mod on Growing Agony not appearing
+ * Fix Power Report being cut off from the UI at certain resolutions
+ * Fix Fortify Support alternate quality
+ * Fix Projectile count calculations
+ * Fix Mana Cost calculations
+ * Fix Timeless Jewel saving
+ * Fix Lucky Damage applying to all elements
+ * Fix Animate Weapon more Attack Speed from gem
+ * Fix mods on Cloud Retch Spectre
+ * Fix parsing for some tooltips
+ * Fix Cremation Hit Time override
+ * Fix Catalysts not working in the item crafter
+### 1.4.170.12 - 2020/09/28
+ * Add support for Timeless jewels and their mods
+	* Timeless jewels will now convert Keystones on the tree
+	* You can change the mods on nodes by right-clicking and selecting which stat you want
+ * Add full support for exposure on gear and the tree
+ * Add Power Report on the tree tab to show a table of the best nodes for your build
+ * Add full support for 3.12 gems
+	* Hexblast
+	* Blazing Salvo
+	* Void Sphere
+	* Crackling Lance
+	* Frost Shield
+	* Splitting Steel
+	* Sigil of Power
+	* Flame Wall
+	* Impending Doom Support
+	* Pinpoint Support
+ * Rework gems from 3.12 Changes
+	* Firestorm
+	* Assassin's Mark
+	* Poacher's Mark
+	* Sniper's Mark
+	* Warlord's Mark
+	* Lancing Steel
+	* Shattering Steel
+	* Glacial Cascade
+	* Discharge
+	* Punishment
+	* Vitality
+ * Add support for the majority of the alternate quality gems
+ * Add config option for phys gained as random element mods
+ * Add Syndicate Operative Spectre
+ * Add Primal Crushclaw Spectre
+ * Add Frost Auto Scout Spectre
+ * Add Artless Assassin Spectre
+ * Add Cloud Retch Spectre
+ * Add enchantments for new 3.12 skills
+ * Add oil recipes for new 3.12 tree nodes
+ * Add in all 3.12 uniques
+ * Add support for a majority of new uniques
+ * Add better support to show the combined DoT damage for some builds
+ * Add support for Triple Damage
+ * Fix curse effect breakdown not working for Mark and Hex skills
+ * Fix Supreme Ego incorrectly scaling some skills
+ * Fix display of alternate quality gems
+ * Fix import of alternate quality gems
+ * Fix error where viewport would not scroll horizontally
+ * Fix showing node power for top node if the skill doesn't do damage
+ * Fix Intensity being capped at a maximum of 3
+ * Fix Pinpoint Support incorrectly scaling ailment damage
+ * Fix Predator Support not showing up on the configs page
+ * Fix Glancing Blows not using the correct block effect value for eHP calculations
+ * Fix tooltips for several skills (Warcries, Penance Brand etc.)
+### 1.4.170.11 - 2020/09/19
+ * Fix issue where many skills tags were incorrect which caused supports and other mechanics to stop working
+### 1.4.170.10 - 2020/09/19
+ * Add partial support for new 3.12 gems and enchantments
+ * Update gems with 3.12 changes
+ * Add new 3.12 bases
+ * Add partial support for alternate quality gems
+### 1.4.170.9 - 2020/09/17
+ * Add better breakdown for duration mods on gems
+ * Fix crash related to new Keystones and old trees
+ * Fix support for Iron Grip Notable
+ * Fix support for new ailment scaling nodes
+ * Fix support for new cooldown recovery wording on nodes
+### 1.4.170.8 - 2020/09/16
+ * Add support for 3.12 Tree
+ * Add proper support for Carrion Golem
+ * Add support for Ancient Waystone unique
+ * Add support for +1 gems on Awakened Blasphemy
+ * Add configurable charges for Minions
+ * Add support to generate mods for Skin of the Lords
+ * Add Redemption Knight spectre
+ * Add Baranite Preacher spectre
+ * Add Templar Tactician spectre
+ * Add Scinteel Synthete spectre
+ * Add support for Non-Channelling Mana cost
+ * Fix crash when trying to add support gems to any spell while having "Gain no inherent bonuses from Attributes"
+ * Fix crash related to Minion Critical Strike Chance
+ * Fix mods on several uniques
+ * Fix current Shock note not showing in Shock effect breakdown for attack builds
+ * Fix Second Wind CDR numbers
+ * Fix stats on Enhanced Vaal Fallen, Baranite Thaumaturge, Baranite Sister
+ * Fix Life regen not showing in the sidebar
+ * Fix top node power calculations
 ### 1.4.170.7 - 2020/07/22
  * Fix crash related to the Siegebreaker belt
  * Fix crash related to Dancing Dervish/Duo

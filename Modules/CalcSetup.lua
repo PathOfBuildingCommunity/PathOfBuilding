@@ -210,6 +210,7 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
 	modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
 	modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
+	modDB:NewMod("Devotion", "BASE", 0, "Base")
 	modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
 	modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
 	modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
@@ -232,6 +233,7 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" })
 	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", div = 5 }, { type = "Multiplier", var = "RageEffect" })
 	modDB:NewMod("MaximumRage", "BASE", 50, "Base")
+	modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 	modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 	if build.targetVersion == "2_6" then
@@ -484,7 +486,7 @@ function calcs.initEnv(build, mode, override)
 				end
 				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end
-			if item.type == "Shield" and nodes[45175] then
+			if item.type == "Shield" and nodes[45175] and nodes[45175].dn == "Necromantic Aegis" then
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = new("ModList")
 				for _, mod in ipairs(srcList) do
@@ -501,6 +503,24 @@ function calcs.initEnv(build, mode, override)
 					else
 						env.modDB:ScaleAddMod(mod, scale)
 					end
+				end
+			elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
+				-- Special handling for The Iron Mass
+				env.theIronMass = new("ModList")
+				for _, mod in ipairs(srcList) do
+					-- Filter out mods that apply to socketed gems, or which add supports
+					local add = true
+					for _, tag in ipairs(mod) do
+						if tag.type == "SocketedIn" then
+							add = false
+							break
+						end
+					end
+					if add then
+						env.theIronMass:ScaleAddMod(mod, scale)
+					end
+					-- Add all the stats to player as well
+					env.modDB:ScaleAddMod(mod, scale)
 				end
 			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 				-- Special handling for The Dancing Dervish
@@ -644,7 +664,11 @@ function calcs.initEnv(build, mode, override)
 	for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 		local node = env.spec.tree.notableMap[passive]
 		if node then
-			nodes[node.id] = node
+			if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
+				nodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
+			else
+				nodes[node.id] = node
+			end
 			env.grantedPassives[node.id] = true
 		end
 	end
@@ -709,6 +733,7 @@ function calcs.initEnv(build, mode, override)
 							grantedEffect = grantedEffect,
 							level = gemInstance.level,
 							quality = gemInstance.quality,
+							qualityId = gemInstance.qualityId,
 							srcInstance = gemInstance,
 							gemData = gemInstance.gemData,
 							superseded = false,
@@ -773,6 +798,7 @@ function calcs.initEnv(build, mode, override)
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
 								quality = gemInstance.quality,
+								qualityId = gemInstance.qualityId,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
 							}

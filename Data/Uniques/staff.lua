@@ -11,8 +11,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 100% increased Shock Duration on Enemies
@@ -27,8 +27,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 15% chance to Shock
@@ -43,8 +43,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 +5% to Maximum Lightning Resistance
@@ -59,8 +59,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 Adds (5-15) to (100-140) Lightning Damage to Spells
@@ -79,6 +79,17 @@ Implicits: 2
 (5-10)% increased Attack Speed
 Reflects (22-44) Physical Damage to Attackers on Block
 Curse Enemies with level 5 Vulnerability on Block
+]],[[
+Replica Blood Thorn
+Gnarled Branch
+League: Heist
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
++12% Chance to Block Attack Damage while wielding a Staff
+100% increased Fire Damage
+(5-10)% increased Attack Speed
+Curse Enemies with Flammability on Block, with 20% increased Effect
+Reflects (22-44) Fire Damage to Attackers on Block
 ]],[[
 Cane of Unravelling
 Ezomyte Staff
@@ -107,9 +118,9 @@ Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}20% Chance to Block Attack Damage while wielding a Staff
 {variant:3}25% Chance to Block Attack Damage while wielding a Staff
-{variant:1}Adds (270–300) to (340–380) Physical Damage
-{variant:2}Adds (250–280) to (315–355) Physical Damage
-{variant:3}Adds (220–240) to (270–300) Physical Damage
+{variant:1}Adds (270-300) to (340-380) Physical Damage
+{variant:2}Adds (250-280) to (315-355) Physical Damage
+{variant:3}Adds (220-240) to (270-300) Physical Damage
 Adds (376-400) to (568-600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
@@ -140,6 +151,19 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 +60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 {variant:1,2}120% increased Spell Damage if you've dealt a Critical Strike Recently
 {variant:3,4}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
+]],[[
+Replica Duskdawn
+Maelström Staff
+League: Heist
+Requires Level 64, 113 Str, 113 Int
+Implicits: 1
++25% Chance to Block Attack Damage while wielding a Staff
++10% Chance to Block Attack Damage while wielding a Staff
+(40-50)% increased Critical Strike Chance
+Gain (10-20)% of Elemental Damage as Extra Chaos Damage
++1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage
++60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
+(120-150)% increased Elemental Damage if you've dealt a Critical Strike Recently
 ]],[[
 Dying Breath
 Coiled Staff
@@ -195,9 +219,9 @@ Implicits: 1
 Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Greater Harbinger of Brutality Skill
 +5% Chance to Block Attack Damage while wielding a Staff
-+(30–40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
-Adds (160–185) to (200–225) Physical Damage
-(30–40)% increased Critical Strike Chance
++(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
+Adds (160-185) to (200-225) Physical Damage
+(30-40)% increased Critical Strike Chance
 ]],[[
 Femurs of the Saints
 Primordial Staff
@@ -231,6 +255,31 @@ Socketed Gems are Supported by level 8 Trap
 (40-50)% increased Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
+]],[[
+Replica Fencoil
+Gnarled Branch
+League: Heist
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Socketed Gems are Supported by Level 1 Multiple Totems
+(40-50)% increased Global Damage
+(10-20)% increased maximum Life
+(10-20)% increased maximum Mana
+]],[[
+The Fulcrum
+Ezomyte Staff
+League: Heist
+Requires Level 60, 113 Str, 113 Int
+Implicits: 1
++20% Chance to Block Attack Damage while wielding a Staff
+(140-180)% increased Physical Damage
+(0-50)% of Physical Damage Converted to Fire Damage
+(0-50)% of Physical Damage Converted to Cold Damage
+(0-50)% of Physical Damage Converted to Lightning Damage
+Elemental Ailments you inflict are Reflected to you
+Elemental Damage with Hits is Lucky while you are Shocked
+Damage Penetrates (8-10)% Elemental Resistances while you are Chilled
+Gain (30-40)% of Physical Damage as Extra Damage of a random Element while you are Ignited
 ]],[[
 Mirebough
 Gnarled Branch

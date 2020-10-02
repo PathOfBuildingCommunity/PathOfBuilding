@@ -352,12 +352,6 @@ local skills, mod, flag, skill = ...
 #skill MonsterProjectileWeakness Projectile Weakness
 #flags spell curse area duration
 	statMap = {
-		["projectiles_always_pierce_you"] = {
-			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
@@ -713,6 +707,18 @@ local skills, mod, flag, skill = ...
 #skill SandLeaperDodgeRight Sand Leaper Dodge Right
 #mods
 
+#skill SynthesisSoulstealerProjectileLightning Lightning Projectile
+#flags spell triggerable projectile
+#mods
+
+#skill SynthesisSoulstealerLaser Lightning Laser
+#flags spell hit area triggerable
+#mods
+
+#skill SynthesisSoulstealerBolt Lightning Bolt
+#flags spell hit area triggerable
+#mods
+
 #skill MeleeCold Default Attack
 #flags attack melee projectile
 #mods
@@ -723,4 +729,104 @@ local skills, mod, flag, skill = ...
 
 #skill AtlasCruasderJudgeFadingNova Nova Spell
 #flags spell projectile triggerable
+#mods
+
+#skill HarvestCrabAbyssSlam Slam Attack
+#flags attack hit area triggerable
+#baseMod skill("showAverage", true)
+#mods
+
+#skill LegionTemplarJudgeBallLightning Ball Lightning
+#flags spell hit triggerable area projectile
+#mods
+
+#skill LegionTemplarJudgeStormCall Storm Call
+#flags spell area duration
+#mods
+
+#skill MPWHeistThugRangedBurningArrow Burning Arrow
+#flags attack projectile hit triggerable
+#mods
+
+#skill MPSHeistRobotClockworkGolemBasicProjectile Frost Projectile
+#flags spell projectile triggerable
+#mods
+
+#skill MMSHeistRobotClockworkGolemMortarSpectre Frost Mortar
+#flags spell hit triggerable area projectile
+#mods
+
+#skill HeistThugRangedExplosiveArrow Explosive Arrow (20 Fuses)
+#flags attack projectile hit area duration triggerable
+	statMap = {
+		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil),
+		},
+		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil),
+		},
+		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_explosion_base_damage_+permyriad"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+			div = 100,
+		},
+		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+	},
+#baseMod skill("radius", 15)
+#baseMod skill("showAverage", true)
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20)
+#mods
+
+#skill EmptyActionSpellSecretPoliceDaggers Dagger Trigger Spell
+#flags spell
+#mods
+
+#skill BetrayalSecretPoliceCurveDagger1 Secret Police Daggers
+#flags attack projectile triggerable
+#mods
+
+#skill AtlasEyrieKiwethMortarSpectre Mortar
+#flags spell hit area projectile triggerable
+#mods
+
+#skill AtlasEyrieKiwethMortarShards Mortar Shards
+#flags spell hit projectile triggerable
+#mods
+
+#skill GAHeistThugRangedArrowShotgun Arrow Shotgun
+#flags attack hit area triggerable
+#mods
+
+#skill GAHeistThugRangedShotgun Ranged Shotgun
+#flags attack hit area triggerable
+#mods
+
+
+#skill GSHeistRobotPyreBeamBlast Beam Blast
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreNukeBeam Nuke Beam
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreNukeBeamChannelled Nuke Beam Channelled
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreBeamSweepBeam Beam Sweep
+#flags spell hit area triggerable
+#mods
+
+#skill MeleeEyrieBird Knockback Attack
+#flags attack melee projectile
+#mods
+
+#skill AtlasEyrieBirdBreath Chilling Breath
+#flags spell hit area triggerable
 #mods

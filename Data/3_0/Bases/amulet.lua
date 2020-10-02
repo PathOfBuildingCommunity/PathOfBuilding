@@ -7,35 +7,35 @@ itemBases["Paua Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "(20-30)% increased Mana Regeneration Rate",
-	implicitModTypes = { { "mana" }, },
+	implicitModTypes = { { "resource", "mana" }, },
 	req = { },
 }
 itemBases["Coral Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "Regenerate (2-4) Life per second",
-	implicitModTypes = { { "flat_life_regen", "life" }, },
+	implicitModTypes = { { "flat_life_regen", "resource", "life" }, },
 	req = { },
 }
 itemBases["Amber Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "+(20-30) to Strength",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 5, },
 }
 itemBases["Jade Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "+(20-30) to Dexterity",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 5, },
 }
 itemBases["Lapis Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "+(20-30) to Intelligence",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 5, },
 }
 itemBases["Gold Amulet"] = {
@@ -49,58 +49,71 @@ itemBases["Onyx Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "+(10-16) to all Attributes",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 20, },
 }
 itemBases["Turquoise Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "+(16-24) to Dexterity and Intelligence",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 16, },
 }
 itemBases["Agate Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "+(16-24) to Strength and Intelligence",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 16, },
 }
 itemBases["Citrine Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
 	implicit = "+(16-24) to Strength and Dexterity",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { level = 16, },
 }
 itemBases["Ruby Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, not_for_sale = true, },
 	implicit = "+(20-30)% to Fire Resistance",
-	implicitModTypes = { { "fire", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "fire", "resistance" }, },
 	req = { },
 }
 itemBases["Blue Pearl Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, not_for_sale = true, atlas_base_type = true, amuletatlas1 = true, },
 	implicit = "(48-56)% increased Mana Regeneration Rate",
-	implicitModTypes = { { "mana" }, },
+	implicitModTypes = { { "resource", "mana" }, },
 	req = { level = 77, },
 }
 itemBases["Marble Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, not_for_sale = true, atlas_base_type = true, amuletatlas2 = true, },
 	implicit = "Regenerate (1.2-1.6)% of Life per second",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	req = { level = 74, },
 }
-
+itemBases["Astrolabe Amulet"] = {
+	type = "Amulet",
+	tags = { default = true, amulet = true, not_for_sale = true, },
+	implicit = "Implicit Modifiers Cannot Be Changed\nHas Elder, Shaper and all Conqueror Influences",
+	implicitModTypes = { {  }, {  }, },
+	req = { level = 69, },
+}
+itemBases["Simplex Amulet"] = {
+	type = "Amulet",
+	tags = { default = true, amulet = true, not_for_sale = true, },
+	implicit = "-1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
+	implicitModTypes = { {  }, {  }, {  }, },
+	req = { level = 24, },
+}
 itemBases["Jet Amulet"] = {
 	type = "Amulet",
 	hidden = true,
 	tags = { default = true, amulet = true, not_for_sale = true, },
 	implicit = "+(8-12)% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "jewellery_resistance" }, },
+	implicitModTypes = { { "elemental", "resistance" }, },
 	req = { level = 12, },
 }
 
@@ -117,7 +130,7 @@ itemBases["Bonespire Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased maximum Mana",
-	implicitModTypes = { { "mana" }, },
+	implicitModTypes = { { "resource", "mana" }, },
 	req = { },
 }
 itemBases["Ashscale Talisman"] = {
@@ -125,7 +138,7 @@ itemBases["Ashscale Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased Fire Damage",
-	implicitModTypes = { { "fire", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire" }, },
 	req = { },
 }
 itemBases["Lone Antler Talisman"] = {
@@ -133,7 +146,7 @@ itemBases["Lone Antler Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased Lightning Damage",
-	implicitModTypes = { { "lightning", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning" }, },
 	req = { },
 }
 itemBases["Deep One Talisman"] = {
@@ -141,7 +154,7 @@ itemBases["Deep One Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased Cold Damage",
-	implicitModTypes = { { "cold", "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, },
 	req = { },
 }
 itemBases["Breakrib Talisman"] = {
@@ -149,7 +162,7 @@ itemBases["Breakrib Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased Global Physical Damage",
-	implicitModTypes = { { "physical" }, },
+	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
 	req = { },
 }
 itemBases["Deadhand Talisman"] = {
@@ -157,7 +170,7 @@ itemBases["Deadhand Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(19-31)% increased Chaos Damage",
-	implicitModTypes = { { "chaos" }, },
+	implicitModTypes = { { "damage", "chaos" }, },
 	req = { },
 }
 itemBases["Undying Flesh Talisman"] = {
@@ -173,7 +186,7 @@ itemBases["Rot Head Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(30-40)% increased Fish Bite Sensitivity",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "green_herring" }, },
 	req = { },
 }
 itemBases["Mandible Talisman"] = {
@@ -181,7 +194,7 @@ itemBases["Mandible Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(6-10)% increased Attack and Cast Speed",
-	implicitModTypes = { { "speed", "jewellery_attack", "jewellery_caster", "attack", "caster" }, },
+	implicitModTypes = { { "attack", "caster", "speed" }, },
 	req = { },
 }
 itemBases["Chrysalis Talisman"] = {
@@ -189,7 +202,7 @@ itemBases["Chrysalis Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased Spell Damage",
-	implicitModTypes = { { "caster" }, },
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	req = { },
 }
 itemBases["Writhing Talisman"] = {
@@ -197,7 +210,7 @@ itemBases["Writhing Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(20-30)% increased Attack Damage",
-	implicitModTypes = { { "jewellery_attack", "attack" }, },
+	implicitModTypes = { { "damage", "attack" }, },
 	req = { },
 }
 itemBases["Hexclaw Talisman"] = {
@@ -213,7 +226,7 @@ itemBases["Primal Skull Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "Regenerate 2% of Life per second",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	req = { },
 }
 itemBases["Wereclaw Talisman"] = {
@@ -221,7 +234,7 @@ itemBases["Wereclaw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "+(24-36)% to Global Critical Strike Multiplier",
-	implicitModTypes = { { "critical" }, },
+	implicitModTypes = { { "damage", "critical" }, },
 	req = { },
 }
 itemBases["Splitnewt Talisman"] = {
@@ -229,7 +242,7 @@ itemBases["Splitnewt Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(4-6)% chance to Freeze, Shock and Ignite",
-	implicitModTypes = { { "jewellery_elemental" }, },
+	implicitModTypes = { { "elemental", "fire", "cold", "lightning", "ailment" }, },
 	req = { },
 }
 itemBases["Clutching Talisman"] = {
@@ -237,7 +250,7 @@ itemBases["Clutching Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(15-25)% increased Global Defences",
-	implicitModTypes = { { "defences", "jewellery_defense" }, },
+	implicitModTypes = { { "defences" }, },
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
@@ -245,7 +258,7 @@ itemBases["Avian Twins Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
-	implicitModTypes = { { "fire", "cold" }, },
+	implicitModTypes = { { "elemental", "fire", "cold" }, },
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
@@ -253,7 +266,7 @@ itemBases["Avian Twins Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
-	implicitModTypes = { { "fire", "lightning" }, },
+	implicitModTypes = { { "elemental", "fire", "lightning" }, },
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
@@ -261,7 +274,7 @@ itemBases["Avian Twins Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
-	implicitModTypes = { { "fire", "cold" }, },
+	implicitModTypes = { { "elemental", "fire", "cold" }, },
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
@@ -269,7 +282,7 @@ itemBases["Avian Twins Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
-	implicitModTypes = { { "cold", "lightning" }, },
+	implicitModTypes = { { "elemental", "cold", "lightning" }, },
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
@@ -277,7 +290,7 @@ itemBases["Avian Twins Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
-	implicitModTypes = { { "cold", "lightning" }, },
+	implicitModTypes = { { "elemental", "cold", "lightning" }, },
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
@@ -285,7 +298,7 @@ itemBases["Avian Twins Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "50% of Lightning Damage from Hits taken as Fire Damage",
-	implicitModTypes = { { "fire", "lightning" }, },
+	implicitModTypes = { { "elemental", "fire", "lightning" }, },
 	req = { },
 }
 itemBases["Fangjaw Talisman"] = {
@@ -293,7 +306,7 @@ itemBases["Fangjaw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(8-12)% increased maximum Life",
-	implicitModTypes = { { "life" }, },
+	implicitModTypes = { { "resource", "life" }, },
 	req = { },
 }
 itemBases["Horned Talisman"] = {
@@ -317,7 +330,7 @@ itemBases["Three Rat Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(12-16)% increased Attributes",
-	implicitModTypes = { { "jewellery_attribute" }, },
+	implicitModTypes = { { "attribute" }, },
 	req = { },
 }
 itemBases["Monkey Twins Talisman"] = {
@@ -333,7 +346,7 @@ itemBases["Longtooth Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(4-6)% additional Physical Damage Reduction",
-	implicitModTypes = { { "physical" }, },
+	implicitModTypes = { {  }, },
 	req = { },
 }
 itemBases["Rotfeather Talisman"] = {
@@ -341,7 +354,7 @@ itemBases["Rotfeather Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "(25-35)% increased Damage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "damage" }, },
 	req = { },
 }
 itemBases["Monkey Paw Talisman"] = {
@@ -349,7 +362,7 @@ itemBases["Monkey Paw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "10% chance to gain a Power Charge on Kill",
-	implicitModTypes = { { "critical" }, },
+	implicitModTypes = { { "power_charge" }, },
 	req = { },
 }
 itemBases["Monkey Paw Talisman"] = {
@@ -357,7 +370,7 @@ itemBases["Monkey Paw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "10% chance to gain a Frenzy Charge on Kill",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "frenzy_charge" }, },
 	req = { },
 }
 itemBases["Monkey Paw Talisman"] = {
@@ -365,7 +378,7 @@ itemBases["Monkey Paw Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "10% chance to gain an Endurance Charge on Kill",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "endurance_charge" }, },
 	req = { },
 }
 itemBases["Three Hands Talisman"] = {
@@ -373,7 +386,7 @@ itemBases["Three Hands Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
 	implicit = "Gain (6-12)% of Physical Damage as Extra Damage of a random Element",
-	implicitModTypes = { { "physical", "elemental", "jewellery_elemental" }, },
+	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental" }, },
 	req = { },
 }
 itemBases["Greatwolf Talisman"] = {

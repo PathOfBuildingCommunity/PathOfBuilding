@@ -71,12 +71,12 @@ Requires Level 41, 134 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
+Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 Minions have (20-30)% increased maximum Life
-Minions' Attacks deal (5-8) to (12-16) additional Physical Damage
-Can Summon up to 1 additional Golem at a time
-Grants level 12 Summon Stone Golem
++1 to maximum number of Golems
+Minions deal (5-8) to (12-16) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -112,6 +112,18 @@ Implicits: 2
 +(40-50)% to Fire Resistance
 (35-50)% increased Chill Duration on Enemies
 Attacks with this Weapon deal double Damage to Chilled Enemies
+]],[[
+Replica Frostbreath
+Ornate Mace
+League: Heist
+Requires Level 50, 161 Str
+Implicits: 1
+15% reduced Enemy Stun Threshold
+Adds (53-67) to (71-89) Chaos Damage
+(8-14)% increased Attack Speed
++(23-31)% to Chaos Resistance
+Your Chaos Damage can Chill
+Attacks with this Weapon deal Double Damage to Chilled Enemies
 ]],[[
 Gorebreaker
 Spiked Club
@@ -182,6 +194,16 @@ Implicits: 1
 {fractured}(15-20)% increased Cast Speed
 (15-20)% increased Cold Damage per 1% Cold Resistance above 75%
 (15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
+]],[[
+Replica Nebulis
+Void Sceptre
+League: Heist
+Requires Level 68, 104 Str, 122 Int
+Implicits: 1
+40% increased Elemental Damage
+{fractured}(15-20)% increased Cast Speed
+(3-5)% increased Cold Damage per 1% Missing Cold Resistance
+(3-5)% increased Fire Damage per 1% Missing Fire Resistance
 ]],[[
 Nebuloch
 Nightmare Mace
@@ -261,6 +283,19 @@ Socketed Gems are Supported by level 1 Cold Penetration
 {variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
 Socketed Gems are Supported by level 10 Added Cold Damage
 Socketed Gems are Supported by level 1 Reduced Mana
+]],[[
+Replica Bitterdream
+Shadow Sceptre
+League: Heist
+Requires Level 32, 52 Str, 62 Int
+Implicits: 1
+22% increased Elemental Damage
+Socketed Gems are Supported by Level 1 Elemental Penetration
+Socketed Gems are Supported by Level 10 Immolate
+Socketed Gems are Supported by Level 1 Unbound Ailments
+Socketed Gems are Supported by Level 10 Ice Bite
+Socketed Gems are Supported by Level 1 Inspiration
+Socketed Gems are Supported by Level 10 Innervate
 ]],[[
 The Black Cane
 Royal Sceptre
@@ -405,6 +440,18 @@ Minions deal (30-40)% increased Damage
 Summoned Skeletons Cover Enemies in Ash on Hit
 Summoned Skeletons take (15-30)% of their Maximum Life per second as Fire Damage
 Summoned Skeletons have Avatar of Fire
+]],[[
+Replica Earendel's Embrace
+Grinning Fetish
+League: Heist
+Requires Level 35, 62 Str, 62 Int
+Implicits: 1
+18% increased Elemental Damage
++(20-30) to all Attributes
+Minions deal (30-40)% increased Damage
+Raised Zombies Cover Enemies in Ash on Hit
+Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
+Raised Zombies have Avatar of Fire
 ]],[[
 Mon'tregul's Grasp
 Void Sceptre
@@ -667,6 +714,19 @@ Your Critical Strikes do not deal extra Damage
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
 {variant:3,4}You gain Onslaught for 4 seconds on Critical Strike
 ]],[[
+Replica Kongor's Undying Rage
+Terror Maul
+League: Heist
+Requires Level 67, 212 Str
+Implicits: 1
+25% chance to double Stun Duration
+Adds (43-56) to (330-400) Physical Damage
+(30-40)% increased Critical Strike Chance
++(15-20)% to all Elemental Resistances
+Hits can't be Evaded
+Your Critical Strikes do not deal extra Damage
+Regenerate 20% of Energy Shield per second if you've dealt a Critical Strike with this weapon Recently
+]],[[
 Marohi Erqi
 Karui Maul
 League: Legion
@@ -745,6 +805,15 @@ Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
 50% reduced Attack Speed
+All Attacks with this Weapon are Critical Strikes
+]],[[
+Replica Trypanon
+Great Mallet
+League: Heist
+Requires Level 40, 131 Str
+Implicits: 1
+30% increased Stun Duration on Enemies
+-5000 to Accuracy Rating
 All Attacks with this Weapon are Critical Strikes
 ]],[[
 Voidhome

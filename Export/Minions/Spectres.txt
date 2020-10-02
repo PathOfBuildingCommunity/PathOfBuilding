@@ -172,5 +172,23 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre
 -- Scale of Esh
 #spectre Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_
+-- Scinteel Synthete
+#spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre
 -- Redemption Knight
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_
+-- Primal Crushclaw
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre
+-- Templar Tactician
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
+-- Frost Auto-Scout
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre
+-- Syndicate Operative
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_
+-- Cloud retch
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
+-- Artless Assassin
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre
+-- Ashblessed Warden
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre
+-- Snow Rhex
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__

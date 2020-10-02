@@ -25,6 +25,9 @@ local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 
 -- Calculate hit chance
 function calcs.hitChance(evasion, accuracy)
+	if accuracy < 0 then
+		return 5
+	end
 	local rawChance = accuracy / (accuracy + (evasion / 4) ^ 0.8) * 115
 	return m_max(m_min(round(rawChance), 100), 5)	
 end
@@ -70,7 +73,7 @@ function calcs.defence(env, actor)
 	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
 
 	-- Resistances
-	output.DamageReductionMax =  modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
+	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
 	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
@@ -91,6 +94,7 @@ function calcs.defence(env, actor)
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
+		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
 				"Max: "..max.."%",
@@ -187,6 +191,15 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
+		local convManaToArmour = modDB:Sum("BASE", nil, "ManaConvertToArmour")
+		if convManaToArmour > 0 then
+			armourBase = 2 * modDB:Sum("BASE", nil, "Mana") * convManaToArmour / 100
+			local total = armourBase * calcLib.mod(modDB, nil, "Mana", "Armour", "ArmourAndEvasion", "Defences")
+			armour = armour + total
+			if breakdown then
+				breakdown.slot("Conversion", "Mana to Armour", nil, armourBase, total, "Armour", "ArmourAndEvasion", "Defences", "Mana")
+			end
+		end
 		local convManaToES = modDB:Sum("BASE", nil, "ManaGainAsEnergyShield")
 		if convManaToES > 0 then
 			energyShieldBase = modDB:Sum("BASE", nil, "Mana") * convManaToES / 100
@@ -202,11 +215,11 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "ChaosInoculation") then
 				total = 1
 			else
-				total = armourBase * calcLib.mod(modDB, nil, "Life", "Armour", "Defences") 
+				total = armourBase * calcLib.mod(modDB, nil, "Life", "Armour", "ArmourAndEvasion", "Defences") 
 			end
 			armour = armour + total
 			if breakdown then
-				breakdown.slot("Conversion", "Life to Armour", nil, armourBase, total, "Armour", "Defences", "Life")
+				breakdown.slot("Conversion", "Life to Armour", nil, armourBase, total, "Armour", "ArmourAndEvasion", "Defences", "Life")
 			end
 		end
 		local convLifeToES = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield", "LifeGainAsEnergyShield")
@@ -242,10 +255,10 @@ function calcs.defence(env, actor)
 			output.ProjectileEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
 			-- Condition for displayng evade chance only if melee or projectile evade chance have the same values
 			if output.MeleeEvadeChance ~= output.ProjectileEvadeChance then
-			  output.splitEvade = true
+				output.splitEvade = true
 			else
 				output.EvadeChance = output.MeleeEvadeChance
-			  output.dontSplitEvade = true
+				output.dontSplitEvade = true
 			end
 			if breakdown then
 				breakdown.EvadeChance = {
@@ -375,7 +388,7 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRegen = esBase * output.EnergyShieldRecoveryRateMod * calcLib.mod(modDB, nil, "EnergyShieldRegen") - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 		else
-			output.EnergyShieldRegen = 0
+			output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 		end
 	end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
@@ -571,7 +584,7 @@ function calcs.defence(env, actor)
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
-		breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
+		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
 
 	-- Energy Shield bypass
@@ -615,7 +628,7 @@ function calcs.defence(env, actor)
 				manatext = manatext.." + non-bypassed energy shield"
 				if output[damageType.."EnergyShieldBypass"] > 0 then
 					local manaProtected = output.EnergyShield / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
-					sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected)  / (output[damageType.."EnergyShieldBypass"] / 100)
+					sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else 
 					sourcePool = sourcePool + output.EnergyShield
 				end
@@ -653,7 +666,7 @@ function calcs.defence(env, actor)
 			else
 				if output[damageType.."EnergyShieldBypass"] > 0 then
 					local poolProtected = output.EnergyShield / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
-					output[damageType.."TotalPool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected)  / (output[damageType.."EnergyShieldBypass"] / 100)
+					output[damageType.."TotalPool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else 
 					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.EnergyShield
 				end
@@ -839,6 +852,7 @@ function calcs.defence(env, actor)
 		output.NetLifeRegen = output.NetLifeRegen - totalLifeDegen
 		output.NetManaRegen = output.NetManaRegen - totalManaDegen
 		output.NetEnergyShieldRegen = output.NetEnergyShieldRegen - totalEnergyShieldDegen
+		output.TotalNetRegen = output.NetLifeRegen + output.NetManaRegen + output.NetEnergyShieldRegen
 		if breakdown then
 			t_insert(breakdown.NetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegen))
 			t_insert(breakdown.NetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
@@ -849,6 +863,12 @@ function calcs.defence(env, actor)
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("= %.1f", output.NetEnergyShieldRegen))
+			breakdown.TotalNetRegen = {
+				s_format("Net Life Regen: %.1f", output.NetLifeRegen),
+				s_format("+ Net Mana Regen: %.1f", output.NetManaRegen),
+				s_format("+ Net Energy Shield Regen: %.1f", output.NetEnergyShieldRegen),
+				s_format("= Total Net Regen: %.1f", output.TotalNetRegen)
+			}
 		end
 	end
 

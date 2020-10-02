@@ -179,6 +179,19 @@ Can have up to 1 additional Totem summoned at a time
 +300 Armour per Summoned Totem
 Blood Magic
 {variant:3}Mortal Conviction
+]],[[
+Replica Tukohama's Fortress
+Ebony Tower Shield
+League: Heist
+Requires Level 61, 159 Str
+Implicits: 1
++(20-30) to maximum Life
++(80-100) to maximum Life
+You can Cast an additional Brand
+20% increased Critical Strike Chance per Brand
+40% increased Brand Damage
+Blood Magic
+Mortal Conviction
 ]],
 -- Shield: Evasion
 [[
@@ -321,6 +334,19 @@ Implicits: 1
 +(10-20)% to Fire and Cold Resistances
 +(8-15)% chance to Avoid Elemental Damage from Hits while Phasing
 You are at Maximum Chance to Block Attack Damage if you have not Blocked Recently
+You have Phasing if you have Blocked Recently
+]],[[
+Replica Mistwall
+Lacquered Buckler
+League: Heist
+Requires Level 60, 159 Dex
+Implicits: 1
+6% increased Movement Speed
+(120-150)% increased Evasion Rating
+10% increased Movement Speed
++(10-20)% to Fire and Cold Resistances
++75% Chance to Block Spell Damage if you have not Blocked Recently
++(8-15)% chance to Avoid Physical Damage from Hits while Phasing
 You have Phasing if you have Blocked Recently
 ]],[[
 Mutewind Pennant
@@ -651,6 +677,30 @@ Adds 4 to 8 Physical Damage to Attacks
 +(30-50)% to Fire Resistance
 Curse Enemies with level 5 Vulnerability on Block
 ]],[[
+The Ghastly Theatre
+Teak Round Shield
+League: Heist
+Requires Level 58, 74 Str, 74 Dex
+Implicits: 1
+180% increased Block Recovery
++2 to Level of Socketed Support Gems
+Triggers Level 20 Physical Aegis when Equipped
+340% increased Armour and Evasion
+33% chance to avoid Bleeding
+12% increased Attack and Cast Speed while Physical Aegis is depleted
+50% increased Critical Strike Chance while Physical Aegis is depleted
+Nearby Enemies are Blinded while Physical Aegis is not depleted
+]],[[
+Shattershard
+Crimson Round Shield
+League: Heist
+Requires Level 49, 64 Str, 64 Dex
+Implicits: 0
+Trigger Level 20 Shield Shatter when you Block
+(120-150)% increased Armour and Evasion
++(80-100) to maximum Life
++(8-12)% Chance to Block
+]],[[
 Vix Lunaris
 Cardinal Round Shield
 Requires Level: 66, 85 Str, 85 Dex
@@ -877,9 +927,34 @@ Implicits: 1
 {variant:2}20% increased Area of Effect of Aura Skills
 10% chance to grant a Power Charge to nearby Allies on Kill
 5% chance to grant a Frenzy Charge to nearby Allies on Hit
+]],[[
+Replica Victario's Charity
+Laminated Kite Shield
+League: Heist
+Requires Level 50, 64 Str, 64 Int
+Implicits: 1
++8% to all Elemental Resistances
++(50-70) to maximum Life
++(20-30)% to Lightning Resistance
++11% to Chaos Resistance
+10% increased effect of Non-Curse Auras from your Skills
+5% chance to grant an Endurance Charge to nearby Allies on Hit
+10% chance to grant a Frenzy Charge to nearby Allies on Kill
 ]],
 -- Shield: Evasion/Energy Shield
 [[
+Font of Thunder
+Mirrored Spiked Shield
+League: Heist
+Requires Level 66, 85 Dex, 85 Int
+Implicits: 1
+4% chance to Dodge Attack Hits
+(500-600)% increased Evasion and Energy Shield
+(25-40)% increased Mana Regeneration Rate
++50% chance to be Shocked
+40% of Cold Damage taken as Lightning
+40% of Fire Damage taken as Lightning
+]],[[
 Glitterdisc
 Burnished Spiked Shield
 Variant: {2_6}Pre 3.0.0

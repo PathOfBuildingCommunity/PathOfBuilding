@@ -180,14 +180,14 @@ Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
+{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
 {variant:2}25% increased Effect of Buffs granted by Socketed Golem Skills
 {variant:2}{tags:jewellery_defense}Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield
 {variant:1}{tags:caster}(10-25)% increased Spell Damage
 {variant:2}{tags:caster}(20-25)% increased Spell Damage
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:jewellery_resistance}+(20-40)% to Lightning Resistance
-{variant:1}Socketed Gems are Supported by level 15 Increased Minion Life
+{variant:1}Socketed Gems are Supported by Level 15 Increased Minion Life
 ]],[[
 Call of the Brotherhood
 Two-Stone Ring
@@ -359,6 +359,17 @@ Implicits: 1
 {tags:mana}+5 Mana Gained on Kill
 Enemies can have 1 additional Curse
 ]],[[
+Replica Doedre's Damning
+Paua Ring
+League: Heist
+Implicits: 1
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(5-10) to Intelligence
+{tags:jewellery_resistance}+5% to all Elemental Resistances
+{tags:mana}+5 Mana gained on Kill
+{tags:caster}You can apply one fewer Curse
+{tags:caster}(25-35)% increased Effect of your Curses
+]],[[
 Dream Fragments
 Sapphire Ring
 Variant: Pre 2.6.0
@@ -389,8 +400,20 @@ Implicits: 1
 {variant:2,3}You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}80% less Burning Damage
-{variant:2}Ignited Enemies Burn 65% slower
-{variant:3}Ignited Enemies Burn (65-50)% slower
+{variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
+{variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
+]],[[
+Replica Emberwake
+Ruby Ring
+League: Heist
+Requires Level 16
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{tags:jewellery_elemental}(30-40)% increased Fire Damage
+{tags:caster}(5-10)% increased Cast Speed
+90% reduced Ignite Duration on Enemies
+10% chance to Ignite
+{tags:jewellery_elemental}Ignites you inflict deal Damage (35-45)% faster
 ]],[[
 Essence Worm
 Unset Ring
@@ -400,6 +423,18 @@ Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Reserve No Mana
 {tags:mana}40% increased Mana Reserved
+]],[[
+Fated End
+Paua Ring
+League: Heist
+Requires Level 38
+Implicits: 1
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(20-40) to Intelligence
+Curse Skills have (8-12)% increased Cast Speed
+Hexes you inflict have their Effect increased by twice their Doom instead
+Hexes have (-20-20)% reduced Doom gain rate
+Hexes expire 0.5 seconds after reaching maximum Doom
 ]],[[
 Gifts from Above
 Diamond Ring
@@ -427,6 +462,18 @@ Implicits: 1
 Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect of Area Skills
 350 Physical Damage taken on Minion Death
+]],[[
+The Highwayman
+Gold Ring
+League: Heist
+Requires Level 44
+Implicits: 1
+(6-15)% increased Rarity of Items found
+(15-25)% increased Rarity of Items found
+5% increased Movement Speed
+25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
+0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
+Total Recovery per second from Life Leech is Doubled
 ]],[[
 The Hungry Loop
 Unset Ring
@@ -533,6 +580,19 @@ Has 1 Socket
 All Sockets are White
 Socketed Gems have Elemental Equilibrium
 ]],[[
+Replica Malachai's Artifice
+Unset Ring
+League: Heist
+Requires Level 5
+Implicits: 1
+Has 1 Socket
+Socketed Gems have Secrets of Suffering
+{tags:jewellery_resistance}-20% to all Elemental Resistances
+{tags:jewellery_resistance}+(75-100)% to Fire Resistance when Socketed with a Red Gem
+{tags:jewellery_resistance}+(75-100)% to Cold Resistance when Socketed with a Green Gem
+{tags:jewellery_resistance}+(75-100)% to Lightning Resistance when Socketed with a Blue Gem
+All Sockets are White
+]],[[
 Mark of Submission
 Unset Ring
 Requires Level 24
@@ -607,14 +667,14 @@ Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by level 13 Faster Attacks
-{variant:2{tags:attack,caster}}Socketed Golem Skills have 20% increased Attack and Cast Speed
+{variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
+{variant:2}{tags:attack,caster}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack}(5-10)% increased Attack Speed
-{variant:1}(1-2)% chance to Dodge Attacks
-{variant:2}(3-5)% chance to Dodge Attacks
-{variant:1}Socketed Gems are Supported by level 16 Increased Minion Speed
-{variant:2}Socketed Golem Gems grant Onslaught for 10 seconds on Summon
+{variant:1}(1-2)% chance to Dodge Attack Hits
+{variant:2}(3-5)% chance to Dodge Attack Hits
+{variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
+{variant:2}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
 Ngamahu's Sign
 Ruby Ring
@@ -745,10 +805,10 @@ Has 1 Socket
 {variant:2}{tags:life}+(30-40) to maximum Life
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-12) to (20-30) Fire Damage to Attacks
 {tags:jewellery_elemental}(20-30)% increased Fire Damage
-{variant:1}Socketed Gems are Supported by level 12 Lesser Multiple Projectiles
+{variant:1}Socketed Gems are Supported by Level 12 Lesser Multiple Projectiles
 {variant:2}Socketed Golem Skills have 25% chance to Taunt on Hit
-{variant:1}Socketed Gems are Supported by level 17 Increased Minion Damage
-{variant:2}{tags:life}Socketed Golem Skills have 5% Life Regenerated per second
+{variant:1}Socketed Gems are Supported by Level 17 Increased Minion Damage
+{variant:2}{tags:life}Socketed Golem Skills have Minions Regenerate 5% Life per second
 ]],[[
 Rigwald's Crest
 Two-Stone Ring
@@ -897,6 +957,18 @@ Implicits: 1
 {variant:2}50% chance to Avoid being Chilled
 {variant:1}{tags:jewellery_elemental}5% chance to Freeze
 {variant:2}{tags:jewellery_elemental}10% chance to Freeze
+]],[[
+Replica Tasalio's Sign
+Sapphire Ring
+League: Heist
+Requires Level 20
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:jewellery_elemental,attack,caster}Adds (15-20) to (25-35) Cold Damage to Spells and Attacks
+{tags:jewellery_defense}+(200-300) to Evasion Rating
+Your Cold Damage cannot Freeze
+Immune to Chill
+{tags:jewellery_elemental}Adds 60 to 80 Cold Damage against Chilled Enemies
 ]],[[
 Thief's Torment
 Prismatic Ring
@@ -1084,6 +1156,14 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Gems
+]],[[
+Replica Voideye
+Unset Ring
+League: Heist
+Requires Level 45
+Implicits: 1
+Has 1 Socket
++30% to Quality of Socketed Gems
 ]],[[
 The Warden's Brand
 Iron Ring

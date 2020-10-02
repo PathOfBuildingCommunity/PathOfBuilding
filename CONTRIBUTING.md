@@ -44,7 +44,7 @@ The easiest way to make and test changes is by setting up a development install,
 
        git clone -b dev https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
 2. Create a shortcut to the 'Path of Building.exe' in your main installation of the program.
-3. Add the path to `./Launch.lua` as an argument to the shortcut. You should end up with something like: `"C:\Program Files (x86)\Path of Building Community\Path of Building.exe" "C:\Path of Building\Launch.lua"`.
+3. Add the path to `./Launch.lua` as an argument to the shortcut. You should end up with something like: `"C:\%APPDATA%\Path of Building Community\Path of Building.exe" "C:\PathOfBuilding\Launch.lua"`.
 
 You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables 'Dev Mode', which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
@@ -71,7 +71,7 @@ Note: If you've configured a remote already, you can skip ahead to step 6.
        git remote -v
 2. Add a new remote repository and name it `upstream`.
 
-       git remote add upstream https://github.com/Path of Building Community/PathOfBuilding.git
+       git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
 3. Verify that adding the remote worked by running the last command again.
 
        git remote -v
@@ -114,7 +114,7 @@ dbg.tcpListen('localhost', 9966)
 5. Start Path of Building Community
 6. Attach the debugger
 
-##### IntelliJ Idea Community
+##### PyCharm Community / IntelliJ Idea Community
 
 1. Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
 2. Select 'x86' version.
@@ -131,7 +131,7 @@ The repository also contains the system used to export data from the game's Cont
 
 How to export data from a GGPK file:
 
-1. Create a shortcut to `Path of Building.exe` with the path to `./Export/Launch.lua` as first argument. You should end up with something like: `"C:\Program Files (x86)\Path of Building Community\Path of Building.exe" "C:\Path of Building\Export\Launch.lua"`.
+1. Create a shortcut to `Path of Building.exe` with the path to `./Export/Launch.lua` as first argument. You should end up with something like: `"C:\%APPDATA%\Path of Building Community\Path of Building.exe" "C:\PathOfBuilding\Export\Launch.lua"`.
 2. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building Community.
 3. Paste the path to `Content.ggpk` into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `./Data` section.
 4. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.

@@ -1807,12 +1807,12 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 	skillList = {
 		"Melee",
 		"NecromancerReviveSkeleton",
-		"NecromancerProjectileWeakness",
+		"NecromancerEnfeeble",
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
 		mod("Speed", "INC", -80, ModFlag.Cast, KeywordFlag.Curse), -- MonsterCurseCastSpeedPenalty [curse_cast_speed_+% = -80]
-		-- MonsterCastsProjectileWeaknessCurseText [monster_casts_projectile_vulnerability_curse_text = 1]
+		-- MonsterCastsEnfeebleCurseText [monster_casts_enfeeble_curse_text = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
@@ -2662,12 +2662,12 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 -- Redemption Sentry
 minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre"] = {
 	name = "Redemption Sentry",
-	life = 4.05,
+	life = 2.7,
 	fireResist = 0,
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.5,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 70,
@@ -2784,15 +2784,41 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }
+-- Scinteel Synthete
+minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
+	name = "Scinteel Synthete",
+	life = 5,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 85,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"SynthesisSoulstealerProjectileLightning",
+		"EmptyActionSynthesisSoulstealerArc",
+		"SynthesisSoulstealerLaser",
+		"SynthesisSoulstealerBolt",
+		"GeometryTriggerSynthesisSoulstealer3",
+	},
+	modList = {
+		-- MonsterTagSynthesised
+		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+	},
+}
 -- Redemption Knight
 minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
 	name = "Redemption Knight",
-	life = 4.05,
+	life = 2.7,
 	fireResist = 0,
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.5,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.17,
 	attackRange = 14,
@@ -2804,6 +2830,217 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 		"WalkEmergeAtlasInfluenceMonster",
 		"AtlasEyrieFighterSlash",
 		"EmptyActionAttackEyrieFighter",
+	},
+	modList = {
+	},
+}
+-- Primal Crushclaw
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
+	name = "Primal Crushclaw",
+	life = 12,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"MeleeCold",
+		"HarvestCrabDashSlam",
+		"GAHarvestCrabDashSlam",
+		"HarvestNessaCrabScreech",
+		"HarvestCrabAbyssSlam",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 720] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
+	},
+}
+-- Templar Tactician
+minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
+	name = "Templar Tactician",
+	life = 3.45,
+	energyShield = 0.4,
+	armour = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"LegionTemplarJudgeStormCall",
+		"LegionTemplarJudgeBallLightning",
+		"GeometryTriggerLegionTemplarCasterStormCall",
+	},
+	modList = {
+		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+	},
+}
+-- Frost Auto-Scout
+minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = {
+	name = "Frost Auto-Scout",
+	life = 3.6,
+	armour = 1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"DoLiterallyNothing",
+		"MPSHeistRobotClockworkGolemBasicProjectile",
+		"MMSHeistRobotClockworkGolemMortarSpectre",
+		"ChangeToStance1Heist",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+-- Syndicate Operative
+minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
+	name = "Syndicate Operative",
+	life = 2.1,
+	energyShield = 0.08,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.12,
+	damageSpread = 0.2,
+	attackTime = 0.6,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"WalkEmergeBetrayal",
+		"BetrayalSecretPoliceCurveDagger1",
+		"BetrayalSecretPoliceCurveDagger2",
+		"BetrayalSecretPoliceCurveDagger3",
+		"EmptyActionSpellSecretPoliceDaggers",
+	},
+	modList = {
+	},
+}
+-- Cloud retch
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre"] = {
+	name = "Cloud Retch",
+	life = 2.52,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.68,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"MeleeCold",
+		"WalkEmergeAtlasInfluenceMonster",
+		"AtlasEyrieKiwethMortarSpectre",
+		"AtlasEyrieKiwethMortarShards",
+	},
+	modList = {
+	},
+}
+-- Artless Assassin
+minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
+	name = "Artless Assassin",
+	life = 5.2,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.56,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 60,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"MPWHeistThugRangedBurningArrow",
+		"DoLiterallyNothing",
+		"GAHeistThugRangedArrowShotgun",
+		"EAAHeistThugRangedExplosiveArrowBarrage",
+		"HeistThugRangedExplosiveArrow",
+		"GAHeistThugRangedShotgun",
+		"WalkEmergeHeistThug",
+		"EAAHeistThugRangedExplosiveArrowBarrageChokepoint",
+		"ChangeToStance1Heist",
+		"EASHeistMindControlSuicide",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
+	},
+}
+-- Ashblessed Warden
+minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
+	name = "Ashblessed Warden",
+	life = 6,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.58,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"DoLiterallyNothing",
+		"WalkEmergeHeistRobotElevator",
+		"GSHeistRobotPyreBeamBlast",
+		"GSHeistRobotPyreNukeBeam",
+		"GSHeistRobotPyreNukeBeamChannelled",
+		"EASHeistRobotPyreBeamSweep",
+		"GSHeistRobotPyreBeamSweepBeam",
+		"ChangeToStance1Heist",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
+	},
+}
+-- Snow Rhex
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__"] = {
+	name = "Snow Rhex",
+	life = 4.5,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"MeleeCold",
+		"WalkEmergeAtlasInfluenceMonster",
+		"MeleeEyrieBird",
+		"AtlasEyrieBirdBreath",
+		"AtlasEyrieBirdBreathNoEffects",
 	},
 	modList = {
 	},

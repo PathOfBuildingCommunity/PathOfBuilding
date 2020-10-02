@@ -7,12 +7,15 @@ local itemBases = ...
 
 #subType Armour
 #baseMatch Metadata/Items/Armours/Shields/ShieldStr%d+
+#baseMatch Metadata/Items/Armours/Shields/ShieldStrE%d+
 
 #subType Evasion
 #baseMatch Metadata/Items/Armours/Shields/ShieldDex%d+
+#baseMatch Metadata/Items/Armours/Shields/ShieldDexE%d+
 
 #subType Energy Shield
 #baseMatch Metadata/Items/Armours/Shields/ShieldInt%d+
+#baseMatch Metadata/Items/Armours/Shields/ShieldIntE%d+
 
 #subType Armour/Evasion
 #baseMatch Metadata/Items/Armours/Shields/ShieldStrDex%d+
