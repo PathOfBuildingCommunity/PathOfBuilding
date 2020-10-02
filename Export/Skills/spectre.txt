@@ -834,5 +834,5 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtlasEyrieBirdBreath Chilling Breath
-#flags attack hit area triggerable 
+#flags spell hit area triggerable
 #mods
