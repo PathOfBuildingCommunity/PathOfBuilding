@@ -3557,6 +3557,9 @@ skills["InfernalBlow"] = {
 		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
 			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlow", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
 		end
+		if activeSkill.skillPart == 3 then
+			activeSkill.skillData.dpsMultiplier = 1 / 6
+		end
 	end,
 	baseFlags = {
 		attack = true,
