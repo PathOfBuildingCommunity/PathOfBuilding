@@ -1873,7 +1873,8 @@ skills["Earthquake"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
 		},
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			-- mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil)
+			flag("SpellDamageAppliesToAttacks"),
+			mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil),
 		},
 	},
 	baseFlags = {
