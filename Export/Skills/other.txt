@@ -643,3 +643,8 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 	fromItem = true,
 #mods
+
+#skill CreateFungalGroundOnKill
+#flags duration area
+	fromItem = true,
+#mods
