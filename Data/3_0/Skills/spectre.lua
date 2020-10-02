@@ -5152,3 +5152,65 @@ skills["GSHeistRobotPyreBeamSweepBeam"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["MeleeEyrieBird"] = {
+	name = "Knockback Attack",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"knockback_speed_+%",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"global_knockback",
+		"determine_knockback_direction_from_melee_pattern",
+	},
+	levels = {
+		[1] = { 75, 0, 100, baseMultiplier = 0.75, cooldown = 8, attackSpeedMultiplier = -38, levelRequirement = 1, statInterpolation = { 1, 2, 1, }, },
+		[2] = { 75, 0, 100, baseMultiplier = 0.75, cooldown = 8, attackSpeedMultiplier = -38, levelRequirement = 19, statInterpolation = { 1, 2, 1, }, },
+		[3] = { 75, 1, 100, baseMultiplier = 0.75, cooldown = 8, attackSpeedMultiplier = -38, levelRequirement = 20, statInterpolation = { 1, 2, 1, }, },
+		[4] = { 75, 200, 100, baseMultiplier = 0.75, cooldown = 8, attackSpeedMultiplier = -38, levelRequirement = 84, statInterpolation = { 1, 2, 1, }, },
+	},
+}
+skills["AtlasEyrieBirdBreath"] = {
+	name = "Chilling Breath",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"chill_minimum_slow_%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 30, critChance = 5, cooldown = 10, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, },
+	},
+}

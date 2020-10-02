@@ -3021,3 +3021,27 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
 	},
 }
+-- Snow Rhex
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__"] = {
+	name = "Snow Rhex",
+	life = 4.5,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"MeleeCold",
+		"WalkEmergeAtlasInfluenceMonster",
+		"MeleeEyrieBird",
+		"AtlasEyrieBirdBreath",
+		"AtlasEyrieBirdBreathNoEffects",
+	},
+	modList = {
+	},
+}
