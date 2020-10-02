@@ -35,6 +35,14 @@ local forbiddenShako = {
     "Requires Level 68, 59 Str, 59 Int",
 	"Has Alt Variant: true"
 }
+local replicaForbiddenShako = {
+	"Replica Forbidden Shako",
+	"Great Crown",
+	"League: Heist",
+	"Source: Steal from a unique{Curio Display} during a Grand Heist",
+    "Requires Level 68, 59 Str, 59 Int",
+	"Has Alt Variant: true"
+}
 local excludedGems = {
 	"Block Chance Reduction",
 	"Empower",
@@ -53,9 +61,15 @@ table.sort(gems)
 for index, name in ipairs(gems) do
 	table.insert(forbiddenShako, "Variant: "..name)
 	table.insert(forbiddenShako, "{variant:"..index.."}Socketed Gems are Supported by Level (15-25) "..name)
+	table.insert(replicaForbiddenShako, "Variant: "..name.. " (Low Level)")
+	table.insert(replicaForbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
+	table.insert(replicaForbiddenShako, "Variant: "..name.. " (High Level)")
+	table.insert(replicaForbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
 end
 table.insert(forbiddenShako, "+(25-30) to all Attributes")
+table.insert(replicaForbiddenShako, "+(25-30) to all Attributes")
 table.insert(data.uniques.generated, table.concat(forbiddenShako, "\n"))
+table.insert(data.uniques.generated, table.concat(replicaForbiddenShako, "\n"))
 
 local skinOfTheLords = {
 	"Skin of the Lords",
