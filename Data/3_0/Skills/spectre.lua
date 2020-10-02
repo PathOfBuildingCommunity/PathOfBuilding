@@ -2441,12 +2441,6 @@ skills["MonsterProjectileWeakness"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["projectiles_always_pierce_you"] = {
-			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},

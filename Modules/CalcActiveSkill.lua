@@ -275,7 +275,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillTypes[SkillType.Aura] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Aura)
 	end
-	if skillTypes[SkillType.Curse] then
+	if skillTypes[SkillType.Hex] or skillTypes[SkillType.Mark] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Curse)
 	end
 	if skillTypes[SkillType.Warcry] then
