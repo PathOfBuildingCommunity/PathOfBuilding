@@ -36,6 +36,23 @@ function itemLib.applyValueScalar(line, valueScalar)
 	return line
 end
 
+-- Get the min and max of a mod line
+function itemLib.getLineRangeMinMax(line, range, valueScalar)
+	local rangeMin, rangeMax
+	line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
+		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
+		:gsub("(%+?)%((%-?%d+)%-(%d+)%)", 
+		function(plus, min, max)
+			rangeMin = min
+			rangeMax = max
+			-- Don't need to return anything here
+			return ""
+		end)
+	-- may be returning nil, nil due to not being a range
+	-- will be strings if successful
+	return rangeMin, rangeMax
+end
+
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range, valueScalar)
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
