@@ -37,7 +37,7 @@ function itemLib.applyValueScalar(line, valueScalar)
 end
 
 -- Get the min and max of a mod line
-function itemLib.getLineRangeMinMax(line, range, valueScalar)
+function itemLib.getLineRangeMinMax(line)
 	local rangeMin, rangeMax
 	line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
