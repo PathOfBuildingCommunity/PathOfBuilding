@@ -1096,14 +1096,21 @@ Variant: Sword
 Limited to: 1
 Radius: Medium
 {variant:1}(10-15)% increased Physical Damage
-{variant:1}With at least 40 Dexterity in Radius, Dual Strike has a 20% chance to deal Double Damage with the Main-Hand Weapon
-{variant:1}With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage to surrounding targets
+{variant:1}With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
+to deal Double Damage with the Main-Hand Weapon
+{variant:1}With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
+{variant:1}to surrounding targets
 {variant:2,3,4,5,6}(10-15)% increased Attack Damage
-{variant:2}With at least 40 Dexterity in Radius, Dual Strike Hits Intimidate Enemies for 4 seconds while wielding an Axe
-{variant:3}With at least 40 Dexterity in Radius, Dual Strike has (10-15)% increased Attack Speed while wielding a Claw
-{variant:4}With at least 40 Dexterity in Radius, Dual Strike has +(20-30)% to Critical Strike Multiplier while wielding a Dagger
-{variant:5}With at least 40 Dexterity in Radius, Dual Strike deals Splash Damage to surrounding targets while wielding a Mace
-{variant:6}With at least 40 Dexterity in Radius, Dual Strike has (20-30)% increased Accuracy Rating while wielding a Sword
+{variant:2}With at least 40 Dexterity in Radius, Dual Strike Hits Intimidate Enemies for
+{variant:2}4 seconds while wielding an Axe
+{variant:3}With at least 40 Dexterity in Radius, Dual Strike has (10-15)% increased Attack
+Speed while wielding a Claw
+{variant:4}With at least 40 Dexterity in Radius, Dual Strike has +(20-30)% to Critical Strike
+Multiplier while wielding a Dagger
+{variant:5}With at least 40 Dexterity in Radius, Dual Strike deals Splash Damage
+{variant:5}to surrounding targets while wielding a Mace
+{variant:6}With at least 40 Dexterity in Radius, Dual Strike has (20-30)% increased
+Accuracy Rating while wielding a Sword
 ]],[[
 Omen on the Winds
 Viridian Jewel
