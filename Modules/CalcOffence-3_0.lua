@@ -3240,12 +3240,12 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("BleedDPS", "CHANCE", "BleedChance")
 		combineStat("PoisonChance", "AVERAGE")
 		combineStat("PoisonDPS", "CHANCE", "PoisonChance")
+		combineStat("TotalPoisonDPS", "DPS")
 		combineStat("PoisonDamage", "CHANCE", "PoisonChance")
 		if skillData.showAverage then
 			combineStat("TotalPoisonAverageDamage", "DPS")
 		else
 			combineStat("TotalPoisonStacks", "DPS")
-			combineStat("TotalPoisonDPS", "DPS")
 		end
 		combineStat("IgniteChance", "AVERAGE")
 		combineStat("IgniteDPS", "CHANCE", "IgniteChance")
