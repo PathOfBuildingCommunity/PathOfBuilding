@@ -2148,6 +2148,8 @@ local specialModList = {
 	["you have vaal pact if you've dealt a critical strike recently"] = { mod("Keystone", "LIST", "Vaal Pact", { type = "Condition", var = "CritRecently" }) },
 	["gain (%d+) energy shield for each enemy you hit which is affected by a spider's web"] = function(num) return { mod("EnergyShieldOnHit", "BASE", num, { type = "MultiplierThreshold", actor = "enemy", var = "Spider's WebStack", threshold = 1 }) } end,
 	["(%d+) life gained for each enemy hit if you have used a vaal skill recently"] = function(num) return { mod("LifeOnHit", "BASE", num, { type = "Condition", var = "UsedVaalSkillRecently" }) } end,
+	["(%d+) life gained for each cursed enemy hit by your attacks"] = function(num) return { mod("LifeOnHit", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Cursed"})} end,
+	["(%d+) mana gained for each cursed enemy hit by your attacks"] = function(num) return { mod("ManaOnHit", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Cursed"})} end,
 	-- Defences
 	["chaos damage does not bypass energy shield"] = { flag("ChaosNotBypassEnergyShield") },
 	["chaos damage does not bypass energy shield while not on low life or low mana"] = { flag("ChaosNotBypassEnergyShield", { type = "Condition", varList = { "LowLife", "LowMana" }, neg = true }) },
@@ -2176,6 +2178,10 @@ local specialModList = {
 	["lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
 	["lose (%d+)%% of life per second if you have been hit recently"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Condition", var = "BeenHitRecently" }) } end,
 	["you have no armour or energy shield"] = {
+		mod("Armour", "MORE", -100),
+		mod("EnergyShield", "MORE", -100),
+	},
+	["you have no armour or maximum energy shield"] = {
 		mod("Armour", "MORE", -100),
 		mod("EnergyShield", "MORE", -100),
 	},

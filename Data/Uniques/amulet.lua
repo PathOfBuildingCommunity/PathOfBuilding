@@ -217,24 +217,28 @@ Corrupted
 Bloodgrip
 Coral Amulet
 Variant: Pre 3.0.0
+Variant: Current
 Requires Level 55
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}(2.0-4.0) Life Regenerated per second
 {tags:attack}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
-{tags:life}(8-12) Life Regenerated per second
+{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
+{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
 {tags:life}100% increased Life Recovery from Flasks
 Moving while Bleeding doesn't cause you to take extra Damage
 ]],[[
 Bloodgrip
 Marble Amulet
+Variant: Pre 3.12.0
 Variant: Current
 Requires Level 74
 Implicits: 1
 {tags:life}(1.2-1.6)% of Life Regenerated per second
 {tags:attack}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
-{tags:life}(8-12) Life Regenerated per second
+{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
+{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
 {tags:life}100% increased Life Recovery from Flasks
 Moving while Bleeding doesn't cause you to take extra Damage
 ]],[[
