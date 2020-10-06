@@ -2423,6 +2423,11 @@ function calcs.offence(env, actor, activeSkill)
 			if igniteMode == "CRIT" then
 				output.BleedChanceOnHit = 0
 			end
+			if globalBreakdown then
+				globalBreakdown.BleedDPS = {
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+				}
+			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
 			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
@@ -2591,6 +2596,11 @@ function calcs.offence(env, actor, activeSkill)
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
 				output.PoisonChanceOnHit = 0
+			end
+			if globalBreakdown then
+				globalBreakdown.PoisonDPS = {
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+				}
 			end
 			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
@@ -2763,7 +2773,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if globalBreakdown then
 				globalBreakdown.IgniteDPS = {
-					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage")
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
 			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
@@ -2843,7 +2853,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate shock and freeze chance + duration modifier
-		-- FIXME Completely fucking wrong now
 		if (output.ShockChanceOnHit + output.ShockChanceOnCrit) > 0 then
 			local sourceHitDmg = 0
 			local sourceCritDmg = 0
@@ -2866,6 +2875,15 @@ function calcs.offence(env, actor, activeSkill)
 			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanShock") then
 				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
 				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
+			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.ShockChanceOnHit = 0
+			end
+			if globalBreakdown then
+				globalBreakdown.ShockDurationMod = {
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+				}
 			end
 			local baseVal = calcAilmentDamage("Shock", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "ShockAsThoughDealing")
 			if baseVal > 0 then
@@ -2970,6 +2988,15 @@ function calcs.offence(env, actor, activeSkill)
 			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanChill") then
 				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
 				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
+			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.ChillChanceOnHit = 0
+			end
+			if globalBreakdown then
+				globalBreakdown.ChillDurationMod = {
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+				}
 			end
 			local baseVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "ChillAsThoughDealing")
 			if baseVal > 0 then
@@ -3089,6 +3116,15 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
 				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
 			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.FreezeChanceOnHit = 0
+			end
+			if globalBreakdown then
+				globalBreakdown.FreezeDurationMod = {
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+				}
+			end
 			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.freeze = true
@@ -3110,6 +3146,10 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.FireHitAverage
 				sourceCritDmg = sourceCritDmg + output.FireCritAverage
 			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.ScorchChanceOnHit = 0
+			end
 			local baseVal = calcAilmentDamage("Scorch", sourceHitDmg, sourceCritDmg)
 			if baseVal > 0 then
 				skillFlags.scorch = true
@@ -3127,6 +3167,10 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
 				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
 			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.BrittleChanceOnHit = 0
+			end
 			local baseVal = calcAilmentDamage("Brittle", sourceHitDmg, sourceCritDmg)
 			if baseVal > 0 then
 				skillFlags.brittle = true
@@ -3143,6 +3187,10 @@ function calcs.offence(env, actor, activeSkill)
 			if canDeal.Lightning then
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
+			end
+			local igniteMode = env.configInput.igniteMode or "AVERAGE"
+			if igniteMode == "CRIT" then
+				output.SapChanceOnHit = 0
 			end
 			local baseVal = calcAilmentDamage("Sap", sourceHitDmg, sourceCritDmg)
 			if baseVal > 0 then
