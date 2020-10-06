@@ -3500,6 +3500,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.WithIgniteDPS = baseDPS + output.IgniteDPS
 			output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
 		end
+	else
+		output.WithIgniteDPS = baseDPS
 	end
 	if skillFlags.bleed then
 		if skillData.showAverage then
@@ -3507,9 +3509,11 @@ function calcs.offence(env, actor, activeSkill)
 			output.CombinedDPS = output.CombinedDPS + output.BleedDPS
 			output.CombinedAvg = output.CombinedAvg + output.BleedDamage
 		else
-		output.WithBleedDPS = baseDPS + output.BleedDPS
-		output.CombinedDPS = output.CombinedDPS + output.BleedDPS
+			output.WithBleedDPS = baseDPS + output.BleedDPS
+			output.CombinedDPS = output.CombinedDPS + output.BleedDPS
 		end
+	else
+		output.WithBleedDPS = baseDPS
 	end
 	if skillFlags.decay then
 		output.CombinedDPS = output.CombinedDPS + output.DecayDPS
