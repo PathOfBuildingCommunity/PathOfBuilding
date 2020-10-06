@@ -1937,14 +1937,8 @@ skills["MonsterEnfeeble"] = {
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -2692,11 +2686,11 @@ skills["MonsterWarlordsMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["life_leech_on_any_damage_when_hit_permyriad"] = {
-			mod("SelfDamageLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
+			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["mana_leech_on_any_damage_when_hit_permyriad"] = {
-			mod("SelfDamageManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
+			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["enemy_rage_regeneration_on_stun"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
@@ -2855,14 +2849,8 @@ skills["NecromancerEnfeeble"] = {
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -2976,12 +2964,6 @@ skills["NecromancerProjectileWeakness"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["projectiles_always_pierce_you"] = {
-			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
@@ -3050,11 +3032,13 @@ skills["NecromancerVulnerability"] = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_physical_damage_over_time_taken_+%"] = {
-			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -3564,9 +3548,8 @@ skills["SkeletonTemporalChains"] = {
 		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["buff_time_passed_-%"] = {
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mult = -1,
 		},
 	},
 	baseFlags = {
@@ -3603,11 +3586,13 @@ skills["SkeletonVulnerability"] = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_physical_damage_over_time_taken_+%"] = {
-			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
