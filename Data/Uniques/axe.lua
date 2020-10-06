@@ -24,7 +24,7 @@ Adds (5-15) to (20-25) Fire Damage
 +(15-25)% to Fire Resistance
 5% increased Movement Speed
 {variant:1}Curse Enemies with Flammability on Hit
-{variant:2}Curse Enemies with Level 10 Flammability on Hit
+{variant:2}Curse Enemies with Flammability on Hit, with 40% increased Effect
 ]],[[
 Dreadsurge
 Cleaver
@@ -361,7 +361,7 @@ Variant: Current
 Requires Level 49, 122 Str, 53 Dex
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
-25% chance to Curse Enemies with level 10 Vulnerability on Hit
+25% chance to Curse Enemies with Vulnerability on Hit, with 40% increased Effect
 {variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
 {variant:2}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
 ]],[[

@@ -146,7 +146,7 @@ Requires Level 60, 60 Str
 25% increased Movement Speed
 (10-20)% increased Elemental Damage
 Enemies can have 1 additional Curse
-60% increased Area of Effect of Curse Skills
+60% increased Area of Effect of Hex Skills
 ]],
 -- Boots: Evasion
 [[

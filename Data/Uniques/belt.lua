@@ -131,7 +131,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-15) to all Attributes
 (5-10)% increased Movement Speed
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
-You are cursed with Level 10 Vulnerability
+{tags:caster}You are cursed with Vulnerability, with 40% increased Effect
 ]],[[
 Coward's Legacy
 Chain Belt
@@ -142,9 +142,9 @@ Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_attribute}+(15-20) to all Attributes
 (5-10)% increased Movement Speed
-50% increased Effect of Curses on you
+{tags:caster}50% increased Effect of Curses on you
 {tags:life}You count as on Low Life while you are Cursed with Vulnerability
-You are Cursed with Level 20 Vulnerability
+{tags:caster}You are Cursed with Vulnerability, with 80% increased Effect
 ]],[[
 Cyclopean Coil
 Leather Belt

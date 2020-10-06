@@ -231,7 +231,7 @@ Implicits: 1
 (120-160)% increased Evasion Rating
 +(17-29)% to Chaos Resistance
 Enemies can have 1 additional Curse
-Your Curses can apply to Hexproof Enemies
+Your Hexes can affect Hexproof Enemies
 {variant:1}Poison Cursed Enemies on hit
 {variant:2}60% chance to Poison on Hit against Cursed Enemies
 ]],[[
@@ -473,8 +473,8 @@ Variant: Current
 Requires Level 65, 187 Int
 Socketed Curse Gems are Supported by Level 20 Blasphemy 
 Grants Level 20 Summon Doedre's Effigy Skill
-Socketed Curse Skills are Triggered by Doedre's Effigy when Summoned
-Socketed Curse Skills ignore Curse Limit 
+Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
+Hexes from Socketed Skills ignore Curse Limit
 +(30-40) to Intelligence 
 (130-150)% increased Energy Shield 
 {variant:1}(25-33)% reduced Effect of your Curses
@@ -581,7 +581,7 @@ Requires Level 49, 134 Int
 {variant:1}25% increased Totem Life
 {variant:2,3}50% increased Totem Life
 Can have up to 1 additional Totem summoned at a time
-Inflicts a random level 20 Curse on you when your Totems die
+Inflicts a random Hex on you when your Totems die, with 80% more Effect
 ]],[[
 Tabula Rasa
 Simple Robe
