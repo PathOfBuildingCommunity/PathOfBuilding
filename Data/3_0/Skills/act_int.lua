@@ -560,7 +560,7 @@ skills["BallLightning"] = {
 		projectile = true,
 	},
 	baseMods = {
-		skill("radius", 22),
+		skill("radius", 18),
 	},
 	qualityStats = {
 		Default = {
@@ -6848,9 +6848,6 @@ skills["LightningImpurity"] = {
 	statMap = {
 		["hits_ignore_my_lightning_resistance"] = {
 			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
-		},
-		["impurity_lightning_damage_taken_+%_final"] = {
-			mod("LightningDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
