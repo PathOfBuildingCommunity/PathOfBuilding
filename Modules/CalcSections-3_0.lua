@@ -923,7 +923,7 @@ return {
 		{ breakdown = "OffHand.ChillDPS" },
 		{ breakdown = "ChillDPS" },
 		{ label = "Player modifiers", modName = { "EnemyChillDuration", "ChillAsThoughDealing" }, cfg = "skill" },
-		{ label = "Enemy modifiers", modName = "SelfChillEffect", enemy = true },
+		{ label = "Enemy modifiers", modName = { "SelfChillEffect", "SelfChillDuration" }, enemy = true },
 	}, },
 	{ label = "Chance to Freeze", flag = "freeze", { format = "{0:output:FreezeChance}%", 
 		{ breakdown = "MainHand.FreezeChance" }, 

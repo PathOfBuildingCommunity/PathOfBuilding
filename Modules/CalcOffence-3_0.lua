@@ -335,12 +335,14 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
 		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
-		local multiplier = 1
-		if skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
-			multiplier = 1.5
+		local maxIncrease = 0
+		for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "ImprovedSpellDamageAppliesToAttacks")) do
+			maxIncrease = m_max(maxIncrease, value.mod.value)
 		end
+		-- Convert from percent to fraction
+		local multiplier = maxIncrease / 100.
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Spell) ~= 0 then
@@ -3002,7 +3004,7 @@ function calcs.offence(env, actor, activeSkill)
 			if baseVal > 0 then
 				skillFlags.chill = true
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
-				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
+				output.ChillDurationMod = 1 + (skillModList:Sum("INC", cfg, "EnemyChillDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration")) / 100
 				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
 				effList = { 5, 10, 30 }
 				local desired = skillModList:Sum("BASE", nil, "DesiredBonechillEffect") or 0
