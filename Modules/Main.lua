@@ -529,6 +529,7 @@ function main:OpenOptionsPopup()
 	controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {
 		{ label = "HTTP", scheme = "http" },
 		{ label = "SOCKS", scheme = "socks5" },
+		{ label = "SOCKS5H", scheme = "socks5h" },
 	})
 	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
 	controls.proxyURL = new("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
