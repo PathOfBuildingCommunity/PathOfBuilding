@@ -6327,7 +6327,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skills Leech {0}% of Attack Damage Leeched as Life"
+					text="Supported Skills have {0}% of Attack Damage Leeched as Life"
 				}
 			}
 		},

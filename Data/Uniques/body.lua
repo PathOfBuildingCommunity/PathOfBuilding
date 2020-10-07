@@ -231,7 +231,7 @@ Implicits: 1
 (120-160)% increased Evasion Rating
 +(17-29)% to Chaos Resistance
 Enemies can have 1 additional Curse
-Your Curses can apply to Hexproof Enemies
+Your Hexes can affect Hexproof Enemies
 {variant:1}Poison Cursed Enemies on hit
 {variant:2}60% chance to Poison on Hit against Cursed Enemies
 ]],[[
@@ -473,8 +473,8 @@ Variant: Current
 Requires Level 65, 187 Int
 Socketed Curse Gems are Supported by Level 20 Blasphemy 
 Grants Level 20 Summon Doedre's Effigy Skill
-Socketed Curse Skills are Triggered by Doedre's Effigy when Summoned
-Socketed Curse Skills ignore Curse Limit 
+Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
+Hexes from Socketed Skills ignore Curse Limit
 +(30-40) to Intelligence 
 (130-150)% increased Energy Shield 
 {variant:1}(25-33)% reduced Effect of your Curses
@@ -581,7 +581,7 @@ Requires Level 49, 134 Int
 {variant:1}25% increased Totem Life
 {variant:2,3}50% increased Totem Life
 Can have up to 1 additional Totem summoned at a time
-Inflicts a random level 20 Curse on you when your Totems die
+Inflicts a random Hex on you when your Totems die, with 80% more Effect
 ]],[[
 Tabula Rasa
 Simple Robe
@@ -840,7 +840,7 @@ Requires Level 49, 59 Str, 59 Int
 Cannot be Chilled
 20% of Physical Damage from Hits taken as Cold Damage
 30% of Fire Damage from Hits taken as Cold Damage
-(15-20)% increased Effect of Chill
+(15-20)% increased Effect of Cold Ailments
 ]],[[
 Incandescent Heart
 Saintly Chainmail
@@ -1112,19 +1112,22 @@ Shroud of the Lightless
 Carnal Armour
 League: Abyss
 Source: Drops from Abyssal Liches
-Variant: Two Abyssal Sockets
-Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets (Pre 3.12.0)
+Variant: One Abyssal Socket (Pre 3.12.0)
+Variant: Two Abyssal Sockets (Current)
+Variant: One Abyssal Socket (Current)
 Requires Level: 71, 88 Dex, 122 Int
 Implicits: 1
-+(20-25) to maximum Mana 
-{variant:1}Has 2 Abyssal Sockets
-{variant:2}Has 1 Abyssal Socket
-Socketed Gems are Supported by Level 20 Elemental Penetration 
-20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill 
-(160-180)% increased Evasion and Energy Shield 
-(6-10)% increased maximum Life 
-(9-15)% increased maximum Mana 
-1% increased Maximum Life per Abyss Jewel affecting you 
++(20-25) to maximum Mana
+{variant:1,3}Has 2 Abyssal Sockets
+{variant:2,4}Has 1 Abyssal Socket
+{variant:1,2}Socketed Gems are Supported by Level 20 Elemental Penetration
+{variant:3,4}Socketed Gems are Supported by Level 25 Elemental Penetration
+20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill
+(160-180)% increased Evasion and Energy Shield
+(6-10)% increased maximum Life
+(9-15)% increased maximum Mana
+1% increased Maximum Life per Abyss Jewel affecting you
 1% increased Maximum Mana per Abyss Jewel affecting you
 ]],[[
 Replica Shroud of the Lightless

@@ -275,7 +275,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillTypes[SkillType.Aura] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Aura)
 	end
-	if skillTypes[SkillType.Curse] then
+	if skillTypes[SkillType.Hex] or skillTypes[SkillType.Mark] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Curse)
 	end
 	if skillTypes[SkillType.Warcry] then
@@ -517,6 +517,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				end
 			end
 			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
+				minion.weaponData1 = env.player.weaponData1
+			elseif env.theIronMass and minionType == "RaisedSkeleton" then
 				minion.weaponData1 = env.player.weaponData1
 			else
 				minion.weaponData1 = {

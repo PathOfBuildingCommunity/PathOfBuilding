@@ -506,7 +506,7 @@ return {
 		["ENDGAME"] = {
 			"Crackling Lance deals 40% increased Damage",
 			"Crackling Lance has 16% increased Cast Speed",
-			"Crackling Lance has 18% increased branching angle",
+			"Crackling Lance has 36% increased branching angle",
 		},
 	},
 	["Creeping Frost"] = {

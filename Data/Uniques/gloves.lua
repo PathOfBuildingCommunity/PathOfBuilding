@@ -56,7 +56,7 @@ Requires Level 63, 100 Str
 {variant:3,4}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
 {variant:1,2,3}+30 Energy Shield gained on Killing a Shocked Enemy
 {variant:4}+(200-250) Energy Shield gained on Killing a Shocked Enemy
-{variant:4}30% increased Effect of Shock
+{variant:4}30% increased Effect of Lightning Ailments
 ]],[[
 Empire's Grasp
 Goliath Gauntlets
@@ -204,11 +204,11 @@ Your Mark transfers to another Enemy when Marked Enemy dies
 Oskarm
 Nubuck Gloves
 Requires Level 52, 50 Dex
+Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
 +(-20-10)% to Chaos Resistance
 (7-8)% chance to Dodge Spell Damage
-Curse Enemies with Level 10 Assassin's Mark on Hit
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
 Painseeker
@@ -258,10 +258,11 @@ Requires Level 25, 39 Int
 {variant:1,2}+(20-30) to maximum Mana
 {variant:3}+(60-80) to maximum Mana
 {variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2,3}Curse Enemies with level 10 Temporal Chains on Hit
+{variant:2,3}Curse Enemies with Temporal Chains on Hit, with 40% increased Effect
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
 {variant:3}Enemies near Corpses affected by your Curses are Blinded
-{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing 3% of their Life as Physical Damage
+{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
+{variant:3}3% of their Life as Physical Damage
 ]],[[
 Demon Stitcher
 Satin Gloves
@@ -580,7 +581,7 @@ Variant: Pre 1.2.0
 Variant: Current
 Requires Level 7, 17 Dex
 (40-60)% increased Stun Recovery
-Curses in this item are reflected back to you
+Hexes applied by Socketed Curse Skills are Reflected back to you
 You cannot be Chilled for 3 seconds after being Chilled
 You cannot be Frozen for 3 seconds after being Frozen
 You cannot be Ignited for 3 seconds after being Ignited
@@ -860,7 +861,7 @@ Socketed Gems are Supported by level 18 Added Lightning Damage
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
 +(25-30) to maximum Energy Shield
-100% increased Shock Duration on Enemies
 10% increased Stun Duration on Enemies
+100% increased Duration of Lightning Ailments
 ]],
 }

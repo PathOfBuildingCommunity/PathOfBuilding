@@ -188,3 +188,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 -- Artless Assassin
 #spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre
+-- Ashblessed Warden
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre
+-- Snow Rhex
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__

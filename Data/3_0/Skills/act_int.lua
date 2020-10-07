@@ -560,7 +560,7 @@ skills["BallLightning"] = {
 		projectile = true,
 	},
 	baseMods = {
-		skill("radius", 22),
+		skill("radius", 18),
 	},
 	qualityStats = {
 		Default = {
@@ -2660,6 +2660,12 @@ skills["ElementalWeakness"] = {
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["self_elemental_status_duration_-%"] = {
+			mod("SelfIgniteDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfChillDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfFreezeDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfShockDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -3309,6 +3315,12 @@ skills["Firewall"] = {
 		},
 		["firewall_applies_%_fire_exposure"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+		},
+		["flame_wall_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, ModFlag.Projectile, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flame Wall", effectCond = "FlameWallAddedDamage" }),
+		},
+		["flame_wall_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, ModFlag.Projectile, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flame Wall", effectCond = "FlameWallAddedDamage" }),
 		}
 	},
 	baseFlags = {
@@ -3320,6 +3332,7 @@ skills["Firewall"] = {
 	baseMods = {
 		skill("radiusLabel", "Flame Wall Length:"),
 		skill("dotIsArea", true),
+		skill("buffAllies", true),
 	},
 	qualityStats = {
 		Default = {
@@ -4592,6 +4605,16 @@ skills["DoomBlast"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 	},
+	parts = {
+		{
+			name = "Target",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -5396,7 +5419,8 @@ skills["KineticBolt"] = {
 	castTime = 1,
 	statMap = {
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			flag("ImprovedSpellDamageAppliesToAttacks"),
+			flag("SpellDamageAppliesToAttacks"),
+			mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil),
 		},
 		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
 			flag("CastSpeedAppliesToAttacks"),
@@ -6824,9 +6848,6 @@ skills["LightningImpurity"] = {
 	statMap = {
 		["hits_ignore_my_lightning_resistance"] = {
 			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
-		},
-		["impurity_lightning_damage_taken_+%_final"] = {
-			mod("LightningDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -10558,6 +10579,9 @@ skills["SpellDamageAura"] = {
 		},
 		["spell_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {

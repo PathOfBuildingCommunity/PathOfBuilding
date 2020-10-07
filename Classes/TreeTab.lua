@@ -6,7 +6,9 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_sort = table.sort
+local m_max = math.max
 local m_min = math.min
+local m_floor = math.floor
 local s_format = string.format
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
@@ -168,7 +170,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = self.controls.treeHeatMap.y == 24 and 26 or 0
-	if(select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize()) > viewPort.x + viewPort.width) then
+	if(select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize()) > viewPort.x + viewPort.width) then
 		twoLineHeight = 26
 		self.controls.treeHeatMap:SetAnchor("BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 24
@@ -176,7 +178,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 		self.controls.specSelect.y = -24
 		self.controls.specConvertText.y = -16
-	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.treeHeatMapStatPerPoint:GetPos()) + select(1, self.controls.treeHeatMapStatPerPoint:GetSize())) - viewPort.x  then
+	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
 		twoLineHeight = 0
 		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 0
@@ -459,9 +461,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
 			selectedNode.dn = newLegionNode.dn
 			selectedNode.sprites = newLegionNode.sprites
+			selectedNode.icon = newLegionNode.icon
+			selectedNode.spriteId = newLegionNode.id
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" then
 			selectedNode.dn = newLegionNode.dn
 			selectedNode.sprites = newLegionNode.sprites
+			selectedNode.icon = newLegionNode.icon
+			selectedNode.spriteId = newLegionNode.id
 			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
 
 			-- Vaal is the exception
@@ -523,6 +529,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
 		addModifier(selectedNode)
+		self.modFlag = true
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
@@ -551,6 +559,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
 			end
 		end
+		self.modFlag = true
+		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
@@ -615,10 +625,39 @@ function TreeTabClass:ShowPowerReport()
 				name = node.dn,
 				power = nodePower,
 				powerStr = nodePowerStr,
-				id = nodeId,
+				id = node.id,
 				x = node.x,
 				y = node.y,
-				type = node.type
+				type = node.type,
+				pathDist = node.pathDist
+			})
+		end
+	end
+
+	-- search all cluster notables and add to the list
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		local isAlloc = node.alloc
+		if not isAlloc then			
+			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
+
+			if main.showThousandsCalcs then
+				nodePowerStr = formatNumSep(nodePowerStr)
+			end
+			
+			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
+				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+			end
+			
+			t_insert(report, {
+				name = node.dn,
+				power = nodePower,
+				powerStr = nodePowerStr,
+				id = node.id,
+				type = node.type,
+				pathDist = "Cluster"
 			})
 		end
 	end
@@ -636,17 +675,20 @@ function TreeTabClass:ShowPowerReport()
 
 	-- present the UI
 	local controls = {}
-	controls.list = new("PowerReportListControl", nil, 0, 40, 450, 400, report, currentStatLabel, function(selectedNode)
+	controls.powerReport = new("PowerReportListControl", nil, 0, 0, 550, 450, report, currentStatLabel, function(selectedNode)
 		-- this code is called by the list control when the user "selects" one of the passives in the list.
 		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
-		self.jumpToNode = true
-		self.jumpToX = selectedNode.x
-		self.jumpToY = selectedNode.y
-		main:ClosePopup()
+		if(selectedNode.x) then
+			self.jumpToNode = true
+			self.jumpToX = selectedNode.x
+			self.jumpToY = selectedNode.y
+			main:ClosePopup()
+		end		
 	end)
-	controls.done = new("ButtonControl", nil, 0, 450, 100, 20, "Close", function()
+	
+	controls.done = new("ButtonControl", nil, 0, 490, 100, 20, "Close", function()
 		main:ClosePopup()
 	end)
 
-	popup = main:OpenPopup(500, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
+	popup = main:OpenPopup(600, 500, "Power Report: " .. currentStatLabel, controls, "done", "list")
 end

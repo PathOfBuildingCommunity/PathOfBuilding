@@ -203,6 +203,11 @@ return {
 	skill("selfFireExplosionLifeMultiplier", nil),
 	div = 100,
 },
+-- for some reason DeathWish adds another stat with same effect as above
+["skill_minion_explosion_life_%"] = {
+	skill("selfFireExplosionLifeMultiplier", nil),
+	div = 100,
+},
 ["deal_chaos_damage_per_second_for_10_seconds_on_hit"] = {
 	mod("SkillData", "LIST", { key = "decay", value = nil, merge = "MAX" }),
 },
@@ -354,6 +359,18 @@ return {
 ["base_avoid_stun_%"] = {
 	mod("AvoidStun", "BASE", nil),
 },
+["base_immune_to_shock"] = {
+	mod("AvoidShock", "BASE", 100),
+},
+["base_immune_to_chill"] = {
+	mod("AvoidChill", "BASE", 100),
+},
+["base_immune_to_freeze"] = {
+	mod("AvoidFreeze", "BASE", 100),
+},
+["base_immune_to_ignite"] = {
+	mod("AvoidIgnite", "BASE", 100),
+},
 ["avoid_interruption_while_using_this_skill_%"] = {
 	mod("AvoidInterruptStun", "BASE", nil)
 },
@@ -439,7 +456,7 @@ return {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 },
 ["critical_strike_chance_+%_vs_blinded_enemies"] = {
-	mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
+	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
 },
 -- Duration
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {
@@ -468,9 +485,6 @@ return {
 },
 ["base_bleed_duration_+%"] = {
 	mod("BleedDuration", "INC", nil),
-},
-["active_skill_quality_duration_+%_final"] = {
-	mod("Duration", "INC", nil),
 },
 -- Damage
 ["damage_+%"] = {
@@ -1387,6 +1401,9 @@ return {
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },
+["active_skill_minion_attack_speed_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Speed", "MORE", nil, ModFlag.Attack) }),
+},
 ["active_skill_minion_physical_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", nil) }),
 },
@@ -1404,7 +1421,7 @@ return {
 	div = 60,
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
-	mod("MinionModifier", "LIST", { mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
 },
 --Golem
 ["golem_buff_effect_+%"] = {

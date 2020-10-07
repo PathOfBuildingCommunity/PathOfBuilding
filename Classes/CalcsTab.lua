@@ -509,7 +509,29 @@ function CalcsTabClass:PowerBuilder()
 			coroutine.yield()
 			start = GetTime()
 		end
-	end	
+	end
+
+	-- Calculate the impact of every cluster notable
+	-- used for the power report screen
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		if not node.power then
+			node.power = {}
+		end
+		wipeTable(node.power)
+		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			if not cache[node.modKey] then
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
+			end
+			local output = cache[node.modKey]
+			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+			end
+		end
+		if coroutine.running() and GetTime() - start > 100 then
+			coroutine.yield()
+			start = GetTime()
+		end
+	end
 	self.powerMax = newPowerMax
 end
 

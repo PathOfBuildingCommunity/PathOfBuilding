@@ -1317,7 +1317,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ailments inflicted on Cursed Enemies deals Damage {0}% Faster"
+					text="Ailments inflicted on Cursed Enemies deal Damage {0}% Faster"
 				}
 			}
 		},

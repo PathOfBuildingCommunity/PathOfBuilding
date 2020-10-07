@@ -15228,7 +15228,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance to inflict an additional Impale when this Skill inflcits Impale"
+					text="{0}% chance to inflict an additional Impale when this Skill inflicts Impale"
 				}
 			}
 		},

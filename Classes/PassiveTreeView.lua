@@ -505,7 +505,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local defence = m_max(node.power.defence or 0, 0)
 					local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
 					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
-					if offence ~= 0 then
+					if offence ~= 0 or defence ~= 0 then
 						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
 							dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
 							defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
