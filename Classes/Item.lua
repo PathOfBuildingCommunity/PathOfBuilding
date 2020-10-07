@@ -1042,12 +1042,19 @@ function ItemClass:BuildModList()
 	local function processModLine(modLine)
 		if not modLine.extra and self:CheckModLineVariant(modLine) then
 			if modLine.range then
-				local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
-				local line = itemLib.applyRange(modLine.line:gsub("\n"," "), modLine.range, catalystScalar)
-				local list, extra = modLib.parseMod[self.targetVersion](line)
-				if list and not extra then
-					modLine.modList = list
-					t_insert(self.rangeLineList, modLine)
+				local strippedModeLine = modLine.line:gsub("\n"," ")
+				-- Look at the min and max of the range to confirm it's *actually* a range
+				local rangeMin, rangeMax = itemLib.getLineRangeMinMax(strippedModeLine)
+				if rangeMin ~= rangeMax then
+					local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+					-- Put the modified value into the string
+					local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
+					-- Check if we can parse it before adding the mods
+					local list, extra = modLib.parseMod[self.targetVersion](line)
+					if list and not extra then
+						modLine.modList = list
+						t_insert(self.rangeLineList, modLine)
+					end
 				end
 			end
 			for _, mod in ipairs(modLine.modList) do
