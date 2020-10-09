@@ -3057,9 +3057,6 @@ end
 local function parseMod(line, order)
 	-- Check if this is a special modifier
 	local lineLower = line:lower()
-	if lineLower == "counts as dual wielding" then
-		lineLower = line:lower()
-	end
 	for pattern, patternVal in pairs(jewelFuncList) do
 		local _, _, cap1, cap2, cap3, cap4, cap5 = lineLower:find(pattern, 1)
 		if cap1 then
