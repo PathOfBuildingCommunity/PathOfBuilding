@@ -943,7 +943,7 @@ Implicits: 2
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 Your Elemental Damage can Shock
-Gain 300% of Weapon Physical Damage as Extra Damage of an Element
+Gain 300% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
 Elder Item
