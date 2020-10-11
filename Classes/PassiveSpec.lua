@@ -666,7 +666,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								self.build.itemsTab.items[itemId].jewelData
 									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
 									and self.build.itemsTab.items[itemId].jewelRadiusIndex
-									and self.nodes[nodeId].nodesInRadius
 									and self.nodes[nodeId].nodesInRadius[
 										self.build.itemsTab.items[itemId].jewelRadiusIndex
 								][depNode.id]
