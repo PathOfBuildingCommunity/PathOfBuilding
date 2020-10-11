@@ -665,11 +665,11 @@ function TreeTabClass:ShowPowerReport()
 	-- sort it
 	if displayStat.lowerIsBetter then
 		t_sort(report, function (a,b)
-			return a.power < b.power
+			return (a.power) < (b.power)
 		end)
 	else
 		t_sort(report, function (a,b)
-			return a.power > b.power
+			return (a.power) > (b.power)
 		end)
 	end
 
