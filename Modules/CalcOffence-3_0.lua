@@ -1088,7 +1088,7 @@ function calcs.offence(env, actor, activeSkill)
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 		
 		-- Calculate hit chance 
-		output.Accuracy = calcLib.val(skillModList, "Accuracy", cfg)
+		output.Accuracy = m_max(0, calcLib.val(skillModList, "Accuracy", cfg))
 		if breakdown then
 			breakdown.Accuracy = breakdown.simple(nil, cfg, output.Accuracy, "Accuracy")
 		end
