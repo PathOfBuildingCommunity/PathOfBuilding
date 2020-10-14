@@ -8863,6 +8863,11 @@ skills["StormBurstNew"] = {
 			activeSkill.skillData.dpsMultiplier = math.floor(duration * 2.5)
 		end
 	end,
+	statMap = {
+		["storm_burst_zap_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 }),
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },

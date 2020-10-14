@@ -1560,6 +1560,11 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillData.dpsMultiplier = math.floor(duration * 2.5)
 		end
 	end,
+	statMap = {
+		["storm_burst_zap_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 }),
+		}
+	},
 #baseMod skill("radius", 16)
 #baseMod skill("radiusSecondary", 22)
 #mods
