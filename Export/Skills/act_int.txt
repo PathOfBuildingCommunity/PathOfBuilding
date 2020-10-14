@@ -1545,6 +1545,21 @@ local skills, mod, flag, skill = ...
 
 #skill StormBurstNew
 #flags spell area duration
+	parts = {
+		{
+			name = "1 Orb Tick"
+		},
+		{
+			name = "Max Channelled Orbs"
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local duration = activeSkill.skillData.duration * output.DurationMod
+			-- duration * 10 / 4, instead of duration / 0.4 to avoid  floating point issues
+			activeSkill.skillData.dpsMultiplier = math.floor(duration * 2.5)
+		end
+	end,
 #baseMod skill("radius", 16)
 #baseMod skill("radiusSecondary", 22)
 #mods
