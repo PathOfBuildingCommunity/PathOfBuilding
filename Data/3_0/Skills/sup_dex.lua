@@ -85,7 +85,7 @@ skills["SupportAddedColdDamagePlus"] = {
 	requireSkillTypes = { SkillType.Attack, SkillType.Hit, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportArrowNova",
+	plusVersionOf = "SupportAddedColdDamage",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_cold_skill_gem_level_+"] = {
@@ -1755,7 +1755,7 @@ skills["SupportFasterProjectiles"] = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "projectiles_chance_to_return_%", 3 },
+			{ "projectiles_chance_to_return_%_from_final_target", 3 },
 		},
 		Alternate2 = {
 			{ "base_projectile_speed_+%", 0.5 },
@@ -3150,7 +3150,7 @@ skills["SupportAdditionalCooldown"] = {
 			{ "base_cooldown_speed_+%", -0.5 },
 		},
 		Alternate2 = {
-			{ "regenerate_%_life_over_1_second_on_cast", 0.05 },
+			{ "regenerate_%_life_over_1_second_on_skill_use", 0.05 },
 		},
 	},
 	stats = {
@@ -3227,7 +3227,7 @@ skills["SupportSlowerProjectiles"] = {
 			{ "projectile_damage_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "projectiles_damage_+%_to_nearby_targets", 0.75 },
+			{ "projectile_damage_+%_vs_nearby_enemies", 0.75 },
 		},
 		Alternate2 = {
 			{ "projectile_chance_to_not_pierce_%", 3 },

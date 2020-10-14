@@ -2798,7 +2798,7 @@ skills["SupportIncreasedCriticalStrikes"] = {
 			{ "base_critical_strike_multiplier_+", 0.25 },
 		},
 		Alternate2 = {
-			{ "add_power_charge_on_kill_%_chance", 0.5 },
+			{ "gain_power_charge_on_kill_with_hit_%", 0.5 },
 		},
 	},
 	stats = {

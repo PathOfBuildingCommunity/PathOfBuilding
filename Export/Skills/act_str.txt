@@ -630,7 +630,7 @@ local skills, mod, flag, skill = ...
 		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
 			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
-		["exerted_attacks_overwhelm_%_physical_damage_reduction"] = {
+		["warcry_grant_overwhelm_%_to_exerted_attacks"] = {
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
 		}

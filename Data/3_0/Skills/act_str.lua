@@ -44,7 +44,7 @@ skills["AbyssalCry"] = {
 			{ "warcry_speed_+%", 2 },
 		},
 		Alternate2 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 		Alternate3 = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -2207,7 +2207,7 @@ skills["EnduringCry"] = {
 	},
 	stats = {
 		"endurance_charge_granted_per_X_monster_power_during_endurance_warcry",
-		"regenerate_X_life_over_1_second_on_cast",
+		"regenerate_x_life_over_1_second_on_skill_use_or_trigger",
 		"resist_all_elements_%_per_endurance_charge",
 		"physical_damage_reduction_%_per_endurance_charge",
 		"warcry_speed_+%",
@@ -3653,7 +3653,7 @@ skills["IntimidatingCry"] = {
 		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
 			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
-		["exerted_attacks_overwhelm_%_physical_damage_reduction"] = {
+		["warcry_grant_overwhelm_%_to_exerted_attacks"] = {
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
 		}
@@ -3674,10 +3674,10 @@ skills["IntimidatingCry"] = {
 			{ "warcry_speed_+%", 2 },
 		},
 		Alternate2 = {
-			{ "exerted_attacks_overwhelm_%_physical_damage_reduction", 0.5 },
+			{ "warcry_grant_overwhelm_%_to_exerted_attacks", 0.5 },
 		},
 		Alternate3 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 	},
 	stats = {
@@ -4640,7 +4640,7 @@ skills["RallyingCry"] = {
 			{ "rallying_cry_buff_effect_on_minions_+%_final", 2 },
 		},
 		Alternate3 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 	},
 	stats = {
@@ -5003,10 +5003,10 @@ skills["SeismicCry"] = {
 			{ "warcry_speed_+%", 2 },
 		},
 		Alternate2 = {
-			{ "exerted_attack_knockback_chance_%", 2 },
+			{ "warcry_grant_knockback_%_to_exerted_attacks", 2 },
 		},
 		Alternate3 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 	},
 	stats = {

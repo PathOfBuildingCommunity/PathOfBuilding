@@ -1431,7 +1431,7 @@ return {
 	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)})
 },
 -- Slam
-["empowered_attack_damage_+%"] = {
+["warcry_grant_damage_+%_to_exerted_attacks"] = {
 	mod("ExertIncrease", "INC", nil, ModFlag.Attack, 0)
 },
 -- Curse

@@ -1395,11 +1395,11 @@ return {
 	["Lancing Steel"] = {
 		["MERCILESS"] = {
 			"Lancing Steel deals 25% increased Damage",
-			"Lancing Steel has 20% chance count as consumeing Steel Shards without Consuming them",
+			"Lancing Steel has 20% chance count as consuming Steel Shards without Consuming them",
 		},
 		["ENDGAME"] = {
 			"Lancing Steel deals 40% increased Damage",
-			"Lancing Steel has 30% chance count as consumeing Steel Shards without Consuming them",
+			"Lancing Steel has 30% chance count as consuming Steel Shards without Consuming them",
 			"Lancing Steel fires an additional Projectile",
 		},
 	},
