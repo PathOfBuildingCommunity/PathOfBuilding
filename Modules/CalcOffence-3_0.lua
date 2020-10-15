@@ -331,7 +331,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Correct the tags on conversion with multipliers so they carry over correctly
-	local getConvertedModTags = function(mod, minionMods)
+	local getConvertedModTags = function(mod, multiplier, minionMods)
 		local modifiers = modLib.extractModTags(mod)
 		for k, value in ipairs(modifiers) do
 			if minionMods and value.type == "ActorCondition" and value.actor == "parent" then
@@ -349,7 +349,7 @@ function calcs.offence(env, actor, activeSkill)
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
 			if value.mod.name == "Damage" and value.mod.type == "INC" then
 				local mod = value.mod
-				local modifiers = getConvertedModTags(mod, true)
+				local modifiers = getConvertedModTags(mod, multiplier, true)
 				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
 			end
 		end
@@ -360,7 +360,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Minion Attack Speed conversion from Spiritual Command
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
 			if value.mod.name == "Speed" and value.mod.type == "INC" and (value.mod.flags == 0 or band(value.mod.flags, ModFlag.Attack) ~= 0) then
-				local modifiers = getConvertedModTags(value.mod, true)
+				local modifiers = getConvertedModTags(value.mod, multiplier, true)
 				skillModList:NewMod("Speed", "INC", value.mod.value * multiplier, value.mod.source, ModFlag.Attack, value.mod.keywordFlags, unpack(modifiers))
 			end
 		end
@@ -371,7 +371,7 @@ function calcs.offence(env, actor, activeSkill)
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Spell) ~= 0 then
-				local modifiers = getConvertedModTags(mod)
+				local modifiers = getConvertedModTags(mod, multiplier)
 				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(modifiers))
 			end
 		end
@@ -385,7 +385,7 @@ function calcs.offence(env, actor, activeSkill)
 			-- Add a new mod for all mods that are cast only
 			-- Replace this with a single mod for the sum?
 			if band(mod.flags, ModFlag.Cast) ~= 0 then
-				local modifiers = getConvertedModTags(mod)
+				local modifiers = getConvertedModTags(mod, multiplier)
 				skillModList:NewMod("Speed", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Cast)), ModFlag.Attack), mod.keywordFlags, unpack(modifiers))
 			end
 		end
