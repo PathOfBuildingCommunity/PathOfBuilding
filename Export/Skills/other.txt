@@ -301,6 +301,11 @@ local skills, mod, flag, skill = ...
 
 #skill SupportElementalPenetration Elemental Penetration
 	fromItem = true,
+	statMap = {
+		["reduce_enemy_elemental_resistance_%"] = {
+			mod("ElementalPenetration", "BASE", nil),
+		},
+	},
 #mods
 
 #skill OnHitWhileCursedTriggeredCurseNova
