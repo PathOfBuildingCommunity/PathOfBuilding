@@ -336,8 +336,11 @@ function calcs.offence(env, actor, activeSkill)
 		for k, value in ipairs(modifiers) do
 			if minionMods and value.type == "ActorCondition" and value.actor == "parent" then
 				modifiers[k] = { type = "Condition", var = value.var }
-			elseif value.type == "Multiplier" and value.limitTotal then
-				modifiers[k] = { type = "Multiplier", div = value.div, var = value.var, limitTotal = value.limitTotal, limit = value.limit * multiplier }
+			elseif value.limitTotal then
+				-- LimitTotal can apply to 'per stat' or 'multiplier', so just copy the whole and update the limit
+				local copy = copyTable(value)
+				copy.limit = copy.limit * multiplier
+				modifiers[k] = copy
 			end
 		end
 		return modifiers
