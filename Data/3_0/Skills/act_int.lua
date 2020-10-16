@@ -8848,6 +8848,31 @@ skills["StormBurstNew"] = {
 		skill("radius", 16),
 		skill("radiusSecondary", 22),
 	},
+	parts = {
+		{
+			name = "1 Orb Tick"
+		},
+		{
+			name = "Max Channelled Orbs"
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local duration = activeSkill.skillData.duration * output.DurationMod
+			-- duration * 10 / (jump * 10), instead of duration / jump to avoid floating point issues
+			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
+			activeSkill.skillData.dpsMultiplier = math.floor(duration * 10 / jumpPeriod)
+		end
+	end,
+	statMap = {
+		["storm_burst_zap_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 }),
+		},
+		["display_storm_burst_jump_time_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
