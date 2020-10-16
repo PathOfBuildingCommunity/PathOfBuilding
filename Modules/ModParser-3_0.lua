@@ -1664,6 +1664,25 @@ local specialModList = {
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed skill gems get a (%d+)%% mana multiplier"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("SupportManaMultiplier", "MORE", num - 100) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed gems have blood magic"] = { flag("SkillBloodMagic", { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["socketed gems have elemental equilibrium"] = function() 
+		--Currently hardcoded to what Elemental Equilibrium node is
+		return {
+			flag("ElementalEquilibrium"),
+			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", 25, { type = "Condition", var = "HitByFireDamage" }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", -50, { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", 25, { type = "Condition", var = "HitByColdDamage" }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", -50, { type = "Condition", var = "HitByColdDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" } }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", 25, { type = "Condition", var = "HitByLightningDamage" }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", -50, { type = "Condition", var = "HitByLightningDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" } }) }),
+		}
+	end,
+	["socketed gems have secrets of suffering"] = { 
+		flag("CannotIgnite", { type = "SocketedIn", slotName = "{SlotName}" }), 
+		flag("CannotChill", { type = "SocketedIn", slotName = "{SlotName}" }), 
+		flag("CannotFreeze", { type = "SocketedIn", slotName = "{SlotName}" }), 
+		flag("CannotShock", { type = "SocketedIn", slotName = "{SlotName}" }),
+		flag("CritAlwaysAltAilments", { type = "SocketedIn", slotName = "{SlotName}" })
+    },
 	["socketed skills deal double damage"] = { mod("ExtraSkillMod", "LIST", { mod = mod("DoubleDamageChance", "BASE", 100) }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength" }) } end,
