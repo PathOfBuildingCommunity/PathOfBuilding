@@ -72,10 +72,10 @@ skills["GemDetonateMines"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "mine_detonation_speed_+%", 0.05 },
+			{ "mine_detonation_speed_+%", 1 },
 		},
 		Alternate1 = {
-			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 0.05 },
+			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 1 },
 		},
 	},
 	stats = {
@@ -109,10 +109,10 @@ skills["Portal"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cast_speed_+%", 0.015 },
+			{ "base_cast_speed_+%", 3 },
 		},
 		Alternate1 = {
-			{ "portal_alternate_destination_chance_permyriad", 0.005 },
+			{ "portal_alternate_destination_chance_permyriad", 1 },
 		},
 	},
 	stats = {
