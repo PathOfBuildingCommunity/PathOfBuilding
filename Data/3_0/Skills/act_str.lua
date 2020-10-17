@@ -4529,6 +4529,9 @@ skills["FireImpurity"] = {
 		["hits_ignore_my_fire_resistance"] = {
 			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
+		["base_maximum_fire_damage_resistance_%"] = {
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,

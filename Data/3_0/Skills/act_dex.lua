@@ -5994,6 +5994,9 @@ skills["ColdImpurity"] = {
 		["hits_ignore_my_cold_resistance"] = {
 			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" }),
 		},
+		["base_maximum_cold_damage_resistance_%"] = {
+			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,

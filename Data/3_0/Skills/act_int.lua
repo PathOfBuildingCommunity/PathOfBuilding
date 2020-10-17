@@ -6675,6 +6675,9 @@ skills["Purity"] = {
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["reduce_enemy_elemental_resistance_%"] = {
+			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 		["avoid_all_elemental_status_%"] = {
 			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -6848,6 +6851,9 @@ skills["LightningImpurity"] = {
 	statMap = {
 		["hits_ignore_my_lightning_resistance"] = {
 			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
+		},
+		["base_maximum_lightning_damage_resistance_%"] = {
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -8839,15 +8845,6 @@ skills["StormBurstNew"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.Channelled] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
-	baseFlags = {
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	baseMods = {
-		skill("radius", 16),
-		skill("radiusSecondary", 22),
-	},
 	parts = {
 		{
 			name = "1 Orb Tick"
@@ -8872,6 +8869,15 @@ skills["StormBurstNew"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
 		}
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("radius", 16),
+		skill("radiusSecondary", 22),
 	},
 	qualityStats = {
 		Default = {
