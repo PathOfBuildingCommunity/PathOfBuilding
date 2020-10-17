@@ -72,10 +72,10 @@ skills["GemDetonateMines"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "mine_detonation_speed_+%", 0.05 },
+			{ "mine_detonation_speed_+%", 1 },
 		},
 		Alternate1 = {
-			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 0.05 },
+			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 1 },
 		},
 	},
 	stats = {
@@ -109,10 +109,10 @@ skills["Portal"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cast_speed_+%", 0.015 },
+			{ "base_cast_speed_+%", 3 },
 		},
 		Alternate1 = {
-			{ "portal_alternate_destination_chance_permyriad", 0.005 },
+			{ "portal_alternate_destination_chance_permyriad", 1 },
 		},
 	},
 	stats = {
@@ -382,6 +382,7 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -2851,5 +2852,31 @@ skills["VoidShot"] = {
 	},
 	levels = {
 		[20] = { 100, 50, 100, damageEffectiveness = 1.2, baseMultiplier = 1.2, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
+	},
+}
+skills["CreateFungalGroundOnKill"] = {
+	name = "Contaminate",
+	hidden = true,
+	color = 4,
+	description = "Creates a patch of Fungal Ground at the targeted location.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Type96] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		duration = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"chance_to_cast_on_kill_%",
+		"base_deal_no_damage",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[10] = { 100, levelRequirement = 1, duration = 5, cooldown = 1, statInterpolation = { 1, }, },
 	},
 }

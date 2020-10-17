@@ -3373,6 +3373,7 @@ skills["SupportBluntWeaponShockwave"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {

@@ -1010,7 +1010,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Area of Effect of Curses"
+					text="{0}% increased Area of Effect"
 				},
 				[2]={
 					[1]={
@@ -1023,7 +1023,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Area of Effect of Curses"
+					text="{0}% reduced Area of Effect"
 				}
 			}
 		},
@@ -1317,7 +1317,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ailments inflicted on Cursed Enemies deals Damage {0}% Faster"
+					text="Ailments inflicted on Cursed Enemies deal Damage {0}% Faster"
 				}
 			}
 		},

@@ -164,3 +164,13 @@ end
 function modLib.formatMod(mod)
 	return modLib.formatValue(mod.value) .. " = " .. modLib.formatModParams(mod)
 end
+
+function modLib.extractModTags(mod)
+	local modIndex = 1
+	local list = {}
+	while mod[modIndex] do
+		list[modIndex] = mod[modIndex]
+		modIndex = modIndex + 1
+	end
+	return list
+end

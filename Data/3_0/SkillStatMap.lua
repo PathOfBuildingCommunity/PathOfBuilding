@@ -359,6 +359,18 @@ return {
 ["base_avoid_stun_%"] = {
 	mod("AvoidStun", "BASE", nil),
 },
+["base_immune_to_shock"] = {
+	mod("AvoidShock", "BASE", 100),
+},
+["base_immune_to_chill"] = {
+	mod("AvoidChill", "BASE", 100),
+},
+["base_immune_to_freeze"] = {
+	mod("AvoidFreeze", "BASE", 100),
+},
+["base_immune_to_ignite"] = {
+	mod("AvoidIgnite", "BASE", 100),
+},
 ["avoid_interruption_while_using_this_skill_%"] = {
 	mod("AvoidInterruptStun", "BASE", nil)
 },
@@ -1419,7 +1431,7 @@ return {
 	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)})
 },
 -- Slam
-["empowered_attack_damage_+%"] = {
+["warcry_grant_damage_+%_to_exerted_attacks"] = {
 	mod("ExertIncrease", "INC", nil, ModFlag.Attack, 0)
 },
 -- Curse

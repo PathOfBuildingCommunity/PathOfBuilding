@@ -568,8 +568,8 @@ Requires Level 69, 154 Int
 Adds 1 to (60-80) Lightning Damage to Spells and Attacks
 (130-170)% increased Energy Shield
 +(25-35)% to Lightning Resistance
-{variant:1}10% chance to Curse Enemies with a random Curse on Hit
-{variant:2}20% chance to Curse non-Cursed Enemies with a random Curse on Hit
+{variant:1}10% chance to Curse non-Cursed Enemies with a random Hex on Hit
+{variant:2}20% chance to Curse non-Cursed Enemies with a random Hex on Hit
 {variant:1}5% chance to create Shocked Ground when Hit
 ]],
 -- Helmet: Armour/Evasion

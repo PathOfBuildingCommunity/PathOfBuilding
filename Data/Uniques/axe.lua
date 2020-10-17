@@ -24,7 +24,7 @@ Adds (5-15) to (20-25) Fire Damage
 +(15-25)% to Fire Resistance
 5% increased Movement Speed
 {variant:1}Curse Enemies with Flammability on Hit
-{variant:2}Curse Enemies with Level 10 Flammability on Hit
+{variant:2}Curse Enemies with Flammability on Hit, with 40% increased Effect
 ]],[[
 Dreadsurge
 Cleaver
@@ -183,16 +183,18 @@ Implicits: 1
 The Blood Reaper
 Headsman Axe
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.12.0
 Variant: Current
 Requires Level 45, 99 Str, 57 Dex
 {variant:1}(100-120)% increased Physical Damage
-{variant:2}(180-200)% increased Physical Damage
+{variant:2,3}(180-200)% increased Physical Damage
 +100 to maximum Life
-10.0 Life Regenerated per second
+{variant:1,2}Regenerate 10 Life per second
+{variant:3}Regenerate 20 Life per second
 1% of Physical Attack Damage Leeched as Life
 50% increased Mana Cost of Skills
 {variant:1}Causes Bleeding on Hit
-{variant:2}50% chance to cause Bleeding on Hit
+{variant:2,3}50% chance to cause Bleeding on Hit
 ]],[[
 Debeon's Dirge
 Despot Axe
@@ -359,7 +361,7 @@ Variant: Current
 Requires Level 49, 122 Str, 53 Dex
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
-25% chance to Curse Enemies with level 10 Vulnerability on Hit
+25% chance to Curse Enemies with Vulnerability on Hit, with 40% increased Effect
 {variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
 {variant:2}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
 ]],[[

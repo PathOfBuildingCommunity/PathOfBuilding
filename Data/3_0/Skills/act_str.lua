@@ -44,7 +44,7 @@ skills["AbyssalCry"] = {
 			{ "warcry_speed_+%", 2 },
 		},
 		Alternate2 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 		Alternate3 = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -932,7 +932,7 @@ skills["Bladestorm"] = {
 			mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 2 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance" }),
 		},
 		["bladestorm_attack_speed_+%_final_while_in_bloodstorm"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
 		},
 		["bladestorm_movement_speed_+%_while_in_sandstorm"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sandstorm", effectCond = "BladestormInSandstorm" }),
@@ -1873,7 +1873,8 @@ skills["Earthquake"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
 		},
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			-- mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil)
+			flag("SpellDamageAppliesToAttacks"),
+			mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil),
 		},
 	},
 	baseFlags = {
@@ -2206,7 +2207,7 @@ skills["EnduringCry"] = {
 	},
 	stats = {
 		"endurance_charge_granted_per_X_monster_power_during_endurance_warcry",
-		"regenerate_X_life_over_1_second_on_cast",
+		"regenerate_x_life_over_1_second_on_skill_use_or_trigger",
 		"resist_all_elements_%_per_endurance_charge",
 		"physical_damage_reduction_%_per_endurance_charge",
 		"warcry_speed_+%",
@@ -3533,12 +3534,43 @@ skills["InfernalBlow"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["infernal_blow_explosion_damage_%_of_total_per_stack"] = {
+			mod("DebuffEffect", "BASE", nil)
+		}
+	},
+	parts = {
+		{
+			name = "Melee Hit",
+			area = false
+		},
+		{
+			name = "Debuff Explosion - 1 Stack",
+			area = true
+		},
+		{
+			name = "Debuff Explosion - 6 Stacks",
+			area = true
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect")
+		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
+			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlow", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
+		end
+		if activeSkill.skillPart == 3 then
+			activeSkill.skillData.dpsMultiplier = 1 / 6
+		end
+	end,
 	baseFlags = {
 		attack = true,
 		melee = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 15),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DebuffStack", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		Default = {
@@ -3621,7 +3653,7 @@ skills["IntimidatingCry"] = {
 		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
 			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
-		["exerted_attacks_overwhelm_%_physical_damage_reduction"] = {
+		["warcry_grant_overwhelm_%_to_exerted_attacks"] = {
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
 		}
@@ -3642,10 +3674,10 @@ skills["IntimidatingCry"] = {
 			{ "warcry_speed_+%", 2 },
 		},
 		Alternate2 = {
-			{ "exerted_attacks_overwhelm_%_physical_damage_reduction", 0.5 },
+			{ "warcry_grant_overwhelm_%_to_exerted_attacks", 0.5 },
 		},
 		Alternate3 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 	},
 	stats = {
@@ -4497,10 +4529,10 @@ skills["FireImpurity"] = {
 		["hits_ignore_my_fire_resistance"] = {
 			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
-		["impurity_fire_damage_taken_+%_final"] = {
-			mod("FireDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["base_maximum_fire_damage_resistance_%"] = {
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-	},	
+	},
 	baseFlags = {
 		spell = true,
 		aura = true,
@@ -4611,7 +4643,7 @@ skills["RallyingCry"] = {
 			{ "rallying_cry_buff_effect_on_minions_+%_final", 2 },
 		},
 		Alternate3 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 	},
 	stats = {
@@ -4974,10 +5006,10 @@ skills["SeismicCry"] = {
 			{ "warcry_speed_+%", 2 },
 		},
 		Alternate2 = {
-			{ "exerted_attack_knockback_chance_%", 2 },
+			{ "warcry_grant_knockback_%_to_exerted_attacks", 2 },
 		},
 		Alternate3 = {
-			{ "empowered_attack_damage_+%", 0.5 },
+			{ "warcry_grant_damage_+%_to_exerted_attacks", 0.5 },
 		},
 	},
 	stats = {
@@ -5377,7 +5409,7 @@ skills["StaticStrike"] = {
 	},
 preDamageFunc = function(activeSkill, output)
 	if activeSkill.skillPart == 2 then
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency * ((activeSkill.skillData.repeatFrequencyIncrease or 0) + 1)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / ((activeSkill.skillData.repeatFrequencyIncrease or 0) + 1)
 	end
 end,
 	baseFlags = {
@@ -6409,6 +6441,10 @@ skills["WarlordsMark"] = {
 		},
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_rage_regeneration_on_stun"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 	baseFlags = {

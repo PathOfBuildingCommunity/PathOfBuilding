@@ -80,6 +80,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill RepeatingShockwave
@@ -687,5 +688,10 @@ local skills, mod, flag, skill = ...
 
 #skill VoidShot
 #flags attack projectile area
+	fromItem = true,
+#mods
+
+#skill CreateFungalGroundOnKill
+#flags duration area
 	fromItem = true,
 #mods
