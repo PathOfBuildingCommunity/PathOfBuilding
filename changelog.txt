@@ -1,3 +1,5 @@
+[1.4.170.16][2020/10/18]
+ * Fix error on updating with the 1.4.170.15 patch
 [1.4.170.15][2020/10/18]
  * Add performance improvements where PoB will no longer use excess CPU when in the background
  * Add distance and Cluster Notable sorting to the Power Report
