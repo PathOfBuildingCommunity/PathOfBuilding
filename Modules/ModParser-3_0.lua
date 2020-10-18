@@ -35,6 +35,7 @@ local conquerorList = {
 -- List of modifier forms
 local formList = {
 	["^(%d+)%% increased"] = "INC",
+	["^non%-vaal skills deal (%d+)%% increased"] = "INC",
 	["^(%d+)%% faster"] = "INC",
 	["^(%d+)%% reduced"] = "RED",
 	["^(%d+)%% slower"] = "RED",
