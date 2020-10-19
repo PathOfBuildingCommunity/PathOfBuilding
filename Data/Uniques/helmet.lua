@@ -664,7 +664,7 @@ Variant: Current
 Requires Level 23, 28 Str, 28 Dex
 {variant:1}+100 to Accuracy Rating
 {variant:2}+300 to Accuracy Rating
-{variant:2}+500 to Accuracy Rating
+{variant:3}+500 to Accuracy Rating
 (40-60)% increased Armour and Evasion
 (20-30)% increased Rarity of Items found
 +30% to Lightning Resistance
