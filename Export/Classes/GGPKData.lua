@@ -29,7 +29,7 @@ local function scanDir(directory, extension)
 	return t
 end
 
--- path can be in any format recognized by the extractor at oozPath, ie,
+-- Path can be in any format recognized by the extractor at oozPath, ie,
 -- a .ggpk file or a Steam Path of Exile directory
 local GGPKClass = newClass("GGPKData", function(self, path)
 	self.path = path
