@@ -1979,13 +1979,6 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
 
-		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
-			-- Update enemy hit-by-damage-type conditions
-			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
-			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
-			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
-		end
-
 		if breakdown then
 			-- For each damage type, calculate percentage of total damage
 			for _, damageType in ipairs(dmgTypeList) do

@@ -1315,15 +1315,8 @@ local specialModList = {
 	} end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
-		minus = tonumber(minus)
 		return {
 			flag("ElementalEquilibrium"),
-			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", plus, { type = "Condition", var = "HitByFireDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", minus, { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", plus, { type = "Condition", var = "HitByColdDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", minus, { type = "Condition", var = "HitByColdDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" } }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", plus, { type = "Condition", var = "HitByLightningDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", minus, { type = "Condition", var = "HitByLightningDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" } }) }),
 		}
 	end,
 	["projectile attack hits deal up to 30%% more damage to targets at the start of their movement, dealing less damage to targets as the projectile travels farther"] = { flag("PointBlank") },
@@ -1664,18 +1657,7 @@ local specialModList = {
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed skill gems get a (%d+)%% mana multiplier"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("SupportManaMultiplier", "MORE", num - 100) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed gems have blood magic"] = { flag("SkillBloodMagic", { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["socketed gems have elemental equilibrium"] = function() 
-		--Currently hardcoded to what Elemental Equilibrium node is
-		return {
-			flag("ElementalEquilibrium"),
-			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", 25, { type = "Condition", var = "HitByFireDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", -50, { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", 25, { type = "Condition", var = "HitByColdDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", -50, { type = "Condition", var = "HitByColdDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" } }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", 25, { type = "Condition", var = "HitByLightningDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", -50, { type = "Condition", var = "HitByLightningDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" } }) }),
-		}
-	end,
+	["socketed gems have elemental equilibrium"] = { flag("ElementalEquilibrium") },
 	["socketed gems have secrets of suffering"] = { 
 		flag("CannotIgnite", { type = "SocketedIn", slotName = "{SlotName}" }), 
 		flag("CannotChill", { type = "SocketedIn", slotName = "{SlotName}" }), 

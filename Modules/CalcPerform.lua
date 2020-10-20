@@ -404,6 +404,16 @@ local function doActorMisc(env, actor)
 	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
 		enemyDB:AddMod(value.mod)
 	end
+	
+	-- Add mods for Elemental Equilibrium if we have a source of EE
+	if modDB:Flag(nil, "ElementalEquilibrium") then
+		enemyDB:NewMod("FireResist", "BASE", 25, "Elemental Equilibrium", { type = "Condition", var = "HitByFireDamage" }) 
+		enemyDB:NewMod("FireResist", "BASE", -50, "Elemental Equilibrium", { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) 
+		enemyDB:NewMod("ColdResist", "BASE", 25, "Elemental Equilibrium", { type = "Condition", var = "HitByColdDamage" })
+		enemyDB:NewMod("ColdResist", "BASE", -50, "Elemental Equilibrium", { type = "Condition", var = "HitByColdDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" } }) 
+		enemyDB:NewMod("LightningResist", "BASE", 25, "Elemental Equilibrium", { type = "Condition", var = "HitByLightningDamage" })
+		enemyDB:NewMod("LightningResist", "BASE", -50, "Elemental Equilibrium", { type = "Condition", var = "HitByLightningDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" } }) 
+	end
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
