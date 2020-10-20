@@ -172,7 +172,25 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 			return actor.output[c] or ""
 		end
 	end)
-	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c) 
+	str = str:gsub("{s(%d+):output:([%a%.:]+)}", function(p, c)
+		local ns, var = c:match("^(%a+)%.(%a+)$")
+		if ns then
+			local s = self:FormatVal(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
+			if s:match("^-") then
+				return s
+			else
+				return "+"..s
+			end
+		else
+			local s = self:FormatVal(actor.output[c] or 0, tonumber(p))
+			if s:match("^-") then
+				return s
+			else
+				return "+"..s
+			end
+		end
+	end)
+	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c)
 		local ns, var = c:match("^(%a+)%.(%a+)$")
 		if ns then
 			return self:FormatVal(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))

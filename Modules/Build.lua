@@ -1165,7 +1165,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 					if (statData.resistOverCapStat) then
 						local resistOverCapStatVal = actor.output[statData.resistOverCapStat]
 						if (resistOverCapStatVal) then
-							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
+							resistOverCapStatLabel = (resistOverCapStatVal >= 0 and " ^7(+" or " ^7(")..self:FormatStat(statData, resistOverCapStatVal).."^7)"
 						end
 					end
 					if not (statData.hideStat) then
