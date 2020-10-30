@@ -10,8 +10,8 @@ targetVersions = {
 		latestTreeVersion = "2_6",
 	},
 	["3_0"] = {
-		short = "3.11",
-		long = "3.11 (Conquerors of the Atlas)",
+		short = "3.12",
+		long = "3.12 (Conquerors of the Atlas)",
 		treeVersionList = { "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12" },
 		defaultTreeVersion = "3_6",
 		latestTreeVersion = "3_12",
