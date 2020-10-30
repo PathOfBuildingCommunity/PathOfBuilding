@@ -924,7 +924,7 @@ You should create a backup copy of the build before proceeding.
 	main:OpenPopup(580, 200, "Game Version", controls, "convert", nil, "cancel")
 end
 
-function buildMode:OpenSavePopup(mode, newVersion)
+function buildMode:OpenSavePopup(mode)
 	local modeDesc = {
 		["LIST"] = "now?",
 		["EXIT"] = "before exiting?",
@@ -935,7 +935,6 @@ function buildMode:OpenSavePopup(mode, newVersion)
 	controls.save = new("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
 		main:ClosePopup()
 		self.actionOnSave = mode
-		self.versionOnSave = newVersion
 		self:SaveDBFile()
 	end)
 	controls.noSave = new("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
@@ -997,7 +996,6 @@ function buildMode:OpenSaveAsPopup()
 	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
-		self.versionOnSave = nil
 	end)
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
@@ -1330,10 +1328,6 @@ function buildMode:SaveDBFile()
 	if not self.dbFileName then
 		self:OpenSaveAsPopup()
 		return
-	end
-	if self.versionOnSave then
-		self.targetVersion = self.versionOnSave
-		self.versionOnSave = nil
 	end
 	local xmlText = self:SaveDB(self.dbFileName)
 	if not xmlText then
