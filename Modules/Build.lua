@@ -59,7 +59,7 @@ local PantheonMinorGodDropList = {
 
 local buildMode = new("ControlHost")
 
-function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
+function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
 	if dbFileName then
@@ -71,11 +71,31 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		main:SetMode("LIST")
 	end
 
-	if not dbFileName and not targetVersion and not buildXML then
-		targetVersion = liveTargetVersion
-		--self.targetVersion = nil
-		--self:OpenTargetVersionPopup(true)
-		--return
+	-- Load build file
+	self.xmlSectionList = { }
+	self.spectreList = { }
+	self.viewMode = "TREE"
+	if buildXML then
+		if self:LoadDB(buildXML, "Unnamed build") then
+			self:CloseBuild()
+			return
+		end
+		self.modFlag = true
+	else
+		if self:LoadDBFile() then
+			self:CloseBuild()
+			return
+		end
+		self.modFlag = false
+	end
+
+	if convertBuild then
+		self.targetVersion = liveTargetVersion
+	end
+	if self.targetVersion ~= liveTargetVersion then
+		self.targetVersion = nil
+		self:OpenConversionPopup()
+		return
 	end
 
 	self.abortSave = true
@@ -178,6 +198,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
+	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	self.controls.characterLevel.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.characterLevel) then
 			tooltip:AddLine(16, "Experience multiplier:")
@@ -243,7 +264,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "MineLayingTime", label = targetVersion == "2_6" and "Mine Laying Time" or "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "MineLayingTime", label = self.targetVersion == "2_6" and "Mine Laying Time" or "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
@@ -371,38 +392,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		"ActiveTotemLimit",
 		"ActiveMinionLimit",
 	}
-
-	self.viewMode = "TREE"
-
-	self.targetVersion = defaultTargetVersion
-	self.characterLevel = 1
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
-	self.banditNormal = "None"
-	self.banditCruel = "None"
-	self.banditMerciless = "None"
-	self.pantheonMajorGod = "None"
-	self.pantheonMinorGod = "None"
-	self.spectreList = { }
-
-	-- Load build file
-	self.xmlSectionList = { }
-	if buildXML then
-		if self:LoadDB(buildXML, "Unnamed build") then
-			self:CloseBuild()
-			return
-		end
-		self.modFlag = true
-	else
-		if self:LoadDBFile() then
-			self:CloseBuild()
-			return
-		end
-		self.modFlag = false
-	end
-
-	if targetVersion then
-		self.targetVersion = targetVersion
-	end
 	self.targetVersionData = targetVersions[self.targetVersion]
 
 	if buildName == "~~temp~~" then
@@ -718,7 +707,6 @@ function buildMode:Load(xml, fileName)
 		self.viewMode = xml.attrib.viewMode
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless","pantheonMajorGod","pantheonMinorGod"}) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
@@ -779,6 +767,7 @@ function buildMode:Save(xml)
 end
 
 function buildMode:OnFrame(inputEvents)
+	-- Stop at drawing the background if the loaded build needs to be converted
 	if not self.targetVersion then
 		main:DrawBackground(main.viewPort)
 		return
@@ -907,35 +896,32 @@ function buildMode:OnFrame(inputEvents)
 	self:DrawControls(main.viewPort)
 end
 
--- Opens the game version selection popup
-function buildMode:OpenTargetVersionPopup(initial)
+-- Opens the game version conversion popup
+function buildMode:OpenConversionPopup()
 	local controls = { }
-	local function setVersion(version)
-		if version == self.targetVersion then
-			main:ClosePopup()
-			return
-		end
-		if initial then
-			main:ClosePopup()
-			self:Shutdown()
-			self:Init(false, self.buildName, nil, version)
-		end
-	end
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Which game version will this build use?")
-	controls.version2_6 = new("ButtonControl", nil, -90, 50, 170, 20, "2.6 (Atlas of Worlds)", function()
-		setVersion("2_6")
-	end)
-	controls.version3_0 = new("ButtonControl", nil, 90, 50, 170, 20, "3.0 (Fall of Oriath)", function()
-		setVersion("3_0")
-	end)
-	controls.note = new("LabelControl", nil, 0, 80, 0, 14, "^7Tip: Existing builds can be converted between versions\nusing the 'Game Version' option in the Configuration tab.")
-	controls.cancel = new("ButtonControl", nil, 0, 120, 80, 20, "Cancel", function()
+	local currentVersion = targetVersions[liveTargetVersion].short
+	controls.note = new("LabelControl", nil, 0, 20, 0, 16, colorCodes.TIP..[[
+Info:^7 You are trying to load a build created for a version of Path of Exile that is
+not supported by us. You will have to convert it to the current game version to load it.
+To use a build newer than the current supported game version, you may have to update.
+To use a build older than the current supported game version, we recommend loading it
+in an older version of Path of Building Community instead.
+]])
+	controls.label = new("LabelControl", nil, 0, 110, 0, 16, colorCodes.WARNING..[[
+Warning:^7 Converting a build to a different game version may have side effects.
+For example, if the passive tree has changed, then some passives may be deallocated.
+You should create a backup copy of the build before proceeding.
+]])
+	controls.convert = new("ButtonControl", nil, -40, 170, 120, 20, "Convert to ".. currentVersion, function()
 		main:ClosePopup()
-		if initial then
-			self:CloseBuild()
-		end
+		self:Shutdown()
+		self:Init(self.dbFileName, self.buildName, nil, true)
 	end)
-	main:OpenPopup(370, 150, "Game Version", controls, nil, nil, "cancel")
+	controls.cancel = new("ButtonControl", nil, 60, 170, 70, 20, "Cancel", function()
+		main:ClosePopup()
+		self:CloseBuild()
+	end)
+	main:OpenPopup(580, 200, "Game Version", controls, "convert", nil, "cancel")
 end
 
 function buildMode:OpenSavePopup(mode, newVersion)
