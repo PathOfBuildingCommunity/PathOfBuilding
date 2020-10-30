@@ -141,7 +141,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportItemsClearSkills.tooltipText = "Delete all existing skills when importing."
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
 	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
-	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
+	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charDone = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
 		self.charImportMode = "GETACCOUNTNAME"
