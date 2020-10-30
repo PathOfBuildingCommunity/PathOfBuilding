@@ -929,7 +929,6 @@ function buildMode:OpenSavePopup(mode, newVersion)
 		["LIST"] = "now?",
 		["EXIT"] = "before exiting?",
 		["UPDATE"] = "before updating?",
-		["VERSION"] = "before converting?",
 	}
 	local controls = { }
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
@@ -947,9 +946,6 @@ function buildMode:OpenSavePopup(mode, newVersion)
 			Exit()
 		elseif mode == "UPDATE" then
 			launch:ApplyUpdate(launch.updateAvailable)
-		elseif mode == "VERSION" then
-			self:Shutdown()
-			self:Init(self.dbFileName, self.buildName, nil, newVersion)
 		end
 	end)
 	controls.close = new("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
@@ -1358,9 +1354,6 @@ function buildMode:SaveDBFile()
 		Exit()
 	elseif action == "UPDATE" then
 		launch:ApplyUpdate(launch.updateAvailable)
-	elseif action == "VERSION" then
-		self:Shutdown()
-		self:Init(self.dbFileName, self.buildName)
 	end
 end
 
