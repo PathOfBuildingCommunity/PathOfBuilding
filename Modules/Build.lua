@@ -170,7 +170,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 	self.controls.pointDisplay.width = function(control)
 		local used, ascUsed = self.spec:CountAllocNodes()
-		local usedMax = 99 + (self.targetVersion == "2_6" and 21 or 22) + (self.calcsTab.mainOutput.ExtraPoints or 0)
+		local usedMax = 99 + 22 + (self.calcsTab.mainOutput.ExtraPoints or 0)
 		local ascMax = 8
 		control.str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
 		control.req = "Required level: "..m_max(1, (100 + used - usedMax))
@@ -264,7 +264,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "MineLayingTime", label = self.targetVersion == "2_6" and "Mine Laying Time" or "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
@@ -494,8 +494,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
 		self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
 	end
-	local mainSkillPosY = (self.targetVersion == "2_6") and 95 or 155 -- The Pantheon's DropDown space
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, mainSkillPosY, 300, 16, "^7Main Skill:")
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 155, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
@@ -669,7 +668,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 end
 
 function buildMode:CanExit(mode)
-	if not self.targetVersion or not self.unsaved then
+	if not self.unsaved then
 		return true
 	end
 	self:OpenSavePopup(mode)
