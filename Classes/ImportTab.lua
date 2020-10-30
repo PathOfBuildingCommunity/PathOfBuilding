@@ -20,26 +20,12 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.build = build
 
-	self.charImportMode = build.targetVersion == liveTargetVersion and "GETACCOUNTNAME" or "VERSIONWARNING"
+	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
 	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 250, "Character Import")
-	self.controls.charImportVersionWarning = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 20, 0, 16, colorCodes.WARNING..[[
-Warning:^7 Characters may not import into this build correctly, 
-as the build's game version is different from the live game version.
-Some passives may be deallocated, and some gems may not be recognised.
-If possible, change the game version in the Configuration tab before importing.]])
-	self.controls.charImportVersionWarning.shown = function()
-		return self.charImportMode == "VERSIONWARNING"
-	end
-	self.controls.charImportVersionWarningGo = new("ButtonControl", {"TOPLEFT",self.controls.charImportVersionWarning,"TOPLEFT"}, 0, 70, 80, 20, "Continue", function()
-		self.charImportMode = "GETACCOUNTNAME"
-	end)
 	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
-	self.controls.charImportStatusLabel.shown = function()
-		return self.charImportMode ~= "VERSIONWARNING"
-	end
 
 	-- Stage: input account name
 	self.controls.accountNameHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "^7To start importing a character, enter the character's account name:")
