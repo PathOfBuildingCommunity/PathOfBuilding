@@ -57,6 +57,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.xmlSectionList = { }
 	self.spectreList = { }
 	self.viewMode = "TREE"
+	self.targetVersion = liveTargetVersion
+	self.characterLevel = 1
+	self.bandit = "None"
+	self.pantheonMajorGod = "None"
+	self.pantheonMinorGod = "None"
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
