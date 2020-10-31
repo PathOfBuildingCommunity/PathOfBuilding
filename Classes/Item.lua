@@ -892,12 +892,6 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		for _, value in ipairs(modList:List(nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
-		if self.targetVersion == "2_6" then
-			local accuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
-			if accuracyInc > 0 then
-				modList:NewMod("Accuracy", "MORE", accuracyInc, self.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
-			end
-		end
 		for _, mod in ipairs(modList) do
 			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
 			if (
@@ -907,7 +901,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack)
 			   ) and (mod.keywordFlags == 0 or mod.keywordFlags == KeywordFlag.Attack) and not mod[1] then
 				mod[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
-			elseif self.targetVersion ~= "2_6" and (mod.name == "PoisonChance" or mod.name == "BleedChance") and (not mod[1] or (mod[1].type == "Condition" and mod[1].var == "CriticalStrike" and not mod[2])) then
+			elseif (mod.name == "PoisonChance" or mod.name == "BleedChance") and (not mod[1] or (mod[1].type == "Condition" and mod[1].var == "CriticalStrike" and not mod[2])) then
 				t_insert(mod, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
 			end
 		end
