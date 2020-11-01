@@ -40,7 +40,7 @@ your maximum number of Crab Barriers
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
-Variant: {2_6}Pre 3.0.0
+Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
@@ -178,7 +178,7 @@ Deerskin Gloves
 League: Legion
 Source: Drops from Eternal Legion
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 21, 33 Dex
@@ -346,7 +346,7 @@ Gain 40% increased Area of Effect for 2 seconds after Spending a total of 800 Ma
 Sadima's Touch
 Wool Gloves
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 11
 Adds 4 to 8 Fire Damage to Attacks
@@ -359,7 +359,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 Voidbringer
 Conjurer Gloves
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 55, 79 Int
@@ -408,16 +408,13 @@ You have Crimson Dance while you have Cat's Stealth
 ]],[[
 Flesh and Spirit
 Ironscale Gauntlets
-Variant: {2_6}Pre 3.5.0
-Variant: Current
 League: Rampage
 Requires Level 15
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
 (3-4) Life Regenerated per second
 Recover 20% of your Maximum Life on Rampage
-{variant:1}Gain 5 Souls for Vaal Skills on Rampage
-{variant:2}Kills grant an additional Vaal Soul if you have Rampaged Recently
+Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage
 ]],[[
 Haemophilia
@@ -752,7 +749,7 @@ Strapped Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.5.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
@@ -811,7 +808,7 @@ Shadows and Dust
 Clasped Mitts
 League: Rampage
 Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 31, 25 Dex, 25 Int
 (20-30)% increased Global Critical Strike Chance
@@ -826,7 +823,7 @@ Rampage
 ]],[[
 Snakebite
 Assassin's Mitts
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 58, 45 Dex, 45 Int

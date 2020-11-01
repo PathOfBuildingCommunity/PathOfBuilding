@@ -6,7 +6,7 @@ return {
 Abyssus
 Ezomyte Burgonet
 Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 60, 138 Str
 Adds 40 to 60 Physical Damage to Attacks
@@ -155,7 +155,7 @@ Reflects 4 Physical Damage to Melee Attackers
 Heatshiver
 Leather Hood
 Upgrade: Upgrades to unique{Frostferno} via prophecy{A Vision of Ice and Fire}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 20, 46 Dex
 {variant:1}+1 to Level of Socketed Fire Gems
@@ -183,7 +183,7 @@ Socketed Gems are Supported by Level 30 Cold to Fire
 Obscurantis
 Lion Pelt
 Source: Drops from unique{Guardian of the Chimera}
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 70, 150 Dex
 {variant:1}+(300-500) to Accuracy Rating
@@ -306,18 +306,15 @@ Requires Level 54, 112 Int
 ]],[[
 Crown of Eyes
 Hubris Circlet
-Variant: {2_6}Pre 3.5.0
-Variant: Pre 3.9.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 69, 154 Int
-{variant:2}+(200-250) to Accuracy Rating
-{variant:3}+(300-350) to Accuracy Rating
+{variant:1}+(200-250) to Accuracy Rating
+{variant:2}+(300-350) to Accuracy Rating
 (120-150)% increased Energy Shield
 −30% to Fire Resistance
-{variant:1,2}(0.4-0.8)% of Physical Attack Damage Leeched as Life
-{variant:3}(0.4-0.8)% of Attack Damage Leeched as Life
-{variant:1,2}(0.2-0.4)% of Physical Attack Damage Leeched as Mana
-{variant:3}(0.2-0.4)% of Attack Damage Leeched as Mana
+(0.4-0.8)% of Attack Damage Leeched as Life
+(0.2-0.4)% of Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
 ]],[[
 Crown of Thorns
@@ -334,7 +331,7 @@ Pain Attunement
 Martyr's Crown
 Vine Circlet
 Source: Upgraded from unique{Crown of Thorns} using prophecy{Pleasure and Pain}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
@@ -383,17 +380,15 @@ Eldritch Battery
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 39, 83 Int
 {variant:1}+1 to Level of Socketed Curse Gems
-{variant:2,3}+2 to Level of Socketed Curse Gems
-{variant:2,3}+(100-120) to maximum Energy Shield
+{variant:2}+2 to Level of Socketed Curse Gems
+{variant:2}+(100-120) to maximum Energy Shield
 +(20-30) to Intelligence
 (30-50)% increased Curse Duration
 20% increased Elemental Damage
-{variant:1,2}(10-20)% increased Damage per Curse on Enemy
-{variant:3}(10-20)% increased Damage with Hits and Ailments per Curse on Enemy
+(10-20)% increased Damage with Hits and Ailments per Curse on Enemy
 ]],[[
 Eber's Unification
 Hubris Circlet
@@ -507,7 +502,7 @@ Spell Skills cannot deal Critical Strikes except on final Repeat
 Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 65, 138 Int
 {variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
@@ -588,7 +583,7 @@ The Bringer of Rain
 Nightmare Bascinet
 Variant: Pre 1.1.0
 Variant: Pre 1.3.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 67, 62 Str, 85 Dex
 Socketed Gems are Supported by level 18 Melee Physical Damage
@@ -717,7 +712,7 @@ Cannot be Frozen
 The Broken Crown
 Prophet Crown
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 63, 85 Str, 62 Int
 Socketed Gems are supported by level 20 Cast on Death
@@ -841,7 +836,7 @@ Recover (4-5)% of Life when a Spirit Charge expires or is consumed
 Malachai's Vision
 Praetor Crown
 Source: Use currency{Vaal Orb} on unique{Voll's Vision}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 62 Str, 91 Int
@@ -918,7 +913,7 @@ Gain Armour equal to your Reserved Mana
 ]],[[
 Mindspiral
 Aventail Helmet
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 37, 42 Str, 42 Int
 (10-15)% increased Cold Damage
@@ -1038,7 +1033,7 @@ The Gull
 Raven Mask
 League: Domination
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 38, 44 Dex, 44 Int
 {variant:2,3}Trigger level 1 Create Lesser Shrine when you Kill an Enemy
@@ -1056,7 +1051,7 @@ Requires Level 38, 44 Dex, 44 Int
 Heretic's Veil
 Deicide Mask
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield

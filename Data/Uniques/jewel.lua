@@ -30,13 +30,6 @@ Viridian Jewel
 Minions have (5-10)% increased Movement Speed
 Minions have (2-5)% additional chance to Dodge Attacks
 ]],[[
-Army of Bones
-Cobalt Jewel
-Variant: {2_6}Pre 3.0.0
-Minions deal (8-12)% increased Damage
-+2 to maximum number of Skeletons
-(10-20)% reduced Skeleton Duration
-]],[[
 The Blue Dream
 Cobalt Jewel
 League: Breach
@@ -232,7 +225,7 @@ Poison you inflict is Reflected to you
 Grand Spectrum
 Cobalt Jewel
 Limited to: 3
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 15 Mana per Grand Spectrum
@@ -242,7 +235,7 @@ Variant: Current
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 75 Armour per Grand Spectrum
@@ -253,7 +246,7 @@ Grand Spectrum
 Viridian Jewel
 Limited to: 3
 Variant: Pre 2.5.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
 {variant:1}5% increased Elemental Damage per Grand Spectrum
@@ -515,12 +508,10 @@ Totems Fire 2 additional Projectiles
 ]],[[
 Reckless Defence
 Cobalt Jewel
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
-{variant:1}20% of Block Chance applied to Spells
-{variant:2}+6% chance to Block Spell Damage
-{variant:3}+(2-4)% chance to Block Spell Damage
+{variant:1}+6% chance to Block Spell Damage
+{variant:2}+(2-4)% chance to Block Spell Damage
 (2-4)% chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
 ]],[[
@@ -685,12 +676,14 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 To Dust
 Cobalt Jewel
+Variant: Pre 3.0.0
 Variant: Current
-Minions deal (8-12)% increased Damage
 (10-20)% reduced Skeleton Duration
-(3-5)% increased Skeleton Movement Speed
-(7-10)% increased Skeleton Attack Speed
-(7-10)% increased Skeleton Cast speed
+Minions deal (8-12)% increased Damage
+{variant:1}2% increased Skeleton Attack Speed
+{variant:2}(7-10)% increased Skeleton Attack Speed
+{variant:2}(7-10)% increased Skeleton Cast speed
+{variant:2}(3-5)% increased Skeleton Movement Speed
 ]],[[
 Unnatural Instinct
 Viridian Jewel
@@ -1009,10 +1002,9 @@ cone has a 50% chance to deal Double Damage
 Dead Reckoning
 Cobalt Jewel
 Limited to: 1
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
-Limited to: 3
 Radius: Medium
 Minions have +(7-10)% to all Elemental Resistances
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
@@ -1060,14 +1052,13 @@ Speed per second
 Growing Agony
 Viridian Jewel
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Limited to: 1
 Radius: Medium
 {variant:1}(4-12)% increased Damage over Time
-{variant:2,3}(8-12)% increased Damage over Time
+{variant:2}(8-12)% increased Damage over Time
 With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
-{variant:2,3}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
+{variant:2}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
 ]],[[
 Hazardous Research
 Cobalt Jewel
@@ -1130,17 +1121,14 @@ Accuracy Rating while wielding a Sword
 ]],[[
 Omen on the Winds
 Viridian Jewel
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-{variant:1}(15-20)% increased Damage against Chilled Enemies
-{variant:2,3}(15-20)% increased Damage with Hits against Chilled Enemies
-{variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
-{variant:3}With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
+(15-20)% increased Damage with Hits against Chilled Enemies
 With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
-{variant:1}With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
+{variant:1}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
+{variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
 ]],[[
 Overwhelming Odds
 Crimson Jewel
@@ -1177,7 +1165,7 @@ Radius: Medium
 ]],[[
 Ring of Blades
 Viridian Jewel
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Limited to: 1
 Radius: Medium
@@ -1489,11 +1477,8 @@ Non-Channelling Skills have -9 to Total Mana Cost
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Limited to: 1
-{variant:1}3% chance to Avoid Elemental Status Ailments
-{variant:2}3% chance to Avoid Elemental Ailments
+3% chance to Avoid Elemental Ailments
 8% increased Life Recovery from Flasks
 2% chance to Dodge Attacks
 ]],[[
@@ -1506,11 +1491,8 @@ Limited to: 1
 ]],[[
 Poacher's Aim
 Viridian Jewel
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Limited to: 1
-{variant:1}15% chance of Projectiles Piercing
-{variant:2}Projectiles Pierce an additional Target
+Projectiles Pierce an additional Target
 10% increased Projectile Damage
 ]],[[
 Survival Instincts

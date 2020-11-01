@@ -261,12 +261,10 @@ function ItemClass:ParseRaw(raw)
 					if not self.variantList then
 						self.variantList = { }
 					end
+					-- This has to be kept for backwards compatibility
 					local ver, name = specVal:match("{([%w_]+)}(.+)")
 					if ver then
 						t_insert(self.variantList, name)
-						if ver == self.targetVersion then
-							self.defaultVariant = #self.variantList
-						end
 					else
 						t_insert(self.variantList, specVal)
 					end
@@ -506,12 +504,12 @@ function ItemClass:ParseRaw(raw)
 	end
 	self.abyssalSocketCount = 0
 	if self.variantList then
-		self.variant = m_min(#self.variantList, self.variant or self.defaultVariant or #self.variantList)
+		self.variant = m_min(#self.variantList, self.variant or #self.variantList)
 		if self.hasAltVariant then
-			self.variantAlt = m_min(#self.variantList, self.variantAlt or self.defaultVariant or #self.variantList)
+			self.variantAlt = m_min(#self.variantList, self.variantAlt or #self.variantList)
 		end
 		if self.hasAltVariant2 then
-			self.variantAlt2 = m_min(#self.variantList, self.variantAlt2 or self.defaultVariant or #self.variantList)
+			self.variantAlt2 = m_min(#self.variantList, self.variantAlt2 or #self.variantList)
 		end
 	end
 	if not self.quality then

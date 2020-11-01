@@ -2133,6 +2133,7 @@ local specialModList = {
 	["projectiles pierce (%d+) targets?"] = function(num) return { mod("PierceCount", "BASE", num) } end,
 	["projectiles pierce (%d+) additional targets?"] = function(num) return { mod("PierceCount", "BASE", num) } end,
 	["projectiles pierce (%d+) additional targets while you have phasing"] = function(num) return { mod("PierceCount", "BASE", num, { type = "Condition", var = "Phasing" }) } end,
+	["projectiles pierce all targets while you have phasing"] = { flag("PierceAllTargets", { type = "Condition", var = "Phasing" }) },
 	["arrows pierce an additional target"] = { mod("PierceCount", "BASE", 1, nil, ModFlag.Attack) },
 	["arrows pierce one target"] = { mod("PierceCount", "BASE", 1, nil, ModFlag.Attack) },
 	["arrows pierce (%d+) targets?"] = function(num) return { mod("PierceCount", "BASE", num, nil, ModFlag.Attack) } end,

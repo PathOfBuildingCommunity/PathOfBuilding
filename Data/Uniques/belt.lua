@@ -310,16 +310,13 @@ You have no Armour or Maximum Energy Shield
 Headhunter
 Leather Belt
 League: Nemesis
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 40
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_attribute}+(40-55) to Strength
 {tags:jewellery_attribute}+(40-55) to Dexterity
 {tags:life}+(50-60) to maximum Life
-{variant:1}(20-30)% increased Damage against Rare monsters
-{variant:2}(20-30)% increased Damage with Hits against Rare monsters
+(20-30)% increased Damage with Hits against Rare monsters
 When you Kill a Rare monster, you gain its mods for 20 seconds
 ]],[[
 Replica Headhunter
