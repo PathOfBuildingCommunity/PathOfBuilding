@@ -254,7 +254,7 @@ function calcs.initEnv(build, mode, override)
 	end
 
 	-- Add Pantheon mods
-	local parser = modLib.parseMod[build.targetVersion]
+	local parser = modLib.parseMod
 	-- Major Gods
 	if build.pantheonMajorGod ~= "None" then
 		local majorGod = env.data.pantheons[build.pantheonMajorGod]

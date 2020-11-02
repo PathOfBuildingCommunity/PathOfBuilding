@@ -25,7 +25,7 @@ LoadModule("Modules/PantheonTools")
 --[[if launch.devMode then
 	for skillName, skill in pairs(data["3_0"].enchantments.Helmet) do
 		for _, mod in ipairs(skill.ENDGAME) do
-			local modList, extra = modLib.parseMod["3_0"](mod)
+			local modList, extra = modLib.parseMod(mod)
 			if not modList or extra then
 				ConPrintf("%s: '%s' '%s'", skillName, mod, extra or "")
 			end
@@ -57,10 +57,8 @@ function main:Init()
 	if launch.devMode and IsKeyDown("CTRL") then
 		self.rebuildModCache = true
 	else
-		-- Load mod caches
-		for _, targetVersion in ipairs(targetVersionList) do
-			LoadModule("Data/"..targetVersion.."/ModCache", modLib.parseModCache[targetVersion])
-		end
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
 
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
@@ -113,9 +111,9 @@ function main:Init()
 
 	if self.rebuildModCache then
 		-- Update mod cache
-		local out = io.open("Data/"..liveTargetVersion.."/ModCache.lua", "w")
+		local out = io.open("Data/ModCache.lua", "w")
 		out:write('local c=...')
-		for line, dat in pairs(modLib.parseModCache[liveTargetVersion]) do
+		for line, dat in pairs(modLib.parseModCache) do
 			if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
 				out:write('c["', line:gsub("\n","\\n"), '"]={')
 				if dat[1] then

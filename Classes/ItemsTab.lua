@@ -1611,7 +1611,7 @@ function ItemsTabClass:CraftItem()
 		if base.base.implicit then
 			local implicitIndex = 1
 			for line in base.base.implicit:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.implicitModLines, { line = line, extra = extra, modList = modList or { }, modTags = base.base.implicitModTypes and base.base.implicitModTypes[implicitIndex] or { } })
 				implicitIndex = implicitIndex + 1
 			end

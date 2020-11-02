@@ -170,7 +170,7 @@ function ItemClass:ParseRaw(raw)
 	if self.base and self.base.flask and self.base.flask.buff then
 		for _, line in ipairs(self.base.flask.buff) do
 			flaskBuffLines[line] = true
-			local modList, extra = modLib.parseMod[self.targetVersion](line)
+			local modList, extra = modLib.parseMod(line)
 			t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
 		end
 	end
@@ -392,7 +392,7 @@ function ItemClass:ParseRaw(raw)
 				elseif catalystScalar ~= 1 then
 					rangedLine = itemLib.applyValueScalar(line, catalystScalar)
 				end
-				local modList, extra = modLib.parseMod[self.targetVersion](rangedLine or line)
+				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
 					local combLine = line.." "..self.rawLines[l+1]:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)","")
@@ -401,12 +401,12 @@ function ItemClass:ParseRaw(raw)
 					elseif catalystScalar ~= 1 then
 						rangedLine = itemLib.applyValueScalar(combLine, catalystScalar)
 					end
-					modList, extra = modLib.parseMod[self.targetVersion](rangedLine or combLine, true)
+					modList, extra = modLib.parseMod(rangedLine or combLine, true)
 					if modList and not extra then
 						line = line.."\n"..self.rawLines[l+1]
 						l = l + 1
 					else
-						modList, extra = modLib.parseMod[self.targetVersion](rangedLine or line)
+						modList, extra = modLib.parseMod(rangedLine or line)
 					end
 				end
 
@@ -1042,7 +1042,7 @@ function ItemClass:BuildModList()
 					-- Put the modified value into the string
 					local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
 					-- Check if we can parse it before adding the mods
-					local list, extra = modLib.parseMod[self.targetVersion](line)
+					local list, extra = modLib.parseMod(line)
 					if list and not extra then
 						modLine.modList = list
 						t_insert(self.rangeLineList, modLine)

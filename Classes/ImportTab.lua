@@ -687,7 +687,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.enchantMods then
 		for _, line in ipairs(itemData.enchantMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 			end
 		end
@@ -695,7 +695,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.implicitMods then
 		for _, line in ipairs(itemData.implicitMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
@@ -703,7 +703,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.fracturedMods then
 		for _, line in ipairs(itemData.fracturedMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
 			end
 		end
@@ -711,7 +711,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.explicitMods then
 		for _, line in ipairs(itemData.explicitMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
@@ -719,7 +719,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.craftedMods then
 		for _, line in ipairs(itemData.craftedMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 			end
 		end
@@ -741,7 +741,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 				end
 
 				-- If the line parses, then it should be included as an explicit mod
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				if modList then
 					t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
 				end

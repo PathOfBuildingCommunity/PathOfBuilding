@@ -467,7 +467,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				end
 			end
 			local line = node.sd[i]
-			local list, extra = modLib.parseMod[self.targetVersion](line)
+			local list, extra = modLib.parseMod(line)
 			if not list or extra then
 				-- Try to combine it with one or more of the lines that follow this one
 				local endI = i + 1
@@ -476,7 +476,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 					for ci = i + 1, endI do
 						comb = comb .. " " .. node.sd[ci]
 					end
-					list, extra = modLib.parseMod[self.targetVersion](comb, true)
+					list, extra = modLib.parseMod(comb, true)
 					if list and not extra then
 						-- Success, add dummy mod lists to the other lines that were combined with this one
 						for ci = i + 1, endI do
@@ -564,7 +564,7 @@ function PassiveTreeClass:ProcessNode(node)
 			end
 		end
 		local line = node.sd[i]
-		local list, extra = modLib.parseMod[self.targetVersion](line)
+		local list, extra = modLib.parseMod(line)
 		if not list or extra then
 			-- Try to combine it with one or more of the lines that follow this one
 			local endI = i + 1
@@ -573,7 +573,7 @@ function PassiveTreeClass:ProcessNode(node)
 				for ci = i + 1, endI do
 					comb = comb .. " " .. node.sd[ci]
 				end
-				list, extra = modLib.parseMod[self.targetVersion](comb, true)
+				list, extra = modLib.parseMod(comb, true)
 				if list and not extra then
 					-- Success, add dummy mod lists to the other lines that were combined with this one
 					for ci = i + 1, endI do
