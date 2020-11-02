@@ -153,7 +153,7 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			qualityStats = grantedEffect.qualityStats
 		end
 		for _, stat in ipairs(qualityStats) do
-			stats[stat[1]] = (stats[stat[1]] or 0) + m_floor(stat[2] * skillInstance.quality)
+			stats[stat[1]] = (stats[stat[1]] or 0) + math.modf(stat[2] * skillInstance.quality)
 		end
 	end
 	local level = grantedEffect.levels[skillInstance.level]
