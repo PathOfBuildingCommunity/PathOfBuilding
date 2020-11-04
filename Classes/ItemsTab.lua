@@ -736,7 +736,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 	self.itemSetOrderList = { }
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
-			local item = new("Item", self.build.targetVersion, "")
+			local item = new("Item", "")
 			item.id = tonumber(node.attrib.id)
 			item.variant = tonumber(node.attrib.variant)
 			if node.attrib.variantAlt then
@@ -1029,7 +1029,7 @@ function ItemsTabClass:EquipItemInSet(item, itemSetId)
 		slotName = slotName .. " Swap"
 	end
 	if not item.id or not self.items[item.id] then
-		item = new("Item", self.build.targetVersion, item.raw)
+		item = new("Item", item.raw)
 		self:AddItem(item, true)
 	end
 	local altSlot = slotName:gsub("1","2")
@@ -1211,7 +1211,7 @@ end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
-	local newItem = new("Item", self.build.targetVersion, itemRaw)
+	local newItem = new("Item", itemRaw)
 	if newItem.base then
 		if normalise then
 			newItem:NormaliseQuality()
@@ -1586,7 +1586,7 @@ end
 function ItemsTabClass:CraftItem()
 	local controls = { }
 	local function makeItem(base)
-		local item = new("Item", self.build.targetVersion)
+		local item = new("Item")
 		item.name = base.name
 		item.base = base.base
 		item.baseName = base.name
@@ -1689,12 +1689,12 @@ function ItemsTabClass:EditDisplayItemText()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = function()
-		local item = new("Item", self.build.targetVersion, buildRaw())
+		local item = new("Item", buildRaw())
 		return item.base ~= nil
 	end
 	controls.save.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		local item = new("Item", self.build.targetVersion, buildRaw())
+		local item = new("Item", buildRaw())
 		if item.base then
 			self:AddItemTooltip(tooltip, item, nil, true)
 		else
@@ -1764,7 +1764,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	buildLabyrinthList()
 	buildEnchantmentList()
 	local function enchantItem()
-		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
+		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		if #item.enchantModLines >= self.enchantSlot then
 			t_remove(item.enchantModLines, self.enchantSlot)
@@ -1840,7 +1840,7 @@ end
 ---@return table @The new item
 function ItemsTabClass:anointItem(node)
 	self.anointEnchantSlot = self.anointEnchantSlot or 1
-	local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
+	local item = new("Item", self.displayItem:BuildRaw())
 	item.id = self.displayItem.id
 	if #item.enchantModLines >= self.anointEnchantSlot then
 		t_remove(item.enchantModLines, self.anointEnchantSlot)
@@ -1965,7 +1965,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		control:SelByValue(selfMod, "mod")
 	end
 	local function corruptItem()
-		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
+		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
 		local newImplicit = { }
@@ -2095,7 +2095,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
 	local function addModifier()
-		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
+		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		local sourceId = sourceList[controls.source.selIndex].sourceId
 		if sourceId == "CUSTOM" then

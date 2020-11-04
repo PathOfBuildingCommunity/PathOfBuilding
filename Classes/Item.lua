@@ -47,8 +47,7 @@ end
 
 local influenceInfo = itemLib.influenceInfo
 
-local ItemClass = newClass("Item", function(self, targetVersion, raw)
-	self.targetVersion = targetVersion
+local ItemClass = newClass("Item", function(self, raw)
 	if raw then
 		self:ParseRaw(itemLib.sanitiseItemText(raw))
 	end	
@@ -64,7 +63,7 @@ end
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
 	self.raw = raw
-	local verData = data[self.targetVersion]
+	local verData = data[liveTargetVersion]
 	self.name = "?"
 	self.rarity = "UNIQUE"
 	self.quality = nil

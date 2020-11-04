@@ -79,7 +79,7 @@ function main:Init()
 		self.uniqueDB[targetVersion] = { list = { } }
 		for type, typeList in pairs(data.uniques) do
 			for _, raw in pairs(typeList) do
-				local newItem = new("Item", targetVersion, "Rarity: Unique\n"..raw)
+				local newItem = new("Item", "Rarity: Unique\n"..raw)
 				if newItem.base then
 					newItem:NormaliseQuality()
 					self.uniqueDB[targetVersion].list[newItem.name] = newItem
@@ -90,7 +90,7 @@ function main:Init()
 		end
 		self.rareDB[targetVersion] = { list = { } }
 		for _, raw in pairs(data[targetVersion].rares) do
-			local newItem = new("Item", targetVersion, "Rarity: Rare\n"..raw)
+			local newItem = new("Item", "Rarity: Rare\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
 				if newItem.crafted then
@@ -427,7 +427,7 @@ function main:LoadSettings()
 							end
 						end
 						for _, targetVersion in ipairs(targetVersionList) do			
-							verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
+							verItem[targetVersion] = new("Item", verItem.raw)
 						end
 						t_insert(self.sharedItemList, verItem)
 					elseif child.elem == "ItemSet" then
@@ -441,7 +441,7 @@ function main:LoadSettings()
 									end
 								end
 								for _, targetVersion in ipairs(targetVersionList) do			
-									verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
+									verItem[targetVersion] = new("Item", verItem.raw)
 								end
 								sharedItemSet.slots[grandChild.attrib.slotName] = verItem
 							end
