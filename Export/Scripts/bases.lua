@@ -46,6 +46,7 @@ directiveTable.base = function(state, args, out)
 		displayName = baseItemType.Name
 	end
 	displayName = displayName:gsub("\195\182","o")
+	displayName = displayName:gsub("^%s*(.-)%s*$", "%1") -- trim spaces GGG might leave in by accident
 	out:write('itemBases["', displayName, '"] = {\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then
