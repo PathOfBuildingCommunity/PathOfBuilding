@@ -6,18 +6,8 @@
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
-local t_remove = table.remove
 local m_max = math.max
-local m_min = math.min
 local m_floor = math.floor
-local band = bit.band
-
-local calcs = { }
-local sectionData = { } 
-for _, targetVersion in ipairs(targetVersionList) do
-	calcs[targetVersion] = LoadModule("Modules/Calcs")
-	sectionData[targetVersion] = LoadModule("Modules/CalcSections")
-end
 
 local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
@@ -33,7 +23,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 	self.build = build
 
-	self.calcs = calcs[build.targetVersion]
+	self.calcs = LoadModule("Modules/Calcs")
 
 	self.input = { }
 	self.input.skill_number = 1
@@ -141,7 +131,8 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	end)
 
 	-- Add sections from the CalcSections module
-	for _, section in ipairs(sectionData[build.targetVersion]) do
+	local sectionData = LoadModule("Modules/CalcSections")
+	for _, section in ipairs(sectionData) do
 		self:NewSection(unpack(section))
 	end
 
