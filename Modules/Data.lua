@@ -296,7 +296,7 @@ end
 dataModule("Misc", verData)
 
 -- Stat descriptions
-verData.describeStats = LoadModule("Modules/StatDescriber", targetVersion)
+verData.describeStats = LoadModule("Modules/StatDescriber")
 
 -- Load item modifiers
 verData.itemMods = {
