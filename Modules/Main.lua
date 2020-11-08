@@ -73,39 +73,35 @@ function main:Init()
 	end
 
 	ConPrintf("Loading item databases...")
-	self.uniqueDB = { }
-	self.rareDB = { }
-	for _, targetVersion in ipairs(targetVersionList) do
-		self.uniqueDB[targetVersion] = { list = { } }
-		for type, typeList in pairs(data.uniques) do
-			for _, raw in pairs(typeList) do
-				local newItem = new("Item", "Rarity: Unique\n"..raw)
-				if newItem.base then
-					newItem:NormaliseQuality()
-					self.uniqueDB[targetVersion].list[newItem.name] = newItem
-				elseif launch.devMode then
-					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
-				end
-			end
-		end
-		self.rareDB[targetVersion] = { list = { } }
-		for _, raw in pairs(data[targetVersion].rares) do
-			local newItem = new("Item", "Rarity: Rare\n"..raw)
+	self.uniqueDB = { list = { } }
+	for type, typeList in pairs(data.uniques) do
+		for _, raw in pairs(typeList) do
+			local newItem = new("Item", "Rarity: Unique\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
-				if newItem.crafted then
-					if newItem.base.implicit and #newItem.implicitModLines == 0 then
-						-- Automatically add implicit
-						for line in newItem.base.implicit:gmatch("[^\n]+") do
-							t_insert(newItem.implicitModLines, { line = line })
-						end
-					end
-					newItem:Craft()
-				end
-				self.rareDB[targetVersion].list[newItem.name] = newItem
+				self.uniqueDB.list[newItem.name] = newItem
 			elseif launch.devMode then
-				ConPrintf("Rare DB unrecognised item:\n%s", raw)
+				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 			end
+		end
+	end
+	self.rareDB = { list = { } }
+	for _, raw in pairs(data[liveTargetVersion].rares) do
+		local newItem = new("Item", "Rarity: Rare\n"..raw)
+		if newItem.base then
+			newItem:NormaliseQuality()
+			if newItem.crafted then
+				if newItem.base.implicit and #newItem.implicitModLines == 0 then
+					-- Automatically add implicit
+					for line in newItem.base.implicit:gmatch("[^\n]+") do
+						t_insert(newItem.implicitModLines, { line = line })
+					end
+				end
+				newItem:Craft()
+			end
+			self.rareDB.list[newItem.name] = newItem
+		elseif launch.devMode then
+			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
 	end
 
