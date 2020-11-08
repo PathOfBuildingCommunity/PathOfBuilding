@@ -290,36 +290,35 @@ local verData = setmetatable({ }, { __index = data })
 data[targetVersion] = verData
 
 -- Misc data tables
-LoadModule("Data/Misc", verData)
+LoadModule("Data/Misc", data)
 
 -- Stat descriptions
-verData.describeStats = LoadModule("Modules/StatDescriber")
+data.describeStats = LoadModule("Modules/StatDescriber")
 
 -- Load item modifiers
-verData.itemMods = {
+data.itemMods = {
 	Item = LoadModule("Data/ModItem"),
 	Flask = LoadModule("Data/ModFlask"),
 	Jewel = LoadModule("Data/ModJewel"),
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
 }
-verData.masterMods = LoadModule("Data/ModMaster")
-verData.enchantments = {
+data.masterMods = LoadModule("Data/ModMaster")
+data.enchantments = {
 	Helmet = LoadModule("Data/EnchantmentHelmet"),
 	Boots = LoadModule("Data/EnchantmentBoots"),
 	Gloves = LoadModule("Data/EnchantmentGloves"),
 }
-verData.essences = LoadModule("Data/Essence")
-verData.pantheons = LoadModule("Data/Pantheons")
-
+data.essences = LoadModule("Data/Essence")
+data.pantheons = LoadModule("Data/Pantheons")
 
 -- Cluster jewel data
-verData.clusterJewels = LoadModule("Data/ClusterJewels")
+data.clusterJewels = LoadModule("Data/ClusterJewels")
 
 -- Create a quick lookup cache from cluster jewel skill to the notables which use that skill
 ---@type table<string, table<string>>
 local clusterSkillToNotables = { }
-for notableKey, notableInfo in pairs(verData.itemMods.JewelCluster) do
+for notableKey, notableInfo in pairs(data.itemMods.JewelCluster) do
 	-- Translate the notable key to its name
 	local notableName = notableInfo[1] and notableInfo[1]:match("1 Added Passive Skill is (.*)")
 	if notableName then
@@ -335,18 +334,18 @@ for notableKey, notableInfo in pairs(verData.itemMods.JewelCluster) do
 end
 
 -- Create easy lookup from cluster node name -> cluster jewel size and types
-verData.clusterJewelInfoForNotable = { }
-for size, jewel in pairs(verData.clusterJewels.jewels) do
+data.clusterJewelInfoForNotable = { }
+for size, jewel in pairs(data.clusterJewels.jewels) do
 	for skill, skillInfo in pairs(jewel.skills) do
 		local notables = clusterSkillToNotables[skill]
 		if notables then
 			for _, notableKey in ipairs(notables) do
-				if not verData.clusterJewelInfoForNotable[notableKey] then
-					verData.clusterJewelInfoForNotable[notableKey] = { }
-					verData.clusterJewelInfoForNotable[notableKey].jewelTypes = { }
-					verData.clusterJewelInfoForNotable[notableKey].size = { }
+				if not data.clusterJewelInfoForNotable[notableKey] then
+					data.clusterJewelInfoForNotable[notableKey] = { }
+					data.clusterJewelInfoForNotable[notableKey].jewelTypes = { }
+					data.clusterJewelInfoForNotable[notableKey].size = { }
 				end
-				local curJewelInfo = verData.clusterJewelInfoForNotable[notableKey]
+				local curJewelInfo = data.clusterJewelInfoForNotable[notableKey]
 				curJewelInfo.size[size] = true
 				table.insert(curJewelInfo.jewelTypes, skill)
 			end
@@ -355,11 +354,11 @@ for size, jewel in pairs(verData.clusterJewels.jewels) do
 end
 
 -- Load skills
-verData.skills = { }
-verData.skillStatMap = LoadModule("Data/SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
-verData.skillStatMapMeta = {
+data.skills = { }
+data.skillStatMap = LoadModule("Data/SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
+data.skillStatMapMeta = {
 	__index = function(t, key)
-		local map = verData.skillStatMap[key]
+		local map = data.skillStatMap[key]
 		if map then
 			map = copyTable(map)
 			t[key] = map
@@ -371,9 +370,9 @@ verData.skillStatMapMeta = {
 	end
 }
 for _, type in pairs(skillTypes) do
-	LoadModule("Data/Skills/"..type, verData.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
+	LoadModule("Data/Skills/"..type, data.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 end
-for skillId, grantedEffect in pairs(verData.skills) do
+for skillId, grantedEffect in pairs(data.skills) do
 	grantedEffect.id = skillId
 	grantedEffect.modSource = "Skill:"..skillId
 	-- Add sources for skill mods, and check for global effects
@@ -390,7 +389,7 @@ for skillId, grantedEffect in pairs(verData.skills) do
 	end
 	-- Install stat map metatable
 	grantedEffect.statMap = grantedEffect.statMap or { }
-	setmetatable(grantedEffect.statMap, verData.skillStatMapMeta)
+	setmetatable(grantedEffect.statMap, data.skillStatMapMeta)
 	grantedEffect.statMap._grantedEffect = grantedEffect
 	for _, map in pairs(grantedEffect.statMap) do
 		for _, mod in ipairs(map) do
@@ -400,15 +399,15 @@ for skillId, grantedEffect in pairs(verData.skills) do
 end
 
 -- Load gems
-verData.gems = LoadModule("Data/Gems")
-verData.gemForSkill = { }
-verData.gemForBaseName = { }
-for gemId, gem in pairs(verData.gems) do
+data.gems = LoadModule("Data/Gems")
+data.gemForSkill = { }
+data.gemForBaseName = { }
+for gemId, gem in pairs(data.gems) do
 	gem.id = gemId
-	gem.grantedEffect = verData.skills[gem.grantedEffectId]
-	verData.gemForSkill[gem.grantedEffect] = gemId
-	verData.gemForBaseName[gem.name .. (gem.grantedEffect.support and " Support" or "")] = gemId
-	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and verData.skills[gem.secondaryGrantedEffectId]
+	gem.grantedEffect = data.skills[gem.grantedEffectId]
+	data.gemForSkill[gem.grantedEffect] = gemId
+	data.gemForBaseName[gem.name .. (gem.grantedEffect.support and " Support" or "")] = gemId
+	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and data.skills[gem.secondaryGrantedEffectId]
 	gem.grantedEffectList = {
 		gem.grantedEffect,
 		gem.secondaryGrantedEffect
@@ -417,18 +416,18 @@ for gemId, gem in pairs(verData.gems) do
 end
 
 -- Load minions
-verData.minions = { }
-LoadModule("Data/Minions", verData.minions, makeSkillMod)
-verData.spectres = { }
-LoadModule("Data/Spectres", verData.spectres, makeSkillMod)
-for name, spectre in pairs(verData.spectres) do
+data.minions = { }
+LoadModule("Data/Minions", data.minions, makeSkillMod)
+data.spectres = { }
+LoadModule("Data/Spectres", data.spectres, makeSkillMod)
+for name, spectre in pairs(data.spectres) do
 	spectre.limit = "ActiveSpectreLimit"
-	verData.minions[name] = spectre
+	data.minions[name] = spectre
 end
 local missing = { }
-for _, minion in pairs(verData.minions) do
+for _, minion in pairs(data.minions) do
 	for _, skillId in ipairs(minion.skillList) do
-		if launch.devMode and not verData.skills[skillId] and not missing[skillId] then
+		if launch.devMode and not data.skills[skillId] and not missing[skillId] then
 			ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
 			missing[skillId] = true
 		end
@@ -439,26 +438,26 @@ for _, minion in pairs(verData.minions) do
 end
 
 -- Item bases
-verData.itemBases = { }
+data.itemBases = { }
 for _, type in pairs(itemTypes) do
-	LoadModule("Data/Bases/"..type, verData.itemBases)
+	LoadModule("Data/Bases/"..type, data.itemBases)
 end
 
 -- Build lists of item bases, separated by type
-verData.itemBaseLists = { }
-for name, base in pairs(verData.itemBases) do
+data.itemBaseLists = { }
+for name, base in pairs(data.itemBases) do
 	if not base.hidden then
 		local type = base.type
 		if base.subType then
 			type = type .. ": " .. base.subType
 		end
-		verData.itemBaseLists[type] = verData.itemBaseLists[type] or { }
-		table.insert(verData.itemBaseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
+		data.itemBaseLists[type] = data.itemBaseLists[type] or { }
+		table.insert(data.itemBaseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
 	end
 end
-verData.itemBaseTypeList = { }
-for type, list in pairs(verData.itemBaseLists) do
-	table.insert(verData.itemBaseTypeList, type)
+data.itemBaseTypeList = { }
+for type, list in pairs(data.itemBaseLists) do
+	table.insert(data.itemBaseTypeList, type)
 	table.sort(list, function(a, b)
 		if a.base.req and b.base.req then
 			if a.base.req.level == b.base.req.level then
@@ -475,10 +474,10 @@ for type, list in pairs(verData.itemBaseLists) do
 		end
 	end)
 end
-table.sort(verData.itemBaseTypeList)
+table.sort(data.itemBaseTypeList)
 
 -- Rare templates
-verData.rares = LoadModule("Data/Rares")
+data.rares = LoadModule("Data/Rares")
 
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
