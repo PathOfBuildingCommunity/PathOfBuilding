@@ -399,7 +399,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	for nodeId, socket in pairs(self.sockets) do
 		socket.nodesInRadius = { }
 		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
+		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
 			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer

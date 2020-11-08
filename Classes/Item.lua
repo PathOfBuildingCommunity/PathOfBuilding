@@ -247,7 +247,7 @@ function ItemClass:ParseRaw(raw)
                         -- Jewel radius is variable and must be read from it's mods instead after they are parsed
                         deferJewelRadiusIndexAssignment = true
                     else
-                        for index, data in pairs(verData.jewelRadius) do
+                        for index, data in pairs(data.jewelRadius) do
                             if specVal:match("^%a+") == data.label then
                                 self.jewelRadiusIndex = index
                                 break
