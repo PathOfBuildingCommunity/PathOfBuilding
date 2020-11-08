@@ -10,7 +10,7 @@ local m_max = math.max
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
-	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", ifVer = "3_0", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=nil,label="Act 10 (-60%)"}} },
+	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=nil,label="Act 10 (-60%)"}} },
 	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and evade chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
 	{ var = "enemyHit", type = "count", label = "Enemy Hit Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet." },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse Life:", tooltip = "Sets the maximum life of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data["3_0"].monsterLifeTable[70].." base life, and a level 80 monster has "..data["3_0"].monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
@@ -227,9 +227,6 @@ return {
 		end
 	end },
 	{ label = "Raise Spectre:", ifSkill = "Raise Spectre" },
-	{ var = "raiseSpectreSpectreLevel", type = "count", label = "Spectre Level:", ifSkill = "Raise Spectre", ifVer = "2_6", tooltip = "Sets the level of the raised spectre.\nThe default level is the level requirement of the Raise Spectre skill.", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "minionLevel", value = val }, "Config", { type = "SkillName", skillName = "Raise Spectre" })
-	end },
 	{ var = "raiseSpectreEnableCurses", type = "check", label = "Enable curses:", ifSkill = "Raise Spectre", tooltip = "Enable any curse skills that your spectres have.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillType", skillType = SkillType.Hex }, { type = "SkillName", skillName = "Raise Spectre", summonSkill = true })
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillType", skillType = SkillType.Mark }, { type = "SkillName", skillName = "Raise Spectre", summonSkill = true })
@@ -441,7 +438,7 @@ return {
 	{ var = "playerCursedWithConductivity", type = "count", label = "Conductivity:", tooltip = "Sets the level of Conductivity to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Conductivity", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithDespair", type = "count", ifVer = "3_0", label = "Despair:", tooltip = "Sets the level of Despair to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithDespair", type = "count", label = "Despair:", tooltip = "Sets the level of Despair to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Despair", level = val, applyToPlayer = true })
 	end },
 	{ var = "playerCursedWithElementalWeakness", type = "count", label = "Elemental Weakness:", tooltip = "Sets the level of Elemental Weakness to apply to the player.\nIn mid tier maps, 'of Elemental Weakness' applies level 10.\nIn high tier maps, 'of Elemental Weakness' applies level 15.", apply = function(val, modList, enemyModList)
@@ -830,10 +827,7 @@ return {
 	{ var = "conditionStoppedTakingDamageOverTimeRecently", type = "check", label = "Have you stopped taking DoT recently?", ifCond = "StoppedTakingDamageOverTimeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:StoppedTakingDamageOverTimeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffPendulum", type = "check", ifVer = "2_6", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:PendulumOfDestruction", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "buffPendulum", type = "list", ifVer = "3_0", label = "Is Pendulum of Destruction active?", ifNode = 57197, list = {{val=0,label="None"},{val="AREA",label="Area of Effect"},{val="DAMAGE",label="Elemental Damage"}}, apply = function(val, modList, enemyModList)
+	{ var = "buffPendulum", type = "list", label = "Is Pendulum of Destruction active?", ifNode = 57197, list = {{val=0,label="None"},{val="AREA",label="Area of Effect"},{val="DAMAGE",label="Elemental Damage"}}, apply = function(val, modList, enemyModList)
 		if val == "AREA" then
 			modList:NewMod("Condition:PendulumOfDestructionAreaOfEffect", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		elseif val == "DAMAGE" then
@@ -955,26 +949,13 @@ return {
 		modList:NewMod("Multiplier:EnduranceChargesLostRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:LostEnduranceChargeInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", ifVer = "2_6", label = "Have you used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:UsedFireSkillInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionUsedColdSkillInPast10Sec", type = "check", ifVer = "2_6", label = "Have you used a Cold Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:UsedColdSkillInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionUsedLightningSkillInPast10Sec", type = "check", ifVer = "2_6", label = "Have you used a Light. Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:UsedLightningSkillInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionBlockedHitFromUniqueEnemyRecently", type = "check", ifVer = "2_6", label = "Blocked a Hit from a Unique enemy Recently?", ifNode = 63490, implyCond = "BlockedRecently", tooltip = "This also implies that you have Blocked Recently.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:BlockedHitFromUniqueEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Condition:BlockedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionBlockedHitFromUniqueEnemyInPast10Sec", type = "check", ifVer = "3_0", label = "Blocked a Hit from a Unique enemy in the past 10s?", ifNode = 63490, apply = function(val, modList, enemyModList)
+	{ var = "conditionBlockedHitFromUniqueEnemyInPast10Sec", type = "check", label = "Blocked a Hit from a Unique enemy in the past 10s?", ifNode = 63490, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedHitFromUniqueEnemyInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "BlockedPast10Sec", type = "count", label = "Number of times you've Blocked in the past 10s", ifNode = 63490, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:BlockedPast10Sec", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionImpaledRecently", type = "check", ifVer="3_0", ifCond = "ImpaledRecently", label = "Impaled an enemy recently?", apply = function(val, modList, enemyModLIst)
+	{ var = "conditionImpaledRecently", type = "check", ifCond = "ImpaledRecently", label = "Impaled an enemy recently?", apply = function(val, modList, enemyModLIst)
 		modList:NewMod("Condition:ImpaledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
@@ -987,7 +968,7 @@ return {
 	{ var = "multiplierFragileRegrowth", type = "count", label = "# of Fragile Regrowth Stacks:", ifMult = "FragileRegrowthCount", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FragileRegrowthCount", "BASE", m_min(val,10), "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionKilledUniqueEnemy", type = "check", ifVer = "3_0", label = "Killed a Rare or Unique enemy Recently?", ifNode = 3184, apply = function(val, modList, enemyModList)
+	{ var = "conditionKilledUniqueEnemy", type = "check", label = "Killed a Rare or Unique enemy Recently?", ifNode = 3184, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:KilledUniqueEnemy", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionHaveArborix", type = "check", label = "Do you have Iron Reflexes?", ifCond = "HaveArborix", tooltip = "This option is specific to Arborix.",apply = function(val, modList, enemyModList)
@@ -1121,13 +1102,10 @@ return {
 	{ var = "conditionEnemyLightningExposure", type = "check", label = "Is the enemy Exposed to Lightning?", ifFlag = "applyLightningExposure", tooltip = "This applies -10% Lightning Resistance to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("LightningExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyLightningExposure" })
 	end },
-	{ var = "conditionEnemyIntimidated", type = "check", ifVer = "2_6", label = "Is the enemy Intimidated?", tooltip = "This adds the following modifiers:\n10% increased Damage Taken by enemy", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate")
-	end },
-	{ var = "conditionEnemyIntimidated", type = "check", ifVer = "3_0", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate", ModFlag.Attack)
 	end },
-	{ var = "conditionEnemyUnnerved", type = "check", ifVer = "3_0", label = "Is the enemy Unnerved?", tooltip = "Unnerved enemies take 10% increased Spell Damage.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyUnnerved", type = "check", label = "Is the enemy Unnerved?", tooltip = "Unnerved enemies take 10% increased Spell Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Unnerve", ModFlag.Spell)
 	end },
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "Covered in Ash applies the following to the enemy:\n\t20% increased Fire Damage taken\n\t20% less Movement Speed", apply = function(val, modList, enemyModList)
@@ -1154,23 +1132,7 @@ return {
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "list", ifVer = "2_6", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n60% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n80% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance\n50% less Duration of Bleed\n50% less Duration of Poison\n50% less Duration of Ignite", list = {{val="NONE",label="No"},{val=true,label="Standard Boss"},{val="SHAPER",label="Shaper/Guardian"}}, apply = function(val, modList, enemyModList)
-		if val == true then
-			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -60, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 30, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 15, "Boss")
-		elseif val == "SHAPER" then
-			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -80, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
-			enemyModList:NewMod("SelfBleedDuration", "MORE", -50, "Boss")
-			enemyModList:NewMod("SelfPoisonDuration", "MORE", -50, "Boss")
-			enemyModList:NewMod("SelfIgniteDuration", "MORE", -50, "Boss")
-		end
-	end },
-	{ var = "enemyIsBoss", type = "list", ifVer = "3_0", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n\t33% less Effect of your Hexes\n\t+40% to enemy Elemental Resistances\n\t+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+33% to enemy Armour\n\nSirus adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+100% to enemy Armour", list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper/Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n\t33% less Effect of your Hexes\n\t+40% to enemy Elemental Resistances\n\t+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+33% to enemy Armour\n\nSirus adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+100% to enemy Armour", list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper/Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
 		if val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")

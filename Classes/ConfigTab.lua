@@ -42,7 +42,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			t_insert(self.sectionList, lastSection)
 			t_insert(self.controls, lastSection)
-		elseif not varData.ifVer or varData.ifVer == build.targetVersion then
+		else
 			local control
 			if varData.type == "check" then
 				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, nil, function(state)
@@ -362,7 +362,7 @@ function ConfigTabClass:BuildModList()
 	self.enemyModList = enemyModList
 	local input = self.input
 	for _, varData in ipairs(varList) do
-		if varData.apply and (not varData.ifVer or varData.ifVer == self.build.targetVersion) then
+		if varData.apply then
 			if varData.type == "check" then
 				if input[varData.var] then
 					varData.apply(true, modList, enemyModList, self.build)
