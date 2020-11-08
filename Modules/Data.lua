@@ -285,7 +285,7 @@ data.misc = { -- magic numbers
 -- Version-specific Data --
 ---------------------------
 
-for _, targetVersion in ipairs(targetVersionList) do
+for _, targetVersion in ipairs({ liveTargetVersion }) do
 	local verData = setmetatable({ }, { __index = data })
 	data[targetVersion] = verData
 	local function dataModule(mod, ...)
@@ -296,17 +296,15 @@ for _, targetVersion in ipairs(targetVersionList) do
 	dataModule("Misc", verData)
 
 	-- Stat descriptions
-	if targetVersion ~= "2_6" then
-		verData.describeStats = LoadModule("Modules/StatDescriber", targetVersion)
-	end
+	verData.describeStats = LoadModule("Modules/StatDescriber", targetVersion)
 
 	-- Load item modifiers
 	verData.itemMods = {
 		Item = dataModule("ModItem"),
 		Flask = dataModule("ModFlask"),
 		Jewel = dataModule("ModJewel"),
-		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
-		JewelCluster = targetVersion ~= "2_6" and dataModule("ModJewelCluster") or { },
+		JewelAbyss = dataModule("ModJewelAbyss"),
+		JewelCluster = dataModule("ModJewelCluster"),
 	}
 	verData.masterMods = dataModule("ModMaster")
 	verData.enchantments = {
@@ -315,47 +313,45 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Gloves = dataModule("EnchantmentGloves"),
 	}
 	verData.essences = dataModule("Essence")
-	verData.pantheons = targetVersion ~= "2_6" and dataModule("Pantheons") or { }
+	verData.pantheons = dataModule("Pantheons")
 	
 
 	-- Cluster jewel data
-	if targetVersion ~= "2_6" then	
-		verData.clusterJewels = dataModule("ClusterJewels")
+	verData.clusterJewels = dataModule("ClusterJewels")
 
-		-- Create a quick lookup cache from cluster jewel skill to the notables which use that skill
-		---@type table<string, table<string>>
-		local clusterSkillToNotables = { }
-		for notableKey, notableInfo in pairs(verData.itemMods.JewelCluster) do
-			-- Translate the notable key to its name
-			local notableName = notableInfo[1] and notableInfo[1]:match("1 Added Passive Skill is (.*)")
-			if notableName then
-				for weightIndex, clusterSkill in pairs(notableInfo.weightKey) do
-					if notableInfo.weightVal[weightIndex] > 0 then
-						if not clusterSkillToNotables[clusterSkill] then
-							clusterSkillToNotables[clusterSkill] = { }
-						end
-						table.insert(clusterSkillToNotables[clusterSkill], notableName)
+	-- Create a quick lookup cache from cluster jewel skill to the notables which use that skill
+	---@type table<string, table<string>>
+	local clusterSkillToNotables = { }
+	for notableKey, notableInfo in pairs(verData.itemMods.JewelCluster) do
+		-- Translate the notable key to its name
+		local notableName = notableInfo[1] and notableInfo[1]:match("1 Added Passive Skill is (.*)")
+		if notableName then
+			for weightIndex, clusterSkill in pairs(notableInfo.weightKey) do
+				if notableInfo.weightVal[weightIndex] > 0 then
+					if not clusterSkillToNotables[clusterSkill] then
+						clusterSkillToNotables[clusterSkill] = { }
 					end
+					table.insert(clusterSkillToNotables[clusterSkill], notableName)
 				end
 			end
 		end
+	end
 
-		-- Create easy lookup from cluster node name -> cluster jewel size and types
-		verData.clusterJewelInfoForNotable = { }
-		for size, jewel in pairs(verData.clusterJewels.jewels) do
-			for skill, skillInfo in pairs(jewel.skills) do
-				local notables = clusterSkillToNotables[skill]
-				if notables then
-					for _, notableKey in ipairs(notables) do
-						if not verData.clusterJewelInfoForNotable[notableKey] then
-							verData.clusterJewelInfoForNotable[notableKey] = { }
-							verData.clusterJewelInfoForNotable[notableKey].jewelTypes = { }
-							verData.clusterJewelInfoForNotable[notableKey].size = { }
-						end
-						local curJewelInfo = verData.clusterJewelInfoForNotable[notableKey]
-						curJewelInfo.size[size] = true
-						table.insert(curJewelInfo.jewelTypes, skill)
+	-- Create easy lookup from cluster node name -> cluster jewel size and types
+	verData.clusterJewelInfoForNotable = { }
+	for size, jewel in pairs(verData.clusterJewels.jewels) do
+		for skill, skillInfo in pairs(jewel.skills) do
+			local notables = clusterSkillToNotables[skill]
+			if notables then
+				for _, notableKey in ipairs(notables) do
+					if not verData.clusterJewelInfoForNotable[notableKey] then
+						verData.clusterJewelInfoForNotable[notableKey] = { }
+						verData.clusterJewelInfoForNotable[notableKey].jewelTypes = { }
+						verData.clusterJewelInfoForNotable[notableKey].size = { }
 					end
+					local curJewelInfo = verData.clusterJewelInfoForNotable[notableKey]
+					curJewelInfo.size[size] = true
+					table.insert(curJewelInfo.jewelTypes, skill)
 				end
 			end
 		end
