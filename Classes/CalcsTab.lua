@@ -16,7 +16,7 @@ local calcs = { }
 local sectionData = { } 
 for _, targetVersion in ipairs(targetVersionList) do
 	calcs[targetVersion] = LoadModule("Modules/Calcs")
-	sectionData[targetVersion] = LoadModule("Modules/CalcSections-"..targetVersion)
+	sectionData[targetVersion] = LoadModule("Modules/CalcSections")
 end
 
 local buffModeDropList = {
