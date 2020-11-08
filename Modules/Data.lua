@@ -288,36 +288,33 @@ data.misc = { -- magic numbers
 local targetVersion = liveTargetVersion
 local verData = setmetatable({ }, { __index = data })
 data[targetVersion] = verData
-local function dataModule(mod, ...)
-	return LoadModule("Data/"..targetVersion.."/"..mod, ...)
-end
 
 -- Misc data tables
-dataModule("Misc", verData)
+LoadModule("Data/Misc", verData)
 
 -- Stat descriptions
 verData.describeStats = LoadModule("Modules/StatDescriber")
 
 -- Load item modifiers
 verData.itemMods = {
-	Item = dataModule("ModItem"),
-	Flask = dataModule("ModFlask"),
-	Jewel = dataModule("ModJewel"),
-	JewelAbyss = dataModule("ModJewelAbyss"),
-	JewelCluster = dataModule("ModJewelCluster"),
+	Item = LoadModule("Data/ModItem"),
+	Flask = LoadModule("Data/ModFlask"),
+	Jewel = LoadModule("Data/ModJewel"),
+	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
+	JewelCluster = LoadModule("Data/ModJewelCluster"),
 }
-verData.masterMods = dataModule("ModMaster")
+verData.masterMods = LoadModule("Data/ModMaster")
 verData.enchantments = {
-	Helmet = dataModule("EnchantmentHelmet"),
-	Boots = dataModule("EnchantmentBoots"),
-	Gloves = dataModule("EnchantmentGloves"),
+	Helmet = LoadModule("Data/EnchantmentHelmet"),
+	Boots = LoadModule("Data/EnchantmentBoots"),
+	Gloves = LoadModule("Data/EnchantmentGloves"),
 }
-verData.essences = dataModule("Essence")
-verData.pantheons = dataModule("Pantheons")
+verData.essences = LoadModule("Data/Essence")
+verData.pantheons = LoadModule("Data/Pantheons")
 
 
 -- Cluster jewel data
-verData.clusterJewels = dataModule("ClusterJewels")
+verData.clusterJewels = LoadModule("Data/ClusterJewels")
 
 -- Create a quick lookup cache from cluster jewel skill to the notables which use that skill
 ---@type table<string, table<string>>
@@ -359,7 +356,7 @@ end
 
 -- Load skills
 verData.skills = { }
-verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
+verData.skillStatMap = LoadModule("Data/SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
 verData.skillStatMapMeta = {
 	__index = function(t, key)
 		local map = verData.skillStatMap[key]
@@ -374,7 +371,7 @@ verData.skillStatMapMeta = {
 	end
 }
 for _, type in pairs(skillTypes) do
-	dataModule("Skills/"..type, verData.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
+	LoadModule("Data/Skills/"..type, verData.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 end
 for skillId, grantedEffect in pairs(verData.skills) do
 	grantedEffect.id = skillId
@@ -403,7 +400,7 @@ for skillId, grantedEffect in pairs(verData.skills) do
 end
 
 -- Load gems
-verData.gems = dataModule("Gems")
+verData.gems = LoadModule("Data/Gems")
 verData.gemForSkill = { }
 verData.gemForBaseName = { }
 for gemId, gem in pairs(verData.gems) do
@@ -421,9 +418,9 @@ end
 
 -- Load minions
 verData.minions = { }
-dataModule("Minions", verData.minions, makeSkillMod)
+LoadModule("Data/Minions", verData.minions, makeSkillMod)
 verData.spectres = { }
-dataModule("Spectres", verData.spectres, makeSkillMod)
+LoadModule("Data/Spectres", verData.spectres, makeSkillMod)
 for name, spectre in pairs(verData.spectres) do
 	spectre.limit = "ActiveSpectreLimit"
 	verData.minions[name] = spectre
@@ -444,7 +441,7 @@ end
 -- Item bases
 verData.itemBases = { }
 for _, type in pairs(itemTypes) do
-	dataModule("Bases/"..type, verData.itemBases)
+	LoadModule("Data/Bases/"..type, verData.itemBases)
 end
 
 -- Build lists of item bases, separated by type
@@ -481,7 +478,7 @@ end
 table.sort(verData.itemBaseTypeList)
 
 -- Rare templates
-verData.rares = dataModule("Rares")
+verData.rares = LoadModule("Data/Rares")
 
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
