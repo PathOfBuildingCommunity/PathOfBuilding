@@ -15,7 +15,7 @@ local band = bit.band
 local calcs = { }
 local sectionData = { } 
 for _, targetVersion in ipairs(targetVersionList) do
-	calcs[targetVersion] = LoadModule("Modules/Calcs", targetVersion)
+	calcs[targetVersion] = LoadModule("Modules/Calcs")
 	sectionData[targetVersion] = LoadModule("Modules/CalcSections-"..targetVersion)
 end
 
