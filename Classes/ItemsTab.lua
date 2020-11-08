@@ -2082,10 +2082,8 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		end
 	end
-	if (self.build.targetVersion ~= "2_6" and self.displayItem.base.subType ~= "Abyss") or (self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask") then
-		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
-	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
 	end
 	if not self.displayItem.crafted then
@@ -2429,9 +2427,6 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.base.flask.life or item.base.flask.mana then
 			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
 			local instantPerc = flaskData.instantPerc
-			if self.build.targetVersion == "2_6" and instantPerc > 0 then
-				instantPerc = m_min(instantPerc + effectInc, 100)
-			end
 			if item.base.flask.life then
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
