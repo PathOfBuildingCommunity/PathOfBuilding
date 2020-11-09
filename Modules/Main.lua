@@ -86,7 +86,7 @@ function main:Init()
 		end
 	end
 	self.rareDB = { list = { } }
-	for _, raw in pairs(data[liveTargetVersion].rares) do
+	for _, raw in pairs(data.rares) do
 		local newItem = new("Item", "Rarity: Rare\n"..raw)
 		if newItem.base then
 			newItem:NormaliseQuality()
@@ -416,30 +416,26 @@ function main:LoadSettings()
 			elseif node.elem == "SharedItems" then
 				for _, child in ipairs(node) do
 					if child.elem == "Item" then
-						local verItem = { raw = "" }
+						local rawItem = { raw = "" }
 						for _, subChild in ipairs(child) do
 							if type(subChild) == "string" then
-								verItem.raw = subChild
+								rawItem.raw = subChild
 							end
 						end
-						for _, targetVersion in ipairs(targetVersionList) do			
-							verItem[targetVersion] = new("Item", verItem.raw)
-						end
-						t_insert(self.sharedItemList, verItem)
+						local newItem = new("Item", rawItem.raw)
+						t_insert(self.sharedItemList, newItem)
 					elseif child.elem == "ItemSet" then
 						local sharedItemSet = { title = child.attrib.title, slots = { } }
 						for _, grandChild in ipairs(child) do
 							if grandChild.elem == "Item" then
-								local verItem = { raw = "" }
+								local rawItem = { raw = "" }
 								for _, subChild in ipairs(grandChild) do
 									if type(subChild) == "string" then
-										verItem.raw = subChild
+										rawItem.raw = subChild
 									end
 								end
-								for _, targetVersion in ipairs(targetVersionList) do			
-									verItem[targetVersion] = new("Item", verItem.raw)
-								end
-								sharedItemSet.slots[grandChild.attrib.slotName] = verItem
+								local newItem = new("Item", rawItem.raw)
+								sharedItemSet.slots[grandChild.attrib.slotName] = newItem
 							end
 						end
 						t_insert(self.sharedItemSetList, sharedItemSet)

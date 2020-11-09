@@ -55,7 +55,7 @@ function SharedItemSetListClass:AddValueTooltip(tooltip, index, sharedItemSet)
 	for _, slot in ipairs(self.itemsTab.orderedSlots) do
 		if not slot.nodeId then
 			local slotName = slot.slotName
-			local item = sharedItemSet.slots[slotName] and sharedItemSet.slots[slotName][self.itemsTab.build.targetVersion]
+			local item = sharedItemSet.slots[slotName]
 			if item then
 				tooltip:AddLine(16, s_format("^7%s: %s%s", self.itemsTab.slots[slotName].label, colorCodes[item.rarity], item.name))
 			end
@@ -81,15 +81,12 @@ function SharedItemSetListClass:ReceiveDrag(type, value, source)
 				end
 				if slot.selItemId ~= 0 then
 					local item = self.itemsTab.items[slot.selItemId]
-					local verItem = { raw = item:BuildRaw() }
-					for _, targetVersion in ipairs(targetVersionList) do
-						local newItem = new("Item", verItem.raw)
-						if not value.id then
-							newItem:NormaliseQuality()
-						end
-						verItem[targetVersion] = newItem
+					local rawItem = { raw = item:BuildRaw() }
+					local newItem = new("Item", rawItem.raw)
+					if not value.id then
+						newItem:NormaliseQuality()
 					end
-					sharedItemList.slots[slotName] = verItem
+					sharedItemList.slots[slotName] = newItem
 				end
 			end
 		end

@@ -1267,7 +1267,7 @@ end
 local gemIdLookup = {
 	["power charge on critical strike"] = "SupportPowerChargeOnCrit",
 }
-for name, grantedEffect in pairs(data["3_0"].skills) do
+for name, grantedEffect in pairs(data.skills) do
 	if not grantedEffect.hidden or grantedEffect.fromItem then
 		gemIdLookup[grantedEffect.name:lower()] = grantedEffect.id
 	end
@@ -2697,7 +2697,7 @@ local skillNameList = {
 	[" corpse cremation " ] = { tag = { type = "SkillName", skillName = "Cremation" } }, -- Sigh.
 }
 local preSkillNameList = { }
-for gemId, gemData in pairs(data["3_0"].gems) do
+for gemId, gemData in pairs(data.gems) do
 	local grantedEffect = gemData.grantedEffect
 	if not grantedEffect.hidden and not grantedEffect.support then
 		local skillName = grantedEffect.name
@@ -3034,15 +3034,15 @@ end
 
 -- Generate list of cluster jewel skills
 local clusterJewelSkills = {}
-for baseName, jewel in pairs(data["3_0"].clusterJewels.jewels) do
+for baseName, jewel in pairs(data.clusterJewels.jewels) do
 	for skillId, skill in pairs(jewel.skills) do
 		clusterJewelSkills[table.concat(skill.enchant, " "):lower()] = { mod("JewelData", "LIST", { key = "clusterJewelSkill", value = skillId }) }
 	end
 end
-for notable in pairs(data["3_0"].clusterJewels.notableSortOrder) do
+for notable in pairs(data.clusterJewels.notableSortOrder) do
 	clusterJewelSkills["1 added passive skill is "..notable:lower()] = { mod("ClusterJewelNotable", "LIST", notable) }
 end
-for _, keystone in ipairs(data["3_0"].clusterJewels.keystones) do
+for _, keystone in ipairs(data.clusterJewels.keystones) do
 	clusterJewelSkills["adds "..keystone:lower()] = { mod("JewelData", "LIST", { key = "clusterJewelKeystone", value = keystone }) }
 end
 

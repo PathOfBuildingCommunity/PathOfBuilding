@@ -545,7 +545,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 
 	-- Initialise build components
-	self.data = data[self.targetVersion]
+	self.data = data
 	self.latestTree = main.tree[self.targetVersionData.latestTreeVersion]
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
@@ -668,7 +668,7 @@ function buildMode:CloseBuild()
 end
 
 function buildMode:Load(xml, fileName)
-	self.targetVersion = data[xml.attrib.targetVersion] and xml.attrib.targetVersion or defaultTargetVersion
+	self.targetVersion = xml.attrib.targetVersion or defaultTargetVersion
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
 	end
@@ -680,7 +680,7 @@ function buildMode:Load(xml, fileName)
 	wipeTable(self.spectreList)
 	for _, child in ipairs(xml) do
 		if child.elem == "Spectre" then
-			if child.attrib.id and data[self.targetVersion].minions[child.attrib.id] then
+			if child.attrib.id and data.minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
 		end

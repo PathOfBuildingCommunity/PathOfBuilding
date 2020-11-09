@@ -63,7 +63,7 @@ end
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
 	self.raw = raw
-	local verData = data[liveTargetVersion]
+	local verData = data
 	self.name = "?"
 	self.rarity = "UNIQUE"
 	self.quality = nil

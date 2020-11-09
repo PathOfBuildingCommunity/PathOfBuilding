@@ -281,14 +281,6 @@ data.misc = { -- magic numbers
 	PurposefulHarbingerMaxBuffPercent = 40,
 }
 
----------------------------
--- Version-specific Data --
----------------------------
-
-local targetVersion = liveTargetVersion
-local verData = setmetatable({ }, { __index = data })
-data[targetVersion] = verData
-
 -- Misc data tables
 LoadModule("Data/Misc", data)
 
