@@ -63,7 +63,7 @@ end
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
 	self.raw = raw
-	local verData = data
+	local data = data
 	self.name = "?"
 	self.rarity = "UNIQUE"
 	self.quality = nil
@@ -102,7 +102,7 @@ function ItemClass:ParseRaw(raw)
 	self.namePrefix = ""
 	self.nameSuffix = ""
 	if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
-		for baseName, baseData in pairs(verData.itemBases) do
+		for baseName, baseData in pairs(data.itemBases) do
 			local s, e = self.name:find(baseName, 1, true)
 			if s then
 				self.baseName = baseName
@@ -128,15 +128,15 @@ function ItemClass:ParseRaw(raw)
 			self.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
 		end
 		local baseName = self.rawLines[l]:gsub("Synthesised ","")
-		if verData.itemBases[baseName] then
+		if data.itemBases[baseName] then
 			self.baseName = baseName
 			self.title = self.name
 			self.name = self.title .. ", " .. baseName:gsub(" %(.+%)","")
-			self.type = verData.itemBases[baseName].type
+			self.type = data.itemBases[baseName].type
 			l = l + 1
 		end
 	end
-	self.base = verData.itemBases[self.baseName]
+	self.base = data.itemBases[self.baseName]
 	self.sockets = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
@@ -144,14 +144,14 @@ function ItemClass:ParseRaw(raw)
 	self.explicitModLines = { }
 	local implicitLines = 0
 	if self.base then
-		self.affixes = (self.base.subType and verData.itemMods[self.base.type..self.base.subType])
-			or verData.itemMods[self.base.type] 
-			or verData.itemMods.Item
-		self.enchantments = verData.enchantments[self.base.type]
+		self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
+			or data.itemMods[self.base.type]
+			or data.itemMods.Item
+		self.enchantments = data.enchantments[self.base.type]
 		self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
 		self.influenceTags = data.specialBaseTags[self.type]
 		self.canBeInfluenced = self.influenceTags
-		self.clusterJewel = verData.clusterJewels and verData.clusterJewels.jewels[self.baseName]
+		self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 	end
 	self.variantList = nil
 	self.prefixes = { }
@@ -324,13 +324,13 @@ function ItemClass:ParseRaw(raw)
 					if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
 						-- Another hack for Two-Toned Boots
 						self.baseName = "Two-Toned Boots (Armour/Evasion)"
-						self.base = verData.itemBases[self.baseName]
+						self.base = data.itemBases[self.baseName]
 					end
 				elseif specName == "Energy Shield" then
 					if self.baseName == "Two-Toned Boots (Armour/Evasion)" then
 						-- Yet another hack for Two-Toned Boots
 						self.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
-						self.base = verData.itemBases[self.baseName]
+						self.base = data.itemBases[self.baseName]
 					end
 				elseif specName == "Cluster Jewel Skill" then
 					if self.clusterJewel and self.clusterJewel.skills[specVal] then
