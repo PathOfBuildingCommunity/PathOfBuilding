@@ -1,4 +1,4 @@
-defaultTargetVersion = "2_6"
+legacyTargetVersion = "2_6"
 liveTargetVersion = "3_0"
 targetVersionList = { "2_6", "3_0" }
 targetVersions = {

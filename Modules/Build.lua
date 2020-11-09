@@ -57,7 +57,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.xmlSectionList = { }
 	self.spectreList = { }
 	self.viewMode = "TREE"
-	self.targetVersion = liveTargetVersion
 	self.characterLevel = 1
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -668,7 +667,7 @@ function buildMode:CloseBuild()
 end
 
 function buildMode:Load(xml, fileName)
-	self.targetVersion = xml.attrib.targetVersion or defaultTargetVersion
+	self.targetVersion = xml.attrib.targetVersion or legacyTargetVersion
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
 	end
