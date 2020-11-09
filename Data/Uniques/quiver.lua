@@ -18,7 +18,7 @@ Implicits: 1
 {variant:2}Gain 20% of Physical Damage as Extra Cold Damage
 (7-10)% chance to Freeze
 {variant:1}40% reduced Area of Effect of Curse Skills
-Curses on Slain Enemies are transferred to a nearby Enemy
+Hexes on Slain Enemies are transferred to a nearby Enemy
 ]],[[
 Blackgleam
 Fire Arrow Quiver

@@ -511,7 +511,7 @@ skills["SupportBlasphemyPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_curse_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Curse }),
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
 		},
 	},
 	baseMods = {
@@ -2798,7 +2798,7 @@ skills["SupportIncreasedCriticalStrikes"] = {
 			{ "base_critical_strike_multiplier_+", 0.25 },
 		},
 		Alternate2 = {
-			{ "add_power_charge_on_kill_%_chance", 0.5 },
+			{ "gain_power_charge_on_kill_with_hit_%", 0.5 },
 		},
 	},
 	stats = {
@@ -3230,10 +3230,10 @@ skills["SupportItemRarity"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_killed_monster_dropped_item_rarity_+%", 0.0025 },
+			{ "base_killed_monster_dropped_item_rarity_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "chance_for_coin_shower_on_kill_%", 0.0005 },
+			{ "chance_for_coin_shower_on_kill_%", 0.1 },
 		},
 	},
 	stats = {

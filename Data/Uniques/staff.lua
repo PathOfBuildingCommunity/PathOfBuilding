@@ -11,13 +11,13 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+40% increased Strength Requirement
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
-100% increased Shock Duration on Enemies
-40% increased Strength Requirement
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 Damage Penetrates 20% Lightning Resistance
+100% increased Duration of Lightning Ailments
 ]],[[
 Agnerod North
 Imperial Staff
@@ -27,8 +27,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 15% chance to Shock
@@ -43,8 +43,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 +5% to Maximum Lightning Resistance
@@ -59,8 +59,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 Adds (5-15) to (100-140) Lightning Damage to Spells
@@ -78,7 +78,7 @@ Implicits: 2
 100% increased Physical Damage
 (5-10)% increased Attack Speed
 Reflects (22-44) Physical Damage to Attackers on Block
-Curse Enemies with level 5 Vulnerability on Block
+Curse Enemies with Vulnerability on Block, with 20% increased Effect
 ]],[[
 Replica Blood Thorn
 Gnarled Branch

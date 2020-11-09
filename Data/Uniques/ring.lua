@@ -180,14 +180,14 @@ Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
+{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
 {variant:2}25% increased Effect of Buffs granted by Socketed Golem Skills
 {variant:2}{tags:jewellery_defense}Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield
 {variant:1}{tags:caster}(10-25)% increased Spell Damage
 {variant:2}{tags:caster}(20-25)% increased Spell Damage
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:jewellery_resistance}+(20-40)% to Lightning Resistance
-{variant:1}Socketed Gems are Supported by level 15 Increased Minion Life
+{variant:1}Socketed Gems are Supported by Level 15 Increased Minion Life
 ]],[[
 Call of the Brotherhood
 Two-Stone Ring
@@ -357,7 +357,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(5-10) to Intelligence
 {tags:jewellery_resistance}+5% to all Elemental Resistances
 {tags:mana}+5 Mana Gained on Kill
-Enemies can have 1 additional Curse
+{tags:caster}Enemies can have 1 additional Curse
 ]],[[
 Replica Doedre's Damning
 Paua Ring
@@ -400,8 +400,8 @@ Implicits: 1
 {variant:2,3}You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}80% less Burning Damage
-{variant:2}Ignited Enemies Burn 65% slower
-{variant:3}Ignited Enemies Burn (65-50)% slower
+{variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
+{variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
 ]],[[
 Replica Emberwake
 Ruby Ring
@@ -531,8 +531,8 @@ Implicits: 1
 {variant:1}{tags:life}(13-17) Life Regenerated per second
 {variant:2}{tags:life}1 Life Regenerated per second per Level
 {tags:mana}(20-40)% increased Mana Regeneration Rate
-{variant:1}20% reduced Effect of Curses on You
-{variant:2}40% reduced Effect of Curses on You
+{variant:1}{tags:caster}20% reduced Effect of Curses on You
+{variant:2}{tags:caster}40% reduced Effect of Curses on You
 ]],[[
 Le Heup of All
 Iron Ring
@@ -598,7 +598,7 @@ Unset Ring
 Requires Level 24
 Implicits: 1
 Has 1 Socket
-Curse Enemies with Socketed Curse Gem on Hit
+{tags:caster}Curse Enemies with Socketed Hex Curse Gem on Hit
 ]],[[
 Mark of the Elder
 Steel Ring
@@ -667,14 +667,14 @@ Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by level 13 Faster Attacks
-{variant:2{tags:attack,caster}}Socketed Golem Skills have 20% increased Attack and Cast Speed
+{variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
+{variant:2}{tags:attack,caster}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack}(5-10)% increased Attack Speed
-{variant:1}(1-2)% chance to Dodge Attacks
-{variant:2}(3-5)% chance to Dodge Attacks
-{variant:1}Socketed Gems are Supported by level 16 Increased Minion Speed
-{variant:2}Socketed Golem Gems grant Onslaught for 10 seconds on Summon
+{variant:1}(1-2)% chance to Dodge Attack Hits
+{variant:2}(3-5)% chance to Dodge Attack Hits
+{variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
+{variant:2}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
 Ngamahu's Sign
 Ruby Ring
@@ -736,11 +736,11 @@ Sockets: G
 LevelReq: 52
 Implicits: 1
 Has 1 Socket
-+3 to Level of Socketed Curse Gems
+{tags:caster}+3 to Level of Socketed Curse Gems
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-Left Ring Slot: Your Chilling Skitterbot's Aura applies Socketed Curse instead
-Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Curse instead
+{tags:caster}Left Ring Slot: Your Chilling Skitterbot's Aura applies Socketed Hex Curse instead
+{tags:caster}Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Hex Curse instead
 ]],[[
 Putembo's Meadow
 Topaz Ring
@@ -805,10 +805,10 @@ Has 1 Socket
 {variant:2}{tags:life}+(30-40) to maximum Life
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-12) to (20-30) Fire Damage to Attacks
 {tags:jewellery_elemental}(20-30)% increased Fire Damage
-{variant:1}Socketed Gems are Supported by level 12 Lesser Multiple Projectiles
+{variant:1}Socketed Gems are Supported by Level 12 Lesser Multiple Projectiles
 {variant:2}Socketed Golem Skills have 25% chance to Taunt on Hit
-{variant:1}Socketed Gems are Supported by level 17 Increased Minion Damage
-{variant:2}{tags:life}Socketed Golem Skills have 5% Life Regenerated per second
+{variant:1}Socketed Gems are Supported by Level 17 Increased Minion Damage
+{variant:2}{tags:life}Socketed Golem Skills have Minions Regenerate 5% Life per second
 ]],[[
 Rigwald's Crest
 Two-Stone Ring
@@ -985,7 +985,7 @@ Implicits: 2
 Can't use other Rings
 {variant:1,2,3}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:4}{tags:jewellery_resistance}+(16-24)% to all Elemental Resistances
-50% reduced Effect of Curses on You
+{tags:caster}50% reduced Effect of Curses on You
 {variant:1,2,3}{tags:attack,life}+(20-30) Life gained for each Enemy hit by your Attacks
 {variant:4}{tags:attack,life}+(40-60) Life gained for each Enemy hit by your Attacks
 {variant:1,2,3}{tags:attack,mana}+15 Mana gained for each Enemy hit by your Attacks

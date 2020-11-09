@@ -103,6 +103,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "milliseconds_to_seconds_0dp" then
 		val[spec.v].min = val[spec.v].min / 1000
 		val[spec.v].max = val[spec.v].max / 1000
+	elseif spec.k == "milliseconds_to_seconds_1dp" then
+		val[spec.v].min = round(val[spec.v].min / 1000, 1)
+		val[spec.v].max = round(val[spec.v].max / 1000, 1)
+		val[spec.v].fmt = "g"
 	elseif spec.k == "milliseconds_to_seconds_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 1000, 2)
 		val[spec.v].max = round(val[spec.v].max / 1000, 2)

@@ -102,6 +102,46 @@ function PassiveSpecClass:Load(xml, dbFileName)
 	elseif url then
 		self:DecodeURL(url)
 	end
+	for _, node in pairs(xml) do
+		if type(node) == "table" then
+			if node.elem == "EditedNodes" then
+				for _, child in ipairs(node) do
+					if not child.attrib.nodeId then
+						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'nodeId' attribute", dbFileName)
+						return true
+					end
+					if not child.attrib.editorSeed then
+						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'editorSeed' attribute", dbFileName)
+						return true
+					end
+
+					local editorSeed = tonumber(child.attrib.editorSeed)
+					local nodeId = tonumber(child.attrib.nodeId)
+					if not self.tree.legion.editedNodes then
+						self.tree.legion.editedNodes = { }
+					end
+					if self.tree.legion.editedNodes[editorSeed] then
+						self.tree.legion.editedNodes[editorSeed][nodeId] = copyTable(self.nodes[nodeId], true)
+					else
+						self.tree.legion.editedNodes[editorSeed] = { [nodeId] = copyTable(self.nodes[nodeId], true) }
+					end
+					self.tree.legion.editedNodes[editorSeed][nodeId].id = nodeId
+					self.tree.legion.editedNodes[editorSeed][nodeId].dn = child.attrib.nodeName
+					self.tree.legion.editedNodes[editorSeed][nodeId].icon = child.attrib.icon
+					if self.tree.legion.nodes[child.attrib.spriteId] then
+						self.tree.legion.editedNodes[editorSeed][nodeId].sprites = self.tree.legion.nodes[child.attrib.spriteId].sprites
+					end
+					local modCount = 0
+					for _, modLine in ipairs(child) do
+						for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
+							self:NodeAdditionOrReplacementFromString(self.tree.legion.editedNodes[editorSeed][nodeId], line, modCount == 0)
+							modCount = modCount + 1
+						end
+					end
+				end
+			end
+		end
+	end
 	self:ResetUndo()
 end
 
@@ -110,6 +150,21 @@ function PassiveSpecClass:Save(xml)
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	local editedNodes = {
+		elem = "EditedNodes"
+	}
+	if self.tree.legion.editedNodes then
+		for seed, nodes in pairs(self.tree.legion.editedNodes) do
+			for nodeId, node in pairs(nodes) do
+				local editedNode = { elem = "EditedNode", attrib = { nodeId = tostring(nodeId), editorSeed = tostring(seed), nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
+				for _, modLine in ipairs(node.sd) do
+					t_insert(editedNode, modLine)
+				end
+				t_insert(editedNodes, editedNode)
+			end
+		end
+	end
+	t_insert(xml, editedNodes)
 	xml.attrib = { 
 		title = self.title,
 		treeVersion = self.treeVersion,
@@ -525,6 +580,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				node.mods = editedNode.mods
 				node.modList = editedNode.modList
 				node.modKey = editedNode.modKey
+				node.icon = editedNode.icon
+				node.spriteId = editedNode.spriteId
 			else
 				if node.type == "Keystone" then
 					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
@@ -609,6 +666,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								self.build.itemsTab.items[itemId].jewelData
 									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
 									and self.build.itemsTab.items[itemId].jewelRadiusIndex
+									and self.nodes[nodeId].nodesInRadius
 									and self.nodes[nodeId].nodesInRadius[
 										self.build.itemsTab.items[itemId].jewelRadiusIndex
 								][depNode.id]
@@ -657,6 +715,8 @@ function PassiveSpecClass:ReplaceNode(old, new)
 	old.modList = new.modList
 	old.sprites = new.sprites
 	old.keystoneMod = new.keystoneMod
+	old.icon = new.icon
+	old.spriteId = new.spriteId
 end
 
 function PassiveSpecClass:BuildClusterJewelGraphs()

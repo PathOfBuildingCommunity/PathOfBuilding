@@ -1,3 +1,88 @@
+### 1.4.170.16 - 2020/10/18
+ * Fix error on updating with the 1.4.170.15 patch
+### 1.4.170.15 - 2020/10/18
+ * Add performance improvements where PoB will no longer use excess CPU when in the background
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add eHP sorting to the tree and uniques tab
+ * Add note showing which elemental resistance Hexblast is using for its Chaos damage
+ * Add support for Storm Burst damage scaling with orb duration
+ * Add support for Infernal Blow Debuff DPS
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add support for Combat Rhythm Cluster Notable
+ * Add support for Divergent Rallying Cry
+ * Add support for Might and Influence jewel
+ * Add support for Replica Malachai's Artifice
+ * Add support for Replica Wings of Entropy
+ * Add support for alternate quality Purity of Elements
+ * Add Contaminate skill from Sporeguard
+ * Add support for Ailment Mode to calculate non-damaging ailments
+ * Add support for SOCKS5 Host Name Mode Proxy
+ * Update uniques with 3.12 changes
+ * Update Crackling Lance enchantment
+ * Fix alt quality gems not saving properly
+ * Fix crash when you socket a Thread of Hope into a Cluster Jewel socket
+ * Fix support for mod translation with Spiritual Aid and Spiritual Command notables
+ * Fix Flame Wall added damage not working with Minions
+ * Fix Mjolner and Cospri's Malice supports not applying correctly
+ * Fix Doom calculations for builds with multiple curses
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod staves
+ * Fix Divergent Blind Support Crit Chance calculation
+ * Fix Curse mods on the tree not applying correctly
+ * Fix Phantasmal Static Strike
+ * Fix Vulnerability not displaying chance to bleed in breakdowns
+ * Fix Bladestorm "Are you in a Bloodstorm?" buff applying as a global buff
+ * Fix some mods on the tree not working with ailments
+ * Fix Hexblast interaction with increased/reduced resistance modifiers
+ * Fix Shockwave Support having DPS numbers when it should only show average hit
+ * Fix catalyst tags on Emberwake
+ * Fix Mystic Bulwark notable
+ * Fix display of Poison DPS for average hit skills
+ * Fix support for Phantasmal Earthquake
+ * Fix Vaal Impurities
+ * Fix Rage generation on Warlords Mark
+ * Fix skill radius for Ball Lightning
+ * Fix Siphoning charge limit for items with dual influence
+ * Fix Curses not applying from Minions
+ * Fix some comparison tooltip errors
+ * Fix bug with Catalysts and Malachai's Artifice
+ * Fix parsing of Voidforge
+ * Fix error where accuracy could appear to be below 0
+ * Fix support for Vaal Impurity resistances
+ * Fixes Minion display stats for when they have DoT Components
+ * Fix Fungal ground not applying to Minions
+ * Fix alternate qualities on some gems not displaying correctly
+### 1.4.170.14 - 2020/10/01
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add Combat Rhythm Cluster Notable
+ * Fix Doom calculations for multiple curse builds
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod's staves
+ * Fix Divergent Blind Crit Chance calculation
+### 1.4.170.13 - 2020/09/30
+ * Add Flame Wall Projectile added damage buff
+ * Add Ashblessed Warden Spectre
+ * Add parsing for new Golem mods lines on Uniques
+ * Add support for Zealotry alternate quality
+ * Add support for Lingering Blades with Animate Weapon
+ * Add support for new Curse/Mark on Hit mods
+ * Fix crash related to Divergent Maim
+ * Fix crash related to Phantasmal Raise Zombie
+ * Fix Hexblast not taking into account elemental penetration
+ * Fix implementation of the Iron Mass unique
+ * Fix second mod on Growing Agony not appearing
+ * Fix Power Report being cut off from the UI at certain resolutions
+ * Fix Fortify Support alternate quality
+ * Fix Projectile count calculations
+ * Fix Mana Cost calculations
+ * Fix Timeless Jewel saving
+ * Fix Lucky Damage applying to all elements
+ * Fix Animate Weapon more Attack Speed from gem
+ * Fix mods on Cloud Retch Spectre
+ * Fix parsing for some tooltips
+ * Fix Cremation Hit Time override
+ * Fix Catalysts not working in the item crafter
 ### 1.4.170.12 - 2020/09/28
  * Add support for Timeless jewels and their mods
 	* Timeless jewels will now convert Keystones on the tree

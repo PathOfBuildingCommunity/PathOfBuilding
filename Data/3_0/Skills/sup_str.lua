@@ -1544,8 +1544,8 @@ skills["SupportFortify"] = {
 		["fortify_effect_+%"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
 		},
-		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
-			mod("EnemyPhysicalDamageReduction", "INC", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment), 0, { type = "Condition", var = "Fortify"}),
+		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
 		},
 	},
 	baseMods = {
@@ -2313,7 +2313,7 @@ skills["SupportMaim"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
 		["chance_to_bleed_on_hit_%_vs_maimed"] = {
-			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", condition = "Maimed"})
+			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
 		}
 	},
 	baseMods = {
@@ -3373,6 +3373,7 @@ skills["SupportBluntWeaponShockwave"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {

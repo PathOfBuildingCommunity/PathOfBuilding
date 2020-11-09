@@ -568,8 +568,8 @@ Requires Level 69, 154 Int
 Adds 1 to (60-80) Lightning Damage to Spells and Attacks
 (130-170)% increased Energy Shield
 +(25-35)% to Lightning Resistance
-{variant:1}10% chance to Curse Enemies with a random Curse on Hit
-{variant:2}20% chance to Curse non-Cursed Enemies with a random Curse on Hit
+{variant:1}10% chance to Curse non-Cursed Enemies with a random Hex on Hit
+{variant:2}20% chance to Curse non-Cursed Enemies with a random Hex on Hit
 {variant:1}5% chance to create Shocked Ground when Hit
 ]],
 -- Helmet: Armour/Evasion
@@ -893,6 +893,17 @@ Nearby Allies have (4-6)% increased Defences per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
 1% reduced Mana Reserved per 250 total attributes
+]],[[
+Maw of Mischief
+Bone Helmet
+League: Heist
+Requires Level 73, 76 Str, 76 Int
+Implicits: 1
+Minions deal (15-20)% increased Damage
+Grants Level 20 Death Wish Skill
++(45-65) to maximum Life
+(30-20)% reduced Mana Cost of Minion Skills
+Minions are Aggressive
 ]],[[
 Memory Vault
 Praetor Crown

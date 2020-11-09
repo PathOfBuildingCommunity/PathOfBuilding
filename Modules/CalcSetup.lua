@@ -573,6 +573,9 @@ function calcs.initEnv(build, mode, override)
 				else
 					env.modDB.multipliers.NonElderItem = (env.modDB.multipliers.NonElderItem or 0) + 1
 				end
+				if item.shaper or item.elder then
+					env.modDB.multipliers.ShaperOrElderItem = (env.modDB.multipliers.ShaperOrElderItem or 0) + 1
+				end
 			end
 		end
 	end
@@ -664,7 +667,11 @@ function calcs.initEnv(build, mode, override)
 	for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 		local node = env.spec.tree.notableMap[passive]
 		if node then
-			nodes[node.id] = node
+			if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
+				nodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
+			else
+				nodes[node.id] = node
+			end
 			env.grantedPassives[node.id] = true
 		end
 	end

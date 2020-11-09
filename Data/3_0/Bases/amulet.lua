@@ -104,8 +104,8 @@ itemBases["Astrolabe Amulet"] = {
 itemBases["Simplex Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, not_for_sale = true, },
-	implicit = "-1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
-	implicitModTypes = { {  }, {  }, {  }, },
+	implicit = "-1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n25% increased Explicit Modifier magnitudes",
+	implicitModTypes = { {  }, {  }, {  }, {  }, },
 	req = { level = 24, },
 }
 itemBases["Jet Amulet"] = {

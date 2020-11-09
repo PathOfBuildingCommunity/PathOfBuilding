@@ -281,14 +281,8 @@ local skills, mod, flag, skill = ...
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #mods
@@ -352,12 +346,6 @@ local skills, mod, flag, skill = ...
 #skill MonsterProjectileWeakness Projectile Weakness
 #flags spell curse area duration
 	statMap = {
-		["projectiles_always_pierce_you"] = {
-			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
@@ -396,14 +384,15 @@ local skills, mod, flag, skill = ...
 #skill MonsterWarlordsMark Warlord's Mark
 #flags spell curse area duration
 	statMap = {
-		["life_leech_on_any_damage_when_hit_permyriad"] = {
-			mod("SelfDamageLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
+			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["mana_leech_on_any_damage_when_hit_permyriad"] = {
-			mod("SelfDamageManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
+			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_stun_recovery_+%"] = {
-			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["enemy_rage_regeneration_on_stun"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 #mods
@@ -442,14 +431,8 @@ local skills, mod, flag, skill = ...
 		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #mods
@@ -481,12 +464,6 @@ local skills, mod, flag, skill = ...
 #skill NecromancerProjectileWeakness Projectile Weakness
 #flags spell curse area duration
 	statMap = {
-		["projectiles_always_pierce_you"] = {
-			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
@@ -503,11 +480,13 @@ local skills, mod, flag, skill = ...
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_physical_damage_over_time_taken_+%"] = {
-			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #mods
@@ -582,9 +561,8 @@ local skills, mod, flag, skill = ...
 		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
-		["buff_time_passed_-%"] = {
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mult = -1,
 		},
 	},
 #mods
@@ -595,11 +573,13 @@ local skills, mod, flag, skill = ...
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_physical_damage_over_time_taken_+%"] = {
-			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #mods
@@ -796,12 +776,12 @@ local skills, mod, flag, skill = ...
 #flags attack projectile triggerable
 #mods
 
-#skill AtlasEyrieKiwethMortar Mortar
+#skill AtlasEyrieKiwethMortarSpectre Mortar
 #flags spell hit area projectile triggerable
 #mods
 
 #skill AtlasEyrieKiwethMortarShards Mortar Shards
-#flags projectile triggerable
+#flags spell hit projectile triggerable
 #mods
 
 #skill GAHeistThugRangedArrowShotgun Arrow Shotgun
@@ -810,4 +790,29 @@ local skills, mod, flag, skill = ...
 
 #skill GAHeistThugRangedShotgun Ranged Shotgun
 #flags attack hit area triggerable
+#mods
+
+
+#skill GSHeistRobotPyreBeamBlast Beam Blast
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreNukeBeam Nuke Beam
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreNukeBeamChannelled Nuke Beam Channelled
+#flags spell hit area triggerable
+#mods
+
+#skill GSHeistRobotPyreBeamSweepBeam Beam Sweep
+#flags spell hit area triggerable
+#mods
+
+#skill MeleeEyrieBird Knockback Attack
+#flags attack melee projectile
+#mods
+
+#skill AtlasEyrieBirdBreath Chilling Breath
+#flags spell hit area triggerable
 #mods

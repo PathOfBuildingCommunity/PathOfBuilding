@@ -109,10 +109,10 @@ Stormcharger
 Plated Greaves
 Requires Level: 23, 44 Str
 +(1-50)% to Lightning Resistance 
-20% increased Movement Speed 
-50% increased Shock Duration on Enemies 
-30% of Physical Damage Converted to Lightning Damage 
-(15-25)% increased Effect of Shock
+20% increased Movement Speed
+30% of Physical Damage Converted to Lightning Damage
+50% increased Duration of Lightning Ailments
+(15-25)% increased Effect of Lightning Ailments
 ]],[[
 Torchoak Step
 Antique Greaves
@@ -146,7 +146,7 @@ Requires Level 60, 60 Str
 25% increased Movement Speed
 (10-20)% increased Elemental Damage
 Enemies can have 1 additional Curse
-60% increased Area of Effect of Curse Skills
+60% increased Area of Effect of Hex Skills
 ]],
 -- Boots: Evasion
 [[

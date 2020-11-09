@@ -179,8 +179,10 @@ function ListClass:Draw(viewPort)
 	for colIndex, column in ipairs(self.colList) do
 		local colFont = self:GetColumnProperty(column, "font") or "VAR"
 		local clipWidth = DrawStringWidth(textHeight, colFont, "...")
-		local colOffset = column._offset - scrollOffsetH
+		colOffset = column._offset - scrollOffsetH
 		local colWidth = column._width
+		local relX = cursorX - (x + 2)
+		local relY = cursorY - (y + 2)
 		for index = minIndex, maxIndex do
 			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
@@ -192,9 +194,6 @@ function ListClass:Draw(viewPort)
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
 			if not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
-				local cursorX, cursorY = GetCursorPos()
-				local relX = cursorX - (x + 2)
-				local relY = cursorY - (y + 2)
 				if relX >= colOffset and relX < width - 20 and relY >= 0 and relY >= lineY and relY < height - 2 - (self.scrollH and 18 or 0) and relY < lineY + rowHeight then
 					ttIndex = index
 					ttValue = value
@@ -242,13 +241,18 @@ function ListClass:Draw(viewPort)
 			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 		end
 		if self.colLabels then
-			local cursorX, cursorY = GetCursorPos()
-			local relX = cursorX - (x + 2)
-			local relY = cursorY - (y + 2)
-			SetDrawColor(0.5, 0.5, 0.5)
-			DrawImage(nil, colOffset, 1, colWidth, 18)
-			SetDrawColor(0.15, 0.15, 0.15)
-			DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
+			if mOver and self:GetColumnProperty(column, "sortable") then
+				SetDrawColor(1, 1, 1)
+				DrawImage(nil, colOffset, 1, colWidth, 18)
+				SetDrawColor(0.33, 0.33, 0.33)
+				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+			else
+				SetDrawColor(0.5, 0.5, 0.5)
+				DrawImage(nil, colOffset, 1, colWidth, 18)
+				SetDrawColor(0.15, 0.15, 0.15)
+				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+			end
 			local label = self:GetColumnProperty(column, "label")
 			if label and #label > 0 then
 				SetDrawColor(1, 1, 1)
@@ -316,6 +320,15 @@ function ListClass:OnKeyDown(key, doubleClick)
 				end
 				if self.OnSelClick then
 					self:OnSelClick(self.selIndex, self.selValue, doubleClick)
+				end
+			end
+		else
+			for colIndex, column in ipairs(self.colList) do
+				local relX = cursorX - (x + 2)
+				local relY = cursorY - (y + 2)
+				local mOver = relX >= column._offset and relX <= column._offset + column._width and relY >= 0 and relY <= 18
+				if self:GetColumnProperty(column, "sortable") and mOver and self.ReSort then
+					self:ReSort(colIndex)
 				end
 			end
 		end
