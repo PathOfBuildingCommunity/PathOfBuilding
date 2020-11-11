@@ -35,7 +35,6 @@ local conquerorList = {
 -- List of modifier forms
 local formList = {
 	["^(%d+)%% increased"] = "INC",
-	["^non%-vaal skills deal (%d+)%% increased"] = "INC",
 	["^(%d+)%% faster"] = "INC",
 	["^(%d+)%% reduced"] = "RED",
 	["^(%d+)%% slower"] = "RED",
@@ -795,7 +794,7 @@ local preFlagList = {
 	["^warcry skills have "] = { tag = { type = "SkillType", skillType = SkillType.Warcry } },
 	["^non%-curse aura skills have "] = { tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["^non%-channelling skills have "] = { tag = { type = "SkillType", skillType = SkillType.Channelled, neg = true } },
-    ["^non%-vaal skills deal "] = { tag = { type = "SkillType", skillType = SkillType.Vaal, neg = true } },
+	["^non%-vaal skills deal "] = { tag = { type = "SkillType", skillType = SkillType.Vaal, neg = true } },
 	["^skills [hdfg][aei][vari][eln] "] = { },
 	-- Slot specific
 	["^left ring slot: "] = { tag = { type = "SlotNumber", num = 1 } },
