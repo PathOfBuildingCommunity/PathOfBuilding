@@ -706,7 +706,7 @@ Voices
 Large Cluster Jewel
 League: Delirium
 Source: Drops from the Simulacrum Encounter
-Variant: {3_0}Adds 1 Small Passive Skill
+Variant: Adds 1 Small Passive Skill
 Variant: Adds 3 Small Passive Skills
 Variant: Adds 5 Small Passive Skills
 Variant: Adds 7 Small Passive Skills

@@ -72,7 +72,7 @@ local function processStatFile(name)
 			end
 		end
 	end
-	local out = io.open("../Data/3_0/StatDescriptions/"..name..".lua", "w")
+	local out = io.open("../Data/StatDescriptions/"..name..".lua", "w")
 	out:write("return ")
 	writeLuaTable(out, statDescriptor, 1)
 	out:close()

@@ -23,7 +23,7 @@ LoadModule("Modules/CalcTools")
 LoadModule("Modules/PantheonTools")
 
 --[[if launch.devMode then
-	for skillName, skill in pairs(data["3_0"].enchantments.Helmet) do
+	for skillName, skill in pairs(data.enchantments.Helmet) do
 		for _, mod in ipairs(skill.ENDGAME) do
 			local modList, extra = modLib.parseMod(mod)
 			if not modList or extra then
