@@ -854,7 +854,7 @@ end
 -- Opens the game version conversion popup
 function buildMode:OpenConversionPopup()
 	local controls = { }
-	local currentVersion = treeVersions[latestTreeVersion].short
+	local currentVersion = treeVersions[latestTreeVersion].display
 	controls.note = new("LabelControl", nil, 0, 20, 0, 16, colorCodes.TIP..[[
 Info:^7 You are trying to load a build created for a version of Path of Exile that is
 not supported by us. You will have to convert it to the current game version to load it.

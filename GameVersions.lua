@@ -5,47 +5,47 @@ legacyTargetVersion = "2_6"
 liveTargetVersion = "3_0"
 -- Skill tree versions
 ---Display, comparison and export data for all supported skill tree versions.
----@type table<string, {short: string, num: number, export: string}>
+---@type table<string, {display: string, num: number, url: string}>
 treeVersions = {
 	["2_6"] = {
-		short = "2.6",
+		display = "2.6",
 		num = 2.06,
-		export = "https://www.pathofexile.com/passive-skill-tree/2.6.2/",
+		url = "https://www.pathofexile.com/passive-skill-tree/2.6.2/",
 	},
 	["3_6"] = {
-		short = "3.6",
+		display = "3.6",
 		num = 3.06,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.6.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.6.0/",
 	},
 	["3_7"] = {
-		short = "3.7",
+		display = "3.7",
 		num = 3.07,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.7.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.7.0/",
 	},
 	["3_8"] = {
-		short = "3.8",
+		display = "3.8",
 		num = 3.08,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.8.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.8.0/",
 	},
 	["3_9"] = {
-		short = "3.9",
+		display = "3.9",
 		num = 3.09,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.9.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.9.0/",
 	},
 	["3_10"] = {
-		short = "3.10",
+		display = "3.10",
 		num = 3.10,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.10.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.10.0/",
 	},
 	["3_11"] = {
-		short = "3.11",
+		display = "3.11",
 		num = 3.11,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.11.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.11.0/",
 	},
 	["3_12"] = {
-		short = "3.12",
+		display = "3.12",
 		num = 3.12,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.12.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.12.0/",
 	},
 }
 ---Added for convenient indexing of skill tree versions.

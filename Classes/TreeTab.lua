@@ -65,7 +65,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 						end
 					end
 				end
-				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].short)
+				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].display)
 			end
 		end
 	end
@@ -131,7 +131,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].short, function()
+	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
@@ -140,7 +140,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
 		self.modFlag = true
-		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].short..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -199,7 +199,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.specSelect.selIndex = self.activeSpec
 	wipeTable(self.controls.specSelect.list)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].short.."] ") or "")..(spec.title or "Default"))
+		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
 	t_insert(self.controls.specSelect.list, "Manage trees...")
 	
@@ -394,7 +394,7 @@ function TreeTabClass:OpenImportPopup()
 end
 
 function TreeTabClass:OpenExportPopup()
-	local treeLink = self.build.spec:EncodeURL(treeVersions[self.build.spec.treeVersion].export)
+	local treeLink = self.build.spec:EncodeURL(treeVersions[self.build.spec.treeVersion].url)
 	local popup
 	local controls = { }
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:")

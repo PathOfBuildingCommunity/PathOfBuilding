@@ -59,7 +59,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	MakeDir("TreeData")
 
-	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].short)
+	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
 	local treeText
 	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
 	if treeFile then
