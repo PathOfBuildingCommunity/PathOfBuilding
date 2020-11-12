@@ -1,8 +1,7 @@
+-- Game versions
 legacyTargetVersion = "2_6"
 liveTargetVersion = "3_0"
-treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12" }
-latestTreeVersion = treeVersionList[#treeVersionList]
-defaultTreeVersion = treeVersionList[2]
+-- Skill tree versions
 treeVersions = {
 	["2_6"] = {
 		short = "2.6",
@@ -45,3 +44,9 @@ treeVersions = {
 		export = "https://www.pathofexile.com/passive-skill-tree/3.12.0/",
 	},
 }
+treeVersionList = {}
+for version, _ in pairs(treeVersions) do
+	table.insert(treeVersionList, version)
+end
+latestTreeVersion = treeVersionList[#treeVersionList]
+defaultTreeVersion = treeVersionList[2]
