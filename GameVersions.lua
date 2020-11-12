@@ -3,7 +3,15 @@
 legacyTargetVersion = "2_6"
 ---Default target for new builds and target to convert legacy builds to.
 liveTargetVersion = "3_0"
+
 -- Skill tree versions
+---Added for convenient indexing of skill tree versions.
+---@type string[]
+treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12" }
+--- Always points to the latest skill tree version.
+latestTreeVersion = treeVersionList[#treeVersionList]
+---Tree version where multiple skill trees per build were introduced to PoBC.
+defaultTreeVersion = treeVersionList[2]
 ---Display, comparison and export data for all supported skill tree versions.
 ---@type table<string, {display: string, num: number, url: string}>
 treeVersions = {
@@ -48,13 +56,3 @@ treeVersions = {
 		url = "https://www.pathofexile.com/passive-skill-tree/3.12.0/",
 	},
 }
----Added for convenient indexing of skill tree versions.
----@type string[]
-treeVersionList = {}
-for version, _ in pairs(treeVersions) do
-	table.insert(treeVersionList, version)
-end
---- Always points to the latest skill tree version.
-latestTreeVersion = treeVersionList[#treeVersionList]
----Tree version where multiple skill trees per build were introduced to PoBC.
-defaultTreeVersion = treeVersionList[2]
