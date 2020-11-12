@@ -378,8 +378,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		"ActiveTotemLimit",
 		"ActiveMinionLimit",
 	}
-	self.targetVersionData = targetVersions[self.targetVersion]
-
 	if buildName == "~~temp~~" then
 		-- Remove temporary build file
 		os.remove(self.dbFileName)
@@ -545,7 +543,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 	-- Initialise build components
 	self.data = data
-	self.latestTree = main.tree[self.targetVersionData.latestTreeVersion]
+	self.latestTree = main.tree[latestTreeVersion]
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
 	self.configTab = new("ConfigTab", self)
@@ -856,7 +854,7 @@ end
 -- Opens the game version conversion popup
 function buildMode:OpenConversionPopup()
 	local controls = { }
-	local currentVersion = targetVersions[liveTargetVersion].short
+	local currentVersion = treeVersions[latestTreeVersion].short
 	controls.note = new("LabelControl", nil, 0, 20, 0, 16, colorCodes.TIP..[[
 Info:^7 You are trying to load a build created for a version of Path of Exile that is
 not supported by us. You will have to convert it to the current game version to load it.

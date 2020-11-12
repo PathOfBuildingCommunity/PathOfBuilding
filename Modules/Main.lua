@@ -66,10 +66,8 @@ function main:Init()
 	end
 	
 	self.tree = { }
-	for _, versionData in pairs(targetVersions) do
-		for _, treeVersion in ipairs(versionData.treeVersionList) do
-			self.tree[treeVersion] = new("PassiveTree", treeVersion)
-		end
+	for _, treeVersion in ipairs(treeVersionList) do
+		self.tree[treeVersion] = new("PassiveTree", treeVersion)
 	end
 
 	ConPrintf("Loading item databases...")

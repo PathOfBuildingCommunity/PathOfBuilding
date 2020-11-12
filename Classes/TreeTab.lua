@@ -19,7 +19,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.viewer = new("PassiveTreeView")
 
 	self.specList = { }
-	self.specList[1] = new("PassiveSpec", build, build.targetVersionData.latestTreeVersion)
+	self.specList[1] = new("PassiveSpec", build, latestTreeVersion)
 	self:SetActiveSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
@@ -131,8 +131,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short, function()
-		local newSpec = new("PassiveSpec", self.build, self.build.targetVersionData.latestTreeVersion)
+	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].short, function()
+		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
 		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
@@ -140,7 +140,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
 		self.modFlag = true
-		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].short..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -199,7 +199,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.specSelect.selIndex = self.activeSpec
 	wipeTable(self.controls.specSelect.list)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= self.build.targetVersionData.latestTreeVersion and ("["..treeVersions[spec.treeVersion].short.."] ") or "")..(spec.title or "Default"))
+		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].short.."] ") or "")..(spec.title or "Default"))
 	end
 	t_insert(self.controls.specSelect.list, "Manage trees...")
 	
@@ -236,7 +236,7 @@ function TreeTabClass:Load(xml, dbFileName)
 	self.specList = { }
 	if xml.elem == "Spec" then
 		-- Import single spec from old build
-		self.specList[1] = new("PassiveSpec", self.build, self.build.targetVersionData.defaultTreeVersion)
+		self.specList[1] = new("PassiveSpec", self.build, defaultTreeVersion)
 		self.specList[1]:Load(xml, dbFileName)
 		self.activeSpec = 1
 		self.build.spec = self.specList[1]
@@ -249,14 +249,14 @@ function TreeTabClass:Load(xml, dbFileName)
 					main:OpenMessagePopup("Unknown Passive Tree Version", "The build you are trying to load uses an unrecognised version of the passive skill tree.\nYou may need to update the program before loading this build.")
 					return true
 				end
-				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or self.build.targetVersionData.defaultTreeVersion)
+				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
 			end
 		end
 	end
 	if not self.specList[1] then
-		self.specList[1] = new("PassiveSpec", self.build, self.build.targetVersionData.latestTreeVersion)
+		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
 end
@@ -308,7 +308,7 @@ function TreeTabClass:SetActiveSpec(specId)
 			end
 		end
 	end
-	self.showConvert = curSpec.treeVersion ~= self.build.targetVersionData.latestTreeVersion
+	self.showConvert = curSpec.treeVersion ~= latestTreeVersion
 	if self.build.itemsTab.itemOrderList[1] then
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()

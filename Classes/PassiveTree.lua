@@ -53,7 +53,6 @@ end
 
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
-	self.targetVersion = treeVersions[treeVersion].targetVersion
 	local versionNum = treeVersions[treeVersion].num
 
 	self.legion = LoadModule("Data/LegionPassives")
