@@ -346,7 +346,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.keystoneMap[node.dn] = node
 		elseif node["not"] or node.isNotable then
 			node.type = "Notable"
-			if not node.ascendancyName then
+			if not node.ascendancyName and node.g then
 				self.notableMap[node.dn:lower()] = node
 			end
 		else
