@@ -84,7 +84,14 @@ function main:Init()
 				local newItem = new("Item", targetVersion, "Rarity: Unique\n"..raw)
 				if newItem.base then
 					newItem:NormaliseQuality()
-					self.uniqueDB[targetVersion].list[newItem.name] = newItem
+					-- Conditional only applies for item variants with different bases (variants don't apply to bases currently)
+					if self.uniqueDB[targetVersion].list[newItem.name] then
+						self.uniqueDB[targetVersion].list[newItem.name..self.uniqueDB[targetVersion].list[newItem.name].base.subType] = self.uniqueDB[targetVersion].list[newItem.name]
+						self.uniqueDB[targetVersion].list[newItem.name] = nil
+						self.uniqueDB[targetVersion].list[newItem.name..newItem.base.subType] = newItem
+					else
+						self.uniqueDB[targetVersion].list[newItem.name] = newItem
+					end
 				elseif launch.devMode then
 					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 				end
