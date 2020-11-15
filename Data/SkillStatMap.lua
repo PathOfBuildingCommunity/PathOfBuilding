@@ -1368,11 +1368,11 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResistMax", "BASE", nil) }),
 },
 ["minion_cooldown_recovery_+%"] = {
-	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)})
+	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)}),
 },
 ["minion_life_regeneration_rate_per_minute_%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
-	div = 60
+	div = 60,
 },
 ["base_number_of_zombies_allowed"] = {
 	mod("ActiveZombieLimit", "BASE", nil),
