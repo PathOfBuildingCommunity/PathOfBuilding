@@ -330,7 +330,6 @@ function ItemClass:ParseRaw(raw)
 						variantList[tonumber(varId)] = true
 					end
 				end
-				-- Initial load it doesn't know to only append the name once
 				if line:gsub("({variant:[%d,]+})", "") == "Two-Toned Boots" then
 					line = "Two-Toned Boots (Armour/Energy Shield)"
 				end
@@ -453,7 +452,7 @@ function ItemClass:ParseRaw(raw)
 		end
 		l = l + 1
 	end
-	if not self.baseName then
+	if self.baseName then
 		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
 	end
 	if self.base and not self.requirements.level then
@@ -1091,9 +1090,6 @@ function ItemClass:BuildModList()
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
-		if not self.requirements.str then
-			self.requirements.strMod = m_floor((self.requirements.str + sumLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "StrRequirement", "INC", 0) / 100))
-		end
 		self.requirements.strMod = m_floor((self.requirements.str + sumLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "StrRequirement", "INC", 0) / 100))
 		self.requirements.dexMod = m_floor((self.requirements.dex + sumLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "DexRequirement", "INC", 0) / 100))
 		self.requirements.intMod = m_floor((self.requirements.int + sumLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "IntRequirement", "INC", 0) / 100))
