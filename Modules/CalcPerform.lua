@@ -665,7 +665,9 @@ function calcs.perform(env)
 		end
 		if activeSkill.skillFlags.brand then
 			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
-			if activeSkill.activeEffect.grantedEffect.name == "Wintertide Brand" then
+			if activeSkill.activeEffect.grantedEffect.name == "Arcanist Brand" then
+				attachLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit")
+			elseif activeSkill.activeEffect.grantedEffect.name == "Wintertide Brand" then
 				attachLimit = attachLimit + 1
 			end
 			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
