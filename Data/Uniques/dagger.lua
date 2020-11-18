@@ -5,14 +5,10 @@ return {
 [[
 Arakaali's Fang
 Fiend Dagger
-Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
-Variant: Current
 Requires Level 53, 58 Dex, 123 Int
 Implicits: 1
 40% increased Global Critical Strike Chance
-{variant:1,2}20% chance to Trigger Level 1 Raise Spiders on Kill
-{variant:3}100% chance to Trigger Level 1 Raise Spiders on Kill
+100% chance to Trigger Level 1 Raise Spiders on Kill
 (170-200)% increased Physical Damage
 Adds (8-13) to (20-30) Physical Damage
 Adds 1 to 59 Chaos Damage
@@ -82,7 +78,7 @@ Deal no Cold Damage
 The Consuming Dark
 Fiend Dagger
 Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 53, 58 Dex, 123 Int
 Implicits: 1
@@ -116,8 +112,6 @@ Implicits: 1
 Goredrill
 Skinning Knife
 Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 5, 16 Dex
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -125,8 +119,7 @@ Implicits: 1
 (50-70)% increased Physical Damage
 Adds (1-2) to (3-5) Physical Damage
 30% increased Critical Strike Chance
-{variant:1}Melee Critical Strikes cause Bleeding
-{variant:2}50% chance to cause Bleeding with Melee Critical Strikes with this Weapon
+50% chance to cause Bleeding on Critical Strike
 40% increased Attack Damage against Bleeding Enemies
 ]],[[
 Sanguine Gambol
@@ -293,7 +286,7 @@ Adds (160-190) to (280-320) Cold Damage
 ]],[[
 Widowmaker
 Boot Blade
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 44, 63 Dex, 90 Int
 Implicits: 1

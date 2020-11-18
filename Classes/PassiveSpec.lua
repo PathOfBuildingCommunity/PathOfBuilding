@@ -1149,7 +1149,7 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 			end
 		end
 		local line = addition.sd[i]
-		local parsedMod, unrecognizedMod = modLib.parseMod[self.build.targetVersion](line)
+		local parsedMod, unrecognizedMod = modLib.parseMod(line)
 		if not parsedMod or unrecognizedMod then
 			-- Try to combine it with one or more of the lines that follow this one
 			local endI = i + 1
@@ -1158,7 +1158,7 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 				for ci = i + 1, endI do
 					comb = comb .. " " .. addition.sd[ci]
 				end
-				parsedMod, unrecognizedMod = modLib.parseMod[self.build.targetVersion](comb, true)
+				parsedMod, unrecognizedMod = modLib.parseMod(comb, true)
 				if parsedMod and not unrecognizedMod then
 					-- Success, add dummy mod lists to the other lines that were combined with this one
 					for ci = i + 1, endI do

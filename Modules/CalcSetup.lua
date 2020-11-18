@@ -31,19 +31,12 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
 	modDB:NewMod("Multiplier:VirulenceStacksMax", "BASE", 40, "Base")
 	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
-	if env.build.targetVersion ~= "2_6" then
-		modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
-		modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
-		modDB:NewMod("MaxManaLeechInstance", "BASE", 10, "Base")
-		modDB:NewMod("MaxEnergyShieldLeechInstance", "BASE", 10, "Base")
-	end
-	if env.build.targetVersion == "2_6" then
-		modDB:NewMod("TrapThrowingTime", "BASE", 0.5, "Base")
-		modDB:NewMod("MineLayingTime", "BASE", 0.5, "Base")
-	else
-		modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
-		modDB:NewMod("MineLayingTime", "BASE", 0.3, "Base")
-	end
+	modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
+	modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
+	modDB:NewMod("MaxManaLeechInstance", "BASE", 10, "Base")
+	modDB:NewMod("MaxEnergyShieldLeechInstance", "BASE", 10, "Base")
+	modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
+	modDB:NewMod("MineLayingTime", "BASE", 0.3, "Base")
 	modDB:NewMod("WarcryCastTime", "BASE", 0.8, "Base")
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
@@ -219,11 +212,7 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("ColdResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 	modDB:NewMod("LightningResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 	modDB:NewMod("ChaosResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
-	if build.targetVersion == "2_6" then
-		modDB:NewMod("CritChance", "INC", 50, "Base", { type = "Multiplier", var = "PowerCharge" })
-	else
-		modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
-	end
+	modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
 	modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 	modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 	modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
@@ -236,86 +225,45 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 	modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
-	if build.targetVersion == "2_6" then
-		modDB:NewMod("ActiveTrapLimit", "BASE", 3, "Base")
-		modDB:NewMod("ActiveMineLimit", "BASE", 5, "Base")
-	else
-		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
-		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
-		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
-	end
+	modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
+	modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
+	modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
-	if build.targetVersion == "2_6" then
-		modDB:NewMod("Damage", "MORE", 500, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
-	else
-		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
-	end
+	modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 	modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
 	modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
 
 	-- Add bandit mods
-	if build.targetVersion == "2_6" then
-		if build.banditNormal == "Alira" then
-			modDB:NewMod("Mana", "BASE", 60, "Bandit")
-		elseif build.banditNormal == "Kraityn" then
-			modDB:NewMod("ElementalResist", "BASE", 10, "Bandit")
-		elseif build.banditNormal == "Oak" then
-			modDB:NewMod("Life", "BASE", 40, "Bandit")
-		else
-			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
-		end
-		if build.banditCruel == "Alira" then
-			modDB:NewMod("Speed", "INC", 5, "Bandit", ModFlag.Cast)
-		elseif build.banditCruel == "Kraityn" then
-			modDB:NewMod("Speed", "INC", 8, "Bandit", ModFlag.Attack)
-		elseif build.banditCruel == "Oak" then
-			modDB:NewMod("PhysicalDamage", "INC", 16, "Bandit")
-		else
-			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
-		end
-		if build.banditMerciless == "Alira" then
-			modDB:NewMod("PowerChargesMax", "BASE", 1, "Bandit")
-		elseif build.banditMerciless == "Kraityn" then
-			modDB:NewMod("FrenzyChargesMax", "BASE", 1, "Bandit")
-		elseif build.banditMerciless == "Oak" then
-			modDB:NewMod("EnduranceChargesMax", "BASE", 1, "Bandit")
-		else
-			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
-		end
+	if build.bandit == "Alira" then
+		modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
+		modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
+		modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
+	elseif build.bandit == "Kraityn" then
+		modDB:NewMod("Speed", "INC", 6, "Bandit")
+		modDB:NewMod("AttackDodgeChance", "BASE", 3, "Bandit")
+		modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
+	elseif build.bandit == "Oak" then
+		modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
+		modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
+		modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
 	else
-		if build.bandit == "Alira" then
-			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
-			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
-			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
-		elseif build.bandit == "Kraityn" then
-			modDB:NewMod("Speed", "INC", 6, "Bandit")
-			modDB:NewMod("AttackDodgeChance", "BASE", 3, "Bandit")
-			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
-		elseif build.bandit == "Oak" then
-			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
-			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
-			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
-		else
-			modDB:NewMod("ExtraPoints", "BASE", 2, "Bandit")
-		end
+		modDB:NewMod("ExtraPoints", "BASE", 2, "Bandit")
 	end
 
 	-- Add Pantheon mods
-	if build.targetVersion == "3_0" then
-		local parser = modLib.parseMod[build.targetVersion]
-		-- Major Gods
-		if build.pantheonMajorGod ~= "None" then
-			local majorGod = env.data.pantheons[build.pantheonMajorGod]
-			pantheon.applySoulMod(modDB, parser, majorGod)
-		end
-		-- Minor Gods
-		if build.pantheonMinorGod ~= "None" then
-			local minorGod = env.data.pantheons[build.pantheonMinorGod]
-			pantheon.applySoulMod(modDB, parser, minorGod)
-		end
+	local parser = modLib.parseMod
+	-- Major Gods
+	if build.pantheonMajorGod ~= "None" then
+		local majorGod = env.data.pantheons[build.pantheonMajorGod]
+		pantheon.applySoulMod(modDB, parser, majorGod)
+	end
+	-- Minor Gods
+	if build.pantheonMinorGod ~= "None" then
+		local minorGod = env.data.pantheons[build.pantheonMinorGod]
+		pantheon.applySoulMod(modDB, parser, minorGod)
 	end
 
 	-- Initialise enemy modifier database

@@ -409,7 +409,7 @@ Adds (10-15) to (20-25) Cold Damage
 The Searing Touch
 Lathi
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int

@@ -23,9 +23,9 @@ LoadModule("Modules/CalcTools")
 LoadModule("Modules/PantheonTools")
 
 --[[if launch.devMode then
-	for skillName, skill in pairs(data["3_0"].enchantments.Helmet) do
+	for skillName, skill in pairs(data.enchantments.Helmet) do
 		for _, mod in ipairs(skill.ENDGAME) do
-			local modList, extra = modLib.parseMod["3_0"](mod)
+			local modList, extra = modLib.parseMod(mod)
 			if not modList or extra then
 				ConPrintf("%s: '%s' '%s'", skillName, mod, extra or "")
 			end
@@ -57,10 +57,8 @@ function main:Init()
 	if launch.devMode and IsKeyDown("CTRL") then
 		self.rebuildModCache = true
 	else
-		-- Load mod caches
-		for _, targetVersion in ipairs(targetVersionList) do
-			LoadModule("Data/"..targetVersion.."/ModCache", modLib.parseModCache[targetVersion])
-		end
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
 
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
@@ -68,54 +66,48 @@ function main:Init()
 	end
 	
 	self.tree = { }
-	for _, versionData in pairs(targetVersions) do
-		for _, treeVersion in ipairs(versionData.treeVersionList) do
-			self.tree[treeVersion] = new("PassiveTree", treeVersion)
-		end
+	for _, treeVersion in ipairs(treeVersionList) do
+		self.tree[treeVersion] = new("PassiveTree", treeVersion)
 	end
 
 	ConPrintf("Loading item databases...")
-	self.uniqueDB = { }
-	self.rareDB = { }
-	for _, targetVersion in ipairs(targetVersionList) do
-		self.uniqueDB[targetVersion] = { list = { } }
-		for type, typeList in pairs(data.uniques) do
-			for _, raw in pairs(typeList) do
-				local newItem = new("Item", targetVersion, "Rarity: Unique\n"..raw)
-				if newItem.base then
-					newItem:NormaliseQuality()
-					self.uniqueDB[targetVersion].list[newItem.name] = newItem
-				elseif launch.devMode then
-					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
-				end
-			end
-		end
-		self.rareDB[targetVersion] = { list = { } }
-		for _, raw in pairs(data[targetVersion].rares) do
-			local newItem = new("Item", targetVersion, "Rarity: Rare\n"..raw)
+	self.uniqueDB = { list = { } }
+	for type, typeList in pairs(data.uniques) do
+		for _, raw in pairs(typeList) do
+			local newItem = new("Item", "Rarity: Unique\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
-				if newItem.crafted then
-					if newItem.base.implicit and #newItem.implicitModLines == 0 then
-						-- Automatically add implicit
-						for line in newItem.base.implicit:gmatch("[^\n]+") do
-							t_insert(newItem.implicitModLines, { line = line })
-						end
-					end
-					newItem:Craft()
-				end
-				self.rareDB[targetVersion].list[newItem.name] = newItem
+				self.uniqueDB.list[newItem.name] = newItem
 			elseif launch.devMode then
-				ConPrintf("Rare DB unrecognised item:\n%s", raw)
+				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 			end
+		end
+	end
+	self.rareDB = { list = { } }
+	for _, raw in pairs(data.rares) do
+		local newItem = new("Item", "Rarity: Rare\n"..raw)
+		if newItem.base then
+			newItem:NormaliseQuality()
+			if newItem.crafted then
+				if newItem.base.implicit and #newItem.implicitModLines == 0 then
+					-- Automatically add implicit
+					for line in newItem.base.implicit:gmatch("[^\n]+") do
+						t_insert(newItem.implicitModLines, { line = line })
+					end
+				end
+				newItem:Craft()
+			end
+			self.rareDB.list[newItem.name] = newItem
+		elseif launch.devMode then
+			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
 	end
 
 	if self.rebuildModCache then
 		-- Update mod cache
-		local out = io.open("Data/"..liveTargetVersion.."/ModCache.lua", "w")
+		local out = io.open("Data/ModCache.lua", "w")
 		out:write('local c=...')
-		for line, dat in pairs(modLib.parseModCache[liveTargetVersion]) do
+		for line, dat in pairs(modLib.parseModCache) do
 			if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
 				out:write('c["', line:gsub("\n","\\n"), '"]={')
 				if dat[1] then
@@ -422,30 +414,26 @@ function main:LoadSettings()
 			elseif node.elem == "SharedItems" then
 				for _, child in ipairs(node) do
 					if child.elem == "Item" then
-						local verItem = { raw = "" }
+						local rawItem = { raw = "" }
 						for _, subChild in ipairs(child) do
 							if type(subChild) == "string" then
-								verItem.raw = subChild
+								rawItem.raw = subChild
 							end
 						end
-						for _, targetVersion in ipairs(targetVersionList) do			
-							verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
-						end
-						t_insert(self.sharedItemList, verItem)
+						local newItem = new("Item", rawItem.raw)
+						t_insert(self.sharedItemList, newItem)
 					elseif child.elem == "ItemSet" then
 						local sharedItemSet = { title = child.attrib.title, slots = { } }
 						for _, grandChild in ipairs(child) do
 							if grandChild.elem == "Item" then
-								local verItem = { raw = "" }
+								local rawItem = { raw = "" }
 								for _, subChild in ipairs(grandChild) do
 									if type(subChild) == "string" then
-										verItem.raw = subChild
+										rawItem.raw = subChild
 									end
 								end
-								for _, targetVersion in ipairs(targetVersionList) do			
-									verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
-								end
-								sharedItemSet.slots[grandChild.attrib.slotName] = verItem
+								local newItem = new("Item", rawItem.raw)
+								sharedItemSet.slots[grandChild.attrib.slotName] = newItem
 							end
 						end
 						t_insert(self.sharedItemSetList, sharedItemSet)

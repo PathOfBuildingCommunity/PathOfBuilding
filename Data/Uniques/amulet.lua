@@ -176,7 +176,7 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ]],[[
 Bisco's Collar
 Gold Amulet
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
 Requires Level 30
@@ -285,7 +285,7 @@ Implicits: 1
 ]],[[
 Extractor Mentis
 Agate Amulet
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 16
 Implicits: 1
@@ -293,9 +293,9 @@ Implicits: 1
 {tags:jewellery_attribute}+(30-50) to Strength
 5% chance to grant Unholy Might to nearby Enemies on Kill
 5% chance to grant Onslaught to nearby Enemies on Kill
-{variant:1}5% chance to gain Unholy Might for 3 seconds on Kill
+{variant:1}5% chance to gain Unholy Might for 10 seconds on Kill
 {variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
-{variant:1}{tags:caster,attack}5% chance to gain Onslaught for 3 seconds on Kill
+{variant:1}{tags:caster,attack}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}{tags:caster,attack}10% chance to gain Onslaught for 10 seconds on Kill
 {tags:life}Recover 1% of Maximum Life on Kill
 ]],[[
@@ -711,15 +711,12 @@ Primordial
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
-{variant:1}{tags:jewellery_elemental}20% increased Duration of Elemental Status Ailments on Enemies
-{variant:2}{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
+{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
 {tags:jewellery_attribute}Items and Gems have 10% reduced Attribute Requirements
 {tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
@@ -796,7 +793,7 @@ Implicits: 1
 ]],[[
 Sidhebreath
 Paua Amulet
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 (20-30)% increased Mana Regeneration Rate
@@ -845,15 +842,13 @@ Corrupted
 ]],[[
 Stone of Lazhwar
 Lapis Amulet
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-{variant:1}50% of Block Chance applied to Spells
-{variant:2}+15% chance to Block Spell Damage
-{variant:3}+(12-15)% chance to Block Spell Damage
+{variant:1}+15% chance to Block Spell Damage
+{variant:2}+(12-15)% chance to Block Spell Damage
 {tags:caster}(10-15)% increased Cast Speed
 {tags:mana}+(30-50) to maximum Mana
 ]],[[
@@ -925,7 +920,7 @@ Choir of the Storm
 Lapis Amulet
 League: Breach
 Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69
 Implicits: 1

@@ -32,7 +32,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 #### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
 * Make sure that the changes have been thoroughly tested!
-* Make sure not to commit `./Data/2_6/ModCache.lua` or `./Data/3_0/ModCache.lua`. These are very large, automatically generated files that are updated in the repository for releases only.
+* Make sure not to commit `./Data/ModCache.lua`. This is a very large, automatically generated file that is updated in the repository for releases only.
 * There are many more files in the `./Data` directory that are automatically generated. To change these, instead change the scripts in the `./Export` directory.
 
 #### Setting up a development install

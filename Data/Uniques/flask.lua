@@ -50,13 +50,13 @@ Requires Level 50
 ]],[[
 Zerphi's Last Breath
 Grand Mana Flask
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.2.0
 Variant: Current
 League: Perandus
 Requires Level 18
 50% increased Charges used
-{variant:1}Skills used during Flask effect grant 800% of Mana Cost as Life
-{variant:2}Skills used during Flask effect grant (450-600)% of Mana Cost as Life over 4 Seconds
+{variant:1}Grants Last Breath when you Use a Skill during Flask Effect, for 800% of Mana Cost
+{variant:2}Grants Last Breath when you Use a Skill during Flask Effect, for (450-600)% of Mana Cost
 ]],
 -- Flask: Hybrid
 [[
@@ -64,7 +64,7 @@ Divination Distillate
 Large Hybrid Flask
 Variant: Pre 1.1.0
 Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 30
 (40-60)% increased Rarity of Items found during Flask effect
@@ -88,7 +88,7 @@ Instant Recovery
 Atziri's Promise
 Amethyst Flask
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68
 2% of Chaos Damage Leeched as Life during Flask effect
@@ -156,7 +156,7 @@ Recover (1-3)% of Energy Shield when you Kill an Enemy during Flask Effect
 Dying Sun
 Ruby Flask
 Source: Drops from unique{The Shaper}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68
 (-10-10)% increased Charges used
@@ -179,7 +179,7 @@ Requires Level 27
 ]],[[
 Kiara's Determination
 Silver Flask
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 22
 Implicits: 0
@@ -190,18 +190,15 @@ Immune to Freeze, Chill, Curses and Stuns during Flask Effect
 Lion's Roar
 Granite Flask
 Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.0.0
-Variant: Pre 3.1.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 27
-Implicits: 0
-{variant:1,2,3}Adds Knockback during Flask effect
-{variant:4}Adds Knockback to Melee Attacks during Flask effect
+Adds Knockback to Melee Attacks during Flask effect
 75% chance to cause Enemies to Flee on use
 {variant:1}(70-100)% increased Charges used
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
-{variant:3,4}(20-25)% more Melee Physical Damage during effect
+{variant:3}(20-25)% more Melee Physical Damage during effect
 Knocks Back Enemies in an Area on Flask use
 ]],[[
 Rotgut
@@ -307,7 +304,7 @@ Requires Level 27
 Taste of Hate
 Sapphire Flask
 Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 18
 {variant:1}30% of Physical Damage from Hits taken as Cold Damage during Flask effect
@@ -337,7 +334,7 @@ Variant: Pre 2.2.0 (Conversion)
 Variant: Pre 3.0.0 (Penetration)
 Variant: Pre 3.0.0 (Spells)
 Variant: Pre 3.0.0 (Attacks)
-Variant: {2_6}Pre 3.0.0 (Conversion)
+Variant: Pre 3.0.0 (Conversion)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
@@ -360,20 +357,16 @@ Requires Level 68
 ]],[[
 The Wise Oak
 Bismuth Flask
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 8
-Implicits: 0
-During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped
-Elemental Resistance is lowest
-{variant:1}During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your
-Uncapped Elemental Resistance is highest
-{variant:2}During Flask Effect, Damage Penetrates (10-15)% Resistance of each Element for which your
-Uncapped Elemental Resistance is highest
+During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
+{variant:1}During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your Uncapped Elemental Resistance is highest
+{variant:2}During Flask Effect, Damage Penetrates (10-15)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
 ]],[[
 Witchfire Brew
 Stibnite Flask
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 48
 Implicits: 1

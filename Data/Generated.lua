@@ -17,7 +17,7 @@ local megalomaniac = {
 	"Added Small Passive Skills grant Nothing",
 }
 local notables = { }
-for name in pairs(data["3_0"].clusterJewels.notableSortOrder) do
+for name in pairs(data.clusterJewels.notableSortOrder) do
 	table.insert(notables, name)
 end
 table.sort(notables)
@@ -51,7 +51,7 @@ local excludedGems = {
 	"Item Quantity",
 }
 local gems = { }
-for _, gemData in pairs(data["3_0"].gems) do
+for _, gemData in pairs(data.gems) do
 	local grantedEffect = gemData.grantedEffect
 	if grantedEffect.support and not (grantedEffect.plusVersionOf) and not isValueInArray(excludedGems, grantedEffect.name) then
 		table.insert(gems, grantedEffect.name)
