@@ -2206,14 +2206,14 @@ function calcs.offence(env, actor, activeSkill)
 			output.ChillChanceOnCrit = 100
 		end
 		if skillModList:Flag(cfg, "CritAlwaysAltAilments") and not skillModList:Flag(cfg, "NeverCrit") then
-			skillFlags.inflictScorch = true
-			skillFlags.inflictBrittle = true
-			skillFlags.inflictSap = true
+			skillFlags.inflictScorch = not skillModList:Flag(cfg, "CannotScorch")
+			skillFlags.inflictBrittle = not skillModList:Flag(cfg, "CannotBrittle")
+			skillFlags.inflictSap = not skillModList:Flag(cfg, "CannotSap")
 		end
 		if skillModList:Flag(cfg, "CritAlwaysAltAilments") and not skillModList:Flag(cfg, "NeverCrit") and skillFlags.hit then
-			output.ScorchChanceOnCrit = 100
-			output.BrittleChanceOnCrit = 100
-			output.SapChanceOnCrit = 100
+			output.ScorchChanceOnCrit = not skillModList:Flag(cfg, "CannotScorch") and 100 or 0
+			output.BrittleChanceOnCrit = not skillModList:Flag(cfg, "CannotBrittle") and 100 or 0
+			output.SapChanceOnCrit = not skillModList:Flag(cfg, "CannotSap") and 100 or 0
 		else
 			output.ScorchChanceOnCrit = 0
 			output.BrittleChanceOnCrit = 0
@@ -2265,26 +2265,26 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.KnockbackChanceOnHit = skillModList:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
-		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 then
+		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 and not skillModList:Flag(cfg, "CannotScorch") then
 			skillFlags.inflictScorch = true
 		end
-		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 and skillFlags.hit then
+		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotScorch") then
 			output.ScorchChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "ScorchChance"))
 		else
 			output.ScorchChanceOnHit = 0
 		end
-		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 then
+		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 and not skillModList:Flag(cfg, "CannotBrittle") then
 			skillFlags.inflictBrittle = true
 		end
-		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 and skillFlags.hit then
+		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotBrittle") then
 			output.BrittleChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BrittleChance"))
 		else
 			output.BrittleChanceOnHit = 0
 		end
-		if skillModList:Sum("BASE", cfg, "SapChance") > 0 then
+		if skillModList:Sum("BASE", cfg, "SapChance") > 0 and not skillModList:Flag(cfg, "CannotSap") then
 			skillFlags.inflictSap = true
 		end
-		if skillModList:Sum("BASE", cfg, "SapChance") > 0 and skillFlags.hit then
+		if skillModList:Sum("BASE", cfg, "SapChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotSap") then
 			output.SapChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "SapChance"))
 		else
 			output.SapChanceOnHit = 0

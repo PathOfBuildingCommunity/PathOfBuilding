@@ -759,6 +759,9 @@ return {
 	flag("CannotChill"),
 	flag("CannotFreeze"),
 	flag("CannotIgnite"),
+	flag("CannotScorch"),
+	flag("CannotBrittle"),
+	flag("CannotSap"),
 },
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
