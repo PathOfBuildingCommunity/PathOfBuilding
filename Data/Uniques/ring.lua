@@ -385,7 +385,7 @@ Cannot be Frozen
 ]],[[
 Emberwake
 Ruby Ring
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 16
@@ -396,10 +396,9 @@ Implicits: 1
 {tags:caster}(5-10)% increased Cast Speed
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
 {variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
-{variant:1}You can inflict up to 300 Ignites on an Enemy
-{variant:2,3}You can inflict an additional Ignite on an Enemy
+You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
-{variant:1}80% less Burning Damage
+{variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
 {variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
 {variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
 ]],[[
@@ -631,7 +630,7 @@ Shaper Item
 Ming's Heart
 Amethyst Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69
 Implicits: 1
@@ -778,7 +777,7 @@ Implicits: 1
 Pyre
 Sapphire Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 11
 Implicits: 1
@@ -880,7 +879,7 @@ Implicits: 1
 ]],[[
 Snakepit
 Sapphire Ring
-Variant: Pre {2_6}3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Source: Drops from unique{Guardian of the Hydra}
 Requires Level 68
@@ -924,7 +923,7 @@ The Taming
 Prismatic Ring
 League: Domination, Nemesis
 Source: Vendor recipe
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30
 Implicits: 1
@@ -1059,22 +1058,20 @@ Valako's Sign
 Topaz Ring
 League: Bloodlines
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-{variant:1}15% increased Damage against Shocked Enemies
-{variant:2}40% increased Damage against Shocked Enemies
-{variant:3,4}40% increased Damage with Hits against Shocked Enemies
+{variant:1}15% increased Damage with Hits against Shocked Enemies
+{variant:2,3}40% increased Damage with Hits against Shocked Enemies
 {tags:jewellery_elemental}20% increased Lightning Damage
 {tags:mana}+(20-40) to maximum Mana
-{variant:1,2,3}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
-{variant:4}{tags:life}1% of Damage Leeched as Life against Shocked Enemies
+{variant:1,2}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
+{variant:3}{tags:life}1% of Damage Leeched as Life against Shocked Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Shock
-{variant:2,3}{tags:jewellery_elemental}10% chance to Shock
-{variant:4}{tags:jewellery_elemental}25% chance to Shock
+{variant:2}{tags:jewellery_elemental}10% chance to Shock
+{variant:3}{tags:jewellery_elemental}25% chance to Shock
 ]],[[
 Valyrium
 Moonstone Ring

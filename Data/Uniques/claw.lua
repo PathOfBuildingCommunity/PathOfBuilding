@@ -34,7 +34,7 @@ Adds 45 to 75 Fire Damage if you've Blocked Recently
 ]],[[
 Allure
 Vaal Claw
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 66, 131 Dex, 95 Int
 Implicits: 1
@@ -66,7 +66,7 @@ League: Legion
 Source: Drops from Maraketh Legion
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -88,7 +88,7 @@ Implicits: 3
 ]],[[
 Bloodseeker
 Hellion's Paw
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
@@ -99,8 +99,7 @@ Adds 10 to 12 Physical Damage
 5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
 5% increased Movement Speed
-{variant:1}Life Leech from Hits with this Weapon applies instantly
-{variant:2}Life Leech from Hits with this Weapon is instant
+Life Leech from Hits with this Weapon is instant
 ]],[[
 Cybil's Paw
 Thresher Claw
@@ -163,16 +162,16 @@ League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing of Esh}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 22, 41 Dex, 41 Int
 Implicits: 2
 {variant:1}+10 Life gained for each Enemy hit by Attacks
 {variant:2,3}+12 Life gained for each Enemy hit by Attacks
-{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
+(20-25)% increased Elemental Damage with Attack Skills
 Adds 1 to (50-60) Lightning Damage
 (10-15)% increased Attack Speed
-{variant:1,2}Adds 1 to 3 Lightning Damage to Attacks per 10 Intelligence
+{variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3}Adds 1 to 5 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 ]],[[
 Hand of Wisdom and Action
@@ -180,16 +179,16 @@ Imperial Claw
 League: Breach
 Source: Upgraded from unique{Hand of Thought and Motion} using currency{Blessing of Esh}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}+25 Life gained for each Enemy hit by Attacks
 {variant:2,3}+46 Life gained for each Enemy hit by Attacks
-{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
+(20-25)% increased Elemental Damage with Attack Skills
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
-{variant:1,2}Adds 1 to 6 Lightning Damage to Attacks per 10 Intelligence
+{variant:1,2}Adds 1 to 6 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 1% increased Attack Speed per 25 Dexterity
 ]],[[
@@ -247,7 +246,7 @@ Mortem Morsu
 Fright Claw
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
@@ -266,7 +265,7 @@ Implicits: 2
 Ornament of the East
 Gut Ripper
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
@@ -282,15 +281,12 @@ Hits can't be Evaded
 ]],[[
 Rive
 Terror Claw
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 (60-80)% increased Physical Damage
 Adds (25-35) to (50-65) Physical Damage
-{variant:1}Causes Bleeding on Hit
-{variant:2}25% chance to cause Bleeding on Hit
+25% chance to cause Bleeding on Hit
 2% increased Physical Damage over time per 10 Dexterity
 1% increased Bleed Duration per 12 Intelligence
 30% Chance to cause Bleeding Enemies to Flee on hit

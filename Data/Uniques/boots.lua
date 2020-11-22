@@ -174,23 +174,22 @@ The Blood Dance
 Sharkskin Boots
 Variant: Pre 1.0.0
 Variant: Pre 2.1.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 44, 79 Dex
 +(30-40) to Dexterity
 20% increased Movement Speed
 2% increased Movement Speed per Frenzy Charge
-{variant:1,2,3,4}3% reduced Attack and Cast Speed per Frenzy Charge
-{variant:5}4% reduced Attack and Cast Speed per Frenzy Charge
+{variant:1,2,3}3% reduced Attack and Cast Speed per Frenzy Charge
+{variant:4}4% reduced Attack and Cast Speed per Frenzy Charge
 {variant:1,2}Regenerate 1% of Life per second per Frenzy Charge
-{variant:3,4}Regenerate 0.5% of Life per second per Frenzy Charge
-{variant:5}Regenerate 0.8% of Life per second per Frenzy Charge
+{variant:3}Regenerate 0.5% of Life per second per Frenzy Charge
+{variant:4}Regenerate 0.8% of Life per second per Frenzy Charge
 (20-30)% chance to gain a Frenzy Charge on Kill
 Gore Footprints
 {variant:1}3% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
-{variant:2,3,4}6% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
-{variant:5}(20-30)% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
+{variant:2,3}6% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
+{variant:4}(20-30)% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
 ]],[[
 Deerstalker
 Deerskin Boots
@@ -275,7 +274,7 @@ Sin Trek
 Stealth Boots
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 117 Dex
 +(20-30) to Dexterity
@@ -405,21 +404,19 @@ Conjurer Boots
 Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 53, 94 Int
-{variant:1,2,3,4}(20-25)% of Block Chance applied to Spells
-{variant:5}+(6-7)% chance to Block Spell Damage
-{variant:6}+(4-6)% chance to Block Spell Damage
+{variant:1,2,3,4}(6-7)% Chance to Block Spell Damage
+{variant:5}(4-6)% Chance to Block Spell Damage
 {variant:1,2}+(80-100) to maximum Mana
-{variant:3,4,5,6}+(40-60) to maximum Mana
+{variant:3,4,5}+(40-60) to maximum Mana
 {variant:1,2}(150-200)% increased Energy Shield
-{variant:3,4,5,6}(140-180)% increased Energy Shield
+{variant:3,4,5}(140-180)% increased Energy Shield
+{variant:1,3,4,5}+20% to all Elemental Resistances
 {variant:2}+8% to all Elemental Resistances
-{variant:1,3,4,5,6}+20% to all Elemental Resistances
 {variant:1,2,3}20% increased Movement Speed
-{variant:4,5,6}25% increased Movement Speed
+{variant:4,5}25% increased Movement Speed
 ]],[[
 Shavronne's Pace
 Scholar Boots
@@ -468,7 +465,7 @@ Stun Threshold is based on 500% of your Mana instead of Life
 Steppan Eard
 Sorcerer Boots
 League: Warbands
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int
 {variant:1}(110-140)% increased Energy Shield
@@ -750,7 +747,7 @@ Brinerot Whalers
 Trapper Boots
 League: Warbands
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 41, 40 Dex, 40 Int
 {variant:1}+(60-80) to maximum Energy Shield
@@ -840,23 +837,6 @@ Requires Level 16, 18 Dex, 18 Int
 {variant:3}15% increased Damage taken while on Full Energy Shield
 20% increased Movement Speed when on Full Energy Shield
 ]],[[
-Sin Trek
-Stealth Boots
-Variant: Pre 2.0.0
-Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
-Variant: Current
-Requires Level 62, 117 Dex
-+(20-30) to Dexterity
-+(20-30) to Intelligence
-(80-100)% increased Evasion Rating
-{variant:1}+(50-70) to maximum Energy Shield
-{variant:2}+(70-100) to maximum Energy Shield
-{variant:3}+(100-160) to maximum Energy Shield
-{variant:4}+(100-150) to maximum Energy Shield
-30% increased Movement Speed
-Enemies Cannot Leech Life From You
-]],[[
 The Stampede
 Assassin's Boots
 Requires Level 63, 62 Dex, 62 Int
@@ -908,7 +888,7 @@ Requires Level 59, 27 Dex, 27 Int
 Voidwalker
 Murder Boots
 Source: Drops from unique{The Shaper}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69, 82 Dex, 42 Int
 +(30-50) to Dexterity
@@ -916,7 +896,7 @@ Requires Level 69, 82 Dex, 42 Int
 30% increased Movement Speed
 20% chance to Avoid Projectiles while Phasing
 You have Phasing if you've Killed Recently
-{variant:1}Projectiles Pierce while Phasing
+{variant:1}Projectiles Pierce all Targets while you have Phasing
 {variant:2}Projectiles Pierce 5 additional Targets while you have Phasing
 Celestial Footprints
 Shaper Item
