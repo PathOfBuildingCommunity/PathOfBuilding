@@ -2994,6 +2994,7 @@ local jewelThresholdFuncs = {
 	["With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles"] = getThreshold({ "Dex","Str" }, "ProjectileCount", "MORE", -75, { type = "SkillName", skillName = "Spectral Shield Throw" }),
 	["With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("Condition:CanWither", "FLAG", true) }, { type = "SkillName", skillName = "Blight" }),
 	["With at least 40 Intelligence in Radius, Fireball cannot ignite"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("CannotIgnite", "FLAG", true) }, { type = "SkillName", skillName = "Fireball" }),
+	["With at least 40 Intelligence in Radius, Fireball has %+(%d+)%% chance to inflict scorch"] = function(num) return getThreshold("Int", "ScorchChance", "BASE", num, { type = "SkillName", skillName = "Fireball" }) end,
 	["With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect"] = getThreshold("Int", "AreaOfEffect", "MORE", -60, {type = "SkillName", skillName = "Discharge" }),
 	["With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms"] = getThreshold("Int", "CooldownRecovery", "OVERRIDE", 0.25, { type = "SkillName", skillName = "Discharge" }),
 	["With at least 40 Intelligence in Radius, Discharge deals 60% less Damage"] = getThreshold("Int", "Damage", "MORE", -60, {type = "SkillName", skillName = "Discharge" }),
