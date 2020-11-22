@@ -58,6 +58,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.spectreList = { }
 	self.viewMode = "TREE"
 	self.characterLevel = 1
+	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
