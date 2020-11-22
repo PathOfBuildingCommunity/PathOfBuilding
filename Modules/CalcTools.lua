@@ -131,6 +131,8 @@ function calcLib.getGemStatRequirement(level, isSupport, multi)
         if multi == 100 then
             a = 2.1
             b = 7.75
+		elseif multi == 75 then
+			a = 1.619
         elseif multi == 60 then
             a = 1.325
         elseif multi == 40 then

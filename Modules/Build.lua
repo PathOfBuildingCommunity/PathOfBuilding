@@ -1195,13 +1195,13 @@ do
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
-		if str and (str > 14 or str > self.calcsTab.mainOutput.Str) then
+		if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
 			t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
 		end
-		if dex and (dex > 14 or dex > self.calcsTab.mainOutput.Dex) then
+		if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
 			t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
 		end
-		if int and (int > 14 or int > self.calcsTab.mainOutput.Int) then
+		if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
 			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
 		end
 		if req[1] then
