@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.170.17" />
+	<Version number="1.4.170.18" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-2_6.zip" />
@@ -17,7 +17,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="7aac7e13b1c6165193e00d6b79d35b7ff2ba208f" />
-	<File name="changelog.txt" part="program" sha1="08b0beb5eb2d2591d34d3ff23f8b88330cd4cb33" />
+	<File name="changelog.txt" part="program" sha1="8690b41b66a7c382eda26849079ae4d25e7b34b9" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="abedf9c43a64c4a9270de5aacc3f02a105fecd1d" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="6e8e968ca53445d82b4bd2945e68f29f52be42fb" />
@@ -172,7 +172,7 @@
 	<File name="Data/StatDescriptions/skill_stat_descriptions.lua" part="program" sha1="84a9ffd32e95ffaebb03727879b67870e2f7fba5" />
 	<File name="Data/StatDescriptions/stat_descriptions.lua" part="program" sha1="b77cedf03d81e91eae95b25bc87e5671bde39a81" />
 	<File name="Data/StatDescriptions/variable_duration_skill_stat_descriptions.lua" part="program" sha1="24deef9b25cfbc01fe01d584a28137436d35f5ae" />
-	<File name="Modules/Build.lua" part="program" sha1="5e9eec22c40a2f548911f6f3c1c941d4b28d6436" />
+	<File name="Modules/Build.lua" part="program" sha1="f34468216cd8e9463b2ec2bfea785ff24c62e817" />
 	<File name="Modules/BuildList.lua" part="program" sha1="bcda0c5148b9e40274acd13702896cc430c89eba" />
 	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="4ed9dbb7d09fa0ef99a4b405414112dd5af7ca5b" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="dc507a40ba4c59625e61d24955f07c424028384f" />

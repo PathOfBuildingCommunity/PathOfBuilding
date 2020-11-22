@@ -1,3 +1,5 @@
+[1.4.170.18][2020/11/22]
+ * Fix error on updating with the 1.4.170.17 patch
 [1.4.170.17][2020/11/22]
  * Remove support for loading builds from before game version 3.0.0
 [1.4.170.16][2020/10/18]
