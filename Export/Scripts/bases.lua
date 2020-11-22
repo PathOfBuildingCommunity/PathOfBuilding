@@ -164,7 +164,11 @@ directiveTable.base = function(state, args, out)
 end
 
 directiveTable.baseMatch = function(state, args, out)
-	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList("Id", args, true)) do
+	local key = "Id"
+	if args:match("Abstract") then
+		key = "BaseType"
+	end
+	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList(key, args, true)) do
 		directiveTable.base(state, baseItemType.Id, out)
 	end
 end
