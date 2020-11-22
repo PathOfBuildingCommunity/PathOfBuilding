@@ -80,7 +80,6 @@ local skinOfTheLords = {
 local excludedKeystones = {
 	"Chaos Inoculation", -- to prevent infinite loop
 	"Corrupted Soul", -- exclusive to specific unique
-	"Doomsday", -- possibly an oversight on GGG's end
 	"Hollow Palm Technique", -- exclusive to specific unique
 	"Immortal Ambition", -- exclusive to specific unique
 	"Necromantic Aegis", -- to prevent infinite loop
