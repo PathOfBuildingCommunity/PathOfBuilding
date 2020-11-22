@@ -164,9 +164,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			condList["DetonatedMinesRecently"] = true
 		end
 		if modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
-			condList["CanInflictScorch"] = modDB:Sum("BASE", nil, "ScorchChance") > 0 and not actor.mainSkill.skillModList:Flag(actor.mainSkill.skillCfg, "CannotScorch")
-			condList["CanInflictBrittle"] = modDB:Sum("BASE", nil, "BrittleChance") > 0 and not actor.mainSkill.skillModList:Flag(env.player.mainSkill.skillCfg, "CannotBrittle")
-			condList["CanInflictSap"] = modDB:Sum("BASE", nil, "SapChance") > 0 and not actor.mainSkill.skillModList:Flag(env.player.mainSkill.skillCfg, "CannotSap")
+			condList["CanInflictScorch"] = modDB:Sum("BASE", nil, "ScorchChance") > 0
+			condList["CanInflictBrittle"] = modDB:Sum("BASE", nil, "BrittleChance") > 0
+			condList["CanInflictSap"] = modDB:Sum("BASE", nil, "SapChance") > 0
 		end
 	end
 	if env.mode_effective then
