@@ -470,19 +470,9 @@ function calcs.initEnv(build, mode, override)
 						end
 					end
 				end
-			end
-		end
-	end
-	-- Build and merge item modifiers
-	for _, slot in pairs(build.itemsTab.orderedSlots) do
-		local slotName = slot.slotName
-		if not disabledSlots[2][slotName] then
-			local item = items[slotName]
-			if item then
-				local srcList = item.modList or item.slotModList[slot.slotNum]
-				if item.type == "Shield" and nodes[45175] then
-					-- Special handling for Necromantic Aegis
-					env.aegisModList = new("ModList")
+				elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
+					-- Special handling for The Iron Mass
+					env.theIronMass = new("ModList")
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
 						local add = true
@@ -491,40 +481,12 @@ function calcs.initEnv(build, mode, override)
 								add = false
 								break
 							end
-			elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
-				-- Special handling for The Iron Mass
-				env.theIronMass = new("ModList")
-				for _, mod in ipairs(srcList) do
-					-- Filter out mods that apply to socketed gems, or which add supports
-					local add = true
-					for _, tag in ipairs(mod) do
-						if tag.type == "SocketedIn" then
-							add = false
-							break
-						end
-					end
-					if add then
-						env.theIronMass:ScaleAddMod(mod, scale)
-					end
-					-- Add all the stats to player as well
-					env.modDB:ScaleAddMod(mod, scale)
-				end
-			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
-				-- Special handling for The Dancing Dervish
-				env.weaponModList1 = new("ModList")
-				for _, mod in ipairs(srcList) do
-					-- Filter out mods that apply to socketed gems, or which add supports
-					local add = true
-					for _, tag in ipairs(mod) do
-						if tag.type == "SocketedIn" then
-							add = false
-							break
 						end
 						if add then
-							env.aegisModList:ScaleAddMod(mod, item.scale)
-						else
-							env.modDB:ScaleAddMod(mod, item.scale)
+							env.theIronMass:ScaleAddMod(mod, scale)
 						end
+						-- Add all the stats to player as well
+						env.modDB:ScaleAddMod(mod, scale)
 					end
 				elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 					-- Special handling for The Dancing Dervish
@@ -577,9 +539,9 @@ function calcs.initEnv(build, mode, override)
 					else
 						env.modDB.multipliers.NonElderItem = (env.modDB.multipliers.NonElderItem or 0) + 1
 					end
-				end
-				if item.shaper or item.elder then
-					env.modDB.multipliers.ShaperOrElderItem = (env.modDB.multipliers.ShaperOrElderItem or 0) + 1
+					if item.shaper or item.elder then
+						env.modDB.multipliers.ShaperOrElderItem = (env.modDB.multipliers.ShaperOrElderItem or 0) + 1
+					end
 				end
 			end
 		end
