@@ -2380,6 +2380,9 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
+	["you can only have one permanent non%-banner aura on you from your skills"] = { flag("OnePermanentNonBannerAuraOnYou") },
+	["you can only have one permanent aura on you from your skills"] = { flag("OnePermanentNonBannerAuraOnYou"), flag("BannerIsPermanentAura") },
+	["you can have two different banners at the same time"] = { flag("TwoBanners") },
 	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
@@ -2603,7 +2606,6 @@ local specialModList = {
 				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["passives in radius are conquered by the (%D+)"] = { },
 	["historic"] = { },
-	["you can have two different banners at the same time"] = { },
 	["can have a second enchantment modifier"] = { },
 	["this item can be anointed by cassia"] = { },
 	["every (%d+) seconds, regenerate (%d+)%% of life over one second"] = function (num, _, percent) return {
