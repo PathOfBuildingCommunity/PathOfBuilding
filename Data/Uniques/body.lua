@@ -58,7 +58,7 @@ Bleeding cannot be inflicted on you
 Death's Oath
 Astral Plate
 Variant: Pre 2.0.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 62, 180 Str
 Implicits: 1
@@ -68,9 +68,7 @@ Implicits: 1
 {variant:3}+(60-70) to maximum Life
 (10-15)% increased Attack Speed
 (180-220)% increased Armour
-{variant:1}5% of Physical Attack Damage Leeched as Life
-{variant:2}1% of Physical Attack Damage Leeched as Life
-{variant:3}1% of Attack Damage Leeched as Life
+1% of Attack Damage Leeched as Life
 {variant:1,2}Deals 450 Chaos Damage per second to nearby Enemies
 {variant:1}You take 450 Chaos Damage per second for 10 seconds on Kill
 {variant:2,3}You take 450 Chaos Damage per second for 3 seconds on Kill
@@ -107,7 +105,6 @@ Has no Sockets
 ]],[[
 Lioneye's Vision
 Crusader Plate
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 59, 160 Str
@@ -115,9 +112,8 @@ Requires Level 59, 160 Str
 +(60-100) to maximum Life
 0.4% of Physical Attack Damage Leeched as Mana
 Socketed Gems are Supported by level 15 Pierce
-{variant:1}+20% chance to be Pierced by Projectiles
-{variant:2,3}Projectiles Pierce you
-{Variant:3}+160 Dexterity Requirement
+Enemy Projectiles Pierce you
+{Variant:2}+160 Dexterity Requirement
 ]],[[
 Iron Heart
 Crusader Plate
@@ -223,7 +219,7 @@ Requires Level 53, 144 Dex
 ]],[[
 Cospri's Will
 Assassin's Garb
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68, 183 Dex
 Implicits: 1
@@ -265,14 +261,14 @@ Zodiac Leather
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}+(20-30) to Dexterity
 {variant:4.5,6}+(40-50) to Dexterity
-{variant:1,2,3}Adds 13 to 24 Cold Damage to Attacks
-{variant:4}Adds (50-60) to (70-80) Cold Damage to Attacks
+{variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
+{variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
 {variant:6}Adds (100-145) to (160-200) Cold Damage to Bow Attacks
 {variant:1}(80-120)% increased Evasion Rating
@@ -294,7 +290,7 @@ Requires Level 62, 170 Dex
 ]],[[
 Queen of the Forest
 Destiny Leather
-Variant: {2_6}Pre 3.1.0
+Variant: Pre 3.1.0
 Variant: Current
 Requires Level 59, 160 Dex
 {variant:1}(240-380)% increased Evasion Rating
@@ -397,7 +393,7 @@ Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 [[
 The Beast Fur Shawl
 Vaal Regalia
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68, 194 Int
 40% increased Spell Damage
@@ -419,8 +415,8 @@ Reflects 15 Fire Damage to Melee Attackers
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
-Source: Level 8 Master
-Variant: {2_6}Pre 3.0.0
+Source: Drops from unique{Elreon, Light's Judge} during Betrayal encounters
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 56, 152 Int
 {variant:1}(250-300)% increased Energy Shield
@@ -443,7 +439,7 @@ Spidersilk Robe
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 49, 134 Int
 Socketed Gems are Supported by level 15 Added Chaos Damage
@@ -517,7 +513,7 @@ Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Infernal Mantle
 Widowsilk Robe
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 65, 187 Int
 +1 to Level of Socketed Fire Gems
@@ -545,7 +541,7 @@ Implicits: 1
 Shavronne's Wrappings
 Occultist's Vestment
 Variant: Pre 1.0.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 62, 180 Int
 Implicits: 1
@@ -589,15 +585,12 @@ Sockets: W-W-W-W-W-W
 ]],[[
 Thousand Ribbons
 Simple Robe
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Socketed Gems are Supported by level 5 Elemental Proliferation
-{variant:1}Adds 2 to 3 Fire Damage to Attacks
-{variant:2}Adds 2 to 3 Fire Damage to Spells and Attacks
-{variant:1}Adds 2 to 3 Cold Damage to Attacks
-{variant:2}Adds 2 to 3 Cold Damage to Spells and Attacks
-{variant:1}Adds 1 to 4 Lightning Damage to Attacks
-{variant:2}Adds 1 to 4 Lightning Damage to Spells and Attacks
+Adds 2 to 3 Fire Damage to Spells and Attacks
+Adds 2 to 3 Cold Damage to Spells and Attacks
+Adds 1 to 4 Lightning Damage to Spells and Attacks
 {variant:1}10% reduced Cast Speed
 +(10-20) to Evasion Rating
 +6 to maximum Life
@@ -668,7 +661,7 @@ Requires Level 69, 95 Str, 116 Dex
 Daresso's Defiance
 Full Dragonscale
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 63, 115 Str, 94 Dex
 (160-200)% increased Armour and Evasion
@@ -802,7 +795,7 @@ Nearby Enemies have Lightning Resistance equal to yours
 Geofri's Sanctuary
 Elegant Ringmail
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 64, 90 Str, 105 Int
 (50-75)% increased Armour and Energy Shield
@@ -977,7 +970,7 @@ Minions have (6-10)% chance to Dodge Attacks
 ]],[[
 Carcass Jack
 Varnished Coat
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 96 Dex, 96 Int
@@ -993,7 +986,7 @@ Extra gore
 Cloak of Defiance
 Lacquered Garb
 Variant: Pre 1.3.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
@@ -1187,7 +1180,7 @@ Variant: Pre 3.0.0 (Evasion/ES + ES)
 Variant: Pre 3.0.0 (Energy Shield)
 Variant: Pre 3.0.0 (Armour/ES + Life)
 Variant: Pre 3.0.0 (Armour/ES + ES)
-Variant: {2_6}Pre 3.0.0 (Armour/Evasion/ES)
+Variant: Pre 3.0.0 (Armour/Evasion/ES)
 Variant: Current (Armour)
 Variant: Current (Armour/Evasion)
 Variant: Current (Evasion)

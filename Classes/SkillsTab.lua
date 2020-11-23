@@ -689,7 +689,7 @@ end
 -- Processes the given socket group, filling in information that will be used for display or calculations
 function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	-- Loop through the skill gem list
-	local verData = self.build.data
+	local data = self.build.data
 	for _, gemInstance in ipairs(socketGroup.gemList) do
 		gemInstance.color = "^8"
 		gemInstance.nameSpec = gemInstance.nameSpec or ""
@@ -699,7 +699,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			-- Specified by gem ID
 			-- Used for skills granted by skill gems
 			gemInstance.errMsg = nil
-			gemInstance.gemData = verData.gems[gemInstance.gemId]
+			gemInstance.gemData = data.gems[gemInstance.gemId]
 			if gemInstance.gemData then
 				gemInstance.nameSpec = gemInstance.gemData.name
 				gemInstance.skillId = gemInstance.gemData.grantedEffectId
@@ -708,11 +708,11 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			-- Specified by skill ID
 			-- Used for skills granted by items
 			gemInstance.errMsg = nil
-			local gemId = verData.gemForSkill[gemInstance.skillId]
+			local gemId = data.gemForSkill[gemInstance.skillId]
 			if gemId then
-				gemInstance.gemData = verData.gems[gemId]
+				gemInstance.gemData = data.gems[gemId]
 			else
-				gemInstance.grantedEffect = verData.skills[gemInstance.skillId]
+				gemInstance.grantedEffect = data.skills[gemInstance.skillId]
 			end
 		elseif gemInstance.nameSpec:match("%S") then
 			-- Specified by gem/skill name, try to match it

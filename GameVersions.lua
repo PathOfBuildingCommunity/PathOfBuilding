@@ -1,71 +1,58 @@
-defaultTargetVersion = "2_6"
+-- Game versions
+---Default target version for unknown builds and builds created before 3.0.0.
+legacyTargetVersion = "2_6"
+---Default target for new builds and target to convert legacy builds to.
 liveTargetVersion = "3_0"
-targetVersionList = { "2_6", "3_0" }
-targetVersions = {
-	["2_6"] = {
-		short = "2.6",
-		long = "2.6 (Atlas of Worlds)",
-		treeVersionList = { "2_6" },
-		defaultTreeVersion = "2_6",
-		latestTreeVersion = "2_6",
-	},
-	["3_0"] = {
-		short = "3.11",
-		long = "3.11 (Conquerors of the Atlas)",
-		treeVersionList = { "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12" },
-		defaultTreeVersion = "3_6",
-		latestTreeVersion = "3_12",
-	},
-}
 
+-- Skill tree versions
+---Added for convenient indexing of skill tree versions.
+---@type string[]
 treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12" }
+--- Always points to the latest skill tree version.
+latestTreeVersion = treeVersionList[#treeVersionList]
+---Tree version where multiple skill trees per build were introduced to PoBC.
+defaultTreeVersion = treeVersionList[2]
+---Display, comparison and export data for all supported skill tree versions.
+---@type table<string, {display: string, num: number, url: string}>
 treeVersions = {
 	["2_6"] = {
-		short = "2.6",
+		display = "2.6",
 		num = 2.06,
-		export = "https://www.pathofexile.com/passive-skill-tree/2.6.2/",
-		targetVersion = "2_6",
+		url = "https://www.pathofexile.com/passive-skill-tree/2.6.2/",
 	},
 	["3_6"] = {
-		short = "3.6",
+		display = "3.6",
 		num = 3.06,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.6.0/",
-		targetVersion = "3_0",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.6.0/",
 	},
 	["3_7"] = {
-		short = "3.7",
+		display = "3.7",
 		num = 3.07,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.7.0/",
-		targetVersion = "3_0",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.7.0/",
 	},
 	["3_8"] = {
-		short = "3.8",
+		display = "3.8",
 		num = 3.08,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.8.0/",
-		targetVersion = "3_0",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.8.0/",
 	},
 	["3_9"] = {
-		short = "3.9",
+		display = "3.9",
 		num = 3.09,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.9.0/",
-		targetVersion = "3_0",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.9.0/",
 	},
 	["3_10"] = {
-		short = "3.10",
+		display = "3.10",
 		num = 3.10,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.10.0/",
-		targetVersion = "3_0",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.10.0/",
 	},
 	["3_11"] = {
-		short = "3.11",
+		display = "3.11",
 		num = 3.11,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.11.0/",
-		targetVersion = "3_0",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.11.0/",
 	},
 	["3_12"] = {
-		short = "3.12",
+		display = "3.12",
 		num = 3.12,
-		export = "https://www.pathofexile.com/passive-skill-tree/3.12.0/",
-		targetVersion = "3_0",
+		url = "https://www.pathofexile.com/passive-skill-tree/3.12.0/",
 	},
 }
