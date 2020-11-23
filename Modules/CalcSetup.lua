@@ -457,19 +457,30 @@ function calcs.initEnv(build, mode, override)
 								disabledSlots[pass][tag.slotName] = true
 								break
 							end
-			if item.type == "Shield" and nodes[45175] and nodes[45175].dn == "Necromantic Aegis" then
-				-- Special handling for Necromantic Aegis
-				env.aegisModList = new("ModList")
-				for _, mod in ipairs(srcList) do
-					-- Filter out mods that apply to socketed gems, or which add supports
-					local add = true
-					for _, tag in ipairs(mod) do
-						if tag.type == "SocketedIn" then
-							add = false
-							break
 						end
 					end
 				end
+			end
+		end
+	end
+	-- Build and merge item modifiers
+	for _, slot in pairs(build.itemsTab.orderedSlots) do
+		local slotName = slot.slotName
+		if not disabledSlots[2][slotName] then
+			local item = items[slotName]
+			if item then
+				local srcList = item.modList or item.slotModList[slot.slotNum]
+				if item.type == "Shield" and nodes[45175] then
+					-- Special handling for Necromantic Aegis
+					env.aegisModList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						-- Filter out mods that apply to socketed gems, or which add supports
+						local add = true
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								add = false
+								break
+							end
 				elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
 					-- Special handling for The Iron Mass
 					env.theIronMass = new("ModList")
