@@ -1564,7 +1564,8 @@ local skills, mod, flag, skill = ...
 			local duration = activeSkill.skillData.duration * output.DurationMod
 			-- duration * 10 / (jump * 10), instead of duration / jump to avoid floating point issues
 			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
-			activeSkill.skillData.dpsMultiplier = math.floor(duration * 10 / jumpPeriod)
+			-- additional 1 because it ticks upon creation
+			activeSkill.skillData.dpsMultiplier = 1 + math.floor(duration * 10 / jumpPeriod)
 		end
 	end,
 	statMap = {
