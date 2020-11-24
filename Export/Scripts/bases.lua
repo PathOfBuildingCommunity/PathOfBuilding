@@ -191,7 +191,7 @@ local itemTypes = {
 	"flask",
 }
 for _, name in pairs(itemTypes) do
-	processTemplateFile(name, "Bases/", "../Data/3_0/Bases/", directiveTable)
+	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)
 end
 
 print("Item bases exported.")

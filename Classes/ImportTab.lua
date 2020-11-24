@@ -20,26 +20,12 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.build = build
 
-	self.charImportMode = build.targetVersion == liveTargetVersion and "GETACCOUNTNAME" or "VERSIONWARNING"
+	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
 	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 250, "Character Import")
-	self.controls.charImportVersionWarning = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 20, 0, 16, colorCodes.WARNING..[[
-Warning:^7 Characters may not import into this build correctly, 
-as the build's game version is different from the live game version.
-Some passives may be deallocated, and some gems may not be recognised.
-If possible, change the game version in the Configuration tab before importing.]])
-	self.controls.charImportVersionWarning.shown = function()
-		return self.charImportMode == "VERSIONWARNING"
-	end
-	self.controls.charImportVersionWarningGo = new("ButtonControl", {"TOPLEFT",self.controls.charImportVersionWarning,"TOPLEFT"}, 0, 70, 80, 20, "Continue", function()
-		self.charImportMode = "GETACCOUNTNAME"
-	end)
 	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
-	self.controls.charImportStatusLabel.shown = function()
-		return self.charImportMode ~= "VERSIONWARNING"
-	end
 
 	-- Stage: input account name
 	self.controls.accountNameHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "^7To start importing a character, enter the character's account name:")
@@ -155,7 +141,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportItemsClearSkills.tooltipText = "Delete all existing skills when importing."
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
 	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
-	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
+	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charDone = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
 		self.charImportMode = "GETACCOUNTNAME"
@@ -592,7 +578,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		return
 	end
 
-	local item = new("Item", self.build.targetVersion)
+	local item = new("Item")
 
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]
@@ -701,7 +687,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.enchantMods then
 		for _, line in ipairs(itemData.enchantMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 			end
 		end
@@ -709,7 +695,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.implicitMods then
 		for _, line in ipairs(itemData.implicitMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
@@ -717,7 +703,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.fracturedMods then
 		for _, line in ipairs(itemData.fracturedMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
 			end
 		end
@@ -725,7 +711,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.explicitMods then
 		for _, line in ipairs(itemData.explicitMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
@@ -733,7 +719,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.craftedMods then
 		for _, line in ipairs(itemData.craftedMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 			end
 		end
@@ -755,7 +741,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 				end
 
 				-- If the line parses, then it should be included as an explicit mod
-				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				local modList, extra = modLib.parseMod(line)
 				if modList then
 					t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
 				end
