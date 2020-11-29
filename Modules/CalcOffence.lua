@@ -3129,10 +3129,6 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
 			end
-			if canDeal.Cold and skillModList:Flag(cfg, "ColdCanFreeze") then
-				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
-				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
-			end
 			if canDeal.Fire and skillModList:Flag(cfg, "FireCanFreeze") then
 				sourceHitDmg = sourceHitDmg + output.FireHitAverage
 				sourceCritDmg = sourceCritDmg + output.FireCritAverage
