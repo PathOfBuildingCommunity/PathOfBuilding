@@ -1665,6 +1665,9 @@ skills["DominatingBlow"] = {
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		},
+		["damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
 		}
 	},
 	baseFlags = {
