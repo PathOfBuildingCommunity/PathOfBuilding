@@ -47,7 +47,7 @@ local ourClassList = {
 	"RowListControl",
 	"SpecColListControl",
 	"DatFile",
-	"GGPKFile",
+	"GGPKData",
 }
 for _, className in ipairs(classList) do
 	LoadModule("../Classes/"..className..".lua", launch, main)
@@ -130,14 +130,14 @@ function main:Init()
 				ConPrintf("Cannot Find File: %s", self.ggpk.oozPath .. name)
 			end
 		end
-		return self.ggpk.txt[name] --self.ggpk:ReadFile(name)
+		return self.ggpk.txt[name]
 	end
 
 	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "Key" }
 
 	self.colList = { }
 
-	self.controls.datSourceLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7GGPK path:")
+	self.controls.datSourceLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7GGPK/Steam PoE path:")
 	self.controls.datSource = new("EditControl", nil, 10, 30, 250, 18, self.datSource) {
 		enterFunc = function(buf)
 			self.datSource = buf
@@ -308,13 +308,12 @@ function main:LoadDatFiles()
 
 	if not self.datSource then
 		return
-	elseif self.datSource:match("%.ggpk") then
+	elseif self.datSource:match("%.ggpk") or self.datSource:match("steamapps[/\\].+[/\\]Path of Exile") then
 		local now = GetTime()
-		self.ggpk = new("GGPKFile", self.datSource)
+		self.ggpk = new("GGPKData", self.datSource)
 		ConPrintf("GGPK: %d ms", GetTime() - now)
 
 		now = GetTime()
-		--for i, record in ipairs(self.ggpk:Find("Data", "%w+%.dat$")) do
 		for i, record in ipairs(self.ggpk.dat) do
 			if i == 1 then
 				ConPrintf("DAT find: %d ms", GetTime() - now)
@@ -325,8 +324,6 @@ function main:LoadDatFiles()
 			self.datFileByName[datFile.name] = datFile
 		end
 		ConPrintf("DAT read: %d ms", GetTime() - now)
-
-		self.ggpk:Close()
 	end
 end
 
