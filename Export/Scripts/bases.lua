@@ -164,8 +164,20 @@ directiveTable.base = function(state, args, out)
 	out:write('},\n}\n')
 end
 
-directiveTable.baseMatch = function(state, args, out)
-	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList("Id", args, true)) do
+directiveTable.baseMatch = function(state, argstr, out)
+	-- Default to look at the Id column for matching
+	local key = "Id"
+	local args = {}
+	for i in string.gmatch(argstr, "%S+") do
+	   table.insert(args, i)
+	end
+	local value = args[1]
+	-- If column name is specified, use that
+	if args[2] then
+		key = args[1]
+		value = args[2]
+	end
+	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList(key, value, true)) do
 		directiveTable.base(state, baseItemType.Id, out)
 	end
 end
