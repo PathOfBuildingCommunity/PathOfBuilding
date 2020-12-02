@@ -1116,14 +1116,43 @@ function calcs.defence(env, actor)
 	--maximum hit taken
 	--FIX X TAKEN AS Y (output[damageType.."TotalPool"] should use the damage types that are converted to in output[damageType.."TakenHitMult"])
 	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."MaximumHitTaken"] = output[damageType.."TotalPool"] / output[damageType.."TakenHitMult"]
 		if breakdown then
-			breakdown[damageType.."MaximumHitTaken"] = {
-				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
-				s_format("Damage Taken modifier: %.2f", output[damageType.."TakenHitMult"]),
-				s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]),
+			breakdown[damageType.."MaximumHitTaken"] = { 
+				label = "Maximum Hit Taken (uses lowest value)",
+				rowList = { },
+				colList = {
+					{ label = "Type", key = "type" },
+					{ label = "TotalPool", key = "pool" },
+					{ label = "Taken", key = "taken" },
+					{ label = "Final", key = "final" },
+				},
 			}
 		end
+		output[damageType.."MaximumHitTaken"] = 2147483648
+		for _, damageConvertedType in ipairs(dmgTypeList) do
+			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
+				local hitTaken = output[damageConvertedType.."TotalPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				if hitTaken < output[damageType.."MaximumHitTaken"] then
+					output[damageType.."MaximumHitTaken"] = hitTaken
+				end
+				
+				if breakdown then
+					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
+						type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
+						pool = s_format("x %d", output[damageConvertedType.."TotalPool"]),
+						taken = s_format("/ %.2f", output[damageConvertedType.."BaseTakenHitMult"]),
+						final = s_format("x %.0f", hitTaken),
+					})
+				end
+			end
+		end
+		--if breakdown then
+			--breakdown[damageType.."MaximumHitTaken"] = {
+			--	s_format("Total Pool: %d", output[damageType.."TotalPool"]),
+			--	s_format("Damage Taken modifier: %.2f", output[damageType.."TakenHitMult"]),
+			--	s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]),
+			--}
+		--end
 	end
 	
 	
