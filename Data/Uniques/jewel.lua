@@ -792,11 +792,10 @@ Variant: Hatred: Critical Strike Chance
 Variant: Hatred: Cold Pen
 Variant: Hatred: Inc. Cold Damage
 Variant: Hatred: Phys to Cold
-Variant: Malevolence: Inc. DoT Multi
-Variant: Malevolence: Inc. Cold DoT
+Variant: Malevolence: Inc. DoT Multi (Pre 3.8.0)
+Variant: Malevolence: Inc. DoT Multi (Current)
 Variant: Malevolence: Life/ES Rec. Rate (Pre 3.12.0)
 Variant: Malevolence: Life/ES Rec. Rate (Current)
-Variant: Malevolence: Inc. Skill Effect Duration
 Variant: Malevolence: Unaffected by Bleeding
 Variant: Malevolence: Unaffected by Poison
 Variant: Malevolence: Ailments deal Dmg faster
@@ -901,68 +900,67 @@ Limited to: 1
 {variant:41}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
 {variant:42}(40-60)% increased Cold Damage while affected by Hatred
 {variant:43}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
-{variant:44}+(18-22)% Damage over Time Multiplier while affected by Malevolence
-{variant:45}+(18-22)% to Cold Damage over Time Multiplier while affected by Malevolence
+{variant:44}+(36-44)% Damage over Time Multiplier while affected by Malevolence
+{variant:45}+(18-22)% Damage over Time Multiplier while affected by Malevolence
 {variant:46}(15-20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
 {variant:47}(8-12)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
-{variant:48}(20-30)% increased Skill Effect Duration while affected by Malevolence
-{variant:49}Unaffected by Bleeding while affected by Malevolence
-{variant:50}Unaffected by Poison while affected by Malevolence
-{variant:51}Damaging Ailments you inflict deal Damage (10-15)% faster while affected by Malevolence
-{variant:52}Cannot be Blinded while affected by Precision
-{variant:53}(10-15)% increased Attack Speed while affected by Precision
-{variant:54}Gain a Flask Charge when you deal a Critical Strike while affected by Precision
-{variant:55}(40-60)% increased Attack Damage while affected by Precision
-{variant:56}+(30-50)% to Critical Strike Multiplier while affected by Precision
-{variant:57}+(20-30)% to Critical Strike Multiplier while affected by Precision
-{variant:58}(8-12)% chance to deal Double Damage while using Pride
-{variant:59}Your Hits Intimidate Enemies for 4 seconds while you are using Pride
-{variant:60}(40-60)% increased Attack Physical Damage while using Pride
-{variant:61}25% chance to Impale Enemies on Hit with Attacks while using Pride
-{variant:62}Impales you inflict last 2 additional Hits while using Pride
-{variant:63}+(30-50)% to Chaos Resistance while affected by Purity of Elements
-{variant:64}(50-40)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
-{variant:65}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
-{variant:66}(8-12)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements
-{variant:67}(8-12)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements
-{variant:68}Unaffected by Elemental Weakness while affected by Purity of Elements
-{variant:69}Immune to Ignite while affected by Purity of Fire
-{variant:70}(50-40)% reduced Reflected Fire Damage taken while affected by Purity of Fire
-{variant:71}(6-10)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire
-{variant:72}Unaffected by Burning Ground while affected by Purity of Fire
-{variant:73}Unaffected by Flammability while affected by Purity of Fire
-{variant:74}Immune to Freeze while affected by Purity of Ice
-{variant:75}(50-40)% reduced Reflected Cold Damage taken while affected by Purity of Ice
-{variant:76}(6-10)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice
-{variant:77}Unaffected by Chilled Ground while affected by Purity of Ice
-{variant:78}Unaffected by Frostbite while affected by Purity of Ice
-{variant:79}Immune to Shock while affected by Purity of Lightning
-{variant:80}(50-40)% reduced Reflected Lightning Damage taken while affected by Purity of Lightning
-{variant:81}(6-10)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning
-{variant:82}Unaffected by Conductivity while affected by Purity of Lightning
-{variant:83}Unaffected by Shocked Ground while affected by Purity of Lightning
-{variant:84}(1-1.5)% of Damage leeched as Life while affected by Vitality
-{variant:85}(0.8-1.2)% of Damage leeched as Life while affected by Vitality
-{variant:86}(100-140) Life Regenerated per Second while affected by Vitality
-{variant:87}Regenerate (1-1.5)% of Life per second while affected by Vitality
-{variant:88}+(20-30) Life gained for each Enemy Hit while affected by Vitality
-{variant:89}(50-70)% increased Life Recovery from Flasks while affected by Vitality
-{variant:90}(20-30)% increased Life Recovery Rate while affected by Vitality
-{variant:91}(10-15)% increased Life Recovery Rate while affected by Vitality
-{variant:92}(70-100)% increased Critical Strike Chance while affected by Wrath
-{variant:93}(40-60)% increased Lightning Damage while affected by Wrath
-{variant:94}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
-{variant:95}(1-1.5)% of Lightning Damage is Leeched as Energy Shield while affected by Wrath
-{variant:96}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
-{variant:97}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
-{variant:98}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
-{variant:99}(10-15)% increased Cast Speed while affected by Zealotry
-{variant:100}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
-{variant:101}Consecrated Ground you create while affected by Zealotry causes enemies to take (8-10)% increased Damage
-{variant:102}(100-120)% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry
-{variant:103}Critical Strikes Penetrate (8-10)% of Enemy Elemental Resistances while affected by Zealotry
-{variant:104}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
-{variant:105}30% increased Maximum total Recovery per second from Energy Shield Leech while affected by Zealotry
+{variant:48}Unaffected by Bleeding while affected by Malevolence
+{variant:49}Unaffected by Poison while affected by Malevolence
+{variant:50}Damaging Ailments you inflict deal Damage (10-15)% faster while affected by Malevolence
+{variant:51}Cannot be Blinded while affected by Precision
+{variant:52}(10-15)% increased Attack Speed while affected by Precision
+{variant:53}Gain a Flask Charge when you deal a Critical Strike while affected by Precision
+{variant:54}(40-60)% increased Attack Damage while affected by Precision
+{variant:55}+(30-50)% to Critical Strike Multiplier while affected by Precision
+{variant:56}+(20-30)% to Critical Strike Multiplier while affected by Precision
+{variant:57}(8-12)% chance to deal Double Damage while using Pride
+{variant:58}Your Hits Intimidate Enemies for 4 seconds while you are using Pride
+{variant:59}(40-60)% increased Attack Physical Damage while using Pride
+{variant:60}25% chance to Impale Enemies on Hit with Attacks while using Pride
+{variant:61}Impales you inflict last 2 additional Hits while using Pride
+{variant:62}+(30-50)% to Chaos Resistance while affected by Purity of Elements
+{variant:63}(50-40)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
+{variant:64}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
+{variant:65}(8-12)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements
+{variant:66}(8-12)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements
+{variant:67}Unaffected by Elemental Weakness while affected by Purity of Elements
+{variant:68}Immune to Ignite while affected by Purity of Fire
+{variant:69}(50-40)% reduced Reflected Fire Damage taken while affected by Purity of Fire
+{variant:70}(6-10)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire
+{variant:71}Unaffected by Burning Ground while affected by Purity of Fire
+{variant:72}Unaffected by Flammability while affected by Purity of Fire
+{variant:73}Immune to Freeze while affected by Purity of Ice
+{variant:74}(50-40)% reduced Reflected Cold Damage taken while affected by Purity of Ice
+{variant:75}(6-10)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice
+{variant:76}Unaffected by Chilled Ground while affected by Purity of Ice
+{variant:77}Unaffected by Frostbite while affected by Purity of Ice
+{variant:78}Immune to Shock while affected by Purity of Lightning
+{variant:79}(50-40)% reduced Reflected Lightning Damage taken while affected by Purity of Lightning
+{variant:80}(6-10)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning
+{variant:81}Unaffected by Conductivity while affected by Purity of Lightning
+{variant:82}Unaffected by Shocked Ground while affected by Purity of Lightning
+{variant:83}(1-1.5)% of Damage leeched as Life while affected by Vitality
+{variant:84}(0.8-1.2)% of Damage leeched as Life while affected by Vitality
+{variant:85}(100-140) Life Regenerated per Second while affected by Vitality
+{variant:86}Regenerate (1-1.5)% of Life per second while affected by Vitality
+{variant:87}+(20-30) Life gained for each Enemy Hit while affected by Vitality
+{variant:88}(50-70)% increased Life Recovery from Flasks while affected by Vitality
+{variant:89}(20-30)% increased Life Recovery Rate while affected by Vitality
+{variant:90}(10-15)% increased Life Recovery Rate while affected by Vitality
+{variant:91}(70-100)% increased Critical Strike Chance while affected by Wrath
+{variant:92}(40-60)% increased Lightning Damage while affected by Wrath
+{variant:93}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
+{variant:94}(1-1.5)% of Lightning Damage is Leeched as Energy Shield while affected by Wrath
+{variant:95}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
+{variant:96}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
+{variant:97}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
+{variant:98}(10-15)% increased Cast Speed while affected by Zealotry
+{variant:99}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
+{variant:100}Consecrated Ground you create while affected by Zealotry causes enemies to take (8-10)% increased Damage
+{variant:101}(100-120)% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry
+{variant:102}Critical Strikes Penetrate (8-10)% of Enemy Elemental Resistances while affected by Zealotry
+{variant:103}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
+{variant:104}30% increased Maximum total Recovery per second from Energy Shield Leech while affected by Zealotry
 ]],
 -- Jewel: Threshold
 [[
