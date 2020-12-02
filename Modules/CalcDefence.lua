@@ -1183,7 +1183,7 @@ function calcs.defence(env, actor)
 		--effective number of hits to deplete pool
 		output[damageType.."NumberOfHits"] = 2147483648
 		for _, damageConvertedType in ipairs(dmgTypeList) do
-			local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageConvertedType.."BaseTakenHitMult"])-- + output[damageConvertedType..DamageType.."FlatTaken"])
+			local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageConvertedType.."BaseTakenHitMult"])-- + output[damageConvertedType..DamageType.."FlatTaken"] - output[damageConvertedType..DamageType.."effectiveGainOnBlock"]
 			local hitstaken = math.ceil(output[damageConvertedType.."TotalPool"] / damageTaken)
 			hitstaken = hitstaken / (1 - output[DamageType.."NotHitChance"] / 100)  / (1 - output[damageConvertedType..DamageType.."DamageChance"] / 100)
 			if hitstaken < output[damageType.."NumberOfHits"] then
