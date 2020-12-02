@@ -63,7 +63,6 @@ end
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
 	self.raw = raw
-	local data = data
 	self.name = "?"
 	self.rarity = "UNIQUE"
 	self.quality = nil
@@ -123,56 +122,19 @@ function ItemClass:ParseRaw(raw)
 			end
 		end
 		self.name = self.name:gsub(" %(.+%)","")
-	elseif self.rawLines[l] and not self.rawLines[l]:match("^%-") then
-		if self.rawLines[l] == "Two-Toned Boots" then
-			self.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
-		end
-		local baseName = self.rawLines[l]:gsub("Synthesised ","")
-		if data.itemBases[baseName] then
-			self.baseName = baseName
-			self.title = self.name
-			self.name = self.title .. ", " .. baseName:gsub(" %(.+%)","")
-			self.type = data.itemBases[baseName].type
-			l = l + 1
-		end
 	end
-	self.base = data.itemBases[self.baseName]
 	self.sockets = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
 	self.implicitModLines = { }
 	self.explicitModLines = { }
 	local implicitLines = 0
-	if self.base then
-		self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
-			or data.itemMods[self.base.type]
-			or data.itemMods.Item
-		self.enchantments = data.enchantments[self.base.type]
-		self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
-		self.influenceTags = data.specialBaseTags[self.type]
-		self.canBeInfluenced = self.influenceTags
-		self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
-	end
 	self.variantList = nil
 	self.prefixes = { }
 	self.suffixes = { }
 	self.requirements = { }
-	if self.base then
-		self.requirements.str = self.base.req.str or 0
-		self.requirements.dex = self.base.req.dex or 0
-		self.requirements.int = self.base.req.int or 0
-		local maxReq = m_max(self.requirements.str, self.requirements.dex, self.requirements.int)
-		self.defaultSocketColor = (maxReq == self.requirements.dex and "G") or (maxReq == self.requirements.int and "B") or "R"
-	end
 	local importedLevelReq
 	local flaskBuffLines = { }
-	if self.base and self.base.flask and self.base.flask.buff then
-		for _, line in ipairs(self.base.flask.buff) do
-			flaskBuffLines[line] = true
-			local modList, extra = modLib.parseMod(line)
-			t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
-		end
-	end
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
@@ -367,6 +329,43 @@ function ItemClass:ParseRaw(raw)
 						variantList[tonumber(varId)] = true
 					end
 				end
+				if line:gsub("({variant:[%d,]+})", "") == "Two-Toned Boots" then
+					line = "Two-Toned Boots (Armour/Energy Shield)"
+				end
+				local baseName = ""
+				if self.variant and varSpec then
+					if tonumber(varSpec) == self.variant then
+						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
+					end
+				else
+					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
+				end
+				if baseName and data.itemBases[baseName] then
+					self.baseName = baseName
+					self.title = self.name
+					self.type = data.itemBases[baseName].type
+					self.base = data.itemBases[self.baseName]
+					self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
+							or data.itemMods[self.base.type]
+							or data.itemMods.Item
+					self.enchantments = data.enchantments[self.base.type]
+					self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
+					self.influenceTags = data.specialBaseTags[self.type]
+					self.canBeInfluenced = self.influenceTags
+					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
+					self.requirements.str = self.base.req.str or 0
+					self.requirements.dex = self.base.req.dex or 0
+					self.requirements.int = self.base.req.int or 0
+					local maxReq = m_max(self.requirements.str, self.requirements.dex, self.requirements.int)
+					self.defaultSocketColor = (maxReq == self.requirements.dex and "G") or (maxReq == self.requirements.int and "B") or "R"
+					if self.base.flask and self.base.flask.buff then
+						for _, line in ipairs(self.base.flask.buff) do
+							flaskBuffLines[line] = true
+							local modList, extra = modLib.parseMod(line)
+							t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
+						end
+					end
+				end
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local enchant = line:match(" %(enchant%)")
@@ -451,6 +450,9 @@ function ItemClass:ParseRaw(raw)
 			end
 		end
 		l = l + 1
+	end
+	if self.baseName then
+		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
 	end
 	if self.base and not self.requirements.level then
 		if importedLevelReq and #self.sockets == 0 then
@@ -618,6 +620,18 @@ function ItemClass:BuildRaw()
 		end
 		t_insert(rawLines, "Selected Variant: "..self.variant)
 
+		local hasVariantBases = false
+		local i = 1
+		for _, variantName in ipairs(self.variantList) do
+			if data.itemBases[variantName] then
+				t_insert(rawLines, "{variant:"..i.."}"..variantName)
+				hasVariantBases = true
+			end
+			i = i + 1
+		end
+		if not hasVariantBases then
+			t_insert(rawLines, self.baseName)
+		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
