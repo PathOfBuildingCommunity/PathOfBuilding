@@ -1827,6 +1827,10 @@ local skills, mod, flag, skill = ...
 		["base_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["life_regeneration_rate_per_minute_%"] = {
+			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
 	},
 #baseMod skill("radius", 40)
 #mods
