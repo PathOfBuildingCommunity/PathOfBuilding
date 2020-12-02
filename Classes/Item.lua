@@ -63,7 +63,6 @@ end
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
 	self.raw = raw
-	local data = data
 	self.name = "?"
 	self.rarity = "UNIQUE"
 	self.quality = nil
@@ -341,19 +340,19 @@ function ItemClass:ParseRaw(raw)
 				else
 					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 				end
-				if baseName and verData.itemBases[baseName] then
+				if baseName and data.itemBases[baseName] then
 					self.baseName = baseName
 					self.title = self.name
-					self.type = verData.itemBases[baseName].type
-					self.base = verData.itemBases[self.baseName]
-					self.affixes = (self.base.subType and verData.itemMods[self.base.type..self.base.subType])
-							or verData.itemMods[self.base.type]
-							or verData.itemMods.Item
-					self.enchantments = verData.enchantments[self.base.type]
+					self.type = data.itemBases[baseName].type
+					self.base = data.itemBases[self.baseName]
+					self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
+							or data.itemMods[self.base.type]
+							or data.itemMods.Item
+					self.enchantments = data.enchantments[self.base.type]
 					self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
 					self.influenceTags = data.specialBaseTags[self.type]
 					self.canBeInfluenced = self.influenceTags
-					self.clusterJewel = verData.clusterJewels and verData.clusterJewels.jewels[self.baseName]
+					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 					self.requirements.str = self.base.req.str or 0
 					self.requirements.dex = self.base.req.dex or 0
 					self.requirements.int = self.base.req.int or 0
@@ -362,7 +361,7 @@ function ItemClass:ParseRaw(raw)
 					if self.base.flask and self.base.flask.buff then
 						for _, line in ipairs(self.base.flask.buff) do
 							flaskBuffLines[line] = true
-							local modList, extra = modLib.parseMod[self.targetVersion](line)
+							local modList, extra = modLib.parseMod(line)
 							t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
 						end
 					end
@@ -623,9 +622,8 @@ function ItemClass:BuildRaw()
 
 		local hasVariantBases = false
 		local i = 1
-		local verData = data[self.targetVersion]
 		for _, variantName in ipairs(self.variantList) do
-			if verData.itemBases[variantName] then
+			if data.itemBases[variantName] then
 				t_insert(rawLines, "{variant:"..i.."}"..variantName)
 				hasVariantBases = true
 			end
