@@ -1176,7 +1176,7 @@ function calcs.defence(env, actor)
 			s_format("EHP calculation Mode: %s", DamageTypeConfig),
 			s_format("Average Number of hits you can take: %.2f", output[damageType.."NumberOfHits"]),
 			s_format("Damage Before mitigation: %d", damage),
-			s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
+			s_format("Total Effective Hit Pool: %.0f", output[damageType.."TotalEHP"]),
 			}
 		end
 	end
