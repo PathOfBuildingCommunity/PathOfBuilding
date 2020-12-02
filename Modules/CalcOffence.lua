@@ -185,7 +185,7 @@ local function calcWarcryCastTime(skillModList, skillCfg, actor)
 	return warcryCastTime
 end
 
-local function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
+function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
 	local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 	local durationBase = (skillData.duration or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "PrimaryDuration")
 	local duration = durationBase * durationMod

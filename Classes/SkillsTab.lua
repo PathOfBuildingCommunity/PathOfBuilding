@@ -231,6 +231,8 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
 				gemInstance.skillPart = tonumber(child.attrib.skillPart)
 				gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
+				gemInstance.skillStageCount = tonumber(child.attrib.skillStageCount)
+				gemInstance.skillStageCountCalcs = tonumber(child.attrib.skillStageCountCalcs)
 				gemInstance.skillMineCount = tonumber(child.attrib.skillMineCount)
 				gemInstance.skillMineCountCalcs = tonumber(child.attrib.skillMineCountCalcs)
 				gemInstance.skillMinion = child.attrib.skillMinion
@@ -282,6 +284,8 @@ function SkillsTabClass:Save(xml)
 				enableGlobal2 = tostring(gemInstance.enableGlobal2),
 				skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
 				skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
+				skillStageCount = gemInstance.skillStageCount and tostring(gemInstance.skillStageCount),
+				skillStageCountCalcs = gemInstance.skillStageCountCalcs and tostring(gemInstance.skillStageCountCalcs),
 				skillMineCount = gemInstance.skillMineCount and tostring(gemInstance.skillMineCount),
 				skillMineCountCalcs = gemInstance.skillMineCountCalcs and tostring(gemInstance.skillMineCountCalcs),
 				skillMinion = gemInstance.skillMinion,
