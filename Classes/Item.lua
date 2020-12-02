@@ -123,56 +123,19 @@ function ItemClass:ParseRaw(raw)
 			end
 		end
 		self.name = self.name:gsub(" %(.+%)","")
-	elseif self.rawLines[l] and not self.rawLines[l]:match("^%-") then
-		if self.rawLines[l] == "Two-Toned Boots" then
-			self.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
-		end
-		local baseName = self.rawLines[l]:gsub("Synthesised ","")
-		if data.itemBases[baseName] then
-			self.baseName = baseName
-			self.title = self.name
-			self.name = self.title .. ", " .. baseName:gsub(" %(.+%)","")
-			self.type = data.itemBases[baseName].type
-			l = l + 1
-		end
 	end
-	self.base = data.itemBases[self.baseName]
 	self.sockets = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
 	self.implicitModLines = { }
 	self.explicitModLines = { }
 	local implicitLines = 0
-	if self.base then
-		self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
-			or data.itemMods[self.base.type]
-			or data.itemMods.Item
-		self.enchantments = data.enchantments[self.base.type]
-		self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
-		self.influenceTags = data.specialBaseTags[self.type]
-		self.canBeInfluenced = self.influenceTags
-		self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
-	end
 	self.variantList = nil
 	self.prefixes = { }
 	self.suffixes = { }
 	self.requirements = { }
-	if self.base then
-		self.requirements.str = self.base.req.str or 0
-		self.requirements.dex = self.base.req.dex or 0
-		self.requirements.int = self.base.req.int or 0
-		local maxReq = m_max(self.requirements.str, self.requirements.dex, self.requirements.int)
-		self.defaultSocketColor = (maxReq == self.requirements.dex and "G") or (maxReq == self.requirements.int and "B") or "R"
-	end
 	local importedLevelReq
 	local flaskBuffLines = { }
-	if self.base and self.base.flask and self.base.flask.buff then
-		for _, line in ipairs(self.base.flask.buff) do
-			flaskBuffLines[line] = true
-			local modList, extra = modLib.parseMod(line)
-			t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
-		end
-	end
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
@@ -367,6 +330,44 @@ function ItemClass:ParseRaw(raw)
 						variantList[tonumber(varId)] = true
 					end
 				end
+				-- Initial load it doesn't know to only append the name once
+				if line:gsub("({variant:[%d,]+})", "") == "Two-Toned Boots" then
+					line = "Two-Toned Boots (Armour/Energy Shield)"
+				end
+				local baseName = ""
+				if self.variant and varSpec then
+					if tonumber(varSpec) == self.variant then
+						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
+					end
+				else
+					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
+				end
+				if baseName and verData.itemBases[baseName] then
+					self.baseName = baseName
+					self.title = self.name
+					self.type = verData.itemBases[baseName].type
+					self.base = verData.itemBases[self.baseName]
+					self.affixes = (self.base.subType and verData.itemMods[self.base.type..self.base.subType])
+							or verData.itemMods[self.base.type]
+							or verData.itemMods.Item
+					self.enchantments = verData.enchantments[self.base.type]
+					self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
+					self.influenceTags = data.specialBaseTags[self.type]
+					self.canBeInfluenced = self.influenceTags
+					self.clusterJewel = verData.clusterJewels and verData.clusterJewels.jewels[self.baseName]
+					self.requirements.str = self.base.req.str or 0
+					self.requirements.dex = self.base.req.dex or 0
+					self.requirements.int = self.base.req.int or 0
+					local maxReq = m_max(self.requirements.str, self.requirements.dex, self.requirements.int)
+					self.defaultSocketColor = (maxReq == self.requirements.dex and "G") or (maxReq == self.requirements.int and "B") or "R"
+					if self.base.flask and self.base.flask.buff then
+						for _, line in ipairs(self.base.flask.buff) do
+							flaskBuffLines[line] = true
+							local modList, extra = modLib.parseMod[self.targetVersion](line)
+							t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
+						end
+					end
+				end
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local enchant = line:match(" %(enchant%)")
@@ -451,6 +452,9 @@ function ItemClass:ParseRaw(raw)
 			end
 		end
 		l = l + 1
+	end
+	if not self.baseName then
+		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
 	end
 	if self.base and not self.requirements.level then
 		if importedLevelReq and #self.sockets == 0 then
@@ -618,6 +622,19 @@ function ItemClass:BuildRaw()
 		end
 		t_insert(rawLines, "Selected Variant: "..self.variant)
 
+		local hasVariantBases = false
+		local i = 1
+		local verData = data[self.targetVersion]
+		for _, variantName in ipairs(self.variantList) do
+			if verData.itemBases[variantName] then
+				t_insert(rawLines, "{variant:"..i.."}"..variantName)
+				hasVariantBases = true
+			end
+			i = i + 1
+		end
+		if not hasVariantBases then
+			t_insert(rawLines, self.baseName)
+		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
@@ -1074,6 +1091,9 @@ function ItemClass:BuildModList()
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
+		if not self.requirements.str then
+			self.requirements.strMod = m_floor((self.requirements.str + sumLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		end
 		self.requirements.strMod = m_floor((self.requirements.str + sumLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "StrRequirement", "INC", 0) / 100))
 		self.requirements.dexMod = m_floor((self.requirements.dex + sumLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "DexRequirement", "INC", 0) / 100))
 		self.requirements.intMod = m_floor((self.requirements.int + sumLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "IntRequirement", "INC", 0) / 100))
