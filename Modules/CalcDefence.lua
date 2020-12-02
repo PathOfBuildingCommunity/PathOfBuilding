@@ -1114,7 +1114,7 @@ function calcs.defence(env, actor)
 	end
 
 	--maximum hit taken
-	--FIX X TAKEN AS Y (output[damageType.."TotalPool"] should use the damage types that are converted to in output[damageType.."TakenHitMult"])
+	--FIX ARMOUR MITIGATION FOR THIS, uses input damage to calculate mitigation from armour, instead of maximum hit taken
 	for _, damageType in ipairs(dmgTypeList) do
 		if breakdown then
 			breakdown[damageType.."MaximumHitTaken"] = { 
@@ -1146,12 +1146,13 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
+		--output[damageType.."MaximumHitTaken"] = output[damageType.."TotalPool"] / output[damageType.."TakenHitMult"]
 		--if breakdown then
-			--breakdown[damageType.."MaximumHitTaken"] = {
-			--	s_format("Total Pool: %d", output[damageType.."TotalPool"]),
-			--	s_format("Damage Taken modifier: %.2f", output[damageType.."TakenHitMult"]),
-			--	s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]),
-			--}
+		--	breakdown[damageType.."MaximumHitTaken"] = { 
+		--	 s_format("Total Pool: %d", output[damageType.."TotalPool"]),
+		--	 s_format("Damage Taken modifier: %.2f", output[damageType.."TakenHitMult"]),
+		--	 s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]),
+		--	}
 		--end
 	end
 	
