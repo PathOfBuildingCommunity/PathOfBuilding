@@ -214,7 +214,7 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
----@type string[] @List of keystones that can be found on unique items.
+---@type string[] @List of all keystones not exclusive to timeless jewels.
 data.keystones = {
 	"Acrobatics",
 	"Ancestral Bond",
@@ -222,9 +222,11 @@ data.keystones = {
 	"Avatar of Fire",
 	"Blood Magic",
 	"Call to Arms",
+	"Chaos Inoculation",
 	"Conduit",
 	"Corrupted Soul",
 	"Crimson Dance",
+	"Doomsday",
 	"Eldritch Battery",
 	"Elemental Equilibrium",
 	"Elemental Overload",
@@ -239,6 +241,7 @@ data.keystones = {
 	"Mind Over Matter",
 	"Minion Instability",
 	"Mortal Conviction",
+	"Necromantic Aegis",
 	"Pain Attunement",
 	"Perfect Agony",
 	"Phase Acrobatics",
