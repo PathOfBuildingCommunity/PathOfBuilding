@@ -1012,6 +1012,7 @@ function calcs.defence(env, actor)
 				local final = portion / 100 * (1 - resist / 100) * takenMult
 				local finalReflect = portion / 100 * (1 - resist / 100) * takenMultReflect
 				mult = mult + final
+				output[damageType.."BaseTakenHitMult"] = (1 - resist / 100) * takenMult
 				multReflect = multReflect + finalReflect
 				if breakdown then
 					t_insert(breakdown[damageType.."TakenHitMult"].rowList, {
@@ -1129,7 +1130,7 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
 		local DamageType = DamageTypeConfig
-		local minimumEHP = -2147483648
+		local minimumcttd = -2147483648
 		local minimumEHPMode = "NONE"
 		if DamageTypeConfig == "Minimum" then
 			DamageTypeConfig = {"Melee", "Projectile", "Spell", "SpellProjectile"}
@@ -1139,12 +1140,10 @@ function calcs.defence(env, actor)
 				for _, damageConvertedType in ipairs(dmgTypeList) do
 					convertedAvoidance = convertedAvoidance + output[damageConvertedType..DamageTypes.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
 				end
-				local dim = (1 - output[DamageTypes.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
-				if minimumEHPMode ~= "NONE" then
-					if dim > minimumEHP then
-						minimumEHP = dim
-						minimumEHPMode = DamageTypes
-					end
+				local cttd = (1 - output[DamageTypes.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+				if cttd > minimumcttd then
+					minimumcttd = cttd
+					minimumEHPMode = DamageTypes
 				end
 			end
 			DamageTypeConfig = "Minimum"
@@ -1152,23 +1151,26 @@ function calcs.defence(env, actor)
 		end
 		local damage = env.configInput.enemyHit or env.data.monsterDamageTable[env.enemyLevel] * 1.5
 		--effective number of hits to deplete pool
-		output[damageType.."NumberOfHits"] = math.ceil(output[damageType.."TotalPool"] / (damage * output[damageType.."TakenHitMult"]))
-		local convertedAvoidance = 0
+		output[damageType.."NumberOfHits"] = 2147483648
 		for _, damageConvertedType in ipairs(dmgTypeList) do
-			convertedAvoidance = convertedAvoidance + output[damageConvertedType..DamageType.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+			local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageConvertedType.."BaseTakenHitMult"])-- + output[damageConvertedType..DamageType.."FlatTaken"])
+			local hitstaken = math.ceil(output[damageConvertedType.."TotalPool"] / damageTaken)
+			hitstaken = hitstaken / (1 - output[DamageType.."NotHitChance"] / 100)  / (1 - output[damageConvertedType..DamageType.."DamageChance"] / 100)
+			if hitstaken < output[damageType.."NumberOfHits"] then
+				output[damageType.."NumberOfHits"] = hitstaken
+			end
 		end
-		output[damageType.."NumberOfHits"] = output[damageType.."NumberOfHits"] / (1 - output[DamageType.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
-		if breakdown then
-			breakdown[damageType.."NumberOfHits"] = {
-				s_format("EHP calculation Mode: %s", DamageTypeConfig),
-				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
-				s_format("Damage Before mitigation: %d", damage),
-				s_format("Damage Taken PerHit: %.2f", damage * output[damageType.."TakenHitMult"]),
-				s_format("%s chance not to be hit: %d%%", DamageType, output[DamageType.."NotHitChance"]),
-				s_format("%s chance to not take damage when hit: %d%%", DamageType, convertedAvoidance),
-				s_format("Average Number of hits you can take: %.2f", output[damageType.."NumberOfHits"]),
-			}
-		end
+		--if breakdown then --breakdown is out of date DO NOT USE
+		--	breakdown[damageType.."NumberOfHits"] = {
+		--		s_format("EHP calculation Mode: %s", DamageTypeConfig),
+		--		s_format("Total Pool: %d", output[damageType.."TotalPool"]),
+		--		s_format("Damage Before mitigation: %d", damage),
+		--		s_format("Damage Taken PerHit: %.2f", damageTaken),
+		--		s_format("%s chance not to be hit: %d%%", DamageType, output[DamageType.."NotHitChance"]),
+		--		s_format("%s chance to not take damage when hit: %d%%", DamageType, convertedAvoidance),
+		--		s_format("Average Number of hits you can take: %.2f", output[damageType.."NumberOfHits"]),
+		--	}
+		--end
 	--total EHP
 		output[damageType.."TotalEHP"] = output[damageType.."NumberOfHits"] * damage
 		if breakdown then
