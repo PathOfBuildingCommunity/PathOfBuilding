@@ -43,7 +43,7 @@ local GGPKClass = newClass("GGPKData", function(self, path)
 end)
 
 function GGPKClass:ExtractFiles()
-	datList, txtList = self:GetNeededFiles()
+	local datList, txtList = self:GetNeededFiles()
 	
 	local fileList = ''
 	for _, fname in ipairs(datList) do
@@ -53,15 +53,15 @@ function GGPKClass:ExtractFiles()
 		fileList = fileList .. '"' .. fname .. '" '
 	end
 	
-	cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
+	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
 	ConPrintf(cmd)
 	os.execute(cmd)
 end
 
 function GGPKClass:AddDatFiles()
-	datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat$')
+	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat$')
 	for _, f in ipairs(datFiles) do
-		record = { }
+		local record = { }
 		record.name = f
 		local rawFile = io.open(self.oozPath .. "Data\\" .. f, 'rb')
 		record.data = rawFile:read("*all")
