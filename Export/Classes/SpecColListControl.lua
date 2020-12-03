@@ -3,8 +3,6 @@
 -- Class: Spec Col List
 -- Spec column list control.
 --
-local ipairs = ipairs
-local t_insert = table.insert
 local t_remove = table.remove
 
 local SpecColListClass = newClass("SpecColListControl", "ListControl", function(self, anchor, x, y, width, height)

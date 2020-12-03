@@ -7,7 +7,6 @@ local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
 local m_ceil = math.ceil
-local m_floor = math.floor
 local m_max = math.max
 local m_min = math.min
 local m_sin = math.sin
