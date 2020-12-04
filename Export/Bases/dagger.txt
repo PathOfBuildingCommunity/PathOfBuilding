@@ -2,7 +2,12 @@
 local itemBases = ...
 
 #type Dagger
+#baseTags weapon onehand attack_dagger one_hand_weapon
+#socketLimit 3
+#baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractDagger
+
+#type Dagger
+#subType Rune
 #baseTags weapon onehand dagger one_hand_weapon
 #socketLimit 3
-#baseMatch Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger
-#baseMatch Metadata/Items/Weapons/OneHandWeapons/Daggers/RuneDaggerE%d+
+#baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractRuneDagger

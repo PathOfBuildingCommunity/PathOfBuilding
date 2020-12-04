@@ -663,7 +663,9 @@ function calcs.perform(env)
 		end
 		if activeSkill.skillFlags.brand then
 			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
-			if activeSkill.activeEffect.grantedEffect.name == "Wintertide Brand" then
+			if activeSkill.activeEffect.grantedEffect.name == "Arcanist Brand" then
+				attachLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit")
+			elseif activeSkill.activeEffect.grantedEffect.name == "Wintertide Brand" then
 				attachLimit = attachLimit + 1
 			end
 			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
@@ -1112,6 +1114,7 @@ function calcs.perform(env)
 	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit") + (output.GemCurseLimit or 0)
 	local buffs = { }
 	env.buffs = buffs
+	local guards = { }
 	local minionBuffs = { }
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
@@ -1155,6 +1158,19 @@ function calcs.perform(env)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, minionBuffs, buff.name)
+					end
+				end
+			elseif buff.type == "Guard" then
+				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
+					local skillCfg = buff.activeSkillBuff and skillCfg
+					local modStore = buff.activeSkillBuff and skillModList or modDB
+				 	if not buff.applyNotPlayer then
+						activeSkill.buffSkill = true
+						local srcList = new("ModList")
+						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
+						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						mergeBuff(srcList, guards, buff.name)
 					end
 				end
 			elseif buff.type == "Aura" then
@@ -1424,6 +1440,31 @@ function calcs.perform(env)
 		end
 	end
 
+	-- Process guard buffs
+	local guardSlots = { }
+	local nonVaal = false
+	for name, modList in pairs(guards) do
+		if name == "Vaal Molten Shell" then
+			wipeTable(guardSlots)
+			nonVaal = false
+			t_insert(guardSlots, { name = name, modList = modList })
+			break
+		elseif name:match("^Vaal") then
+			t_insert(guardSlots, { name = name, modList = modList })
+		elseif not nonVaal then
+			t_insert(guardSlots, { name = name, modList = modList })
+			nonVaal = true
+		end
+	end
+	if nonVaal then
+		modDB.conditions["AffectedByNonVaalGuardSkill"] = true
+	end
+	for _, guard in ipairs(guardSlots) do
+		modDB.conditions["AffectedByGuardSkill"] = true
+		modDB.conditions["AffectedBy"..guard.name:gsub(" ","")] = true
+		mergeBuff(guard.modList, buffs, guard.name)
+	end
+
 	-- Apply buff/debuff modifiers
 	for _, modList in pairs(buffs) do
 		modDB:AddList(modList)
@@ -1464,6 +1505,34 @@ function calcs.perform(env)
 		end
 		if slot.minionBuffModList then
 			env.minion.modDB:AddList(slot.minionBuffModList)
+		end
+	end
+	
+	for _, activeSkill in ipairs(env.player.activeSkillList) do -- Do another pass on the SkillList to catch effects of buffs, if needed
+		if activeSkill.activeEffect.grantedEffect.name == "Blight" and activeSkill.skillPart == 2 then
+			local rate = (1 / 0.3) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env.player, enemyDB)
+			local maximum = m_min((m_floor(rate * duration) - 1), 19)
+			activeSkill.skillModList:NewMod("Multiplier:BlightMaxStagesAfterFirst", "BASE", maximum, "Base")
+			activeSkill.skillModList:NewMod("Multiplier:BlightStageAfterFirst", "BASE", maximum, "Base")
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Penance Brand" and activeSkill.skillPart == 2 then
+			local rate = 1 / (activeSkill.skillData.repeatFrequency / (1 + env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency"))
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env.player, enemyDB)
+			local ticks = m_min((m_floor(rate * duration) - 1), 19)
+			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", ticks, "Base")
+			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandStageAfterFirst", "BASE", ticks, "Base")
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Scorching Ray" and activeSkill.skillPart == 2 then
+			local rate = (1 / 0.5) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env.player, enemyDB)
+			local maximum = m_min((m_floor(rate * duration) - 1), 7)
+			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", maximum, "Base")
+			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayStageAfterFirst", "BASE", maximum, "Base")
+			if maximum >= 7 then
+				activeSkill.skillModList:NewMod("Condition:ScorchingRayMaxStages", "FLAG", true, "Config")
+				enemyDB:NewMod("FireResist", "BASE", -25, "Scorching Ray", { type = "GlobalEffect", effectType = "Debuff" } )
+			end
 		end
 	end
 	

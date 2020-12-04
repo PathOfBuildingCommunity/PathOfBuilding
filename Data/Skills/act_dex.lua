@@ -1943,7 +1943,6 @@ skills["Cyclone"] = {
 	},
 	baseMods = {
 		skill("radius", 11),
-		mod("Multiplier:CycloneStage", "BASE", 1, 0, 0, { type = "Multiplier", var = "CycloneMaxStages" }, { type = "SkillPart", skillPart = 2 }),
 		skill("radiusExtra", 1, { type = "Multiplier", var = "CycloneStage" }),
 	},
 	qualityStats = {
@@ -6244,17 +6243,6 @@ skills["Reave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "No stages",
-		},
-		{
-			name = "4 stages",
-		},
-		{ 
-			name = "8 stages",
-		},
-	},
 	statMap = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
@@ -6267,8 +6255,7 @@ skills["Reave"] = {
 	},
 	baseMods = {
 		skill("radius", 20),
-		mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -6346,17 +6333,6 @@ skills["VaalReave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "No Stages",
-		},
-		{
-			name = "4 Stages",
-		},
-		{ 
-			name = "8 Stages",
-		},
-	},
 	statMap = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
@@ -6370,8 +6346,7 @@ skills["VaalReave"] = {
 	},
 	baseMods = {
 		skill("radius", 12),
-		mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -6536,12 +6511,12 @@ skills["ScourgeArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:ScourgeArrowStage"), 1)
+	end,
 	parts = {
 		{
-			name = "No stages",
-		},
-		{
-			name = "Release at 5 Stages",
+			name = "Release",
 		},
 		{ 
 			name = "Thorn Arrows"
@@ -6552,7 +6527,7 @@ skills["ScourgeArrow"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ScourgeArrowStage" }),
 		},
 		["virulent_arrow_pod_projectile_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type= "SkillPart", skillPart = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type= "SkillPart", skillPart = 2 }),
 		},
 	},
 	baseFlags = {
@@ -6560,8 +6535,7 @@ skills["ScourgeArrow"] = {
 		projectile = true,
 	},
 	baseMods = {
-		mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
-		skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:ScourgeArrowMaxStages", "BASE", 5),
 	},
 	qualityStats = {
 		Default = {
