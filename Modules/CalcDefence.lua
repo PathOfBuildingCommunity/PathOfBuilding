@@ -704,12 +704,13 @@ function calcs.defence(env, actor)
 				end
 				if output[damageType.."GuardAbsorbRate"] > 0 then
 					local guardRemain = output[damageType.."GuardAbsorb"] - (output[damageType.."GuardEffectiveLife"] - output.LifeUnreserved)
+					local espool = output[damageType.."TotalPool"] - output[damageType.."ManaEffectiveLife"]
 					if guardRemain > 0 then
 						local poolProtected = guardRemain / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
 						if output[damageType.."GuardAbsorbRate"] >= 100 then
 							output[damageType.."GuardEffectivePool"] = guardRemain
 						else
-							output[damageType.."GuardEffectivePool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected) / (1 - output[damageType.."GuardAbsorbRate"] / 100) - output[damageType.."TotalPool"]
+							output[damageType.."GuardEffectivePool"] = m_max(espool - poolProtected, 0) + m_min(espool, poolProtected) / (1 - output[damageType.."GuardAbsorbRate"] / 100) - espool
 						end
 						output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output[damageType.."GuardEffectivePool"]
 					end
