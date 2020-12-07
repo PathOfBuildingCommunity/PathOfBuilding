@@ -1950,7 +1950,7 @@ skills["SupportEnergyShieldLeech"] = {
 	description = "Supports any skill that hits enemies, causing those hits to leech energy shield based on damage dealt.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { SkillType.Hit, SkillType.Attack, },
+	requireSkillTypes = { SkillType.Hit, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2974,11 +2974,7 @@ skills["SupportStormBarrier"] = {
 			div = 60
 		},
 		["infusion_effect_+%"] = {
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("InfusionEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused" }),
 		},
 	},
 	baseMods = {
