@@ -2277,7 +2277,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.quality > 0 then
 			tooltip:AddLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
 		end
-		if flaskData.lifeTotal then	
+		if flaskData.lifeTotal then
 			tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", 
 				main:StatColor(flaskData.lifeTotal, base.flask.life), flaskData.lifeTotal,
 				main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
