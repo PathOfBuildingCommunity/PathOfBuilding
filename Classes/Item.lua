@@ -232,6 +232,9 @@ function ItemClass:ParseRaw(raw)
 					self.itemLevel = tonumber(specVal)
 				elseif specName == "Quality" then
 					self.quality = tonumber(specVal)
+					if line:match(" %(augmented%)") and self.quality ~= 30 then
+						self.quality = 20
+					end
 				elseif specName == "Sockets" then
 					local group = 0
 					for c in specVal:gmatch(".") do
