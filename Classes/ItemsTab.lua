@@ -2451,8 +2451,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 					elseif grad > 0 then
 						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
 					end
-				end
-				
+				end				
 				if modDB:Flag(nil, "LifeFlaskAppliesToEnergyShield") then
 					if inst > 0 and grad > 0 then
 						t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
