@@ -2580,6 +2580,7 @@ local specialModList = {
 	
 	-- Quality modify
 	["%+(%d+)%% to quality"] = function(num) return { mod("Quality", "BASE", num ) } end,
+	["%+(%d+)%% to maximum quality"] = function(num) return { mod("Quality", "BASE", num ) } end,
 	-- Display-only modifiers
 	["extra gore"] = { },
 	["prefixes:"] = { },
