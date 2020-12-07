@@ -2134,6 +2134,18 @@ function calcs.offence(env, actor, activeSkill)
 	output.ManaLeechInstanceRate = output.Mana * data.misc.LeechRateBase * calcLib.mod(skillModList, skillCfg, "ManaLeechRate")
 	output.ManaLeechRate = output.ManaLeechInstantRate + m_min(output.ManaLeechInstances * output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaRecoveryRateMod
 	output.ManaLeechPerHit = output.ManaLeechInstant + m_min(output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaLeechDuration * output.ManaRecoveryRateMod
+	
+	if skillModList:Flag(nil, "ImmortalAmbition") then
+		local val1 = output.EnergyShieldLeechInstanceRate 
+		local val2 = output.EnergyShieldLeechRate 
+		local val3 = output.EnergyShieldLeechPerHit 
+
+		output.EnergyShieldLeechRate = val2 + output.LifeLeechRate
+		output.EnergyShieldLeechPerHit = val3 + output.LifeLeechPerHit
+		output.LifeLeechRate = 0
+	end
+	
+	
 	skillFlags.leechLife = output.LifeLeechRate > 0
 	skillFlags.leechES = output.EnergyShieldLeechRate > 0
 	skillFlags.leechMana = output.ManaLeechRate > 0
