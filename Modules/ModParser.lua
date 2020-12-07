@@ -2577,6 +2577,9 @@ local specialModList = {
 	["grants %+(%d+)%% to cold resistance per (%d+)%% quality"] = function(num, _, div) return { mod("ColdResist", "BASE", num, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
 	["grants %+(%d+)%% to lightning resistance per (%d+)%% quality"] = function(num, _, div) return { mod("LightningResist", "BASE", num, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
 	["infernal blow debuff deals an additional (%d+)%% of damage per charge"] = function(num) return { mod("DebuffEffect", "BASE", num, { type = "SkillName", skillName = "Infernal Blow"}) } end,
+	
+	-- Quality modify
+	["%+(%d+)%% to quality"] = function(num) return { mod("Quality", "BASE", num ) } end,
 	-- Display-only modifiers
 	["extra gore"] = { },
 	["prefixes:"] = { },
