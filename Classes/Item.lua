@@ -951,13 +951,13 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			local rateMod = 1 + sumLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
 			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod
 			if self.base.flask.life then
-				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
+				flaskData.lifeBase = self.base.flask.life * (1 + flaskData.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
 				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
 				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
 			end
 			if self.base.flask.mana then
-				flaskData.manaBase = self.base.flask.mana * (1 + self.quality / 100) * recoveryMod
+				flaskData.manaBase = self.base.flask.mana * (1 + flaskData.quality / 100) * recoveryMod
 				flaskData.manaInstant = flaskData.manaBase * flaskData.instantPerc / 100
 				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
 				flaskData.manaTotal = flaskData.manaInstant + flaskData.manaGradual
