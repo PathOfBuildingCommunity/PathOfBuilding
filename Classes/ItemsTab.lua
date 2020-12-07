@@ -2277,27 +2277,17 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.quality > 0 then
 			tooltip:AddLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
 		end
-		if flaskData.lifeTotal then
-			if flaskData.lifeGradual ~=0 then
-				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", 
-						main:StatColor(flaskData.lifeTotal, base.flask.life), flaskData.lifeGradual,
-						main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
-					))
-			end
-			if flaskData.lifeInstant ~=0 then
-				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife instantly", main:StatColor(flaskData.lifeTotal, base.flask.life), flaskData.lifeInstant ))
-			end
+		if flaskData.lifeTotal then	
+			tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", 
+				main:StatColor(flaskData.lifeTotal, base.flask.life), flaskData.lifeTotal,
+				main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
+			))
 		end
 		if flaskData.manaTotal then
-			if flaskData.manaGradual then
-				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", 
-						main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaGradual,
-						main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
-					))
-			end
-			if flaskData.manaInstant then
-				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana instantly", main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaInstant ))
-			end
+			tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", 
+				main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaTotal, 
+				main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
+			))
 		end
 		if not flaskData.lifeTotal and not flaskData.manaTotal then
 			tooltip:AddLine(16, s_format("^x7F7F7FLasts %s%.2f ^x7F7F7FSeconds", main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration))
@@ -2438,10 +2428,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
 			local instantPerc = flaskData.instantPerc
 			if item.base.flask.life then
-				local lifeRecMod = calcLib.mod(modDB, nil, "FlaskLifeRecovery")
+				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
-				local inst = flaskData.lifeInstant * lifeRecMod * (1 + effectInc / 100)
-				local grad = flaskData.lifeGradual * lifeRecMod * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
+				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 				if inst > 0 and grad > 0 then
 					t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
@@ -2452,22 +2442,12 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
 					end
 				end
-				
-				if modDB:Flag(nil, "LifeFlaskAppliesToEnergyShield") then
-					if inst > 0 and grad > 0 then
-						t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
-					elseif inst > 0 and grad == 0 then
-						t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8instantly", inst))
-					elseif inst == 0 and grad > 0 then
-						t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
-					end
-				end
 			end
 			if item.base.flask.mana then
 				local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
 				local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
-				local inst = flaskData.manaInstant * (1 + manaInc / 100) * (1 + effectInc / 100)
-				local grad = flaskData.manaGradual * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.ManaRecoveryRateMod
+				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
+				local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.ManaRecoveryRateMod
 				local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
 				if inst > 0 and grad > 0 then
 					t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
