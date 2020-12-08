@@ -1956,7 +1956,7 @@ local specialModList = {
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["(%d+)%% increased effect of non%-curse auras from your skills on enemies"] = function(num) return {
-		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }, { type = "SkillType", skillType = SkillType.Aura } ),
+		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
 		mod("AuraEffect", "INC", num, { type = "SkillName", skillName = "Death Aura" }),
 	} end,
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
