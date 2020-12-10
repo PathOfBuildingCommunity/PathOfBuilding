@@ -2138,7 +2138,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillModList:Flag(nil, "ImmortalAmbition") then
 		output.EnergyShieldLeechRate = output.EnergyShieldLeechRate + output.LifeLeechRate
 		output.EnergyShieldLeechPerHit = output.EnergyShieldLeechPerHit  + output.LifeLeechPerHit
-		-- to disable leechLife flag clear output.LifeLeechRate
+		-- Clears output.LifeLeechRate to disable leechLife flag
 		output.LifeLeechRate = 0
 	end
 	skillFlags.leechLife = output.LifeLeechRate > 0
