@@ -2291,12 +2291,12 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if flaskData.manaTotal then
 			if flaskData.manaGradual then
 				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", 
-						main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaGradual,
-						main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
+					main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaGradual,
+					main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration,
 					))
 			end
 			if flaskData.manaInstant then
-				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana instantly", main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaInstant ))
+				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana instantly", main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaInstant))
 			end
 		end
 		if not flaskData.lifeTotal and not flaskData.manaTotal then
