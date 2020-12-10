@@ -2134,7 +2134,7 @@ function calcs.offence(env, actor, activeSkill)
 	output.ManaLeechInstanceRate = output.Mana * data.misc.LeechRateBase * calcLib.mod(skillModList, skillCfg, "ManaLeechRate")
 	output.ManaLeechRate = output.ManaLeechInstantRate + m_min(output.ManaLeechInstances * output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaRecoveryRateMod
 	output.ManaLeechPerHit = output.ManaLeechInstant + m_min(output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaLeechDuration * output.ManaRecoveryRateMod
-	-- Immortal Ambition kicks in as if it is a energy shield leech
+	-- On full life, Immortal Ambition treats life leech as energy shield leech
 	if skillModList:Flag(nil, "ImmortalAmbition") then
 		output.EnergyShieldLeechRate = output.EnergyShieldLeechRate + output.LifeLeechRate
 		output.EnergyShieldLeechPerHit = output.EnergyShieldLeechPerHit  + output.LifeLeechPerHit
