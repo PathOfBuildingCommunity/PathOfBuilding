@@ -96,32 +96,10 @@ function ItemClass:ParseRaw(raw)
 	end
 	if self.rawLines[l] then
 		self.name = self.rawLines[l]
-		l = l + 1
-	end
-	self.namePrefix = ""
-	self.nameSuffix = ""
-	if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
-		for baseName, baseData in pairs(data.itemBases) do
-			local s, e = self.name:find(baseName, 1, true)
-			if s then
-				self.baseName = baseName
-				self.namePrefix = self.name:sub(1, s - 1)
-				self.nameSuffix = self.name:sub(e + 1)
-				self.type = baseData.type
-				break
-			end
+		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal item to get the base
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
+			l = l + 1
 		end
-		if not self.baseName then
-			local s, e = self.name:find("Two-Toned Boots", 1, true)
-			if s then
-				-- Hack for Two-Toned Boots
-				self.baseName = "Two-Toned Boots (Armour/Energy Shield)"
-				self.namePrefix = self.name:sub(1, s - 1)
-				self.nameSuffix = self.name:sub(e + 1)
-				self.type = "Boots"
-			end
-		end
-		self.name = self.name:gsub(" %(.+%)","")
 	end
 	self.sockets = { }
 	self.buffModLines = { }
@@ -134,7 +112,7 @@ function ItemClass:ParseRaw(raw)
 	self.suffixes = { }
 	self.requirements = { }
 	local importedLevelReq
-	local flaskBuffLines = { }
+	local flaskBuffLines
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
@@ -151,7 +129,7 @@ function ItemClass:ParseRaw(raw)
 
 	while self.rawLines[l] do	
 		local line = self.rawLines[l]
-		if flaskBuffLines[line] then
+		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif line == "--------" then
 			if gameModeStage == "IMPLICIT" then
@@ -332,17 +310,54 @@ function ItemClass:ParseRaw(raw)
 				if line:gsub("({variant:[%d,]+})", "") == "Two-Toned Boots" then
 					line = "Two-Toned Boots (Armour/Energy Shield)"
 				end
-				local baseName = ""
+				self.namePrefix = self.namePrefix or ""
+				self.nameSuffix = self.nameSuffix or ""
+				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
+					-- Exact match (affix-less magic and normal items)
+					if data.itemBases[self.name] then
+						self.baseName = self.name
+						self.type = data.itemBases[self.name].type
+					else
+						-- Partial match (magic items with affixes)
+						for baseName, baseData in pairs(data.itemBases) do
+							local s, e = self.name:find(baseName, 1, true)
+							if s then
+								-- Set the base name if it isn't there, or we found a better match, so replace it
+								if (self.baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
+										or self.baseName == nil or self.baseName == "" then
+									self.namePrefix = self.name:sub(1, s - 1)
+									self.nameSuffix = self.name:sub(e + 1)
+									self.baseName = baseName
+									self.type = baseData.type
+								end
+							end
+						end
+					end
+					if not self.baseName then
+						local s, e = self.name:find("Two-Toned Boots", 1, true)
+						if s then
+							-- Hack for Two-Toned Boots
+							self.baseName = "Two-Toned Boots (Armour/Energy Shield)"
+							self.namePrefix = self.name:sub(1, s - 1)
+							self.nameSuffix = self.name:sub(e + 1)
+							self.type = "Boots"
+						end
+					end
+					self.name = self.name:gsub(" %(.+%)","")
+				end
+				local baseName = self.baseName or ""
 				if self.variant and varSpec then
 					if tonumber(varSpec) == self.variant then
 						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 					end
-				else
+				elseif baseName == "" then
 					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 				end
 				if baseName and data.itemBases[baseName] then
 					self.baseName = baseName
-					self.title = self.name
+					if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
+						self.title = self.name
+					end
 					self.type = data.itemBases[baseName].type
 					self.base = data.itemBases[self.baseName]
 					self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
@@ -358,7 +373,8 @@ function ItemClass:ParseRaw(raw)
 					self.requirements.int = self.base.req.int or 0
 					local maxReq = m_max(self.requirements.str, self.requirements.dex, self.requirements.int)
 					self.defaultSocketColor = (maxReq == self.requirements.dex and "G") or (maxReq == self.requirements.int and "B") or "R"
-					if self.base.flask and self.base.flask.buff then
+					if self.base.flask and self.base.flask.buff and not flaskBuffLines then
+						flaskBuffLines = { }
 						for _, line in ipairs(self.base.flask.buff) do
 							flaskBuffLines[line] = true
 							local modList, extra = modLib.parseMod(line)
@@ -451,7 +467,7 @@ function ItemClass:ParseRaw(raw)
 		end
 		l = l + 1
 	end
-	if self.baseName then
+	if self.baseName and self.title then
 		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
 	end
 	if self.base and not self.requirements.level then
