@@ -201,6 +201,17 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 10)
+#baseMod skill("CritChance", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("PhysicalMin", 0,{ type = "SkillPart", skillPart = 2 })
+#baseMod skill("PhysicalMax", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("LightningMin", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("LightningMax", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("ColdMin", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("ColdMax", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("FireMin", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("FireMax", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("ChaosMin", 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("ChaosMax", 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill BoneOffering
