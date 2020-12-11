@@ -48,6 +48,12 @@ function itemLib.getLineRangeMinMax(line)
 			-- Don't need to return anything here
 			return ""
 		end)
+		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
+		function(min, max) 
+			rangeMin = min
+			rangeMax = max
+			return "" 
+		end)
 	-- may be returning nil, nil due to not being a range
 	-- will be strings if successful
 	return rangeMin, rangeMax
