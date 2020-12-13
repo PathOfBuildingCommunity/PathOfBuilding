@@ -855,7 +855,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 	end
-	local extraQuality = sumLocal(modList,"Quality","BASE",0)
+	local extraQuality = sumLocal(modList, "Quality", "BASE", 0)
 	if self.quality then
 		modList:NewMod("Multiplier:QualityOn"..slotName, "BASE", self.quality + extraQuality, "Quality")
 	end
