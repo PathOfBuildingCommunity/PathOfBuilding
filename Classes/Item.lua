@@ -864,7 +864,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		self.weaponData[slotNum] = weaponData
 		weaponData.type = self.base.type
 		weaponData.name = self.name
-		weaponData.quality = extraQuality+self.quality
+		weaponData.quality = extraQuality + self.quality
 		weaponData.AttackSpeedInc = sumLocal(modList, "Speed", "INC", ModFlag.Attack) + m_floor(weaponData.quality / 8 * sumLocal(modList, "AlternateQualityLocalAttackSpeedPer8Quality", "INC", 0))
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
 		weaponData.range = self.base.weapon.Range + sumLocal(modList, "WeaponRange", "BASE", 0) + m_floor(weaponData.quality / 10 * sumLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
