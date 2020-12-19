@@ -1,3 +1,5 @@
+### 1.4.170.20 - 2020/12/19
+* Fix program not launching on Linux
 ### 1.4.170.19 - 2020/12/19
 * Guard skills rework:
     * You can only have one Guard skill active at a time now
