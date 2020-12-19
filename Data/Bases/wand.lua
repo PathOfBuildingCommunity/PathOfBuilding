@@ -200,10 +200,11 @@ itemBases["Accumulator Wand"] = {
 	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 70, int = 237, },
 }
+
 itemBases["Convoking Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, not_for_sale = true, atlas_base_type = true, wandatlas1 = true, },
+	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, weapon_can_roll_minion_modifiers = true, not_for_sale = true, atlas_base_type = true, wandatlas1 = true, },
 	implicit = "Can roll Minion Modifiers",
 	implicitModTypes = { { "minion" }, },
 	weapon = { PhysicalMin = 30, PhysicalMax = 56, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },

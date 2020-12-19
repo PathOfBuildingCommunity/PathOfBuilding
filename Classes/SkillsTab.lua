@@ -133,15 +133,15 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		return self.displayGroup.source ~= nil
 	end
 	self.controls.sourceNote.label = function()
-		local item = self.displayGroup.sourceItem or { rarity = "NORMAL", name = "?" }
-		local itemName = colorCodes[item.rarity]..item.name.."^7"
+		local source = self.displayGroup.sourceItem or (self.displayGroup.sourceNode and { rarity = "NORMAL", name = self.displayGroup.sourceNode.name }) or { rarity = "NORMAL", name = "?" }
+		local sourceName = colorCodes[source.rarity]..source.name.."^7"
 		local activeGem = self.displayGroup.gemList[1]
 		local label = [[^7This is a special group created for the ']]..activeGem.color..(activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec)..[[^7' skill,
-which is being provided by ']]..itemName..[['.
-You cannot delete this group, but it will disappear if you un-equip the item.]]
+which is being provided by ']]..sourceName..[['.
+You cannot delete this group, but it will disappear if you ]]..(self.displayGroup.sourceNode and [[un-allocate the node.]] or [[un-equip the item.]])
 		if not self.displayGroup.noSupports then
 			label = label .. "\n\n" .. [[You cannot add support gems to this group, but support gems in
-any other group socketed into ']]..itemName..[['
+any other group socketed into ']]..sourceName..[['
 will automatically apply to the skill.]]
 		end
 		return label
@@ -231,6 +231,8 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
 				gemInstance.skillPart = tonumber(child.attrib.skillPart)
 				gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
+				gemInstance.skillStageCount = tonumber(child.attrib.skillStageCount)
+				gemInstance.skillStageCountCalcs = tonumber(child.attrib.skillStageCountCalcs)
 				gemInstance.skillMineCount = tonumber(child.attrib.skillMineCount)
 				gemInstance.skillMineCountCalcs = tonumber(child.attrib.skillMineCountCalcs)
 				gemInstance.skillMinion = child.attrib.skillMinion
@@ -282,6 +284,8 @@ function SkillsTabClass:Save(xml)
 				enableGlobal2 = tostring(gemInstance.enableGlobal2),
 				skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
 				skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
+				skillStageCount = gemInstance.skillStageCount and tostring(gemInstance.skillStageCount),
+				skillStageCountCalcs = gemInstance.skillStageCountCalcs and tostring(gemInstance.skillStageCountCalcs),
 				skillMineCount = gemInstance.skillMineCount and tostring(gemInstance.skillMineCount),
 				skillMineCountCalcs = gemInstance.skillMineCountCalcs and tostring(gemInstance.skillMineCountCalcs),
 				skillMinion = gemInstance.skillMinion,
@@ -787,8 +791,9 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	if socketGroup.enabled and not socketGroup.slotEnabled then
 		tooltip:AddLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
 	end
-	if socketGroup.sourceItem then
-		tooltip:AddLine(18, "^7Source: "..colorCodes[socketGroup.sourceItem.rarity]..socketGroup.sourceItem.name)
+	local source = socketGroup.sourceItem or socketGroup.sourceNode
+	if source then
+		tooltip:AddLine(18, "^7Source: "..colorCodes[source.rarity or "NORMAL"]..source.name)
 		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }

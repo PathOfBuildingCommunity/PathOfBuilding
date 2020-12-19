@@ -759,6 +759,9 @@ return {
 	flag("CannotChill"),
 	flag("CannotFreeze"),
 	flag("CannotIgnite"),
+	flag("CannotScorch"),
+	flag("CannotBrittle"),
+	flag("CannotSap"),
 },
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
@@ -1368,11 +1371,11 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResistMax", "BASE", nil) }),
 },
 ["minion_cooldown_recovery_+%"] = {
-	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)})
+	mod("MinionModifier", "LIST", {mod = mod("CooldownRecovery", "INC", nil)}),
 },
 ["minion_life_regeneration_rate_per_minute_%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
-	div = 60
+	div = 60,
 },
 ["base_number_of_zombies_allowed"] = {
 	mod("ActiveZombieLimit", "BASE", nil),
@@ -1499,6 +1502,9 @@ return {
 	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
 },
 ["withered_on_hit_chance_%"] = {
+	flag("Condition:CanWither"),
+},
+["withered_on_hit_for_2_seconds_%_chance"] = {
 	flag("Condition:CanWither"),
 },
 ["discharge_damage_+%_if_3_charge_types_removed"] = {

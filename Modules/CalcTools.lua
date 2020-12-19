@@ -116,31 +116,33 @@ function calcLib.getGemStatRequirement(level, isSupport, multi)
 	end
 	local a, b
 	if isSupport then
-        b = 6 * multi / 100
+		b = 6 * multi / 100
 		if multi == 100 then
 			a = 1.495
-        elseif multi == 60 then
-            a = 0.945
-        elseif multi == 40 then
-            a = 0.6575
+		elseif multi == 60 then
+			a = 0.945
+		elseif multi == 40 then
+			a = 0.6575
 		else
 			return 0
 		end
-    else
-        b = 8 * multi / 100
-        if multi == 100 then
-            a = 2.1
-            b = 7.75
-        elseif multi == 60 then
-            a = 1.325
-        elseif multi == 40 then
-            a = 0.924
+	else
+		b = 8 * multi / 100
+		if multi == 100 then
+			a = 2.1
+			b = 7.75
+		elseif multi == 75 then
+			a = 1.619
+		elseif multi == 60 then
+			a = 1.325
+		elseif multi == 40 then
+			a = 0.924
 		else
 			return 0
 		end
 	end
 	local req = round(level * a + b)
-    return req < 14 and 0 or req
+	return req < 14 and 0 or req
 end
 
 -- Build table of stats for the given skill instance
@@ -153,7 +155,7 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			qualityStats = grantedEffect.qualityStats
 		end
 		for _, stat in ipairs(qualityStats) do
-			stats[stat[1]] = (stats[stat[1]] or 0) + m_floor(stat[2] * skillInstance.quality)
+			stats[stat[1]] = (stats[stat[1]] or 0) + math.modf(stat[2] * skillInstance.quality)
 		end
 	end
 	local level = grantedEffect.levels[skillInstance.level]

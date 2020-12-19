@@ -185,7 +185,7 @@ local function calcWarcryCastTime(skillModList, skillCfg, actor)
 	return warcryCastTime
 end
 
-local function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
+function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
 	local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 	local durationBase = (skillData.duration or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "PrimaryDuration")
 	local duration = durationBase * durationMod
@@ -2134,6 +2134,13 @@ function calcs.offence(env, actor, activeSkill)
 	output.ManaLeechInstanceRate = output.Mana * data.misc.LeechRateBase * calcLib.mod(skillModList, skillCfg, "ManaLeechRate")
 	output.ManaLeechRate = output.ManaLeechInstantRate + m_min(output.ManaLeechInstances * output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaRecoveryRateMod
 	output.ManaLeechPerHit = output.ManaLeechInstant + m_min(output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaLeechDuration * output.ManaRecoveryRateMod
+	-- On full life, Immortal Ambition treats life leech as energy shield leech
+	if skillModList:Flag(nil, "ImmortalAmbition") then
+		output.EnergyShieldLeechRate = output.EnergyShieldLeechRate + output.LifeLeechRate
+		output.EnergyShieldLeechPerHit = output.EnergyShieldLeechPerHit  + output.LifeLeechPerHit
+		-- Clears output.LifeLeechRate to disable leechLife flag
+		output.LifeLeechRate = 0
+	end
 	skillFlags.leechLife = output.LifeLeechRate > 0
 	skillFlags.leechES = output.EnergyShieldLeechRate > 0
 	skillFlags.leechMana = output.ManaLeechRate > 0
@@ -2211,9 +2218,9 @@ function calcs.offence(env, actor, activeSkill)
 			skillFlags.inflictSap = true
 		end
 		if skillModList:Flag(cfg, "CritAlwaysAltAilments") and not skillModList:Flag(cfg, "NeverCrit") and skillFlags.hit then
-			output.ScorchChanceOnCrit = 100
-			output.BrittleChanceOnCrit = 100
-			output.SapChanceOnCrit = 100
+			output.ScorchChanceOnCrit = not skillModList:Flag(cfg, "CannotScorch") and 100 or 0
+			output.BrittleChanceOnCrit = not skillModList:Flag(cfg, "CannotBrittle") and 100 or 0
+			output.SapChanceOnCrit = not skillModList:Flag(cfg, "CannotSap") and 100 or 0
 		else
 			output.ScorchChanceOnCrit = 0
 			output.BrittleChanceOnCrit = 0
@@ -2268,7 +2275,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 then
 			skillFlags.inflictScorch = true
 		end
-		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 and skillFlags.hit then
+		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotScorch") then
 			output.ScorchChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "ScorchChance"))
 		else
 			output.ScorchChanceOnHit = 0
@@ -2276,7 +2283,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 then
 			skillFlags.inflictBrittle = true
 		end
-		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 and skillFlags.hit then
+		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotBrittle") then
 			output.BrittleChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BrittleChance"))
 		else
 			output.BrittleChanceOnHit = 0
@@ -2284,7 +2291,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Sum("BASE", cfg, "SapChance") > 0 then
 			skillFlags.inflictSap = true
 		end
-		if skillModList:Sum("BASE", cfg, "SapChance") > 0 and skillFlags.hit then
+		if skillModList:Sum("BASE", cfg, "SapChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotSap") then
 			output.SapChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "SapChance"))
 		else
 			output.SapChanceOnHit = 0
@@ -2466,7 +2473,7 @@ function calcs.offence(env, actor, activeSkill)
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["BleedEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore, sourceRes)
+						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
 				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
@@ -2639,7 +2646,7 @@ function calcs.offence(env, actor, activeSkill)
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["PoisonEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes)
+						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
@@ -2812,7 +2819,7 @@ function calcs.offence(env, actor, activeSkill)
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["IgniteEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore, sourceRes)
+						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
@@ -3129,10 +3136,6 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
 			end
-			if canDeal.Cold and skillModList:Flag(cfg, "ColdCanFreeze") then
-				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
-				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
-			end
 			if canDeal.Fire and skillModList:Flag(cfg, "FireCanFreeze") then
 				sourceHitDmg = sourceHitDmg + output.FireHitAverage
 				sourceCritDmg = sourceCritDmg + output.FireCritAverage
@@ -3375,7 +3378,7 @@ function calcs.offence(env, actor, activeSkill)
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			output["DecayEffMult"] = effMult
 			if breakdown and effMult ~= 1 then
-				breakdown.DecayEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes)
+				breakdown.DecayEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
 			end
 		end
 		local inc = skillModList:Sum("INC", dotCfg, "Damage", "ChaosDamage")
@@ -3455,7 +3458,7 @@ function calcs.offence(env, actor, activeSkill)
 				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 				output[damageType.."DotEffMult"] = effMult
 				if breakdown and effMult ~= 1 then
-					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes)
+					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore)
 				end
 			end
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)

@@ -77,7 +77,20 @@ local skinOfTheLords = {
 	"League: Breach",
 	"Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}",
 }
+local excludedKeystones = {
+	"Chaos Inoculation", -- to prevent infinite loop
+	"Corrupted Soul", -- exclusive to specific unique
+	"Hollow Palm Technique", -- exclusive to specific unique
+	"Immortal Ambition", -- exclusive to specific unique
+	"Necromantic Aegis", -- to prevent infinite loop
+}
+local keystones = {}
 for _, name in ipairs(data.keystones) do
+	if not isValueInArray(excludedKeystones, name) then
+		table.insert(keystones, name)
+	end
+end
+for _, name in ipairs(keystones) do
 	table.insert(skinOfTheLords, "Variant: "..name)
 end
 table.insert(skinOfTheLords, "Implicits: 0")
@@ -85,7 +98,7 @@ table.insert(skinOfTheLords, "Sockets cannot be modified")
 table.insert(skinOfTheLords, "+1 to Level of Socketed Gems")
 table.insert(skinOfTheLords, "100% increased Global Defences")
 table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
-for index, name in ipairs(data.keystones) do
+for index, name in ipairs(keystones) do
 	table.insert(skinOfTheLords, "{variant:"..index.."}"..name)
 end
 table.insert(skinOfTheLords, "Corrupted")

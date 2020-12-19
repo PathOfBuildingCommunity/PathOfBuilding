@@ -5,7 +5,6 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
-local t_remove = table.remove
 local m_min = math.min
 
 local dataTypes = {

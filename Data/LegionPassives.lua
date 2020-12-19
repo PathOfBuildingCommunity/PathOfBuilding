@@ -205,7 +205,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 97164, 
+			["oidx"] = 92100, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_crit_1"] = {
@@ -239,7 +239,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 35408, 
+			["oidx"] = 14977, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_lightning_damage"] = {
@@ -273,7 +273,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 13428, 
+			["oidx"] = 59010, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_chance_to_ignite"] = {
@@ -307,7 +307,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 18380, 
+			["oidx"] = 47236, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["karui_keystone_1"] = {
@@ -382,7 +382,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 71887, 
+			["oidx"] = 31696, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_attack_speed"] = {
@@ -416,7 +416,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 93998, 
+			["oidx"] = 97479, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_fire_attack_1"] = {
@@ -450,7 +450,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 98232, 
+			["oidx"] = 99311, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_armour"] = {
@@ -484,7 +484,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 34185, 
+			["oidx"] = 21117, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_keystone_1"] = {
@@ -553,7 +553,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 72832, 
+			["oidx"] = 7309, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_attack_damage"] = {
@@ -587,7 +587,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 95064, 
+			["oidx"] = 33933, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_chance_to_shock"] = {
@@ -621,7 +621,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 81366, 
+			["oidx"] = 57514, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_minimum_power_charge"] = {
@@ -655,7 +655,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 50523, 
+			["oidx"] = 22257, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_keystone_1"] = {
@@ -731,7 +731,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 47786, 
+			["oidx"] = 38490, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_fire_damage_3"] = {
@@ -771,7 +771,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 29046, 
+			["oidx"] = 7855, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_cold_damage"] = {
@@ -805,7 +805,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 7137, 
+			["oidx"] = 69885, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["karui_keystone_3"] = {
@@ -875,7 +875,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 99369, 
+			["oidx"] = 5178, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_cold_conversion"] = {
@@ -909,7 +909,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 20011, 
+			["oidx"] = 64088, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_lightning_damage_3"] = {
@@ -949,7 +949,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 25942, 
+			["oidx"] = 55329, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_keystone_3"] = {
@@ -1053,7 +1053,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 55290, 
+			["oidx"] = 82524, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_keystone_3"] = {
@@ -1122,7 +1122,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 35417, 
+			["oidx"] = 58330, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_max_resistances"] = {
@@ -1156,7 +1156,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 31677, 
+			["oidx"] = 60270, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_keystone_1"] = {
@@ -1225,7 +1225,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 26769, 
+			["oidx"] = 86198, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_minion_damage"] = {
@@ -1259,7 +1259,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 17537, 
+			["oidx"] = 66110, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_chill_2"] = {
@@ -1293,7 +1293,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 85933, 
+			["oidx"] = 52806, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_evasion_1"] = {
@@ -1327,7 +1327,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 6454, 
+			["oidx"] = 65414, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_mana"] = {
@@ -1361,7 +1361,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 43388, 
+			["oidx"] = 18201, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_minimum_endurance_charge"] = {
@@ -1395,7 +1395,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 66167, 
+			["oidx"] = 17606, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_block_1"] = {
@@ -1429,7 +1429,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 93237, 
+			["oidx"] = 51502, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_energy_shield_2"] = {
@@ -1469,7 +1469,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 62680, 
+			["oidx"] = 1049, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_fire_resistance_1"] = {
@@ -1503,7 +1503,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 14226, 
+			["oidx"] = 54300, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_keystone_2"] = {
@@ -1572,7 +1572,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 6640, 
+			["oidx"] = 17595, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_damage_over_time_1"] = {
@@ -1612,7 +1612,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 2326, 
+			["oidx"] = 13953, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_block_1"] = {
@@ -1652,7 +1652,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 52197, 
+			["oidx"] = 5394, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_crit_2"] = {
@@ -1686,7 +1686,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 75267, 
+			["oidx"] = 76777, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_endurance_1"] = {
@@ -1720,7 +1720,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 72038, 
+			["oidx"] = 5183, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_fire_resistance_1"] = {
@@ -1760,7 +1760,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 13733, 
+			["oidx"] = 29481, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_cast_speed"] = {
@@ -1794,7 +1794,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 57475, 
+			["oidx"] = 27693, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_dodge_1"] = {
@@ -1834,7 +1834,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 76804, 
+			["oidx"] = 40498, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["maraketh_keystone_1"] = {
@@ -1904,7 +1904,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 87649, 
+			["oidx"] = 62650, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_lightning_resistance_1"] = {
@@ -1938,7 +1938,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 67080, 
+			["oidx"] = 40681, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_chance_to_freeze"] = {
@@ -1972,7 +1972,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 47407, 
+			["oidx"] = 67900, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_life_1"] = {
@@ -2012,7 +2012,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 47657, 
+			["oidx"] = 29305, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_arcane_surge"] = {
@@ -2046,7 +2046,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 29871, 
+			["oidx"] = 10172, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_mana_added_as_energy_shield"] = {
@@ -2080,7 +2080,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 82022, 
+			["oidx"] = 74973, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_endurance_3"] = {
@@ -2114,7 +2114,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 2735, 
+			["oidx"] = 68905, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_endurance_2"] = {
@@ -2148,7 +2148,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 64314, 
+			["oidx"] = 80316, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_movement_speed"] = {
@@ -2182,7 +2182,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 40883, 
+			["oidx"] = 35409, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_lightning_damage_2"] = {
@@ -2222,7 +2222,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 75296, 
+			["oidx"] = 74451, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_attack_dodge"] = {
@@ -2256,7 +2256,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 94569, 
+			["oidx"] = 2479, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_lightning_damage_1"] = {
@@ -2296,7 +2296,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 60524, 
+			["oidx"] = 67692, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_cold_resistance_1"] = {
@@ -2330,7 +2330,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 18093, 
+			["oidx"] = 88577, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_power_2"] = {
@@ -2364,7 +2364,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 57368, 
+			["oidx"] = 79623, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_random_defence"] = {
@@ -2392,7 +2392,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 44440, 
+			["oidx"] = 75827, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_dodge_2"] = {
@@ -2426,7 +2426,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 80506, 
+			["oidx"] = 9731, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_mana_1"] = {
@@ -2460,7 +2460,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 78089, 
+			["oidx"] = 1685, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_physical_damage"] = {
@@ -2494,7 +2494,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 67816, 
+			["oidx"] = 75322, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_cold_resistance_1"] = {
@@ -2534,7 +2534,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 43355, 
+			["oidx"] = 27195, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["maraketh_keystone_2"] = {
@@ -2599,7 +2599,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 84753, 
+			["oidx"] = 59351, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_life_2"] = {
@@ -2639,7 +2639,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 41430, 
+			["oidx"] = 87752, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_aura_effect"] = {
@@ -2673,7 +2673,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 45885, 
+			["oidx"] = 4960, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_duration"] = {
@@ -2707,7 +2707,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 68237, 
+			["oidx"] = 79693, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_lightning_resistance_1"] = {
@@ -2747,7 +2747,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 22479, 
+			["oidx"] = 88478, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_chaos_damage_2"] = {
@@ -2787,7 +2787,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 70619, 
+			["oidx"] = 68927, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_bleed_damage_1"] = {
@@ -2827,7 +2827,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 55833, 
+			["oidx"] = 36158, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_lightning_resistance"] = {
@@ -2861,7 +2861,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 17559, 
+			["oidx"] = 18075, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_chaos_damage_1"] = {
@@ -2901,7 +2901,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 6256, 
+			["oidx"] = 49930, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_chaos_resistance"] = {
@@ -2935,7 +2935,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 99956, 
+			["oidx"] = 25548, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_projectile_speed"] = {
@@ -2969,7 +2969,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 66640, 
+			["oidx"] = 97416, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_flask_duration_1"] = {
@@ -3003,7 +3003,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 26101, 
+			["oidx"] = 66099, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_chaos_damage"] = {
@@ -3037,7 +3037,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 62260, 
+			["oidx"] = 8097, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_aura_1"] = {
@@ -3071,7 +3071,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 79668, 
+			["oidx"] = 65124, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_aura_1"] = {
@@ -3111,7 +3111,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 71976, 
+			["oidx"] = 98699, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_damage_over_time"] = {
@@ -3145,7 +3145,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 46039, 
+			["oidx"] = 11446, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_mana_regen_1"] = {
@@ -3179,7 +3179,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 50503, 
+			["oidx"] = 9588, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_life_1"] = {
@@ -3213,7 +3213,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 24432, 
+			["oidx"] = 35290, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_chaos_resistance_1"] = {
@@ -3247,7 +3247,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 11587, 
+			["oidx"] = 5337, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_armour_1"] = {
@@ -3281,7 +3281,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 530, 
+			["oidx"] = 67997, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_cast_speed_1"] = {
@@ -3315,7 +3315,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 42182, 
+			["oidx"] = 81833, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_attack_speed_1"] = {
@@ -3349,7 +3349,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 94537, 
+			["oidx"] = 94732, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_projectile_attack_damage_1"] = {
@@ -3383,7 +3383,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 64478, 
+			["oidx"] = 94297, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_physical_damage_2"] = {
@@ -3417,7 +3417,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 73230, 
+			["oidx"] = 36656, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_physical_damage_1"] = {
@@ -3451,7 +3451,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 90707, 
+			["oidx"] = 98014, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_cold_attack_1"] = {
@@ -3485,7 +3485,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 98726, 
+			["oidx"] = 67225, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_spell_2"] = {
@@ -3519,7 +3519,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 43999, 
+			["oidx"] = 68382, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_fire_damage"] = {
@@ -3553,7 +3553,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 98220, 
+			["oidx"] = 79420, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_spell_1"] = {
@@ -3587,7 +3587,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 11401, 
+			["oidx"] = 80563, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_minion_2"] = {
@@ -3621,7 +3621,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 13983, 
+			["oidx"] = 19927, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_frenzy_2"] = {
@@ -3655,7 +3655,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 25280, 
+			["oidx"] = 93682, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_accuracy_1"] = {
@@ -3689,7 +3689,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 90860, 
+			["oidx"] = 56816, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_frenzy_3"] = {
@@ -3723,7 +3723,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 92044, 
+			["oidx"] = 80835, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_critical_strike_chance"] = {
@@ -3757,7 +3757,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 94069, 
+			["oidx"] = 70539, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_energy_shield"] = {
@@ -3791,7 +3791,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 16330, 
+			["oidx"] = 14411, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_minion_damage_1"] = {
@@ -3831,7 +3831,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 50380, 
+			["oidx"] = 85555, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_small_blank"] = {
@@ -3859,7 +3859,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 72485, 
+			["oidx"] = 20196, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_cold_damage_1"] = {
@@ -3899,7 +3899,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 15916, 
+			["oidx"] = 35484, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_keystone_2_v2"] = {
@@ -3908,11 +3908,6 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Energy Shield starts at zero",
-				[2] = "Cannot Recharge or Regenerate Energy Shield",
-				[3] = "Lose 5% of Energy Shield per second",
-				[4] = "Life Leech effects are not removed at Full Life",
-				[5] = "Life Leech effects Recover Energy Shield instead while on Full Life",
 			}, 
 			["dn"] = "Immortal Ambition", 
 			["isJewelSocket"] = false, 
@@ -3971,7 +3966,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 83058, 
+			["oidx"] = 36277, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_keystone_2"] = {
@@ -4047,7 +4042,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 66231, 
+			["oidx"] = 69557, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_attack_block"] = {
@@ -4081,7 +4076,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 33633, 
+			["oidx"] = 82991, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_area_of_effect"] = {
@@ -4115,7 +4110,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 34853, 
+			["oidx"] = 5489, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_cold_resistance"] = {
@@ -4149,7 +4144,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 70570, 
+			["oidx"] = 82675, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_evasion_1"] = {
@@ -4189,7 +4184,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 99316, 
+			["oidx"] = 64898, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_mana_regeneration"] = {
@@ -4223,7 +4218,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 35894, 
+			["oidx"] = 65999, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_mana_1"] = {
@@ -4263,7 +4258,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 12334, 
+			["oidx"] = 76549, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_spell_damage"] = {
@@ -4297,7 +4292,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 95448, 
+			["oidx"] = 73573, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_chaos_resistance_1"] = {
@@ -4337,7 +4332,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 87047, 
+			["oidx"] = 95624, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_energy_shield_1"] = {
@@ -4377,7 +4372,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 86754, 
+			["oidx"] = 83885, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_keystone_1_v2"] = {
@@ -4446,7 +4441,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 86420, 
+			["oidx"] = 14480, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_power_3"] = {
@@ -4480,7 +4475,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 91895, 
+			["oidx"] = 6774, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_keystone_3"] = {
@@ -4557,7 +4552,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 56626, 
+			["oidx"] = 76907, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["maraketh_keystone_3"] = {
@@ -4633,7 +4628,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 69758, 
+			["oidx"] = 3316, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_shock_2"] = {
@@ -4667,7 +4662,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 48415, 
+			["oidx"] = 7265, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_additional_physical_reduction"] = {
@@ -4701,7 +4696,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 74425, 
+			["oidx"] = 42889, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_cold_exposure"] = {
@@ -4735,7 +4730,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 93064, 
+			["oidx"] = 82503, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_cold_damage_3"] = {
@@ -4775,7 +4770,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 81535, 
+			["oidx"] = 2503, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_curse_effect"] = {
@@ -4809,7 +4804,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 95501, 
+			["oidx"] = 82957, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_area_damage"] = {
@@ -4843,7 +4838,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 8122, 
+			["oidx"] = 42668, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_block_2"] = {
@@ -4877,7 +4872,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 23045, 
+			["oidx"] = 69709, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_power_1"] = {
@@ -4911,7 +4906,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 86291, 
+			["oidx"] = 38654, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["maraketh_keystone_1_v2"] = {
@@ -4979,7 +4974,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 18513, 
+			["oidx"] = 54984, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_fire_damage_1"] = {
@@ -5019,7 +5014,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 52933, 
+			["oidx"] = 92114, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_devotion_node"] = {
@@ -5053,7 +5048,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 63801, 
+			["oidx"] = 6194, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_keystone_2"] = {
@@ -5123,7 +5118,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 19799, 
+			["oidx"] = 59672, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_chill_1"] = {
@@ -5157,7 +5152,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 52613, 
+			["oidx"] = 68329, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_projectile_damage"] = {
@@ -5191,7 +5186,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 43980, 
+			["oidx"] = 56859, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_lightning_conversion"] = {
@@ -5225,7 +5220,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 22356, 
+			["oidx"] = 94707, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_lightning_exposure"] = {
@@ -5259,7 +5254,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 55442, 
+			["oidx"] = 28525, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_spell_damage_1"] = {
@@ -5299,7 +5294,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 89997, 
+			["oidx"] = 50654, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["templar_notable_fire_exposure"] = {
@@ -5333,7 +5328,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 70721, 
+			["oidx"] = 27127, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_physical_damage_2"] = {
@@ -5373,7 +5368,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 30013, 
+			["oidx"] = 13357, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_life"] = {
@@ -5407,7 +5402,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 20276, 
+			["oidx"] = 45174, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_keystone_3_v2"] = {
@@ -5476,7 +5471,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 98702, 
+			["oidx"] = 14760, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["karui_keystone_2"] = {
@@ -5552,7 +5547,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 10040, 
+			["oidx"] = 11777, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_small_spell_dodge"] = {
@@ -5586,7 +5581,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 39288, 
+			["oidx"] = 83640, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["vaal_notable_dodge_2"] = {
@@ -5626,7 +5621,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 68568, 
+			["oidx"] = 95964, 
 			["isMultipleChoice"] = false, 
 		}, 
 		["eternal_notable_shock_1"] = {
@@ -5660,7 +5655,7 @@ return {
 			}, 
 			["ia"] = 0, 
 			["isMultipleChoiceOption"] = false, 
-			["oidx"] = 53562, 
+			["oidx"] = 79878, 
 			["isMultipleChoice"] = false, 
 		}, 
 	}, 

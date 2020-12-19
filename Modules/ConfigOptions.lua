@@ -139,10 +139,6 @@ return {
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum Life of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
 	end },
-	{ label = "Death Wish:", ifSkill = "Death Wish" },
-	{ var = "deathWishStageCount", type = "count", label = "Stage:", ifSkill = "Death Wish", tooltip = "Death Wish Channelling grants:\n\t40% increased Attack, Cast and Movement Speed to 1 minion per stage, up to 13.\nDeath Wish Explosion grants:\n\t10% more Hit & Ailment Damage per stage.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:DeathWishStageCount", "BASE", val, "Config")
-	end },
 	{ label = "Predator:", ifSkill = "Predator" },
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
@@ -318,14 +314,6 @@ return {
 		elseif val == "Lightning" then
 			modList:NewMod("Condition:WaveOfConvictionLightningExposureActive", "FLAG", true, "Config")
 		end
-	end },
-	{ label = "Winter Orb:", ifSkill = "Winter Orb" },
-	{ var = "winterOrbStages", type = "count", label = "Stages:", ifSkill = "Winter Orb", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:WinterOrbStage", "BASE", val, "Config", { type = "SkillName", skillName = "Winter Orb" })
-	end },
-	{ label = "Wintertide Brand:", ifSkill = "Wintertide Brand" },
-	{ var = "wintertideBrandStage", type = "count", label = "Wintertide Brand Stages:", ifSkill = "Wintertide Brand", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:WintertideBrandStage", "BASE", val, "Config", { type = "SkillName", skillName = "Wintertide Brand" })
 	end },
 	{ label = "Molten Shell:", ifSkill = "Molten Shell" },
 	{ var = "MoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated.", ifSkill = "Molten Shell", apply = function(val, modList, enemyModList)

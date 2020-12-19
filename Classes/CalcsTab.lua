@@ -63,6 +63,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
+		}, },{ label = "Skill Stages", playerFlag = "multiStage", { controlName = "mainSkillStageCount",
+			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillStageCountCalcs = tonumber(buf)
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end)
 		}, },
 		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
 			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
