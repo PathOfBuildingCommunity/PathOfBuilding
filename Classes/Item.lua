@@ -815,6 +815,17 @@ function ItemClass:GetPrimarySlot()
 	end
 end
 
+local function modIslocalExplicitGlobalImplicit(mod)
+	--#99
+	local globalEnergyShield = mod.line:match("^%d%% increased maximum Energy Shield$")
+	if globalEnergyShield ~= nil then
+		return true
+	else
+		return false
+	end
+
+end
+
 -- Add up local modifiers, and removes them from the modifier list
 -- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g. conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
@@ -849,6 +860,8 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		slotName = slotName:gsub("1", "2")
 	end
 	local modList = new("ModList")
+	local corruptedGlobalModList = new("ModList")
+
 	for _, baseMod in ipairs(baseList) do
 		local mod = copyTable(baseMod)
 		local add = true
@@ -866,7 +879,39 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 							  :gsub("{OtherSlotNum}", slotNum == 1 and "2" or "1")
 				end
 			end
+
 		end
+
+		--#99 for modifiers that are local if they are explict, and global if implicit (corrupted)
+		if self.corrupted then
+			for i, implicit in ipairs(self.implicitModLines) do
+				
+				--only checking for specific modifiers
+				if modIslocalExplicitGlobalImplicit(implicit) then
+					for im, implicitMod in ipairs(implicit.modList) do
+						if implicitMod == baseMod then
+
+							--in very rare situations you could have the same modifier twice, once as an explicit and once as an implicit
+							--in these situations the modifier needs to be handled different locally and globally
+							local addGlobal = true
+							for a, alreadyAddedMod in ipairs(corruptedGlobalModList) do
+								if alreadyAddedMod == implicitMod then
+									addGlobal = false
+								end
+							end
+
+						--if we add for global, we wait until the end of the function to add mods after all local summing has been calculated (local summing removes modifier after calculation)
+							if addGlobal then
+								mod.sourceSlot = slotName
+								corruptedGlobalModList:AddMod(mod)
+								add = false
+							end
+						end
+					end
+				end		
+			end
+		end
+
 		if add then
 			mod.sourceSlot = slotName
 			modList:AddMod(mod)
@@ -1037,6 +1082,12 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				or (jewelData.clusterJewelSocketCountOverride and jewelData.clusterJewelNothingnessCount)
 		end
 	end	
+
+	--add corrupted mods to the item that are global modifiers when implicit/corrupted and local modifiers when explicit
+	for _, corruptedMod in ipairs(corruptedGlobalModList) do
+		modList:AddMod(corruptedMod)
+	end
+
 	return { unpack(modList) }
 end
 
