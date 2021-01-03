@@ -61,33 +61,38 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPS = true
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
+	self.showAltQualityGems = false
 
 	-- Socket group list
 	self.controls.groupList = new("SkillListControl", {"TOPLEFT",self,"TOPLEFT"}, 20, 24, 360, 300, self)
 	self.controls.groupTip = new("LabelControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 8, 0, 14, "^7Tip: You can copy/paste socket groups using Ctrl+C and Ctrl+V.")
 
 	-- Gem options
-	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 320, 130, "Gem Options")
-	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 70, 20, "Sort gems by DPS:", function(state)
+	local optionInputsX = 204
+	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 374, 154, "Gem Options")
+	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end)
 	self.controls.sortGemsByDPS.state = true
 	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", {"LEFT", self.controls.sortGemsByDPS, "RIGHT"}, 10, 0, 120, 20, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
-	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 94, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 94, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemLevel = m_min(tonumber(buf) or 20, 21)
 	end)
 	self.controls.defaultLevelLabel = new("LabelControl", {"RIGHT",self.controls.defaultLevel,"LEFT"}, -4, 0, 0, 16, "^7Default gem level:")
-	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 118, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 118, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
 	self.controls.defaultQualityLabel = new("LabelControl", {"RIGHT",self.controls.defaultQuality,"LEFT"}, -4, 0, 0, 16, "^7Default gem quality:")
-	self.controls.showSupportGemTypes = new("DropDownControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 142, 120, 20, showSupportGemTypeList, function(index, value)
+	self.controls.showSupportGemTypes = new("DropDownControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 142, 120, 20, showSupportGemTypeList, function(index, value)
 		self.showSupportGemTypes = value.show
 	end)
 	self.controls.showSupportGemTypesLabel = new("LabelControl", {"RIGHT",self.controls.showSupportGemTypes,"LEFT"}, -4, 0, 0, 16, "^7Show support gems:")
-	
+	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 20, "^7Show alternate quality gems:", function(state)
+		self.showAltQualityGems = state
+	end)
+
 	-- Socket group details
 	self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
 	self.anchorGroupDetail.shown = function()
@@ -185,6 +190,10 @@ function SkillsTabClass:Load(xml, fileName)
 		self.sortGemsByDPS = xml.attrib.sortGemsByDPS == "true"
 	end
 	self.controls.sortGemsByDPS.state = self.sortGemsByDPS
+	if xml.attrib.showAltQualityGems then
+		self.showAltQualityGems = xml.attrib.showAltQualityGems == "true"
+	end
+	self.controls.showAltQualityGems.state = self.showAltQualityGems
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
 	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValue("show")
@@ -260,7 +269,8 @@ function SkillsTabClass:Save(xml)
 		defaultGemQuality = tostring(self.defaultGemQuality),
 		sortGemsByDPS = tostring(self.sortGemsByDPS),
 		showSupportGemTypes = self.showSupportGemTypes,
-		sortGemsByDPSField = self.sortGemsByDPSField
+		sortGemsByDPSField = self.sortGemsByDPSField,
+		showAltQualityGems = tostring(self.showAltQualityGems)
 	}
 	for _, socketGroup in ipairs(self.socketGroupList) do
 		local node = { elem = "Skill", attrib = {
@@ -407,7 +417,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Delete"] = slot.delete
 
 	-- Gem name specification
-	slot.nameSpec = new("GemSelectControl", {"LEFT",slot.delete,"RIGHT"}, 2, 0, 300, 20, self, index, function(gemId, addUndo)
+	slot.nameSpec = new("GemSelectControl", {"LEFT",slot.delete,"RIGHT"}, 2, 0, 300, 20, self, index, function(gemId, qualityId, addUndo)
 		if not self.displayGroup then
 			return
 		end
@@ -431,7 +441,8 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:ProcessSocketGroup(self.displayGroup)
 		-- Gem changed, update the list and default the quality id
 		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
-		slot.qualityId:SelByValue("Default", "type")
+		slot.qualityId:SelByValue(qualityId or "Default", "type")
+		gemInstance.qualityId = qualityId or "Default"
 		slot.level:SetText(tostring(gemInstance.level))
 		if addUndo then
 			self:AddUndoState()

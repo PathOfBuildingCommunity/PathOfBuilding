@@ -10,6 +10,13 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+local altQualMap = {
+	["Default"] = "",
+	["Alternate1"] = "Anomalous ",
+	["Alternate2"] = "Divergent ",
+	["Alternate3"] = "Phantasmal ",
+}
+
 local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
 	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a'")
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
@@ -24,7 +31,12 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		return self.dropped and self.controls.scrollBar.enabled
 	end
 	self.skillsTab = skillsTab
-	self.gems = skillsTab.build.data.gems
+	self.gems = { }
+	for gemId, gemData in pairs(skillsTab.build.data.gems) do
+		for _, altQual in ipairs(skillsTab:getGemAltQualityList(gemData)) do
+			self.gems[altQual.type .. ":" .. gemId] = gemData
+		end
+	end
 	self.index = index
 	self.gemChangeFunc = changeFunc
 	self.list = { }
@@ -39,12 +51,17 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	end
 end)
 
-function GemSelectClass:FilterSupport(gemData)
+function GemSelectClass:GetQualityType(gemId)
+	return gemId:gsub(":.+","")
+end
+
+function GemSelectClass:FilterSupport(gemId, gemData)
 	local showSupportTypes = self.skillsTab.showSupportGemTypes
-	return not gemData.grantedEffect.support 
+	return (not gemData.grantedEffect.support
 		or showSupportTypes == "ALL" 
 		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf) 
-		or (showSupportTypes == "AWAKENED" and gemData.grantedEffect.plusVersionOf)
+		or (showSupportTypes == "AWAKENED" and gemData.grantedEffect.plusVersionOf))
+		and (self.skillsTab.showAltQualityGems or (not self.skillsTab.showAltQualityGems and self:GetQualityType(gemId) == "Default"))
 end
 
 function GemSelectClass:BuildList(buf)
@@ -63,7 +80,7 @@ function GemSelectClass:BuildList(buf)
 		for i, pattern in ipairs(patternList) do
 			local matchList = { }
 			for gemId, gemData in pairs(self.gems) do
-				if self:FilterSupport(gemData) and not added[gemId] and (" "..gemData.name:lower()):match(pattern) then
+				if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern) or altQualMap[self:GetQualityType(gemId)]:lower():match(pattern)) then
 					t_insert(matchList, gemId)
 					added[gemId] = true
 				end
@@ -80,7 +97,7 @@ function GemSelectClass:BuildList(buf)
 				tagName = "active_skill"
 			end
 			for gemId, gemData in pairs(self.gems) do
-				if self:FilterSupport(gemData) and not added[gemId] and gemData.tags[tagName:lower()] == true then
+				if self:FilterSupport(gemId, gemData) and not added[gemId] and gemData.tags[tagName:lower()] == true then
 					t_insert(matchList, gemId)
 					added[gemId] = true
 				end
@@ -92,7 +109,7 @@ function GemSelectClass:BuildList(buf)
 		end
 	else
 		for gemId, gemData in pairs(self.gems) do
-			if self:FilterSupport(gemData) then
+			if self:FilterSupport(gemId, gemData) then
 				t_insert(self.list, gemId)
 			end
 		end
@@ -154,7 +171,7 @@ function GemSelectClass:UpdateSortCache()
 			if gemList[self.index] then
 				oldGem = copyTable(gemList[self.index], true)
 			else
-				gemList[self.index] = { level = self.skillsTab.defaultGemLevel or gemData.defaultLevel, quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
+				gemList[self.index] = { level = self.skillsTab.defaultGemLevel or gemData.defaultLevel, qualityId = self:GetQualityType(gemId), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 			end
 			local gemInstance = gemList[self.index]
 			if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
@@ -212,7 +229,7 @@ function GemSelectClass:UpdateGem(setText, addUndo)
 	if setText then	
 		self:SetText(self.gemName)
 	end
-	self.gemChangeFunc(self.gemId, addUndo and self.gemName ~= self.initialBuf)
+	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), self:GetQualityType(gemId), addUndo and self.gemName ~= self.initialBuf)
 end
 
 function GemSelectClass:ScrollSelIntoView()
@@ -291,7 +308,11 @@ function GemSelectClass:Draw(viewPort)
 					SetDrawColor(colorCodes.INTELLIGENCE)
 				end
 			end
-			DrawString(0, y, "LEFT", height - 4, "VAR", gemData and gemData.name or "<No matches>")
+			local gemText = gemData and gemData.name or "<No matches>"
+			if gemId and gemId ~= "" then
+				gemText = altQualMap[self:GetQualityType(gemId)] .. gemText
+			end
+			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
 				if gemData.grantedEffect.support and self.skillsTab.displayGroup.displaySkillList then
 					for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
@@ -319,7 +340,7 @@ function GemSelectClass:Draw(viewPort)
 				if gemList[self.index] then
 					oldGem = copyTable(gemList[self.index], true)
 				else
-					gemList[self.index] = { level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
+					gemList[self.index] = { level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1), qualityId = self:GetQualityType(self.list[self.hoverSel]), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 				end
 				local gemInstance = gemList[self.index]
 				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
@@ -385,7 +406,7 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 	if secondary and (not secondary.support or gemInstance.gemData.secondaryEffectName) then
 		local grantedEffect = gemInstance.gemData.VaalGem and secondary or primary
 		local grantedEffectSecondary = gemInstance.gemData.VaalGem and primary or secondary
-		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)
+		self.tooltip:AddLine(20, colorCodes.GEM..altQualMap[gemInstance.qualityId]..grantedEffect.name)
 		self.tooltip:AddSeparator(10)
 		self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
@@ -395,7 +416,7 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 		self:AddCommonGemInfo(gemInstance, grantedEffectSecondary)
 	else
 		local grantedEffect = gemInstance.gemData.grantedEffect
-		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)
+		self.tooltip:AddLine(20, colorCodes.GEM..altQualMap[gemInstance.qualityId]..grantedEffect.name)
 		self.tooltip:AddSeparator(10)
 		self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true, secondary and secondary.support and secondary)
