@@ -120,6 +120,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return "When enabled, node power is divided by the point cost it would take to get there,\nso closer points are considered stronger"
 	end
 
+	self.controls.powerReportVert = new("ButtonControl", {"LEFT", self.anchorControls, "RIGHT"}, 1585, -550, 115, 20, "Power Report V", function()
+		self:ShowPowerReport()
+	end, true)
 	self.controls.powerReport = new("ButtonControl", {"LEFT", self.controls.treeHeatMapStatPerPoint, "RIGHT"}, 8, 0, 120, 20, "Power Report", function()
 		self:ShowPowerReport()
 	end)

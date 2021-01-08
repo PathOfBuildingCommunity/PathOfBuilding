@@ -3,11 +3,12 @@
 -- Class: Button Control
 -- Basic button control.
 --
-local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick)
+local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick, printVertical)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
 	self.label = label
 	self.onClick = onClick
+	self.vertical = printVertical or false
 end)
 
 function ButtonClass:Click()
@@ -34,7 +35,12 @@ end
 
 function ButtonClass:Draw(viewPort)
 	local x, y = self:GetPos()
-	local width, height = self:GetSize()
+	local width, height
+	if not self.vertical then
+		width, height = self:GetSize()
+	else
+		height, width = self:GetSize()
+	end
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
 	local locked = self:GetProperty("locked")
@@ -84,7 +90,11 @@ function ButtonClass:Draw(viewPort)
 		DrawImageQuad(nil, x + width * 0.7, y + height * 0.2, x + width * 0.8, y + height * 0.3, x + width * 0.3, y + height * 0.8, x + width * 0.2, y + height * 0.7)
 	else
 		local overSize = self.overSizeText or 0
-		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR",label )
+		if not self.vertical then
+			DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR",label, self.vertical )
+		else
+			DrawString(x, y + 2 - overSize, "LEFT", width - 4 + overSize * 2, "VAR",label, self.vertical )
+		end
 	end
 	if mOver then
 		SetDrawLayer(nil, 100)
