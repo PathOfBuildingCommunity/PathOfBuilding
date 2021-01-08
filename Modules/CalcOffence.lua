@@ -2169,6 +2169,7 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.poison = false
 	skillFlags.ignite = false
 	skillFlags.igniteCanStack = skillModList:Flag(skillCfg, "IgniteCanStack")
+	skillFlags.igniteToChaos = skillModList:Flag(skillCfg, "IgniteToChaos")
 	skillFlags.shock = false
 	skillFlags.freeze = false
 	skillFlags.impale = false
@@ -2813,13 +2814,24 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.ignite = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
-					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
-					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
-					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
-					globalOutput["IgniteEffMult"] = effMult
-					if breakdown and effMult ~= 1 then
-						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore)
+					if skillModList:Flag(cfg, "IgniteToChaos") then
+						local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
+						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
+						globalOutput["IgniteEffMult"] = effMult
+						if breakdown and effMult ~= 1 then
+							globalBreakdown.IgniteEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
+						end
+					else
+						local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
+						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
+						globalOutput["IgniteEffMult"] = effMult
+						if breakdown and effMult ~= 1 then
+							globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore)
+						end
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
