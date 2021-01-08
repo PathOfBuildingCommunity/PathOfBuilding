@@ -345,8 +345,15 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.keystoneMap[node.dn] = node
 		elseif node["not"] or node.isNotable then
 			node.type = "Notable"
-			if not node.ascendancyName and node.g then
-				self.notableMap[node.dn:lower()] = node
+			if not node.ascendancyName then
+				-- Some nodes have duplicate names in the tree data for some reason, even though they're not on the tree
+				-- Only add them if they're actually part of a group (i.e. in the tree)
+				-- Add everything otherwise, because cluster jewel notables don't have a group
+				if not self.notableMap[node.dn:lower()] then
+					self.notableMap[node.dn:lower()] = node
+				elseif node.g then
+					self.notableMap[node.dn:lower()] = node
+				end
 			end
 		else
 			node.type = "Normal"
