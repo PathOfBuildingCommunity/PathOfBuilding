@@ -344,7 +344,9 @@ function calcs.offence(env, actor, activeSkill)
 		return modifiers
 	end
 
-	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.weaponData1 then
+	-- account for Battlemage
+	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
+	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
 		-- the multiplier below exist for future possible extension of Battlemage modifiers
 		local multiplier = getConversionMultiplier("INC", "ImprovedWeaponDamageAppliesToSpells") or 1
 		for _, damageType in ipairs(dmgTypeList) do
