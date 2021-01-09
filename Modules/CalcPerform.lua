@@ -1629,7 +1629,9 @@ function calcs.perform(env)
 			end
 		end
 		if min ~= math.huge then
-			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+			-- Modify the magnitude of all exposures
+			local extraExposure = modDB:Sum("BASE", nil, "ExtraExposure")
+			enemyDB:NewMod(element.."Resist", "BASE", min + extraExposure, element.." Exposure")
 		end
 	end
 

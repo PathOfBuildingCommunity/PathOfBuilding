@@ -1028,6 +1028,7 @@ local modTagList = {
 	["while moving"] = { tag = { type = "Condition", var = "Moving" } },
 	["while channelling"] = { tag = { type = "Condition", var = "Channelling" } },
 	["if you've been channelling for at least 1 second"] = { tag = { type = "Condition", var = "Channelling" } },
+	["if you've inflicted exposure recently"] = { tag = { type = "Condition", var = "AppliedExposureRecently" } },
 	["while you have no power charges"] = { tag = { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true } },
 	["while you have no frenzy charges"] = { tag = { type = "StatThreshold", stat = "FrenzyCharges", threshold = 0, upper = true } },
 	["while you have no endurance charges"] = { tag = { type = "StatThreshold", stat = "EnduranceCharges", threshold = 0, upper = true } },
@@ -1479,6 +1480,7 @@ local specialModList = {
 		mod("ColdDamageTaken", "INC", -num, { type = "Condition", var = "HitByColdDamageRecently" }),
 		mod("LightningDamageTaken", "INC", -num, { type = "Condition", var = "HitByLightningDamageRecently" }),
 	} end,
+	["exposure you inflict applies an extra (%-?%d+)%% to the affected resistance"] = function(num) return { mod("ExtraExposure", "BASE", num) } end,
 	["cannot take reflected elemental damage"] = { mod("ElementalReflectedDamageTaken", "MORE", -100) },
 	["every %d+ seconds:"] = { },
 	["gain chilling conflux for %d seconds"] = {

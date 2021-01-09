@@ -979,6 +979,9 @@ return {
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's Lightning Buff?", ifCond = "HaveManaStorm", tooltip = "This option enables Manastorm's Lightning Damage Buff.\n(When you cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage\nequal to 25% of Sacrificed Mana for 4 seconds)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionAppliedExposureRecently", type = "check", label = "Applied Exposure recently?", tooltip = "Any elemental exposure effect", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	-- Section: Effective DPS options
 	{ section = "For Effective DPS", col = 1 },
 	{ var = "critChanceLucky", type = "check", label = "Is your Crit Chance Lucky?", apply = function(val, modList, enemyModList)
