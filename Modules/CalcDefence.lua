@@ -429,6 +429,10 @@ function calcs.defence(env, actor)
 		else
 			output.LifeRegen = 0
 		end
+		-- Don't add life recovery mod for this
+		if output.LifeRegen and modDB:Flag(nil, "LifeRegenerationRecoversEnergyShield") then
+			modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase * (1 + modDB:Sum("MORE", nil, "LifeRegen") / 100), "Life Regeneration Recovers Energy Shield")
+		end
 	end
 	output.LifeRegen = output.LifeRegen - modDB:Sum("BASE", nil, "LifeDegen") + modDB:Sum("BASE", nil, "LifeRecovery") * output.LifeRecoveryRateMod
 	output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)

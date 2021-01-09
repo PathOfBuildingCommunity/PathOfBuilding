@@ -1555,6 +1555,15 @@ local specialModList = {
 		mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "OnConsecratedGround" }),
 		mod("AvoidShock", "BASE", 100, { type = "Condition", var = "OnConsecratedGround" }),
 	},
+	["gain fanaticism for 4 seconds on reaching maximum fanatic charges"] = { flag("Condition:CanGainFanaticism") },
+	["(%d+)%% increased critical strike change per point of strength or intelligence, whichever is lower"] = function(num) return { 
+		mod("CritChance", "INC", num, { type = "PerStat", stat = "Str" }, { type = "Condition", var = "IntHigherThanStr" }), 
+		mod("CritChance", "INC", num, { type = "PerStat", stat = "Int" }, { type = "Condition", var = "StrHigherThanInt" }) 
+	} end,
+	["consecrated ground you create causes life regeneration to also recover energy shield for you and allies"] = function(num) return { 
+		flag("LifeRegenerationRecoversEnergyShield", { type = "Condition", var = "OnConsecratedGround"})
+	} end,
+	
 	-- Juggernaut
 	["armour received from body armour is doubled"] = { flag("Unbreakable") },
 	["action speed cannot be modified to below base value"] = { flag("ActionSpeedCannotBeBelowBase") },
