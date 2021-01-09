@@ -344,6 +344,15 @@ function calcs.offence(env, actor, activeSkill)
 		return modifiers
 	end
 
+	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.weaponData1 then
+		-- the multiplier below exist for future possible extension of Battlemage modifiers
+		local multiplier = getConversionMultiplier("INC", "ImprovedWeaponDamageAppliesToSpells") or 1
+		for _, damageType in ipairs(dmgTypeList) do
+			skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
+			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
+		end
+	end
+
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
 		local multiplier = getConversionMultiplier("INC", "ImprovedMinionDamageAppliesToPlayer")
