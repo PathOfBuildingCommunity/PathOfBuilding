@@ -315,10 +315,6 @@ return {
 			modList:NewMod("Condition:WaveOfConvictionLightningExposureActive", "FLAG", true, "Config")
 		end
 	end },
-	{ label = "Resonance:", ifSkill = "Trinity" },
-	{ var = "resonanceStacks", type = "list", label = "Resonance of all elements:", ifSkill = "Trinity", list = {{val=0,label="None"},{val="25",label="25"},{val="50",label="50"}}, apply = function(val, modList, enemyModList)
-		modList:NewMod("ResonanceCount", "BASE", val, "Config")
-	end },
 	{ label = "Molten Shell:", ifSkill = "Molten Shell" },
 	{ var = "MoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated.", ifSkill = "Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "MoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
