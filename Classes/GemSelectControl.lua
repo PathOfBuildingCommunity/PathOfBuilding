@@ -316,11 +316,13 @@ function GemSelectClass:Draw(viewPort)
 				local gemList = self.skillsTab.displayGroup.gemList
 				local gemData = self.gems[self.list[self.hoverSel]]
 				local oldGem
+				-- Cache off the current gem in the list, if any
 				if gemList[self.index] then
 					oldGem = copyTable(gemList[self.index], true)
 				else
 					gemList[self.index] = { level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 				end
+				-- Create gemInstance to represent the hovered gem
 				local gemInstance = gemList[self.index]
 				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
 					gemData.level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)
@@ -329,14 +331,17 @@ function GemSelectClass:Draw(viewPort)
 				if not gemData.grantedEffect.levels[gemInstance.level] then
 					gemInstance.level = gemData.defaultLevel
 				end
+				-- Add hovered gem to tooltip
+				self:AddGemTooltip(gemInstance)
+				-- Calculate with the new gem
 				local output = calcFunc()
+				-- Put the original gem back into the list
 				if oldGem then
 					gemInstance.gemData = oldGem.gemData
 					gemInstance.level = oldGem.level
 				else
 					gemList[self.index] = nil
 				end
-				self:AddGemTooltip(gemInstance)
 				self.tooltip:AddSeparator(10)
 				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
 				self.tooltip:Draw(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
