@@ -425,6 +425,10 @@ local function doActorMisc(env, actor)
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
+		if modDB:Sum("BASE", nil, "DamageFromHitsTakenFromSpectres") > 0 then
+			local effect = modDB:Sum("BASE", nil, "DamageFromHitsTakenFromSpectres")
+			modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Damage From Hits Taken From Spectres")
+		end
 		if modDB:Flag(nil, "Onslaught") then
 			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
