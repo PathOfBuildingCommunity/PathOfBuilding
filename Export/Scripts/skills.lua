@@ -1,4 +1,5 @@
-local skillTypes = { "Attack",
+local skillTypes = {
+	"Attack",
 	"Spell",
 	"Projectile",
 	"DualWield",

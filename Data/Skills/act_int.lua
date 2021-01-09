@@ -901,10 +901,10 @@ skills["Blight"] = {
 	castTime = 0.3,
 	parts = {
 		{
-			name = "Manual Stacks"
+			name = "Manual Stacks",
 		},
 		{
-			name = "Maximum Stacks"
+			name = "Maximum Stacks",
 		},
 	},
 	baseFlags = {
@@ -913,8 +913,8 @@ skills["Blight"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } ),
-		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" } ),
+		mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" }),
 		skill("debuff", true),
 		skill("debuffSecondary", true),
 		skill("radius", 26),
@@ -2587,7 +2587,7 @@ skills["DivineTempest"] = {
 	},
 	baseMods = {
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 } ),
+		mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 38),
 	},
 	qualityStats = {
@@ -3509,7 +3509,7 @@ skills["Flameblast"] = {
 	castTime = 0.2,
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStageFirst" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
@@ -3533,7 +3533,7 @@ skills["Flameblast"] = {
 	baseMods = {
 		mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", 9),
 		skill("radius", 2),
-		skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" } ),
+		skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		skill("showAverage", true),
 	},
 	qualityStats = {
@@ -5229,7 +5229,7 @@ skills["ExpandingFireCone"] = {
 	},
 	baseMods = {
 		mod("Multiplier:IncinerateMaxStages", "BASE", 8),
-		mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" } ),
+		mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 25),
 		skill("radiusLabel", "Flame Length:"),
@@ -6309,11 +6309,11 @@ skills["MagmaSigil"] = {
 		brand = true,
 	},
 	baseMods = {
-		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 }}),
-		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 } ),
+		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } }),
+		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
 		skill("radius", 8),
-		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" } ),
-		mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } )
+		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
+		mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -7396,14 +7396,6 @@ skills["FireBeam"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.CausesBurning] = true, [SkillType.Duration] = true, [SkillType.Channelled] = true, [SkillType.Type59] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
-	parts = {
-		{
-			name = "Manual Stacks"
-		},
-		{
-			name = "Maximum Stacks"
-		},
-	},
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
@@ -7414,8 +7406,8 @@ skills["FireBeam"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 } ),
-		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7, 0, 0, { type = "SkillPart", skillPart = 1 } ),
+		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 }),
+		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7),
 		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
 	},
 	qualityStats = {
@@ -8838,7 +8830,8 @@ skills["StormBurstNew"] = {
 			local duration = activeSkill.skillData.duration * output.DurationMod
 			-- duration * 10 / (jump * 10), instead of duration / jump to avoid floating point issues
 			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
-			activeSkill.skillData.dpsMultiplier = math.floor(duration * 10 / jumpPeriod)
+			-- additional 1 tick upon spawn of orb
+			activeSkill.skillData.dpsMultiplier = 1 + math.floor(duration * 10 / jumpPeriod)
 		end
 	end,
 	statMap = {
@@ -10594,6 +10587,10 @@ skills["SpellDamageAura"] = {
 		},
 		["base_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["life_regeneration_rate_per_minute_%"] = {
+			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
 		},
 	},
 	baseFlags = {

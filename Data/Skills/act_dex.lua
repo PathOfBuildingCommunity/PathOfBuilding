@@ -1495,7 +1495,7 @@ skills["PoisonArrow"] = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "withered_on_hit_chance_%", 1 },
+			{ "withered_on_hit_for_2_seconds_%_chance", 1 },
 		},
 		Alternate2 = {
 			{ "skill_physical_damage_%_to_convert_to_chaos", 1 },

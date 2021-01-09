@@ -626,6 +626,12 @@ skills["Anger"] = {
 		["spell_maximum_added_fire_damage"] = {
 			mod("FireMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["burn_damage_+%"] = {
+			mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,

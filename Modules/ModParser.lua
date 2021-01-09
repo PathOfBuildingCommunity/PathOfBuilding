@@ -271,9 +271,10 @@ local modNameList = {
 	["knockback distance"] = "EnemyKnockbackDistance",
 	-- Auras/curses/buffs
 	["aura effect"] = "AuraEffect",
-	["effect of non-curse auras you cast"] = "AuraEffect",
-	["effect of non-curse auras from your skills"] = "AuraEffect",
-	["effect of non-curse auras from your skills on your minions"] = { "AuraEffectOnSelf", addToMinion = true },
+	["effect of non-curse auras you cast"] = { "AuraEffect", tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } } },
+	["effect of non-curse auras from your skills"] = { "AuraEffect", tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } } },
+	["effect of non-curse auras from your skills on your minions"] = { "AuraEffectOnSelf", tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } }, addToMinion = true },
+	["effect of non-curse auras"] = { "AuraEffect", tag = { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } },
 	["effect of your curses"] = "CurseEffect",
 	["effect of auras on you"] = "AuraEffectOnSelf",
 	["effect of auras on your minions"] = { "AuraEffectOnSelf", addToMinion = true },
@@ -1380,7 +1381,7 @@ local specialModList = {
 	["(%d+)%% of maximum mana is converted to twice that much armour"] = function(num) return {
 		mod("ManaConvertToArmour", "BASE", num),
 	} end,
-	["life leech effects recover energy shield instead while on full life"] = function(num) return { flag("GhostReaver", { type = "Condition", var = "FullLife" }) } end,
+	["life leech effects recover energy shield instead while on full life"] = { flag("ImmortalAmbition", { type = "Condition", var = "FullLife" }, { type = "Condition", var = "LeechingLife"}) },
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
@@ -1957,7 +1958,7 @@ local specialModList = {
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["(%d+)%% increased effect of non%-curse auras from your skills on enemies"] = function(num) return {
-		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }),
+		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
 		mod("AuraEffect", "INC", num, { type = "SkillName", skillName = "Death Aura" }),
 	} end,
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
@@ -2329,12 +2330,17 @@ local specialModList = {
 		mod("ColdPenetration", "BASE", num, { type = "StatThreshold", stat = "ColdResistTotal", thresholdStat = "LightningResistTotal" }, { type = "StatThreshold", stat = "ColdResistTotal", thresholdStat = "FireResistTotal" }),
 		mod("FirePenetration", "BASE", num, { type = "StatThreshold", stat = "FireResistTotal", thresholdStat = "LightningResistTotal" }, { type = "StatThreshold", stat = "FireResistTotal", thresholdStat = "ColdResistTotal" }),
 	} end,
+	["recover (%d+)%% of life when you kill an enemy during flask effect"] = function(num) return { mod("LifeOnKill", "BASE", 1, { type = "PerStat", stat = "Life", div = 100 / num }, { type = "Condition", var = "UsingFlask" }) } end,
+	["recover (%d+)%% of mana when you kill an enemy during flask effect"] = function(num) return { mod("ManaOnKill", "BASE", 1, { type = "PerStat", stat = "Mana", div = 100 / num }, { type = "Condition", var = "UsingFlask" }) } end,
+	["recover (%d+)%% of energy shield when you kill an enemy during flask effect"] = function(num) return { mod("EnergyShieldOnKill", "BASE", 1, { type = "PerStat", stat = "EnergyShield", div = 100 / num }, { type = "Condition", var = "UsingFlask" }) } end,
 	["(%d+)%% of maximum life taken as chaos damage per second"] = function(num) return { mod("ChaosDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) } end,
 	["your critical strikes do not deal extra damage during flask effect"] = { flag("NoCritMultiplier", { type = "Condition", var = "UsingFlask" }) },
 	["grants perfect agony during flask effect"] = { mod("Keystone", "LIST", "Perfect Agony", { type = "Condition", var = "UsingFlask" }) },
 	["grants eldritch battery during flask effect"] = { mod("Keystone", "LIST", "Eldritch Battery", { type = "Condition", var = "UsingFlask" }) },
 	["eldritch battery during flask effect"] = { mod("Keystone", "LIST", "Eldritch Battery", { type = "Condition", var = "UsingFlask" }) },
 	["chaos damage does not bypass energy shield during effect"] = { flag("ChaosNotBypassEnergyShield") },
+	["your skills have no mana cost during flask effect"] = { mod("ManaCost", "MORE", -100, { type = "Condition", var = "UsingFlask" }) },
+	["life recovery from flasks also applies to energy shield during flask effect"] = { flag("LifeFlaskAppliesToEnergyShield", { type = "Condition", var = "UsingFlask" }) },
 	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" }) } end,
 	["gain alchemist's genius when you use a flask"] = {
 		flag("Condition:CanHaveAlchemistGenius"),
@@ -2577,6 +2583,10 @@ local specialModList = {
 	["grants %+(%d+)%% to cold resistance per (%d+)%% quality"] = function(num, _, div) return { mod("ColdResist", "BASE", num, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
 	["grants %+(%d+)%% to lightning resistance per (%d+)%% quality"] = function(num, _, div) return { mod("LightningResist", "BASE", num, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
 	["infernal blow debuff deals an additional (%d+)%% of damage per charge"] = function(num) return { mod("DebuffEffect", "BASE", num, { type = "SkillName", skillName = "Infernal Blow"}) } end,
+	-- Quality modifiers
+	["%+(%d+)%% to quality"] = function(num) return { mod("Quality", "BASE", num) } end,
+	["%+(%d+)%% to maximum quality"] = function(num) return { mod("Quality", "BASE", num) } end,
+	["(%d+)%% to maximum quality"] = function(num) return { mod("Quality", "BASE", num) } end,
 	-- Display-only modifiers
 	["extra gore"] = { },
 	["prefixes:"] = { },

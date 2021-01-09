@@ -153,14 +153,14 @@ local skills, mod, flag, skill = ...
 #flags spell duration area
 	parts = {
 		{
-			name = "Manual Stacks"
+			name = "Manual Stacks",
 		},
 		{
-			name = "Maximum Stacks"
+			name = "Maximum Stacks",
 		},
 	},
-#baseMod mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } )
-#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" } )
+#baseMod mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" })
 #baseMod skill("debuff", true)
 #baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 26)
@@ -443,7 +443,7 @@ local skills, mod, flag, skill = ...
 			area = false,
 		},
 		{
-			name = "Release"
+			name = "Release",
 			area = true,
 		},
 	},
@@ -458,8 +458,8 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
 	},
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
-#baseMod mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 } ),
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 38)
 #mods
 
@@ -644,7 +644,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", 9)
 #baseMod skill("radius", 2)
-#baseMod skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" } )
+#baseMod skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" })
 #baseMod skill("showAverage", true)
 #mods
 
@@ -943,7 +943,7 @@ local skills, mod, flag, skill = ...
 			name = "Channelling",
 		},
 		{
-			name = "Release"
+			name = "Release",
 		},
 	},
 	statMap = {
@@ -968,7 +968,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("Multiplier:IncinerateMaxStages", "BASE", 8)
-#baseMod mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" } )
+#baseMod mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" })
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusLabel", "Flame Length:")
@@ -1120,11 +1120,11 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
 	},
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 }}),
-#baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 } ),
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
+#baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 })
 #baseMod skill("radius", 8)
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" } ),
-#baseMod mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 } )
+#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" })
+#baseMod mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 })
 #mods
 
 #skill PowerSiphon
@@ -1318,7 +1318,7 @@ local skills, mod, flag, skill = ...
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
 	},
-#baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 } )
+#baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
 #baseMod mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7)
 #baseMod mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" })
 #mods

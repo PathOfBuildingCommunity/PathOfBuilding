@@ -2471,7 +2471,7 @@ skills["SupportLesserPoison"] = {
 			{ "base_poison_damage_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "gain_frenzy_charge_on_kill_vs_enemies_with_5+_poisons_%", 0.2 },
+			{ "gain_frenzy_charge_on_killing_blow_vs_enemies_with_5+_poisons_%", 0.2 },
 		},
 		Alternate2 = {
 			{ "hit_damage_+%", 1 },
@@ -2851,7 +2851,7 @@ skills["SupportOnslaught"] = {
 			{ "attack_and_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "onslaught_duration_+%", 1 },
+			{ "support_scion_onslaught_duration_+%", 1 },
 		},
 		Alternate2 = {
 			{ "attack_and_cast_speed_+%_during_onslaught", 1 },
