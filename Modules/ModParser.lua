@@ -1268,6 +1268,7 @@ end
 
 local gemIdLookup = {
 	["power charge on critical strike"] = "SupportPowerChargeOnCrit",
+	["bone armour"] = "BoneArmour",
 }
 for name, grantedEffect in pairs(data.skills) do
 	if not grantedEffect.hidden or grantedEffect.fromItem or grantedEffect.fromTree then
