@@ -1563,7 +1563,9 @@ local specialModList = {
 	["consecrated ground you create causes life regeneration to also recover energy shield for you and allies"] = function(num) return { 
 		flag("LifeRegenerationRecoversEnergyShield", { type = "Condition", var = "OnConsecratedGround"})
 	} end,
-	
+	["(%d+)%% more attack damage for each non instant spell you've cast in the past 8 seconds, up to a maximum of (%d+)%%"] = function(num, _, max) return { 
+		mod("Damage", "MORE", num, nil, ModFlag.Attack, { type = "Multiplier", var = "CastLast8Seconds", limit = max, limitTotal = true}),	
+	} end,
 	-- Juggernaut
 	["armour received from body armour is doubled"] = { flag("Unbreakable") },
 	["action speed cannot be modified to below base value"] = { flag("ActionSpeedCannotBeBelowBase") },
