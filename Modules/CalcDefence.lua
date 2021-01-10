@@ -431,7 +431,7 @@ function calcs.defence(env, actor)
 		end
 		-- Don't add life recovery mod for this
 		if output.LifeRegen and modDB:Flag(nil, "LifeRegenerationRecoversEnergyShield") then
-			modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase * (1 + modDB:Sum("MORE", nil, "LifeRegen") / 100), "Life Regeneration Recovers Energy Shield")
+			modDB:NewMod("EnergyShieldRecovery", "BASE", lifeBase * (1 + modDB:Sum("MORE", nil, "LifeRegen") / 100), "Life Regeneration Recovers Energy Shield")
 		end
 	end
 	output.LifeRegen = output.LifeRegen - modDB:Sum("BASE", nil, "LifeDegen") + modDB:Sum("BASE", nil, "LifeRecovery") * output.LifeRecoveryRateMod
@@ -452,6 +452,8 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 		end
 	end
+	output.EnergyShieldRegen = output.EnergyShieldRegen + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
+	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
 		modDB:NewMod("Dummy", "DUMMY", 1, "RageRegen", 0, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
