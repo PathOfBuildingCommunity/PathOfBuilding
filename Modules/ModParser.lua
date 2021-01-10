@@ -1564,7 +1564,8 @@ local specialModList = {
 		mod("CritChance", "INC", num, { type = "PerStat", stat = "Int" }, { type = "Condition", var = "StrHigherThanInt" }) 
 	} end,
 	["consecrated ground you create causes life regeneration to also recover energy shield for you and allies"] = function(num) return { 
-		flag("LifeRegenerationRecoversEnergyShield", { type = "Condition", var = "OnConsecratedGround"})
+		flag("LifeRegenerationRecoversEnergyShield", { type = "Condition", var = "OnConsecratedGround"}),
+		mod("MinionModifier", "LIST", { mod = flag("LifeRegenerationRecoversEnergyShield", { type = "Condition", var = "OnConsecratedGround"}) })
 	} end,
 	["(%d+)%% more attack damage for each non instant spell you've cast in the past 8 seconds, up to a maximum of (%d+)%%"] = function(num, _, max) return { 
 		mod("Damage", "MORE", num, nil, ModFlag.Attack, { type = "Multiplier", var = "CastLast8Seconds", limit = max, limitTotal = true}),	

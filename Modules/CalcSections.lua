@@ -1121,7 +1121,7 @@ return {
 		{ modName = "EnergyShieldRechargeFaster" },
 	}, },
 	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)", 
-		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRegenPercent", "EnergyShieldDegen", "NoEnergyShieldRegen" } }, 
+		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRecovery", "EnergyShieldRegenPercent", "EnergyShieldDegen", "NoEnergyShieldRegen" } }, 
 		{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
 	}, },
 } }
