@@ -1512,6 +1512,29 @@ local specialModList = {
 	},
 	["(%d+)%% increased golem damage per summoned golem"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "SkillType", skillType = SkillType.Golem }, { type = "PerStat", stat = "ActiveGolemLimit" }) } end,
 	["shocks from your hits always increase damage taken by at least (%d+)%%"] = function(num) return { mod("ShockBase", "BASE", num) } end,
+	["(%d+)%% more damage with ignites you inflict with hits for which the highest damage type is fire"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Ignite, { type = "Condition", var = "FireIsHighestDamageType" } ) } end,
+	["(%d+)%% more effect of cold ailments you inflict with hits for which the highest damage type is cold"] = function(num) return { mod("EnemyChillEffect", "MORE", num, { type = "Condition", var = "ColdIsHighestDamageType" } ) } end,
+	["(%d+)%% more effect of lightning ailments you inflict with hits if the highest damage type is lightning"] = function(num) return { mod("EnemyShockEffect", "MORE", num, { type = "Condition", var = "LightningIsHighestDamageType" } ) } end,
+	["your hits always ignite"] = { mod("EnemyIgniteChance", "BASE", 100) },
+	["your hits always shock"] = { mod("EnemyShockChance", "BASE", 100) },
+	["all damage with hits can ignite"] = {
+		flag("PhysicalCanIgnite"),
+		flag("ColdCanIgnite"),
+		flag("LightningCanIgnite"),
+		flag("ChaosCanIgnite")
+	},
+	["all damage with hits can chill"] = {
+		flag("PhysicalCanChill"),
+		flag("FireCanChill"),
+		flag("LightningCanChill"),
+		flag("ChaosCanChill")
+	},
+	["all damage with hits can shock"] = {
+		flag("PhysicalCanShock"),
+		flag("FireCanShock"),
+		flag("ColdCanShock"),
+		flag("ChaosCanShock")
+	},
 	-- Gladiator
 	["enemies maimed by you take (%d+)%% increased physical damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num, { type = "Condition", var = "Maimed" }) }) } end,
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
