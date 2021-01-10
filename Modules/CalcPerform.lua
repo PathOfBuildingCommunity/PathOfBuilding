@@ -430,7 +430,7 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
-		if modDB:Flag(nil, "Fanaticism") then
+		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("Speed", "MORE", effect, "Fanaticism", ModFlag.Cast)
 			modDB:NewMod("ManaCost", "MORE", -effect, "Fanaticism")
