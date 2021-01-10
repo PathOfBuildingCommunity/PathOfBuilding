@@ -815,9 +815,8 @@ return {
 	{ var = "conditionStoppedTakingDamageOverTimeRecently", type = "check", label = "Have you stopped taking DoT recently?", ifCond = "StoppedTakingDamageOverTimeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:StoppedTakingDamageOverTimeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionConvergenceActive", type = "check", label = "Is Convergence Active?", ifCond = "CanGainConvergence", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:ConvergenceActive", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("ElementalDamage", "MORE", 30, "Convergence", { type = "Condition", var = "ConvergenceActive" })
+	{ var = "conditionConvergence", type = "check", label = "Have Convergence?", ifCond = "CanGainConvergence", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Convergence", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffPendulum", type = "list", label = "Is Pendulum of Destruction active?", ifNode = 57197, list = {{val=0,label="None"},{val="AREA",label="Area of Effect"},{val="DAMAGE",label="Elemental Damage"}}, apply = function(val, modList, enemyModList)
 		if val == "AREA" then
