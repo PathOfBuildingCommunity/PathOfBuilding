@@ -1555,8 +1555,11 @@ local specialModList = {
 		mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "OnConsecratedGround" }),
 		mod("AvoidShock", "BASE", 100, { type = "Condition", var = "OnConsecratedGround" }),
 	},
-	["gain fanaticism for 4 seconds on reaching maximum fanatic charges"] = { flag("Condition:CanGainFanaticism") },
-	["(%d+)%% increased critical strike change per point of strength or intelligence, whichever is lower"] = function(num) return { 
+	["gain fanaticism for 4 seconds on reaching maximum fanatic charges"] = function() return { 
+		flag("Condition:CanGainFanaticism"),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainFanaticism" })
+	} end ,
+	["(%d+)%% increased critical strike chance per point of strength or intelligence, whichever is lower"] = function(num) return { 
 		mod("CritChance", "INC", num, { type = "PerStat", stat = "Str" }, { type = "Condition", var = "IntHigherThanStr" }), 
 		mod("CritChance", "INC", num, { type = "PerStat", stat = "Int" }, { type = "Condition", var = "StrHigherThanInt" }) 
 	} end,
