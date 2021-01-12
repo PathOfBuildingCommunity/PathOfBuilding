@@ -1635,6 +1635,7 @@ function calcs.perform(env)
 				enemyDB:NewMod(element.."Resist", "BASE", mod.value, mod.source)
 			end
 			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
 	end
 
