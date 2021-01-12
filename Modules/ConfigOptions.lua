@@ -498,7 +498,7 @@ return {
 	{ var = "overrideBlitzCharges", type = "count", label = "# of Blitz Charges (if not maximum):", ifOption = "useBlitzCharges", apply = function(val, modList, enemyModList)
 		modList:NewMod("BlitzCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierGaleForce", type = "count", label = "Amount of Gale Force:", ifCond = "CanGainGaleForce", tooltip = "Base maximum Gale Force is 10.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierGaleForce", type = "count", label = "# of Gale Force:", ifCond = "CanGainGaleForce", tooltip = "Base maximum Gale Force is 10.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:GaleForce", "BASE", val, "Config", { type = "IgnoreCond" }, { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainGaleForce" })
 	end },
 	{ var = "useInspirationCharges", type = "check", label = "Do you use Inspiration Charges?", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
