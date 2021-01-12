@@ -1467,6 +1467,7 @@ local specialModList = {
 		flag("Condition:CanGainGaleForce"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainGaleForce" }), -- Make the Configuration option appear
 	},
+	["if you've used a skill recently, you and nearby allies have tailwind"] = { mod("ExtraAura", "LIST", { mod = flag("Condition:Tailwind") }, { type = "Condition", var = "UsedSkillRecently" }) },
 	["you and nearby allies have tailwind"] = { mod("ExtraAura", "LIST", { mod = flag("Condition:Tailwind") }) },
 	["projectiles deal (%d+)%% more damage for each remaining chain"] = function(num) return { mod("Damage", "MORE", num, nil, ModFlag.Projectile, { type = "PerStat", stat = "ChainRemaining" }) } end,
 	["projectiles deal (%d+)%% increased damage for each remaining chain"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Projectile, { type = "PerStat", stat = "ChainRemaining" }) } end,
