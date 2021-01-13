@@ -1288,7 +1288,7 @@ end
 local specialModList = {
 	-- Keystones
 	["your hits can't be evaded"] = { flag("CannotBeEvaded") },
-	["never deal critical strikes"] = { flag("NeverCrit") },
+	["never deal critical strikes"] = { flag("NeverCrit"), flag("Condition:NeverCrit") },
 	["no critical strike multiplier"] = { flag("NoCritMultiplier") },
 	["ailments never count as being from critical strikes"] = { flag("AilmentsAreNeverFromCrit") },
 	["the increase to physical damage from strength applies to projectile attacks as well as melee attacks"] = { flag("IronGrip") },
@@ -1462,6 +1462,10 @@ local specialModList = {
 	["accuracy rating is doubled"] = { mod("Accuracy", "MORE", 100) },
 	["(%d+)%% increased blink arrow and mirror arrow cooldown recovery speed"] = function(num) return {
 		mod("CooldownRecovery", "INC", num, { type = "SkillName", skillNameList = { "Blink Arrow", "Mirror Arrow" } }),
+	} end,
+	["critical strikes which inflict bleeding also inflicts rupture"] = function() return {
+		flag("Condition:CanInflictRupture", { type = "Condition", neg = true, var = "NeverCrit"}),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanInflictRupture" }), -- Make the Configuration option appear
 	} end,
 	["if you've used a skill recently, you and nearby allies have tailwind"] = { mod("ExtraAura", "LIST", { mod = flag("Condition:Tailwind") }, { type = "Condition", var = "UsedSkillRecently" }) },
 	["projectiles deal (%d+)%% more damage for each remaining chain"] = function(num) return { mod("Damage", "MORE", num, nil, ModFlag.Projectile, { type = "PerStat", stat = "ChainRemaining" }) } end,

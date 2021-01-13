@@ -666,7 +666,7 @@ return {
 	{ label = "Eff. DoT Multiplier", { format = "x {2:output:BleedDotMulti}", { breakdown = "BleedDotMulti" }, { modName = { "DotMultiplier", "PhysicalDotMultiplier" }, modType = "BASE", cfg = "bleed" }, }, },
 	{ label = "MH Source Physical", bgCol = colorCodes.MAINHANDBG, textSize = 12, flag = "weapon1Attack", { format = "{0:output:MainHand.BleedPhysicalMin} to {0:output:MainHand.BleedPhysicalMax}", { breakdown = "MainHand.BleedPhysical" }, }, },
 	{ label = "OH Source Physical", bgCol = colorCodes.OFFHANDBG, textSize = 12, flag = "weapon2Attack", { format = "{0:output:OffHand.BleedPhysicalMin} to {0:output:OffHand.BleedPhysicalMax}", { breakdown = "OffHand.BleedPhysical" }, }, },
-	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:BleedEffMult}", { breakdown = "BleedEffMult" }, { label = "Enemy modifiers", modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime", "PhysicalDamageReduction" }, enemy = true }, }, },
+	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:BleedEffMult}", { breakdown = "BleedEffMult" }, { label = "Enemy modifiers", modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime", "PhysicalDamageReduction" }, enemy = true, cfg = "bleed" }, }, },
 	{ label = "Bleed DPS", { format = "{1:output:BleedDPS}", { breakdown = "BleedDPS" }, { breakdown = "MainHand.BleedDPS" }, { breakdown = "OffHand.BleedDPS" }, }, },
 	{ label = "Bleed Duration", { format = "{2:output:BleedDuration}s", 
 		{ breakdown = "BleedDuration" }, 
