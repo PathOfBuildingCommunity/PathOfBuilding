@@ -1629,7 +1629,13 @@ function calcs.perform(env)
 			end
 		end
 		if min ~= math.huge then
+			-- Modify the magnitude of all exposures
+			for _, value in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure")) do
+				local mod = value.mod
+				enemyDB:NewMod(element.."Resist", "BASE", mod.value, mod.source)
+			end
 			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
 	end
 
