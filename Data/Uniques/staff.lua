@@ -113,6 +113,7 @@ Maelstrom Staff
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.13.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
@@ -121,6 +122,7 @@ Implicits: 2
 {variant:1}Adds (270-300) to (340-380) Physical Damage
 {variant:2}Adds (250-280) to (315-355) Physical Damage
 {variant:3}Adds (220-240) to (270-300) Physical Damage
+{variant:4}Battlemage
 Adds (376-400) to (568-600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
@@ -331,6 +333,7 @@ Implicits: 3
 Martyr of Innocence
 Highborn Staff
 Variant: Pre 3.5.0
+Variant: Pre 3.13.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
 Implicits: 1
@@ -339,9 +342,10 @@ Implicits: 1
 Adds (350-400) to (500-600) Fire Damage
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
+{variant:3}Battlemage
 Grants level 15 Vengeance Skill
 {variant:1}100% increased Fire Damage if you have been Hit Recently
-{variant:2}100% increased Fire Damage
+{variant:2,3}100% increased Fire Damage
 Immune to Freeze and Chill while Ignited
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 ]],[[
