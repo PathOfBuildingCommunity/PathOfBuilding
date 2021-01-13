@@ -34,13 +34,8 @@ for jewel in dat("PassiveTreeExpansionJewels"):Rows() do
 		local desc = describeStats(stats)
 		out:write('\t\t\t\t\tstats = { "', table.concat(desc, '", "'), '" },\n')
 		out:write('\t\t\t\t\tenchant = {\n')
-		for index, stat in ipairs(skill.Node.Stats) do
-			local stats = {
-				[stat.Id] = { min = skill.Node["Stat"..index], max = skill.Node["Stat"..index] }
-			}
-			for _, line in ipairs(describeStats(stats)) do
-				out:write('\t\t\t\t\t\t"Added Small Passive Skills grant: ', line, '",\n')
-			end
+		for _, line in ipairs(desc) do
+			out:write('\t\t\t\t\t\t"Added Small Passive Skills grant: ', line, '",\n')
 		end
 		out:write('\t\t\t\t\t},\n')
 		out:write('\t\t\t\t},\n')
