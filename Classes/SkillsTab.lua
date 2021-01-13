@@ -459,6 +459,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.level:AddToTabGroup(self.controls.groupLabel)
+	slot.level.enabled = function()
+		return index <= #self.displayGroup.gemList
+	end
 	self.controls["gemSlot"..index.."Level"] = slot.level
 
 	-- Gem quality id
@@ -476,6 +479,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.qualityId.enabled = function()
+		return index <= #self.displayGroup.gemList
+	end
 	slot.qualityId.tooltipFunc = function()
 		-- Reset the tooltip
 		slot.qualityId.tooltip:Clear()
@@ -548,6 +554,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.quality:AddToTabGroup(self.controls.groupLabel)
+	slot.quality.enabled = function()
+		return index <= #self.displayGroup.gemList
+	end
 	self.controls["gemSlot"..index.."Quality"] = slot.quality
 
 	-- Enable gem
@@ -579,6 +588,9 @@ function SkillsTabClass:CreateGemSlot(index)
 				end
 			end
 		end
+	end
+	slot.enabled.enabled = function()
+		return index <= #self.displayGroup.gemList
 	end
 	self.controls["gemSlot"..index.."Enable"] = slot.enabled
 
