@@ -712,6 +712,16 @@ function calcs.perform(env)
 			modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
 			enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
 		end
+		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
+			if activeSkill.activeEffect.grantedEffect.name == damageType.." Aegis" then
+				modDB:NewMod(damageType.."AegisValue", "BASE", 1000, "Config")
+			end
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Elemental Aegis" then
+			modDB:NewMod("FireAegisValue", "BASE", 1000, "Config")
+			modDB:NewMod("ColdAegisValue", "BASE", 1000, "Config")
+			modDB:NewMod("LightningAegisValue", "BASE", 1000, "Config")
+		end
 		if activeSkill.skillModList:Flag(nil, "CanHaveAdditionalCurse") then
 			output.GemCurseLimit = activeSkill.skillModList:Sum("BASE", nil, "AdditionalCurse")
 		end

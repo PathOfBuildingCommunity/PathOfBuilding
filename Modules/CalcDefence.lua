@@ -692,6 +692,18 @@ function calcs.defence(env, actor)
 			output[damageType.."ManaEffectiveLife"] = output[damageType.."GuardEffectiveLife"]
 		end
 	end
+	
+	--aegis
+	output.AnyAegis = false
+	for _, damageType in ipairs(dmgTypeList) do
+		local aegisValue = modDB:Sum("BASE", nil, damageType.."AegisValue")
+		if aegisValue > 0 then
+			output.AnyAegis = true
+			output[damageType.."Aegis"] = aegisValue
+		else
+			output[damageType.."Aegis"] = 0
+		end
+	end
 
 	--total pool
 	for _, damageType in ipairs(dmgTypeList) do
@@ -723,6 +735,9 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
+		if output[damageType.."Aegis"] > 0 then
+			output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"]
+		end
 		if breakdown then
 			breakdown[damageType.."TotalPool"] = {
 				s_format("Life: %d", output.LifeUnreserved)
@@ -734,7 +749,10 @@ function calcs.defence(env, actor)
 				t_insert(breakdown[damageType.."TotalPool"], s_format("%s through MoM: %d", manatext, output[damageType.."ManaEffectiveLife"] - output[damageType.."GuardEffectiveLife"]))
 			end
 			if (not modDB:Flag(nil, "EnergyShieldProtectsMana")) and output[damageType.."EnergyShieldBypass"] < 100 then
-				t_insert(breakdown[damageType.."TotalPool"], s_format("Non-bypassed Energy Shield: %d", output[damageType.."TotalPool"] - output[damageType.."ManaEffectiveLife"] - output[damageType.."GuardEffectivePool"]))
+				t_insert(breakdown[damageType.."TotalPool"], s_format("Non-bypassed Energy Shield: %d", output[damageType.."TotalPool"] - output[damageType.."ManaEffectiveLife"] - output[damageType.."GuardEffectivePool"] - output[damageType.."Aegis"]))
+			end
+			if output[damageType.."Aegis"] > 0 then
+				t_insert(breakdown[damageType.."TotalPool"], s_format("Aegis: %d", output[damageType.."Aegis"]))
 			end
 			t_insert(breakdown[damageType.."TotalPool"], s_format("TotalPool: %d", output[damageType.."TotalPool"]))
 			if output[damageType.."GuardEffectivePool"] > 0 then
