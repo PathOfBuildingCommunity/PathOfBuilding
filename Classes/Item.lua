@@ -412,7 +412,8 @@ function ItemClass:ParseRaw(raw)
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
-					local combLine = line.." "..self.rawLines[l+1]:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)","")
+					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)","")
+					local combLine = line.." "..nextLine
 					if combLine:match("%(%d+%-%d+ to %d+%-%d+%)") or combLine:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or combLine:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 						rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
 					elseif catalystScalar ~= 1 then
@@ -420,7 +421,7 @@ function ItemClass:ParseRaw(raw)
 					end
 					modList, extra = modLib.parseMod(rangedLine or combLine, true)
 					if modList and not extra then
-						line = line.."\n"..self.rawLines[l+1]
+						line = line.."\n"..nextLine
 						l = l + 1
 					else
 						modList, extra = modLib.parseMod(rangedLine or line)
