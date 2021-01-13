@@ -1,3 +1,33 @@
+### 1.4.170.21 - 2021/01/13
+* Add 3.13 passive skill tree
+* Changes to Ascendancies:
+  * Add support for Deadeye's Gale Force mechanic
+  * Add support for Deadeye's Rupture mechanic
+  * Add support for Elementalist's Heart of Destruction Notable
+  * Add support for Elementalist's Mastermind of Discord Notable
+  * Add support for Elementalist's Shaper Notables
+  * Add support for Inquisitor's reworked Notables
+* Add support for Battlemage mechanic
+* Add support for Blackflame's unique mechanics
+* Add support for all basic aegides
+* Add various improvements to the accuracy of maximum hit and EHP calcs
+* Add option to show all Alternate Quality skill gems in the skill gem selection dropdown
+* Add stat comparisons to Alternate Quality skill gems on hover
+* Add support for various new mods
+* Add all known new uniques
+* Update Far Shot to new scale
+* Fix Elemental Equilibrium applying twice if you have Malachai's Artifice equipped
+* Fix stat differences between Cluster Jewel Notables not showing up
+* Fix Large Cluster Jewels not importing correctly in some cases
+* Fix Alternate Quality skill gems staying at their default Quality on copy/paste
+* Fix Anomalous Flesh and Stone Alternate Quality effect
+* Fix base type mods that were inadvertently removed
+* Fix craftable flask mods having disappeared
+* Fix crafting tags showing up on multiline mods
+* Fix skill gem tooltip not showing when hovering over the skill gem selection dropdown
+* Fix error where skill gem controls were selectable before a skill gem was set
+* Fix Dark Pact radius
+* Fix mod on Unending Hunger
 ### 1.4.170.20 - 2020/12/19
 * Fix program not launching on Linux
 ### 1.4.170.19 - 2020/12/19
