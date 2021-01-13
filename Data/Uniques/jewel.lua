@@ -1252,7 +1252,7 @@ Limited to: 2
 Radius: Medium
 {variant:1}Minions have (5-8)% increased Area of Effect of Area Skills
 {variant:2}Minions have (6-8)% increased Area of Effect of Area Skills
-With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 30 seconds on Kill
+With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 20 seconds on Kill
 ]],[[
 The Vigil
 Crimson Jewel
