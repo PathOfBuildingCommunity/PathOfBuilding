@@ -339,7 +339,8 @@ Requires Level 52, 89 Str, 89 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 (12-16)% Chance to Block Attack Damage while wielding a Staff
-Adds (350-400) to (500-600) Fire Damage
+{variant:1,2}Adds (350-400) to (500-600) Fire Damage
+{variant:3}Adds (315-360) to (450-540) Fire Damage
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
 {variant:3}Battlemage
