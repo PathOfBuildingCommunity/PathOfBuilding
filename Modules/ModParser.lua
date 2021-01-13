@@ -2517,6 +2517,7 @@ local specialModList = {
 	["your critical strike multiplier is (%d+)%%"] = function(num) return { mod("CritMultiplier", "OVERRIDE", num) } end,
 	["base critical strike chance for attacks with weapons is ([%d%.]+)%%"] = function(num) return { mod("WeaponBaseCritChance", "OVERRIDE", num) } end,
 	["allocates (.+)"] = function(_, passive) return { mod("GrantedPassive", "LIST", passive) } end,
+	["battlemage"] = { flag("WeaponDamageAppliesToSpells"), mod("ImprovedWeaponDamageAppliesToSpells", "INC", 100) },
 	["transfiguration of body"] = { flag("TransfigurationOfBody") },
 	["transfiguration of mind"] = { flag("TransfigurationOfMind") },
 	["transfiguration of soul"] = { flag("TransfigurationOfSoul") },
