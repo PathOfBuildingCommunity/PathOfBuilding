@@ -426,14 +426,14 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
 		if modDB:Sum("BASE", nil, "DamageFromHitsTakenFromSpectres") > 0 then
-			local isActiveSpecter = false
+			local isActiveSpectre = false
 			for _, activeSkill in ipairs(env.player.activeSkillList) do
 				if activeSkill.skillFlags.spectre then
-					isActiveSpecter = true
+					isActiveSpectre = true
 				end
 			end
 
-			if isActiveSpecter then
+			if isActiveSpectre then
 				local effect = modDB:Sum("BASE", nil, "DamageFromHitsTakenFromSpectres")
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Damage From Hits Taken From Spectres")
 			end
