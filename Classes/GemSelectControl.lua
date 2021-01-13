@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 local altQualMap = {
+	[""] = "", -- Adding for handling bad states
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
 	["Alternate2"] = "Divergent ",
@@ -347,10 +348,13 @@ function GemSelectClass:Draw(viewPort)
 				local gemInstance = gemList[self.index]
 				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
 					gemData.level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)
+					gemInstance.level = gemData.defaultLevel
+					gemInstance.displayEffect.level = gemData.defaultLevel
 				end
 				gemInstance.gemData = gemData
 				if not gemData.grantedEffect.levels[gemInstance.level] then
 					gemInstance.level = gemData.defaultLevel
+					gemInstance.displayEffect.level = gemData.defaultLevel
 				end
 				-- Add hovered gem to tooltip
 				self:AddGemTooltip(gemInstance)
