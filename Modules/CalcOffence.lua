@@ -344,6 +344,17 @@ function calcs.offence(env, actor, activeSkill)
 		return modifiers
 	end
 
+	-- account for Battlemage
+	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
+	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
+		-- the multiplier below exist for future possible extension of Battlemage modifiers
+		local multiplier = getConversionMultiplier("INC", "ImprovedWeaponDamageAppliesToSpells") or 1
+		for _, damageType in ipairs(dmgTypeList) do
+			skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
+			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
+		end
+	end
+
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
 		local multiplier = getConversionMultiplier("INC", "ImprovedMinionDamageAppliesToPlayer")
@@ -594,7 +605,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Damage", "MORE", 30, "Point Blank", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10,1},{35,0},{150,-1}} })
 		end
 		if skillModList:Flag(nil, "FarShot") then
-			skillModList:NewMod("Damage", "MORE", 30, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{35,0},{70,1}} })
+			skillModList:NewMod("Damage", "MORE", 100, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10, -0.2}, {35, 0}, {70, 0.6}} })
 		end
 		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") then
 			output.ProjectileCount = 1
@@ -1984,13 +1995,21 @@ function calcs.offence(env, actor, activeSkill)
 			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
 		end
 
+		local highestType = "Physical"
 		if breakdown then
-			-- For each damage type, calculate percentage of total damage
+			-- For each damage type, calculate percentage of total damage. Also tracks the highest damage type and outputs a Condition:TypeIsHighestDamageType flag for whichever the highest type is
 			for _, damageType in ipairs(dmgTypeList) do
 				if output[damageType.."HitAverage"] > 0 then
-					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", output[damageType.."HitAverage"] / totalHitAvg * 100))
+					local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
+					local highestPortion = output[highestType.."HitAverage"] / totalHitAvg * 100
+					if portion > highestPortion then
+						highestType = damageType
+						highestPortion = portion
+					end
+					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", portion))
 				end
 			end
+			skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 		end
 
 		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
@@ -2169,6 +2188,7 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.poison = false
 	skillFlags.ignite = false
 	skillFlags.igniteCanStack = skillModList:Flag(skillCfg, "IgniteCanStack")
+	skillFlags.igniteToChaos = skillModList:Flag(skillCfg, "IgniteToChaos")
 	skillFlags.shock = false
 	skillFlags.freeze = false
 	skillFlags.impale = false
@@ -2813,13 +2833,24 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.ignite = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
-					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
-					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
-					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
-					globalOutput["IgniteEffMult"] = effMult
-					if breakdown and effMult ~= 1 then
-						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore)
+					if skillModList:Flag(cfg, "IgniteToChaos") then
+						local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
+						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
+						globalOutput["IgniteEffMult"] = effMult
+						if breakdown and effMult ~= 1 then
+							globalBreakdown.IgniteEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
+						end
+					else
+						local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
+						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
+						globalOutput["IgniteEffMult"] = effMult
+						if breakdown and effMult ~= 1 then
+							globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore)
+						end
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
@@ -2921,14 +2952,15 @@ function calcs.offence(env, actor, activeSkill)
 			if baseVal > 0 then
 				skillFlags.shock = true
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
-				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
+				output.ShockEffectMod = calcLib.mod(skillModList, cfg, "EnemyShockEffect")
+				output.ShockEffectModDisplay = 100 * (output.ShockEffectMod - 1)
 				local maximum = skillModList:Override(nil, "ShockMax") or 50
 				local current = m_min(globalOutput.CurrentShock or 0, maximum)
 				local desired = m_min(enemyDB:Sum("BASE", nil, "DesiredShockVal"), maximum)
 				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
 				local effList = { 5, 15, 50 }
 				if enemyThreshold > 0 then
-					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (1  + output.ShockEffectMod / 100)
+					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (output.ShockEffectMod)
 					t_insert(effList, bossEffect)
 				end
 				if maximum ~= 50 then
@@ -2954,7 +2986,7 @@ function calcs.offence(env, actor, activeSkill)
 						{ label = "Ailment Threshold", key = "thresh" },
 					}
 					for _, value in ipairs(effList) do
-						local thresh = (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
+						local thresh = (((100 + (100 * (output.ShockEffectMod - 1)))^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
 						local decCheck = value / m_floor(value)
 						value = m_floor(value)
 						local threshString = ""
@@ -3033,7 +3065,8 @@ function calcs.offence(env, actor, activeSkill)
 			local baseVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "ChillAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.chill = true
-				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
+				output.ChillEffectMod = calcLib.mod(skillModList, cfg, "EnemyChillEffect")
+				output.ChillEffectModDisplay = 100 * (output.ChillEffectMod - 1)
 				output.ChillDurationMod = 1 + (skillModList:Sum("INC", cfg, "EnemyChillDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration")) / 100
 				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
 				effList = { 5, 10, 30 }
@@ -3045,7 +3078,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(effList, desired)
 				end
 				if enemyThreshold > 0 then
-					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (1  + output.ChillEffectMod / 100)
+					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (output.ChillEffectMod)
 					t_insert(effList, bossEffect)
 				end
 				table.sort(effList)
@@ -3063,7 +3096,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 					breakdown.ChillDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
 					for _, value in ipairs(effList) do
-						local thresh = (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
+						local thresh = (((100 + (100 * (output.ChillEffectMod - 1)))^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
 						local decCheck = value / m_floor(value)
 						value = m_floor(value)
 						if m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) then
