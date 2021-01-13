@@ -957,10 +957,10 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- account for Sacrificial Zeal
 	-- Note: Sacrificial Zeal grants Added Spell Physical Damage equal to 25% of the Skill's Mana Cost, and causes you to take Physical Damage over Time, for 4 seconds
-	if skillModList:Flag(nil, "SacrificialZeal") then
+	if skillModList:Flag(nil, "Condition:SacrificialZeal") then
 		local multiplier = 0.25
-		skillModList:NewMod("PhysicalMin", "BASE", output.ManaCost * multiplier, "Sacrificial Zeal", ModFlag.Spell)
-		skillModList:NewMod("PhysicalMax", "BASE", output.ManaCost * multiplier, "Sacrificial Zeal", ModFlag.Spell)
+		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 	end
 
 	runSkillFunc("preDamageFunc")
