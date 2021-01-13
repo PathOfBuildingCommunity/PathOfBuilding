@@ -323,6 +323,7 @@ local modNameList = {
 	["minimum endurance charges"] = "EnduranceChargesMin",
 	["endurance charge duration"] = "EnduranceChargesDuration",
 	["maximum frenzy charges and maximum power charges"] = { "FrenzyChargesMax", "PowerChargesMax" },
+	["maximum power charges and maximum endurance charges"] = { "PowerChargesMax", "EnduranceChargesMax" },
 	["endurance, frenzy and power charge duration"] = { "PowerChargesDuration", "FrenzyChargesDuration", "EnduranceChargesDuration" },
 	["maximum siphoning charge"] = "SiphoningChargesMax",
 	["maximum siphoning charges"] = "SiphoningChargesMax",
