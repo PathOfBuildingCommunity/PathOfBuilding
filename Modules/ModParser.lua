@@ -1585,6 +1585,21 @@ local specialModList = {
 		mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "OnConsecratedGround" }),
 		mod("AvoidShock", "BASE", 100, { type = "Condition", var = "OnConsecratedGround" }),
 	},
+	["gain fanaticism for 4 seconds on reaching maximum fanatic charges"] = function() return { 
+		flag("Condition:CanGainFanaticism"),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainFanaticism" })
+	} end ,
+	["(%d+)%% increased critical strike chance per point of strength or intelligence, whichever is lower"] = function(num) return { 
+		mod("CritChance", "INC", num, { type = "PerStat", stat = "Str" }, { type = "Condition", var = "IntHigherThanStr" }), 
+		mod("CritChance", "INC", num, { type = "PerStat", stat = "Int" }, { type = "Condition", var = "StrHigherThanInt" }) 
+	} end,
+	["consecrated ground you create causes life regeneration to also recover energy shield for you and allies"] = function(num) return { 
+		flag("LifeRegenerationRecoversEnergyShield", { type = "Condition", var = "OnConsecratedGround"}),
+		mod("MinionModifier", "LIST", { mod = flag("LifeRegenerationRecoversEnergyShield", { type = "Condition", var = "OnConsecratedGround"}) })
+	} end,
+	["(%d+)%% more attack damage for each non instant spell you've cast in the past 8 seconds, up to a maximum of (%d+)%%"] = function(num, _, max) return { 
+		mod("Damage", "MORE", num, nil, ModFlag.Attack, { type = "Multiplier", var = "CastLast8Seconds", limit = max, limitTotal = true}),	
+	} end,
 	-- Juggernaut
 	["armour received from body armour is doubled"] = { flag("Unbreakable") },
 	["action speed cannot be modified to below base value"] = { flag("ActionSpeedCannotBeBelowBase") },
