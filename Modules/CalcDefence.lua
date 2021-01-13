@@ -10,6 +10,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
+local m_huge = math.huge
 local s_format = string.format
 
 local tempTable1 = { }
@@ -600,13 +601,13 @@ function calcs.defence(env, actor)
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do
 		if modDB:Flag(nil, "BlockedDamageDoesntBypassES") and modDB:Flag(nil, "UnblockedDamageDoesBypassES") then
-			local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
-			if DamageTypeConfig == "Minimum" then
+			local damageCategoryConfig = env.configInput.EhpCalcMode or "Average"
+			if damageCategoryConfig == "Minimum" then
 				output[damageType.."EnergyShieldBypass"] = 100 - m_min(output.BlockChance, output.ProjectileBlockChance, output.SpellBlockChance, output.SpellProjectileBlockChance)
-			elseif DamageTypeConfig == "Melee" then
+			elseif damageCategoryConfig == "Melee" then
 				output[damageType.."EnergyShieldBypass"] = 100 - output.BlockChance
 			else
-				output[damageType.."EnergyShieldBypass"] = 100 - output[DamageTypeConfig.."BlockChance"]
+				output[damageType.."EnergyShieldBypass"] = 100 - output[damageCategoryConfig.."BlockChance"]
 			end
 			output.AnyBypass = true
 		else
@@ -1036,6 +1037,9 @@ function calcs.defence(env, actor)
 				local final = portion / 100 * (1 - resist / 100) * takenMult
 				local finalReflect = portion / 100 * (1 - resist / 100) * takenMultReflect
 				mult = mult + final
+				if damageType == destType then
+					output[damageType.."BaseTakenHitMult"] = (1 - resist / 100) * takenMult
+				end
 				multReflect = multReflect + finalReflect
 				if breakdown then
 					t_insert(breakdown[damageType.."TakenHitMult"].rowList, {
@@ -1137,68 +1141,101 @@ function calcs.defence(env, actor)
 	end
 
 	--maximum hit taken
-	--FIX X TAKEN AS Y (output[damageType.."TotalPool"] should use the damage types that are converted to in output[damageType.."TakenHitMult"])
+	--FIX ARMOUR MITIGATION FOR THIS, uses input damage to calculate mitigation from armour, instead of maximum hit taken
 	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."MaximumHitTaken"] = output[damageType.."TotalPool"] / output[damageType.."TakenHitMult"]
 		if breakdown then
-			breakdown[damageType.."MaximumHitTaken"] = {
-				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
-				s_format("Damage Taken modifier: %.2f", output[damageType.."TakenHitMult"]),
-				s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]),
+			breakdown[damageType.."MaximumHitTaken"] = { 
+				label = "Maximum Hit Taken (uses lowest value)",
+				rowList = { },
+				colList = {
+					{ label = "Type", key = "type" },
+					{ label = "TotalPool", key = "pool" },
+					{ label = "Taken", key = "taken" },
+					{ label = "Final", key = "final" },
+				},
 			}
 		end
-	end
-
-	local DamageTypeConfig = env.configInput.EhpCalcMode or "Average"
-	local minimumEHP = 2147483648
-	local minimumEHPMode = "NONE"
-	if DamageTypeConfig == "Minimum" then
-		DamageTypeConfig = {"Melee", "Projectile", "Spell", "SpellProjectile"}
-		minimumEHPMode = "Melee"
-	else
-		DamageTypeConfig = {DamageTypeConfig}
-	end
-	for _, DamageType in ipairs(DamageTypeConfig) do
-		--total EHP
-		for _, damageType in ipairs(dmgTypeList) do
-			local convertedAvoidance = 0
-			for _, damageConvertedType in ipairs(dmgTypeList) do
-				convertedAvoidance = convertedAvoidance + output[damageConvertedType..DamageType.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
-			end
-			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[DamageType.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
-			if minimumEHPMode ~= "NONE" then
-				if output[damageType.."TotalEHP"] < minimumEHP then
-					minimumEHP = output[damageType.."TotalEHP"]
-					minimumEHPMode = DamageType
+		output[damageType.."MaximumHitTaken"] = m_huge
+		for _, damageConvertedType in ipairs(dmgTypeList) do
+			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
+				local hitTaken = output[damageConvertedType.."TotalPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				if hitTaken < output[damageType.."MaximumHitTaken"] then
+					output[damageType.."MaximumHitTaken"] = hitTaken
 				end
-			elseif breakdown then
-				breakdown[damageType.."TotalEHP"] = {
-				s_format("EHP calculation Mode: %s", DamageType),
-				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
-				s_format("%s chance not to be hit: %d%%", DamageType, output[DamageType.."NotHitChance"]),
-				s_format("%s chance to not take damage when hit: %d%%", DamageType, convertedAvoidance),
-				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
-				}
+				if breakdown then
+					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
+						type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
+						pool = s_format("x %d", output[damageConvertedType.."TotalPool"]),
+						taken = s_format("/ %.2f", output[damageConvertedType.."BaseTakenHitMult"]),
+						final = s_format("x %.0f", hitTaken),
+					})
+				end
 			end
 		end
+		if breakdown then
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalPool"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.2f",  output[damageType.."TotalPool"] / output[damageType.."MaximumHitTaken"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+		end
 	end
-	if minimumEHPMode ~= "NONE" then
-		for _, damageType in ipairs(dmgTypeList) do
-			local convertedAvoidance = 0
-			for _, damageConvertedType in ipairs(dmgTypeList) do
-				convertedAvoidance = convertedAvoidance + output[damageConvertedType..minimumEHPMode.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+	
+	local damageCategoryConfig = env.configInput.EhpCalcMode or "Average"
+	for _, damageType in ipairs(dmgTypeList) do
+		local damageCategory = damageCategoryConfig
+		local minimumChanceToTakeDamage = -m_huge
+		local minimumEHPMode = "NONE"
+		if damageCategoryConfig == "Minimum" then
+			local damageCategorysList = {"Melee", "Projectile", "Spell", "SpellProjectile"}
+			minimumEHPMode = "Melee"
+			for _, damageCategorys in ipairs(damageCategorysList) do
+				local convertedAvoidance = 0
+				for _, damageConvertedType in ipairs(dmgTypeList) do
+					convertedAvoidance = convertedAvoidance + output[damageConvertedType..damageCategorys.."DamageChance"] * actor.damageShiftTable[damageType][damageConvertedType] / 100
+				end
+				local chanceToTakeDamage = (1 - output[damageCategorys.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
+				if chanceToTakeDamage > minimumChanceToTakeDamage then
+					minimumChanceToTakeDamage = chanceToTakeDamage
+					minimumEHPMode = damageCategorys
+				end
 			end
-			output[damageType.."TotalEHP"] = output[damageType.."MaximumHitTaken"] / (1 - output[minimumEHPMode.."NotHitChance"] / 100) / (1 - convertedAvoidance / 100)
-			if breakdown then
-				breakdown[damageType.."TotalEHP"] = {
-				s_format("EHP calculation Mode: Minimum"),
-				s_format("Minimum is of type %s", minimumEHPMode),
-				s_format("Maximum Hit taken: %d", output[damageType.."MaximumHitTaken"]),
-				s_format("%s chance not to be hit: %d%%", minimumEHPMode, output[minimumEHPMode.."NotHitChance"]),
-				s_format("%s chance to not take damage when hit: %d%%", minimumEHPMode, convertedAvoidance),
-				s_format("Total Effective Hit Pool: %d", output[damageType.."TotalEHP"]),
-				}
+			damageCategory = minimumEHPMode
+		end
+		local damage = env.configInput.enemyHit or env.data.monsterDamageTable[env.enemyLevel] * 1.5
+		--effective number of hits to deplete pool
+		output[damageType.."NumberOfHits"] = m_huge
+		local minimumDamageConvertedType = damageType -- this is used for the breakdown
+		for _, damageConvertedType in ipairs(dmgTypeList) do
+			local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageConvertedType.."BaseTakenHitMult"])
+			local hitsTaken = math.ceil(output[damageConvertedType.."TotalPool"] / damageTaken)
+			hitsTaken = hitsTaken / (1 - output[damageCategory.."NotHitChance"] / 100)  / (1 - output[damageConvertedType..damageCategory.."DamageChance"] / 100)
+			if hitsTaken < output[damageType.."NumberOfHits"] then
+				output[damageType.."NumberOfHits"] = hitsTaken
+				minimumDamageConvertedType = damageConvertedType
 			end
+		end
+		if breakdown then
+			breakdown[damageType.."NumberOfHits"] = {
+				s_format("EHP calculation Mode: %s", damageCategoryConfig),
+				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
+				s_format("Damage Before mitigation: %d", damage),
+				s_format("Damage Taken PerHit: %.2f", damage * output[minimumDamageConvertedType.."BaseTakenHitMult"]),
+				s_format("%s chance not to be hit: %d%%", damageCategory, output[damageCategory.."NotHitChance"]),
+				s_format("%s chance to not take damage when hit: %d%%", damageCategory, output[minimumDamageConvertedType..damageCategory.."DamageChance"]),
+				s_format("Average Number of hits you can take: %.2f", output[damageType.."NumberOfHits"]),
+			}
+		end
+	--total EHP
+		output[damageType.."TotalEHP"] = output[damageType.."NumberOfHits"] * damage
+		if breakdown then
+			breakdown[damageType.."TotalEHP"] = {
+			s_format("EHP calculation Mode: %s", damageCategoryConfig),
+			}
+			if damageCategoryConfig == "Minimum" then
+				t_insert(breakdown[damageType.."TotalEHP"], s_format("Minimum type: %s", damageCategory))
+			end
+			t_insert(breakdown[damageType.."TotalEHP"], s_format("Average Number of hits you can take: %.2f", output[damageType.."NumberOfHits"]))
+			t_insert(breakdown[damageType.."TotalEHP"], s_format("Damage Before mitigation: %d", damage))
+			t_insert(breakdown[damageType.."TotalEHP"], s_format("Total Effective Hit Pool: %.0f", output[damageType.."TotalEHP"]))
 		end
 	end
 end
