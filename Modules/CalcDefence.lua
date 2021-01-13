@@ -325,6 +325,7 @@ function calcs.defence(env, actor)
 		output.BlockEffect = 100
 	else
 		output.ShowBlockEffect = true
+		output.DamageTakenOnBlock = 100 - output.BlockEffect
 	end
 	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
 	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
