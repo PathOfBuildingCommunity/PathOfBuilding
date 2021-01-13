@@ -482,9 +482,9 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.qualityId.enabled = function()
 		return index <= #self.displayGroup.gemList
 	end
-	slot.qualityId.tooltipFunc = function()
+	slot.qualityId.tooltipFunc = function(tooltip)
 		-- Reset the tooltip
-		slot.qualityId.tooltip:Clear()
+		tooltip:Clear()
 		-- Only show the tooltip if the combo box is expanded; this is to prevent multiple tooltips from appearing due to mouse being over other skills' combo boxes
 		if not slot.qualityId.dropped then
 			return
@@ -503,9 +503,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		-- Function for both granted effect and secondary such as vaal
 		local addQualityLines = function(qualityList, grantedEffect)
-			slot.qualityId.tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
+			tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
 			-- Hardcoded to use 20% quality instead of grabbing from gem, this is for consistency and so we always show something
-			slot.qualityId.tooltip:AddLine(16, colorCodes.NORMAL.."At +20% Quality:")
+			tooltip:AddLine(16, colorCodes.NORMAL.."At +20% Quality:")
 			for k, qual in pairs(qualityList) do
 				-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
 				local stats = { }
@@ -516,9 +516,9 @@ function SkillsTabClass:CreateGemSlot(index)
 					if line then
 						-- Check if we have a handler for the mod in the gem's statMap or in the shared stat map for skills
 						if grantedEffect.statMap[qual[1]] or self.build.data.skillStatMap[qual[1]] then
-							slot.qualityId.tooltip:AddLine(16, colorCodes.MAGIC..line)
+							tooltip:AddLine(16, colorCodes.MAGIC..line)
 						else
-							slot.qualityId.tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
+							tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
 						end
 					end
 				end
@@ -531,8 +531,21 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type] then
 			local qualityTable = gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type]
-			slot.qualityId.tooltip:AddSeparator(10)
+			tooltip:AddSeparator(10)
 			addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
+		end
+		-- Add stat comparisons for hovered quality (based on set quality)
+		if self.displayGroup.gemList[index] then
+			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+			if calcFunc then
+				local tempQual = self.displayGroup.gemList[index].qualityId
+				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
+				self:ProcessSocketGroup(self.displayGroup)
+				local output = calcFunc()
+				self.displayGroup.gemList[index].qualityId = tempQual
+				tooltip:AddSeparator(10)
+				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
+			end
 		end
 	end
 	slot.qualityId:AddToTabGroup(self.controls.groupLabel)
