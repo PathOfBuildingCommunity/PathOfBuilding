@@ -2,7 +2,7 @@
 ## Formerly known as LocalIdentity Fork
 
 This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
-* Adds updated uniques from 3.8, 3.9 and 3.10 changes
+* Adds support for new and updated uniques from league 3.8 onwards
 * Pantheon support
 * Impale DPS support
 * Enemy armour and physical damage reduction calculations
