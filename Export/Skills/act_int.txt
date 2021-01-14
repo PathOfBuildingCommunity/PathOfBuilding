@@ -789,6 +789,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Hydrosphere
+#flags spell
+#mods
+
 #skill GlacialCascade
 #flags spell area
 	parts = {
