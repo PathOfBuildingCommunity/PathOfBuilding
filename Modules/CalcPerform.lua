@@ -430,12 +430,18 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
+		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
+			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
+			modDB:NewMod("Speed", "MORE", effect, "Fanaticism", ModFlag.Cast)
+			modDB:NewMod("ManaCost", "INC", -effect, "Fanaticism")
+			modDB:NewMod("AreaOfEffect", "INC", effect, "Fanaticism")
+		end
 		if modDB:Flag(nil, "UnholyMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
 		end
 		if modDB:Flag(nil, "Tailwind") then
-			local effect = m_floor(10 * (1 + modDB:Sum("INC", nil, "TailwindEffectOnSelf", "BuffEffectOnSelf") / 100))
+			local effect = m_floor(8 * (1 + modDB:Sum("INC", nil, "TailwindEffectOnSelf", "BuffEffectOnSelf") / 100))
 			modDB:NewMod("ActionSpeed", "INC", effect, "Tailwind")
 		end
 		if modDB:Flag(nil, "Adrenaline") then
@@ -444,6 +450,10 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", m_floor(25 * effectMod), "Adrenaline")
 			modDB:NewMod("MovementSpeed", "INC", m_floor(25 * effectMod), "Adrenaline")
 			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(10 * effectMod), "Adrenaline")
+		end
+		if modDB:Flag(nil, "Convergence") then
+			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
+			modDB:NewMod("ElementalDamage", "MORE", effect, "Convergence")
 		end
 		if modDB:Flag(nil, "HerEmbrace") then
 			condList["HerEmbrace"] = true
@@ -701,6 +711,16 @@ function calcs.perform(env)
 			local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
 			modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
 			enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
+		end
+		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
+			if activeSkill.activeEffect.grantedEffect.name == damageType.." Aegis" then
+				modDB:NewMod(damageType.."AegisValue", "BASE", 1000, "Config")
+			end
+		end
+		if activeSkill.activeEffect.grantedEffect.name == "Elemental Aegis" then
+			modDB:NewMod("FireAegisValue", "BASE", 1000, "Config")
+			modDB:NewMod("ColdAegisValue", "BASE", 1000, "Config")
+			modDB:NewMod("LightningAegisValue", "BASE", 1000, "Config")
 		end
 		if activeSkill.skillModList:Flag(nil, "CanHaveAdditionalCurse") then
 			output.GemCurseLimit = activeSkill.skillModList:Sum("BASE", nil, "AdditionalCurse")
@@ -1629,7 +1649,13 @@ function calcs.perform(env)
 			end
 		end
 		if min ~= math.huge then
+			-- Modify the magnitude of all exposures
+			for _, value in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure")) do
+				local mod = value.mod
+				enemyDB:NewMod(element.."Resist", "BASE", mod.value, mod.source)
+			end
 			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
 	end
 

@@ -402,8 +402,8 @@ return {
 					tag = "affliction_mace_and_staff_damage",
 					stats = { "Staff Attacks deal 12% increased Damage with Hits and Ailments", "Mace or Sceptre Attacks deal 12% increased Damage with Hits and Ailments" },
 					enchant = {
-						"Added Small Passive Skills grant: Mace or Sceptre Attacks deal 12% increased Damage with Hits and Ailments",
 						"Added Small Passive Skills grant: Staff Attacks deal 12% increased Damage with Hits and Ailments",
+						"Added Small Passive Skills grant: Mace or Sceptre Attacks deal 12% increased Damage with Hits and Ailments",
 					},
 				},
 				["affliction_dagger_and_claw_damage"] = {
@@ -413,8 +413,8 @@ return {
 					tag = "affliction_dagger_and_claw_damage",
 					stats = { "Claw Attacks deal 12% increased Damage with Hits and Ailments", "Dagger Attacks deal 12% increased Damage with Hits and Ailments" },
 					enchant = {
-						"Added Small Passive Skills grant: Dagger Attacks deal 12% increased Damage with Hits and Ailments",
 						"Added Small Passive Skills grant: Claw Attacks deal 12% increased Damage with Hits and Ailments",
+						"Added Small Passive Skills grant: Dagger Attacks deal 12% increased Damage with Hits and Ailments",
 					},
 				},
 				["affliction_bow_damage"] = {

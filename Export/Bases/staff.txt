@@ -8,6 +8,6 @@ local itemBases = ...
 
 #type Staff
 #subType Warstaff
-#baseTags weapon twohand two_hand_weapon attack_staff
+#baseTags weapon twohand two_hand_weapon attack_staff staff
 #socketLimit 6
 #baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractWarstaff

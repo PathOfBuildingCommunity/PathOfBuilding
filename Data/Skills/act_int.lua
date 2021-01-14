@@ -2124,7 +2124,7 @@ skills["DarkPact"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 24),
+		skill("radius", 26),
 	},
 	qualityStats = {
 		Default = {

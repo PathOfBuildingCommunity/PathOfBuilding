@@ -367,7 +367,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }),
 		},
 	},
-#baseMod skill("radius", 24)
+#baseMod skill("radius", 26)
 #mods
 
 #skill Despair
