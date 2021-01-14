@@ -1060,7 +1060,7 @@ With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage wit
 ]],[[
 Hazardous Research
 Cobalt Jewel
-Limited to: 2
+Limited to: 1
 Radius: Medium
 (10-15)% increased Lightning Damage
 With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles

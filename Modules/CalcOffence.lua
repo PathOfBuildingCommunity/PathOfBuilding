@@ -354,7 +354,6 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
 		end
 	end
-
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
 		local multiplier = getConversionMultiplier("INC", "ImprovedMinionDamageAppliesToPlayer")
@@ -954,6 +953,14 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
 		end
+	end
+
+	-- account for Sacrificial Zeal
+	-- Note: Sacrificial Zeal grants Added Spell Physical Damage equal to 25% of the Skill's Mana Cost, and causes you to take Physical Damage over Time, for 4 seconds
+	if skillModList:Flag(nil, "Condition:SacrificialZeal") then
+		local multiplier = 0.25
+		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 	end
 
 	runSkillFunc("preDamageFunc")
