@@ -3,7 +3,7 @@ if not loadStatFile then
 end
 loadStatFile("passive_skill_stat_descriptions.txt")
 
-local out = io.open("../Data/3_0/LegionPassives.lua", "w")
+local out = io.open("../Data/LegionPassives.lua", "w")
 
 local stats = dat("Stats")
 local alternatePassiveSkillDat = dat("AlternatePassiveSkills")
@@ -43,7 +43,7 @@ function stringify(thing)
 	end
 end 
 
----@type table <string, table> @this is the structure used to generate the final data file Data/3_0/LegionPassives
+---@type table <string, table> @this is the structure used to generate the final data file Data/LegionPassives
 local data = {};
 data.nodes = {};
 data.groups = {};

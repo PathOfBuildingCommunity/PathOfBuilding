@@ -36,6 +36,29 @@ function itemLib.applyValueScalar(line, valueScalar)
 	return line
 end
 
+-- Get the min and max of a mod line
+function itemLib.getLineRangeMinMax(line)
+	local rangeMin, rangeMax
+	line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
+		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
+		:gsub("(%+?)%((%-?%d+)%-(%d+)%)", 
+		function(plus, min, max)
+			rangeMin = min
+			rangeMax = max
+			-- Don't need to return anything here
+			return ""
+		end)
+		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
+		function(min, max) 
+			rangeMin = min
+			rangeMax = max
+			return "" 
+		end)
+	-- may be returning nil, nil due to not being a range
+	-- will be strings if successful
+	return rangeMin, rangeMax
+end
+
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range, valueScalar)
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
@@ -59,10 +82,33 @@ function itemLib.applyRange(line, range, valueScalar)
 	return itemLib.applyValueScalar(line, valueScalar)
 end
 
--- Clean item text by removing or replacing unsupported or redundant characters or sequences
+--- Clean item text by removing or replacing unsupported or redundant characters or sequences
+---@param text string
+---@return string
 function itemLib.sanitiseItemText(text)
 	-- Something something unicode support something grumble
-	return text:gsub("^%s+",""):gsub("%s+$",""):gsub("\r\n","\n"):gsub("%b<>",""):gsub("–","-"):gsub("\226\128\147","-"):gsub("\226\136\146","-"):gsub("ö","o"):gsub("\195\182","o"):gsub("[\128-\255]","?")
+	local replacements = {
+		{ "^%s+", "" }, { "%s+$", "" }, { "\r\n", "\n" }, { "%b<>", "" },
+		-- UTF-8
+		{ "\226\128\144", "-" }, -- U+2010 HYPHEN
+		{ "\226\128\145", "-" }, -- U+2011 NON-BREAKING HYPHEN
+		{ "\226\128\146", "-" }, -- U+2012 FIGURE DASH
+		{ "\226\128\147", "-" }, -- U+2013 EN DASH
+		{ "\226\128\148", "-" }, -- U+2014 EM DASH
+		{ "\226\128\149", "-" }, -- U+2015 HORIZONTAL BAR
+		{ "\226\136\146", "-" }, -- U+2212 MINUS SIGN
+		{ "\195\182", "o" }, -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- single-byte: Windows-1252 and similar
+		{ "\150", "-" }, -- U+2013 EN DASH
+		{ "\151", "-" }, -- U+2014 EM DASH
+		{ "\246", "o" }, -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- unsupported
+		{ "[\128-\255]", "?" },
+	}
+	for _, r in ipairs(replacements) do
+		text = text:gsub(r[1], r[2])
+	end
+	return text
 end
 
 function itemLib.formatModLine(modLine, dbMode)

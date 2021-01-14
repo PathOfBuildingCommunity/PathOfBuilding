@@ -1,4 +1,4 @@
-local out = io.open("../Data/3_0/Misc.lua", "w")
+local out = io.open("../Data/Misc.lua", "w")
 
 out:write('local data = ...\n')
 local evasion = ""

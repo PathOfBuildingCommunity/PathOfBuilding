@@ -297,7 +297,7 @@ end
 function ItemDBClass:OnSelClick(index, item, doubleClick)
 	if IsKeyDown("CTRL") then
 		-- Add item
-		local newItem = new("Item", self.itemsTab.build.targetVersion, item.raw)
+		local newItem = new("Item", item.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 

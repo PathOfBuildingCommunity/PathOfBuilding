@@ -9,16 +9,6 @@ local m_max = math.max
 local m_floor = math.floor
 local s_upper = string.upper
 
-local gameVersionDropList = { }
-for _, version in ipairs(targetVersionList) do
-	local data = targetVersions[version]
-	t_insert( gameVersionDropList, {
-		label = data.long,
-		version = version,
-		versionPretty = data.short,
-	})
-end
-
 local varList = LoadModule("Modules/ConfigOptions")
 
 local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -52,7 +42,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			t_insert(self.sectionList, lastSection)
 			t_insert(self.controls, lastSection)
-		elseif not varData.ifVer or varData.ifVer == build.targetVersion then
+		else
 			local control
 			if varData.type == "check" then
 				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, nil, function(state)
@@ -176,7 +166,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 			elseif varData.ifFlag then
 				control.shown = function()
-					return self.build.calcsTab.mainEnv.player.mainSkill.skillFlags[varData.ifFlag] -- O_O
+					local skillModList = self.build.calcsTab.calcsEnv.player.mainSkill.skillModList
+					local skillFlags = self.build.calcsTab.calcsEnv.player.mainSkill.skillFlags
+					-- Check both the skill mods for flags and flags that are set via calcPerform
+					return skillFlags[varData.ifFlag] or skillModList:Flag(nil, varData.ifFlag)
 				end
 				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then
@@ -224,27 +217,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			t_insert(lastSection.varControlList, control)
 		end
 	end
-
-	-- Special control for game version selector
-	self.controls.gameVersion = new("DropDownControl", {"TOPLEFT",self.sectionList[1],"TOPLEFT"}, 234, 0, 118, 16, gameVersionDropList, function(index, value)
-		if value.version ~= build.targetVersion then
-			main:OpenConfirmPopup("Convert Build", colorCodes.WARNING.."Warning:^7 Converting a build to a different game version may have side effects.\nFor example, if the passive tree has changed, then some passives may be deallocated.\nYou should create a backup copy of the build before proceeding.", "Convert to "..value.versionPretty, function()
-				if build.unsaved then
-					build:OpenSavePopup("VERSION", value.version)
-				else
-					if build.dbFileName then
-						build.targetVersion = value.version
-						build:SaveDBFile()
-					end
-					build:Shutdown()
-					build:Init(build.dbFileName, build.buildName, nil, value.version)
-				end
-			end)
-		end
-	end)
-	t_insert(self.controls, new("LabelControl", {"RIGHT",self.controls.gameVersion,"LEFT"}, -4, 0, 0, 14, "^7Game Version:"))
-	t_insert(self.sectionList[1].varControlList, 1, self.controls.gameVersion)
-
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
 end)
 
@@ -310,11 +282,6 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.y = viewPort.y
 	self.width = viewPort.width
 	self.height = viewPort.height
-
-	if not main.popups[1] then
-		-- >_>
-		self.controls.gameVersion:SelByValue(self.build.targetVersion, "version")
-	end
 
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then	
@@ -395,7 +362,7 @@ function ConfigTabClass:BuildModList()
 	self.enemyModList = enemyModList
 	local input = self.input
 	for _, varData in ipairs(varList) do
-		if varData.apply and (not varData.ifVer or varData.ifVer == self.build.targetVersion) then
+		if varData.apply then
 			if varData.type == "check" then
 				if input[varData.var] then
 					varData.apply(true, modList, enemyModList, self.build)

@@ -357,7 +357,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(5-10) to Intelligence
 {tags:jewellery_resistance}+5% to all Elemental Resistances
 {tags:mana}+5 Mana Gained on Kill
-Enemies can have 1 additional Curse
+{tags:caster}Enemies can have 1 additional Curse
 ]],[[
 Replica Doedre's Damning
 Paua Ring
@@ -385,7 +385,7 @@ Cannot be Frozen
 ]],[[
 Emberwake
 Ruby Ring
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 16
@@ -396,12 +396,11 @@ Implicits: 1
 {tags:caster}(5-10)% increased Cast Speed
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
 {variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
-{variant:1}You can inflict up to 300 Ignites on an Enemy
-{variant:2,3}You can inflict an additional Ignite on an Enemy
+You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
-{variant:1}80% less Burning Damage
-{variant:2}Ignited Enemies Burn 65% slower
-{variant:3}Ignited Enemies Burn (65-50)% slower
+{variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
+{variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
+{variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
 ]],[[
 Replica Emberwake
 Ruby Ring
@@ -531,8 +530,8 @@ Implicits: 1
 {variant:1}{tags:life}(13-17) Life Regenerated per second
 {variant:2}{tags:life}1 Life Regenerated per second per Level
 {tags:mana}(20-40)% increased Mana Regeneration Rate
-{variant:1}20% reduced Effect of Curses on You
-{variant:2}40% reduced Effect of Curses on You
+{variant:1}{tags:caster}20% reduced Effect of Curses on You
+{variant:2}{tags:caster}40% reduced Effect of Curses on You
 ]],[[
 Le Heup of All
 Iron Ring
@@ -598,7 +597,7 @@ Unset Ring
 Requires Level 24
 Implicits: 1
 Has 1 Socket
-Curse Enemies with Socketed Curse Gem on Hit
+{tags:caster}Curse Enemies with Socketed Hex Curse Gem on Hit
 ]],[[
 Mark of the Elder
 Steel Ring
@@ -631,7 +630,7 @@ Shaper Item
 Ming's Heart
 Amethyst Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69
 Implicits: 1
@@ -736,11 +735,11 @@ Sockets: G
 LevelReq: 52
 Implicits: 1
 Has 1 Socket
-+3 to Level of Socketed Curse Gems
+{tags:caster}+3 to Level of Socketed Curse Gems
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-Left Ring Slot: Your Chilling Skitterbot's Aura applies Socketed Curse instead
-Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Curse instead
+{tags:caster}Left Ring Slot: Your Chilling Skitterbot's Aura applies Socketed Hex Curse instead
+{tags:caster}Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Hex Curse instead
 ]],[[
 Putembo's Meadow
 Topaz Ring
@@ -778,7 +777,7 @@ Implicits: 1
 Pyre
 Sapphire Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 11
 Implicits: 1
@@ -880,7 +879,7 @@ Implicits: 1
 ]],[[
 Snakepit
 Sapphire Ring
-Variant: Pre {2_6}3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Source: Drops from unique{Guardian of the Hydra}
 Requires Level 68
@@ -924,7 +923,7 @@ The Taming
 Prismatic Ring
 League: Domination, Nemesis
 Source: Vendor recipe
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30
 Implicits: 1
@@ -985,7 +984,7 @@ Implicits: 2
 Can't use other Rings
 {variant:1,2,3}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:4}{tags:jewellery_resistance}+(16-24)% to all Elemental Resistances
-50% reduced Effect of Curses on You
+{tags:caster}50% reduced Effect of Curses on You
 {variant:1,2,3}{tags:attack,life}+(20-30) Life gained for each Enemy hit by your Attacks
 {variant:4}{tags:attack,life}+(40-60) Life gained for each Enemy hit by your Attacks
 {variant:1,2,3}{tags:attack,mana}+15 Mana gained for each Enemy hit by your Attacks
@@ -1059,22 +1058,20 @@ Valako's Sign
 Topaz Ring
 League: Bloodlines
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-{variant:1}15% increased Damage against Shocked Enemies
-{variant:2}40% increased Damage against Shocked Enemies
-{variant:3,4}40% increased Damage with Hits against Shocked Enemies
+{variant:1}15% increased Damage with Hits against Shocked Enemies
+{variant:2,3}40% increased Damage with Hits against Shocked Enemies
 {tags:jewellery_elemental}20% increased Lightning Damage
 {tags:mana}+(20-40) to maximum Mana
-{variant:1,2,3}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
-{variant:4}{tags:life}1% of Damage Leeched as Life against Shocked Enemies
+{variant:1,2}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
+{variant:3}{tags:life}1% of Damage Leeched as Life against Shocked Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Shock
-{variant:2,3}{tags:jewellery_elemental}10% chance to Shock
-{variant:4}{tags:jewellery_elemental}25% chance to Shock
+{variant:2}{tags:jewellery_elemental}10% chance to Shock
+{variant:3}{tags:jewellery_elemental}25% chance to Shock
 ]],[[
 Valyrium
 Moonstone Ring

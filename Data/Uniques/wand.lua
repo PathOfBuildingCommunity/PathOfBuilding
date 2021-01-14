@@ -103,13 +103,12 @@ Regenerate (6-8) Life over 1 second for each Spell you Cast
 Midnight Bargain
 Engraved Wand
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 40, 131 Int
 Implicits: 2
 {variant:1}(12-16)% increased Spell Damage
-{variant:2,3,4}(22-26)% increased Spell Damage
+{variant:2,3}(22-26)% increased Spell Damage
 +(10-20) to Intelligence
 {variant:1,2}Minions have (10-20)% increased Movement Speed
 {variant:3}Minions have (20-30)% increased Movement Speed
@@ -139,7 +138,7 @@ Moonsorrow
 Imbued Wand
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 59, 188 Int
 Implicits: 2

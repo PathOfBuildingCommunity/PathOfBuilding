@@ -2,7 +2,7 @@
 ## Formerly known as LocalIdentity Fork
 
 This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
-* Adds updated uniques from 3.8, 3.9 and 3.10 changes
+* Adds support for new and updated uniques from league 3.8 onwards
 * Pantheon support
 * Impale DPS support
 * Enemy armour and physical damage reduction calculations
@@ -85,3 +85,10 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
 ![ss1](https://cloud.githubusercontent.com/assets/19189971/18089779/f0fe23fa-6f04-11e6-8ed7-ff7d5b9f867a.png)
 ![ss2](https://cloud.githubusercontent.com/assets/19189971/18089778/f0f923f0-6f04-11e6-89c2-b2c1410d3583.png)
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
+
+## Licence
+
+[MIT](https://opensource.org/licenses/MIT)
+
+For 3rd-party licences, see [LICENSE](LICENSE).
+The licencing information is considered to be part of the documentation.

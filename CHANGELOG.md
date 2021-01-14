@@ -1,3 +1,154 @@
+### 1.4.170.22 - 2021/01/14
+* Add support for Hierophant's reworked Conviction of Power Notable
+* Add support for Hand of the Fervent's unique mechanic
+* Add support for "Physical Damage taken from Hits"
+* Update Disintegrator and Martyr of Innocence
+* Fix Shaper of Flames/Winter/Storms more effect not being accounted for in left-hand side calculation
+* Fix parsing of Deadeye's Rupture Notable
+* Fix parsing of Inquisitor's Instruments of Virtue and Righteous Providence Notables
+* Fix effective hit points calculations when you take 100% of damage as a different type of damage
+* Fix errors occurring when hovering over gem tooltips
+* Fix damage taken on block calcs breakdown
+* Fix mod on Follow-Through Medium Cluster Jewel
+* Fix usage limit on Hazardous Research
+* Fix build files growing exponentially if there is a colon at the start of an item's name
+### 1.4.170.21 - 2021/01/13
+* Add 3.13 passive skill tree
+* Changes to Ascendancies:
+  * Add support for Deadeye's Gale Force mechanic
+  * Add support for Deadeye's Rupture mechanic
+  * Add support for Elementalist's Heart of Destruction Notable
+  * Add support for Elementalist's Mastermind of Discord Notable
+  * Add support for Elementalist's Shaper Notables
+  * Add support for Inquisitor's reworked Notables
+* Add support for Battlemage mechanic
+* Add support for Blackflame's unique mechanics
+* Add support for all basic aegides
+* Add various improvements to the accuracy of maximum hit and EHP calcs
+* Add option to show all Alternate Quality skill gems in the skill gem selection dropdown
+* Add stat comparisons to Alternate Quality skill gems on hover
+* Add support for various new mods
+* Add all known new uniques
+* Update Far Shot to new scale
+* Fix Elemental Equilibrium applying twice if you have Malachai's Artifice equipped
+* Fix stat differences between Cluster Jewel Notables not showing up
+* Fix Large Cluster Jewels not importing correctly in some cases
+* Fix Alternate Quality skill gems staying at their default Quality on copy/paste
+* Fix Anomalous Flesh and Stone Alternate Quality effect
+* Fix base type mods that were inadvertently removed
+* Fix craftable flask mods having disappeared
+* Fix crafting tags showing up on multiline mods
+* Fix skill gem tooltip not showing when hovering over the skill gem selection dropdown
+* Fix error where skill gem controls were selectable before a skill gem was set
+* Fix Dark Pact radius
+* Fix mod on Unending Hunger
+### 1.4.170.20 - 2020/12/19
+* Fix program not launching on Linux
+### 1.4.170.19 - 2020/12/19
+* Guard skills rework:
+    * You can only have one Guard skill active at a time now
+    * Vaal Molten Shell automatically disables all other Guard skills
+    * Guard skills scale with Buff Effect
+    * EHP calculations take Guard skills into account
+* Multi-stage skills rework:
+    * Add skill stages box to the sidebar and calcs tab
+    * Remove existing skill stages config options and pre-defined stages
+    * Enable Penance Brand to automatically use the "Activations per Brand" number
+    * Fix Winter Orb damage calculations
+* Add support for skills granted by passive tree nodes
+* Add separate Rune Dagger, Warstaff and Convoking Wand base types
+* Add full support for Weapon and Armour Quality modifiers
+* Add tooltips to skill gem selection drop-down
+* Add support for Immortal Ambition
+* Add support for Supreme Decadence
+* Add support for Scorch mod on Rolling Flames
+* Add quality mods to Zealotry and Anger
+* Add enchantment mod for Sigil of Power
+* Add new Keystones to Skin of The Lords
+* Add support for non-vaal skill related modifiers
+* Fix interaction of Guard skills with MoM, Low Life, and other mechanics
+* Fix item bases on Beacon of Madness
+* Fix Cold damage applying Freeze twice
+* Fix Arcanist Brand using the main skill's Brand limit
+* Fix Dominating Blow quality not applying to Minions
+* Fix Storm Burst not applying an additional tick
+* Fix non-Curse Aura Effect applying to Curse Auras
+* Fix disabling alternative Ailments when using Elemental Focus
+* Fix attribute requirements for some skill gems
+* Fix anointed Notables not showing as allocated on the skill tree
+* Fix skill gem quality not rounding towards zero in case of negative stats
+* Fix "nil" being displayed in DoT breakdowns
+* Fix parsing of decimal values on items
+* Fix item variants on Watcher's Eye
+* Fix item variants on The Peregrine
+* Fix item text sanitisation
+* Fix an issue with item base names containing whitespace
+### 1.4.170.18 - 2020/11/22
+ * Fix error on updating with the 1.4.170.17 patch
+### 1.4.170.17 - 2020/11/22
+ * Remove support for loading builds from before game version 3.0.0
+### 1.4.170.16 - 2020/10/18
+ * Fix error on updating with the 1.4.170.15 patch
+### 1.4.170.15 - 2020/10/18
+ * Add performance improvements where PoB will no longer use excess CPU when in the background
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add eHP sorting to the tree and uniques tab
+ * Add note showing which elemental resistance Hexblast is using for its Chaos damage
+ * Add support for Storm Burst damage scaling with orb duration
+ * Add support for Infernal Blow Debuff DPS
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add support for Combat Rhythm Cluster Notable
+ * Add support for Divergent Rallying Cry
+ * Add support for Might and Influence jewel
+ * Add support for Replica Malachai's Artifice
+ * Add support for Replica Wings of Entropy
+ * Add support for alternate quality Purity of Elements
+ * Add Contaminate skill from Sporeguard
+ * Add support for Ailment Mode to calculate non-damaging ailments
+ * Add support for SOCKS5 Host Name Mode Proxy
+ * Update uniques with 3.12 changes
+ * Update Crackling Lance enchantment
+ * Fix alt quality gems not saving properly
+ * Fix crash when you socket a Thread of Hope into a Cluster Jewel socket
+ * Fix support for mod translation with Spiritual Aid and Spiritual Command notables
+ * Fix Flame Wall added damage not working with Minions
+ * Fix Mjolner and Cospri's Malice supports not applying correctly
+ * Fix Doom calculations for builds with multiple curses
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod staves
+ * Fix Divergent Blind Support Crit Chance calculation
+ * Fix Curse mods on the tree not applying correctly
+ * Fix Phantasmal Static Strike
+ * Fix Vulnerability not displaying chance to bleed in breakdowns
+ * Fix Bladestorm "Are you in a Bloodstorm?" buff applying as a global buff
+ * Fix some mods on the tree not working with ailments
+ * Fix Hexblast interaction with increased/reduced resistance modifiers
+ * Fix Shockwave Support having DPS numbers when it should only show average hit
+ * Fix catalyst tags on Emberwake
+ * Fix Mystic Bulwark notable
+ * Fix display of Poison DPS for average hit skills
+ * Fix support for Phantasmal Earthquake
+ * Fix Vaal Impurities
+ * Fix Rage generation on Warlords Mark
+ * Fix skill radius for Ball Lightning
+ * Fix Siphoning charge limit for items with dual influence
+ * Fix Curses not applying from Minions
+ * Fix some comparison tooltip errors
+ * Fix bug with Catalysts and Malachai's Artifice
+ * Fix parsing of Voidforge
+ * Fix error where accuracy could appear to be below 0
+ * Fix support for Vaal Impurity resistances
+ * Fixes Minion display stats for when they have DoT Components
+ * Fix Fungal ground not applying to Minions
+ * Fix alternate qualities on some gems not displaying correctly
+### 1.4.170.14 - 2020/10/01
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add Combat Rhythm Cluster Notable
+ * Fix Doom calculations for multiple curse builds
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod's staves
+ * Fix Divergent Blind Crit Chance calculation
 ### 1.4.170.13 - 2020/09/30
  * Add Flame Wall Projectile added damage buff
  * Add Ashblessed Warden Spectre
@@ -8,7 +159,7 @@
  * Fix crash related to Divergent Maim
  * Fix crash related to Phantasmal Raise Zombie
  * Fix Hexblast not taking into account elemental penetration
- * Fix implmentation of the Iron Mass unique
+ * Fix implementation of the Iron Mass unique
  * Fix second mod on Growing Agony not appearing
  * Fix Power Report being cut off from the UI at certain resolutions
  * Fix Fortify Support alternate quality
@@ -18,7 +169,7 @@
  * Fix Lucky Damage applying to all elements
  * Fix Animate Weapon more Attack Speed from gem
  * Fix mods on Cloud Retch Spectre
- * Fix parsing for some tool tips
+ * Fix parsing for some tooltips
  * Fix Cremation Hit Time override
  * Fix Catalysts not working in the item crafter
 ### 1.4.170.12 - 2020/09/28

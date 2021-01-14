@@ -53,14 +53,13 @@ end
 
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
-	self.targetVersion = treeVersions[treeVersion].targetVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/3_0/LegionPassives")
+	self.legion = LoadModule("Data/LegionPassives")
 
 	MakeDir("TreeData")
 
-	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].short)
+	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
 	local treeText
 	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
 	if treeFile then
@@ -347,7 +346,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		elseif node["not"] or node.isNotable then
 			node.type = "Notable"
 			if not node.ascendancyName then
-				self.notableMap[node.dn:lower()] = node
+				-- Some nodes have duplicate names in the tree data for some reason, even though they're not on the tree
+				-- Only add them if they're actually part of a group (i.e. in the tree)
+				-- Add everything otherwise, because cluster jewel notables don't have a group
+				if not self.notableMap[node.dn:lower()] then
+					self.notableMap[node.dn:lower()] = node
+				elseif node.g then
+					self.notableMap[node.dn:lower()] = node
+				end
 			end
 		else
 			node.type = "Normal"
@@ -399,7 +405,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	for nodeId, socket in pairs(self.sockets) do
 		socket.nodesInRadius = { }
 		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
+		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
 			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
@@ -467,7 +473,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				end
 			end
 			local line = node.sd[i]
-			local list, extra = modLib.parseMod[self.targetVersion](line)
+			local list, extra = modLib.parseMod(line)
 			if not list or extra then
 				-- Try to combine it with one or more of the lines that follow this one
 				local endI = i + 1
@@ -476,7 +482,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 					for ci = i + 1, endI do
 						comb = comb .. " " .. node.sd[ci]
 					end
-					list, extra = modLib.parseMod[self.targetVersion](comb, true)
+					list, extra = modLib.parseMod(comb, true)
 					if list and not extra then
 						-- Success, add dummy mod lists to the other lines that were combined with this one
 						for ci = i + 1, endI do
@@ -564,7 +570,7 @@ function PassiveTreeClass:ProcessNode(node)
 			end
 		end
 		local line = node.sd[i]
-		local list, extra = modLib.parseMod[self.targetVersion](line)
+		local list, extra = modLib.parseMod(line)
 		if not list or extra then
 			-- Try to combine it with one or more of the lines that follow this one
 			local endI = i + 1
@@ -573,7 +579,7 @@ function PassiveTreeClass:ProcessNode(node)
 				for ci = i + 1, endI do
 					comb = comb .. " " .. node.sd[ci]
 				end
-				list, extra = modLib.parseMod[self.targetVersion](comb, true)
+				list, extra = modLib.parseMod(comb, true)
 				if list and not extra then
 					-- Success, add dummy mod lists to the other lines that were combined with this one
 					for ci = i + 1, endI do

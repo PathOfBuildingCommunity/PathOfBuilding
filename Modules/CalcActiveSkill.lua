@@ -221,7 +221,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			elseif not weapon1Info.melee and skillFlags.projectile then
 				skillFlags.melee = nil
 			end
-		elseif skillTypes[SkillType.DualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or (env.build.targetVersion ~= "2_6" and weapon1Info) then
+		elseif skillTypes[SkillType.DualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
@@ -231,7 +231,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if weapon2Flags then
 				activeSkill.weapon2Flags = weapon2Flags
 				skillFlags.weapon2Attack = true
-			elseif skillTypes[SkillType.DualWield] or (env.build.targetVersion ~= "2_6" and weapon2Info) then
+			elseif skillTypes[SkillType.DualWield] or weapon2Info then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
@@ -275,7 +275,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillTypes[SkillType.Aura] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Aura)
 	end
-	if skillTypes[SkillType.Curse] then
+	if skillTypes[SkillType.Hex] or skillTypes[SkillType.Mark] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Curse)
 	end
 	if skillTypes[SkillType.Warcry] then
@@ -302,14 +302,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillFlags.weapon1Attack and band(activeSkill.weapon1Flags, ModFlag.Bow) ~= 0 then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Bow)
 	end
+	if skillFlags.brand then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Brand)
+	end
 	if skillFlags.totem then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Totem)
 	elseif skillFlags.trap then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Trap)
 	elseif skillFlags.mine then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Mine)
-	elseif skillFlags.brand then
-		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Brand)
 	else
 		skillFlags.selfCast = true
 	end
@@ -445,6 +446,20 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.activeMineCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillMineCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillMineCount)
 		if activeSkill.activeMineCount and activeSkill.activeMineCount > 0 then
 			skillModList:NewMod("Multiplier:ActiveMineCount", "BASE", activeSkill.activeMineCount, "Base")
+		end
+	end
+	
+	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages", "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst") > 0 then
+		skillFlags.multiStage = true
+		activeSkill.activeStageCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount)
+		local limit = skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages", "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst")
+		if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst") > 0 then
+			activeSkill.activeStageCount = (activeSkill.activeStageCount or 0) - 1
+			if activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
+				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit, activeSkill.activeStageCount), "Base")
+			end
+		elseif activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
+			skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."Stage", "BASE", m_min(limit, activeSkill.activeStageCount), "Base")
 		end
 	end
 

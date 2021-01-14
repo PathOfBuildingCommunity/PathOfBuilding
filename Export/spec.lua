@@ -2467,10 +2467,24 @@ return {
 		},
 		[5]={
 			list=false,
-			name="Divisor",
+			name="Weight",
 			refTo="",
 			type="Int",
 			width=90
+		},
+		[6]={
+			list=true,
+			name="AddTypes",
+			refTo="ActiveSkillType",
+			type="Enum",
+			width=100
+		},
+		[7]={
+			list=true,
+			name="AddMinionTypes",
+			refTo="ActiveSkillType",
+			type="Enum",
+			width=100
 		}
 	},
 	GrantedEffectQualityTypes={
@@ -2490,17 +2504,10 @@ return {
 		},
 		[3]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[4]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
+			name="DisplayString",
+			refTo="ClientStrings",
+			type="Key",
+			width=170
 		}
 	},
 	GrantedEffects={

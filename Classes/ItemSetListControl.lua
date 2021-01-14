@@ -93,9 +93,8 @@ function ItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "SharedItemList" then
 		local itemSet = self.itemsTab:NewItemSet()
 		itemSet.title = value.title
-		for slotName, verItem in pairs(value.slots) do
-			local item = verItem[self.itemsTab.build.targetVersion]
-			local newItem = new("Item", self.itemsTab.build.targetVersion, item.raw)
+		for slotName, item in pairs(value.slots) do
+			local newItem = new("Item", item.raw)
 			newItem:NormaliseQuality()
 			self.itemsTab:AddItem(newItem, true)
 			itemSet[slotName].selItemId = newItem.id
