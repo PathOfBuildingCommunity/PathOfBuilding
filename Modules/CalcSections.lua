@@ -1212,7 +1212,7 @@ return {
 		{ breakdown = "SpellBlockChance" }, 
 		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
 	}, },
-	{ label = "Block Effectiveness", haveOutput = "ShowBlockEffect", { format = "{0:output:BlockEffect}%", 
+	{ label = "Taken From Block", haveOutput = "ShowBlockEffect", { format = "{0:output:DamageTakenOnBlock}%", 
 		{ breakdown = "BlockEffect" }, 
 		{ modName = { "BlockEffect" }, },
 	}, },
