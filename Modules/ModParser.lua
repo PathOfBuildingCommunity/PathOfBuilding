@@ -1469,7 +1469,7 @@ local specialModList = {
 	["(%d+)%% increased blink arrow and mirror arrow cooldown recovery speed"] = function(num) return {
 		mod("CooldownRecovery", "INC", num, { type = "SkillName", skillNameList = { "Blink Arrow", "Mirror Arrow" } }),
 	} end,
-	["critical strikes which inflict bleeding also inflicts rupture"] = function() return {
+	["critical strikes which inflict bleeding also inflict rupture"] = function() return {
 		flag("Condition:CanInflictRupture", { type = "Condition", neg = true, var = "NeverCrit"}),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanInflictRupture" }), -- Make the Configuration option appear
 	} end,
