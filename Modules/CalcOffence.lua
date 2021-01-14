@@ -354,7 +354,6 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
 		end
 	end
-
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
 		local multiplier = getConversionMultiplier("INC", "ImprovedMinionDamageAppliesToPlayer")
@@ -954,6 +953,14 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
 		end
+	end
+
+	-- account for Sacrificial Zeal
+	-- Note: Sacrificial Zeal grants Added Spell Physical Damage equal to 25% of the Skill's Mana Cost, and causes you to take Physical Damage over Time, for 4 seconds
+	if skillModList:Flag(nil, "Condition:SacrificialZeal") then
+		local multiplier = 0.25
+		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -1996,21 +2003,22 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		local highestType = "Physical"
-		if breakdown then
-			-- For each damage type, calculate percentage of total damage. Also tracks the highest damage type and outputs a Condition:TypeIsHighestDamageType flag for whichever the highest type is
-			for _, damageType in ipairs(dmgTypeList) do
-				if output[damageType.."HitAverage"] > 0 then
-					local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
-					local highestPortion = output[highestType.."HitAverage"] / totalHitAvg * 100
-					if portion > highestPortion then
-						highestType = damageType
-						highestPortion = portion
-					end
+		
+		-- For each damage type, calculate percentage of total damage. Also tracks the highest damage type and outputs a Condition:TypeIsHighestDamageType flag for whichever the highest type is
+		for _, damageType in ipairs(dmgTypeList) do
+			if output[damageType.."HitAverage"] > 0 then
+				local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
+				local highestPortion = output[highestType.."HitAverage"] / totalHitAvg * 100
+				if portion > highestPortion then
+					highestType = damageType
+					highestPortion = portion
+				end
+				if breakdown then
 					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", portion))
 				end
 			end
-			skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 		end
+		skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 
 		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
 
