@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Glass Shank"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 6, PhysicalMax = 10, CritChanceBase = 6, AttackRateBase = 1.5, Range = 10, },
@@ -14,7 +14,7 @@ itemBases["Glass Shank"] = {
 itemBases["Skinning Knife"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 4, PhysicalMax = 17, CritChanceBase = 6, AttackRateBase = 1.45, Range = 10, },
@@ -23,7 +23,7 @@ itemBases["Skinning Knife"] = {
 itemBases["Stiletto"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 7, PhysicalMax = 27, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 10, },
@@ -32,7 +32,7 @@ itemBases["Stiletto"] = {
 itemBases["Prong Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 14, PhysicalMax = 54, CritChanceBase = 6.2, AttackRateBase = 1.35, Range = 10, },
@@ -41,7 +41,7 @@ itemBases["Prong Dagger"] = {
 itemBases["Flaying Knife"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 11, PhysicalMax = 45, CritChanceBase = 6, AttackRateBase = 1.4, Range = 10, },
@@ -50,7 +50,7 @@ itemBases["Flaying Knife"] = {
 itemBases["Poignard"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 13, PhysicalMax = 52, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 10, },
@@ -59,7 +59,7 @@ itemBases["Poignard"] = {
 itemBases["Trisula"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.5, AttackRateBase = 1.35, Range = 10, },
@@ -68,7 +68,7 @@ itemBases["Trisula"] = {
 itemBases["Gutting Knife"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 76, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 10, },
@@ -77,7 +77,7 @@ itemBases["Gutting Knife"] = {
 itemBases["Ambusher"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 10, },
@@ -86,7 +86,7 @@ itemBases["Ambusher"] = {
 itemBases["Sai"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "6% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 88, CritChanceBase = 6.2, AttackRateBase = 1.35, Range = 10, },
@@ -95,7 +95,7 @@ itemBases["Sai"] = {
 itemBases["Hollowpoint Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
@@ -104,7 +104,7 @@ itemBases["Hollowpoint Dagger"] = {
 itemBases["Pressurised Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 18, PhysicalMax = 71, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
@@ -113,7 +113,7 @@ itemBases["Pressurised Dagger"] = {
 itemBases["Pneumatic Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
@@ -123,7 +123,7 @@ itemBases["Ethereal Blade"] = {
 	type = "Dagger",
 	hidden = true,
 	socketLimit = 3,
-	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, one_hand_weapon = true, not_for_sale = true, },
+	tags = { default = true, weapon = true, onehand = true, attack_dagger = true, dagger = true, one_hand_weapon = true, not_for_sale = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 4, PhysicalMax = 8, CritChanceBase = 6, AttackRateBase = 1.5, Range = 10, },
 	req = { dex = 9, int = 6, },

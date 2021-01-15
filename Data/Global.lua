@@ -248,4 +248,6 @@ SkillType = {
 	SteelSkill = 18,
 	Hex = 109,
 	Mark = 110,
+	Aegis = 111,
+	Orb = 112,
 }

@@ -448,7 +448,7 @@ skills["SkeletonMinionProjectileCold"] = {
 	name = "Cold Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 1.4817999601364,
+	baseEffectiveness = 2.2227001190186,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -464,17 +464,18 @@ skills["SkeletonMinionProjectileCold"] = {
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 0, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["SkeletonMinionProjectileFire"] = {
 	name = "Fire Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 1.8111000061035,
+	baseEffectiveness = 2.7166500091553,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -490,17 +491,18 @@ skills["SkeletonMinionProjectileFire"] = {
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["SkeletonMinionProjectileLightning"] = {
 	name = "Lightning Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 2.0374999046326,
+	baseEffectiveness = 3.0562500953674,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -516,10 +518,11 @@ skills["SkeletonMinionProjectileLightning"] = {
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, 0, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["RockGolemSlam"] = {

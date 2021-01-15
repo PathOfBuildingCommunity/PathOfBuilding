@@ -11,19 +11,19 @@ return {
 					[1] = { line = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Glace",
+			[2] = { name = "Puruna, the Challenger",
 				mods = {
 					-- base_stun_recovery_+%
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Champion of the Hollows",
+			[3] = { name = "Corruptor Eedaiak",
 				mods = {
 					-- cannot_be_frozen_if_you_have_been_frozen_recently
 					[1] = { line = "You cannot be Frozen if you've been Frozen Recently", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Fragment of Winter",
+			[4] = { name = "Sumter the Twisted",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -48,7 +48,7 @@ return {
 					[1] = { line = "50% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 50 }, },
 				},
 			},
-			[3] = { name = "Shavronne the Sickening",
+			[3] = { name = "Gisale, Thought Thief",
 				mods = {
 					-- shocked_effect_on_self_+%
 					[1] = { line = "30% reduced Effect of Shock on you", value = { -30 }, },
@@ -56,7 +56,7 @@ return {
 					[2] = { line = "30% reduced Shock Duration on you", value = { 30 }, },
 				},
 			},
-			[4] = { name = "Thraxia",
+			[4] = { name = "Excellis Aurafix",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+25% Chaos Resistance against Damage Over Time", value = { 25 }, },
@@ -81,7 +81,7 @@ return {
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "Eater of Souls",
+			[3] = { name = "Erythrophagia",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
@@ -118,7 +118,7 @@ return {
 					[1] = { line = "5% chance to Dodge Attack and Spell Hits if you've been Hit Recently", value = { 5 }, },
 				},
 			},
-			[4] = { name = "The Hallowed Husk",
+			[4] = { name = "Ciergan, Shadow Alchemist",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },

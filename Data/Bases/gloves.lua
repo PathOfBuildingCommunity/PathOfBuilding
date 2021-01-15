@@ -84,6 +84,36 @@ itemBases["Titan Gauntlets"] = {
 	armour = { ArmourBase = 242, },
 	req = { level = 69, str = 98, },
 }
+itemBases["Taxing Gauntlets"] = {
+	type = "Gloves",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, str_armour = true, not_for_sale = true, },
+	implicit = "Exerted Attacks deal (25-30)% increased Damage\nWarcry Skills have 2 seconds to Cooldown",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { ArmourBase = 35, },
+	req = { level = 10, str = 18, },
+}
+itemBases["Gruelling Gauntlets"] = {
+	type = "Gloves",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, str_armour = true, not_for_sale = true, },
+	implicit = "Exerted Attacks deal (30-40)% increased Damage\nWarcry Skills have 2 seconds to Cooldown",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { ArmourBase = 132, },
+	req = { level = 40, str = 59, },
+}
+itemBases["Debilitation Gauntlets"] = {
+	type = "Gloves",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, str_armour = true, not_for_sale = true, },
+	implicit = "Exerted Attacks deal (40-50)% increased Damage\nWarcry Skills have 2 seconds to Cooldown",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { ArmourBase = 236, },
+	req = { level = 70, str = 101, },
+}
 itemBases["Spiked Gloves"] = {
 	type = "Gloves",
 	subType = "Armour",
@@ -176,6 +206,36 @@ itemBases["Slink Gloves"] = {
 	armour = { EvasionBase = 242, },
 	req = { level = 70, dex = 95, },
 }
+itemBases["Gauche Gloves"] = {
+	type = "Gloves",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, dex_armour = true, not_for_sale = true, },
+	implicit = "25% reduced Attack Damage with Main Hand\n(40-50)% increased Attack Damage with Off Hand",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { EvasionBase = 35, },
+	req = { level = 10, dex = 18, },
+}
+itemBases["Southswing Gloves"] = {
+	type = "Gloves",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, dex_armour = true, not_for_sale = true, },
+	implicit = "25% reduced Attack Damage with Main Hand\n(40-50)% increased Attack Damage with Off Hand",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { EvasionBase = 132, },
+	req = { level = 40, dex = 59, },
+}
+itemBases["Sinistral Gloves"] = {
+	type = "Gloves",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, dex_armour = true, not_for_sale = true, },
+	implicit = "25% reduced Attack Damage with Main Hand\n(40-50)% increased Attack Damage with Off Hand",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { EvasionBase = 236, },
+	req = { level = 70, dex = 101, },
+}
 itemBases["Gripped Gloves"] = {
 	type = "Gloves",
 	subType = "Evasion",
@@ -267,6 +327,36 @@ itemBases["Sorcerer Gloves"] = {
 	implicitModTypes = { },
 	armour = { EnergyShieldBase = 47, },
 	req = { level = 69, int = 97, },
+}
+itemBases["Leyline Gloves"] = {
+	type = "Gloves",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, int_armour = true, not_for_sale = true, },
+	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Mana Cost to gain that much Mana",
+	implicitModTypes = { { "resource", "mana" }, { "resource", "mana" }, },
+	armour = { EnergyShieldBase = 8, },
+	req = { level = 10, int = 18, },
+}
+itemBases["Aetherwind Gloves"] = {
+	type = "Gloves",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, int_armour = true, not_for_sale = true, },
+	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Mana Cost to gain that much Mana",
+	implicitModTypes = { { "resource", "mana" }, { "resource", "mana" }, },
+	armour = { EnergyShieldBase = 26, },
+	req = { level = 40, int = 59, },
+}
+itemBases["Nexus Gloves"] = {
+	type = "Gloves",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, gloves = true, int_armour = true, not_for_sale = true, },
+	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Mana Cost to gain that much Mana",
+	implicitModTypes = { { "resource", "mana" }, { "resource", "mana" }, },
+	armour = { EnergyShieldBase = 45, },
+	req = { level = 70, int = 101, },
 }
 itemBases["Fingerless Silk Gloves"] = {
 	type = "Gloves",
@@ -500,7 +590,6 @@ itemBases["Murder Mitts"] = {
 
 itemBases["Golden Bracers"] = {
 	type = "Gloves",
-	hidden = true,
 	socketLimit = 4,
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, },
 	implicit = "+(20-30) to maximum Life",
