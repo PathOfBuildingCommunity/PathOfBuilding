@@ -1,3 +1,14 @@
+VERSION[1.4.170.23][2021/01/16]
+* Add support for Trinity Support and Hydrosphere
+* Update gems with 3.13 changes
+* Add new 3.13 base types
+* Add support for "Projectiles deal #% increased Damage for each Enemy Pierced"
+* Add Block Chance and Spell Block Chance to the passive skill tree heatmap
+* Fix multiple application crashes related to skill gem selection
+* Fix Fanaticism and Convergence persisting after deallocating nodes
+* Fix parsing error with Pure Talent
+* Fix item versions of Disintegrator
+* Fix item versions of Doryani's Fist
 VERSION[1.4.170.22][2021/01/14]
 * Add support for Hierophant's reworked Conviction of Power Notable
 * Add support for Hand of the Fervent's unique mechanic
