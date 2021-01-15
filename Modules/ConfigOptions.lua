@@ -1033,7 +1033,7 @@ return {
 	{ var = "multiplierRuptureStacks", type = "count", label = "# of Rupture stacks?", ifCond = "CanInflictRupture", tooltip = "Rupture applies 25% more bleed damage and 25% faster bleeds for 3 seconds, up to 3 stacks", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:RuptureStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("DamageTaken", "MORE", 25, "Rupture", nil, KeywordFlag.Bleed, { type = "Multiplier", var = "RuptureStack", limit = 3 }, { type = "ActorCondition", actor = "enemy", var = "CanInflictRupture" })
-		enemyModList:NewMod("SelfBleedFaster", "INC", 25, "Rupture", { type = "Multiplier", var = "RuptureStack", limit = 3 }, { type = "ActorCondition", actor = "enemy", var = "CanInflictRupture" })
+		modList:NewMod("EnemyBleedDuration", "INC", -25, "Rupture", { type = "Multiplier", var = "RuptureStack", limit = 3, actor = "enemy" }, { type = "ActorCondition", var = "CanInflictRupture" })
 	end },
 	{ var = "conditionEnemyPoisoned", type = "check", label = "Is the enemy Poisoned?", ifEnemyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Poisoned", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

@@ -4613,11 +4613,9 @@ skills["WaterSphere"] = {
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
 			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-			mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, { type = "SkillPart", skillPart = 3 }),
-		},
-		["skill_physical_damage_%_to_convert_to_cold"] = {
 			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
-			mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
@@ -4628,7 +4626,7 @@ skills["WaterSphere"] = {
 			div = 1000,
 		},
 		["hydro_sphere_pulse_frequency_+%"] = {
-			mod("HydroSphereFrequency", nil),
+			mod("HydroSphereFrequency", "INC", nil),
 		},
 	},
 	baseFlags = {
