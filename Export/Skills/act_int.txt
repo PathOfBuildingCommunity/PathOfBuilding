@@ -808,6 +808,46 @@ local skills, mod, flag, skill = ...
 #baseMod mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill WaterSphere
+#flags spell duration area cold lightning physical
+	parts = {
+		{
+			name = "Frozen",
+		},
+		{
+			name = "Shocked",
+		},
+		{
+			name = "Frozen & Shocked",
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / ((activeSkill.skillData.repeatFrequencyIncrease or 0) + 1)
+	end,
+	statMap = {
+		["skill_physical_damage_%_to_convert_to_cold"] = {
+			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["skill_physical_damage_%_to_convert_to_cold"] = {
+			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["water_sphere_cold_lightning_exposure_%"] = {
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
+		},
+		["hydro_sphere_base_pulse_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["hydro_sphere_repeat_frequency_+%"] = {
+			skill("repeatFrequencyIncrease", nil),
+			div = 100
+		},
+	},
+#mods
+
 #skill DoomBlast
 #flags spell area chaos
 	statMap = {
