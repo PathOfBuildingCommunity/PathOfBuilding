@@ -89,6 +89,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.showSupportGemTypes = value.show
 	end)
 	self.controls.showSupportGemTypesLabel = new("LabelControl", {"RIGHT",self.controls.showSupportGemTypes,"LEFT"}, -4, 0, 0, 16, "^7Show support gems:")
+<<<<<<< HEAD
 	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 20, "^7Show gem quality variants:", function(state)
 		self.showAltQualityGems = state
 	end)
@@ -98,6 +99,17 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.gemObtainedBySection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 200, 320, 450, "Gems Obtained By")
 	self.controls.gemObtainedByGroupList = new("SkillObtainedByListControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 10, 215, 300, 420, self)
 	
+=======
+	
+	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 20, "^7Show gem quality variants:", function(state)
+		self.showAltQualityGems = state
+	end)
+
+	-- Gem obtained by
+	self.controls.gemObtainedBySection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 220, 374, 450, "Gems Obtained By")
+	self.controls.gemObtainedByGroupList = new("SkillObtainedByListControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 10, 235, 355, 420, self)
+
+>>>>>>> 0779f72e... cleaned up code, fixed location due to new option added to Gem Options, Now sorts by level requirement
 	-- Socket group details
 	self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
 	self.anchorGroupDetail.shown = function()
