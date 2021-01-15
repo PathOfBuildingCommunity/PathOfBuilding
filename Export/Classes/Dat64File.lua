@@ -52,11 +52,11 @@ local dataTypes = {
 		end,
 	},
 	Enum = { 
-		size = 4, 
+		size = 8, 
 		ref = true,
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
-			return bytesToUInt(b, o)
+			return bytesToULong(b, o)
 		end,
 	},
 	Key = { 
@@ -206,8 +206,8 @@ function Dat64FileClass:ReadCell(rowIndex, colIndex)
 	local base = self.rows[rowIndex] + col.offset
 	if spec.list then
 		local dataType = dataTypes[spec.type]
-		local count = bytesToUInt(self.raw, base)
-		local offset = bytesToUInt(self.raw, base + 4) + self.dataOffset
+		local count = bytesToULong(self.raw, base)
+		local offset = bytesToULong(self.raw, base + 8) + self.dataOffset
 		local out = { }
 		for i = 1, m_min(count, 1000) do
 			out[i] = self:ReadValue(spec, offset)
@@ -225,7 +225,7 @@ function Dat64FileClass:ReadValue(spec, offset)
 	if not dataType.ref then
 		return val
 	end
-	if val == 0xFEFEFEFE then
+	if val == 0xFEFEFEFE or val == 0xFEFEFEFEFEFEFEFE then
 		return
 	end
 	local other = main.datFileByName[spec.refTo]
@@ -244,8 +244,8 @@ function Dat64FileClass:ReadCellText(rowIndex, colIndex)
 	local base = self.rows[rowIndex] + col.offset
 	if spec.list then
 		local dataType = dataTypes[spec.type]
-		local count = bytesToUInt(self.raw, base)
-		local offset = bytesToUInt(self.raw, base + 4) + self.dataOffset
+		local count = bytesToULong(self.raw, base)
+		local offset = bytesToULong(self.raw, base + 8) + self.dataOffset
 		local out = { }
 		for i = 1, m_min(count, 1000) do
 			out[i] = self:ReadValueText(spec, offset)
@@ -261,7 +261,7 @@ function Dat64FileClass:ReadValueText(spec, offset)
 	local dataType = dataTypes[spec.type]
 	local val = dataType.read(self.raw, offset, self.dataOffset)
 	if dataType.ref then
-		if val == 0xFEFEFEFE then
+		if val == 0xFEFEFEFE or val == 0xFEFEFEFEFEFEFEFE then
 			return ""
 		end
 		local other = main.datFileByName[spec.refTo]

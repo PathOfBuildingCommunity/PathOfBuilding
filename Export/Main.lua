@@ -67,8 +67,6 @@ function main:Init()
 
 	self.datFileList = { }
 	self.datFileByName = { }
-	self.dat64FileList = { }
-	self.dat64FileByName = { }
 
 	self:LoadSettings()
 	--self:LoadDatFiles()
@@ -112,13 +110,13 @@ function main:Init()
 		out:close()
 	end
 	function dat(name)
-		if #self.dat64FileList == 0 then
+		if #self.datFileList == 0 then
 			error("No .dat files loaded; set GGPK path first")
 		end
-		if not self.dat64FileByName[name] then
+		if not self.datFileByName[name] then
 			error(name..".dat not found")
 		end
-		return self.dat64FileByName[name]
+		return self.datFileByName[name]
 	end
 	function getFile(name)
 		if not self.ggpk then
@@ -332,8 +330,8 @@ function main:LoadDatFiles()
 end
 
 function main:LoadDat64Files()
-	wipeTable(self.dat64FileList)
-	wipeTable(self.dat64FileByName)
+	wipeTable(self.datFileList)
+	wipeTable(self.datFileByName)
 	self:SetCurrentDat()
 	self.ggpk = nil
 
@@ -351,8 +349,8 @@ function main:LoadDat64Files()
 				now = GetTime()
 			end
 			local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
-			t_insert(self.dat64FileList, datFile)
-			self.dat64FileByName[datFile.name] = datFile
+			t_insert(self.datFileList, datFile)
+			self.datFileByName[datFile.name] = datFile
 		end
 		ConPrintf("DAT64 read: %d ms", GetTime() - now)
 	end
