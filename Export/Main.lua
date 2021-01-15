@@ -112,13 +112,13 @@ function main:Init()
 		out:close()
 	end
 	function dat(name)
-		if #self.datFileList == 0 then
+		if #self.dat64FileList == 0 then
 			error("No .dat files loaded; set GGPK path first")
 		end
-		if not self.datFileByName[name] then
+		if not self.dat64FileByName[name] then
 			error(name..".dat not found")
 		end
-		return self.datFileByName[name]
+		return self.dat64FileByName[name]
 	end
 	function getFile(name)
 		if not self.ggpk then
