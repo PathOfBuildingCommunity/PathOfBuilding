@@ -21,7 +21,7 @@ local catalystTags = {
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
 }
-local classNames = { "Marauder", "Duelist", "Ranger", "Shadow", "Witch", "Templar", "Scion" }
+local classNames = { ["Marauder"] = true, ["Duelist"] = true, ["Ranger"] = true, ["Shadow"] = true, ["Witch"] = true, ["Templar"] = true, ["Scion"] = true }
 
 local function getCatalystScalar(catalystId, tags, quality)
 	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
