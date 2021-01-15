@@ -4824,10 +4824,10 @@ skills["HeraldOfThunder"] = {
 		[40] = { 0.10000000149012, 0.40000000596046, 0.10000000149012, 0.40000000596046, 107, 4792, 6000, 250, cooldown = 1, levelRequirement = 100, manaCost = 25, statInterpolation = { 3, 3, 3, 3, 1, 1, 1, 1, }, },
 	},
 }
-skills["Hydrosphere"] = {
+skills["WaterSphere"] = {
 	name = "Hydrosphere",
 	color = 3,
-	baseEffectiveness = 0.80,
+	baseEffectiveness = 0.80000001192093,
 	incrementalEffectiveness = 0.041200000792742,
 	description = "Create a sphere of water, or move an existing sphere and reset its duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, },
@@ -4845,23 +4845,23 @@ skills["Hydrosphere"] = {
 		}
 	},
 	statMap = {
-		["hydro_physical_damage_%_to_convert_to_cold"] = {
-			mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		["skill_physical_damage_%_to_convert_to_cold"] = {
+			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 			mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
-		["hydro_physical_damage_%_to_convert_to_lightning"] = {
-			mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		["skill_physical_damage_%_to_convert_to_cold"] = {
+			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 			mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
-		["hydro_cold_and_lightning_exposure_+%_final"] = {
+		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
 			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
 		},
-		["hydro_pulse_frequency_ms"] = {
+		["hydro_sphere_base_pulse_frequency_ms"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
 		},
-		["hydro_repeat_frequency_+%"] = {
+		["hydro_sphere_repeat_frequency_+%"] = {
 			skill("repeatFrequencyIncrease", nil),
 			div = 100
 		},
@@ -4879,7 +4879,7 @@ skills["Hydrosphere"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "hydro_repeat_frequency_+%", 0.5 },
+			{ "hydro_sphere_repeat_frequency_+%", 0.5 },
 		},
 		Alternate1 = {
 			{ "base_cast_speed_+%", 0.5 },
@@ -4891,10 +4891,10 @@ skills["Hydrosphere"] = {
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"hydro_pulse_frequency_ms",
-		"hydro_physical_damage_%_to_convert_to_cold",
-		"hydro_physical_damage_%_to_convert_to_lightning",
-		"hydro_cold_and_lightning_exposure_+%_final",
+		"hydro_sphere_base_pulse_frequency_ms",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"hydrosphere_ailment_threshold",
+		"water_sphere_cold_lightning_exposure_%",
 	},
 	levels = {
 		[1] = { 37, 56, 400, 100, 100, -10, damageEffectiveness = 0.8, critChance = 5, levelRequirement = 34, manaCost = 12, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
