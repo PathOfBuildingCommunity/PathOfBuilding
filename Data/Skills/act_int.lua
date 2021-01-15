@@ -4626,7 +4626,7 @@ skills["WaterSphere"] = {
 			div = 1000,
 		},
 		["hydro_sphere_pulse_frequency_+%"] = {
-			mod("HydroSphereFrequency", nil),
+			mod("HydroSphereFrequency", "INC", nil),
 		},
 	},
 	baseFlags = {
