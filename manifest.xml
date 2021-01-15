@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.170.23" />
+	<Version number="1.4.170.24" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-2_6.zip" />
@@ -18,7 +18,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="ba9b08700c20bb54453133f67139836a3997f685" />
-	<File name="changelog.txt" part="program" sha1="f497a4112f635e0de4102eb0473b6d2b822c071d" />
+	<File name="changelog.txt" part="program" sha1="8b0d6d88d897f2abc85db29629d4a00ed9aac2b4" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="abedf9c43a64c4a9270de5aacc3f02a105fecd1d" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="cc0214199af6b4cb770e2f6a089af9b66c3f7d59" />
@@ -185,7 +185,7 @@
 	<File name="Modules/CalcSetup.lua" part="program" sha1="801f02d603aa8f85028cd5150b67aaa48b67cf56" />
 	<File name="Modules/CalcTools.lua" part="program" sha1="a8673f7eff9c85377f8802a2746f15ee7125b24d" />
 	<File name="Modules/Common.lua" part="program" sha1="6c979c71679d0c10f65ee605628e957695cb9971" />
-	<File name="Modules/ConfigOptions.lua" part="program" sha1="5cb2fe34df7d21fe2dc23f4a24ce5e5e238c8e6a" />
+	<File name="Modules/ConfigOptions.lua" part="program" sha1="2aee5d191f4604295811140368ab695e5b830812" />
 	<File name="Modules/Data.lua" part="program" sha1="b84749959d3877c30bc45f91e757bc91c8cde37e" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="4fc697d4f2cb89d388dcc8a692171aac9164aa81" />
 	<File name="Modules/Main.lua" part="program" sha1="51acd2704749c3be6b329ba3de8bc3ba3ed33e3c" />

@@ -1,3 +1,5 @@
+### 1.4.170.24 - 2021/01/16
+* Fix Rupture calculations
 ### 1.4.170.23 - 2021/01/16
 * Add support for Trinity Support and Hydrosphere
 * Update gems with 3.13 changes
