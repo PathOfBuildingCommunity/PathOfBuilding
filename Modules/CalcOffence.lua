@@ -639,6 +639,10 @@ function calcs.offence(env, actor, activeSkill)
 				output.PierceCount = skillModList:Sum("BASE", skillCfg, "PierceCount")
 				output.PierceCountString = output.PierceCount
 			end
+			if output.PierceCount > 0 then
+				skillFlags.piercing = true
+			end
+			output.PiercedCount = m_min(output.PierceCount, skillModList:Sum("BASE", skillCfg, "PiercedCount"))
 		end
 		output.ProjectileSpeedMod = calcLib.mod(skillModList, skillCfg, "ProjectileSpeed")
 		if breakdown then
