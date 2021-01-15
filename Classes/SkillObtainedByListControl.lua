@@ -60,27 +60,29 @@ end
 
 function SkillObtainedListClass:UpdateAllGems(skillsTab)
 	self.list = {}
-	local sortedList = {}
+	local sortedTable = {}
 
 	for _, socketGroup in ipairs (skillsTab.socketGroupList) do
 		for _, gemInstance in ipairs(socketGroup.gemList) do
-			local table = {}
 			if gemInstance.gemData or gemInstance.grantedEffect then
 				gemInstance.new = nil
 				local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
-				sortedList[gemInstance] = grantedEffect.levels[1].levelRequirement
+				if setContains(sortedTable, gemInstance) then
+				else
+					table.insert(sortedTable, gemInstance)
+				end
 			end
 		end
 	end
 
-	function compare(a,b)
-		return a[1] < b[1]
+	table.sort(sortedTable, function(a,b) return a.gemData.grantedEffect.levels[1].levelRequirement < b.gemData.grantedEffect.levels[1].levelRequirement end)
+
+	for i, gem in ipairs(sortedTable) do
+		t_insert(self.list,  gem)
 	end
 
-	table.sort(sortedList, compare)
-
-	for key, value in next, sortedList do
-		t_insert(self.list,  key)
+	function setContains(set, key)
+		return set[key] ~= nil
 	end
 
 end
