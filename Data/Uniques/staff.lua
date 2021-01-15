@@ -121,9 +121,9 @@ Implicits: 2
 {variant:3}25% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Adds (270-300) to (340-380) Physical Damage
 {variant:2}Adds (250-280) to (315-355) Physical Damage
-{variant:3}Adds (220-240) to (270-300) Physical Damage
+{variant:3,4}Adds (220-240) to (270-300) Physical Damage
 {variant:4}Battlemage
-Adds (376-400) to (568-600) Physical Damage to Spells
+{variant:1,2,3}Adds (376-400) to (568-600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
 Adds (12-14) to (15-16) Physical Damage to Attacks and Spells per Siphoning Charge

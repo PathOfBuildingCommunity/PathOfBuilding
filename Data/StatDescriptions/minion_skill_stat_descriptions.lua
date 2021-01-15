@@ -7044,6 +7044,10 @@ return {
 						[1]={
 							[1]=1,
 							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="{0}% of Minion Physical Damage Converted to Cold Damage"
@@ -7052,7 +7056,8 @@ return {
 		},
 		name="physical_damage_to_convert_to_cold",
 		stats={
-			[1]="skill_physical_damage_%_to_convert_to_cold"
+			[1]="skill_physical_damage_%_to_convert_to_cold",
+			[2]="active_skill_display_suppress_physical_to_cold_damage_conversion"
 		}
 	},
 	[238]={
@@ -8352,6 +8357,7 @@ return {
 	["%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy"]=227,
 	["accuracy_rating"]=9,
 	["accuracy_rating_+%"]=10,
+	["active_skill_display_suppress_physical_to_cold_damage_conversion"]=237,
 	["active_skill_elemental_damage_+%_final"]=46,
 	["active_skill_minion_added_damage_+%_final"]=161,
 	["active_skill_minion_attack_speed_+%_final"]=209,

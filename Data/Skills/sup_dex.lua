@@ -2471,7 +2471,7 @@ skills["SupportLesserPoison"] = {
 			{ "base_poison_damage_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "gain_frenzy_charge_on_killing_blow_vs_enemies_with_5+_poisons_%", 0.2 },
+			{ "base_poison_duration_+%", 0.5 },
 		},
 		Alternate2 = {
 			{ "hit_damage_+%", 1 },

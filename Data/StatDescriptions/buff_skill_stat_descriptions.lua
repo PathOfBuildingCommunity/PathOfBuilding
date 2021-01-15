@@ -418,13 +418,17 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextRecoup"
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="{0}% of Damage taken gained as Mana over 4 seconds when Hit"
+					text="{0}% of Damage taken Recouped as Mana"
 				}
 			}
 		},

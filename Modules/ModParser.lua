@@ -956,6 +956,7 @@ local modTagList = {
 	["for each raised zombie"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit" } },
 	["per raised spectre"] = { tag = { type = "PerStat", stat = "ActiveSpectreLimit" } },
 	["for each remaining chain"] = { tag = { type = "PerStat", stat = "ChainRemaining" } },
+	["for each enemy pierced"] = { tag = { type = "PerStat", stat = "PiercedCount" } },
 	-- Stat conditions
 	["with (%d+) or more strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
 	["with at least (%d+) strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,

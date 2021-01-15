@@ -87,6 +87,25 @@ return {
 		lang={
 			English={
 				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Applies beams to the closest {0} nearby Bleeding Enemies"
+				}
+			}
+		},
+		name="vampiric_icon_max_targets",
+		stats={
+			[1]="vampiric_icon_max_bleeding_beam_targets"
+		}
+	},
+	[6]={
+		lang={
+			English={
+				[1]={
 					[1]={
 						k="per_minute_to_per_second",
 						v=1
@@ -106,7 +125,7 @@ return {
 			[1]="skill_life_regeneration_per_minute_with_at_least_1_affected_enemy"
 		}
 	},
-	[6]={
+	[7]={
 		lang={
 			English={
 				[1]={
@@ -129,7 +148,7 @@ return {
 			[1]="skill_mana_regeneration_per_minute_with_at_least_1_affected_enemy"
 		}
 	},
-	[7]={
+	[8]={
 		lang={
 			English={
 				[1]={
@@ -152,7 +171,7 @@ return {
 			[1]="skill_life_regeneration_per_minute_per_affected_enemy"
 		}
 	},
-	[8]={
+	[9]={
 		lang={
 			English={
 				[1]={
@@ -175,7 +194,7 @@ return {
 			[1]="skill_mana_regeneration_per_minute_per_affected_enemy"
 		}
 	},
-	[9]={
+	[10]={
 		lang={
 			English={
 				[1]={
@@ -207,7 +226,7 @@ return {
 			[1]="skill_damage_taken_+%_per_affected_enemy"
 		}
 	},
-	[10]={
+	[11]={
 		lang={
 			English={
 				[1]={
@@ -226,7 +245,7 @@ return {
 			[1]="herald_of_ash_fire_damage_+%"
 		}
 	},
-	[11]={
+	[12]={
 		lang={
 			English={
 				[1]={
@@ -258,7 +277,7 @@ return {
 			[1]="skill_buff_effect_+%"
 		}
 	},
-	[12]={
+	[13]={
 		lang={
 			English={
 				[1]={
@@ -290,7 +309,7 @@ return {
 			[1]="action_speed_-%"
 		}
 	},
-	[13]={
+	[14]={
 		lang={
 			English={
 				[1]={
@@ -309,7 +328,7 @@ return {
 			[1]="bane_enemies_explode_on_death_%_chance"
 		}
 	},
-	[14]={
+	[15]={
 		lang={
 			English={
 				[1]={
@@ -328,7 +347,7 @@ return {
 			[1]="base_chaos_damage_resistance_%"
 		}
 	},
-	[15]={
+	[16]={
 		lang={
 			English={
 				[1]={
@@ -347,7 +366,7 @@ return {
 			[1]="base_cold_damage_resistance_%"
 		}
 	},
-	[16]={
+	[17]={
 		lang={
 			English={
 				[1]={
@@ -366,7 +385,7 @@ return {
 			[1]="base_fire_damage_resistance_%"
 		}
 	},
-	[17]={
+	[18]={
 		lang={
 			English={
 				[1]={
@@ -385,7 +404,7 @@ return {
 			[1]="base_lightning_damage_resistance_%"
 		}
 	},
-	[18]={
+	[19]={
 		lang={
 			English={
 				[1]={
@@ -417,7 +436,7 @@ return {
 			[1]="bear_trap_damage_taken_+%_from_traps_and_mines"
 		}
 	},
-	[19]={
+	[20]={
 		lang={
 			English={
 				[1]={
@@ -449,7 +468,7 @@ return {
 			[1]="bear_trap_movement_speed_+%_final"
 		}
 	},
-	[20]={
+	[21]={
 		lang={
 			English={
 				[1]={
@@ -473,7 +492,7 @@ return {
 			[2]="flame_wall_maximum_added_fire_damage"
 		}
 	},
-	[21]={
+	[22]={
 		lang={
 			English={
 				[1]={
@@ -505,7 +524,7 @@ return {
 			[2]="minimum_rain_of_spores_movement_speed_+%_final_cap"
 		}
 	},
-	[22]={
+	[23]={
 		lang={
 			English={
 				[1]={
@@ -524,7 +543,7 @@ return {
 			[1]="resist_all_%"
 		}
 	},
-	[23]={
+	[24]={
 		lang={
 			English={
 				[1]={
@@ -547,30 +566,31 @@ return {
 			[1]="skill_energy_shield_regeneration_%_per_minute_per_affected_enemy"
 		}
 	},
-	["action_speed_-%"]=12,
-	["bane_enemies_explode_on_death_%_chance"]=13,
-	["base_chaos_damage_resistance_%"]=14,
-	["base_cold_damage_resistance_%"]=15,
-	["base_fire_damage_resistance_%"]=16,
-	["base_lightning_damage_resistance_%"]=17,
-	["bear_trap_damage_taken_+%_from_traps_and_mines"]=18,
-	["bear_trap_movement_speed_+%_final"]=19,
+	["action_speed_-%"]=13,
+	["bane_enemies_explode_on_death_%_chance"]=14,
+	["base_chaos_damage_resistance_%"]=15,
+	["base_cold_damage_resistance_%"]=16,
+	["base_fire_damage_resistance_%"]=17,
+	["base_lightning_damage_resistance_%"]=18,
+	["bear_trap_damage_taken_+%_from_traps_and_mines"]=19,
+	["bear_trap_movement_speed_+%_final"]=20,
 	["buff_effect_duration"]=2,
-	["flame_wall_maximum_added_fire_damage"]=20,
-	["flame_wall_minimum_added_fire_damage"]=20,
-	["herald_of_ash_fire_damage_+%"]=10,
+	["flame_wall_maximum_added_fire_damage"]=21,
+	["flame_wall_minimum_added_fire_damage"]=21,
+	["herald_of_ash_fire_damage_+%"]=11,
 	["ice_siphon_trap_max_beam_targets"]=4,
-	["minimum_rain_of_spores_movement_speed_+%_final_cap"]=21,
+	["minimum_rain_of_spores_movement_speed_+%_final_cap"]=22,
 	["modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration"]=1,
 	parent="skill_stat_descriptions",
-	["rain_of_spores_vines_movement_speed_+%_final"]=21,
-	["resist_all_%"]=22,
+	["rain_of_spores_vines_movement_speed_+%_final"]=22,
+	["resist_all_%"]=23,
 	["secondary_buff_effect_duration"]=3,
-	["skill_buff_effect_+%"]=11,
-	["skill_damage_taken_+%_per_affected_enemy"]=9,
-	["skill_energy_shield_regeneration_%_per_minute_per_affected_enemy"]=23,
-	["skill_life_regeneration_per_minute_per_affected_enemy"]=7,
-	["skill_life_regeneration_per_minute_with_at_least_1_affected_enemy"]=5,
-	["skill_mana_regeneration_per_minute_per_affected_enemy"]=8,
-	["skill_mana_regeneration_per_minute_with_at_least_1_affected_enemy"]=6
+	["skill_buff_effect_+%"]=12,
+	["skill_damage_taken_+%_per_affected_enemy"]=10,
+	["skill_energy_shield_regeneration_%_per_minute_per_affected_enemy"]=24,
+	["skill_life_regeneration_per_minute_per_affected_enemy"]=8,
+	["skill_life_regeneration_per_minute_with_at_least_1_affected_enemy"]=6,
+	["skill_mana_regeneration_per_minute_per_affected_enemy"]=9,
+	["skill_mana_regeneration_per_minute_with_at_least_1_affected_enemy"]=7,
+	["vampiric_icon_max_bleeding_beam_targets"]=5
 }

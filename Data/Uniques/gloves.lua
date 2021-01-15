@@ -40,7 +40,7 @@ your maximum number of Crab Barriers
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
-Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current

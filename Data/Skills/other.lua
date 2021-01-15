@@ -795,8 +795,8 @@ skills["ColdAegis"] = {
 	name = "Cold Aegis",
 	hidden = true,
 	color = 4,
-	description = "Calls forth a protective aegis which takes cold damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking cold damage from hits.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	description = "Calls forth a protective aegis which takes cold damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking cold damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Aegis] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -811,19 +811,20 @@ skills["ColdAegis"] = {
 	stats = {
 		"aegis_unique_shield_max_value",
 		"active_skill_display_aegis_variation",
+		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 1000, 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 1000, 1, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["PhysicalAegis"] = {
 	name = "Physical Aegis",
 	hidden = true,
 	color = 4,
-	description = "Calls forth a protective aegis which takes physical damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking physical damage from hits.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	description = "Calls forth a protective aegis which takes physical damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking physical damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Aegis] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -838,11 +839,12 @@ skills["PhysicalAegis"] = {
 	stats = {
 		"aegis_unique_shield_max_value",
 		"active_skill_display_aegis_variation",
+		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 1000, 4, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 1000, 4, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["CorpseWalk"] = {
@@ -1138,8 +1140,8 @@ skills["ElementalAegis"] = {
 	name = "Elemental Aegis",
 	hidden = true,
 	color = 4,
-	description = "Calls forth a protective aegis which takes elemental damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking elemental damage from hits.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	description = "Calls forth a protective aegis which takes elemental damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking elemental damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Aegis] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1154,11 +1156,12 @@ skills["ElementalAegis"] = {
 	stats = {
 		"aegis_unique_shield_max_value",
 		"active_skill_display_aegis_variation",
+		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 1000, 2, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 1000, 2, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["SupportElementalPenetration"] = {
@@ -1329,8 +1332,8 @@ skills["FireAegis"] = {
 	name = "Fire Aegis",
 	hidden = true,
 	color = 4,
-	description = "Calls forth a protective aegis which takes fire damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking fire damage from hits.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	description = "Calls forth a protective aegis which takes fire damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking fire damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Aegis] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1345,11 +1348,12 @@ skills["FireAegis"] = {
 	stats = {
 		"aegis_unique_shield_max_value",
 		"active_skill_display_aegis_variation",
+		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 1000, 0, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 1000, 0, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["FireBurstOnHit"] = {
@@ -1531,7 +1535,7 @@ skills["TriggeredIcicleNova"] = {
 	},
 	stats = {
 		"number_of_additional_projectiles",
-		"trigger_on_kill_vs_frozen_enemy_%",
+		"trigger_on_hit_vs_frozen_enemy_%",
 		"monster_projectile_variation",
 		"skill_physical_damage_%_to_convert_to_cold",
 		"projectiles_nova",
@@ -1572,8 +1576,8 @@ skills["LightningAegis"] = {
 	name = "Lightning Aegis",
 	hidden = true,
 	color = 4,
-	description = "Calls forth a protective aegis which takes lightning damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking lightning damage from hits.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	description = "Calls forth a protective aegis which takes lightning damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking lightning damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Aegis] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1588,11 +1592,12 @@ skills["LightningAegis"] = {
 	stats = {
 		"aegis_unique_shield_max_value",
 		"active_skill_display_aegis_variation",
+		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 1000, 3, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 1000, 3, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["LightningSpell"] = {
@@ -2715,7 +2720,7 @@ skills["ShieldShatter"] = {
 	baseEffectiveness = 0.34000000357628,
 	incrementalEffectiveness = 0.045000001788139,
 	description = "Your shield shatters, dealing physical spell damage to enemies in an area, based on the shield's quality. For a short duration after this, you will be unable to block and will gain no defences from your shield, but your spells will deal added physical damage.",
-	skillTypes = { [SkillType.Hit] = true, [SkillType.PhysicalSkill] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	skillTypes = { [SkillType.Hit] = true, [SkillType.PhysicalSkill] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
