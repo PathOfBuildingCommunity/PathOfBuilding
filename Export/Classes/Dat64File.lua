@@ -46,7 +46,7 @@ local dataTypes = {
 		size = 8,
 		read = function(b, o, d) 
 			if o > #b - 3 then return "<no offset>" end
-			local stro = bytesToUInt(b, o)
+			local stro = bytesToULong(b, o)
 			if stro > #b - 3 then return "<bad offset>" end
 			return convertUTF16to8(b, d + stro)
 		end,
@@ -64,7 +64,7 @@ local dataTypes = {
 		ref = true,
 		read = function(b, o, d)
 			if o > #b - 7 then return 1337 end
-			return bytesToUInt(b, o)
+			return bytesToULong(b, o)
 		end,
 	},
 }
