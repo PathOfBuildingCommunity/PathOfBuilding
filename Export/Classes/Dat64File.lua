@@ -9,34 +9,34 @@ local m_min = math.min
 
 local dataTypes = {
 	Bool = {
-		size = 2, 
+		size = 1, 
 		read = function(b, o, d) 
 			return b:byte(o) == 1 
 		end,
 	}, 
 	Int = { 
-		size = 8, 
+		size = 4, 
 		read = function(b, o, d)
 			if o > #b - 3 then return -1337 end
 			return bytesToInt(b, o)
 		end,
 	},
 	UInt = { 
-		size = 8, 
+		size = 4, 
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
 			return bytesToUInt(b, o)
 		end,
 	},
 	Interval = {
-		size = 16,
+		size = 8,
 		read = function(b, o, d)
 			if o > #b - 7 then return { 1337, 1337 } end
 			return { bytesToInt(b, o), bytesToInt(b, o + 4) }
 		end,
 	},
 	Float = { 
-		size = 8, 
+		size = 4, 
 		read = function(b, o, d)
 			if o > #b - 3 then return -1337 end
 			return bytesToFloat(b, o)
@@ -52,7 +52,7 @@ local dataTypes = {
 		end,
 	},
 	Enum = { 
-		size = 8, 
+		size = 4, 
 		ref = true,
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
@@ -207,7 +207,7 @@ function Dat64FileClass:ReadCell(rowIndex, colIndex)
 	if spec.list then
 		local dataType = dataTypes[spec.type]
 		local count = bytesToUInt(self.raw, base)
-		local offset = bytesToUInt(self.raw, base + 8) + self.dataOffset
+		local offset = bytesToUInt(self.raw, base + 4) + self.dataOffset
 		local out = { }
 		for i = 1, m_min(count, 1000) do
 			out[i] = self:ReadValue(spec, offset)
@@ -245,7 +245,7 @@ function Dat64FileClass:ReadCellText(rowIndex, colIndex)
 	if spec.list then
 		local dataType = dataTypes[spec.type]
 		local count = bytesToUInt(self.raw, base)
-		local offset = bytesToUInt(self.raw, base + 8) + self.dataOffset
+		local offset = bytesToUInt(self.raw, base + 4) + self.dataOffset
 		local out = { }
 		for i = 1, m_min(count, 1000) do
 			out[i] = self:ReadValueText(spec, offset)
