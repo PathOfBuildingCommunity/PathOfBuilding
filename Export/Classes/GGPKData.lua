@@ -39,7 +39,8 @@ local GGPKClass = newClass("GGPKData", function(self, path)
 	self.txt = { }
 	
 	self:ExtractFiles()
-	self:AddDatFiles()
+	--self:AddDatFiles()
+	self:AddDat64Files()
 end)
 
 function GGPKClass:ExtractFiles()
@@ -47,7 +48,7 @@ function GGPKClass:ExtractFiles()
 	
 	local fileList = ''
 	for _, fname in ipairs(datList) do
-		fileList = fileList .. '"' .. fname .. '" '
+		fileList = fileList .. '"' .. fname .. '" ' .. '"' .. fname .. '64" '
 	end
 	for _, fname in ipairs(txtList) do
 		fileList = fileList .. '"' .. fname .. '" '
@@ -60,6 +61,19 @@ end
 
 function GGPKClass:AddDatFiles()
 	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat$')
+	for _, f in ipairs(datFiles) do
+		local record = { }
+		record.name = f
+		local rawFile = io.open(self.oozPath .. "Data\\" .. f, 'rb')
+		record.data = rawFile:read("*all")
+		rawFile:close()
+		--ConPrintf("FILENAME: %s", fname)
+		t_insert(self.dat, record)
+	end
+end
+
+function GGPKClass:AddDat64Files()
+	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat64$')
 	for _, f in ipairs(datFiles) do
 		local record = { }
 		record.name = f
