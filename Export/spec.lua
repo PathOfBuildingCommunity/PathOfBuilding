@@ -244,28 +244,28 @@ return {
 		[7]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="BuffDefinitions",
 			type="Key",
 			width=150
 		},
 		[8]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="BuffDefinitions",
 			type="Key",
 			width=150
 		},
 		[9]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="BuffDefinitions",
 			type="Key",
 			width=150
 		},
 		[10]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="MiscAnimated",
 			type="Key",
 			width=150
 		}
