@@ -1,3 +1,6 @@
+### 1.4.170.25 - 2021/01/16
+* Fix Trinity Support
+* Fix Hrimnor's Resolve
 ### 1.4.170.24 - 2021/01/16
 * Fix Rupture calculations
 ### 1.4.170.23 - 2021/01/16
