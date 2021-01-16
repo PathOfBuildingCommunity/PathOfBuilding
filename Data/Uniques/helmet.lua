@@ -84,7 +84,7 @@ Requires Level 65, 148 Str
 Armour is increased by Uncapped Fire Resistance
 ]],[[
 Hrimnor's Resolve
-Samite Helmet
+Samnite Helmet
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
