@@ -4803,8 +4803,10 @@ skills["SupportTrinity"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["elemental_damage_+%_final_per_5_lowest_resonance"] = {
+			mod("ElementalDamage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ResonanceCount", div = 5 }),
 		},
 		["damage_penetrates_%_elemental_resistances_while_all_resonance_is_25"] = {
+			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "ResonanceCount", threshold = 25 }),
 		},
 	},
 	baseMods = {
