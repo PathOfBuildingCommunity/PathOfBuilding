@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.170.24" />
+	<Version number="1.4.170.25" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-2_6.zip" />
@@ -18,7 +18,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="ba9b08700c20bb54453133f67139836a3997f685" />
-	<File name="changelog.txt" part="program" sha1="8b0d6d88d897f2abc85db29629d4a00ed9aac2b4" />
+	<File name="changelog.txt" part="program" sha1="abd61ee06a22e31b4ced851256ea9ac84fa81fa8" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="abedf9c43a64c4a9270de5aacc3f02a105fecd1d" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="cc0214199af6b4cb770e2f6a089af9b66c3f7d59" />
@@ -98,7 +98,7 @@
 	<File name="Data/Uniques/dagger.lua" part="program" sha1="4779fe396da22f5769943bdfe1265d4073803dff" />
 	<File name="Data/Uniques/flask.lua" part="program" sha1="eb62097063ebd7629d14baed597e1f7c3740b2d8" />
 	<File name="Data/Uniques/gloves.lua" part="program" sha1="2932c42a91b449c283bc1a883541c7d44292a85c" />
-	<File name="Data/Uniques/helmet.lua" part="program" sha1="a38cb630178a725a2db064209256fead06d2114b" />
+	<File name="Data/Uniques/helmet.lua" part="program" sha1="20ac309f6cf6036590a8bfcfabcc54c60a78eded" />
 	<File name="Data/Uniques/jewel.lua" part="program" sha1="3259a71bf58dbffc627269be201f697f07f996d8" />
 	<File name="Data/Uniques/mace.lua" part="program" sha1="a261bff6558d794f0901fa7627c644f25212a26c" />
 	<File name="Data/Uniques/quiver.lua" part="program" sha1="6ce15b290ad085a41e7d99341441ea495c8c8e97" />
@@ -154,7 +154,7 @@
 	<File name="Data/Skills/other.lua" part="program" sha1="67b77957f7bd15d4912bf9527834dc41d1abdd41" />
 	<File name="Data/Skills/spectre.lua" part="program" sha1="7f48b096fff5dad5bbe288e776a1ca3b6784f8d7" />
 	<File name="Data/Skills/sup_dex.lua" part="program" sha1="17bb5f614ca3dbbfb3e3bc0d30b341dd3cc16698" />
-	<File name="Data/Skills/sup_int.lua" part="program" sha1="028a51198b879ec429a1b7b0ae4b323083fec900" />
+	<File name="Data/Skills/sup_int.lua" part="program" sha1="176abf71ca51a41ef18158e1fd18b7f994040a35" />
 	<File name="Data/Skills/sup_str.lua" part="program" sha1="a0f1fb6810e4a856d00998f1aaeee8e640008bae" />
 	<File name="Data/StatDescriptions/active_skill_gem_stat_descriptions.lua" part="program" sha1="93cd08393df652804823c615a70dae0bd4445003" />
 	<File name="Data/StatDescriptions/aura_skill_stat_descriptions.lua" part="program" sha1="8465b6f7704b59276b8236991e2fa1639fecec38" />
