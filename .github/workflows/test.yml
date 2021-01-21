@@ -1,0 +1,22 @@
+name: Run Tests
+on: push
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Lua/LuaJIT
+        uses: leafo/gh-actions-lua@v8.0.0
+        with:
+          luaVersion: "luajit-2.0.5"
+      - name: Install LuaRocks
+        uses: leafo/gh-actions-luarocks@v4.0.0
+      - name: Install luaunit
+        run: luarocks install luaunit
+      - name: Unzip for lua libs
+        run: unzip runtime-win32.zip
+      - name: Copy Lua libs
+        run: cp lua/*.lua ./
+      - name: Run tests
+        run: luajit Test/TestRunner.lua
