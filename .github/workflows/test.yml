@@ -21,8 +21,8 @@ jobs:
       - name: Unzip for lua libs
         run: unzip runtime-win32.zip
       - name: Set LUA_PATH
-        run: cp lua/*.lua ./
+        run: export LUA_PATH=./lua/?.lua
       - name: Run tests
-        run: busted -c Test/TestRunner.lua
+        run: busted -c --lua=/usr/bin/luajit --helper=HeadlessWrapper.lua .
       - name: Report coverage
         run: luacov-coveralls
