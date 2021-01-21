@@ -258,7 +258,7 @@ skills["BoneStalkerEarthquake"] = {
 	hidden = true,
 	color = 1,
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -897,7 +897,7 @@ skills["GoatmanEarthquake"] = {
 	hidden = true,
 	color = 1,
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -2720,7 +2720,7 @@ skills["MonsterWarlordsMark"] = {
 	},
 }
 skills["MotherOfFlamesMagmaOrb3"] = {
-	name = "Magma Orb",
+	name = "Rolling Magma",
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 2.7778000831604,
@@ -4851,21 +4851,22 @@ skills["HeistThugRangedExplosiveArrow"] = {
 		[1] = { 2, 0.80000001192093, 1.2000000476837, -5000, 12, 3, 20, duration = 2, levelRequirement = 1, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, },
 	},
 }
-skills["EmptyActionSpellSecretPoliceDaggers"] = {
-	name = "Dagger Trigger Spell",
+skills["EmptyActionAttackSecretPoliceDaggers"] = {
+	name = "Dagger Trigger Attack",
 	hidden = true,
 	color = 4,
 	skillTypes = { },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.87,
 	baseFlags = {
-		spell = true,
+		attack = true,
 	},
 	baseMods = {
 	},
 	qualityStats = {
 	},
 	stats = {
+		"cast_time_overrides_attack_duration",
 	},
 	levels = {
 		[1] = { levelRequirement = 0, statInterpolation = { }, },
@@ -4998,7 +4999,7 @@ skills["GAHeistThugRangedShotgun"] = {
 	name = "Ranged Shotgun",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Channelled] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.33,
 	baseFlags = {
@@ -5024,7 +5025,6 @@ skills["GAHeistThugRangedShotgun"] = {
 		[4] = { 50, 60, baseMultiplier = 1.3, levelRequirement = 84, statInterpolation = { 1, 2, }, },
 	},
 }
-
 skills["GSHeistRobotPyreBeamBlast"] = {
 	name = "Beam Blast",
 	hidden = true,
@@ -5088,7 +5088,7 @@ skills["GSHeistRobotPyreNukeBeamChannelled"] = {
 	color = 4,
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.045000001788139,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Channelled] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.54,
 	baseFlags = {
@@ -5158,7 +5158,7 @@ skills["MeleeEyrieBird"] = {
 	stats = {
 		"skill_physical_damage_%_to_convert_to_cold",
 		"active_skill_damage_+%_final",
-		"knockback_speed_+%",
+		"base_knockback_speed_+%",
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
 		"global_knockback",

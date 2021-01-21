@@ -1226,6 +1226,18 @@ return {
 			"Consecrated Ground from Holy Flame Totem applies 9% increased Damage taken to Enemies",
 		},
 	},
+	["Hydrosphere"] = {
+		["MERCILESS"] = {
+			"Hydrosphere deals 25% increased Damage",
+			"Hydrosphere has 20% increased Pulse Frequency",
+			"Enemies Drenched by Hydrosphere have Cold and Lightning Exposure, applying -4% to Resistances",
+		},
+		["ENDGAME"] = {
+			"Hydrosphere deals 40% increased Damage",
+			"Hydrosphere has 30% increased Pulse Frequency",
+			"Enemies Drenched by Hydrosphere have Cold and Lightning Exposure, applying -6% to Resistances",
+		},
+	},
 	["Ice Crash"] = {
 		["MERCILESS"] = {
 			"25% increased Ice Crash Damage",
@@ -1303,7 +1315,7 @@ return {
 	},
 	["Immortal Call"] = {
 		["MERCILESS"] = {
-			"34% increased Immortal Call Duration",
+			"24% increased Immortal Call Duration",
 		},
 		["ENDGAME"] = {
 			"36% increased Immortal Call Duration",
@@ -1490,17 +1502,6 @@ return {
 			"40% increased Lightning Warp Damage",
 			"12% increased Lightning Warp Cast Speed",
 			"30% reduced Lightning Warp Duration",
-		},
-	},
-	["Magma Orb"] = {
-		["MERCILESS"] = {
-			"25% increased Magma Orb Damage",
-			"16% increased Magma Orb Area of Effect",
-		},
-		["ENDGAME"] = {
-			"40% increased Magma Orb Damage",
-			"Magma Orb Chains an additional time",
-			"24% increased Magma Orb Area of Effect",
 		},
 	},
 	["Malevolence"] = {
@@ -1829,6 +1830,17 @@ return {
 		["ENDGAME"] = {
 			"40% increased Riposte Damage",
 			"Riposte has 30% increased Cooldown Recovery Rate",
+		},
+	},
+	["Rolling Magma"] = {
+		["MERCILESS"] = {
+			"25% increased Rolling Magma Damage",
+			"16% increased Rolling Magma Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Rolling Magma Damage",
+			"Rolling Magma Chains an additional time",
+			"24% increased Rolling Magma Area of Effect",
 		},
 	},
 	["Scorching Ray"] = {
@@ -2418,7 +2430,7 @@ return {
 		["ENDGAME"] = {
 			"Venom Gyre deals 40% increased Damage",
 			"Venom Gyre has a 20% chance to inflict Withered for 2 seconds on Hit",
-			"Venom Gyre has a 35% chance to keep caught Projectiles fired by using Whirling Blades",
+			"Venom Gyre has a 25% chance to keep caught Projectiles fired by using Whirling Blades",
 		},
 	},
 	["Vigilant Strike"] = {

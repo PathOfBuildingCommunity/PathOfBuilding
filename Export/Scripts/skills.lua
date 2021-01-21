@@ -98,6 +98,8 @@ local skillTypes = {
 	"SteelSkill",
 	"Hex",
 	"Mark",
+	"Aegis",
+	"Orb",
 }
 
 local function mapAST(ast)

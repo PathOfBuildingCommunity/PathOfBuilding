@@ -768,8 +768,8 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20)
 #mods
 
-#skill EmptyActionSpellSecretPoliceDaggers Dagger Trigger Spell
-#flags spell
+#skill EmptyActionAttackSecretPoliceDaggers Dagger Trigger Attack
+#flags attack
 #mods
 
 #skill BetrayalSecretPoliceCurveDagger1 Secret Police Daggers
@@ -791,7 +791,6 @@ local skills, mod, flag, skill = ...
 #skill GAHeistThugRangedShotgun Ranged Shotgun
 #flags attack hit area triggerable
 #mods
-
 
 #skill GSHeistRobotPyreBeamBlast Beam Blast
 #flags spell hit area triggerable

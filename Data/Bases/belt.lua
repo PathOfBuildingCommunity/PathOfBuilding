@@ -82,7 +82,6 @@ itemBases["Stygian Vise"] = {
 
 itemBases["Golden Obi"] = {
 	type = "Belt",
-	hidden = true,
 	tags = { default = true, belt = true, not_for_sale = true, },
 	implicit = "(20-30)% increased Rarity of Items found",
 	implicitModTypes = { {  }, },

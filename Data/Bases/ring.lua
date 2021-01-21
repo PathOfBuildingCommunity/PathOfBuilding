@@ -183,7 +183,6 @@ itemBases["Breach Ring"] = {
 }
 itemBases["Golden Hoop"] = {
 	type = "Ring",
-	hidden = true,
 	tags = { default = true, ring = true, not_for_sale = true, },
 	implicit = "+(8-12) to all Attributes",
 	implicitModTypes = { { "attribute" }, },
