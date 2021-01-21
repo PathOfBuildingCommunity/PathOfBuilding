@@ -156,7 +156,7 @@ function CalcSectionClass:UpdatePos()
 end
 
 function CalcSectionClass:FormatVal(val, p)
-	if main.showSeperatorCalcs then
+	if main.showSeparatorCalcs then
 		return formatNumSep(tostring(round(val, p)))
 	else
 		return round(val, p)
