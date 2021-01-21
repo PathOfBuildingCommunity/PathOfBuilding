@@ -5200,3 +5200,66 @@ skills["AtlasEyrieBirdBreath"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, 30, critChance = 5, cooldown = 10, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, },
 	},
 }
+skills["SecretDesecrateMonsterEarthquakeTriggered"] = {
+	name = "Earthquake",
+	hidden = true,
+	color = 4,
+	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
+		["Staff"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		melee = true,
+		area = true,
+		duration = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"quake_slam_fully_charged_explosion_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 10, 50, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["SecretDesecrateMonsterMultiSlash"] = {
+	name = "Multi Slash",
+	hidden = true,
+	color = 1,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"is_area_damage",
+		"skill_is_attack",
+	},
+	levels = {
+		[1] = { attackSpeedMultiplier = -33, levelRequirement = 0, statInterpolation = { }, },
+	},
+}
