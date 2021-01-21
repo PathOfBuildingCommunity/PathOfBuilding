@@ -810,13 +810,13 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
 	end
-	if main.showSeperatorSidebar ~= self.lastShowSeperatorSidebar then
+	if main.showSeparatorSidebar ~= self.lastShowSeparatorSidebar then
 		self:RefreshStatList()
 	end
-	if main.thousandsSeperator ~= self.lastShowThousandsSeperator then
+	if main.thousandsSeparator ~= self.lastShowThousandsSeparator then
 		self:RefreshStatList()
 	end
-	if main.decimalSeperator ~= self.lastShowDecimalSeperator then
+	if main.decimalSeparator ~= self.lastShowDecimalSeparator then
 		self:RefreshStatList()
 	end
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
@@ -1099,15 +1099,15 @@ function buildMode:FormatStat(statData, statVal)
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
-	valStr:gsub("%.", main.decimalSeperator)
-	if main.showSeperatorSidebar then
+	valStr:gsub("%.", main.decimalSeparator)
+	if main.showSeparatorSidebar then
 		valStr = color .. formatNumSep(valStr)
 	else
 		valStr = color .. valStr
 	end
-	self.lastShowSeperatorSidebar = main.showSeperatorSidebar
-	self.lastShowThousandsSeperator = main.thousandsSeperator
-	self.lastShowDecimalSeperator = main.decimalSeperator
+	self.lastShowSeparatorSidebar = main.showSeparatorSidebar
+	self.lastShowThousandsSeparator = main.thousandsSeparator
+	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
 end
@@ -1176,7 +1176,7 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
-				if main.showSeperatorCalcs then
+				if main.showSeparatorCalcs then
 					valStr = formatNumSep(valStr)
 				end
 				local line = string.format("%s%s %s", color, valStr, statData.label)

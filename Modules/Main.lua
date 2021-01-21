@@ -199,10 +199,10 @@ the "Releases" section of the GitHub page.]])
 
 	self.buildSortMode = "NAME"
 	self.nodePowerTheme = "RED/BLUE"
-	self.showSeperatorSidebar = true
-	self.showSeperatorCalcs = true
-	self.thousandsSeperator = ","
-	self.decimalSeperator = "."
+	self.showSeparatorSidebar = true
+	self.showSeparatorCalcs = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
 	self.showTitlebarName = true
 
 	local ignoreBuild = self:LoadPastebinBuild()
@@ -484,17 +484,17 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
-				if node.attrib.showSeperatorSidebar then
-					self.showSeperatorSidebar = node.attrib.showSeperatorSidebar == "true"
+				if node.attrib.showSeparatorSidebar then
+					self.showSeparatorSidebar = node.attrib.showSeparatorSidebar == "true"
 				end -- else leave at default
-				if node.attrib.showSeperatorCalcs then
-					self.showSeperatorCalcs = node.attrib.showSeperatorCalcs == "true"
+				if node.attrib.showSeparatorCalcs then
+					self.showSeparatorCalcs = node.attrib.showSeparatorCalcs == "true"
 				end -- else leave at default
-				if node.attrib.thousandsSeperator then
-					self.thousandsSeperator = node.attrib.thousandsSeperator
+				if node.attrib.thousandsSeparator then
+					self.thousandsSeparator = node.attrib.thousandsSeparator
 				end
-				if node.attrib.decimalSeperator then
-					self.decimalSeperator = node.attrib.decimalSeperator
+				if node.attrib.decimalSeparator then
+					self.decimalSeparator = node.attrib.decimalSeparator
 				end
 				if node.attrib.showTitlebarName then
 					self.showTitlebarName = node.attrib.showTitlebarName == "true"
@@ -541,10 +541,10 @@ function main:SaveSettings()
 		proxyURL = launch.proxyURL, 
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
-		showSeperatorSidebar = tostring(self.showSeperatorSidebar),
-		showSeperatorCalcs = tostring(self.showSeperatorCalcs),
-		thousandsSeperator = self.thousandsSeperator,
-		decimalSeperator = self.decimalSeperator,
+		showSeparatorSidebar = tostring(self.showSeparatorSidebar),
+		showSeparatorCalcs = tostring(self.showSeparatorCalcs),
+		thousandsSeparator = self.thousandsSeparator,
+		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
@@ -584,35 +584,35 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.seperatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show separators in:")
-	controls.seperatorSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, "Sidebar:", function(state)
-		self.showSeperatorSidebar = state
+	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show separators in:")
+	controls.separatorSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, "Sidebar:", function(state)
+		self.showSeparatorSidebar = state
 	end)
-	controls.seperatorSidebar.state = self.showSeperatorSidebar
-	controls.seperatorCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 380, 92, 20, "Calcs tab:", function(state)
-		self.showSeperatorCalcs = state
+	controls.separatorSidebar.state = self.showSeparatorSidebar
+	controls.separatorCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 380, 92, 20, "Calcs tab:", function(state)
+		self.showSeparatorCalcs = state
 	end)
-	controls.seperatorCalcs.state = self.showSeperatorCalcs
+	controls.separatorCalcs.state = self.showSeparatorCalcs
 	-- New Code
-	controls.thousandsSeperator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeperator, nil, nil, 1, function(buf)
-		self.thousandsSeperator = buf
+	controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeparator, nil, nil, 1, function(buf)
+		self.thousandsSeparator = buf
 	end)
-	controls.thousandsSeperatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 116, 92, 16, "Thousands Seperator:")
-	controls.decimalSeperator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 138, 20, 20, self.decimalSeperator, nil, nil, 1, function(buf)
-		self.decimalSeperator = buf
+	controls.thousandsSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 116, 92, 16, "Thousands Separator:")
+	controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 138, 20, 20, self.decimalSeparator, nil, nil, 1, function(buf)
+		self.decimalSeparator = buf
 	end)
-	controls.decimalSeperatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 138, 92, 16, "Decimal Seperator:")
+	controls.decimalSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 138, 92, 16, "Decimal Separator:")
 	-- New Code
 	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 160, 20, "Show build name in window title:", function(state)
 		self.showTitlebarName = state
 	end)
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
-	local initialSeperatorDisplaySidebar = self.showSeperatorSidebar
-	local initialSeperatorDisplayCalcs = self.showSeperatorCalcs
+	local initialSeparatorDisplaySidebar = self.showSeparatorSidebar
+	local initialSeparatorDisplayCalcs = self.showSeparatorCalcs
 	local initialTitlebarName = self.showTitlebarName
-	local initialThousandsSeperator = self.thousandsSeperator
-	local initialDecimalSeperator = self.decimalSeperator
+	local initialThousandsSeparator = self.thousandsSeparator
+	local initialDecimalSeparator = self.decimalSeparator
 	controls.save = new("ButtonControl", nil, -45, 182, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
@@ -634,11 +634,11 @@ function main:OpenOptionsPopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 45, 182, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
-		self.showSeperatorSidebar = initialSeperatorDisplaySidebar
-		self.showSeperatorCalcs = initialSeperatorDisplayCalcs
+		self.showSeparatorSidebar = initialSeparatorDisplaySidebar
+		self.showSeparatorCalcs = initialSeparatorDisplayCalcs
 		self.showTitlebarName = initialTitlebarName
-		self.thousandsSeperator = initialThousandsSeperator
-		self.decimalSeperator = initialDecimalSeperator
+		self.thousandsSeparator = initialThousandsSeparator
+		self.decimalSeparator = initialDecimalSeparator
 		main:ClosePopup()
 	end)
 	self:OpenPopup(450, 218, "Options", controls, "save", nil, "cancel")
