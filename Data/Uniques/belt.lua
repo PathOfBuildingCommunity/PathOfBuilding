@@ -3,6 +3,18 @@
 return {
 -- Belt
 [[
+Arn's Anguish
+Cloth Belt
+Requires Level 68
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_defense}+(600-700) to Armour
+{tags:life}(12-15)% increased maximum Life
+{tags:jewellery_resistance}+(40-60)% to Fire Resistance
+Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges
+Maximum Brutal Charges is equal to Maximum Endurance Charges
+Gain Brutal Charges instead of Endurance Charges
+]],[[
 Ascent From Flesh
 Chain Belt
 Source: prophecy{Thaumaturgical History IV}
