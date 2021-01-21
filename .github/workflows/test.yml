@@ -12,11 +12,17 @@ jobs:
           luaVersion: "luajit-2.0.5"
       - name: Install LuaRocks
         uses: leafo/gh-actions-luarocks@v4.0.0
-      - name: Install luaunit
-        run: luarocks install luaunit
+      - name: Install busted
+        run: luarocks install busted
+      - name: Install cluacov
+        run: luarocks install cluacov
+      - name: Install coveralls integration
+        run: luarocks install luacov-coveralls
       - name: Unzip for lua libs
         run: unzip runtime-win32.zip
-      - name: Copy Lua libs
+      - name: Set LUA_PATH
         run: cp lua/*.lua ./
       - name: Run tests
-        run: luajit Test/TestRunner.lua
+        run: busted -c Test/TestRunner.lua
+      - name: Report coverage
+        run: luacov-coveralls
