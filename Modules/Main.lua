@@ -593,7 +593,6 @@ function main:OpenOptionsPopup()
 		self.showSeparatorCalcs = state
 	end)
 	controls.separatorCalcs.state = self.showSeparatorCalcs
-	-- New Code
 	controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeparator, nil, nil, 1, function(buf)
 		self.thousandsSeparator = buf
 	end)
@@ -602,7 +601,6 @@ function main:OpenOptionsPopup()
 		self.decimalSeparator = buf
 	end)
 	controls.decimalSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 138, 92, 16, "Decimal Separator:")
-	-- New Code
 	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 160, 20, "Show build name in window title:", function(state)
 		self.showTitlebarName = state
 	end)
