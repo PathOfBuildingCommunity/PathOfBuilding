@@ -815,3 +815,11 @@ local skills, mod, flag, skill = ...
 #skill AtlasEyrieBirdBreath Chilling Breath
 #flags spell hit area triggerable
 #mods
+
+#skill SecretDesecrateMonsterEarthquakeTriggered Earthquake
+#flags attack hit melee area duration triggerable
+#mods
+
+#skill SecretDesecrateMonsterMultiSlash Multi Slash
+#flags attack hit area triggerable
+#mods
