@@ -348,21 +348,18 @@ local function doActorMisc(env, actor)
 	end
 	output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
 	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
-	if modDB:Flag(nil, "UseEnduranceCharges") then
-		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
-		if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
-			-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
-			-- and are converted from Endurance Charges
-			output.BrutalCharges = m_max(output.EnduranceCharges, m_min(output.BrutalChargesMax, output.BrutalChargesMin))
-			output.EnduranceCharges = 0
-		else
-			output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
-			output.BrutalCharges = 0
-		end
-	else
-		output.EnduranceCharges = 0
-		output.BrutalCharges = 0
-	end
+output.EnduranceCharges = 0
+output.BrutalCharges = 0
+if modDB:Flag(nil, "UseEnduranceCharges") then
+    output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
+    if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+        -- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
+        -- and are converted from Endurance Charges
+        output.BrutalCharges = m_max(output.EnduranceCharges, m_min(output.BrutalChargesMax, output.BrutalChargesMin))
+    else
+        output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
+    end
+end
 	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
