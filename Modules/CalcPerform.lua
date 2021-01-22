@@ -332,51 +332,59 @@ local function doActorMisc(env, actor)
 	output.BlitzChargesMax = modDB:Sum("BASE", nil, "BlitzChargesMax")
 	output.InspirationChargesMax = modDB:Sum("BASE", nil, "InspirationChargesMax")
 	output.CrabBarriersMax = modDB:Sum("BASE", nil, "CrabBarriersMax")
+	output.BrutalChargesMin = modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and output.EnduranceChargesMin or 0
+	output.BrutalChargesMax = modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0
+
+	-- Initialize Charges
+	output.PowerCharges = 0
+	output.FrenzyCharges = 0
+	output.EnduranceCharges = 0
+	output.SiphoningCharges = 0
+	output.ChallengerCharges = 0
+	output.BlitzCharges = 0
+	output.InspirationCharges = 0
+	output.GhostShrouds = 0
+	output.BrutalCharges = 0
+	output.AbsorptionCharges = 0
+	output.AfflictionCharges = 0
+
+	-- Conditionally over-write Charge values
 	if modDB:Flag(nil, "UsePowerCharges") then
 		output.PowerCharges = modDB:Override(nil, "PowerCharges") or output.PowerChargesMax
-	else
-		output.PowerCharges = 0
 	end
 	output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
 	output.RemovablePowerCharges = m_max(output.PowerCharges - output.PowerChargesMin, 0)
 	if modDB:Flag(nil, "UseFrenzyCharges") then
 		output.FrenzyCharges = modDB:Override(nil, "FrenzyCharges") or output.FrenzyChargesMax
-	else
-		output.FrenzyCharges = 0
 	end
 	output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
 	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
-	else
-		output.EnduranceCharges = 0
+		if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+			-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
+			-- and are converted from Endurance Charges
+			output.BrutalCharges = m_max(output.EnduranceCharges, m_min(output.BrutalChargesMax, output.BrutalChargesMin))
+			output.EnduranceCharges = 0
+		else
+			output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
+		end
 	end
-	output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
 	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
-	else
-		output.SiphoningCharges = 0
 	end
 	if modDB:Flag(nil, "UseChallengerCharges") then
 		output.ChallengerCharges = modDB:Override(nil, "ChallengerCharges") or output.ChallengerChargesMax
-	else
-		output.ChallengerCharges = 0
 	end
 	if modDB:Flag(nil, "UseBlitzCharges") then
 		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
-	else
-		output.BlitzCharges = 0
 	end
 	if modDB:Flag(nil, "UseInspirationCharges") then
 		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
-	else
-		output.InspirationCharges = 0
 	end
 	if modDB:Flag(nil, "UseGhostShrouds") then
 		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
-	else
-		output.GhostShrouds = 0
 	end
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
@@ -399,6 +407,7 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["InspirationCharge"] = output.InspirationCharges
 	modDB.multipliers["GhostShroud"] = output.GhostShrouds
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
+	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
