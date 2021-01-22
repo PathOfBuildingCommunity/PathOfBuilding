@@ -1,3 +1,9 @@
+### Unreleased
+* Add support for Arn's Anguish
+* Add Flickershade Spectre
+* Fix Timeless Jewel passives not accounting for past skill tree versions
+* Fix Flame Wall secondary damage not being affected by area damage
+* Fix Endurance/Frenzy/Power charges missing for Minions
 ### 1.4.170.25 - 2021/01/16
 * Fix Trinity Support
 * Fix Hrimnor's Resolve

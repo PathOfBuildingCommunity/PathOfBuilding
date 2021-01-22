@@ -88,7 +88,7 @@ local skillTypes = {
 	"Type93",
 	"Banner",
 	"Type95",
-	"Type96",
+	"SecondWindSupport",
 	"Type97",
 	"CantUseFistOfWar",
 	"SlamSkill",
