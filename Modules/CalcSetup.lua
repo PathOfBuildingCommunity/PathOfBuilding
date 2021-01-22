@@ -258,6 +258,9 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 	modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
 	modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
+	modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
+	modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
+	modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 
 	-- Add bandit mods
 	if build.bandit == "Alira" then
