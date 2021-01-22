@@ -25,17 +25,6 @@ Requires Level 43, 34 Str, 34 Int
 Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
 Hits Overwhelm 11% of Physical Damage Reduction while you have Sacrificial Zeal
 ]],[[
-Legacy of Fury
-Wyrmscale Boots
-Requires Level 69, 48 Str, 48 Dex
-238% increased Armour and Evasion
--12% to all Elemental Resistances
-30% increased Movement Speed
-Drops Scorched Ground while moving, lasting 4 seconds
-31% increased Effect of Scorch
-40% chance when you Kill a Scorched Enemy to Burn Each surrounding
-Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second
-]],[[
 Qotra's Regulator
 Sovereign Spiked Shield
 Requires Level 54, 70 Dex, 70 Int

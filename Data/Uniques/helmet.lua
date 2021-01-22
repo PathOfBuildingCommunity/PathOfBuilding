@@ -1174,6 +1174,16 @@ Requires Level 62, 79 Dex, 72 Int
 Enemies cannot Leech Mana from You
 Socketed Gems have 50% reduced Mana Cost
 ]],[[
+Viridi's Veil
+Praetor Crown
+Requires Level 68, 62 Str, 91 Int
++(1-2) to Level of Socketed Gems
+(120-160)% increased Armour and Energy Shield
++(15-25)% to all Elemental Resistances
+Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped
+You are Hexproof if you have a Magic Ring in right slot
+Take no Extra Damage from Critical Strikes if you have a Magic Ring in left slot
+]],[[
 Willclash
 Golden Mask
 League: Heist

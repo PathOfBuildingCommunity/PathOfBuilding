@@ -717,6 +717,17 @@ Implicits: 1
 25% increased Light Radius
 Traps trigger at the end of their Duration
 ]],[[
+Survivor's Guilt
+Heavy Belt
+Requires Level 52
+Implicits: 1
+{tags:jewellery_attribute}+(25-35)% to Strength
+{tags:jewellery_defense}+(800-1200)% to Armour
+{tags:life}Regenerate (50-70) Life per second
+20% increased Stun Threshold
+10% reduced Armour per 50 Strength
+Imbalanced Guard
+]],[[
 Umbilicus Immortalis
 Leather Belt
 League: Perandus
