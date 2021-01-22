@@ -355,13 +355,13 @@ local function doActorMisc(env, actor)
 			-- and are converted from Endurance Charges
 			output.BrutalCharges = m_max(output.EnduranceCharges, m_min(output.BrutalChargesMax, output.BrutalChargesMin))
 			output.EnduranceCharges = 0
-			modDB:NewMod("TripleDamageChance", "BASE", 3, { type = "Multiplier", var = "BrutalCharge" } )
 		else
 			output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
 			output.BrutalCharges = 0
 		end
 	else
 		output.EnduranceCharges = 0
+		output.BrutalCharges = 0
 	end
 	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
 	if modDB:Flag(nil, "UseSiphoningCharges") then

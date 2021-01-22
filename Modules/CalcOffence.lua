@@ -344,6 +344,11 @@ function calcs.offence(env, actor, activeSkill)
 		return modifiers
 	end
 
+	-- additional charge based modifiers
+	if skillModList:Flag(nil, "UseEnduranceCharges") and skillModList:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+		modDB:NewMod("TripleDamageChance", "BASE", 3, { type = "Multiplier", var = "BrutalCharge" } )
+	end
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
