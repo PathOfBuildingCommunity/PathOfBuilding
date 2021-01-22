@@ -111,6 +111,18 @@ Implicits: 1
 {variant:1}Ignite a nearby Enemy on Killing an Ignited Enemy
 {variant:2}Ignites all nearby Enemies on Killing an Ignited Enemy
 ]],[[
+Blackflame
+Amethyst Ring
+Requires Level 49
+Implicits: 1
++(9-13)% to Chaos Resistance
++(8-12)% to Fire Damage over Time Multiplier
+50% reduced Ignite Duration on Enemies
+(10-15)% chance to Ignite
+Enemies Ignited by you take Chaos Damage instead of Fire Damage from Ignite
+Withered does not expire on Enemies Ignited by you
++(20-25)% to Fire and Chaos Resistances
+]],[[
 Blackheart
 Iron Ring
 Upgrade: Upgrades to unique{Voidheart} via prophecy{From The Void}
@@ -837,6 +849,18 @@ Implicits: 1
 {tags:attack,mana}0.4% of Physical Attack Damage Leeched as Mana
 Gain a Power Charge on non-Critical Strike
 Lose all Power Charges on Critical Strike
+]],[[
+Rotblood Promise
+Unset Ring
+Requires Level 56
+Implicits: 1
+Has 1 Socket
+Socketed Gems are Supported by Level 20 Blasphemy
+Curse Auras from Socketed Skills also affect you
+{tags:mana}Socketed Curse Gems have 50% reduced Mana Reservation
+{tags:jewellery_attribute}+(20–30) to Intelligence
+{tags:caster}20% reduced Effect of Curses on you
+{tags:caster}(15–25)% increased Damage with Hits and Ailments against Cursed Enemies
 ]],[[
 Shavronne's Revelation
 Moonstone Ring

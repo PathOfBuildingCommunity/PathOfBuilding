@@ -1028,6 +1028,17 @@ Triggers Level 20 Lightning Aegis when Equipped
 +(1-75) to maximum Mana
 (1-20)% increased Movement Speed
 ]],[[
+Qotra's Regulator
+Sovereign Spiked Shield
+Requires Level 54, 70 Dex, 70 Int
+Implicits: 1
+4% chance to Dodge Spell Hits
+(160-220)% increased Evasion and Energy Shield
++(40-60)% to Damage over Time Multiplier if you've dealt a Critical Strike in the past 8 seconds
+(2.0-2.5)% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds
+Lose (10-15)% of Energy Shield when you deal a Critical Strike
+Lose (10-15)% of Life when you deal a Critical Strike
+]],[[
 Zeel's Amplifier
 Polished Spiked Shield
 Requires Level 49, 64 Dex, 64 Int

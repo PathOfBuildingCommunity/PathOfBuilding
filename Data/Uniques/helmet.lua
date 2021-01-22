@@ -692,6 +692,17 @@ Requires Level 68, 62 Str, 91 Int
 Gain (8-12)% of Physical Damage as Extra Chaos Damage while at maximum Power Charges
 You take 50% reduced Extra Damage from Critical Strikes while you have no Power Charges
 ]],[[
+Ancient Skull
+Bone Helmet
+Requires Level 73, 76 Str, 76 Int
+Implicits: 1
+Minions deal (15-20)% increased Damage
+(150–200)% increased Armour and Energy Shield
+Minions have (20–40)% reduced maximum Life
+Minions have (15–25)% increased Movement Speed
+Minions have 50% increased Critical Strike Chance per Maximum Power Charge you have
+Minions can hear the whispers for 5 seconds after they deal a Critical Strike
+]],[[
 The Brine Crown
 Prophet Crown
 Variant: Pre 3.5.0
