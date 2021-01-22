@@ -408,6 +408,8 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["GhostShroud"] = output.GhostShrouds
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
 	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
+	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
+	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do

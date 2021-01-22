@@ -319,6 +319,18 @@ Implicits: 1
 Take (100-200) Physical Damage when you use a Movement Skill
 You have no Armour or Maximum Energy Shield
 ]],[[
+Graven's Secret
+Cloth Belt
+Requires Level 68
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_defense}+(600-700) to Armour
+{tags:mana}(16-20)% increased maximum Mana
+{tags:jewellery_resistance}+(40-60)% to Lightning Resistance
+Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
+Maximum Absorption Charges is equal to Maximum Power Charges
+Gain Absorption Charges instead of Power Charges
+]],[[
 Headhunter
 Leather Belt
 League: Nemesis
