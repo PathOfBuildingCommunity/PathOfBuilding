@@ -520,6 +520,7 @@ With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
 Hand of the Fervent
 Zealot Gloves
+League: Ritual
 Requires Level 43, 34 Str, 34 Int
 (70-130)% increased Armour and Energy Shield
 +(50-70) to maximum Life

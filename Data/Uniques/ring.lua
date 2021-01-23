@@ -113,6 +113,7 @@ Implicits: 1
 ]],[[
 Blackflame
 Amethyst Ring
+League: Ritual
 Requires Level 49
 Implicits: 1
 +(9-13)% to Chaos Resistance
@@ -852,6 +853,7 @@ Lose all Power Charges on Critical Strike
 ]],[[
 Rotblood Promise
 Unset Ring
+League: Ritual
 Requires Level 56
 Implicits: 1
 Has 1 Socket

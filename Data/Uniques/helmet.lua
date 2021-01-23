@@ -694,6 +694,7 @@ You take 50% reduced Extra Damage from Critical Strikes while you have no Power 
 ]],[[
 Ancient Skull
 Bone Helmet
+League: Ritual
 Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 Minions deal (15-20)% increased Damage
@@ -1187,6 +1188,7 @@ Socketed Gems have 50% reduced Mana Cost
 ]],[[
 Viridi's Veil
 Praetor Crown
+League: Ritual
 Requires Level 68, 62 Str, 91 Int
 +(1-2) to Level of Socketed Gems
 (120-160)% increased Armour and Energy Shield

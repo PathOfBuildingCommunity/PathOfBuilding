@@ -597,6 +597,7 @@ Requires Level 40, 19 Str, 19 Dex
 ]],[[
 Legacy of Fury
 Wyrmscale Boots
+League: Ritual
 Requires Level 51, 48 Str, 48 Dex
 (200-300)% increased Armour and Evasion
 (-15--10)% to all Elemental Resistances

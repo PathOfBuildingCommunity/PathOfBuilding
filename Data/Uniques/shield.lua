@@ -1030,6 +1030,7 @@ Triggers Level 20 Lightning Aegis when Equipped
 ]],[[
 Qotra's Regulator
 Sovereign Spiked Shield
+League: Ritual
 Requires Level 54, 70 Dex, 70 Int
 Implicits: 1
 4% chance to Dodge Spell Hits

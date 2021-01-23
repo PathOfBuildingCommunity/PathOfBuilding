@@ -138,6 +138,7 @@ You have Crimson Dance if you have dealt a Critical Strike Recently
 ]],[[
 Goblinedge
 Ambusher
+League: Ritual
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 30% increased Global Critical Strike Chance

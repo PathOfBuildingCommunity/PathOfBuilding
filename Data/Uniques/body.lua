@@ -76,6 +76,7 @@ Gore Footprints
 ]],[[
 Doppelgänger Guise
 Sadist Garb
+League: Ritual
 Requires Level 68, 103 Dex, 109 Int
 Grants Level 20 Unhinge Skill
 (40–60)% more Critical Strike Chance while Insane
