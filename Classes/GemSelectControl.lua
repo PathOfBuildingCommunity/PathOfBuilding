@@ -351,6 +351,10 @@ function GemSelectClass:Draw(viewPort)
 				gemInstance.gemData = gemData
 				-- Clear the displayEffect so it only displays the temporary gem instance
 				gemInstance.displayEffect = nil
+				-- Check valid qualityId, set to 'Default' if missing
+				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
+					gemInstance.qualityId = "Default"
+				end
 				-- Add hovered gem to tooltip
 				self:AddGemTooltip(gemInstance)
 				-- Calculate with the new gem
@@ -388,6 +392,10 @@ function GemSelectClass:Draw(viewPort)
 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 			if gemInstance and gemInstance.gemData then
+				-- Check valid qualityId, set to 'Default' if missing
+				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
+					gemInstance.qualityId = "Default"
+				end
 				SetDrawLayer(nil, 10)
 				self.tooltip:Clear()
 				self:AddGemTooltip(gemInstance)
