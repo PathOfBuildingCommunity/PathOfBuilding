@@ -698,9 +698,9 @@ League: Ritual
 Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 Minions deal (15-20)% increased Damage
-(150–200)% increased Armour and Energy Shield
-Minions have (20–40)% reduced maximum Life
-Minions have (15–25)% increased Movement Speed
+(150-200)% increased Armour and Energy Shield
+Minions have (20-40)% reduced maximum Life
+Minions have (15-25)% increased Movement Speed
 Minions have 50% increased Critical Strike Chance per Maximum Power Charge you have
 Minions can hear the whispers for 5 seconds after they deal a Critical Strike
 ]],[[

@@ -116,13 +116,13 @@ Amethyst Ring
 League: Ritual
 Requires Level 49
 Implicits: 1
-+(9-13)% to Chaos Resistance
-+(8-12)% to Fire Damage over Time Multiplier
+{tags:jewellery_resistance}+(9-13)% to Chaos Resistance
+{tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
 Enemies Ignited by you take Chaos Damage instead of Fire Damage from Ignite
 Withered does not expire on Enemies Ignited by you
-+(20-25)% to Fire and Chaos Resistances
+{tags:jewellery_resistance}+(20-25)% to Fire and Chaos Resistances
 ]],[[
 Blackheart
 Iron Ring
@@ -860,9 +860,9 @@ Has 1 Socket
 Socketed Gems are Supported by Level 20 Blasphemy
 Curse Auras from Socketed Skills also affect you
 {tags:mana}Socketed Curse Gems have 50% reduced Mana Reservation
-{tags:jewellery_attribute}+(20–30) to Intelligence
+{tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:caster}20% reduced Effect of Curses on you
-{tags:caster}(15–25)% increased Damage with Hits and Ailments against Cursed Enemies
+{tags:caster}(15-25)% increased Damage with Hits and Ailments against Cursed Enemies
 ]],[[
 Shavronne's Revelation
 Moonstone Ring
