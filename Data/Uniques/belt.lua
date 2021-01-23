@@ -321,6 +321,7 @@ You have no Armour or Maximum Energy Shield
 ]],[[
 Graven's Secret
 Cloth Belt
+League: Ritual
 Requires Level 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -506,6 +507,7 @@ Minions have (50-80)% increased Flask Effect Duration
 ]],[[
 Olesya's Delight
 Cloth Belt
+League: Ritual
 Requires Level 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
