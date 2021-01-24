@@ -256,11 +256,20 @@ function calcs.buildOutput(build, mode)
 		if output.PowerCharges > 0 then
 			t_insert(combatList, s_format("%d Power Charges", output.PowerCharges))
 		end
+		if output.AbsorptionCharges > 0 then
+			t_insert(combatList, s_format("%d Absoprtion Charges", output.AbsorptionCharges))
+		end
 		if output.FrenzyCharges > 0 then
 			t_insert(combatList, s_format("%d Frenzy Charges", output.FrenzyCharges))
 		end
+		if output.AfflictionCharges > 0 then
+			t_insert(combatList, s_format("%d Affliction Charges", output.AfflictionCharges))
+		end
 		if output.EnduranceCharges > 0 then
 			t_insert(combatList, s_format("%d Endurance Charges", output.EnduranceCharges))
+		end
+		if output.BrutalCharges > 0 then
+			t_insert(combatList, s_format("%d Brutal Charges", output.BrutalCharges))
 		end
 		if output.SiphoningCharges > 0 then
 			t_insert(combatList, s_format("%d Siphoning Charges", output.SiphoningCharges))
@@ -279,9 +288,6 @@ function calcs.buildOutput(build, mode)
 		end
 		if output.CrabBarriers > 0 then
 			t_insert(combatList, s_format("%d Crab Barriers", output.CrabBarriers))
-		end
-		if output.BrutalCharges > 0 then
-			t_insert(combatList, s_format("%d Brutal Charges", output.BrutalCharges))
 		end
 		if env.modDB:Flag(nil, "Fortify") then
 			t_insert(combatList, "Fortify")

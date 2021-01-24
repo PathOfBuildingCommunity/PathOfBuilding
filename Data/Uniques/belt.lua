@@ -319,6 +319,19 @@ Implicits: 1
 Take (100-200) Physical Damage when you use a Movement Skill
 You have no Armour or Maximum Energy Shield
 ]],[[
+Graven's Secret
+Cloth Belt
+League: Ritual
+Requires Level 68
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_defense}+(60-70) to Energy Shield
+{tags:mana}(16-20)% increased maximum Mana
+{tags:jewellery_resistance}+(40-60)% to Lightning Resistance
+Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
+Maximum Absorption Charges is equal to Maximum Power Charges
+Gain Absorption Charges instead of Power Charges
+]],[[
 Headhunter
 Leather Belt
 League: Nemesis
@@ -491,6 +504,19 @@ Implicits: 1
 Your Minions use your Flasks when summoned
 Minions have (40-25)% reduced Flask Charges used
 Minions have (50-80)% increased Flask Effect Duration
+]],[[
+Olesya's Delight
+Cloth Belt
+League: Ritual
+Requires Level 68
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_defense}+(600-700) to Evasion Rating
+{tags:jewellery_resistance}+(40-60)% to Cold Resistance
+(8-12)% increased Movement Speed
+Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
+Maximum Affliction Charges is equal to Maximum Frenzy Charges
+Gain Affliction Charges instead of Frenzy Charges
 ]],[[
 Perandus Blazon
 Cloth Belt
