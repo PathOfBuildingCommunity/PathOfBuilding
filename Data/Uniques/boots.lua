@@ -600,7 +600,7 @@ Wyrmscale Boots
 League: Ritual
 Requires Level 51, 48 Str, 48 Dex
 (200-300)% increased Armour and Evasion
-(-15--10)% to all Elemental Resistances
+-(15-10)% to all Elemental Resistances
 30% increased Movement Speed
 Drops Scorched Ground while moving, lasting 4 seconds
 (30-50)% increased Effect of Scorch
