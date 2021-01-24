@@ -97,10 +97,12 @@ function itemLib.sanitiseItemText(text)
 		{ "\226\128\148", "-" }, -- U+2014 EM DASH
 		{ "\226\128\149", "-" }, -- U+2015 HORIZONTAL BAR
 		{ "\226\136\146", "-" }, -- U+2212 MINUS SIGN
+		{ "\195\164", "a" }, -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
 		{ "\195\182", "o" }, -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
 		-- single-byte: Windows-1252 and similar
 		{ "\150", "-" }, -- U+2013 EN DASH
 		{ "\151", "-" }, -- U+2014 EM DASH
+		{ "\228", "a" }, -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
 		{ "\246", "o" }, -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
 		-- unsupported
 		{ "[\128-\255]", "?" },
