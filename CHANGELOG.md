@@ -1,9 +1,12 @@
 ### Unreleased
-* Add support for Arn's Anguish
+* Add control to set Vaal Timeless Jewel influenced passive skills to random mods
+* Add all new uniques in game patch 3.13.0
+* Add support for Arn's Anguish, Graven's Secret and Olesya's Delight
 * Add Flickershade Spectre
 * Fix Timeless Jewel passives not accounting for past skill tree versions
 * Fix Flame Wall secondary damage not being affected by area damage
 * Fix Endurance/Frenzy/Power charges missing for Minions
+* Fix multiple crashes in the skills tab related to gem quality
 ### 1.4.170.25 - 2021/01/16
 * Fix Trinity Support
 * Fix Hrimnor's Resolve
