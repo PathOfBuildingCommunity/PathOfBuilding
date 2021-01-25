@@ -233,6 +233,10 @@ function main:OnFrame()
 		self.mode = self.newMode
 		self.newMode = nil
 		self:CallMode("Init", unpack(self.newModeArgs))
+		if self.newModeChangeToTree then
+			self.modes[self.mode].viewMode = "TREE"
+		end
+		self.newModeChangeToTree = false
 	end
 
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
@@ -371,7 +375,35 @@ function main:CallMode(func, ...)
 	end
 end
 
+function main:LoadPastebinBuild()
+	if (arg[1] == nil or string.sub(arg[1], 1, 6) ~= "pob://" ) then
+		return false
+	end
+
+	local pastebinCode = string.sub(arg[1], 7, string.len(arg[1]))
+	if (string.sub(pastebinCode, -1) == "/") then
+		pastebinCode = string.sub(pastebinCode, 1, string.len(pastebinCode) - 1)
+	end
+	launch:DownloadPage("https://pastebin.com/raw/" .. pastebinCode, function(page, errMsg)
+		if errMsg then
+			self:SetMode("BUILD", false, "Failed Build Import (Download failed" .. pastebinCode .. ")")
+		else
+			local xmlText = Inflate(common.base64.decode(page:gsub("-","+"):gsub("_","/")))
+			if xmlText then
+				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self.newModeChangeToTree = true
+			else
+				self:SetMode("BUILD", false, "Failed Build Import (Decompress failed)")
+			end
+		end
+	end)
+	arg[1] = null; -- Protect against downloading again this session.
+	return true
+end
+
 function main:LoadSettings()
+	local loadingPastebinBuild = self:LoadPastebinBuild()
+
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
 		return true
@@ -381,7 +413,7 @@ function main:LoadSettings()
 	end
 	for _, node in ipairs(setXML[1]) do
 		if type(node) == "table" then
-			if node.elem == "Mode" then
+			if not loadingPastebinBuild and node.elem == "Mode" then
 				if not node.attrib.mode or not self.modes[node.attrib.mode] then
 					launch:ShowErrMsg("^1Error parsing 'Settings.xml': Invalid mode attribute in 'Mode' element")
 					return true
