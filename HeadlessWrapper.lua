@@ -143,7 +143,7 @@ function PCall(func, ...)
 end
 function ConPrintf(fmt, ...)
 	-- Optional
-	--print(string.format(fmt, ...))
+	print(string.format(fmt, ...))
 end
 function ConPrintTable(tbl, noRecurse) end
 function ConExecute(cmd) end

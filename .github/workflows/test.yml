@@ -26,7 +26,5 @@ jobs:
         run: echo "LUA_PATH=$LUA_PATH;$GITHUB_WORKSPACE/lua/?.lua" >> $GITHUB_ENV
       - name: Run tests
         run: busted -c --lua=/home/runner/work/PathOfBuilding/PathOfBuilding/.lua/bin/luajit --helper=HeadlessWrapper.lua .
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v1.1.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Report coverage
+        run: luacov-coveralls --repo-token=${{ secrets.github_token }}
