@@ -1172,8 +1172,8 @@ return {
 		end
 	end },
 	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more Life.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 8), "Config")
-		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 8), "Config")
+		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 9), "Config")
+		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 9), "Config")
 	end },
 	{ var = "enemyPhysicalReduction", type = "integer", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "Config")
