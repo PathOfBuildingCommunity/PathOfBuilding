@@ -1546,6 +1546,7 @@ skills["SupportFortify"] = {
 		},
 		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
+			mult = -1,
 		},
 	},
 	baseMods = {
