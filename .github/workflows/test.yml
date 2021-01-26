@@ -20,6 +20,8 @@ jobs:
         run: luarocks install busted
       - name: Install cluacov
         run: luarocks install cluacov
+      - name: Install coveralls integration
+        run: luarocks install luacov-coveralls
       - name: Unzip for lua libs
         run: unzip runtime-win32.zip
       - name: Set LUA_PATH
