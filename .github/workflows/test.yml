@@ -20,11 +20,13 @@ jobs:
         run: luarocks install busted
       - name: Install cluacov
         run: luarocks install cluacov
-      - name: Install coveralls integration
-        run: luarocks install luacov-coveralls
       - name: Unzip for lua libs
         run: unzip runtime-win32.zip
       - name: Set LUA_PATH
         run: echo "LUA_PATH=$LUA_PATH;$GITHUB_WORKSPACE/lua/?.lua" >> $GITHUB_ENV
       - name: Run tests
         run: busted -c --lua=/home/runner/work/PathOfBuilding/PathOfBuilding/.lua/bin/luajit --helper=HeadlessWrapper.lua .
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
