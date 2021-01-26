@@ -1879,6 +1879,9 @@ local specialModList = {
 	["critical strike chance is increased by lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResist", div = 1 }) },
 	["non%-critical strikes deal (%d+)%% damage"] = function(num) return { mod("Damage", "MORE", -100 + num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["critical strikes penetrate (%d+)%% of enemy elemental resistances while affected by zealotry"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike" }, { type = "Condition", var = "AffectedByZealotry" }) } end,
+	["(%d+)%% more critical strike chance while insane"] = function(num) return { 
+		mod("CritChance", "MORE", num, { type = "Condition", var = "Insane" }),
+	} end,
 	-- Generic Ailments
 	["enemies take (%d+)%% increased damage for each type of ailment you have inflicted on them"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -2121,6 +2124,9 @@ local specialModList = {
 	["gain brutal charges instead of endurance charges"] = { flag("EnduranceChargesConvertToBrutalCharges") },
 	["gain affliction charges instead of frenzy charges"] = { flag("FrenzyChargesConvertToAfflictionCharges") },
 	["gain absorption charges instead of power charges"] = { flag("PowerChargesConvertToAbsorptionCharges") },
+	["regenerate (%d+)%% life over one second when hit while sane"] = function(num) return {
+		mod("LifeRegenPercent", "BASE", num, { type = "Condition", var = "Insane", neg = true }, { type = "Condition", var = "BeenHitRecently" }),
+	} end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -2356,6 +2362,10 @@ local specialModList = {
 	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
 	["armour also applies to lightning damage taken from hits"] = { flag("ArmourAppliesToLightningDamageTaken") },
 	["lightning resistance does not effect lightning damage taken"] = { flag("SelfIgnoreLightningResistance") },
+	["(%d+)%% less physical and chaos damage taken while sane"] = function(num) return { 
+		mod("PhysicalDamageTaken", "LESS", num, { type = "Condition", var = "Insane", neg = true }),
+		mod("ChaosDamageTaken", "LESS", num, { type = "Condition", var = "Insane", neg = true }),
+	} end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },
