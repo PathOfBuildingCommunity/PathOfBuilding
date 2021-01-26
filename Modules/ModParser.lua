@@ -2360,8 +2360,8 @@ local specialModList = {
 	["armour also applies to lightning damage taken from hits"] = { flag("ArmourAppliesToLightningDamageTaken") },
 	["lightning resistance does not effect lightning damage taken"] = { flag("SelfIgnoreLightningResistance") },
 	["(%d+)%% less physical and chaos damage taken while sane"] = function(num) return { 
-		mod("PhysicalDamageTaken", "MORE", -num, { type = "Condition", var = "Insane", neg = true }),
-		mod("ChaosDamageTaken", "MORE", -num, { type = "Condition", var = "Insane", neg = true }),
+		mod("PhysicalDamageTaken", "LESS", num, { type = "Condition", var = "Insane", neg = true }),
+		mod("ChaosDamageTaken", "LESS", num, { type = "Condition", var = "Insane", neg = true }),
 	} end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
