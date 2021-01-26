@@ -27,7 +27,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	self.items = { }
 	self.selItemId = 0
 	self.slotName = slotName
-	self.slotNum = tonumber(slotName:match("%d+"))
+	self.slotNum = tonumber(slotName:match("%d+$") or slotName:match("%d+"))
 	if slotName:match("Flask") then
 		self.controls.activate = new("CheckBoxControl", {"RIGHT",self,"LEFT"}, -2, 0, 20, nil, function(state)
 			self.active = state
