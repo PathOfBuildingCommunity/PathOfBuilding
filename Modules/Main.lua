@@ -397,7 +397,7 @@ function main:LoadPastebinBuild()
 			end
 		end
 	end)
-	arg[1] = null; -- Protect against downloading again this session.
+	arg[1] = nil; -- Protect against downloading again this session.
 	return true
 end
 
