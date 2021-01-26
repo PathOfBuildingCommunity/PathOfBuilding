@@ -468,12 +468,18 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.sprites = newLegionNode.sprites
 			selectedNode.icon = newLegionNode.icon
 			selectedNode.spriteId = newLegionNode.id
-			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
+			if modDesc ~= "" then
+				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
+			end
 
 			-- Vaal is the exception
-			if controls[2] then
-				modDesc = string.gsub(controls[2].label, "%^7", "")
-				self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+			local i = 2
+			while controls[i] do
+				modDesc = string.gsub(controls[i].label, "%^7", "")
+				if modDesc ~= "" then
+					self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+				end
+				i = i + 1
 			end
 		else
 			-- Replace the node first before adding the new line so we don't get multiple lines
@@ -496,18 +502,29 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			controls["slider"..i] = nil
 			i = i + 1
 		end
-		for idx, desc in ipairs(modGroup.descriptions) do
-			controls[idx] = new("LabelControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
-			totalHeight = totalHeight + 20
-			if desc:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-				controls["slider"..idx] = new("SliderControl", {"TOPLEFT",controls[idx],"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
-					controls[idx].label = itemLib.applyRange(modGroup.descriptions[idx], val)
+		-- special handling for custom vaal notables (Might of the Vaal and Legacy of the Vaal)
+		if next(modGroup.descriptions) == nil then
+			for idx=1,4 do
+				controls[idx] = new("EditControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "", "Modifier "..idx, "%c%(%)", 100, function(buf)
+					controls[idx].label = buf
 				end)
-				controls["slider"..idx]:SetVal(.5)
-				controls["slider"..idx].width = function()
-					return controls["slider"..idx].divCount and 300 or 100
-				end
+				controls[idx].label = ""
 				totalHeight = totalHeight + 20
+			end
+		else
+			for idx, desc in ipairs(modGroup.descriptions) do
+				controls[idx] = new("LabelControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
+				totalHeight = totalHeight + 20
+				if desc:match("%(%-?[%d%.]+%-[%d%.]+%)") then
+					controls["slider"..idx] = new("SliderControl", {"TOPLEFT",controls[idx],"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
+						controls[idx].label = itemLib.applyRange(modGroup.descriptions[idx], val)
+					end)
+					controls["slider"..idx]:SetVal(.5)
+					controls["slider"..idx].width = function()
+						return controls["slider"..idx].divCount and 300 or 100
+					end
+					totalHeight = totalHeight + 20
+				end
 			end
 		end
 		main.popups[1].height = totalHeight + 30

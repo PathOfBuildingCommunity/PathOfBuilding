@@ -172,6 +172,9 @@ function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
 			for _, entry in ipairs(alternateGemQualityList) do
 				if firstword == entry.label then
 					-- return the gem name minus <altqual> without a leading space and the new resolved type
+					if entry.type == nil or entry.type == "" then
+						entry.type = "Default"
+					end
 					return otherwords, entry.type
 				end
 			end

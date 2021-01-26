@@ -1309,7 +1309,7 @@ return {
 	mod("ActiveTotemLimit", "BASE", nil),
 },
 ["attack_skills_additional_ballista_totems_allowed"] = {
-	mod("ActiveTotemLimit", "BASE", nil, ModFlag.Attack),
+	mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.ProjectileAttack }),
 },
 ["base_number_of_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),

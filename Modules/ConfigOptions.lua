@@ -32,6 +32,9 @@ return {
 	{ var = "conditionMoving", type = "check", label = "Are you always moving?", ifCond = "Moving", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Moving", "FLAG", true, "Config")
 	end },
+	{ var = "conditionInsane", type = "check", label = "Are you insane?", ifCond = "Insane", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Insane", "FLAG", true, "Config")
+	end },
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Inoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },
@@ -1172,8 +1175,8 @@ return {
 		end
 	end },
 	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more Life.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 8), "Config")
-		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 8), "Config")
+		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 9), "Config")
+		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 9), "Config")
 	end },
 	{ var = "enemyPhysicalReduction", type = "integer", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "Config")

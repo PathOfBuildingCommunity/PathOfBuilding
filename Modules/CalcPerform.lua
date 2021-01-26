@@ -334,6 +334,10 @@ local function doActorMisc(env, actor)
 	output.CrabBarriersMax = modDB:Sum("BASE", nil, "CrabBarriersMax")
 	output.BrutalChargesMin = modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and output.EnduranceChargesMin or 0
 	output.BrutalChargesMax = modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0
+	output.AbsorptionChargesMin = modDB:Flag(nil, "MinimumPowerChargesEqualsMinimumAbsorptionCharges") and output.PowerChargesMin or 0
+	output.AbsorptionChargesMax = modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0
+	output.AfflictionChargesMin = modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and output.FrenzyChargesMin or 0
+	output.AfflictionChargesMax = modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0
 
 	-- Initialize Charges
 	output.PowerCharges = 0
@@ -351,13 +355,27 @@ local function doActorMisc(env, actor)
 	-- Conditionally over-write Charge values
 	if modDB:Flag(nil, "UsePowerCharges") then
 		output.PowerCharges = modDB:Override(nil, "PowerCharges") or output.PowerChargesMax
+		if modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+			-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
+			-- and are converted from Power Charges
+			output.AbsorptionCharges = m_max(output.PowerCharges, m_min(output.AbsorptionChargesMax, output.AbsorptionChargesMin))
+			output.PowerCharges = 0
+		else
+			output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
+		end
 	end
-	output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
 	output.RemovablePowerCharges = m_max(output.PowerCharges - output.PowerChargesMin, 0)
 	if modDB:Flag(nil, "UseFrenzyCharges") then
 		output.FrenzyCharges = modDB:Override(nil, "FrenzyCharges") or output.FrenzyChargesMax
+		if modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+			-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
+			-- and are converted from Power Charges
+			output.AfflictionCharges = m_max(output.FrenzyCharges, m_min(output.AfflictionChargesMax, output.AfflictionChargesMin))
+			output.FrenzyCharges = 0
+		else
+			output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
+		end
 	end
-	output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
 	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
@@ -408,6 +426,8 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["GhostShroud"] = output.GhostShrouds
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
 	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
+	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
+	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
