@@ -568,10 +568,7 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 		end
 
 		local function HasMavenInfluence(modAffix)
-			if modAffix:match("Elevated") then
-				return true
-			end
-			return false
+			return modAffix:match("Elevated")
 		end
 
 		for i, key in ipairs(mod.weightKey) do
