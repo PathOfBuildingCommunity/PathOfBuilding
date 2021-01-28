@@ -3,6 +3,19 @@
 return {
 -- Belt
 [[
+Arn's Anguish
+Cloth Belt
+League: Ritual
+Requires Level 68
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_defense}+(600-700) to Armour
+{tags:life}(12-15)% increased maximum Life
+{tags:jewellery_resistance}+(40-60)% to Fire Resistance
+Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges
+Maximum Brutal Charges is equal to Maximum Endurance Charges
+Gain Brutal Charges instead of Endurance Charges
+]],[[
 Ascent From Flesh
 Chain Belt
 Source: prophecy{Thaumaturgical History IV}
@@ -307,6 +320,19 @@ Implicits: 1
 Take (100-200) Physical Damage when you use a Movement Skill
 You have no Armour or Maximum Energy Shield
 ]],[[
+Graven's Secret
+Cloth Belt
+League: Ritual
+Requires Level 68
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_defense}+(60-70) to Energy Shield
+{tags:mana}(16-20)% increased maximum Mana
+{tags:jewellery_resistance}+(40-60)% to Lightning Resistance
+Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
+Maximum Absorption Charges is equal to Maximum Power Charges
+Gain Absorption Charges instead of Power Charges
+]],[[
 Headhunter
 Leather Belt
 League: Nemesis
@@ -479,6 +505,19 @@ Implicits: 1
 Your Minions use your Flasks when summoned
 Minions have (40-25)% reduced Flask Charges used
 Minions have (50-80)% increased Flask Effect Duration
+]],[[
+Olesya's Delight
+Cloth Belt
+League: Ritual
+Requires Level 68
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_defense}+(600-700) to Evasion Rating
+{tags:jewellery_resistance}+(40-60)% to Cold Resistance
+(8-12)% increased Movement Speed
+Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
+Maximum Affliction Charges is equal to Maximum Frenzy Charges
+Gain Affliction Charges instead of Frenzy Charges
 ]],[[
 Perandus Blazon
 Cloth Belt
@@ -704,6 +743,18 @@ Implicits: 1
 80% reduced Trap Duration
 25% increased Light Radius
 Traps trigger at the end of their Duration
+]],[[
+Survivor's Guilt
+Heavy Belt
+League: Ritual
+Requires Level 52
+Implicits: 1
+{tags:jewellery_attribute}+(25-35)% to Strength
+{tags:jewellery_defense}+(800-1200)% to Armour
+{tags:life}Regenerate (50-70) Life per second
+20% increased Stun Threshold
+{tags:jewellery_defense}10% reduced Armour per 50 Strength
+Imbalanced Guard
 ]],[[
 Umbilicus Immortalis
 Leather Belt

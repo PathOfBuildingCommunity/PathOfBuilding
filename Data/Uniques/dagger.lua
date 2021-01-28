@@ -136,6 +136,19 @@ Adds (70-85) to (110-118) Physical Damage
 40% increased Attack Damage against Bleeding Enemies
 You have Crimson Dance if you have dealt a Critical Strike Recently
 ]],[[
+Goblinedge
+Ambusher
+League: Ritual
+Requires Level 60, 113 Dex, 113 Int
+Implicits: 1
+30% increased Global Critical Strike Chance
+(200-250)% increased Physical Damage
+(20-25)% increased Attack Speed if you haven't gained a Frenzy Charge Recently
+(60-80)% increased Critical Strike Chance if you haven't gained a Power Charge Recently
++3 seconds to Duration of Frenzy and Power Charges on Culling Strike
+Gain (120-150) Life on Culling Strike
+Gain (10-20) Mana on Culling Strike
+]],[[
 Heartbreaker
 Royal Skean
 Variant: Pre 2.6.0

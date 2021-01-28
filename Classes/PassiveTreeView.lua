@@ -812,7 +812,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
 		return
 	end
-	
+
 	-- Node name
 	self:AddNodeName(tooltip, node, build)
 	if launch.devModeAlt then
@@ -850,6 +850,14 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.reminderText) do
 			tooltip:AddLine(14, "^xA0A080"..line)
 		end
+	end
+
+	-- Conqueror node editing
+	if node and node.conqueredBy and
+			(node.conqueredBy.conqueror.type == "vaal"
+			or node.isNotable) then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the modifiers for this node")
 	end
 
 	-- Mod differences

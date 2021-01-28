@@ -84,6 +84,36 @@ itemBases["Titan Greaves"] = {
 	armour = { ArmourBase = 241, },
 	req = { level = 68, str = 120, },
 }
+itemBases["Basemetal Treads"] = {
+	type = "Boots",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, str_armour = true, not_for_sale = true, },
+	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
+	implicitModTypes = { { "block" }, { "block" }, },
+	armour = { ArmourBase = 68, },
+	req = { level = 20, str = 39, },
+}
+itemBases["Darksteel Treads"] = {
+	type = "Boots",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, str_armour = true, not_for_sale = true, },
+	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
+	implicitModTypes = { { "block" }, { "block" }, },
+	armour = { ArmourBase = 164, },
+	req = { level = 50, str = 89, },
+}
+itemBases["Brimstone Treads"] = {
+	type = "Boots",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, str_armour = true, not_for_sale = true, },
+	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
+	implicitModTypes = { { "block" }, { "block" }, },
+	armour = { ArmourBase = 236, },
+	req = { level = 80, str = 124, },
+}
 
 itemBases["Rawhide Boots"] = {
 	type = "Boots",
@@ -166,6 +196,36 @@ itemBases["Slink Boots"] = {
 	armour = { EvasionBase = 246, },
 	req = { level = 69, dex = 120, },
 }
+itemBases["Cloudwhisper Boots"] = {
+	type = "Boots",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, dex_armour = true, not_for_sale = true, },
+	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { EvasionBase = 68, },
+	req = { level = 20, dex = 39, },
+}
+itemBases["Windbreak Boots"] = {
+	type = "Boots",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, dex_armour = true, not_for_sale = true, },
+	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { EvasionBase = 164, },
+	req = { level = 50, dex = 89, },
+}
+itemBases["Stormrider Boots"] = {
+	type = "Boots",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, dex_armour = true, not_for_sale = true, },
+	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
+	implicitModTypes = { { "attack" }, { "attack" }, },
+	armour = { EvasionBase = 236, },
+	req = { level = 80, dex = 124, },
+}
 
 itemBases["Wool Shoes"] = {
 	type = "Boots",
@@ -247,6 +307,36 @@ itemBases["Sorcerer Boots"] = {
 	implicitModTypes = { },
 	armour = { EnergyShieldBase = 49, },
 	req = { level = 67, int = 123, },
+}
+itemBases["Duskwalk Slippers"] = {
+	type = "Boots",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, int_armour = true, not_for_sale = true, },
+	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
+	implicitModTypes = { { "speed" }, { "speed" }, },
+	armour = { EnergyShieldBase = 14, },
+	req = { level = 20, int = 39, },
+}
+itemBases["Nightwind Slippers"] = {
+	type = "Boots",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, int_armour = true, not_for_sale = true, },
+	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
+	implicitModTypes = { { "speed" }, { "speed" }, },
+	armour = { EnergyShieldBase = 32, },
+	req = { level = 50, int = 89, },
+}
+itemBases["Dreamquest Slippers"] = {
+	type = "Boots",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, boots = true, int_armour = true, not_for_sale = true, },
+	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
+	implicitModTypes = { { "speed" }, { "speed" }, },
+	armour = { EnergyShieldBase = 47, },
+	req = { level = 80, int = 124, },
 }
 
 itemBases["Leatherscale Boots"] = {
@@ -509,7 +599,6 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 
 itemBases["Golden Caligae"] = {
 	type = "Boots",
-	hidden = true,
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, },
 	implicit = "+(8-16)% to all Elemental Resistances",

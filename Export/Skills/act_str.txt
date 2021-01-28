@@ -397,7 +397,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		}
 	},
-#baseMod skill("radius", 20, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
 
 #skill EnduringCry

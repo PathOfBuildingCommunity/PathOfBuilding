@@ -687,6 +687,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
+#skill VampiricIcon
+#flags spell
+#mods 
+
 #skill VoidGaze
 #flags spell duration
 	fromItem = true,

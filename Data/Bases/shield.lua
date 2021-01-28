@@ -971,7 +971,6 @@ itemBases["Supreme Spiked Shield"] = {
 
 itemBases["Golden Flame"] = {
 	type = "Shield",
-	hidden = true,
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, not_for_sale = true, },
 	implicit = "+(11-19)% to Chaos Resistance",

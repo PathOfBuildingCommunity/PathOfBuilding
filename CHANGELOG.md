@@ -1,3 +1,54 @@
+### Unreleased
+* Add control to set Vaal Timeless Jewel influenced passive skills to random mods
+* Add all new uniques in game patch 3.13.0
+* Add support for the following uniques:
+  * Arn's Anguish
+  * Doppelgänger
+  * Graven's Secret
+  * Olesya's Delight
+* Add Flickershade Spectre
+* Add support for "Cobra Lash Chains additional times" helmet enchantment
+* Update maximum Awakening Level
+* Fix Timeless Jewel passives not accounting for past skill tree versions
+* Fix Abyss Jewels in offhands and second weapon sets not applying correctly
+* Fix Spectre stats scaling with Spectre level using incorrect values
+* Fix increases to the number of Ballista Totems incorrectly applying to Ancestral Totems
+* Fix Flame Wall secondary damage not being affected by area damage
+* Fix incorrect damage scaling on Divergent Fortify
+* Fix Physical Damage Reduction on Impale Support not applying
+* Fix mod ranges on Legacy of Fury
+* Fix Endurance/Frenzy/Power charges missing for Minions
+* Fix multiple crashes in the skills tab related to gem quality
+### 1.4.170.25 - 2021/01/16
+* Fix Trinity Support
+* Fix Hrimnor's Resolve
+### 1.4.170.24 - 2021/01/16
+* Fix Rupture calculations
+### 1.4.170.23 - 2021/01/16
+* Add support for Trinity Support and Hydrosphere
+* Update gems with 3.13 changes
+* Add new 3.13 base types
+* Add support for "Projectiles deal #% increased Damage for each Enemy Pierced"
+* Add Block Chance and Spell Block Chance to the passive skill tree heatmap
+* Fix multiple application crashes related to skill gem selection
+* Fix Fanaticism and Convergence persisting after deallocating nodes
+* Fix parsing error with Pure Talent
+* Fix item versions of Disintegrator
+* Fix item versions of Doryani's Fist
+### 1.4.170.22 - 2021/01/14
+* Add support for Hierophant's reworked Conviction of Power Notable
+* Add support for Hand of the Fervent's unique mechanic
+* Add support for "Physical Damage taken from Hits"
+* Update Disintegrator and Martyr of Innocence
+* Fix Shaper of Flames/Winter/Storms more effect not being accounted for in left-hand side calculation
+* Fix parsing of Deadeye's Rupture Notable
+* Fix parsing of Inquisitor's Instruments of Virtue and Righteous Providence Notables
+* Fix effective hit points calculations when you take 100% of damage as a different type of damage
+* Fix errors occurring when hovering over gem tooltips
+* Fix damage taken on block calcs breakdown
+* Fix mod on Follow-Through Medium Cluster Jewel
+* Fix usage limit on Hazardous Research
+* Fix build files growing exponentially if there is a colon at the start of an item's name
 ### 1.4.170.21 - 2021/01/13
 * Add 3.13 passive skill tree
 * Changes to Ascendancies:

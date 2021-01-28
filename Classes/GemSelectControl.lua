@@ -52,7 +52,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 end)
 
 function GemSelectClass:GetQualityType(gemId)
-	return gemId:gsub(":.+","")
+	return gemId and gemId:gsub(":.+","") or "Default"
 end
 
 function GemSelectClass:FilterSupport(gemId, gemData)
@@ -229,7 +229,7 @@ function GemSelectClass:UpdateGem(setText, addUndo)
 	if setText then	
 		self:SetText(self.gemName)
 	end
-	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), self:GetQualityType(gemId), addUndo and self.gemName ~= self.initialBuf)
+	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), self:GetQualityType(self.gemId), addUndo and self.gemName ~= self.initialBuf)
 end
 
 function GemSelectClass:ScrollSelIntoView()
@@ -346,11 +346,14 @@ function GemSelectClass:Draw(viewPort)
 				-- Create gemInstance to represent the hovered gem
 				local gemInstance = gemList[self.index]
 				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-					gemData.level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)
+					gemInstance.level = m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)
 				end
 				gemInstance.gemData = gemData
-				if not gemData.grantedEffect.levels[gemInstance.level] then
-					gemInstance.level = gemData.defaultLevel
+				-- Clear the displayEffect so it only displays the temporary gem instance
+				gemInstance.displayEffect = nil
+				-- Check valid qualityId, set to 'Default' if missing
+				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
+					gemInstance.qualityId = "Default"
 				end
 				-- Add hovered gem to tooltip
 				self:AddGemTooltip(gemInstance)
@@ -360,6 +363,7 @@ function GemSelectClass:Draw(viewPort)
 				if oldGem then
 					gemInstance.gemData = oldGem.gemData
 					gemInstance.level = oldGem.level
+					gemInstance.displayEffect = oldGem.displayEffect
 				else
 					gemList[self.index] = nil
 				end
@@ -388,6 +392,10 @@ function GemSelectClass:Draw(viewPort)
 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 			if gemInstance and gemInstance.gemData then
+				-- Check valid qualityId, set to 'Default' if missing
+				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
+					gemInstance.qualityId = "Default"
+				end
 				SetDrawLayer(nil, 10)
 				self.tooltip:Clear()
 				self:AddGemTooltip(gemInstance)

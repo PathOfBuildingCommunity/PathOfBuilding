@@ -66,7 +66,7 @@ itemBases["Siege Helmet"] = {
 	armour = { ArmourBase = 237, },
 	req = { level = 48, str = 101, },
 }
-itemBases["Samite Helmet"] = {
+itemBases["Samnite Helmet"] = {
 	type = "Helmet",
 	subType = "Armour",
 	socketLimit = 4,
@@ -384,6 +384,36 @@ itemBases["Nightmare Bascinet"] = {
 	armour = { ArmourBase = 162, EvasionBase = 233, },
 	req = { level = 67, str = 62, dex = 85, },
 }
+itemBases["Sorrow Mask"] = {
+	type = "Helmet",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, str_dex_armour = true, not_for_sale = true, },
+	implicit = "-15% additional Physical Damage Reduction\n(20-25)% increased Effect of Fortify on you\nYou are Crushed",
+	implicitModTypes = { {  }, {  }, {  }, },
+	armour = { ArmourBase = 42, EvasionBase = 42, },
+	req = { level = 15, str = 20, dex = 20, },
+}
+itemBases["Atonement Mask"] = {
+	type = "Helmet",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, str_dex_armour = true, not_for_sale = true, },
+	implicit = "-15% additional Physical Damage Reduction\n(20-25)% increased Effect of Fortify on you\nYou are Crushed",
+	implicitModTypes = { {  }, {  }, {  }, },
+	armour = { ArmourBase = 122, EvasionBase = 122, },
+	req = { level = 45, str = 51, dex = 51, },
+}
+itemBases["Penitent Mask"] = {
+	type = "Helmet",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, str_dex_armour = true, not_for_sale = true, },
+	implicit = "-15% additional Physical Damage Reduction\n(20-25)% increased Effect of Fortify on you\nYou are Crushed",
+	implicitModTypes = { {  }, {  }, {  }, },
+	armour = { ArmourBase = 185, EvasionBase = 185, },
+	req = { level = 75, str = 79, dex = 79, },
+}
 
 itemBases["Rusted Coif"] = {
 	type = "Helmet",
@@ -474,6 +504,36 @@ itemBases["Praetor Crown"] = {
 	implicitModTypes = { },
 	armour = { ArmourBase = 161, EnergyShieldBase = 48, },
 	req = { level = 68, str = 62, int = 91, },
+}
+itemBases["Imp Crown"] = {
+	type = "Helmet",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, str_int_armour = true, not_for_sale = true, },
+	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
+	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
+	armour = { ArmourBase = 42, EnergyShieldBase = 9, },
+	req = { level = 15, str = 20, int = 20, },
+}
+itemBases["Demon Crown"] = {
+	type = "Helmet",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, str_int_armour = true, not_for_sale = true, },
+	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
+	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
+	armour = { ArmourBase = 122, EnergyShieldBase = 24, },
+	req = { level = 45, str = 51, int = 51, },
+}
+itemBases["Archdemon Crown"] = {
+	type = "Helmet",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, str_int_armour = true, not_for_sale = true, },
+	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
+	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
+	armour = { ArmourBase = 185, EnergyShieldBase = 36, },
+	req = { level = 75, str = 79, int = 79, },
 }
 itemBases["Bone Helmet"] = {
 	type = "Helmet",
@@ -585,10 +645,39 @@ itemBases["Deicide Mask"] = {
 	armour = { EvasionBase = 190, EnergyShieldBase = 45, },
 	req = { level = 67, dex = 73, int = 88, },
 }
+itemBases["Gale Crown"] = {
+	type = "Helmet",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, dex_int_armour = true, not_for_sale = true, },
+	implicit = "Adds (3-4) to (5-6) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
+	armour = { EvasionBase = 42, EnergyShieldBase = 9, },
+	req = { level = 15, dex = 20, int = 20, },
+}
+itemBases["Winter Crown"] = {
+	type = "Helmet",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, dex_int_armour = true, not_for_sale = true, },
+	implicit = "Adds (15-20) to (28-35) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
+	armour = { EvasionBase = 122, EnergyShieldBase = 24, },
+	req = { level = 45, dex = 51, int = 51, },
+}
+itemBases["Blizzard Crown"] = {
+	type = "Helmet",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { default = true, armour = true, helmet = true, dex_int_armour = true, not_for_sale = true, },
+	implicit = "Adds (75-85) to (115-128) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
+	armour = { EvasionBase = 185, EnergyShieldBase = 36, },
+	req = { level = 75, dex = 79, int = 79, },
+}
 
 itemBases["Golden Wreath"] = {
 	type = "Helmet",
-	hidden = true,
 	socketLimit = 4,
 	tags = { default = true, armour = true, helmet = true, not_for_sale = true, },
 	implicit = "+(16-24) to all Attributes",

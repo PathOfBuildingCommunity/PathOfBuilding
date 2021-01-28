@@ -2933,7 +2933,7 @@ minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
 		"BetrayalSecretPoliceCurveDagger1",
 		"BetrayalSecretPoliceCurveDagger2",
 		"BetrayalSecretPoliceCurveDagger3",
-		"EmptyActionSpellSecretPoliceDaggers",
+		"EmptyActionAttackSecretPoliceDaggers",
 	},
 	modList = {
 	},
@@ -3043,5 +3043,30 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdS
 		"AtlasEyrieBirdBreathNoEffects",
 	},
 	modList = {
+	},
+}
+-- Flickershade
+minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
+	name = "Flickershade",
+	life = 3,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.05,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 25,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"SecretDesecrateMonsterTeleport",
+		"SecretDesecrateMonsterEarthquakeTriggered",
+		"SecretDesecrateMonsterMultiSlash",
+	},
+	modList = {
+		-- MonsterOneThirdDamageTaken [base_damage_taken_+% = -67]
+		-- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
 	},
 }

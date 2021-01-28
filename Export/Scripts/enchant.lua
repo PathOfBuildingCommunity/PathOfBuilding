@@ -153,6 +153,7 @@ local skillMap = {
 	["SigilOfPower"] = "Sigil of Power",
 	["Hexblast"] = "Hexblast",
 	["FlameWall"] = "Flame Wall",
+	["WaterSphere"] = "Hydrosphere",
 }
 
 local bySkill = { }

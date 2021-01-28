@@ -344,6 +344,23 @@ function calcs.offence(env, actor, activeSkill)
 		return modifiers
 	end
 
+	-- additional charge based modifiers
+	if skillModList:Flag(nil, "UseEnduranceCharges") and skillModList:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+		local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
+		modDB:NewMod("TripleDamageChance", "BASE", tripleDmgChancePerEndurance, { type = "Multiplier", var = "BrutalCharge" } )
+	end
+	if skillModList:Flag(nil, "UseFrenzyCharges") and skillModList:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+		local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
+		local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
+		modDB:NewMod("Damage", "MORE", dmgPerAffliction, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+	end
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
@@ -354,7 +371,6 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
 		end
 	end
-
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
 		local multiplier = getConversionMultiplier("INC", "ImprovedMinionDamageAppliesToPlayer")
@@ -640,6 +656,10 @@ function calcs.offence(env, actor, activeSkill)
 				output.PierceCount = skillModList:Sum("BASE", skillCfg, "PierceCount")
 				output.PierceCountString = output.PierceCount
 			end
+			if output.PierceCount > 0 then
+				skillFlags.piercing = true
+			end
+			output.PiercedCount = m_min(output.PierceCount, skillModList:Sum("BASE", skillCfg, "PiercedCount"))
 		end
 		output.ProjectileSpeedMod = calcLib.mod(skillModList, skillCfg, "ProjectileSpeed")
 		if breakdown then
@@ -954,6 +974,14 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
 		end
+	end
+
+	-- account for Sacrificial Zeal
+	-- Note: Sacrificial Zeal grants Added Spell Physical Damage equal to 25% of the Skill's Mana Cost, and causes you to take Physical Damage over Time, for 4 seconds
+	if skillModList:Flag(nil, "Condition:SacrificialZeal") then
+		local multiplier = 0.25
+		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -1996,21 +2024,22 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		local highestType = "Physical"
-		if breakdown then
-			-- For each damage type, calculate percentage of total damage. Also tracks the highest damage type and outputs a Condition:TypeIsHighestDamageType flag for whichever the highest type is
-			for _, damageType in ipairs(dmgTypeList) do
-				if output[damageType.."HitAverage"] > 0 then
-					local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
-					local highestPortion = output[highestType.."HitAverage"] / totalHitAvg * 100
-					if portion > highestPortion then
-						highestType = damageType
-						highestPortion = portion
-					end
+		
+		-- For each damage type, calculate percentage of total damage. Also tracks the highest damage type and outputs a Condition:TypeIsHighestDamageType flag for whichever the highest type is
+		for _, damageType in ipairs(dmgTypeList) do
+			if output[damageType.."HitAverage"] > 0 then
+				local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
+				local highestPortion = output[highestType.."HitAverage"] / totalHitAvg * 100
+				if portion > highestPortion then
+					highestType = damageType
+					highestPortion = portion
+				end
+				if breakdown then
 					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", portion))
 				end
 			end
-			skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 		end
+		skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 
 		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
 
@@ -3445,9 +3474,18 @@ function calcs.offence(env, actor, activeSkill)
 		skillPart = skillCfg.skillPart,
 		skillTypes = skillCfg.skillTypes,
 		slotName = skillCfg.slotName,
-		flags = bor(ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0, skillData.dotIsProjectile and ModFlag.Projectile or 0),
+		flags = bor(ModFlag.Dot, skillCfg.flags),
 		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
 	}
+	if bor(dotCfg.flags, ModFlag.Area) == dotCfg.flags and not skillData.dotIsArea then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Area))
+	end
+	if bor(dotCfg.flags, ModFlag.Projectile) == dotCfg.flags and not skillData.dotIsProjectile then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Projectile))
+	end
+	if bor(dotCfg.flags, ModFlag.Spell) == dotCfg.flags and not skillData.dotIsSpell then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Spell))
+	end
 
 	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
 	local dotTakenCfg = copyTable(dotCfg, true)

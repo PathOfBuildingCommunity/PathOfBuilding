@@ -182,7 +182,13 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportCurseOnHitCurse
+#mods
+
 #skill SupportCurseOnHitPlus
+#mods
+
+#skill SupportCurseOnHitCursePlus
     statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
@@ -632,6 +638,17 @@ local skills, mod, flag, skill = ...
 		},
 		["from_quality_brand_activation_rate_+%_final_if_75%_attached_duration_expired"] = {
 			mod("BrandActivationFrequency", "MORE", nil, 0, 0, {type = "Condition", var = "BrandLastQuarter"})
+		},
+	},
+#mods
+
+#skill SupportTrinity
+	statMap = {
+		["elemental_damage_+%_final_per_5_lowest_resonance"] = {
+			mod("ElementalDamage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ResonanceCount", div = 5 }),
+		},
+		["damage_penetrates_%_elemental_resistances_while_all_resonance_is_25"] = {
+			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "ResonanceCount", threshold = 25 }),
 		},
 	},
 #mods
