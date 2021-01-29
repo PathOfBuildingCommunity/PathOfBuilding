@@ -1836,6 +1836,13 @@ local specialModList = {
 	["offering skills triggered this way also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger level (%d+) (.+) after spending a total of (%d+) mana"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["consumes a void charge to trigger level (%d+) (.+) when you fire arrows"] = function(num, _, skill) return extraSkill(skill, num) end,
+	["enemies you kill have a (%d+)%% chance to explode, dealing a quarter of their maximum life as chaos damage."] = { mod("ExtraSkill", "LIST", { skillId = "ChaosExplosion", level = 1, noSupports = true }) },
+	["cursed enemies you or your minions kill have a (%d+)%% chance to explode, dealing a quarter of their maximum life as chaos damage"] = { mod("ExtraSkill", "LIST", { skillId = "ChaosExplosion", level = 1, noSupports = true }, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
+	["enemies you kill explode, dealing 3%% of their life as physical damage"] = { mod("ExtraSkill", "LIST", { skillId = "PhysicalExplosion", level = 1, noSupports = true }) },
+	["enemies you kill explode, dealing 5%% of their life as physical damage"] = { mod("ExtraSkill", "LIST", { skillId = "PhysicalExplosion", level = 2, noSupports = true }) },
+	["enemies killed near corpses affected by your curses explode, dealing 3%% of their life as physical damage"] = { mod("ExtraSkill", "LIST", { skillId = "PhysicalExplosion", level = 1, noSupports = true }) },
+	["shocked enemies you kill explode, dealing 5%% of their maximum life as lightning damage which cannot shock"] = { mod("ExtraSkill", "LIST", { skillId = "LightningExplosion", level = 1, noSupports = true }) },
+	["enemies killed explode dealing 5%% of their life as fire damage"] = { mod("ExtraSkill", "LIST", { skillId = "FireExplosion", level = 1, noSupports = true }) },
 	-- Conversion
 	["increases and reductions to minion damage also affects? you"] = { flag("MinionDamageAppliesToPlayer"), mod("ImprovedMinionDamageAppliesToPlayer", "INC", 100) },
 	["increases and reductions to minion damage also affects? you at (%d+)%% of their value"] = function(num) return { flag("MinionDamageAppliesToPlayer"), mod("ImprovedMinionDamageAppliesToPlayer", "INC", num) } end,

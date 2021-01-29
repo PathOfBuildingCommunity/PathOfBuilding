@@ -710,3 +710,112 @@ local skills, mod, flag, skill = ...
 #flags duration area
 	fromItem = true,
 #mods
+skills["ChaosExplosion"] = {
+	name = "Chaos Explosion (Experimental)",
+	hidden = true,
+	color = 4,
+	description = "",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Hit] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	fromTree = true,
+	baseFlags = {
+		area = true,
+		chaos = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true),
+		skill("corpseExplosionDamageType", "Chaos"),
+		skill("showAverage", true),
+	},
+	stats = {
+		"corpse_explosion_monster_life_%",
+		"cannot_knockback",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[1] = { 25, levelRequirement = 60, statInterpolation = { 1, }, },
+	},
+}
+skills["PhysicalExplosion"] = {
+	name = "Physical Explosion (Experimental)",
+	hidden = true,
+	color = 4,
+	description = "",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Hit] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true),
+		skill("corpseExplosionDamageType", "Physical"),
+		skill("showAverage", true),
+	},
+	stats = {
+		"corpse_explosion_monster_life_%",
+		"cannot_knockback",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[1] = { 3, levelRequirement = 60, statInterpolation = { 1, }, },
+		[2] = { 5, levelRequirement = 60, statInterpolation = { 1, }, },
+		[3] = { 8, levelRequirement = 60, statInterpolation = { 1, }, },
+	},
+}
+skills["LightningExplosion"] = {
+	name = "Lightning Explosion (Experimental)",
+	hidden = true,
+	color = 4,
+	description = "",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Hit] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true),
+		skill("corpseExplosionDamageType", "Lightning"),
+		skill("showAverage", true),
+	},
+	stats = {
+		"corpse_explosion_monster_life_%",
+		"cannot_knockback",
+		"never_shock",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[1] = { 5, levelRequirement = 60, statInterpolation = { 1, }, },
+	},
+}
+skills["FireExplosion"] = {
+	name = "Fire Explosion (Experimental)",
+	hidden = true,
+	color = 4,
+	description = "",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Hit] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true),
+		skill("corpseExplosionDamageType", "Fire"),
+		skill("showAverage", true),
+	},
+	stats = {
+		"corpse_explosion_monster_life_%",
+		"cannot_knockback",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[1] = { 5, levelRequirement = 60, statInterpolation = { 1, }, },
+	},
+}
