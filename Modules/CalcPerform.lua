@@ -805,13 +805,13 @@ function calcs.perform(env)
 			local globalCooldown = modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
 			local globalCount = modDB:Sum("BASE", nil, "GlobalWarcryCount")
 			local uptime = m_min(full_duration / actual_cooldown, 1)
-			if modDB:Flag(nil, "Condition:WarcryMaxHit") then
-				uptime = 1;
-			end
 			local buff_inc = 1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "BuffEffect") / 100
 			local warcryPowerBonus = m_floor((modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0) / 5)
 			if modDB:Flag(nil, "WarcryShareCooldown") then
 				uptime = m_min(full_duration / (actual_cooldown + (globalCooldown - actual_cooldown) / globalCount), 1)
+			end
+			if modDB:Flag(nil, "Condition:WarcryMaxHit") then
+				uptime = 1;
 			end
 			if activeSkill.activeEffect.grantedEffect.name == "Ancestral Cry" and not modDB:Flag(nil, "AncestralActive") then
 				local ancestralArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralArmourPer5MP")
