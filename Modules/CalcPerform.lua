@@ -1618,6 +1618,14 @@ function calcs.perform(env)
 		enemyDB:NewMod("Condition:AlreadyShocked", "FLAG", true, { type = "Condition", var = "Shocked"} ) -- Prevents Shock from applying doubly for minions
 	end
 
+	-- Calculates maximum Scorch, then applies the strongest Scorched effect to the enemy
+	if (enemyDB:Sum("BASE", nil, "ScorchVal") > 0 or modDB:Sum(nil, "ScorchBase", "ScorchOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyScorched") then
+		local baseScorch = (modDB:Override(nil, "ScorchBase") or 0) * (1 + modDB:Sum("INC", nil, "EnemyScorchEffect") / 100)
+		output.CurrentScorch = baseScorch
+		enemyDB:NewMod("ElementalResist", "BASE", -m_floor(output.CurrentScorch), "Scorch", { type = "Condition", var = "Scorched"} )
+		enemyDB:NewMod("Condition:AlreadyScorched", "FLAG", true, { type = "Condition", var = "Scorched"} ) -- Prevents Scorch from applying doubly for minions
+	end
+
 	-- Check for extra auras
 	for _, value in ipairs(modDB:List(nil, "ExtraAura")) do
 		local modList = { value.mod }
