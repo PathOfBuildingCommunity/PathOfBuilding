@@ -3226,7 +3226,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
-		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 then
+		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
 			local sourceHitDmg = 0
 			local sourceCritDmg = 0
 			if output.ScorchChanceOnCrit == 0 and output.ScorchChanceOnHit > 0 then
@@ -3241,7 +3241,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ScorchChanceOnHit = 0
 			end
 			local baseVal = calcAilmentDamage("Scorch", sourceHitDmg, sourceCritDmg)
-			if baseVal > 0 then
+			if baseVal > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
 				skillFlags.scorch = true
 				output.ScorchEffectMod = skillModList:Sum("INC", cfg, "EnemyScorchEffect")
 				output.ScorchDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyScorchDuration") / 100 + enemyDB:Sum("INC", nil, "SelfScorchDuration") / 100

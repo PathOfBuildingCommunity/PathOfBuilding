@@ -733,7 +733,7 @@ function calcs.perform(env)
 			end
 			output.BonechillEffect = m_max(output.BonechillEffect or 0, modDB:Override(nil, "BonechillEffect") or output.BonechillDotEffect or 0)
 		end
-		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap"  or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
+		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap" or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
 			modDB:NewMod("ShockOverride", "BASE", activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect"), "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" and not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
@@ -1597,7 +1597,6 @@ function calcs.perform(env)
 	
 	-- Calculates maximum Shock, then applies the strongest Shock effect to the enemy
 	if (enemyDB:Sum("BASE", nil, "ShockVal") > 0 or modDB:Sum(nil, "ShockBase", "ShockOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyShocked") then
-		local baseShock = (modDB:Override(nil, "ShockBase") or 0) * (1 + modDB:Sum("INC", nil, "EnemyShockEffect") / 100)
 		local overrideShock = 0
 		for i, value in ipairs(modDB:Tabulate("BASE", { }, "ShockBase", "ShockOverride")) do
 			local mod = value.mod
@@ -1618,11 +1617,25 @@ function calcs.perform(env)
 		enemyDB:NewMod("Condition:AlreadyShocked", "FLAG", true, { type = "Condition", var = "Shocked"} ) -- Prevents Shock from applying doubly for minions
 	end
 
-	-- Calculates maximum Scorch, then applies the strongest Scorched effect to the enemy
+	-- Calculates maximum Scorch, then applies the strongest Scorch effect to the enemy
 	if (enemyDB:Sum("BASE", nil, "ScorchVal") > 0 or modDB:Sum(nil, "ScorchBase", "ScorchOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyScorched") then
-		local baseScorch = (modDB:Override(nil, "ScorchBase") or 0) * (1 + modDB:Sum("INC", nil, "EnemyScorchEffect") / 100)
-		output.CurrentScorch = baseScorch
-		enemyDB:NewMod("ElementalResist", "BASE", -m_floor(output.CurrentScorch), "Scorch", { type = "Condition", var = "Scorched"} )
+		local overrideScorch = 0
+		for i, value in ipairs(modDB:Tabulate("BASE", { }, "ScorchBase", "ScorchOverride")) do
+			local mod = value.mod
+			local inc = 1 + modDB:Sum("INC", nil, "EnemyScorchEffect") / 100
+			local effect = mod.value
+			if mod.name == "ScorchOverride" then
+				enemyDB:NewMod("Condition:Scorched", "FLAG", true, mod.source)
+			end
+			if mod.name == "ScorchBase" then
+				effect = effect * inc
+				modDB:NewMod("ScorchOverride", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			overrideScorch = m_max(overrideScorch or 0, effect or 0)
+		end
+		output.MaximumScorch = modDB:Override(nil, "ScorchMax") or 50
+		output.CurrentScorch = m_floor(m_min(m_max(overrideScorch, enemyDB:Sum("BASE", nil, "ScorchVal")), output.MaximumScorch))
+		enemyDB:NewMod("ElementalResist", "BASE",  -m_floor(output.CurrentScorch), "Scorch", { type = "Condition", var = "Scorched"} )
 		enemyDB:NewMod("Condition:AlreadyScorched", "FLAG", true, { type = "Condition", var = "Scorched"} ) -- Prevents Scorch from applying doubly for minions
 	end
 
