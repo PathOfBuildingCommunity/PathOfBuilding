@@ -671,7 +671,7 @@ Requires Level 49, 47 Str, 47 Int
 +(9-12)% to Chaos Resistance
 20% increased Movement Speed
 Cannot deal non-Chaos Damage
-Adds 1 to 80 Chaos Damage to Attacks per 50 Strength
+Adds 1 to 80 Chaos Damage to Attacks per 80 Strength
 ]],[[
 Death's Door
 Crusader Boots
