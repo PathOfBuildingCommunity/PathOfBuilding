@@ -203,9 +203,11 @@ the "Releases" section of the GitHub page.]])
 	self.showThousandsCalcs = true
 	self.showTitlebarName = true
 
-	self:SetMode("BUILD", false, "Unnamed build")
-
-	self:LoadSettings()
+	local ignoreBuild = self:LoadPastebinBuild()
+	if not ignoreBuild then
+		self:SetMode("BUILD", false, "Unnamed build")
+	end
+	self:LoadSettings(ignoreBuild)
 end
 
 function main:CanExit()
@@ -376,34 +378,32 @@ function main:CallMode(func, ...)
 end
 
 function main:LoadPastebinBuild()
-	if (arg[1] == nil or string.sub(arg[1], 1, 6) ~= "pob://" ) then
+	local fullUri = arg[1]
+	if not fullUri then
 		return false
 	end
-
-	local pastebinCode = string.sub(arg[1], 7, string.len(arg[1]))
-	if (string.sub(pastebinCode, -1) == "/") then
-		pastebinCode = string.sub(pastebinCode, 1, string.len(pastebinCode) - 1)
-	end
-	launch:DownloadPage("https://pastebin.com/raw/" .. pastebinCode, function(page, errMsg)
-		if errMsg then
-			self:SetMode("BUILD", false, "Failed Build Import (Download failed" .. pastebinCode .. ")")
-		else
-			local xmlText = Inflate(common.base64.decode(page:gsub("-","+"):gsub("_","/")))
-			if xmlText then
-				self:SetMode("BUILD", false, "Imported Build", xmlText)
-				self.newModeChangeToTree = true
+	arg[1] = nil -- Protect against downloading again this session.
+	local pastebinCode = string.match(fullUri, "^pob:[/\\]*pastebin[/\\]+(%w+)[/\\]*")
+	if pastebinCode then
+		launch:DownloadPage("https://pastebin.com/raw/" .. pastebinCode, function(page, errMsg)
+			if errMsg then
+				self:SetMode("BUILD", false, "Failed Build Import (Download failed " .. pastebinCode .. ")")
 			else
-				self:SetMode("BUILD", false, "Failed Build Import (Decompress failed)")
+				local xmlText = Inflate(common.base64.decode(page:gsub("-","+"):gsub("_","/")))
+				if xmlText then
+					self:SetMode("BUILD", false, "Imported Build", xmlText)
+					self.newModeChangeToTree = true
+				else
+					self:SetMode("BUILD", false, "Failed Build Import (Decompress failed)")
+				end
 			end
-		end
-	end)
-	arg[1] = nil; -- Protect against downloading again this session.
-	return true
+		end)
+		return true
+	end
+	return false
 end
 
-function main:LoadSettings()
-	local loadingPastebinBuild = self:LoadPastebinBuild()
-
+function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
 		return true
@@ -413,7 +413,7 @@ function main:LoadSettings()
 	end
 	for _, node in ipairs(setXML[1]) do
 		if type(node) == "table" then
-			if not loadingPastebinBuild and node.elem == "Mode" then
+			if not ignoreBuild and node.elem == "Mode" then
 				if not node.attrib.mode or not self.modes[node.attrib.mode] then
 					launch:ShowErrMsg("^1Error parsing 'Settings.xml': Invalid mode attribute in 'Mode' element")
 					return true
