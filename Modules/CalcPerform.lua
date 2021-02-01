@@ -736,10 +736,15 @@ function calcs.perform(env)
 		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap"  or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
 			modDB:NewMod("ShockOverride", "BASE", activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect"), "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
-		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" and not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
-			local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
-			modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
-			enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" then
+			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
+				local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
+				modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
+				enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
+			end
+			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill") then
+				enemyDB:NewMod("Condition:Chilled", "FLAG", true, "Summon Skitterbots")
+			end
 		end
 		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
 			if activeSkill.activeEffect.grantedEffect.name == damageType.." Aegis" then
