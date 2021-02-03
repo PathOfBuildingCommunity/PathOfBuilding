@@ -790,7 +790,7 @@ function calcs.perform(env)
 		elseif activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
 			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Summoned Phantasm" then
+		elseif activeSkill.minionList and activeSkill.minionList[1] == "SummonedPhantasm" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActivePhantasmLimit")
 			output.ActivePhantasmLimit = m_max(limit, output.ActivePhantasmLimit or 0)
 		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
