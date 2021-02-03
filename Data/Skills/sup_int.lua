@@ -3799,10 +3799,6 @@ skills["SupportMinionLife"] = {
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
 		},
-		["minion_life_regeneration_rate_per_minute_%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
-			div = 60
-		},
 		["minion_damage_+%_on_full_life"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
 		},
