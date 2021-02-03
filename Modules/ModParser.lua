@@ -3192,9 +3192,6 @@ local function parseMod(line, order)
 	if unsupportedModList[lineLower] then
 		return { }, line
 	end
-	if line:match("phantasmal") then
-		local x = "x"
-	end
 	local specialMod, specialLine, cap = scan(line, specialModList)
 	if specialMod and #specialLine == 0 then
 		if type(specialMod) == "function" then
