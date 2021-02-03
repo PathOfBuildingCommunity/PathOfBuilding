@@ -2724,11 +2724,26 @@ skills["ShieldShatter"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
+	statMap = {
+		["spell_minimum_base_physical_damage_per_shield_quality"] = {
+			skill("PhysicalMin", nil, { type = "Multiplier", var = "QualityOnWeapon 2" }),
+		},
+		["spell_maximum_base_physical_damage_per_shield_quality"] = {
+			skill("PhysicalMax", nil, { type = "Multiplier", var = "QualityOnWeapon 2" }),
+		},
+		["buff_added_spell_minimum_base_physical_damage_per_shield_quality"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "QualityOnWeapon 2" }, { type = "Condition", var = "BlockedRecently"}, { type = "GlobalEffect", effectType = "Buff"}),
+		},
+		["buff_added_spell_maximum_base_physical_damage_per_shield_quality"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "QualityOnWeapon 2" }, { type = "Condition", var = "BlockedRecently"}, { type = "GlobalEffect", effectType = "Buff"}),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
