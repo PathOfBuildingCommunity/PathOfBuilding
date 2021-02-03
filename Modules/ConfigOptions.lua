@@ -75,6 +75,10 @@ return {
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
+	{ label = "Arcane Surge:", ifSkill = "Arcane Surge" },
+	{ var = "arcanesurgebuff", type = "check", label = "Is Arcane Surge active?", ifSkill = "Arcane Surge", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:ArcaneSurgeActive", "FLAG", true, "Config")
+	end },
 	{ label = "Arcanist Brand:", ifSkill = "Arcanist Brand" },
 	{ var = "targetBrandedEnemy", type = "check", label = "Are skills targeting the Branded enemy?", ifSkill = "Arcanist Brand", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
