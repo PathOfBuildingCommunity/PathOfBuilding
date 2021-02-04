@@ -59,7 +59,7 @@ Adds (11-14) to (17-21) Physical Damage
 (15-40)% increased Critical Strike Chance
 40% increased Rarity of Items Dropped by Frozen Enemies
 (30-40)% increased Cold Damage with Attack Skills
-Trigger Level 20 Icicle Burst when you Kill a Frozen Enemy
+Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 ]],[[
 Clayshaper
 Rock Breaker
