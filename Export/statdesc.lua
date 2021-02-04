@@ -152,6 +152,10 @@ function describeStats(stats)
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
 					val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+				elseif spec.k == "divide_by_twelve" then
+					val[spec.v].min = round(val[spec.v].min / 12, 1)
+					val[spec.v].max = round(val[spec.v].max / 12, 1)
+					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_one_hundred" then
 					val[spec.v].min = round(val[spec.v].min / 100, 1)
 					val[spec.v].max = round(val[spec.v].max / 100, 1)
@@ -199,6 +203,12 @@ function describeStats(stats)
 				elseif spec.k == "multiply_by_four" then
 					val[spec.v].min = val[spec.v].min * 4
 					val[spec.v].max = val[spec.v].max * 4
+				elseif spec.k == "times_twenty" then
+					val[spec.v].min = val[spec.v].min * 20
+					val[spec.v].max = val[spec.v].max * 20
+				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
+				elseif spec.k then
+					ConPrintf("Unknown description function: %s", spec.k)
 				end
 			end
 			local statDesc = desc.text:gsub("{(%d)}", function(n) 
