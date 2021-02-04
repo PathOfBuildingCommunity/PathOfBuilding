@@ -130,9 +130,12 @@ local function applySpecial(val, spec)
 		val[spec.v].min = 100 + round(val[spec.v].min / 100, 1)
 		val[spec.v].max = 100 + round(val[spec.v].max / 100, 1)
 		val[spec.v].fmt = "g"
+	elseif spec.k == "multiply_by_four" then
+		val[spec.v].min = val[spec.v].min * 4
+		val[spec.v].max = val[spec.v].max * 4
 	elseif spec.k == "reminderstring" or spec.k == "canonical_line" then
-	else
-		--ConPrintf("Unknown description function: %s", spec.k)
+	elseif speck.k then
+		ConPrintf("Unknown description function: %s", spec.k)
 	end
 end
 

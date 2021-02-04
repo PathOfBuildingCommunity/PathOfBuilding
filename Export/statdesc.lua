@@ -196,6 +196,9 @@ function describeStats(stats)
 				elseif spec.k == "multiplicative_damage_modifier" then
 					val[spec.v].min = 100 + val[spec.v].min
 					val[spec.v].max = 100 + val[spec.v].max
+				elseif spec.k == "multiply_by_four" then
+					val[spec.v].min = val[spec.v].min * 4
+					val[spec.v].max = val[spec.v].max * 4
 				end
 			end
 			local statDesc = desc.text:gsub("{(%d)}", function(n) 
