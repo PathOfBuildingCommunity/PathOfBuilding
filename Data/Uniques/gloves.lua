@@ -40,7 +40,7 @@ your maximum number of Crab Barriers
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
-Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
@@ -517,6 +517,15 @@ Requires Level 37, 29 Str, 29 Int
 (4-6)% increased maximum Life
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
+]],[[
+Hand of the Fervent
+Zealot Gloves
+League: Ritual
+Requires Level 43, 34 Str, 34 Int
+(70-130)% increased Armour and Energy Shield
++(50-70) to maximum Life
+Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
+Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
 ]],[[
 Hands of the High Templar
 Crusader Gloves
