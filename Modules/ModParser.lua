@@ -2189,10 +2189,7 @@ local specialModList = {
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "HitRecentlyWithWeapon" }), -- Make the Configuration option appear
 	},
 	["summoned skeleton warriors wield a copy of this weapon while in your main hand"] = { }, -- just make the mod blue, handled in CalcSetup
-	["each summoned phantasm grants you phantasmal might"] = {
-		mod("PhysicalMin", "BASE", 44, nil, ModFlag.Spell, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might" }),
-		mod("PhysicalMax", "BASE", 66, nil, ModFlag.Spell, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might" }),
-	},
+	["each summoned phantasm grants you phantasmal might"] = { flag("Condition:PhantasmalMight") },
 
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,

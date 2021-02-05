@@ -4638,6 +4638,12 @@ skills["SupportSummonGhostOnKill"] = {
 		},
 		["damage_+%_for_non_minions"] = {
 			-- mod("Damage", "INC", nil, 0, 0, {type = "Actor"})
+		},
+		["phantasm_minimum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
+		},
+		["phantasm_maximum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
 		}
 	},
 	baseMods = {
