@@ -359,6 +359,7 @@ local modNameList = {
 	["maximum total recovery per second from energy shield leech"] = "MaxEnergyShieldLeechRate",
 	["maximum total recovery per second from mana leech"] = "MaxManaLeechRate",
 	["to impale enemies on hit"] = "ImpaleChance",
+	["to impale on spell hit"] = { "ImpaleChance", flags = ModFlag.Spell },
     ["impale effect"] = "ImpaleEffect",
 	["effect of impales you inflict"] = "ImpaleEffect",
 	-- Projectile modifiers

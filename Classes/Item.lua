@@ -930,7 +930,6 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
 			if (
 				(mod.name == "Accuracy" and mod.flags == 0) or
-                (mod.name == "ImpaleChance" ) or
 				((mod.name == "LifeOnHit" or mod.name == "ManaOnHit") and mod.flags == ModFlag.Attack) or
 				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack)
 			   ) and (mod.keywordFlags == 0 or mod.keywordFlags == KeywordFlag.Attack) and not mod[1] then
