@@ -25,6 +25,36 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill BrandDetonate
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill EmbraceMadness
+#flags spell
+	fromItem = true,
+#mods
+
+#skill CreateSmokeCloud
+#flags spell
+	fromItem = true,
+#mods
+
+#skill VolatileDeadChaos
+#flags spell
+	fromItem = true,
+	statMap = {
+		["volatile_dead_core_explosion_radius_+"] = {
+			skill("radius", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SummonMirageChieftain
+#flags spell duration
+	fromTree = true,
+#mods
+
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
 	statMap = {
@@ -51,6 +81,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill RepeatingShockwave
@@ -61,6 +92,16 @@ local skills, mod, flag, skill = ...
 #noGem
 #skill BoneArmour
 #flags duration spell
+	fromTree = true,
+	statMap = {
+		["quick_guard_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["quick_guard_damage_absorb_limit"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+	},
+#baseMod mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" })
 #mods
 
 #skill BirdAspect
@@ -99,15 +140,27 @@ local skills, mod, flag, skill = ...
 #flags warcry area duration
 	fromItem = true,
 	statMap = {
-		["attack_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "NearbyEnemy" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
 	},
-#baseMod skill("buffAllies", true)
+#baseMod skill("radius", 60)
+#mods
+
+#skill ChannelledSnipe
+#flags attack projectile bow
+	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
+	end,
+#mods
+
+#skill ChannelledSnipeSupport
+	fromItem = true,
+#baseMod flag("TriggeredBySnipe")
 #mods
 
 #skill CrabAspect
@@ -162,6 +215,16 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill PhysicalAegis
+#flags spell
+	fromItem = true,
+#mods
+
+#skill CorpseWalk
+#flags area
+	fromItem = true,
+#mods
+
 #skill TriggeredConsecrate Consecrate
 #flags spell duration area
 	fromItem = true,
@@ -183,6 +246,57 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #baseMod skill("explodeCorpse", true)
 #baseMod skill("showAverage", true)
+#mods
+
+#skill DeathWish
+#flags spell area
+	fromItem = true,
+	parts = {
+		{
+			name = "Channelling",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Minion Explosion",
+			spell = false,
+			cast = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local skillData = activeSkill.skillData
+			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+		end
+	end,
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["death_wish_attack_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_movement_speed_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_hit_and_ailment_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishStage" }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["death_wish_max_stages"] = {
+			mod("Multiplier:DeathWishMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+	#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+	#baseMod skill("radius", 10, { type = "SkillPart", skillPart = 2 })
+	#baseMod skill("buffMinions", true)
+	#baseMod skill("buffNotPlayer", true)
 #mods
 
 #noGem
@@ -270,9 +384,9 @@ local skills, mod, flag, skill = ...
 #skill IcestormUniqueStaff12
 #flags spell area duration
 	fromItem = true,
-#baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
-#baseMod skill("radius", 25)
-#baseMod skill("radiusSecondary", 10)
+#baseMod skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 })
+#baseMod skill("radius", 22)
+#baseMod skill("radiusSecondary", 16)
 #mods
 
 #skill TriggeredIcicleNova
@@ -375,6 +489,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredShockedGround
 #flags spell area duration
 	fromItem = true,
+#baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
 #skill SpiritBurst
@@ -385,6 +500,11 @@ local skills, mod, flag, skill = ...
 
 #skill StormCascadeTriggered
 #flags spell area
+	fromItem = true,
+#mods
+
+#skill HiddenBlade
+#flags attack projectile
 	fromItem = true,
 #mods
 
@@ -469,6 +589,40 @@ local skills, mod, flag, skill = ...
 #skill SummonHarbingerOfTime
 #flags spell minion
 	fromItem = true,
+#baseMod mod("ActionSpeed", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" })
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill SummonHarbingerOfTheArcaneUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfBrutalityUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfDirectionsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfFocusUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfStormsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfTimeUber
+#flags spell minion
+	fromItem = true,
+#baseMod mod("ActionSpeed", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" })
+#baseMod skill("buffMinions", true)
 #mods
 
 #skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
@@ -490,12 +644,36 @@ local skills, mod, flag, skill = ...
 	minionList = {
 		"SummonedSpectralWolf",
 	},
+	statMap = {
+		["spectral_wolf_grants_attack_minimum_added_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
+			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
+	},
+#mods
+
+#skill SummonTauntingContraption
+#flags spell minion duration
+	fromItem = true,
 #mods
 
 #skill SummonVoidSphere Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
+#mods
+
+#skill ShieldShatter
+#flags spell area
+	fromItem = true,
 #mods
 
 #skill TentacleSmash
@@ -506,7 +684,12 @@ local skills, mod, flag, skill = ...
 #skill AvianTornado
 #flags spell projectile duration
 	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
+
+#skill VampiricIcon
+#flags spell
+#mods 
 
 #skill VoidGaze
 #flags spell duration
@@ -520,5 +703,10 @@ local skills, mod, flag, skill = ...
 
 #skill VoidShot
 #flags attack projectile area
+	fromItem = true,
+#mods
+
+#skill CreateFungalGroundOnKill
+#flags duration area
 	fromItem = true,
 #mods

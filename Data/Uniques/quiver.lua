@@ -5,7 +5,7 @@ return {
 [[
 Asphyxia's Wrath
 Two-Point Arrow Quiver
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 10
 Implicits: 1
@@ -14,11 +14,10 @@ Implicits: 1
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
-{variant:1}20% of Physical Damage Converted to Cold Damage
-{variant:2}Gain 20% of Physical Damage as Extra Cold Damage
+Gain 20% of Physical Damage as Extra Cold Damage
 (7-10)% chance to Freeze
-{variant:1}40% reduced Area of Effect of Curse Skills
-Curses on Slain Enemies are transferred to a nearby Enemy
+{variant:1}40% reduced Area of Effect of Hex Skills
+Hexes on Slain Enemies are transferred to a nearby Enemy
 ]],[[
 Blackgleam
 Fire Arrow Quiver
@@ -74,28 +73,38 @@ Adds 6 to 10 Physical Damage to Attacks with Bows
 Drillneck
 Penetrating Arrow Quiver
 Requires Level 36
-Variant: {2_6}Pre 3.0.0
-Variant: Current
-Implicits: 2
-{variant:1}10% chance of Arrows Piercing
-{variant:2}Arrows Pierce an additional Target
+Implicits: 1
+Arrows Pierce an additional Target
 (8-12)% increased Attack Speed
 +350 to Evasion Rating
 +(40-50) to maximum Life
 Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
-{variant:1}Projectile Damage increased by 50% of Arrow Pierce Chance
-{variant:2}Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
+Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
 ]],[[
 The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
+Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
 (25-35)% increased Stun Duration on Enemies
 Grants Summon Harbinger of Directions Skill
++(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
 Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
++(15-25)% to Fire and Cold Resistances
+]],[[
+The Shattered Divinity
+Blunt Arrow Quiver
+League: Harvest
+Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
+Requires Level 60
+Implicits: 1
+(25-35)% increased Stun Duration on Enemies
+Grants Summon Greater Harbinger of Directions Skill
 +(30-50) to Strength and Dexterity
+Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
+Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 +(15-25)% to Fire and Cold Resistances
 ]],[[
 Hyrri's Bite
@@ -139,25 +148,35 @@ Trigger a Socketed Bow Skill when you Attack with a Bow
 +(50-70) to maximum Life
 5% chance to Blind Enemies on Hit with Attacks
 ]],[[
+Replica Maloney's Mechanism
+Ornate Quiver
+League: Heist
+Requires Level 45
+Implicits: 1
+Has 1 Socket
+Has 2 Sockets
+Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow
+(7-12)% increased Cast Speed
++(50-70) to maximum Life
+5% chance to Blind Enemies on Hit with Attacks
+]],[[
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 55
 Implicits: 1
 (25-35)% increased Stun Duration on Enemies
 {variant:1}(8-10)% increased Attack Speed
-{variant:2,3}10% increased Attack Speed
+{variant:2}10% increased Attack Speed
 +(50-70) to maximum Life
 +(12-16)% to Chaos Resistance
 {variant:1}Adds (5-7) to (8-10) Physical Damage to Attacks with Bows
-{variant:2,3}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
+{variant:2}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
 {variant:1}10% chance to create a Smoke Cloud when Hit
-{variant:2,3}25% chance to create a Smoke Cloud when Hit
-{variant:1}(20-40)% increased Damage against Blinded Enemies
-{variant:2}(40-60)% increased Damage against Blinded Enemies
-{variant:3}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
+{variant:2}25% chance to create a Smoke Cloud when Hit
+{variant:1}(20-40)% increased Damage with Hits and Ailments against Blinded Enemies
+{variant:2}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
 ]],[[
 Rearguard
 Broadhead Arrow Quiver
@@ -197,6 +216,19 @@ Implicits: 1
 20% chance to Avoid being Stunned
 1% increased Lightning Damage per 10 Intelligence
 ]],[[
+Scorpion's Call
+Broadhead Arrow Quiver
+League: Harvest
+Requires Level 57
+Implicits: 1
+Adds 6 to 12 Physical Damage to Bow Attacks
++(20-40) to Dexterity
+(150-200) Life Regenerated per Second while in Blood Stance
+(40-60)% increased Projectile Damage while in Blood Stance
++(700-1000) to Evasion Rating while in Sand Stance
+(20-30)% increased Area of Effect while in Sand Stance
+(20-30)% increased Attack Speed if you've changed Stance Recently
+]],[[
 Skirmish
 Two-Point Arrow Quiver
 Requires Level 19
@@ -222,6 +254,19 @@ Adds (13-18) to (26-32) Chaos Damage to Attacks
 40% reduced Energy Shield Recharge Rate
 {variant:1}150% faster start of Energy Shield Recharge
 {variant:2}80% faster start of Energy Shield Recharge
+]],[[
+Replica Soul Strike
+Spike-Point Arrow Quiver
+League: Heist
+Requires Level 64
+Implicits: 1
+(20-30)% increased Global Critical Strike Chance
++30 to Dexterity
+Adds (13-18) to (26-32) Physical Damage to Attacks
+(8-12)% increased Attack Speed
++(60-80) to maximum Life
+80% reduced Maximum Recovery per Life Leech
+40% increased Maximum total Recovery per second from Life Leech
 ]],[[
 Voidfletcher
 Penetrating Arrow Quiver

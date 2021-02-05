@@ -8,6 +8,7 @@ local modDB, output, actor = ...
 local unpack = unpack
 local ipairs = ipairs
 local t_insert = table.insert
+local m_floor = math.floor
 local m_sqrt = math.sqrt
 local s_format = string.format
 
@@ -66,9 +67,9 @@ function breakdown.simple(extraBase, cfg, total, ...)
 	end
 end
 
-function breakdown.mod(cfg, ...)
-	local inc = modDB:Sum("INC", cfg, ...)
-	local more = modDB:More(cfg, ...)
+function breakdown.mod(modList, cfg, ...)
+	local inc = modList:Sum("INC", cfg, ...)
+	local more = modList:More(cfg, ...)
 	if inc ~= 0 and more ~= 1 then
 		return { 
 			s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
@@ -92,28 +93,31 @@ function breakdown.slot(source, sourceName, cfg, base, total, ...)
 	})
 end
 
-function breakdown.area(base, areaMod, total, label)
+function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, redBreakpoint, lessBreakpoint, label)
+	local out = {}
 	if base ~= total then
-		return {
-			s_format("%d ^8(base radius)", base),
-			s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(areaMod)),
-			s_format("= %d", total),
-			label,
-			radius = total
-		}
-	else
-		return {
-			label,
-			radius = total
-		}
+		t_insert(out, s_format("%d ^8(base radius)", base))
+		t_insert(out, s_format("x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(areaMod)) / 100))
+		t_insert(out, s_format("= %d", total))
 	end
+	if incBreakpoint and moreBreakpoint and redBreakpoint and lessBreakpoint then
+		t_insert(out, s_format("^8Next breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incBreakpoint, moreBreakpoint))
+		t_insert(out, s_format("^8Previous breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redBreakpoint, lessBreakpoint))
+	end
+	t_insert(out, label)
+	out.radius = total
+	return out
 end
 
-function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore)
+function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes)
 	local out = { }
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 	if resist ~= 0 then
-		t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
+		if sourceRes and sourceRes ~= 0 then
+			t_insert(out, s_format("Enemy %s: %d%% ^8(%s)", resistForm, resist, sourceRes))
+		else
+			t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
+		end
 	end
 	if pen ~= 0 then
 		t_insert(out, "Effective resistance:")
@@ -131,18 +135,42 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore)
 	return out
 end
 
-function breakdown.dot(out, baseVal, inc, more, mult, rate, effMult, total)
+function breakdown.dot(out, baseVal, inc, more, mult, rate, aura, effMult, total)
 	breakdown.multiChain(out, {
 		base = s_format("%.1f ^8(base damage per second)", baseVal), 
 		{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 		{ "%.2f ^8(more/less)", more },
 		{ "%.2f ^8(multiplier)", 1 + (mult or 0)/100 },
 		{ "%.2f ^8(rate modifier)", rate },
+		{ "%.3f ^8(aura effect modifier)", aura },
 		{ "%.3f ^8(effective DPS modifier)", effMult },
 		total = s_format("= %.1f ^8per second", total),
 	})
 end
 
+function breakdown.critDot(dotMulti, critMulti, dotChance, critChance)
+	local combined = (dotMulti * dotChance) + (critMulti * critChance)
+	local out = { }
+	if dotChance > 0 then
+		t_insert(out, s_format("Contribution from Non-crits:"))
+		t_insert(out, s_format("%.2f ^8(dot multiplier for non-crits)", dotMulti))
+		t_insert(out, s_format("x %.4f ^8(portion of instances created by non-crits)", dotChance))
+		t_insert(out, s_format("= %.2f", dotMulti * dotChance))
+	end
+	if critChance > 0 then
+		t_insert(out, s_format("Contribution from Crits:"))
+		t_insert(out, s_format("%.2f ^8(dot multiplier for crits)", critMulti))
+		t_insert(out, s_format("x %.4f ^8(portion of instances created by crits)", critChance))
+		t_insert(out, s_format("= %.2f", critMulti * critChance))
+	end
+	if (dotChance > 0 and critChance > 0) and (dotMulti ~= critMulti)then
+		t_insert(out, s_format("Effective DoT Multiplier:"))
+		t_insert(out, s_format("%.2f + %.2f", dotMulti * dotChance, critMulti * critChance))
+		t_insert(out, s_format("= %.2f", combined))
+	end
+	return out
+end		
+		
 function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur)
 	local out = { }
 	if actor.mainSkill.skillData.showAverage then

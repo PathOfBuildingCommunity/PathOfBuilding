@@ -37,7 +37,7 @@ directiveTable.base = function(state, args, out)
 	if not baseTypeId then
 		baseTypeId = args
 	end
-	local baseItemType = dat"BaseItemTypes":GetRow("Id", baseTypeId)
+	local baseItemType = dat("BaseItemTypes"):GetRow("Id", baseTypeId)
 	if not baseItemType then
 		printf("Invalid Id %s", baseTypeId)
 		return
@@ -46,6 +46,7 @@ directiveTable.base = function(state, args, out)
 		displayName = baseItemType.Name
 	end
 	displayName = displayName:gsub("\195\182","o")
+	displayName = displayName:gsub("^%s*(.-)%s*$", "%1") -- trim spaces GGG might leave in by accident
 	out:write('itemBases["', displayName, '"] = {\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then
@@ -54,7 +55,7 @@ directiveTable.base = function(state, args, out)
 	if (baseItemType.Hidden or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
 		out:write('\thidden = true,\n')
 	end
-	if state.socketLimit then	
+	if state.socketLimit then
 		out:write('\tsocketLimit = ', state.socketLimit, ',\n')
 	end
 	out:write('\ttags = { ')
@@ -67,15 +68,23 @@ directiveTable.base = function(state, args, out)
 	out:write('},\n')
 	local movementPenalty
 	local implicitLines = { }
+	local implicitModTypes = { }
 	for _, mod in ipairs(baseItemType.ImplicitMods) do
-		for _, line in ipairs(describeMod(mod)) do
+		local modDesc = describeMod(mod)
+		for _, line in ipairs(modDesc) do
 			table.insert(implicitLines, line)
+			table.insert(implicitModTypes, modDesc.modTags)
 		end
 	end
 	if #implicitLines > 0 then
 		out:write('\timplicit = "', table.concat(implicitLines, "\\n"), '",\n')
 	end
-	local weaponType = dat"WeaponTypes":GetRow("BaseItemType", baseItemType)
+	out:write('\timplicitModTypes = { ')
+	for i=1,#implicitModTypes do
+		out:write('{ ', implicitModTypes[i], ' }, ')
+	end
+	out:write('},\n')
+	local weaponType = dat("WeaponTypes"):GetRow("BaseItemType", baseItemType)
 	if weaponType then
 		out:write('\tweapon = { ')
 		out:write('PhysicalMin = ', weaponType.DamageMin, ', PhysicalMax = ', weaponType.DamageMax, ', ')
@@ -84,10 +93,10 @@ directiveTable.base = function(state, args, out)
 		out:write('Range = ', weaponType.Range, ', ')
 		out:write('},\n')
 	end
-	local compArmour = dat"ComponentArmour":GetRow("BaseItemType", baseItemType.Id)
+	local compArmour = dat("ComponentArmour"):GetRow("BaseItemType", baseItemType.Id)
 	if compArmour then
 		out:write('\tarmour = { ')
-		local shield = dat"ShieldTypes":GetRow("BaseItemType", baseItemType)
+		local shield = dat("ShieldTypes"):GetRow("BaseItemType", baseItemType)
 		if shield then
 			out:write('BlockChance = ', shield.Block, ', ')
 		end
@@ -105,9 +114,9 @@ directiveTable.base = function(state, args, out)
 		end
 		out:write('},\n')
 	end
-	local flask = dat"Flasks":GetRow("BaseItemType", baseItemType)
+	local flask = dat("Flasks"):GetRow("BaseItemType", baseItemType)
 	if flask then
-		local compCharges = dat"ComponentCharges":GetRow("BaseItemType", baseItemType.Id)
+		local compCharges = dat("ComponentCharges"):GetRow("BaseItemType", baseItemType.Id)
 		out:write('\tflask = { ')
 		if flask.LifePerUse > 0 then
 			out:write('life = ', flask.LifePerUse, ', ')
@@ -140,7 +149,7 @@ directiveTable.base = function(state, args, out)
 	if reqLevel > 1 then
 		out:write('level = ', reqLevel, ', ')
 	end
-	local compAtt = dat"ComponentAttributeRequirements":GetRow("BaseItemType", baseItemType.Id)
+	local compAtt = dat("ComponentAttributeRequirements"):GetRow("BaseItemType", baseItemType.Id)
 	if compAtt then
 		if compAtt.Str > 0 then
 			out:write('str = ', compAtt.Str, ', ')
@@ -155,8 +164,20 @@ directiveTable.base = function(state, args, out)
 	out:write('},\n}\n')
 end
 
-directiveTable.baseMatch = function(state, args, out)
-	for i, baseItemType in ipairs(dat"BaseItemTypes":GetRowList("Id", args, true)) do
+directiveTable.baseMatch = function(state, argstr, out)
+	-- Default to look at the Id column for matching
+	local key = "Id"
+	local args = {}
+	for i in string.gmatch(argstr, "%S+") do
+	   table.insert(args, i)
+	end
+	local value = args[1]
+	-- If column name is specified, use that
+	if args[2] then
+		key = args[1]
+		value = args[2]
+	end
+	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList(key, value, true)) do
 		directiveTable.base(state, baseItemType.Id, out)
 	end
 end
@@ -183,7 +204,7 @@ local itemTypes = {
 	"flask",
 }
 for _, name in pairs(itemTypes) do
-	processTemplateFile(name, "Bases/", "../Data/3_0/Bases/", directiveTable)
+	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)
 end
 
 print("Item bases exported.")

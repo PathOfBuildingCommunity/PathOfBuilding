@@ -16,7 +16,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 
 #### Before submitting a feature request:
 * Check that the feature hasn't already been requested. Look at all issues with titles that might be related to the feature.
-* Make sure you are running the latest version of the program, as the feature may already have been added. Click "Check for Update" at the bottom left corner.
+* Make sure you are running the latest version of the program, as the feature may already have been added. Click "Check for Update" in the bottom left corner.
 
 #### When submitting a feature request:
 * Be specific! The more details, the better.
@@ -25,13 +25,14 @@ Feature requests are always welcome. Note that not all requests will receive an 
 ## Contributing code
 
 #### Before submitting a pull request:
+* Familiarise yourself with the code base [here](docs/rundown.md) to get you started.
 * There is a [Discord](https://discordapp.com/) server for **active development** on the fork and members are happy to answer your questions there.
   If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **nick_#8198** and we'll send you an invite.
 
 #### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
 * Make sure that the changes have been thoroughly tested!
-* Make sure not to commit `./Data/2_6/ModCache.lua` or `./Data/3_0/ModCache.lua`. These are very large, automatically generated files that are updated in the repository for releases only.
+* Make sure not to commit `./Data/ModCache.lua`. This is a very large, automatically generated file that is updated in the repository for releases only.
 * There are many more files in the `./Data` directory that are automatically generated. To change these, instead change the scripts in the `./Export` directory.
 
 #### Setting up a development install
@@ -41,9 +42,9 @@ The easiest way to make and test changes is by setting up a development install,
 
 1. Clone the repository using this command:
 
-       git clone -b dev https://github.com/LocalIdentity/PathOfBuilding.git
+       git clone -b dev https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
 2. Create a shortcut to the 'Path of Building.exe' in your main installation of the program.
-3. Add the path to `./Launch.lua` as an argument to the shortcut. You should end up with something like: `"C:\Program Files (x86)\Path of Building\Path of Building.exe" "C:\Path of Building\Launch.lua"`.
+3. Add the path to `./Launch.lua` as an argument to the shortcut. You should end up with something like: `"C:\%APPDATA%\Path of Building Community\Path of Building.exe" "C:\PathOfBuilding\Launch.lua"`.
 
 You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables 'Dev Mode', which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
@@ -70,7 +71,7 @@ Note: If you've configured a remote already, you can skip ahead to step 6.
        git remote -v
 2. Add a new remote repository and name it `upstream`.
 
-       git remote add upstream https://github.com/LocalIdentity/PathOfBuilding
+       git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
 3. Verify that adding the remote worked by running the last command again.
 
        git remote -v
@@ -95,23 +96,44 @@ If you want to use a text editor, [Visual Studio Code](https://code.visualstudio
 If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) are recommended.
 They are all free and open source and support [EmmyLua](https://github.com/EmmyLua), a Lua plugin that comes with a language server, debugger and many pleasant features. It is recommended to use it over the built-in Lua plugins.
 
-To setup a debugger for PoB on an IDE with EmmyLua:
-* Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
-* Select 'x86' version.
-* Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
-* Copy the generated code snippet directly below `function launch:OnInit()` in `./Launch.lua`.
-* Start PoB and attach debugger.
+##### Visual Studio Code
 
-#### Exporting Data from a GGPK file
+1. Create a new 'Debug Configuration' of type 'EmmyLua New Debug'
+2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
+3. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x86. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86`.
+4. Paste the following code snippet directly below `function launch:OnInit()` in `./Launch.lua`:
+  ```lua
+-- This is the path to emmy_core.dll. The ?.dll at the end is intentional.
+package.cpath = package.cpath .. ';C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86/?.dll'
+local dbg = require('emmy_core')
+-- This port must match the Visual Studio Code configuration. Default is 9966.
+dbg.tcpListen('localhost', 9966)
+-- Uncomment the next line if you want Path of Building to block until the debugger is attached
+--dbg.waitIDE()
+  ```
+5. Start Path of Building Community
+6. Attach the debugger
 
-Note: This tutorial assumes that you are already familiar with the GGPK and its structure.
+##### PyCharm Community / IntelliJ Idea Community
 
-The repository also contains the system used to export data from the game's Content.ggpk file. This can be found in the Export folder. The data is exported using the scripts in `./Export/Scripts`, which are run from within the `.dat` viewer.
+1. Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
+2. Select 'x86' version.
+3. Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
+4. Copy the generated code snippet directly below `function launch:OnInit()` in `./Launch.lua`.
+5. Start Path of Building Community
+6. Attach the debugger
 
-How to export data from a GGPK file:
+#### Exporting GGPK Data from Path of Exile
 
-1. Create a shortcut to `Path of Building.exe` with the path to `./Export/Launch.lua` as first argument. You should end up with something like: `"C:\Program Files (x86)\Path of Building\Path of Building.exe" "C:\Path of Building\Export\Launch.lua"`.
-2. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building.
-3. Paste the path to `Content.ggpk` into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `./Data` section.
-4. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
-5. If you run into any errors, update the code in `./Export` as necessary and try again.
+Note: This tutorial assumes that you are already familiar with the GGPK and its structure. [poe-tool-dev/ggpk.discussion](https://github.com/poe-tool-dev/ggpk.discussion/wiki)
+is a good starting point.
+
+The `./Data` folder contains generated files which are created using the scripts in the `./Export/Scripts` folder based on Path of Exile game data. 
+If you change any logic/configuration in `./Export`, you will need to regenerate the appropriate `./Data` files. You can do so by running the `./Export` scripts using the `.dat` viewer at `./Export/Launch.lua`:
+
+1. Obtain a copy of an OOZ extractor and copy it into `./Export/ggpk/`.
+2. Create a shortcut to `Path of Building.exe` with the path to `./Export/Launch.lua` as first argument. You should end up with something like: `"C:\%APPDATA%\Path of Building Community\Path of Building.exe" "C:\PathOfBuilding\Export\Launch.lua"`.
+3. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building Community.
+4. Paste the path to `Content.ggpk` (or, for Steam users, `C:\Program Files (x86)\Steam\steamapps\common\Path of Exile`) into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `./Data` section.
+5. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
+6. If you run into any errors, update the code in `./Export` as necessary and try again.

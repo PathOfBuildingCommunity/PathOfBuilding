@@ -3,8 +3,6 @@
 -- Module: Stat Describer
 -- Manages stat description files, and provides stat descriptions
 --
-local targetVersion = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -14,7 +12,7 @@ local scopes = { }
 
 local function getScope(scopeName)
 	if not scopes[scopeName] then
-		local scope = LoadModule("Data/"..targetVersion.."/StatDescriptions/"..scopeName)
+		local scope = LoadModule("Data/StatDescriptions/"..scopeName)
 		scope.name = scopeName
 		if scope.parent then
 			local parentScope = getScope(scope.parent)
@@ -103,6 +101,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "milliseconds_to_seconds_0dp" then
 		val[spec.v].min = val[spec.v].min / 1000
 		val[spec.v].max = val[spec.v].max / 1000
+	elseif spec.k == "milliseconds_to_seconds_1dp" then
+		val[spec.v].min = round(val[spec.v].min / 1000, 1)
+		val[spec.v].max = round(val[spec.v].max / 1000, 1)
+		val[spec.v].fmt = "g"
 	elseif spec.k == "milliseconds_to_seconds_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 1000, 2)
 		val[spec.v].max = round(val[spec.v].max / 1000, 2)
@@ -181,22 +183,29 @@ return function(stats, scopeName)
 			for _, spec in ipairs(desc) do
 				applySpecial(val, spec)
 			end
-			local statDesc = desc.text:gsub("%%(%d)%%", function(n) 
-				local v = val[tonumber(n)]
+			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return s_format("%"..v.fmt, v.min)
 				else
 					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%d", function() 
+			end):gsub("{}", function() 
 				local v = val[1]
 				if v.min == v.max then
 					return s_format("%"..v.fmt, v.min)
 				else
 					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%(%d)$(%+?)d", function(n, fmt)
-				local v = val[tonumber(n)]
+			end):gsub("{:%+?d}", function() 
+				local v = val[1]
+				if v.min == v.max then
+					return s_format("%"..v.fmt, v.min)
+				else
+					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
+				end
+			end):gsub("{(%d):(%+?)d}", function(n, fmt)
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return s_format("%"..fmt..v.fmt, v.min)
 				elseif fmt == "+" then

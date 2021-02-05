@@ -76,7 +76,7 @@ end
 
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local newItem = new("Item", self.itemsTab.build.targetVersion, value.raw)
+		local newItem = new("Item", value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
 		self.itemsTab:PopulateSlots()
@@ -115,7 +115,7 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 			self.itemsTab.build.buildFlag = true
 		end
 	elseif doubleClick then
-		local newItem = new("Item", item.targetVersion, item:BuildRaw())
+		local newItem = new("Item", item:BuildRaw())
 		newItem.id = item.id
 		self.itemsTab:SetDisplayItem(newItem)
 	end

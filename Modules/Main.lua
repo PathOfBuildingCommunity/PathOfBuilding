@@ -23,9 +23,9 @@ LoadModule("Modules/CalcTools")
 LoadModule("Modules/PantheonTools")
 
 --[[if launch.devMode then
-	for skillName, skill in pairs(data["3_0"].enchantments.Helmet) do
+	for skillName, skill in pairs(data.enchantments.Helmet) do
 		for _, mod in ipairs(skill.ENDGAME) do
-			local modList, extra = modLib.parseMod["3_0"](mod)
+			local modList, extra = modLib.parseMod(mod)
 			if not modList or extra then
 				ConPrintf("%s: '%s' '%s'", skillName, mod, extra or "")
 			end
@@ -43,7 +43,7 @@ function main:Init()
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
 	self.modes["BUILD"] = LoadModule("Modules/Build")
 
-	if launch.devMode or GetScriptPath() == GetRuntimePath() then
+	if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
 		-- If running in dev mode or standalone mode, put user data in the script path
 		self.userPath = GetScriptPath().."/"
 	else
@@ -57,62 +57,57 @@ function main:Init()
 	if launch.devMode and IsKeyDown("CTRL") then
 		self.rebuildModCache = true
 	else
-		-- Load mod caches
-		for _, targetVersion in ipairs(targetVersionList) do
-			LoadModule("Data/"..targetVersion.."/ModCache", modLib.parseModCache[targetVersion])
-		end
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
+	end
+
+	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
+		self.allowTreeDownload = true
 	end
 	
 	self.tree = { }
-	for _, versionData in pairs(targetVersions) do
-		for _, treeVersion in ipairs(versionData.treeVersionList) do
-			self.tree[treeVersion] = new("PassiveTree", treeVersion)
-		end
+	for _, treeVersion in ipairs(treeVersionList) do
+		self.tree[treeVersion] = new("PassiveTree", treeVersion)
 	end
 
 	ConPrintf("Loading item databases...")
-	self.uniqueDB = { }
-	self.rareDB = { }
-	for _, targetVersion in ipairs(targetVersionList) do
-		self.uniqueDB[targetVersion] = { list = { } }
-		for type, typeList in pairs(data.uniques) do
-			for _, raw in pairs(typeList) do
-				local newItem = new("Item", targetVersion, "Rarity: Unique\n"..raw)
-				if newItem.base then
-					newItem:NormaliseQuality()
-					self.uniqueDB[targetVersion].list[newItem.name] = newItem
-				elseif launch.devMode then
-					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
-				end
-			end
-		end
-		self.rareDB[targetVersion] = { list = { } }
-		for _, raw in pairs(data[targetVersion].rares) do
-			local newItem = new("Item", targetVersion, "Rarity: Rare\n"..raw)
+	self.uniqueDB = { list = { } }
+	for type, typeList in pairs(data.uniques) do
+		for _, raw in pairs(typeList) do
+			local newItem = new("Item", "Rarity: Unique\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
-				if newItem.crafted then
-					if newItem.base.implicit and (#newItem.modLines == 0 or newItem.modLines[1].custom) then
-						newItem.implicitLines = 0
-						for line in newItem.base.implicit:gmatch("[^\n]+") do
-							newItem.implicitLines = newItem.implicitLines + 1
-							t_insert(newItem.modLines, newItem.implicitLines, { line = line })
-						end
-					end
-					newItem:Craft()
-				end
-				self.rareDB[targetVersion].list[newItem.name] = newItem
+				self.uniqueDB.list[newItem.name] = newItem
 			elseif launch.devMode then
-				ConPrintf("Rare DB unrecognised item:\n%s", raw)
+				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 			end
+		end
+	end
+	self.rareDB = { list = { } }
+	for _, raw in pairs(data.rares) do
+		local newItem = new("Item", "Rarity: Rare\n"..raw)
+		if newItem.base then
+			newItem:NormaliseQuality()
+			if newItem.crafted then
+				if newItem.base.implicit and #newItem.implicitModLines == 0 then
+					-- Automatically add implicit
+					for line in newItem.base.implicit:gmatch("[^\n]+") do
+						t_insert(newItem.implicitModLines, { line = line })
+					end
+				end
+				newItem:Craft()
+			end
+			self.rareDB.list[newItem.name] = newItem
+		elseif launch.devMode then
+			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
 	end
 
 	if self.rebuildModCache then
 		-- Update mod cache
-		local out = io.open("Data/"..liveTargetVersion.."/ModCache.lua", "w")
+		local out = io.open("Data/ModCache.lua", "w")
 		out:write('local c=...')
-		for line, dat in pairs(modLib.parseModCache[liveTargetVersion]) do
+		for line, dat in pairs(modLib.parseModCache) do
 			if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
 				out:write('c["', line:gsub("\n","\\n"), '"]={')
 				if dat[1] then
@@ -137,10 +132,10 @@ function main:Init()
 	self.anchorMain.y = function()
 		return self.screenH - 4
 	end
-	self.controls.options = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, 0, 70, 20, "Options", function()
+	self.controls.options = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, 0, 68, 20, "Options", function()
 		self:OpenOptionsPopup()
 	end)
-	self.controls.about = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 228, 0, 70, 20, "About", function()
+	self.controls.about = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 72, 0, 68, 20, "About", function()
 		self:OpenAboutPopup()
 	end)
 	self.controls.applyUpdate = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "^x50E050Update Ready", function()
@@ -161,7 +156,11 @@ function main:Init()
 	self.controls.checkUpdate.enabled = function()
 		return not launch.updateCheckRunning
 	end
-	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 144, -27, 0, 14, "")
+	self.controls.forkLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, -26, 0, 16, "")
+	self.controls.forkLabel.label = function()
+		return "^8PoB Community Fork"
+	end
+	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, -2, 0, 16, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
@@ -200,6 +199,9 @@ the "Releases" section of the GitHub page.]])
 
 	self.buildSortMode = "NAME"
 	self.nodePowerTheme = "RED/BLUE"
+	self.showThousandsSidebar = true
+	self.showThousandsCalcs = true
+	self.showTitlebarName = true
 
 	self:SetMode("BUILD", false, "Unnamed build")
 
@@ -412,30 +414,26 @@ function main:LoadSettings()
 			elseif node.elem == "SharedItems" then
 				for _, child in ipairs(node) do
 					if child.elem == "Item" then
-						local verItem = { raw = "" }
+						local rawItem = { raw = "" }
 						for _, subChild in ipairs(child) do
 							if type(subChild) == "string" then
-								verItem.raw = subChild
+								rawItem.raw = subChild
 							end
 						end
-						for _, targetVersion in ipairs(targetVersionList) do			
-							verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
-						end
-						t_insert(self.sharedItemList, verItem)
+						local newItem = new("Item", rawItem.raw)
+						t_insert(self.sharedItemList, newItem)
 					elseif child.elem == "ItemSet" then
 						local sharedItemSet = { title = child.attrib.title, slots = { } }
 						for _, grandChild in ipairs(child) do
 							if grandChild.elem == "Item" then
-								local verItem = { raw = "" }
+								local rawItem = { raw = "" }
 								for _, subChild in ipairs(grandChild) do
 									if type(subChild) == "string" then
-										verItem.raw = subChild
+										rawItem.raw = subChild
 									end
 								end
-								for _, targetVersion in ipairs(targetVersionList) do			
-									verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
-								end
-								sharedItemSet.slots[grandChild.attrib.slotName] = verItem
+								local newItem = new("Item", rawItem.raw)
+								sharedItemSet.slots[grandChild.attrib.slotName] = newItem
 							end
 						end
 						t_insert(self.sharedItemSetList, sharedItemSet)
@@ -452,8 +450,15 @@ function main:LoadSettings()
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
-				self.showThousandsSidebar = node.attrib.showThousandsSidebar == "true"
-				self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
+				if node.attrib.showThousandsSidebar then
+					self.showThousandsSidebar = node.attrib.showThousandsSidebar == "true"
+				end -- else leave at default
+				if node.attrib.showThousandsCalcs then
+					self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
+				end -- else leave at default
+				if node.attrib.showTitlebarName then
+					self.showTitlebarName = node.attrib.showTitlebarName == "true"
+				end
 			end
 		end
 	end
@@ -498,6 +503,7 @@ function main:SaveSettings()
 		nodePowerTheme = self.nodePowerTheme,
 		showThousandsSidebar = tostring(self.showThousandsSidebar),
 		showThousandsCalcs = tostring(self.showThousandsCalcs),
+		showTitlebarName = tostring(self.showTitlebarName),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -511,6 +517,7 @@ function main:OpenOptionsPopup()
 	controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {
 		{ label = "HTTP", scheme = "http" },
 		{ label = "SOCKS", scheme = "socks5" },
+		{ label = "SOCKS5H", scheme = "socks5h" },
 	})
 	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
 	controls.proxyURL = new("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
@@ -535,19 +542,24 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.thousandsLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 200, 94, 0, 16, "^7Show thousands separators in:")
-	controls.thousandsSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 270, 92, 20, "Sidebar:", function(state)
+	controls.thousandsLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators in:")
+	controls.thousandsSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, "Sidebar:", function(state)
 		self.showThousandsSidebar = state
 	end)
 	controls.thousandsSidebar.state = self.showThousandsSidebar
-	controls.thousandsCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 370, 92, 20, "Calcs tab:", function(state)
+	controls.thousandsCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 380, 92, 20, "Calcs tab:", function(state)
 		self.showThousandsCalcs = state
 	end)
 	controls.thousandsCalcs.state = self.showThousandsCalcs
+	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 116, 20, "Show build name in window title:", function(state)
+		self.showTitlebarName = state
+	end)
+	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSidebar = self.showThousandsSidebar
 	local initialThousandsCalcs = self.showThousandsCalcs
-	controls.save = new("ButtonControl", nil, -45, 120, 80, 20, "Save", function()
+	local initialTitlebarName = self.showTitlebarName
+	controls.save = new("ButtonControl", nil, -45, 144, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -566,13 +578,14 @@ function main:OpenOptionsPopup()
 		end
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 120, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 144, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.showThousandsSidebar = initialThousandsSidebar
 		self.showThousandsCalcs = initialThousandsCalcs
+		self.showTitlebarName = initialTitlebarName
 		main:ClosePopup()
 	end)
-	self:OpenPopup(450, 150, "Options", controls, "save", nil, "cancel")
+	self:OpenPopup(450, 174, "Options", controls, "save", nil, "cancel")
 end
 
 function main:OpenUpdatePopup()
@@ -623,12 +636,10 @@ function main:OpenAboutPopup()
 	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
 		self:ClosePopup()
 	end)
-	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "Path of Building v"..launch.versionNumber.." by Openarl : LocalIdentity's Fork")
-	controls.forum = new("ButtonControl", nil, 0, 42, 420, 18, "Forum Thread: ^x4040FFhttps://www.pathofexile.com/forum/view-thread/1716360", function(control)
-		OpenURL("https://www.pathofexile.com/forum/view-thread/1716360")
-	end)
-	controls.github = new("ButtonControl", nil, 0, 62, 360, 18, "GitHub page: ^x4040FFhttps://github.com/LocalIdentity/PathOfBuilding", function(control)
-		OpenURL("https://github.com/LocalIdentity/PathOfBuilding")
+	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "Path of Building Community Fork v"..launch.versionNumber)
+	controls.forum = new("LabelControl", nil, 0, 36, 0, 18, "Based on Openarl's Path of Building")
+	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
+		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding")
 	end)
 	controls.verLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:")
 	controls.changelog = new("TextListControl", nil, 0, 100, 630, 390, nil, changeList)
@@ -872,6 +883,14 @@ function main:OpenNewFolderPopup(path, onClose)
 		main:ClosePopup()
 	end)
 	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")	
+end
+
+function main:SetWindowTitleSubtext(subtext)
+	if not subtext or not self.showTitlebarName then
+		SetWindowTitle("Path of Building")
+	else
+		SetWindowTitle("Path of Building - "..subtext)
+	end
 end
 
 do

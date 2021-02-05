@@ -64,6 +64,7 @@ ModFlag.Projectile = 0x00000400
 ModFlag.SourceMask = 0x00000600
 ModFlag.Ailment =	 0x00000800
 ModFlag.MeleeHit =	 0x00001000
+ModFlag.Weapon =	 0x00002000
 -- Weapon types
 ModFlag.Axe =		 0x00010000
 ModFlag.Bow =		 0x00020000
@@ -77,9 +78,9 @@ ModFlag.Unarmed =	 0x01000000
 -- Weapon classes
 ModFlag.WeaponMelee =0x02000000
 ModFlag.WeaponRanged=0x04000000
-ModFlag.Weapon =	 0x08000000
-ModFlag.Weapon1H =	 0x10000000
-ModFlag.Weapon2H =	 0x20000000
+ModFlag.Weapon1H =	 0x08000000
+ModFlag.Weapon2H =	 0x10000000
+ModFlag.WeaponMask = 0x1FFF0000
 
 KeywordFlag = { }
 -- Skill keywords
@@ -102,16 +103,36 @@ KeywordFlag.Attack =	0x00010000
 KeywordFlag.Spell =		0x00020000
 KeywordFlag.Hit =		0x00040000
 KeywordFlag.Ailment =	0x00080000
+KeywordFlag.Brand =		0x00100000
 -- Other effects
-KeywordFlag.Poison =	0x00100000
-KeywordFlag.Bleed =		0x00200000
-KeywordFlag.Ignite =	0x00400000
+KeywordFlag.Poison =	0x00200000
+KeywordFlag.Bleed =		0x00400000
+KeywordFlag.Ignite =	0x00800000
 -- Damage over Time types
 KeywordFlag.PhysicalDot=0x01000000
 KeywordFlag.LightningDot=0x02000000
 KeywordFlag.ColdDot =	0x04000000
 KeywordFlag.FireDot =	0x08000000
 KeywordFlag.ChaosDot =	0x10000000
+---The default behavior for KeywordFlags is to match *any* of the specified flags.
+---Including the "MatchAll" flag when creating a mod will cause *all* flags to be matched rather than any.
+KeywordFlag.MatchAll =	0x40000000
+
+-- Helper function to compare KeywordFlags
+local band = bit.band
+local MatchAllMask = bit.bnot(KeywordFlag.MatchAll)
+---@param keywordFlags number The KeywordFlags to be compared to.
+---@param modKeywordFlags number The KeywordFlags stored in the mod.
+---@return boolean Whether the KeywordFlags in the mod are satified.
+function MatchKeywordFlags(keywordFlags, modKeywordFlags)
+	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
+	modKeywordFlags = band(modKeywordFlags, MatchAllMask)
+	keywordFlags = band(keywordFlags, MatchAllMask)
+	if matchAll then
+		return band(keywordFlags, modKeywordFlags) == modKeywordFlags
+	end
+	return modKeywordFlags == 0 or band(keywordFlags, modKeywordFlags) ~= 0
+end
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
 -- Had to reverse engineer this, not sure what all of the values mean
@@ -147,69 +168,86 @@ SkillType = {
 	CausesBurning = 29, -- Deals burning damage
 	Totem = 30,
 	Type31 = 31, -- No idea, used on Molten Shell and the Thunder glove enchants, and added by Blasphemy
-	Curse = 32,
-	FireSkill = 33,
-	ColdSkill = 34,
-	LightningSkill = 35,
-	Triggerable = 36,
-	Trap = 37,
-	MovementSkill = 38,
-	Removed39 = 39, -- Now removed, was Cast
-	DamageOverTime = 40,
-	Mine = 41,
-	Triggered = 42,
-	Vaal = 43,
-	Aura = 44,
-	Removed45 = 45, -- Now removed, was LightningSpell
-	Type46 = 46, -- Doesn't appear to be used at all
-	Removed47 = 47, -- Now removed, was TriggeredAttack
-	ProjectileAttack = 48,
-	Removed49 = 49, -- Now removed, was MinionSpell
-	ChaosSkill = 50,
-	Type51 = 51, -- Not used by any skill
-	Removed52 = 52,
-	Type53 = 53, -- Allows Burning Arrow and Vigilant Strike to be supported by Inc AoE and Conc Effect
-	Type54 = 54, -- Not used by any skill
-	Type55 = 55, -- Allows Burning Arrow to be supported by Inc/Less Duration and Rapid Decay
-	Type56 = 56, -- Not used by any skill
-	Removed57 = 57,
-	Channelled = 58,
-	Type59 = 59, -- Allows Contagion, Blight and Scorching Ray to be supported by Controlled Destruction
-	Removed60 = 60, -- Now removed, was ColdSpell
-	TriggeredGrantedSkill = 61, -- Skill granted by item that is automatically triggered, prevents trigger gems and trap/mine/totem from applying
-	Golem = 62,
-	Herald = 63,
-	AuraDebuff = 64, -- Used by Death Aura, added by Blasphemy
-	Type65 = 65, -- Excludes Ruthless from Cyclone
-	Type66 = 66, -- Allows Iron Will
-	SpellCanCascade = 67, -- Spell can cascade via Spell Cascade
-	SkillCanVolley = 68, -- Skill can be supported by Volley
-	SkillCanMirageArcher = 69, -- Skill can be supported by Mirage Archer
-	Type70 = 70, -- Excludes Volley from Vaal Fireball and Vaal Spark
-	Type71 = 71, -- Excludes Volley from Spectral Shield Throw
-	Type72 = 72, -- Excludes Summon Phantasm on Kill from Manifest Dancing Dervish
-	Type73 = 73, -- Allows LMP/GMP on Rain of Arrows and Toxic Rain
-	Warcry = 74, -- Warcry
-	Instant = 75, -- Instant cast skill
-	Brand = 76,
-	DestroysCorpse = 77, -- Consumes corpses on use
-	NonHitChill = 78,
-	ChillingArea = 79,
-	AppliesCurse = 80,
-	CanRapidFire = 81,
-	AuraDuration = 82,
-	AreaSpell = 83,
-	OR = 84,
-	AND = 85,
-	NOT = 86,
-	PhysicalSkill = 87,
-	Maims = 88,
-	CreatesMinion = 89,
-	GuardSkill = 90,
-	TravelSkill = 91,
-	BlinkSkill = 92,
-	CanHaveBlessing = 93,
-	Type83 = 94, -- Has secondary projectiles
-	Ballista = 95,
-	NovaSpell = 96,
+	--Curse = 32,
+	FireSkill = 32,
+	ColdSkill = 33,
+	LightningSkill = 34,
+	Triggerable = 35,
+	Trap = 36,
+	MovementSkill = 37,
+	Removed39 = 38, -- Now removed, was Cast
+	DamageOverTime = 39,
+	Mine = 40,
+	Triggered = 41,
+	Vaal = 42,
+	Aura = 43,
+	Removed45 = 44, -- Now removed, was LightningSpell
+	Type46 = 45, -- Doesn't appear to be used at all
+	Removed47 = 46, -- Now removed, was TriggeredAttack
+	ProjectileAttack = 47,
+	Removed49 = 48, -- Now removed, was MinionSpell
+	ChaosSkill = 49,
+	Type51 = 50, -- Not used by any skill
+	Removed52 = 51,
+	Type53 = 52, -- Allows Burning Arrow and Vigilant Strike to be supported by Inc AoE and Conc Effect
+	Type54 = 53, -- Not used by any skill
+	Type55 = 54, -- Allows Burning Arrow to be supported by Inc/Less Duration and Rapid Decay
+	Type56 = 55, -- Not used by any skill
+	Removed57 = 56,
+	Channelled = 57,
+	Type59 = 58, -- Allows Contagion, Blight and Scorching Ray to be supported by Controlled Destruction
+	Removed60 = 59, -- Now removed, was ColdSpell
+	TriggeredGrantedSkill = 60, -- Skill granted by item that is automatically triggered, prevents trigger gems and trap/mine/totem from applying
+	Golem = 61,
+	Herald = 62,
+	AuraDebuff = 63, -- Used by Death Aura, added by Blasphemy
+	Type65 = 64, -- Excludes Ruthless from Cyclone
+	Type66 = 65, -- Allows Iron Will
+	SpellCanCascade = 66, -- Spell can cascade via Spell Cascade
+	SkillCanVolley = 67, -- Skill can be supported by Volley
+	SkillCanMirageArcher = 68, -- Skill can be supported by Mirage Archer
+	Type70 = 69, -- Excludes Volley from Vaal Fireball and Vaal Spark
+	Type71 = 70, -- Excludes Volley from Spectral Shield Throw
+	Type72 = 71, -- Excludes Summon Phantasm on Kill from Manifest Dancing Dervish
+	Type73 = 72, -- Allows LMP/GMP on Rain of Arrows and Toxic Rain
+	Warcry = 73, -- Warcry
+	Instant = 74, -- Instant cast skill
+	Brand = 75,
+	DestroysCorpse = 76, -- Consumes corpses on use
+	NonHitChill = 77,
+	ChillingArea = 78,
+	AppliesCurse = 79,
+	CanRapidFire = 80,
+	AuraDuration = 81,
+	AreaSpell = 82,
+	OR = 83,
+	AND = 84,
+	NOT = 85,
+	PhysicalSkill = 86,
+	Maims = 87,
+	CreatesMinion = 88,
+	GuardSkill = 89,
+	TravelSkill = 90,
+	BlinkSkill = 91,
+	CanHaveBlessing = 92,
+	Type83 = 93, -- Has secondary projectiles
+	Ballista = 94,
+	NovaSpell = 95,
+	Type91 = 96,
+	Type92 = 97,
+	Type93 = 98, -- Dedicated mine skills
+	Banner = 99,
+	Type95 = 100, -- Raining arrow skills
+	SecondWindSupport = 101,
+	Type97= 102,
+	CantUseFistOfWar = 103,
+	SlamSkill = 104,
+	StanceSkill = 105, -- Bload and Sand + Flesh and Stone
+	Type101 = 106,
+	Type102 = 107,
+	SteelSkill = 18,
+	Hex = 109,
+	Mark = 110,
+	Aegis = 111,
+	Orb = 112,
 }

@@ -37,17 +37,15 @@ Cameria's Maul
 Gavel
 Upgrade: Upgrades to unique{Cameria's Avarice} via prophecy{Cold Greed}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 60, 212 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2,3}15% reduced Enemy Stun Threshold
+{variant:2}15% reduced Enemy Stun Threshold
 (140-180)% increased Physical Damage
 Adds (10-20) to (30-50) Cold Damage
 (15-40)% increased Critical Strike Chance
-{variant:1,2}(30-40)% increased Cold Damage with Weapons
-{variant:3}(30-40)% increased Cold Damage with Attack Skills
+(30-40)% increased Cold Damage with Attack Skills
 40% increased Rarity of Items Dropped by Frozen Enemies
 ]],[[
 Cameria's Avarice
@@ -71,12 +69,12 @@ Requires Level 41, 134 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
+Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 Minions have (20-30)% increased maximum Life
-Minions' Attacks deal (5-8) to (12-16) additional Physical Damage
-Can Summon up to 1 additional Golem at a time
-Grants level 12 Summon Stone Golem
++1 to maximum number of Golems
+Minions deal (5-8) to (12-16) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -98,7 +96,7 @@ Adds 10 to 15 Physical Damage
 Frostbreath
 Ornate Mace
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 50, 161 Str
 Implicits: 2
@@ -112,6 +110,18 @@ Implicits: 2
 +(40-50)% to Fire Resistance
 (35-50)% increased Chill Duration on Enemies
 Attacks with this Weapon deal double Damage to Chilled Enemies
+]],[[
+Replica Frostbreath
+Ornate Mace
+League: Heist
+Requires Level 50, 161 Str
+Implicits: 1
+15% reduced Enemy Stun Threshold
+Adds (53-67) to (71-89) Chaos Damage
+(8-14)% increased Attack Speed
++(23-31)% to Chaos Resistance
+Your Chaos Damage can Chill
+Attacks with this Weapon deal Double Damage to Chilled Enemies
 ]],[[
 Gorebreaker
 Spiked Club
@@ -155,21 +165,19 @@ Gavel
 Variant: Pre 2.0.0
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
-{variant:4,5}15% reduced Enemy Stun Threshold
+{variant:4}15% reduced Enemy Stun Threshold
 (80-120)% increased Physical Damage
 Skills Chain +1 times
-{variant:1,2,3,4}(30-40)% increased Lightning Damage with Weapons
-{variant:5}(30-40)% increased Lightning Damage with Attack Skills
+(30-40)% increased Lightning Damage with Attack Skills
 +200 Strength Requirement
 +300 Intelligence Requirement
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
-{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit
+{variant:3,4}Trigger a Socketed Lightning Spell on Hit
 Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
@@ -183,6 +191,16 @@ Implicits: 1
 (15-20)% increased Cold Damage per 1% Cold Resistance above 75%
 (15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
 ]],[[
+Replica Nebulis
+Void Sceptre
+League: Heist
+Requires Level 68, 104 Str, 122 Int
+Implicits: 1
+40% increased Elemental Damage
+{fractured}(15-20)% increased Cast Speed
+(3-5)% increased Cold Damage per 1% Missing Cold Resistance
+(3-5)% increased Fire Damage per 1% Missing Fire Resistance
+]],[[
 Nebuloch
 Nightmare Mace
 Source: Drops from unique{The Elder} (Tier 6+)
@@ -194,7 +212,7 @@ Implicits: 1
 Adds (45-60) to (100-120) Physical Damage 
 Gain (30-40)% of Physical Attack Damage as Extra Fire Damage 
 +4% to Chaos Resistance per Endurance Charge 
-1% reduced Elemental Damage taken when Hit per Endurance Charge 
+1% reduced Elemental Damage taken from Hits per Endurance Charge 
 Adds 5 to 8 Physical Damage per Endurance Charge 
 +500 to Armour per Endurance Charge 
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
@@ -248,17 +266,32 @@ Recover (1-3)% of Maximum Mana on Kill
 Bitterdream
 Shadow Sceptre
 Variant: Pre 2.3.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2}22% increased Elemental Damage
+{variant:2,3}22% increased Elemental Damage
+{variant:3}Socketed Gems are Supported by Level 1 Bonechill
 Socketed Gems are Supported by level 1 Hypothermia
 Socketed Gems are Supported by level 1 Ice Bite
 Socketed Gems are Supported by level 1 Cold Penetration
-Socketed Gems are Supported by level 1 Mana Leech
+{variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
 Socketed Gems are Supported by level 10 Added Cold Damage
 Socketed Gems are Supported by level 1 Reduced Mana
+]],[[
+Replica Bitterdream
+Shadow Sceptre
+League: Heist
+Requires Level 32, 52 Str, 62 Int
+Implicits: 1
+22% increased Elemental Damage
+Socketed Gems are Supported by Level 1 Elemental Penetration
+Socketed Gems are Supported by Level 10 Immolate
+Socketed Gems are Supported by Level 1 Unbound Ailments
+Socketed Gems are Supported by Level 10 Ice Bite
+Socketed Gems are Supported by Level 1 Inspiration
+Socketed Gems are Supported by Level 10 Innervate
 ]],[[
 The Black Cane
 Royal Sceptre
@@ -275,7 +308,7 @@ Each Summoned Phantasm grants you Phantasmal Might
 Breath of the Council
 Carnal Sceptre
 Source: prophecy{The Plaguemaw V}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
@@ -291,7 +324,7 @@ Ritual Sceptre
 League: Torment
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
@@ -323,22 +356,28 @@ The Dark Seer
 Shadow Sceptre
 League: Beyond
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
+Variant: Pre 3.11.0 (Life/Mana)
+Variant: Pre 3.11.0 (Life/ES)
+Variant: Pre 3.11.0 (Mana/ES)
 Variant: Current (Life/Mana)
 Variant: Current (Life/ES)
 Variant: Current (Mana/ES)
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3,4,5}22% increased Elemental Damage
-(30-50)% increased Damage
-7% Global chance to Blind Enemies on hit
+{variant:2,3,4,5,6,7,8}22% increased Elemental Damage
+{variant:1,2,3,4,5}(30-50)% increased Global Damage
+{variant:6,7,8}(40-60)% increased Global Damage
+{variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
+{variant:6,7,8}10% Global chance to Blind Enemies on hit
+Blind does not affect your Chance to Hit
+Enemies Blinded by you while you are Blinded have Malediction
 {variant:1,2}+1 Mana gained on Kill per Level
 {variant:1,2}+1 Energy Shield gained on Kill per Level
-{variant:3,4}+1 to maximum Life per Level
-{variant:3,5}+1 to maximum Mana per Level
-{variant:4,5}+1 to maximum Energy Shield per Level
-Cannot be Blinded
+{variant:3,4,6,7}+1 to maximum Life per Level
+{variant:3,5,6,8}+1 to maximum Mana per Level
+{variant:4,5,7,8}+1 to maximum Energy Shield per Level
 ]],[[
 Death's Hand
 Karui Sceptre
@@ -398,6 +437,18 @@ Summoned Skeletons Cover Enemies in Ash on Hit
 Summoned Skeletons take (15-30)% of their Maximum Life per second as Fire Damage
 Summoned Skeletons have Avatar of Fire
 ]],[[
+Replica Earendel's Embrace
+Grinning Fetish
+League: Heist
+Requires Level 35, 62 Str, 62 Int
+Implicits: 1
+18% increased Elemental Damage
++(20-30) to all Attributes
+Minions deal (30-40)% increased Damage
+Raised Zombies Cover Enemies in Ash on Hit
+Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
+Raised Zombies have Avatar of Fire
+]],[[
 Mon'tregul's Grasp
 Void Sceptre
 Variant: Pre 1.2.0
@@ -412,7 +463,7 @@ Implicits: 2
 {variant:1}Raised Zombies have +500 to maximum Life
 {variant:2,3}Raised Zombies have +2000 to maximum Life
 {variant:4}Raised Zombies have +5000 to maximum Life
-(25-30)% increased Zombie Resistances
+Raised Zombies have +(25-30)% to all Resistances
 25% increased Zombie Size
 Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
@@ -452,35 +503,31 @@ Enemies inflict Elemental Ailments on you instead of nearby Allies
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2,3}30% increased Elemental Damage
+{variant:2}30% increased Elemental Damage
 Adds (30-40) to (60-70) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
-{variant:1,2}(60-80)% increased Damage against Hindered Enemies
-{variant:3}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
 Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2,3,4}14% increased Elemental Damage
+{variant:2,3}14% increased Elemental Damage
 (100-140)% increased Physical Damage
-{variant:1,2}40% increased Damage against Frozen Enemies
-{variant:3,4}40% increased Damage with Hits against Frozen Enemies
+40% increased Damage with Hits against Frozen Enemies
 (30-50)% increased Cold Damage
-{variant:4}+(25-35)% to Cold Damage over Time Multiplier
+{variant:3}+(25-35)% to Cold Damage over Time Multiplier
 (5-10)% increased Attack Speed
 (4-8)% increased Cast Speed
 5% chance to Freeze
@@ -508,24 +555,29 @@ Brain Rattler
 Meatgrinder
 Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 63, 212 Str
-Implicits: 2
+Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
-Adds (80-100) to (320-370) Physical Damage
+{variant:3}5% chance to deal Double Damage
+{variant:1,2}Adds (80-100) to (320-370) Physical Damage
+{variant:3}Adds (60-80) to (270-320) Physical Damage
 50% of Physical Damage Converted to Lightning Damage
-15% chance to Shock
-10% chance to Cause Monsters to Flee
+{variant:1,2}15% chance to Shock
+{variant:3}50% chance to Shock
+{variant:1,2}10% chance to Cause Monsters to Flee
+{variant:3}Shock Enemies as though dealing 300% more Damage
+Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
-Damage Penetrates 20% Lightning Resistance
 ]],[[
 Chober Chaber
 Great Mallet
 Upgrade: Upgrades to unique{Chaber Cairn} via prophecy{Faith Exhumed}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 40, 104 Str
 Implicits: 2
@@ -571,12 +623,17 @@ Never deal Critical Strikes
 Geofri's Devotion
 Brass Maul
 Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
+Variant: Pre 2.6.0
+Variant: Pre 3.11.0
+Variant: Current
 Requires Level 61, 92 Str
-Implicits: 1
-20% increased Stun Duration on Enemies
-Trigger Level 20 Elemental Warding when you Hit an Enemy while Cursed
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2,3}30% increased Stun Duration on Enemies
+Trigger Level 20 Elemental Warding on Melee Hit while Cursed
 200% increased Physical Damage
-Adds (50-56) to (73-78) Physical Damage
+{variant:1,2}Adds (50-56) to (73-78) Physical Damage
+{variant:3}Adds (42-47) to (66-71) Physical Damage
 Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
 Never deal Critical Strikes
@@ -622,30 +679,45 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
+{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
-(8-12)% increased Cast Speed
 (8-12)% increased Attack Speed
+(8-12)% increased Cast Speed
 30% less Animate Weapon Duration
 Weapons you Animate create an additional copy
-{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 ]],[[
 Kongor's Undying Rage
 Terror Maul
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 212 Str
-Implicits: 2
+Implicits: 3
 {variant:1,2}20% increased Stun Duration on Enemies
 {variant:3}30% increased Stun Duration on Enemies
+{variant:4}25% chance to double Stun Duration
 {variant:1}Adds (27-36) to (270-360) Physical Damage
-{variant:2,3}Adds (27-56) to (270-400) Physical Damage
-{variant:2,3}(30-40)% increased Critical Strike Chance
+{variant:2,3,4}Adds (27-56) to (270-400) Physical Damage
+{variant:2,3,4}(30-40)% increased Critical Strike Chance
 +(15-20)% to all Elemental Resistances
 Hits can't be Evaded
 Your Critical Strikes do not deal extra Damage
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
-{variant:3}You gain Onslaught for 4 seconds on Critical Strike
+{variant:3,4}You gain Onslaught for 4 seconds on Critical Strike
+]],[[
+Replica Kongor's Undying Rage
+Terror Maul
+League: Heist
+Requires Level 67, 212 Str
+Implicits: 1
+25% chance to double Stun Duration
+Adds (43-56) to (330-400) Physical Damage
+(30-40)% increased Critical Strike Chance
++(15-20)% to all Elemental Resistances
+Hits can't be Evaded
+Your Critical Strikes do not deal extra Damage
+Regenerate 20% of Energy Shield per second if you've dealt a Critical Strike with this weapon Recently
 ]],[[
 Marohi Erqi
 Karui Maul
@@ -653,17 +725,20 @@ League: Legion
 Source: Drops from Legion Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 57, 182 Str
-Implicits: 2
+Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
+{variant:4}45% increased Stun Duration on Enemies
 {variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
-{variant:3}Socketed Gems are Supported by level 15 Pulverise
+{variant:3,4}Socketed Gems are Supported by level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
+{variant:4}(200-230)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
-{variant:3}Adds 30 to 40 Physical Damage
+{variant:3,4}Adds 30 to 40 Physical Damage
 10% reduced Attack Speed
 -100 to Accuracy Rating
 10% reduced Movement Speed
@@ -699,13 +774,15 @@ Recover 5% of Maximum Life on Kill
 Tidebreaker
 Imperial Maul
 Variant: Pre 3.5.0
+Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 212 Str
-Implicits: 1
-30% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1,2}30% increased Stun Duration on Enemies
+{variant:3}10% increased Strength
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 {variant:1}Adds (60-70) to (300-350) Physical Damage
-{variant:2}Adds (70-80) to (340-375) Physical Damage
+{variant:2,3}Adds (70-80) to (340-375) Physical Damage
 +40 to Intelligence
 10% increased Physical Damage per Endurance Charge
 (20-30)% reduced Enemy Stun Threshold with this Weapon
@@ -720,6 +797,15 @@ Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
 50% reduced Attack Speed
+All Attacks with this Weapon are Critical Strikes
+]],[[
+Replica Trypanon
+Great Mallet
+League: Heist
+Requires Level 40, 131 Str
+Implicits: 1
+30% increased Stun Duration on Enemies
+-5000 to Accuracy Rating
 All Attacks with this Weapon are Critical Strikes
 ]],[[
 Voidhome

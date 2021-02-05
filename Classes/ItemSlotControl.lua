@@ -25,8 +25,9 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	end
 	self.itemsTab = itemsTab
 	self.items = { }
+	self.selItemId = 0
 	self.slotName = slotName
-	self.slotNum = tonumber(slotName:match("%d+"))
+	self.slotNum = tonumber(slotName:match("%d+$") or slotName:match("%d+"))
 	if slotName:match("Flask") then
 		self.controls.activate = new("CheckBoxControl", {"RIGHT",self,"LEFT"}, -2, 0, 20, nil, function(state)
 			self.active = state
@@ -56,15 +57,17 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 end)
 
 function ItemSlotClass:SetSelItemId(selItemId)
-	self.selItemId = selItemId
 	if self.nodeId then
 		if self.itemsTab.build.spec then
 			self.itemsTab.build.spec.jewels[self.nodeId] = selItemId
-			self.itemsTab.build.spec:BuildAllDependsAndPaths()
+			if selItemId ~= self.selItemId then
+				self.itemsTab.build.spec:BuildClusterJewelGraphs()
+			end
 		end
 	else
 		self.itemsTab.activeItemSet[self.slotName].selItemId = selItemId
 	end
+	self.selItemId = selItemId
 end
 
 function ItemSlotClass:Populate()
@@ -105,7 +108,7 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = new("Item", self.itemsTab.build.targetVersion, value.raw)
+		local newItem = new("Item", value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)
@@ -123,14 +126,19 @@ function ItemSlotClass:Draw(viewPort)
 	self:DrawControls(viewPort)
 	if not main.popups[1] and self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then
 		SetDrawLayer(nil, 15)
-		local viewerX = x + width + 5
-		local viewerY = m_min(y, viewPort.y + viewPort.height - 304)
+		local viewerY
+		if self.DropDownControl.dropUp and self.DropDownControl.dropped then
+			viewerY = y + 20
+		else
+			viewerY = m_min(y - 300 - 5, viewPort.y + viewPort.height - 304)
+		end
+		local viewerX = x
 		SetDrawColor(1, 1, 1)
 		DrawImage(nil, viewerX, viewerY, 304, 304)
 		local viewer = self.itemsTab.socketViewer
 		local node = self.itemsTab.build.spec.nodes[self.nodeId]
 		viewer.zoom = 5
-		local scale = 11.85
+		local scale = self.itemsTab.build.spec.tree.size / 1500
 		viewer.zoomX = -node.x / scale
 		viewer.zoomY = -node.y / scale
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)

@@ -6,18 +6,8 @@
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
-local t_remove = table.remove
 local m_max = math.max
-local m_min = math.min
 local m_floor = math.floor
-local band = bit.band
-
-local calcs = { }
-local sectionData = { } 
-for _, targetVersion in ipairs(targetVersionList) do
-	calcs[targetVersion] = LoadModule("Modules/Calcs", targetVersion)
-	sectionData[targetVersion] = LoadModule("Modules/CalcSections-"..targetVersion)
-end
 
 local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
@@ -33,7 +23,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 	self.build = build
 
-	self.calcs = calcs[build.targetVersion]
+	self.calcs = LoadModule("Modules/Calcs")
 
 	self.input = { }
 	self.input.skill_number = 1
@@ -43,7 +33,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.sectionList = { }
 
 	-- Special section for skill/mode selection
-	self:NewSection(3, "SkillSelect", 1, "View Skill Details", colorCodes.NORMAL, {
+	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
 			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
 				self.input.skill_number = index 
@@ -70,6 +60,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end)
+		}, },{ label = "Skill Stages", playerFlag = "multiStage", { controlName = "mainSkillStageCount",
+			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillStageCountCalcs = tonumber(buf)
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
@@ -134,14 +132,15 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}", { breakdown = "SkillBuffs" } }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
 		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}", { breakdown = "SkillDebuffs" } }, },
-	}, function(section)
+	}}}, function(section)
 		self.build:RefreshSkillSelectControls(section.controls, self.input.skill_number, "Calcs")
 		section.controls.showMinion.state = self.input.showMinion
 		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 	end)
 
 	-- Add sections from the CalcSections module
-	for _, section in ipairs(sectionData[build.targetVersion]) do
+	local sectionData = LoadModule("Modules/CalcSections")
+	for _, section in ipairs(sectionData) do
 		self:NewSection(unpack(section))
 	end
 
@@ -223,14 +222,20 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		if section.enabled then
 			local col
 			if section.group == 1 then
-				-- Group 1: Offense 
+				-- Group 1: Offense or 3 wide sections
 				-- This group is put into the first 3 columns, with each section placed into the highest available location
 				col = 1
-				local minY = colY[col] or baseY
-				for c = 2, 3 do
-					if (colY[c] or baseY) < minY then
-						col = c
-						minY = colY[c] or baseY
+				if section.width == self.colWidth then -- if 1 col wide
+					local minY = colY[col] or baseY
+					for c = 2, 3 do
+						if (colY[c] or baseY) < minY then
+							col = c
+							minY = colY[c] or baseY
+						end
+					end
+				else
+					for c = 2, 3 do
+						colY[col] = m_max(colY[col] or baseY, colY[c] or baseY)
 					end
 				end
 			elseif section.group == 2 then
@@ -443,12 +448,15 @@ end
 
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
-	local calcFunc, calcBase = self:GetNodeCalculator()
+	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local newPowerMax = {
 		singleStat = 0,
+		singleStatPerPoint = 0,
 		offence = 0,
-		defence = 0
+		offencePerPoint = 0,
+		defence = 0,
+		defencePerPoint = 0
 	}
 	if not self.powerMax then
 		self.powerMax = newPowerMax
@@ -457,17 +465,18 @@ function CalcsTabClass:PowerBuilder()
 		coroutine.yield()
 	end
 	local start = GetTime()
-	for _, node in pairs(self.build.spec.nodes) do
+	for nodeId, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)
-		if not node.alloc and node.modKey ~= "" then
+		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({node})
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
 			end
 			local output = cache[node.modKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
-				if node.path then
+				if node.path and not node.ascendancyName then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
+					newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / node.pathDist, newPowerMax.singleStatPerPoint)
 				end
 			else
 				if calcBase.Minion then
@@ -481,9 +490,12 @@ function CalcsTabClass:PowerBuilder()
 								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
 								(output.LifeRegen - calcBase.LifeRegen) / 500 +
 								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
-				if node.path then
+				if node.path and not node.ascendancyName then
 					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+					newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
+					newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
+
 				end
 			end
 		end
@@ -491,7 +503,29 @@ function CalcsTabClass:PowerBuilder()
 			coroutine.yield()
 			start = GetTime()
 		end
-	end	
+	end
+
+	-- Calculate the impact of every cluster notable
+	-- used for the power report screen
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		if not node.power then
+			node.power = {}
+		end
+		wipeTable(node.power)
+		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			if not cache[node.modKey] then
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
+			end
+			local output = cache[node.modKey]
+			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+			end
+		end
+		if coroutine.running() and GetTime() - start > 100 then
+			coroutine.yield()
+			start = GetTime()
+		end
+	end
 	self.powerMax = newPowerMax
 end
 
@@ -500,8 +534,8 @@ function CalcsTabClass:CalculatePowerStat(selection, original, modified)
 		original = original.Minion
 		modified = modified.Minion
 	end
-	originalValue = original[selection.stat] or 0
-	modifiedValue = modified[selection.stat] or 0
+	local originalValue = original[selection.stat] or 0
+	local modifiedValue = modified[selection.stat] or 0
 	if selection.transform then
 		originalValue = selection.transform(originalValue)
 		modifiedValue = selection.transform(modifiedValue)
