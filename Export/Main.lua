@@ -4,7 +4,7 @@
 -- Main module of program.
 --
 
-dat_version = "32"
+USE_DAT64 = false
 
 local ipairs = ipairs
 local t_insert = table.insert
@@ -73,7 +73,7 @@ function main:Init()
 
 	self:LoadSettings()
 
-	if dat_version == "64" then
+	if USE_DAT64 then
 		self:LoadDat64Files()
 	else
 		self:LoadDatFiles()
@@ -149,7 +149,7 @@ function main:Init()
 	self.controls.datSource = new("EditControl", nil, 10, 30, 250, 18, self.datSource) {
 		enterFunc = function(buf)
 			self.datSource = buf
-			if dat_version == "64" then
+			if USE_DAT64 then
 				self:LoadDat64Files()
 			else
 				self:LoadDatFiles()
