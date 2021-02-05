@@ -2257,7 +2257,6 @@ local specialModList = {
 	["recover (%d+)%% of your maximum mana when you block"] = function(num) return { mod("ManaOnBlock", "BASE", 1,  { type = "PerStat", stat = "Mana", div = 100 / num }) } end,
 	["recover (%d+)%% of energy shield when you block"] = function(num) return { mod("EnergyShieldOnBlock", "BASE", 1,  { type = "PerStat", stat = "EnergyShield", div = 100 / num }) } end,
 	["replenishes energy shield by (%d+)%% of armour when you block"] = function(num) return { mod("EnergyShieldOnBlock", "BASE", 1,  { type = "PerStat", stat = "Armour", div = 100 / num }) } end,
-	["you have no life regeneration"] = { flag("NoLifeRegen") },
 	["cannot leech or regenerate mana"] = { flag("NoManaRegen"), flag("CannotLeechMana") },
 	["right ring slot: you cannot regenerate mana" ] = { flag("NoManaRegen", { type = "SlotNumber", num = 2 }) },
 	["you cannot recharge energy shield"] = { flag("NoEnergyShieldRecharge") },
@@ -2774,11 +2773,12 @@ local regenTypes = {
 	["rage"] = "RageRegen",
 }
 local flagTypes = {
-	["phasing"] = "Phasing",
-	["onslaught"] = "Onslaught",
-	["fortify"] = "Fortify",
-	["unholy might"] = "UnholyMight",
-	["tailwind"] = "Tailwind",
+	["phasing"] = "Condition:Phasing",
+	["onslaught"] = "Condition:Onslaught",
+	["fortify"] = "Condition:Fortify",
+	["unholy might"] = "Condition:UnholyMight",
+	["tailwind"] = "Condition:Tailwind",
+	["no life regeneration"] = "NoLifeRegen",
 }
 
 -- Build active skill name lookup
@@ -3317,7 +3317,7 @@ local function parseMod(line, order)
 		modName = { damageType.."Min", damageType.."Max" }
 		modFlag = modFlag or { keywordFlags = bor(KeywordFlag.Attack, KeywordFlag.Spell) }
 	elseif modForm == "FLAG" then
-		modName = "Condition:" .. modValue:gsub("^%l", string.upper)
+		modName = modValue
 		modValue = true
 		modType = "FLAG"
 	end
