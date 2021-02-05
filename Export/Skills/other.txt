@@ -689,6 +689,19 @@ local skills, mod, flag, skill = ...
 
 #skill VampiricIcon
 #flags spell
+    fromItem = true,
+    statMap = {
+		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "NearbyBleedingEnemies", limit = 5 }),
+			div = 60,
+		},
+		["vampiric_icon_bleeding_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_use_life_in_place_of_mana"] = {
+			flag("SkillBloodMagic"),
+		},
+	},
 #mods 
 
 #skill VoidGaze
