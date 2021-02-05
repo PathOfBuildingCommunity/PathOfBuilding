@@ -52,11 +52,11 @@ local dataTypes = {
 		end,
 	},
 	Enum = { 
-		size = 8, 
+		size = 4, 
 		ref = true,
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
-			return bytesToULong(b, o)
+			return bytesToUInt(b, o)
 		end,
 	},
 	Key = { 

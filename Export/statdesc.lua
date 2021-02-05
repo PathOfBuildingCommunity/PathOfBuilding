@@ -251,6 +251,7 @@ function describeMod(mod)
 	for i = 1, 6 do
 		if mod["Stat"..i] then
 			stats[mod["Stat"..i].Id] = { min = mod["Stat"..i.."Value"][1], max = mod["Stat"..i.."Value"][2] }
+			ConPrintf("[" .. mod.Id .. "] Stat" .. i .. ": ")
 		end
 	end
 	if mod.Type then
