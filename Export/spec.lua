@@ -813,15 +813,6 @@ return {
 			width=50
 		}
 	},
-	["BaseItemTypes.dat64"]={
-		[1]={
-			list=false,
-			name="Id",
-			refTo="",
-			type="String",
-			width=430
-		}
-	},
 	BestiaryCapturableMonsters={
 	},
 	BestiaryEncounters={
@@ -1156,11 +1147,7 @@ return {
 	},
 	BuffStackUIModes={
 	},
-	BuffVisualOrbArt={
-	},
 	BuffVisualOrbTypes={
-	},
-	BuffVisualOrbs={
 	},
 	BuffVisualSetEntries={
 	},
@@ -1833,8 +1820,6 @@ return {
 	DescentRewardChests={
 	},
 	DescentStarterChest={
-	},
-	DialogueEvent={
 	},
 	Directions={
 	},
@@ -2513,8 +2498,6 @@ return {
 	},
 	GeometryAttack={
 	},
-	GeometryChannel={
-	},
 	GeometryProjectiles={
 	},
 	GeometryTrigger={
@@ -3099,8 +3082,6 @@ return {
 			width=150
 		}
 	},
-	GroundEffectEffectTypes={
-	},
 	GroundEffectTypes={
 	},
 	GroundEffects={
@@ -3142,70 +3123,6 @@ return {
 	HarvestSpecialCraftOptions={
 	},
 	HarvestStorageLayout={
-	},
-	HeistAreaFormationLayout={
-	},
-	HeistAreas={
-	},
-	HeistBalancePerLevel={
-	},
-	HeistBlueprintWindowTypes={
-	},
-	HeistChestRewardTypes={
-	},
-	HeistChestTypes={
-	},
-	HeistChests={
-	},
-	HeistChokepointFormation={
-	},
-	HeistConstants={
-	},
-	HeistContracts={
-	},
-	HeistDoodadNPCs={
-	},
-	HeistDoors={
-	},
-	HeistEquipment={
-	},
-	HeistFormationMarkerType={
-	},
-	HeistGeneration={
-	},
-	HeistIntroAreas={
-	},
-	HeistJobs={
-	},
-	HeistJobsExperiencePerLevel={
-	},
-	HeistLockType={
-	},
-	HeistNPCAuras={
-	},
-	HeistNPCBlueprintTypes={
-	},
-	HeistNPCDialogue={
-	},
-	HeistNPCStats={
-	},
-	HeistNPCs={
-	},
-	HeistObjectives={
-	},
-	HeistPatrolPacks={
-	},
-	HeistQuestContracts={
-	},
-	HeistRevealingNPCs={
-	},
-	HeistRoomTypes={
-	},
-	HeistRooms={
-	},
-	HeistStorageLayout={
-	},
-	HeistValueScaling={
 	},
 	HideoutDoodads={
 	},
@@ -3282,8 +3199,6 @@ return {
 			width=150
 		}
 	},
-	ItemCostPerLevel={
-	},
 	ItemCreationTemplateCustomAction={
 	},
 	ItemExperiencePerLevel={
@@ -3308,8 +3223,6 @@ return {
 			type="Int",
 			width=150
 		}
-	},
-	ItemNoteCode={
 	},
 	ItemSetNames={
 	},
@@ -3463,8 +3376,6 @@ return {
 	},
 	LevelRelativePlayerScaling={
 	},
-	MTXSetBonus={
-	},
 	MagicMonsterLifeScalingPerLevel={
 	},
 	MapCompletionAchievements={
@@ -3574,8 +3485,6 @@ return {
 	ModAuraFlags={
 	},
 	ModDomains={
-	},
-	ModEffectStats={
 	},
 	ModEquivalencies={
 	},
@@ -3917,8 +3826,6 @@ return {
 	MonsterBonuses={
 	},
 	MonsterChanceToDropItemTemplate={
-	},
-	MonsterConditionalEffectPacks={
 	},
 	MonsterConditions={
 	},
@@ -4733,10 +4640,6 @@ return {
 	},
 	NPCAudio={
 	},
-	NPCConversations={
-	},
-	NPCDialogueStyles={
-	},
 	NPCFollowerVariations={
 	},
 	NPCMaster={
@@ -4754,8 +4657,6 @@ return {
 	NPCTalkConsoleQuickActions={
 	},
 	NPCTextAudio={
-	},
-	NPCTextAudioInterruptRules={
 	},
 	NPCs={
 		[1]={
@@ -4781,8 +4682,6 @@ return {
 	PCBangRewardMicros={
 	},
 	PVPTypes={
-	},
-	PackFormation={
 	},
 	PantheonPanelLayout={
 		[1]={
@@ -5591,10 +5490,6 @@ return {
 	},
 	SkillMorphDisplay={
 	},
-	SkillMorphDisplayOverlayCondition={
-	},
-	SkillMorphDisplayOverlayStyle={
-	},
 	SkillSurgeEffects={
 	},
 	SkillTotemVariations={
@@ -6005,10 +5900,9 @@ return {
 	},
 	WorldAreas={
 	},
-	WorldPopupIconTypes={
-	},
 	ZanaLevels={
 	},
 	ZanaQuests={
 	}
 }
+
