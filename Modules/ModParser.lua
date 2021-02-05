@@ -3263,12 +3263,12 @@ local function parseMod(line, order)
 	if modForm == "INC" then
 		modType = "INC"
 	elseif modForm == "RED" then
-		modValue = -tonumber(modValue)
+		modValue = -modValue
 		modType = "INC"
 	elseif modForm == "MORE" then
 		modType = "MORE"
 	elseif modForm == "LESS" then
-		modValue = -tonumber(modValue)
+		modValue = -modValue
 		modType = "MORE"
 	elseif modForm == "BASE" then
 		modSuffix, line = scan(line, suffixTypes, true)
