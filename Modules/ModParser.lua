@@ -85,6 +85,7 @@ local formList = {
 	["adds (%d+)%-(%d+) (%a+) damage to spells and attacks"] = "DMGBOTH", -- o_O
 	["adds (%d+) to (%d+) (%a+) damage to hits"] = "DMGBOTH",
 	["adds (%d+)%-(%d+) (%a+) damage to hits"] = "DMGBOTH",
+	["^you have (%a-)"] = "FLAG",
 }
 
 -- Map of modifier names
@@ -1661,11 +1662,7 @@ local specialModList = {
 		mod("AvoidShock", "BASE", 100, { type = "Condition", var = "UsingFlask" }),
 	},
 	-- Raider
-	["nearby enemies have (%d+)%% less accuracy rating while you have phasing"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("Accuracy", "MORE", -num) }, { type = "Condition", var = "Phasing" } )} end,
-	["you have phasing while at maximum frenzy charges"] = { flag("Condition:Phasing", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
-	["you have phasing during onslaught"] = { flag("Condition:Phasing", { type = "Condition", var = "Onslaught" }) },
-	["you have onslaught while on full frenzy charges"] = { flag("Condition:Onslaught", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
-	["you have onslaught while at maximum endurance charges"] = { flag("Condition:Onslaught", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
+	["nearby enemies have (%d+)%% less accuracy rating while you have phasing"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("Accuracy", "MORE", -num) })} end,
 	["immune to elemental ailments while phasing"] = {
 		mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Phasing" }),
 		mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "Phasing" }),
@@ -2491,7 +2488,6 @@ local specialModList = {
 	["[ct][ar][si][tg]g?e?r? a socketed cold s[pk][ei]ll on melee critical strike"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["your curses can apply to hexproof enemies"] = { flag("CursesIgnoreHexproof") },
 	["your hexes can affect hexproof enemies"] = { flag("CursesIgnoreHexproof") },
-	["you have onslaught while you have fortify"] = { flag("Condition:Onslaught", { type = "Condition", var = "Fortify" }) },
 	["reserves (%d+)%% of life"] = function(num) return { mod("ExtraLifeReserved", "BASE", num) } end,
 	["(%d+)%% of cold damage taken as lightning"] = function(num) return { mod("ColdDamageTakenAsLightning", "BASE", num) } end,
 	["(%d+)%% of fire damage taken as lightning"] = function(num) return { mod("FireDamageTakenAsLightning", "BASE", num) } end,
@@ -3218,7 +3214,6 @@ local function parseMod(line, order)
 	if not modForm then
 		return nil, line
 	end
-	local num = tonumber(formCap[1])
 
 	-- Check for tags (per-charge, conditionals)
 	local modTag, modTag2, tagCap
@@ -3257,18 +3252,18 @@ local function parseMod(line, order)
 	modFlag, line = scan(line, modFlagList, true)
 
 	-- Find modifier value and type according to form
-	local modValue = num
+	local modValue = tonumber(formCap[1]) or formCap[1]
 	local modType = "BASE"
 	local modSuffix
 	if modForm == "INC" then
 		modType = "INC"
 	elseif modForm == "RED" then
-		modValue = -num
+		modValue = -tonumber(modValue)
 		modType = "INC"
 	elseif modForm == "MORE" then
 		modType = "MORE"
 	elseif modForm == "LESS" then
-		modValue = -num
+		modValue = -tonumber(modValue)
 		modType = "MORE"
 	elseif modForm == "BASE" then
 		modSuffix, line = scan(line, suffixTypes, true)
@@ -3316,6 +3311,10 @@ local function parseMod(line, order)
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }
 		modName = { damageType.."Min", damageType.."Max" }
 		modFlag = modFlag or { keywordFlags = bor(KeywordFlag.Attack, KeywordFlag.Spell) }
+	elseif modForm == "FLAG" then
+		modName = "Condition:" .. modValue:gsub("^%l", string.upper)
+		modValue = true
+		modType = "FLAG"
 	end
 	if not modName then
 		return { }, line
