@@ -85,7 +85,7 @@ local formList = {
 	["adds (%d+)%-(%d+) (%a+) damage to spells and attacks"] = "DMGBOTH", -- o_O
 	["adds (%d+) to (%d+) (%a+) damage to hits"] = "DMGBOTH",
 	["adds (%d+)%-(%d+) (%a+) damage to hits"] = "DMGBOTH",
-	["^you have (%a-)"] = "FLAG",
+	["^you have "] = "FLAG",
 }
 
 -- Map of modifier names
@@ -1025,6 +1025,8 @@ local modTagList = {
 	-- Player status conditions
 	["wh[ie][ln]e? on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["wh[ie][ln]e? not on low life"] = { tag = { type = "Condition", var = "LowLife", neg = true } },
+	["wh[ie][ln]e? on low mana"] = { tag = { type = "Condition", var = "LowMana" } },
+	["wh[ie][ln]e? not on low mana"] = { tag = { type = "Condition", var = "LowMana", neg = true } },
 	["wh[ie][ln]e? on full life"] = { tag = { type = "Condition", var = "FullLife" } },
 	["wh[ie][ln]e? not on full life"] = { tag = { type = "Condition", var = "FullLife", neg = true } },
 	["wh[ie][ln]e? no life is reserved"] = { tag = { type = "StatThreshold", stat = "LifeReserved", threshold = 0, upper = true } },
@@ -1047,6 +1049,7 @@ local modTagList = {
 	["while you have an endurance charge"] = { tag = { type = "StatThreshold", stat = "EnduranceCharges", threshold = 1 } },
 	["while at maximum power charges"] = { tag = { type = "StatThreshold", stat = "PowerCharges", thresholdStat = "PowerChargesMax" } },
 	["while at maximum frenzy charges"] = { tag = { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" } },
+	["while on full frenzy charges"] = { tag = { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" } },
 	["while at maximum endurance charges"] = { tag = { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" } },
 	["while you have at least (%d+) crab barriers"] = function(num) return { tag = { type = "StatThreshold", stat = "CrabBarriers", threshold = num } } end,
 	["while you have at least (%d+) total endurance, frenzy and power charges"] = function(num) return { tag = { type = "MultiplierThreshold", var = "TotalCharges", threshold = num } } end,
@@ -1449,7 +1452,6 @@ local specialModList = {
 	},
 	["exerted attacks deal (%d+)%% more damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertIncrease", "MORE", num, nil, ModFlag.Attack, 0) } end,
 	-- Champion
-	["you have fortify"] = { flag("Condition:Fortify") },
 	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortify" }) },
 	["enemies taunted by you take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "Taunted" }) }) } end,
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
@@ -1662,7 +1664,7 @@ local specialModList = {
 		mod("AvoidShock", "BASE", 100, { type = "Condition", var = "UsingFlask" }),
 	},
 	-- Raider
-	["nearby enemies have (%d+)%% less accuracy rating while you have phasing"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("Accuracy", "MORE", -num) })} end,
+	["nearby enemies have (%d+)%% less accuracy rating while you have phasing"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("Accuracy", "MORE", -num) }, { type = "Condition", var = "Phasing" } )} end,
 	["immune to elemental ailments while phasing"] = {
 		mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Phasing" }),
 		mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "Phasing" }),
@@ -1993,15 +1995,6 @@ local specialModList = {
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
-	["you have phasing if you've killed recently"] = { flag("Condition:Phasing", { type = "Condition", var = "KilledRecently" }) },
-	["you have phasing if you have blocked recently"] = { flag("Condition:Phasing", { type = "Condition", var = "BlockedRecently" }) },
-	["you have phasing while affected by haste"] = { flag("Condition:Phasing", { type = "Condition", var = "AffectedByHaste" }) },
-	["you have phasing while you have cat's stealth"] = { flag("Condition:Phasing", { type = "Condition", var = "AffectedByCat'sStealth" }) },
-	["you have onslaught while you have cat's agility"] = { flag("Condition:Onslaught", { type = "Condition", var = "AffectedByCat'sAgility" }) },
-	["you have onslaught while on low life"] = { flag("Condition:Onslaught", { type = "Condition", var = "LowLife" }) },
-	["you have onslaught while not on low mana"] = { flag("Condition:Onslaught", { type = "Condition", var = "LowMana", neg = true }) },
-	["you have tailwind if you have dealt a critical strike recently"] = { flag("Condition:Tailwind", { type = "Condition", var = "CritRecently" }) },
-	["you have unholy might while you have no energy shield"] = { flag("Condition:UnholyMight", { type = "Condition", var = "HaveEnergyShield", neg = true }) },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you"] = function(num) return { mod("AuraBuffEffect", "INC", num, { type = "Multiplier", var = "Herald"}) } end,
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you, up to (%d+)%%"] = function(num, _, limit) return {
@@ -2087,7 +2080,6 @@ local specialModList = {
 	["enemies take (%d+)%% increased elemental damage from your hits for"] = { flag("Condition:CanElementalWithered") },
 	["each withered you have inflicted on them"] = { },
 	["your hits cannot penetrate or ignore elemental resistances"] = { flag("CannotElePenIgnore") },
-	["you have fortify during effect of any life flask"] = { flag("Condition:Fortify", { type = "Condition", var = "UsingLifeFlask" }) },
 	["you take (%d+) chaos damage per second for 3 seconds on kill"] = function(num) return { mod("ChaosDegen", "BASE", num, { type = "Condition", var = "KilledLast3Seconds" }) } end,
 	["regenerate (%d+) life over 1 second for each spell you cast"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "CastLast1Seconds" }) } end,
 	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "KilledPosionedLast2Seconds" }) } end,
@@ -2781,6 +2773,13 @@ local regenTypes = {
 	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
 	["rage"] = "RageRegen",
 }
+local flagTypes = {
+	["phasing"] = "Phasing",
+	["onslaught"] = "Onslaught",
+	["fortify"] = "Fortify",
+	["unholy might"] = "UnholyMight",
+	["tailwind"] = "Tailwind",
+}
 
 -- Build active skill name lookup
 local skillNameList = {
@@ -3240,6 +3239,12 @@ local function parseMod(line, order)
 		end
 		local _
 		_, line = scan(line, modNameList, true)
+	elseif modForm == "FLAG" then
+		formCap[1], line = scan(line, flagTypes, true)
+		if not formCap[1] then
+			return nil, line
+		end
+		modName, line = scan(line, modNameList, true)
 	else
 		modName, line = scan(line, modNameList, true)
 	end
