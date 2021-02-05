@@ -3,6 +3,9 @@
 -- Module: Main
 -- Main module of program.
 --
+
+dat_version = "32"
+
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
@@ -69,8 +72,12 @@ function main:Init()
 	self.datFileByName = { }
 
 	self:LoadSettings()
-	--self:LoadDatFiles()
-	self:LoadDat64Files()
+
+	if dat_version == "64" then
+		self:LoadDat64Files()
+	else
+		self:LoadDatFiles()
+	end
 
 	self.scriptList = { }
 	local handle = NewFileSearch("Scripts/*.lua")
@@ -142,8 +149,11 @@ function main:Init()
 	self.controls.datSource = new("EditControl", nil, 10, 30, 250, 18, self.datSource) {
 		enterFunc = function(buf)
 			self.datSource = buf
-			--self:LoadDatFiles()
-			self:LoadDat64Files()
+			if dat_version == "64" then
+				self:LoadDat64Files()
+			else
+				self:LoadDatFiles()
+			end
 		end
 	}
 

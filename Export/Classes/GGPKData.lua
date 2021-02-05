@@ -38,9 +38,13 @@ local GGPKClass = newClass("GGPKData", function(self, path)
 	self.dat = { }
 	self.txt = { }
 	
-	--self:ExtractFiles()
-	--self:AddDatFiles()
-	self:AddDat64Files()
+	self:ExtractFiles()
+	
+	if dat_version == "64" then
+		self:AddDat64Files()
+	else
+		self:AddDatFiles()
+	end
 end)
 
 function GGPKClass:ExtractFiles()
@@ -48,7 +52,11 @@ function GGPKClass:ExtractFiles()
 	
 	local fileList = ''
 	for _, fname in ipairs(datList) do
-		fileList = fileList .. '"' .. fname .. '" '
+		if dat_version == "64" then
+			fileList = fileList .. '"' .. fname .. '64" '
+		else
+			fileList = fileList .. '"' .. fname .. '" '
+		end
 	end
 	for _, fname in ipairs(txtList) do
 		fileList = fileList .. '"' .. fname .. '" '
