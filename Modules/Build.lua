@@ -810,7 +810,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
 	end
-	if main.showSeparatorSidebar ~= self.lastShowSeparatorSidebar then
+	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
 		self:RefreshStatList()
 	end
 	if main.thousandsSeparator ~= self.lastShowThousandsSeparator then
@@ -1100,12 +1100,10 @@ function buildMode:FormatStat(statData, statVal)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
 	valStr:gsub("%.", main.decimalSeparator)
-	if main.showSeparatorSidebar then
-		valStr = color .. formatNumSep(valStr)
-	else
-		valStr = color .. formatDecimalSep(valStr)
-	end
-	self.lastShowSeparatorSidebar = main.showSeparatorSidebar
+
+	valStr = color .. formatNumSep(valStr)
+
+	self.lastShowThousandsSeparators = main.showThousandsSeparators
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
@@ -1176,9 +1174,7 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
-				if main.showSeparatorCalcs then
-					valStr = formatNumSep(valStr)
-				end
+				valStr = formatNumSep(valStr)
 				local line = string.format("%s%s %s", color, valStr, statData.label)
 				local pcPerPt = ""
 				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then

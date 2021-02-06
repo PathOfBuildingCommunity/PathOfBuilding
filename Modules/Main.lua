@@ -199,8 +199,7 @@ the "Releases" section of the GitHub page.]])
 
 	self.buildSortMode = "NAME"
 	self.nodePowerTheme = "RED/BLUE"
-	self.showSeparatorSidebar = true
-	self.showSeparatorCalcs = true
+	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
 	self.showTitlebarName = true
@@ -452,12 +451,9 @@ function main:LoadSettings()
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
-				if node.attrib.showSeparatorSidebar then
-					self.showSeparatorSidebar = node.attrib.showSeparatorSidebar == "true"
-				end -- else leave at default
-				if node.attrib.showSeparatorCalcs then
-					self.showSeparatorCalcs = node.attrib.showSeparatorCalcs == "true"
-				end -- else leave at default
+				if node.attrib.showThousandsSeparators then
+					self.showThousandsSeparators = node.attrib.showThousandsSeparators == "true"
+				end
 				if node.attrib.thousandsSeparator then
 					self.thousandsSeparator = node.attrib.thousandsSeparator
 				end
@@ -509,8 +505,7 @@ function main:SaveSettings()
 		proxyURL = launch.proxyURL, 
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
-		showSeparatorSidebar = tostring(self.showSeparatorSidebar),
-		showSeparatorCalcs = tostring(self.showSeparatorCalcs),
+		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
@@ -552,15 +547,11 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show separators in:")
-	controls.separatorSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, "Sidebar:", function(state)
-		self.showSeparatorSidebar = state
+	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators:")
+	controls.thousandsSeparators = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, nil, function(state)
+		self.showThousandsSeparators = state
 	end)
-	controls.separatorSidebar.state = self.showSeparatorSidebar
-	controls.separatorCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 380, 92, 20, "Calcs tab:", function(state)
-		self.showSeparatorCalcs = state
-	end)
-	controls.separatorCalcs.state = self.showSeparatorCalcs
+	controls.thousandsSeparators.state = self.showThousandsSeparators
 	controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeparator, nil, nil, 1, function(buf)
 		self.thousandsSeparator = buf
 	end)
@@ -574,8 +565,7 @@ function main:OpenOptionsPopup()
 	end)
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
-	local initialSeparatorDisplaySidebar = self.showSeparatorSidebar
-	local initialSeparatorDisplayCalcs = self.showSeparatorCalcs
+	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
@@ -600,8 +590,7 @@ function main:OpenOptionsPopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 45, 182, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
-		self.showSeparatorSidebar = initialSeparatorDisplaySidebar
-		self.showSeparatorCalcs = initialSeparatorDisplayCalcs
+		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.showTitlebarName = initialTitlebarName
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
