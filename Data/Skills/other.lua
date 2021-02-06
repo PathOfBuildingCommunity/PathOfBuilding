@@ -2813,6 +2813,22 @@ skills["VampiricIcon"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+    fromItem = true,
+    statMap = {
+		["vampiric_icon_max_bleeding_beam_targets"] = {
+            mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+        },
+        ["skill_life_regeneration_per_minute_per_affected_enemy"] = {
+            mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
+            div = 60,
+        },
+		["vampiric_icon_bleeding_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_use_life_in_place_of_mana"] = {
+			flag("SkillBloodMagic"),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},

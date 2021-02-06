@@ -82,13 +82,18 @@ Adds (10-15) to (25-30) Physical Damage
 ]],[[
 Jack, the Axe
 Vaal Hatchet
+Variant: Pre 3.13.0
+Variant: Current
 Requires Level 65, 140 Str, 86 Dex
-(90-110)% increased Physical Damage
+{variant:2}Grants Level 20 Thirst for Blood Skill
+{variant:1}(90-110)% increased Physical Damage
+{variant:2}(130-150)% increased Physical Damage
 Adds (11-14) to (18-23) Physical Damage
-(10-15)% increased Attack Speed
-2% of Physical Attack Damage Leeched as Life
-50% reduced Life Leeched per second
+{variant:1}(10-15)% increased Attack Speed
+{variant:1}2% of Physical Attack Damage Leeched as Life
+{variant:1}50% reduced Life Leeched per second
 25% chance to cause Bleeding on Hit
+{variant:2}+(25-35)% to Damage over Time Multiplier for Bleeding from Hits with this Weapon
 ]],[[
 Moonbender's Wing
 Tomahawk
