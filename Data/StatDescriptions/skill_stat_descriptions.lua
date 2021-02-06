@@ -31539,16 +31539,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% Chance to apply an additional stack of Wither​"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Apply an additional stack of Wither​"
+					text="{0}% chance to apply an additional Wither​ed Debuff when inflicting Withered"
 				}
 			}
 		},
@@ -31567,7 +31558,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance to apply an additional Withered Debuff if you Cast this spell yourself"
+					text="{0}% chance to apply an additional Withered Debuff if you Cast this Spell yourself"
 				}
 			}
 		},

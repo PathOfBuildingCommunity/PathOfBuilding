@@ -4866,10 +4866,11 @@ skills["EmptyActionAttackSecretPoliceDaggers"] = {
 	qualityStats = {
 	},
 	stats = {
+		"main_hand_base_maximum_attack_distance",
 		"cast_time_overrides_attack_duration",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, statInterpolation = { }, },
+		[1] = { 60, levelRequirement = 0, statInterpolation = { 1, }, },
 	},
 }
 skills["BetrayalSecretPoliceCurveDagger1"] = {

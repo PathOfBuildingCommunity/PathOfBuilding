@@ -15712,16 +15712,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skills have a {0}% Chance to apply an additional stack of Wither​"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills apply an additional stack of Wither​"
+					text="Supported Skills have a {0}% chance to apply an additional Wither​ed Debuff when inflicting Withered"
 				}
 			}
 		},

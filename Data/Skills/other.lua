@@ -927,7 +927,6 @@ skills["TriggeredSummonLesserShrine"] = {
 }
 skills["ChaosDegenAuraUnique"] = {
 	name = "Death Aura",
-	hidden = true,
 	color = 4,
 	description = "Casts an aura that deals Chaos Damage over Time to nearby Enemies. This skill cannot be cast by Totems.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.ChaosSkill] = true, [SkillType.AreaSpell] = true, },
@@ -949,6 +948,7 @@ skills["ChaosDegenAuraUnique"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
+		[1] = { 33750, levelRequirement = 62, statInterpolation = { 1, }, },
 		[20] = { 33750, levelRequirement = 62, statInterpolation = { 1, }, },
 	},
 }
@@ -1282,7 +1282,6 @@ skills["OnHitWhileCursedTriggeredCurseNova"] = {
 }
 skills["Envy"] = {
 	name = "Envy",
-	hidden = true,
 	color = 3,
 	baseEffectiveness = 2.0999999046326,
 	incrementalEffectiveness = 0.023000000044703,
@@ -1325,6 +1324,7 @@ skills["Envy"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
+		[1] = { 0.5, 0.69999998807907, 14, 0.44999998807907, 0.60000002384186, cooldown = 1.2, levelRequirement = 60, manaCost = 50, statInterpolation = { 3, 3, 1, 3, 3, }, },
 		[15] = { 0.5, 0.69999998807907, 14, 0.44999998807907, 0.60000002384186, cooldown = 1.2, levelRequirement = 60, manaCost = 50, statInterpolation = { 3, 3, 1, 3, 3, }, },
 	},
 }
@@ -1448,7 +1448,6 @@ skills["SupportGreaterSpellEcho"] = {
 }
 skills["VaalAuraElementalDamageHealing"] = {
 	name = "Gluttony of Elements",
-	hidden = true,
 	color = 4,
 	description = "Casts an aura that causes taking elemental damage to heal you and nearby allies instead.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.CantUseFistOfWar] = true, },
@@ -1474,6 +1473,7 @@ skills["VaalAuraElementalDamageHealing"] = {
 		"immune_to_curses",
 	},
 	levels = {
+		[1] = { 5000, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
 		[20] = { 5000, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
@@ -2641,7 +2641,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 30000, 10, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
