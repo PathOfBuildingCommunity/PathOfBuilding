@@ -1854,13 +1854,11 @@ function calcs.offence(env, actor, activeSkill)
 							return not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance")
 						end
 						if damageType == "Physical" then
-                            if isAttack then
-								-- store pre-armour physical damage from attacks for impale calculations
-								if pass == 1 then
-									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (output.CritChance / 100)
-								else
-									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
-								end
+							-- store pre-armour physical damage from attacks for impale calculations
+							if pass == 1 then
+								output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (output.CritChance / 100)
+							else
+								output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
 							end
 							local enemyArmour = calcLib.val(enemyDB, "Armour")
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
@@ -2345,11 +2343,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.SapChanceOnHit = 0
 		end
-		if not skillFlags.attack then
-            output.ImpaleChance = 0
-        else
-            output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
-		end
+		output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
 		if skillModList:Sum("BASE", cfg, "FireExposureChance") > 0 then
 			skillFlags.applyFireExposure = true
 		end
@@ -3617,9 +3611,13 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	output.TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
 	if skillFlags.impale then
-		output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
-		if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
-			output.ImpaleHit = output.ImpaleHit * 2
+		if skillFlags.attack then
+			output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
+			if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
+				output.ImpaleHit = output.ImpaleHit * 2
+			end
+		else
+			output.ImpaleHit = output.PhysicalHitAverage * (1-output.CritChance/100) + output.PhysicalCritAverage * (output.CritChance/100)
 		end
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * (skillData.dpsMultiplier or 1)
 		if skillData.showAverage then
@@ -3635,7 +3633,7 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			if skillFlags.notAverage then
-				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed))
+				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
 			if skillData.dpsMultiplier then
