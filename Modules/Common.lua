@@ -485,8 +485,13 @@ end
 -- Formats "1234.56" -> "1,234.5"
 function formatNumSep(str)
 	return str:gsub("(%d*)(%d%.?)", function(s, e)
+		
 		e = e:gsub("%.", main.decimalSeparator)
-		return s:reverse():gsub("(%d%d)(%d)","%1"..main.thousandsSeparator.."%2"):reverse()..e
+		if main.showThousandsSeparators then
+			return s:reverse():gsub("(%d%d)(%d)","%1"..main.thousandsSeparator.."%2"):reverse()..e
+		else
+			return s:reverse():gsub("(%d%d)(%d)","%1".."%2"):reverse()..e
+		end
 	end)
 end
 function formatDecimalSep(str)
