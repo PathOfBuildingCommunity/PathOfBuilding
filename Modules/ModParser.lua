@@ -1839,6 +1839,9 @@ local specialModList = {
 	["offering skills triggered this way also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger level (%d+) (.+) after spending a total of (%d+) mana"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["consumes a void charge to trigger level (%d+) (.+) when you fire arrows"] = function(num, _, skill) return extraSkill(skill, num) end,
+	["your hits treat cold resistance as (%d+)%% higher than actual value"] = function(num) return {
+		mod("ColdPenetration", "BASE", -num, nil, 0, KeywordFlag.Hit),
+	} end,
 	-- Conversion
 	["increases and reductions to minion damage also affects? you"] = { flag("MinionDamageAppliesToPlayer"), mod("ImprovedMinionDamageAppliesToPlayer", "INC", 100) },
 	["increases and reductions to minion damage also affects? you at (%d+)%% of their value"] = function(num) return { flag("MinionDamageAppliesToPlayer"), mod("ImprovedMinionDamageAppliesToPlayer", "INC", num) } end,
