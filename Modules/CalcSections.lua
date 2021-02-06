@@ -921,6 +921,7 @@ return {
 		{ breakdown = "ScorchChance" }, 
 		{ label = "Player modifiers", modName = "EnemyScorchChance", cfg = "skill" }, 
 		{ label = "Enemy modifiers", modName = "SelfScorchChance", enemy = true },
+		{ label = "Guaranteed Scorches", modName = "ScorchOverride", modType = "BASE" },
 	}, },
 	{ label = "Scorch Dur. Mod", haveOutput = "ScorchDurationMod", flag = "scorch", { format = "x {2:output:ScorchDurationMod}",
 		{ label = "Player modifiers", modName = "EnemyScorchDuration", cfg = "skill" },
