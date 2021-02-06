@@ -1103,7 +1103,7 @@ function buildMode:FormatStat(statData, statVal)
 	if main.showSeparatorSidebar then
 		valStr = color .. formatNumSep(valStr)
 	else
-		valStr = color .. valStr
+		valStr = color .. formatDecimalSep(valStr)
 	end
 	self.lastShowSeparatorSidebar = main.showSeparatorSidebar
 	self.lastShowThousandsSeparator = main.thousandsSeparator
