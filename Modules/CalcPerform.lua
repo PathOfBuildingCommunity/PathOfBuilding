@@ -494,6 +494,9 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", 20, "Her Embrace")
 			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
 		end
+		if modDB:Flag(nil, "Condition:PhantasmalMight") then
+			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + output.ActivePhantasmLimit - 1 -- slight hack to not double count the initial buff
+		end
 		if modDB:Flag(nil, "Elusive") then
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
 			condList["Elusive"] = true
@@ -790,8 +793,8 @@ function calcs.perform(env)
 		elseif activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
 			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Summoned Phantasm" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActivePhantasmLimit")
+		elseif activeSkill.minionList and activeSkill.minionList[1] == "SummonedPhantasm" then
+			local limit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActivePhantasmLimit")
 			output.ActivePhantasmLimit = m_max(limit, output.ActivePhantasmLimit or 0)
 		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
