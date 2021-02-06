@@ -556,7 +556,7 @@ return {
 	{ var = "buffFortify", type = "check", label = "Do you have Fortify?", tooltip = "In addition to allowing any 'while you have Fortify' modifiers to apply,\n this will enable the Fortify buff itself. (Grants 20% less Damage taken from Hits)", ifCond = "Fortify", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fortify", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffTailwind", type = "check", label = "Do you have Tailwind?", tooltip = "In addition to allowing any 'while you have Tailwind' modifiers to apply,\nthis will enable the Tailwind buff itself. (Grants 10% increased Action Speed)", apply = function(val, modList, enemyModList)
+	{ var = "buffTailwind", type = "check", label = "Do you have Tailwind?", tooltip = "In addition to allowing any 'while you have Tailwind' modifiers to apply,\nthis will enable the Tailwind buff itself. (Grants 8% increased Action Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Tailwind", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffAdrenaline", type = "check", label = "Do you have Adrenaline?", tooltip = "This will enable the Adrenaline buff, which grants:\n\t100% increased Damage\n\t25% increased Attack, Cast and Movement Speed\n\t10% additional Physical Damage Reduction", apply = function(val, modList, enemyModList)
