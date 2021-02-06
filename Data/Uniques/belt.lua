@@ -425,7 +425,6 @@ Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_attribute}+(15-20) to all Attributes
 {tags:life}+(50-70) to maximum Life
-25% reduced effect of Offerings
 You can have an Offering of each type
 Offering Skills have 50% reduced Duration
 ]],[[
