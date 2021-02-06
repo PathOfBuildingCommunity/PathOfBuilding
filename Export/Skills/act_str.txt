@@ -35,6 +35,9 @@ local skills, mod, flag, skill = ...
 		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["ancestor_totem_buff_effect_+%"] = {
+			mod("BuffEffect", "INC", nil)
+		},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod skill("thisIsNotABuff", true)
@@ -79,9 +82,6 @@ local skills, mod, flag, skill = ...
 		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
 		},
-		["ancestor_totem_buff_effect_+%"] = {
-			mod("BuffEffect", "INC", nil)
-		},	
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod skill("thisIsNotABuff", true)
