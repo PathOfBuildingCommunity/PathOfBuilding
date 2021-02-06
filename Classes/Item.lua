@@ -567,9 +567,13 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 			return false
 		end
 
+		local function HasMavenInfluence(modAffix)
+			return modAffix:match("Elevated")
+		end
+
 		for i, key in ipairs(mod.weightKey) do
 			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
-				weight = mod.weightVal[i]
+				weight = (HasInfluenceTag(key) and HasMavenInfluence(mod.affix)) and 1000 or mod.weightVal[i]
 				break
 			end
 		end
