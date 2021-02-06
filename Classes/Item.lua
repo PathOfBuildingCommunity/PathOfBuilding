@@ -21,7 +21,6 @@ local catalystTags = {
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
 }
-local classNames = { ["Marauder"] = true, ["Duelist"] = true, ["Ranger"] = true, ["Shadow"] = true, ["Witch"] = true, ["Templar"] = true, ["Scion"] = true }
 
 local function getCatalystScalar(catalystId, tags, quality)
 	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
@@ -293,7 +292,8 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = tonumber(specVal)
-				elseif classNames[specName] then
+				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
+				elseif not (self.name:match(specName) and self.name:match(specVal)) then
 					foundExplicit = true
 					gameModeStage = "EXPLICIT"
 				end
