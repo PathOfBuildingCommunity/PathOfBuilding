@@ -553,7 +553,7 @@ Legion Gloves
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 57, 44 Str, 44 Int
-+(25-35) to all Attributes
++(15-25) to all Attributes
 (150-200)% increased Armour and Energy Shield
 50% reduced Maximum Recovery per Life Leech
 (6-10)% increased Attack and Cast Speed
