@@ -2184,7 +2184,7 @@ skills["EnduringCry"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["regenerate_X_life_over_1_second_on_cast"] = {
+		["regenerate_x_life_over_1_second_on_skill_use_or_trigger"] = {
 			mod("EnduringCryLifeRegen", "BASE", nil),
 		},
 		["resist_all_elements_%_per_endurance_charge"] = {
