@@ -198,8 +198,8 @@ Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
 {fractured}(15-20)% increased Cast Speed
-(3-5)% increased Cold Damage per 1% Missing Cold Resistance
-(3-5)% increased Fire Damage per 1% Missing Fire Resistance
+(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
+(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
 ]],[[
 Nebuloch
 Nightmare Mace
