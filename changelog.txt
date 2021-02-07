@@ -1,6 +1,6 @@
 VERSION[1.4.170.25][2021/02/7]
 * Add control to set Vaal Timeless Jewel influenced passive skills to random mods (Wires77)
-* Add all new uniques in game patch 3.13.0 (Nostrademous, Cinnabarit)
+* Add all new uniques in game patch 3.13.0 (Nostrademous, ppoelzl)
 * Add support for the following uniques:
   * Arn's Anguish
   * Doppelgänger
@@ -16,7 +16,7 @@ VERSION[1.4.170.25][2021/02/7]
 * Add support for 'On Scorched Ground' in Config Tab when using Legacy of Fury unique boots (Nostrademous)
 * Add support and extraction of 'Thirst for Blood' unique ability from Jack, the Axe unique (Nostrademous, LocalIdentity)
 * Add support for Doppelgänger's insane/sane specification via Config Tab (Nostrademous)
-* Add support for Goblinedge Power/Frenzy charge interaction (Cinnabarit)
+* Add support for Goblinedge Power/Frenzy charge interaction (ppoelzl)
 * Add limit cap to Replica Nebulis unique (Wires77)
 * Add parsing support for Anomalous Minion Life (ALT-F-X)
 * Updated Max Awakening Level for Sirus to scale to 9 achievable through Atlas Passives (Quotae)
