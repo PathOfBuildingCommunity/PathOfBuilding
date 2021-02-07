@@ -223,7 +223,7 @@ skills["TotemMelee"] = {
 		},
 		["ancestor_totem_buff_effect_+%"] = {
 			mod("BuffEffect", "INC", nil)
-		},	
+		},
 	},
 	baseFlags = {
 		attack = true,

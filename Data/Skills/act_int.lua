@@ -3308,9 +3308,11 @@ skills["Firewall"] = {
 	parts = {
 		{
 			name = "Primary Debuff",
+			area = true,
 		},
 		{
 			name = "Secondary Debuff",
+			area = false,
 		},
 	},
 	statMap = {
