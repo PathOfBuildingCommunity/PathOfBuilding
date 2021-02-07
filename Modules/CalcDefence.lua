@@ -235,6 +235,15 @@ function calcs.defence(env, actor)
 				breakdown.slot("Conversion", "Life to Energy Shield", nil, energyShieldBase, total, "EnergyShield", "Defences", "Life")
 			end
 		end
+		local convEvasionToArmour = modDB:Sum("BASE", nil, "EvasionGainAsArmour")
+		if convEvasionToArmour > 0 then
+			armourBase = modDB:Sum("BASE", nil, "Evasion") * convEvasionToArmour / 100
+			local total = armourBase * calcLib.mod(modDB, nil, "Evasion", "Armour", "ArmourAndEvasion", "Defences")
+			armour = armour + total
+			if breakdown then
+				breakdown.slot("Conversion", "Evasion to Armour", nil, armourBase, total, "Armour", "ArmourAndEvasion", "Defences", "Evasion")
+			end
+		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
 		output.DoubleArmourChance = m_min(modDB:Sum("BASE", nil, "DoubleArmourChance"), 100)
