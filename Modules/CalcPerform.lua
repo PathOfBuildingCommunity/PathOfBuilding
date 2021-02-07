@@ -495,7 +495,7 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
 		end
 		if modDB:Flag(nil, "Condition:PhantasmalMight") then
-			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + output.ActivePhantasmLimit - 1 -- slight hack to not double count the initial buff
+			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
 		if modDB:Flag(nil, "Elusive") then
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
