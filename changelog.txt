@@ -1,4 +1,4 @@
-VERSION[1.4.170.25][2021/02/7]
+VERSION[1.4.170.26][2021/02/07]
 * Add control to set Vaal Timeless Jewel influenced passive skills to random mods (Wires77)
 * Add all new uniques in game patch 3.13.0 (Nostrademous, ppoelzl)
 * Add support for the following uniques:
