@@ -1,4 +1,4 @@
-VERSION[1.4.170.26][2021/02/07]
+VERSION[1.4.170.26][2021/02/09]
 * Add control to set Vaal Timeless Jewel influenced passive skills to random mods (Wires77)
 * Add all new uniques in game patch 3.13.0 (Nostrademous, ppoelzl)
 * Add support for the following uniques:
@@ -12,7 +12,7 @@ VERSION[1.4.170.26][2021/02/07]
 * Add Belt Enchantments to Item Crafting from Harvest improved Offering to the Goddess Uber Lab runs. Not all modifiers parse yet, but most do (Nostrademous)
 * Add Elevated Affixes to Item Crafting (Nostrademous)
 * Add support for Blizzard Crown implicit (Nostrademous)
-* Add support for Brutal, Affliction and Absorption Charge (damage recoup from Absorption Charges is not supported) coverstion from Endurance, Frenzy, Power charges via Unique Belts (Nostrademous)
+* Add support for Brutal, Affliction and Absorption Charge (damage recoup from Absorption Charges is not supported) conversion from Endurance, Frenzy, Power charges via Unique Belts (Nostrademous)
 * Add support for 'On Scorched Ground' in Config Tab when using Legacy of Fury unique boots (Nostrademous)
 * Add support and extraction of 'Thirst for Blood' unique ability from Jack, the Axe unique (Nostrademous, LocalIdentity)
 * Add support for Doppelgänger's insane/sane specification via Config Tab (Nostrademous)
