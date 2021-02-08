@@ -21,7 +21,6 @@ local catalystTags = {
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
 }
-local classNames = { ["Marauder"] = true, ["Duelist"] = true, ["Ranger"] = true, ["Shadow"] = true, ["Witch"] = true, ["Templar"] = true, ["Scion"] = true }
 
 local function getCatalystScalar(catalystId, tags, quality)
 	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
@@ -293,7 +292,8 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = tonumber(specVal)
-				elseif classNames[specName] then
+				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
+				elseif not (self.name:match(specName) and self.name:match(specVal)) then
 					foundExplicit = true
 					gameModeStage = "EXPLICIT"
 				end
@@ -567,9 +567,13 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 			return false
 		end
 
+		local function HasMavenInfluence(modAffix)
+			return modAffix:match("Elevated")
+		end
+
 		for i, key in ipairs(mod.weightKey) do
 			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
-				weight = mod.weightVal[i]
+				weight = (HasInfluenceTag(key) and HasMavenInfluence(mod.affix)) and 1000 or mod.weightVal[i]
 				break
 			end
 		end
@@ -929,8 +933,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		for _, mod in ipairs(modList) do
 			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
 			if (
-				(mod.name == "Accuracy" and mod.flags == 0) or
-                (mod.name == "ImpaleChance" ) or
+				(mod.name == "Accuracy" and mod.flags == 0) or (mod.name == "ImpaleChance" and mod.flags ~= ModFlag.Spell) or
 				((mod.name == "LifeOnHit" or mod.name == "ManaOnHit") and mod.flags == ModFlag.Attack) or
 				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack)
 			   ) and (mod.keywordFlags == 0 or mod.keywordFlags == KeywordFlag.Attack) and not mod[1] then

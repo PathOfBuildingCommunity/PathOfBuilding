@@ -595,6 +595,17 @@ Requires Level 40, 19 Str, 19 Dex
 +50% to Chaos Resistance during any Flask Effect
 {variant:2}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks during any Flask Effect
 ]],[[
+Legacy of Fury
+Wyrmscale Boots
+League: Ritual
+Requires Level 51, 48 Str, 48 Dex
+(200-300)% increased Armour and Evasion
+-(15-10)% to all Elemental Resistances
+30% increased Movement Speed
+Drops Scorched Ground while moving, lasting 4 seconds
+(30-50)% increased Effect of Scorch
+(30-40)% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second
+]],[[
 Lioneye's Paws
 Bronzescale Boots
 League: Legion
@@ -671,7 +682,7 @@ Requires Level 49, 47 Str, 47 Int
 +(9-12)% to Chaos Resistance
 20% increased Movement Speed
 Cannot deal non-Chaos Damage
-Adds 1 to 80 Chaos Damage to Attacks per 50 Strength
+Adds 1 to 80 Chaos Damage to Attacks per 80 Strength
 ]],[[
 Death's Door
 Crusader Boots

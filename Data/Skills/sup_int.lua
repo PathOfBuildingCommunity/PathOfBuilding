@@ -432,7 +432,7 @@ skills["SupportBlasphemy"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
-	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.Type96, },
+	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -504,7 +504,7 @@ skills["SupportBlasphemyPlus"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
-	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.Type96, },
+	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
@@ -634,7 +634,7 @@ skills["SupportCastOnStunned"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
@@ -1642,7 +1642,7 @@ skills["MinionFocusFire"] = {
 	name = "Signal Prey",
 	color = 3,
 	description = "Applies a debuff to a specific enemy which signals your minions to consider that enemy to be the Prey. All minions from skills supported by any Predator Support will target that enemy. Only one enemy can be the Prey at a time. This skill cannot be used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
@@ -2626,7 +2626,7 @@ skills["ViciousHexExplosion"] = {
 	baseEffectiveness = 0.86750000715256,
 	incrementalEffectiveness = 0.045499999076128,
 	description = "Deals chaos damage in an area based on the amount of Doom on the triggering Hex.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.ChaosSkill] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.ChaosSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
     statMap = {
@@ -3676,7 +3676,7 @@ skills["SupportMinionDamage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
 		["minion_ailment_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment) }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
 		},
 	},
 	baseMods = {
@@ -3798,6 +3798,10 @@ skills["SupportMinionLife"] = {
 	statMap = {
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+		},
+		["minion_life_regeneration_rate_per_minute_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
+			div = 60
 		},
 		["minion_damage_+%_on_full_life"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
@@ -4638,6 +4642,12 @@ skills["SupportSummonGhostOnKill"] = {
 		},
 		["damage_+%_for_non_minions"] = {
 			-- mod("Damage", "INC", nil, 0, 0, {type = "Actor"})
+		},
+		["phantasm_minimum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
+		},
+		["phantasm_maximum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
 		}
 	},
 	baseMods = {

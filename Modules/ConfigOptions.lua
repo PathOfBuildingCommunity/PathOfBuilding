@@ -32,6 +32,9 @@ return {
 	{ var = "conditionMoving", type = "check", label = "Are you always moving?", ifCond = "Moving", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Moving", "FLAG", true, "Config")
 	end },
+	{ var = "conditionInsane", type = "check", label = "Are you insane?", ifCond = "Insane", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Insane", "FLAG", true, "Config")
+	end },
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Inoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },
@@ -293,6 +296,10 @@ return {
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
 	end },
+	{ label = "Thirst for Blood:", ifSkill = "Thirst for Blood" },
+	{ var = "nearbyBleedingEnemies", type = "count", label = "# of Nearby Bleeding Enemies:", ifSkill = "Thirst for Blood", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:NearbyBleedingEnemies", "BASE", val, "Config" )
+	end },
 	{ label = "Toxic Rain:", ifSkill = "Toxic Rain" },
 	{ var = "toxicRainPodOverlap", type = "count", label = "# of Overlapping Pods:", tooltip = "Maximum is limited by the number of Projectiles.", ifSkill = "Toxic Rain", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "podOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillName = "Toxic Rain" })
@@ -553,7 +560,7 @@ return {
 	{ var = "buffFortify", type = "check", label = "Do you have Fortify?", tooltip = "In addition to allowing any 'while you have Fortify' modifiers to apply,\n this will enable the Fortify buff itself. (Grants 20% less Damage taken from Hits)", ifCond = "Fortify", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fortify", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffTailwind", type = "check", label = "Do you have Tailwind?", tooltip = "In addition to allowing any 'while you have Tailwind' modifiers to apply,\nthis will enable the Tailwind buff itself. (Grants 10% increased Action Speed)", apply = function(val, modList, enemyModList)
+	{ var = "buffTailwind", type = "check", label = "Do you have Tailwind?", tooltip = "In addition to allowing any 'while you have Tailwind' modifiers to apply,\nthis will enable the Tailwind buff itself. (Grants 8% increased Action Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Tailwind", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffAdrenaline", type = "check", label = "Do you have Adrenaline?", tooltip = "This will enable the Adrenaline buff, which grants:\n\t100% increased Damage\n\t25% increased Attack, Cast and Movement Speed\n\t10% additional Physical Damage Reduction", apply = function(val, modList, enemyModList)
@@ -781,6 +788,9 @@ return {
 	end },
 	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionGainedFrenzyChargeRecently", type = "check", label = "Gained a Frenzy Charge Recently?", ifCond = "GainedFrenzyChargeRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:GainedFrenzyChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBeenSavageHitRecently", type = "check", label = "Have you taken a Savage Hit Recently?", ifCond = "BeenSavageHitRecently", implyCond = "BeenHitRecently", tooltip = "This also implies that you have been Hit Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenSavageHitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1072,6 +1082,10 @@ return {
 	{ var = "conditionScorchedEffect", type = "count", label = "Effect of Scorched:", ifOption = "conditionEnemyScorched", tooltip = "This effect will only be applied while you can inflict Scorched.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ElementalResist", "BASE", -m_min(val, 30), "Config", { type = "Condition", var = "Scorched" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictScorch" })
 	end },
+	{ var = "conditionEnemyOnScorchedGround", type = "check", label = "Is the enemy on Scorched Ground?", tooltip = "This also implies that the enemy is Scorched.", ifEnemyCond = "OnScorchedGround", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Condition:OnScorchedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyChilled", type = "check", label = "Is the enemy Chilled?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1172,8 +1186,8 @@ return {
 		end
 	end },
 	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more Life.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 8), "Config")
-		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 8), "Config")
+		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 9), "Config")
+		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 9), "Config")
 	end },
 	{ var = "enemyPhysicalReduction", type = "integer", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "Config")

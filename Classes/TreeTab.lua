@@ -426,12 +426,12 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local controls = { }
 	local modGroups = { }
 	local smallAdditions = {"Strength", "Dex", "Devotion"}
-	if not self.build.latestTree.legion.editedNodes then
-		self.build.latestTree.legion.editedNodes = { }
+	if not self.build.spec.tree.legion.editedNodes then
+		self.build.spec.tree.legion.editedNodes = { }
 	end
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
-		for _, node in pairs(self.build.latestTree.legion.nodes) do
+		for _, node in pairs(self.build.spec.tree.legion.nodes) do
 			if node.id:match("^"..selectedNode.conqueredBy.conqueror.type.."_.+") and node["not"] == (selectedNode.isNotable or false) and not node.ks then
 				t_insert(modGroups, {
 					label = node.dn,
@@ -441,7 +441,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				})
 			end
 		end
-		for _, addition in pairs(self.build.latestTree.legion.additions) do
+		for _, addition in pairs(self.build.spec.tree.legion.additions) do
 			-- exclude passives that are already added (vaal, attributes, devotion)
 			if addition.id:match("^"..selectedNode.conqueredBy.conqueror.type.."_.+") and not isValueInArray(smallAdditions, addition.dn) and selectedNode.conqueredBy.conqueror.type ~= "vaal" then
 				t_insert(modGroups, {
@@ -454,11 +454,11 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		end
 	end
 	local function addModifier(selectedNode)
-		local newLegionNode = self.build.latestTree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
+		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
 		-- most nodes only replace or add 1 mod, so we need to just get the first control
 		local modDesc = string.gsub(controls[1].label, "%^7", "")
 		if  selectedNode.conqueredBy.conqueror.type == "eternal" or selectedNode.conqueredBy.conqueror.type == "templar" then
-			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
+			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
 			selectedNode.dn = newLegionNode.dn
 			selectedNode.sprites = newLegionNode.sprites
 			selectedNode.icon = newLegionNode.icon
@@ -468,24 +468,30 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.sprites = newLegionNode.sprites
 			selectedNode.icon = newLegionNode.icon
 			selectedNode.spriteId = newLegionNode.id
-			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
+			if modDesc ~= "" then
+				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
+			end
 
 			-- Vaal is the exception
-			if controls[2] then
-				modDesc = string.gsub(controls[2].label, "%^7", "")
-				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+			local i = 2
+			while controls[i] do
+				modDesc = string.gsub(controls[i].label, "%^7", "")
+				if modDesc ~= "" then
+					self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+				end
+				i = i + 1
 			end
 		else
 			-- Replace the node first before adding the new line so we don't get multiple lines
-			if self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id] and self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] then
-				self.specList[1]:ReplaceNode(selectedNode, self.build.latestTree.nodes[selectedNode.id])
+			if self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] and self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] then
+				self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			end
-			self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
 		end
-		if not self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id] then
-			t_insert(self.build.latestTree.legion.editedNodes, selectedNode.conqueredBy.id, {})
+		if not self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
+			t_insert(self.build.spec.tree.legion.editedNodes, selectedNode.conqueredBy.id, {})
 		end
-		t_insert(self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id], selectedNode.id, copyTable(selectedNode, true))
+		t_insert(self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id], selectedNode.id, copyTable(selectedNode, true))
 	end
 
 	local function constructUI(modGroup)
@@ -496,18 +502,29 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			controls["slider"..i] = nil
 			i = i + 1
 		end
-		for idx, desc in ipairs(modGroup.descriptions) do
-			controls[idx] = new("LabelControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
-			totalHeight = totalHeight + 20
-			if desc:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-				controls["slider"..idx] = new("SliderControl", {"TOPLEFT",controls[idx],"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
-					controls[idx].label = itemLib.applyRange(modGroup.descriptions[idx], val)
+		-- special handling for custom vaal notables (Might of the Vaal and Legacy of the Vaal)
+		if next(modGroup.descriptions) == nil then
+			for idx=1,4 do
+				controls[idx] = new("EditControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "", "Modifier "..idx, "%c%(%)", 100, function(buf)
+					controls[idx].label = buf
 				end)
-				controls["slider"..idx]:SetVal(.5)
-				controls["slider"..idx].width = function()
-					return controls["slider"..idx].divCount and 300 or 100
-				end
+				controls[idx].label = ""
 				totalHeight = totalHeight + 20
+			end
+		else
+			for idx, desc in ipairs(modGroup.descriptions) do
+				controls[idx] = new("LabelControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
+				totalHeight = totalHeight + 20
+				if desc:match("%(%-?[%d%.]+%-[%d%.]+%)") then
+					controls["slider"..idx] = new("SliderControl", {"TOPLEFT",controls[idx],"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
+						controls[idx].label = itemLib.applyRange(modGroup.descriptions[idx], val)
+					end)
+					controls["slider"..idx]:SetVal(.5)
+					controls["slider"..idx].width = function()
+						return controls["slider"..idx].divCount and 300 or 100
+					end
+					totalHeight = totalHeight + 20
+				end
 			end
 		end
 		main.popups[1].height = totalHeight + 30
@@ -534,11 +551,11 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
-		if self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id] then
-			self.build.latestTree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] = nil
+		if self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
+			self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] = nil
 		end
 		if selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Normal" then
-			local legionNode = self.build.latestTree.legion.nodes["vaal_small_fire_resistance"]
+			local legionNode = self.build.spec.tree.legion.nodes["vaal_small_fire_resistance"]
 			selectedNode.dn = "Vaal small node"
 			selectedNode.sd = {"Right click to set mod"}
 			selectedNode.sprites = legionNode.sprites
@@ -546,7 +563,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Notable" then
-			local legionNode = self.build.latestTree.legion.nodes["vaal_notable_curse_1"]
+			local legionNode = self.build.spec.tree.legion.nodes["vaal_notable_curse_1"]
 			selectedNode.dn = "Vaal notable node"
 			selectedNode.sd = {"Right click to set mod"}
 			selectedNode.sprites = legionNode.sprites
@@ -554,9 +571,9 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
 		else
-			self.specList[1]:ReplaceNode(selectedNode, self.build.latestTree.nodes[selectedNode.id])
+			self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			if selectedNode.conqueredBy.conqueror.type == "templar" then
-				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
+				self.build.spec:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
 			end
 		end
 		self.modFlag = true

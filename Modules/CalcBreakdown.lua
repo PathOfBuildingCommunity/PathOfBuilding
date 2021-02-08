@@ -122,7 +122,11 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sour
 	if pen ~= 0 then
 		t_insert(out, "Effective resistance:")
 		t_insert(out, s_format("%d%% ^8(resistance)", resist))
-		t_insert(out, s_format("- %d%% ^8(penetration)", pen))
+		if pen < 0 then
+			t_insert(out, s_format("+ %d%% ^8(penetration)", -pen))
+		else
+			t_insert(out, s_format("- %d%% ^8(penetration)", pen))
+		end
 		t_insert(out, s_format("= %d%%", resist - pen))
 	end
 	breakdown.multiChain(out, {

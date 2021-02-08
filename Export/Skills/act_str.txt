@@ -35,6 +35,9 @@ local skills, mod, flag, skill = ...
 		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["ancestor_totem_buff_effect_+%"] = {
+			mod("BuffEffect", "INC", nil)
+		},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod skill("thisIsNotABuff", true)
@@ -269,6 +272,9 @@ local skills, mod, flag, skill = ...
 		["determination_aura_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["evasion_rating_%_to_add_as_armour"] = {
+			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 #baseMod skill("radius", 40)
 #mods
@@ -403,7 +409,7 @@ local skills, mod, flag, skill = ...
 #skill EnduringCry
 #flags warcry area duration
 	statMap = {
-		["regenerate_X_life_over_1_second_on_cast"] = {
+		["regenerate_x_life_over_1_second_on_skill_use_or_trigger"] = {
 			mod("EnduringCryLifeRegen", "BASE", nil),
 		},
 		["resist_all_elements_%_per_endurance_charge"] = {
@@ -925,7 +931,7 @@ local skills, mod, flag, skill = ...
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["skill_buff_grants_attack_and_cast_speed_"] = {
+		["skill_buff_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		}
 	},

@@ -640,7 +640,7 @@ skills["SupportCastOnCritTriggered"] = {
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -762,7 +762,7 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCastOnCritTriggered",
@@ -2237,6 +2237,10 @@ skills["SupportImpale"] = {
 		["impale_support_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil),
 		},
+		["impale_phys_reduction_%_penalty"] = {
+			mod("EnemyImpalePhysicalDamageReduction", "BASE", nil),
+			mult = -1,
+		}
 	},
 	baseMods = {
 	},
@@ -3135,7 +3139,7 @@ skills["SupportAdditionalCooldown"] = {
 	description = "Supports skills with cooldowns.\nCannot support triggered skills.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Type96, },
+	requireSkillTypes = { SkillType.SecondWindSupport, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",

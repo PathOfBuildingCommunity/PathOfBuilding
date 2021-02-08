@@ -344,6 +344,23 @@ function calcs.offence(env, actor, activeSkill)
 		return modifiers
 	end
 
+	-- additional charge based modifiers
+	if skillModList:Flag(nil, "UseEnduranceCharges") and skillModList:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+		local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
+		modDB:NewMod("TripleDamageChance", "BASE", tripleDmgChancePerEndurance, { type = "Multiplier", var = "BrutalCharge" } )
+	end
+	if skillModList:Flag(nil, "UseFrenzyCharges") and skillModList:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+		local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
+		local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
+		modDB:NewMod("Damage", "MORE", dmgPerAffliction, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+	end
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
@@ -1837,13 +1854,11 @@ function calcs.offence(env, actor, activeSkill)
 							return not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance")
 						end
 						if damageType == "Physical" then
-                            if isAttack then
-								-- store pre-armour physical damage from attacks for impale calculations
-								if pass == 1 then
-									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (output.CritChance / 100)
-								else
-									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
-								end
+							-- store pre-armour physical damage from attacks for impale calculations
+							if pass == 1 then
+								output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (output.CritChance / 100)
+							else
+								output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
 							end
 							local enemyArmour = calcLib.val(enemyDB, "Armour")
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
@@ -2328,11 +2343,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.SapChanceOnHit = 0
 		end
-		if not skillFlags.attack then
-            output.ImpaleChance = 0
-        else
-            output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
-		end
+		output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
 		if skillModList:Sum("BASE", cfg, "FireExposureChance") > 0 then
 			skillFlags.applyFireExposure = true
 		end
@@ -3209,7 +3220,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
-		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 then
+		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
 			local sourceHitDmg = 0
 			local sourceCritDmg = 0
 			if output.ScorchChanceOnCrit == 0 and output.ScorchChanceOnHit > 0 then
@@ -3224,7 +3235,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ScorchChanceOnHit = 0
 			end
 			local baseVal = calcAilmentDamage("Scorch", sourceHitDmg, sourceCritDmg)
-			if baseVal > 0 then
+			if baseVal > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
 				skillFlags.scorch = true
 				output.ScorchEffectMod = skillModList:Sum("INC", cfg, "EnemyScorchEffect")
 				output.ScorchDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyScorchDuration") / 100 + enemyDB:Sum("INC", nil, "SelfScorchDuration") / 100
@@ -3457,9 +3468,18 @@ function calcs.offence(env, actor, activeSkill)
 		skillPart = skillCfg.skillPart,
 		skillTypes = skillCfg.skillTypes,
 		slotName = skillCfg.slotName,
-		flags = bor(ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0, skillData.dotIsProjectile and ModFlag.Projectile or 0),
+		flags = bor(ModFlag.Dot, skillCfg.flags),
 		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
 	}
+	if bor(dotCfg.flags, ModFlag.Area) == dotCfg.flags and not skillData.dotIsArea then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Area))
+	end
+	if bor(dotCfg.flags, ModFlag.Projectile) == dotCfg.flags and not skillData.dotIsProjectile then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Projectile))
+	end
+	if bor(dotCfg.flags, ModFlag.Spell) == dotCfg.flags and not skillData.dotIsSpell then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Spell))
+	end
 
 	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
 	local dotTakenCfg = copyTable(dotCfg, true)
@@ -3591,9 +3611,13 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	output.TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
 	if skillFlags.impale then
-		output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
-		if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
-			output.ImpaleHit = output.ImpaleHit * 2
+		if skillFlags.attack then
+			output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
+			if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
+				output.ImpaleHit = output.ImpaleHit * 2
+			end
+		else
+			output.ImpaleHit = output.PhysicalHitAverage * (1-output.CritChance/100) + output.PhysicalCritAverage * (output.CritChance/100)
 		end
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * (skillData.dpsMultiplier or 1)
 		if skillData.showAverage then
@@ -3609,7 +3633,7 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			if skillFlags.notAverage then
-				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed))
+				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
 			if skillData.dpsMultiplier then

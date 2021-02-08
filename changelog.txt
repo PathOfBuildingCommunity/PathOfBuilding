@@ -1,3 +1,50 @@
+VERSION[1.4.170.26][2021/02/07]
+* Add control to set Vaal Timeless Jewel influenced passive skills to random mods (Wires77)
+* Add all new uniques in game patch 3.13.0 (Nostrademous, ppoelzl)
+* Add support for the following uniques:
+  * Arn's Anguish
+  * Doppelgänger
+  * Graven's Secret
+  * Olesya's Delight
+  * Goblinedge
+* Add Flickershade Spectre (Kayella)
+* Add support for "Cobra Lash Chains additional times" helmet enchantment (Puddlestomper)
+* Add Belt Enchantments to Item Crafting from Harvest improved Offering to the Goddess Uber Lab runs. Not all modifiers parse yet, but most do (Nostrademous)
+* Add Elevated Affixes to Item Crafting (Nostrademous)
+* Add support for Blizzard Crown implicit (Nostrademous)
+* Add support for Brutal, Affliction and Absorption Charge (damage recoup from Absorption Charges is not supported) coverstion from Endurance, Frenzy, Power charges via Unique Belts (Nostrademous)
+* Add support for 'On Scorched Ground' in Config Tab when using Legacy of Fury unique boots (Nostrademous)
+* Add support and extraction of 'Thirst for Blood' unique ability from Jack, the Axe unique (Nostrademous, LocalIdentity)
+* Add support for Doppelgänger's insane/sane specification via Config Tab (Nostrademous)
+* Add support for Goblinedge Power/Frenzy charge interaction (ppoelzl)
+* Add limit cap to Replica Nebulis unique (Wires77)
+* Add parsing support for Anomalous Minion Life (ALT-F-X)
+* Updated Max Awakening Level for Sirus to scale to 9 achievable through Atlas Passives (Quote_a)
+* Add support for Phantasmal Ancestral Protector (ALT-F-X)
+* Add support for impale from spells (Wires77)
+* Add support for Phantasmal Might from The Black Cane (Wires77)
+* Add support for Shield Shatter on Shattershard (Wires77)
+* Add support for automatic chill from Summon Skitterbots (Quote_a)
+
+* Fix Timeless Jewel passives not accounting for past skill tree versions (Wires77)
+* Fix Spectre stats scaling with Spectre level using incorrect values (zao)
+* Fix mod ranges on Legacy of Fury (Nostrademous)
+* Fix Endurance/Frenzy/Power charges missing for Minions (Wires77)
+* Fix multiple crashes in the skills tab related to gem quality (Nostrademous, ALT-F-X)
+* Corrected enforcement of Minion Skill level requirements (zao)
+* Fix Enduring Cry's Life Regen calculation (tommysays)
+* Fix Ancestral Cry's Armor increase calculation (tommysays)
+* Fix Divergent Minion Damage to be an "Increase" instead of "More" as it should have been (Wires77)
+* Fix accounting for Abyssal Jewels in Offhand Slots (zao)
+* Updated Replica Alberon's Warpath chaos damage gain per strength to new value (RUSshy)
+* Fix Flame Wall's secondary not being affected by Area Damage (Wires77)
+* Fix Impale Support and Divergent Fortify application of Physical Damage Reduction (Wires77)
+* Fix '+1 to Maximum Summon Ballista Totems' to not also increase the allowed count of Ancestral Totems (Wires77)
+* Fix Disintegrator to include Block Attack Damage on Ritual variant (Wires77)
+* Fix Offering to the Serpent unique gloves stat attributes (PJacek)
+* Fix Cameria's Avarice unique mace to state "on Hit" rather than "on Kill" (ALT-F-X)
+* Fix Phantasmal Smite quality bonus (ALT-F-X)
+* Updated many Configuration Tab tooltips to display updated values (zao)
 VERSION[1.4.170.25][2021/01/16]
 * Fix Trinity Support
 * Fix Hrimnor's Resolve

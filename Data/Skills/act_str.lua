@@ -10,7 +10,7 @@ skills["AbyssalCry"] = {
 	name = "Infernal Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Covers enemies in ash, causing them to move slower and take increased fire damage. Affected enemies explode when they die, dealing fire damage in an area.",
-	skillTypes = { [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.FireSkill] = true, [SkillType.Hit] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.FireSkill] = true, [SkillType.Hit] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -221,6 +221,9 @@ skills["TotemMelee"] = {
 		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["ancestor_totem_buff_effect_+%"] = {
+			mod("BuffEffect", "INC", nil)
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -303,7 +306,7 @@ skills["AncestralCry"] = {
 	name = "Ancestral Cry",
 	color = 1,
 	description = "Performs a warcry, taunting all nearby enemies to attack the user and exerting subsequent strike attacks. Grants a buff which gives you bonus armour and melee range.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -610,7 +613,7 @@ skills["Anger"] = {
 	baseEffectiveness = 2.25,
 	incrementalEffectiveness = 0.023000000044703,
 	description = "Casts an aura that adds fire damage to the attacks and spells of you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -814,7 +817,7 @@ skills["Berserk"] = {
 	name = "Berserk",
 	color = 1,
 	description = "Consumes Rage at an accelerating rate to provide a powerful buff, granting more attack damage, attack speed, movement speed, and less damage taken.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -1027,7 +1030,7 @@ skills["BloodSandStance"] = {
 	name = "Blood and Sand",
 	color = 1,
 	description = "Casts a buff that grants different bonuses to melee skills depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, [SkillType.StanceSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.StanceSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -1396,7 +1399,7 @@ skills["DecoyTotem"] = {
 	name = "Decoy Totem",
 	color = 1,
 	description = "Summons a totem that taunts nearby monsters to attack it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Totem] = true, [SkillType.SpellCanRepeat] = true, [SkillType.AreaSpell] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Totem] = true, [SkillType.SpellCanRepeat] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 6,
 	castTime = 1,
@@ -1480,12 +1483,15 @@ skills["Determination"] = {
 	name = "Determination",
 	color = 1,
 	description = "Casts an aura that grants armour to you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
 		["determination_aura_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["evasion_rating_%_to_add_as_armour"] = {
+			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -1755,7 +1761,7 @@ skills["PuresteelBanner"] = {
 	name = "Dread Banner",
 	color = 1,
 	description = "Casting once reserves mana to carry a banner which makes nearby allies inflict impale with attacks, and lessens the accuracy of nearby enemies. Gain stages by impaling enemies while carrying the banner. Casting the skill again places the banner, ending the mana reservation. Once placed, it becomes more powerful for each stage gained. You cannot have multiple banners at the same time.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Banner] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Banner] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "banner_aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -2180,11 +2186,11 @@ skills["EnduringCry"] = {
 	name = "Enduring Cry",
 	color = 1,
 	description = "Performs a warcry, taunting all nearby enemies to attack the user and granting endurance charges. Gives a brief burst of life regeneration, as well as a buff which grants resistances and physical damage reduction based on your endurance charges.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["regenerate_X_life_over_1_second_on_cast"] = {
+		["regenerate_x_life_over_1_second_on_skill_use_or_trigger"] = {
 			mod("EnduringCryLifeRegen", "BASE", nil),
 		},
 		["resist_all_elements_%_per_endurance_charge"] = {
@@ -2271,7 +2277,7 @@ skills["BloodSandArmour"] = {
 	name = "Flesh and Stone",
 	color = 1,
 	description = "Casts an aura that affects you and nearby enemies differently depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Maims] = true, [SkillType.Area] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, [SkillType.StanceSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Maims] = true, [SkillType.Area] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.StanceSkill] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -2361,7 +2367,7 @@ skills["GeneralsCry"] = {
 	name = "General's Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user, and summoning Mirage Warriors from nearby corpses. The Mirage Warriors each use a linked attack skill once before dissipating.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -2969,7 +2975,7 @@ skills["HeraldOfAsh"] = {
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.032699998468161,
 	description = "Grants a buff providing fire damage based on your physical damage. While you have this buff, if you kill an enemy, other enemies near them will be burned based on the overkill damage. The burn inflicted by this skill can only be affected by modifiers to damage over time (burning damage is damage over time).",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.CausesBurning] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.Type27] = true, [SkillType.Herald] = true, [SkillType.Duration] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.CausesBurning] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.Type27] = true, [SkillType.Herald] = true, [SkillType.Duration] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
@@ -3069,7 +3075,7 @@ skills["HeraldOfPurity"] = {
 	baseEffectiveness = 0.31700000166893,
 	incrementalEffectiveness = 0.01799999922514,
 	description = "Grants a buff which lets you deal more physical damage. When you kill an enemy while you have this buff, this skill will summon a Sentinel of Purity, or refresh the duration and life of an existing one instead if you have the maximum number of them. The Sentinels of Purity have a single-target melee attack and an area melee attack.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Herald] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.PhysicalSkill] = true, [SkillType.CreatesMinion] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Herald] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.PhysicalSkill] = true, [SkillType.CreatesMinion] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	minionSkillTypes = { [SkillType.Hit] = true, [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Area] = true, },
 	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 0,
@@ -3368,7 +3374,7 @@ skills["ImmortalCall"] = {
 	name = "Immortal Call",
 	color = 1,
 	description = "Take less Physical and Elemental Damage for a short time. Consumes up to 5 Endurance Charges to lengthen the buff and further lessen Physical Damage taken. Shares a cooldown with other Guard skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.GuardSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -3457,7 +3463,7 @@ skills["VaalImmortalCall"] = {
 	name = "Vaal Immortal Call",
 	color = 1,
 	description = "Discharges Endurance Charges, making the character unable to die or gain Vaal souls for a short time, proportional to how many endurance charges were expended.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
@@ -3653,7 +3659,7 @@ skills["IntimidatingCry"] = {
 	name = "Intimidating Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Grants a buff which lowers the effect of enemy physical damage reduction against your hits.",
-	skillTypes = { [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, [SkillType.PhysicalSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -3841,7 +3847,7 @@ skills["MoltenShell"] = {
 	baseEffectiveness = 9.6499996185303,
 	incrementalEffectiveness = 0.016499999910593,
 	description = "Applies a buff that adds to your armour, and can take some of the damage from hits for you before being depleted. When the buff expires or is depleted, the skill deals reflected damage to enemies around you based on the total damage that was taken from the buff. Shares a cooldown with other Guard skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
@@ -3950,7 +3956,7 @@ skills["VaalMoltenShell"] = {
 	baseEffectiveness = 14.47500038147,
 	incrementalEffectiveness = 0.016499999910593,
 	description = "Applies a buff that raises your armour, and takes some of the damage from hits for you before being depleted. Each second, the skill deals reflected damage to surrounding enemies based on the damage taken by the buff in that second. When the buff is removed, the skill deals reflected damage to enemies around you based on the total damage that was taken by the buff. You cannot have the buff at the same time as any other Guard skill.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Vaal] = true, [SkillType.Type92] = true, [SkillType.Type91] = true, [SkillType.Type96] = true, [SkillType.CantUseFistOfWar] = true, [SkillType.GuardSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Vaal] = true, [SkillType.Type92] = true, [SkillType.Type91] = true, [SkillType.SecondWindSupport] = true, [SkillType.CantUseFistOfWar] = true, [SkillType.GuardSkill] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
@@ -4287,7 +4293,7 @@ skills["PhysicalDamageAura"] = {
 	name = "Pride",
 	color = 1,
 	description = "Casts an aura that causes nearby enemies to take more physical damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.AuraDebuff] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.AuraDebuff] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -4463,7 +4469,7 @@ skills["FireResistAura"] = {
 	name = "Purity of Fire",
 	color = 1,
 	description = "Casts an aura that grants fire resistance to you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -4552,7 +4558,7 @@ skills["FireImpurity"] = {
 	name = "Vaal Impurity of Fire",
 	color = 1,
 	description = "Casts an aura that reduces fire damage taken and provides ignite immunity to you and nearby allies, and makes hits against nearby enemies ignore their fire resistance. ",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -4633,7 +4639,7 @@ skills["RallyingCry"] = {
 	name = "Rallying Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Gives nearby Allies a buff based on the damage of your weapon.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -4737,7 +4743,7 @@ skills["Reckoning"] = {
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Perform a swift counter-attack against enemies in a cone shape when you block with your shield.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["Claw"] = true,
@@ -5002,7 +5008,7 @@ skills["SeismicCry"] = {
 	name = "Seismic Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent slam attacks. Grants a buff which makes it easier for you to stun enemies.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -5312,7 +5318,7 @@ skills["Smite"] = {
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["skill_buff_grants_attack_and_cast_speed_"] = {
+		["skill_buff_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		}
 	},
@@ -5523,7 +5529,7 @@ skills["QuickGuard"] = {
 	baseEffectiveness = 10,
 	incrementalEffectiveness = 0.029999999329448,
 	description = "Applies a buff which can take some of the damage from hits for you before being depleted. Shares a cooldown with other Guard skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -5611,7 +5617,7 @@ skills["SummonFireGolem"] = {
 	name = "Summon Flame Golem",
 	color = 1,
 	description = "Summons a Flame Golem that grants you increased Damage. The Flame Golem can use a fire spray, a wave of fire damage, and an explosive arcing projectile.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
 	minionSkillTypes = { [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -5699,7 +5705,7 @@ skills["SummonRockGolem"] = {
 	name = "Summon Stone Golem",
 	color = 1,
 	description = "Summons a Stone Golem that grants you life regeneration. In addition to its melee attack, the Stone Golem uses a rolling charge and a powerful slam that can taunt enemies.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, [SkillType.PhysicalSkill] = true, [SkillType.CreatesMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, [SkillType.PhysicalSkill] = true, [SkillType.CreatesMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MovementSkill] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -6107,7 +6113,7 @@ skills["Vengeance"] = {
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Chance to perform a swift counter-attack against all enemies around you when you are hit. Weapon range increases the area of this attack. Requires a Melee Weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -6205,7 +6211,7 @@ skills["VigilantStrike"] = {
 	name = "Vigilant Strike",
 	color = 1,
 	description = "Attacks enemies with a powerful melee strike. You gain the Fortify buff, granting damage reduction. The cooldown can be bypassed by expending an Endurance Charge. Requires a Melee Weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Type53] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Type53] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -6294,7 +6300,7 @@ skills["Vitality"] = {
 	name = "Vitality",
 	color = 1,
 	description = "Casts an aura that grants life regeneration to you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -6563,7 +6569,7 @@ skills["BloodstainedBanner"] = {
 	name = "War Banner",
 	color = 1,
 	description = "Casting once reserves mana to carry a banner which increases the accuracy of nearby allies, and physical damage taken by nearby enemies. Gain stages by killing enemies while carrying the banner. Casting the skill again places the banner, ending the mana reservation. Once placed, it becomes more powerful for each stage gained. You cannot have multiple banners at the same time.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Banner] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.ManaCostPercent] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Banner] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "banner_aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {

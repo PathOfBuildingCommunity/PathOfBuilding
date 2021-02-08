@@ -715,7 +715,7 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -792,7 +792,7 @@ skills["SupportCastOnDamageTaken"] = {
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Type96, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -1546,6 +1546,7 @@ skills["SupportFortify"] = {
 		},
 		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
+			mult = -1,
 		},
 	},
 	baseMods = {

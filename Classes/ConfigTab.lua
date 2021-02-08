@@ -166,8 +166,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 			elseif varData.ifFlag then
 				control.shown = function()
-					local skillModList = self.build.calcsTab.calcsEnv.player.mainSkill.skillModList
-					local skillFlags = self.build.calcsTab.calcsEnv.player.mainSkill.skillFlags
+					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
+					local skillFlags = self.build.calcsTab.mainEnv.player.mainSkill.skillFlags
 					-- Check both the skill mods for flags and flags that are set via calcPerform
 					return skillFlags[varData.ifFlag] or skillModList:Flag(nil, varData.ifFlag)
 				end

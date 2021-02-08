@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Cured Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Adds 2 to 4 Fire Damage to Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	req = { },
@@ -13,7 +13,7 @@ itemBases["Cured Quiver"] = {
 itemBases["Rugged Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Adds 2 to 3 Cold Damage to Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold", "attack" }, },
 	req = { },
@@ -21,7 +21,7 @@ itemBases["Rugged Quiver"] = {
 itemBases["Conductive Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Adds 1 to 5 Lightning Damage to Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning", "attack" }, },
 	req = { },
@@ -29,7 +29,7 @@ itemBases["Conductive Quiver"] = {
 itemBases["Heavy Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Adds 1 to 4 Physical Damage to Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 5, },
@@ -37,70 +37,70 @@ itemBases["Heavy Quiver"] = {
 itemBases["Light Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "+(30-40) to Dexterity",
 	implicitModTypes = { { "attribute" }, },
 	req = { level = 12, },
 }
 itemBases["Serrated Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Adds 1 to 4 Physical Damage to Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 5, },
 }
 itemBases["Two-Point Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "(20-30)% increased Global Accuracy Rating",
 	implicitModTypes = { { "attack" }, },
 	req = { level = 4, },
 }
 itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "+(3-4) Life gained for each Enemy hit by your Attacks",
 	implicitModTypes = { { "resource", "life", "attack" }, },
 	req = { level = 10, },
 }
 itemBases["Blunt Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "(25-35)% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
 	req = { level = 16, },
 }
 itemBases["Fire Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Adds 4 to 8 Fire Damage to Bow Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	req = { level = 22, },
 }
 itemBases["Broadhead Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Adds 6 to 12 Physical Damage to Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 28, },
 }
 itemBases["Penetrating Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Arrows Pierce an additional Target",
 	implicitModTypes = { { "attack" }, },
 	req = { level = 36, },
 }
 itemBases["Spike-Point Arrow Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "(20-30)% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	req = { level = 45, },
 }
 itemBases["Ornate Quiver"] = {
 	type = "Quiver",
-	tags = { default = true, quiver = true, not_for_sale = true, },
+	tags = { not_for_sale = true, quiver = true, default = true, },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
 	req = { level = 45, },

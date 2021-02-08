@@ -518,6 +518,15 @@ Requires Level 37, 29 Str, 29 Int
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
+Hand of the Fervent
+Zealot Gloves
+League: Ritual
+Requires Level 43, 34 Str, 34 Int
+(70-130)% increased Armour and Energy Shield
++(50-70) to maximum Life
+Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
+Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+]],[[
 Hands of the High Templar
 Crusader Gloves
 Requires Level 66, 51 Str, 51 Int
@@ -544,7 +553,7 @@ Legion Gloves
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 57, 44 Str, 44 Int
-+(25-35) to all Attributes
++(15-25) to all Attributes
 (150-200)% increased Armour and Energy Shield
 50% reduced Maximum Recovery per Life Leech
 (6-10)% increased Attack and Cast Speed

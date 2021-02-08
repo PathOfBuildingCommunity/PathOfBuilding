@@ -39,17 +39,29 @@ local GGPKClass = newClass("GGPKData", function(self, path)
 	self.txt = { }
 	
 	self:ExtractFiles()
-	self:AddDatFiles()
+	
+	if USE_DAT64 then
+		self:AddDat64Files()
+	else
+		self:AddDatFiles()
+	end
 end)
 
 function GGPKClass:ExtractFiles()
-	local datList, txtList = self:GetNeededFiles()
+	local datList, txtList, otList = self:GetNeededFiles()
 	
 	local fileList = ''
 	for _, fname in ipairs(datList) do
-		fileList = fileList .. '"' .. fname .. '" '
+		if USE_DAT64 then
+			fileList = fileList .. '"' .. fname .. '64" '
+		else
+			fileList = fileList .. '"' .. fname .. '" '
+		end
 	end
 	for _, fname in ipairs(txtList) do
+		fileList = fileList .. '"' .. fname .. '" '
+	end
+	for _, fname in ipairs(otList) do
 		fileList = fileList .. '"' .. fname .. '" '
 	end
 	
@@ -60,6 +72,19 @@ end
 
 function GGPKClass:AddDatFiles()
 	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat$')
+	for _, f in ipairs(datFiles) do
+		local record = { }
+		record.name = f
+		local rawFile = io.open(self.oozPath .. "Data\\" .. f, 'rb')
+		record.data = rawFile:read("*all")
+		rawFile:close()
+		--ConPrintf("FILENAME: %s", fname)
+		t_insert(self.dat, record)
+	end
+end
+
+function GGPKClass:AddDat64Files()
+	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat64$')
 	for _, f in ipairs(datFiles) do
 		local record = { }
 		record.name = f
@@ -161,5 +186,45 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 	}
-	return datFiles, txtFiles
+	local otFiles = {
+		"Metadata/Items/Quivers/AbstractQuiver.ot",
+		"Metadata/Items/Rings/AbstractRing.ot",
+		"Metadata/Items/Belts/AbstractBelt.ot",
+		"Metadata/Items/Flasks/AbstractUtilityFlask.ot",
+		"Metadata/Items/Jewels/AbstractJewel.ot",
+		"Metadata/Items/Flasks/CriticalUtilityFlask.ot",
+		"Metadata/Items/Flasks/AbstractHybridFlask.ot",
+		"Metadata/Items/Flasks/AbstractManaFlask.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractWarstaff.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/AbstractSceptre.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/AbstractOneHandSwordThrusting.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/Claws/AbstractClaw.ot",
+		"Metadata/Items/Armours/Shields/AbstractShield.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/Bows/AbstractBow.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/AbstractTwoHandMace.ot",
+		"Metadata/Items/Armours/Boots/AbstractBoots.ot",
+		"Metadata/Items/Jewels/AbstractAbyssJewel.ot",
+		"Metadata/Items/Armours/BodyArmours/AbstractBodyArmour.ot",
+		"Metadata/Items/Armours/AbstractArmour.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractRuneDagger.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractStaff.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/AbstractTwoHandAxe.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/AbstractOneHandAxe.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/AbstractTwoHandSword.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/AbstractOneHandMace.ot",
+		"Metadata/Items/Armours/Gloves/AbstractGloves.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractDagger.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/AbstractOneHandSword.ot",
+		"Metadata/Items/Amulets/AbstractAmulet.ot",
+		"Metadata/Items/Flasks/AbstractLifeFlask.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/Wands/AbstractWand.ot",
+		"Metadata/Items/Armours/Helmets/AbstractHelmet.ot",
+		"Metadata/Items/Flasks/AbstractFlask.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/AbstractTwoHandWeapon.ot",
+		"Metadata/Items/Item.ot",
+		"Metadata/Items/Weapons/OneHandWeapons/AbstractOneHandWeapon.ot",
+		"Metadata/Items/Equipment.ot",
+		"Metadata/Items/Weapons/AbstractWeapon.ot",
+	}
+	return datFiles, txtFiles, otFiles
 end
