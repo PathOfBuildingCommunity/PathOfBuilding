@@ -1719,7 +1719,13 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 
 	local controls = { } 
 	local enchantments = self.displayItem.enchantments
-	local haveSkills = not self.displayItem.enchantments[self.build.data.labyrinths[1].name]
+	local haveSkills = true
+	for _, lab in ipairs(self.build.data.labyrinths) do
+		if self.displayItem.enchantments[lab.name] then
+			haveSkills = false
+			break
+		end
+	end
 	local skillList = { }
 	local skillsUsed = { }
 	if haveSkills then
