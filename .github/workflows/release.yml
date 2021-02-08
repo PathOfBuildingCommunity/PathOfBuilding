@@ -17,7 +17,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Install changelog generator
-              run: gem install github_changelog_generator
+              run: sudo gem install github_changelog_generator
             - name: Generate Release notes
               run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} -b CHANGELOG.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --issues false
             - name: Update manifest.xml
