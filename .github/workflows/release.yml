@@ -19,13 +19,14 @@ jobs:
             - name: Install changelog generator
               run: sudo gem install github_changelog_generator
             - name: Generate Release notes
-              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} -b CHANGELOG.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --issues false
+              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} -b CHANGELOG.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --no-issues true
             - name: Update manifest.xml
               run: python3 update_manifest.py; cp manifest-updated.xml manifest.xml
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v3.8.0
               with:
                   draft: true
+                  title: Release ${{ github.event.inputs.releaseVersion }}
                   branch: release_${{ github.event.inputs.releaseVersion }}
                   body: |
                       Draft release of ${{ github.event.inputs.releaseVersion }}
