@@ -1434,6 +1434,12 @@ return {
 ["warcry_grant_damage_+%_to_exerted_attacks"] = {
 	mod("ExertIncrease", "INC", nil, ModFlag.Attack, 0)
 },
+["is_empowered"] = {
+	flag("CountAsExerted"),
+},
+["triggered_by_spiritual_cry"] = {
+	skill("showAverage", true),
+},
 -- Curse
 ["curse_effect_+%"] = {
 	mod("CurseEffect", "INC", nil),

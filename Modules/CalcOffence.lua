@@ -1282,7 +1282,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
-			if not activeSkill.skillTypes[SkillType.Vaal] and not activeSkill.skillTypes[SkillType.Channelled] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
+			if not activeSkill.skillTypes[SkillType.Vaal] and not activeSkill.skillTypes[SkillType.Channelled] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") and not activeSkill.skillModList:Flag(cfg, "CountAsExerted") then
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] and not globalOutput.AncestralCryCalculated then
 						globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -1558,6 +1558,10 @@ function calcs.offence(env, actor, activeSkill)
 						}
 					end
 				end
+			elseif skillModList:Flag(cfg, "CountAsExerted") then
+				skillModList:NewMod("Damage", "INC", skillModList:Sum("INC", cfg, "ExertIncrease"), "Exerted Attacks")
+				skillModList:NewMod("Damage", "MORE", skillModList:Sum("MORE", cfg, "ExertIncrease"), "Exerted Attacks")
+				skillModList:NewMod("Damage", "MORE", skillModList:Sum("BASE", cfg, "GeneralsCryMirageWarriorLessDamage"), "Generals Cry")
 			end
 		end
 
