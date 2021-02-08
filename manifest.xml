@@ -18,7 +18,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="ba9b08700c20bb54453133f67139836a3997f685" />
-	<File name="changelog.txt" part="program" sha1="56a614a3c49a1d4e9d55d662957786c1b935bc27" />
+	<File name="changelog.txt" part="program" sha1="d3ce2821cc941ab5f40657fc24b802bc808d9ab1" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="abedf9c43a64c4a9270de5aacc3f02a105fecd1d" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="cc0214199af6b4cb770e2f6a089af9b66c3f7d59" />
@@ -56,7 +56,7 @@
 	<File name="Classes/ItemListControl.lua" part="program" sha1="7c3d3c4b8213d1f70ca9b314dcf1a30d7f78b21c" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="4dcc295dbc5cbf700b8f9974dd0ea8e8d47ab50c" />
 	<File name="Classes/ItemSlotControl.lua" part="program" sha1="a0bfb94f21515ac025b7d71c5903fee7ffe81cb9" />
-	<File name="Classes/ItemsTab.lua" part="program" sha1="a1770bfd33a121591e3203d11d24c12828b01150" />
+	<File name="Classes/ItemsTab.lua" part="program" sha1="279d185bea661980259fb2b75604f1ee18967d5e" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="d2ffe0071641c07b63d152c0f48b691eba0cffb0" />
 	<File name="Classes/ListControl.lua" part="program" sha1="a905fb674cc13d3d664c840fb8f80610de2a7ad3" />
 	<File name="Classes/MinionListControl.lua" part="program" sha1="f7281f889c87c8de45d5af4243c49d9998d4a272" />
@@ -180,7 +180,7 @@
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="8b57ed056018f6b0d3117b5feb4a10382cca3a0d" />
 	<File name="Modules/CalcDefence.lua" part="program" sha1="a75008489eceef880ed496367349e216c23307bf" />
 	<File name="Modules/CalcOffence.lua" part="program" sha1="a94f0bfbd3ed863691b15a53d90526d0e467162d" />
-	<File name="Modules/CalcPerform.lua" part="program" sha1="a366df605ecad25133f7389592bc9e982d705593" />
+	<File name="Modules/CalcPerform.lua" part="program" sha1="be830cb457b8af29c314289b767229f70346d6fd" />
 	<File name="Modules/Calcs.lua" part="program" sha1="dc4cbd2cfe26d6564dd9a474e947d9bf8cf74b70" />
 	<File name="Modules/CalcSections.lua" part="program" sha1="72e379e150dced0df5f615951ae785e6d73ea3bc" />
 	<File name="Modules/CalcSetup.lua" part="program" sha1="9fe04b70b398e182defd7263faa7bd96d72bb824" />
