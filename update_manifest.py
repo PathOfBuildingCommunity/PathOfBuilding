@@ -1,4 +1,3 @@
-import argparse
 import hashlib
 import logging
 import pathlib
@@ -49,6 +48,7 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
 
 def cli():
     """CLI for conveniently updating Path of Building's manifest file."""
+    import argparse
 
     parser = argparse.ArgumentParser(
         usage="%(prog)s [options] filename",
