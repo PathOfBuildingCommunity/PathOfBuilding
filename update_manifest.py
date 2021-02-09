@@ -1,28 +1,33 @@
 import hashlib
-import os
+import pathlib
 import xml.etree.ElementTree
+
+"""This script requires at least Python 3.7.0 to run."""
 
 
 def update_manifest():
-    manifest = xml.etree.ElementTree.parse("manifest.xml")
+    supported_extensions = {".dll", ".jpg", ".lua", ".md", ".png", ".txt"}
+    try:
+        manifest = xml.etree.ElementTree.parse("manifest.xml")
+    except FileNotFoundError:
+        print(f"Manifest file not found in path '{pathlib.Path().cwd()}'!")
+        return
     root = manifest.getroot()
 
     for file in root.iter("File"):
-        path = file.get('name')
-        extension = os.path.splitext(path)[1]
-        if extension not in (".dll", ".lua", ".md", ".txt", ".png", ".jpg"):
-            print(f"Skipping file type {extension}")
+        path = pathlib.Path(file.get("name"))
+        if path.suffix not in supported_extensions:
+            print(f"Skipping file type {path.suffix}")
             continue
         try:
-            with open(path, 'rb') as f:
-                data = f.read()
-            sha1_hash = hashlib.sha1(data).hexdigest()
-            file.set("sha1", sha1_hash)
-            print(f"Path: {path} hash: {sha1_hash}")
+            data = path.read_bytes()
         except FileNotFoundError:
             print(f"File not found, skipping {path}")
-
-    manifest.write("manifest-updated.xml")
+            continue
+        sha1_hash = hashlib.sha1(data).hexdigest()
+        file.set("sha1", sha1_hash)
+        print(f"Path: {path} hash: {sha1_hash}")
+    manifest.write("manifest-updated.xml", encoding="utf-8", xml_declaration=True)
 
 
 if __name__ == "__main__":
