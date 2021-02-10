@@ -82,10 +82,11 @@ data.powerStatList = {
 	{ stat="TotalDPS", label="Total DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
 	{ stat="AverageDamage", label="Average Hit" },
+	{ stat="Speed", label="Attack/Cast Speed" },
+	{ stat="TotalDot", label="DoT DPS" },
 	{ stat="BleedDPS", label="Bleed DPS" },
 	{ stat="IgniteDPS", label="Ignite DPS" },
 	{ stat="PoisonDPS", label="Poison DPS" },
-	{ stat="TotalDot", label="Chaos DoT DPS" },
 	{ stat="Life", label="Life" },
 	{ stat="LifeRegen", label="Life regen" },
 	{ stat="LifeLeechRate", label="Life leech" },
@@ -95,20 +96,32 @@ data.powerStatList = {
 	{ stat="Mana", label="Mana" },
 	{ stat="ManaRegen", label="Mana regen" },
 	{ stat="ManaLeechRate", label="Mana leech" },
+	{ stat="Str", label="Strength" },
+	{ stat="Dex", label="Dexterity" },
+	{ stat="Int", label="Intelligence" },
+	{ stat="TotalAttr", label="Total Attributes" },
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
+	{ stat="PhysicalTotalEHP", label="eHP vs Physical hits" },
+	{ stat="LightningTotalEHP", label="eHP vs Lightning hits" },
+	{ stat="ColdTotalEHP", label="eHP vs Cold hits" },
+	{ stat="FireTotalEHP", label="eHP vs Fire hits" },
+	{ stat="ChaosTotalEHP", label="eHP vs Chaos hits" },
 	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
-	{ stat="FireTakenDotMult", label="Taken Fire dmg", transform=function(value) return 1-value end },
-	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
+	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
+	{ stat="FireTakenDotMult", label="Taken Fire dmg", transform=function(value) return 1-value end },
 	{ stat="ChaosTakenHitMult", label="Taken Chaos dmg", transform=function(value) return 1-value end },
 	{ stat="CritChance", label="Crit Chance" },
+	{ stat="CritMultiplier", label="Crit Multiplier" },
 	{ stat="BleedChance", label="Bleed Chance" },
 	{ stat="FreezeChance", label="Freeze Chance" },
 	{ stat="IgniteChance", label="Ignite Chance" },
 	{ stat="ShockChance", label="Shock Chance" },
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
+	{ stat="BlockChance", label="Block Chance" },
+	{ stat="SpellBlockChance", label="Spell Block Chance" },
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
@@ -125,15 +138,32 @@ data.jewelRadius = {
 }
 
 data.labyrinths = {
+	{ name = "HARVEST", label = "Harvest" },
 	{ name = "ENDGAME", label = "Eternal" },
 	{ name = "MERCILESS", label = "Merciless" },
 	{ name = "CRUEL", label = "Cruel" },
 	{ name = "NORMAL", label = "Normal" },
 }
 
-data.monsterExperienceLevelMap = { [71] = 70.94, [72] = 71.82, [73] = 72.64, [74] = 73.40, [75] = 74.10, [76] = 74.74, [77] = 75.32, [78] = 75.84, [79] = 76.30, [80] = 76.70, [81] = 77.04, [82] = 77.32, [83] = 77.54, [84] = 77.70, }
-for i = 1, 70 do
-	data.monsterExperienceLevelMap[i] = i
+local maxPenaltyFreeAreaLevel = 70
+local maxAreaLevel = 87 -- T16 map + side area + three watchstones that grant +1 level
+local penaltyMultiplier = 0.06
+
+---@param areaLevel number
+---@return number
+local function effectiveMonsterLevel(areaLevel)
+	--- Areas with area level above a certain penalty-free level are considered to have
+	--- a scaling lower effective monster level for experience penalty calculations.
+	if areaLevel <= maxPenaltyFreeAreaLevel then
+		return areaLevel
+	end
+	return areaLevel - triangular(areaLevel - maxPenaltyFreeAreaLevel) * penaltyMultiplier
+end
+
+---@type table<number, number>
+data.monsterExperienceLevelMap = {}
+for i = 1, maxAreaLevel do
+	data.monsterExperienceLevelMap[i] = effectiveMonsterLevel(i)
 end
 
 data.weaponTypeInfo = {
@@ -187,176 +217,271 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
--- Uniques
+---@type string[] @List of all keystones not exclusive to timeless jewels.
+data.keystones = {
+	"Acrobatics",
+	"Ancestral Bond",
+	"Arrow Dancing",
+	"Avatar of Fire",
+	"Blood Magic",
+	"Call to Arms",
+	"Chaos Inoculation",
+	"Conduit",
+	"Corrupted Soul",
+	"Crimson Dance",
+	"Doomsday",
+	"Eldritch Battery",
+	"Elemental Equilibrium",
+	"Elemental Overload",
+	"Eternal Youth",
+	"Ghost Reaver",
+	"Glancing Blows",
+	"Hollow Palm Technique",
+	"Imbalanced Guard",
+	"Immortal Ambition",
+	"Iron Grip",
+	"Iron Reflexes",
+	"Mind Over Matter",
+	"Minion Instability",
+	"Mortal Conviction",
+	"Necromantic Aegis",
+	"Pain Attunement",
+	"Perfect Agony",
+	"Phase Acrobatics",
+	"Point Blank",
+	"Resolute Technique",
+	"Runebinder",
+	"Supreme Ego",
+	"The Agnostic",
+	"The Impaler",
+	"Unwavering Stance",
+	"Vaal Pact",
+	"Wicked Ward",
+	"Wind Dancer",
+	"Zealot's Oath",
+}
+
+data.misc = { -- magic numbers
+	ServerTickRate = 30,
+	TemporalChainsEffectCap = 75,
+	DamageReductionCap = 90,
+	MaxResistCap = 90,
+	EvadeChanceCap = 95,
+	DodgeChanceCap = 75,
+	AvoidChanceCap = 75,
+	EnergyShieldRechargeBase = 0.2,
+	Transfiguration = 0.3,
+	EnemyMaxResist = 75,
+	LeechRateBase = 0.02,
+	BleedPercentBase = 70,
+	BleedDurationBase = 5,
+	PoisonPercentBase = 0.20,
+	PoisonDurationBase = 2,
+	IgnitePercentBase = 0.50,
+	IgniteDurationBase = 4,
+	ImpaleStoredDamageBase = 0.1,
+	BuffExpirationSlowCap = 0.25,
+	TrapTriggerRadiusBase = 10,
+	MineDetonationRadiusBase = 60,
+	MineAuraRadiusBase = 35,
+	PurposefulHarbingerMaxBuffPercent = 40,
+}
+
+-- Misc data tables
+LoadModule("Data/Misc", data)
+
+-- Stat descriptions
+data.describeStats = LoadModule("Modules/StatDescriber")
+
+-- Load item modifiers
+data.itemMods = {
+	Item = LoadModule("Data/ModItem"),
+	Flask = LoadModule("Data/ModFlask"),
+	Jewel = LoadModule("Data/ModJewel"),
+	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
+	JewelCluster = LoadModule("Data/ModJewelCluster"),
+}
+data.masterMods = LoadModule("Data/ModMaster")
+data.enchantments = {
+	Helmet = LoadModule("Data/EnchantmentHelmet"),
+	Boots = LoadModule("Data/EnchantmentBoots"),
+	Gloves = LoadModule("Data/EnchantmentGloves"),
+	Belt = LoadModule("Data/EnchantmentBelt"),
+}
+data.essences = LoadModule("Data/Essence")
+data.pantheons = LoadModule("Data/Pantheons")
+
+-- Cluster jewel data
+data.clusterJewels = LoadModule("Data/ClusterJewels")
+
+-- Create a quick lookup cache from cluster jewel skill to the notables which use that skill
+---@type table<string, table<string>>
+local clusterSkillToNotables = { }
+for notableKey, notableInfo in pairs(data.itemMods.JewelCluster) do
+	-- Translate the notable key to its name
+	local notableName = notableInfo[1] and notableInfo[1]:match("1 Added Passive Skill is (.*)")
+	if notableName then
+		for weightIndex, clusterSkill in pairs(notableInfo.weightKey) do
+			if notableInfo.weightVal[weightIndex] > 0 then
+				if not clusterSkillToNotables[clusterSkill] then
+					clusterSkillToNotables[clusterSkill] = { }
+				end
+				table.insert(clusterSkillToNotables[clusterSkill], notableName)
+			end
+		end
+	end
+end
+
+-- Create easy lookup from cluster node name -> cluster jewel size and types
+data.clusterJewelInfoForNotable = { }
+for size, jewel in pairs(data.clusterJewels.jewels) do
+	for skill, skillInfo in pairs(jewel.skills) do
+		local notables = clusterSkillToNotables[skill]
+		if notables then
+			for _, notableKey in ipairs(notables) do
+				if not data.clusterJewelInfoForNotable[notableKey] then
+					data.clusterJewelInfoForNotable[notableKey] = { }
+					data.clusterJewelInfoForNotable[notableKey].jewelTypes = { }
+					data.clusterJewelInfoForNotable[notableKey].size = { }
+				end
+				local curJewelInfo = data.clusterJewelInfoForNotable[notableKey]
+				curJewelInfo.size[size] = true
+				table.insert(curJewelInfo.jewelTypes, skill)
+			end
+		end
+	end
+end
+
+-- Load skills
+data.skills = { }
+data.skillStatMap = LoadModule("Data/SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
+data.skillStatMapMeta = {
+	__index = function(t, key)
+		local map = data.skillStatMap[key]
+		if map then
+			map = copyTable(map)
+			t[key] = map
+			for _, mod in ipairs(map) do
+				processMod(t._grantedEffect, mod)
+			end
+			return map
+		end
+	end
+}
+for _, type in pairs(skillTypes) do
+	LoadModule("Data/Skills/"..type, data.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
+end
+for skillId, grantedEffect in pairs(data.skills) do
+	grantedEffect.id = skillId
+	grantedEffect.modSource = "Skill:"..skillId
+	-- Add sources for skill mods, and check for global effects
+	for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
+		for _, mod in pairs(list) do
+			if mod.name then
+				processMod(grantedEffect, mod)
+			else
+				for _, mod in ipairs(mod) do
+					processMod(grantedEffect, mod)
+				end
+			end
+		end
+	end
+	-- Install stat map metatable
+	grantedEffect.statMap = grantedEffect.statMap or { }
+	setmetatable(grantedEffect.statMap, data.skillStatMapMeta)
+	grantedEffect.statMap._grantedEffect = grantedEffect
+	for _, map in pairs(grantedEffect.statMap) do
+		for _, mod in ipairs(map) do
+			processMod(grantedEffect, mod)
+		end
+	end
+end
+
+-- Load gems
+data.gems = LoadModule("Data/Gems")
+data.gemForSkill = { }
+data.gemForBaseName = { }
+for gemId, gem in pairs(data.gems) do
+	gem.id = gemId
+	gem.grantedEffect = data.skills[gem.grantedEffectId]
+	data.gemForSkill[gem.grantedEffect] = gemId
+	data.gemForBaseName[gem.name .. (gem.grantedEffect.support and " Support" or "")] = gemId
+	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and data.skills[gem.secondaryGrantedEffectId]
+	gem.grantedEffectList = {
+		gem.grantedEffect,
+		gem.secondaryGrantedEffect
+	}
+	gem.defaultLevel = gem.defaultLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
+end
+
+-- Load minions
+data.minions = { }
+LoadModule("Data/Minions", data.minions, makeSkillMod)
+data.spectres = { }
+LoadModule("Data/Spectres", data.spectres, makeSkillMod)
+for name, spectre in pairs(data.spectres) do
+	spectre.limit = "ActiveSpectreLimit"
+	data.minions[name] = spectre
+end
+local missing = { }
+for _, minion in pairs(data.minions) do
+	for _, skillId in ipairs(minion.skillList) do
+		if launch.devMode and not data.skills[skillId] and not missing[skillId] then
+			ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
+			missing[skillId] = true
+		end
+	end
+	for _, mod in ipairs(minion.modList) do
+		mod.source = "Minion:"..minion.name
+	end
+end
+
+-- Item bases
+data.itemBases = { }
+for _, type in pairs(itemTypes) do
+	LoadModule("Data/Bases/"..type, data.itemBases)
+end
+
+-- Build lists of item bases, separated by type
+data.itemBaseLists = { }
+for name, base in pairs(data.itemBases) do
+	if not base.hidden then
+		local type = base.type
+		if base.subType then
+			type = type .. ": " .. base.subType
+		end
+		data.itemBaseLists[type] = data.itemBaseLists[type] or { }
+		table.insert(data.itemBaseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
+	end
+end
+data.itemBaseTypeList = { }
+for type, list in pairs(data.itemBaseLists) do
+	table.insert(data.itemBaseTypeList, type)
+	table.sort(list, function(a, b)
+		if a.base.req and b.base.req then
+			if a.base.req.level == b.base.req.level then
+				return a.name < b.name
+			else
+				return (a.base.req.level or 1) > (b.base.req.level or 1)
+			end
+		elseif a.base.req and not b.base.req then
+			return true
+		elseif b.base.req and not a.base.req then
+			return false
+		else
+			return a.name < b.name
+		end
+	end)
+end
+table.sort(data.itemBaseTypeList)
+
+-- Rare templates
+data.rares = LoadModule("Data/Rares")
+
+-- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
 for _, type in pairs(itemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
+LoadModule("Data/Generated")
 LoadModule("Data/New")
-
----------------------------
--- Version-specific Data --
----------------------------
-
-for _, targetVersion in ipairs(targetVersionList) do
-	local verData = setmetatable({ }, { __index = data })
-	data[targetVersion] = verData
-	local function dataModule(mod, ...)
-		return LoadModule("Data/"..targetVersion.."/"..mod, ...)
-	end
-
-	-- Misc data tables
-	dataModule("Misc", verData)
-
-	-- Stat descriptions
-	if targetVersion ~= "2_6" then
-		verData.describeStats = LoadModule("Modules/StatDescriber", targetVersion)
-	end
-
-	-- Load item modifiers
-	verData.itemMods = {
-		Item = dataModule("ModItem"),
-		Flask = dataModule("ModFlask"),
-		Jewel = dataModule("ModJewel"),
-		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
-		JewelCluster = targetVersion ~= "2_6" and dataModule("ModJewelCluster") or { },
-	}
-	verData.masterMods = dataModule("ModMaster")
-	verData.enchantments = {
-		Helmet = dataModule("EnchantmentHelmet"),
-		Boots = dataModule("EnchantmentBoots"),
-		Gloves = dataModule("EnchantmentGloves"),
-	}
-	verData.essences = dataModule("Essence")
-	verData.pantheons = targetVersion ~= "2_6" and dataModule("Pantheons") or { }
-	
-
-	-- Cluster jewel data
-	if targetVersion ~= "2_6" then	
-		verData.clusterJewels = dataModule("ClusterJewels")
-	end
-
-	-- Load skills
-	verData.skills = { }
-	verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
-	verData.skillStatMapMeta = {
-		__index = function(t, key)
-			local map = verData.skillStatMap[key]
-			if map then
-				map = copyTable(map)
-				t[key] = map
-				for _, mod in ipairs(map) do
-					processMod(t._grantedEffect, mod)
-				end
-				return map
-			end
-		end
-	}
-	for _, type in pairs(skillTypes) do
-		dataModule("Skills/"..type, verData.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
-	end
-	for skillId, grantedEffect in pairs(verData.skills) do
-		grantedEffect.id = skillId
-		grantedEffect.modSource = "Skill:"..skillId
-		-- Add sources for skill mods, and check for global effects
-		for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
-			for _, mod in pairs(list) do
-				if mod.name then
-					processMod(grantedEffect, mod)
-				else
-					for _, mod in ipairs(mod) do
-						processMod(grantedEffect, mod)
-					end
-				end
-			end
-		end
-		-- Install stat map metatable
-		grantedEffect.statMap = grantedEffect.statMap or { }
-		setmetatable(grantedEffect.statMap, verData.skillStatMapMeta)
-		grantedEffect.statMap._grantedEffect = grantedEffect
-		for _, map in pairs(grantedEffect.statMap) do
-			for _, mod in ipairs(map) do
-				processMod(grantedEffect, mod)
-			end
-		end
-	end
-
-	-- Load gems
-	verData.gems = dataModule("Gems")
-	verData.gemForSkill = { }
-	for gemId, gem in pairs(verData.gems) do
-		gem.id = gemId
-		gem.grantedEffect = verData.skills[gem.grantedEffectId]
-		verData.gemForSkill[gem.grantedEffect] = gemId
-		gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and verData.skills[gem.secondaryGrantedEffectId]
-		gem.grantedEffectList = {
-			gem.grantedEffect,
-			gem.secondaryGrantedEffect
-		}
-		gem.defaultLevel = gem.defaultLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
-	end
-
-	-- Load minions
-	verData.minions = { }
-	dataModule("Minions", verData.minions, makeSkillMod)
-	verData.spectres = { }
-	dataModule("Spectres", verData.spectres, makeSkillMod)
-	for name, spectre in pairs(verData.spectres) do
-		spectre.limit = "ActiveSpectreLimit"
-		verData.minions[name] = spectre
-	end
-	local missing = { }
-	for _, minion in pairs(verData.minions) do
-		for _, skillId in ipairs(minion.skillList) do
-			if launch.devMode and not verData.skills[skillId] and not missing[skillId] then
-				ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
-				missing[skillId] = true
-			end
-		end
-		for _, mod in ipairs(minion.modList) do
-			mod.source = "Minion:"..minion.name
-		end
-	end
-
-	-- Item bases
-	verData.itemBases = { }
-	for _, type in pairs(itemTypes) do
-		dataModule("Bases/"..type, verData.itemBases)
-	end
-
-	-- Build lists of item bases, separated by type
-	verData.itemBaseLists = { }
-	for name, base in pairs(verData.itemBases) do
-		if not base.hidden then
-			local type = base.type
-			if base.subType then
-				type = type .. ": " .. base.subType
-			end
-			verData.itemBaseLists[type] = verData.itemBaseLists[type] or { }
-			table.insert(verData.itemBaseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
-		end
-	end
-	verData.itemBaseTypeList = { }
-	for type, list in pairs(verData.itemBaseLists) do
-		table.insert(verData.itemBaseTypeList, type)
-		table.sort(list, function(a, b) 
-			if a.base.req and b.base.req then
-				if a.base.req.level == b.base.req.level then
-					return a.name < b.name
-				else
-					return (a.base.req.level or 1) > (b.base.req.level or 1)
-				end
-			elseif a.base.req and not b.base.req then
-				return true
-			elseif b.base.req and not a.base.req then
-				return false
-			else
-				return a.name < b.name
-			end
-		end)
-	end
-	table.sort(verData.itemBaseTypeList)
-
-	-- Rare templates
-	verData.rares = dataModule("Rares")
-end

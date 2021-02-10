@@ -3,8 +3,6 @@
 -- Module: Stat Describer
 -- Manages stat description files, and provides stat descriptions
 --
-local targetVersion = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -14,7 +12,7 @@ local scopes = { }
 
 local function getScope(scopeName)
 	if not scopes[scopeName] then
-		local scope = LoadModule("Data/"..targetVersion.."/StatDescriptions/"..scopeName)
+		local scope = LoadModule("Data/StatDescriptions/"..scopeName)
 		scope.name = scopeName
 		if scope.parent then
 			local parentScope = getScope(scope.parent)
@@ -62,6 +60,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "divide_by_fifteen_0dp" then
 		val[spec.v].min = val[spec.v].min / 15
 		val[spec.v].max = val[spec.v].max / 15
+	elseif spec.k == "divide_by_twelve" then
+		val[spec.v].min = round(val[spec.v].min / 12, 1)
+		val[spec.v].max = round(val[spec.v].max / 12, 1)
+		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_one_hundred" then
 		val[spec.v].min = round(val[spec.v].min / 100, 1)
 		val[spec.v].max = round(val[spec.v].max / 100, 1)
@@ -103,6 +105,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "milliseconds_to_seconds_0dp" then
 		val[spec.v].min = val[spec.v].min / 1000
 		val[spec.v].max = val[spec.v].max / 1000
+	elseif spec.k == "milliseconds_to_seconds_1dp" then
+		val[spec.v].min = round(val[spec.v].min / 1000, 1)
+		val[spec.v].max = round(val[spec.v].max / 1000, 1)
+		val[spec.v].fmt = "g"
 	elseif spec.k == "milliseconds_to_seconds_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 1000, 2)
 		val[spec.v].max = round(val[spec.v].max / 1000, 2)
@@ -128,9 +134,15 @@ local function applySpecial(val, spec)
 		val[spec.v].min = 100 + round(val[spec.v].min / 100, 1)
 		val[spec.v].max = 100 + round(val[spec.v].max / 100, 1)
 		val[spec.v].fmt = "g"
-	elseif spec.k == "reminderstring" or spec.k == "canonical_line" then
-	else
-		--ConPrintf("Unknown description function: %s", spec.k)
+	elseif spec.k == "multiply_by_four" then
+		val[spec.v].min = val[spec.v].min * 4
+		val[spec.v].max = val[spec.v].max * 4
+	elseif spec.k == "times_twenty" then
+		val[spec.v].min = val[spec.v].min * 20
+		val[spec.v].max = val[spec.v].max * 20
+	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
+	elseif spec.k then
+		ConPrintf("Unknown description function: %s", spec.k)
 	end
 end
 
@@ -181,22 +193,29 @@ return function(stats, scopeName)
 			for _, spec in ipairs(desc) do
 				applySpecial(val, spec)
 			end
-			local statDesc = desc.text:gsub("%%(%d)%%", function(n) 
-				local v = val[tonumber(n)]
+			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return s_format("%"..v.fmt, v.min)
 				else
 					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%d", function() 
+			end):gsub("{}", function() 
 				local v = val[1]
 				if v.min == v.max then
 					return s_format("%"..v.fmt, v.min)
 				else
 					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%(%d)$(%+?)d", function(n, fmt)
-				local v = val[tonumber(n)]
+			end):gsub("{:%+?d}", function() 
+				local v = val[1]
+				if v.min == v.max then
+					return s_format("%"..v.fmt, v.min)
+				else
+					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
+				end
+			end):gsub("{(%d):(%+?)d}", function(n, fmt)
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return s_format("%"..fmt..v.fmt, v.min)
 				elseif fmt == "+" then

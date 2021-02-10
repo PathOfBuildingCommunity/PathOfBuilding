@@ -239,7 +239,7 @@ out:write('return ')
 writeLuaTable(out, tree)
 out:close()
 
-os.execute("xcopy Tree\\tree.lua ..\\TreeData\\3_0\\ /Y /Q")
-os.execute("xcopy Tree\\*-3* ..\\TreeData\\3_0\\ /Y /Q")
+os.execute("xcopy Tree\\tree.lua ..\\TreeData\\ /Y /Q")
+os.execute("xcopy Tree\\*-3* ..\\TreeData\\ /Y /Q")
 
 print("Passive skill graph generated.")

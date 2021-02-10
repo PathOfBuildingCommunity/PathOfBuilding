@@ -1,4 +1,5 @@
-local skillTypes = { "Attack",
+local skillTypes = {
+	"Attack",
 	"Spell",
 	"Projectile",
 	"DualWield",
@@ -25,7 +26,6 @@ local skillTypes = { "Attack",
 	"CausesBurning",
 	"Totem",
 	"Type31",
-	"Curse",
 	"PhysicalSkill",
 	"FireSkill",
 	"ColdSkill",
@@ -83,6 +83,23 @@ local skillTypes = { "Attack",
 	"Type83",
 	"Ballista",
 	"NovaSpell",
+	"Type91",
+	"Type92",
+	"Type93",
+	"Banner",
+	"Type95",
+	"SecondWindSupport",
+	"Type97",
+	"CantUseFistOfWar",
+	"SlamSkill",
+	"StanceSkill",
+	"Type101",
+	"Type102",
+	"SteelSkill",
+	"Hex",
+	"Mark",
+	"Aegis",
+	"Orb",
 }
 
 local function mapAST(ast)
@@ -133,11 +150,12 @@ directiveTable.skill = function(state, args, out)
 		displayName = args
 	end
 	out:write('skills["', grantedId, '"] = {\n')
-	local granted = dat"GrantedEffects":GetRow("Id", grantedId)
+	local granted = dat("GrantedEffects"):GetRow("Id", grantedId)
 	if not granted then
-		print('Unknown GE: "'..grantedId..'"')
+		ConPrintf('Unknown GE: "'..grantedId..'"')
+		return
 	end
-	local skillGem = dat"SkillGems":GetRow("GrantedEffect", granted) or dat"SkillGems":GetRow("SecondaryGrantedEffect", granted)
+	local skillGem = dat("SkillGems"):GetRow("GrantedEffect", granted) or dat("SkillGems"):GetRow("SecondaryGrantedEffect", granted)
 	local skill = { }
 	state.skill = skill
 	if skillGem and not state.noGem then
@@ -145,7 +163,7 @@ directiveTable.skill = function(state, args, out)
 		if granted.IsSupport then
 			out:write('\tname = "', skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			if #skillGem.Description > 0 then
-				out:write('\tdescription = "', skillGem.Description, '",\n')
+				out:write('\tdescription = "', skillGem.Description:gsub('\n','\\n'), '",\n')
 			end
 		else
 			out:write('\tname = "', granted.ActiveSkill.DisplayName, '",\n')
@@ -227,7 +245,7 @@ directiveTable.skill = function(state, args, out)
 			out:write('\t},\n')
 		end
 		out:write('\tstatDescriptionScope = "', skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions", '",\n')
-		if granted.ActiveSkill.SkillTotem <= dat"SkillTotems".rowCount then
+		if granted.ActiveSkill.SkillTotem <= dat("SkillTotems").rowCount then
 			out:write('\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
 		end
 		out:write('\tcastTime = ', granted.CastTime / 1000, ',\n')
@@ -235,10 +253,9 @@ directiveTable.skill = function(state, args, out)
 			out:write('\tcannotBeSupported = true,\n')
 		end
 	end
-	for _, levelRow in ipairs(dat"GrantedEffectsPerLevel":GetRowList("GrantedEffect", granted)) do
+	for _, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
 		local level = { extra = { }, statInterpolation = { } }
 		level.level = levelRow.Level
-		table.insert(skill.levels, level)
 		level.extra.levelRequirement = levelRow.PlayerLevel
 		if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
 			level.extra.manaCost = levelRow.ManaCost
@@ -273,8 +290,13 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 			end
 			level.statInterpolation[i] = levelRow.InterpolationTypes[i]
-			if level.statInterpolation[i] == 3 and levelRow.EffectivenessCost[i].Value ~= 0 then
-				table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
+			if level.statInterpolation[i] == 3 then
+				if levelRow.EffectivenessCost[i].Value ~= 0 then
+					table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
+				else
+					level.statInterpolation[i] = 1
+					table.insert(level, levelRow["Stat"..i])
+				end
 			else
 				table.insert(level, levelRow["Stat"..i])
 			end
@@ -285,10 +307,15 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 			end
 		end
-		if not skill.qualityStats then
-			skill.qualityStats = { }
-			for i, stat in ipairs(levelRow.QualityStats) do
-				table.insert(skill.qualityStats, { stat.Id, levelRow.QualityStatValues[i] / 1000 })
+		table.insert(skill.levels, level)
+	end
+	if not skill.qualityStats then
+		skill.qualityStats = { }
+		for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
+			skill.qualityStats[i] = { }
+			for j, stat in ipairs(qualityStatsRow.GrantedStats) do
+				table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / 1000 })
+				--ConPrintf("[%d] %s %s", i, granted.ActiveSkill.DisplayName, stat.Id)
 			end
 		end
 	end
@@ -318,7 +345,7 @@ directiveTable.mods = function(state, args, out)
 		out:write('\tbaseFlags = {\n')
 		for _, flag in ipairs(skill.baseFlags) do
 			out:write('\t\t', flag, ' = true,\n')
-		end		
+		end
 		out:write('\t},\n')
 	end
 	out:write('\tbaseMods = {\n')
@@ -327,8 +354,17 @@ directiveTable.mods = function(state, args, out)
 	end
 	out:write('\t},\n')
 	out:write('\tqualityStats = {\n')
-	for _, stat in ipairs(skill.qualityStats) do
-		out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+	for i, alternates in ipairs(skill.qualityStats) do
+		if i == 1 then
+			out:write('\t\tDefault = {\n')
+		else
+			local value = i - 1
+			out:write('\t\tAlternate' .. value .. ' = {\n')
+		end
+		for _, stat in ipairs(alternates) do
+			out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+		end
+		out:write('\t\t},\n')
 	end
 	out:write('\t},\n')
 	out:write('\tstats = {\n')
@@ -358,10 +394,10 @@ directiveTable.mods = function(state, args, out)
 end
 
 for _, name in pairs({"act_str","act_dex","act_int","other","glove","minion","spectre","sup_str","sup_dex","sup_int"}) do
-	processTemplateFile(name, "Skills/", "../Data/3_0/Skills/", directiveTable)
+	processTemplateFile(name, "Skills/", "../Data/Skills/", directiveTable)
 end
 
-local wellShitIGotThoseWrong = { 
+local wellShitIGotThoseWrong = {
 	-- Serves me right for not paying attention (not that I've gotten them all right anyway)
 	-- Let's just sweep these under the carpet so we don't break everyone's shiny new builds
 	["Metadata/Items/Gems/SkillGemSmite"] = "Metadata/Items/Gems/Smite",
@@ -374,16 +410,22 @@ local wellShitIGotThoseWrong = {
 	["Metadata/Items/Gems/SkillGemSummonRelic"] = "Metadata/Items/Gems/SummonRelic",
 }
 
-local out = io.open("../Data/3_0/Gems.lua", "w")
+local out = io.open("../Data/Gems.lua", "w")
 out:write('-- This file is automatically generated, do not edit!\n')
 out:write('-- Gem data (c) Grinding Gear Games\n\nreturn {\n')
-for skillGem in dat"SkillGems":Rows() do
+for skillGem in dat("SkillGems"):Rows() do
 	if gems[skillGem] then
 		out:write('\t["', wellShitIGotThoseWrong[skillGem.BaseItemType.Id] or skillGem.BaseItemType.Id, '"] = {\n')
 		out:write('\t\tname = "', skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 		out:write('\t\tgrantedEffectId = "', skillGem.GrantedEffect.Id, '",\n')
 		if skillGem.SecondaryGrantedEffect then
 			out:write('\t\tsecondaryGrantedEffectId = "', skillGem.SecondaryGrantedEffect.Id, '",\n')
+		end
+		if #skillGem.SecondarySupportName > 0 then
+			out:write('\t\tsecondaryEffectName = "', skillGem.SecondarySupportName, '",\n')
+		end
+		if skillGem.IsVaalGem then
+			out:write('\t\tvaalGem = true,\n')
 		end
 		local tagNames = { }
 		out:write('\t\ttags = {\n')
@@ -398,7 +440,7 @@ for skillGem in dat"SkillGems":Rows() do
 		out:write('\t\treqStr = ', skillGem.Str, ',\n')
 		out:write('\t\treqDex = ', skillGem.Dex, ',\n')
 		out:write('\t\treqInt = ', skillGem.Int, ',\n')
-		local defaultLevel = #dat"ItemExperiencePerLevel":GetRowList("BaseItemType", skillGem.BaseItemType)
+		local defaultLevel = #dat("ItemExperiencePerLevel"):GetRowList("BaseItemType", skillGem.BaseItemType)
 		out:write('\t\tdefaultLevel = ', defaultLevel > 0 and defaultLevel or 1, ',\n')
 		out:write('\t},\n')
 	end

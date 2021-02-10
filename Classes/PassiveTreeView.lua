@@ -11,6 +11,8 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local band = bit.band
+local b_rshift = bit.rshift
 
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
@@ -278,6 +280,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+
+		--[[ Only allow node editing in these situations:
+				Vaal (Glorious Vanity): 		any non-keystone
+				Maraketh (Brutal Restraint): 	only notables, +dex already set
+				Eternal (Elegant Hubris):		only notables, other passives are blank
+				Karui (Lethal Pride):			only notables, +str already set
+				Templar (Militant Faith):		any non-keystone, non-notables add devotion or replace with devotion
+		]]--
+		elseif hoverNode and hoverNode.conqueredBy and
+				(hoverNode.conqueredBy.conqueror.type == "vaal"
+				or hoverNode.isNotable) then
+			build.treeTab:ModifyNodePopup(hoverNode)
+			build.buildFlag = true
 		end
 	end
 
@@ -398,7 +413,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
-	local function renderNode(nodeId, node)
+	-- Draw the nodes
+	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId]
@@ -438,7 +454,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.base.subType == "Abyss" then
 						overlay = node.expansionJewel and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
 					elseif jewel.baseName == "Timeless Jewel" then
-						overlay = "JewelSocketActiveTimeless"
+						overlay = node.expansionJewel and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
 					elseif jewel.baseName == "Large Cluster Jewel" then
 						-- Temp; waiting for art :/
 						overlay = "JewelSocketActiveGreenAlt"
@@ -461,16 +477,21 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local scrX, scrY = treeToScreen(node.x, node.y)
 	
 		-- Determine color for the base artwork
-		if node.ascendancyName and node.ascendancyName ~= spec.curAscendClassName then
-			-- By default, fade out nodes from ascendancy classes other than the current one
-			SetDrawColor(0.5, 0.5, 0.5)
-		end
 		if self.showHeatMap then
 			if not isAlloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 				if self.heatMapStat and self.heatMapStat.stat then
 					-- Calculate color based on a single stat
 					local stat = m_max(node.power.singleStat or 0, 0)
 					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
+					if(stat ~= 0) then
+						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
+							statCol = stat / node.pathDist == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
+						elseif self.heatMapStatPerPoint then
+							statCol = statCol / node.pathDist * 4
+						elseif self.heatMapTopPick then
+							statCol = stat == build.calcsTab.powerMax.singleStat and 1.5 ^ 0.5 or 0
+						end
+					end
 					if main.nodePowerTheme == "RED/BLUE" then
 						SetDrawColor(statCol, 0, 0)
 					elseif main.nodePowerTheme == "RED/GREEN" then
@@ -484,6 +505,18 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local defence = m_max(node.power.defence or 0, 0)
 					local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
 					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
+					if offence ~= 0 or defence ~= 0 then
+						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
+							dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
+							defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
+						elseif self.heatMapStatPerPoint then
+							dpsCol = dpsCol / node.pathDist * 4
+							defCol = defCol / node.pathDist * 4
+						elseif self.heatMapTopPick then
+							dpsCol = offence == build.calcsTab.powerMax.offence and 1.5 ^ 0.5 or 0
+							defCol = defence == build.calcsTab.powerMax.defence and 1.5 ^ 0.5 or 0
+						end
+					end
 					local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
 					if main.nodePowerTheme == "RED/BLUE" then
 						SetDrawColor(dpsCol, mixCol, defCol)
@@ -571,11 +604,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
-	end
-
-	-- Draw the nodes
-	for nodeId, node in pairs(spec.nodes) do
-		renderNode(nodeId, node)
 	end
 	
 	-- Draw ring overlays for jewel sockets
@@ -680,6 +708,17 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 	self.zoomY = relY + (self.zoomY - relY) * factor
 end
 
+function PassiveTreeViewClass:Focus(x, y, viewPort, build)
+	self.zoomLevel = 12
+	self.zoom = 1.2 ^ self.zoomLevel
+
+	local tree = build.spec.tree
+	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
+	
+	self.zoomX = -x * scale
+	self.zoomY = -y * scale
+end
+
 function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	if node.type == "ClassStart" or node.type == "Mastery" then
 		return
@@ -719,6 +758,14 @@ end
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	tooltip:SetRecipe(node.recipe)
 	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
+	if launch.devModeAlt and node.id > 65535 then
+		-- Decompose cluster node Id
+		local index = band(node.id, 0xF)
+		local size = band(b_rshift(node.id, 4), 0x3)
+		local large = band(b_rshift(node.id, 6), 0x7)
+		local medium = band(b_rshift(node.id, 9), 0x3)
+		tooltip:AddLine(16, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium))
+	end
 	if node.type == "Socket" and node.nodesInRadius then
 		local attribTotals = { }
 		for nodeId in pairs(node.nodesInRadius[2]) do
@@ -737,6 +784,12 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 			tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
 		end
 	end
+	if node.type == "Socket" and node.alloc then
+		if node.distanceToClassStart and node.distanceToClassStart > 0 then
+			tooltip:AddSeparator(14)
+			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+		end
+	end
 end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
@@ -745,6 +798,10 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
 		if jewel then
 			build.itemsTab:AddItemTooltip(tooltip, jewel, { nodeId = node.id })
+			if node.distanceToClassStart and node.distanceToClassStart > 0 then
+				tooltip:AddSeparator(14)
+				tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+			end
 		else
 			self:AddNodeName(tooltip, node, build)
 		end
@@ -755,7 +812,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
 		return
 	end
-	
+
 	-- Node name
 	self:AddNodeName(tooltip, node, build)
 	if launch.devModeAlt then
@@ -765,7 +822,6 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	-- Node description
 	if node.sd[1] then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(node.sd) do
@@ -794,6 +850,14 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.reminderText) do
 			tooltip:AddLine(14, "^xA0A080"..line)
 		end
+	end
+
+	-- Conqueror node editing
+	if node and node.conqueredBy and
+			(node.conqueredBy.conqueror.type == "vaal"
+			or node.isNotable) then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the modifiers for this node")
 	end
 
 	-- Mod differences

@@ -3,22 +3,18 @@
 -- Module: Calcs
 -- Manages the calculation system.
 --
-local targetVersion = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
-local t_remove = table.remove
 local s_format = string.format
 
 local calcs = { }
-calcs.targetVersion = targetVersion
 calcs.breakdownModule = "Modules/CalcBreakdown"
 LoadModule("Modules/CalcSetup", calcs)
 LoadModule("Modules/CalcPerform", calcs)
 LoadModule("Modules/CalcActiveSkill", calcs)
-LoadModule("Modules/CalcDefence-"..targetVersion, calcs)
-LoadModule("Modules/CalcOffence-"..targetVersion, calcs)
+LoadModule("Modules/CalcDefence", calcs)
+LoadModule("Modules/CalcOffence", calcs)
 
 -- Print various tables to the console
 local function infoDump(env)
@@ -260,11 +256,20 @@ function calcs.buildOutput(build, mode)
 		if output.PowerCharges > 0 then
 			t_insert(combatList, s_format("%d Power Charges", output.PowerCharges))
 		end
+		if output.AbsorptionCharges > 0 then
+			t_insert(combatList, s_format("%d Absoprtion Charges", output.AbsorptionCharges))
+		end
 		if output.FrenzyCharges > 0 then
 			t_insert(combatList, s_format("%d Frenzy Charges", output.FrenzyCharges))
 		end
+		if output.AfflictionCharges > 0 then
+			t_insert(combatList, s_format("%d Affliction Charges", output.AfflictionCharges))
+		end
 		if output.EnduranceCharges > 0 then
 			t_insert(combatList, s_format("%d Endurance Charges", output.EnduranceCharges))
+		end
+		if output.BrutalCharges > 0 then
+			t_insert(combatList, s_format("%d Brutal Charges", output.BrutalCharges))
 		end
 		if output.SiphoningCharges > 0 then
 			t_insert(combatList, s_format("%d Siphoning Charges", output.SiphoningCharges))
@@ -298,6 +303,9 @@ function calcs.buildOutput(build, mode)
 		end
 		if env.modDB:Flag(nil, "Adrenaline") then
 			t_insert(combatList, "Adrenaline")
+		end
+		if env.modDB:Flag(nil, "AlchemistsGenius") then
+			t_insert(combatList, "Alchemist's Genius")
 		end
 		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
@@ -404,7 +412,7 @@ function calcs.buildOutput(build, mode)
 			output.Minion.CurseList = output.CurseList
 		end
 
-		infoDump(env)
+		-- infoDump(env)
 	end
 
 	return env

@@ -307,7 +307,7 @@ function writeLuaTable(out, t, indent)
 		if indent then
 			out:write(string.rep("\t", indent))
 		end
-		if type(k) == "string" and k:match("^%a[%a%d]*$") then
+		if type(k) == "string" and k:match("^%a[%a%d]*$") and k ~= "hexproof" then
 			out:write(k, '=')
 		else
 			out:write('[')
@@ -420,6 +420,17 @@ function prettyPrintTable(tbl, pre)
 	end
 end
 
+function tableConcat(t1,t2)
+	local t3 = {}
+	for i=1,#t1 do
+        t3[#t3+1] = t1[i]
+    end
+    for i=1,#t2 do
+        t3[#t3+1] = t2[i]
+    end
+    return t3
+end
+
 -- Natural sort comparator
 function naturalSortCompare(a, b)
 	local aIndex, bIndex = 1, 1
@@ -461,6 +472,14 @@ function round(val, dec)
 	else
 		return m_floor(val + 0.5)
 	end
+end
+
+---@param n number
+---@return number
+function triangular(n)
+	--- Returns the n-th triangular number
+	--- See https://en.wikipedia.org/wiki/Triangular_number
+	return n * (n + 1) / 2
 end
 
 -- Formats "1234.56" -> "1,234.5"
@@ -525,4 +544,12 @@ function copyFile(srcName, dstName)
 	inFile:close()
 	outFile:close()
 	return true
+end
+
+function zip(a, b)
+    local zipped = { }
+	for i, _ in pairs(a) do
+		table.insert(zipped, { a[i], b[i] })
+    end
+    return zipped
 end

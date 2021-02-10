@@ -3,10 +3,6 @@
 -- Class: Script List
 -- Script list control.
 --
-local ipairs = ipairs
-local t_insert = table.insert
-local t_remove = table.remove
-
 local ScriptListClass = newClass("ScriptListControl", "ListControl", function(self, anchor, x, y, width, height)
 	self.ListControl(anchor, x, y, width, height, 16, false, false, main.scriptList)
 end)

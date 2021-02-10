@@ -24,7 +24,7 @@ function loadStatFile(fileName)
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
 			statDescriptor[noDesc] = { order = 0 }
-		elseif line:match("description") then	
+		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
 			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
@@ -47,18 +47,25 @@ function loadStatFile(fileName)
 				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
 				if statLimits then
 					local desc = { text = text, limit = { } }
-					for statLimit in statLimits:gmatch("[%d%-#|]+") do
+					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
 						local limit = { }
+						
 						if statLimit == "#" then
 							limit[1] = "#"
 							limit[2] = "#"
-						elseif statLimit:match("^%d+$") then
+						elseif statLimit:match("^%-?%d+$") then
 							limit[1] = tonumber(statLimit)
 							limit[2] = tonumber(statLimit)
 						else
-							limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
-							limit[1] = tonumber(limit[1]) or limit[1]
-							limit[2] = tonumber(limit[2]) or limit[2]
+							local negate = statLimit:match("^!(-?%d+)$")
+							if negate then
+								limit[1] = "!"
+								limit[2] = tonumber(negate)
+							else
+								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+								limit[1] = tonumber(limit[1]) or limit[1]
+								limit[2] = tonumber(limit[2]) or limit[2]
+							end
 						end
 						table.insert(desc.limit, limit)
 					end
@@ -85,7 +92,7 @@ for k, v in pairs(nk) do
 	print("'"..k.."' = '"..v.."'")
 end
 
-local function matchLimit(lang, val) 
+local function matchLimit(lang, val)
 	for _, desc in ipairs(lang) do
 		local match = true
 		for i, limit in ipairs(desc.limit) do
@@ -100,12 +107,32 @@ local function matchLimit(lang, val)
 	end
 end
 
+function describeModTags(modType)
+	if not modType then
+		return ""
+	end
+
+	local modTypesDat = dat("ModType")
+	local tagsDat = dat("Tags")
+	local modTypeIndex = modType._rowIndex
+	local modTags = modTypesDat:ReadCell(modTypeIndex, 3)
+	local modTagsText = ""
+	for i=1,#modTags do
+		local curModTagIndex = modTags[i]._rowIndex
+		if #modTagsText > 0 then
+			modTagsText = modTagsText..', '
+		end
+		modTagsText = modTagsText..'"'..tagsDat:ReadCellText(curModTagIndex, 1)..'"'
+	end
+	return modTagsText
+end
+
 function describeStats(stats)
 	local out = { }
 	local orders = { }
 	local descriptors = { }
 	for s, v in pairs(stats) do
-		if (v.min ~= 0 or v.max ~= 0) and statDescriptor[s] and statDescriptor[s].stats then
+		if s ~= "Type" and (v.min ~= 0 or v.max ~= 0) and statDescriptor[s] and statDescriptor[s].stats then
 			descriptors[statDescriptor[s]] = true
 		end
 	end
@@ -125,6 +152,10 @@ function describeStats(stats)
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
 					val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+				elseif spec.k == "divide_by_twelve" then
+					val[spec.v].min = round(val[spec.v].min / 12, 1)
+					val[spec.v].max = round(val[spec.v].max / 12, 1)
+					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_one_hundred" then
 					val[spec.v].min = round(val[spec.v].min / 100, 1)
 					val[spec.v].max = round(val[spec.v].max / 100, 1)
@@ -169,24 +200,40 @@ function describeStats(stats)
 				elseif spec.k == "multiplicative_damage_modifier" then
 					val[spec.v].min = 100 + val[spec.v].min
 					val[spec.v].max = 100 + val[spec.v].max
+				elseif spec.k == "multiply_by_four" then
+					val[spec.v].min = val[spec.v].min * 4
+					val[spec.v].max = val[spec.v].max * 4
+				elseif spec.k == "times_twenty" then
+					val[spec.v].min = val[spec.v].min * 20
+					val[spec.v].max = val[spec.v].max * 20
+				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
+				elseif spec.k then
+					ConPrintf("Unknown description function: %s", spec.k)
 				end
 			end
-			local statDesc = desc.text:gsub("%%(%d)%%", function(n) 
-				local v = val[tonumber(n)]
+			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%d", function() 
+			end):gsub("{}", function() 
 				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%(%d)$(%+?)d", function(n, fmt)
-				local v = val[tonumber(n)]
+			end):gsub("{:%+?d}", function() 
+				local v = val[1]
+				if v.min == v.max then
+					return string.format("%"..v.fmt, v.min)
+				else
+					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
+				end
+			end):gsub("{(%d):(%+?)d}", function(n, fmt)
+				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..fmt..v.fmt, v.min)
 				elseif fmt == "+" then
@@ -207,6 +254,8 @@ function describeStats(stats)
 			end
 		end
 	end
+
+	out.modTags = describeModTags(stats.Type)
 	return out, orders
 end
 
@@ -216,6 +265,9 @@ function describeMod(mod)
 		if mod["Stat"..i] then
 			stats[mod["Stat"..i].Id] = { min = mod["Stat"..i.."Value"][1], max = mod["Stat"..i.."Value"][2] }
 		end
+	end
+	if mod.Type then
+		stats.Type = mod.Type
 	end
 	return describeStats(stats)
 end

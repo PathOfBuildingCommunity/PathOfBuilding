@@ -70,7 +70,12 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 		if section.type == "TEXT" then
 			section.width = 0
 			for _, line in ipairs(section.lines) do
-				section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8)
+				local _, num = string.gsub(line, "%d%d%d%d", "") -- count how many commas will be added
+				if main.showThousandsCalcs and num > 0 then
+					section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8 + (4 * num))
+				else
+					section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8)
+				end
 			end
 			section.height = #section.lines * section.textSize + 4
 		elseif section.type == "TABLE" then
@@ -79,19 +84,26 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 			for _, col in pairs(section.colList) do
 				for _, row in pairs(section.rowList) do
 					if row[col.key] then
-						col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6)
+						local _, num = string.gsub(row[col.key], "%d%d%d%d", "") -- count how many commas will be added
+						if main.showThousandsCalcs and num > 0 then
+							col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6 + (4 * num))
+						else 
+							col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6)
+						end
 					end
 				end
 				if col.width then
 					section.width = section.width + col.width
 				end
 			end
-			if section.label then
-				section.width = m_max(section.width, 6 + DrawStringWidth(16, "VAR", section.label..":"))
-			end
 			section.height = #section.rowList * 14 + 20
 			if section.label then
+				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(16, "VAR", section.label..":"))
 				section.height = section.height + 16
+			end
+			if section.footer then
+				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(12, "VAR", section.footer))
+				section.height = section.height + 12
 			end
 		end
 		self.contentWidth = m_max(self.contentWidth, section.width)
@@ -139,6 +151,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		local section = {
 			type = "TABLE",
 			label = breakdown.label,
+			footer = breakdown.footer,
 			rowList = breakdown.rowList,
 			colList = breakdown.colList,
 		}
@@ -371,7 +384,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Modifier is from a passive node, add node name, and add node ID (used to show node location)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
 			if nodeId then
-				local node = build.spec.nodes[tonumber(nodeId)]
+				local nodeIdNumber = tonumber(nodeId)
+				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
 			end
@@ -409,6 +423,11 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				elseif tag.type == "PerStat" then
 					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal
 					desc = base.."per "..(tag.div or 1).." "..self:FormatVarNameOrList(tag.stat, tag.statList)
+					baseVal = ""
+				elseif tag.type == "PercentStat" then
+					local finalPercent = (row.mod.value * (tag.percent / 100)) * 100
+					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(finalPercent).." ") or self:FormatModBase(row.mod, finalPercent)
+					desc = base.."% of "..self:FormatVarNameOrList(tag.stat, tag.statList)
 					baseVal = ""
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
 					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))
@@ -500,7 +519,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			if index > 1 then
 				-- Skip the separator for the first column
 				SetDrawColor(0.5, 0.5, 0.5)
-				DrawImage(nil, colX - 2, y, 1, section.label and section.height - 16 or section.height)
+				DrawImage(nil, colX - 2, y, 1, section.height - (section.label and 16 or 0) - (section.footer and 12 or 0))
 			end
 			SetDrawColor(1, 1, 1)
 			DrawString(colX, y + 2, "LEFT", 16, "VAR", col.label)
@@ -515,8 +534,15 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 		for _, col in ipairs(section.colList) do
 			if col.width and row[col.key] then
 				-- This row has an entry for this column, draw it
-				if col.right then
+				local _, alpha = string.gsub(row[col.key], "%a", " ") -- counts letters in the string
+				local _, notes = string.gsub(row[col.key], " to ", " ") -- counts " to " in the string
+				local _, paren = string.gsub(row[col.key], "%b()", " ") -- counts parenthesis in the string
+				if main.showThousandsCalcs and (alpha == 0 or notes > 0 or paren > 0) and col.right then
+					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
+				elseif col.right then
 					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..row[col.key])
+				elseif main.showThousandsCalcs and (alpha == 0 or notes > 0 or paren > 0) then
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
 				else
 					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..row[col.key])
 				end
@@ -532,7 +558,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						self.tooltip:Clear()
 						ttFunc(self.tooltip)
 						self.tooltip:Draw(col.x, rowY, col.width, 12, viewPort)
-					elseif ttNode then
+					elseif ttNode and ttNode.x and ttNode.y then -- The source "node" from cluster jewels don't know their location because it's the abstract node in tree.lua rather than the generated node from the cluster jewel.
 						local viewerX = col.x + col.width + 5
 						if viewPort.x + viewPort.width < viewerX + 304 then
 							viewerX = col.x - 309
@@ -542,7 +568,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						DrawImage(nil, viewerX, viewerY, 304, 304)
 						local viewer = self.nodeViewer
 						viewer.zoom = 5
-						local scale = 11.85
+						local scale = self.calcsTab.build.spec.tree.size / 1500
 						viewer.zoomX = -ttNode.x / scale
 						viewer.zoomY = -ttNode.y / scale
 						SetViewport(viewerX + 2, viewerY + 2, 300, 300)
@@ -557,6 +583,10 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			end
 		end
 		rowY = rowY + 14
+	end
+	if section.footer then
+		-- Draw table footer if able
+		DrawString(x + 2, rowY, "LEFT", 12, "VAR", "^7"..section.footer)
 	end
 end
 
@@ -644,7 +674,12 @@ function CalcBreakdownClass:Draw(viewPort)
 			local lineY = sectionY + 2
 			for i, line in ipairs(section.lines) do
 				SetDrawColor(1, 1, 1)
-				DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", line)
+				local _, dec = string.gsub(line, "%.%d%d.", " ") -- counts decimals with 2 or more digits
+				if main.showThousandsCalcs and dec == 0 then
+					DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", formatNumSep(line))
+				else
+					DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", line)
+				end
 				lineY = lineY + section.textSize
 			end
 		elseif section.type == "TABLE" then

@@ -33,7 +33,7 @@ local itemClassMap = {
 local directiveTable = { }
 
 -- #monster <MonsterId> [<Name>]
-directiveTable.monster = function(state, args, out)	
+directiveTable.monster = function(state, args, out)
 	local varietyId, name = args:match("(%S+) (%S+)")
 	if not varietyId then
 		varietyId = args
@@ -49,21 +49,21 @@ end
 -- #limit <LimitVarName>
 directiveTable.limit = function(state, args, out)
 	state.limit = args
-end 
+end
 
 -- #mod <ModDecl>
 directiveTable.mod = function(state, args, out)
 	table.insert(state.extraModList, args)
-end 
+end
 
 -- #skill <SkillId>
 directiveTable.skill = function(state, args, out)
 	table.insert(state.extraSkillList, args)
-end 
+end
 
 -- #emit
 directiveTable.emit = function(state, args, out)
-	local monsterVariety = dat"MonsterVarieties":GetRow("Id", state.varietyId)
+	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
 	if not monsterVariety then
 		print("Invalid Variety: "..state.varietyId)
 		return
@@ -149,7 +149,7 @@ directiveTable.spectre = function(state, args, out)
 end
 
 for _, name in pairs({"Spectres","Minions"}) do
-	processTemplateFile(name, "Minions/", "../Data/3_0/", directiveTable)
+	processTemplateFile(name, "Minions/", "../Data/", directiveTable)
 end
 
 print("Minion data exported.")

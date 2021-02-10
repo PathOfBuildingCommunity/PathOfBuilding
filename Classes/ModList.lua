@@ -54,7 +54,7 @@ function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, so
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
-			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
 					result = result + (context:EvalMod(mod, cfg) or 0)
 				else
@@ -75,7 +75,7 @@ function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ..
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
-			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
 					result = result * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
 				else
@@ -95,7 +95,7 @@ function ModListClass:FlagInternal(context, cfg, flags, keywordFlags, source, ..
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
-			if mod.name == modName and mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
 					if context:EvalMod(mod, cfg) then
 						return true
@@ -116,7 +116,7 @@ function ModListClass:OverrideInternal(context, cfg, flags, keywordFlags, source
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
-			if mod.name == modName and mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
 					local value = context:EvalMod(mod, cfg)
 					if value then
@@ -138,7 +138,7 @@ function ModListClass:ListInternal(context, result, cfg, flags, keywordFlags, so
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
-			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				local value
 				if mod[1] then
 					local value = context:EvalMod(mod, cfg) or nullValue
@@ -161,7 +161,7 @@ function ModListClass:TabulateInternal(context, result, modType, cfg, flags, key
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
-			if mod.name == modName and (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				local value
 				if mod[1] then
 					value = context:EvalMod(mod, cfg)
