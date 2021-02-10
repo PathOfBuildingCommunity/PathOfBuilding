@@ -51,7 +51,7 @@ def cli():
     import argparse
 
     parser = argparse.ArgumentParser(
-        usage="%(prog)s [options] filename",
+        usage="%(prog)s [options]",
         description="Update Path of Building's manifest file for a new release.",
         allow_abbrev=False,
     )
