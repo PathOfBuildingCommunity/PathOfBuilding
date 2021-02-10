@@ -1,4 +1,241 @@
-[1.4.170.12][2020/09/28]
+VERSION[1.4.170.26][2021/02/09]
+* Add control to set Vaal Timeless Jewel influenced passive skills to random mods (Wires77)
+* Add all new uniques in game patch 3.13.0 (Nostrademous, ppoelzl)
+* Add support for the following uniques:
+  * Arn's Anguish
+  * Doppelgänger
+  * Graven's Secret
+  * Olesya's Delight
+  * Goblinedge
+* Add Flickershade Spectre (Kayella)
+* Add support for "Cobra Lash Chains additional times" helmet enchantment (Puddlestomper)
+* Add Belt Enchantments to Item Crafting from Harvest improved Offering to the Goddess Uber Lab runs. Not all modifiers parse yet, but most do (Nostrademous)
+* Add Elevated Affixes to Item Crafting (Nostrademous)
+* Add support for Blizzard Crown implicit (Nostrademous)
+* Add support for Brutal, Affliction and Absorption Charge (damage recoup from Absorption Charges is not supported) conversion from Endurance, Frenzy, Power charges via Unique Belts (Nostrademous)
+* Add support for 'On Scorched Ground' in Config Tab when using Legacy of Fury unique boots (Nostrademous)
+* Add support and extraction of 'Thirst for Blood' unique ability from Jack, the Axe unique (Nostrademous, LocalIdentity)
+* Add support for Doppelgänger's insane/sane specification via Config Tab (Nostrademous)
+* Add support for Goblinedge Power/Frenzy charge interaction (ppoelzl)
+* Add limit cap to Replica Nebulis unique (Wires77)
+* Add parsing support for Anomalous Minion Life (ALT-F-X)
+* Updated Max Awakening Level for Sirus to scale to 9 achievable through Atlas Passives (Quote_a)
+* Add support for Phantasmal Ancestral Protector (ALT-F-X)
+* Add support for impale from spells (Wires77)
+* Add support for Phantasmal Might from The Black Cane (Wires77)
+* Add support for Shield Shatter on Shattershard (Wires77)
+* Add support for automatic chill from Summon Skitterbots (Quote_a)
+
+* Fix Timeless Jewel passives not accounting for past skill tree versions (Wires77)
+* Fix Spectre stats scaling with Spectre level using incorrect values (zao)
+* Fix mod ranges on Legacy of Fury (Nostrademous)
+* Fix Endurance/Frenzy/Power charges missing for Minions (Wires77)
+* Fix multiple crashes in the skills tab related to gem quality (Nostrademous, ALT-F-X)
+* Corrected enforcement of Minion Skill level requirements (zao)
+* Fix Enduring Cry's Life Regen calculation (tommysays)
+* Fix Ancestral Cry's Armor increase calculation (tommysays)
+* Fix Divergent Minion Damage to be an "Increase" instead of "More" as it should have been (Wires77)
+* Fix accounting for Abyssal Jewels in Offhand Slots (zao)
+* Updated Replica Alberon's Warpath chaos damage gain per strength to new value (RUSshy)
+* Fix Flame Wall's secondary not being affected by Area Damage (Wires77)
+* Fix Impale Support and Divergent Fortify application of Physical Damage Reduction (Wires77)
+* Fix '+1 to Maximum Summon Ballista Totems' to not also increase the allowed count of Ancestral Totems (Wires77)
+* Fix Disintegrator to include Block Attack Damage on Ritual variant (Wires77)
+* Fix Offering to the Serpent unique gloves stat attributes (PJacek)
+* Fix Cameria's Avarice unique mace to state "on Hit" rather than "on Kill" (ALT-F-X)
+* Fix Phantasmal Smite quality bonus (ALT-F-X)
+* Updated many Configuration Tab tooltips to display updated values (zao)
+VERSION[1.4.170.25][2021/01/16]
+* Fix Trinity Support
+* Fix Hrimnor's Resolve
+VERSION[1.4.170.24][2021/01/16]
+* Fix Rupture calculations
+VERSION[1.4.170.23][2021/01/16]
+* Add support for Trinity Support and Hydrosphere
+* Update gems with 3.13 changes
+* Add new 3.13 base types
+* Add support for "Projectiles deal #% increased Damage for each Enemy Pierced"
+* Add Block Chance and Spell Block Chance to the passive skill tree heatmap
+* Fix multiple application crashes related to skill gem selection
+* Fix Fanaticism and Convergence persisting after deallocating nodes
+* Fix parsing error with Pure Talent
+* Fix item versions of Disintegrator
+* Fix item versions of Doryani's Fist
+VERSION[1.4.170.22][2021/01/14]
+* Add support for Hierophant's reworked Conviction of Power Notable
+* Add support for Hand of the Fervent's unique mechanic
+* Add support for "Physical Damage taken from Hits"
+* Update Disintegrator and Martyr of Innocence
+* Fix Shaper of Flames/Winter/Storms more effect not being accounted for in left-hand side calculation
+* Fix parsing of Deadeye's Rupture Notable
+* Fix parsing of Inquisitor's Instruments of Virtue and Righteous Providence Notables
+* Fix effective hit points calculations when you take 100% of damage as a different type of damage
+* Fix errors occurring when hovering over gem tooltips
+* Fix damage taken on block calcs breakdown
+* Fix mod on Follow-Through Medium Cluster Jewel
+* Fix usage limit on Hazardous Research
+* Fix build files growing exponentially if there is a colon at the start of an item's name
+VERSION[1.4.170.21][2021/01/13]
+* Add 3.13 passive skill tree
+* Changes to Ascendancies:
+  * Add support for Deadeye's Gale Force mechanic
+  * Add support for Deadeye's Rupture mechanic
+  * Add support for Elementalist's Heart of Destruction Notable
+  * Add support for Elementalist's Mastermind of Discord Notable
+  * Add support for Elementalist's Shaper Notables
+  * Add support for Inquisitor's reworked Notables
+* Add support for Battlemage mechanic
+* Add support for Blackflame's unique mechanics
+* Add support for all basic aegides
+* Add various improvements to the accuracy of maximum hit and EHP calcs
+* Add option to show all Alternate Quality skill gems in the skill gem selection dropdown
+* Add stat comparisons to Alternate Quality skill gems on hover
+* Add support for various new mods
+* Add all known new uniques
+* Update Far Shot to new scale
+* Fix Elemental Equilibrium applying twice if you have Malachai's Artifice equipped
+* Fix stat differences between Cluster Jewel Notables not showing up
+* Fix Large Cluster Jewels not importing correctly in some cases
+* Fix Alternate Quality skill gems staying at their default Quality on copy/paste
+* Fix Anomalous Flesh and Stone Alternate Quality effect
+* Fix base type mods that were inadvertently removed
+* Fix craftable flask mods having disappeared
+* Fix crafting tags showing up on multiline mods
+* Fix skill gem tooltip not showing when hovering over the skill gem selection dropdown
+* Fix error where skill gem controls were selectable before a skill gem was set
+* Fix Dark Pact radius
+* Fix mod on Unending Hunger
+VERSION[1.4.170.20][2020/12/19]
+* Fix program not launching on Linux
+VERSION[1.4.170.19][2020/12/19]
+* Guard skills rework:
+    * You can only have one Guard skill active at a time now
+    * Vaal Molten Shell automatically disables all other Guard skills
+    * Guard skills scale with Buff Effect
+    * EHP calculations take Guard skills into account
+* Multi-stage skills rework:
+    * Add skill stages box to the sidebar and calcs tab
+    * Remove existing skill stages config options and pre-defined stages
+    * Enable Penance Brand to automatically use the "Activations per Brand" number
+    * Fix Winter Orb damage calculations
+* Add support for skills granted by passive tree nodes
+* Add separate Rune Dagger, Warstaff and Convoking Wand base types
+* Add full support for Weapon and Armour Quality modifiers
+* Add tooltips to skill gem selection drop-down
+* Add support for Immortal Ambition
+* Add support for Supreme Decadence
+* Add support for Scorch mod on Rolling Flames
+* Add quality mods to Zealotry and Anger
+* Add enchantment mod for Sigil of Power
+* Add new Keystones to Skin of The Lords
+* Add support for non-vaal skill related modifiers
+* Fix interaction of Guard skills with MoM, Low Life, and other mechanics
+* Fix item bases on Beacon of Madness
+* Fix Cold damage applying Freeze twice
+* Fix Arcanist Brand using the main skill's Brand limit
+* Fix Dominating Blow quality not applying to Minions
+* Fix Storm Burst not applying an additional tick
+* Fix non-Curse Aura Effect applying to Curse Auras
+* Fix disabling alternative Ailments when using Elemental Focus
+* Fix attribute requirements for some skill gems
+* Fix anointed Notables not showing as allocated on the skill tree
+* Fix skill gem quality not rounding towards zero in case of negative stats
+* Fix "nil" being displayed in DoT breakdowns
+* Fix parsing of decimal values on items
+* Fix item variants on Watcher's Eye
+* Fix item variants on The Peregrine
+* Fix item text sanitisation
+* Fix an issue with item base names containing whitespace
+VERSION[1.4.170.18][2020/11/22]
+ * Fix error on updating with the 1.4.170.17 patch
+VERSION[1.4.170.17][2020/11/22]
+ * Remove support for loading builds from before game version 3.0.0
+VERSION[1.4.170.16][2020/10/18]
+ * Fix error on updating with the 1.4.170.15 patch
+VERSION[1.4.170.15][2020/10/18]
+ * Add performance improvements where PoB will no longer use excess CPU when in the background
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add eHP sorting to the tree and uniques tab
+ * Add note showing which elemental resistance Hexblast is using for its Chaos damage
+ * Add support for Storm Burst damage scaling with orb duration
+ * Add support for Infernal Blow Debuff DPS
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add support for Combat Rhythm Cluster Notable
+ * Add support for Divergent Rallying Cry
+ * Add support for Might and Influence jewel
+ * Add support for Replica Malachai's Artifice
+ * Add support for Replica Wings of Entropy
+ * Add support for alternate quality Purity of Elements
+ * Add Contaminate skill from Sporeguard
+ * Add support for Ailment Mode to calculate non-damaging ailments
+ * Add support for SOCKS5 Host Name Mode Proxy
+ * Update uniques with 3.12 changes
+ * Update Crackling Lance enchantment
+ * Fix alt quality gems not saving properly
+ * Fix crash when you socket a Thread of Hope into a Cluster Jewel socket
+ * Fix support for mod translation with Spiritual Aid and Spiritual Command notables
+ * Fix Flame Wall added damage not working with Minions
+ * Fix Mjolner and Cospri's Malice supports not applying correctly
+ * Fix Doom calculations for builds with multiple curses
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod staves
+ * Fix Divergent Blind Support Crit Chance calculation
+ * Fix Curse mods on the tree not applying correctly
+ * Fix Phantasmal Static Strike
+ * Fix Vulnerability not displaying chance to bleed in breakdowns
+ * Fix Bladestorm "Are you in a Bloodstorm?" buff applying as a global buff
+ * Fix some mods on the tree not working with ailments
+ * Fix Hexblast interaction with increased/reduced resistance modifiers
+ * Fix Shockwave Support having DPS numbers when it should only show average hit
+ * Fix catalyst tags on Emberwake
+ * Fix Mystic Bulwark notable
+ * Fix display of Poison DPS for average hit skills
+ * Fix support for Phantasmal Earthquake
+ * Fix Vaal Impurities
+ * Fix Rage generation on Warlords Mark
+ * Fix skill radius for Ball Lightning
+ * Fix Siphoning charge limit for items with dual influence
+ * Fix Curses not applying from Minions
+ * Fix some comparison tooltip errors
+ * Fix bug with Catalysts and Malachai's Artifice
+ * Fix parsing of Voidforge
+ * Fix error where accuracy could appear to be below 0
+ * Fix support for Vaal Impurity resistances
+ * Fixes Minion display stats for when they have DoT Components
+ * Fix Fungal ground not applying to Minions
+ * Fix alternate qualities on some gems not displaying correctly
+VERSION[1.4.170.14][2020/10/01]
+ * Add distance and Cluster Notable sorting to the Power Report
+ * Add support for Death Wish on the Maw of Mischief unique
+ * Add Combat Rhythm Cluster Notable
+ * Fix Doom calculations for multiple curse builds
+ * Fix Perforate more AoE in Sand Stance
+ * Fix wording on Agnerod's staves
+ * Fix Divergent Blind Crit Chance calculation
+VERSION[1.4.170.13][2020/09/30]
+ * Add Flame Wall Projectile added damage buff
+ * Add Ashblessed Warden Spectre
+ * Add parsing for new Golem mods lines on Uniques
+ * Add support for Zealotry alternate quality
+ * Add support for Lingering Blades with Animate Weapon
+ * Add support for new Curse/Mark on Hit mods
+ * Fix crash related to Divergent Maim
+ * Fix crash related to Phantasmal Raise Zombie
+ * Fix Hexblast not taking into account elemental penetration
+ * Fix implementation of the Iron Mass unique
+ * Fix second mod on Growing Agony not appearing
+ * Fix Power Report being cut off from the UI at certain resolutions
+ * Fix Fortify Support alternate quality
+ * Fix Projectile count calculations
+ * Fix Mana Cost calculations
+ * Fix Timeless Jewel saving
+ * Fix Lucky Damage applying to all elements
+ * Fix Animate Weapon more Attack Speed from gem
+ * Fix mods on Cloud Retch Spectre
+ * Fix parsing for some tooltips
+ * Fix Cremation Hit Time override
+ * Fix Catalysts not working in the item crafter
+VERSION[1.4.170.12][2020/09/28]
  * Add support for Timeless jewels and their mods
 	* Timeless jewels will now convert Keystones on the tree
 	* You can change the mods on nodes by right-clicking and selecting which stat you want
@@ -51,20 +288,20 @@
  * Fix Predator Support not showing up on the configs page
  * Fix Glancing Blows not using the correct block effect value for eHP calculations
  * Fix tooltips for several skills (Warcries, Penance Brand etc.)
-[1.4.170.11][2020/09/19]
+VERSION[1.4.170.11][2020/09/19]
  * Fix issue where many skills tags were incorrect which caused supports and other mechanics to stop working
-[1.4.170.10][2020/09/19]
+VERSION[1.4.170.10][2020/09/19]
  * Add partial support for new 3.12 gems and enchantments
  * Update gems with 3.12 changes
  * Add new 3.12 bases
  * Add partial support for alternate quality gems
-[1.4.170.9][2020/09/17]
+VERSION[1.4.170.9][2020/09/17]
  * Add better breakdown for duration mods on gems
  * Fix crash related to new Keystones and old trees
  * Fix support for Iron Grip Notable
  * Fix support for new ailment scaling nodes
  * Fix support for new cooldown recovery wording on nodes
-[1.4.170.8][2020/09/16]
+VERSION[1.4.170.8][2020/09/16]
  * Add support for 3.12 Tree
  * Add proper support for Carrion Golem
  * Add support for Ancient Waystone unique
@@ -84,13 +321,13 @@
  * Fix stats on Enhanced Vaal Fallen, Baranite Thaumaturge, Baranite Sister
  * Fix Life regen not showing in the sidebar
  * Fix top node power calculations
-[1.4.170.7][2020/07/22]
+VERSION[1.4.170.7][2020/07/22]
  * Fix crash related to the Siegebreaker belt
  * Fix crash related to Dancing Dervish/Duo
  * Fix Seismic Cry having incorrect calculations
  * Fix Fist of War not using the proper Ailment multiplier
  * Fix Chaos DoT Multiplier not showing up in Poison DoT Multi breakdown
-[1.4.170.6][2020/07/22]
+VERSION[1.4.170.6][2020/07/22]
  * Add breakdown for Warcries and Fist of War
  * Add calculation mode to select "Max hit" for Warcries
  * Add count for the max number of Brand activations
@@ -117,15 +354,15 @@
  * Fix the effects of Consecrated and Profane Ground to now work with Minions
  * Fix damage scaling on Explosive Arrow
  * Fix Evasion calculations
-[1.4.170.5][2020/07/16]
+VERSION[1.4.170.5][2020/07/16]
  * Fix crash related to Vessel of Vinktar and flask effect
  * Fix Rallying Cry not showing the proper configuration option to select number of nearby Allies
  * Fix Saqawals Nest not scaling Aspect of the Avian properly on Allies
  * Fix Ascendancy nodes showing up on the nearby strong nodes in the heatmap
  * Fix crash related to opening old builds with a different tree version
-[1.4.170.4][2020/07/16]
+VERSION[1.4.170.4][2020/07/16]
  * Fix bug where importing builds would change the boss configuration to be empty
-[1.4.170.3][2020/07/16]
+VERSION[1.4.170.3][2020/07/16]
  * Add support for 3.11 Warcries and Exerted Attacks
   * Warcry-related Exerted Attack Effect is calculated based on:
     Average Damage of Exerted Attacks * Exerted Buff Scaling * Expected Uptime of Exerted Attacks.
@@ -191,13 +428,13 @@
  * Fix bug where skills that reserved Mana would benefit from negative Life/Mana Reservation
  * Fix bug where removable crafts remained after editing an item
  * Fix crash on deleting the number for default gem level/quality on the skills tab
-[1.4.170.2][2020/06/23]
+VERSION[1.4.170.2][2020/06/23]
  * Add Baranite Sister Spectre
  * Add 20 fuse cap to Explosive Arrow
  * Fix Corpse Pact node attack speed cap
  * Fix some Cluster jewel notables not appearing on the tree
  * Fix unique staves using the Judgement Staff base
-[1.4.170.1][2020/06/22]
+VERSION[1.4.170.1][2020/06/22]
  * Add all new gems from 3.11
    * Full support:
      * Earthshatter
@@ -268,15 +505,15 @@
  * Fix parsing for the new Purposeful Harbinger mod
  * Fix calculation of crab barriers
  * Remove 20% more physical damage while dual wielding
-[1.4.169.3][2020/06/17]
+VERSION[1.4.169.3][2020/06/17]
  * Add 3.11 passive skill tree
  * Add support for Indigo oils
  * Add support for reworded brand mods
  * Add support for Overwhelm
-[1.4.169.2][2020/04/20]
+VERSION[1.4.169.2][2020/04/20]
  * Change the 'Damage Avoidance' subsection to be collapsed by default
  * Fix parsing on Assailum helmet
-[1.4.169.1][2020/04/20]
+VERSION[1.4.169.1][2020/04/20]
  * Add support for Catalysts on items crafted in PoB or Uniques in the item list
  * Add support for enemy armour and physical damage reduction calculations for hits and Impales
 	* Added Sirus to boss list as he has a 100% more armour multiplier
@@ -320,12 +557,12 @@
  * Fix Thread of Hope not importing correctly
  * Fix Replenishing Presence not stacking correctly
  * Fix Purposeful Harbinger incorrectly scaling some skills
-[1.4.167.2][2020/03/24]
+VERSION[1.4.167.2][2020/03/24]
  * Fix crash related to Oni-Goroshi
  * Fix crash related to number of brands attached to enemy
  * Fix parsing for One With Nothing Cluster Jewel
  * Fix increased effect of small passive skills applying to notables
-[1.4.167.1][2020/03/23]
+VERSION[1.4.167.1][2020/03/23]
  * Update uniques with changes from 3.10
  * Add support for Arcane Cloak, Spellslinger, and Archmage Support
  * Add the unique cluster jewels
@@ -345,9 +582,9 @@
  * Fix node location popups not correctly centring on the node in 3.10 passive trees
  * Fix nodes allocated through Intuitive Leap and Thread of Hope not remaining allocated after loading the build
  * Disabled attribute Cluster Jewel types
-[1.4.162.2][2020/03/15]
+VERSION[1.4.162.2][2020/03/15]
  * Fix opening build crash
-[1.4.162.1][2020/03/15]
+VERSION[1.4.162.1][2020/03/15]
  * Add support for Cluster Jewels on the tree
  * Add support for many of the new Notables from Cluster Jewels
  * Add new 3.10 skill gems and skill gem balance tweaks
@@ -371,16 +608,16 @@
  * Fix parsing of warcry cooldown override on Al Dhih
  * Fix Ballista placement speed
  * Consolidate resistances into single line in sidebar
-[1.4.159.1][2020/03/12]
+VERSION[1.4.159.1][2020/03/12]
  * Fixed weapon ailment modifiers not correctly applying
  * Fixed some Two Handed Weapon modifiers incorrectly applying to One Handed Weapons instead
-[1.4.158.1][2020/03/12]
+VERSION[1.4.158.1][2020/03/12]
  * Add 3.10 passive skill tree
-[1.4.157.7][2020/02/29]
+VERSION[1.4.157.7][2020/02/29]
  * Fix crash related to hovering over Bone Armour in the skills tab
-[1.4.157.6][2020/02/26]
+VERSION[1.4.157.6][2020/02/26]
  * Revert fix for Rage as it breaks other skills
-[1.4.157.5][2020/02/25]
+VERSION[1.4.157.5][2020/02/25]
  * Add full search capability to all dropdown lists
  * Items copied into PoB now retain their quality if above 20%
  * Add support for Infernal Legion with Skitterbots
@@ -419,17 +656,17 @@
     * Lightning Golem's Aura
  * Fix Ensnaring Arrow's damage debuff incorrectly stacking 3 times
  * Fix incorrect calculation of auras and curses granted by minions
-[1.4.157.4][2020/02/11]
+VERSION[1.4.157.4][2020/02/11]
  * Add support for increased Effect of Arcane Surge
  * Add support for Brand Attachment range
  * Add support for Awakened Spell Echo's chance to deal Double Damage on final repeat
  * Fix support for Crimson Dance
  * Update wording on Staves
  * Corrected many uniques that wrongly got legacy variants and updated wordings
-[1.4.157.3][2020/02/10]
+VERSION[1.4.157.3][2020/02/10]
  * Fix scrolling on dropdown boxes
  * Fix CombinedDPS showing up on all skills
-[1.4.157.2][2020/02/10]
+VERSION[1.4.157.2][2020/02/10]
  * Add support for the Barrage Support skill gem
  * Add support for Ensnaring Arrow
  * Add support for Thread of Hope
@@ -462,7 +699,7 @@
  * Fix Arctic Breath's cold dot not being modified by area damage mods
  * Fix Transfiguration of Mind interaction bug with Crown of Eyes
  * Fix parsing for travel skill mods
-[1.4.157.1][2019/12/21]
+VERSION[1.4.157.1][2019/12/21]
  * Added a new unique item, The Savior
  * Added the ability to show only non-Awakened supports (or only Awakened supports!); the option can be found in the
    Skills tab under the socket group list
@@ -476,7 +713,7 @@
  * Fix Fractal Thoughts increased dex mod to now work properly
  * Fix support for old Red Nightmare mod wording
  * Fix ailment calculation crash
-[1.4.155.1][2019/12/16]
+VERSION[1.4.155.1][2019/12/16]
  * Added the following new gems:
     * Artillery Ballista
 	* Ensnaring Arrow
@@ -490,7 +727,7 @@
  * Added new influence bases to crafting window
  * Fix all Oils on tree to have correct values
  * Add more detailed breakdown for shock and chill
-[1.4.153.2][2019/12/14]
+VERSION[1.4.153.2][2019/12/14]
  * Re-add Oils to tree
  * Add support for Ghost Shrouds
  * Add support for increased Ancestor Totem buff effect
@@ -512,7 +749,7 @@
  * Fix uniques with duplicate mods
  * Re-add Death's Harp back in
  * Update Snakepit Unique Ring
-[1.4.153.1][2019/12/12]
+VERSION[1.4.153.1][2019/12/12]
  * Add 3.9 Passive Tree
  * Add 3.9 Unique Changes
  * Add support for Ryslatha's Coil

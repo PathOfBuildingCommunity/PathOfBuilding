@@ -32,7 +32,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 #### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
 * Make sure that the changes have been thoroughly tested!
-* Make sure not to commit `./Data/2_6/ModCache.lua` or `./Data/3_0/ModCache.lua`. These are very large, automatically generated files that are updated in the repository for releases only.
+* Make sure not to commit `./Data/ModCache.lua`. This is a very large, automatically generated file that is updated in the repository for releases only.
 * There are many more files in the `./Data` directory that are automatically generated. To change these, instead change the scripts in the `./Export` directory.
 
 #### Setting up a development install
@@ -123,16 +123,17 @@ dbg.tcpListen('localhost', 9966)
 5. Start Path of Building Community
 6. Attach the debugger
 
-#### Exporting Data from a GGPK file
+#### Exporting GGPK Data from Path of Exile
 
-Note: This tutorial assumes that you are already familiar with the GGPK and its structure.
+Note: This tutorial assumes that you are already familiar with the GGPK and its structure. [poe-tool-dev/ggpk.discussion](https://github.com/poe-tool-dev/ggpk.discussion/wiki)
+is a good starting point.
 
-The repository also contains the system used to export data from the game's Content.ggpk file. This can be found in the Export folder. The data is exported using the scripts in `./Export/Scripts`, which are run from within the `.dat` viewer.
+The `./Data` folder contains generated files which are created using the scripts in the `./Export/Scripts` folder based on Path of Exile game data. 
+If you change any logic/configuration in `./Export`, you will need to regenerate the appropriate `./Data` files. You can do so by running the `./Export` scripts using the `.dat` viewer at `./Export/Launch.lua`:
 
-How to export data from a GGPK file:
-
-1. Create a shortcut to `Path of Building.exe` with the path to `./Export/Launch.lua` as first argument. You should end up with something like: `"C:\%APPDATA%\Path of Building Community\Path of Building.exe" "C:\PathOfBuilding\Export\Launch.lua"`.
-2. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building Community.
-3. Paste the path to `Content.ggpk` into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `./Data` section.
-4. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
-5. If you run into any errors, update the code in `./Export` as necessary and try again.
+1. Obtain a copy of an OOZ extractor and copy it into `./Export/ggpk/`.
+2. Create a shortcut to `Path of Building.exe` with the path to `./Export/Launch.lua` as first argument. You should end up with something like: `"C:\%APPDATA%\Path of Building Community\Path of Building.exe" "C:\PathOfBuilding\Export\Launch.lua"`.
+3. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building Community.
+4. Paste the path to `Content.ggpk` (or, for Steam users, `C:\Program Files (x86)\Steam\steamapps\common\Path of Exile`) into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `./Data` section.
+5. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
+6. If you run into any errors, update the code in `./Export` as necessary and try again.

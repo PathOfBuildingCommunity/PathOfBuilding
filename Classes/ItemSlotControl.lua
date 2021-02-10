@@ -27,7 +27,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	self.items = { }
 	self.selItemId = 0
 	self.slotName = slotName
-	self.slotNum = tonumber(slotName:match("%d+"))
+	self.slotNum = tonumber(slotName:match("%d+$") or slotName:match("%d+"))
 	if slotName:match("Flask") then
 		self.controls.activate = new("CheckBoxControl", {"RIGHT",self,"LEFT"}, -2, 0, 20, nil, function(state)
 			self.active = state
@@ -108,7 +108,7 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = new("Item", self.itemsTab.build.targetVersion, value.raw)
+		local newItem = new("Item", value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)

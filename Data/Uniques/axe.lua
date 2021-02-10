@@ -24,7 +24,7 @@ Adds (5-15) to (20-25) Fire Damage
 +(15-25)% to Fire Resistance
 5% increased Movement Speed
 {variant:1}Curse Enemies with Flammability on Hit
-{variant:2}Curse Enemies with Level 10 Flammability on Hit
+{variant:2}Curse Enemies with Flammability on Hit, with 40% increased Effect
 ]],[[
 Dreadsurge
 Cleaver
@@ -82,16 +82,18 @@ Adds (10-15) to (25-30) Physical Damage
 ]],[[
 Jack, the Axe
 Vaal Hatchet
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.13.0
 Variant: Current
 Requires Level 65, 140 Str, 86 Dex
-(90-110)% increased Physical Damage
+{variant:2}Grants Level 20 Thirst for Blood Skill
+{variant:1}(90-110)% increased Physical Damage
+{variant:2}(130-150)% increased Physical Damage
 Adds (11-14) to (18-23) Physical Damage
-(10-15)% increased Attack Speed
-2% of Physical Attack Damage Leeched as Life
-50% reduced Life Leeched per second
-{variant:1}Causes Bleeding on Hit
-{variant:2}25% chance to cause Bleeding on Hit
+{variant:1}(10-15)% increased Attack Speed
+{variant:1}2% of Physical Attack Damage Leeched as Life
+{variant:1}50% reduced Life Leeched per second
+25% chance to cause Bleeding on Hit
+{variant:2}+(25-35)% to Damage over Time Multiplier for Bleeding from Hits with this Weapon
 ]],[[
 Moonbender's Wing
 Tomahawk
@@ -125,17 +127,15 @@ Rigwald's Savagery
 Royal Axe
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 167 Str, 57 Dex
 Adds (50-70) to (135-165) Physical Damage
 40% increased Physical Weapon Damage while Dual Wielding
 (10-15)% increased Attack Speed
-{variant:1,2}35% increased Attack Speed with Swords
-{variant:1}Causes Bleeding on Hit
-{variant:2}25% chance to cause Bleeding on Hit
-{variant:3}+25 to Maximum Rage while wielding a Sword
+{variant:1}35% increased Attack Speed with Swords
+{variant:1}25% chance to cause Bleeding on Hit
+{variant:2}+25 to Maximum Rage while wielding a Sword
 ]],[[
 Soul Taker
 Siege Axe
@@ -166,33 +166,32 @@ Eldritch Battery
 Atziri's Disfavour
 Vaal Axe
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 75, 158 Str, 76 Dex
 Implicits: 1
-{variant:3}25% chance to Maim on Hit
+{variant:2}25% chance to Maim on Hit
 +2 to Level of Socketed Support Gems
-{variant:1,2}Adds (220-235) to (270-290) Physical Damage
-{variant:3}Adds (205-220) to (250-270) Physical Damage
+{variant:1}Adds (220-235) to (270-290) Physical Damage
+{variant:2}Adds (205-220) to (250-270) Physical Damage
 (12-16)% increased Attack Speed
-{variant:1}Causes Bleeding on Hit
-{variant:2,3}25% chance to cause Bleeding on Hit
+25% chance to cause Bleeding on Hit
 +2 to Weapon range
 ]],[[
 The Blood Reaper
 Headsman Axe
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
+Variant: Pre 3.12.0
 Variant: Current
 Requires Level 45, 99 Str, 57 Dex
 {variant:1}(100-120)% increased Physical Damage
-{variant:2}(180-200)% increased Physical Damage
+{variant:2,3}(180-200)% increased Physical Damage
 +100 to maximum Life
-10.0 Life Regenerated per second
+{variant:1,2}Regenerate 10 Life per second
+{variant:3}Regenerate 20 Life per second
 1% of Physical Attack Damage Leeched as Life
 50% increased Mana Cost of Skills
-{variant:1}Causes Bleeding on Hit
-{variant:2}50% chance to cause Bleeding on Hit
+50% chance to cause Bleeding on Hit
 ]],[[
 Debeon's Dirge
 Despot Axe
@@ -354,34 +353,29 @@ Labrys
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-Netol}
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 49, 122 Str, 53 Dex
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
-25% chance to Curse Enemies with level 10 Vulnerability on Hit
-{variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
-{variant:2}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
+25% chance to Curse Enemies with Vulnerability on Hit, with 40% increased Effect
+Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
 League: Breach
 Source: Upgraded from unique{Uul-Netol's Kiss} using currency{Blessing of Uul-Netol}
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 158 Str, 76 Dex
 Implicits: 1
-{variant:3}25% chance to Maim on Hit
+{variant:2}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
 (30-25)% reduced Attack Speed
-{variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
-{variant:2,3}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 ]],[[
 Wideswing
 Poleaxe
-Variant: {2_6}Pre 3.7.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 18, 44 Str, 25 Dex
 Socketed Gems are Supported by level 20 Increased Area of Effect

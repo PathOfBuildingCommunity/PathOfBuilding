@@ -40,7 +40,7 @@ your maximum number of Crab Barriers
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
@@ -56,7 +56,7 @@ Requires Level 63, 100 Str
 {variant:3,4}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
 {variant:1,2,3}+30 Energy Shield gained on Killing a Shocked Enemy
 {variant:4}+(200-250) Energy Shield gained on Killing a Shocked Enemy
-{variant:4}30% increased Effect of Shock
+{variant:4}30% increased Effect of Lightning Ailments
 ]],[[
 Empire's Grasp
 Goliath Gauntlets
@@ -178,7 +178,7 @@ Deerskin Gloves
 League: Legion
 Source: Drops from Eternal Legion
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 21, 33 Dex
@@ -204,11 +204,11 @@ Your Mark transfers to another Enemy when Marked Enemy dies
 Oskarm
 Nubuck Gloves
 Requires Level 52, 50 Dex
+Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
 +(-20-10)% to Chaos Resistance
 (7-8)% chance to Dodge Spell Damage
-Curse Enemies with Level 10 Assassin's Mark on Hit
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
 Painseeker
@@ -258,10 +258,11 @@ Requires Level 25, 39 Int
 {variant:1,2}+(20-30) to maximum Mana
 {variant:3}+(60-80) to maximum Mana
 {variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2,3}Curse Enemies with level 10 Temporal Chains on Hit
+{variant:2,3}Curse Enemies with Temporal Chains on Hit, with 40% increased Effect
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
 {variant:3}Enemies near Corpses affected by your Curses are Blinded
-{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing 3% of their Life as Physical Damage
+{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
+{variant:3}3% of their Life as Physical Damage
 ]],[[
 Demon Stitcher
 Satin Gloves
@@ -345,7 +346,7 @@ Gain 40% increased Area of Effect for 2 seconds after Spending a total of 800 Ma
 Sadima's Touch
 Wool Gloves
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 11
 Adds 4 to 8 Fire Damage to Attacks
@@ -358,7 +359,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 Voidbringer
 Conjurer Gloves
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 55, 79 Int
@@ -407,16 +408,13 @@ You have Crimson Dance while you have Cat's Stealth
 ]],[[
 Flesh and Spirit
 Ironscale Gauntlets
-Variant: {2_6}Pre 3.5.0
-Variant: Current
 League: Rampage
 Requires Level 15
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
 (3-4) Life Regenerated per second
 Recover 20% of your Maximum Life on Rampage
-{variant:1}Gain 5 Souls for Vaal Skills on Rampage
-{variant:2}Kills grant an additional Vaal Soul if you have Rampaged Recently
+Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage
 ]],[[
 Haemophilia
@@ -520,6 +518,15 @@ Requires Level 37, 29 Str, 29 Int
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
+Hand of the Fervent
+Zealot Gloves
+League: Ritual
+Requires Level 43, 34 Str, 34 Int
+(70-130)% increased Armour and Energy Shield
++(50-70) to maximum Life
+Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
+Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+]],[[
 Hands of the High Templar
 Crusader Gloves
 Requires Level 66, 51 Str, 51 Int
@@ -546,7 +553,7 @@ Legion Gloves
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 57, 44 Str, 44 Int
-+(25-35) to all Attributes
++(15-25) to all Attributes
 (150-200)% increased Armour and Energy Shield
 50% reduced Maximum Recovery per Life Leech
 (6-10)% increased Attack and Cast Speed
@@ -580,7 +587,7 @@ Variant: Pre 1.2.0
 Variant: Current
 Requires Level 7, 17 Dex
 (40-60)% increased Stun Recovery
-Curses in this item are reflected back to you
+Hexes applied by Socketed Curse Skills are Reflected back to you
 You cannot be Chilled for 3 seconds after being Chilled
 You cannot be Frozen for 3 seconds after being Frozen
 You cannot be Ignited for 3 seconds after being Ignited
@@ -751,7 +758,7 @@ Strapped Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.5.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
@@ -810,7 +817,7 @@ Shadows and Dust
 Clasped Mitts
 League: Rampage
 Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 31, 25 Dex, 25 Int
 (20-30)% increased Global Critical Strike Chance
@@ -825,7 +832,7 @@ Rampage
 ]],[[
 Snakebite
 Assassin's Mitts
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 58, 45 Dex, 45 Int
@@ -860,7 +867,7 @@ Socketed Gems are Supported by level 18 Added Lightning Damage
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
 +(25-30) to maximum Energy Shield
-100% increased Shock Duration on Enemies
 10% increased Stun Duration on Enemies
+100% increased Duration of Lightning Ailments
 ]],
 }

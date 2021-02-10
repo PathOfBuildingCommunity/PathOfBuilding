@@ -5,7 +5,7 @@ return {
 [[
 Ahn's Heritage
 Colossal Tower Shield
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 67, 159 Str
@@ -25,7 +25,7 @@ Ezomyte Tower Shield
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Surrender} using currency{Blessing of Uul-Netol}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
 Implicits: 1
@@ -40,7 +40,7 @@ The Surrender
 Ezomyte Tower Shield
 League: Breach
 Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
 Implicits: 1
@@ -56,25 +56,25 @@ Chernobog's Pillar
 Ebony Tower Shield
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
 {variant:4}+(20-30) to maximum Life
-{variant:2}Adds (7-10) to (15-25) Fire Damage to Attacks
+{variant:1}Adds 10 to 25 Fire Damage to Spells and Attacks
+{variant:2}Adds (7-10) to (15-25) Fire Damage to Spells and Attacks
 {variant:3,4}Adds (12-15) to (30-35) Fire Damage to Spells and Attacks
 (120-150)% increased Armour
 {variant:3,4}+(60-80) to maximum Life
 +(35-50)% to Fire Resistance
 25% of Physical Damage Converted to Fire Damage
-{variant:1}5% chance to Curse Enemies with Enfeeble on Hit
-{variant:2}10% chance to Curse Enemies with Enfeeble on Hit
-{variant:3,4}25% chance to Curse un-cursed Enemies with Enfeeble on Hit
+{variant:1,2}10% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
+{variant:3,4}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
 ]],[[
 Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 70, 159 Str
 Implicits: 1
@@ -89,7 +89,7 @@ Implicits: 1
 ]],[[
 Lycosidae
 Rawhide Tower Shield
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 11, 33 Str
 Implicits: 1
@@ -116,7 +116,7 @@ Redblade Banner
 Painted Tower Shield
 League: Warbands
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 35, 87 Str
@@ -137,7 +137,7 @@ Implicits: 1
 Titucius' Span
 Reinforced Tower Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30, 76 Str
 Implicits: 1
@@ -153,7 +153,7 @@ Trolltimber Spire
 Cedar Tower Shield
 League: Tempest
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 17, 46 Str
 Implicits: 1
@@ -167,7 +167,7 @@ You and your Totems Regenerate 0.5% of Life per second for each Summoned Totem
 ]],[[
 Tukohama's Fortress
 Ebony Tower Shield
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61, 159 Str
@@ -199,7 +199,7 @@ Atziri's Mirror
 Golden Buckler
 Upgrade: Upgrades to unique{Atziri's Reflection} via prophecy{The Queen's Sacrifice}
 Variant: Pre 2.0.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 54, 130 Dex
 Implicits: 1
@@ -211,7 +211,7 @@ Implicits: 1
 {variant:2,3}50% reduced Duration of Curses on you
 {variant:3}10% additional Block chance while not Cursed
 {variant:3}20% additional Spell Block chance while Cursed
-Curse Reflection
+Hex Reflection
 ]],[[
 Atziri's Reflection
 Golden Buckler
@@ -223,7 +223,7 @@ Implicits: 1
 (180-200)% increased Evasion Rating
 +(180-200) to maximum Energy Shield
 +(20-30)% to all Elemental Resistances
-Curse Reflection
+Hex Reflection
 Unaffected by Curses
 (15-20)% increased Effect of your Curses
 ]],[[
@@ -231,7 +231,7 @@ Chalice of Horrors
 War Buckler
 Upgrade: Upgrades to unique{Thirst for Horrors} via prophecy{Mouth of Horrors}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 29, 74 Dex
 Implicits: 1
@@ -248,7 +248,7 @@ Thirst for Horrors
 War Buckler
 Source: Upgraded from unique{Chalice of Horrors} using prophecy{Mouth of Horrors}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 32, 74 Dex
 Implicits: 1
@@ -265,13 +265,13 @@ Implicits: 1
 Crest of Perandus
 Pine Buckler
 Variant: Pre 1.3.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 8, 26 Dex
 Implicits: 1
 {variant:3}3% increased Movement Speed
 +(60-80) to maximum Life
-(5-8) Life Regenerated per second
+Regenerate (5-7.5) Life per second
 +30% to Lightning Resistance
 0.6% of Physical Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block
@@ -279,7 +279,7 @@ Implicits: 1
 ]],[[
 Great Old One's Ward
 Corrugated Buckler
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 46, 112 Dex
 Implicits: 1
@@ -294,7 +294,7 @@ Painted Buckler
 Upgrade: Upgrades to unique{Kaltensoul} via prophecy{The Snuffed Flame}
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
@@ -311,7 +311,7 @@ Kaltensoul
 Painted Buckler
 Source: Upgraded from unique{Kaltenhalt} using prophecy{The Snuffed Flame}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
@@ -353,7 +353,7 @@ Mutewind Pennant
 Enameled Buckler
 League: Warbands
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 42, 103 Dex
@@ -372,7 +372,7 @@ Implicits: 1
 Thousand Teeth Temu
 Vaal Buckler
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 63, 159 Dex
 Implicits: 1
@@ -447,7 +447,7 @@ Brinerot Flag
 Tarnished Spirit Shield
 League: Warbands
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 23, 60 Int
@@ -481,7 +481,7 @@ Esh's Visage
 Vaal Spirit Shield
 League: Breach
 Source: Upgraded from unique{Esh's Mirror} using currency{Blessing of Esh}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 62, 159 Int
 Implicits: 2
@@ -508,7 +508,7 @@ Cannot Block
 ]],[[
 Kongming's Stratagem
 Ivory Spirit Shield
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -528,7 +528,7 @@ No Chance to Block
 ]],[[
 Light of Lunaris
 Jingling Spirit Shield
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 28, 71 Int
@@ -547,7 +547,7 @@ Implicits: 2
 Malachai's Loop
 Harmonic Spirit Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 159 Int
@@ -576,8 +576,8 @@ equal to 25% of Sacrificed Mana for 4 seconds
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
-Source: Upgrades to unique{Matua Tupuna} via prophecy{The Mentor}
-Variant: {2_6}Pre 3.0.0
+Source: Upgrades to unique{Whakatutuki o Matua} via prophecy{The Mentor}
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 23, 60 Int
 Implicits: 2
@@ -586,43 +586,9 @@ Implicits: 2
 +2 to Level of Socketed Minion Gems
 +(15-25) to maximum Mana
 (40-80)% increased Energy Shield
-10% increased Effect of Auras on You
-10% increased Effect of Auras on your Minions
+10% increased effect of Non-Curse Auras from your Skills on your Minions
+10% increased effect of Non-Curse Auras from your Skills
 Spreads Tar when you take a Critical Strike
-]],[[
-Rathpith Globe
-Titanium Spirit Shield
-League: Legion
-Source: Drops from Vaal Legion
-Variant: {2_6}Pre 3.0.0
-Variant: Pre 3.4.0
-Variant: Pre 3.7.0
-Variant: Current
-Requires Level 68, 159 Int
-{variant:1}(40-60)% of Block Chance applied to Spells
-{variant:2}+(12-18)% chance to Block Spell Damage
-{variant:3,4}+(10-15)% chance to Block Spell Damage
-{variant:1,2,3}(40-60)% increased Spell Damage
-(120-160)% increased Energy Shield
-10% increased maximum Life
-{variant:1,2,3}+25% to Lightning Resistance
-{variant:4}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
-{variant:4}2% increased Critical Strike Chance for Spells per 100 Maximum Life
-{variant:4}2% increased Spell Damage per 100 Maximum Life
-]],[[
-Sentari's Answer
-Brass Spirit Shield
-Variant: Pre 3.4.0
-Variant: Current
-Requires Level 33, 82 Int
-{variant:1}+7% chance to Block Spell Damage
-{variant:2}+10% chance to Block Spell Damage
-+(20-30) to Intelligence
-(4-8)% increased Quantity of Items found
-+5% Chance to Block
-Applies level 15 Punishment on Blocking a Melee Attack, ignoring Curse Limit
-Applies level 15 Temporal Chains on Blocking a Projectile Attack, ignoring Curse Limit
-Applies level 15 Elemental Weakness on Blocking a Spell, ignoring Curse Limit
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
@@ -634,17 +600,48 @@ Implicits: 1
 +(40-80) to maximum Energy Shield
 (40-80)% increased Energy Shield
 +(15-25) to maximum Mana
-20% increased Effect of Auras on you
-20% increased Effect of Auras on your Minions
+20% increased effect of Non-Curse Auras from your Skills on your Minions
+20% increased effect of Non-Curse Auras from your Skills
 Spreads Tar when you Block
 If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per second
+]],[[
+Rathpith Globe
+Titanium Spirit Shield
+League: Legion
+Source: Drops from Vaal Legion
+Variant: Pre 3.4.0
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 68, 159 Int
+{variant:1}+(12-18)% chance to Block Spell Damage
+{variant:2,3}+(10-15)% chance to Block Spell Damage
+{variant:1,2}(40-60)% increased Spell Damage
+(120-160)% increased Energy Shield
+10% increased maximum Life
+{variant:1,2}+25% to Lightning Resistance
+{variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
+{variant:3}2% increased Critical Strike Chance for Spells per 100 Maximum Life
+{variant:3}2% increased Spell Damage per 100 Maximum Life
+]],[[
+Sentari's Answer
+Brass Spirit Shield
+Variant: Pre 3.4.0
+Variant: Current
+Requires Level 33, 82 Int
+{variant:1}+7% chance to Block Spell Damage
+{variant:2}+10% chance to Block Spell Damage
++(20-30) to Intelligence
+(4-8)% increased Quantity of Items found
++5% Chance to Block
+Curse Enemies with Punishment when you Block their Melee Damage, with 60% increased Effect and ignoring Curse Limit
+Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, with 60% increased Effect and ignoring Curse Limit
+Curse Enemies with Elemental Weakness when you Block their Spell Damage, with 60% increased Effect and ignoring Curse Limit
 ]],
 -- Shield: Armour/Evasion
 [[
 Daresso's Courage
 Baroque Round Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 54, 70 Str, 70 Dex
@@ -655,13 +652,12 @@ Implicits: 1
 {variant:1}+(10-20)% to Fire Resistance
 {variant:1}+(10-20)% to Cold Resistance
 {variant:1}+(10-20)% to Lightning Resistance
-{variant:2,3,4}+(10-20)% to all Elemental Resistances
-{variant:1,2}120% of Block Chance applied to Spells when on Low Life
-{variant:3}+36% chance to Block Spell Damage while on Low Life
-{variant:4}+30% chance to Block Spell Damage while on Low Life
+{variant:2,3}+(10-20)% to all Elemental Resistances
+{variant:1,2}+36% chance to Block Spell Damage while on Low Life
+{variant:3}+30% chance to Block Spell Damage while on Low Life
 +(3-6)% Chance to Block
-{variant:2,3,4}20% chance to Block Spells if you've Blocked an Attack Recently
-{variant:2,3,4}20% chance to Block Attacks if you've Blocked a Spell Recently
+{variant:2,3}20% chance to Block Spells if you've Blocked an Attack Recently
+{variant:2,3}20% chance to Block Attacks if you've Blocked a Spell Recently
 ]],[[
 The Deep One's Hide
 Studded Round Shield
@@ -675,7 +671,7 @@ Adds 4 to 8 Physical Damage to Attacks
 {variant:2}Adds 12 to 15 Cold Damage to Attacks
 (90-130)% increased Armour and Evasion
 +(30-50)% to Fire Resistance
-Curse Enemies with level 5 Vulnerability on Block
+Curse Enemies with Vulnerability on Block, with 20% increased Effect
 ]],[[
 The Ghastly Theatre
 Teak Round Shield
@@ -800,7 +796,7 @@ Socketed Gems have 25% reduced Mana Reservation
 Rise of the Phoenix
 Mosaic Kite Shield
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.1.0
+Variant: Pre 3.1.0
 Variant: Current
 Requires Level 65, 85 Str, 85 Int
 Implicits: 2
@@ -820,21 +816,18 @@ Cannot be Ignited while on Low Life
 Saffell's Frame
 Branded Kite Shield
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 59, 76 Str, 76 Int
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
-{variant:2,3,4}+4% to all Elemental Resistances
-{variant:1}(100-120)% of Block Chance applied to Spells
-{variant:2}(70-80)% of Block Chance applied to Spells
-{variant:3}+(21-24)% chance to Block Spell Damage
-{variant:4}+(15-20)% chance to Block Spell Damage
+{variant:2,3}+4% to all Elemental Resistances
+{variant:1,2}+(21-24)% chance to Block Spell Damage
+{variant:3}+(15-20)% chance to Block Spell Damage
 (20-30)% increased Spell Damage
 +10% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
-{variant:2,3,4}+4% to all maximum Resistances
+{variant:2,3}+4% to all maximum Resistances
 Cannot Block Attacks
 ]],[[
 Springleaf
@@ -957,7 +950,7 @@ Implicits: 1
 ]],[[
 Glitterdisc
 Burnished Spiked Shield
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 27, 36 Dex, 36 Int
 Implicits: 2
@@ -973,7 +966,7 @@ Implicits: 2
 Jaws of Agony
 Supreme Spiked Shield
 Variant: Pre 2.0.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 70, 85 Dex, 85 Int
@@ -1006,7 +999,7 @@ Shared Suffering
 ]],[[
 Maligaro's Lens
 Compound Spiked Shield
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 45, 58 Dex, 58 Int
@@ -1034,6 +1027,18 @@ Triggers Level 20 Lightning Aegis when Equipped
 (300-400)% increased Evasion and Energy Shield
 +(1-75) to maximum Mana
 (1-20)% increased Movement Speed
+]],[[
+Qotra's Regulator
+Sovereign Spiked Shield
+League: Ritual
+Requires Level 54, 70 Dex, 70 Int
+Implicits: 1
+4% chance to Dodge Spell Hits
+(160-220)% increased Evasion and Energy Shield
++(40-60)% to Damage over Time Multiplier if you've dealt a Critical Strike in the past 8 seconds
+(2.0-2.5)% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds
+Lose (10-15)% of Energy Shield when you deal a Critical Strike
+Lose (10-15)% of Life when you deal a Critical Strike
 ]],[[
 Zeel's Amplifier
 Polished Spiked Shield

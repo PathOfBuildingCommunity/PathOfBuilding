@@ -109,16 +109,24 @@ function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, red
 	return out
 end
 
-function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore)
+function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes)
 	local out = { }
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 	if resist ~= 0 then
-		t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
+		if sourceRes and sourceRes ~= 0 then
+			t_insert(out, s_format("Enemy %s: %d%% ^8(%s)", resistForm, resist, sourceRes))
+		else
+			t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
+		end
 	end
 	if pen ~= 0 then
 		t_insert(out, "Effective resistance:")
 		t_insert(out, s_format("%d%% ^8(resistance)", resist))
-		t_insert(out, s_format("- %d%% ^8(penetration)", pen))
+		if pen < 0 then
+			t_insert(out, s_format("+ %d%% ^8(penetration)", -pen))
+		else
+			t_insert(out, s_format("- %d%% ^8(penetration)", pen))
+		end
 		t_insert(out, s_format("= %d%%", resist - pen))
 	end
 	breakdown.multiChain(out, {

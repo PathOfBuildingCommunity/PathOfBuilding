@@ -6,18 +6,8 @@
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
-local t_remove = table.remove
 local m_max = math.max
-local m_min = math.min
 local m_floor = math.floor
-local band = bit.band
-
-local calcs = { }
-local sectionData = { } 
-for _, targetVersion in ipairs(targetVersionList) do
-	calcs[targetVersion] = LoadModule("Modules/Calcs", targetVersion)
-	sectionData[targetVersion] = LoadModule("Modules/CalcSections-"..targetVersion)
-end
 
 local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
@@ -33,7 +23,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 	self.build = build
 
-	self.calcs = calcs[build.targetVersion]
+	self.calcs = LoadModule("Modules/Calcs")
 
 	self.input = { }
 	self.input.skill_number = 1
@@ -70,6 +60,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end)
+		}, },{ label = "Skill Stages", playerFlag = "multiStage", { controlName = "mainSkillStageCount",
+			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillStageCountCalcs = tonumber(buf)
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
@@ -141,7 +139,8 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	end)
 
 	-- Add sections from the CalcSections module
-	for _, section in ipairs(sectionData[build.targetVersion]) do
+	local sectionData = LoadModule("Modules/CalcSections")
+	for _, section in ipairs(sectionData) do
 		self:NewSection(unpack(section))
 	end
 
@@ -504,7 +503,29 @@ function CalcsTabClass:PowerBuilder()
 			coroutine.yield()
 			start = GetTime()
 		end
-	end	
+	end
+
+	-- Calculate the impact of every cluster notable
+	-- used for the power report screen
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		if not node.power then
+			node.power = {}
+		end
+		wipeTable(node.power)
+		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			if not cache[node.modKey] then
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
+			end
+			local output = cache[node.modKey]
+			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+			end
+		end
+		if coroutine.running() and GetTime() - start > 100 then
+			coroutine.yield()
+			start = GetTime()
+		end
+	end
 	self.powerMax = newPowerMax
 end
 

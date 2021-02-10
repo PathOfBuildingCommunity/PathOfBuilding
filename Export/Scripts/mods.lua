@@ -20,16 +20,17 @@ local function writeMods(outName, condFunc)
 		if condFunc(mod) then
 			if mod.Domain == 16 and string.match(outName, "Item") then
 				if mod.SpawnTags[1].Id == "abyss_jewel" and mod.SpawnTags[2].Id == "jewel" and #mod.SpawnTags == 3 then
+					print("[Item]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
 			elseif mod.Domain == 16 and string.match(outName, "JewelAbyss") then
 				if not table.containsId(mod.SpawnTags, "abyss_jewel") then
-					print("baz")
+					print("[Abyss Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
 			elseif mod.Domain == 16 and string.match(outName, "Jewel") then
 				if not table.containsId(mod.SpawnTags, "jewel") then
-					print("qux")
+					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
 			end
@@ -79,19 +80,19 @@ local function writeMods(outName, condFunc)
 	out:close()
 end
 
-writeMods("../Data/3_0/ModItem.lua", function(mod)
+writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
-writeMods("../Data/3_0/ModFlask.lua", function(mod)
+writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
-writeMods("../Data/3_0/ModJewel.lua", function(mod)
+writeMods("../Data/ModJewel.lua", function(mod)
 	return (mod.Domain == 10 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
-writeMods("../Data/3_0/ModJewelAbyss.lua", function(mod)
+writeMods("../Data/ModJewelAbyss.lua", function(mod)
 	return (mod.Domain == 13 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
-writeMods("../Data/3_0/ModJewelCluster.lua", function(mod)
+writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
 

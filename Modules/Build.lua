@@ -12,29 +12,11 @@ local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
 
-local normalBanditDropList = {
-	{ label = "Passive point", banditId = "None" },
-	{ label = "Oak (Life)", banditId = "Oak" },
-	{ label = "Kraityn (Resists)", banditId = "Kraityn" },
-	{ label = "Alira (Mana)", banditId = "Alira" },
-}
-local cruelBanditDropList = {
-	{ label = "Passive point", banditId = "None" },
-	{ label = "Oak (Endurance)", banditId = "Oak" },
-	{ label = "Kraityn (Frenzy)", banditId = "Kraityn" },
-	{ label = "Alira (Power)", banditId = "Alira" },
-}
-local mercilessBanditDropList = {
-	{ label = "Passive point", banditId = "None" },
-	{ label = "Oak (Phys Dmg)", banditId = "Oak" },
-	{ label = "Kraityn (Att. Speed)", banditId = "Kraityn" },
-	{ label = "Alira (Cast Speed)", banditId = "Alira" },
-}
-local fooBanditDropList = {
-	{ label = "2 Passive Points", banditId = "None" },
-	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", banditId = "Oak" },
-	{ label = "Kraityn (Attack/Cast Speed, Attack Dodge, Move Speed)", banditId = "Kraityn" },
-	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", banditId = "Alira" },
+local banditDropList = {
+	{ label = "2 Passive Points", id = "None" },
+	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", id = "Oak" },
+	{ label = "Kraityn (Attack/Cast Speed, Attack Dodge, Move Speed)", id = "Kraityn" },
+	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", id = "Alira" },
 }
 
 local PantheonMajorGodDropList = {
@@ -59,7 +41,7 @@ local PantheonMinorGodDropList = {
 
 local buildMode = new("ControlHost")
 
-function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
+function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
 	if dbFileName then
@@ -71,11 +53,36 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		main:SetMode("LIST")
 	end
 
-	if not dbFileName and not targetVersion and not buildXML then
-		targetVersion = liveTargetVersion
-		--self.targetVersion = nil
-		--self:OpenTargetVersionPopup(true)
-		--return
+	-- Load build file
+	self.xmlSectionList = { }
+	self.spectreList = { }
+	self.viewMode = "TREE"
+	self.characterLevel = 1
+	self.targetVersion = liveTargetVersion
+	self.bandit = "None"
+	self.pantheonMajorGod = "None"
+	self.pantheonMinorGod = "None"
+	if buildXML then
+		if self:LoadDB(buildXML, "Unnamed build") then
+			self:CloseBuild()
+			return
+		end
+		self.modFlag = true
+	else
+		if self:LoadDBFile() then
+			self:CloseBuild()
+			return
+		end
+		self.modFlag = false
+	end
+
+	if convertBuild then
+		self.targetVersion = liveTargetVersion
+	end
+	if self.targetVersion ~= liveTargetVersion then
+		self.targetVersion = nil
+		self:OpenConversionPopup()
+		return
 	end
 
 	self.abortSave = true
@@ -153,7 +160,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 	self.controls.pointDisplay.width = function(control)
 		local used, ascUsed = self.spec:CountAllocNodes()
-		local usedMax = 99 + (self.targetVersion == "2_6" and 21 or 22) + (self.calcsTab.mainOutput.ExtraPoints or 0)
+		local usedMax = 99 + 22 + (self.calcsTab.mainOutput.ExtraPoints or 0)
 		local ascMax = 8
 		control.str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
 		control.req = "Required level: "..m_max(1, (100 + used - usedMax))
@@ -181,6 +188,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
+	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	self.controls.characterLevel.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.characterLevel) then
 			tooltip:AddLine(16, "Experience multiplier:")
@@ -246,7 +254,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "MineLayingTime", label = targetVersion == "2_6" and "Mine Laying Time" or "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
@@ -254,7 +262,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
-		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0 == 0) and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
+		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
 		{ stat = "BleedDamage", label = "Total Damage per Bleed", fmt = ".1f", compPercent = true, flag = "showAverage" },
 		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
@@ -343,13 +351,19 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
+		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
+		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
-		{ stat = "WithPoisonDPS", label = "DPS inc. Poison", fmt = ".1f", compPercent = true },
+		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
+		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
+		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
+		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
+		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDot and v ~= o.ImpaleDPS and v ~= o.TotalPoisonDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BleedDPS end },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
-		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale" },
-		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS end},
+		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
+		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
@@ -368,40 +382,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		"ActiveTotemLimit",
 		"ActiveMinionLimit",
 	}
-
-	self.viewMode = "TREE"
-
-	self.targetVersion = defaultTargetVersion
-	self.characterLevel = 1
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
-	self.banditNormal = "None"
-	self.banditCruel = "None"
-	self.banditMerciless = "None"
-	self.pantheonMajorGod = "None"
-	self.pantheonMinorGod = "None"
-	self.spectreList = { }
-
-	-- Load build file
-	self.xmlSectionList = { }
-	if buildXML then
-		if self:LoadDB(buildXML, "Unnamed build") then
-			self:CloseBuild()
-			return
-		end
-		self.modFlag = true
-	else
-		if self:LoadDBFile() then
-			self:CloseBuild()
-			return
-		end
-		self.modFlag = false
-	end
-
-	if targetVersion then
-		self.targetVersion = targetVersion
-	end
-	self.targetVersionData = targetVersions[self.targetVersion]
-
 	if buildName == "~~temp~~" then
 		-- Remove temporary build file
 		os.remove(self.dbFileName)
@@ -441,69 +421,48 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
-	if self.targetVersion == "2_6" then
-		self.controls.banditNormal = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, normalBanditDropList, function(index, value)
-			self.banditNormal = value.banditId
-			self.modFlag = true
-			self.buildFlag = true
-		end)
-		self.controls.banditNormalLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "^7Normal Bandit:")
-		self.controls.banditCruel = new("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, mercilessBanditDropList, function(index, value)
-			self.banditCruel = value.banditId
-			self.modFlag = true
-			self.buildFlag = true
-		end)
-		self.controls.banditCruelLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "^7Cruel Bandit:")
-		self.controls.banditMerciless = new("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, cruelBanditDropList, function(index, value)
-			self.banditMerciless = value.banditId
-			self.modFlag = true
-			self.buildFlag = true
-		end)
-		self.controls.banditMercilessLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
-	else
-		self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, fooBanditDropList, function(index, value)
-			self.bandit = value.banditId
-			self.modFlag = true
-			self.buildFlag = true
-		end)
-		self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
-		-- The Pantheon
-		local function applyPantheonDescription(tooltip, mode, index, value)
-			tooltip:Clear()
-			if value.id == "None" then
-				return
-			end
-			local applyModes = { BODY = true, HOVER = true }
-			if applyModes[mode] then
-				local god = self.data.pantheons[value.id]
-				for _, soul in ipairs(god.souls) do
-					local name = soul.name
-					local lines = { }
-					for _, mod in ipairs(soul.mods) do
-						t_insert(lines, mod.line)
-					end
-					tooltip:AddLine(20, '^8'..name)
-					tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
-					tooltip:AddSeparator(10)
+	self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, banditDropList, function(index, value)
+		self.bandit = value.id
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
+	-- The Pantheon
+	local function applyPantheonDescription(tooltip, mode, index, value)
+		tooltip:Clear()
+		if value.id == "None" then
+			return
+		end
+		local applyModes = { BODY = true, HOVER = true }
+		if applyModes[mode] then
+			local god = self.data.pantheons[value.id]
+			for _, soul in ipairs(god.souls) do
+				local name = soul.name
+				local lines = { }
+				for _, mod in ipairs(soul.mods) do
+					t_insert(lines, mod.line)
 				end
+				tooltip:AddLine(20, '^8'..name)
+				tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
+				tooltip:AddSeparator(10)
 			end
 		end
-		self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 110, 300, 16, PantheonMajorGodDropList, function(index, value)
-			self.pantheonMajorGod = value.id
-			self.modFlag = true
-			self.buildFlag = true
-		end)
-		self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
-		self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
-			self.pantheonMinorGod = value.id
-			self.modFlag = true
-			self.buildFlag = true
-		end)
-		self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
-		self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
 	end
-	local mainSkillPosY = (self.targetVersion == "2_6") and 95 or 155 -- The Pantheon's DropDown space
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, mainSkillPosY, 300, 16, "^7Main Skill:")
+	self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 110, 300, 16, PantheonMajorGodDropList, function(index, value)
+		self.pantheonMajorGod = value.id
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
+	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
+		self.pantheonMinorGod = value.id
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
+	self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
+	-- Skills
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 155, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
@@ -528,7 +487,19 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Active Mines:") {
+	self.controls.mainSkillStageCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Stages:") {
+		shown = function()
+			return self.controls.mainSkillStageCount:IsShown()
+		end,
+	}
+	self.controls.mainSkillStageCount = new("EditControl", {"LEFT",self.controls.mainSkillStageCountLabel,"RIGHT",true}, 2, 0, 60, 18, nil, nil, "%D", nil, function(buf)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillStageCount = tonumber(buf)
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillStageCountLabel,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Active Mines:") {
 		shown = function()
 			return self.controls.mainSkillMineCount:IsShown()
 		end,
@@ -587,8 +558,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 
 	-- Initialise build components
-	self.data = data[self.targetVersion]
-	self.latestTree = main.tree[self.targetVersionData.latestTreeVersion]
+	self.data = data
+	self.latestTree = main.tree[latestTreeVersion]
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
 	self.configTab = new("ConfigTab", self)
@@ -677,7 +648,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 end
 
 function buildMode:CanExit(mode)
-	if not self.targetVersion or not self.unsaved then
+	if not self.unsaved then
 		return true
 	end
 	self:OpenSavePopup(mode)
@@ -710,20 +681,19 @@ function buildMode:CloseBuild()
 end
 
 function buildMode:Load(xml, fileName)
-	self.targetVersion = data[xml.attrib.targetVersion] and xml.attrib.targetVersion or defaultTargetVersion
+	self.targetVersion = xml.attrib.targetVersion or legacyTargetVersion
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
-	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless","pantheonMajorGod","pantheonMinorGod"}) do
+	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
 	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
 	wipeTable(self.spectreList)
 	for _, child in ipairs(xml) do
 		if child.elem == "Spectre" then
-			if child.attrib.id and data[self.targetVersion].minions[child.attrib.id] then
+			if child.attrib.id and data.minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
 		end
@@ -738,9 +708,6 @@ function buildMode:Save(xml)
 		className = self.spec.curClassName,
 		ascendClassName = self.spec.curAscendClassName,
 		bandit = self.bandit,
-		banditNormal = self.banditNormal,
-		banditCruel = self.banditCruel,
-		banditMerciless = self.banditMerciless,
 		pantheonMajorGod = self.pantheonMajorGod,
 		pantheonMinorGod = self.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
@@ -776,6 +743,7 @@ function buildMode:Save(xml)
 end
 
 function buildMode:OnFrame(inputEvents)
+	-- Stop at drawing the background if the loaded build needs to be converted
 	if not self.targetVersion then
 		main:DrawBackground(main.viewPort)
 		return
@@ -832,12 +800,7 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
-	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless"}) do
-		if self.controls[diff] then
-			self.controls[diff]:SelByValue(self[diff], "banditId")
-		end
-	end
-	for _, diff in pairs({"pantheonMajorGod","pantheonMinorGod"}) do
+	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		if self.controls[diff] then
 			self.controls[diff]:SelByValue(self[diff], "id")
 		end
@@ -904,50 +867,45 @@ function buildMode:OnFrame(inputEvents)
 	self:DrawControls(main.viewPort)
 end
 
--- Opens the game version selection popup
-function buildMode:OpenTargetVersionPopup(initial)
+-- Opens the game version conversion popup
+function buildMode:OpenConversionPopup()
 	local controls = { }
-	local function setVersion(version)
-		if version == self.targetVersion then
-			main:ClosePopup()
-			return
-		end
-		if initial then
-			main:ClosePopup()
-			self:Shutdown()
-			self:Init(false, self.buildName, nil, version)
-		end
-	end
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Which game version will this build use?")
-	controls.version2_6 = new("ButtonControl", nil, -90, 50, 170, 20, "2.6 (Atlas of Worlds)", function()
-		setVersion("2_6")
-	end)
-	controls.version3_0 = new("ButtonControl", nil, 90, 50, 170, 20, "3.0 (Fall of Oriath)", function()
-		setVersion("3_0")
-	end)
-	controls.note = new("LabelControl", nil, 0, 80, 0, 14, "^7Tip: Existing builds can be converted between versions\nusing the 'Game Version' option in the Configuration tab.")
-	controls.cancel = new("ButtonControl", nil, 0, 120, 80, 20, "Cancel", function()
+	local currentVersion = treeVersions[latestTreeVersion].display
+	controls.note = new("LabelControl", nil, 0, 20, 0, 16, colorCodes.TIP..[[
+Info:^7 You are trying to load a build created for a version of Path of Exile that is
+not supported by us. You will have to convert it to the current game version to load it.
+To use a build newer than the current supported game version, you may have to update.
+To use a build older than the current supported game version, we recommend loading it
+in an older version of Path of Building Community instead.
+]])
+	controls.label = new("LabelControl", nil, 0, 110, 0, 16, colorCodes.WARNING..[[
+Warning:^7 Converting a build to a different game version may have side effects.
+For example, if the passive tree has changed, then some passives may be deallocated.
+You should create a backup copy of the build before proceeding.
+]])
+	controls.convert = new("ButtonControl", nil, -40, 170, 120, 20, "Convert to ".. currentVersion, function()
 		main:ClosePopup()
-		if initial then
-			self:CloseBuild()
-		end
+		self:Shutdown()
+		self:Init(self.dbFileName, self.buildName, nil, true)
 	end)
-	main:OpenPopup(370, 150, "Game Version", controls, nil, nil, "cancel")
+	controls.cancel = new("ButtonControl", nil, 60, 170, 70, 20, "Cancel", function()
+		main:ClosePopup()
+		self:CloseBuild()
+	end)
+	main:OpenPopup(580, 200, "Game Version", controls, "convert", nil, "cancel")
 end
 
-function buildMode:OpenSavePopup(mode, newVersion)
+function buildMode:OpenSavePopup(mode)
 	local modeDesc = {
 		["LIST"] = "now?",
 		["EXIT"] = "before exiting?",
 		["UPDATE"] = "before updating?",
-		["VERSION"] = "before converting?",
 	}
 	local controls = { }
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
 	controls.save = new("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
 		main:ClosePopup()
 		self.actionOnSave = mode
-		self.versionOnSave = newVersion
 		self:SaveDBFile()
 	end)
 	controls.noSave = new("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
@@ -958,9 +916,6 @@ function buildMode:OpenSavePopup(mode, newVersion)
 			Exit()
 		elseif mode == "UPDATE" then
 			launch:ApplyUpdate(launch.updateAvailable)
-		elseif mode == "VERSION" then
-			self:Shutdown()
-			self:Init(self.dbFileName, self.buildName, nil, newVersion)
 		end
 	end)
 	controls.close = new("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
@@ -1012,7 +967,6 @@ function buildMode:OpenSaveAsPopup()
 	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
-		self.versionOnSave = nil
 	end)
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
@@ -1063,6 +1017,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkill.shown = false
 		controls.mainSkillPart.shown = false
 		controls.mainSkillMineCount.shown = false
+		controls.mainSkillStageCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionSkill.shown = false
 	else
@@ -1078,6 +1033,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkill.shown = true
 		controls.mainSkillPart.shown = false
 		controls.mainSkillMineCount.shown = false
+		controls.mainSkillStageCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionLibrary.shown = false
 		controls.mainSkillMinionSkill.shown = false
@@ -1096,6 +1052,10 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 				if activeSkill.skillFlags.mine then
 					controls.mainSkillMineCount.shown = true
 					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
+				end
+				if activeSkill.skillFlags.multiStage then
+					controls.mainSkillStageCount.shown = true
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or "")
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
@@ -1262,13 +1222,13 @@ do
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
-		if str and (str > 14 or str > self.calcsTab.mainOutput.Str) then
+		if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
 			t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
 		end
-		if dex and (dex > 14 or dex > self.calcsTab.mainOutput.Dex) then
+		if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
 			t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
 		end
-		if int and (int > 14 or int > self.calcsTab.mainOutput.Int) then
+		if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
 			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
 		end
 		if req[1] then
@@ -1313,6 +1273,7 @@ function buildMode:LoadDBFile()
 	ConPrintf("Loading '%s'...", self.dbFileName)
 	local file = io.open(self.dbFileName, "r")
 	if not file then
+		self.dbFileName = nil
 		return true
 	end
 	local xmlText = file:read("*a")
@@ -1351,10 +1312,6 @@ function buildMode:SaveDBFile()
 		self:OpenSaveAsPopup()
 		return
 	end
-	if self.versionOnSave then
-		self.targetVersion = self.versionOnSave
-		self.versionOnSave = nil
-	end
 	local xmlText = self:SaveDB(self.dbFileName)
 	if not xmlText then
 		return true
@@ -1374,9 +1331,6 @@ function buildMode:SaveDBFile()
 		Exit()
 	elseif action == "UPDATE" then
 		launch:ApplyUpdate(launch.updateAvailable)
-	elseif action == "VERSION" then
-		self:Shutdown()
-		self:Init(self.dbFileName, self.buildName)
 	end
 end
 

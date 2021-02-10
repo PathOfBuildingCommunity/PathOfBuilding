@@ -142,7 +142,7 @@ Legion Sword
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 62, 122 Str, 104 Dex
@@ -447,7 +447,7 @@ League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{United in Dream} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 38, 55 Str, 79 Dex
 Implicits: 2
@@ -464,7 +464,7 @@ United in Dream
 Cutlass
 Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 League: Breach
 Requires Level 69, 55 Str, 79 Dex
@@ -712,7 +712,7 @@ Manifested Dancing Dervish also manifests a copy of Dancing Dervish
 Doomsower
 Lion Sword
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -769,22 +769,20 @@ Enemies you Attack Reflect 100 Physical Damage to you
 Kondo's Pride 
 Ezomyte Blade
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 61, 113 Str, 113 Dex
 Implicits: 3
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}+435 to Accuracy Rating
-{variant:4}+25% to Global Critical Strike Multiplier
-{variant:1,2,3}(270-320)% increased Physical Damage
-{variant:4}(220-250)% increased Physical Damage
+{variant:2}+435 to Accuracy Rating
+{variant:3}+25% to Global Critical Strike Multiplier
+{variant:1,2}(270-320)% increased Physical Damage
+{variant:3}(220-250)% increased Physical Damage
 0.6% of Physical Attack Damage Leeched as Life
 50% increased Melee Damage against Bleeding Enemies
 Cannot Leech Life from Critical Strikes
 30% chance to Blind Enemies on Critical Strike
-{variant:1,2}Causes Bleeding on Melee Critical Strike
-{variant:3,4}50% chance to cause Bleeding on Critical Strike
+50% chance to cause Bleeding on Critical Strike
 ]],[[
 Oro's Sacrifice
 Infernal Sword
@@ -943,7 +941,7 @@ Implicits: 2
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 Your Elemental Damage can Shock
-Gain 300% of Weapon Physical Damage as Extra Damage of an Element
+Gain 300% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
 Elder Item

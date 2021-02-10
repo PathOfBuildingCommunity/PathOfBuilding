@@ -183,8 +183,9 @@ local skills, mod, flag, skill = ...
 		["fortify_effect_+%"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
 		},
-		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
-			mod("EnemyPhysicalDamageReduction", "INC", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment), 0, { type = "Condition", var = "Fortify"}),
+		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
+			mult = -1,
 		},
 	},
 #mods
@@ -254,7 +255,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
 		["chance_to_bleed_on_hit_%_vs_maimed"] = {
-			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", condition = "Maimed"})
+			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
 		}
 	},
 #mods
@@ -409,6 +410,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportBluntWeaponShockwave
 #flags attack melee area
+#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportSpellTotem

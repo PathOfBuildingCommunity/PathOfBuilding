@@ -176,7 +176,7 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ]],[[
 Bisco's Collar
 Gold Amulet
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
 Requires Level 30
@@ -217,24 +217,28 @@ Corrupted
 Bloodgrip
 Coral Amulet
 Variant: Pre 3.0.0
+Variant: Current
 Requires Level 55
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}(2.0-4.0) Life Regenerated per second
 {tags:attack}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
-{tags:life}(8-12) Life Regenerated per second
+{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
+{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
 {tags:life}100% increased Life Recovery from Flasks
 Moving while Bleeding doesn't cause you to take extra Damage
 ]],[[
 Bloodgrip
 Marble Amulet
+Variant: Pre 3.12.0
 Variant: Current
 Requires Level 74
 Implicits: 1
 {tags:life}(1.2-1.6)% of Life Regenerated per second
 {tags:attack}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
-{tags:life}(8-12) Life Regenerated per second
+{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
+{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
 {tags:life}100% increased Life Recovery from Flasks
 Moving while Bleeding doesn't cause you to take extra Damage
 ]],[[
@@ -281,7 +285,7 @@ Implicits: 1
 ]],[[
 Extractor Mentis
 Agate Amulet
-Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 16
 Implicits: 1
@@ -289,9 +293,9 @@ Implicits: 1
 {tags:jewellery_attribute}+(30-50) to Strength
 5% chance to grant Unholy Might to nearby Enemies on Kill
 5% chance to grant Onslaught to nearby Enemies on Kill
-{variant:1}5% chance to gain Unholy Might for 3 seconds on Kill
+{variant:1}5% chance to gain Unholy Might for 10 seconds on Kill
 {variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
-{variant:1}{tags:caster,attack}5% chance to gain Onslaught for 3 seconds on Kill
+{variant:1}{tags:caster,attack}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}{tags:caster,attack}10% chance to gain Onslaught for 10 seconds on Kill
 {tags:life}Recover 1% of Maximum Life on Kill
 ]],[[
@@ -406,11 +410,11 @@ Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-50) to Intelligence
-{tags:caster,speed}(10-15)% increased Cast Speed
+{tags:caster}(10-15)% increased Cast Speed
 (10-15)% increased Area of Effect
-Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
-Your Curses have 25% increased Effect if 50% of Curse Duration expired
-Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
+{tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
+{tags:caster}Your Curses have 25% increased Effect if 50% of Curse Duration expired
+{tags:caster}Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
 ]],[[
 Fury Valve
 Turquoise Amulet
@@ -697,7 +701,7 @@ League: Delve
 Requires Level 34
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
-Can Summon up to 3 additional Golems at a time
++3 to maximum number of Golems
 You cannot have non-Golem Minions
 25% reduced Golem Size
 Golems Deal (35-45)% less Damage
@@ -707,15 +711,12 @@ Primordial
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
-{variant:1}{tags:jewellery_elemental}20% increased Duration of Elemental Status Ailments on Enemies
-{variant:2}{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
+{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
 {tags:jewellery_attribute}Items and Gems have 10% reduced Attribute Requirements
 {tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
@@ -792,7 +793,7 @@ Implicits: 1
 ]],[[
 Sidhebreath
 Paua Amulet
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 (20-30)% increased Mana Regeneration Rate
@@ -830,25 +831,24 @@ Requires Level 28
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:3}Grants Level 10 Frostblink Skill
-(30-50)% increased Cold Damage
+{tags:jewellery_elemental}(30-50)% increased Cold Damage
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
-{variant:1}30% increased Radius of Curse Skills
-{variant:2,3}60% increased Area of Effect of Curse Skills
-You cannot be Cursed with Silence
+{variant:1}{tags:caster}30% increased Area of Effect of Hex Skills
+{variant:2,3}{tags:caster}60% increased Area of Effect of Hex Skills
+{tags:caster}You cannot be Cursed with Silence
 {variant:1,2}Grants level 20 Illusory Warp Skill
+{variant:3}{tags:caster}Frostblink has 50% increased Duration
 Corrupted
 ]],[[
 Stone of Lazhwar
 Lapis Amulet
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-{variant:1}50% of Block Chance applied to Spells
-{variant:2}+15% chance to Block Spell Damage
-{variant:3}+(12-15)% chance to Block Spell Damage
+{variant:1}+15% chance to Block Spell Damage
+{variant:2}+(12-15)% chance to Block Spell Damage
 {tags:caster}(10-15)% increased Cast Speed
 {tags:mana}+(30-50) to maximum Mana
 ]],[[
@@ -920,7 +920,7 @@ Choir of the Storm
 Lapis Amulet
 League: Breach
 Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69
 Implicits: 1

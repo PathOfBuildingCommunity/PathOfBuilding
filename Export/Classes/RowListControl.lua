@@ -5,7 +5,6 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
-local t_remove = table.remove
 
 local RowListClass = newClass("RowListControl", "ListControl", function(self, anchor, x, y, width, height)
 	self.ListControl(anchor, x, y, width, height, 14, true, false, { })

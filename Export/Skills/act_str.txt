@@ -35,6 +35,9 @@ local skills, mod, flag, skill = ...
 		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["ancestor_totem_buff_effect_+%"] = {
+			mod("BuffEffect", "INC", nil)
+		},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod skill("thisIsNotABuff", true)
@@ -98,6 +101,12 @@ local skills, mod, flag, skill = ...
 		},
 		["spell_maximum_added_fire_damage"] = {
 			mod("FireMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["burn_damage_+%"] = {
+			mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 40)
@@ -178,7 +187,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 2 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance" }),
 		},
 		["bladestorm_attack_speed_+%_final_while_in_bloodstorm"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
 		},
 		["bladestorm_movement_speed_+%_while_in_sandstorm"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sandstorm", effectCond = "BladestormInSandstorm" }),
@@ -263,6 +272,9 @@ local skills, mod, flag, skill = ...
 		["determination_aura_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["evasion_rating_%_to_add_as_armour"] = {
+			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 #baseMod skill("radius", 40)
 #mods
@@ -287,6 +299,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		},
+		["damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
 		}
 	},
 #mods
@@ -332,7 +347,8 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
 		},
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			-- mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil)
+			flag("SpellDamageAppliesToAttacks"),
+			mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil),
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
@@ -387,13 +403,13 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		}
 	},
-#baseMod skill("radius", 20, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
 
 #skill EnduringCry
 #flags warcry area duration
 	statMap = {
-		["regenerate_X_life_over_1_second_on_cast"] = {
+		["regenerate_x_life_over_1_second_on_skill_use_or_trigger"] = {
 			mod("EnduringCryLifeRegen", "BASE", nil),
 		},
 		["resist_all_elements_%_per_endurance_charge"] = {
@@ -414,7 +430,7 @@ local skills, mod, flag, skill = ...
 		},
 		["evasion_and_physical_damage_reduction_rating_+%"] = {
 			mod("Evasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Armor", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+			mod("Armour", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
 		["damage_+%_if_changed_stances_recently"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff"}, { type = "Condition", var = "ChangedStanceRecently" })
@@ -569,13 +585,13 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 	statMap = {
 		["mortal_call_elemental_damage_taken_+%_final"] = {
-			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["mortal_call_physical_damage_taken_+%_final"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["mortal_call_physical_damage_taken_per_endurance_charge_consumed_final_permyriad"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
 			div = 100,
 		},
 	},
@@ -583,11 +599,42 @@ local skills, mod, flag, skill = ...
 
 #skill VaalImmortalCall
 #flags spell duration
+#baseMod flag("Condition:CannotDie", { type = "GlobalEffect", effectType = "Guard" })
 #mods
 
 #skill InfernalBlow
-#flags attack melee
+#flags attack melee duration
+	statMap = {
+		["infernal_blow_explosion_damage_%_of_total_per_stack"] = {
+			mod("DebuffEffect", "BASE", nil)
+		}
+	},
+	parts = {
+		{
+			name = "Melee Hit",
+			area = false
+		},
+		{
+			name = "Debuff Explosion - 1 Stack",
+			area = true
+		},
+		{
+			name = "Debuff Explosion - 6 Stacks",
+			area = true
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect")
+		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
+			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlow", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
+		end
+		if activeSkill.skillPart == 3 then
+			activeSkill.skillData.dpsMultiplier = 1 / 6
+		end
+	end,
 #baseMod skill("radius", 15)
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:DebuffStack", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill IntimidatingCry
@@ -599,7 +646,7 @@ local skills, mod, flag, skill = ...
 		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
 			mod("IntimidatingPDRPer5MP", "BASE", nil),
 		},
-		["exerted_attacks_overwhelm_%_physical_damage_reduction"] = {
+		["warcry_grant_overwhelm_%_to_exerted_attacks"] = {
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
 		}
@@ -621,7 +668,17 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
-			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorb_limit_%_of_armour"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard" }),
+			div = 100,
+		},
+		["molten_shell_max_damage_absorbed"] = {
+			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
 			skill("moltenShellReflect", nil),
@@ -642,7 +699,17 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["base_physical_damage_reduction_rating"] = {
-			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["molten_shell_damage_absorb_limit_%_of_armour"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard" }),
+			div = 100,
+		},
+		["molten_shell_max_damage_absorbed"] = {
+			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["vaal_molten_shall_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -698,6 +765,9 @@ local skills, mod, flag, skill = ...
 		["blood_spears_additional_number_of_spears_if_changed_stance_recently"] = {
 			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently" }),
 		},
+		["skill_area_of_effect_+%_final_in_sand_stance"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "SandStance" }),
+		}
 	},
 #baseMod skill("dpsMultiplier", 1, { type = "Multiplier", var = "PerforateSpikeOverlap", limitVar = "PerforateMaxSpikes" }, { type = "Condition", var = "BloodStance" })
 #baseMod skill("radius", 11, { type = "Condition", var = "SandStance" })
@@ -760,10 +830,10 @@ local skills, mod, flag, skill = ...
 		["hits_ignore_my_fire_resistance"] = {
 			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
-		["impurity_fire_damage_taken_+%_final"] = {
-			mod("FireDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["base_maximum_fire_damage_resistance_%"] = {
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-	},	
+	},
 #mods
 
 #skill RallyingCry
@@ -861,7 +931,7 @@ local skills, mod, flag, skill = ...
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["skill_buff_grants_attack_and_cast_speed_"] = {
+		["skill_buff_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		}
 	},
@@ -895,7 +965,7 @@ local skills, mod, flag, skill = ...
 	},
 preDamageFunc = function(activeSkill, output)
 	if activeSkill.skillPart == 2 then
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency * ((activeSkill.skillData.repeatFrequencyIncrease or 0) + 1)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / ((activeSkill.skillData.repeatFrequencyIncrease or 0) + 1)
 	end
 end,
 #baseMod skill("radius", 20)
@@ -905,8 +975,18 @@ end,
 #flags spell duration
 	statMap = {
 		["resist_all_%"] = {
-			mod("ElementalResist", "BASE", nil)
-		}
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["quick_guard_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["quick_guard_damage_absorb_limit"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["steelskin_damage_limit_+%"] = {
+			mod("GuardAbsorbLimit", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
 	},
 #mods
 
@@ -1051,6 +1131,10 @@ end,
 		},
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_rage_regeneration_on_stun"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 #baseMod skill("debuff", true)

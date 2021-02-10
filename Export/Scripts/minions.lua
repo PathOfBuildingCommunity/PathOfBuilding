@@ -149,7 +149,7 @@ directiveTable.spectre = function(state, args, out)
 end
 
 for _, name in pairs({"Spectres","Minions"}) do
-	processTemplateFile(name, "Minions/", "../Data/3_0/", directiveTable)
+	processTemplateFile(name, "Minions/", "../Data/", directiveTable)
 end
 
 print("Minion data exported.")

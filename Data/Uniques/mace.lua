@@ -37,17 +37,15 @@ Cameria's Maul
 Gavel
 Upgrade: Upgrades to unique{Cameria's Avarice} via prophecy{Cold Greed}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 60, 212 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2,3}15% reduced Enemy Stun Threshold
+{variant:2}15% reduced Enemy Stun Threshold
 (140-180)% increased Physical Damage
 Adds (10-20) to (30-50) Cold Damage
 (15-40)% increased Critical Strike Chance
-{variant:1,2}(30-40)% increased Cold Damage with Weapons
-{variant:3}(30-40)% increased Cold Damage with Attack Skills
+(30-40)% increased Cold Damage with Attack Skills
 40% increased Rarity of Items Dropped by Frozen Enemies
 ]],[[
 Cameria's Avarice
@@ -61,7 +59,7 @@ Adds (11-14) to (17-21) Physical Damage
 (15-40)% increased Critical Strike Chance
 40% increased Rarity of Items Dropped by Frozen Enemies
 (30-40)% increased Cold Damage with Attack Skills
-Trigger Level 20 Icicle Burst when you Kill a Frozen Enemy
+Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 ]],[[
 Clayshaper
 Rock Breaker
@@ -71,12 +69,12 @@ Requires Level 41, 134 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
+Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 Minions have (20-30)% increased maximum Life
-Minions' Attacks deal (5-8) to (12-16) additional Physical Damage
-Can Summon up to 1 additional Golem at a time
-Grants level 12 Summon Stone Golem
++1 to maximum number of Golems
+Minions deal (5-8) to (12-16) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -98,7 +96,7 @@ Adds 10 to 15 Physical Damage
 Frostbreath
 Ornate Mace
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 50, 161 Str
 Implicits: 2
@@ -167,21 +165,19 @@ Gavel
 Variant: Pre 2.0.0
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
-{variant:4,5}15% reduced Enemy Stun Threshold
+{variant:4}15% reduced Enemy Stun Threshold
 (80-120)% increased Physical Damage
 Skills Chain +1 times
-{variant:1,2,3,4}(30-40)% increased Lightning Damage with Weapons
-{variant:5}(30-40)% increased Lightning Damage with Attack Skills
+(30-40)% increased Lightning Damage with Attack Skills
 +200 Strength Requirement
 +300 Intelligence Requirement
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
-{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit
+{variant:3,4}Trigger a Socketed Lightning Spell on Hit
 Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
@@ -202,8 +198,8 @@ Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
 {fractured}(15-20)% increased Cast Speed
-(3-5)% increased Cold Damage per 1% Missing Cold Resistance
-(3-5)% increased Fire Damage per 1% Missing Fire Resistance
+(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
+(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
 ]],[[
 Nebuloch
 Nightmare Mace
@@ -312,7 +308,7 @@ Each Summoned Phantasm grants you Phantasmal Might
 Breath of the Council
 Carnal Sceptre
 Source: prophecy{The Plaguemaw V}
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
@@ -328,7 +324,7 @@ Ritual Sceptre
 League: Torment
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
@@ -360,7 +356,7 @@ The Dark Seer
 Shadow Sceptre
 League: Beyond
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.11.0 (Life/Mana)
 Variant: Pre 3.11.0 (Life/ES)
 Variant: Pre 3.11.0 (Mana/ES)
@@ -507,35 +503,31 @@ Enemies inflict Elemental Ailments on you instead of nearby Allies
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2,3}30% increased Elemental Damage
+{variant:2}30% increased Elemental Damage
 Adds (30-40) to (60-70) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
-{variant:1,2}(60-80)% increased Damage against Hindered Enemies
-{variant:3}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
 Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.3.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2,3,4}14% increased Elemental Damage
+{variant:2,3}14% increased Elemental Damage
 (100-140)% increased Physical Damage
-{variant:1,2}40% increased Damage against Frozen Enemies
-{variant:3,4}40% increased Damage with Hits against Frozen Enemies
+40% increased Damage with Hits against Frozen Enemies
 (30-50)% increased Cold Damage
-{variant:4}+(25-35)% to Cold Damage over Time Multiplier
+{variant:3}+(25-35)% to Cold Damage over Time Multiplier
 (5-10)% increased Attack Speed
 (4-8)% increased Cast Speed
 5% chance to Freeze
@@ -585,7 +577,7 @@ Chober Chaber
 Great Mallet
 Upgrade: Upgrades to unique{Chaber Cairn} via prophecy{Faith Exhumed}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Current
 Requires Level 40, 104 Str
 Implicits: 2

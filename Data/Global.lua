@@ -238,7 +238,7 @@ SkillType = {
 	Type93 = 98, -- Dedicated mine skills
 	Banner = 99,
 	Type95 = 100, -- Raining arrow skills
-	Type96 = 101,
+	SecondWindSupport = 101,
 	Type97= 102,
 	CantUseFistOfWar = 103,
 	SlamSkill = 104,
@@ -248,4 +248,6 @@ SkillType = {
 	SteelSkill = 18,
 	Hex = 109,
 	Mark = 110,
+	Aegis = 111,
+	Orb = 112,
 }

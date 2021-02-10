@@ -11,13 +11,13 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+40% increased Strength Requirement
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
-100% increased Shock Duration on Enemies
-40% increased Strength Requirement
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 Damage Penetrates 20% Lightning Resistance
+100% increased Duration of Lightning Ailments
 ]],[[
 Agnerod North
 Imperial Staff
@@ -27,8 +27,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 15% chance to Shock
@@ -43,8 +43,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 +5% to Maximum Lightning Resistance
@@ -59,8 +59,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}+1 to Level of all Lightning Gems
-{variant:2}+2 to Level of all Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 Adds (5-15) to (100-140) Lightning Damage to Spells
@@ -78,7 +78,7 @@ Implicits: 2
 100% increased Physical Damage
 (5-10)% increased Attack Speed
 Reflects (22-44) Physical Damage to Attackers on Block
-Curse Enemies with level 5 Vulnerability on Block
+Curse Enemies with Vulnerability on Block, with 20% increased Effect
 ]],[[
 Replica Blood Thorn
 Gnarled Branch
@@ -113,6 +113,7 @@ Maelstrom Staff
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.13.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
@@ -120,8 +121,9 @@ Implicits: 2
 {variant:3}25% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Adds (270-300) to (340-380) Physical Damage
 {variant:2}Adds (250-280) to (315-355) Physical Damage
-{variant:3}Adds (220-240) to (270-300) Physical Damage
-Adds (376-400) to (568-600) Physical Damage to Spells
+{variant:3,4}Adds (220-240) to (270-300) Physical Damage
+{variant:4}Battlemage
+{variant:1,2,3}Adds (376-400) to (568-600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
 Adds (12-14) to (15-16) Physical Damage to Attacks and Spells per Siphoning Charge
@@ -331,17 +333,20 @@ Implicits: 3
 Martyr of Innocence
 Highborn Staff
 Variant: Pre 3.5.0
+Variant: Pre 3.13.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 (12-16)% Chance to Block Attack Damage while wielding a Staff
-Adds (350-400) to (500-600) Fire Damage
+{variant:1,2}Adds (350-400) to (500-600) Fire Damage
+{variant:3}Adds (315-360) to (450-540) Fire Damage
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
+{variant:3}Battlemage
 Grants level 15 Vengeance Skill
 {variant:1}100% increased Fire Damage if you have been Hit Recently
-{variant:2}100% increased Fire Damage
+{variant:2,3}100% increased Fire Damage
 Immune to Freeze and Chill while Ignited
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 ]],[[
@@ -409,7 +414,7 @@ Adds (10-15) to (20-25) Cold Damage
 The Searing Touch
 Lathi
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int

@@ -42,10 +42,35 @@ directiveTable.base = function(state, args, out)
 		printf("Invalid Id %s", baseTypeId)
 		return
 	end
+	local function getBaseItemTags(baseItemType)
+		if baseItemType == "nothing" then -- base case
+			return {}
+		end
+		local file = getFile(baseItemType .. ".ot")
+		if not file then return nil end
+		local text = convertUTF16to8(file)
+		local tags = {}
+		for line in text:gmatch("[^\r\n]+") do
+			local superClass = line:match("extends \"(.+)\"")
+			if superClass then
+				local superClassTags = getBaseItemTags(superClass)
+				if superClassTags then
+					for _, tag in ipairs(superClassTags) do
+						table.insert(tags, tag)
+					end
+				end
+			elseif line:match("tag") then
+				table.insert(tags, line:match("tag = \"(.+)\""))
+			end
+		end
+		return tags
+	end
+	local baseItemTags = getBaseItemTags(baseItemType.BaseType)
 	if not displayName then
 		displayName = baseItemType.Name
 	end
 	displayName = displayName:gsub("\195\182","o")
+	displayName = displayName:gsub("^%s*(.-)%s*$", "%1") -- trim spaces GGG might leave in by accident
 	out:write('itemBases["', displayName, '"] = {\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then
@@ -58,11 +83,18 @@ directiveTable.base = function(state, args, out)
 		out:write('\tsocketLimit = ', state.socketLimit, ',\n')
 	end
 	out:write('\ttags = { ')
+	local combinedTags = { }
 	for _, tag in ipairs(state.baseTags) do
-		out:write(tag, ' = true, ')
+		combinedTags[tag] = tag
+	end
+	for _, tag in ipairs(baseItemTags) do
+		combinedTags[tag] = tag
 	end
 	for _, tag in ipairs(baseItemType.Tags) do
-		out:write(tag.Id, ' = true, ')
+		combinedTags[tag.Id] = tag.Id
+	end
+	for _, tag in pairs(combinedTags) do
+		out:write(tag, ' = true, ')
 	end
 	out:write('},\n')
 	local movementPenalty
@@ -163,8 +195,20 @@ directiveTable.base = function(state, args, out)
 	out:write('},\n}\n')
 end
 
-directiveTable.baseMatch = function(state, args, out)
-	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList("Id", args, true)) do
+directiveTable.baseMatch = function(state, argstr, out)
+	-- Default to look at the Id column for matching
+	local key = "Id"
+	local args = {}
+	for i in string.gmatch(argstr, "%S+") do
+	   table.insert(args, i)
+	end
+	local value = args[1]
+	-- If column name is specified, use that
+	if args[2] then
+		key = args[1]
+		value = args[2]
+	end
+	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList(key, value, true)) do
 		directiveTable.base(state, baseItemType.Id, out)
 	end
 end
@@ -191,7 +235,7 @@ local itemTypes = {
 	"flask",
 }
 for _, name in pairs(itemTypes) do
-	processTemplateFile(name, "Bases/", "../Data/3_0/Bases/", directiveTable)
+	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)
 end
 
 print("Item bases exported.")
