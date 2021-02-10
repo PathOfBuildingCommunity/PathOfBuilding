@@ -23,9 +23,35 @@ local TICK = 1 / data.misc.ServerTickRate
 
 local DmgTypes = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
 
+local function randomChance(var)
+    return math.random(1, 10000) <= (var * 100)
+end
+
+local function isHit(hitChance)
+    return randomChance(hitChance)
+end
+
+local function isCrit(critChance)
+    return randomChance(critChance)
+end
+
+local function isTrigger(triggerChance)
+    return randomChance(triggerChance)
+end
+
+local function gainEnduranceCharge(actor)
+    actor.EnduranceCount = m_min(actor.EnduranceCount + 1, cs.player.EnduranceChargesMax)
+    --ConPrintf("PLAYER GAINED A ENDURANCE CHARGE! Count: " .. actor.EnduranceCount)
+end
+
 local function gainFrenzyCharge(actor)
     actor.FrenzyCount = m_min(actor.FrenzyCount + 1, cs.player.FrenzyChargesMax)
     --ConPrintf("PLAYER GAINED A FRENZY CHARGE! Count: " .. actor.FrenzyCount)
+end
+
+local function gainPowerCharge(actor)
+    actor.PowerCount = m_min(actor.PowerCount + 1, cs.player.PowerChargesMax)
+    --ConPrintf("PLAYER GAINED A POWER CHARGE! Count: " .. actor.PowerCount)
 end
 
 local activeSkillListEffects = {
@@ -96,9 +122,14 @@ end
 
 local function processPlayerInfo(env)
     cs.player.onHit = { }
+    cs.player.onCrit = { }
     cs.player.onDamage = { }
+    cs.player.EnduranceChargesMax = env.player.output.EnduranceChargesMax or 3
+    cs.player.EnduranceChargesMin = env.player.output.EnduranceChargesMin or 0
     cs.player.FrenzyChargesMax = env.player.output.FrenzyChargesMax or 3
     cs.player.FrenzyChargesMin = env.player.output.FrenzyChargesMin or 0
+    cs.player.PowerChargesMax = env.player.output.PowerChargesMax or 3
+    cs.player.PowerChargesMin = env.player.output.PowerChargesMin or 0
 
     processPlayerSkillInfo(env)
     processPlayerWeaponInfo(env)
@@ -117,24 +148,6 @@ local function getPlayerData(build)
 
     -- Get Player Information
     processPlayerInfo(env)
-end
-
-local function isHit(hitChance)
-    local hitChance = hitChance * 100
-    local randValue = math.random(1, 10000)
-    if randValue <= hitChance then
-        return true
-    end
-    return false
-end
-
-local function isCrit(critChance)
-    local critChance = critChance * 100
-    local randValue = math.random(1, 10000)
-    if randValue <= critChance then
-        return true
-    end
-    return false
 end
 
 local function getMainHandDmg(dmgType)
@@ -224,7 +237,9 @@ local function runSingleSim(numSec, player)
 end
 
 local function initPlayerData(player)
+    player.EnduranceCount = player.EnduranceChargesMin
     player.FrenzyCount = player.FrenzyChargesMin
+    player.PowerCount = player.PowerChargesMin
 end
 
 function cs.runSimulation(build)
