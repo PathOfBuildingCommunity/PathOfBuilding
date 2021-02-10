@@ -27,7 +27,7 @@ jobs:
               with:
                   draft: true
                   title: Release ${{ github.event.inputs.releaseVersion }}
-                  branch: release_${{ github.event.inputs.releaseVersion }}
+                  branch: release-${{ github.event.inputs.releaseVersion }}
                   body: |
                       Draft release of ${{ github.event.inputs.releaseVersion }}
 
