@@ -5,11 +5,11 @@ on:
           sinceTag:
               description: 'Gather updates from this tag until now'
               required: true
-              default: 'v2.0.x'
+              default: '2.0.x'
           releaseVersion:
               description: 'Version number to use for this release'
               required: true
-              default: 'v2.0.x + 1'
+              default: '2.0.x + 1'
 jobs:
   release:
     runs-on: ubuntu-latest
