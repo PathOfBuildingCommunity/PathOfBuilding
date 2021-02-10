@@ -1683,6 +1683,16 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	  -- Need this here so it can be referenced by DoesItemMatchFilters before controls.search.buf is defined.
+	local searchterm = ""
+
+	local function DoesItemMatchFilters(item)
+		if (searchterm == nil or searchterm == '') then 
+			return true
+		end
+		return string.find( string.lower(item), string.lower(searchterm) )
+	end
+
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
@@ -1694,23 +1704,27 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					else
 						label = table.concat(craft, "/")
 					end
-					t_insert(modList, {
-						label = label,
-						mod = craft,
-						type = "crafted",
-					})
+					if DoesItemMatchFilters(label) then
+						t_insert(modList, {
+							label = label,
+							mod = craft,
+							type = "crafted",
+						})
+					end
 				end
 			end
 		elseif sourceId == "ESSENCE" then
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
-				t_insert(modList, {
-					label = essence.name .. "   "..mod.type:sub(1,3).."^8[" .. table.concat(mod, "/") .. "]",
-					mod = mod,
-					type = "custom",
-					essence = essence,
-				})
+				if DoesItemMatchFilters(essence.name .. "   " .. table.concat(mod, "/")) then
+					t_insert(modList, {
+						label = essence.name .. "   "..mod.type:sub(1,3).."  ^8[" .. table.concat(mod, "/") .. "]",
+						mod = mod,
+						type = "custom",
+						essence = essence,
+					})
+				end
 			end
 			table.sort(modList, function(a, b)
 				if a.essence.type ~= b.essence.type then
@@ -1721,7 +1735,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		elseif sourceId == "PREFIX" or sourceId == "SUFFIX" then
 			for _, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() and self.displayItem:GetModSpawnWeight(mod) > 0 then
+				if sourceId:lower() == mod.type:lower() and self.displayItem:GetModSpawnWeight(mod) > 0 and DoesItemMatchFilters(mod.affix .. " " .. table.concat(mod, "/")) then
 					t_insert(modList, {
 						label = mod.affix .. "   ^8[" .. table.concat(mod, "/") .. "]",
 						mod = mod,
@@ -1780,6 +1794,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		controls.modSelect:SetSel(1)
 	end)
 	controls.source.enabled = #sourceList > 1
+
+	controls.search = new("EditControl", {"LEFT",controls.source,"RIGHT"}, 15, 0, 435, 18, "", "Search", "%c", 100, function(buf)
+		searchterm = buf
+		buildMods(sourceList[controls.source.selIndex].sourceId)
+	end)
+
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
 	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
 	controls.modSelect.shown = function()
