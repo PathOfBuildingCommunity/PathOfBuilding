@@ -236,7 +236,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ChaosDegenAuraUnique
-#flags spell aura
+#flags spell aura area
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
 #mods
