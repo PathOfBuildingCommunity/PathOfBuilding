@@ -936,6 +936,7 @@ skills["ChaosDegenAuraUnique"] = {
 	baseFlags = {
 		spell = true,
 		aura = true,
+		area = true,
 	},
 	baseMods = {
 		skill("dotIsArea", true),
