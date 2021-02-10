@@ -7037,6 +7037,42 @@ return {
 			[1]="weapon_elemental_damage_+%"
 		}
 	},
+	[256]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Fire Damage Converted to Chaos Damage"
+				}
+			}
+		},
+		stats={
+			[1]="skill_fire_damage_%_to_convert_to_chaos"
+		}
+	},
+	[257]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Lightning Damage Converted to Chaos Damage"
+				}
+			}
+		},
+		stats={
+			[1]="skill_lightning_damage_%_to_convert_to_chaos"
+		}
+	},
 	["accuracy_rating"]=40,
 	["accuracy_rating_+%"]=41,
 	["active_skill_ailment_damage_+%_final"]=42,
@@ -7287,6 +7323,8 @@ return {
 	["sigil_repeat_frequency_+%"]=38,
 	["skill_cold_damage_%_to_convert_to_fire"]=233,
 	["skill_effect_duration_+%"]=234,
+	["skill_fire_damage_%_to_convert_to_chaos"]=256,
+	["skill_lightning_damage_%_to_convert_to_chaos"]=257,
 	["skill_physical_damage_%_to_convert_to_chaos"]=235,
 	["skill_physical_damage_%_to_convert_to_cold"]=236,
 	["skill_physical_damage_%_to_convert_to_fire"]=237,
