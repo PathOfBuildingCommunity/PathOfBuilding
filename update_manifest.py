@@ -17,7 +17,6 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
     :param replace: Whether to overwrite the existing manifest file.
     :return:
     """
-    supported_extensions = {".dll", ".jpg", ".lua", ".md", ".png", ".txt"}
     try:
         manifest = xml.etree.ElementTree.parse("manifest.xml")
     except FileNotFoundError:
@@ -27,9 +26,6 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
 
     for file in root.iter("File"):
         path = pathlib.Path(file.get("name"))
-        if path.suffix not in supported_extensions:
-            logger.debug(f"Skipping file type {path.suffix}")
-            continue
         try:
             data = path.read_bytes()
         except FileNotFoundError:
