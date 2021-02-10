@@ -21,7 +21,7 @@ jobs:
             - name: Generate Release notes
               run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} -b CHANGELOG.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --no-issues true
             - name: Update manifest.xml
-              run: python3 update_manifest.py; cp manifest-updated.xml manifest.xml
+              run: python3 update_manifest.py --quiet --in-place --set-version=${{ github.event.inputs.releaseVersion }}
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v3.8.0
               with:
@@ -29,7 +29,7 @@ jobs:
                   title: Release ${{ github.event.inputs.releaseVersion }}
                   branch: release-${{ github.event.inputs.releaseVersion }}
                   body: |
-                      Draft release of ${{ github.event.inputs.releaseVersion }}
+                      Draft release of ${{ github.event.inputs.releaseVersion }}.
 
-                      Edits will be made as necessary to prepare the codebase for release
-                  commit-message: 'Changelogs and manifest.xml updated for ${{ github.event.inputs.releaseVersion }}'
+                      Edits will be made as necessary to prepare the codebase for release.
+                  commit-message: 'Prepare release ${{ github.event.inputs.releaseVersion }}'
