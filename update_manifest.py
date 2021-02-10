@@ -39,7 +39,7 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
         logger.info(f"Updated to version {version}")
 
     file_name = "manifest.xml" if replace else "manifest-updated.xml"
-    manifest.write(file_name, encoding="utf-8", xml_declaration=True)
+    manifest.write(file_name, encoding="UTF-8", xml_declaration=True)
 
 
 def cli():
