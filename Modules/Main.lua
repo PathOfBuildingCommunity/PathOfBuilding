@@ -203,9 +203,11 @@ the "Releases" section of the GitHub page.]])
 	self.showThousandsCalcs = true
 	self.showTitlebarName = true
 
-	self:SetMode("BUILD", false, "Unnamed build")
-
-	self:LoadSettings()
+	local ignoreBuild = self:LoadPastebinBuild()
+	if not ignoreBuild then
+		self:SetMode("BUILD", false, "Unnamed build")
+	end
+	self:LoadSettings(ignoreBuild)
 end
 
 function main:CanExit()
@@ -233,6 +235,10 @@ function main:OnFrame()
 		self.mode = self.newMode
 		self.newMode = nil
 		self:CallMode("Init", unpack(self.newModeArgs))
+		if self.newModeChangeToTree then
+			self.modes[self.mode].viewMode = "TREE"
+		end
+		self.newModeChangeToTree = false
 	end
 
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
@@ -371,7 +377,33 @@ function main:CallMode(func, ...)
 	end
 end
 
-function main:LoadSettings()
+function main:LoadPastebinBuild()
+	local fullUri = arg[1]
+	if not fullUri then
+		return false
+	end
+	arg[1] = nil -- Protect against downloading again this session.
+	local pastebinCode = string.match(fullUri, "^pob:[/\\]*pastebin[/\\]+(%w+)[/\\]*")
+	if pastebinCode then
+		launch:DownloadPage("https://pastebin.com/raw/" .. pastebinCode, function(page, errMsg)
+			if errMsg then
+				self:SetMode("BUILD", false, "Failed Build Import (Download failed " .. pastebinCode .. ")")
+			else
+				local xmlText = Inflate(common.base64.decode(page:gsub("-","+"):gsub("_","/")))
+				if xmlText then
+					self:SetMode("BUILD", false, "Imported Build", xmlText)
+					self.newModeChangeToTree = true
+				else
+					self:SetMode("BUILD", false, "Failed Build Import (Decompress failed)")
+				end
+			end
+		end)
+		return true
+	end
+	return false
+end
+
+function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
 		return true
@@ -381,7 +413,7 @@ function main:LoadSettings()
 	end
 	for _, node in ipairs(setXML[1]) do
 		if type(node) == "table" then
-			if node.elem == "Mode" then
+			if not ignoreBuild and node.elem == "Mode" then
 				if not node.attrib.mode or not self.modes[node.attrib.mode] then
 					launch:ShowErrMsg("^1Error parsing 'Settings.xml': Invalid mode attribute in 'Mode' element")
 					return true
