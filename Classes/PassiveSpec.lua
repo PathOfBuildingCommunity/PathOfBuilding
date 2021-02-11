@@ -619,7 +619,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					node.modList = new("ModList")
 					node.modKey = ""
 				end
-				-- Preserve connectedness for Pure Talent jewel
 				self:ReconnectNodeToClassStart(node)
 			end
 		end
@@ -709,7 +708,9 @@ end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)
 	-- Edited nodes can share a name
-	if old.sd == newNode.sd then return 1 end
+	if old.sd == newNode.sd then
+		return 1
+	end
 	old.dn = newNode.dn
 	old.sd = newNode.sd
 	old.mods = newNode.mods
@@ -722,6 +723,8 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.spriteId = newNode.spriteId
 end
 
+---Reconnects altered timeless jewel to class start, for Pure Talent
+---@param node table @ The node to add the Condition:ConnectedTo[Class] flag to, if applicable
 function PassiveSpecClass:ReconnectNodeToClassStart(node)
 	for _, linkedNodeId in ipairs(node.linkedId) do
 		for classId, class in pairs(self.tree.classes) do
