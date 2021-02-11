@@ -188,7 +188,7 @@ local function getNextDmg()
             return getMainHandDmg("Physical"), cs.player.OH_AttackInterval
         end
     end
-    return getMainHandDmg("Physical"), cs.player.MH_AttackInterval
+    return getMainHandDmg("Fire"), cs.player.MH_AttackInterval
 end
 
 local function getDmg()
