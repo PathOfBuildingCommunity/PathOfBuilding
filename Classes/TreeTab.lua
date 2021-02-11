@@ -488,6 +488,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			end
 			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
 		end
+		self.build.spec:ReconnectNodeToClassStart(selectedNode)
 		if not self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
 			t_insert(self.build.spec.tree.legion.editedNodes, selectedNode.conqueredBy.id, {})
 		end

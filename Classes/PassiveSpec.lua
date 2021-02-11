@@ -587,7 +587,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
 					self:ReplaceNode(node, legionNode)
 				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
-					local legionNode =legionNodes["eternal_small_blank"]
+					local legionNode = legionNodes["eternal_small_blank"]
 					self:ReplaceNode(node,legionNode)
 				elseif conqueredBy.conqueror.type == "templar" then
 					if isValueInArray(attributes, node.dn) then
@@ -619,6 +619,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					node.modList = new("ModList")
 					node.modKey = ""
 				end
+				-- Preserve connectedness for Pure Talent jewel
+				self:ReconnectNodeToClassStart(node)
 			end
 		end
 	end
@@ -705,18 +707,29 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	end
 end
 
-function PassiveSpecClass:ReplaceNode(old, new)
+function PassiveSpecClass:ReplaceNode(old, newNode)
 	-- Edited nodes can share a name
-	if old.sd == new.sd then return 1 end
-	old.dn = new.dn
-	old.sd = new.sd
-	old.mods = new.mods
-	old.modKey = new.modKey
-	old.modList = new.modList
-	old.sprites = new.sprites
-	old.keystoneMod = new.keystoneMod
-	old.icon = new.icon
-	old.spriteId = new.spriteId
+	if old.sd == newNode.sd then return 1 end
+	old.dn = newNode.dn
+	old.sd = newNode.sd
+	old.mods = newNode.mods
+	old.modKey = newNode.modKey
+	old.modList = new("ModList")
+	old.modList:AddList(newNode.modList)
+	old.sprites = newNode.sprites
+	old.keystoneMod = newNode.keystoneMod
+	old.icon = newNode.icon
+	old.spriteId = newNode.spriteId
+end
+
+function PassiveSpecClass:ReconnectNodeToClassStart(node)
+	for _, linkedNodeId in ipairs(node.linkedId) do
+		for classId, class in pairs(self.tree.classes) do
+			if linkedNodeId == class.startNodeId and node.type == "Normal" then
+				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..linkedNodeId)
+			end
+		end
+	end
 end
 
 function PassiveSpecClass:BuildClusterJewelGraphs()
