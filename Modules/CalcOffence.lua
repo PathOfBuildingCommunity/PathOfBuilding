@@ -3542,11 +3542,17 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillModList:Flag(nil, "DotCanStack") then
-		output.TotalDot = output.TotalDotInstance * output.Speed * output.Duration * (skillData.dpsMultiplier or 1)
+		local speed = output.Speed
+		-- Check if skill is being triggered via Mine (e.g., Blastchain Mine) support
+		-- if "yes", you cannot use output.Speed but rather should use output.MineLayingSpeed
+		if band(dotCfg.keywordFlags, KeywordFlag.Mine) ~= 0 then
+			speed = output.MineLayingSpeed
+		end
+		output.TotalDot = output.TotalDotInstance * speed * output.Duration * (skillData.dpsMultiplier or 1)
 		if breakdown then
 			breakdown.TotalDot = {
 				s_format("%.1f ^8(Damage per Instance)", output.TotalDotInstance),
-				s_format("x %.2f ^8(hits per second)", output.Speed),
+				s_format("x %.2f ^8(hits per second)", speed),
 				s_format("x %.2f ^8(skill duration)", output.Duration),
 			}
 			if skillData.dpsMultiplier then
