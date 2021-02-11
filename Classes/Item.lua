@@ -888,6 +888,13 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 	end
+	local craftedQuality = sumLocal(modList,"Quality","BASE",0)
+	if craftedQuality ~= self.craftedQuality then
+		if self.craftedQuality then
+			self.quality = self.quality - self.craftedQuality + craftedQuality
+		end
+		self.craftedQuality = craftedQuality
+	end
 	if self.quality then
 		modList:NewMod("Multiplier:QualityOn"..slotName, "BASE", self.quality, "Quality")
 	end
