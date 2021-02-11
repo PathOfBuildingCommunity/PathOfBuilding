@@ -975,6 +975,7 @@ return {
 },
 ["projectile_damage_+%_per_remaining_chain"] = {
 	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
+	mod("Damage", "INC", nil, ModFlag.Ailment, 0, { type = "PerStat", stat = "ChainRemaining" }),
 },
 ["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
