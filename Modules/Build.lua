@@ -1129,11 +1129,16 @@ function buildMode:AddDisplayStatList(statList, actor)
 					end
 					if statData.skillDPSStat then
 						labelColor = colorCodes.RELIC
-						for skillName, skillDPS in pairs(actor.output.SkillDPS) do
+						local sorted = {}
+						for k, v in pairs(actor.output.SkillDPS) do
+							table.insert(sorted,{k,v})
+						end
+						table.sort(sorted, function(a,b) return a[2] > b[2] end)
+						for _, skillData in ipairs(sorted) do
 							t_insert(statBoxList, {
 								height = 16,
-								labelColor..skillName..":",
-								self:FormatStat({fmt = "1.f"}, skillDPS)
+								labelColor..skillData[1]..":",
+								self:FormatStat({fmt = "1.f"}, skillData[2])
 							})
 						end
 					elseif not (statData.hideStat) then
