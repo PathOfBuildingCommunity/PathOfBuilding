@@ -365,14 +365,6 @@ local skills, mod, flag, skill = ...
 
 #skill Cyclone
 #flags attack melee area
-	parts = {
-		{
-			name = "No Stages",
-		},
-		{
-			name = "Max Stages",
-		},
-	},
 	statMap = {
 		["cyclone_max_number_of_stages"] = {
 			mod("Multiplier:CycloneMaxStages", "BASE", nil),
