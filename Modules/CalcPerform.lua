@@ -1726,7 +1726,26 @@ function calcs.perform(env)
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
-	calcs.offence(env, env.player, env.player.mainSkill)
+
+	--calcs.offence(env, env.player, env.player.mainSkill)
+	-- Calculate the offence of each active skill belonging to the select mainSkill socket group
+	local socketGroupDPS = 0
+	local actorOutput = copyTable(env.player.output)
+	local mainSkillOutput = copyTable(env.player.output)
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if env.player.mainSkill.socketGroup == activeSkill.socketGroup then
+			calcs.offence(env, env.player, activeSkill)
+			--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. " DPS: " .. tostring(env.player.output.CombinedDPS))
+			socketGroupDPS = socketGroupDPS + env.player.output.CombinedDPS
+			if activeSkill == env.player.mainSkill then
+				mainSkillOutput = copyTable(env.player.output)
+			end
+			env.player.output = copyTable(actorOutput)
+		end
+	end
+	env.player.output = copyTable(mainSkillOutput)
+	env.player.output.SocketGroupDPS = socketGroupDPS
+	--ConPrintf("DPS: " .. tostring(env.player.output.SocketGroupDPS))
 	if env.minion then
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
