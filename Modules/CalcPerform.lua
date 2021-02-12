@@ -1733,27 +1733,23 @@ function calcs.perform(env)
 	local actorOutput = copyTable(env.player.output)
 	local mainSkillOutput = copyTable(env.player.output)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		--if env.player.mainSkill.socketGroup == activeSkill.socketGroup then
-			calcs.offence(env, env.player, activeSkill)
-			if env.player.output.CombinedDPS > 0 then
-				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. " DPS: " .. tostring(env.player.output.CombinedDPS))
-				if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-					fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] = env.player.output.CombinedDPS
-				else
-					ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
-				end
-				fullDPS.combinedDPS = fullDPS.combinedDPS + env.player.output.CombinedDPS
+		calcs.offence(env, env.player, activeSkill)
+		if env.player.output.CombinedDPS > 0 then
+			if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+				t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = env.player.output.CombinedDPS, count = 1 })
+			else
+				ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 			end
-			if activeSkill == env.player.mainSkill then
-				mainSkillOutput = copyTable(env.player.output)
-			end
-			env.player.output = copyTable(actorOutput)
-		--end
+			fullDPS.combinedDPS = fullDPS.combinedDPS + env.player.output.CombinedDPS
+		end
+		if activeSkill == env.player.mainSkill then
+			mainSkillOutput = copyTable(env.player.output)
+		end
+		env.player.output = copyTable(actorOutput)
 	end
 	env.player.output = copyTable(mainSkillOutput)
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
-	--ConPrintf("DPS: " .. tostring(env.player.output.FullDPS))
 	if env.minion then
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
