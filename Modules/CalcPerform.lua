@@ -1258,7 +1258,7 @@ function calcs.perform(env)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
 					end
-					if env.minion and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
+					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.minionBuffSkill = true
 						affectedByAura[env.minion] = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
