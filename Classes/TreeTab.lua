@@ -212,7 +212,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		self.viewer:Focus(self.jumpToX, self.jumpToY, treeViewPort, self.build)
 		self.jumpToNode = false
 	end
-	self.viewer:Draw(self.build, self.isComparing and self.specList[self.activeCompareSpec] or nil, treeViewPort, inputEvents)
+	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
+	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
 	wipeTable(self.controls.compareSelect.list)
@@ -340,7 +341,6 @@ function TreeTabClass:SetActiveSpec(specId)
 end
 
 function TreeTabClass:SetCompareSpec(specId)
-	local prevSpec = self.compareSpec
 	self.activeCompareSpec = m_min(specId, #self.specList)
 	local curSpec = self.specList[self.activeCompareSpec]
 

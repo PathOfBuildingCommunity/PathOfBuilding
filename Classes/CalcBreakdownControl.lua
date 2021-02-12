@@ -572,7 +572,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						viewer.zoomX = -ttNode.x / scale
 						viewer.zoomY = -ttNode.y / scale
 						SetViewport(viewerX + 2, viewerY + 2, 300, 300)
-						viewer:Draw(self.calcsTab.build, nil, { x = 0, y = 0, width = 300, height = 300 }, { })
+						viewer:Draw(self.calcsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
 						SetDrawLayer(nil, 30)
 						SetDrawColor(1, 0, 0)
 						DrawImage(viewer.highlightRing, 135, 135, 30, 30)

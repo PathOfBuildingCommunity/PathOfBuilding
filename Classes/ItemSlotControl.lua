@@ -142,7 +142,7 @@ function ItemSlotClass:Draw(viewPort)
 		viewer.zoomX = -node.x / scale
 		viewer.zoomY = -node.y / scale
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)
-		viewer:Draw(self.itemsTab.build, nil, { x = 0, y = 0, width = 300, height = 300 }, { })
+		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
 		SetDrawLayer(nil, 30)
 		SetDrawColor(1, 1, 1, 0.2)
 		DrawImage(nil, 149, 0, 2, 300)

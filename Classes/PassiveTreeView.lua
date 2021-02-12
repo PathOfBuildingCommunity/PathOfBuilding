@@ -93,11 +93,9 @@ function PassiveTreeViewClass:Save(xml)
 	}
 end
 
-function PassiveTreeViewClass:Draw(build, compareSpec, viewPort, inputEvents)
+function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local spec = build.spec
 	local tree = spec.tree
-
-	local isComparing = compareSpec and true or false;
 
 	local cursorX, cursorY = GetCursorPos()
 	local mOver = cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height
@@ -378,8 +376,8 @@ function PassiveTreeViewClass:Draw(build, compareSpec, viewPort, inputEvents)
 		end
 		local state = getState(node1, node2);
 		local baseState = state
-		if isComparing then
-			local cNode1, cNode2 = compareSpec.nodes[connector.nodeId1], compareSpec.nodes[connector.nodeId2]
+		if self.compareSpec then
+			local cNode1, cNode2 = self.compareSpec.nodes[connector.nodeId1], self.compareSpec.nodes[connector.nodeId2]
 			if cNode1 and cNode2 then
 				baseState = getState(cNode1,cNode2)
 			end
@@ -440,10 +438,10 @@ function PassiveTreeViewClass:Draw(build, compareSpec, viewPort, inputEvents)
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
-		local compareNode = isComparing and compareSpec.nodes[nodeId] or nil
+		local compareNode = self.compareSpec and self.compareSpec.nodes[nodeId] or nil
 
 		local base, overlay
-		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId] or (isComparing and compareNode and compareNode.alloc)
+		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId] or (compareNode and compareNode.alloc)
 		SetDrawLayer(nil, 25)
 		if node.type == "ClassStart" then
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
@@ -553,7 +551,7 @@ function PassiveTreeViewClass:Draw(build, compareSpec, viewPort, inputEvents)
 					end
 				end
 			else
-				if isComparing then
+				if compareNode then
 					if compareNode.alloc and not node.alloc then
 						-- Base has, current has not, color green (take these nodes to match)
 						SetDrawColor(0, 1, 0)
@@ -578,7 +576,7 @@ function PassiveTreeViewClass:Draw(build, compareSpec, viewPort, inputEvents)
 				SetDrawColor(0, 0, 0)
 			end
 		else
-			if isComparing and compareNode then
+			if compareNode then
 				if compareNode.alloc and not node.alloc then
 					-- Base has, current has not, color green (take these nodes to match)
 					SetDrawColor(0, 1, 0)
