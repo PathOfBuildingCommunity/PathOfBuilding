@@ -278,7 +278,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end },
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithImpaleDPS or v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
-		{ stat = "SocketGroupDPS", label = "Socket Group DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
@@ -342,6 +341,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, resistOverCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
+		{ },
+		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
+		{ },
+		{ stat = "SkillDPS", label = "Skill DPS", flag = "notAverage", condFunc = function() return true end, skillDPSStat = true },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
@@ -1091,6 +1094,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 end
 
 function buildMode:FormatStat(statData, statVal)
+	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
@@ -1123,11 +1127,20 @@ function buildMode:AddDisplayStatList(statList, actor)
 							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
 						end
 					end
-					if not (statData.hideStat) then
+					if statData.skillDPSStat then
+						labelColor = colorCodes.RELIC
+						for skillName, skillDPS in pairs(actor.output.SkillDPS) do
+							t_insert(statBoxList, {
+								height = 16,
+								labelColor..skillName..":",
+								self:FormatStat({fmt = "1.f"}, skillDPS)
+							})
+						end
+					elseif not (statData.hideStat) then
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
-							self:FormatStat(statData, statVal)..resistOverCapStatLabel,
+							self:FormatStat(statData, statVal)..resistOverCapStatLabel
 						})
 					end
 				end
@@ -1157,7 +1170,7 @@ end
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
-		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) then
+		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and not statData.skillDPSStat then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
