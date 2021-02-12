@@ -1387,7 +1387,7 @@ local specialModList = {
 		mod("ColdEnergyShieldBypass", "BASE", 100),
 		mod("FireEnergyShieldBypass", "BASE", 100),
 	},
-	["auras from your skills do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
+	["auras from your skills do not affect allies"] = { flag("SelfAuraSkillsCannotAffectAllies") },
 	["auras from your skills have (%d+)%% more effect on you"] = function(num) return { mod("SkillAuraEffectOnSelf", "MORE", num) } end,
 	["increases and reductions to mana regeneration rate instead apply to rage regeneration rate"] = { flag("ManaRegenToRageRegen") },
 	["maximum energy shield is (%d+)"] = function(num) return { mod("EnergyShield", "OVERRIDE", num ) } end,
