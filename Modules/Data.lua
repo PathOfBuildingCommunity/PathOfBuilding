@@ -81,6 +81,7 @@ data.powerStatList = {
 	{ stat="CombinedDPS", label="Combined DPS" },
 	{ stat="TotalDPS", label="Total DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
+	{ stat="SocketGroupDPS", label="Socket Group DPS" },
 	{ stat="AverageDamage", label="Average Hit" },
 	{ stat="Speed", label="Attack/Cast Speed" },
 	{ stat="TotalDot", label="DoT DPS" },
