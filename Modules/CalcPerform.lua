@@ -1728,9 +1728,12 @@ function calcs.perform(env)
 	calcs.defence(env, env.player)
 
 	-- Calculate the offence of each active skill belonging to the select mainSkill socket group
-	local fullDPS = { combinedDPS = 0, skills = { } }
+	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0 }
 	local actorOutput = copyTable(env.player.output)
 	local mainSkillOutput = copyTable(env.player.output)
+	local bleedSource = ""
+	local igniteDPS = 0
+	local igniteSource = ""
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		calcs.offence(env, env.player, activeSkill)
 		if env.player.output.TotalDPS and env.player.output.TotalDPS > 0 then
@@ -1741,14 +1744,48 @@ function calcs.perform(env)
 			end
 			fullDPS.combinedDPS = fullDPS.combinedDPS + env.player.output.TotalDPS
 		end
+		if env.player.output.BleedDPS and env.player.output.BleedDPS > fullDPS.bleedDPS then
+			fullDPS.bleedDPS = env.player.output.BleedDPS
+			bleedSource = activeSkill.activeEffect.grantedEffect.name
+		end
+		if env.player.output.IgniteDPS and env.player.output.IgniteDPS > fullDPS.igniteDPS then
+			fullDPS.igniteDPS = env.player.output.IgniteDPS
+			igniteSource = activeSkill.activeEffect.grantedEffect.name
+		end
+		if env.player.output.PoisonDPS and env.player.output.PoisonDPS > 0 then
+			fullDPS.poisonDPS = fullDPS.poisonDPS + env.player.output.PoisonDPS
+		end
+		if env.player.output.ImpaleDPS and env.player.output.ImpaleDPS > 0 then
+			fullDPS.impaleDPS = fullDPS.impaleDPS + env.player.output.ImpaleDPS
+		end
 		if activeSkill == env.player.mainSkill then
 			mainSkillOutput = copyTable(env.player.output)
 		end
 		env.player.output = copyTable(actorOutput)
 	end
-	calcs.offence(env, env.player, env.player.mainSkill)
+	-- Re-Add ailment DPS components
+	if fullDPS.bleedDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.bleedDPS
+	end
+	if fullDPS.igniteDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.igniteDPS
+	end
+	if fullDPS.poisonDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.poisonDPS
+	end
+	if fullDPS.impaleDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Impale DPS", dps = fullDPS.impaleDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.impaleDPS
+	end
+
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
+
+	-- Call offence on main-skill again to update proper `breakout` and `output`
+	calcs.offence(env, env.player, env.player.mainSkill)
 
 	if env.minion then
 		calcs.defence(env, env.minion)

@@ -1131,9 +1131,13 @@ function buildMode:AddDisplayStatList(statList, actor)
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
 						for _, skillData in ipairs(actor.output.SkillDPS) do
-							local lhsString = labelColor..skillData.name..":"
+							local srcString = ""
+							if skillData.source then
+								srcString = " ("..skillData.source..")"
+							end
+							local lhsString = labelColor..skillData.name..srcString..":"
 							if skillData.count >= 2 then
-								lhsString = labelColor.."("..tostring(skillData.count).."x) "..skillData.name..":"
+								lhsString = labelColor.."("..tostring(skillData.count).."x) "..skillData.name..srcString..":"
 							end
 							t_insert(statBoxList, {
 								height = 16,
