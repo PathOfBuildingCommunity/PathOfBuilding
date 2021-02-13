@@ -1733,7 +1733,7 @@ function calcs.perform(env)
 	local mainSkillOutput = copyTable(env.player.output)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		calcs.offence(env, env.player, activeSkill)
-		if env.player.output.TotalDPS > 0 then
+		if env.player.output.TotalDPS and env.player.output.TotalDPS > 0 then
 			if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
 				t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = env.player.output.TotalDPS, count = 1 })
 			else
