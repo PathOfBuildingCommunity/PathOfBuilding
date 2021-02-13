@@ -1482,6 +1482,7 @@ function ItemsTabClass:UpdateCustomControls()
 					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or "^7Custom:"
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
 						t_remove(item.explicitModLines, index)
+						item:BuildAndParseRaw()
 						local id = item.id
 						self:CreateDisplayItemFromRaw(item:BuildRaw())
 						self.displayItem.id = id
