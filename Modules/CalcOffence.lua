@@ -222,6 +222,11 @@ function calcs.offence(env, actor, activeSkill)
 		return
 	end
 
+	-- set Action Speed if it doesn't exist (calcs.defence()) sets it but if we call offence without defence we need it
+	if not output.ActionSpeedMod then
+		output.ActionSpeedMod = calcs.actionSpeedMod(actor)
+	end
+
 	local function calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect")
 		output.AreaOfEffectMod = round(round(incArea * moreArea, 10), 2)

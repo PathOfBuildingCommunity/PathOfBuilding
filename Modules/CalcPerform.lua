@@ -566,6 +566,15 @@ local function doActorMisc(env, actor)
 	end	
 end
 
+function calcs.actionSpeedMod(actor)
+	local modDB = actor.modDB
+	local actionSpeedMod = 1 + (m_max(-data.misc.TemporalChainsEffectCap, modDB:Sum("INC", nil, "TemporalChainsActionSpeed")) + modDB:Sum("INC", nil, "ActionSpeed")) / 100
+	if modDB:Flag(nil, "ActionSpeedCannotBeBelowBase") then
+		actionSpeedMod = m_max(1, actionSpeedMod)
+	end
+	return actionSpeedMod
+end
+
 -- Finalises the environment and performs the stat calculations:
 -- 1. Merges keystone modifiers
 -- 2. Initialises minion skills
@@ -1728,9 +1737,8 @@ function calcs.perform(env)
 	calcs.defence(env, env.player)
 
 	-- Calculate the offence of each active skill belonging to the select mainSkill socket group
-	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0 }
+	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0 }
 	local actorOutput = copyTable(env.player.output)
-	local mainSkillOutput = copyTable(env.player.output)
 	local bleedSource = ""
 	local igniteDPS = 0
 	local igniteSource = ""
@@ -1743,6 +1751,26 @@ function calcs.perform(env)
 				ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 			end
 			fullDPS.combinedDPS = fullDPS.combinedDPS + env.player.output.TotalDPS
+		elseif activeSkill.minion then
+			ConPrintf(activeSkill.activeEffect.grantedEffect.name)
+			--if env.minion.output.TotalDPS and env.minion.output.TotalDPS > 0 then
+			--local minionOutput = copyTable(env.minion.output)
+			for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+				ConPrintf(minionSkill.activeEffect.grantedEffect.name)
+				--output.Minion = { }
+				--activeSkill.minion.output = output.Minion
+				--calcs.offence(env, activeSkill.minion, minionSkill)
+				--if env.minion.output.TotalDPS and env.minion.output.TotalDPS > 0 then
+				--	if not fullDPS.skills[minionSkill.activeEffect.grantedEffect.name] then
+				--		t_insert(fullDPS.skills, { name = minionSkill.activeEffect.grantedEffect.name, dps = env.minion.output.TotalDPS, count = 1 })
+				--	else
+				--		ConPrintf("HELP! Numerous same-named effects! '" .. minionSkill.activeEffect.grantedEffect.name .. "'")
+				--	end
+				--	fullDPS.combinedDPS = fullDPS.combinedDPS + env.minion.output.TotalDPS
+				--end
+
+				--env.minion.output = copyTable(minionOutput)
+			end
 		end
 		if env.player.output.BleedDPS and env.player.output.BleedDPS > fullDPS.bleedDPS then
 			fullDPS.bleedDPS = env.player.output.BleedDPS
@@ -1758,18 +1786,22 @@ function calcs.perform(env)
 		if env.player.output.ImpaleDPS and env.player.output.ImpaleDPS > 0 then
 			fullDPS.impaleDPS = fullDPS.impaleDPS + env.player.output.ImpaleDPS
 		end
-		if activeSkill == env.player.mainSkill then
-			mainSkillOutput = copyTable(env.player.output)
+		if env.player.output.DecayDPS and env.player.output.DecayDPS > 0 then
+			fullDPS.decayDPS = fullDPS.decayDPS + env.player.output.DecayDPS
+		end
+		if env.player.output.TotalDot and env.player.output.TotalDot > 0 then
+			fullDPS.dotDPS = fullDPS.dotDPS + env.player.output.TotalDot
 		end
 		env.player.output = copyTable(actorOutput)
+		--ConPrintf(activeSkill.activeEffect.grantedEffect.name)
 	end
 	-- Re-Add ailment DPS components
 	if fullDPS.bleedDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Full Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
+		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.bleedDPS
 	end
 	if fullDPS.igniteDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Full Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
+		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.igniteDPS
 	end
 	if fullDPS.poisonDPS > 0 then
@@ -1779,6 +1811,14 @@ function calcs.perform(env)
 	if fullDPS.impaleDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full Impale DPS", dps = fullDPS.impaleDPS, count = 1 })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.impaleDPS
+	end
+	if fullDPS.decayDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Decay DPS", dps = fullDPS.decayDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.decayDPS
+	end
+	if fullDPS.dotDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.dotDPS
 	end
 
 	env.player.output.SkillDPS = fullDPS.skills
