@@ -6877,6 +6877,9 @@ skills["LightningResistAura"] = {
 		["base_avoid_shock_%"] = {
 			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_reduce_enemy_lightning_resistance_%"] = {
+			mod("LightningPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
