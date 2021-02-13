@@ -9670,6 +9670,7 @@ skills["SummonSkeletons"] = {
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",
+		"RaisedSkeletonArcher",
 	},
 	statMap = {
 		["damage_+%"] = {
