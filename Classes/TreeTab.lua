@@ -15,12 +15,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
 	self.build = build
+	self.isComparing = false;
 
 	self.viewer = new("PassiveTreeView")
 
 	self.specList = { }
 	self.specList[1] = new("PassiveSpec", build, latestTreeVersion)
 	self:SetActiveSpec(1)
+	self:SetCompareSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
@@ -69,7 +71,23 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end
 		end
 	end
-	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
+	self.controls.compareCheck = new("CheckBoxControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 74, 0, 20, "Compare:", function(state)
+		self.isComparing = state
+		self:SetCompareSpec(self.activeCompareSpec)
+		self.controls.compareSelect.shown = state
+		if state then
+			self.controls.reset:SetAnchor("LEFT",self.controls.compareSelect,"RIGHT",nil,nil,nil)
+		else
+			self.controls.reset:SetAnchor("LEFT",self.controls.compareCheck,"RIGHT",nil,nil,nil)
+		end
+	end)
+	self.controls.compareSelect = new("DropDownControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 190, 20, nil, function(index, value)
+		if self.specList[index] then
+			self:SetCompareSpec(index)
+		end
+	end)
+	self.controls.compareSelect.shown = false
+	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:AddUndoState()
@@ -194,7 +212,14 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		self.viewer:Focus(self.jumpToX, self.jumpToY, treeViewPort, self.build)
 		self.jumpToNode = false
 	end
+	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
+
+	self.controls.compareSelect.selIndex = self.activeCompareSpec
+	wipeTable(self.controls.compareSelect.list)
+	for id, spec in ipairs(self.specList) do
+		t_insert(self.controls.compareSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+	end
 
 	self.controls.specSelect.selIndex = self.activeSpec
 	wipeTable(self.controls.specSelect.list)
@@ -313,6 +338,13 @@ function TreeTabClass:SetActiveSpec(specId)
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
 	end
+end
+
+function TreeTabClass:SetCompareSpec(specId)
+	self.activeCompareSpec = m_min(specId, #self.specList)
+	local curSpec = self.specList[self.activeCompareSpec]
+
+	self.compareSpec = curSpec
 end
 
 function TreeTabClass:SetPowerCalc(selection)
