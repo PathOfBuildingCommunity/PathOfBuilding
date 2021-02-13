@@ -307,7 +307,7 @@ return {
 		{ breakdown = "OffHand.AverageDamage" },
 		{ breakdown = "AverageDamage" },
 	}, },
-	{ label = "Skill DPS", flag = "notAverage", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
+	{ label = "Skill DPS", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },

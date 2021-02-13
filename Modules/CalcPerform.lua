@@ -773,7 +773,7 @@ function calcs.perform(env)
 			modDB:NewMod("AlreadyWithered", "FLAG", true, "Config") -- Prevents effect from applying multiple times
 		end
 		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCooldown") then
-			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
+			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, activeSkill.activeEffect.grantedEffect)
 			local warcryList = { }
 			local numWarcries, sumWarcryCooldown = 0
 			for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -1724,32 +1724,32 @@ function calcs.perform(env)
 		end
 	end
 
-	-- Defence/offence calculations
+	-- Defence calculations
 	calcs.defence(env, env.player)
 
-	--calcs.offence(env, env.player, env.player.mainSkill)
 	-- Calculate the offence of each active skill belonging to the select mainSkill socket group
 	local fullDPS = { combinedDPS = 0, skills = { } }
 	local actorOutput = copyTable(env.player.output)
 	local mainSkillOutput = copyTable(env.player.output)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		calcs.offence(env, env.player, activeSkill)
-		if env.player.output.CombinedDPS > 0 then
+		if env.player.output.TotalDPS > 0 then
 			if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-				t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = env.player.output.CombinedDPS, count = 1 })
+				t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = env.player.output.TotalDPS, count = 1 })
 			else
 				ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 			end
-			fullDPS.combinedDPS = fullDPS.combinedDPS + env.player.output.CombinedDPS
+			fullDPS.combinedDPS = fullDPS.combinedDPS + env.player.output.TotalDPS
 		end
 		if activeSkill == env.player.mainSkill then
 			mainSkillOutput = copyTable(env.player.output)
 		end
 		env.player.output = copyTable(actorOutput)
 	end
-	env.player.output = copyTable(mainSkillOutput)
+	calcs.offence(env, env.player, env.player.mainSkill)
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
+
 	if env.minion then
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)

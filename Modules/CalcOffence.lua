@@ -167,9 +167,9 @@ local function calcRadiusBreakpoints(baseRadius, incArea, moreArea)
 	return incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint
 end
 
-function calcSkillCooldown(skillModList, skillCfg, skillData)
+function calcSkillCooldown(skillModList, skillCfg, skillData, skillGrantedEffect)
 	local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
-	local cooldown = cooldownOverride or (skillData.cooldown  + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+	local cooldown = cooldownOverride or ((skillData.cooldown or skillGrantedEffect.castTime) + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 	cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	return cooldown
 end
@@ -1186,6 +1186,10 @@ function calcs.offence(env, actor, activeSkill)
 			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
+		elseif activeSkill.skillTypes[SkillType.Triggerable] and activeSkill.skillTypes[SkillType.Triggered] then
+			output.Time = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, activeSkill.activeEffect.grantedEffect)
+			output.Speed = 1 / output.Time
+			--ConPrintf("NAME: " .. activeSkill.activeEffect.grantedEffect.name)
 		else
 			local baseTime
 			if isAttack then
