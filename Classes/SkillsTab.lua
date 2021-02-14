@@ -640,7 +640,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Enable"] = slot.enabled
 
 	-- Count gem
-	slot.count = new("EditControl", {"LEFT",slot.enable,"RIGHT"}, 18, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	slot.count = new("EditControl", {"LEFT",slot.enabled,"RIGHT"}, 18, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
