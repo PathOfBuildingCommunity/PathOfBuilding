@@ -852,7 +852,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.groupLabel:SetText(socketGroup.label)
 		self.controls.groupSlot:SelByValue(socketGroup.slot, "slotName")
 		self.controls.groupEnabled.state = socketGroup.enabled
-		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS or socketGroup.disabled
+		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS or socketGroup.enabled
 
 		-- Update the gem slot controls
 		self:UpdateGemSlots()
@@ -865,7 +865,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].enabled.state = gemInstance.enabled
 			self.gemSlots[index].enableGlobal1.state = gemInstance.enableGlobal1
 			self.gemSlots[index].enableGlobal2.state = gemInstance.enableGlobal2
-			self.gemSlots[index].count:SetText(gemInstance.count)
+			self.gemSlots[index].count:SetText(gemInstance.count or 1)
 		end
 	end
 end
