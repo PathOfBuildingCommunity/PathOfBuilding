@@ -2953,3 +2953,26 @@ skills["CreateFungalGroundOnKill"] = {
 		[10] = { 100, levelRequirement = 1, duration = 5, cooldown = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["Unhinge"] = {
+	name = "Unhinge",
+	hidden = true,
+	color = 4,
+	description = "Relinquish your grip on reality.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.SecondWindSupport] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"display_unhinge_grant_insane",
+	},
+	levels = {
+		[20] = { cooldown = 5, levelRequirement = 70, statInterpolation = { }, },
+	},
+}
