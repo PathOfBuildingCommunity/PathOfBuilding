@@ -130,52 +130,54 @@ function calcs.calcFullDPS(build, mode, override)
 	local igniteDPS = 0
 	local igniteSource = ""
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		fullEnv.player.mainSkill = activeSkill
-		calcs.perform(fullEnv)
-		if activeSkill.minion then
-			--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.minion.output.TotalDPS))
-			if fullEnv.minion.output.TotalDPS and fullEnv.minion.output.TotalDPS > 0 then
-				if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-					t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = 1 })
-				else
-					ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
+			fullEnv.player.mainSkill = activeSkill
+			calcs.perform(fullEnv)
+			if activeSkill.minion then
+				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.minion.output.TotalDPS))
+				if fullEnv.minion.output.TotalDPS and fullEnv.minion.output.TotalDPS > 0 then
+					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = 1 })
+					else
+						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+					end
+					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.minion.output.TotalDPS
 				end
-				fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.minion.output.TotalDPS
-			end
-		else
-			--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.player.output.TotalDPS))
-			if fullEnv.player.output.TotalDPS and fullEnv.player.output.TotalDPS > 0 then
-				if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-					t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = 1 })
-				else
-					ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+			else
+				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.player.output.TotalDPS))
+				if fullEnv.player.output.TotalDPS and fullEnv.player.output.TotalDPS > 0 then
+					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = 1 })
+					else
+						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+					end
+					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.player.output.TotalDPS
 				end
-				fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.player.output.TotalDPS
+				if fullEnv.player.output.BleedDPS and fullEnv.player.output.BleedDPS > fullDPS.bleedDPS then
+					fullDPS.bleedDPS = fullEnv.player.output.BleedDPS
+					bleedSource = activeSkill.activeEffect.grantedEffect.name
+				end
+				if fullEnv.player.output.IgniteDPS and fullEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
+					fullDPS.igniteDPS = fullEnv.player.output.IgniteDPS
+					igniteSource = activeSkill.activeEffect.grantedEffect.name
+				end
+				if fullEnv.player.output.PoisonDPS and fullEnv.player.output.PoisonDPS > 0 then
+					fullDPS.poisonDPS = fullDPS.poisonDPS + fullEnv.player.output.PoisonDPS
+				end
+				if fullEnv.player.output.ImpaleDPS and fullEnv.player.output.ImpaleDPS > 0 then
+					fullDPS.impaleDPS = fullDPS.impaleDPS + fullEnv.player.output.ImpaleDPS
+				end
+				if fullEnv.player.output.DecayDPS and fullEnv.player.output.DecayDPS > 0 then
+					fullDPS.decayDPS = fullDPS.decayDPS + fullEnv.player.output.DecayDPS
+				end
+				if fullEnv.player.output.TotalDot and fullEnv.player.output.TotalDot > 0 then
+					fullDPS.dotDPS = fullDPS.dotDPS + fullEnv.player.output.TotalDot
+				end
 			end
-			if fullEnv.player.output.BleedDPS and fullEnv.player.output.BleedDPS > fullDPS.bleedDPS then
-				fullDPS.bleedDPS = fullEnv.player.output.BleedDPS
-				bleedSource = activeSkill.activeEffect.grantedEffect.name
-			end
-			if fullEnv.player.output.IgniteDPS and fullEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
-				fullDPS.igniteDPS = fullEnv.player.output.IgniteDPS
-				igniteSource = activeSkill.activeEffect.grantedEffect.name
-			end
-			if fullEnv.player.output.PoisonDPS and fullEnv.player.output.PoisonDPS > 0 then
-				fullDPS.poisonDPS = fullDPS.poisonDPS + fullEnv.player.output.PoisonDPS
-			end
-			if fullEnv.player.output.ImpaleDPS and fullEnv.player.output.ImpaleDPS > 0 then
-				fullDPS.impaleDPS = fullDPS.impaleDPS + fullEnv.player.output.ImpaleDPS
-			end
-			if fullEnv.player.output.DecayDPS and fullEnv.player.output.DecayDPS > 0 then
-				fullDPS.decayDPS = fullDPS.decayDPS + fullEnv.player.output.DecayDPS
-			end
-			if fullEnv.player.output.TotalDot and fullEnv.player.output.TotalDot > 0 then
-				fullDPS.dotDPS = fullDPS.dotDPS + fullEnv.player.output.TotalDot
-			end
+		
+			-- Re-Build env calculator for new run
+			fullEnv = calcs.initEnv(build, mode)
 		end
-	
-		-- Re-Build env calculator for new run
-		fullEnv = calcs.initEnv(build, mode)
 	end
 
 	-- Re-Add ailment DPS components

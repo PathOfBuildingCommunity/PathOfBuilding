@@ -342,9 +342,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, resistOverCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
 		{ },
-		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end, skillDPSStat = true },
-		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
+		{ },
+		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end, skillDPSStat = true },
+		
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
