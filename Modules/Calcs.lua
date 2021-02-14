@@ -106,22 +106,120 @@ function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
+	env.player.output.SkillDPS = fullDPS.skills
+	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
 	return function(override)
 		env = calcs.initEnv(build, "CALCULATOR", override)
 		calcs.perform(env)
+		local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override)
+		env.player.output.SkillDPS = fullDPS.skills
+		env.player.output.FullDPS = fullDPS.combinedDPS
 		return env.player.output
 	end, baseOutput	
 end
 
+function calcs.calcFullDPS(build, mode, override)
+	override = override or {}
+	local fullEnv = calcs.initEnv(build, mode, override)
+
+	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0 }
+	local bleedSource = ""
+	local igniteDPS = 0
+	local igniteSource = ""
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		fullEnv.player.mainSkill = activeSkill
+		calcs.perform(fullEnv)
+		if activeSkill.minion then
+			--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.minion.output.TotalDPS))
+			if fullEnv.minion.output.TotalDPS and fullEnv.minion.output.TotalDPS > 0 then
+				if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+					t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = 1 })
+				else
+					ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+				end
+				fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.minion.output.TotalDPS
+			end
+		else
+			--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.player.output.TotalDPS))
+			if fullEnv.player.output.TotalDPS and fullEnv.player.output.TotalDPS > 0 then
+				if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+					t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = 1 })
+				else
+					ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+				end
+				fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.player.output.TotalDPS
+			end
+			if fullEnv.player.output.BleedDPS and fullEnv.player.output.BleedDPS > fullDPS.bleedDPS then
+				fullDPS.bleedDPS = fullEnv.player.output.BleedDPS
+				bleedSource = activeSkill.activeEffect.grantedEffect.name
+			end
+			if fullEnv.player.output.IgniteDPS and fullEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
+				fullDPS.igniteDPS = fullEnv.player.output.IgniteDPS
+				igniteSource = activeSkill.activeEffect.grantedEffect.name
+			end
+			if fullEnv.player.output.PoisonDPS and fullEnv.player.output.PoisonDPS > 0 then
+				fullDPS.poisonDPS = fullDPS.poisonDPS + fullEnv.player.output.PoisonDPS
+			end
+			if fullEnv.player.output.ImpaleDPS and fullEnv.player.output.ImpaleDPS > 0 then
+				fullDPS.impaleDPS = fullDPS.impaleDPS + fullEnv.player.output.ImpaleDPS
+			end
+			if fullEnv.player.output.DecayDPS and fullEnv.player.output.DecayDPS > 0 then
+				fullDPS.decayDPS = fullDPS.decayDPS + fullEnv.player.output.DecayDPS
+			end
+			if fullEnv.player.output.TotalDot and fullEnv.player.output.TotalDot > 0 then
+				fullDPS.dotDPS = fullDPS.dotDPS + fullEnv.player.output.TotalDot
+			end
+		end
+	
+		-- Re-Build env calculator for new run
+		fullEnv = calcs.initEnv(build, mode)
+	end
+
+	-- Re-Add ailment DPS components
+	if fullDPS.bleedDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.bleedDPS
+	end
+	if fullDPS.igniteDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.igniteDPS
+	end
+	if fullDPS.poisonDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.poisonDPS
+	end
+	if fullDPS.impaleDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Impale DPS", dps = fullDPS.impaleDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.impaleDPS
+	end
+	if fullDPS.decayDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Decay DPS", dps = fullDPS.decayDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.decayDPS
+	end
+	if fullDPS.dotDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.dotDPS
+	end
+
+	return fullDPS
+end
+
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
-	-- Build output
+	-- Build output across all active skills
+	local fullDPS = calcs.calcFullDPS(build, mode)
+
+	-- Build output for selected main skill
 	local env = calcs.initEnv(build, mode)
 	calcs.perform(env)
-
 	local output = env.player.output
+
+	-- Add Full DPS data to main `env`
+	env.player.output.SkillDPS = fullDPS.skills
+	env.player.output.FullDPS = fullDPS.combinedDPS
 
 	if mode == "MAIN" then
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")

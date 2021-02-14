@@ -1731,4 +1731,6 @@ function calcs.perform(env)
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
+
+	--calcs.calcFullDPS(env.build, "MAIN")
 end

@@ -257,7 +257,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
 		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
 		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
-		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
+		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
@@ -341,12 +341,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, resistOverCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
+		{ },
+		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end, skillDPSStat = true },
+		{ },
+		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
 		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
-		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
+		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
@@ -1090,6 +1094,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 end
 
 function buildMode:FormatStat(statData, statVal)
+	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
@@ -1122,7 +1127,28 @@ function buildMode:AddDisplayStatList(statList, actor)
 							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
 						end
 					end
-					if not (statData.hideStat) then
+					if statData.skillDPSStat then
+						labelColor = colorCodes.CUSTOM
+						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
+						for _, skillData in ipairs(actor.output.SkillDPS) do
+							local lhsString = labelColor..skillData.name..":"
+							if skillData.count >= 2 then
+								lhsString = labelColor.."("..tostring(skillData.count).."x) "..skillData.name..":"
+							end
+							t_insert(statBoxList, {
+								height = 16,
+								lhsString,
+								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count),
+							})
+							if skillData.source then
+								t_insert(statBoxList, {
+									height = 16,
+									colorCodes.UNIQUE.."^ Source:",
+									colorCodes.CUSTOM..skillData.source,
+								})
+							end
+						end
+					elseif not (statData.hideStat) then
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
@@ -1156,7 +1182,9 @@ end
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
-		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) then
+		if statData.skillDPSStat then
+			count = count + self:CompareStatList(tooltip, statData, actor, baseOutput, compareOutput, header, nodeCount)
+		elseif statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
