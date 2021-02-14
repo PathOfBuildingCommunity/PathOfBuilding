@@ -167,7 +167,7 @@ will automatically apply to the skill.]]
 	self.controls.gemQualityIdHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].qualityId,"TOPLEFT"}, 0, -2, 0, 16, "^7Variant:")
 	self.controls.gemQualityHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].quality,"TOPLEFT"}, 0, -2, 0, 16, "^7Quality:")
 	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].enabled,"TOPLEFT"}, -16, -2, 0, 16, "^7Enabled:")
-	self.controls.gemCountHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].count,"TOPLEFT"}, 0, -2, 0, 16, "^7Count:")
+	self.controls.gemCountHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].count,"TOPLEFT"}, 8, -2, 0, 16, "^7Count:")
 end)
 
 -- parse real gem name and quality by ommiting the first word if alt qual is set

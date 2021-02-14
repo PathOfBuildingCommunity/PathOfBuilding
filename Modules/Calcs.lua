@@ -121,6 +121,16 @@ function calcs.getMiscCalculator(build)
 	end, baseOutput	
 end
 
+local function getActiveSkillCount(activeSkill)
+	local gemList = activeSkill.socketGroup.gemList
+	for _, gemData in pairs(gemList) do
+		if activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect then
+			return gemData.count
+		end
+	end
+	return 1
+end
+
 function calcs.calcFullDPS(build, mode, override)
 	override = override or {}
 	local fullEnv = calcs.initEnv(build, mode, override)
@@ -137,17 +147,37 @@ function calcs.calcFullDPS(build, mode, override)
 				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.minion.output.TotalDPS))
 				if fullEnv.minion.output.TotalDPS and fullEnv.minion.output.TotalDPS > 0 then
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = 1 })
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = getActiveSkillCount(activeSkill) })
 					else
 						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 					end
 					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.minion.output.TotalDPS
 				end
+				if fullEnv.minion.output.BleedDPS and fullEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
+					fullDPS.bleedDPS = fullEnv.minion.output.BleedDPS
+					bleedSource = activeSkill.activeEffect.grantedEffect.name
+				end
+				if fullEnv.minion.output.IgniteDPS and fullEnv.minion.output.IgniteDPS > fullDPS.igniteDPS then
+					fullDPS.igniteDPS = fullEnv.minion.output.IgniteDPS
+					igniteSource = activeSkill.activeEffect.grantedEffect.name
+				end
+				if fullEnv.minion.output.PoisonDPS and fullEnv.minion.output.PoisonDPS > 0 then
+					fullDPS.poisonDPS = fullDPS.poisonDPS + fullEnv.minion.output.PoisonDPS
+				end
+				if fullEnv.minion.output.ImpaleDPS and fullEnv.minion.output.ImpaleDPS > 0 then
+					fullDPS.impaleDPS = fullDPS.impaleDPS + fullEnv.minion.output.ImpaleDPS
+				end
+				if fullEnv.minion.output.DecayDPS and fullEnv.minion.output.DecayDPS > 0 then
+					fullDPS.decayDPS = fullDPS.decayDPS + fullEnv.minion.output.DecayDPS
+				end
+				if fullEnv.minion.output.TotalDot and fullEnv.minion.output.TotalDot > 0 then
+					fullDPS.dotDPS = fullDPS.dotDPS + fullEnv.minion.output.TotalDot
+				end
 			else
 				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.player.output.TotalDPS))
 				if fullEnv.player.output.TotalDPS and fullEnv.player.output.TotalDPS > 0 then
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = 1 })
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = getActiveSkillCount(activeSkill) })
 					else
 						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 					end
