@@ -1184,7 +1184,7 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 	local count = 0
 	for _, statData in ipairs(statList) do
 		if statData.skillDPSStat then
-			count = count + self:CompareStatList(tooltip, statData, actor, baseOutput, compareOutput, header, nodeCount)
+			--count = count + self:CompareStatList(tooltip, statData, actor, baseOutput, compareOutput, header, nodeCount)
 		elseif statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
