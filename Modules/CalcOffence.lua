@@ -1235,7 +1235,7 @@ function calcs.offence(env, actor, activeSkill)
 				})
 			end 
 		end
-		if skillData.hitTimeOverride then
+		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
