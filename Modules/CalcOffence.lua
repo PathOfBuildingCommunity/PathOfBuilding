@@ -1539,7 +1539,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if globalOutput.ExertedAttackUptimeRatio > 0 then
 					local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
-					local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
+					local moreExertedAttacks = skillModList:More(cfg, "ExertIncrease")
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 						skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks")
