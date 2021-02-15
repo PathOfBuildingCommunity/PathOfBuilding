@@ -249,7 +249,7 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
 				gemInstance.enableGlobal1 = not child.attrib.enableGlobal1 or child.attrib.enableGlobal1 == "true"
 				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
-				gemInstance.count = tonumber(child.attrib.count)
+				gemInstance.count = tonumber(child.attrib.count) or 1
 				gemInstance.skillPart = tonumber(child.attrib.skillPart)
 				gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
 				gemInstance.skillStageCount = tonumber(child.attrib.skillStageCount)
@@ -652,7 +652,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
 		end
-		gemInstance.count = tonumber(buf)
+		gemInstance.count = tonumber(buf) or 1
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
