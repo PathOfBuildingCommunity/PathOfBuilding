@@ -249,7 +249,7 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
 				gemInstance.enableGlobal1 = not child.attrib.enableGlobal1 or child.attrib.enableGlobal1 == "true"
 				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
-				gemInstance.count = tonumber(child.attrib.count or 1)
+				gemInstance.count = tonumber(child.attrib.count)
 				gemInstance.skillPart = tonumber(child.attrib.skillPart)
 				gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
 				gemInstance.skillStageCount = tonumber(child.attrib.skillStageCount)
@@ -652,7 +652,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
 		end
-		gemInstance.count = tonumber(buf) or 1
+		gemInstance.count = tonumber(buf)
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -852,7 +852,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.groupLabel:SetText(socketGroup.label)
 		self.controls.groupSlot:SelByValue(socketGroup.slot, "slotName")
 		self.controls.groupEnabled.state = socketGroup.enabled
-		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS or socketGroup.enabled
+		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS and socketGroup.enabled
 
 		-- Update the gem slot controls
 		self:UpdateGemSlots()
@@ -865,7 +865,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].enabled.state = gemInstance.enabled
 			self.gemSlots[index].enableGlobal1.state = gemInstance.enableGlobal1
 			self.gemSlots[index].enableGlobal2.state = gemInstance.enableGlobal2
-			self.gemSlots[index].count:SetText(gemInstance.count or 1)
+			self.gemSlots[index].count:SetText(gemInstance.count)
 		end
 	end
 end

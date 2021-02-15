@@ -1134,7 +1134,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 						for _, skillData in ipairs(actor.output.SkillDPS) do
 							local lhsString = labelColor..skillData.name..":"
 							if skillData.count >= 2 then
-								lhsString = labelColor.."("..tostring(skillData.count).."x) "..skillData.name..":"
+								lhsString = labelColor..tostring(skillData.count).."x "..skillData.name..":"
 							end
 							t_insert(statBoxList, {
 								height = 16,

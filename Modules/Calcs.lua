@@ -143,15 +143,16 @@ function calcs.calcFullDPS(build, mode, override)
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			fullEnv.player.mainSkill = activeSkill
 			calcs.perform(fullEnv)
+			local activeSkillCount = getActiveSkillCount(activeSkill)
 			if activeSkill.minion then
 				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.minion.output.TotalDPS))
 				if fullEnv.minion.output.TotalDPS and fullEnv.minion.output.TotalDPS > 0 then
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = getActiveSkillCount(activeSkill) })
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = activeSkillCount })
 					else
 						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 					end
-					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.minion.output.TotalDPS
+					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.minion.output.TotalDPS * activeSkillCount
 				end
 				if fullEnv.minion.output.BleedDPS and fullEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
 					fullDPS.bleedDPS = fullEnv.minion.output.BleedDPS
@@ -177,11 +178,11 @@ function calcs.calcFullDPS(build, mode, override)
 				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.player.output.TotalDPS))
 				if fullEnv.player.output.TotalDPS and fullEnv.player.output.TotalDPS > 0 then
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = getActiveSkillCount(activeSkill) })
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = activeSkillCount })
 					else
 						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 					end
-					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.player.output.TotalDPS
+					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.player.output.TotalDPS * activeSkillCount
 				end
 				if fullEnv.player.output.BleedDPS and fullEnv.player.output.BleedDPS > fullDPS.bleedDPS then
 					fullDPS.bleedDPS = fullEnv.player.output.BleedDPS
