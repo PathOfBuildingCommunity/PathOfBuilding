@@ -741,3 +741,7 @@ local skills, mod, flag, skill = ...
 #flags duration area
 	fromItem = true,
 #mods
+
+#skill SupportCursePillarTriggerCurses
+	fromItem = true,
+#mods

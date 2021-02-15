@@ -2954,3 +2954,27 @@ skills["CreateFungalGroundOnKill"] = {
 		[10] = { 100, levelRequirement = 1, duration = 5, cooldown = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["SupportCursePillarTriggerCurses"] = {
+	name = "SupportCursePillarTriggerCurses",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
+	addSkillTypes = { SkillType.TriggeredGrantedSkill, SkillType.Area, SkillType.Aura, SkillType.AuraDebuff, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Mine, SkillType.Trap, },
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_has_trigger_from_unique_item",
+		"number_of_additional_curses_allowed",
+		"curse_effect_+%",
+	},
+	levels = {
+		[20] = { 1, 12, -25, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
+	},
+}
