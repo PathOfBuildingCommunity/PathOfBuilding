@@ -741,3 +741,8 @@ local skills, mod, flag, skill = ...
 #flags duration area
 	fromItem = true,
 #mods
+
+#skill Unhinge
+#flags spell
+	fromItem = true,
+#mods
