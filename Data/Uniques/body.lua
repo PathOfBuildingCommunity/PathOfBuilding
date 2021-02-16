@@ -78,6 +78,7 @@ Doppelgänger Guise
 Sadist Garb
 League: Ritual
 Requires Level 68, 103 Dex, 109 Int
+Implicits: 0
 Grants Level 20 Unhinge Skill
 (40-60)% more Critical Strike Chance while Insane
 Enemies Killed by your Hits are destroyed while Insane

@@ -85,6 +85,7 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/Axis/AxisEliteSoldierHeraldOfLight AxisEliteSoldierHeraldOfLight
+#limit ActiveSentinelOfPurityLimit
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/HolyLivingRelic HolyLivingRelic

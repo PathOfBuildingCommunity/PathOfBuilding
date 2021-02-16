@@ -751,3 +751,8 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #baseMod skill("manaCostForced", 0)
 #mods
+
+#skill Unhinge
+#flags spell
+	fromItem = true,
+#mods
