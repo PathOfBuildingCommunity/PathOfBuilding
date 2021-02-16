@@ -162,10 +162,13 @@ return {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["unique_mjolner_lightning_spells_triggered"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+	skill("triggeredByMjolner", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.LightningSkill }),
 },
 ["unique_cospris_malice_cold_spells_triggered"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+},
+["cast_linked_spells_on_attack_crit_%"] = {
+	skill("triggeredByCoC", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["skill_triggered_by_snipe"] = {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),

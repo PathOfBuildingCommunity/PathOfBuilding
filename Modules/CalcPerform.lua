@@ -936,6 +936,16 @@ function calcs.perform(env)
 			activeSkill.skillModList:NewMod("CastWhileChannellingSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillData.triggerTime = trigTime
 		end
+		if activeSkill.skillData.triggeredByCospris and not activeSkill.skillFlags.minion then
+			activeSkill.skillData.triggered = true
+			ConPrintf("NAME: " .. activeSkill.activeEffect.grantedEffect.name)
+		end
+		if activeSkill.skillData.triggeredByMjolner and not activeSkill.skillFlags.minion then
+			activeSkill.skillData.triggered = true
+		end
+		if activeSkill.skillData.triggeredByCoC and not activeSkill.skillFlags.minion then
+			activeSkill.skillData.triggered = true
+		end
 	end
 
 	local breakdown
