@@ -1279,12 +1279,13 @@ function calcs.perform(env)
 					mergeBuff(srcList, debuffs, buff.name)
 				end
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
-				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")) then
+				local mark = activeSkill.skillTypes[SkillType.Mark]
+				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")) or mark then
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
 						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
-						isMark = activeSkill.skillTypes[SkillType.Mark],
+						isMark = mark,
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 					local more = skillModList:More(skillCfg, "CurseEffect")
@@ -1359,7 +1360,7 @@ function calcs.perform(env)
 							end
 						end
 					elseif buff.type == "Curse" then
-						if env.mode_effective and activeSkill.skillData.enable and not enemyDB:Flag(nil, "Hexproof") then
+						if env.mode_effective and activeSkill.skillData.enable and (not enemyDB:Flag(nil, "Hexproof") or activeSkill.skillTypes[SkillType.Mark]) then
 							local curse = {
 								name = buff.name,
 								priority = 1,
