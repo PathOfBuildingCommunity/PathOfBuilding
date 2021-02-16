@@ -165,7 +165,7 @@ return {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["unique_cospris_malice_cold_spells_triggered"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.ColdSkill }),
 },
 ["skill_triggered_by_snipe"] = {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
