@@ -483,7 +483,7 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
-				
+
 				-- In order to preserve users' settings through renameing/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
 				if node.attrib.showThousandsCalcs ~= nil then
@@ -587,6 +587,7 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
+<<<<<<< HEAD
 	
 	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators:")
 	controls.thousandsSeparators = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, nil, function(state)
@@ -603,6 +604,21 @@ function main:OpenOptionsPopup()
 		self.decimalSeparator = buf
 	end)
 	
+=======
+	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators:")
+	controls.thousandsSeparators = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, nil, function(state)
+		self.showThousandsSeparators = state
+	end)
+	controls.thousandsSeparators.state = self.showThousandsSeparators
+	controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeparator, nil, nil, 1, function(buf)
+		self.thousandsSeparator = buf
+	end)
+	controls.thousandsSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 116, 92, 16, "Thousands Separator:")
+	controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 138, 20, 20, self.decimalSeparator, nil, nil, 1, function(buf)
+		self.decimalSeparator = buf
+	end)
+	controls.decimalSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 138, 92, 16, "Decimal Separator:")
+>>>>>>> 5c44af988d2e0233df6738497fac7a2360240aaa
 	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 160, 20, "Show build name in window title:", function(state)
 		self.showTitlebarName = state
 	end)
