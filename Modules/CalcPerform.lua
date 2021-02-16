@@ -690,14 +690,6 @@ function calcs.perform(env)
 	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.activeEffect.grantedEffect.name == "Herald of Purity" then
-			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveSentinelOfPurityLimit")
-			output.ActiveSentinelOfPurityLimit = m_max(limit, output.ActiveSentinelOfPurityLimit or 0)
-		end
-		if activeSkill.skillFlags.golem then
-			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveGolemLimit")
-			output.ActiveGolemLimit = m_max(limit, output.ActiveGolemLimit or 0)
-		end
 		if activeSkill.skillFlags.totem then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
@@ -789,21 +781,9 @@ function calcs.perform(env)
 			env.player.modDB:NewMod("GlobalWarcryCount", "BASE", numWarcries)
 			modDB:NewMod("AlreadyGlobalWarcryCooldown", "FLAG", true, "Config") -- Prevents effect from applying multiple times
 		end
-		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")
-			output.ActiveSkeletonLimit = m_max(limit, output.ActiveSkeletonLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Zombie" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveZombieLimit")
-			output.ActiveZombieLimit = m_max(limit, output.ActiveZombieLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
-			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
-		elseif activeSkill.minionList and activeSkill.minionList[1] == "SummonedPhantasm" then
-			local limit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActivePhantasmLimit")
-			output.ActivePhantasmLimit = m_max(limit, output.ActivePhantasmLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
-			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
+		if activeSkill.minion and activeSkill.minion.minionData and activeSkill.minion.minionData.limit then
+			local limit = activeSkill.skillModList:Sum("BASE", nil, activeSkill.minion.minionData.limit)
+			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
 		end
 		if env.mode_buffs and activeSkill.skillFlags.warcry then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
