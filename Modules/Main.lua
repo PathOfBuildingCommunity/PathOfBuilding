@@ -485,9 +485,9 @@ function main:LoadSettings(ignoreBuild)
 				end
 				-- In order to preserve users' settings through renameing/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
-				if node.attrib.showThousandsCalcs ~= nil then
+				if node.attrib.showThousandsCalcs then
 					self.showThousandsSeparators = node.attrib.showThousandsCalcs == "true"
-				elseif node.attrib.showThousandsSidebar ~= nil then
+				elseif node.attrib.showThousandsSidebar then
 					self.showThousandsSeparators = node.attrib.showThousandsSidebar == "true"
 				end
 				if node.attrib.showThousandsSeparators then
