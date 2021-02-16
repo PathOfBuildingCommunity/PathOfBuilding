@@ -494,12 +494,7 @@ function formatNumSep(str)
 		end
 	end)
 end
-function formatDecimalSep(str)
-	return str:gsub("(%d*)(%d%.?)", function(s, e)
-		e = e:gsub("%.", main.decimalSeparator)
-		return s:reverse():gsub("(%d%d)(%d)","%1".."%2"):reverse()..e
-	end)
-end
+
 function getFormatNumSep(dec)
 	return function(val)
 		return formatNumSep(val, dec)
