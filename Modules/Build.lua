@@ -810,7 +810,13 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
 	end
-	if main.showThousandsSidebar ~= self.lastShowThousandsSidebar then
+	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
+		self:RefreshStatList()
+	end
+	if main.thousandsSeparator ~= self.lastShowThousandsSeparator then
+		self:RefreshStatList()
+	end
+	if main.decimalSeparator ~= self.lastShowDecimalSeparator then
 		self:RefreshStatList()
 	end
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
@@ -1093,12 +1099,12 @@ function buildMode:FormatStat(statData, statVal)
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
-	if main.showThousandsSidebar then
-		valStr = color .. formatNumSep(valStr)
-	else
-		valStr = color .. valStr
-	end
-	self.lastShowThousandsSidebar = main.showThousandsSidebar
+	valStr:gsub("%.", main.decimalSeparator)
+	valStr = color .. formatNumSep(valStr)
+
+	self.lastShowThousandsSeparators = main.showThousandsSeparators
+	self.lastShowThousandsSeparator = main.thousandsSeparator
+	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
 end
@@ -1167,9 +1173,9 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
-				if main.showThousandsCalcs then
-					valStr = formatNumSep(valStr)
-				end
+
+				valStr = formatNumSep(valStr)
+
 				local line = string.format("%s%s %s", color, valStr, statData.label)
 				local pcPerPt = ""
 				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then

@@ -199,8 +199,9 @@ the "Releases" section of the GitHub page.]])
 
 	self.buildSortMode = "NAME"
 	self.nodePowerTheme = "RED/BLUE"
-	self.showThousandsSidebar = true
-	self.showThousandsCalcs = true
+	self.showThousandsSeparators = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
 	self.showTitlebarName = true
 
 	local ignoreBuild = self:LoadPastebinBuild()
@@ -482,12 +483,22 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
-				if node.attrib.showThousandsSidebar then
-					self.showThousandsSidebar = node.attrib.showThousandsSidebar == "true"
-				end -- else leave at default
-				if node.attrib.showThousandsCalcs then
-					self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
-				end -- else leave at default
+				-- In order to preserve users' settings through renameing/merging this variable, we have this if statement to use the first found setting
+				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
+				if node.attrib.showThousandsCalcs ~= nil then
+					self.showThousandsSeparators = node.attrib.showThousandsCalcs == "true"
+				elseif node.attrib.showThousandsSidebar ~= nil then
+					self.showThousandsSeparators = node.attrib.showThousandsSidebar == "true"
+				end
+				if node.attrib.showThousandsSeparators then
+					self.showThousandsSeparators = node.attrib.showThousandsSeparators == "true"
+				end
+				if node.attrib.thousandsSeparator then
+					self.thousandsSeparator = node.attrib.thousandsSeparator
+				end
+				if node.attrib.decimalSeparator then
+					self.decimalSeparator = node.attrib.decimalSeparator
+				end
 				if node.attrib.showTitlebarName then
 					self.showTitlebarName = node.attrib.showTitlebarName == "true"
 				end
@@ -533,8 +544,9 @@ function main:SaveSettings()
 		proxyURL = launch.proxyURL, 
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
-		showThousandsSidebar = tostring(self.showThousandsSidebar),
-		showThousandsCalcs = tostring(self.showThousandsCalcs),
+		showThousandsSeparators = tostring(self.showThousandsSeparators),
+		thousandsSeparator = self.thousandsSeparator,
+		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
@@ -574,24 +586,31 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.thousandsLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators in:")
-	controls.thousandsSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, "Sidebar:", function(state)
-		self.showThousandsSidebar = state
+	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators:")
+	controls.thousandsSeparators = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, nil, function(state)
+		self.showThousandsSeparators = state
 	end)
-	controls.thousandsSidebar.state = self.showThousandsSidebar
-	controls.thousandsCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 380, 92, 20, "Calcs tab:", function(state)
-		self.showThousandsCalcs = state
+	controls.thousandsSeparators.state = self.showThousandsSeparators
+
+	controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeparator, nil, nil, 1, function(buf)
+		self.thousandsSeparator = buf
 	end)
-	controls.thousandsCalcs.state = self.showThousandsCalcs
-	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 116, 20, "Show build name in window title:", function(state)
+	controls.thousandsSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 116, 92, 16, "Thousands Separator:")
+	controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 138, 20, 20, self.decimalSeparator, nil, nil, 1, function(buf)
+		self.decimalSeparator = buf
+	end)
+	controls.decimalSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 138, 92, 16, "Decimal Separator:")
+
+	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 160, 20, "Show build name in window title:", function(state)
 		self.showTitlebarName = state
 	end)
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
-	local initialThousandsSidebar = self.showThousandsSidebar
-	local initialThousandsCalcs = self.showThousandsCalcs
+	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
-	controls.save = new("ButtonControl", nil, -45, 144, 80, 20, "Save", function()
+	local initialThousandsSeparator = self.thousandsSeparator
+	local initialDecimalSeparator = self.decimalSeparator
+	controls.save = new("ButtonControl", nil, -45, 182, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -610,14 +629,15 @@ function main:OpenOptionsPopup()
 		end
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 144, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 182, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
-		self.showThousandsSidebar = initialThousandsSidebar
-		self.showThousandsCalcs = initialThousandsCalcs
+		self.showThousandsSeparators = initialThousandsSeparatorDisplay
+		self.thousandsSeparator = initialThousandsSeparator
+		self.decimalSeparator = initialDecimalSeparator
 		self.showTitlebarName = initialTitlebarName
 		main:ClosePopup()
 	end)
-	self:OpenPopup(450, 174, "Options", controls, "save", nil, "cancel")
+	self:OpenPopup(450, 218, "Options", controls, "save", nil, "cancel")
 end
 
 function main:OpenUpdatePopup()
