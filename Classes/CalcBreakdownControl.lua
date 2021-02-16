@@ -350,7 +350,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	for _, row in ipairs(rowList) do
 		if not sectionData.modType then
 			-- No modifier type specified, so format the value to convey type
-			row.displayValue = self:FormatModValue(row.value, row.mod.type)
+			row.displayValue = formatInteger(self:FormatModValue(row.value, row.mod.type))
 		else
 			section.colList[1].right = true
 			row.displayValue = formatRound(row.value, 2)

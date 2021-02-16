@@ -494,6 +494,17 @@ function formatNumSep(str)
 	end)
 end
 
+-- Takes either string representation of an integer or an integer and returns a formatted string
+-- "123456789" -> "1,234,567,890"
+function formatInteger(int)
+    local str = tostring(int)
+    if main.showThousandsSeparators then
+        return str:gsub("(%d)(%d%d)","%1"..main.thousandsSeparator.."%2")
+    else
+        return str
+    end
+end
+
 function getFormatNumSep(dec)
 	return function(val)
 		return formatNumSep(val, dec)
