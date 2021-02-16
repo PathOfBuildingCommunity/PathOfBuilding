@@ -350,7 +350,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	for _, row in ipairs(rowList) do
 		if not sectionData.modType then
 			-- No modifier type specified, so format the value to convey type
-			row.displayValue = formatInteger(self:FormatModValue(row.value, row.mod.type))
+			row.displayValue = self:FormatModValue(row.value, row.mod.type)
 		else
 			section.colList[1].right = true
 			row.displayValue = formatRound(row.value, 2)
@@ -537,14 +537,12 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 				local _, alpha = string.gsub(row[col.key], "%a", " ") -- counts letters in the string
 				local _, notes = string.gsub(row[col.key], " to ", " ") -- counts " to " in the string
 				local _, paren = string.gsub(row[col.key], "%b()", " ") -- counts parenthesis in the string
-				if main.showThousandsSeparators and (alpha == 0 or notes > 0 or paren > 0) and col.right then
+				if (alpha == 0 or notes > 0 or paren > 0) and col.right then
 					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
-				elseif col.right then
-					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..row[col.key])
-				elseif main.showThousandsSeparators and (alpha == 0 or notes > 0 or paren > 0) then
+				elseif (alpha == 0 or notes > 0 or paren > 0) then
 					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
 				else
-					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..row[col.key])
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
 				end
 				local ttFunc = row[col.key.."Tooltip"]
 				local ttNode = row[col.key.."Node"]
