@@ -742,6 +742,16 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill CursePillar
+#flags duration
+	fromItem = true,
+#mods
+
+#skill SupportCursePillarTriggerCurses Doedre's Effigy
+	fromItem = true,
+#baseMod skill("manaCostForced", 0)
+#mods
+
 #skill Unhinge
 #flags spell
 	fromItem = true,
