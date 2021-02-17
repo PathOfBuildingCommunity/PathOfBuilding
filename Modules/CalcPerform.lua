@@ -981,17 +981,21 @@ function calcs.perform(env)
 				spellCount = spellCount + 1
 			end
 		end
-		for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-			env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+		if not source then
+			env.player.mainSkill.skillData.triggeredByCospris = nil
+		else
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			env.player.mainSkill.skillModList:NewMod("ActiveSkillsLinkedToTrigger", "BASE", spellCount, "Skill")
+			env.player.mainSkill.skillData.triggerTime = 1 / trigTime
+			env.player.mainSkill.skillData.triggerSource = source
+			--ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
+			--ConPrintf("Trigger Time: " .. tostring(env.player.mainSkill.skillData.triggerTime))
 		end
-		for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-			env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-		end
-		env.player.mainSkill.skillModList:NewMod("ActiveSkillsLinkedToTrigger", "BASE", spellCount, "Skill")
-		env.player.mainSkill.skillData.triggerTime = 1 / trigTime
-		env.player.mainSkill.skillData.triggerSource = source
-		--ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
-		--ConPrintf("Trigger Time: " .. tostring(env.player.mainSkill.skillData.triggerTime))
 	end
 
 	local breakdown
