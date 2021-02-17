@@ -17,6 +17,13 @@ local s_format = string.format
 
 local tempTable1 = { }
 
+local function cacheSkillUUID(skill)
+	local strName = skill.activeEffect.gemData.grantedEffectId
+	local strSlotName = skill.slotName:gsub("%s+", "") -- strip spaces
+	local intActiveSkillIndex = skill.socketGroup.mainActiveSkill
+	return strName.."_"..strSlotName.."_"..tostring(intActiveSkillIndex)
+end
+
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
@@ -578,6 +585,8 @@ end
 -- 9. Processes charges and misc buffs (doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
 function calcs.perform(env)
+	--ConPrintf("[calcs.perform]: " .. cacheSkillUUID(env.player.mainSkill))
+
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 
@@ -933,12 +942,8 @@ function calcs.perform(env)
 			for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
 				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 			end
-			activeSkill.skillModList:NewMod("CastWhileChannellingSpellsLinked", "BASE", spellCount, "Skill")
+			activeSkill.skillModList:NewMod("ActiveSkillsLinkedToTrigger", "BASE", spellCount, "Skill")
 			activeSkill.skillData.triggerTime = trigTime
-		end
-		if activeSkill.skillData.triggeredByCospris and not activeSkill.skillFlags.minion then
-			activeSkill.skillData.triggered = true
-			ConPrintf("NAME: " .. activeSkill.activeEffect.grantedEffect.name)
 		end
 		if activeSkill.skillData.triggeredByMjolner and not activeSkill.skillFlags.minion then
 			activeSkill.skillData.triggered = true
@@ -946,6 +951,45 @@ function calcs.perform(env)
 		if activeSkill.skillData.triggeredByCoC and not activeSkill.skillFlags.minion then
 			activeSkill.skillData.triggered = true
 		end
+	end
+
+	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
+		env.player.mainSkill.skillData.triggered = true
+		--ConPrintf("NAME: " .. env.player.mainSkill.activeEffect.grantedEffect.name)
+		local spellCount, trigTime, source = 0, 0, nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Melee] and skill ~= activeSkill then
+				local uuid = cacheSkillUUID(skill)
+				if not GlobalCache[uuid] then
+					local skillEnv = calcs.initEnv(env.build, "SINGLE")
+					skillEnv.player.mainSkill = skill
+					--ConPrintf("CALC: " .. skill.activeEffect.grantedEffect.name)
+					calcs.perform(skillEnv)
+				end
+
+				if not source then
+					source = skill
+					trigTime = GlobalCache[uuid].cachedData.Speed
+				elseif GlobalCache[uuid].cachedData.Speed > trigTime then
+					source = skill
+					trigTime = GlobalCache[uuid].cachedData.Speed
+				end
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
+				spellCount = spellCount + 1
+			end
+		end
+		for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+			env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+		end
+		for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+			env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+		end
+		env.player.mainSkill.skillModList:NewMod("ActiveSkillsLinkedToTrigger", "BASE", spellCount, "Skill")
+		env.player.mainSkill.skillData.triggerTime = 1 / trigTime
+		env.player.mainSkill.skillData.triggerSource = source
+		--ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
+		--ConPrintf("Trigger Time: " .. tostring(env.player.mainSkill.skillData.triggerTime))
 	end
 
 	local breakdown
@@ -1741,4 +1785,18 @@ function calcs.perform(env)
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
+
+	local uuid = cacheSkillUUID(env.player.mainSkill)
+	GlobalCache[uuid] = {
+		name = env.player.mainSkill.activeEffect.grantedEffect.name,
+		cachedData = {
+			Speed = output.Speed,
+			HitChance = output.HitChance,
+			CritChance = output.CritChance,
+		},
+	}
+	--ConPrintf("Cached Data for '" .. GlobalCache[uuid].name .. "' :: " .. tostring(GlobalCache[uuid]))
+	--for k,v in pairs(GlobalCache[uuid].cachedData) do
+	--	ConPrintf(k .. " - " .. tostring(v))
+	--end
 end
