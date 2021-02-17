@@ -14,6 +14,8 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
 local s_format = string.format
+local bor = bit.bor
+local band = bit.band
 
 local tempTable1 = { }
 
@@ -958,7 +960,7 @@ function calcs.perform(env)
 		--ConPrintf("NAME: " .. env.player.mainSkill.activeEffect.grantedEffect.name)
 		local spellCount, trigTime, source = 0, 0, nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Melee] and skill ~= activeSkill then
+			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
 				local uuid = cacheSkillUUID(skill)
 				if not GlobalCache[uuid] then
 					local skillEnv = calcs.initEnv(env.build, "SINGLE")
