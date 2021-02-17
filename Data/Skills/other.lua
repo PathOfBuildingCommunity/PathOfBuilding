@@ -2953,3 +2953,75 @@ skills["CreateFungalGroundOnKill"] = {
 		[10] = { 100, levelRequirement = 1, duration = 5, cooldown = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["Unhinge"] = {
+	name = "Unhinge",
+	hidden = true,
+	color = 4,
+	description = "Relinquish your grip on reality.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.SecondWindSupport] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"display_unhinge_grant_insane",
+	},
+	levels = {
+		[20] = { cooldown = 5, levelRequirement = 70, statInterpolation = { }, },
+	},
+}
+skills["CursePillar"] = {
+	name = "Summon Doedre's Effigy",
+	hidden = true,
+	color = 4,
+	description = "Summons an effigy of Doedre, which will project auras of all the curse skill gems socketed in Doedre's Skin. These curses have reduced effectiveness.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.SecondWindSupport] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"base_number_of_effigies_allowed",
+	},
+	levels = {
+		[20] = { 10000, 3, cooldown = 0.5, levelRequirement = 70, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["SupportCursePillarTriggerCurses"] = {
+	name = "Doedre's Effigy",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
+	addSkillTypes = { SkillType.TriggeredGrantedSkill, SkillType.Area, SkillType.Aura, SkillType.AuraDebuff, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Mine, SkillType.Trap, },
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+		skill("manaCostForced", 0),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_has_trigger_from_unique_item",
+		"number_of_additional_curses_allowed",
+		"curse_effect_+%",
+	},
+	levels = {
+		[20] = { 1, 12, -25, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
+	},
+}

@@ -622,6 +622,9 @@ return {
 ["support_slashing_damage_+%_final_from_distance"] = {
 	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
 },
+["shield_charge_damage_+%_maximum"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
+},
 ["damage_+%_on_full_energy_shield"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield"})
 },
