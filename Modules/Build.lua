@@ -600,11 +600,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.configTab:ImportCalcSettings()
 	end
 
-	-- Initialise class dropdown
+	-- Initialize class dropdown
 	for classId, class in pairs(self.latestTree.classes) do
+		local ascendancies = {}
+		-- Initialize ascendancy dropdown
+		for i = 0, #class.classes do
+			local ascendClass = class.classes[i]
+			t_insert(ascendancies, {
+				label = ascendClass.name,
+				ascendClassId = i,
+			})
+		end
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,
+			ascendencies = copyTable(ascendancies),
 		})
 	end
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
@@ -784,17 +794,8 @@ function buildMode:OnFrame(inputEvents)
 	end
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
-	-- Update contents of ascendancy class dropdown
-	wipeTable(self.controls.ascendDrop.list)
-	for i = 0, #self.spec.curClass.classes do
-		local ascendClass = self.spec.curClass.classes[i]
-		t_insert(self.controls.ascendDrop.list, {
-			label = ascendClass.name,
-			ascendClassId = i,
-		})
-	end
-
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendencies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
