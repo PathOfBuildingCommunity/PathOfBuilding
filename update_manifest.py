@@ -18,14 +18,21 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
     :return:
     """
     try:
-        manifest = xml.etree.ElementTree.parse("manifest.xml")
+        manifest = xml.etree.ElementTree.parse(pathlib.Path("src", "manifest.xml"))
     except FileNotFoundError:
         logger.critical(f"Manifest file not found in path '{pathlib.Path().cwd()}'")
         return
     root = manifest.getroot()
 
+    shortest_url = min((source.get("url") for source in root.iter("Source")), key=len)
+    parts = {
+        source.get("part"): pathlib.Path(source.get("url")).relative_to(shortest_url)
+        for source in root.iter("Source")
+    }
+
     for file in root.iter("File"):
-        path = pathlib.Path(file.get("name"))
+        name, part = file.get("name"), file.get("part")
+        path = parts.get(part) / name
         try:
             data = path.read_bytes()
         except FileNotFoundError:
@@ -51,7 +58,7 @@ def cli():
         description="Update Path of Building's manifest file for a new release.",
         allow_abbrev=False,
     )
-    parser.version = "1.0.0"
+    parser.version = "1.1.0"
     parser.add_argument("--version", action="version")
     logging_level = parser.add_mutually_exclusive_group()
     logging_level.add_argument(
