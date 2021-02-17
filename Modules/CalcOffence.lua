@@ -1188,7 +1188,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
         elseif skillData.triggerRate and skillData.triggered then
-            output.Time = skillData.triggerRate
+			output.Time = skillData.triggerRate
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
 		elseif skillData.triggeredByBrand and skillData.triggered then
