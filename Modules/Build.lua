@@ -600,10 +600,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.configTab:ImportCalcSettings()
 	end
 
-	-- Initialize class dropdown
+	-- Initialise class dropdown
 	for classId, class in pairs(self.latestTree.classes) do
 		local ascendancies = {}
-		-- Initialize ascendancy dropdown
+		-- Initialise ascendancy dropdown
 		for i = 0, #class.classes do
 			local ascendClass = class.classes[i]
 			t_insert(ascendancies, {
@@ -614,7 +614,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,
-			ascendencies = copyTable(ascendancies),
+			ascendencies = ascendancies,
 		})
 	end
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
