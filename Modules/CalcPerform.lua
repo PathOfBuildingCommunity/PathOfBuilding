@@ -20,9 +20,9 @@ local band = bit.band
 local tempTable1 = { }
 
 local function cacheSkillUUID(skill)
-	local strName = skill.activeEffect.gemData.grantedEffectId
-	local strSlotName = skill.slotName:gsub("%s+", "") -- strip spaces
-	local intActiveSkillIndex = skill.socketGroup.mainActiveSkill
+	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
+	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local intActiveSkillIndex = skill.socketGroup and skill.socketGroup.mainActiveSkill or 1
 	return strName.."_"..strSlotName.."_"..tostring(intActiveSkillIndex)
 end
 
