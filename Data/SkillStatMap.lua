@@ -167,8 +167,11 @@ return {
 ["unique_cospris_malice_cold_spells_triggered"] = {
 	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.ColdSkill }),
 },
-["cast_linked_spells_on_attack_crit_%"] = {
-	skill("triggeredByCoC", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+["cast_spell_on_linked_attack_crit"] = {
+	skill("triggeredByCoC", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["cast_spell_on_linked_attack_crit_%"] = {
+	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
 },
 ["skill_triggered_by_snipe"] = {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
