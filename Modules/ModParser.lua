@@ -2356,6 +2356,7 @@ local specialModList = {
 		mod("AvoidStun", "BASE", 100, { type = "Condition", var = "UsingFlask" }),
 	},
 	["unaffected by curses"] = { mod("CurseEffectOnSelf", "MORE", -100) },
+	["you are hexproof if you have a (%a+) (%a+) in (%a+) slot"] = function(_, rarity, item, slot) return { mod("AvoidCurse", "BASE", 100, { type = "Condition", var = rarity:gsub("^%l", string.upper).."ItemIn"..item:gsub("^%l", string.upper).." "..(slot == "right" and 2 or slot == "left" and 1) }) } end,
 	["immune to curses while you have at least (%d+) rage"] = function(num) return { mod("AvoidCurse", "BASE", 100, { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["the effect of chill on you is reversed"] = { flag("SelfChillEffectIsReversed") },
 	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
@@ -3416,6 +3417,9 @@ local count = 0
 --foo:close()
 return function(line, isComb)
 	if not cache[line] then
+		if line:match("you are hexproof") then
+
+		end
 		local modList, extra = parseMod(line, 1)
 		if modList and extra then
 			modList, extra = parseMod(line, 2)
