@@ -3417,9 +3417,6 @@ local count = 0
 --foo:close()
 return function(line, isComb)
 	if not cache[line] then
-		if line:match("you are hexproof") then
-
-		end
 		local modList, extra = parseMod(line, 1)
 		if modList and extra then
 			modList, extra = parseMod(line, 2)
