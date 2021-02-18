@@ -326,7 +326,6 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 		},
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 	},

@@ -62,7 +62,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
 		},
 	},
-#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportAuraDuration Blessing

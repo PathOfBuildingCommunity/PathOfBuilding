@@ -1681,6 +1681,80 @@ function calcs.perform(env)
 		end
 	end
 	
+	-- Mjolner
+	if env.player.mainSkill.skillData.triggeredByMjolner and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
+				local uuid = cacheSkillUUID(skill)
+				if GlobalCache[uuid] then
+					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+					if not source then
+						source = skill
+						trigRate = GlobalCache[uuid].cachedData.Speed
+					elseif GlobalCache[uuid].cachedData.Speed > trigRate then
+						source = skill
+						trigRate = GlobalCache[uuid].cachedData.Speed
+					end
+				end
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMjolner then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByMjolner = nil
+			env.player.mainSkill.infoMessage = "No Mjolner Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
+			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
+			local hitTrigRate = sourceAPS * sourceHitChance / 100
+
+			-- See if we are dual wielding
+			local dualWield = false
+			if env.player.weaponData1.type and env.player.weaponData2.type then
+				dualWield = true
+				-- We are, see if they are NOT both Mjolner's since then we have to alternate trigger hits
+				if not (env.player.weaponData1.name == env.player.weaponData2.name) then
+					hitTrigRate = hitTrigRate * 0.5
+				end
+			end
+
+			-- See if we are using a trigger skill that hits with both weapons simultaneously
+			local sourceName = source.activeEffect.gemData.grantedEffectId
+			if dualWield and (sourceName == "Cleave" or sourceName == "DualStrike" or sourceName == "ViperStrike" or sourceName == "Riposte") then
+				-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
+				hitTrigRate = hitTrigRate * 2.0
+			end
+
+			-- Get Mjolner's trigger rate
+			local mjolnerCooldown = getUniqueSkillProperty(env, "SupportUniqueMjolnerLightningSpellsCastOnHit", "cooldown") or 0.15
+			local mjolnerTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / mjolnerCooldown
+
+			-- Set trigger rate
+			-- Example: Mjolner can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
+			trigRate = m_min(mjolnerTrigRate * (hitTrigRate / mjolnerTrigRate) / spellCount, mjolnerTrigRate)
+
+			-- Account for Trigger-related INC/MORE modifiers
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+
+			env.player.mainSkill.infoMessage = "Mjolner Triggering Skill: " .. source.activeEffect.grantedEffect.name
+		end
+	end
+
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
