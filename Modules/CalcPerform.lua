@@ -943,20 +943,17 @@ function calcs.perform(env)
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
 				local uuid = cacheSkillUUID(skill)
-				if not GlobalCache[uuid] then
-					local skillEnv = calcs.initEnv(env.build, "SINGLE")
-					skillEnv.player.mainSkill = skill
-					ConPrintf("[" .. uuid .. "] CALC: " .. skill.activeEffect.grantedEffect.name)
-					calcs.perform(skillEnv)
-				end
-
-                -- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-				if not source then
-					source = skill
-                    trigRate = GlobalCache[uuid].cachedData.Speed
-				elseif GlobalCache[uuid].cachedData.Speed > trigRate then
-					source = skill
-                    trigRate = GlobalCache[uuid].cachedData.Speed
+				if GlobalCache[uuid] then
+					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+					if not source then
+						source = skill
+						trigRate = GlobalCache[uuid].cachedData.Speed
+					elseif GlobalCache[uuid].cachedData.Speed > trigRate then
+						source = skill
+						trigRate = GlobalCache[uuid].cachedData.Speed
+					end
+				else
+					ConPrintf("NO GLOBAL CACHE FOR [" .. uuid .. "]: " .. skill.activeEffect.grantedEffect.name)
 				end
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then

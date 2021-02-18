@@ -117,6 +117,13 @@ end
 
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
+	local fullEnv = calcs.initEnv(build, mode)
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		fullEnv.player.mainSkill = activeSkill
+		calcs.perform(fullEnv)
+		fullEnv = calcs.initEnv(build, mode)
+	end
+
 	-- Build output
 	local env = calcs.initEnv(build, mode)
 	calcs.perform(env)
