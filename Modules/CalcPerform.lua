@@ -935,63 +935,6 @@ function calcs.perform(env)
 		end
 	end
 
-	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
-		--ConPrintf("NAME: " .. env.player.mainSkill.activeEffect.grantedEffect.name)
-		local spellCount = 0
-		local trigRate = 0
-		local source = nil
-		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
-				local uuid = cacheSkillUUID(skill)
-				if GlobalCache[uuid] then
-					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-					if not source then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					elseif GlobalCache[uuid].cachedData.Speed > trigRate then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					end
-				end
-			end
-			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
-				spellCount = spellCount + 1
-			end
-		end
-		if not source or spellCount < 1 then
-			env.player.mainSkill.skillData.triggeredByCospris = nil
-		else
-			env.player.mainSkill.skillData.triggered = true
-			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache[uuid].cachedData.Speed
-			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
-			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
-			local critTrigRate = sourceAPS * sourceCritChance / 100
-			--ConPrintf("Source: " .. tostring(sourceAPS) .. ", " .. tostring(sourceCritChance) .. ", " .. tostring(critTrigRate))
-
-			-- Get Cospri's trigger rate
-			local cospriTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / 0.15
-			--ConPrintf("Cospri Trig Rate: " .. tostring(cospriTrigRate))
-
-			-- Set trigger rate
-			-- Example: Cospri can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
-			trigRate = m_min(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount, cospriTrigRate)
-			--ConPrintf("1: " .. tostring(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount) .. " :: SpellCount: " .. tostring(spellCount))
-
-			-- Account for Trigger-related INC/MORE modifiers
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			env.player.mainSkill.skillData.triggerRate = trigRate 
-			env.player.mainSkill.skillData.triggerSource = source
-			--ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
-			--ConPrintf("Trigger Rate: " .. tostring(env.player.mainSkill.skillData.triggerRate))
-		end
-	end
-
 	local breakdown
 	if env.mode == "CALCS" then
 		-- Initialise breakdown module
@@ -1652,6 +1595,83 @@ function calcs.perform(env)
 				activeSkill.skillModList:NewMod("Condition:ScorchingRayMaxStages", "FLAG", true, "Config")
 				enemyDB:NewMod("FireResist", "BASE", -25, "Scorching Ray", { type = "GlobalEffect", effectType = "Debuff" } )
 			end
+		end
+	end
+
+	-- Set trigger conditions
+
+	-- Cospri's Malice
+	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
+		--ConPrintf("NAME: " .. env.player.mainSkill.activeEffect.grantedEffect.name)
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
+				local uuid = cacheSkillUUID(skill)
+				if GlobalCache[uuid] then
+					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+					if not source then
+						source = skill
+						trigRate = GlobalCache[uuid].cachedData.Speed
+					elseif GlobalCache[uuid].cachedData.Speed > trigRate then
+						source = skill
+						trigRate = GlobalCache[uuid].cachedData.Speed
+					end
+				end
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByCospris = nil
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
+			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
+			local critTrigRate = sourceAPS * sourceCritChance / 100
+			--ConPrintf("Source: " .. tostring(sourceAPS) .. ", " .. tostring(sourceCritChance) .. ", " .. tostring(critTrigRate))
+
+			-- See if we are dual wielding
+			local dualWield = false
+			if env.player.weaponData1.type and env.player.weaponData2.type then
+				dualWield = true
+				-- We are, see if they are NOT both Cospri's since then we have to alternate trigger hits
+				if not (env.player.weaponData1.name == env.player.weaponData2.name) then
+					critTrigRate = critTrigRate * 0.5
+				end
+			end
+
+			-- See if we are using a trigger skill that hits with both weapons simultaneously
+			local sourceName = source.activeEffect.gemData.grantedEffectId
+			if dualWield and (sourceName == "Cleave" or sourceName == "DualStrike" or sourceName == "ViperStrike" or sourceName == "Riposte") then
+				-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
+				critTrigRate = critTrigRate * 2.0
+			end
+
+			-- Get Cospri's trigger rate
+			local cospriTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / 0.15
+			--ConPrintf("Cospri Trig Rate: " .. tostring(cospriTrigRate))
+
+			-- Set trigger rate
+			-- Example: Cospri can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
+			trigRate = m_min(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount, cospriTrigRate)
+			--ConPrintf("1: " .. tostring(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount) .. " :: SpellCount: " .. tostring(spellCount))
+
+			-- Account for Trigger-related INC/MORE modifiers
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+			--ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
+			--ConPrintf("Trigger Rate: " .. tostring(env.player.mainSkill.skillData.triggerRate))
 		end
 	end
 	
