@@ -26,6 +26,13 @@ local function cacheSkillUUID(skill)
 	return strName.."_"..strSlotName.."_"..tostring(intActiveSkillIndex)
 end
 
+local function getUniqueSkillProperty(env, strUniqueSkill, strProperty)
+	if env.data.skills[strUniqueSkill] and env.data.skills[strUniqueSkill].levels and env.data.skills[strUniqueSkill].levels[1] then
+		return env.data.skills[strUniqueSkill].levels[1][strProperty]
+	end
+	return nil
+end
+
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
@@ -1625,6 +1632,8 @@ function calcs.perform(env)
 		end
 		if not source or spellCount < 1 then
 			env.player.mainSkill.skillData.triggeredByCospris = nil
+			env.player.mainSkill.infoMessage = "No Cospri Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
@@ -1651,7 +1660,7 @@ function calcs.perform(env)
 			end
 
 			-- Get Cospri's trigger rate
-			local cospriCooldown = env.data.skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"].levels[1].cooldown
+			local cospriCooldown = getUniqueSkillProperty(env, "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", "cooldown")
 			local cospriTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / cospriCooldown
 
 			-- Set trigger rate
@@ -1667,6 +1676,8 @@ function calcs.perform(env)
 			end
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
+
+			env.player.mainSkill.infoMessage = "Cospri Triggering Skill: " .. source.activeEffect.grantedEffect.name
 		end
 	end
 	
