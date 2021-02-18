@@ -485,16 +485,17 @@ end
 -- Formats "1234.56" -> "1,234.5"
 function formatNumSep(str)
 	return string.gsub(str, "(-?%d+%.?%d+)", function(m)
-	    print(m)
 	    x, y, minus, integer, fraction = m:find("(-?)(%d+)(%.?%d*)")
         if main.showThousandsSeparators then
             integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
             -- There will be leading separators if the number of digits are divisible by 3
             -- This checks for their presence and removes them
             -- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
-            local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
-            if thousandsSeparator and thousandsSeparator == 1 then
-                integer = integer:sub(2)
+            if main.thousandsSeparator ~= "" then
+                local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
+                if thousandsSeparator and thousandsSeparator == 1 then
+                    integer = integer:sub(2)
+                end
             end
         else
             integer = integer:reverse():gsub("(%d%d%d)", "%1"):reverse()
