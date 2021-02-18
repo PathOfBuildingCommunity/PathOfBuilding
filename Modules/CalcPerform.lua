@@ -1602,7 +1602,6 @@ function calcs.perform(env)
 
 	-- Cospri's Malice
 	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
-		--ConPrintf("NAME: " .. env.player.mainSkill.activeEffect.grantedEffect.name)
 		local spellCount = 0
 		local trigRate = 0
 		local source = nil
@@ -1633,7 +1632,6 @@ function calcs.perform(env)
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
 			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
 			local critTrigRate = sourceAPS * sourceCritChance / 100
-			--ConPrintf("Source: " .. tostring(sourceAPS) .. ", " .. tostring(sourceCritChance) .. ", " .. tostring(critTrigRate))
 
 			-- See if we are dual wielding
 			local dualWield = false
@@ -1653,13 +1651,12 @@ function calcs.perform(env)
 			end
 
 			-- Get Cospri's trigger rate
-			local cospriTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / 0.15
-			--ConPrintf("Cospri Trig Rate: " .. tostring(cospriTrigRate))
+			local cospriCooldown = env.data.skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"].levels[1].cooldown
+			local cospriTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / cospriCooldown
 
 			-- Set trigger rate
 			-- Example: Cospri can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
 			trigRate = m_min(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount, cospriTrigRate)
-			--ConPrintf("1: " .. tostring(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount) .. " :: SpellCount: " .. tostring(spellCount))
 
 			-- Account for Trigger-related INC/MORE modifiers
 			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
@@ -1670,8 +1667,6 @@ function calcs.perform(env)
 			end
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
-			--ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
-			--ConPrintf("Trigger Rate: " .. tostring(env.player.mainSkill.skillData.triggerRate))
 		end
 	end
 	
