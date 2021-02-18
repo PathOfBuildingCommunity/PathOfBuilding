@@ -431,21 +431,21 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	if self.searchStrCached ~= self.searchStr then
 		self.searchStrCached = self.searchStr
 
-		local function PrepSearch(search)
-			search = search:lower();
-			local searchWords = {};
-			for matchstring,v in search:gmatch('"([^"]*)"') do
-				searchWords[#searchWords+1] = matchstring;
-				search = search:gsub('"'..matchstring..'"',"");
+		local function prepSearch(search)
+			search = search:lower()
+			local searchWords = {}
+			for matchstring, v in search:gmatch('"([^"]*)"') do
+				searchWords[#searchWords+1] = matchstring
+				search = search:gsub('"'..matchstring..'"', "")
 			end
-			for matchstring,v in search:gmatch("(%S*)") do
-				if not matchstring ~= nil and matchstring:match("%S") ~= nil then -- if string is not empty or whitespace
-					searchWords[#searchWords+1] = matchstring;
+			for matchstring, v in search:gmatch("(%S*)") do
+				if matchstring:match("%S") ~= nil then
+					searchWords[#searchWords+1] = matchstring
 				end
 			end
-			return searchWords;
+			return searchWords
 		end
-		self.searchParams = PrepSearch(self.searchStr);
+		self.searchParams = prepSearch(self.searchStr)
 
 		for nodeId, node in pairs(spec.nodes) do
 			self.searchStrResults[nodeId] = #self.searchParams > 0 and self:DoesNodeMatchSearchParams(node)
@@ -791,17 +791,16 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 		return
 	end
 
-	local needMatches = copyTable(self.searchParams);
-	--for _,v in ipairs(self.searchParams) do needMatches[#needMatches+1] = v; end
-	local err;
+	local needMatches = copyTable(self.searchParams)
+	local err
 
 	local function search(haystack, need)
-		for i=#need,1,-1 do
+		for i=#need, 1, -1 do
 			if haystack:match(need[i]) then
-				table.remove(need,i);
+				table.remove(need, i)
 			end
 		end
-		return need;
+		return need
 	end
 
 	-- Check node name
