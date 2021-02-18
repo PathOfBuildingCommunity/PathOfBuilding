@@ -2027,8 +2027,8 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		wipeTable(modList)
 		if sourceId == "MASTER" then
 			local excludeGroups = { }
-			for _, modLine in ipairs({self.displayItem.prefixes,self.displayItem.suffixes}) do
-				for i = 1, self.displayItem.affixLimit/2 do
+			for _, modLine in ipairs({ self.displayItem.prefixes, self.displayItem.suffixes }) do
+				for i = 1, self.displayItem.affixLimit / 2 do
 					if modLine[i].modId ~= "None" then
 						excludeGroups[self.displayItem.affixes[modLine[i].modId].group] = true
 					end
