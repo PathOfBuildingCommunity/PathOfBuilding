@@ -938,8 +938,8 @@ function calcs.perform(env)
 	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
 		--ConPrintf("NAME: " .. env.player.mainSkill.activeEffect.grantedEffect.name)
 		local spellCount = 0
-        local trigRate = 0
-        local source = nil
+		local trigRate = 0
+		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
 				local uuid = cacheSkillUUID(skill)
