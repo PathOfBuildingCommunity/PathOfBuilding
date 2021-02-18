@@ -1660,7 +1660,7 @@ function calcs.perform(env)
 			end
 
 			-- Get Cospri's trigger rate
-			local cospriCooldown = getUniqueSkillProperty(env, "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", "cooldown")
+			local cospriCooldown = getUniqueSkillProperty(env, "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", "cooldown") or 0.15
 			local cospriTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / cospriCooldown
 
 			-- Set trigger rate
