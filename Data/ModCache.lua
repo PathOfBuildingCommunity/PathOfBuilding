@@ -3404,7 +3404,7 @@ c["-80 Physical Damage taken from Projectile Attacks"]={{[1]={flags=0,keywordFla
 c["-10 Physical Damage taken from Projectile Attacks -80 Physical Damage taken from Projectile Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="BASE",value=-10}},"  from Projectile Attacks -80 Physical Damage taken from Projectile Attacks "}
 c["+6% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=6}},nil}
 c["-10 Physical Damage taken from Projectile Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="BASE",value=-10}},"  from Projectile Attacks "}
-c["Placed Banners also grant 30% increased Attack Damage to you and Allies"]={{[1]={[1]={type="Condition",var="BannerPlanted"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=1,keywordFlags=0,name="Damage",type="INC",value=30}}}},nil}
+c["Placed Banners also grant 30% increased Attack Damage to you and Allies"]={{[1]={[1]={type="Condition",var="BannerPlanted"},flags=0,keywordFlags=0,name="ExtraAuraEffect",type="LIST",value={mod={flags=1,keywordFlags=0,name="Damage",type="INC",value=30}}}},nil}
 c["Fire Arrow Quiver"]={nil,"Fire Arrow Quiver "}
 c["Mace or Sceptre Attacks deal 18% increased Damage with Ailments"]={{[1]={flags=1050624,keywordFlags=0,name="Damage",type="INC",value=18}},nil}
 c["Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary"]={nil,"Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary "}
@@ -8764,7 +8764,7 @@ c["If you've Cast a Spell Recently, you"]={nil,"If you've Cast a Spell Recently,
 c["+10 to maximum Divine Charges"]={{}," maximum Divine Charges "}
 c["24% increased Physical Damage with One Handed Melee Weapons"]={{[1]={flags=167772164,keywordFlags=0,name="PhysicalDamage",type="INC",value=24}},nil}
 c["100% increased Critical Strike Chance against Enemies that are affected"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=100}},"  against Enemies that are affected "}
-c["Auras from your Skills do not affect Allies"]={{[1]={flags=0,keywordFlags=0,name="SelfAurasCannotAffectAllies",type="FLAG",value=true}},nil}
+c["Auras from your Skills do not affect Allies"]={{[1]={flags=0,keywordFlags=0,name="SelfAuraSkillsCannotAffectAllies",type="FLAG",value=true}},nil}
 c["Deal no Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true}},nil}
 c["2% of Damage dealt by your Totems is Leeched to you as Life"]={{[1]={flags=0,keywordFlags=16384,name="DamageLifeLeechToPlayer",type="BASE",value=2}},nil}
 c["Sadist Garb Requires Level 68, 103 Dex, 109 Int"]={nil,"Sadist Garb Requires Level 68, 103 Dex, 109 Int "}

@@ -1078,10 +1078,10 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage
-{variant:1}With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
-{variant:2}With at least 40 Intelligence in Radius, Magma Orb deals 50% less Damage
-{variant:2}With at least 40 Intelligence in Radius, Magma Orb deals 40% more Damage per Chain
-With at least 40 Intelligence in Radius, Magma Orb
+{variant:1}With at least 40 Intelligence in Radius, Rolling Magma fires an additional Projectile
+{variant:2}With at least 40 Intelligence in Radius, Rolling Magma deals 50% less Damage
+{variant:2}With at least 40 Intelligence in Radius, Rolling Magma deals 40% more Damage per Chain
+With at least 40 Intelligence in Radius, Rolling Magma
 has 10% increased Area of Effect per Chain
 ]],[[
 The Long Winter
