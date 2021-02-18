@@ -952,8 +952,6 @@ function calcs.perform(env)
 						source = skill
 						trigRate = GlobalCache[uuid].cachedData.Speed
 					end
-				else
-					ConPrintf("NO GLOBAL CACHE FOR [" .. uuid .. "]: " .. skill.activeEffect.grantedEffect.name)
 				end
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
@@ -969,16 +967,16 @@ function calcs.perform(env)
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
 			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
 			local critTrigRate = sourceAPS * sourceCritChance / 100
-			ConPrintf("Source: " .. tostring(sourceAPS) .. ", " .. tostring(sourceCritChance) .. ", " .. tostring(critTrigRate))
+			--ConPrintf("Source: " .. tostring(sourceAPS) .. ", " .. tostring(sourceCritChance) .. ", " .. tostring(critTrigRate))
 
 			-- Get Cospri's trigger rate
 			local cospriTrigRate = calcLib.mod(modDB, nil, "CooldownRecovery") / 0.15
-			ConPrintf("Cospri Trig Rate: " .. tostring(cospriTrigRate))
+			--ConPrintf("Cospri Trig Rate: " .. tostring(cospriTrigRate))
 
 			-- Set trigger rate
 			-- Example: Cospri can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
 			trigRate = m_min(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount, cospriTrigRate)
-			ConPrintf("1: " .. tostring(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount) .. " :: SpellCount: " .. tostring(spellCount))
+			--ConPrintf("1: " .. tostring(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount) .. " :: SpellCount: " .. tostring(spellCount))
 
 			-- Account for Trigger-related INC/MORE modifiers
 			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
@@ -989,8 +987,8 @@ function calcs.perform(env)
 			end
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
-			ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
-			ConPrintf("Trigger Rate: " .. tostring(env.player.mainSkill.skillData.triggerRate))
+			--ConPrintf("Trigger Source: " .. env.player.mainSkill.skillData.triggerSource.activeEffect.grantedEffect.name)
+			--ConPrintf("Trigger Rate: " .. tostring(env.player.mainSkill.skillData.triggerRate))
 		end
 	end
 
@@ -1800,8 +1798,10 @@ function calcs.perform(env)
 			},
 		}
 	end
+	--[[
 	ConPrintf("["..uuid.."] Cached Data for '" .. GlobalCache[uuid].name .. "' :: " .. tostring(GlobalCache[uuid]))
 	for k,v in pairs(GlobalCache[uuid].cachedData) do
 		ConPrintf(k .. " - " .. tostring(v))
 	end
+	--]]
 end
