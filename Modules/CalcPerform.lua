@@ -19,12 +19,15 @@ local band = bit.band
 
 local tempTable1 = { }
 
+-- Generate a UUID for a skill
 local function cacheSkillUUID(skill)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
 	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
 	local indx = 1
 	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.gemData then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
+			-- we compare table addresses rather than names since two of the same gem
+			-- can be socketed in the same slot
 			if gem.gemData == skill.activeEffect.gemData then
 				indx =idx
 				break
@@ -32,6 +35,29 @@ local function cacheSkillUUID(skill)
 		end
 	end
 	return strName.."_"..strSlotName.."_"..tostring(indx)
+end
+
+-- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
+local function findTriggerSkill(skill, source, triggerRate)
+	local uuid = cacheSkillUUID(skill)
+	if GlobalCache[uuid] then
+		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+		if not source and GlobalCache[uuid].cachedData.Speed then
+			return skill, GlobalCache[uuid].cachedData.Speed
+		elseif GlobalCache[uuid].cachedData.Speed and GlobalCache[uuid].cachedData.Speed > triggerRate then
+			return skill, GlobalCache[uuid].cachedData.Speed
+		end
+	end
+	return source, triggerRate
+end
+
+-- Calculate Trigger Rate Cap accounting for ICDR
+local function getTriggerActionTriggerRate(env)
+	local actionCooldown = env.player.mainSkill.skillData.cooldown
+	local globalCDInc = env.modDB:Sum("INC", nil, "CooldownRecovery")
+	local skillCDInc = env.player.mainSkill.baseSkillModList:Sum("INC", nil, "CooldownRecovery")
+	local cdRecovery = 1 + (globalCDInc + skillCDInc) / 100
+	return cdRecovery / actionCooldown
 end
 
 -- Merge an instance of a buff, taking the highest value of each modifier
@@ -1607,17 +1633,7 @@ function calcs.perform(env)
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
-				local uuid = cacheSkillUUID(skill)
-				if GlobalCache[uuid] then
-					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-					if not source and GlobalCache[uuid].cachedData.Speed then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					elseif GlobalCache[uuid].cachedData.Speed and GlobalCache[uuid].cachedData.Speed > trigRate then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					end
-				end
+				source, trigRate = findTriggerSkill(skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
 				spellCount = spellCount + 1
@@ -1653,11 +1669,7 @@ function calcs.perform(env)
 			end
 
 			-- Get Cospri's trigger rate
-			local cospriCooldown = env.player.mainSkill.skillData.cooldown
-			local globalCDInc = env.modDB:Sum("INC", nil, "CooldownRecovery")
-			local skillCDInc = env.player.mainSkill.baseSkillModList:Sum("INC", nil, "CooldownRecovery")
-			local cdRecovery = 1 + (globalCDInc + skillCDInc) / 100
-			local cospriTrigRate = cdRecovery / cospriCooldown
+			local cospriTrigRate = getTriggerActionTriggerRate(env)
 
 			-- Set trigger rate
 			-- Example: Cospri can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
@@ -1684,17 +1696,7 @@ function calcs.perform(env)
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
-				local uuid = cacheSkillUUID(skill)
-				if GlobalCache[uuid] then
-					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-					if not source and GlobalCache[uuid].cachedData.Speed then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					elseif GlobalCache[uuid].cachedData.Speed and GlobalCache[uuid].cachedData.Speed > trigRate then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					end
-				end
+				source, trigRate = findTriggerSkill(skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMjolner then
 				spellCount = spellCount + 1
@@ -1730,11 +1732,7 @@ function calcs.perform(env)
 			end
 
 			-- Get Mjolner's trigger rate
-			local mjolnerCooldown = env.player.mainSkill.skillData.cooldown
-			local globalCDInc = env.modDB:Sum("INC", nil, "CooldownRecovery")
-			local skillCDInc = env.player.mainSkill.baseSkillModList:Sum("INC", nil, "CooldownRecovery")
-			local cdRecovery = 1 + (globalCDInc + skillCDInc) / 100
-			local mjolnerTrigRate = cdRecovery / mjolnerCooldown
+			local mjolnerTrigRate = getTriggerActionTriggerRate(env)
 
 			-- Set trigger rate
 			-- Example: Mjolner can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
@@ -1761,17 +1759,7 @@ function calcs.perform(env)
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillTypes[SkillType.Attack] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= activeSkill then
-				local uuid = cacheSkillUUID(skill)
-				if GlobalCache[uuid] then
-					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-					if not source and GlobalCache[uuid].cachedData.Speed then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					elseif GlobalCache[uuid].cachedData.Speed and GlobalCache[uuid].cachedData.Speed > trigRate then
-						source = skill
-						trigRate = GlobalCache[uuid].cachedData.Speed
-					end
-				end
+				source, trigRate = findTriggerSkill(skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCoC then
 				spellCount = spellCount + 1
@@ -1791,14 +1779,9 @@ function calcs.perform(env)
 			--critTrigRate = critTrigRate * source.skillData.chanceToTriggerOnCrit / 100
 
 			-- Get CoC trigger rate
-			local cocCooldown = env.player.mainSkill.skillData.cooldown
-			local globalCDInc = env.modDB:Sum("INC", nil, "CooldownRecovery")
-			local skillCDInc = env.player.mainSkill.baseSkillModList:Sum("INC", nil, "CooldownRecovery")
-			local cdRecovery = 1 + (globalCDInc + skillCDInc) / 100
-			local cocTrigRate = cdRecovery / cocCooldown
+			local cocTrigRate = getTriggerActionTriggerRate(env)
 
 			-- Set trigger rate
-			-- Example: CoC can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
 			trigRate = m_min(cocTrigRate * (critTrigRate / cocTrigRate) / spellCount, cocTrigRate)
 
 			-- Account for Trigger-related INC/MORE modifiers
