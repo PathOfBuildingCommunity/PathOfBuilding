@@ -791,31 +791,37 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 		return
 	end
 
-	local function search(haystack)
-		for _,v in ipairs(self.searchParams) do
-			if not haystack:match(v) then return false; end
+	local needMatches = copyTable(self.searchParams);
+	--for _,v in ipairs(self.searchParams) do needMatches[#needMatches+1] = v; end
+	local err;
+
+	local function search(haystack, need)
+		for i=#need,1,-1 do
+			if haystack:match(need[i]) then
+				table.remove(need,i);
+			end
 		end
-		return true;
+		return need;
 	end
 
 	-- Check node name
-	local errMsg, match = PCall(search, node.dn:lower())
-	if match then
+	err, needMatches = PCall(search, node.dn:lower(), needMatches)
+	if #needMatches == 0 then
 		return true
 	end
 
 	-- Check node description
 	for index, line in ipairs(node.sd) do
 		-- Check display text first
-		errMsg, match = PCall(search, line:lower())
-		if match then
+		err, needMatches = PCall(search, line:lower(), needMatches)
+		if #needMatches == 0 then
 			return true
 		end
-		if not match and node.mods[index].list then
+		if #needMatches > 0 and node.mods[index].list then
 			-- Then check modifiers
 			for _, mod in ipairs(node.mods[index].list) do
-				errMsg, match = PCall(search, mod.name)
-				if match then
+				err, needMatches = PCall(search, mod.name, needMatches)
+				if #needMatches == 0 then
 					return true
 				end
 			end
@@ -823,8 +829,8 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	end
 
 	-- Check node type
-	local errMsg, match = PCall(search, node.type:lower())
-	if match then
+	err, needMatches = PCall(search, node.type:lower(), needMatches)
+	if #needMatches == 0 then
 		return true
 	end
 end
