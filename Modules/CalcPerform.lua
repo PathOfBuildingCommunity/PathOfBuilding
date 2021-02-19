@@ -1678,10 +1678,18 @@ function calcs.perform(env)
 
 			-- Adjust for server tick rate
 			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+			output.ServerTriggerRate = trigRate
 
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
 			trigRate = trigRate * sourceCritChance / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(server tick-capped trigger rate)", output.ServerTriggerRate),
+					s_format("* %.3f ^8(%% chance to crit of %s)", sourceCritChance / 100, source.activeEffect.grantedEffect.name),
+					s_format("= %.2fs", trigRate)
+				}
+			end
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, source)
@@ -1723,10 +1731,18 @@ function calcs.perform(env)
 
 			-- Adjust for server tick rate
 			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+			output.ServerTriggerRate = trigRate
 
 			-- Account for chance to hit/crit
 			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
 			trigRate = trigRate * sourceHitChance / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(server tick-capped trigger rate)", output.ServerTriggerRate),
+					s_format("* %.3f ^8(%% chance to hit of %s)", sourceHitChance / 100, source.activeEffect.grantedEffect.name),
+					s_format("= %.2fs", trigRate)
+				}
+			end
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, source)
@@ -1766,11 +1782,19 @@ function calcs.perform(env)
 
 			-- Adjust for server tick rate
 			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+			output.ServerTriggerRate = trigRate
 
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
 			trigRate = trigRate * sourceCritChance / 100
 			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(server tick-capped trigger rate)", output.ServerTriggerRate),
+					s_format("* %.3f ^8(%% chance to crit of %s)", sourceCritChance / 100, source.activeEffect.grantedEffect.name),
+					s_format("= %.2fs", trigRate)
+				}
+			end
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, source)

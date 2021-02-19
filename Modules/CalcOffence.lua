@@ -294,6 +294,9 @@ function calcs.offence(env, actor, activeSkill)
 
 	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByCoC
 	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
+	if skillCfg.skillCond["SkillIsTriggered"] then
+		skillFlags.triggered = true
+	end
 
 	-- Add addition stat bonuses
 	if skillModList:Flag(nil, "IronGrip") then

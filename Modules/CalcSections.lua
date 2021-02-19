@@ -447,10 +447,12 @@ return {
 	{ label = "OH Att. per second", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{2:output:OffHand.Speed}", { breakdown = "OffHand.Speed" }, }, },
 	{ label = "Attacks per second", flag = "bothWeaponAttack", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Attack time", flag = "attack", { format = "{2:output:Time}s", { breakdown = "MainHand.Time" }, }, },
-	{ label = "Inc. Cast Speed", flag = "spell", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "skill", }, }, },
-	{ label = "More Cast Speed", flag = "spell", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
-	{ label = "Casts per second", flag = "spell", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
-	{ label = "Cast time", flag = "spell", { format = "{2:output:Time}s", }, },
+	{ label = "Inc. Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "skill", }, }, },
+	{ label = "More Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
+	{ label = "Casts per second", flag = "spell", notFlag = "triggered", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
+	{ label = "Server Trigger Rate", flagList = {"spell", "triggered"}, { format = "{1:output:ServerTriggerRate}" }, },
+	{ label = "Effective Trig Rate", flagList = {"spell", "triggered"}, { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
+	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
 } }
 } },
 { 1, "Crit", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Crits", data = {
