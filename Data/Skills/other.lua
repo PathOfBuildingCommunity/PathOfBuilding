@@ -326,7 +326,6 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 		},
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -384,7 +383,6 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 	},

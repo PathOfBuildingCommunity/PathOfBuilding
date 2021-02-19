@@ -292,7 +292,8 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
-	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered
+	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByCoC
+	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
 
 	-- Add addition stat bonuses
 	if skillModList:Flag(nil, "IronGrip") then
@@ -940,39 +941,43 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Calculate mana cost (may be slightly off due to rounding differences)
-	do
-		local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
-		local more = m_floor(skillModList:More(skillCfg, "ManaCost") * 100 + 0.0001) / 100
-		local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
-		local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
-		local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
-		if skillData.baseManaCostIsAtLeastPercentUnreservedMana then
-			manaCost = m_max(manaCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
-		end
-		output.ManaCost = m_floor(manaCost * mult)
-		output.ManaCost = m_floor(m_abs(inc / 100) * output.ManaCost) * (inc >= 0 and 1 or -1) + output.ManaCost
-		output.ManaCost = m_floor(m_abs(more - 1) * output.ManaCost) * (more >= 1 and 1 or -1) + output.ManaCost
-		output.ManaCost = m_max(0, m_floor(output.ManaCost + base))
-		if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
-			output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
-		end
-		if breakdown and output.ManaCost ~= manaCost then
-			breakdown.ManaCost = {
-				s_format("%d ^8(base mana cost)", manaCost)
-			}
-			if mult ~= 1 then
-				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(mana cost multiplier)", mult))
+	if isTriggered then
+		output.ManaCost = 0
+	else
+		do
+			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
+			local more = m_floor(skillModList:More(skillCfg, "ManaCost") * 100 + 0.0001) / 100
+			local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
+			local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
+			local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
+			if skillData.baseManaCostIsAtLeastPercentUnreservedMana then
+				manaCost = m_max(manaCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 			end
-			if inc ~= 0 then
-				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(increased/reduced mana cost)", 1 + inc/100))
-			end	
-			if more ~= 1 then
-				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(more/less mana cost)", more))
-			end	
-			if base ~= 0 then
-				t_insert(breakdown.ManaCost, s_format("- %d ^8(- mana cost)", -base))
+			output.ManaCost = m_floor(manaCost * mult)
+			output.ManaCost = m_floor(m_abs(inc / 100) * output.ManaCost) * (inc >= 0 and 1 or -1) + output.ManaCost
+			output.ManaCost = m_floor(m_abs(more - 1) * output.ManaCost) * (more >= 1 and 1 or -1) + output.ManaCost
+			output.ManaCost = m_max(0, m_floor(output.ManaCost + base))
+			if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
+				output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
 			end
-			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
+			if breakdown and output.ManaCost ~= manaCost then
+				breakdown.ManaCost = {
+					s_format("%d ^8(base mana cost)", manaCost)
+				}
+				if mult ~= 1 then
+					t_insert(breakdown.ManaCost, s_format("x %.2f ^8(mana cost multiplier)", mult))
+				end
+				if inc ~= 0 then
+					t_insert(breakdown.ManaCost, s_format("x %.2f ^8(increased/reduced mana cost)", 1 + inc/100))
+				end	
+				if more ~= 1 then
+					t_insert(breakdown.ManaCost, s_format("x %.2f ^8(more/less mana cost)", more))
+				end	
+				if base ~= 0 then
+					t_insert(breakdown.ManaCost, s_format("- %d ^8(- mana cost)", -base))
+				end
+				t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
+			end
 		end
 	end
 
@@ -1179,9 +1184,18 @@ function calcs.offence(env, actor, activeSkill)
 			output.Time = activeSkill.activeEffect.grantedEffect.castTime
 			output.Speed = 1 / output.Time
 		elseif skillData.triggerTime and skillData.triggered then
-			output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100) * (skillModList:Sum("BASE", cfg, "CastWhileChannellingSpellsLinked") or 1)
+			local activeSkillsLinked = skillModList:Sum("BASE", cfg, "ActiveSkillsLinkedToTrigger")
+			if activeSkillsLinked > 0 then
+				output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100) * activeSkillsLinked
+			else
+				output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100)
+			end
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
+		elseif skillData.triggerRate and skillData.triggered then
+			output.Time = 1 / skillData.triggerRate
+			output.TriggerTime = output.Time
+			output.Speed = skillData.triggerRate
 		elseif skillData.triggeredByBrand and skillData.triggered then
 			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
 			output.TriggerTime = output.Time
@@ -2157,6 +2171,11 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
+			}
+		elseif isTriggered then
+			breakdown.TotalDPS = {
+				s_format("%.1f ^8(average damage)", output.AverageDamage),
+				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
 			}
 		else
 			breakdown.TotalDPS = {

@@ -14,8 +14,81 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
 local s_format = string.format
+local bor = bit.bor
+local band = bit.band
 
 local tempTable1 = { }
+
+-- Generate a UUID for a skill
+local function cacheSkillUUID(skill)
+	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
+	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local indx = 1
+	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.gemData then
+		for idx, gem in ipairs(skill.socketGroup.gemList) do
+			-- we compare table addresses rather than names since two of the same gem
+			-- can be socketed in the same slot
+			if gem.gemData == skill.activeEffect.gemData then
+				indx =idx
+				break
+			end
+		end
+	end
+	return strName.."_"..strSlotName.."_"..tostring(indx)
+end
+
+-- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
+local function findTriggerSkill(skill, source, triggerRate)
+	local uuid = cacheSkillUUID(skill)
+	if GlobalCache[uuid] then
+		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+		if not source and GlobalCache[uuid].cachedData.Speed then
+			return skill, GlobalCache[uuid].cachedData.Speed
+		elseif GlobalCache[uuid].cachedData.Speed and GlobalCache[uuid].cachedData.Speed > triggerRate then
+			return skill, GlobalCache[uuid].cachedData.Speed
+		end
+	end
+	return source, triggerRate
+end
+
+-- Calculate Trigger Rate Cap accounting for ICDR
+local function getTriggerActionTriggerRate(env)
+	local actionCooldown = env.player.mainSkill.skillData.cooldown
+	local globalCDInc = env.modDB:Sum("INC", nil, "CooldownRecovery")
+	local skillCDInc = env.player.mainSkill.baseSkillModList:Sum("INC", nil, "CooldownRecovery")
+	local cdRecovery = 1 + (globalCDInc + skillCDInc) / 100
+	return cdRecovery / actionCooldown
+end
+
+-- Account for APS modifications do to Dual Wield or Simultaneous Strikes
+local function calcDualWieldImpact(env, sourceAPS, sourceName)
+	-- See if we are dual wielding
+	local dualWield = false
+	if env.player.weaponData1.type and env.player.weaponData2.type then
+		dualWield = true
+		-- We are, see if they are NOT both Mjolner's since then we have to alternate trigger hits
+		if not (env.player.weaponData1.name == env.player.weaponData2.name) then
+			sourceAPS = sourceAPS * 0.5
+		end
+	end
+
+	-- See if we are using a trigger skill that hits with both weapons simultaneously
+	if dualWield and (sourceName == "Cleave" or sourceName == "Dual Strike" or sourceName == "Viper Strike" or sourceName == "Riposte") then
+		-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
+		sourceAPS = sourceAPS * 2.0
+	end
+	return sourceAPS
+end
+
+-- Add trigger-based damage modifiers
+local function addTriggerIncMoreMods(activeSkill, sourceSkill)
+	for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", sourceSkill.skillCfg, "TriggeredDamage")) do
+		activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+	end
+	for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", sourceSkill.skillCfg, "TriggeredDamage")) do
+		activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+	end
+end
 
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
@@ -887,12 +960,7 @@ function calcs.perform(env)
 					quality = skill.activeEffect.quality / 2
 				end
 			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
+			addTriggerIncMoreMods(activeSkill, env.player.mainSkill)
 			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
 		end
@@ -907,13 +975,8 @@ function calcs.perform(env)
 					spellCount = spellCount + 1
 				end
 			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			activeSkill.skillModList:NewMod("CastWhileChannellingSpellsLinked", "BASE", spellCount, "Skill")
+			addTriggerIncMoreMods(activeSkill, env.player.mainSkill)
+			activeSkill.skillModList:NewMod("ActiveSkillsLinkedToTrigger", "BASE", spellCount, "Skill")
 			activeSkill.skillData.triggerTime = trigTime
 		end
 	end
@@ -1580,7 +1643,143 @@ function calcs.perform(env)
 			end
 		end
 	end
+
+	-- Process Triggered Skill and Set Trigger Conditions
+
+	-- Cospri's Malice
+	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
+				source, trigRate = findTriggerSkill(skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByCospris = nil
+			env.player.mainSkill.infoMessage = "No Cospri Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+
+			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
+
+			-- Get Cospri's trigger rate
+			local cospriTrigRate = getTriggerActionTriggerRate(env)
+
+			-- Determine trigger rate cap
+			trigRate = m_min(sourceAPS / spellCount, cospriTrigRate)
+
+			-- Adjust for server tick rate
+			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+
+			-- Account for chance to hit/crit
+			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
+			trigRate = trigRate * sourceCritChance / 100
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, source)
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Cospri Triggering Skill: " .. source.activeEffect.grantedEffect.name
+		end
+	end
 	
+	-- Mjolner
+	if env.player.mainSkill.skillData.triggeredByMjolner and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
+				source, trigRate = findTriggerSkill(skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMjolner then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByMjolner = nil
+			env.player.mainSkill.infoMessage = "No Mjolner Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+
+			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
+
+			-- Get Mjolner's trigger rate
+			local mjolnerTrigRate = getTriggerActionTriggerRate(env)
+
+			-- Determine trigger rate cap
+			trigRate = m_min(sourceAPS / spellCount, mjolnerTrigRate)
+
+			-- Adjust for server tick rate
+			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+
+			-- Account for chance to hit/crit
+			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
+			trigRate = trigRate * sourceHitChance / 100
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, source)
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Mjolner Triggering Skill: " .. source.activeEffect.grantedEffect.name
+		end
+	end
+
+	-- Cast On Critical Strike Support (CoC)
+	if env.player.mainSkill.skillData.triggeredByCoC and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Attack] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= activeSkill then
+				source, trigRate = findTriggerSkill(skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCoC then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByCoC = nil
+			env.player.mainSkill.infoMessage = "No CoC Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+
+			-- Get CoC trigger rate
+			local cocTrigRate = getTriggerActionTriggerRate(env)
+
+			-- Set trigger rate
+			trigRate = m_min(sourceAPS / spellCount, cocTrigRate)
+
+			-- Adjust for server tick rate
+			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+
+			-- Account for chance to hit/crit
+			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
+			trigRate = trigRate * sourceCritChance / 100
+			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, source)
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "CoC Triggering Skill: " .. source.activeEffect.grantedEffect.name
+		end
+	end
+
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
@@ -1712,4 +1911,22 @@ function calcs.perform(env)
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
+
+	local uuid = cacheSkillUUID(env.player.mainSkill)
+	if not GlobalCache[uuid] then
+		GlobalCache[uuid] = {
+			name = env.player.mainSkill.activeEffect.grantedEffect.name,
+			cachedData = {
+				Speed = output.Speed,
+				HitChance = output.HitChance,
+				CritChance = output.CritChance,
+			},
+		}
+	end
+	--[[
+	ConPrintf("["..uuid.."] Cached Data for '" .. GlobalCache[uuid].name .. "' :: " .. tostring(GlobalCache[uuid]))
+	for k,v in pairs(GlobalCache[uuid].cachedData) do
+		ConPrintf(k .. " - " .. tostring(v))
+	end
+	--]]
 end
