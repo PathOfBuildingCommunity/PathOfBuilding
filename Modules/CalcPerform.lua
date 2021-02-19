@@ -59,12 +59,12 @@ local function getTriggerActionTriggerRate(env, breakdown)
 	if breakdown then
 		breakdown.ActionTriggerRate = {
 			s_format("%.2f ^8(base cooldown of trigger)", baseActionCooldown),
-			s_format("/ (1 + %.2f) ^8(increased cooldown recovery)", icdr - 1),
+			s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 			s_format("= %.3f ^8(final cooldown of trigger)", modActionCooldown),
 			s_format(""),
-			s_format("Trigger Rate:"),
-			s_format("(1 / %.3f)", modActionCooldown),
-			s_format("= %.2f", 1 / modActionCooldown),
+			s_format("Trigger rate:"),
+			s_format("1 / %.2f", modActionCooldown),
+			s_format("= %.2f ^8per second", 1 / modActionCooldown),
 		}
 	end
 	return 1 / modActionCooldown
@@ -77,9 +77,9 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	output.SourceTriggerRate = sourceAPS / spellCount
 	if breakdown then
 		breakdown.SourceTriggerRate = {
-			s_format("%.2f ^8(APS of %s)", sourceAPS, source.activeEffect.grantedEffect.name),
+			s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
 			s_format("/ %d ^8(number of linked active spells to trigger)", spellCount),
-			s_format("= %.2f", output.SourceTriggerRate),
+			s_format("= %.2f ^8per second", output.SourceTriggerRate),
 		}
 	end
 
@@ -91,17 +91,16 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	local adjTrigCD = m_ceil(trigCD * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	if breakdown then
 		breakdown.ServerTriggerRate = {
-			s_format("(1 / %.2f) ^8(smaller of 'Cap' and 'Skill' trigger rates)", trigRate),
-			s_format("= %.3f ^8(second between each action)", trigCD),
+			s_format("1 / %.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+			s_format("= %.3f ^8(seconds between each action)", trigCD),
+			s_format("= %.3f ^8(rounded up to nearest server tick)", adjTrigCD),
 			s_format(""),
-			s_format("%.3f ^8(adjusted to nearest server tick rate)", adjTrigCD),
-			s_format(""),
-			s_format("Server Tick Adj Trigger Rate:"),
-			s_format("(1 / %.3f)", adjTrigCD),
-			s_format("= %.2f", 1/adjTrigCD),
+			s_format("Adjusted trigger rate:"),
+			s_format("1 / %.3f", adjTrigCD),
+			s_format("= %.2f ^8per second", 1 / adjTrigCD),
 		}
 	end
-	trigRate = 1/adjTrigCD
+	trigRate = 1 / adjTrigCD
 	output.ServerTriggerRate = trigRate
 	return trigRate
 end
@@ -1724,9 +1723,9 @@ function calcs.perform(env)
 			trigRate = trigRate * sourceCritChance / 100
 			if breakdown then
 				breakdown.Speed = {
-					s_format("%.2fs ^8(adj trigger rate)", output.ServerTriggerRate),
-					s_format("* %.3f ^8(%% chance to crit of %s)", sourceCritChance / 100, source.activeEffect.grantedEffect.name),
-					s_format("= %.2fs", trigRate),
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.2f%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f ^8per second", trigRate),
 				}
 			end
 
@@ -1770,9 +1769,9 @@ function calcs.perform(env)
 			trigRate = trigRate * sourceHitChance / 100
 			if breakdown then
 				breakdown.Speed = {
-					s_format("%.2fs ^8(adj trigger rate)", output.ServerTriggerRate),
-					s_format("* %.3f ^8(%% chance to hit of %s)", sourceHitChance / 100, source.activeEffect.grantedEffect.name),
-					s_format("= %.2fs", trigRate),
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f ^8per second", trigRate),
 				}
 			end
 
@@ -1815,9 +1814,9 @@ function calcs.perform(env)
 			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
 			if breakdown then
 				breakdown.Speed = {
-					s_format("%.2fs ^8(adj trigger rate)", output.ServerTriggerRate),
-					s_format("* %.3f ^8(%% chance to crit of %s)", sourceCritChance / 100, source.activeEffect.grantedEffect.name),
-					s_format("= %.2f", trigRate),
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.2f%% ^8(%s crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f ^8per second", trigRate),
 				}
 			end
 
