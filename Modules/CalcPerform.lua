@@ -81,12 +81,12 @@ local function calcDualWieldImpact(env, sourceAPS, sourceName)
 end
 
 -- Add trigger-based damage modifiers
-local function addTriggerIncMoreMods(env)
-	for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-		env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+local function addTriggerIncMoreMods(activeSkill, sourceSkill)
+	for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", sourceSkill.skillCfg, "TriggeredDamage")) do
+		activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 	end
-	for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-		env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+	for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", sourceSkill.skillCfg, "TriggeredDamage")) do
+		activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 	end
 end
 
@@ -960,12 +960,7 @@ function calcs.perform(env)
 					quality = skill.activeEffect.quality / 2
 				end
 			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
+			addTriggerIncMoreMods(activeSkill, env.player.mainSkill)
 			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
 		end
@@ -980,12 +975,7 @@ function calcs.perform(env)
 					spellCount = spellCount + 1
 				end
 			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
+			addTriggerIncMoreMods(activeSkill, env.player.mainSkill)
 			activeSkill.skillModList:NewMod("ActiveSkillsLinkedToTrigger", "BASE", spellCount, "Skill")
 			activeSkill.skillData.triggerTime = trigTime
 		end
@@ -1694,7 +1684,7 @@ function calcs.perform(env)
 			trigRate = trigRate * sourceCritChance / 100
 
 			-- Account for Trigger-related INC/MORE modifiers
-			addTriggerIncMoreMods(env)
+			addTriggerIncMoreMods(env.player.mainSkill, source)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Cospri Triggering Skill: " .. source.activeEffect.grantedEffect.name
@@ -1739,7 +1729,7 @@ function calcs.perform(env)
 			trigRate = trigRate * sourceHitChance / 100
 
 			-- Account for Trigger-related INC/MORE modifiers
-			addTriggerIncMoreMods(env)
+			addTriggerIncMoreMods(env.player.mainSkill, source)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Mjolner Triggering Skill: " .. source.activeEffect.grantedEffect.name
@@ -1783,7 +1773,7 @@ function calcs.perform(env)
 			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
 
 			-- Account for Trigger-related INC/MORE modifiers
-			addTriggerIncMoreMods(env)
+			addTriggerIncMoreMods(env.player.mainSkill, source)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "CoC Triggering Skill: " .. source.activeEffect.grantedEffect.name
