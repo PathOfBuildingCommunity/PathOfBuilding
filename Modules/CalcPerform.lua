@@ -1686,6 +1686,9 @@ function calcs.perform(env)
 			-- Determine trigger rate cap
 			trigRate = m_min(sourceAPS / spellCount, cospriTrigRate)
 
+			-- Adjust for server tick rate
+			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
 			trigRate = trigRate * sourceCritChance / 100
@@ -1728,6 +1731,9 @@ function calcs.perform(env)
 			-- Determine trigger rate cap
 			trigRate = m_min(sourceAPS / spellCount, mjolnerTrigRate)
 
+			-- Adjust for server tick rate
+			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+
 			-- Account for chance to hit/crit
 			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
 			trigRate = trigRate * sourceHitChance / 100
@@ -1767,6 +1773,11 @@ function calcs.perform(env)
 
 			-- Set trigger rate
 			trigRate = m_min(sourceAPS / spellCount, cocTrigRate)
+			ConPrintf("1: " .. tostring(trigRate))
+
+			-- Adjust for server tick rate
+			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+			ConPrintf("2: " .. tostring(trigRate))
 
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
