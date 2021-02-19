@@ -78,7 +78,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	if breakdown then
 		breakdown.SourceTriggerRate = {
 			s_format("%.2f ^8(APS of %s)", sourceAPS, source.activeEffect.grantedEffect.name),
-			s_format("/ %d ^8(num linked active spells to trigger)", spellCount),
+			s_format("/ %d ^8(number of linked active spells to trigger)", spellCount),
 			s_format("= %.2f", output.SourceTriggerRate),
 		}
 	end
