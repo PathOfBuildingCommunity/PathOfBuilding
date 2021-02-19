@@ -60,6 +60,36 @@ local function getTriggerActionTriggerRate(env)
 	return cdRecovery / actionCooldown
 end
 
+-- Account for APS modifications do to Dual Wield or Simultaneous Strikes
+local function calcDualWieldImpact(env, sourceAPS, sourceName)
+	-- See if we are dual wielding
+	local dualWield = false
+	if env.player.weaponData1.type and env.player.weaponData2.type then
+		dualWield = true
+		-- We are, see if they are NOT both Mjolner's since then we have to alternate trigger hits
+		if not (env.player.weaponData1.name == env.player.weaponData2.name) then
+			sourceAPS = sourceAPS * 0.5
+		end
+	end
+
+	-- See if we are using a trigger skill that hits with both weapons simultaneously
+	if dualWield and (sourceName == "Cleave" or sourceName == "Dual Strike" or sourceName == "Viper Strike" or sourceName == "Riposte") then
+		-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
+		sourceAPS = sourceAPS * 2.0
+	end
+	return sourceAPS
+end
+
+-- Add trigger-based damage modifiers
+local function addTriggerIncMoreMods(env)
+	for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+		env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+	end
+	for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+		env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+	end
+end
+
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
@@ -1647,44 +1677,23 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
 			local sourceAPS = GlobalCache[uuid].cachedData.Speed
-			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
-			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
-			local critTrigRate = sourceAPS * sourceCritChance / 100
 
-			-- See if we are dual wielding
-			local dualWield = false
-			if env.player.weaponData1.type and env.player.weaponData2.type then
-				dualWield = true
-				-- We are, see if they are NOT both Cospri's since then we have to alternate trigger hits
-				if not (env.player.weaponData1.name == env.player.weaponData2.name) then
-					critTrigRate = critTrigRate * 0.5
-				end
-			end
-
-			-- See if we are using a trigger skill that hits with both weapons simultaneously
-			local sourceName = source.activeEffect.gemData.grantedEffectId
-			if dualWield and (sourceName == "Cleave" or sourceName == "DualStrike" or sourceName == "ViperStrike" or sourceName == "Riposte") then
-				-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
-				critTrigRate = critTrigRate * 2.0
-			end
+			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
 
 			-- Get Cospri's trigger rate
 			local cospriTrigRate = getTriggerActionTriggerRate(env)
 
-			-- Set trigger rate
-			-- Example: Cospri can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
-			trigRate = m_min(cospriTrigRate * (critTrigRate / cospriTrigRate) / spellCount, cospriTrigRate)
+			-- Determine trigger rate cap
+			trigRate = m_min(sourceAPS / spellCount, cospriTrigRate)
+
+			-- Account for chance to hit/crit
+			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
+			trigRate = trigRate * sourceCritChance / 100
 
 			-- Account for Trigger-related INC/MORE modifiers
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
+			addTriggerIncMoreMods(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
-
 			env.player.mainSkill.infoMessage = "Cospri Triggering Skill: " .. source.activeEffect.grantedEffect.name
 		end
 	end
@@ -1710,44 +1719,23 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
 			local sourceAPS = GlobalCache[uuid].cachedData.Speed
-			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
-			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
-			local hitTrigRate = sourceAPS * sourceHitChance / 100
 
-			-- See if we are dual wielding
-			local dualWield = false
-			if env.player.weaponData1.type and env.player.weaponData2.type then
-				dualWield = true
-				-- We are, see if they are NOT both Mjolner's since then we have to alternate trigger hits
-				if not (env.player.weaponData1.name == env.player.weaponData2.name) then
-					hitTrigRate = hitTrigRate * 0.5
-				end
-			end
-
-			-- See if we are using a trigger skill that hits with both weapons simultaneously
-			local sourceName = source.activeEffect.gemData.grantedEffectId
-			if dualWield and (sourceName == "Cleave" or sourceName == "DualStrike" or sourceName == "ViperStrike" or sourceName == "Riposte") then
-				-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
-				hitTrigRate = hitTrigRate * 2.0
-			end
+			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
 
 			-- Get Mjolner's trigger rate
 			local mjolnerTrigRate = getTriggerActionTriggerRate(env)
 
-			-- Set trigger rate
-			-- Example: Mjolner can trigger 10 times a second, Cyclone APS is 20, 2 spells --> 10 * (20/10) / 2 = 10
-			trigRate = m_min(mjolnerTrigRate * (hitTrigRate / mjolnerTrigRate) / spellCount, mjolnerTrigRate)
+			-- Determine trigger rate cap
+			trigRate = m_min(sourceAPS / spellCount, mjolnerTrigRate)
+
+			-- Account for chance to hit/crit
+			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
+			trigRate = trigRate * sourceHitChance / 100
 
 			-- Account for Trigger-related INC/MORE modifiers
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
+			addTriggerIncMoreMods(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
-
 			env.player.mainSkill.infoMessage = "Mjolner Triggering Skill: " .. source.activeEffect.grantedEffect.name
 		end
 	end
@@ -1773,27 +1761,22 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
 			local sourceAPS = GlobalCache[uuid].cachedData.Speed
-			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
-			-- Crit APS is == APS if Crit == 100%, else we scale by crit chance
-			local critTrigRate = sourceAPS * sourceCritChance / 100
-			--critTrigRate = critTrigRate * source.skillData.chanceToTriggerOnCrit / 100
 
 			-- Get CoC trigger rate
 			local cocTrigRate = getTriggerActionTriggerRate(env)
 
 			-- Set trigger rate
-			trigRate = m_min(cocTrigRate * (critTrigRate / cocTrigRate) / spellCount, cocTrigRate)
+			trigRate = m_min(sourceAPS / spellCount, cocTrigRate)
+
+			-- Account for chance to hit/crit
+			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
+			trigRate = trigRate * sourceCritChance / 100
+			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
 
 			-- Account for Trigger-related INC/MORE modifiers
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
+			addTriggerIncMoreMods(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
-
 			env.player.mainSkill.infoMessage = "CoC Triggering Skill: " .. source.activeEffect.grantedEffect.name
 		end
 	end
