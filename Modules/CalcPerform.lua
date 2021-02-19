@@ -19,24 +19,6 @@ local band = bit.band
 
 local tempTable1 = { }
 
--- Generate a UUID for a skill
-local function cacheSkillUUID(skill)
-	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
-	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
-	local indx = 1
-	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.gemData then
-		for idx, gem in ipairs(skill.socketGroup.gemList) do
-			-- we compare table addresses rather than names since two of the same gem
-			-- can be socketed in the same slot
-			if gem.gemData == skill.activeEffect.gemData then
-				indx =idx
-				break
-			end
-		end
-	end
-	return strName.."_"..strSlotName.."_"..tostring(indx)
-end
-
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
 local function findTriggerSkill(skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
