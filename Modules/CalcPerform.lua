@@ -52,12 +52,55 @@ local function findTriggerSkill(skill, source, triggerRate)
 end
 
 -- Calculate Trigger Rate Cap accounting for ICDR
-local function getTriggerActionTriggerRate(env)
-	local actionCooldown = env.player.mainSkill.skillData.cooldown
-	local globalCDInc = env.modDB:Sum("INC", nil, "CooldownRecovery")
-	local skillCDInc = env.player.mainSkill.baseSkillModList:Sum("INC", nil, "CooldownRecovery")
-	local cdRecovery = 1 + (globalCDInc + skillCDInc) / 100
-	return cdRecovery / actionCooldown
+local function getTriggerActionTriggerRate(env, breakdown)
+	local baseActionCooldown = env.player.mainSkill.skillData.cooldown
+	local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+	local modActionCooldown = baseActionCooldown / (icdr)
+	if breakdown then
+		breakdown.ActionTriggerRate = {
+			s_format("%.2f ^8(base cooldown of trigger)", baseActionCooldown),
+			s_format("/ (1 + %.2f) ^8(increased cooldown recovery)", icdr - 1),
+			s_format("= %.3f ^8(final cooldown of trigger)", modActionCooldown),
+			s_format(""),
+			s_format("Trigger Rate = 1 / final cooldown of trigger"),
+			s_format("(1 / %.3f)", modActionCooldown),
+			s_format("= %.2f", 1 / modActionCooldown),
+		}
+	end
+	return 1 / modActionCooldown
+end
+
+--
+local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
+	-- Get action trigger rate
+	output.ActionTriggerRate = getTriggerActionTriggerRate(env, breakdown)
+	output.SourceTriggerRate = sourceAPS / spellCount
+	if breakdown then
+		breakdown.SourceTriggerRate = {
+			s_format("%.2f ^8(APS of %s)", sourceAPS, source.activeEffect.grantedEffect.name),
+			s_format("/ %d ^8(num linked active spells to trigger)", spellCount),
+			s_format("= %.2f", output.SourceTriggerRate),
+		}
+	end
+
+	-- Set trigger rate
+	local trigRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+
+	-- Adjust for server tick rate
+	local trigCD = 1 / trigRate
+	local adjTrigCD = m_ceil(trigCD * data.misc.ServerTickRate) / data.misc.ServerTickRate
+	if breakdown then
+		breakdown.ServerTriggerRate = {
+			s_format("(1 / %.2f) ^8(smaller of 'Cap' and 'Skill' trigger rates)", trigRate),
+			s_format("= %.3f ^8(second between each action)", trigCD),
+			s_format(">>> %.3f ^8(adjusted to nearest server tick rate)", adjTrigCD),
+			s_format("(1 / %.3f) ^8(adjusted tick rate)", adjTrigCD),
+			s_format("= %.2f ^8(adj trigger rate)", 1/adjTrigCD),
+		}
+	end
+	trigRate = 1/adjTrigCD
+	output.ServerTriggerRate = trigRate
+	return trigRate
 end
 
 -- Account for APS modifications do to Dual Wield or Simultaneous Strikes
@@ -1670,18 +1713,19 @@ function calcs.perform(env)
 
 			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
 
-			-- Get Cospri's trigger rate
-			local cospriTrigRate = getTriggerActionTriggerRate(env)
-
-			-- Determine trigger rate cap
-			trigRate = m_min(sourceAPS / spellCount, cospriTrigRate)
-
-			-- Adjust for server tick rate
-			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
 			trigRate = trigRate * sourceCritChance / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adj trigger rate)", output.ServerTriggerRate),
+					s_format("* %.3f ^8(%% chance to crit of %s)", sourceCritChance / 100, source.activeEffect.grantedEffect.name),
+					s_format("= %.2fs", trigRate),
+				}
+			end
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, source)
@@ -1715,18 +1759,19 @@ function calcs.perform(env)
 
 			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
 
-			-- Get Mjolner's trigger rate
-			local mjolnerTrigRate = getTriggerActionTriggerRate(env)
-
-			-- Determine trigger rate cap
-			trigRate = m_min(sourceAPS / spellCount, mjolnerTrigRate)
-
-			-- Adjust for server tick rate
-			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
 			-- Account for chance to hit/crit
 			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
 			trigRate = trigRate * sourceHitChance / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adj trigger rate)", output.ServerTriggerRate),
+					s_format("* %.3f ^8(%% chance to hit of %s)", sourceHitChance / 100, source.activeEffect.grantedEffect.name),
+					s_format("= %.2fs", trigRate),
+				}
+			end
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, source)
@@ -1758,19 +1803,20 @@ function calcs.perform(env)
 			local uuid = cacheSkillUUID(source)
 			local sourceAPS = GlobalCache[uuid].cachedData.Speed
 
-			-- Get CoC trigger rate
-			local cocTrigRate = getTriggerActionTriggerRate(env)
-
-			-- Set trigger rate
-			trigRate = m_min(sourceAPS / spellCount, cocTrigRate)
-
-			-- Adjust for server tick rate
-			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
 			trigRate = trigRate * sourceCritChance / 100
 			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adj trigger rate)", output.ServerTriggerRate),
+					s_format("* %.3f ^8(%% chance to crit of %s)", sourceCritChance / 100, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f", trigRate),
+				}
+			end
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, source)
