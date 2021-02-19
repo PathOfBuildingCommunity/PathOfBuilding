@@ -307,7 +307,8 @@ return {
 		{ breakdown = "OffHand.AverageDamage" },
 		{ breakdown = "AverageDamage" },
 	}, },
-	{ label = "Skill DPS", flag = "notAverage", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
+	{ label = "Skill DPS", flag = "notAverage", notFlag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
+	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },
@@ -450,8 +451,10 @@ return {
 	{ label = "Inc. Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "skill", }, }, },
 	{ label = "More Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
 	{ label = "Casts per second", flag = "spell", notFlag = "triggered", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
-	{ label = "Server Trigger Rate", flagList = {"spell", "triggered"}, { format = "{1:output:ServerTriggerRate}" }, },
-	{ label = "Effective Trig Rate", flagList = {"spell", "triggered"}, { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
+	{ label = "Action Trigger Rate", flag = "triggered", { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "CooldownRecovery", modType = "INC", cfg = "skill", }, }, },
+	{ label = "Src Trigger Rate", flag = "triggered", { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, }, },
+	{ label = "Used Trigger Rate", flag = "triggered", { format = "{2:output:ServerTriggerRate}",  { breakdown = "ServerTriggerRate" }, }, },
+	{ label = "Effective Trig Rate", flag = "triggered", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
 } }
 } },
