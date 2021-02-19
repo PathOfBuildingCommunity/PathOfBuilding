@@ -131,6 +131,24 @@ local function getActiveSkillCount(activeSkill)
 	return 1
 end
 
+-- Generate a UUID for a skill
+function cacheSkillUUID(skill)
+	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
+	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local indx = 1
+	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.gemData then
+		for idx, gem in ipairs(skill.socketGroup.gemList) do
+			-- we compare table addresses rather than names since two of the same gem
+			-- can be socketed in the same slot
+			if gem.gemData == skill.activeEffect.gemData then
+				indx =idx
+				break
+			end
+		end
+	end
+	return strName.."_"..strSlotName.."_"..tostring(indx)
+end
+
 function calcs.calcFullDPS(build, mode, override)
 	override = override or {}
 	local fullEnv = calcs.initEnv(build, mode, override)
@@ -242,6 +260,16 @@ end
 
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
+	local fullEnv = calcs.initEnv(build, mode)
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		local uuid = cacheSkillUUID(activeSkill)
+		if not GlobalCache[uuid] then
+			fullEnv.player.mainSkill = activeSkill
+			calcs.perform(fullEnv)
+			fullEnv = calcs.initEnv(build, mode)
+		end
+	end
+
 	-- Build output across all active skills
 	local fullDPS = calcs.calcFullDPS(build, mode)
 
