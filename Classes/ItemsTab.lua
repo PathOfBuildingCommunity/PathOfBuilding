@@ -2031,8 +2031,16 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
+			local excludeGroups = { }
+			for _, modLine in ipairs({ self.displayItem.prefixes, self.displayItem.suffixes }) do
+				for i = 1, self.displayItem.affixLimit / 2 do
+					if modLine[i].modId ~= "None" then
+						excludeGroups[self.displayItem.affixes[modLine[i].modId].group] = true
+					end
+				end
+			end
 			for i, craft in ipairs(self.build.data.masterMods) do
-				if craft.types[self.displayItem.type] then
+				if craft.types[self.displayItem.type] and not excludeGroups[craft.group] then
 					t_insert(modList, {
 						label = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")",
 						mod = craft,
