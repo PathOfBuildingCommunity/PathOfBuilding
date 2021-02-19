@@ -62,7 +62,7 @@ local function getTriggerActionTriggerRate(env, breakdown)
 			s_format("/ (1 + %.2f) ^8(increased cooldown recovery)", icdr - 1),
 			s_format("= %.3f ^8(final cooldown of trigger)", modActionCooldown),
 			s_format(""),
-			s_format("Trigger Rate = 1 / final cooldown of trigger"),
+			s_format("Trigger Rate:"),
 			s_format("(1 / %.3f)", modActionCooldown),
 			s_format("= %.2f", 1 / modActionCooldown),
 		}
@@ -78,7 +78,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	if breakdown then
 		breakdown.SourceTriggerRate = {
 			s_format("%.2f ^8(APS of %s)", sourceAPS, source.activeEffect.grantedEffect.name),
-			s_format("/ %d ^8(num linked active spells to trigger)", spellCount),
+			s_format("/ %d ^8(number of linked active spells to trigger)", spellCount),
 			s_format("= %.2f", output.SourceTriggerRate),
 		}
 	end
@@ -93,9 +93,12 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		breakdown.ServerTriggerRate = {
 			s_format("(1 / %.2f) ^8(smaller of 'Cap' and 'Skill' trigger rates)", trigRate),
 			s_format("= %.3f ^8(second between each action)", trigCD),
-			s_format(">>> %.3f ^8(adjusted to nearest server tick rate)", adjTrigCD),
-			s_format("(1 / %.3f) ^8(adjusted tick rate)", adjTrigCD),
-			s_format("= %.2f ^8(adj trigger rate)", 1/adjTrigCD),
+			s_format(""),
+			s_format("%.3f ^8(adjusted to nearest server tick rate)", adjTrigCD),
+			s_format(""),
+			s_format("Server Tick Adj Trigger Rate:"),
+			s_format("(1 / %.3f)", adjTrigCD),
+			s_format("= %.2f", 1/adjTrigCD),
 		}
 	end
 	trigRate = 1/adjTrigCD
