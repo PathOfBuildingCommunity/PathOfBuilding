@@ -1773,11 +1773,9 @@ function calcs.perform(env)
 
 			-- Set trigger rate
 			trigRate = m_min(sourceAPS / spellCount, cocTrigRate)
-			ConPrintf("1: " .. tostring(trigRate))
 
 			-- Adjust for server tick rate
 			trigRate = data.misc.ServerTickRate / m_ceil(data.misc.ServerTickRate / trigRate)
-			ConPrintf("2: " .. tostring(trigRate))
 
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
