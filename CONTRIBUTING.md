@@ -4,7 +4,7 @@
 
 #### Before creating an issue:
 * Check that the bug hasn't been reported in an existing issue. View similar issues on the left of the submit button.
-* Make sure you are running the latest version of the program. Click "Check for Update" at the bottom left corner.
+* Make sure you are running the latest version of the program. Click "Check for Update" in the bottom left corner.
 * If you've found an issue with offence or defence calculations, make sure you check the breakdown for that calculation in the Calcs tab to see how it is being performed, as this may help you find the cause.
 
 #### When creating an issue:
@@ -27,7 +27,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 #### Before submitting a pull request:
 * Familiarise yourself with the code base [here](docs/rundown.md) to get you started.
 * There is a [Discord](https://discordapp.com/) server for **active development** on the fork and members are happy to answer your questions there.
-  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invite.
+  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invitation.
 
 #### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
@@ -58,7 +58,7 @@ You can now use the shortcut to run the program from the repository. Running the
 * While in the Tree tab, holding `Alt` also highlights nodes that have unrecognised modifiers.
 * Holding `Ctrl` while launching the program will rebuild the mod cache.
 
-Note that the updates system is disabled in Dev Mode, so you must update manually.
+Note that automatic updates are disabled in Dev Mode, so you must update manually.
 
 #### Keeping your fork up to date
 
