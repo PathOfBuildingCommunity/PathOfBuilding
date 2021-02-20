@@ -27,7 +27,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 #### Before submitting a pull request:
 * Familiarise yourself with the code base [here](docs/rundown.md) to get you started.
 * There is a [Discord](https://discordapp.com/) server for **active development** on the fork and members are happy to answer your questions there.
-  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **nick_#8198** and we'll send you an invite.
+  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invite.
 
 #### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
