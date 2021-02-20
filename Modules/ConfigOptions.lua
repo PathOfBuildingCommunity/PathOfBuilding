@@ -1070,6 +1070,9 @@ return {
 	{ var = "conditionEnemyTaunted", type = "check", label = "Is the enemy Taunted?", ifEnemyCond = "Taunted", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Taunted", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyDebilitated", type = "check", label = "Is the enemy Debilitated?", tooltip = "Debilitated targets deal 10% less damage and have 20% less movement speed.", apply = function(val, modList, enemyModList)
+		modList:NewMod("DamageTaken", "MORE", -10, "Enemy is Debilitated")
+	end },
 	{ var = "conditionEnemyBurning", type = "check", label = "Is the enemy Burning?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Burning", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
