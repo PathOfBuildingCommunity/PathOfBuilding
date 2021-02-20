@@ -64,27 +64,24 @@ Note that automatic updates are disabled in Dev Mode, so you must update manuall
 
 Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
 
-Note: If you've configured a remote already, you can skip ahead to step 6.
+Note: If you've configured a remote already, you can skip ahead to step 3.
 
-1. Check your current remote repositories.
-
-       git remote -v
-2. Add a new remote repository and name it `upstream`.
+1. Add a new remote repository and name it `upstream`.
 
        git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
-3. Verify that adding the remote worked by running the last command again.
+2. Verify that adding the remote worked by running the last command again.
 
        git remote -v
-4. Fetch all branches and their commits from upstream.
+3. Fetch all branches and their commits from upstream.
 
        git fetch upstream
-5. Check out your local `dev` branch if you haven't already.
+4. Check out your local `dev` branch if you haven't already.
 
        git checkout dev
-6. Merge all changes from `upstream/dev` into your local `dev` branch.
+5. Merge all changes from `upstream/dev` into your local `dev` branch.
 
        git rebase upstream/dev
-7. Push your updated branch to GitHub.
+6. Push your updated branch to GitHub.
 
        git push -f origin dev
 
