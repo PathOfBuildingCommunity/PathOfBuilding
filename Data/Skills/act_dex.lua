@@ -1914,14 +1914,6 @@ skills["Cyclone"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "No Stages",
-		},
-		{
-			name = "Max Stages",
-		},
-	},
 	statMap = {
 		["cyclone_max_number_of_stages"] = {
 			mod("Multiplier:CycloneMaxStages", "BASE", nil),

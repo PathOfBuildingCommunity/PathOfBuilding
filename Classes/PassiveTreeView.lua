@@ -359,15 +359,36 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	local function renderConnector(connector)
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
+		local connectorColor = {1,1,1}
 
-		-- Determine the connector state
-		local state = "Normal"
-		if node1.alloc and node2.alloc then	
-			state = "Active"
-		elseif hoverPath then
-			if (node1.alloc or node1 == hoverNode or hoverPath[node1]) and (node2.alloc or node2 == hoverNode or hoverPath[node2]) then
-				state = "Intermediate"
+
+		local function getState(n1, n2)
+			-- Determine the connector state
+			local state = "Normal"
+			if n1.alloc and n2.alloc then
+				state = "Active"
+			elseif hoverPath then
+				if (n1.alloc or n1 == hoverNode or hoverPath[n1]) and (n2.alloc or n2 == hoverNode or hoverPath[n2]) then
+					state = "Intermediate"
+				end
 			end
+			return state
+		end
+		local state = getState(node1, node2);
+		local baseState = state
+		if self.compareSpec then
+			local cNode1, cNode2 = self.compareSpec.nodes[connector.nodeId1], self.compareSpec.nodes[connector.nodeId2]
+			if cNode1 and cNode2 then
+				baseState = getState(cNode1,cNode2)
+			end
+		end
+
+		if baseState == "Active" and state ~= "Active" then
+			state = "Active"
+			connectorColor = {0,1,0}
+		end
+		if baseState ~= "Active" and state == "Active" then
+			connectorColor = {1,0,0}
 		end
 
 		-- Convert vertex coordinates to screen-space and add them to the coordinate array
@@ -383,9 +404,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		elseif connector.ascendancyName and connector.ascendancyName ~= spec.curAscendClassName then
 			-- Fade out lines in ascendancy classes other than the current one
 			SetDrawColor(0.75, 0.75, 0.75)
+		else
+			SetDrawColor(connectorColor[1], connectorColor[2], connectorColor[3])
 		end
 		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
-		SetDrawColor(1, 1, 1)
 	end
 
 	-- Draw the connecting lines between nodes
@@ -408,16 +430,35 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	-- Update cached node data
 	if self.searchStrCached ~= self.searchStr then
 		self.searchStrCached = self.searchStr
+
+		local function prepSearch(search)
+			search = search:lower()
+			local searchWords = {}
+			for matchstring, v in search:gmatch('"([^"]*)"') do
+				searchWords[#searchWords+1] = matchstring
+				search = search:gsub('"'..matchstring..'"', "")
+			end
+			for matchstring, v in search:gmatch("(%S*)") do
+				if matchstring:match("%S") ~= nil then
+					searchWords[#searchWords+1] = matchstring
+				end
+			end
+			return searchWords
+		end
+		self.searchParams = prepSearch(self.searchStr)
+
 		for nodeId, node in pairs(spec.nodes) do
-			self.searchStrResults[nodeId] = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
+			self.searchStrResults[nodeId] = #self.searchParams > 0 and self:DoesNodeMatchSearchParams(node)
 		end
 	end
 
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
+		local compareNode = self.compareSpec and self.compareSpec.nodes[nodeId] or nil
+
 		local base, overlay
-		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId]
+		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId] or (compareNode and compareNode.alloc)
 		SetDrawLayer(nil, 25)
 		if node.type == "ClassStart" then
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
@@ -527,7 +568,20 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 				end
 			else
-				SetDrawColor(1, 1, 1)
+				if compareNode then
+					if compareNode.alloc and not node.alloc then
+						-- Base has, current has not, color green (take these nodes to match)
+						SetDrawColor(0, 1, 0)
+					elseif not compareNode.alloc and node.alloc then
+						-- Base has not, current has, color red (Remove nodes to match)
+						SetDrawColor(1, 0, 0)
+					else
+						-- Both have or both have not, use white
+						SetDrawColor(1, 1, 1)
+					end
+				else
+					SetDrawColor(1, 1, 1)
+				end
 			end
 		elseif launch.devModeAlt then
 			-- Debug display
@@ -539,7 +593,20 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(0, 0, 0)
 			end
 		else
-			SetDrawColor(1, 1, 1)
+			if compareNode then
+				if compareNode.alloc and not node.alloc then
+					-- Base has, current has not, color green (take these nodes to match)
+					SetDrawColor(0, 1, 0)
+				elseif not compareNode.alloc and node.alloc then
+					-- Base has not, current has, color red (Remove nodes to match)
+					SetDrawColor(1, 0, 0)
+				else
+					-- Both have or both have not, use white
+					SetDrawColor(1, 1, 1)
+				end
+			else
+				SetDrawColor(1, 1, 1)
+			end
 		end
 		
 		-- Draw base artwork
@@ -719,29 +786,41 @@ function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 	self.zoomY = -y * scale
 end
 
-function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
+function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	if node.type == "ClassStart" or node.type == "Mastery" then
 		return
 	end
 
+	local needMatches = copyTable(self.searchParams)
+	local err
+
+	local function search(haystack, need)
+		for i=#need, 1, -1 do
+			if haystack:match(need[i]) then
+				table.remove(need, i)
+			end
+		end
+		return need
+	end
+
 	-- Check node name
-	local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
-	if match then
+	err, needMatches = PCall(search, node.dn:lower(), needMatches)
+	if #needMatches == 0 then
 		return true
 	end
 
 	-- Check node description
 	for index, line in ipairs(node.sd) do
 		-- Check display text first
-		errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
-		if match then
+		err, needMatches = PCall(search, line:lower(), needMatches)
+		if #needMatches == 0 then
 			return true
 		end
-		if not match and node.mods[index].list then
+		if #needMatches > 0 and node.mods[index].list then
 			-- Then check modifiers
 			for _, mod in ipairs(node.mods[index].list) do
-				errMsg, match = PCall(string.match, mod.name, self.searchStr)
-				if match then
+				err, needMatches = PCall(search, mod.name, needMatches)
+				if #needMatches == 0 then
 					return true
 				end
 			end
@@ -749,8 +828,8 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	end
 
 	-- Check node type
-	local errMsg, match = PCall(string.match, node.type:lower(), self.searchStr:lower())
-	if match then
+	err, needMatches = PCall(search, node.type:lower(), needMatches)
+	if #needMatches == 0 then
 		return true
 	end
 end

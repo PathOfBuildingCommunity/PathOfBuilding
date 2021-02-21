@@ -1233,6 +1233,9 @@ local skills, mod, flag, skill = ...
 		["base_avoid_shock_%"] = {
 			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_reduce_enemy_lightning_resistance_%"] = {
+			mod("LightningPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 #baseMod skill("radius", 40)
 #mods
@@ -1683,6 +1686,7 @@ local skills, mod, flag, skill = ...
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",
+		"RaisedSkeletonArcher",
 	},
 	statMap = {
 		["damage_+%"] = {

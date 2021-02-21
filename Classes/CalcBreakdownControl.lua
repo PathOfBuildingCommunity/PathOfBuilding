@@ -71,7 +71,7 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 			section.width = 0
 			for _, line in ipairs(section.lines) do
 				local _, num = string.gsub(line, "%d%d%d%d", "") -- count how many commas will be added
-				if main.showThousandsCalcs and num > 0 then
+				if main.showThousandsSeparators and num > 0 then
 					section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8 + (4 * num))
 				else
 					section.width = m_max(section.width, DrawStringWidth(section.textSize, "VAR", line) + 8)
@@ -85,7 +85,7 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 				for _, row in pairs(section.rowList) do
 					if row[col.key] then
 						local _, num = string.gsub(row[col.key], "%d%d%d%d", "") -- count how many commas will be added
-						if main.showThousandsCalcs and num > 0 then
+						if main.showThousandsSeparators and num > 0 then
 							col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6 + (4 * num))
 						else 
 							col.width = m_max(col.width or 0, DrawStringWidth(16, "VAR", col.label) + 6, DrawStringWidth(12, "VAR", row[col.key]) + 6)
@@ -537,14 +537,12 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 				local _, alpha = string.gsub(row[col.key], "%a", " ") -- counts letters in the string
 				local _, notes = string.gsub(row[col.key], " to ", " ") -- counts " to " in the string
 				local _, paren = string.gsub(row[col.key], "%b()", " ") -- counts parenthesis in the string
-				if main.showThousandsCalcs and (alpha == 0 or notes > 0 or paren > 0) and col.right then
+				if (alpha == 0 or notes > 0 or paren > 0) and col.right then
 					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
-				elseif col.right then
-					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..row[col.key])
-				elseif main.showThousandsCalcs and (alpha == 0 or notes > 0 or paren > 0) then
+				elseif (alpha == 0 or notes > 0 or paren > 0) then
 					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
 				else
-					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..row[col.key])
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..tostring(row[col.key]))
 				end
 				local ttFunc = row[col.key.."Tooltip"]
 				local ttNode = row[col.key.."Node"]
@@ -675,11 +673,7 @@ function CalcBreakdownClass:Draw(viewPort)
 			for i, line in ipairs(section.lines) do
 				SetDrawColor(1, 1, 1)
 				local _, dec = string.gsub(line, "%.%d%d.", " ") -- counts decimals with 2 or more digits
-				if main.showThousandsCalcs and dec == 0 then
-					DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", formatNumSep(line))
-				else
-					DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", line)
-				end
+				DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", formatNumSep(line))
 				lineY = lineY + section.textSize
 			end
 		elseif section.type == "TABLE" then
