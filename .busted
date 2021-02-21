@@ -5,7 +5,7 @@ return {
     },
     default = {
         directory = "src",
-        lpath = "src/Vendor/?.lua",
+        lpath = "../bin/lua/?.lua",
         helper = "HeadlessWrapper.lua",
         ROOT = { "../spec" },
     }
