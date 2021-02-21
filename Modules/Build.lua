@@ -807,7 +807,8 @@ function buildMode:OnFrame(inputEvents)
 	
 	if self.buildFlag then
 		-- Wipe Global Cache
-		wipeTable(GlobalCache)
+		ConPrintf("Wiping Global Cache")
+		wipeTable(GlobalCache.cachedData)
 
 		-- Rebuild calculation output tables
 		self.outputRevision = self.outputRevision + 1

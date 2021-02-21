@@ -133,20 +133,41 @@ function cacheSkillUUID(skill)
 	return strName.."_"..strSlotName.."_"..tostring(indx)
 end
 
--- Build output for display in the side bar or calcs tab
-function calcs.buildOutput(build, mode)
+-- Build skill list
+function calcs.buildActiveSkillList(build, mode)
 	local fullEnv = calcs.initEnv(build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		local uuid = cacheSkillUUID(activeSkill)
-		if not GlobalCache[uuid] then
-			fullEnv.player.mainSkill = activeSkill
-			calcs.perform(fullEnv)
+		if activeSkill.activeEffect.grantedEffect.name == "Cyclone" then
+			calcs.buildActiveSkill(build, mode, activeSkill, fullEnv)
 			fullEnv = calcs.initEnv(build, mode)
 		end
 	end
+end
 
+-- Build skill
+function calcs.buildActiveSkill(build, mode, activeSkill, env)
+	ConPrintf("BUILD: " .. tostring(build))
+	local skillEnv = env or calcs.initEnv(build, "CACHE")
+	local uuid = cacheSkillUUID(activeSkill)
+	--if not GlobalCache[uuid] then
+		skillEnv.player.mainSkill = activeSkill
+		calcs.perform(skillEnv)
+		ConPrintf("[Cached] " .. uuid)
+		ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].name)
+		ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
+		ConPrintf("\tHitChance: " .. tostring(GlobalCache.cachedData[uuid].HitChance))
+		ConPrintf("\tCritChance: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
+		ConPrintf("\n")
+	--end
+end
+
+-- Build output for display in the side bar or calcs tab
+function calcs.buildOutput(build, mode, env)
+	if not GlobalCache.build then
+		GlobalCache.build = copyTable(build, true)
+	end
 	-- Build output
-	local env = calcs.initEnv(build, mode)
+	local env = env or calcs.initEnv(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output

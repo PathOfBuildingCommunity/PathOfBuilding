@@ -252,5 +252,4 @@ SkillType = {
 	Orb = 112,
 }
 
-GlobalCache = {
-}
+GlobalCache = { baseSkill = { }, cachedData = { }, }

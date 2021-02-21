@@ -20,14 +20,20 @@ local band = bit.band
 local tempTable1 = { }
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
-local function findTriggerSkill(skill, source, triggerRate)
+local function findTriggerSkill(env, skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
-	if GlobalCache[uuid] then
+	--if not GlobalCache.cachedData[uuid] then
+		ConPrintf("Dynamic loading: " .. uuid)
+		local thisEnv = calcs.initEnv(env.build, "CACHE")
+		calcs.buildActiveSkill(env.build, "CACHE", skill, thisEnv)
+	--end
+
+	if GlobalCache.cachedData[uuid] then
 		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-		if not source and GlobalCache[uuid].cachedData.Speed then
-			return skill, GlobalCache[uuid].cachedData.Speed
-		elseif GlobalCache[uuid].cachedData.Speed and GlobalCache[uuid].cachedData.Speed > triggerRate then
-			return skill, GlobalCache[uuid].cachedData.Speed
+		if not source and GlobalCache.cachedData[uuid].Speed then
+			return skill, GlobalCache.cachedData[uuid].Speed
+		elseif GlobalCache.cachedData[uuid].Speed and GlobalCache.cachedData[uuid].Speed > triggerRate then
+			return skill, GlobalCache.cachedData[uuid].Speed
 		end
 	end
 	return source, triggerRate
@@ -1679,8 +1685,8 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
-				source, trigRate = findTriggerSkill(skill, source, trigRate)
+			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
 				spellCount = spellCount + 1
@@ -1693,7 +1699,7 @@ function calcs.perform(env)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+			local sourceAPS = GlobalCache.cachedData[uuid].Speed
 
 			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
 
@@ -1701,7 +1707,7 @@ function calcs.perform(env)
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
 			-- Account for chance to hit/crit
-			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
+			local sourceCritChance = GlobalCache.cachedData[uuid].CritChance
 			trigRate = trigRate * sourceCritChance / 100
 			if breakdown then
 				breakdown.Speed = {
@@ -1725,8 +1731,8 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= activeSkill then
-				source, trigRate = findTriggerSkill(skill, source, trigRate)
+			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMjolner then
 				spellCount = spellCount + 1
@@ -1739,7 +1745,7 @@ function calcs.perform(env)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+			local sourceAPS = GlobalCache.cachedData[uuid].Speed
 
 			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
 
@@ -1747,7 +1753,7 @@ function calcs.perform(env)
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
 			-- Account for chance to hit/crit
-			local sourceHitChance = GlobalCache[uuid].cachedData.HitChance
+			local sourceHitChance = GlobalCache.cachedData[uuid].HitChance
 			trigRate = trigRate * sourceHitChance / 100
 			if breakdown then
 				breakdown.Speed = {
@@ -1771,8 +1777,8 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Attack] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= activeSkill then
-				source, trigRate = findTriggerSkill(skill, source, trigRate)
+			if skill.skillTypes[SkillType.Attack] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCoC then
 				spellCount = spellCount + 1
@@ -1785,13 +1791,13 @@ function calcs.perform(env)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache[uuid].cachedData.Speed
+			local sourceAPS = GlobalCache.cachedData[uuid].Speed
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
 			-- Account for chance to hit/crit
-			local sourceCritChance = GlobalCache[uuid].cachedData.CritChance
+			local sourceCritChance = GlobalCache.cachedData[uuid].CritChance
 			trigRate = trigRate * sourceCritChance / 100
 			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
 			if breakdown then
@@ -1943,20 +1949,12 @@ function calcs.perform(env)
 	end
 
 	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not GlobalCache[uuid] then
-		GlobalCache[uuid] = {
-			name = env.player.mainSkill.activeEffect.grantedEffect.name,
-			cachedData = {
-				Speed = output.Speed,
-				HitChance = output.HitChance,
-				CritChance = output.CritChance,
-			},
-		}
-	end
-	--[[
-	ConPrintf("["..uuid.."] Cached Data for '" .. GlobalCache[uuid].name .. "' :: " .. tostring(GlobalCache[uuid]))
-	for k,v in pairs(GlobalCache[uuid].cachedData) do
-		ConPrintf(k .. " - " .. tostring(v))
-	end
-	--]]
+	GlobalCache.cachedData[uuid] = {
+		name = env.player.mainSkill.activeEffect.grantedEffect.name,
+		Speed = env.player.output.Speed,
+		HitChance = env.player.output.HitChance,
+		CritChance = env.player.output.CritChance,
+	}
+	ConPrintf(uuid .. " :: " .. tostring(GlobalCache.cachedData[uuid].Speed))
+	ConPrintf("\n")
 end
