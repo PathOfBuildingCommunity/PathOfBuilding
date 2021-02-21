@@ -2,7 +2,6 @@ VERSION[1.4.170.27][2021/02/21]
 
 * Add charge distance multiplier for Shield Charge (Helyos96)
 * Add group restrictions to crafted mods for crafted items (Wires77)
-* Improve manifest updater (ppoelzl)
 * Add skill tree comparison (Ethrel)
 * Add future support to load a build from commandline (dclamage)
 * Add support for Assassin's Mistwalker elusive mod (wjdeclan)

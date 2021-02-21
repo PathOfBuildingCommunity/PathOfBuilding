@@ -18,7 +18,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="ba9b08700c20bb54453133f67139836a3997f685" />
-	<File name="changelog.txt" part="program" sha1="103b722009569c087333c86ab8bdacb2e151a740" />
+	<File name="changelog.txt" part="program" sha1="dfc3ab0a67847033e2e33330e6ba8fdeff715106" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="abedf9c43a64c4a9270de5aacc3f02a105fecd1d" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="cc0214199af6b4cb770e2f6a089af9b66c3f7d59" />
@@ -117,7 +117,7 @@
 	<File name="Data/LegionPassives.lua" part="program" sha1="790f49b918b92c28b756249f31abbb916ca81b19" />
 	<File name="Data/Minions.lua" part="program" sha1="dc0da40f7c396b62ba3c60f73a8b2e36f773d3ab" />
 	<File name="Data/Misc.lua" part="program" sha1="15a1acdcf6ca2980bd5d7424048c7db1d31295c6" />
-	<File name="Data/ModCache.lua" part="program" sha1="0f6a867e9f921bd007e549e45868c1a8b832e138" />
+	<File name="Data/ModCache.lua" part="program" sha1="d94d5c593df19822a692b3af60edcd06b2870773" />
 	<File name="Data/ModFlask.lua" part="program" sha1="b655b23478869f45a81c814a4b2f5b773396b3cb" />
 	<File name="Data/ModItem.lua" part="program" sha1="d5889eaa2097cb04b6b183fedd9c94031028de4c" />
 	<File name="Data/ModJewel.lua" part="program" sha1="0136be4cf9f6e5e4153452116d621f29225439ac" />
