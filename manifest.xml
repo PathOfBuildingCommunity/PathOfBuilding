@@ -14,7 +14,7 @@
 	<Source part="tree-3_13" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_13.zip" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime-win32.zip" />
 	<File name="LICENSE.md" part="program" sha1="afa44563af35aff416da7f07abbaabb74de96591" />
-	<File name="Launch.lua" part="program" sha1="7dbb18bb59ab4bb0aa0878fae705fa6f7b988daa" />
+	<File name="Launch.lua" part="program" sha1="fdb15d26267d7c2769ce7b3249308e3327b765b9" />
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="ba9b08700c20bb54453133f67139836a3997f685" />
