@@ -17,10 +17,11 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
     :param replace: Whether to overwrite the existing manifest file.
     :return:
     """
+    base_path = pathlib.Path("src")
     try:
-        manifest = xml.etree.ElementTree.parse(pathlib.Path("src", "manifest.xml"))
+        manifest = xml.etree.ElementTree.parse(base_path / "manifest.xml")
     except FileNotFoundError:
-        logger.critical(f"Manifest file not found in path '{pathlib.Path().cwd()}'")
+        logger.critical(f"Manifest file not found in path '{base_path}'")
         return
     root = manifest.getroot()
 
@@ -41,12 +42,12 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
         sha1_hash = hashlib.sha1(data).hexdigest()
         file.set("sha1", sha1_hash)
         logger.info(f"Path: {path} hash: {sha1_hash}")
-    if version:
+    if version is not None:
         root.find("Version").set("number", version)
         logger.info(f"Updated to version {version}")
 
     file_name = "manifest.xml" if replace else "manifest-updated.xml"
-    manifest.write(file_name, encoding="UTF-8", xml_declaration=True)
+    manifest.write(base_path / file_name, encoding="UTF-8", xml_declaration=True)
 
 
 def cli():
