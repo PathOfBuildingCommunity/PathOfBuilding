@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="1.4.170.26" />
-	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
-	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
+	<Version number="1.4.170.1337" />
+	<Source part="default" url="https://raw.githubusercontent.com/ppoelzl/PathOfBuilding/{branch}/" />
+	<Source part="program" url="https://raw.githubusercontent.com/ppoelzl/PathOfBuilding/{branch}/src/" />
+	<Source part="tree" url="https://raw.githubusercontent.com/ppoelzl/PathOfBuilding/{branch}/src/" />
+	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/ppoelzl/PathOfBuilding/{branch}/runtime/" />
 	<File name="LICENSE.md" part="default" sha1="afa44563af35aff416da7f07abbaabb74de96591" />
-	<File name="Launch.lua" part="program" sha1="fdb15d26267d7c2769ce7b3249308e3327b765b9" />
+	<File name="Launch.lua" part="program" sha1="242f095999e6b0908ea772bbd81570bf9165b79a" />
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="ba9b08700c20bb54453133f67139836a3997f685" />
 	<File name="changelog.txt" part="program" sha1="d3ce2821cc941ab5f40657fc24b802bc808d9ab1" />
-	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="b658b9d41207a28b911fa451fbc123318ebbdb72" />
+	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="609df5a3b6dfba98fb9115e61933a655518e1a4c" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="cc0214199af6b4cb770e2f6a089af9b66c3f7d59" />
 	<File name="libcurl.dll" part="runtime" platform="win32" sha1="5f68674e22a389dddeb72078b7d9d69d29881bdd" />
@@ -20,7 +20,7 @@
 	<File name="lua/base64.lua" part="runtime" sha1="18629865eb351e483178b6524fb3935cbc9b8297" />
 	<File name="lua/dkjson.lua" part="runtime" sha1="d2c9e5433a24b8593886a36cfc267cb05d3bc529" />
 	<File name="lua/sha1.lua" part="runtime" sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" />
-	<File name="lua/xml.lua" part="runtime" sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" />
+	<File name="lua/xml.lua" part="runtime" sha1="fcda0d2f2122c8fc5dbc156395a7108b3baba0f1" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
 	<File name="Assets/range_guide.png" part="program" sha1="a373cb27e35961aae661f5e5078898dab705fbba" />
 	<File name="Assets/ring.png" part="program" sha1="6ef89c50f3505dd2c114b3edbcac017ab969d176" />
@@ -181,7 +181,7 @@
 	<File name="Modules/ConfigOptions.lua" part="program" sha1="b1017f7f491ae1a13d8911cc133f981927fcdab1" />
 	<File name="Modules/Data.lua" part="program" sha1="07da8beacf2b599def37d1b38ca629ca3a51cadd" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="2f17970e450d22e7e894602eff4d44d4a10b0960" />
-	<File name="Modules/Main.lua" part="program" sha1="62e05d73a5933c1045f2bc56f0b2f23e293d3ce7" />
+	<File name="Modules/Main.lua" part="program" sha1="f8d53bef156b63fd37fc87b3757e78c236438acf" />
 	<File name="Modules/ModParser.lua" part="program" sha1="2fef2c24ea3156cb6a2df81399d4d1559a503215" />
 	<File name="Modules/ModTools.lua" part="program" sha1="13e645ac01eecf39e22067a2578ea516dba51c32" />
 	<File name="Modules/StatDescriber.lua" part="program" sha1="14bbf81bafa25a7feaf1009cb1b76d029bcb99ff" />

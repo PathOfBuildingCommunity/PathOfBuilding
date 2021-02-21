@@ -13,6 +13,7 @@ launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
+	-- TEST STRING
 	self.devMode = false
 	self.installedMode = false
 	self.versionNumber = "?"

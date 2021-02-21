@@ -1,4 +1,4 @@
---
+-- TEST STRING
 -- Basic Lua XML Handling
 -- Based on code by Roberto Ierusalimschy
 --

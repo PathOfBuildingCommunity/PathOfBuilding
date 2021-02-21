@@ -1,3 +1,4 @@
+-- TEST STRING
 -- Path of Building
 --
 -- Module: Main
