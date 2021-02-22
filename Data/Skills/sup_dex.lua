@@ -2159,7 +2159,7 @@ skills["SupportDamageAgainstChilled"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
 		},
 		["freeze_applies_cold_resistance_+"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", nil, 0, 0, {type = "Condition", var = "Frozen" }) }),
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Frozen" }),
 		},
 	},
 	baseMods = {
