@@ -3480,8 +3480,7 @@ function calcs.offence(env, actor, activeSkill)
 	if bor(dotCfg.flags, ModFlag.Spell) == dotCfg.flags and not skillData.dotIsSpell then
 		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Spell))
 	end
-
-	if skillData.dotIsArea then
+	if bor(dotCfg.flags, ModFlag.Attack) == dotCfg.flags and not skillData.dotIsAttack then
 		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Attack))
 	end
 
