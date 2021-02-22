@@ -159,12 +159,9 @@ function calcs.processActiveSkill(build, mode, activeSkill, env)
 end
 
 -- Build output for display in the side bar or calcs tab
-function calcs.buildOutput(build, mode, env)
-	if not GlobalCache.build then
-		GlobalCache.build = copyTable(build, true)
-	end
+function calcs.buildOutput(build, mode)
 	-- Build output
-	local env = env or calcs.initEnv(build, mode)
+	local env = calcs.initEnv(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
