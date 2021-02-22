@@ -1853,6 +1853,8 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "CwC Triggering Skill: " .. source.activeEffect.grantedEffect.name
+
+			env.player.mainSkill.skillFlags.dontDisplay = true
 		end
 	end
 
