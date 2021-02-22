@@ -22,10 +22,9 @@ local tempTable1 = { }
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
 local function findTriggerSkill(env, skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
-	--if not GlobalCache.cachedData[uuid] then
-		ConPrintf("Dynamic loading: " .. uuid)
-		calcs.buildActiveSkillList(env.build, "CACHE", uuid)
-	--end
+	if not GlobalCache.cachedData[uuid] then
+		calcs.buildActiveSkill(env.build, "CACHE", uuid)
+	end
 
 	if GlobalCache.cachedData[uuid] then
 		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
@@ -1949,11 +1948,9 @@ function calcs.perform(env)
 
 	local uuid = cacheSkillUUID(env.player.mainSkill)
 	GlobalCache.cachedData[uuid] = {
-		name = env.player.mainSkill.activeEffect.grantedEffect.name,
+		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		HitChance = env.player.output.HitChance,
 		CritChance = env.player.output.CritChance,
 	}
-	ConPrintf(uuid .. " :: " .. tostring(GlobalCache.cachedData[uuid].Speed))
-	ConPrintf("\n")
 end

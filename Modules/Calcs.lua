@@ -134,30 +134,28 @@ function cacheSkillUUID(skill)
 end
 
 -- Build skill list
-function calcs.buildActiveSkillList(build, mode, uuid)
+function calcs.buildActiveSkill(build, mode, uuid)
 	local fullEnv = calcs.initEnv(build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == uuid then
-			calcs.buildActiveSkill(build, mode, activeSkill, fullEnv)
+			calcs.processActiveSkill(build, mode, activeSkill, fullEnv)
 			return
 		end
 	end
 end
 
 -- Build skill
-function calcs.buildActiveSkill(build, mode, activeSkill, env)
+function calcs.processActiveSkill(build, mode, activeSkill, env)
 	local skillEnv = env or calcs.initEnv(build, "CACHE")
 	local uuid = cacheSkillUUID(activeSkill)
-	--if not GlobalCache[uuid] then
-		skillEnv.player.mainSkill = activeSkill
-		calcs.perform(skillEnv)
-		ConPrintf("[Cached] " .. uuid)
-		ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].name)
-		ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
-		ConPrintf("\tHitChance: " .. tostring(GlobalCache.cachedData[uuid].HitChance))
-		ConPrintf("\tCritChance: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
-		ConPrintf("\n")
-	--end
+	skillEnv.player.mainSkill = activeSkill
+	calcs.perform(skillEnv)
+	--ConPrintf("[Cached] " .. uuid)
+	--ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].Name)
+	--ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
+	--ConPrintf("\tHitChance: " .. tostring(GlobalCache.cachedData[uuid].HitChance))
+	--ConPrintf("\tCritChance: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
+	--ConPrintf("\n")
 end
 
 -- Build output for display in the side bar or calcs tab
