@@ -24,8 +24,7 @@ local function findTriggerSkill(env, skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
 	--if not GlobalCache.cachedData[uuid] then
 		ConPrintf("Dynamic loading: " .. uuid)
-		local thisEnv = calcs.initEnv(env.build, "CACHE")
-		calcs.buildActiveSkill(env.build, "CACHE", skill, thisEnv)
+		calcs.buildActiveSkillList(env.build, "CACHE", uuid)
 	--end
 
 	if GlobalCache.cachedData[uuid] then

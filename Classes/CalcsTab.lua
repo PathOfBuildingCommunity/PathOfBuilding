@@ -407,8 +407,6 @@ function CalcsTabClass:BuildOutput()
 	ConPrintf("Calc time: %d ms", GetTime() - start)
 	--]]
 
-	self.calcs.buildActiveSkillList(self.build, "CACHE")
-
 	for _, node in pairs(self.build.spec.nodes) do
 		-- Set default final mod list for all nodes; some may not be set during the main pass
 		node.finalModList = node.modList

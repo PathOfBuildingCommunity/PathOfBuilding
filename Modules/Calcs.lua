@@ -134,19 +134,18 @@ function cacheSkillUUID(skill)
 end
 
 -- Build skill list
-function calcs.buildActiveSkillList(build, mode)
+function calcs.buildActiveSkillList(build, mode, uuid)
 	local fullEnv = calcs.initEnv(build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.activeEffect.grantedEffect.name == "Cyclone" then
+		if cacheSkillUUID(activeSkill) == uuid then
 			calcs.buildActiveSkill(build, mode, activeSkill, fullEnv)
-			fullEnv = calcs.initEnv(build, mode)
+			return
 		end
 	end
 end
 
 -- Build skill
 function calcs.buildActiveSkill(build, mode, activeSkill, env)
-	ConPrintf("BUILD: " .. tostring(build))
 	local skillEnv = env or calcs.initEnv(build, "CACHE")
 	local uuid = cacheSkillUUID(activeSkill)
 	--if not GlobalCache[uuid] then
