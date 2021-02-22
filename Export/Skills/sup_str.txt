@@ -410,7 +410,9 @@ local skills, mod, flag, skill = ...
 
 #skill SupportBluntWeaponShockwave
 #flags attack melee area
-#baseMod skill("showAverage", true)
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
 #mods
 
 #skill SupportSpellTotem

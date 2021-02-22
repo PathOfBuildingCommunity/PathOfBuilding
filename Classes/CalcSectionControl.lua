@@ -156,11 +156,7 @@ function CalcSectionClass:UpdatePos()
 end
 
 function CalcSectionClass:FormatVal(val, p)
-	if main.showThousandsCalcs then
-		return formatNumSep(tostring(round(val, p)))
-	else
-		return round(val, p)
-	end
+	return formatNumSep(tostring(round(val, p)))
 end
 
 function CalcSectionClass:FormatStr(str, actor, colData)

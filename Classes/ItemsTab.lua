@@ -598,16 +598,20 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 					for l, line in ipairs(minMod) do
 						local minLine = line:gsub("%((%d[%d%.]*)%-(%d[%d%.]*)%)", "%1")
 						local maxLine = maxMod[l]:gsub("%((%d[%d%.]*)%-(%d[%d%.]*)%)", "%2")
-						local start = 1
-						tooltip:AddLine(14, minLine:gsub("%d[%d%.]*", function(min)
-							local s, e, max = maxLine:find("(%d[%d%.]*)", start)
-							start = e + 1
-							if min == max then
-								return min
-							else
-								return "("..min.."-"..max..")"
-							end
-						end))
+						if maxLine == maxMod[l] then
+							tooltip:AddLine(14, maxLine)
+						else
+							local start = 1
+							tooltip:AddLine(14, minLine:gsub("%d[%d%.]*", function(min)
+								local s, e, max = maxLine:find("(%d[%d%.]*)", start)
+								start = e + 1
+								if min == max then
+									return min
+								else
+									return "("..min.."-"..max..")"
+								end
+							end))
+						end
 					end
 					tooltip:AddLine(16, "Level: "..minMod.level.." to "..maxMod.level)
 					-- Assuming that all mods have the same tags
@@ -2027,8 +2031,16 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
+			local excludeGroups = { }
+			for _, modLine in ipairs({ self.displayItem.prefixes, self.displayItem.suffixes }) do
+				for i = 1, self.displayItem.affixLimit / 2 do
+					if modLine[i].modId ~= "None" then
+						excludeGroups[self.displayItem.affixes[modLine[i].modId].group] = true
+					end
+				end
+			end
 			for i, craft in ipairs(self.build.data.masterMods) do
-				if craft.types[self.displayItem.type] then
+				if craft.types[self.displayItem.type] and not excludeGroups[craft.group] then
 					t_insert(modList, {
 						label = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")",
 						mod = craft,

@@ -661,9 +661,7 @@ function TreeTabClass:ShowPowerReport()
 			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
 
-			if main.showThousandsCalcs then
-				nodePowerStr = formatNumSep(nodePowerStr)
-			end
+			nodePowerStr = formatNumSep(nodePowerStr)
 			
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
@@ -691,9 +689,7 @@ function TreeTabClass:ShowPowerReport()
 			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
 
-			if main.showThousandsCalcs then
-				nodePowerStr = formatNumSep(nodePowerStr)
-			end
+			nodePowerStr = formatNumSep(nodePowerStr)
 			
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr

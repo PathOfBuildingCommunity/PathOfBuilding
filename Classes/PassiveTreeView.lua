@@ -430,8 +430,25 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	-- Update cached node data
 	if self.searchStrCached ~= self.searchStr then
 		self.searchStrCached = self.searchStr
+
+		local function prepSearch(search)
+			search = search:lower()
+			local searchWords = {}
+			for matchstring, v in search:gmatch('"([^"]*)"') do
+				searchWords[#searchWords+1] = matchstring
+				search = search:gsub('"'..matchstring..'"', "")
+			end
+			for matchstring, v in search:gmatch("(%S*)") do
+				if matchstring:match("%S") ~= nil then
+					searchWords[#searchWords+1] = matchstring
+				end
+			end
+			return searchWords
+		end
+		self.searchParams = prepSearch(self.searchStr)
+
 		for nodeId, node in pairs(spec.nodes) do
-			self.searchStrResults[nodeId] = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
+			self.searchStrResults[nodeId] = #self.searchParams > 0 and self:DoesNodeMatchSearchParams(node)
 		end
 	end
 
@@ -769,29 +786,41 @@ function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 	self.zoomY = -y * scale
 end
 
-function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
+function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	if node.type == "ClassStart" or node.type == "Mastery" then
 		return
 	end
 
+	local needMatches = copyTable(self.searchParams)
+	local err
+
+	local function search(haystack, need)
+		for i=#need, 1, -1 do
+			if haystack:match(need[i]) then
+				table.remove(need, i)
+			end
+		end
+		return need
+	end
+
 	-- Check node name
-	local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
-	if match then
+	err, needMatches = PCall(search, node.dn:lower(), needMatches)
+	if #needMatches == 0 then
 		return true
 	end
 
 	-- Check node description
 	for index, line in ipairs(node.sd) do
 		-- Check display text first
-		errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
-		if match then
+		err, needMatches = PCall(search, line:lower(), needMatches)
+		if #needMatches == 0 then
 			return true
 		end
-		if not match and node.mods[index].list then
+		if #needMatches > 0 and node.mods[index].list then
 			-- Then check modifiers
 			for _, mod in ipairs(node.mods[index].list) do
-				errMsg, match = PCall(string.match, mod.name, self.searchStr)
-				if match then
+				err, needMatches = PCall(search, mod.name, needMatches)
+				if #needMatches == 0 then
 					return true
 				end
 			end
@@ -799,8 +828,8 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	end
 
 	-- Check node type
-	local errMsg, match = PCall(string.match, node.type:lower(), self.searchStr:lower())
-	if match then
+	err, needMatches = PCall(search, node.type:lower(), needMatches)
+	if #needMatches == 0 then
 		return true
 	end
 end
