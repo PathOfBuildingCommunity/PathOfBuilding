@@ -178,7 +178,7 @@ function calcs.calcFullDPS(build, mode, override)
 				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(fullEnv.player.output.TotalDPS))
 				if fullEnv.player.output.TotalDPS and fullEnv.player.output.TotalDPS > 0 then
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = activeSkillCount, skillPart = activeSkill.skillPartName })
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoMessage, skillPart = activeSkill.skillPartName })
 					else
 						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 					end
