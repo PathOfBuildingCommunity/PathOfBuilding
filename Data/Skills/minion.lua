@@ -583,7 +583,7 @@ skills["RockGolemWhirlingBlades"] = {
 		"ignores_proximity_shield",
 	},
 	levels = {
-		[1] = { 1, -50, 1, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+		[1] = { 1, -50, 1, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["ZombieSlam"] = {
