@@ -14,8 +14,138 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
 local s_format = string.format
+local bor = bit.bor
+local band = bit.band
 
 local tempTable1 = { }
+
+-- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
+local function findTriggerSkill(env, skill, source, triggerRate)
+	local uuid = cacheSkillUUID(skill)
+	if not GlobalCache.cachedData[uuid] then
+		calcs.buildActiveSkill(env.build, "CACHE", uuid)
+	end
+
+	if GlobalCache.cachedData[uuid] then
+		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+		if not source and GlobalCache.cachedData[uuid].Speed then
+			return skill, GlobalCache.cachedData[uuid].Speed
+		elseif GlobalCache.cachedData[uuid].Speed and GlobalCache.cachedData[uuid].Speed > triggerRate then
+			return skill, GlobalCache.cachedData[uuid].Speed
+		end
+	end
+	return source, triggerRate
+end
+
+-- Calculate Trigger Rate Cap accounting for ICDR
+local function getTriggerActionTriggerRate(env, breakdown)
+	local baseActionCooldown = env.player.mainSkill.skillData.cooldown
+	local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+	local modActionCooldown = baseActionCooldown / (icdr)
+	if breakdown then
+		breakdown.ActionTriggerRate = {
+			s_format("%.2f ^8(base cooldown of trigger)", baseActionCooldown),
+			s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+			s_format("= %.3f ^8(final cooldown of trigger)", modActionCooldown),
+			s_format(""),
+			s_format("Trigger rate:"),
+			s_format("1 / %.2f", modActionCooldown),
+			s_format("= %.2f ^8per second", 1 / modActionCooldown),
+		}
+	end
+	return 1 / modActionCooldown
+end
+
+--
+local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
+	-- Get action trigger rate
+	if sourceAPS == nil and source.skillTypes[SkillType.Channelled] then
+		output.ActionTriggerRate = 1 / source.skillData.triggerTime
+		if breakdown then
+			breakdown.ActionTriggerRate = {
+				s_format("%.2f ^8(base cooldown of trigger)", source.skillData.triggerTime),
+				s_format(""),
+				s_format("Trigger rate:"),
+				s_format("1 / %.2f", source.skillData.triggerTime),
+				s_format("= %.2f ^8per second", output.ActionTriggerRate),
+			}
+		end
+	else
+		output.ActionTriggerRate = getTriggerActionTriggerRate(env, breakdown)
+	end
+	local trigRate
+	if sourceAPS ~= nil then
+		output.SourceTriggerRate = sourceAPS / spellCount
+		if breakdown then
+			breakdown.SourceTriggerRate = {
+				s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
+				s_format("/ %d ^8(number of linked active spells to trigger)", spellCount),
+				s_format("= %.2f ^8per second", output.SourceTriggerRate),
+			}
+		end
+		-- Set trigger rate
+		trigRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+	else
+		output.SourceTriggerRate = output.ActionTriggerRate / spellCount
+		if breakdown then
+			breakdown.SourceTriggerRate = {
+				s_format("%.2f ^8(%s triggers per second)", output.ActionTriggerRate, source.activeEffect.grantedEffect.name),
+				s_format("/ %d ^8(number of linked active spells to trigger)", spellCount),
+				s_format("= %.2f ^8per second", output.SourceTriggerRate),
+			}
+		end
+		-- Set trigger rate
+		trigRate = output.SourceTriggerRate
+	end
+
+	-- Adjust for server tick rate
+	local trigCD = 1 / trigRate
+	local adjTrigCD = m_ceil(trigCD * data.misc.ServerTickRate) / data.misc.ServerTickRate
+	if breakdown then
+		breakdown.ServerTriggerRate = {
+			s_format("1 / %.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+			s_format("= %.3f ^8(seconds between each action)", trigCD),
+			s_format("= %.3f ^8(rounded up to nearest server tick)", adjTrigCD),
+			s_format(""),
+			s_format("Adjusted trigger rate:"),
+			s_format("1 / %.3f", adjTrigCD),
+			s_format("= %.2f ^8per second", 1 / adjTrigCD),
+		}
+	end
+	trigRate = 1 / adjTrigCD
+	output.ServerTriggerRate = trigRate
+	return trigRate
+end
+
+-- Account for APS modifications do to Dual Wield or Simultaneous Strikes
+local function calcDualWieldImpact(env, sourceAPS, sourceName)
+	-- See if we are dual wielding
+	local dualWield = false
+	if env.player.weaponData1.type and env.player.weaponData2.type then
+		dualWield = true
+		-- We are, see if they are NOT both Mjolner's since then we have to alternate trigger hits
+		if not (env.player.weaponData1.name == env.player.weaponData2.name) then
+			sourceAPS = sourceAPS * 0.5
+		end
+	end
+
+	-- See if we are using a trigger skill that hits with both weapons simultaneously
+	if dualWield and (sourceName == "Cleave" or sourceName == "Dual Strike" or sourceName == "Viper Strike" or sourceName == "Riposte") then
+		-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
+		sourceAPS = sourceAPS * 2.0
+	end
+	return sourceAPS
+end
+
+-- Add trigger-based damage modifiers
+local function addTriggerIncMoreMods(activeSkill, sourceSkill)
+	for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", sourceSkill.skillCfg, "TriggeredDamage")) do
+		activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+	end
+	for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", sourceSkill.skillCfg, "TriggeredDamage")) do
+		activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+	end
+end
 
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
@@ -887,34 +1017,9 @@ function calcs.perform(env)
 					quality = skill.activeEffect.quality / 2
 				end
 			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
+			addTriggerIncMoreMods(activeSkill, env.player.mainSkill)
 			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
-		end
-		if activeSkill.skillData.triggeredWhileChannelling and not activeSkill.skillFlags.minion then
-			activeSkill.skillData.triggered = true
-			local spellCount, trigTime = 0
-			for _, skill in ipairs(env.player.activeSkillList) do
-				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggerTime or 0 > 0 then
-					trigTime = skill.skillData.triggerTime
-				end
-				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggeredWhileChannelling then
-					spellCount = spellCount + 1
-				end
-			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
-				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
-			end
-			activeSkill.skillModList:NewMod("CastWhileChannellingSpellsLinked", "BASE", spellCount, "Skill")
-			activeSkill.skillData.triggerTime = trigTime
 		end
 	end
 
@@ -1580,7 +1685,179 @@ function calcs.perform(env)
 			end
 		end
 	end
+
+	-- Process Triggered Skill and Set Trigger Conditions
+
+	-- Cospri's Malice
+	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByCospris = nil
+			env.player.mainSkill.infoMessage = "No Cospri Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+
+			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
+
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
+
+			-- Account for chance to hit/crit
+			local sourceCritChance = GlobalCache.cachedData[uuid].CritChance
+			trigRate = trigRate * sourceCritChance / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.2f%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f ^8per second", trigRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Cospri Triggering Skill: " .. source.activeEffect.grantedEffect.name
+		end
+	end
 	
+	-- Mjolner
+	if env.player.mainSkill.skillData.triggeredByMjolner and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMjolner then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByMjolner = nil
+			env.player.mainSkill.infoMessage = "No Mjolner Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+
+			sourceAPS = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
+
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
+
+			-- Account for chance to hit/crit
+			local sourceHitChance = GlobalCache.cachedData[uuid].HitChance
+			trigRate = trigRate * sourceHitChance / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f ^8per second", trigRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Mjolner Triggering Skill: " .. source.activeEffect.grantedEffect.name
+		end
+	end
+
+	-- Cast On Critical Strike Support (CoC)
+	if env.player.mainSkill.skillData.triggeredByCoC and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Attack] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCoC then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByCoC = nil
+			env.player.mainSkill.infoMessage = "No CoC Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
+
+			-- Account for chance to hit/crit
+			local sourceCritChance = GlobalCache.cachedData[uuid].CritChance
+			trigRate = trigRate * sourceCritChance / 100
+			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.2f%% ^8(%s crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f ^8per second", trigRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "CoC Triggering Skill: " .. source.activeEffect.grantedEffect.name
+		end
+	end
+
+	-- Cast While Channelling
+	if env.player.mainSkill.skillData.triggeredWhileChannelling and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = 0
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Channelled] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredWhileChannelling then
+				spellCount = spellCount + 1
+			end
+		end
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredWhileChannelling = nil
+			env.player.mainSkill.infoMessage = "No CwC Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+		else
+			env.player.mainSkill.skillData.triggered = true
+
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, nil, spellCount, output, breakdown)
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = trigRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "CwC Triggering Skill: " .. source.activeEffect.grantedEffect.name
+
+			env.player.mainSkill.skillFlags.dontDisplay = true
+		end
+	end
+
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
@@ -1712,4 +1989,12 @@ function calcs.perform(env)
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
+
+	local uuid = cacheSkillUUID(env.player.mainSkill)
+	GlobalCache.cachedData[uuid] = {
+		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
+		Speed = env.player.output.Speed,
+		HitChance = env.player.output.HitChance,
+		CritChance = env.player.output.CritChance,
+	}
 end

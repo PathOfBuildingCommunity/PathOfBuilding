@@ -238,6 +238,47 @@ function calcs.calcFullDPS(build, mode, override)
 	end
 
 	return fullDPS
+-- Generate a UUID for a skill
+function cacheSkillUUID(skill)
+	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
+	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local indx = 1
+	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.gemData then
+		for idx, gem in ipairs(skill.socketGroup.gemList) do
+			-- we compare table addresses rather than names since two of the same gem
+			-- can be socketed in the same slot
+			if gem.gemData == skill.activeEffect.gemData then
+				indx =idx
+				break
+			end
+		end
+	end
+	return strName.."_"..strSlotName.."_"..tostring(indx)
+end
+
+-- Build skill list
+function calcs.buildActiveSkill(build, mode, uuid)
+	local fullEnv = calcs.initEnv(build, mode)
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		if cacheSkillUUID(activeSkill) == uuid then
+			calcs.processActiveSkill(build, mode, activeSkill, fullEnv)
+			return
+		end
+	end
+end
+
+-- Build skill
+function calcs.processActiveSkill(build, mode, activeSkill, env)
+	local skillEnv = env or calcs.initEnv(build, "CACHE")
+	local uuid = cacheSkillUUID(activeSkill)
+	skillEnv.player.mainSkill = activeSkill
+	calcs.perform(skillEnv)
+	--ConPrintf("[Cached] " .. uuid)
+	--ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].Name)
+	--ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
+	--ConPrintf("\tHitChance: " .. tostring(GlobalCache.cachedData[uuid].HitChance))
+	--ConPrintf("\tCritChance: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
+	--ConPrintf("\n")
 end
 
 -- Build output for display in the side bar or calcs tab

@@ -307,7 +307,8 @@ return {
 		{ breakdown = "OffHand.AverageDamage" },
 		{ breakdown = "AverageDamage" },
 	}, },
-	{ label = "Skill DPS", flag = "notAverage", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
+	{ label = "Skill DPS", flag = "notAverage", notFlag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
+	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },
@@ -447,10 +448,14 @@ return {
 	{ label = "OH Att. per second", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{2:output:OffHand.Speed}", { breakdown = "OffHand.Speed" }, }, },
 	{ label = "Attacks per second", flag = "bothWeaponAttack", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Attack time", flag = "attack", { format = "{2:output:Time}s", { breakdown = "MainHand.Time" }, }, },
-	{ label = "Inc. Cast Speed", flag = "spell", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "skill", }, }, },
-	{ label = "More Cast Speed", flag = "spell", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
-	{ label = "Casts per second", flag = "spell", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
-	{ label = "Cast time", flag = "spell", { format = "{2:output:Time}s", }, },
+	{ label = "Inc. Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "skill", }, }, },
+	{ label = "More Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
+	{ label = "Casts per second", flag = "spell", notFlag = "triggered", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
+	{ label = "Trigger Rate Cap", flag = "triggered", { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "CooldownRecovery", modType = "INC", cfg = "skill", }, }, },
+	{ label = "Skill Trigger Rate", flag = "triggered", { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, }, },
+	{ label = "Adj. Trigger Rate", flag = "triggered", { format = "{2:output:ServerTriggerRate}",  { breakdown = "ServerTriggerRate" }, }, },
+	{ label = "Eff. Trigger Rate", flag = "triggered", notFlag = "dontDisplay", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
+	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
 } }
 } },
 { 1, "Crit", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Crits", data = {

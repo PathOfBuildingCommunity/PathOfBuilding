@@ -251,3 +251,5 @@ SkillType = {
 	Aegis = 111,
 	Orb = 112,
 }
+
+GlobalCache = { cachedData = { }, }

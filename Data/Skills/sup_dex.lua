@@ -573,7 +573,7 @@ skills["SupportCastOnCrit"] = {
 	statMap = {
 		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
-		}
+		},
 	},
 	baseMods = {
 	},
@@ -650,7 +650,6 @@ skills["SupportCastOnCritTriggered"] = {
 		},
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
@@ -773,7 +772,6 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 		},
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {

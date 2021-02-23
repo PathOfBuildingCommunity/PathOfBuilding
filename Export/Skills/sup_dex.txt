@@ -78,7 +78,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Spell),
 		},
 	},
-#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportCastOnCritPlus
@@ -90,7 +89,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Spell),
 		},
 	},
-#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportCastOnDeath
