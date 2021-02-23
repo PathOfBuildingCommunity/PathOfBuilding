@@ -230,7 +230,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ChainStrike
-#flags attack melee
+#flags attack melee area
 	statMap = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
