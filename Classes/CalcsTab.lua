@@ -428,9 +428,10 @@ function CalcsTabClass:BuildOutput()
 end
 
 -- Controls the coroutine that calculations node power
-function CalcsTabClass:BuildPower()
+function CalcsTabClass:BuildPower(callbackContext)
 	if self.powerBuildFlag then
 		self.powerBuildFlag = false
+		self.powerBuilderCallback = callbackContext or self.powerBuilderCallback
 		self.powerBuilder = coroutine.create(self.PowerBuilder)
 	end
 	if self.powerBuilder then
@@ -441,6 +442,9 @@ function CalcsTabClass:BuildPower()
 		end
 		if coroutine.status(self.powerBuilder) == "dead" then
 			self.powerBuilder = nil
+			if self.powerBuilderCallback then
+				self.powerBuilderCallback.func(self.powerBuilderCallback.caller)
+			end
 		end
 		collectgarbage("restart")
 	end
@@ -452,7 +456,6 @@ function CalcsTabClass:PowerBuilder()
 	local cache = { }
 	local newPowerMax = {
 		singleStat = 0,
-		singleStatPerPoint = 0,
 		offence = 0,
 		offencePerPoint = 0,
 		defence = 0,
@@ -476,7 +479,14 @@ function CalcsTabClass:PowerBuilder()
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 				if node.path and not node.ascendancyName then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
-					newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / node.pathDist, newPowerMax.singleStatPerPoint)
+					node.power.pathPower = node.power.singleStat
+					local pathNodes = { }
+					for _, node in pairs(node.path) do
+						pathNodes[node] = true
+					end
+					if node.pathDist > 1 then
+						node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }), calcBase)
+					end
 				end
 			else
 				if calcBase.Minion then
@@ -496,6 +506,21 @@ function CalcsTabClass:PowerBuilder()
 					newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
 					newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
 
+				end
+			end
+		elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			local output = calcFunc({ removeNodes = { [node] = true } })
+			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+				if node.depends and not node.ascendancyName then
+					node.power.pathPower = node.power.singleStat
+					local pathNodes = { }
+					for _, node in pairs(node.depends) do
+						pathNodes[node] = true
+					end
+					if #node.depends > 1 then
+						node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ removeNodes = pathNodes }), calcBase)
+					end
 				end
 			end
 		end
