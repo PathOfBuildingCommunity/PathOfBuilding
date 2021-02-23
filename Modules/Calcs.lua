@@ -125,7 +125,7 @@ local function getActiveSkillCount(activeSkill)
 	local gemList = activeSkill.socketGroup.gemList
 	for _, gemData in pairs(gemList) do
 		if gemData.gemData and activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect then
-			return gemData.count
+			return gemData.count or 1
 		end
 	end
 	return 1
