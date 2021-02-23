@@ -1697,7 +1697,7 @@ function calcs.perform(env)
 			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCospris then
+			if skill.skillData.triggeredByCospris then
 				spellCount = spellCount + 1
 			end
 		end
@@ -1743,7 +1743,7 @@ function calcs.perform(env)
 			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMjolner then
+			if skill.skillData.triggeredByMjolner then
 				spellCount = spellCount + 1
 			end
 		end
