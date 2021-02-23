@@ -1148,11 +1148,18 @@ function buildMode:AddDisplayStatList(statList, actor)
 								lhsString,
 								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count),
 							})
+							if skillData.skillPart then
+								t_insert(statBoxList, {
+									height = 16,
+									align = "CENTER_X", x = 140,
+									colorCodes.UNIQUE..skillData.skillPart,
+								})
+							end
 							if skillData.source then
 								t_insert(statBoxList, {
 									height = 16,
-									colorCodes.UNIQUE.."^ Source:",
-									colorCodes.CUSTOM..skillData.source,
+									align = "CENTER_X", x = 140,
+									colorCodes.NEGATIVE.."from " ..skillData.source,
 								})
 							end
 						end
