@@ -1121,6 +1121,14 @@ function buildMode:FormatStat(statData, statVal)
 	return valStr
 end
 
+function stringSplit(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
 -- Add stat list for given actor
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
@@ -1144,15 +1152,20 @@ function buildMode:AddDisplayStatList(statList, actor)
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
 						for _, skillData in ipairs(actor.output.SkillDPS) do
-							local lhsString = labelColor..skillData.name..":"
+							local triggerStr = ""
+							if skillData.trigger then
+								triggerStr = colorCodes.WARNING.." ("..stringSplit(skillData.trigger, " ")[1]..")"..labelColor
+							end
+							local lhsString = labelColor..skillData.name..triggerStr..":"
 							if skillData.count >= 2 then
-								lhsString = labelColor..tostring(skillData.count).."x "..skillData.name..":"
+								lhsString = labelColor..tostring(skillData.count).."x "..skillData.name..triggerStr..":"
 							end
 							t_insert(statBoxList, {
 								height = 16,
 								lhsString,
 								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count),
 							})
+							--[[
 							if skillData.trigger then
 								t_insert(statBoxList, {
 									height = 14,
@@ -1160,11 +1173,12 @@ function buildMode:AddDisplayStatList(statList, actor)
 									colorCodes.WARNING..skillData.trigger,
 								})
 							end
+							--]]
 							if skillData.skillPart then
 								t_insert(statBoxList, {
 									height = 14,
 									align = "CENTER_X", x = 140,
-									colorCodes.WARNING..skillData.skillPart,
+									"^8"..skillData.skillPart,
 								})
 							end
 							if skillData.source then

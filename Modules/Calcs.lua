@@ -238,6 +238,8 @@ function calcs.calcFullDPS(build, mode, override)
 	end
 
 	return fullDPS
+end
+
 -- Generate a UUID for a skill
 function cacheSkillUUID(skill)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
