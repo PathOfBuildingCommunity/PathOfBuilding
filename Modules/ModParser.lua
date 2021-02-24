@@ -2002,7 +2002,7 @@ local specialModList = {
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "DualWielding", neg = true }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
 	["enemies poisoned by you have (%-%d+)%% to chaos resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", num) }, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }) } end,
-	["spell skills have ([%+%-][%d]+)%% to damage over time multiplier for poison"] = function(num) return { 
+	["spell skills have ([%+%-]%d+)%% to damage over time multiplier for poison"] = function(num) return { 
 		mod("DotMultiplier", "BASE", num, nil, 0, bor(KeywordFlag.Spell, KeywordFlag.Poison, KeywordFlag.MatchAll))
 	} end,
 	-- Buffs/debuffs
