@@ -194,3 +194,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__
 -- Flickershade
 #spectre Metadata/Monsters/Maligaro/SecretDesecrateMonster
+-- Infernal Sentinel
+#spectre Metadata/Monsters/Guardians/GuardianFire2_

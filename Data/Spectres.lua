@@ -1028,25 +1028,26 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 }
 -- Infernal Sentinel
 minions["Metadata/Monsters/Guardians/GuardianFire2_"] = {
-	name = "Infernal Sentinel",
-	life = 2.7,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"GuardianTriggerCascade1",
-		"GuardianTriggerCascade2",
-		"SpellNovaFireRibbons",
-		"GuardianTriggerCascade3",
-	},
-	modList = {
-	},
+    name = "Infernal Sentinel",
+    life = 2.7,
+    energyShield = 1,
+    fireResist = 75,
+    coldResist = 0,
+    lightningResist = 0,
+    chaosResist = 0,
+    damage = 1.8,
+    damageSpread = 0.2,
+    attackTime = 1.5,
+    attackRange = 8,
+    accuracy = 1,
+    skillList = {
+        "SpellNovaFireRibbons",
+        "GuardianTriggerCascade1",
+        "GuardianTriggerCascade2",
+        "GuardianTriggerCascade3",
+    },
+    modList = {
+    },
 }
 minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 	name = "Frost Sentinel",

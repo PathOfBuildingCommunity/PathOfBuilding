@@ -823,3 +823,7 @@ local skills, mod, flag, skill = ...
 #skill SecretDesecrateMonsterMultiSlash Multi Slash
 #flags attack hit area triggerable
 #mods
+
+#skill SpellNovaFireRibbons Nova
+#flags area spell duration
+#mods

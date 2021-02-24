@@ -5264,3 +5264,38 @@ skills["SecretDesecrateMonsterMultiSlash"] = {
 		[1] = { attackSpeedMultiplier = -33, levelRequirement = 0, statInterpolation = { }, },
 	},
 }
+skills["SpellNovaFireRibbons"] = {
+    name = "SpellNovaFireRibbons",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 3.3333,
+    incrementalEffectiveness = 0.03,
+    skillTypes = {
+        [SkillType.Spell] = true,
+        [SkillType.Hit] = true,
+        [SkillType.Area] = true,
+        [SkillType.Duration] = true,
+        [SkillType.Triggerable] = true,
+        [SkillType.AreaSpell] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        area = true,
+        spell = true,
+        duration = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "spell_minimum_base_fire_damage",
+        "spell_maximum_base_fire_damage",
+        "cast_on_trigger_cascade_event_%",
+        "is_area_damage",
+    },
+    levels = {
+        [1] = {0.8, 1.2, 100, levelRequirement = 1, statInterpolation = {3, 3, 1},  },
+    },
+}
