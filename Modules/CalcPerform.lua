@@ -1895,7 +1895,7 @@ function calcs.perform(env)
 
 	-- Cast While Channelling
 	if env.player.mainSkill.skillData.triggeredWhileChannelling and not env.player.mainSkill.skillFlags.minion then
-		local spellCount = 0
+		local spellCount = {}
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -1903,10 +1903,10 @@ function calcs.perform(env)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredWhileChannelling then
-				spellCount = spellCount + 1
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
 			end
 		end
-		if not source or spellCount < 1 then
+		if not source or #spellCount < 1 then
 			env.player.mainSkill.skillData.triggeredWhileChannelling = nil
 			env.player.mainSkill.infoMessage = "No CwC Triggering Skill Found"
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
