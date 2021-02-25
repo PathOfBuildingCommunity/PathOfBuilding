@@ -117,17 +117,19 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	local skillRotationImpact = #spellCount
 	if sourceAPS ~= nil then
 		output.SourceTriggerRate = sourceAPS / skillRotationImpact
-		if breakdown then
-			if dualWield then
-				if #spellCount > 1 then
-					output.SourceTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+		if dualWield then
+			if #spellCount > 1 then
+				output.SourceTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
 						s_format("/ 2) ^8(due to dual wielding)"),
 						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
 						s_format("= %.2f ^8per second", output.SourceTriggerRate),
 					}
-				else
+				end
+			else
+				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
 						s_format("/ 2) ^8(due to dual wielding)"),
@@ -135,15 +137,19 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 						s_format("= %.2f ^8per second", output.SourceTriggerRate),
 					}
 				end
-			else
-				if #spellCount > 1 then
-					output.SourceTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+			end
+		else
+			if #spellCount > 1 then
+				output.SourceTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
 						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS /  output.SourceTriggerRate),
 						s_format("= %.2f ^8per second", output.SourceTriggerRate),
 					}
-				else
+				end
+			else
+				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
 						s_format("/ %.2f ^8(number of linked active spells to trigger)", skillRotationImpact),
