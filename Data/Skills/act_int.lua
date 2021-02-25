@@ -6310,7 +6310,7 @@ skills["OrbOfStorms"] = {
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "Speed")
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
 	end,
 	statMap = {
 		["orb_of_storms_base_bolt_frequency_ms"] = {
