@@ -12,14 +12,15 @@ local curl = require("lcurl.safe")
 local lzip = require("lzip")
 
 local globalRetryLimit = 10
-local function downloadFileText(url)
+local function downloadFileText(source, file)
 	for i = 1, 5 do
 		if i > 1 then
 			ConPrintf("Retrying... (%d of 5)", i)
 		end
 		local text = ""
 		local easy = curl.easy()
-		easy:setopt_url(url)
+		local escaped_url = source..easy:escape(file)
+		easy:setopt_url(escaped_url)
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
@@ -40,8 +41,8 @@ local function downloadFileText(url)
 		globalRetryLimit = globalRetryLimit - 1
 	end
 end
-local function downloadFile(url, outName)
-	local text = downloadFileText(url)
+local function downloadFile(source, file, outName)
+	local text = downloadFileText(source, file)
 	if text then
 		local outFile = io.open(outName, "wb")
 		outFile:write(text)
@@ -99,7 +100,7 @@ localSource = localSource:gsub("{branch}", localBranch)
 local remoteVer
 local remoteFiles = { }
 local remoteSources = { }
-local remoteManText, errMsg = downloadFileText(localSource.."manifest.xml")
+local remoteManText, errMsg = downloadFileText(localSource, "manifest.xml")
 if not remoteManText then
 	ConPrintf("Update check failed: couldn't download version manifest")
 	return nil, "Couldn't download version manifest.\nReason: "..errMsg.."\nCheck your internet connectivity.\nIf you are using a proxy, specify it in Options."
@@ -172,7 +173,7 @@ MakeDir("Update")
 ConPrintf("Downloading update...")
 
 -- Download changelog
-downloadFile(localSource.."changelog.txt", scriptPath.."/changelog.txt")
+downloadFile(localSource, "changelog.txt", scriptPath.."/changelog.txt")
 
 -- Download files that need updating
 local failedFile = false
@@ -192,7 +193,7 @@ for index, data in ipairs(updateFiles) do
 		if not zipFiles[zipName] then
 			ConPrintf("Downloading %s...", zipName)
 			local zipFileName = scriptPath.."/Update/"..zipName
-			downloadFile(source, zipFileName)
+			downloadFile(source, "", zipFileName)
 			zipFiles[zipName] = lzip.open(zipFileName)
 		end
 		local zip = zipFiles[zipName]
@@ -209,7 +210,7 @@ for index, data in ipairs(updateFiles) do
 		end
 	else
 		ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
-		content = downloadFileText(source..data.name)
+		content = downloadFileText(source, data.name)
 	end
 	if content then
 		if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
