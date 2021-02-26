@@ -272,9 +272,9 @@ end
 -- Build skill
 function calcs.processActiveSkill(build, mode, activeSkill, env)
 	local skillEnv = env or calcs.initEnv(build, "CACHE")
-	local uuid = cacheSkillUUID(activeSkill)
 	skillEnv.player.mainSkill = activeSkill
 	calcs.perform(skillEnv)
+	--local uuid = cacheSkillUUID(activeSkill)
 	--ConPrintf("[Cached] " .. uuid)
 	--ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].Name)
 	--ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
