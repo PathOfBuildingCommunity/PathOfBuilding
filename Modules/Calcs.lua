@@ -132,8 +132,7 @@ local function getActiveSkillCount(activeSkill)
 end
 
 function calcs.calcFullDPS(build, mode, override)
-	override = override or {}
-	local fullEnv = calcs.initEnv(build, mode, override)
+	local fullEnv = calcs.initEnv(build, mode, override or {})
 
 	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0 }
 	local bleedSource = ""
@@ -150,7 +149,7 @@ function calcs.calcFullDPS(build, mode, override)
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
 						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = fullEnv.minion.output.TotalDPS, count = activeSkillCount })
 					else
-						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+						ConPrintf("[Minion] HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 					end
 					fullDPS.combinedDPS = fullDPS.combinedDPS + fullEnv.minion.output.TotalDPS * activeSkillCount
 				end
