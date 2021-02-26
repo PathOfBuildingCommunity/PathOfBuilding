@@ -1148,42 +1148,101 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	--maximum hit taken
-	--FIX ARMOUR MITIGATION FOR THIS, uses input damage to calculate mitigation from armour, instead of maximum hit taken
+	-- Maximum hit taken
+	-- Based on bisect, because solving armour+conversion+different pools to find a max hit is way too cumbersome
 	for _, damageType in ipairs(dmgTypeList) do
 		if breakdown then
 			breakdown[damageType.."MaximumHitTaken"] = { 
-				label = "Maximum Hit Taken (uses lowest value)",
+				label = "Maximum Hit Taken",
 				rowList = { },
 				colList = {
 					{ label = "Type", key = "type" },
-					{ label = "TotalPool", key = "pool" },
-					{ label = "Taken", key = "taken" },
+					{ label = "Hit", key = "hit" },
+					{ label = "Mult", key = "mult" },
 					{ label = "Final", key = "final" },
 				},
 			}
 		end
-		output[damageType.."MaximumHitTaken"] = m_huge
+
+		local minHit = 0
+		local maxPool = 0
 		for _, damageConvertedType in ipairs(dmgTypeList) do
-			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
-				local hitTaken = output[damageConvertedType.."TotalPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageType..damageConvertedType.."BaseTakenHitMult"]
-				if hitTaken < output[damageType.."MaximumHitTaken"] then
-					output[damageType.."MaximumHitTaken"] = hitTaken
+			if output[damageConvertedType.."TotalPool"] > maxPool and actor.damageShiftTable[damageType][damageConvertedType] > 0 then
+				maxPool = output[damageConvertedType.."TotalPool"]
+			end
+		end
+		local maxHit = maxPool * 1000
+		local curHit = 0
+		local mult = {}
+
+		-- Bisect with 20 rounds ; converge curHit towards the maximum hit
+		local bisectRounds = 20
+		local i = 0
+		while i < bisectRounds do
+			local direction = 1 -- 1: up ; 0: down
+			local totalHit = 0
+			curHit = math.floor((minHit + maxHit) / 2)
+
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				local conv = actor.damageShiftTable[damageType][damageConvertedType]
+				if conv > 0 then
+					local finalHit = math.floor(curHit * (conv / 100))
+					local resist = (damageConvertedType ~= "Physical" and not modDB:Flag(nil, "SelfIgnore"..damageConvertedType.."Resistance")) and (output[damageConvertedType.."Resist"] / 100) or 0
+					if resist == 1 then
+						mult[damageConvertedType] = 0
+						break
+					end
+					local reduc = damageConvertedType == "Physical" and output.PhysicalResistWhenHit or 0
+					local armour = ((damageConvertedType == "Physical" and not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken")) or modDB:Flag(nil, "ArmourAppliesTo"..damageConvertedType.."DamageTaken")) and output.Armour or 0
+					if armour ~= 0 then
+						reduc = math.min(output.DamageReductionMax, reduc + calcs.armourReductionDouble(armour, finalHit * (1 - resist), doubleArmourChance)) / 100
+					end
+					mult[damageConvertedType] = (1 - resist) * (1 - reduc) * output[damageConvertedType.."TakenHit"]
+
+					finalHit = math.floor(finalHit * mult[damageConvertedType])
+					-- Check if the local converted hit would surpass the local effective pool
+					if finalHit >= output[damageConvertedType.."TotalPool"] then
+						direction = 0
+					end
+					totalHit = totalHit + finalHit
 				end
-				if breakdown then
+			end
+
+			-- Special case: the current configuration deals no damage (ex: 100% chaos vs CI)
+			if i == 0 and totalHit == 0 then
+				curHit = math.huge
+				break
+			end
+			-- Check if the total amount of damage taken would surpass the maximum effective pool
+			if totalHit >= maxPool then
+				direction = 0
+			end
+
+			if direction == 1 then
+				minHit = curHit
+			else
+				if i == bisectRounds - 1 then
+					i = i - 1 -- don't end the bisect on a value that kills us
+				end
+				maxHit = curHit
+			end
+			i = i + 1
+		end
+
+		output[damageType.."MaximumHitTaken"] = curHit
+		if breakdown then
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %.0f", curHit))
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				local conv = actor.damageShiftTable[damageType][damageConvertedType]
+				if conv > 0 then
 					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
-						type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
-						pool = s_format("x %d", output[damageConvertedType.."TotalPool"]),
-						taken = s_format("/ %.2f", output[damageType..damageConvertedType.."BaseTakenHitMult"]),
-						final = s_format("x %.0f", hitTaken),
+						type = s_format("%d%% as %s", conv, damageConvertedType),
+						hit = s_format("%d", math.floor(curHit * (conv / 100))),
+						mult = s_format("x %.3f", mult[damageConvertedType]),
+						final = s_format("%d", mult[damageConvertedType] ~= 0 and math.floor(curHit * (conv / 100) * mult[damageConvertedType]) or 0),
 					})
 				end
 			end
-		end
-		if breakdown then
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalPool"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.2f",  output[damageType.."TotalPool"] / output[damageType.."MaximumHitTaken"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
 		end
 	end
 	
