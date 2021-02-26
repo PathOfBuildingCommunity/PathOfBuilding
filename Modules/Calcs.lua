@@ -114,7 +114,7 @@ function calcs.getMiscCalculator(build)
 	return function(override)
 		env = calcs.initEnv(build, "CALCULATOR", override)
 		calcs.perform(env)
-		local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override)
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override)
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
 		return env.player.output
