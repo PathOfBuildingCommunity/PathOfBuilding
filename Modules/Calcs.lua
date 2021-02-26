@@ -258,10 +258,10 @@ function cacheSkillUUID(skill)
 end
 
 -- Build skill list
-function calcs.buildActiveSkill(build, mode, uuid)
+function calcs.buildActiveSkill(build, mode, skill)
 	local fullEnv = calcs.initEnv(build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if cacheSkillUUID(activeSkill) == uuid then
+		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			calcs.processActiveSkill(build, mode, activeSkill, fullEnv)
 			return
 		end
@@ -270,9 +270,8 @@ end
 
 -- Build skill
 function calcs.processActiveSkill(build, mode, activeSkill, env)
-	local skillEnv = env or calcs.initEnv(build, "CACHE")
-	skillEnv.player.mainSkill = activeSkill
-	calcs.perform(skillEnv)
+	env.player.mainSkill = activeSkill
+	calcs.perform(env)
 	--local uuid = cacheSkillUUID(activeSkill)
 	--ConPrintf("[Cached] " .. uuid)
 	--ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].Name)

@@ -23,7 +23,7 @@ local tempTable1 = { }
 local function findTriggerSkill(env, skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData[uuid] then
-		calcs.buildActiveSkill(env.build, "CACHE", uuid)
+		calcs.buildActiveSkill(env.build, "CACHE", skill)
 	end
 
 	if GlobalCache.cachedData[uuid] then
