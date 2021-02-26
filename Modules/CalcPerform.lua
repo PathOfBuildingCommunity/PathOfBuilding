@@ -79,7 +79,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 			if skillRotation[index].next_trig <= time then
 				--ConPrintf(tostring(time) .. " :: " .. skillRotation[index].uuid .. " fired")
 				skillRotation[index].count = skillRotation[index].count + 1
-				skillRotation[index].next_trig = time + skillRotation[index].cd
+				skillRotation[index].next_trig = skillRotation[index].count * skillRotation[index].cd
 				index = (index % #skillRotation) + 1
 				next_trigger = time + trigger_increment
 			end
