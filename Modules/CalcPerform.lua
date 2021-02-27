@@ -1095,8 +1095,8 @@ function calcs.perform(env)
 		end
 	end
 
-	local breakdown
-	if env.mode == "CALCS" then
+	local breakdown = nil
+	if env.mode == "CALCS" or env.mode == "CACHE" then
 		-- Initialise breakdown module
 		breakdown = LoadModule(calcs.breakdownModule, modDB, output, env.player)
 		env.player.breakdown = breakdown
@@ -1243,7 +1243,7 @@ function calcs.perform(env)
 	do
 		local reqMult = calcLib.mod(modDB, nil, "GlobalAttributeRequirements")
 		for _, attr in ipairs({"Str","Dex","Int"}) do
-			if env.mode == "CALCS" then
+			if breakdown then
 				breakdown["Req"..attr] = {
 					rowList = { },
 					colList = {
@@ -1258,7 +1258,7 @@ function calcs.perform(env)
 				if reqSource[attr] and reqSource[attr] > 0 then
 					local req = m_floor(reqSource[attr] * reqMult)
 					out = m_max(out, req)
-					if env.mode == "CALCS" then
+					if breakdown then
 						local row = {
 							req = req > output[attr] and colorCodes.NEGATIVE..req or req,
 							reqNum = req,
@@ -1281,7 +1281,7 @@ function calcs.perform(env)
 				out = 0
 			end
 			output["Req"..attr] = out
-			if env.mode == "CALCS" then
+			if breakdown then
 				output["Req"..attr.."String"] = out > output[attr] and colorCodes.NEGATIVE..out or out
 				table.sort(breakdown["Req"..attr].rowList, function(a, b)
 					if a.reqNum ~= b.reqNum then
@@ -2065,8 +2065,9 @@ function calcs.perform(env)
 	end
 
 	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if env.mode == "MAIN" or env.mode == "CALCS" or not GlobalCache.cachedData[uuid] then
+	if not GlobalCache.cachedData[uuid] or env.mode == "CACHE" then
 		GlobalCache.cachedData[uuid] = {
+			Env = env,
 			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 			Speed = env.player.output.Speed,
 			HitChance = env.player.output.HitChance,

@@ -693,7 +693,7 @@ function calcs.createMinionSkills(env, activeSkill)
 		activeEffect.srcInstance.skillMinionSkillCalcs = skillIndex
 	else
 		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkill or 1, #minion.activeSkillList), 1)
-		if env.mode == "MAIN" then
+		if env.mode == "MAIN" or env.mode == "CACHE" then
 			activeEffect.srcInstance.skillMinionSkill = skillIndex
 		end
 	end

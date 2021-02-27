@@ -104,17 +104,32 @@ end
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
-	local env = calcs.initEnv(build, "CALCULATOR")
-	calcs.perform(env)
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
+	local env = calcs.initEnv(build, "CALCULATOR")
+
+	local uuid = cacheSkillUUID(env.player.mainSkill)
+	if GlobalCache.cachedData[uuid] then
+		env = GlobalCache.cachedData[uuid].Env
+	else
+		--ConPrintf("[MISC] NOT OPTIMIZED :: " .. uuid)
+		calcs.perform(env)
+	end
+
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
 	return function(override)
-		env = calcs.initEnv(build, "CALCULATOR", override)
-		calcs.perform(env)
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override)
+		env = calcs.initEnv(build, "CALCULATOR", override)
+
+		uuid = cacheSkillUUID(env.player.mainSkill)
+		if GlobalCache[uuid] then
+			env = GlobalCache[uuid].Env
+		else
+			calcs.perform(env)
+		end
+
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
 		return env.player.output
@@ -284,18 +299,25 @@ end
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
 	-- Build output across all active skills
-	local fullDPS = calcs.calcFullDPS(build, mode)
+	local fullDPS = calcs.calcFullDPS(build, "CACHE")
 
 	-- Build output for selected main skill
 	local env = calcs.initEnv(build, mode)
-	calcs.perform(env)
+
+	local uuid = cacheSkillUUID(env.player.mainSkill)
+	if GlobalCache.cachedData[uuid] then
+		env = GlobalCache.cachedData[uuid].Env
+	else
+		--ConPrintf("[buildOutput] NOT OPTIMIZED :: " .. uuid .. " :: " .. mode)
+		calcs.perform(env)
+	end
 	local output = env.player.output
 
 	-- Add Full DPS data to main `env`
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 
-	if mode == "MAIN" then
+	if mode == "MAIN" or mode == "CACHE" then
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
 
 		local specCfg = {
@@ -421,7 +443,8 @@ function calcs.buildOutput(build, mode)
 --		ConPrintTable(env.enemyConditionsUsed)
 --		ConPrintf("=== Enemy Mult ===")
 --		ConPrintTable(env.enemyMultipliersUsed)
-	elseif mode == "CALCS" then
+	end
+	if mode == "CALCS" or mode == "CACHE" then
 		local buffList = { }
 		local combatList = { }
 		local curseList = { }
