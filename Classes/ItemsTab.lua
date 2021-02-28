@@ -2101,7 +2101,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		end
 	end
-	if self.displayItem.base.subType ~= "Abyss" or (self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask") then
+	if self.displayItem.type ~= "Jewel" then
 		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
 	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
