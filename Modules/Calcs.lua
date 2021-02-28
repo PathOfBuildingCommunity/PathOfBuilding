@@ -108,7 +108,7 @@ function calcs.getMiscCalculator(build)
 	local env = calcs.initEnv(build, "CALCULATOR")
 
 	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if GlobalCache.cachedData[uuid] then
+	if GlobalCache.cachedData[uuid] and not env.minion then
 		env = GlobalCache.cachedData[uuid].Env
 	else
 		--ConPrintf("[MISC] NOT OPTIMIZED :: " .. uuid)
@@ -124,8 +124,8 @@ function calcs.getMiscCalculator(build)
 		env = calcs.initEnv(build, "CALCULATOR", override)
 
 		uuid = cacheSkillUUID(env.player.mainSkill)
-		if GlobalCache[uuid] then
-			env = GlobalCache[uuid].Env
+		if GlobalCache.cachedData[uuid] and not env.minion then
+			env = GlobalCache.cachedData[uuid].Env
 		else
 			calcs.perform(env)
 		end
@@ -305,7 +305,7 @@ function calcs.buildOutput(build, mode)
 	local env = calcs.initEnv(build, mode)
 
 	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if GlobalCache.cachedData[uuid] then
+	if GlobalCache.cachedData[uuid] and not env.minion then
 		env = GlobalCache.cachedData[uuid].Env
 	else
 		--ConPrintf("[buildOutput] NOT OPTIMIZED :: " .. uuid .. " :: " .. mode)

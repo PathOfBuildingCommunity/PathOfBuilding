@@ -2059,11 +2059,6 @@ function calcs.perform(env)
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
 	calcs.offence(env, env.player, env.player.mainSkill)
-	if env.minion then
-		calcs.defence(env, env.minion)
-		calcs.offence(env, env.minion, env.minion.mainSkill)
-	end
-
 	local uuid = cacheSkillUUID(env.player.mainSkill)
 	if not GlobalCache.cachedData[uuid] or env.mode == "CACHE" then
 		GlobalCache.cachedData[uuid] = {
@@ -2073,5 +2068,21 @@ function calcs.perform(env)
 			HitChance = env.player.output.HitChance,
 			CritChance = env.player.output.CritChance,
 		}
+	end
+
+	if env.minion then
+		calcs.defence(env, env.minion)
+		calcs.offence(env, env.minion, env.minion.mainSkill)
+		uuid = cacheSkillUUID(env.minion.mainSkill)
+		if not GlobalCache.cachedData[uuid] or env.mode == "CACHE" then
+			ConPrintf(uuid .. " - MINION")
+			GlobalCache.cachedData[uuid] = {
+				Env = env,
+				Name = env.player.mainSkill.activeEffect.grantedEffect.name,
+				Speed = env.player.output.Speed,
+				HitChance = env.player.output.HitChance,
+				CritChance = env.player.output.CritChance,
+			}
+		end
 	end
 end
