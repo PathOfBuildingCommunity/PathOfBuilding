@@ -59,6 +59,22 @@ end
 -- Calculate Trigger Rate impact due to other skills in rotation
 -- This is achieved by simulation a 10 second cast rotation with fi
 local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
+	-- First check if all cooldowns in skillRotation are the same
+	-- because if they are we don't need to simulate
+	local skillCD = nil
+	local allSkillHaveSameCooldown = true
+	for _, skill in ipairs(skillRotation) do
+		if not skillCD then
+			skillCD = skill.cd
+		elseif skill.cd ~= skillCD then
+			allSkillHaveSameCooldown = false
+			break
+		end
+	end
+	if allSkillHaveSameCooldown then
+		return false, #skillRotation
+	end
+
 	local SIM_TIME = 10.0
 	local index = 1
 	local time = 0
@@ -90,10 +106,10 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 
 	for _, sd in ipairs(skillRotation) do
 		if cacheSkillUUID(env.player.mainSkill) == sd.uuid then
-			return sd.count / SIM_TIME
+			return true, sd.count / SIM_TIME
 		end
 	end
-	return 1337
+	return false, 1337
 end
 
 -- Calculate the actual Trigger rate of active skill causing the trigger
@@ -119,7 +135,10 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		output.SourceTriggerRate = sourceAPS / skillRotationImpact
 		if dualWield then
 			if #spellCount > 1 then
-				output.SourceTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+				local simulated, simTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+				if simulated then
+					output.SourceTriggerRate = simTriggerRate
+				end
 				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
@@ -140,11 +159,14 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			end
 		else
 			if #spellCount > 1 then
-				output.SourceTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+				local simulated, simTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+				if simulated then
+					output.SourceTriggerRate = simTriggerRate
+				end
 				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
-						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS /  output.SourceTriggerRate),
+						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
 						s_format("= %.2f ^8per second", output.SourceTriggerRate),
 					}
 				end
