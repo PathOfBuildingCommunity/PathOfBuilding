@@ -23,7 +23,8 @@ local tempTable1 = { }
 local function findTriggerSkill(env, skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData[uuid] then
-		calcs.buildActiveSkill(env.build, "MAIN", skill)
+		calcs.buildActiveSkill(env.build, "CACHE", skill)
+		env.dontCache = true
 	end
 
 	if GlobalCache.cachedData[uuid] then
@@ -2078,7 +2079,7 @@ function calcs.perform(env)
 	calcs.defence(env, env.player)
 	calcs.offence(env, env.player, env.player.mainSkill)
 	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not GlobalCache.cachedData[uuid] then
+	if not GlobalCache.cachedData[uuid] and not env.dontCache then
 		GlobalCache.cachedData[uuid] = {
 			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 			Speed = env.player.output.Speed,
@@ -2093,7 +2094,7 @@ function calcs.perform(env)
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 		uuid = cacheSkillUUID(env.player.mainSkill)
-		if not GlobalCache.cachedData[uuid].Minion then
+		if not GlobalCache.cachedData[uuid].Minion and not env.dontCache then
 			GlobalCache.cachedData[uuid].Minion = {
 				Name = env.minion.mainSkill.activeEffect.grantedEffect.name,
 				Speed = env.minion.output.Speed,
