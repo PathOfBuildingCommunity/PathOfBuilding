@@ -2005,6 +2005,10 @@ local specialModList = {
 	["spell skills have ([%+%-]%d+)%% to damage over time multiplier for poison"] = function(num) return { 
 		mod("DotMultiplier", "BASE", num, nil, 0, bor(KeywordFlag.Spell, KeywordFlag.Poison, KeywordFlag.MatchAll))
 	} end,
+	["projectiles deal (%d+)%% increased damage with hits and ailments for each remaining chain"] = function(num) return {
+		mod("Damage", "INC", num, nil, ModFlag.Hit, KeywordFlag.Projectile, { type = "PerStat", stat = "ChainRemaining" }),
+		mod("Damage", "INC", num, nil, ModFlag.Ailment, KeywordFlag.Projectile, { type = "PerStat", stat = "ChainRemaining" }),
+	end,
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
