@@ -497,7 +497,7 @@ return {
 	mod("TripleDamageChance", "BASE", nil)
 },
 ["damage_+%_with_hits_and_ailments"] = {
-	mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+	mod("Damage", "INC", nil, { type = "ModFlagOr", modFlags = bor(ModFlag.Hit, ModFlag.Ailment) }),
 },
 ["physical_damage_+%"] = {
 	mod("PhysicalDamage", "INC", nil),
