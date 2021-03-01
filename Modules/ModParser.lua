@@ -2008,7 +2008,7 @@ local specialModList = {
 	["projectiles deal (%d+)%% increased damage with hits and ailments for each remaining chain"] = function(num) return {
 		mod("Damage", "INC", num, nil, ModFlag.Hit, KeywordFlag.Projectile, { type = "PerStat", stat = "ChainRemaining" }),
 		mod("Damage", "INC", num, nil, ModFlag.Ailment, KeywordFlag.Projectile, { type = "PerStat", stat = "ChainRemaining" }),
-	end,
+	} end,
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
