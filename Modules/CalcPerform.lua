@@ -59,27 +59,12 @@ end
 -- Calculate Trigger Rate impact due to other skills in rotation
 -- This is achieved by simulation a 10 second cast rotation with fi
 local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
-	-- First check if all cooldowns in skillRotation are the same
-	-- because if they are we don't need to simulate
-	local skillCD = nil
-	local allSkillHaveSameCooldown = true
-	for _, skill in ipairs(skillRotation) do
-		if not skillCD then
-			skillCD = skill.cd
-		elseif skill.cd ~= skillCD then
-			allSkillHaveSameCooldown = false
-			break
-		end
-	end
-	if allSkillHaveSameCooldown then
-		return false, #skillRotation
-	end
-
 	local SIM_TIME = 10.0
 	local index = 1
 	local time = 0
 	local next_trigger = 0
 	local trigger_increment = 1 / sourceAPS
+	local wasted = 0
 
 	while time < SIM_TIME do
 		local currIndex = index
@@ -88,6 +73,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 			while skillRotation[index].next_trig > time do
 				index = (index % #skillRotation) + 1
 				if index == currIndex then
+					wasted = wasted + 1
 					break
 				end
 			end
@@ -104,12 +90,16 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 		time = time + (1 / data.misc.ServerTickRate)
 	end
 
+	local mainRate = 0
+	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
+	t_insert(trigRateTable.rates, { name = "wasted", rate = wasted / SIM_TIME })
 	for _, sd in ipairs(skillRotation) do
 		if cacheSkillUUID(env.player.mainSkill) == sd.uuid then
-			return true, sd.count / SIM_TIME
+			mainRate = sd.count / SIM_TIME
 		end
+		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.count / SIM_TIME })
 	end
-	return false, 1337
+	return mainRate, trigRateTable
 end
 
 -- Calculate the actual Trigger rate of active skill causing the trigger
@@ -135,17 +125,20 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		output.SourceTriggerRate = sourceAPS / skillRotationImpact
 		if dualWield then
 			if #spellCount > 1 then
-				local simulated, simTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
-				if simulated then
-					output.SourceTriggerRate = simTriggerRate
-				end
+				output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
 				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
 						s_format("/ 2) ^8(due to dual wielding)"),
 						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
 						s_format("= %.2f ^8per second", output.SourceTriggerRate),
+						s_format(""),
+						s_format("Simulation Breakdown"),
+						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 					}
+					for _, rateData in ipairs(simBreakdown.rates) do
+						t_insert(breakdown.SourceTriggerRate, s_format("%0.2f   %s", rateData.rate, rateData.name))
+					end
 				end
 			else
 				if breakdown then
@@ -159,16 +152,19 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			end
 		else
 			if #spellCount > 1 then
-				local simulated, simTriggerRate = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
-				if simulated then
-					output.SourceTriggerRate = simTriggerRate
-				end
+				output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
 				if breakdown then
 					breakdown.SourceTriggerRate = {
 						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
 						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
 						s_format("= %.2f ^8per second", output.SourceTriggerRate),
+						s_format(""),
+						s_format("Simulation Breakdown"),
+						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 					}
+					for _, rateData in ipairs(simBreakdown.rates) do
+						t_insert(breakdown.SourceTriggerRate, s_format("%0.2f   %s", rateData.rate, rateData.name))
+					end
 				end
 			else
 				if breakdown then
