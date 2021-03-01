@@ -1930,7 +1930,7 @@ function calcs.offence(env, actor, activeSkill)
 						damageTypeHitMin = damageTypeHitMin * effMult
 						damageTypeHitMax = damageTypeHitMax * effMult
 						damageTypeHitAvg = damageTypeHitAvg * effMult
-						if env.mode == "CALCS" or env.mode == "CACHE" then
+						if env.mode == "CALCS" then
 							output[damageType.."EffMult"] = effMult
 						end
 						if pass == 2 and breakdown and effMult ~= 1 and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
@@ -1995,7 +1995,7 @@ function calcs.offence(env, actor, activeSkill)
 					totalCritMin = totalCritMin + damageTypeHitMin
 					totalCritMax = totalCritMax + damageTypeHitMax
 				else
-					if env.mode == "CALCS" or env.mode == "CACHE" then
+					if env.mode == "CALCS" then
 						output[damageType.."Min"] = damageTypeHitMin
 						output[damageType.."Max"] = damageTypeHitMax
 					end
@@ -2162,7 +2162,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if env.mode == "CALCS" or env.mode == "CACHE" then
+	if env.mode == "CALCS" then
 		if skillData.showAverage then
 			output.DisplayDamage = s_format("%.1f average damage", output.AverageDamage)
 		else

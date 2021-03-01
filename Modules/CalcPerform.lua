@@ -23,7 +23,7 @@ local tempTable1 = { }
 local function findTriggerSkill(env, skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData[uuid] then
-		calcs.buildActiveSkill(env.build, "CACHE", skill)
+		calcs.buildActiveSkill(env.build, "MAIN", skill)
 	end
 
 	if GlobalCache.cachedData[uuid] then
@@ -1114,7 +1114,7 @@ function calcs.perform(env)
 	end
 
 	local breakdown = nil
-	if env.mode == "CALCS" or env.mode == "CACHE" then
+	if env.mode == "CALCS" then
 		-- Initialise breakdown module
 		breakdown = LoadModule(calcs.breakdownModule, modDB, output, env.player)
 		env.player.breakdown = breakdown
@@ -2078,28 +2078,29 @@ function calcs.perform(env)
 	calcs.defence(env, env.player)
 	calcs.offence(env, env.player, env.player.mainSkill)
 	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not GlobalCache.cachedData[uuid] or env.mode == "CACHE" then
+	if not GlobalCache.cachedData[uuid] then
 		GlobalCache.cachedData[uuid] = {
-			Env = env,
 			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 			Speed = env.player.output.Speed,
 			HitChance = env.player.output.HitChance,
 			CritChance = env.player.output.CritChance,
+			ActiveSkill = env.player.mainSkill,
+			Env = env,
 		}
 	end
 
 	if env.minion then
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
-		uuid = cacheSkillUUID(env.minion.mainSkill)
-		if not GlobalCache.cachedData[uuid] or env.mode == "CACHE" then
-			ConPrintf(uuid .. " - MINION")
-			GlobalCache.cachedData[uuid] = {
-				Env = env,
-				Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-				Speed = env.player.output.Speed,
-				HitChance = env.player.output.HitChance,
-				CritChance = env.player.output.CritChance,
+		uuid = cacheSkillUUID(env.player.mainSkill)
+		if not GlobalCache.cachedData[uuid].Minion then
+			GlobalCache.cachedData[uuid].Minion = {
+				Name = env.minion.mainSkill.activeEffect.grantedEffect.name,
+				Speed = env.minion.output.Speed,
+				HitChance = env.minion.output.HitChance,
+				CritChance = env.minion.output.CritChance,
+				ActiveSkill = env.minion.mainSkill,
+				Env = env.minion,
 			}
 		end
 	end
