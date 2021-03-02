@@ -451,6 +451,30 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = self:FormatModName(tag.effectType)
 				elseif tag.type == "Limit" then
 					desc = "Limited to "..(tag.limitVar and self:FormatModName(tag.limitVar) or self:FormatModBase(row.mod, tag.limit))
+				elseif tag.type == "ModFlagOr" then
+					-- Combine, sort and format modifier flags
+					local flagNames = { }
+					for flags, src in pairs({[tag.modFlags] = ModFlag}) do
+						for name, val in pairs(src) do
+							if band(flags, val) == val then
+								t_insert(flagNames, name)
+							end
+						end
+					end
+					table.sort(flagNames)
+					desc = "Applies to: " .. table.concat(flagNames, ", ")
+				elseif tag.type == "KeywordFlagAnd" then
+					-- Combine, sort and format modifier flags
+					local flagNames = { }
+					for flags, src in pairs({[tag.keywordFlags] = KeywordFlag}) do
+						for name, val in pairs(src) do
+							if band(flags, val) == val then
+								t_insert(flagNames, name)
+							end
+						end
+					end
+					table.sort(flagNames)
+					desc = "Requires: " .. table.concat(flagNames, ", ")
 				else
 					desc = self:FormatModName(tag.type)
 				end
