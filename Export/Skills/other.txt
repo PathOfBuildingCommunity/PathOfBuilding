@@ -749,6 +749,12 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCursePillarTriggerCurses Doedre's Effigy
 	fromItem = true,
+	statMap = {
+		["number_of_additional_curses_allowed"] = {
+			mod("AdditionalCurse", "BASE", nil),
+			flag("CanHaveAdditionalCurse"),
+		},
+	},
 #baseMod skill("manaCostForced", 0)
 #mods
 

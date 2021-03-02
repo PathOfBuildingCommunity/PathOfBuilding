@@ -3012,6 +3012,12 @@ skills["SupportCursePillarTriggerCurses"] = {
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
+	statMap = {
+		["number_of_additional_curses_allowed"] = {
+			mod("AdditionalCurse", "BASE", nil),
+			flag("CanHaveAdditionalCurse"),
+		},
+	},
 	baseMods = {
 		skill("manaCostForced", 0),
 	},
