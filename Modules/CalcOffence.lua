@@ -1523,6 +1523,7 @@ function calcs.offence(env, actor, activeSkill)
 						for _, triggerSkill in ipairs(actor.activeSkillList) do
 							if triggerSkill.socketGroup == value.socketGroup and triggerSkill ~= value and triggerSkill.skillData.triggeredByGeneralsCry then
 								usedSkill = triggerSkill
+								break
 							end
 						end
 
