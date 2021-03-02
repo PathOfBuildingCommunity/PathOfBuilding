@@ -3616,7 +3616,11 @@ function calcs.offence(env, actor, activeSkill)
 				-- if it's an `output` variable that's DPS oriented (e.g., TotalDPS, ImpaleDPS)
 				-- scale by exerts and mirage warrior count
 				if k:find("DPS") then
-					output[k] = v * moreDamage * exertMultiplier * maxMirageWarriors
+					if type(v) ~= "table" then
+						output[k] = v * moreDamage * exertMultiplier * maxMirageWarriors
+					else
+						output[k] = v
+					end
 				else
 					output[k] = v
 				end
@@ -3624,8 +3628,14 @@ function calcs.offence(env, actor, activeSkill)
 
 			--ConPrintf("DPS: " .. tostring(gcDPS))
 
-			local strSkillPart = usedSkill.skillPartName or ""
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+			if usedSkill.skillPartName then
+				actor.mainSkill.skillPartName = usedSkill.skillPartName
+				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
+			end
+
+			usedSkill.TotalDPS = 0
+			usedSkill.CombinedDPS = 0
 		end
 	end
 
