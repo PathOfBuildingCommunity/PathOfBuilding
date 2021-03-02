@@ -1518,6 +1518,19 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 						globalOutput.SeismicCryCalculated = true
+					elseif value.activeEffect.grantedEffect.name == "General's Cry" and not globalOutput.GeneralsCryCalculated then
+						local usedSkill = nil
+						for _, triggerSkill in ipairs(actor.activeSkillList) do
+							if triggerSkill.socketGroup == value.socketGroup and triggerSkill ~= value and triggerSkill.skillData.triggeredByGeneralsCry then
+								usedSkill = triggerSkill
+							end
+						end
+
+						local moreDamage = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage")
+						ConPrintf("More/Less: " .. tostring(moreDamage))
+						local maxMirageWarriors = value.skillModList:Sum("BASE", value.skillCfg, "GeneralsCryDoubleMaxCount")
+						ConPrintf("Max Mirage Warriors: " .. tostring(maxMirageWarriors))
+						globalOutput.GeneralsCryCalculated = true
 					end
 				end
 
