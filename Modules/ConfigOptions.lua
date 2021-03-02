@@ -1159,6 +1159,9 @@ return {
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyTauntedByWarcry", type = "check", label = "Is the enemy taunted by your warcry?", ifEnemyCond = "EnemyTauntedByWarcry", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:EnemyTauntedByWarcry", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n\t33% less Effect of your Hexes\n\t+40% to enemy Elemental Resistances\n\t+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+33% to enemy Armour\n\nSirus adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+100% to enemy Armour", list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper/Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
 		if val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
