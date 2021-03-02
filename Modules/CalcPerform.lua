@@ -1951,6 +1951,13 @@ function calcs.perform(env)
 		end
 	end
 
+	-- General's Cry Support
+	--     this exist to infrom display to not show DPS for this skill as it only has damage due to General's Cry
+	if env.player.mainSkill.skillData.triggeredByGeneralsCry and not env.player.mainSkill.skillFlags.minion then
+		env.player.mainSkill.skillData.mirageWarriorSkill = true
+		env.player.mainSkill.infoMessage = "Mirage Warrior Skill: " .. triggerSkill.activeEffect.grantedEffect.name
+	end
+
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
