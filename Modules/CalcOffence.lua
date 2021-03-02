@@ -3625,6 +3625,7 @@ function calcs.offence(env, actor, activeSkill)
 			--ConPrintf("DPS: " .. tostring(gcDPS))
 
 			local strSkillPart = usedSkill.skillPartName or ""
+			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 		end
 	end
 
