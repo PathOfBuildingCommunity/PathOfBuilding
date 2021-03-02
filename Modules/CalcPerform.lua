@@ -1955,7 +1955,7 @@ function calcs.perform(env)
 	--     this exist to infrom display to not show DPS for this skill as it only has damage due to General's Cry
 	if env.player.mainSkill.skillData.triggeredByGeneralsCry and not env.player.mainSkill.skillFlags.minion then
 		env.player.mainSkill.skillData.mirageWarriorSkill = true
-		env.player.mainSkill.infoMessage = "Mirage Warrior Skill: " .. triggerSkill.activeEffect.grantedEffect.name
+		env.player.mainSkill.infoMessage = "Mirage Warrior Skill: " .. env.player.mainSkill.activeEffect.grantedEffect.name
 	end
 
 	-- Fix the configured impale stacks on the enemy
@@ -2091,6 +2091,7 @@ function calcs.perform(env)
 			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 			Speed = env.player.output.Speed,
 			HitChance = env.player.output.HitChance,
+			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
 			CritChance = env.player.output.CritChance,
 			ActiveSkill = env.player.mainSkill,
 			Env = env,
@@ -2106,6 +2107,7 @@ function calcs.perform(env)
 				Name = env.minion.mainSkill.activeEffect.grantedEffect.name,
 				Speed = env.minion.output.Speed,
 				HitChance = env.minion.output.HitChance,
+				PreEffectiveCritChance = env.minion.output.PreEffectiveCritChance,
 				CritChance = env.minion.output.CritChance,
 				ActiveSkill = env.minion.mainSkill,
 				Env = env.minion,

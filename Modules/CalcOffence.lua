@@ -1518,20 +1518,6 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 						globalOutput.SeismicCryCalculated = true
-					elseif value.activeEffect.grantedEffect.name == "General's Cry" and not globalOutput.GeneralsCryCalculated then
-						local usedSkill = nil
-						for _, triggerSkill in ipairs(actor.activeSkillList) do
-							if triggerSkill.socketGroup == value.socketGroup and triggerSkill ~= value and triggerSkill.skillData.triggeredByGeneralsCry then
-								usedSkill = triggerSkill
-								break
-							end
-						end
-
-						local moreDamage = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage")
-						ConPrintf("More/Less: " .. tostring(moreDamage))
-						local maxMirageWarriors = value.skillModList:Sum("BASE", value.skillCfg, "GeneralsCryDoubleMaxCount")
-						ConPrintf("Max Mirage Warriors: " .. tostring(maxMirageWarriors))
-						globalOutput.GeneralsCryCalculated = true
 					end
 				end
 
@@ -3600,6 +3586,46 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	else
 		output.TotalDot = output.TotalDotInstance
+	end
+
+	if actor.mainSkill.activeEffect.grantedEffect.name == "General's Cry" then
+		local usedSkillOutput = nil
+		local usedSkill = nil
+		for _, triggerSkill in ipairs(actor.activeSkillList) do
+			if triggerSkill.socketGroup == activeSkill.socketGroup and triggerSkill ~= activeSkill and triggerSkill.skillData.triggeredByGeneralsCry then
+				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
+				local uuid = cacheSkillUUID(triggerSkill)
+				if not GlobalCache.cachedData[uuid] then
+					calcs.buildActiveSkill(env.build, "CACHE", triggerSkill)
+					env.dontCache = true
+				end
+				if GlobalCache.cachedData[uuid] then
+					usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
+					usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+				end
+				break
+			end
+		end
+
+		if usedSkill then
+			local moreDamage = 1 + usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage") / 100
+			local exertMultiplier = calcLib.mod(env.modDB, usedSkill.skillCfg, "ExertIncrease")
+			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount")
+
+			for k,v in pairs(usedSkillOutput) do
+				-- if it's an `output` variable that's DPS oriented (e.g., TotalDPS, ImpaleDPS)
+				-- scale by exerts and mirage warrior count
+				if k:find("DPS") then
+					output[k] = v * moreDamage * exertMultiplier * maxMirageWarriors
+				else
+					output[k] = v
+				end
+			end
+
+			--ConPrintf("DPS: " .. tostring(gcDPS))
+
+			local strSkillPart = usedSkill.skillPartName or ""
+		end
 	end
 
 	-- Calculate combined DPS estimate, including DoTs
