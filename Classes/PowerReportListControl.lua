@@ -69,6 +69,9 @@ function PowerReportListClass:ReSort(colIndex)
 end
 
 function PowerReportListClass:ReList()
+	if not next(self.originalList) then
+		return { }
+	end
 	local filteredList = { }
 	local iterate = 1
 	local insert = true
