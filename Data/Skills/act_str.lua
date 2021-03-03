@@ -4307,7 +4307,7 @@ skills["PhysicalDamageAura"] = {
 			mod("BleedChance", "BASE", nil, ModFlag.Attack, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 		["base_additional_physical_damage_reduction_%"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 	baseFlags = {
