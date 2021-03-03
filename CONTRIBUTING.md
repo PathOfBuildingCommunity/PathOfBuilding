@@ -4,7 +4,7 @@
 
 #### Before creating an issue:
 * Check that the bug hasn't been reported in an existing issue. View similar issues on the left of the submit button.
-* Make sure you are running the latest version of the program. Click "Check for Update" at the bottom left corner.
+* Make sure you are running the latest version of the program. Click "Check for Update" in the bottom left corner.
 * If you've found an issue with offence or defence calculations, make sure you check the breakdown for that calculation in the Calcs tab to see how it is being performed, as this may help you find the cause.
 
 #### When creating an issue:
@@ -27,7 +27,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 #### Before submitting a pull request:
 * Familiarise yourself with the code base [here](docs/rundown.md) to get you started.
 * There is a [Discord](https://discordapp.com/) server for **active development** on the fork and members are happy to answer your questions there.
-  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **nick_#8198** and we'll send you an invite.
+  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invitation.
 
 #### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
@@ -58,33 +58,30 @@ You can now use the shortcut to run the program from the repository. Running the
 * While in the Tree tab, holding `Alt` also highlights nodes that have unrecognised modifiers.
 * Holding `Ctrl` while launching the program will rebuild the mod cache.
 
-Note that the updates system is disabled in Dev Mode, so you must update manually.
+Note that automatic updates are disabled in Dev Mode, so you must update manually.
 
 #### Keeping your fork up to date
 
 Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
 
-Note: If you've configured a remote already, you can skip ahead to step 6.
+Note: If you've configured a remote already, you can skip ahead to step 3.
 
-1. Check your current remote repositories.
-
-       git remote -v
-2. Add a new remote repository and name it `upstream`.
+1. Add a new remote repository and name it `upstream`.
 
        git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
-3. Verify that adding the remote worked by running the last command again.
+2. Verify that adding the remote worked.
 
        git remote -v
-4. Fetch all branches and their commits from upstream.
+3. Fetch all branches and their commits from upstream.
 
        git fetch upstream
-5. Check out your local `dev` branch if you haven't already.
+4. Check out your local `dev` branch if you haven't already.
 
        git checkout dev
-6. Merge all changes from `upstream/dev` into your local `dev` branch.
+5. Merge all changes from `upstream/dev` into your local `dev` branch.
 
        git rebase upstream/dev
-7. Push your updated branch to GitHub.
+6. Push your updated branch to GitHub.
 
        git push -f origin dev
 
