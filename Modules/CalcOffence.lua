@@ -357,12 +357,12 @@ function calcs.offence(env, actor, activeSkill)
 		local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
 		local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
 		modDB:NewMod("Damage", "MORE", dmgPerAffliction, "Affliction Charges", 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
 	end
 
 	-- account for Battlemage
@@ -3501,6 +3501,9 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if bor(dotCfg.flags, ModFlag.Spell) == dotCfg.flags and not skillData.dotIsSpell then
 		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Spell))
+	end
+	if bor(dotCfg.flags, ModFlag.Attack) == dotCfg.flags and not skillData.dotIsAttack then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Attack))
 	end
 
 	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
