@@ -897,6 +897,10 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	local sortOrder = self.build.data.clusterJewels.notableSortOrder
 	for _, name in ipairs(jewelData.clusterJewelNotables) do
 		local baseNode = self.tree.clusterNodeMap[name]
+		if not baseNode then
+			self.subGraphs[nodeId] = nil
+			return
+		end
 		assert(baseNode, "Cluster notable not found:  "..name)
 		assert(sortOrder[baseNode.dn], "Cluster notable has no sort order: "..name)
 		t_insert(notableList, baseNode)
