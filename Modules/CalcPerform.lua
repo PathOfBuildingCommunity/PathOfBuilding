@@ -945,7 +945,7 @@ function calcs.perform(env)
 				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 			end
 			-- Set trigger time to 1 min in ms ( == 6000 ). Technically any large value would do.
-			activeSkill.skillData.triggerTime = 60 * 100
+			activeSkill.skillData.triggerTime = 60 * 1000
 		end
 	end
 
