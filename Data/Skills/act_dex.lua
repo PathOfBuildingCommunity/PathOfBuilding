@@ -13,7 +13,7 @@ skills["AnimateWeapon"] = {
 	incrementalEffectiveness = 0.029999999329448,
 	description = "Animates a Melee Weapon Item or Lingering Blade to fight by your side. You cannot animate unidentified Weapons. Will not animate weapons with 6 sockets unless specifically targeted. Cannot be used by Traps or Mines.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.CreatesMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.PhysicalSkill] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type54] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type56] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MinionProjectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.AnimateWeapon] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.6,
 	minionHasItemSet = true,
@@ -988,7 +988,7 @@ skills["BlastRain"] = {
 	name = "Blast Rain",
 	color = 2,
 	description = "Fires arrows up in the air, to rain down in an area. Each arrow deals area damage around where it lands, and they will all overlap on the targeted location.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Type95] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -1095,7 +1095,7 @@ skills["BlinkArrow"] = {
 	name = "Blink Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, you are teleported to it and a clone is summoned at your old location. The clone is a minion that uses your bow and quiver.",
-	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.TravelSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.Type95] = true, },
+	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.TravelSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanVolley] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -3631,7 +3631,7 @@ skills["FrostBlades"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Attack enemies with increased range, releasing icy blades from the first enemy hit which fly at other enemies. Requires a Melee Weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.ColdSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.ColdSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -4772,7 +4772,7 @@ skills["LancingSteel"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Thrust an Axe or Sword forward, consuming your Steel Shards to form a cluster of shards in front of you. The cluster will fire a number of projectiles in sequence, aiming at enemies in front of or close to it. Steel Shards are gained with the Call of Steel Skill.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type83] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.PhysicalSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SteelSkill] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -4964,7 +4964,7 @@ skills["LightningStrike"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Infuses your melee weapon with electrical energies as you swing. In addition to converting some of your physical damage to lightning damage, the stored energy is released from the weapon as projectiles as you strike, flying out to hit farther-away enemies. The projectiles cannot miss if the melee attack hits a target.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, [SkillType.Type83] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -5076,7 +5076,7 @@ skills["VaalLightningStrike"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Infuses your melee weapon with electrical energies as you swing. In addition to converting some of your physical damage to lightning damage, the stored energy becomes an orb attached to the enemy you hit, or the ground if you don't hit an enemy. The orb will periodically fire projectiles at other nearby enemies for a duration, which will also damage the enemy the orb is attached to.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.CantUseFistOfWar] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -5178,7 +5178,7 @@ skills["MirrorArrow"] = {
 	name = "Mirror Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, a clone is summoned. The clone is a minion that uses your bow and quiver.",
-	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.TravelSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.Type95] = true, },
+	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.TravelSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanVolley] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -6063,7 +6063,7 @@ skills["RainOfArrows"] = {
 	name = "Rain of Arrows",
 	color = 2,
 	description = "Fires multiple arrows into the air, to land in sequence after a delay, starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Type95] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -6147,7 +6147,7 @@ skills["VaalRainOfArrows"] = {
 	name = "Vaal Rain of Arrows",
 	color = 2,
 	description = "Fires multiple arrows into the air, to land in multiple sequences after a delay, each starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.Type95] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FiresArrowsAtTargetLocation] = true, [SkillType.CantUseFistOfWar] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -7350,7 +7350,7 @@ skills["RainOfSpores"] = {
 	baseEffectiveness = 1.9615000486374,
 	incrementalEffectiveness = 0.040199998766184,
 	description = "Fire arrows into the air that rain down around the targeted area, dealing damage to enemies they hit and creating spore pods where they land. Each spore pod deals chaos damage over time to nearby enemies and slows their movement speed. The pods last for a duration before bursting, dealing area damage.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type73] = true, [SkillType.ChaosSkill] = true, [SkillType.Triggerable] = true, [SkillType.Type95] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type73] = true, [SkillType.ChaosSkill] = true, [SkillType.Triggerable] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -8361,7 +8361,7 @@ skills["WildStrike"] = {
 	name = "Wild Strike",
 	color = 2,
 	description = "Your melee weapon strikes enemies, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.ProjectileAttack] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,

@@ -432,7 +432,7 @@ skills["SupportBlasphemy"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
-	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
+	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.DamageCannotBeReflected, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -504,7 +504,7 @@ skills["SupportBlasphemyPlus"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
-	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
+	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.DamageCannotBeReflected, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
@@ -4027,8 +4027,8 @@ skills["SupportPhysicalToLightning"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["enemies_you_shock_take_%_increased_physical_damage"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", nil) }, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
-		}
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Shocked" }),
+		},
 	},
 	baseMods = {
 	},
@@ -4565,7 +4565,7 @@ skills["SupportSpellEchoPlus"] = {
 	support = true,
 	requireSkillTypes = { SkillType.SpellCanRepeat, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Type101, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.CreatesMirageWarrior, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	plusVersionOf = "SupportMulticast",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {

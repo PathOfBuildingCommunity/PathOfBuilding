@@ -1026,7 +1026,7 @@ Avatar of Fire
 Yoke of Suffering
 Onyx Amulet
 Source: Drops from unique{The Eradicator} (Tier 11+)
-Requires Level 25
+Requires Level 70
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_resistance}+(10-20)% to Fire Resistance

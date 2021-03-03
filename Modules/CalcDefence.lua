@@ -329,7 +329,7 @@ function calcs.defence(env, actor)
 		output.SpellProjectileBlockChance = 0
 	end
 	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
-	output.BlockEffect = modDB:Sum("BASE", nil, "BlockEffect")
+	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
 	if output.BlockEffect == 0 then
 		output.BlockEffect = 100
 	else
