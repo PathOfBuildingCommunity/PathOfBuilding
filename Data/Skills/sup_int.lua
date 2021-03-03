@@ -4029,8 +4029,8 @@ skills["SupportPhysicalToLightning"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["enemies_you_shock_take_%_increased_physical_damage"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", nil) }, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
-		}
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Shocked" }),
+		},
 	},
 	baseMods = {
 	},
