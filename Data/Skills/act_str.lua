@@ -1138,6 +1138,7 @@ skills["ChainStrike"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
+		area = true,
 	},
 	baseMods = {
 		skill("radius", 24),
