@@ -69,7 +69,7 @@ Note: If you've configured a remote already, you can skip ahead to step 3.
 1. Add a new remote repository and name it `upstream`.
 
        git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
-2. Verify that adding the remote worked by running the last command again.
+2. Verify that adding the remote worked.
 
        git remote -v
 3. Fetch all branches and their commits from upstream.
