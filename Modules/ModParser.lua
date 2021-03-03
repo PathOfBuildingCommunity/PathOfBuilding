@@ -2649,7 +2649,7 @@ local specialModList = {
 	-- Alternate Quality
 	["quality does not increase physical damage"] = { mod("AlternateQualityWeapon", "BASE", 1) },
 	["(%d+)%% increased critical strike chance per 4%% quality"] = function(num) return { mod("AlternateQualityLocalCritChancePer4Quality", "INC", num) } end,
-	["grants (%d+)%% increased accuracy per (%d+)%% quality"] = function(num, _, div) return { mod("Accuracy", "INC", num, { type = "Condition", var = "{Hand}Attack" }, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
+	["grants (%d+)%% increased accuracy per (%d+)%% quality"] = function(num, _, div) return { mod("Accuracy", "INC", num, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
 	["(%d+)%% increased attack speed per 8%% quality"] = function(num) return { mod("AlternateQualityLocalAttackSpeedPer8Quality", "INC", num) } end,
 	["%+(%d+) weapon range per 10%% quality"] = function(num) return { mod("AlternateQualityLocalWeaponRangePer10Quality", "BASE", num) } end,
 	["grants (%d+)%% increased elemental damage per (%d+)%% quality"] = function(num, _, div) return { mod("ElementalDamage", "INC", num, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
