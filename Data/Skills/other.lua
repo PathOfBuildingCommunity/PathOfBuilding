@@ -632,7 +632,7 @@ skills["ChannelledSnipeSupport"] = {
 	hidden = true,
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.Type56, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
+	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.AnimateWeapon, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Channelled, },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1423,7 +1423,7 @@ skills["SupportGreaterSpellEcho"] = {
 	support = true,
 	requireSkillTypes = { SkillType.SpellCanRepeat, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Type101, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.CreatesMirageWarrior, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	statMap = {
@@ -1666,7 +1666,7 @@ skills["AnimateGuardianWeapon"] = {
 	color = 2,
 	description = "Animates a copy of your Animated Guardian's main-hand weapon to fight by your side.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Triggered] = true, [SkillType.CreatesMinion] = true, [SkillType.PhysicalSkill] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type54] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type56] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MinionProjectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.AnimateWeapon] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.8,
 	fromItem = true,
@@ -1764,7 +1764,7 @@ skills["TriggeredMoltenStrike"] = {
 	hidden = true,
 	color = 1,
 	description = "Launch molten projectiles from the point of impact, causing AoE attack damage to enemies where they land.",
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.ProjectileAttack] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -2954,29 +2954,6 @@ skills["CreateFungalGroundOnKill"] = {
 		[10] = { 100, levelRequirement = 1, duration = 5, cooldown = 1, statInterpolation = { 1, }, },
 	},
 }
-skills["Unhinge"] = {
-	name = "Unhinge",
-	hidden = true,
-	color = 4,
-	description = "Relinquish your grip on reality.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.SecondWindSupport] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0,
-	fromItem = true,
-	baseFlags = {
-		spell = true,
-	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
-	stats = {
-		"display_unhinge_grant_insane",
-	},
-	levels = {
-		[20] = { cooldown = 5, levelRequirement = 70, statInterpolation = { }, },
-	},
-}
 skills["CursePillar"] = {
 	name = "Summon Doedre's Effigy",
 	hidden = true,
@@ -3024,5 +3001,28 @@ skills["SupportCursePillarTriggerCurses"] = {
 	},
 	levels = {
 		[20] = { 1, 12, -25, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
+	},
+}
+skills["Unhinge"] = {
+	name = "Unhinge",
+	hidden = true,
+	color = 4,
+	description = "Relinquish your grip on reality.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.SecondWindSupport] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"display_unhinge_grant_insane",
+	},
+	levels = {
+		[20] = { cooldown = 5, levelRequirement = 70, statInterpolation = { }, },
 	},
 }

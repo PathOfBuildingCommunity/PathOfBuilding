@@ -366,7 +366,7 @@ Eldritch Battery
 {variant:1}{crafted}+(10-25) to Strength
 {variant:2}{crafted}+(10-25) to Dexterity
 {variant:3}{crafted}+(10-25) to Intelligence
-{variant:1,2,3}{crafted}+(7-18) to Quality
+{variant:1,2,3}{crafted}+(7-18)% to Quality
 {variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
 {variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
 {variant:6}{crafted}+(8-15)% to Lightning and Chaos Resistances
