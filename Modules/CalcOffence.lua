@@ -3480,6 +3480,9 @@ function calcs.offence(env, actor, activeSkill)
 	if bor(dotCfg.flags, ModFlag.Spell) == dotCfg.flags and not skillData.dotIsSpell then
 		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Spell))
 	end
+	if bor(dotCfg.flags, ModFlag.Attack) == dotCfg.flags and not skillData.dotIsAttack then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Attack))
+	end
 
 	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
 	local dotTakenCfg = copyTable(dotCfg, true)
