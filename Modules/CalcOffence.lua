@@ -353,12 +353,12 @@ function calcs.offence(env, actor, activeSkill)
 		local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
 		local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
 		modDB:NewMod("Damage", "MORE", dmgPerAffliction, "Affliction Charges", 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
 	end
 
 	-- account for Battlemage
