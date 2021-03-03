@@ -19,8 +19,8 @@ local function downloadFileText(source, file)
 		end
 		local text = ""
 		local easy = curl.easy()
-		local escaped_url = source..easy:escape(file)
-		easy:setopt_url(escaped_url)
+		local escapedUrl = source..easy:escape(file)
+		easy:setopt_url(escapedUrl)
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
