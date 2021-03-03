@@ -897,6 +897,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	local sortOrder = self.build.data.clusterJewels.notableSortOrder
 	for _, name in ipairs(jewelData.clusterJewelNotables) do
 		local baseNode = self.tree.clusterNodeMap[name]
+		-- Ignore subgraphs when loading old trees where certain notables don't exist
 		if not baseNode then
 			self.subGraphs[nodeId] = nil
 			return
