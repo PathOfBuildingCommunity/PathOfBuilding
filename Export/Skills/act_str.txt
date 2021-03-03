@@ -429,8 +429,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
 		},
 		["evasion_and_physical_damage_reduction_rating_+%"] = {
-			mod("Evasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Armour", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["damage_+%_if_changed_stances_recently"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff"}, { type = "Condition", var = "ChangedStanceRecently" })
