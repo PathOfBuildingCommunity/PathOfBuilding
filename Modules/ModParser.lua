@@ -2009,7 +2009,6 @@ local specialModList = {
 		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "DualWielding", neg = true }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
-<<<<<<< HEAD
 	["enemies poisoned by you have (%-%d+)%% to chaos resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", num) }, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }) } end,
 	["spell skills have ([%+%-]%d+)%% to damage over time multiplier for poison"] = function(num) return { 
 		mod("DotMultiplier", "BASE", num, nil, 0, bor(KeywordFlag.Spell, KeywordFlag.Poison, KeywordFlag.MatchAll))
@@ -2018,8 +2017,6 @@ local specialModList = {
 		mod("Damage", "INC", num, nil, ModFlag.Hit, { type = "PerStat", stat = "ChainRemaining" }, { type = "SkillType", skillType = SkillType.Projectile }),
 		mod("Damage", "INC", num, nil, ModFlag.Ailment, { type = "PerStat", stat = "ChainRemaining" }, { type = "SkillType", skillType = SkillType.Projectile }),
 	} end,
-=======
->>>>>>> dev
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
