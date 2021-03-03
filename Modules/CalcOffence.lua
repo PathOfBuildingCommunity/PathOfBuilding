@@ -283,6 +283,12 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
+	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByCoC
+	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
+	if skillCfg.skillCond["SkillIsTriggered"] then
+		skillFlags.triggered = true
+	end
+
 	-- Update skill data
 	for _, value in ipairs(skillModList:List(skillCfg, "SkillData")) do
 		if value.merge == "MAX" then
@@ -290,12 +296,6 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			skillData[value.key] = value.value
 		end
-	end
-
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByCoC
-	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
-	if skillCfg.skillCond["SkillIsTriggered"] then
-		skillFlags.triggered = true
 	end
 
 	-- Add addition stat bonuses
@@ -1220,8 +1220,8 @@ function calcs.offence(env, actor, activeSkill)
 			local inc = skillModList:Sum("INC", cfg, "Speed")
 			local more = skillModList:More(cfg, "Speed")
 			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
-			if skillData.attackRateCap then
-				output.Speed = m_min(output.Speed, skillData.attackRateCap)
+			if skillData.cooldown then
+				output.Speed = m_min(output.Speed, 1 / skillData.cooldown)
 			end
 			if skillFlags.selfCast then
 				-- Self-cast skill; apply action speed

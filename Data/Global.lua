@@ -252,4 +252,4 @@ SkillType = {
 	Orb = 112,
 }
 
-GlobalCache = { cachedData = { }, }
+GlobalCache = { cachedData = { }, excludeFullDpsList = { } }

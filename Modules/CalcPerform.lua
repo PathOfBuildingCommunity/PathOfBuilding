@@ -1954,8 +1954,8 @@ function calcs.perform(env)
 	-- General's Cry Support
 	--     this exist to infrom display to not show DPS for this skill as it only has damage due to General's Cry
 	if env.player.mainSkill.skillData.triggeredByGeneralsCry and not env.player.mainSkill.skillFlags.minion then
-		env.player.mainSkill.skillData.mirageWarriorSkill = true
-		env.player.mainSkill.infoMessage = "Mirage Warrior Skill: " .. env.player.mainSkill.activeEffect.grantedEffect.name
+		addToFullDpsExclusionList(env.player.mainSkill)
+		env.player.mainSkill.infoMessage = "Used by General's Cry Mirage Warriors"
 	end
 
 	-- Fix the configured impale stacks on the enemy
