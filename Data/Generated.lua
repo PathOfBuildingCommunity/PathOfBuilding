@@ -103,3 +103,29 @@ for index, name in ipairs(keystones) do
 end
 table.insert(skinOfTheLords, "Corrupted")
 table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
+
+local watchersEye = { [[
+		Watcher's Eye
+		Prismatic Jewel
+		Source: Drops from unique{The Elder}
+		Has Alt Variant: true
+		Has Alt Variant Two: true]]
+}
+
+for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
+	table.insert(watchersEye, "Variant: " .. mod.Id:match("^%u%l+") .. ": ")
+end
+
+table.insert(watchersEye,
+[[Limited to: 1
+(4-6)% increased maximum Energy Shield
+(4-6)% increased maximum Life
+(4-6)% increased maximum Mana]])
+
+local index = 1
+for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
+	table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
+	index = index + 1
+end
+
+table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))

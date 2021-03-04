@@ -95,5 +95,16 @@ end)
 writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
+writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
+	return mod.Family == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis") and not (
+			mod.Id:match("PurityOfFireReducedReflectedFireDamage") or
+			mod.Id:match( "PurityOfIceReducedReflectedColdDamage") or
+			mod.Id:match( "PurityOfLightningReducedReflectedLightningDamage") or
+			mod.Id:match( "MalevolenceSkillEffectDuration") or
+			mod.Id:match( "ZealotryMaximumEnergyShieldPerSecondToMaximumEnergyShieldLeechRate") or
+			mod.Id:match( "MalevolenceColdDamageOverTimeMultiplier") or
+			mod.Id:match( "MalevolenceChaosNonAilmentDamageOverTimeMultiplier")
+	)
+end)
 
 print("Mods exported.")
