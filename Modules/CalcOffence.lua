@@ -1204,13 +1204,15 @@ function calcs.offence(env, actor, activeSkill)
 			local more = skillModList:More(cfg, "Speed")
 			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
 			output.CastRate = output.Speed
+			output.Repeats = 1
 			if skillFlags.selfCast then
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 				output.CastRate = output.Speed
 			end
 			if output.Cooldown then
-				output.Speed = m_min(output.Speed, 1 / output.Cooldown)
+				output.Repeats = output.Repeats + skillData.repeatCount
+				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
 			end
 			if output.Cooldown and skillFlags.selfCast then
 				skillFlags.notAverage = true
@@ -1235,7 +1237,10 @@ function calcs.offence(env, actor, activeSkill)
 				if output.Cooldown and (1 / output.Cooldown) < output.CastRate then
 					t_insert(breakdown.Speed, s_format("\n"))
 					t_insert(breakdown.Speed, s_format("1 / %.2f ^8(skill cooldown)", output.Cooldown))
-					t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", 1 / output.Cooldown))
+					if output.Repeats > 1 then
+						t_insert(breakdown.Speed, s_format("x %d ^8(repeat count)", output.Repeats))
+					end
+					t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", output.Repeats / output.Cooldown))
 					t_insert(breakdown.Speed, s_format("\n"))
 					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.Speed))
 				end
