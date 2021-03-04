@@ -178,36 +178,6 @@ function ModListClass:TabulateInternal(context, result, modType, cfg, flags, key
 	end
 end
 
-function ModListClass:MaxInternal(context, cfg, flags, keywordFlags, source, ...)
-	local result = 0
-	for i = 1, select('#', ...) do
-		local modName = select(i, ...)
-		for i = 1, #self do
-			local mod = self[i]
-			if mod.name == modName and mod.type == "MAX" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
-				if mod[1] then
-					local value = context:EvalMod(mod, cfg) or 0
-					if value > result then
-						result = value
-					end
-				else
-					if mod.value > result then
-						result = mod.value
-					end
-				end
-			end
-		end
-	end
-	if self.parent then
-		local value = self.parent:MaxInternal(context, cfg, flags, keywordFlags, source, ...);
-		if value > result then
-			result = value
-		end
-	end
-
-	return result
-end
-
 function ModListClass:Print()
 	for _, mod in ipairs(self) do
 		ConPrintf("%s|%s", modLib.formatMod(mod), mod.source or "?")

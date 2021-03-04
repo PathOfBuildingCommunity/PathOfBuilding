@@ -181,14 +181,13 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 end
 
 function ModStoreClass:Max(cfg, ...)
-	local flags, keywordFlags = 0, 0
-	local source
-	if cfg then
-		flags = cfg.flags or 0
-		keywordFlags = cfg.keywordFlags or 0
-		source = cfg.source
+	local max = 0
+	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
+		if value.mod.value > max then
+			max = value.mod.value
+		end	
 	end
-	return self:MaxInternal(self, cfg, flags, keywordFlags, source, ...)
+	return max		
 end
 
 ---HasMod
