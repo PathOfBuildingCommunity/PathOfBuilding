@@ -1745,6 +1745,16 @@ function calcs.offence(env, actor, activeSkill)
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
 		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect
 		
+		-- Calculate culling DPS
+		local criticalCull = skillModList:Max(cfg, "CriticalCullPercent") or 0
+		if criticalCull > 0 then
+			criticalCull = criticalCull * (output.CritChance / 100)
+		end
+		local regularCull = skillModList:Max(cfg, "CullPercent") or 0;
+		local maxCullPercent = m_max(criticalCull, regularCull);
+		globalOutput.CullPercent = maxCullPercent;
+		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
+
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -2092,7 +2102,9 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
-		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+
+		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * globalOutput.CullMultiplier
+
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
@@ -2176,6 +2188,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillData.dpsMultiplier then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+		end
+		if output.CullMultiplier and output.CullMultiplier > 1.0 then
+			t_insert(breakdown.TotalDPS, s_format("x %.2f ^8(cull multiplier)", output.CullMultiplier))
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
 	end

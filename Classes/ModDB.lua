@@ -232,6 +232,37 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 	end
 end
 
+function ModDBClass:MaxInternal(context, cfg, flags, keywordFlags, source, ...)
+	local result = 0
+	for i = 1, select('#', ...) do
+		local modList = self.mods[select(i, ...)]
+		if modList then
+			for i = 1, #modList do
+				local mod = modList[i]
+				if mod.type == "MAX" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+					if mod[1] then
+						local value = context:EvalMod(mod, cfg) or 0
+						if value > result then
+							result = value
+						end
+					else
+						if mod.value > result then
+							result = mod.value
+						end
+					end
+				end
+			end
+		end
+	end
+	if self.parent then
+		local value = self.parent:MaxInternal(context, cfg, flags, keywordFlags, source, ...);
+		if value > result then
+			result = value
+		end
+	end
+	return result
+end
+
 ---HasModInternal
 ---  Checks if a mod exists with the given properties
 ---@param modType string @The type of the mod, e.g. "BASE"
