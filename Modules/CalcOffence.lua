@@ -1208,12 +1208,14 @@ function calcs.offence(env, actor, activeSkill)
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 				output.CastRate = output.Speed
-				skillFlags.notAverage = true
-				skillFlags.showAverage = false
-				skillData.showAverage = false
 			end
 			if output.Cooldown then
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown)
+			end
+			if output.Cooldown and skillFlags.selfCast then
+				skillFlags.notAverage = true
+				skillFlags.showAverage = false
+				skillData.showAverage = false
 			end
 			output.Speed = m_min(output.Speed, data.misc.ServerTickRate)
 			if output.Speed == 0 then 
