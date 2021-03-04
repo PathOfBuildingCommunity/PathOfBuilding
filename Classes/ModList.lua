@@ -139,6 +139,7 @@ function ModListClass:ListInternal(context, result, cfg, flags, keywordFlags, so
 		for i = 1, #self do
 			local mod = self[i]
 			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				local value
 				if mod[1] then
 					local value = context:EvalMod(mod, cfg) or nullValue
 					if value then
