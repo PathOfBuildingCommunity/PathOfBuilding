@@ -1750,9 +1750,9 @@ function calcs.offence(env, actor, activeSkill)
 		if criticalCull > 0 then
 			criticalCull = criticalCull * (output.CritChance / 100)
 		end
-		local regularCull = skillModList:Max(cfg, "CullPercent") or 0;
-		local maxCullPercent = m_max(criticalCull, regularCull);
-		globalOutput.CullPercent = maxCullPercent;
+		local regularCull = skillModList:Max(cfg, "CullPercent") or 0
+		local maxCullPercent = m_max(criticalCull, regularCull)
+		globalOutput.CullPercent = maxCullPercent
 		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
 
 		-- Calculate base hit damage

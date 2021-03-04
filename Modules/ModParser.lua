@@ -2375,14 +2375,13 @@ local specialModList = {
 	["adds knockback to melee attacks during flask effect"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Melee, { type = "Condition", var = "UsingFlask" }) },
 	["knockback direction is reversed"] = { mod("EnemyKnockbackDistance", "MORE", -200) },
 	-- Culling
-	["culling strike"] = { mod("CullPercent", "MAX", 10)},
-	["hits with this weapon have culling strike against bleeding enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Bleeding" })},
-	["you have culling strike against cursed enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Cursed" })},
-	["critical strikes have culling strike"] = { mod("CriticalCullPercent", "MAX", 10 )},
-	["your spells have culling strike"] = { mod("CullPercent", "MAX", 10, nil, ModFlag.Spell )},
-	["culling strike against burning enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Burning" })},
-	["culling strike against marked enemy"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Marked" })},
-
+	["culling strike"] = { mod("CullPercent", "MAX", 10) },
+	["hits with this weapon have culling strike against bleeding enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }) },
+	["you have culling strike against cursed enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
+	["critical strikes have culling strike"] = { mod("CriticalCullPercent", "MAX", 10) },
+	["your spells have culling strike"] = { mod("CullPercent", "MAX", 10, nil, ModFlag.Spell) },
+	["culling strike against burning enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Burning" }) },
+	["culling strike against marked enemy"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Marked" }) },
 	-- Flasks
 	["flasks do not apply to you"] = { flag("FlasksDoNotApplyToPlayer") },
 	["flasks apply to your zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" } }) },
