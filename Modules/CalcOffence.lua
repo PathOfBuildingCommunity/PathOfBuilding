@@ -1204,14 +1204,13 @@ function calcs.offence(env, actor, activeSkill)
 			local more = skillModList:More(cfg, "Speed")
 			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
 			output.CastRate = output.Speed
-			output.Repeats = 1
+			output.Repeats = 1 + (skillData.repeatCount or 0)
 			if skillFlags.selfCast then
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 				output.CastRate = output.Speed
 			end
 			if output.Cooldown then
-				output.Repeats = output.Repeats + skillData.repeatCount
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
 			end
 			if output.Cooldown and skillFlags.selfCast then
