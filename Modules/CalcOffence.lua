@@ -2103,7 +2103,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
 
-		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * globalOutput.CullMultiplier
+		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
 
 		if breakdown then
 			if output.CritEffect ~= 1 then
@@ -2188,9 +2188,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillData.dpsMultiplier then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
-		end
-		if output.CullMultiplier and output.CullMultiplier > 1.0 then
-			t_insert(breakdown.TotalDPS, s_format("x %.2f ^8(cull multiplier)", output.CullMultiplier))
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
 	end
@@ -3678,4 +3675,5 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
+	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 end
