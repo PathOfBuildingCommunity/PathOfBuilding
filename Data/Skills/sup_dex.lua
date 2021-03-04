@@ -835,6 +835,7 @@ skills["SupportCastOnDeath"] = {
 		},
 	},
 	baseMods = {
+		skill("triggeredOnDeath", true),
 	},
 	qualityStats = {
 		Default = {

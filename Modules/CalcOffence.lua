@@ -1179,9 +1179,15 @@ function calcs.offence(env, actor, activeSkill)
 			output.Time = activeSkill.activeEffect.grantedEffect.castTime
 			output.Speed = 1 / output.Time
 		elseif skillData.triggerTime and skillData.triggered then
-			output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100) * (skillModList:Sum("BASE", cfg, "CastWhileChannellingSpellsLinked") or 1)
+			local cwcLinkedSpells = skillModList:Sum("BASE", cfg, "CastWhileChannellingSpellsLinked")
+			if cwcLinkedSpells > 0 then
+				output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100) * cwcLinkedSpells
+			else
+				output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100)
+			end
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
+			skillData.showAverage = false
 		elseif skillData.triggeredByBrand and skillData.triggered then
 			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
 			output.TriggerTime = output.Time
@@ -1235,7 +1241,7 @@ function calcs.offence(env, actor, activeSkill)
 				})
 			end 
 		end
-		if skillData.hitTimeOverride then
+		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
