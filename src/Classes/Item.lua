@@ -222,12 +222,16 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant = true
 				elseif specName == "Has Alt Variant Two" then
 					self.hasAltVariant2 = true
+				elseif specName == "Has Alt Variant Three" then
+					self.hasAltVariant3 = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Alt Variant" then
 					self.variantAlt = tonumber(specVal)
 				elseif specName == "Selected Alt Variant Two" then
 					self.variantAlt2 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Three" then
+					self.variantAlt3 = tonumber(specVal)
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -530,6 +534,9 @@ function ItemClass:ParseRaw(raw)
 		if self.hasAltVariant2 then
 			self.variantAlt2 = m_min(#self.variantList, self.variantAlt2 or #self.variantList)
 		end
+		if self.hasAltVariant3 then
+			self.variantAlt3 = m_min(#self.variantList, self.variantAlt3 or #self.variantList)
+		end
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -661,6 +668,10 @@ function ItemClass:BuildRaw()
 		if self.hasAltVariant2 then
 			t_insert(rawLines, "Has Alt Variant Two: true")
 			t_insert(rawLines, "Selected Alt Variant Two: "..self.variantAlt2)
+		end
+		if self.hasAltVariant3 then
+			t_insert(rawLines, "Has Alt Variant Three: true")
+			t_insert(rawLines, "Selected Alt Variant Three: "..self.variantAlt3)
 		end
 	end
 	if self.quality then
@@ -801,6 +812,7 @@ function ItemClass:CheckModLineVariant(modLine)
 		or modLine.variantList[self.variant]
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 		or (self.hasAltVariant2 and modLine.variantList[self.variantAlt2])
+		or (self.hasAltVariant3 and modLine.variantList[self.variantAlt3])
 end
 
 -- Return the name of the slot this item is equipped in
