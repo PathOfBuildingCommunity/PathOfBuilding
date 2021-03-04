@@ -8,7 +8,7 @@ VERSION[1.4.170.27][2021/02/21]
 * Add PoE matching search function (Ethrel)
 * Add customisation options for decimal and thousands separators (Leftn)
 * Add support for Doedre's Skin curse pillar (PJacek)
-
+HOLA CARACOLA
 * Fix minimum charges not working for new belts (Wires77)
 * Fix Inevitability to specify Rolling Magma (PJacek)
 * Fix Cospri's Malice wording (Nostrademous)
