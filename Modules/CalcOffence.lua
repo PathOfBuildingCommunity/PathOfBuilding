@@ -1749,8 +1749,16 @@ function calcs.offence(env, actor, activeSkill)
 			output.DoubleDamageChance = m_max(output.DoubleDamageChance - output.TripleDamageChance * output.DoubleDamageChance / 100, 0)
 		end
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect
-		
+		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect	
+		-- Calculate culling DPS
+		local criticalCull = skillModList:Max(cfg, "CriticalCullPercent") or 0
+		if criticalCull > 0 then
+			criticalCull = criticalCull * (output.CritChance / 100)
+		end
+		local regularCull = skillModList:Max(cfg, "CullPercent") or 0
+		local maxCullPercent = m_max(criticalCull, regularCull)
+		globalOutput.CullPercent = maxCullPercent
+		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -3669,4 +3677,5 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
+	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 end
