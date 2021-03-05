@@ -1321,9 +1321,6 @@ return {
 ["summon_totem_cast_speed_+%"] = {
 	mod("TotemPlacementSpeed", "INC", nil),
 },
-["totems_regenerate_%_life_per_second"] = {
-	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
-},
 ["totems_regenerate_%_life_per_minute"] = {
     mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
     div = 60,
