@@ -1421,7 +1421,7 @@ skills["DecoyTotem"] = {
 			{ "summon_totem_cast_speed_+%", 2 },
 		},
 		Alternate2 = {
-			{ "totems_regenerate_%_life_per_second", 1 },
+			{ "totems_regenerate_%_life_per_minute", 60 },
 		},
 		Alternate3 = {
 			{ "totems_explode_on_death_for_%_life_as_physical", 2 },

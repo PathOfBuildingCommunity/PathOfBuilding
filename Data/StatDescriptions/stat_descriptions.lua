@@ -39631,7 +39631,7 @@ return {
 							[2]=1
 						}
 					},
-					text="Area contains an extra Shrine"
+					text="Area contains an additional Shrine"
 				},
 				[2]={
 					limit={
@@ -39640,7 +39640,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Area contains {0} extra Shrines"
+					text="Area contains {0} additional Shrines"
 				}
 			}
 		},
@@ -39802,7 +39802,7 @@ return {
 							[2]=1
 						}
 					},
-					text="Area contains an extra Strongbox"
+					text="Area contains an additional Strongbox"
 				},
 				[2]={
 					limit={
@@ -39811,7 +39811,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Area contains {0} extra Strongboxes"
+					text="Area contains {0} additional Strongboxes"
 				}
 			}
 		},
@@ -45106,7 +45106,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ignited Enemies you hit are destroyed on Kill"
+					text="Ignited Enemies Killed by your Hits are destroyed"
 				}
 			}
 		},
@@ -45142,7 +45142,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% additional chance for Slain monsters to drop Scrolls of Wisdom"
+					text="{0}% chance for Slain monsters to drop an additional Scroll of Wisdom"
 				}
 			}
 		},
@@ -155370,7 +155370,7 @@ return {
 							[2]=1
 						}
 					},
-					text="Area contains an extra Gloom Shrine"
+					text="Area contains an additional Gloom Shrine"
 				},
 				[2]={
 					limit={
@@ -155379,7 +155379,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Area contains {0} extra Gloom Shrines"
+					text="Area contains {0} additional Gloom Shrines"
 				}
 			}
 		},
@@ -155397,7 +155397,7 @@ return {
 							[2]=1
 						}
 					},
-					text="Area contains an extra Harbinger"
+					text="Area contains an additional Harbinger"
 				},
 				[2]={
 					limit={
@@ -155406,7 +155406,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Area contains {0} extra Harbingers"
+					text="Area contains {0} additional Harbingers"
 				}
 			}
 		},
@@ -155424,7 +155424,7 @@ return {
 							[2]=1
 						}
 					},
-					text="Area contains an extra Resonating Shrine"
+					text="Area contains an additional Resonating Shrine"
 				},
 				[2]={
 					limit={
@@ -155433,7 +155433,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Area contains {0} extra Resonating Shrines"
+					text="Area contains {0} additional Resonating Shrines"
 				}
 			}
 		},
@@ -178676,6 +178676,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="per_minute_to_per_second",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -178687,7 +178691,7 @@ return {
 			}
 		},
 		stats={
-			[1]="totems_regenerate_%_life_per_second"
+			[1]="totems_regenerate_%_life_per_minute"
 		}
 	},
 	[7204]={
@@ -191888,7 +191892,7 @@ return {
 	["totems_explode_on_death_for_%_life_as_physical"]=7201,
 	["totems_gain_%_of_players_armour"]=2500,
 	["totems_nearby_enemies_damage_taken_+%"]=7202,
-	["totems_regenerate_%_life_per_second"]=7203,
+	["totems_regenerate_%_life_per_minute"]=7203,
 	["totems_resist_all_elements_+%_per_active_totem"]=3448,
 	["totems_spells_cast_speed_+%_per_active_totem"]=3454,
 	["toxic_rain_damage_+%"]=7204,
