@@ -74,6 +74,17 @@ Implicits: 1
 {variant:2,3}You take 450 Chaos Damage per second for 3 seconds on Kill
 Gore Footprints
 ]],[[
+Doppelgänger Guise
+Sadist Garb
+League: Ritual
+Requires Level 68, 103 Dex, 109 Int
+Implicits: 0
+Grants Level 20 Unhinge Skill
+(40-60)% more Critical Strike Chance while Insane
+Enemies Killed by your Hits are destroyed while Insane
+(15-25)% less Physical and Chaos Damage Taken while Sane
+Regenerate 10% Life over one second when Hit while Sane
+]],[[
 Greed's Embrace
 Golden Plate
 Requires Level 56, 106 Str

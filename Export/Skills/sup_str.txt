@@ -185,6 +185,7 @@ local skills, mod, flag, skill = ...
 		},
 		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
+			mult = -1,
 		},
 	},
 #mods
@@ -409,7 +410,9 @@ local skills, mod, flag, skill = ...
 
 #skill SupportBluntWeaponShockwave
 #flags attack melee area
-#baseMod skill("showAverage", true)
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
 #mods
 
 #skill SupportSpellTotem

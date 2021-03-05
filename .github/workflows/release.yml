@@ -1,0 +1,35 @@
+name: Release next version
+on: 
+  workflow_dispatch:
+      inputs:
+          sinceTag:
+              description: 'Gather updates from this tag until now'
+              required: true
+              default: '2.0.x'
+          releaseVersion:
+              description: 'Version number to use for this release'
+              required: true
+              default: '2.0.x + 1'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Install changelog generator
+              run: sudo gem install github_changelog_generator
+            - name: Generate Release notes
+              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} -b CHANGELOG.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --no-issues true --date-format %Y/%m/%d
+            - name: Update manifest.xml
+              run: python3 update_manifest.py --quiet --in-place --set-version=${{ github.event.inputs.releaseVersion }}
+            - name: Create Pull Request
+              uses: peter-evans/create-pull-request@v3.8.0
+              with:
+                  draft: true
+                  title: Release ${{ github.event.inputs.releaseVersion }}
+                  branch: release-${{ github.event.inputs.releaseVersion }}
+                  body: |
+                      Draft release of ${{ github.event.inputs.releaseVersion }}.
+
+                      Edits will be made as necessary to prepare the codebase for release.
+                  commit-message: 'Prepare release ${{ github.event.inputs.releaseVersion }}'

@@ -8,8 +8,9 @@ local lab = {
 	[53] = "CRUEL",
 	[66] = "MERCILESS",
 	[75] = "ENDGAME",
+	[83] = "HARVEST",
 }
-local labOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME" }
+local labOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "HARVEST" }
 
 local function doOtherEnchantment(fileName, group)
 	local byDiff = { }
@@ -39,6 +40,7 @@ end
 
 doOtherEnchantment("../Data/EnchantmentBoots.lua", "ConditionalBuffEnchantment")
 doOtherEnchantment("../Data/EnchantmentGloves.lua", "TriggerEnchantment")
+doOtherEnchantment("../Data/EnchantmentBelt.lua", "BuffEnchantment")
 
 local skillMap = {
 	["Summone?d?RagingSpirit"] = "Summon Raging Spirit",
@@ -153,6 +155,7 @@ local skillMap = {
 	["SigilOfPower"] = "Sigil of Power",
 	["Hexblast"] = "Hexblast",
 	["FlameWall"] = "Flame Wall",
+	["WaterSphere"] = "Hydrosphere",
 }
 
 local bySkill = { }

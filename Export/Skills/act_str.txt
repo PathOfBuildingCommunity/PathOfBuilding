@@ -35,6 +35,9 @@ local skills, mod, flag, skill = ...
 		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["ancestor_totem_buff_effect_+%"] = {
+			mod("BuffEffect", "INC", nil)
+		},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod skill("thisIsNotABuff", true)
@@ -227,7 +230,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ChainStrike
-#flags attack melee
+#flags attack melee area
 	statMap = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
@@ -268,6 +271,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["determination_aura_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["evasion_rating_%_to_add_as_armour"] = {
+			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 40)
@@ -397,13 +403,13 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		}
 	},
-#baseMod skill("radius", 20, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
 
 #skill EnduringCry
 #flags warcry area duration
 	statMap = {
-		["regenerate_X_life_over_1_second_on_cast"] = {
+		["regenerate_x_life_over_1_second_on_skill_use_or_trigger"] = {
 			mod("EnduringCryLifeRegen", "BASE", nil),
 		},
 		["resist_all_elements_%_per_endurance_charge"] = {
@@ -423,8 +429,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
 		},
 		["evasion_and_physical_damage_reduction_rating_+%"] = {
-			mod("Evasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Armour", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["damage_+%_if_changed_stances_recently"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff"}, { type = "Condition", var = "ChangedStanceRecently" })
@@ -781,7 +786,7 @@ local skills, mod, flag, skill = ...
 			mod("BleedChance", "BASE", nil, ModFlag.Attack, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 		["base_additional_physical_damage_reduction_%"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 #mods
@@ -925,7 +930,7 @@ local skills, mod, flag, skill = ...
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["skill_buff_grants_attack_and_cast_speed_"] = {
+		["skill_buff_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		}
 	},

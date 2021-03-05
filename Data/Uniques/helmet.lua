@@ -84,7 +84,7 @@ Requires Level 65, 148 Str
 Armour is increased by Uncapped Fire Resistance
 ]],[[
 Hrimnor's Resolve
-Samite Helmet
+Samnite Helmet
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -366,7 +366,7 @@ Eldritch Battery
 {variant:1}{crafted}+(10-25) to Strength
 {variant:2}{crafted}+(10-25) to Dexterity
 {variant:3}{crafted}+(10-25) to Intelligence
-{variant:1,2,3}{crafted}+(7-18) to Quality
+{variant:1,2,3}{crafted}+(7-18)% to Quality
 {variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
 {variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
 {variant:6}{crafted}+(8-15)% to Lightning and Chaos Resistances
@@ -691,6 +691,18 @@ Requires Level 68, 62 Str, 91 Int
 -1 to Maximum Power Charges
 Gain (8-12)% of Physical Damage as Extra Chaos Damage while at maximum Power Charges
 You take 50% reduced Extra Damage from Critical Strikes while you have no Power Charges
+]],[[
+Ancient Skull
+Bone Helmet
+League: Ritual
+Requires Level 73, 76 Str, 76 Int
+Implicits: 1
+Minions deal (15-20)% increased Damage
+(150-200)% increased Armour and Energy Shield
+Minions have (20-40)% reduced maximum Life
+Minions have (15-25)% increased Movement Speed
+Minions have 50% increased Critical Strike Chance per Maximum Power Charge you have
+Minions can hear the whispers for 5 seconds after they deal a Critical Strike
 ]],[[
 The Brine Crown
 Prophet Crown
@@ -1173,6 +1185,17 @@ Requires Level 62, 79 Dex, 72 Int
 +(24-30)% to Chaos Resistance
 Enemies cannot Leech Mana from You
 Socketed Gems have 50% reduced Mana Cost
+]],[[
+Viridi's Veil
+Praetor Crown
+League: Ritual
+Requires Level 68, 62 Str, 91 Int
++(1-2) to Level of Socketed Gems
+(120-160)% increased Armour and Energy Shield
++(15-25)% to all Elemental Resistances
+Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped
+You are Hexproof if you have a Magic Ring in right slot
+Take no Extra Damage from Critical Strikes if you have a Magic Ring in left slot
 ]],[[
 Willclash
 Golden Mask

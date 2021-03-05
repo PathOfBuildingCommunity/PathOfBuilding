@@ -332,51 +332,77 @@ local function doActorMisc(env, actor)
 	output.BlitzChargesMax = modDB:Sum("BASE", nil, "BlitzChargesMax")
 	output.InspirationChargesMax = modDB:Sum("BASE", nil, "InspirationChargesMax")
 	output.CrabBarriersMax = modDB:Sum("BASE", nil, "CrabBarriersMax")
+	output.BrutalChargesMin = modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and output.EnduranceChargesMin or 0
+	output.BrutalChargesMax = modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0
+	output.AbsorptionChargesMin = modDB:Flag(nil, "MinimumPowerChargesEqualsMinimumAbsorptionCharges") and output.PowerChargesMin or 0
+	output.AbsorptionChargesMax = modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0
+	output.AfflictionChargesMin = modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and output.FrenzyChargesMin or 0
+	output.AfflictionChargesMax = modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0
+
+	-- Initialize Charges
+	output.PowerCharges = 0
+	output.FrenzyCharges = 0
+	output.EnduranceCharges = 0
+	output.SiphoningCharges = 0
+	output.ChallengerCharges = 0
+	output.BlitzCharges = 0
+	output.InspirationCharges = 0
+	output.GhostShrouds = 0
+	output.BrutalCharges = 0
+	output.AbsorptionCharges = 0
+	output.AfflictionCharges = 0
+
+	-- Conditionally over-write Charge values
 	if modDB:Flag(nil, "UsePowerCharges") then
 		output.PowerCharges = modDB:Override(nil, "PowerCharges") or output.PowerChargesMax
-	else
-		output.PowerCharges = 0
 	end
-	output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
+	if modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+		-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
+		-- and are converted from Power Charges
+		output.AbsorptionCharges = m_max(output.PowerCharges, m_min(output.AbsorptionChargesMax, output.AbsorptionChargesMin))
+		output.PowerCharges = 0
+	else
+		output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
+	end
 	output.RemovablePowerCharges = m_max(output.PowerCharges - output.PowerChargesMin, 0)
 	if modDB:Flag(nil, "UseFrenzyCharges") then
 		output.FrenzyCharges = modDB:Override(nil, "FrenzyCharges") or output.FrenzyChargesMax
-	else
-		output.FrenzyCharges = 0
 	end
-	output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
+	if modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+		-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
+		-- and are converted from Power Charges
+		output.AfflictionCharges = m_max(output.FrenzyCharges, m_min(output.AfflictionChargesMax, output.AfflictionChargesMin))
+		output.FrenzyCharges = 0
+	else
+		output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
+	end
 	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
-	else
-		output.EnduranceCharges = 0
 	end
-	output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
+	if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+		-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
+		-- and are converted from Endurance Charges
+		output.BrutalCharges = m_max(output.EnduranceCharges, m_min(output.BrutalChargesMax, output.BrutalChargesMin))
+		output.EnduranceCharges = 0
+	else
+		output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
+	end
 	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
-	else
-		output.SiphoningCharges = 0
 	end
 	if modDB:Flag(nil, "UseChallengerCharges") then
 		output.ChallengerCharges = modDB:Override(nil, "ChallengerCharges") or output.ChallengerChargesMax
-	else
-		output.ChallengerCharges = 0
 	end
 	if modDB:Flag(nil, "UseBlitzCharges") then
 		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
-	else
-		output.BlitzCharges = 0
 	end
 	if modDB:Flag(nil, "UseInspirationCharges") then
 		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
-	else
-		output.InspirationCharges = 0
 	end
 	if modDB:Flag(nil, "UseGhostShrouds") then
 		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
-	else
-		output.GhostShrouds = 0
 	end
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
@@ -399,6 +425,9 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["InspirationCharge"] = output.InspirationCharges
 	modDB.multipliers["GhostShroud"] = output.GhostShrouds
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
+	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
+	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
+	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
@@ -464,6 +493,9 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("AvoidIgnite", "BASE", 100, "Her Embrace")
 			modDB:NewMod("Speed", "INC", 20, "Her Embrace")
 			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
+		end
+		if modDB:Flag(nil, "Condition:PhantasmalMight") then
+			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
 		if modDB:Flag(nil, "Elusive") then
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
@@ -658,19 +690,6 @@ function calcs.perform(env)
 	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.activeEffect.grantedEffect.name == "Herald of Purity" then
-			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveSentinelOfPurityLimit")
-			output.ActiveSentinelOfPurityLimit = m_max(limit, output.ActiveSentinelOfPurityLimit or 0)
-		end
-		if activeSkill.skillFlags.golem then
-			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveGolemLimit")
-			output.ActiveGolemLimit = m_max(limit, output.ActiveGolemLimit or 0)
-		end
-		if activeSkill.skillFlags.totem then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
-			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
-			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
-		end
 		if activeSkill.skillFlags.brand then
 			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
 			if activeSkill.activeEffect.grantedEffect.name == "Arcanist Brand" then
@@ -686,9 +705,9 @@ function calcs.perform(env)
 			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(actual, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
 			enemyDB.multipliers["BrandsAttached"] = m_max(actual, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
-		-- The actual hexes as opposed to hex related skills all have the curse flag. Type31 is to remove blasphemy
+		-- The actual hexes as opposed to hex related skills all have the curse flag. DamageCannotBeReflected is to remove blasphemy
 		-- Note that this doesn't work for triggers yet, insufficient support
-		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.Type31] then
+		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.DamageCannotBeReflected] then
 			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
 			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") or 30
 			local doomEffect = activeSkill.skillModList:More(nil, "DoomEffect")
@@ -704,13 +723,18 @@ function calcs.perform(env)
 			end
 			output.BonechillEffect = m_max(output.BonechillEffect or 0, modDB:Override(nil, "BonechillEffect") or output.BonechillDotEffect or 0)
 		end
-		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap"  or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
+		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap" or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
 			modDB:NewMod("ShockOverride", "BASE", activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect"), "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
-		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" and not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
-			local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
-			modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
-			enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
+		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" then
+			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
+				local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
+				modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
+				enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
+			end
+			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill") then
+				enemyDB:NewMod("Condition:Chilled", "FLAG", true, "Summon Skitterbots")
+			end
 		end
 		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
 			if activeSkill.activeEffect.grantedEffect.name == damageType.." Aegis" then
@@ -752,21 +776,9 @@ function calcs.perform(env)
 			env.player.modDB:NewMod("GlobalWarcryCount", "BASE", numWarcries)
 			modDB:NewMod("AlreadyGlobalWarcryCooldown", "FLAG", true, "Config") -- Prevents effect from applying multiple times
 		end
-		if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSkeletonLimit")
-			output.ActiveSkeletonLimit = m_max(limit, output.ActiveSkeletonLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Zombie" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveZombieLimit")
-			output.ActiveZombieLimit = m_max(limit, output.ActiveZombieLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Summon Raging Spirit" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveRagingSpiritLimit")
-			output.ActiveRagingSpiritLimit = m_max(limit, output.ActiveRagingSpiritLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Summoned Phantasm" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActivePhantasmLimit")
-			output.ActivePhantasmLimit = m_max(limit, output.ActivePhantasmLimit or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Raise Spectre" then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveSpectreLimit")
-			output.ActiveSpectreLimit = m_max(limit, output.ActiveSpectreLimit or 0)
+		if activeSkill.minion and activeSkill.minion.minionData and activeSkill.minion.minionData.limit then
+			local limit = activeSkill.skillModList:Sum("BASE", nil, activeSkill.minion.minionData.limit)
+			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
 		end
 		if env.mode_buffs and activeSkill.skillFlags.warcry then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
@@ -781,9 +793,13 @@ function calcs.perform(env)
 			if modDB:Flag(nil, "WarcryShareCooldown") then
 				uptime = m_min(full_duration / (actual_cooldown + (globalCooldown - actual_cooldown) / globalCount), 1)
 			end
+			if modDB:Flag(nil, "Condition:WarcryMaxHit") then
+				uptime = 1;
+			end
 			if activeSkill.activeEffect.grantedEffect.name == "Ancestral Cry" and not modDB:Flag(nil, "AncestralActive") then
 				local ancestralArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralArmourPer5MP")
 				local ancestralArmourMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralArmourMax")
+				local ancestralArmourIncrease = activeSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "AncestralArmourMax")
 				local ancestralStrikeRange = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralMeleeWeaponRangePer5MP")
 				local ancestralStrikeRangeMax = m_floor(6 * buff_inc)
 				env.player.modDB:NewMod("NumAncestralExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralExertedAttacks") + extraExertions)
@@ -791,8 +807,12 @@ function calcs.perform(env)
 				if warcryPowerBonus ~= 0 then
 					ancestralArmour = m_floor(ancestralArmour * warcryPowerBonus * buff_inc) / warcryPowerBonus
 					ancestralStrikeRange = m_floor(ancestralStrikeRange * warcryPowerBonus * buff_inc) / warcryPowerBonus
+				else
+					-- Since no buff happens, you don't get the divergent increase.
+					ancestralArmourIncrease = 0
 				end
-				env.player.modDB:NewMod("Armour", "BASE", 257 * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = ancestralArmourMax, limitTotal = true })
+				env.player.modDB:NewMod("Armour", "BASE", ancestralArmour * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = ancestralArmourMax, limitTotal = true })
+				env.player.modDB:NewMod("Armour", "INC", ancestralArmourIncrease * uptime, "Ancestral Cry")
 				env.player.modDB:NewMod("MeleeWeaponRange", "BASE", ancestralStrikeRange * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = ancestralStrikeRangeMax, limitTotal = true })
 				modDB:NewMod("AncestralActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Enduring Cry" and not modDB:Flag(nil, "EnduringActive") then
@@ -820,7 +840,6 @@ function calcs.perform(env)
 				env.player.modDB:NewMod("EnemyPhysicalDamageReduction", "BASE", -intimidatingOverwhelmEffect * uptime, "Intimidating Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
 				modDB:NewMod("IntimidatingActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not modDB:Flag(nil, "RallyingActive") then
-				local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 				env.player.modDB:NewMod("NumRallyingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions)
 				env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
 				local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
@@ -891,6 +910,17 @@ function calcs.perform(env)
 			end
 			activeSkill.skillModList:NewMod("CastWhileChannellingSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillData.triggerTime = trigTime
+		end
+		if activeSkill.skillData.triggeredOnDeath and not activeSkill.skillFlags.minion then
+			activeSkill.skillData.triggered = true
+			for _, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			for _, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			-- Set trigger time to 1 min in ms ( == 6000 ). Technically any large value would do.
+			activeSkill.skillData.triggerTime = 60 * 1000
 		end
 	end
 
@@ -1214,7 +1244,7 @@ function calcs.perform(env)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
 					end
-					if env.minion and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
+					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.minionBuffSkill = true
 						affectedByAura[env.minion] = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
@@ -1255,12 +1285,13 @@ function calcs.perform(env)
 					mergeBuff(srcList, debuffs, buff.name)
 				end
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
-				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")) then
+				local mark = activeSkill.skillTypes[SkillType.Mark]
+				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")) or mark then
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
 						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
-						isMark = activeSkill.skillTypes[SkillType.Mark],
+						isMark = mark,
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 					local more = skillModList:More(skillCfg, "CurseEffect")
@@ -1335,7 +1366,7 @@ function calcs.perform(env)
 							end
 						end
 					elseif buff.type == "Curse" then
-						if env.mode_effective and activeSkill.skillData.enable and not enemyDB:Flag(nil, "Hexproof") then
+						if env.mode_effective and activeSkill.skillData.enable and (not enemyDB:Flag(nil, "Hexproof") or activeSkill.skillTypes[SkillType.Mark]) then
 							local curse = {
 								name = buff.name,
 								priority = 1,
@@ -1568,7 +1599,6 @@ function calcs.perform(env)
 	
 	-- Calculates maximum Shock, then applies the strongest Shock effect to the enemy
 	if (enemyDB:Sum("BASE", nil, "ShockVal") > 0 or modDB:Sum(nil, "ShockBase", "ShockOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyShocked") then
-		local baseShock = (modDB:Override(nil, "ShockBase") or 0) * (1 + modDB:Sum("INC", nil, "EnemyShockEffect") / 100)
 		local overrideShock = 0
 		for i, value in ipairs(modDB:Tabulate("BASE", { }, "ShockBase", "ShockOverride")) do
 			local mod = value.mod
@@ -1587,6 +1617,28 @@ function calcs.perform(env)
 		output.CurrentShock = m_floor(m_min(m_max(overrideShock, enemyDB:Sum("BASE", nil, "ShockVal")), output.MaximumShock))
 		enemyDB:NewMod("DamageTaken", "INC", m_floor(output.CurrentShock), "Shock", { type = "Condition", var = "Shocked"} )
 		enemyDB:NewMod("Condition:AlreadyShocked", "FLAG", true, { type = "Condition", var = "Shocked"} ) -- Prevents Shock from applying doubly for minions
+	end
+
+	-- Calculates maximum Scorch, then applies the strongest Scorch effect to the enemy
+	if (enemyDB:Sum("BASE", nil, "ScorchVal") > 0 or modDB:Sum(nil, "ScorchBase", "ScorchOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyScorched") then
+		local overrideScorch = 0
+		for i, value in ipairs(modDB:Tabulate("BASE", { }, "ScorchBase", "ScorchOverride")) do
+			local mod = value.mod
+			local inc = 1 + modDB:Sum("INC", nil, "EnemyScorchEffect") / 100
+			local effect = mod.value
+			if mod.name == "ScorchOverride" then
+				enemyDB:NewMod("Condition:Scorched", "FLAG", true, mod.source)
+			end
+			if mod.name == "ScorchBase" then
+				effect = effect * inc
+				modDB:NewMod("ScorchOverride", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			overrideScorch = m_max(overrideScorch or 0, effect or 0)
+		end
+		output.MaximumScorch = modDB:Override(nil, "ScorchMax") or 50
+		output.CurrentScorch = m_floor(m_min(m_max(overrideScorch, enemyDB:Sum("BASE", nil, "ScorchVal")), output.MaximumScorch))
+		enemyDB:NewMod("ElementalResist", "BASE",  -m_floor(output.CurrentScorch), "Scorch", { type = "Condition", var = "Scorched"} )
+		enemyDB:NewMod("Condition:AlreadyScorched", "FLAG", true, { type = "Condition", var = "Scorched"} ) -- Prevents Scorch from applying doubly for minions
 	end
 
 	-- Check for extra auras
@@ -1639,6 +1691,14 @@ function calcs.perform(env)
 		doActorMisc(env, env.minion)
 	end
 	doActorMisc(env, env.enemy)
+
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillFlags.totem then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
+			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
+			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
+		end
+	end
 
 	-- Apply exposures
 	for _, element in pairs({"Fire", "Cold", "Lightning"}) do

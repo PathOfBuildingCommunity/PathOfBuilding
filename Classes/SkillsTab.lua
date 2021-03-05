@@ -78,7 +78,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.sortGemsByDPSField = value.type
 	end)
 	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 94, 60, 20, nil, nil, "%D", 2, function(buf)
-		self.defaultGemLevel = m_min(tonumber(buf) or 20, 21)
+		self.defaultGemLevel = m_max(m_min(tonumber(buf) or 20, 21), 1)
 	end)
 	self.controls.defaultLevelLabel = new("LabelControl", {"RIGHT",self.controls.defaultLevel,"LEFT"}, -4, 0, 0, 16, "^7Default gem level:")
 	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 118, 60, 20, nil, nil, "%D", 2, function(buf)
@@ -172,6 +172,9 @@ function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
 			for _, entry in ipairs(alternateGemQualityList) do
 				if firstword == entry.label then
 					-- return the gem name minus <altqual> without a leading space and the new resolved type
+					if entry.type == nil or entry.type == "" then
+						entry.type = "Default"
+					end
 					return otherwords, entry.type
 				end
 			end

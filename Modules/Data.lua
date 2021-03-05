@@ -120,6 +120,8 @@ data.powerStatList = {
 	{ stat="IgniteChance", label="Ignite Chance" },
 	{ stat="ShockChance", label="Shock Chance" },
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
+	{ stat="BlockChance", label="Block Chance" },
+	{ stat="SpellBlockChance", label="Spell Block Chance" },
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
@@ -136,6 +138,7 @@ data.jewelRadius = {
 }
 
 data.labyrinths = {
+	{ name = "HARVEST", label = "Harvest" },
 	{ name = "ENDGAME", label = "Eternal" },
 	{ name = "MERCILESS", label = "Merciless" },
 	{ name = "CRUEL", label = "Cruel" },
@@ -303,6 +306,7 @@ data.enchantments = {
 	Helmet = LoadModule("Data/EnchantmentHelmet"),
 	Boots = LoadModule("Data/EnchantmentBoots"),
 	Gloves = LoadModule("Data/EnchantmentGloves"),
+	Belt = LoadModule("Data/EnchantmentBelt"),
 }
 data.essences = LoadModule("Data/Essence")
 data.pantheons = LoadModule("Data/Pantheons")

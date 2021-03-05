@@ -236,7 +236,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ChaosDegenAuraUnique
-#flags spell aura
+#flags spell aura area
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
 #mods
@@ -674,6 +674,21 @@ local skills, mod, flag, skill = ...
 #skill ShieldShatter
 #flags spell area
 	fromItem = true,
+	statMap = {
+		["spell_minimum_base_physical_damage_per_shield_quality"] = {
+			skill("PhysicalMin", nil, { type = "Multiplier", var = "QualityOnWeapon 2" }),
+		},
+		["spell_maximum_base_physical_damage_per_shield_quality"] = {
+			skill("PhysicalMax", nil, { type = "Multiplier", var = "QualityOnWeapon 2" }),
+		},
+		["buff_added_spell_minimum_base_physical_damage_per_shield_quality"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "QualityOnWeapon 2" }, { type = "Condition", var = "BlockedRecently"}, { type = "GlobalEffect", effectType = "Buff"}),
+		},
+		["buff_added_spell_maximum_base_physical_damage_per_shield_quality"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "QualityOnWeapon 2" }, { type = "Condition", var = "BlockedRecently"}, { type = "GlobalEffect", effectType = "Buff"}),
+		},
+	},
+#baseMod skill("showAverage", true)
 #mods
 
 #skill TentacleSmash
@@ -686,6 +701,26 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #baseMod skill("showAverage", true)
 #mods
+
+#skill VampiricIcon
+#flags spell
+    fromItem = true,
+    statMap = {
+		["vampiric_icon_max_bleeding_beam_targets"] = {
+            mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+        },
+        ["skill_life_regeneration_per_minute_per_affected_enemy"] = {
+            mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
+            div = 60,
+        },
+		["vampiric_icon_bleeding_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_use_life_in_place_of_mana"] = {
+			flag("SkillBloodMagic"),
+		},
+	},
+#mods 
 
 #skill VoidGaze
 #flags spell duration
@@ -704,5 +739,20 @@ local skills, mod, flag, skill = ...
 
 #skill CreateFungalGroundOnKill
 #flags duration area
+	fromItem = true,
+#mods
+
+#skill CursePillar
+#flags duration
+	fromItem = true,
+#mods
+
+#skill SupportCursePillarTriggerCurses Doedre's Effigy
+	fromItem = true,
+#baseMod skill("manaCostForced", 0)
+#mods
+
+#skill Unhinge
+#flags spell
 	fromItem = true,
 #mods

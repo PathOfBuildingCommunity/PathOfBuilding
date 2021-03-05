@@ -59,7 +59,7 @@ Adds (11-14) to (17-21) Physical Damage
 (15-40)% increased Critical Strike Chance
 40% increased Rarity of Items Dropped by Frozen Enemies
 (30-40)% increased Cold Damage with Attack Skills
-Trigger Level 20 Icicle Burst when you Kill a Frozen Enemy
+Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 ]],[[
 Clayshaper
 Rock Breaker
@@ -198,8 +198,8 @@ Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
 {fractured}(15-20)% increased Cast Speed
-(3-5)% increased Cold Damage per 1% Missing Cold Resistance
-(3-5)% increased Fire Damage per 1% Missing Fire Resistance
+(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
+(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
 ]],[[
 Nebuloch
 Nightmare Mace

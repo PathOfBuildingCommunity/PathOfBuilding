@@ -1,3 +1,142 @@
+# Changelog
+
+## [1.4.170.28](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/1.4.170.28) (2021/03/04)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v1.4.170.27...1.4.170.28)
+
+**Implemented enhancements:**
+
+- Add support for Culling [\#2303](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2303) ([andrewbelu](https://github.com/andrewbelu))
+- Add full support for Cast on Death support [\#2200](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2200) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for additional cooldown usages in Warcry uptime calculations [\#2296](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2296) ([andrewbelu](https://github.com/andrewbelu))
+- Add support for "Enemies Taunted by your Warcries take x% increased Damage" [\#2225](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2225) ([Helyos96](https://github.com/Helyos96))
+- Add character import options for Garena and Tencent realms [\#2243](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2243) ([Wires77](https://github.com/Wires77))
+
+**Fixed bugs:**
+
+- Fix crash when loading old build with cluster jewel notables added in a later patch [\#2299](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2299) ([Wires77](https://github.com/Wires77))
+- Fix crash when the default gem level is zero [\#2298](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2298) ([Wires77](https://github.com/Wires77))
+- Fix error caused by missing source of Affliction Charges  [\#2265](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2265) ([Wires77](https://github.com/Wires77))
+- Fix Cast Rate for Self-Cast Skills that have Cooldown & Display DPS [\#2297](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2297) ([Nostrademous](https://github.com/Nostrademous))
+- Fix DoT skills incorrectly considering Attack modifiers [\#2235](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2235) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Orb of Storms Activation Frequency not accounting for More multipliers to Cast Speed [\#2261](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2261) ([pundm](https://github.com/pundm))
+- Fix eHP Calculation for Glancing Blows + new Block boots [\#2288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2288) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Ballista limit with (Replica) Iron Commander equipped [\#2281](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2281) ([pundm](https://github.com/pundm))
+- Fix Accuracy per Quality incorrectly being considered a local modifier [\#2242](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2242) ([Wires77](https://github.com/Wires77))
+- Fix Hydrosphere damage conversion not being considered local [\#2279](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2279) ([PJacek](https://github.com/PJacek))
+- Fix Anomalous Flesh and Stone applying twice with Iron Reflexes active [\#2237](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2237) ([Wires77](https://github.com/Wires77))
+- Fix Alternate Quality Purifying Flame, Hypothermia, Physical to Lightning [\#2241](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2241) ([Wires77](https://github.com/Wires77))
+- Fix Alternate Quality mod on Divergent Pride [\#2219](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2219) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix Chain Hook not being considered an Area Skill [\#2249](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2249) ([pundm](https://github.com/pundm))
+- Fix parsing of Enemy modifiers [\#2266](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2266) ([Wires77](https://github.com/Wires77))
+- Fix Quality mod on Devouring Diadem [\#2256](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2256) ([Wires77](https://github.com/Wires77))
+- Fix Yoke of Suffering equipment level requirements [\#2286](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2286) ([pundm](https://github.com/pundm))
+- Fix typo in Doryani's Prototype [\#2231](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2231) ([Helyos96](https://github.com/Helyos96))
+- Remove Crafting Bench options from items that cannot be crafted that way [\#2283](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2283) ([pundm](https://github.com/pundm))
+
+### [1.4.170.27](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v1.4.170.27) (2021/02/21)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v1.4.170.26...v1.4.170.27)
+
+**Implemented enhancements:**
+
+- Add charge distance multiplier for Shield Charge [\#2198](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2198) ([Helyos96](https://github.com/Helyos96))
+- Add group restrictions to crafted mods for crafted items [\#2174](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2174) ([Wires77](https://github.com/Wires77))
+- Add skill tree comparison [\#2151](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2151) ([Ethrel](https://github.com/Ethrel))
+- Add future support to load a build from commandline [\#2039](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2039) ([dclamage](https://github.com/dclamage))
+- Add support for Assassin's Mistwalker elusive mod [\#2218](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2218) ([wjdeclan](https://github.com/wjdeclan))
+- Add PoE matching search function [\#2210](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2210) ([Ethrel](https://github.com/Ethrel))
+- Add customisation options for decimal and thousands separators [\#2207](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2207) ([Leftn](https://github.com/Leftn))
+- Add support for Doedre's Skin curse pillar [\#2196](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2196) ([PJacek](https://github.com/PJacek))
+
+**Fixed bugs:**
+
+- Fix minimum charges not working for new belts [\#2171](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2171) ([Wires77](https://github.com/Wires77))
+- Fix Inevitability to specify Rolling Magma [\#2205](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2205) ([PJacek](https://github.com/PJacek))
+- Fix Cospri's Malice wording [\#2201](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2201) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Intimidate/Unnerve mods throwing an error [\#2199](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2199) ([Wires77](https://github.com/Wires77))
+- Fix several issues with Doppelganger Guise [\#2191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2191) ([Wires77](https://github.com/Wires77))
+- Fix for Shockwave secondary trigger rate [\#2188](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2188) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Supreme Ego not working with non-skill Auras [\#2184](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2184) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix Divergent Purity of Lightning [\#2180](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2180) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix 'enemy is hexproof' Config Setting affecting marks [\#2179](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2179) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Attack Speed affecting Mine or Trap Supported attacks [\#2177](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2177) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Divergent Cobra Lash [\#2175](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2175) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix Pure Talent looking at the wrong starting node for marauder [\#2169](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2169) ([Wires77](https://github.com/Wires77))
+- Fix Ryslatha's Coil not applying to ailments [\#2168](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2168) ([Quote_a](https://github.com/Quotae))
+- Fix Affliction Charges for Ailments [\#2158](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2158) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Femurs of the Saints [\#2153](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2153) ([Wires77](https://github.com/Wires77))
+- Fix Phantasmal Summon Skeleton and archers for Vaal Summon Skeletons [\#2147](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2147) ([Wires77](https://github.com/Wires77))
+- Fix Divergent Endurance Charge on Melee Stun not showing the right checkbox [\#2220](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2220) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix quality for socketed gems applying to all gems [\#2209](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2209) ([Wires77](https://github.com/Wires77))
+- Fix totem number configuration not showing with Searing Bond [\#2185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2185) ([Wires77](https://github.com/Wires77))
+- Fix crafted quality applying twice to imported gear [\#2172](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2172) ([Wires77](https://github.com/Wires77))
+- Fix Pure Talent so it now plays nicely with timeless jewels [\#2170](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2170) ([Wires77](https://github.com/Wires77))
+- Fix Death Aura not applying area modifiers [\#2162](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2162) ([ALT-F-X](https://github.com/ALT-F-X))
+- Update wording on Rigwald's crest [\#2134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2134) ([Wires77](https://github.com/Wires77))
+
+### 1.4.170.26 - 2021/02/09
+* Add control to set Vaal Timeless Jewel influenced passive skills to random mods (Wires77)
+* Add all new uniques in game patch 3.13.0 (Nostrademous, ppoelzl)
+* Add support for the following uniques:
+  * Arn's Anguish
+  * Doppelgänger
+  * Graven's Secret
+  * Olesya's Delight
+* Add Flickershade Spectre (Kayella)
+* Add support for "Cobra Lash Chains additional times" helmet enchantment (Puddlestomper)
+* Add Belt Enchantments to Item Crafting from Harvest improved Offering to the Goddess Uber Lab runs. Not all modifiers parse yet, but most do (Nostrademous)
+* Add Elevated Affixes to Item Crafting (Nostrademous)
+* Add support for Blizzard Crown implicit (Nostrademous)
+* Add support for Brutal, Affliction and Absorption Charge (damage recoup from Absorption Charges is not supported) conversion from Endurance, Frenzy, Power charges via Unique Belts (Nostrademous)
+* Add support for 'On Scorched Ground' in Config Tab when using Legacy of Fury unique boots (Nostrademous)
+* Add support and extraction of 'Thirst for Blood' unique ability from Jack, the Axe unique (Nostrademous, LocalIdentity)
+* Add support for Doppleganger's insane/sane specification via Config Tab (Nostrademous)
+* Add support for Goblinedge Power/Frenzy charge interaction (ppoelzl)
+* Add limit cap to Replica Nebulis unique (Wires77)
+* Add parsing support for Anomalous Minion Life (ALT-F-X)
+* Updated Max Awakening Level for Sirus to scale to 9 achievable through Atlas Passives (Quote_a)
+* Add support for Phantasmal Ancestral Protector (ALT-F-X)
+* Add support for impale from spells (Wires77)
+* Add support for Phantasmal Might from The Black Cane (Wires77)
+* Add support for Shield Shatter on Shattershard (Wires77)
+* Add support for automatic chill from Summon Skitterbots (Quote_a)
+  
+* Fix Timeless Jewel passives not accounting for past skill tree versions (Wires77)
+* Fix Spectre stats scaling with Spectre level using incorrect values (zao)
+* Fix mod ranges on Legacy of Fury (Nostrademous)
+* Fix Endurance/Frenzy/Power charges missing for Minions (Wires77)
+* Fix multiple crashes in the skills tab related to gem quality (Nostrademous, ALT-F-X)
+* Corrected enforcement of Minion Skill level requirements (zao)
+* Fix Enduring Cry's Life Regen calculation (tommysays)
+* Fix Ancestral Cry's Armor increase calculation (tommysays)
+* Fix Divergent Minion Damage to be an "Increase" instead of "More" as it should have been (Wires77)
+* Fix accounting for Abyssal Jewels in Offhand Slots (zao)
+* Updated Replica Alberon's Warpath chaos damage gain per strength to new value (RUSshy)
+* Fix Flame Wall's secondary not being affected by Area Damage (Wires77)
+* Fix Impale Support and Divergent Fortify application of Physical Damage Reduction (Wires77)
+* Fix '+1 to Maximum Summon Ballista Totems' to not also increase the allowed count of Ancestral Totems (Wires77)
+* Fix Disintegrator to include Block Attack Damage on Ritual variant (Wires77)
+* Fix Offering to the Serpent unique gloves stat attributes (PJacek)
+* Fix Cameria's Avarice unique mace to state "on Hit" rather than "on Kill" (ALT-F-X)
+* Fix Phantasmal Smite quality bonus (ALT-F-X)
+* Updated many Configuration Tab tooltips to display updated values (zao)
+### 1.4.170.25 - 2021/01/16
+* Fix Trinity Support
+* Fix Hrimnor's Resolve
+### 1.4.170.24 - 2021/01/16
+* Fix Rupture calculations
+### 1.4.170.23 - 2021/01/16
+* Add support for Trinity Support and Hydrosphere
+* Update gems with 3.13 changes
+* Add new 3.13 base types
+* Add support for "Projectiles deal #% increased Damage for each Enemy Pierced"
+* Add Block Chance and Spell Block Chance to the passive skill tree heatmap
+* Fix multiple application crashes related to skill gem selection
+* Fix Fanaticism and Convergence persisting after deallocating nodes
+* Fix parsing error with Pure Talent
+* Fix item versions of Disintegrator
+* Fix item versions of Doryani's Fist
 ### 1.4.170.22 - 2021/01/14
 * Add support for Hierophant's reworked Conviction of Power Notable
 * Add support for Hand of the Fervent's unique mechanic

@@ -198,6 +198,78 @@ return {
 	},
 	AdvancedSkillsTutorial={
 	},
+	AegisVariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MitigatesPhysicalDmg",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="MitigatesFireDmg",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="MitigatesColdDmg",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="MitigatesLightningDmg",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="MitigatesChaosDmg",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="BuffDefinitions",
+			type="Key",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="BuffDefinitions",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="BuffDefinitions",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="BuffDefinitions",
+			type="Key",
+			width=150
+		}
+	},
 	AfflictionBalancePerLevel={
 	},
 	AfflictionEndgameAreas={
@@ -1857,91 +1929,91 @@ return {
 		},
 		[2]={
 			list=false,
-			name="",
+			name="Unknown1",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[3]={
 			list=false,
-			name="",
+			name="Unknown2",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[4]={
 			list=false,
-			name="",
+			name="Unknown3",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[5]={
 			list=false,
-			name="",
+			name="Unknown4",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[6]={
 			list=false,
-			name="",
+			name="Unknown5",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[7]={
 			list=false,
-			name="",
+			name="Unknown6",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[8]={
 			list=false,
-			name="",
+			name="Unknown7",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[9]={
 			list=false,
-			name="",
+			name="Unknown8",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[10]={
 			list=false,
-			name="",
+			name="Unknown9",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[11]={
 			list=false,
-			name="",
+			name="Unknown10",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[12]={
 			list=false,
-			name="",
+			name="Unknown11",
 			refTo="",
 			type="Key",
 			width=50
 		},
 		[13]={
 			list=false,
-			name="",
+			name="WandsMod",
 			refTo="Mods",
 			type="Key",
 			width=160
 		},
 		[14]={
 			list=false,
-			name="",
+			name="BowMods",
 			refTo="Mods",
 			type="Key",
 			width=150
@@ -1955,101 +2027,101 @@ return {
 		},
 		[16]={
 			list=false,
-			name="",
+			name="AmuletMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[17]={
 			list=false,
-			name="",
+			name="RingMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[18]={
 			list=false,
-			name="",
+			name="BeltMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[19]={
 			list=false,
-			name="",
+			name="GlovesMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[20]={
 			list=false,
-			name="",
+			name="BootsMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[21]={
 			list=false,
-			name="",
+			name="BodyArmourMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[22]={
 			list=false,
-			name="",
+			name="HelmetMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[23]={
 			list=false,
-			name="",
+			name="ShieldMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[24]={
 			list=false,
-			name="",
+			name="Unknown23",
 			refTo="",
 			type="UInt",
 			width=100
 		},
 		[25]={
 			list=false,
-			name="",
+			name="DropLevelMinimum",
 			refTo="",
-			type="Interval",
-			width=80
+			type="Int",
+			width=100
 		},
 		[26]={
 			list=false,
-			name="",
+			name="DropLevelMaximum",
 			refTo="",
 			type="Int",
 			width=50
 		},
 		[27]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=60
+			list=true,
+			name="MonterMods",
+			refTo="Mods",
+			type="Key",
+			width=300
 		},
 		[28]={
 			list=false,
 			name="Type",
 			refTo="EssenceType",
 			type="Key",
-			width=70
+			width=150
 		},
 		[29]={
 			list=false,
 			name="Tier",
 			refTo="",
 			type="Int",
-			width=50
+			width=80
 		},
 		[30]={
 			list=false,

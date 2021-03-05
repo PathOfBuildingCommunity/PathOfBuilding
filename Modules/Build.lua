@@ -602,9 +602,19 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 	-- Initialise class dropdown
 	for classId, class in pairs(self.latestTree.classes) do
+		local ascendancies = {}
+		-- Initialise ascendancy dropdown
+		for i = 0, #class.classes do
+			local ascendClass = class.classes[i]
+			t_insert(ascendancies, {
+				label = ascendClass.name,
+				ascendClassId = i,
+			})
+		end
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,
+			ascendencies = ascendancies,
 		})
 	end
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
@@ -784,17 +794,8 @@ function buildMode:OnFrame(inputEvents)
 	end
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
-	-- Update contents of ascendancy class dropdown
-	wipeTable(self.controls.ascendDrop.list)
-	for i = 0, #self.spec.curClass.classes do
-		local ascendClass = self.spec.curClass.classes[i]
-		t_insert(self.controls.ascendDrop.list, {
-			label = ascendClass.name,
-			ascendClassId = i,
-		})
-	end
-
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendencies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
@@ -810,7 +811,13 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
 	end
-	if main.showThousandsSidebar ~= self.lastShowThousandsSidebar then
+	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
+		self:RefreshStatList()
+	end
+	if main.thousandsSeparator ~= self.lastShowThousandsSeparator then
+		self:RefreshStatList()
+	end
+	if main.decimalSeparator ~= self.lastShowDecimalSeparator then
 		self:RefreshStatList()
 	end
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
@@ -1093,12 +1100,12 @@ function buildMode:FormatStat(statData, statVal)
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
-	if main.showThousandsSidebar then
-		valStr = color .. formatNumSep(valStr)
-	else
-		valStr = color .. valStr
-	end
-	self.lastShowThousandsSidebar = main.showThousandsSidebar
+	valStr:gsub("%.", main.decimalSeparator)
+	valStr = color .. formatNumSep(valStr)
+
+	self.lastShowThousandsSeparators = main.showThousandsSeparators
+	self.lastShowThousandsSeparator = main.thousandsSeparator
+	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
 end
@@ -1167,9 +1174,9 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
-				if main.showThousandsCalcs then
-					valStr = formatNumSep(valStr)
-				end
+
+				valStr = formatNumSep(valStr)
+
 				local line = string.format("%s%s %s", color, valStr, statData.label)
 				local pcPerPt = ""
 				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then

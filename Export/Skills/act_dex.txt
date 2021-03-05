@@ -313,14 +313,19 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
-#baseMod skill("radius", 12)
+#baseMod skill("radius", 14)
 #baseMod skill("radiusLabel", "Start of Dash:")
-#baseMod skill("radiusSecondary", 22)
+#baseMod skill("radiusSecondary", 26)
 #baseMod skill("radiusSecondaryLabel", "End of Dash:")
 #mods
 
 #skill CobraLash
 #flags attack projectile
+    statMap = {
+		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
+		},
+	},
 #mods
 
 #skill CorpseEruption
@@ -360,14 +365,6 @@ local skills, mod, flag, skill = ...
 
 #skill Cyclone
 #flags attack melee area
-	parts = {
-		{
-			name = "No Stages",
-		},
-		{
-			name = "Max Stages",
-		},
-	},
 	statMap = {
 		["cyclone_max_number_of_stages"] = {
 			mod("Multiplier:CycloneMaxStages", "BASE", nil),
@@ -919,9 +916,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["active_skill_damage_over_time_from_projectile_hits_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
-		},
 		["projectile_base_number_of_targets_to_pierce"] = {
 			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
