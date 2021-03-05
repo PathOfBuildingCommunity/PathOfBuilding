@@ -1523,5 +1523,11 @@ return {
 ["discharge_damage_+%_if_3_charge_types_removed"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 1 }, { type = "Multiplier", var = "RemovableFrenzyCharge", limit = 1 }, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
 },
-
+["support_added_cooldown_count_if_not_instant"] = {
+	mod("AdditionalCooldownUses", "BASE", nil)
+},
+["kill_enemy_on_hit_if_under_10%_life"] = {
+	mod("CullPercent", "MAX", nil), 
+	value = 10
+},
 }

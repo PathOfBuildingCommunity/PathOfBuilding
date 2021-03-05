@@ -1068,6 +1068,7 @@ return {
 	}, },
 	{ label = "Inc. Item Quantity", { format = "{0:mod:1}%", { modName = "LootQuantity", modType = "INC", cfg = "skill" }, }, },
 	{ label = "Inc. Item Rarity", { format = "{0:mod:1}%", { modName = "LootRarity", modType = "INC", cfg = "skill" }, }, },
+	{ label = "Culling Strike", haveOutput = "CullPercent", { format = "{0:output:CullPercent}%", { modName = { "CullPercent", "CriticalCullPercent" }, cfg = "skill" } } },
 } }
 } },
 --misc

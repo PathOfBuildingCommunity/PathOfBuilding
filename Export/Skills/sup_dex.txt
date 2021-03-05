@@ -107,6 +107,7 @@ local skills, mod, flag, skill = ...
 			mod("Duration", "INC", nil),
 		},
 	},
+#baseMod skill("triggeredOnDeath", true)
 #mods
 
 #skill SupportChain

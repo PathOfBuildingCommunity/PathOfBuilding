@@ -911,11 +911,6 @@ function calcs.perform(env)
 	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillFlags.totem then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
-			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
-			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
-		end
 		if activeSkill.skillFlags.brand then
 			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
 			if activeSkill.activeEffect.grantedEffect.name == "Arcanist Brand" then
@@ -1111,6 +1106,17 @@ function calcs.perform(env)
 			addTriggerIncMoreMods(activeSkill, env.player.mainSkill)
 			activeSkill.skillModList:NewMod("ArcanistSpellsLinked", "BASE", spellCount, "Skill")
 			activeSkill.skillModList:NewMod("BrandActivationFrequency", "INC", quality, "Skill")
+		end
+		if activeSkill.skillData.triggeredOnDeath and not activeSkill.skillFlags.minion then
+			activeSkill.skillData.triggered = true
+			for _, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			for _, value in ipairs(activeSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
+				activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+			end
+			-- Set trigger time to 1 min in ms ( == 6000 ). Technically any large value would do.
+			activeSkill.skillData.triggerTime = 60 * 1000
 		end
 	end
 
@@ -2062,6 +2068,14 @@ function calcs.perform(env)
 		doActorMisc(env, env.minion)
 	end
 	doActorMisc(env, env.enemy)
+
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillFlags.totem then
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
+			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
+			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
+		end
+	end
 
 	-- Apply exposures
 	for _, element in pairs({"Fire", "Cold", "Lightning"}) do
