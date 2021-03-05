@@ -1209,12 +1209,20 @@ function calcs.offence(env, actor, activeSkill)
 			local inc = skillModList:Sum("INC", cfg, "Speed")
 			local more = skillModList:More(cfg, "Speed")
 			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
-			if skillData.attackRateCap then
-				output.Speed = m_min(output.Speed, skillData.attackRateCap)
-			end
+			output.CastRate = output.Speed
+			output.Repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 			if skillFlags.selfCast then
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
+				output.CastRate = output.Speed
+			end
+			if output.Cooldown then
+				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
+			end
+			if output.Cooldown and skillFlags.selfCast then
+				skillFlags.notAverage = true
+				skillFlags.showAverage = false
+				skillData.showAverage = false
 			end
 			output.Speed = m_min(output.Speed, data.misc.ServerTickRate)
 			if output.Speed == 0 then 
@@ -1229,8 +1237,18 @@ function calcs.offence(env, actor, activeSkill)
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					{ "%.2f ^8(action speed modifier)", skillFlags.selfCast and globalOutput.ActionSpeedMod or 1 },
-					total = s_format("= %.2f ^8per second", output.Speed)
+					total = s_format("= %.2f ^8casts per second", output.CastRate)
 				})
+				if output.Cooldown and (1 / output.Cooldown) < output.CastRate then
+					t_insert(breakdown.Speed, s_format("\n"))
+					t_insert(breakdown.Speed, s_format("1 / %.2f ^8(skill cooldown)", output.Cooldown))
+					if output.Repeats > 1 then
+						t_insert(breakdown.Speed, s_format("x %d ^8(repeat count)", output.Repeats))
+					end
+					t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", output.Repeats / output.Cooldown))
+					t_insert(breakdown.Speed, s_format("\n"))
+					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.Speed))
+				end
 			end
 			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
 				breakdown.Time = { }
