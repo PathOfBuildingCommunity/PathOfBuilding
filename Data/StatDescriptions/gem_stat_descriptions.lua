@@ -71,7 +71,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skills apply their Curse as Auras\nSupported Curse Skills also count as Aura Skills"
+					text="Supported Skills apply their Curse as Auras\nSupported Curse Skills also count as Aura Skills\nHexes from Supported Skills do not gain Doom over time"
 				}
 			}
 		},

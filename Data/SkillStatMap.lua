@@ -189,7 +189,7 @@ return {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
-	skill("repeatCount", nil),
+	mod("RepeatCount", "BASE", nil),
 },
 ["display_minion_monster_level"] = {
 	skill("minionLevel", nil),
@@ -1333,8 +1333,9 @@ return {
 ["summon_totem_cast_speed_+%"] = {
 	mod("TotemPlacementSpeed", "INC", nil),
 },
-["totems_regenerate_%_life_per_second"] = {
-	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+["totems_regenerate_%_life_per_minute"] = {
+    mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+    div = 60,
 },
 ["totem_duration_+%"] = {
 	mod("TotemDuration", "INC", nil),

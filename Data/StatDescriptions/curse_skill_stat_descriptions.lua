@@ -730,7 +730,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cursed enemies have an additional {0}% chance to be Stunned"
+					text="Cursed Enemies have an additional {0}% chance to be Stunned"
 				}
 			}
 		},
