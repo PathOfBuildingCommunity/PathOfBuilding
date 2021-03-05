@@ -775,6 +775,7 @@ skills["BladeVortex"] = {
 		"action_ignores_crit_tracking",
 		"base_skill_show_average_damage_instead_of_dps",
 		"damage_originates_from_initiator_location",
+		"skill_cannot_gain_repeat_bonuses",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 5000, 10, 10, 35, 35, 0, damageEffectiveness = 0.25, critChance = 6, levelRequirement = 12, manaCost = 6, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, },

@@ -4665,6 +4665,7 @@ skills["WaterSphere"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"water_sphere_does_weird_conversion_stuff",
 		"active_skill_display_suppress_physical_to_cold_damage_conversion",
+		"damage_cannot_be_reflected_or_leech_if_used_by_other_object",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 100, 400, 4000, 1500, -10, critChance = 5, duration = 8, manaCost = 12, damageEffectiveness = 0.8, levelRequirement = 34, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, },
@@ -6347,6 +6348,7 @@ skills["OrbOfStorms"] = {
 		"storm_cloud_charged_damage_+%_final",
 		"orb_of_storms_base_bolt_frequency_ms",
 		"skill_can_add_multiple_charges_per_action",
+		"damage_cannot_be_reflected_or_leech_if_used_by_other_object",
 	},
 	levels = {
 		[1] = { 0.5, 1.5, 6000, 0, 2, 0, 1500, critChance = 5, manaCost = 4, damageEffectiveness = 0.65, cooldown = 0.5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, },
@@ -9887,6 +9889,7 @@ skills["BlackHole"] = {
 		"base_blackhole_tick_rate_ms",
 		"is_area_damage",
 		"skill_can_add_multiple_charges_per_action",
+		"damage_cannot_be_reflected_or_leech_if_used_by_other_object",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -30, 40, 400, critChance = 5, duration = 5, manaCost = 30, damageEffectiveness = 0.55, cooldown = 10, levelRequirement = 34, statInterpolation = { 3, 3, 1, 1, 1, }, },
@@ -10733,7 +10736,7 @@ skills["SpellDamageAura"] = {
 			{ "base_skill_area_of_effect_+%", 2 },
 		},
 		Alternate1 = {
-			{ "base_critical_strike_multiplier_+", 0.1 },
+			{ "skill_buff_grant_critical_strike_multiplier_+", 0.1 },
 		},
 		Alternate2 = {
 			{ "life_regeneration_rate_per_minute_%", 0.3 },
