@@ -177,7 +177,7 @@ return {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
-	skill("repeatCount", nil),
+	mod("RepeatCount", "BASE", nil),
 },
 ["display_minion_monster_level"] = {
 	skill("minionLevel", nil),
