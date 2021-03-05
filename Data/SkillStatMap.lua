@@ -1324,6 +1324,10 @@ return {
 ["totems_regenerate_%_life_per_second"] = {
 	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
 },
+["totems_regenerate_%_life_per_minute"] = {
+    mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+    div = 60,
+},
 ["totem_duration_+%"] = {
 	mod("TotemDuration", "INC", nil),
 },
