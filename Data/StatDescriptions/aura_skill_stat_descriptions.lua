@@ -2035,6 +2035,25 @@ return {
 				[1]={
 					limit={
 						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="You and nearby Allies have {0:+d}% to Critical Strike Multiplier"
+				}
+			}
+		},
+		name="grant_critical_strike_multiplier_incr",
+		stats={
+			[1]="skill_buff_grant_critical_strike_multiplier_+"
+		}
+	},
+	[85]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
 							[1]=1,
 							[2]="#"
 						}
@@ -2061,7 +2080,7 @@ return {
 			[1]="spell_critical_strike_chance_+%"
 		}
 	},
-	[85]={
+	[86]={
 		lang={
 			English={
 				[1]={
@@ -2092,7 +2111,7 @@ return {
 			[1]="spell_damage_aura_spell_damage_+%_final"
 		}
 	},
-	[86]={
+	[87]={
 		lang={
 			English={
 				[1]={
@@ -2116,7 +2135,7 @@ return {
 			[2]="spell_maximum_added_chaos_damage"
 		}
 	},
-	[87]={
+	[88]={
 		lang={
 			English={
 				[1]={
@@ -2234,12 +2253,13 @@ return {
 	["receive_bleeding_chance_%_when_hit_by_attack"]=81,
 	["reduce_enemy_chaos_resistance_%"]=82,
 	["reduce_enemy_elemental_resistance_%"]=83,
-	["spell_critical_strike_chance_+%"]=84,
-	["spell_damage_aura_spell_damage_+%_final"]=85,
-	["spell_maximum_added_chaos_damage"]=86,
+	["skill_buff_grant_critical_strike_multiplier_+"]=84,
+	["spell_critical_strike_chance_+%"]=85,
+	["spell_damage_aura_spell_damage_+%_final"]=86,
+	["spell_maximum_added_chaos_damage"]=87,
 	["spell_maximum_added_fire_damage"]=30,
-	["spell_minimum_added_chaos_damage"]=86,
+	["spell_minimum_added_chaos_damage"]=87,
 	["spell_minimum_added_fire_damage"]=30,
-	["summon_totem_cast_speed_+%"]=87,
+	["summon_totem_cast_speed_+%"]=88,
 	["wrath_aura_spell_lightning_damage_+%_final"]=31
 }

@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.4.170.28](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/1.4.170.28) (2021/03/04)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v1.4.170.27...1.4.170.28)
+
+**Implemented enhancements:**
+
+- Add support for Culling [\#2303](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2303) ([andrewbelu](https://github.com/andrewbelu))
+- Add full support for Cast on Death support [\#2200](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2200) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for additional cooldown usages in Warcry uptime calculations [\#2296](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2296) ([andrewbelu](https://github.com/andrewbelu))
+- Add support for "Enemies Taunted by your Warcries take x% increased Damage" [\#2225](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2225) ([Helyos96](https://github.com/Helyos96))
+- Add character import options for Garena and Tencent realms [\#2243](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2243) ([Wires77](https://github.com/Wires77))
+
+**Fixed bugs:**
+
+- Fix crash when loading old build with cluster jewel notables added in a later patch [\#2299](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2299) ([Wires77](https://github.com/Wires77))
+- Fix crash when the default gem level is zero [\#2298](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2298) ([Wires77](https://github.com/Wires77))
+- Fix error caused by missing source of Affliction Charges  [\#2265](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2265) ([Wires77](https://github.com/Wires77))
+- Fix Cast Rate for Self-Cast Skills that have Cooldown & Display DPS [\#2297](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2297) ([Nostrademous](https://github.com/Nostrademous))
+- Fix DoT skills incorrectly considering Attack modifiers [\#2235](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2235) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Orb of Storms Activation Frequency not accounting for More multipliers to Cast Speed [\#2261](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2261) ([pundm](https://github.com/pundm))
+- Fix eHP Calculation for Glancing Blows + new Block boots [\#2288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2288) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Ballista limit with (Replica) Iron Commander equipped [\#2281](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2281) ([pundm](https://github.com/pundm))
+- Fix Accuracy per Quality incorrectly being considered a local modifier [\#2242](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2242) ([Wires77](https://github.com/Wires77))
+- Fix Hydrosphere damage conversion not being considered local [\#2279](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2279) ([PJacek](https://github.com/PJacek))
+- Fix Anomalous Flesh and Stone applying twice with Iron Reflexes active [\#2237](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2237) ([Wires77](https://github.com/Wires77))
+- Fix Alternate Quality Purifying Flame, Hypothermia, Physical to Lightning [\#2241](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2241) ([Wires77](https://github.com/Wires77))
+- Fix Alternate Quality mod on Divergent Pride [\#2219](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2219) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix Chain Hook not being considered an Area Skill [\#2249](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2249) ([pundm](https://github.com/pundm))
+- Fix parsing of Enemy modifiers [\#2266](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2266) ([Wires77](https://github.com/Wires77))
+- Fix Quality mod on Devouring Diadem [\#2256](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2256) ([Wires77](https://github.com/Wires77))
+- Fix Yoke of Suffering equipment level requirements [\#2286](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2286) ([pundm](https://github.com/pundm))
+- Fix typo in Doryani's Prototype [\#2231](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2231) ([Helyos96](https://github.com/Helyos96))
+- Remove Crafting Bench options from items that cannot be crafted that way [\#2283](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2283) ([pundm](https://github.com/pundm))
+
 ### [1.4.170.27](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v1.4.170.27) (2021/02/21)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v1.4.170.26...v1.4.170.27)
@@ -3060,6 +3094,3 @@ Other changes:
 
 ### 1.0.1 - 2016/08/31
  * Fixed an error in the build list screen
-
-
-\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*

@@ -186,7 +186,7 @@ return {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
-	skill("repeatCount", nil),
+	mod("RepeatCount", "BASE", nil),
 },
 ["display_minion_monster_level"] = {
 	skill("minionLevel", nil),
@@ -1330,8 +1330,9 @@ return {
 ["summon_totem_cast_speed_+%"] = {
 	mod("TotemPlacementSpeed", "INC", nil),
 },
-["totems_regenerate_%_life_per_second"] = {
-	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+["totems_regenerate_%_life_per_minute"] = {
+    mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+    div = 60,
 },
 ["totem_duration_+%"] = {
 	mod("TotemDuration", "INC", nil),
@@ -1520,5 +1521,11 @@ return {
 ["discharge_damage_+%_if_3_charge_types_removed"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 1 }, { type = "Multiplier", var = "RemovableFrenzyCharge", limit = 1 }, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
 },
-
+["support_added_cooldown_count_if_not_instant"] = {
+	mod("AdditionalCooldownUses", "BASE", nil)
+},
+["kill_enemy_on_hit_if_under_10%_life"] = {
+	mod("CullPercent", "MAX", nil), 
+	value = 10
+},
 }
