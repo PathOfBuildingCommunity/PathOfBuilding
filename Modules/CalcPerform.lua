@@ -82,9 +82,9 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 			if skillRotation[index].next_trig <= time then
 				--ConPrintf(tostring(time) .. " :: " .. skillRotation[index].uuid .. " fired")
 				skillRotation[index].count = skillRotation[index].count + 1
-				skillRotation[index].next_trig = skillRotation[index].count * skillRotation[index].cd
+				skillRotation[index].next_trig = skillRotation[index].next_trig + skillRotation[index].cd
 				index = (index % #skillRotation) + 1
-				next_trigger = time + trigger_increment
+				next_trigger = next_trigger + trigger_increment
 			end
 		end
 		-- increment time by server tick time passage
@@ -93,7 +93,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 
 	local mainRate = 0
 	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
-	t_insert(trigRateTable.rates, { name = "wasted", rate = wasted / SIM_TIME })
+	t_insert(trigRateTable.rates, { name = "Wasted", rate = wasted / SIM_TIME })
 	for _, sd in ipairs(skillRotation) do
 		if cacheSkillUUID(env.player.mainSkill) == sd.uuid then
 			mainRate = sd.count / SIM_TIME
@@ -1791,6 +1791,7 @@ function calcs.perform(env)
 	-- Cospri's Malice
 	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
 		local spellCount = {}
+		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -1798,7 +1799,7 @@ function calcs.perform(env)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredByCospris and env.player.mainSkill.slotName == skill.slotName then
-				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
 		if not source or #spellCount < 1 then
@@ -1838,6 +1839,7 @@ function calcs.perform(env)
 	-- Mjolner
 	if env.player.mainSkill.skillData.triggeredByMjolner and not env.player.mainSkill.skillFlags.minion then
 		local spellCount = {}
+		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -1845,7 +1847,7 @@ function calcs.perform(env)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredByMjolner and env.player.mainSkill.slotName == skill.slotName then
-				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
 		if not source or #spellCount < 1 then
@@ -1885,6 +1887,7 @@ function calcs.perform(env)
 	-- Cast On Critical Strike Support (CoC)
 	if env.player.mainSkill.skillData.triggeredByCoC and not env.player.mainSkill.skillFlags.minion then
 		local spellCount = {}
+		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -1892,7 +1895,7 @@ function calcs.perform(env)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCoC then
-				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
 		if not source or #spellCount < 1 then
