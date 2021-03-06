@@ -810,6 +810,9 @@ function calcs.perform(env)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
 		if activeSkill.minion then
+			if cacheSkillUUID(activeSkill) == cacheSkillUUID(env.player.mainSkill) then
+				activeSkill = env.player.mainSkill
+			end
 			activeSkill.minion.modDB = new("ModDB")
 			activeSkill.minion.modDB.actor = activeSkill.minion
 			calcs.createMinionSkills(env, activeSkill)
@@ -1517,7 +1520,7 @@ function calcs.perform(env)
 				end
 			end
 		end
-		if activeSkill.minion then
+		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
 			for _, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
 				local skillModList = activeSkill.skillModList
