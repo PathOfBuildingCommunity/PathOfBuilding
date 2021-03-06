@@ -126,7 +126,7 @@
 	<File name="Data/ModMaster.lua" part="program" sha1="2cebfe9458b169a392177ae5dcb07b5423c156d4" />
 	<File name="Data/Pantheons.lua" part="program" sha1="be15ac5523d173aac71e79738ac355e1d765655e" />
 	<File name="Data/Rares.lua" part="program" sha1="713971a5629761d20b6eafddd58cf43498151890" />
-	<File name="Data/SkillStatMap.lua" part="program" sha1="830a547c432287a1adc1105a013ddd978e58ce00" />
+	<File name="Data/SkillStatMap.lua" part="program" sha1="2fe3e30a593e63832c69409aa7bf3cb286b6b988" />
 	<File name="Data/Spectres.lua" part="program" sha1="8e0b1946449a3ec42b3cd341025eadb0f2875d48" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="4968024df4111ef6e96d985b3e1a70a02cd0ea7e" />
 	<File name="Data/Bases/axe.lua" part="program" sha1="f7a9dcedc4fae27b2fbef3ef4eb6d04b444f7fc3" />
