@@ -1123,14 +1123,6 @@ function buildMode:FormatStat(statData, statVal)
 	return valStr
 end
 
-function stringSplit(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
 -- Add stat list for given actor
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
@@ -1155,8 +1147,8 @@ function buildMode:AddDisplayStatList(statList, actor)
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
 						for _, skillData in ipairs(actor.output.SkillDPS) do
 							local triggerStr = ""
-							if skillData.trigger then
-								triggerStr = colorCodes.WARNING.." ("..stringSplit(skillData.trigger, " ")[1]..")"..labelColor
+							if skillData.trigger and skillData.trigger ~= "" then
+								triggerStr = colorCodes.WARNING.." ("..skillData.trigger..")"..labelColor
 							end
 							local lhsString = labelColor..skillData.name..triggerStr..":"
 							if skillData.count >= 2 then
@@ -1167,15 +1159,6 @@ function buildMode:AddDisplayStatList(statList, actor)
 								lhsString,
 								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count),
 							})
-							--[[
-							if skillData.trigger then
-								t_insert(statBoxList, {
-									height = 14,
-									align = "CENTER_X", x = 140,
-									colorCodes.WARNING..skillData.trigger,
-								})
-							end
-							--]]
 							if skillData.skillPart then
 								t_insert(statBoxList, {
 									height = 14,
@@ -1210,7 +1193,6 @@ end
 function buildMode:RefreshStatList()
 	local statBoxList = wipeTable(self.controls.statBox.list)
 	if self.calcsTab.mainEnv.player.mainSkill.infoMessage then
-		--t_insert(statBoxList, { height = 16, "^7Special Info:" })
 		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
 		if self.calcsTab.mainEnv.player.mainSkill.infoMessage2 then
 			t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.player.mainSkill.infoMessage2})

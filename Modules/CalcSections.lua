@@ -452,7 +452,7 @@ return {
 	{ label = "More Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
 	{ label = "Casts per second", flag = "spell", notFlag = "triggered", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Trigger Rate Cap", flag = "triggered", { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "CooldownRecovery", modType = "INC", cfg = "skill", }, }, },
-	{ label = "Skill Trigger Rate", flag = "triggered", { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, }, },
+	{ label = "Skill Trigger Rate", flag = "triggered", { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, { breakdown = "SimData" }, }, },
 	{ label = "Adj. Trigger Rate", flag = "triggered", { format = "{2:output:ServerTriggerRate}",  { breakdown = "ServerTriggerRate" }, }, },
 	{ label = "Eff. Trigger Rate", flag = "triggered", notFlag = "dontDisplay", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },

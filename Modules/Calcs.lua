@@ -160,7 +160,6 @@ function calcs.calcFullDPS(build, mode, override)
 			end
 			local activeSkillCount = getActiveSkillCount(activeSkill)
 			if activeSkill.minion then
-				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(usedEnv.minion.output.TotalDPS))
 				if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
 						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.minion.output.TotalDPS, count = activeSkillCount })
@@ -190,10 +189,9 @@ function calcs.calcFullDPS(build, mode, override)
 					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
 				end
 			else
-				--ConPrintf(activeSkill.activeEffect.grantedEffect.name .. "   " .. tostring(usedEnv.player.output.TotalDPS))
 				if usedEnv.player.output.TotalDPS and usedEnv.player.output.TotalDPS > 0 then
 					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoMessage, skillPart = activeSkill.skillPartName })
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = activeSkill.skillPartName })
 					else
 						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
 					end
@@ -255,28 +253,23 @@ function calcs.calcFullDPS(build, mode, override)
 	return fullDPS
 end
 
--- Build skill list
+-- Process active skill
 function calcs.buildActiveSkill(build, mode, skill)
 	local fullEnv = calcs.initEnv(build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
-			calcs.processActiveSkill(build, mode, activeSkill, fullEnv)
+			fullEnv.player.mainSkill = activeSkill
+			calcs.perform(fullEnv)
+			--local uuid = cacheSkillUUID(activeSkill)
+			--ConPrintf("[Cached] " .. uuid)
+			--ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].Name)
+			--ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
+			--ConPrintf("\tHitChance: " .. tostring(GlobalCache.cachedData[uuid].HitChance))
+			--ConPrintf("\tCritChance: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
+			--ConPrintf("\n")
 			return
 		end
 	end
-end
-
--- Build skill
-function calcs.processActiveSkill(build, mode, activeSkill, env)
-	env.player.mainSkill = activeSkill
-	calcs.perform(env)
-	--local uuid = cacheSkillUUID(activeSkill)
-	--ConPrintf("[Cached] " .. uuid)
-	--ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].Name)
-	--ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
-	--ConPrintf("\tHitChance: " .. tostring(GlobalCache.cachedData[uuid].HitChance))
-	--ConPrintf("\tCritChance: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
-	--ConPrintf("\n")
 end
 
 -- Build output for display in the side bar or calcs tab

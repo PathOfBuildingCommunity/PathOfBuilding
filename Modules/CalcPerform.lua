@@ -58,9 +58,9 @@ local function getTriggerActionTriggerRate(env, breakdown)
 end
 
 -- Calculate Trigger Rate impact due to other skills in rotation
--- This is achieved by simulation a 10 second cast rotation with fi
+-- This is achieved by simulation a 10 second cast rotation
 local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
-	local SIM_TIME = 10.0
+	local SIM_TIME = 100.0
 	local index = 1
 	local time = 0
 	local next_trigger = 0
@@ -80,7 +80,6 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 			end
 
 			if skillRotation[index].next_trig <= time then
-				--ConPrintf(tostring(time) .. " :: " .. skillRotation[index].uuid .. " fired")
 				skillRotation[index].count = skillRotation[index].count + 1
 				skillRotation[index].next_trig = skillRotation[index].next_trig + skillRotation[index].cd
 				index = (index % #skillRotation) + 1
@@ -93,7 +92,11 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 
 	local mainRate = 0
 	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
-	t_insert(trigRateTable.rates, { name = "Wasted", rate = wasted / SIM_TIME })
+	if wasted > 0 then
+		t_insert(trigRateTable.rates, { name = "Wasted_Need Higher_ICDR", rate = wasted / SIM_TIME })
+	else
+		t_insert(trigRateTable.rates, { name = "No Wasted Hits_ _ ", rate = wasted / SIM_TIME })
+	end
 	for _, sd in ipairs(skillRotation) do
 		if cacheSkillUUID(env.player.mainSkill) == sd.uuid then
 			mainRate = sd.count / SIM_TIME
@@ -137,8 +140,29 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 						s_format("Simulation Breakdown"),
 						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 					}
+					breakdown.SimData = {
+						rowList = { },
+						colList = {
+							{ label = "Rate", key = "rate" },
+							{ label = "Skill Name", key = "skillName" },
+							{ label = "Slot Name", key = "slotName" },
+							{ label = "Gem Index", key = "gemIndex" },
+						},
+					}
 					for _, rateData in ipairs(simBreakdown.rates) do
-						t_insert(breakdown.SourceTriggerRate, s_format("%0.2f   %s", rateData.rate, rateData.name))
+						local t = { }
+						for str in string.gmatch(rateData.name, "([^_]+)") do
+							table.insert(t, str)
+						end
+
+						local row = {
+							rate = rateData.rate,
+							skillName = t[1],
+							slotName = t[2],
+							gemIndex = t[3],
+						}
+						t_insert(breakdown.SimData.rowList, row)
+
 					end
 				end
 			else
@@ -192,6 +216,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		trigRate = output.SourceTriggerRate
 	end
 
+	--[[
 	-- Adjust for server tick rate
 	local trigCD = 1 / trigRate
 	local adjTrigCD = m_ceil(trigCD * data.misc.ServerTickRate) / data.misc.ServerTickRate
@@ -207,6 +232,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		}
 	end
 	trigRate = 1 / adjTrigCD
+	--]]
 	output.ServerTriggerRate = trigRate
 	return trigRate
 end
@@ -230,10 +256,10 @@ end
 
 -- Add trigger-based damage modifiers
 local function addTriggerIncMoreMods(activeSkill, sourceSkill)
-	for i, value in ipairs(activeSkill.skillModList:Tabulate("INC", sourceSkill.skillCfg, "TriggeredDamage")) do
+	for _, value in ipairs(activeSkill.skillModList:Tabulate("INC", sourceSkill.skillCfg, "TriggeredDamage")) do
 		activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 	end
-	for i, value in ipairs(activeSkill.skillModList:Tabulate("MORE", sourceSkill.skillCfg, "TriggeredDamage")) do
+	for _, value in ipairs(activeSkill.skillModList:Tabulate("MORE", sourceSkill.skillCfg, "TriggeredDamage")) do
 		activeSkill.skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 	end
 end
@@ -1806,6 +1832,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggeredByCospris = nil
 			env.player.mainSkill.infoMessage = "No Cospri Triggering Skill Found"
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
@@ -1833,6 +1860,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Cospri Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = "Cospri"
 		end
 	end
 	
@@ -1854,6 +1882,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggeredByMjolner = nil
 			env.player.mainSkill.infoMessage = "No Mjolner Triggering Skill Found"
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
@@ -1881,6 +1910,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Mjolner Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = "Mjolner"
 		end
 	end
 
@@ -1902,6 +1932,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggeredByCoC = nil
 			env.player.mainSkill.infoMessage = "No CoC Triggering Skill Found"
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
@@ -1927,6 +1958,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate 
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "CoC Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = "CoC"
 		end
 	end
 
@@ -1947,6 +1979,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggeredWhileChannelling = nil
 			env.player.mainSkill.infoMessage = "No CwC Triggering Skill Found"
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
 
@@ -1958,6 +1991,7 @@ function calcs.perform(env)
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "CwC Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = "CwC"
 
 			env.player.mainSkill.skillFlags.dontDisplay = true
 		end
@@ -1968,6 +2002,7 @@ function calcs.perform(env)
 	if env.player.mainSkill.skillData.triggeredByGeneralsCry and not env.player.mainSkill.skillFlags.minion then
 		addToFullDpsExclusionList(env.player.mainSkill)
 		env.player.mainSkill.infoMessage = "Used by General's Cry Mirage Warriors"
+		env.player.mainSkill.infoTrigger = "General's Cry"
 	end
 
 	-- Fix the configured impale stacks on the enemy

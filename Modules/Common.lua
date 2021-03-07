@@ -580,7 +580,7 @@ function cacheSkillUUID(skill)
 			-- we compare table addresses rather than names since two of the same gem
 			-- can be socketed in the same slot
 			if gem.gemData == skill.activeEffect.gemData then
-				indx =idx
+				indx = idx
 				break
 			end
 		end
