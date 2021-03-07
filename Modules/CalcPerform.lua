@@ -1857,7 +1857,7 @@ function calcs.perform(env)
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Cospri Triggering Skill: " .. source.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = "Cospri"
@@ -1907,7 +1907,7 @@ function calcs.perform(env)
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Mjolner Triggering Skill: " .. source.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = "Mjolner"
@@ -1949,16 +1949,64 @@ function calcs.perform(env)
 				breakdown.Speed = {
 					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
 					s_format("x %.2f%% ^8(%s crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name),
+					s_format("x %.2f%% ^8(chance to trigger on crit)", source.skillData.chanceToTriggerOnCrit),
 					s_format("= %.2f ^8per second", trigRate),
 				}
 			end
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-			env.player.mainSkill.skillData.triggerRate = trigRate 
+			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "CoC Triggering Skill: " .. source.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = "CoC"
+		end
+	end
+
+	-- Cast On Melee Kill Support (CoMK)
+	if env.player.mainSkill.skillData.triggeredByMeleeKill and not env.player.mainSkill.skillFlags.minion and modDB:Flag(nil, "Condition:KilledRecently") then
+		local spellCount = {}
+		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= env.player.mainSkill then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMeleeKill then
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+			end
+		end
+		if not source or #spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByMeleeKill = nil
+			env.player.mainSkill.infoMessage = "No CoMK Triggering Skill Found"
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+
+			-- Get action trigger rate
+			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
+
+			-- Account for chance to tigger on Melee Kill
+			trigRate = trigRate * source.skillData.chanceToTriggerOnMeleeKill / 100
+
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.2f%% ^8(chance to trigger on melee kill)", source.skillData.chanceToTriggerOnMeleeKill),
+					s_format("= %.2f ^8per second", trigRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = trigRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "CoMK Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = "CoMK"
 		end
 	end
 
