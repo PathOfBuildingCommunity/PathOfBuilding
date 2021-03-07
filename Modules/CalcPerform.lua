@@ -1944,7 +1944,7 @@ function calcs.perform(env)
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache.cachedData[uuid].CritChance
 			trigRate = trigRate * sourceCritChance / 100
-			--trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
+			trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
 			if breakdown then
 				breakdown.Speed = {
 					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),

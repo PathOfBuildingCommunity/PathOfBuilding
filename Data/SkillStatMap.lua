@@ -170,8 +170,14 @@ return {
 ["cast_spell_on_linked_attack_crit"] = {
 	skill("triggeredByCoC", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
-["cast_spell_on_linked_attack_crit_%"] = {
+["cast_linked_spells_on_attack_crit_%"] = {
 	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
+},
+["cast_spell_on_linked_melee_kill"] = {
+	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["cast_linked_spells_on_melee_kill_%"] = {
+	skill("chanceToTriggerOnMeleeKill", nil , { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Melee })
 },
 ["cast_spell_while_linked_skill_channelling"] = {
 	skill("triggeredWhileChannelling", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
