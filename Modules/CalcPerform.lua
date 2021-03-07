@@ -162,7 +162,6 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 							gemIndex = t[3],
 						}
 						t_insert(breakdown.SimData.rowList, row)
-
 					end
 				end
 			else
@@ -187,8 +186,28 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 						s_format("Simulation Breakdown"),
 						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 					}
+					breakdown.SimData = {
+						rowList = { },
+						colList = {
+							{ label = "Rate", key = "rate" },
+							{ label = "Skill Name", key = "skillName" },
+							{ label = "Slot Name", key = "slotName" },
+							{ label = "Gem Index", key = "gemIndex" },
+						},
+					}
 					for _, rateData in ipairs(simBreakdown.rates) do
-						t_insert(breakdown.SourceTriggerRate, s_format("%0.2f   %s", rateData.rate, rateData.name))
+						local t = { }
+						for str in string.gmatch(rateData.name, "([^_]+)") do
+							table.insert(t, str)
+						end
+
+						local row = {
+							rate = rateData.rate,
+							skillName = t[1],
+							slotName = t[2],
+							gemIndex = t[3],
+						}
+						t_insert(breakdown.SimData.rowList, row)
 					end
 				end
 			else
