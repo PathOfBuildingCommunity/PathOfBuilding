@@ -3667,13 +3667,15 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			output.ManaCost = 0
 
-			actor.mainSkill = usedSkill
-			
-			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 			if usedSkill.skillPartName then
 				actor.mainSkill.skillPartName = usedSkill.skillPartName
 				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
+			else
+				actor.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
+
+			actor.mainSkill = usedSkill
+			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 
 			usedSkill.TotalDPS = 0
 			usedSkill.CombinedDPS = 0
@@ -3729,14 +3731,15 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			output.ManaCost = 0
 
-			actor.mainSkill = usedSkill
-
-			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 			if usedSkill.skillPartName then
 				actor.mainSkill.skillPartName = usedSkill.skillPartName
 				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
+			else
+				actor.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
 
+			actor.mainSkill = usedSkill
+			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 		else
 			actor.mainSkill.infoMessage2 = "No Saviour active skill found"
 		end
