@@ -44,7 +44,7 @@ local function getTriggerActionTriggerRate(env, breakdown)
 	local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 	local modActionCooldown = baseActionCooldown / (icdr)
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-	local extraICDRNeeded = (modActionCooldown - (rateCapAdjusted - data.misc.ServerTickTime)) * icdr * 1000
+	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted - data.misc.ServerTickTime) * icdr * 1000)
 	if breakdown then
 		breakdown.ActionTriggerRate = {
 			s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
@@ -59,7 +59,6 @@ local function getTriggerActionTriggerRate(env, breakdown)
 			s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
 		}
 	end
-	--return 1 / modActionCooldown
 	return 1 / rateCapAdjusted
 end
 
@@ -2233,6 +2232,7 @@ function calcs.perform(env)
 			HitChance = env.player.output.HitChance,
 			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
 			CritChance = env.player.output.CritChance,
+			CombinedDPS = env.player.output.CombinedDPS,
 			ActiveSkill = env.player.mainSkill,
 			Env = env,
 		}
@@ -2249,6 +2249,7 @@ function calcs.perform(env)
 				HitChance = env.minion.output.HitChance,
 				PreEffectiveCritChance = env.minion.output.PreEffectiveCritChance,
 				CritChance = env.minion.output.CritChance,
+				CombinedDPS = env.player.output.CombinedDPS,
 				ActiveSkill = env.minion.mainSkill,
 				Env = env.minion,
 			}

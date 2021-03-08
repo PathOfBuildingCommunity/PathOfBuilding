@@ -3665,9 +3665,10 @@ function calcs.offence(env, actor, activeSkill)
 					output[k] = v
 				end
 			end
+			output.ManaCost = 0
 
-			--ConPrintf("DPS: " .. tostring(gcDPS))
-
+			actor.mainSkill = usedSkill
+			
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 			if usedSkill.skillPartName then
 				actor.mainSkill.skillPartName = usedSkill.skillPartName
@@ -3683,6 +3684,7 @@ function calcs.offence(env, actor, activeSkill)
 	if actor.mainSkill.activeEffect.grantedEffect.name == "Reflection" then
 		local usedSkillOutput = nil
 		local usedSkill = nil
+		local usedSkillBestDps = 0
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Attack] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
@@ -3691,15 +3693,52 @@ function calcs.offence(env, actor, activeSkill)
 					calcs.buildActiveSkill(env.build, "CACHE", triggerSkill)
 					env.dontCache = true
 				end
-				if GlobalCache.cachedData[uuid] then
-					usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
-					usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+				-- We found a skill and it can crit
+				if GlobalCache.cachedData[uuid] and GlobalCache.cachedData[uuid].CritChance > 0 then
+					if not usedSkill then
+						usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
+						usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+						usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
+					else
+						if GlobalCache.cachedData[uuid].CombinedDPS > usedSkillBestDps then
+							usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
+							usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+							usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
+						end
+					end
 				end
-				break
 			end
 		end
 
 		if usedSkill then
+			local moreDamage = 1 + usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "SaviourMirageWarriorLessDamage") / 100
+			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorMaxCount")
+
+			for k,v in pairs(usedSkillOutput) do
+				-- if it's an `output` variable that's DPS oriented (e.g., TotalDPS, ImpaleDPS)
+				-- scale by exerts and mirage warrior count
+				if k:find("DPS") then
+					if type(v) ~= "table" then
+						output[k] = v * moreDamage * maxMirageWarriors
+					else
+						output[k] = v
+					end
+				else
+					output[k] = v
+				end
+			end
+			output.ManaCost = 0
+
+			actor.mainSkill = usedSkill
+
+			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+			if usedSkill.skillPartName then
+				actor.mainSkill.skillPartName = usedSkill.skillPartName
+				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
+			end
+
+		else
+			actor.mainSkill.infoMessage2 = "No Saviour active skill found"
 		end
 	end
 
