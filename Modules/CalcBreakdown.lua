@@ -112,12 +112,10 @@ end
 function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes)
 	local out = { }
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
-	if resist ~= 0 then
-		if sourceRes and sourceRes ~= 0 then
-			t_insert(out, s_format("Enemy %s: %d%% ^8(%s)", resistForm, resist, sourceRes))
-		else
-			t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
-		end
+	if sourceRes and sourceRes ~= 0 and sourceRes ~= damageType then
+		t_insert(out, s_format("Enemy %s: %d%% ^8(%s)", resistForm, resist, sourceRes))
+	elseif resist ~= 0 then
+		t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
 	end
 	if pen ~= 0 then
 		t_insert(out, "Effective resistance:")
