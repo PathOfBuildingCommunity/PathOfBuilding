@@ -167,6 +167,9 @@ return {
 ["unique_cospris_malice_cold_spells_triggered"] = {
 	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.ColdSkill }),
 },
+["display_mirage_warriors_no_spirit_strikes"] = {
+	skill("triggeredBySaviour", true, { type = "SkillType", skillType = SkillType.Attack } ),
+},
 ["cast_spell_on_linked_attack_crit"] = {
 	skill("triggeredByCoC", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },

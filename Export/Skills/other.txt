@@ -461,6 +461,14 @@ local skills, mod, flag, skill = ...
 #skill UniqueMirageWarriors
 #flags spell duration minion
 	fromItem = true,
+	statMap = {
+		["skill_used_by_mirage_warrior_damage_+%_final"] = {
+			mod("SaviourMirageWarriorLessDamage", "BASE", nil),
+		},
+		["maximum_number_of_mirage_warriors"] = {
+			mod("SaviourMirageWarriorMaxCount", "BASE", nil),
+		},
+	},
 #mods
 
 #skill TriggeredSummonSpider

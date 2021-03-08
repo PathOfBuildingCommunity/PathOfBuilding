@@ -1796,6 +1796,14 @@ skills["UniqueMirageWarriors"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromItem = true,
+	statMap = {
+		["skill_used_by_mirage_warrior_damage_+%_final"] = {
+			mod("SaviourMirageWarriorLessDamage", "BASE", nil),
+		},
+		["maximum_number_of_mirage_warriors"] = {
+			mod("SaviourMirageWarriorMaxCount", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,

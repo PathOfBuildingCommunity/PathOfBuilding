@@ -3679,6 +3679,30 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	-- The Saviour
+	if actor.mainSkill.activeEffect.grantedEffect.name == "Reflection" then
+		local usedSkillOutput = nil
+		local usedSkill = nil
+		for _, triggerSkill in ipairs(actor.activeSkillList) do
+			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Attack] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
+				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
+				local uuid = cacheSkillUUID(triggerSkill)
+				if not GlobalCache.cachedData[uuid] then
+					calcs.buildActiveSkill(env.build, "CACHE", triggerSkill)
+					env.dontCache = true
+				end
+				if GlobalCache.cachedData[uuid] then
+					usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
+					usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+				end
+				break
+			end
+		end
+
+		if usedSkill then
+		end
+	end
+
 	-- Calculate combined DPS estimate, including DoTs
 	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"]
 	output.CombinedDPS = baseDPS

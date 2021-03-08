@@ -43,18 +43,24 @@ local function getTriggerActionTriggerRate(env, breakdown)
 	local baseActionCooldown = env.player.mainSkill.skillData.cooldown
 	local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 	local modActionCooldown = baseActionCooldown / (icdr)
+	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+	local extraICDRNeeded = (modActionCooldown - (rateCapAdjusted - data.misc.ServerTickTime)) * icdr * 1000
 	if breakdown then
 		breakdown.ActionTriggerRate = {
 			s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
 			s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 			s_format("= %.3f ^8(final cooldown of trigger)", modActionCooldown),
 			s_format(""),
+			s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+			s_format("^8(extra ICDR of %.3f%% would reach next breakpoint)", extraICDRNeeded),
+			s_format(""),
 			s_format("Trigger rate:"),
-			s_format("1 / %.3f", modActionCooldown),
-			s_format("= %.2f ^8per second", 1 / modActionCooldown),
+			s_format("1 / %.3f", rateCapAdjusted),
+			s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
 		}
 	end
-	return 1 / modActionCooldown
+	--return 1 / modActionCooldown
+	return 1 / rateCapAdjusted
 end
 
 -- Calculate Trigger Rate impact due to other skills in rotation
@@ -235,13 +241,14 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		trigRate = output.SourceTriggerRate
 	end
 
-	--[[
 	-- Adjust for server tick rate
 	local trigCD = 1 / trigRate
+	--[[
 	local adjTrigCD = m_ceil(trigCD * data.misc.ServerTickRate) / data.misc.ServerTickRate
+	trigRate = 1 / adjTrigCD
 	if breakdown then
 		breakdown.ServerTriggerRate = {
-			s_format("1 / %.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+			s_format("1 / %.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate * adjTrigCD),
 			s_format("= %.3f ^8(seconds between each action)", trigCD),
 			s_format("= %.3f ^8(rounded up to nearest server tick)", adjTrigCD),
 			s_format(""),
@@ -250,8 +257,13 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			s_format("= %.2f ^8per second", 1 / adjTrigCD),
 		}
 	end
-	trigRate = 1 / adjTrigCD
 	--]]
+	if breakdown then
+		breakdown.ServerTriggerRate = {
+			s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+			--s_format("= %.3f ^8(seconds between each action)", trigCD),
+		}
+	end
 	output.ServerTriggerRate = trigRate
 	return trigRate
 end
@@ -2070,6 +2082,12 @@ function calcs.perform(env)
 		addToFullDpsExclusionList(env.player.mainSkill)
 		env.player.mainSkill.infoMessage = "Used by General's Cry Mirage Warriors"
 		env.player.mainSkill.infoTrigger = "General's Cry"
+	end
+
+	-- The Saviour
+	if env.player.mainSkill.activeEffect.grantedEffect.name == "Reflection" or env.player.mainSkill.skillData.triggeredBySaviour then
+		env.player.mainSkill.infoMessage = "Triggered by a Crit from The Saviour"
+		env.player.mainSkill.infoTrigger = "Saviour"
 	end
 
 	-- Fix the configured impale stacks on the enemy
