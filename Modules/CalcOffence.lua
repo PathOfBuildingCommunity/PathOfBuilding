@@ -3628,20 +3628,23 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalDot = output.TotalDotInstance
 	end
 
+	-- General's Cry Mirage Warriors
 	if actor.mainSkill.activeEffect.grantedEffect.name == "General's Cry" then
 		local usedSkillOutput = nil
+		local usedSkillBreakdown = nil
 		local usedSkill = nil
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			if triggerSkill.socketGroup == activeSkill.socketGroup and triggerSkill ~= activeSkill and triggerSkill.skillData.triggeredByGeneralsCry then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData[uuid] then
-					calcs.buildActiveSkill(env.build, "CACHE", triggerSkill)
+					calcs.buildActiveSkill(env.build, "CALCS", triggerSkill)
 					env.dontCache = true
 				end
 				if GlobalCache.cachedData[uuid] then
 					usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
 					usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+					usedSkillBreakdown = GlobalCache.cachedData[uuid].Breakdown or nil
 				end
 				break
 			end
@@ -3655,14 +3658,26 @@ function calcs.offence(env, actor, activeSkill)
 			for k,v in pairs(usedSkillOutput) do
 				-- if it's an `output` variable that's DPS oriented (e.g., TotalDPS, ImpaleDPS)
 				-- scale by exerts and mirage warrior count
-				if k:find("DPS") then
-					if type(v) ~= "table" then
+				if type(v) ~= "table" then
+					if k:find("DPS") then
 						output[k] = v * moreDamage * exertMultiplier * maxMirageWarriors
 					else
 						output[k] = v
 					end
 				else
-					output[k] = v
+					output[k] = {}
+					for k2,v2 in pairs(v) do
+						if type(v2) ~= "table" then
+							if k2:find("DPS") then
+								output[k][k2] = v2 * moreDamage * exertMultiplier * maxMirageWarriors
+							else
+								output[k][k2] = v2
+							end
+						else
+							--ConPrintf("DOUBLE NESTING: " .. k .. ":" .. k2)
+							output[k][k2] = v2
+						end
+					end
 				end
 			end
 			output.ManaCost = 0
@@ -3678,6 +3693,8 @@ function calcs.offence(env, actor, activeSkill)
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 			if usedSkillBreakdown then
 				actor.breakdown = usedSkillBreakdown
+				-- correct Mana Cost Breakdown
+				actor.breakdown.ManaCost = nil
 			end
 
 			usedSkill.TotalDPS = 0
@@ -3696,7 +3713,7 @@ function calcs.offence(env, actor, activeSkill)
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData[uuid] then
-					calcs.buildActiveSkill(env.build, "CACHE", triggerSkill)
+					calcs.buildActiveSkill(env.build, "CALCS", triggerSkill)
 					env.dontCache = true
 				end
 				-- We found a skill and it can crit
@@ -3725,14 +3742,26 @@ function calcs.offence(env, actor, activeSkill)
 			for k,v in pairs(usedSkillOutput) do
 				-- if it's an `output` variable that's DPS oriented (e.g., TotalDPS, ImpaleDPS)
 				-- scale by exerts and mirage warrior count
-				if k:find("DPS") then
-					if type(v) ~= "table" then
+				if type(v) ~= "table" then
+					if k:find("DPS") then
 						output[k] = v * moreDamage * maxMirageWarriors
 					else
 						output[k] = v
 					end
 				else
-					output[k] = v
+					output[k] = {}
+					for k2,v2 in pairs(v) do
+						if type(v2) ~= "table" then
+							if k2:find("DPS") then
+								output[k][k2] = v2 * moreDamage * maxMirageWarriors
+							else
+								output[k][k2] = v2
+							end
+						else
+							--ConPrintf("DOUBLE NESTING: " .. k .. ":" .. k2)
+							output[k][k2] = v2
+						end
+					end
 				end
 			end
 			output.ManaCost = 0
@@ -3746,8 +3775,11 @@ function calcs.offence(env, actor, activeSkill)
 
 			actor.mainSkill = usedSkill
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+			actor.mainSkill.skillCfg = copyTable(usedSkill.skillCfg, 1)
 			if usedSkillBreakdown then
 				actor.breakdown = usedSkillBreakdown
+				-- correct Mana Cost Breakdown
+				actor.breakdown.ManaCost = nil
 			end
 		else
 			actor.mainSkill.infoMessage2 = "No Saviour active skill found"

@@ -606,7 +606,6 @@ function cacheData(uuid, env)
 			ActiveSkill = env.player.mainSkill,
 			Env = env,
 		}
-		ConPrintf("stored: " .. uuid .. " :: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
 		if env.player.breakdown then
 			if GlobalCache.cachedData[uuid].Breakdown then
 				-- Since GlobalCache is global, set prior table to `nil` for Lua Garbage Collection
@@ -638,7 +637,6 @@ function cacheData(uuid, env)
 					GlobalCache.cachedData[uuid].Minion.Breakdown = nil
 				end
 				GlobalCache.cachedData[uuid].Minion.Breakdown = env.minion.breakdown
-				ConPrintf("Stored Minion Breakdown: " .. tostring(GlobalCache.cachedData[uuid].Minion.Breakdown))
 			end
 		end
 	end
