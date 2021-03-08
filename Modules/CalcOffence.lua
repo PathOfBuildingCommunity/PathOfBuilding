@@ -3676,6 +3676,9 @@ function calcs.offence(env, actor, activeSkill)
 
 			actor.mainSkill = usedSkill
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+			if usedSkillBreakdown then
+				actor.breakdown = usedSkillBreakdown
+			end
 
 			usedSkill.TotalDPS = 0
 			usedSkill.CombinedDPS = 0
@@ -3685,6 +3688,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- The Saviour
 	if actor.mainSkill.activeEffect.grantedEffect.name == "Reflection" then
 		local usedSkillOutput = nil
+		local usedSkillBreakdown = nil
 		local usedSkill = nil
 		local usedSkillBestDps = 0
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
@@ -3700,11 +3704,13 @@ function calcs.offence(env, actor, activeSkill)
 					if not usedSkill then
 						usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
 						usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+						usedSkillBreakdown = GlobalCache.cachedData[uuid].Breakdown or nil
 						usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
 					else
 						if GlobalCache.cachedData[uuid].CombinedDPS > usedSkillBestDps then
 							usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
 							usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
+							usedSkillBreakdown = GlobalCache.cachedData[uuid].Breakdown or nil
 							usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
 						end
 					end
@@ -3713,7 +3719,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		if usedSkill then
-			local moreDamage = 1 + usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "SaviourMirageWarriorLessDamage") / 100
+			local moreDamage = 1 + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorLessDamage") / 100
 			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorMaxCount")
 
 			for k,v in pairs(usedSkillOutput) do
@@ -3740,6 +3746,9 @@ function calcs.offence(env, actor, activeSkill)
 
 			actor.mainSkill = usedSkill
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+			if usedSkillBreakdown then
+				actor.breakdown = usedSkillBreakdown
+			end
 		else
 			actor.mainSkill.infoMessage2 = "No Saviour active skill found"
 		end

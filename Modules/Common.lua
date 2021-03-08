@@ -589,10 +589,68 @@ function cacheSkillUUID(skill)
 end
 
 -- Global Cache related
+function cacheData(uuid, env)
+	if not GlobalCache.cachedData[uuid] or (GlobalCache.cachedData[uuid] and (env.mode == "MAIN" or env.mode == "CALCS")) then
+		-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
+		if GlobalCache.cachedData[uuid] and (env.mode == "MAIN" or env.mode == "CALCS") then
+			GlobalCache.cachedData[uuid].ActiveSkill = nil
+			GlobalCache.cachedData[uuid].Env = nil
+		end
+		GlobalCache.cachedData[uuid] = {
+			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
+			Speed = env.player.output.Speed,
+			HitChance = env.player.output.HitChance,
+			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
+			CritChance = env.player.output.CritChance,
+			CombinedDPS = env.player.output.CombinedDPS,
+			ActiveSkill = env.player.mainSkill,
+			Env = env,
+		}
+		ConPrintf("stored: " .. uuid .. " :: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
+		if env.player.breakdown then
+			if GlobalCache.cachedData[uuid].Breakdown then
+				-- Since GlobalCache is global, set prior table to `nil` for Lua Garbage Collection
+				GlobalCache.cachedData[uuid].Breakdown = nil
+			end
+			GlobalCache.cachedData[uuid].Breakdown = env.player.breakdown
+			ConPrintf("Stored Breakdown: " .. tostring(GlobalCache.cachedData[uuid].Breakdown))
+		end
+
+		if env.minion then
+			-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
+			if GlobalCache.cachedData[uuid].Minion and (env.mode == "MAIN" or env.mode == "CALCS") then
+				GlobalCache.cachedData[uuid].Minion.ActiveSkill = nil
+				GlobalCache.cachedData[uuid].Minion.Env = nil
+			end
+			GlobalCache.cachedData[uuid].Minion = {
+				Name = env.minion.mainSkill.activeEffect.grantedEffect.name,
+				Speed = env.minion.output.Speed,
+				HitChance = env.minion.output.HitChance,
+				PreEffectiveCritChance = env.minion.output.PreEffectiveCritChance,
+				CritChance = env.minion.output.CritChance,
+				CombinedDPS = env.minion.output.CombinedDPS,
+				ActiveSkill = env.minion.mainSkill,
+				Env = env.minion,
+			}
+			if env.minion.breakdown then
+				if GlobalCache.cachedData[uuid].Minion.Breakdown then
+					-- Since GlobalCache is global, set prior table to `nil` for Lua Garbage Collection
+					GlobalCache.cachedData[uuid].Minion.Breakdown = nil
+				end
+				GlobalCache.cachedData[uuid].Minion.Breakdown = env.minion.breakdown
+				ConPrintf("Stored Minion Breakdown: " .. tostring(GlobalCache.cachedData[uuid].Minion.Breakdown))
+			end
+		end
+	end
+end
+
+-- Full DPS related: add to roll-up exclusion list
+-- this is for skills that are used by Mirage Warriors for example
 function addToFullDpsExclusionList(skill)
 	GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)] = true
 end
 
+-- Full DPS related: check if skill is in roll-up exclusion list
 function isExcludedFromFullDps(skill)
 	return GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)]
 end

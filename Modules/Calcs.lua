@@ -413,8 +413,7 @@ function calcs.buildOutput(build, mode)
 --		ConPrintTable(env.enemyConditionsUsed)
 --		ConPrintf("=== Enemy Mult ===")
 --		ConPrintTable(env.enemyMultipliersUsed)
-	end
-	if mode == "CALCS" then
+	elseif mode == "CALCS" then
 		local buffList = { }
 		local combatList = { }
 		local curseList = { }

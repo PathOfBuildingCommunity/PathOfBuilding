@@ -2225,34 +2225,16 @@ function calcs.perform(env)
 	calcs.defence(env, env.player)
 	calcs.offence(env, env.player, env.player.mainSkill)
 	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not GlobalCache.cachedData[uuid] and not env.dontCache then
-		GlobalCache.cachedData[uuid] = {
-			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-			Speed = env.player.output.Speed,
-			HitChance = env.player.output.HitChance,
-			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
-			CritChance = env.player.output.CritChance,
-			CombinedDPS = env.player.output.CombinedDPS,
-			ActiveSkill = env.player.mainSkill,
-			Env = env,
-		}
+	if not env.dontCache then
+		cacheData(uuid, env)
 	end
 
 	if env.minion then
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 		uuid = cacheSkillUUID(env.player.mainSkill)
-		if not GlobalCache.cachedData[uuid].Minion and not env.dontCache then
-			GlobalCache.cachedData[uuid].Minion = {
-				Name = env.minion.mainSkill.activeEffect.grantedEffect.name,
-				Speed = env.minion.output.Speed,
-				HitChance = env.minion.output.HitChance,
-				PreEffectiveCritChance = env.minion.output.PreEffectiveCritChance,
-				CritChance = env.minion.output.CritChance,
-				CombinedDPS = env.player.output.CombinedDPS,
-				ActiveSkill = env.minion.mainSkill,
-				Env = env.minion,
-			}
+		if not env.dontCache then
+			cacheData(uuid, env)
 		end
 	end
 end
