@@ -1737,7 +1737,6 @@ local specialModList = {
 	["instant recovery"] = {  mod("FlaskInstantRecovery", "BASE", 100) },
 	["(%d+)%% of recovery applied instantly"] = function(num) return { mod("FlaskInstantRecovery", "BASE", num) } end,
 	["has no attribute requirements"] = { flag("NoAttributeRequirements") },
-	["critical strike chance is (%d+)%% for hits with this weapon"] = function(num) return { mod("WeaponData", "LIST", { key = "CritChance", value = num }) } end,
 	-- Socketed gem modifiers
 	["%+(%d+) to level of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["%+(%d+) to level of socketed ([%a ]+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
@@ -2560,6 +2559,7 @@ local specialModList = {
 	},
 	["your critical strike multiplier is (%d+)%%"] = function(num) return { mod("CritMultiplier", "OVERRIDE", num) } end,
 	["base critical strike chance for attacks with weapons is ([%d%.]+)%%"] = function(num) return { mod("WeaponBaseCritChance", "OVERRIDE", num) } end,
+	["critical strike chance is (%d+)%% for hits with this weapon"] = function(num) return { mod("CritChance", "OVERRIDE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) } end, 
 	["allocates (.+)"] = function(_, passive) return { mod("GrantedPassive", "LIST", passive) } end,
 	["battlemage"] = { flag("WeaponDamageAppliesToSpells"), mod("ImprovedWeaponDamageAppliesToSpells", "INC", 100) },
 	["transfiguration of body"] = { flag("TransfigurationOfBody") },
