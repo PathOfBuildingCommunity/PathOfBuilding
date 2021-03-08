@@ -44,7 +44,7 @@ local function getTriggerActionTriggerRate(env, breakdown)
 	local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 	local modActionCooldown = baseActionCooldown / (icdr)
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted - data.misc.ServerTickTime) * icdr * 1000)
+	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	if breakdown then
 		breakdown.ActionTriggerRate = {
 			s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
@@ -52,7 +52,7 @@ local function getTriggerActionTriggerRate(env, breakdown)
 			s_format("= %.3f ^8(final cooldown of trigger)", modActionCooldown),
 			s_format(""),
 			s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-			s_format("^8(extra ICDR of %.3f%% would reach next breakpoint)", extraICDRNeeded),
+			s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
 			s_format(""),
 			s_format("Trigger rate:"),
 			s_format("1 / %.3f", rateCapAdjusted),
