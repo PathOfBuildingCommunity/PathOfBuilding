@@ -177,10 +177,10 @@ function calcs.calcFullDPS(build, mode, override)
 					igniteSource = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
-					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS
+					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * usedEnv.minion.output.TotalPoisonStacks * activeSkillCount
 				end
 				if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
-					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS
+					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
 				end
 				if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
 					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
@@ -206,10 +206,10 @@ function calcs.calcFullDPS(build, mode, override)
 					igniteSource = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
-					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS
+					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * usedEnv.player.output.TotalPoisonStacks * activeSkillCount
 				end
 				if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
-					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS
+					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
 				end
 				if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
 					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS

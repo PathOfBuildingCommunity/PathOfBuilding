@@ -1302,6 +1302,12 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	-- Grab quantity multiplier
+	local quantityMultiplier = m_max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "QuantityMultiplier"), 1)
+	if quantityMultiplier > 1 then
+		output.QuantityMultiplier = quantityMultiplier
+	end
+
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -2136,7 +2142,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
-		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
@@ -2225,6 +2231,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillData.dpsMultiplier then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+		end
+		if quantityMultiplier > 1 then
+			t_insert(breakdown.TotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
 	end
@@ -2767,7 +2776,7 @@ function calcs.offence(env, actor, activeSkill)
 					output.TotalPoisonAverageDamage = output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage
 					output.TotalPoisonDPS = output.PoisonDPS
 				else
-					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
 					output.TotalPoisonDPS = output.PoisonDPS * output.TotalPoisonStacks
 				end
 				if breakdown then
@@ -2822,6 +2831,7 @@ function calcs.offence(env, actor, activeSkill)
 							{ "%.2f ^8(hit chance)", output.HitChance / 100 },
 							{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
 							{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
+							{ "%g ^8(quantity multiplier for this skill)", quantityMultiplier },
 							total = s_format("= %.1f", output.TotalPoisonStacks),
 						})
 					end
@@ -3612,7 +3622,7 @@ function calcs.offence(env, actor, activeSkill)
 		elseif band(dotCfg.keywordFlags, KeywordFlag.Trap) ~= 0 then
 			speed = output.TrapThrowingSpeed
 		end
-		output.TotalDot = output.TotalDotInstance * speed * output.Duration * (skillData.dpsMultiplier or 1)
+		output.TotalDot = output.TotalDotInstance * speed * output.Duration * (skillData.dpsMultiplier or 1) * quantityMultiplier
 		if breakdown then
 			breakdown.TotalDot = {
 				s_format("%.1f ^8(Damage per Instance)", output.TotalDotInstance),
@@ -3622,6 +3632,9 @@ function calcs.offence(env, actor, activeSkill)
 			if skillData.dpsMultiplier then
 				t_insert(breakdown.TotalDot, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 			end
+			if quantityMultiplier > 1 then
+				t_insert(breakdown.TotalDot, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+			end
 			t_insert(breakdown.TotalDot, s_format("= %.1f", output.TotalDot))
 		end
 	else
@@ -3630,8 +3643,6 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- General's Cry Mirage Warriors
 	if actor.mainSkill.activeEffect.grantedEffect.name == "General's Cry" then
-		local usedSkillOutput = nil
-		local usedSkillBreakdown = nil
 		local usedSkill = nil
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			if triggerSkill.socketGroup == activeSkill.socketGroup and triggerSkill ~= activeSkill and triggerSkill.skillData.triggeredByGeneralsCry then
@@ -3643,59 +3654,53 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if GlobalCache.cachedData[uuid] then
 					usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
-					usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
-					usedSkillBreakdown = GlobalCache.cachedData[uuid].Breakdown or nil
 				end
 				break
 			end
 		end
 
 		if usedSkill then
-			local moreDamage = 1 + usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage") / 100
-			local exertMultiplier = calcLib.mod(env.modDB, usedSkill.skillCfg, "ExertIncrease")
+			local moreDamage =  usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage")
+			local exertInc = env.modDB:Sum("INC", usedSkill.skillCfg, "ExertIncrease")
+			local exertMore = env.modDB:Sum("MORE", usedSkill.skillCfg, "ExertIncrease")
 			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount")
 
-			for k,v in pairs(usedSkillOutput) do
-				-- if it's an `output` variable that's DPS oriented (e.g., TotalDPS, ImpaleDPS)
-				-- scale by exerts and mirage warrior count
-				if type(v) ~= "table" then
-					if k:find("DPS") then
-						output[k] = v * moreDamage * exertMultiplier * maxMirageWarriors
-					else
-						output[k] = v
-					end
-				else
-					output[k] = {}
-					for k2,v2 in pairs(v) do
-						if type(v2) ~= "table" then
-							if k2:find("DPS") then
-								output[k][k2] = v2 * moreDamage * exertMultiplier * maxMirageWarriors
-							else
-								output[k][k2] = v2
-							end
-						else
-							--ConPrintf("DOUBLE NESTING: " .. k .. ":" .. k2)
-							output[k][k2] = v2
-						end
-					end
-				end
+			local newSkill, newEnv = calcs.copyActiveSkill(env.build, "CALCS", usedSkill)
+
+			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
+			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "General's Cry", activeSkill.ModFlags, activeSkill.KeywordFlags)
+			newSkill.skillModList:NewMod("Damage", "INC", exertInc, "General's Cry Exerted Attacks", activeSkill.ModFlags, activeSkill.KeywordFlags)
+			newSkill.skillModList:NewMod("Damage", "MORE", exertMore, "General's Cry Exerted Attacks", activeSkill.ModFlags, activeSkill.KeywordFlags)
+			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "General's Cry Max Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
+
+			-- Recalculate the offensive/defensive aspects of this new skill
+			newEnv.player.mainSkill = newSkill
+			calcs.perform(newEnv)
+
+			-- Re-link over the output
+			actor.output = newEnv.player.output
+			
+			-- Make any necessary corrections to output
+			actor.output.ManaCost = 0
+
+			-- Re-link over the breakdown (if present)
+			if newEnv.player.breakdown then
+				actor.breakdown = newEnv.player.breakdown
+
+				-- Make any necessary corrections to breakdown
+				actor.breakdown.ManaCost = nil
 			end
-			output.ManaCost = 0
 
 			if usedSkill.skillPartName then
+				actor.mainSkill.skillPart = usedSkill.skillPart
 				actor.mainSkill.skillPartName = usedSkill.skillPartName
 				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
 			else
 				actor.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
 
-			actor.mainSkill = usedSkill
+			actor.mainSkill = newSkill
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
-			if usedSkillBreakdown then
-				actor.breakdown = usedSkillBreakdown
-				-- correct Mana Cost Breakdown
-				actor.breakdown.ManaCost = nil
-			end
 
 			usedSkill.TotalDPS = 0
 			usedSkill.CombinedDPS = 0
@@ -3704,8 +3709,6 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- The Saviour
 	if actor.mainSkill.activeEffect.grantedEffect.name == "Reflection" then
-		local usedSkillOutput = nil
-		local usedSkillBreakdown = nil
 		local usedSkill = nil
 		local usedSkillBestDps = 0
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
@@ -3720,14 +3723,10 @@ function calcs.offence(env, actor, activeSkill)
 				if GlobalCache.cachedData[uuid] and GlobalCache.cachedData[uuid].CritChance > 0 then
 					if not usedSkill then
 						usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
-						usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
-						usedSkillBreakdown = GlobalCache.cachedData[uuid].Breakdown or nil
 						usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
 					else
 						if GlobalCache.cachedData[uuid].CombinedDPS > usedSkillBestDps then
 							usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
-							usedSkillOutput = GlobalCache.cachedData[uuid].Env.player.output
-							usedSkillBreakdown = GlobalCache.cachedData[uuid].Breakdown or nil
 							usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
 						end
 					end
@@ -3736,51 +3735,43 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		if usedSkill then
-			local moreDamage = 1 + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorLessDamage") / 100
+			local moreDamage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorLessDamage")
 			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorMaxCount")
 
-			for k,v in pairs(usedSkillOutput) do
-				-- if it's an `output` variable that's DPS oriented (e.g., TotalDPS, ImpaleDPS)
-				-- scale by exerts and mirage warrior count
-				if type(v) ~= "table" then
-					if k:find("DPS") then
-						output[k] = v * moreDamage * maxMirageWarriors
-					else
-						output[k] = v
-					end
-				else
-					output[k] = {}
-					for k2,v2 in pairs(v) do
-						if type(v2) ~= "table" then
-							if k2:find("DPS") then
-								output[k][k2] = v2 * moreDamage * maxMirageWarriors
-							else
-								output[k][k2] = v2
-							end
-						else
-							--ConPrintf("DOUBLE NESTING: " .. k .. ":" .. k2)
-							output[k][k2] = v2
-						end
-					end
-				end
+			local newSkill, newEnv = calcs.copyActiveSkill(env.build, "CALCS", usedSkill)
+
+			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
+			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "The Saviour", activeSkill.ModFlags, activeSkill.KeywordFlags)
+			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "The Saviour Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
+
+			-- Recalculate the offensive/defensive aspects of this new skill
+			newEnv.player.mainSkill = newSkill
+			calcs.perform(newEnv)
+
+			-- Re-link over the output
+			actor.output = newEnv.player.output
+			
+			-- Make any necessary corrections to output
+			actor.output.ManaCost = 0
+
+			-- Re-link over the breakdown (if present)
+			if newEnv.player.breakdown then
+				actor.breakdown = newEnv.player.breakdown
+
+				-- Make any necessary corrections to breakdown
+				actor.breakdown.ManaCost = nil
 			end
-			output.ManaCost = 0
 
 			if usedSkill.skillPartName then
+				actor.mainSkill.skillPart = usedSkill.skillPart
 				actor.mainSkill.skillPartName = usedSkill.skillPartName
 				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
 			else
 				actor.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
 
-			actor.mainSkill = usedSkill
+			actor.mainSkill = newSkill
 			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
-			actor.mainSkill.skillCfg = copyTable(usedSkill.skillCfg, 1)
-			if usedSkillBreakdown then
-				actor.breakdown = usedSkillBreakdown
-				-- correct Mana Cost Breakdown
-				actor.breakdown.ManaCost = nil
-			end
 		else
 			actor.mainSkill.infoMessage2 = "No Saviour active skill found"
 		end
@@ -3793,6 +3784,9 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.dot then
 		output.CombinedDPS = output.CombinedDPS + (output.TotalDot or 0)
 		output.WithDotDPS = baseDPS + (output.TotalDot or 0)
+	end
+	if quantityMultiplier > 1 and output.TotalPoisonDPS then
+		output.TotalPoisonDPS = output.TotalPoisonDPS * quantityMultiplier
 	end
 	if skillData.showAverage then
 		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
@@ -3855,6 +3849,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.ImpaleDPS = output.ImpaleDPS * (output.HitSpeed or output.Speed)
 			output.WithImpaleDPS = output.TotalDPS + output.ImpaleDPS
 		end
+		if quantityMultiplier > 1 then
+			output.ImpaleDPS = output.ImpaleDPS * quantityMultiplier
+		end
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
@@ -3866,6 +3863,9 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
 			if skillData.dpsMultiplier then
 				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
+			end
+			if quantityMultiplier > 1 then
+				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
