@@ -621,12 +621,11 @@ function getCachedData(skill, mode)
 end
 
 function wipeGlobalCache()
-	ConPrintf("WIPING GlobalCache.cacheData")
+	--ConPrintf("WIPING GlobalCache.cacheData")
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
 	wipeTable(GlobalCache.cachedData.CACHE)
-	wipeTable(GlobalCache.minionSkills)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	GlobalCache.dontUseCache = nil
 end

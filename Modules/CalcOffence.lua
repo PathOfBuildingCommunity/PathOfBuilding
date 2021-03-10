@@ -3642,7 +3642,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- General's Cry Mirage Warriors
-	if actor.mainSkill.activeEffect.grantedEffect.name == "General's Cry" then
+	if activeSkill.activeEffect.grantedEffect.name == "General's Cry" then
 		local usedSkill = nil
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			if triggerSkill.socketGroup == activeSkill.socketGroup and triggerSkill ~= activeSkill and triggerSkill.skillData.triggeredByGeneralsCry then
@@ -3708,7 +3708,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- The Saviour
-	if actor.mainSkill.activeEffect.grantedEffect.name == "Reflection" then
+	if activeSkill.activeEffect.grantedEffect.name == "Reflection" then
 		local usedSkill = nil
 		local usedSkillBestDps = 0
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
@@ -3720,7 +3720,7 @@ function calcs.offence(env, actor, activeSkill)
 					env.dontCache = true
 				end
 				-- We found a skill and it can crit
-				if GlobalCache.cachedData["CALCS"][uuid] and GlobalCache.cachedData["CALCS"][uuid].CritChance > 0 then
+				if GlobalCache.cachedData["CALCS"][uuid] and GlobalCache.cachedData["CALCS"][uuid].CritChance and GlobalCache.cachedData["CALCS"][uuid].CritChance > 0 then
 					if not usedSkill then
 						usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
 						usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].CombinedDPS
