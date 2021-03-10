@@ -1,0 +1,12 @@
+return {
+    _all = {
+        coverage = true,
+        verbose = true,
+    },
+    default = {
+        directory = "src",
+        lpath = "../runtime/lua/?.lua",
+        helper = "HeadlessWrapper.lua",
+        ROOT = { "../spec" },
+    }
+}
