@@ -253,8 +253,7 @@ SkillType = {
 }
 
 GlobalCache = { 
-	--cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, },
-	cachedData = { },
+	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
 	minionSkills = { },
 	excludeFullDpsList = { },
 	dontUseCache = nil,

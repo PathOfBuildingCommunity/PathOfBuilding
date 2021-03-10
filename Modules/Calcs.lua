@@ -158,8 +158,8 @@ function calcs.calcFullDPS(build, mode, override)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
 			local uuid = cacheSkillUUID(activeSkill)
-			if GlobalCache.cachedData[uuid] and not override then
-				usedEnv = GlobalCache.cachedData[uuid].Env
+			if GlobalCache.cachedData[mode][uuid] and not override and not GlobalCache.dontUseCache then
+				usedEnv = GlobalCache.cachedData[mode][uuid].Env
 				activeSkill = usedEnv.player.mainSkill
 			else
 				fullEnv.player.mainSkill = activeSkill
@@ -282,7 +282,9 @@ function calcs.buildOutput(build, mode)
 	local output = env.player.output
 
 	-- Build output across all active skills
+	GlobalCache.dontUseCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CACHE")
+	GlobalCache.dontUseCache = nil
 
 	-- Add Full DPS data to main `env`
 	env.player.output.SkillDPS = fullDPS.skills

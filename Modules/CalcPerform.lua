@@ -22,17 +22,17 @@ local tempTable1 = { }
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
 local function findTriggerSkill(env, skill, source, triggerRate)
 	local uuid = cacheSkillUUID(skill)
-	if not GlobalCache.cachedData[uuid] then
+	if not GlobalCache.cachedData["CACHE"][uuid] then
 		calcs.buildActiveSkill(env.build, "CACHE", skill)
 		env.dontCache = true
 	end
 
-	if GlobalCache.cachedData[uuid] then
+	if GlobalCache.cachedData["CACHE"][uuid] then
 		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-		if not source and GlobalCache.cachedData[uuid].Speed then
-			return skill, GlobalCache.cachedData[uuid].Speed
-		elseif GlobalCache.cachedData[uuid].Speed and GlobalCache.cachedData[uuid].Speed > triggerRate then
-			return skill, GlobalCache.cachedData[uuid].Speed
+		if not source and GlobalCache.cachedData["CACHE"][uuid].Speed then
+			return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
+		elseif GlobalCache.cachedData["CACHE"][uuid].Speed and GlobalCache.cachedData["CACHE"][uuid].Speed > triggerRate then
+			return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
 		end
 	end
 	return source, triggerRate
@@ -1866,7 +1866,7 @@ function calcs.perform(env)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
 
 			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
@@ -1875,7 +1875,7 @@ function calcs.perform(env)
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
 
 			-- Account for chance to hit/crit
-			local sourceCritChance = GlobalCache.cachedData[uuid].CritChance
+			local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 			trigRate = trigRate * sourceCritChance / 100
 			if breakdown then
 				breakdown.Speed = {
@@ -1916,7 +1916,7 @@ function calcs.perform(env)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
 
 			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
@@ -1925,7 +1925,7 @@ function calcs.perform(env)
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
 
 			-- Account for chance to hit/crit
-			local sourceHitChance = GlobalCache.cachedData[uuid].HitChance
+			local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
 			trigRate = trigRate * sourceHitChance / 100
 			if breakdown then
 				breakdown.Speed = {
@@ -1966,13 +1966,13 @@ function calcs.perform(env)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
 			-- Account for chance to hit/crit
-			local sourceCritChance = GlobalCache.cachedData[uuid].CritChance
+			local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 			trigRate = trigRate * sourceCritChance / 100
 			trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
 			if breakdown then
@@ -2015,7 +2015,7 @@ function calcs.perform(env)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache.cachedData[uuid].Speed
+			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)

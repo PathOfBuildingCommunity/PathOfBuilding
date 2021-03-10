@@ -594,13 +594,15 @@ function cacheData(uuid, env)
 		return
 	end
 
-	if not GlobalCache.cachedData[uuid] or env.mode == "MAIN" or env.mode == "CALCS" then
+	local mode = env.mode
+
+	if not GlobalCache.cachedData[mode][uuid] or mode == "MAIN" or mode == "CALCS" then
 		-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-		if GlobalCache.cachedData[uuid] and (env.mode == "MAIN" or env.mode == "CALCS") then
-			GlobalCache.cachedData[uuid].ActiveSkill = nil
-			GlobalCache.cachedData[uuid].Env = nil
+		if GlobalCache.cachedData[mode][uuid] then
+			GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
+			GlobalCache.cachedData[mode][uuid].Env = nil
 		end
-		GlobalCache.cachedData[uuid] = {
+		GlobalCache.cachedData[mode][uuid] = {
 			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 			Speed = env.player.output.Speed,
 			HitChance = env.player.output.HitChance,
@@ -610,33 +612,20 @@ function cacheData(uuid, env)
 			ActiveSkill = env.player.mainSkill,
 			Env = env,
 		}
-
-		if env.minion then
-			-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-			if GlobalCache.cachedData[uuid].Minion and (env.mode == "MAIN" or env.mode == "CALCS") then
-				GlobalCache.cachedData[uuid].Minion.ActiveSkill = nil
-				GlobalCache.cachedData[uuid].Minion.Env = nil
-			end
-			GlobalCache.cachedData[uuid].Minion = {
-				Name = env.minion.mainSkill.activeEffect.grantedEffect.name,
-				Speed = env.minion.output.Speed,
-				HitChance = env.minion.output.HitChance,
-				PreEffectiveCritChance = env.minion.output.PreEffectiveCritChance,
-				CritChance = env.minion.output.CritChance,
-				CombinedDPS = env.minion.output.CombinedDPS,
-				ActiveSkill = env.minion.mainSkill,
-				Env = env.minion,
-			}
-		end
 	end
+end
+
+function getCachedData(skill, mode)
+	local uuid = cacheSkillUUID(skill)
+	return GlobalCache.cachedData[mode][uuid]
 end
 
 function wipeGlobalCache()
 	ConPrintf("WIPING GlobalCache.cacheData")
-	wipeTable(GlobalCache.cachedData)
-	--wipeTable(GlobalCache.cachedData.MAIN)
-	--wipeTable(GlobalCache.cachedData.CALCS)
-	--wipeTable(GlobalCache.cachedData.CALCULATOR)
+	wipeTable(GlobalCache.cachedData.MAIN)
+	wipeTable(GlobalCache.cachedData.CALCS)
+	wipeTable(GlobalCache.cachedData.CALCULATOR)
+	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.minionSkills)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	GlobalCache.dontUseCache = nil

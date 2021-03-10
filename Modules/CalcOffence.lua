@@ -3648,12 +3648,12 @@ function calcs.offence(env, actor, activeSkill)
 			if triggerSkill.socketGroup == activeSkill.socketGroup and triggerSkill ~= activeSkill and triggerSkill.skillData.triggeredByGeneralsCry then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
-				if not GlobalCache.cachedData[uuid] then
+				if not GlobalCache.cachedData["CALCS"][uuid] then
 					calcs.buildActiveSkill(env.build, "CALCS", triggerSkill)
 					env.dontCache = true
 				end
-				if GlobalCache.cachedData[uuid] then
-					usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
+				if GlobalCache.cachedData["CALCS"][uuid] then
+					usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
 				end
 				break
 			end
@@ -3715,19 +3715,19 @@ function calcs.offence(env, actor, activeSkill)
 			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Attack] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
-				if not GlobalCache.cachedData[uuid] then
+				if not GlobalCache.cachedData["CALCS"][uuid] then
 					calcs.buildActiveSkill(env.build, "CALCS", triggerSkill)
 					env.dontCache = true
 				end
 				-- We found a skill and it can crit
-				if GlobalCache.cachedData[uuid] and GlobalCache.cachedData[uuid].CritChance > 0 then
+				if GlobalCache.cachedData["CALCS"][uuid] and GlobalCache.cachedData["CALCS"][uuid].CritChance > 0 then
 					if not usedSkill then
-						usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
-						usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
+						usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
+						usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].CombinedDPS
 					else
-						if GlobalCache.cachedData[uuid].CombinedDPS > usedSkillBestDps then
-							usedSkill = GlobalCache.cachedData[uuid].ActiveSkill
-							usedSkillBestDps = GlobalCache.cachedData[uuid].CombinedDPS
+						if GlobalCache.cachedData["CALCS"][uuid].CombinedDPS > usedSkillBestDps then
+							usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
+							usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].CombinedDPS
 						end
 					end
 				end
