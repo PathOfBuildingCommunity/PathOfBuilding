@@ -590,7 +590,11 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	if not GlobalCache.cachedData[uuid] or (GlobalCache.cachedData[uuid] and (env.mode == "MAIN" or env.mode == "CALCS")) then
+	if GlobalCache.dontUseCache then
+		return
+	end
+
+	if not GlobalCache.cachedData[uuid] or env.mode == "MAIN" or env.mode == "CALCS" then
 		-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
 		if GlobalCache.cachedData[uuid] and (env.mode == "MAIN" or env.mode == "CALCS") then
 			GlobalCache.cachedData[uuid].ActiveSkill = nil
@@ -625,6 +629,17 @@ function cacheData(uuid, env)
 			}
 		end
 	end
+end
+
+function wipeGlobalCache()
+	ConPrintf("WIPING GlobalCache.cacheData")
+	wipeTable(GlobalCache.cachedData)
+	--wipeTable(GlobalCache.cachedData.MAIN)
+	--wipeTable(GlobalCache.cachedData.CALCS)
+	--wipeTable(GlobalCache.cachedData.CALCULATOR)
+	wipeTable(GlobalCache.minionSkills)
+	wipeTable(GlobalCache.excludeFullDpsList)
+	GlobalCache.dontUseCache = nil
 end
 
 -- Full DPS related: add to roll-up exclusion list

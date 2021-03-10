@@ -69,6 +69,9 @@ local function getCalculator(build, fullInit, modFunc)
 
 	-- Run base calculation pass
 	calcs.perform(env)
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
+	env.player.output.SkillDPS = fullDPS.skills
+	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
 	env.modDB.parent = initModDB
@@ -88,6 +91,11 @@ local function getCalculator(build, fullInit, modFunc)
 		
 		-- Run calculation pass
 		calcs.perform(env)
+		GlobalCache.dontUseCache = true
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
+		GlobalCache.dontUseCache = nil
+		env.player.output.SkillDPS = fullDPS.skills
+		env.player.output.FullDPS = fullDPS.combinedDPS
 
 		return env.player.output
 	end, baseOutput	
@@ -106,9 +114,9 @@ function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
-
+	GlobalCache.dontUseCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
-
+	GlobalCache.dontUseCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
@@ -116,7 +124,7 @@ function calcs.getMiscCalculator(build)
 	return function(override)
 		env = calcs.initEnv(build, "CALCULATOR", override)
 		calcs.perform(env)
-
+		
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override)
 
 		env.player.output.SkillDPS = fullDPS.skills
@@ -260,13 +268,6 @@ function calcs.buildActiveSkill(build, mode, skill)
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill
 			calcs.perform(fullEnv)
-			--local uuid = cacheSkillUUID(activeSkill)
-			--ConPrintf("[Cached] " .. uuid)
-			--ConPrintf("\tName: " .. GlobalCache.cachedData[uuid].Name)
-			--ConPrintf("\tAPS: " .. tostring(GlobalCache.cachedData[uuid].Speed))
-			--ConPrintf("\tHitChance: " .. tostring(GlobalCache.cachedData[uuid].HitChance))
-			--ConPrintf("\tCritChance: " .. tostring(GlobalCache.cachedData[uuid].CritChance))
-			--ConPrintf("\n")
 			return
 		end
 	end

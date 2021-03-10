@@ -813,9 +813,7 @@ function buildMode:OnFrame(inputEvents)
 	
 	if self.buildFlag then
 		-- Wipe Global Cache
-		--ConPrintf("WIPING GlobalChache.cacheData")
-		wipeTable(GlobalCache.cachedData)
-		wipeTable(GlobalCache.excludeFullDpsList)
+		wipeGlobalCache()
 
 		-- Rebuild calculation output tables
 		self.outputRevision = self.outputRevision + 1

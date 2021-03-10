@@ -252,4 +252,10 @@ SkillType = {
 	Orb = 112,
 }
 
-GlobalCache = { cachedData = { }, excludeFullDpsList = { } }
+GlobalCache = { 
+	--cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, },
+	cachedData = { },
+	minionSkills = { },
+	excludeFullDpsList = { },
+	dontUseCache = nil,
+}

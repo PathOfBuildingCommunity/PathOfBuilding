@@ -2224,17 +2224,14 @@ function calcs.perform(env)
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
 	calcs.offence(env, env.player, env.player.mainSkill)
-	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not env.dontCache then
-		cacheData(uuid, env)
-	end
 
 	if env.minion then
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
-		uuid = cacheSkillUUID(env.player.mainSkill)
-		if not env.dontCache then
-			cacheData(uuid, env)
-		end
+	end
+
+	local uuid = cacheSkillUUID(env.player.mainSkill)
+	if not env.dontCache then
+		cacheData(uuid, env)
 	end
 end
