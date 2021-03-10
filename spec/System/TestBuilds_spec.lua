@@ -22,7 +22,7 @@ describe("test all test builds", function()
         loadBuildFromXML(testBuild.xml)
         for key, value in pairs(testBuild.output) do
             it("test key: " .. key, function()
-                if type(value) == 'number' then
+                if type(value) == "number" then
                     value = round(value, 4)
                     build.calcsTab.mainOutput[key] = round(build.calcsTab.mainOutput[key], 4)
                 end
