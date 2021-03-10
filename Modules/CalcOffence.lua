@@ -3679,7 +3679,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- Re-link over the output
 			actor.output = newEnv.player.output
-			
+
 			-- Make any necessary corrections to output
 			actor.output.ManaCost = 0
 
@@ -3692,15 +3692,15 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			if usedSkill.skillPartName then
-				actor.mainSkill.skillPart = usedSkill.skillPart
-				actor.mainSkill.skillPartName = usedSkill.skillPartName
-				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
+				activeSkill.skillPart = usedSkill.skillPart
+				activeSkill.skillPartName = usedSkill.skillPartName
+				activeSkill.infoMessage2 = usedSkill.skillPartName
 			else
-				actor.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
 
-			actor.mainSkill = newSkill
-			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+			activeSkill = newSkill
+			activeSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 
 			usedSkill.TotalDPS = 0
 			usedSkill.CombinedDPS = 0
@@ -3723,11 +3723,11 @@ function calcs.offence(env, actor, activeSkill)
 				if GlobalCache.cachedData["CALCS"][uuid] and GlobalCache.cachedData["CALCS"][uuid].CritChance and GlobalCache.cachedData["CALCS"][uuid].CritChance > 0 then
 					if not usedSkill then
 						usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
-						usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].CombinedDPS
+						usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].TotalDPS
 					else
-						if GlobalCache.cachedData["CALCS"][uuid].CombinedDPS > usedSkillBestDps then
+						if GlobalCache.cachedData["CALCS"][uuid].TotalDPS > usedSkillBestDps then
 							usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
-							usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].CombinedDPS
+							usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].TotalDPS
 						end
 					end
 				end
@@ -3750,7 +3750,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- Re-link over the output
 			actor.output = newEnv.player.output
-			
+
 			-- Make any necessary corrections to output
 			actor.output.ManaCost = 0
 
@@ -3763,17 +3763,17 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			if usedSkill.skillPartName then
-				actor.mainSkill.skillPart = usedSkill.skillPart
-				actor.mainSkill.skillPartName = usedSkill.skillPartName
-				actor.mainSkill.infoMessage2 = usedSkill.skillPartName
+				activeSkill.skillPart = usedSkill.skillPart
+				activeSkill.skillPartName = usedSkill.skillPartName
+				activeSkill.infoMessage2 = usedSkill.skillPartName
 			else
-				actor.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
 
-			actor.mainSkill = newSkill
-			actor.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+			activeSkill = newSkill
+			activeSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 		else
-			actor.mainSkill.infoMessage2 = "No Saviour active skill found"
+			activeSkill.infoMessage2 = "No Saviour active skill found"
 		end
 	end
 

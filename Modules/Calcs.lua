@@ -160,9 +160,17 @@ function calcs.calcFullDPS(build, mode, override)
 				usedEnv = cacheData.Env
 				activeSkill = usedEnv.player.mainSkill
 			else
+				local forceCache = false
+				if GlobalCache.dontUseCache then 
+					forceCache = true
+					GlobalCache.dontUseCache = nil
+				end
 				fullEnv.player.mainSkill = activeSkill
 				calcs.perform(fullEnv)
 				usedEnv = fullEnv
+				if forceCache then
+					GlobalCache.dontUseCache = true
+				end
 			end
 			local activeSkillCount = getActiveSkillCount(activeSkill)
 			if activeSkill.minion then

@@ -608,7 +608,7 @@ function cacheData(uuid, env)
 			HitChance = env.player.output.HitChance,
 			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
 			CritChance = env.player.output.CritChance,
-			CombinedDPS = env.player.output.CombinedDPS,
+			TotalDPS = env.player.output.TotalDPS,
 			ActiveSkill = env.player.mainSkill,
 			Env = env,
 		}

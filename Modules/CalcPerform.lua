@@ -1177,6 +1177,18 @@ function calcs.perform(env)
 			-- Set trigger time to 1 min in ms ( == 6000 ). Technically any large value would do.
 			activeSkill.skillData.triggerTime = 60 * 1000
 		end
+		-- General's Cry Support
+		--     this exist to infrom display to not show DPS for this skill as it only has damage due to General's Cry
+		if activeSkill.skillData.triggeredByGeneralsCry and not activeSkill.skillFlags.minion then
+			addToFullDpsExclusionList(activeSkill)
+			activeSkill.infoMessage = "Used by General's Cry Mirage Warriors"
+			activeSkill.infoTrigger = "General's Cry"
+		end
+		-- The Saviour
+		if activeSkill.activeEffect.grantedEffect.name == "Reflection" or activeSkill.skillData.triggeredBySaviour then
+			activeSkill.infoMessage = "Triggered by a Crit from The Saviour"
+			activeSkill.infoTrigger = "Saviour"
+		end
 	end
 
 	local breakdown = nil
@@ -2073,20 +2085,6 @@ function calcs.perform(env)
 
 			env.player.mainSkill.skillFlags.dontDisplay = true
 		end
-	end
-
-	-- General's Cry Support
-	--     this exist to infrom display to not show DPS for this skill as it only has damage due to General's Cry
-	if env.player.mainSkill.skillData.triggeredByGeneralsCry and not env.player.mainSkill.skillFlags.minion then
-		addToFullDpsExclusionList(env.player.mainSkill)
-		env.player.mainSkill.infoMessage = "Used by General's Cry Mirage Warriors"
-		env.player.mainSkill.infoTrigger = "General's Cry"
-	end
-
-	-- The Saviour
-	if env.player.mainSkill.activeEffect.grantedEffect.name == "Reflection" or env.player.mainSkill.skillData.triggeredBySaviour then
-		env.player.mainSkill.infoMessage = "Triggered by a Crit from The Saviour"
-		env.player.mainSkill.infoTrigger = "Saviour"
 	end
 
 	-- Fix the configured impale stacks on the enemy
