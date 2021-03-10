@@ -1,5 +1,5 @@
 local function fetchBuilds(path, buildList)
-    local buildList = buildList or {}
+    buildList = buildList or {}
     for file in lfs.dir(path) do
         if file ~= "." and file ~= ".." then
             local f = path..'/'..file
