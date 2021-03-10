@@ -1908,8 +1908,12 @@ function calcs.offence(env, actor, activeSkill)
 						else
 							resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 							if isElemental[damageType] then
-								local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
-								resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
+								if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+									resist = globalOutput[damageType.."Resist"]
+								else
+									local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
+									resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
+								end
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
 								takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 							elseif damageType == "Chaos" then
@@ -3557,11 +3561,15 @@ function calcs.offence(env, actor, activeSkill)
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
-					resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
-					if isElemental[damageType] then
-						local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
-						resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
-						takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
+					if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+						resist = output[damageType.."Resist"]
+					else
+						resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
+						if isElemental[damageType] then
+							local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+							resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
+							takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
+						end
 					end
 					resist = m_min(resist, data.misc.EnemyMaxResist)
 				end
