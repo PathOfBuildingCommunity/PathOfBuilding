@@ -114,9 +114,7 @@ function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
-	GlobalCache.dontUseCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
-	GlobalCache.dontUseCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
@@ -124,9 +122,9 @@ function calcs.getMiscCalculator(build)
 	return function(override)
 		env = calcs.initEnv(build, "CALCULATOR", override)
 		calcs.perform(env)
-		
+		GlobalCache.dontUseCache = true
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override)
-
+		GlobalCache.dontUseCache = nil
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
 		return env.player.output
