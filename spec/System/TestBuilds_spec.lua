@@ -4,7 +4,7 @@ local function fetchBuilds(path, buildList)
         if file ~= "." and file ~= ".." then
             local f = path..'/'..file
             local attr = lfs.attributes (f)
-            assert (type(attr) == "table")
+            assert(type(attr) == "table")
             if attr.mode == "directory" then
                 fetchBuilds(f, buildList)
             else
