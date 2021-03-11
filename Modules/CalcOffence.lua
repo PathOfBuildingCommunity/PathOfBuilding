@@ -3675,6 +3675,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * (skillData.dpsMultiplier or 1)
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
+			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
 		else
 			skillFlags.notAverage = true
 			output.ImpaleDPS = output.ImpaleDPS * (output.HitSpeed or output.Speed)
