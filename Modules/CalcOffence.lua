@@ -283,7 +283,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByCoC
+	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByPoets
 	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
