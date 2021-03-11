@@ -762,3 +762,7 @@ local skills, mod, flag, skill = ...
 #flags spell
 	fromItem = true,
 #mods
+
+#skill SupportTriggerSpellOnAttack The Poet's Pen
+	fromItem = true,
+#mods

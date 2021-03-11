@@ -165,7 +165,10 @@ return {
 	skill("triggeredByMjolner", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.LightningSkill }),
 },
 ["unique_cospris_malice_cold_spells_triggered"] = {
-	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+},
+["skill_has_trigger_from_unique_item"] = {
+	skill("triggeredByPoets", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["display_mirage_warriors_no_spirit_strikes"] = {
 	skill("triggeredBySaviour", true, { type = "SkillType", skillType = SkillType.Attack } ),

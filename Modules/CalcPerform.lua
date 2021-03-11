@@ -1957,11 +1957,12 @@ function calcs.perform(env)
 	end
 
 	-- Poet's Pen
-	if env.player.mainSkill.skillData.triggeredByPoets and not env.player.mainSkill.skillFlags.minion then
+	if env.player.mainSkill.skillData.triggeredByPoets then --and not env.player.mainSkill.skillFlags.minion then
 		local spellCount = {}
 		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 		local trigRate = 0
 		local source = nil
+		ConPrintf("HI")
 	end
 
 	-- Cast On Critical Strike Support (CoC)
