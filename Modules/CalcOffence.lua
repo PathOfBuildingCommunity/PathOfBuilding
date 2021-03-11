@@ -3673,9 +3673,19 @@ function calcs.offence(env, actor, activeSkill)
 			newSkill.skillModList:NewMod("Damage", "MORE", exertMore, "General's Cry Exerted Attacks", activeSkill.ModFlags, activeSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "General's Cry Max Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
 
+			if usedSkill.skillPartName then
+				activeSkill.skillPart = usedSkill.skillPart
+				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+				activeSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+			else
+				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+			end
+			activeSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
+
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill
 			calcs.perform(newEnv)
+			activeSkill = newSkill
 
 			-- Re-link over the output
 			actor.output = newEnv.player.output
@@ -3690,17 +3700,6 @@ function calcs.offence(env, actor, activeSkill)
 				-- Make any necessary corrections to breakdown
 				actor.breakdown.ManaCost = nil
 			end
-
-			if usedSkill.skillPartName then
-				activeSkill.skillPart = usedSkill.skillPart
-				activeSkill.skillPartName = usedSkill.skillPartName
-				activeSkill.infoMessage2 = usedSkill.skillPartName
-			else
-				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
-			end
-
-			activeSkill = newSkill
-			activeSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 
 			usedSkill.TotalDPS = 0
 			usedSkill.CombinedDPS = 0
@@ -3737,12 +3736,23 @@ function calcs.offence(env, actor, activeSkill)
 		if usedSkill then
 			local moreDamage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorLessDamage")
 			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorMaxCount")
-
 			local newSkill, newEnv = calcs.copyActiveSkill(env.build, "CALCS", usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "The Saviour", activeSkill.ModFlags, activeSkill.KeywordFlags)
+			if env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 1"].name == env.player.itemList["Weapon 2"].name then
+				maxMirageWarriors = maxMirageWarriors / 2
+			end
 			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "The Saviour Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
+
+			if usedSkill.skillPartName then
+				activeSkill.skillPart = usedSkill.skillPart
+				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+				activeSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+			else
+				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+			end
+			activeSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill
@@ -3761,17 +3771,6 @@ function calcs.offence(env, actor, activeSkill)
 				-- Make any necessary corrections to breakdown
 				actor.breakdown.ManaCost = nil
 			end
-
-			if usedSkill.skillPartName then
-				activeSkill.skillPart = usedSkill.skillPart
-				activeSkill.skillPartName = usedSkill.skillPartName
-				activeSkill.infoMessage2 = usedSkill.skillPartName
-			else
-				activeSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
-			end
-
-			activeSkill = newSkill
-			activeSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 		else
 			activeSkill.infoMessage2 = "No Saviour active skill found"
 		end
