@@ -462,8 +462,8 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("Speed", "MORE", effect, "Fanaticism", ModFlag.Cast)
-			modDB:NewMod("ManaCost", "INC", -effect, "Fanaticism")
-			modDB:NewMod("AreaOfEffect", "INC", effect, "Fanaticism")
+			modDB:NewMod("ManaCost", "INC", -effect, "Fanaticism", ModFlag.Cast)
+			modDB:NewMod("AreaOfEffect", "INC", effect, "Fanaticism", ModFlag.Cast)
 		end
 		if modDB:Flag(nil, "UnholyMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
