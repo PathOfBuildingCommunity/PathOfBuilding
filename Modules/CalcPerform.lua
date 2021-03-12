@@ -1155,10 +1155,10 @@ function calcs.perform(env)
 			activeSkill.skillData.triggered = true
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
-				if skill.socketGroup == activeSkill.socketGroup and skill.skillData.triggeredByBrand then
+				if skill.socketGroup.slotName == activeSkill.socketGroup.slotName and skill.skillData.triggeredByBrand then
 					spellCount = spellCount + 1
 				end
-				if skill.socketGroup == activeSkill.socketGroup and skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
+				if skill.socketGroup.slotName == activeSkill.socketGroup.slotName and skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
 					quality = skill.activeEffect.quality / 2
 				end
 			end
@@ -2013,10 +2013,10 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Attack] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= env.player.mainSkill then
+			if skill.skillTypes[SkillType.Attack] and skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByCoC then
+			if skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill.skillData.triggeredByCoC then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
@@ -2036,7 +2036,7 @@ function calcs.perform(env)
 			-- Account for chance to hit/crit
 			local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 			trigRate = trigRate * sourceCritChance / 100
-			trigRate = trigRate * source.skillData.chanceToTriggerOnCrit / 100
+			trigRate = trigRate * (source.skillData.chanceToTriggerOnCrit or 100) / 100
 			if breakdown then
 				breakdown.Speed = {
 					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
@@ -2062,10 +2062,10 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= env.player.mainSkill then
+			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredByMeleeKill then
+			if skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill.skillData.triggeredByMeleeKill then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
@@ -2108,10 +2108,10 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Channelled] and skill.socketGroup == env.player.mainSkill.socketGroup and skill ~= env.player.mainSkill then
+			if skill.skillTypes[SkillType.Channelled] and skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup == env.player.mainSkill.socketGroup and skill.skillData.triggeredWhileChannelling then
+			if skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill.skillData.triggeredWhileChannelling then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
 			end
 		end
