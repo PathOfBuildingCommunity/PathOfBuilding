@@ -678,7 +678,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	end)
 	slot.enableGlobal1.shown = function()
 		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
-		return gemInstance and gemInstance.gemData and gemInstance.gemData.grantedEffectList[1] and gemInstance.gemData.grantedEffectList[1].hasGlobalEffect and not gemInstance.gemData.grantedEffectList[1].support
+		return gemInstance and gemInstance.gemData and gemInstance.gemData.vaalGem and gemInstance.gemData.grantedEffectList[1] and not gemInstance.gemData.grantedEffectList[1].support
 	end
 	slot.enableGlobal1.x = function()
 		return self:IsShown() and (DrawStringWidth(16, "VAR", slot.enableGlobal1:GetProperty("label")) + 5) or 0
@@ -697,7 +697,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	end)
 	slot.enableGlobal2.shown = function()
 		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
-		return gemInstance and gemInstance.gemData and gemInstance.gemData.grantedEffectList[2] and gemInstance.gemData.grantedEffectList[2].hasGlobalEffect and not gemInstance.gemData.grantedEffectList[2].support
+		return gemInstance and gemInstance.gemData and gemInstance.gemData.vaalGem and gemInstance.gemData.grantedEffectList[2] and not gemInstance.gemData.grantedEffectList[2].support
 	end
 	slot.enableGlobal2.x = function()
 		return self:IsShown() and (DrawStringWidth(16, "VAR", slot.enableGlobal2:GetProperty("label")) + 12) or 0

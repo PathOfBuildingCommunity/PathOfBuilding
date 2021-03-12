@@ -133,16 +133,26 @@ end
 
 local function getActiveSkillCount(activeSkill)
 	if not activeSkill.socketGroup then
-		return 1
+		return 1, true
 	else
 		local gemList = activeSkill.socketGroup.gemList
 		for _, gemData in pairs(gemList) do
-			if gemData.gemData and activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect then
-				return gemData.count or 1
+			if gemData.gemData then
+				if gemData.gemData.vaalGem then
+					if activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffectList[1] then
+						return gemData.count or 1,  gemData.enableGlobal1 == true
+					elseif activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffectList[2] then
+						return gemData.count or 1,  gemData.enableGlobal2 == true
+					end
+				else
+					if activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect then
+						return gemData.count or 1, true
+					end
+				end
 			end
 		end
 	end
-	return 1
+	return 1, true
 end
 
 function calcs.calcFullDPS(build, mode, override)
@@ -155,86 +165,87 @@ function calcs.calcFullDPS(build, mode, override)
 	local igniteSource = ""
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
-			local cacheData = getCachedData(activeSkill, mode)
-			if cacheData and not override and not GlobalCache.dontUseCache then
-				usedEnv = cacheData.Env
-				activeSkill = usedEnv.player.mainSkill
-			else
-				local forceCache = false
-				if GlobalCache.dontUseCache then 
-					forceCache = true
-					GlobalCache.dontUseCache = nil
-				end
-				fullEnv.player.mainSkill = activeSkill
-				calcs.perform(fullEnv)
-				usedEnv = fullEnv
-				if forceCache then
-					GlobalCache.dontUseCache = true
-				end
-			end
-			local activeSkillCount = getActiveSkillCount(activeSkill)
-			if activeSkill.minion then
-				if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
-					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.minion.output.TotalDPS, count = activeSkillCount })
-					else
-						ConPrintf("[Minion] HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
+			if enabled then
+				local cacheData = getCachedData(activeSkill, mode)
+				if cacheData and not override and not GlobalCache.dontUseCache then
+					usedEnv = cacheData.Env
+					activeSkill = usedEnv.player.mainSkill
+				else
+					local forceCache = false
+					if GlobalCache.dontUseCache then 
+						forceCache = true
+						GlobalCache.dontUseCache = nil
 					end
-					fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.minion.output.TotalDPS * activeSkillCount
-				end
-				if usedEnv.minion.output.BleedDPS and usedEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
-					fullDPS.bleedDPS = usedEnv.minion.output.BleedDPS
-					bleedSource = activeSkill.activeEffect.grantedEffect.name
-				end
-				if usedEnv.minion.output.IgniteDPS and usedEnv.minion.output.IgniteDPS > fullDPS.igniteDPS then
-					fullDPS.igniteDPS = usedEnv.minion.output.IgniteDPS
-					igniteSource = activeSkill.activeEffect.grantedEffect.name
-				end
-				if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
-					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * usedEnv.minion.output.TotalPoisonStacks * activeSkillCount
-				end
-				if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
-					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
-				end
-				if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
-					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
-				end
-				if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
-					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
-				end
-			else
-				if usedEnv.player.output.TotalDPS and usedEnv.player.output.TotalDPS > 0 then
-					if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = activeSkill.skillPartName })
-					else
-						ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+					fullEnv.player.mainSkill = activeSkill
+					calcs.perform(fullEnv)
+					usedEnv = fullEnv
+					if forceCache then
+						GlobalCache.dontUseCache = true
 					end
-					fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.player.output.TotalDPS * activeSkillCount
 				end
-				if usedEnv.player.output.BleedDPS and usedEnv.player.output.BleedDPS > fullDPS.bleedDPS then
-					fullDPS.bleedDPS = usedEnv.player.output.BleedDPS
-					bleedSource = activeSkill.activeEffect.grantedEffect.name
+				if activeSkill.minion then
+					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
+						if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+							t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.minion.output.TotalDPS, count = activeSkillCount })
+						else
+							ConPrintf("[Minion] HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+						end
+						fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.minion.output.TotalDPS * activeSkillCount
+					end
+					if usedEnv.minion.output.BleedDPS and usedEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = usedEnv.minion.output.BleedDPS
+						bleedSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.minion.output.IgniteDPS and usedEnv.minion.output.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = usedEnv.minion.output.IgniteDPS
+						igniteSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
+						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * usedEnv.minion.output.TotalPoisonStacks * activeSkillCount
+					end
+					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
+					end
+					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
+					end
+					if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
+						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
+					end
+				else
+					if usedEnv.player.output.TotalDPS and usedEnv.player.output.TotalDPS > 0 then
+						if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+							t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = activeSkill.skillPartName })
+						else
+							ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+						end
+						fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.player.output.TotalDPS * activeSkillCount
+					end
+					if usedEnv.player.output.BleedDPS and usedEnv.player.output.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = usedEnv.player.output.BleedDPS
+						bleedSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.player.output.IgniteDPS and usedEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = usedEnv.player.output.IgniteDPS
+						igniteSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
+						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * usedEnv.player.output.TotalPoisonStacks * activeSkillCount
+					end
+					if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
+					end
+					if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
+					end
+					if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
+						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot
+					end
 				end
-				if usedEnv.player.output.IgniteDPS and usedEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
-					fullDPS.igniteDPS = usedEnv.player.output.IgniteDPS
-					igniteSource = activeSkill.activeEffect.grantedEffect.name
-				end
-				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
-					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * usedEnv.player.output.TotalPoisonStacks * activeSkillCount
-				end
-				if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
-					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
-				end
-				if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
-					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
-				end
-				if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
-					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot
-				end
+				-- Re-Build env calculator for new run
+				fullEnv = calcs.initEnv(build, mode)
 			end
-		
-			-- Re-Build env calculator for new run
-			fullEnv = calcs.initEnv(build, mode)
 		end
 	end
 
