@@ -766,3 +766,23 @@ local skills, mod, flag, skill = ...
 #skill SupportTriggerSpellOnAttack The Poet's Pen
 	fromItem = true,
 #mods
+
+#skill SupportTriggerSpellOnBowAttack Asenath's Chant
+	fromItem = true,
+#mods
+
+#skill SupportTriggerSpellFromHelmet Focus
+	fromItem = true,
+#mods
+
+#skill SupportTriggerSpellOnSkillUse Craft
+	fromItem = true,
+#mods
+
+#skill SupportTriggerBowSkillOnBowAttack Maloney's Mechanism
+	fromItem = true,
+#mods
+
+#skill SupportCastOnManaSpent Kitava's Thirst
+	fromItem = true,
+#mods
