@@ -107,6 +107,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupSlotLabel = new("LabelControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 30, 0, 16, "^7Socketed in:")
 	self.controls.groupSlot = new("DropDownControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 130, 20, groupSlotDropList, function(index, value)
 		self.displayGroup.slot = value.slotName
+		self:CheckForItemActive()
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
@@ -930,5 +931,17 @@ function SkillsTabClass:RestoreUndoState(state)
 	self:SetDisplayGroup(displayId and self.socketGroupList[displayId])
 	if self.controls.groupList.selValue then
 		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
+	end
+end
+
+function SkillsTabClass:CheckForItemActive()
+	--Determine if a skill from an item is present in the named socket group
+	for _, socketGroupRow in ipairs(self.socketGroupList) do
+		if socketGroupRow.gemList and #socketGroupRow.gemList == 1 and socketGroupRow.gemList[1].grantedEffect and socketGroupRow.gemList[1].grantedEffect.fromItem and not socketGroupRow.gemList[1].grantedEffect.support then
+			if socketGroupRow.slot == self.displayGroup.slot and socketGroupRow ~= self.displayGroup then
+				self.displayGroup.gemList[1] = socketGroupRow.gemList[1]
+				t_insert(self.displayGroup.displaySkillList, 1, socketGroupRow.displaySkillList[1])
+			end
+		end
 	end
 end
