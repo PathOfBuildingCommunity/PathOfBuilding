@@ -441,7 +441,7 @@ skills["BoneArmour"] = {
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["quick_guard_damage_absorb_limit"] = {
-			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -664,7 +664,7 @@ skills["CrabAspect"] = {
 			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "Multiplier", var = "CrabBarrier" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["max_crab_aspect_stacks"] = {
-			mod("CrabBarriersMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("CrabBarriersMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {

@@ -1923,7 +1923,7 @@ skills["Cyclone"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "AdditionalMeleeRange"}),
 		},
 		["cyclone_movement_speed_+%_final"] = {
-			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	initialFunc = function(activeSkill, output)

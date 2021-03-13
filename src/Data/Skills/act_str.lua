@@ -3863,11 +3863,11 @@ skills["MoltenShell"] = {
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["molten_shell_damage_absorb_limit_%_of_armour"] = {
-			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 			div = 100,
 		},
 		["molten_shell_max_damage_absorbed"] = {
-			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
 			skill("moltenShellReflect", nil),
@@ -3972,14 +3972,14 @@ skills["VaalMoltenShell"] = {
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["molten_shell_damage_absorb_limit_%_of_armour"] = {
-			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 			div = 100,
 		},
 		["molten_shell_max_damage_absorbed"] = {
-			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["vaal_molten_shall_armour_+%_final"] = {
-			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
 			skill("moltenShellReflect", nil),
@@ -5541,10 +5541,10 @@ skills["QuickGuard"] = {
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["quick_guard_damage_absorb_limit"] = {
-			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["steelskin_damage_limit_+%"] = {
-			mod("GuardAbsorbLimit", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbLimit", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 	},
 	baseFlags = {

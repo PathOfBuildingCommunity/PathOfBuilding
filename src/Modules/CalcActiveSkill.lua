@@ -621,6 +621,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					stackLimit = effectTag.effectStackLimit,
 					stackLimitVar = effectTag.effectStackLimitVar,
 					modList = { },
+					unscalableModList = { },
 				}
 				if skillModList[i].source == activeGrantedEffect.modSource then
 					-- Inherit buff configuration from the active skill
@@ -633,18 +634,19 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				t_insert(activeSkill.buffList, buff)
 			end
 			local match = false
-			for d = 1, #buff.modList do
-				local destMod = buff.modList[d]
+			local modList = effectTag.unscalable and buff.unscalableModList or buff.modList
+			for d = 1, #modList do
+				local destMod = modList[d]
 				if modLib.compareModParams(skillModList[i], destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
 					destMod = copyTable(destMod)
 					destMod.value = destMod.value + skillModList[i].value
-					buff.modList[d] = destMod
+					modList[d] = destMod
 					match = true
 					break
 				end
 			end
 			if not match then
-				t_insert(buff.modList, skillModList[i])
+				t_insert(modList, skillModList[i])
 			end
 			t_remove(skillModList, i)
 		else
