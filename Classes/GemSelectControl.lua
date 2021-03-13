@@ -144,6 +144,14 @@ function GemSelectClass:UpdateSortCache()
 		sortType = self.skillsTab.sortGemsByDPSField
 	}
 	self.sortCache = sortCache
+	--Determine if a skill from an item is present in the named socket group
+	for _, socketGroupRow in ipairs(self.skillsTab.socketGroupList) do
+		if socketGroupRow.gemList and #socketGroupRow.gemList == 1 and socketGroupRow.gemList[1].grantedEffect.fromItem and not socketGroupRow.gemList[1].grantedEffect.support then
+			if socketGroupRow.slot == self.skillsTab.displayGroup.slot then
+				t_insert(self.skillsTab.displayGroup.displaySkillList, 1, socketGroupRow.displaySkillList[1])
+			end
+		end
+	end
 	--Determine supports that affect the active skill
 	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
 		for gemId, gemData in pairs(self.gems) do
