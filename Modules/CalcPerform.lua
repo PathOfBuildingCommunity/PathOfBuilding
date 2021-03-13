@@ -1155,10 +1155,12 @@ function calcs.perform(env)
 			activeSkill.skillData.triggered = true
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
-				if skill.socketGroup.slotName == activeSkill.socketGroup.slotName and skill.skillData.triggeredByBrand then
+				local match1 = (skill.activeEffect.grantedEffect.fromItem or 0) and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+				local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+				if skill.skillData.triggeredByBrand and (match1 or match2) then
 					spellCount = spellCount + 1
 				end
-				if skill.socketGroup.slotName == activeSkill.socketGroup.slotName and skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
+				if skill.activeEffect.grantedEffect.name == "Arcanist Brand" and (match1 or match2) then
 					quality = skill.activeEffect.quality / 2
 				end
 			end
@@ -1866,7 +1868,7 @@ function calcs.perform(env)
 			if skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.skillData.triggeredByCospris and env.player.mainSkill.slotName == skill.slotName then
+			if skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
@@ -1916,7 +1918,7 @@ function calcs.perform(env)
 			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.skillData.triggeredByMjolner and env.player.mainSkill.slotName == skill.slotName then
+			if skill.skillData.triggeredByMjolner and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
@@ -1966,7 +1968,7 @@ function calcs.perform(env)
 			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.skillData.triggeredByPoets and env.player.mainSkill.slotName == skill.slotName then
+			if skill.skillData.triggeredByPoets and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
@@ -2013,10 +2015,12 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Attack] and skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill ~= env.player.mainSkill then
+			local match1 = (skill.activeEffect.grantedEffect.fromItem or 0) and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill.skillData.triggeredByCoC then
+			if skill.skillData.triggeredByCoC and (match1 or match2) then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
@@ -2062,10 +2066,12 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill ~= env.player.mainSkill then
+			local match1 = (skill.activeEffect.grantedEffect.fromItem or 0) and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill.skillData.triggeredByMeleeKill then
+			if skill.skillData.triggeredByMeleeKill and (match1 or match2) then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
@@ -2108,10 +2114,12 @@ function calcs.perform(env)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillTypes[SkillType.Channelled] and skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill ~= env.player.mainSkill then
+			local match1 = (skill.activeEffect.grantedEffect.fromItem or 0) and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillTypes[SkillType.Channelled] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.socketGroup.slotName == env.player.mainSkill.socketGroup.slotName and skill.skillData.triggeredWhileChannelling then
+			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
 			end
 		end
