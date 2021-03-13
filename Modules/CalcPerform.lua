@@ -1958,23 +1958,27 @@ function calcs.perform(env)
 		end
 	end
 
-	-- The Poet's Pen
-	if env.player.mainSkill.skillData.triggeredByPoets and not env.player.mainSkill.skillFlags.minion then
+	-- Unique Item Trigger
+	if env.player.mainSkill.skillData.triggeredByUnique and not env.player.mainSkill.skillFlags.minion then
+		local uniqueTriggerName = calcs.getUniqueItemTriggerName(env.player.mainSkill)
 		local spellCount = {}
 		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill then
-				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			-- Poet's Pen
+			if uniqueTriggerName == "The Poet's Pen" then
+				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill then
+					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+				end
 			end
-			if skill.skillData.triggeredByPoets and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+			if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 			end
 		end
 		if not source or #spellCount < 1 then
-			env.player.mainSkill.skillData.triggeredByPoets = nil
-			env.player.mainSkill.infoMessage = "No Poet's Pen Triggering Skill Found"
+			env.player.mainSkill.skillData.triggeredByUnique = nil
+			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", uniqueTriggerName)
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 			env.player.mainSkill.infoTrigger = ""
 		else
@@ -1992,8 +1996,8 @@ function calcs.perform(env)
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = "Poet's Pen Triggering Skill: " .. source.activeEffect.grantedEffect.name
-			env.player.mainSkill.infoTrigger = "Poet's Pen"
+			env.player.mainSkill.infoMessage = "Unique Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = uniqueTriggerName
 		end
 	end
 

@@ -168,7 +168,17 @@ return {
 	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillType = SkillType.ColdSkill }),
 },
 ["skill_has_trigger_from_unique_item"] = {
-	skill("triggeredByPoets", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+	skill("triggeredByUnique", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["skill_triggered_when_you_focus_chance_%"] = {
+	skill("triggeredByFocus", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+	div = 100,
+},
+["spell_has_trigger_from_crafted_item_mod"] = {
+	skill("triggeredByCraft", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["support_cast_on_mana_spent"] = {
+	skill("triggeredByManaSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["display_mirage_warriors_no_spirit_strikes"] = {
 	skill("triggeredBySaviour", true, { type = "SkillType", skillType = SkillType.Attack } ),

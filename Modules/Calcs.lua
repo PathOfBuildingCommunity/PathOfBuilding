@@ -155,6 +155,18 @@ local function getActiveSkillCount(activeSkill)
 	return 1, true
 end
 
+function calcs.getUniqueItemTriggerName(skill)
+	local name = ""
+	if skill.supportList and #skill.supportList >= 1 then
+		for _, gemInstance in ipairs(skill.supportList) do
+			if gemInstance.grantedEffect and gemInstance.grantedEffect.fromItem then
+				return gemInstance.grantedEffect.name
+			end
+		end
+	end
+	return name
+end
+
 function calcs.calcFullDPS(build, mode, override)
 	local fullEnv = calcs.initEnv(build, mode, override or {})
 	local usedEnv = nil
