@@ -280,7 +280,7 @@ function calcs.buildOutput(build, mode)
 		if output.BlitzCharges > 0 then
 			t_insert(combatList, s_format("%d Blitz Charges", output.BlitzCharges))
 		end
-		if output.InspirationCharges > 0 then
+		if build.calcsTab.mainEnv.multipliersUsed["InspirationCharge"] then
 			t_insert(combatList, s_format("%d Inspiration Charges", output.InspirationCharges))
 		end
 		if output.GhostShrouds > 0 then
