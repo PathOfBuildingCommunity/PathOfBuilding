@@ -49,7 +49,7 @@ local function getTriggerActionTriggerRate(env, breakdown)
 		breakdown.ActionTriggerRate = {
 			s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
 			s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-			s_format("= %.3f ^8(final cooldown of trigger)", modActionCooldown),
+			s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
 			s_format(""),
 			s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 			s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
@@ -1973,21 +1973,21 @@ function calcs.perform(env)
 
 		-- Crafted Trigger
 		if env.player.mainSkill.skillData.triggeredByCraft and not env.player.mainSkill.skillFlags.minion then
-			local triggerName = ""
+			local triggerName = "Weapon"
 			local spellCount = {}
 			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 			local trigRate = 0
 			local source = nil
 			for _, skill in ipairs(env.player.activeSkillList) do
-				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill then
+				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
-				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+				if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
 				end
 			end
 			if not source or #spellCount < 1 then
-				env.player.mainSkill.skillData.triggeredByUnique = nil
+				env.player.mainSkill.skillData.triggeredByCraft = nil
 				env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
 				env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 				env.player.mainSkill.infoTrigger = ""
