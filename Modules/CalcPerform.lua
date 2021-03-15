@@ -242,25 +242,9 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 
 	-- Adjust for server tick rate
 	local trigCD = 1 / trigRate
-	--[[
-	local adjTrigCD = m_ceil(trigCD * data.misc.ServerTickRate) / data.misc.ServerTickRate
-	trigRate = 1 / adjTrigCD
-	if breakdown then
-		breakdown.ServerTriggerRate = {
-			s_format("1 / %.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate * adjTrigCD),
-			s_format("= %.3f ^8(seconds between each action)", trigCD),
-			s_format("= %.3f ^8(rounded up to nearest server tick)", adjTrigCD),
-			s_format(""),
-			s_format("Adjusted trigger rate:"),
-			s_format("1 / %.3f", adjTrigCD),
-			s_format("= %.2f ^8per second", 1 / adjTrigCD),
-		}
-	end
-	--]]
 	if breakdown then
 		breakdown.ServerTriggerRate = {
 			s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
-			--s_format("= %.3f ^8(seconds between each action)", trigCD),
 		}
 	end
 	output.ServerTriggerRate = trigRate
@@ -1979,7 +1963,7 @@ function calcs.perform(env)
 			local trigRate = 0
 			local source = nil
 			for _, skill in ipairs(env.player.activeSkillList) do
-				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill then
+				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
 				if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
@@ -1997,10 +1981,26 @@ function calcs.perform(env)
 				local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 				local dualWield = false
 
-				sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
-
 				-- Get action trigger rate
-				trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
+				trigRate = icdr / m_max(env.player.mainSkill.skillData.cooldown, 4.0)
+
+				output.ActionTriggerRate = trigRate
+				output.SourceTriggerRate = trigRate
+				output.ServerTriggerRate = trigRate
+				if breakdown then
+					breakdown.ActionTriggerRate = {
+						s_format("%.2f ^8(base cooldown of trigger)", trigRate),
+						s_format(""),
+						s_format("Trigger rate:"),
+						s_format("1 / %.2f", trigRate),
+						s_format("= %.2f ^8per second", output.ActionTriggerRate),
+					}
+					breakdown.ServerTriggerRate = {
+						s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+					}
+				end
+
+				getTriggerActionTriggerRate(env, breakdown)
 
 				-- Account for Trigger-related INC/MORE modifiers
 				addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
