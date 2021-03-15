@@ -1966,17 +1966,21 @@ function calcs.perform(env)
 
 		-- Crafted Trigger
 		if env.player.mainSkill.skillData.triggeredByCraft and not env.player.mainSkill.skillFlags.minion then
-			local triggerName = "Weapon"
+			local triggerName = "Crafted"
 			local spellCount = 0
 			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 			local trigRate = 0
 			local source = nil
 			for _, skill in ipairs(env.player.activeSkillList) do
-				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
-					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
+					source, trigRate = skill, 0
 				end
 				if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 					spellCount = spellCount + 1
+				end
+				-- we just need one source and one linked spell
+				if source and spellCount > 0 then
+					break
 				end
 			end
 			if not source or spellCount < 1 then
@@ -1986,9 +1990,6 @@ function calcs.perform(env)
 				env.player.mainSkill.infoTrigger = ""
 			else
 				env.player.mainSkill.skillData.triggered = true
-				local uuid = cacheSkillUUID(source)
-				local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
-				local dualWield = false
 
 				output.ActionTriggerRate = getTriggerActionTriggerRate(env, breakdown)
 
@@ -2023,9 +2024,13 @@ function calcs.perform(env)
 				addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 				env.player.mainSkill.skillData.triggerRate = trigRate
 				env.player.mainSkill.skillData.triggerSource = source
-				env.player.mainSkill.infoMessage = triggerName .. " Triggering Skill: " .. source.activeEffect.grantedEffect.name
+				env.player.mainSkill.infoMessage = "Weapon-Crafted Triggering Skill Found"
 				env.player.mainSkill.infoTrigger = triggerName
 			end
+		end
+
+		-- Helmet Focus Trigger
+		if env.player.mainSkill.skillData.triggeredByFocus and not env.player.mainSkill.skillFlags.minion then
 		end
 
 		-- Unique Item Trigger
