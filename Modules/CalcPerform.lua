@@ -280,7 +280,6 @@ end
 
 -- Find unique item trigger name
 local function getUniqueItemTriggerName(skill)
-	local name = ""
 	if skill.supportList and #skill.supportList >= 1 then
 		for _, gemInstance in ipairs(skill.supportList) do
 			if gemInstance.grantedEffect and gemInstance.grantedEffect.fromItem then
@@ -288,7 +287,17 @@ local function getUniqueItemTriggerName(skill)
 			end
 		end
 	end
-	return name
+	return ""
+end
+
+--
+local function getTriggerDefaultCooldown(supportList, name)
+	for _, support in ipairs(supportList) do
+		if support.grantedEffect and support.grantedEffect.id == name then
+			return support.grantedEffect.levels[support.level].cooldown
+		end
+	end
+	return 100
 end
 
 -- Merge an instance of a buff, taking the highest value of each modifier
@@ -1958,7 +1967,7 @@ function calcs.perform(env)
 		-- Crafted Trigger
 		if env.player.mainSkill.skillData.triggeredByCraft and not env.player.mainSkill.skillFlags.minion then
 			local triggerName = "Weapon"
-			local spellCount = {}
+			local spellCount = 0
 			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 			local trigRate = 0
 			local source = nil
@@ -1967,10 +1976,10 @@ function calcs.perform(env)
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
 				if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
-					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+					spellCount = spellCount + 1
 				end
 			end
-			if not source or #spellCount < 1 then
+			if not source or spellCount < 1 then
 				env.player.mainSkill.skillData.triggeredByCraft = nil
 				env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
 				env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
@@ -1981,26 +1990,34 @@ function calcs.perform(env)
 				local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 				local dualWield = false
 
-				-- Get action trigger rate
-				trigRate = icdr / m_max(env.player.mainSkill.skillData.cooldown, 4.0)
+				output.ActionTriggerRate = getTriggerActionTriggerRate(env, breakdown)
 
-				output.ActionTriggerRate = trigRate
+				-- Get action trigger rate
+				local craftedCD = getTriggerDefaultCooldown(env.player.mainSkill.supportList, "SupportTriggerSpellOnSkillUse")
+
+				trigRate = icdr / craftedCD
 				output.SourceTriggerRate = trigRate
 				output.ServerTriggerRate = trigRate
 				if breakdown then
-					breakdown.ActionTriggerRate = {
-						s_format("%.2f ^8(base cooldown of trigger)", trigRate),
+					local modActionCooldown = craftedCD / icdr
+					local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+					breakdown.SimData = {
+						s_format("%.2f ^8(base cooldown of crafted trigger)", craftedCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+						s_format(""),
+						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
 						s_format(""),
 						s_format("Trigger rate:"),
-						s_format("1 / %.2f", trigRate),
-						s_format("= %.2f ^8per second", output.ActionTriggerRate),
+						s_format("1 / %.3f", rateCapAdjusted),
+						s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
 					}
 					breakdown.ServerTriggerRate = {
 						s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
 					}
 				end
-
-				getTriggerActionTriggerRate(env, breakdown)
 
 				-- Account for Trigger-related INC/MORE modifiers
 				addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
