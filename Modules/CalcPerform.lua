@@ -1998,7 +1998,7 @@ function calcs.perform(env)
 
 				trigRate = icdr / craftedCD
 				output.SourceTriggerRate = trigRate
-				output.ServerTriggerRate = trigRate
+				output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
 				if breakdown then
 					local modActionCooldown = craftedCD / icdr
 					local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
@@ -2016,7 +2016,7 @@ function calcs.perform(env)
 						s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
 					}
 					breakdown.ServerTriggerRate = {
-						s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+						s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
 					}
 				end
 
@@ -2031,6 +2031,41 @@ function calcs.perform(env)
 
 		-- Helmet Focus Trigger
 		if env.player.mainSkill.skillData.triggeredByFocus and not env.player.mainSkill.skillFlags.minion then
+			local triggerName = "Focus"
+			local spellCount = 0
+			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+			local trigRate = 0
+			local source = env.player.modDB:Flag(nil, "Condition:Focused")
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.skillData.triggeredByFocus and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+					spellCount = spellCount + 1
+				end
+			end
+			if not source or spellCount < 1 then
+				env.player.mainSkill.skillData.triggeredByFocus = nil
+				env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
+				env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+				env.player.mainSkill.infoTrigger = ""
+			else
+				env.player.mainSkill.skillData.triggered = true
+
+				output.ActionTriggerRate = getTriggerActionTriggerRate(env, breakdown)
+
+				-- Get action trigger rate
+				local craftedCD = getTriggerDefaultCooldown(env.player.mainSkill.supportList, "SupportTriggerSpellFromHelmet")
+
+				trigRate = icdr / craftedCD
+				output.SourceTriggerRate = trigRate
+				output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+				trigRate = output.ServerTriggerRate
+
+				-- Account for Trigger-related INC/MORE modifiers
+				addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+				env.player.mainSkill.skillData.triggerRate = trigRate
+				env.player.mainSkill.skillData.triggerSource = source
+				env.player.mainSkill.infoMessage = "Focus Triggering Skill Found"
+				env.player.mainSkill.infoTrigger = triggerName
+			end
 		end
 
 		-- Unique Item Trigger
