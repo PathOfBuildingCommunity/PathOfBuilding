@@ -3160,3 +3160,28 @@ skills["SupportCastOnManaSpent"] = {
 		[1] = { cooldown = 0.1, levelRequirement = 1, statInterpolation = { }, },
 	},
 }
+skills["Focus"] = {
+	name = "Focus",
+	hidden = true,
+	color = 2,
+	description = "Focus your power, granting yourself the Focussed buff.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.SecondWindSupport] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	cannotBeSupported = true,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"base_skill_is_instant",
+		"fixed_skill_effect_duration",
+		"display_skill_fixed_duration_buff",
+	},
+	levels = {
+		[1] = { 4000, cooldown = 12, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}

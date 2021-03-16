@@ -39,9 +39,16 @@ local function findTriggerSkill(env, skill, source, triggerRate)
 end
 
 -- Calculate Trigger Rate Cap accounting for ICDR
-local function getTriggerActionTriggerRate(env, breakdown)
+local function getTriggerActionTriggerRate(env, breakdown, focus)
 	local baseActionCooldown = env.player.mainSkill.skillData.cooldown
-	local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+	local icdr = 1
+	if focus then
+		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
+		env.player.mainSkill.skillData.focussed = true
+	else
+		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+	end
+
 	local modActionCooldown = baseActionCooldown / (icdr)
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
@@ -2026,6 +2033,7 @@ function calcs.perform(env)
 				env.player.mainSkill.skillData.triggerSource = source
 				env.player.mainSkill.infoMessage = "Weapon-Crafted Triggering Skill Found"
 				env.player.mainSkill.infoTrigger = triggerName
+				env.player.mainSkill.skillFlags.dontDisplay = true
 			end
 		end
 
@@ -2033,7 +2041,7 @@ function calcs.perform(env)
 		if env.player.mainSkill.skillData.triggeredByFocus and not env.player.mainSkill.skillFlags.minion then
 			local triggerName = "Focus"
 			local spellCount = 0
-			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
 			local trigRate = 0
 			local source = env.player.modDB:Flag(nil, "Condition:Focused")
 			for _, skill in ipairs(env.player.activeSkillList) do
@@ -2049,15 +2057,33 @@ function calcs.perform(env)
 			else
 				env.player.mainSkill.skillData.triggered = true
 
-				output.ActionTriggerRate = getTriggerActionTriggerRate(env, breakdown)
+				output.ActionTriggerRate = getTriggerActionTriggerRate(env, breakdown, true)
 
 				-- Get action trigger rate
-				local craftedCD = getTriggerDefaultCooldown(env.player.mainSkill.supportList, "SupportTriggerSpellFromHelmet")
+				local skillFocus = env.data.skills["Focus"]
+				local focusCD = skillFocus.levels[1].cooldown
 
-				trigRate = icdr / craftedCD
+				trigRate = icdr / focusCD
 				output.SourceTriggerRate = trigRate
 				output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
-				trigRate = output.ServerTriggerRate
+				if breakdown then
+					local modActionCooldown = focusCD / icdr
+					local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+					breakdown.SimData = {
+						s_format("%.2f ^8(base cooldown of focus trigger)", focusCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+						s_format(""),
+						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						s_format(""),
+						s_format("Trigger rate:"),
+						s_format("1 / %.3f", rateCapAdjusted),
+						s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+					}
+					breakdown.ServerTriggerRate = {
+						s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+					}
+				end
 
 				-- Account for Trigger-related INC/MORE modifiers
 				addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
@@ -2065,6 +2091,7 @@ function calcs.perform(env)
 				env.player.mainSkill.skillData.triggerSource = source
 				env.player.mainSkill.infoMessage = "Focus Triggering Skill Found"
 				env.player.mainSkill.infoTrigger = triggerName
+				env.player.mainSkill.skillFlags.dontDisplay = true
 			end
 		end
 

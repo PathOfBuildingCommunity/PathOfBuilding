@@ -786,3 +786,6 @@ local skills, mod, flag, skill = ...
 #skill SupportCastOnManaSpent Kitava's Thirst
 	fromItem = true,
 #mods
+
+#skill Focus
+#mods

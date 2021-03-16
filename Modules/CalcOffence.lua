@@ -288,6 +288,10 @@ function calcs.offence(env, actor, activeSkill)
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
+	skillCfg.skillCond["SkillIsFocussed"] = skillData.triggeredByFocus
+	if skillCfg.skillCond["SkillIsFocussed"] then
+		skillFlags.focussed = true
+	end
 
 	-- Update skill data
 	for _, value in ipairs(skillModList:List(skillCfg, "SkillData")) do
