@@ -171,7 +171,7 @@ local watchersEye = { [[
 }
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	table.insert(watchersEye, "Variant: " .. mod.Id:gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("[%u%d]", " %1"):gsub("_", ""))
+	table.insert(watchersEye, "Variant:" .. mod.Id:gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("[%u%d]", " %1"):gsub("_", ""))
 end
 for _, mod in ipairs(watchersEyeLegacyMods) do
 	table.insert(watchersEye, mod.variantName)

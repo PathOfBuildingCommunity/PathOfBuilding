@@ -241,9 +241,9 @@ function describeStats(stats)
 					return string.format("%"..fmt..v.fmt, v.min)
 				elseif fmt == "+" then
 					if v.max < 0 then
-						return string.format("-(%d-%d)", -v.min, -v.max)
+						return string.format("-(%" .. v.fmt .. "-%" .. v.fmt .. ")", -v.min, -v.max)
 					else
-						return string.format("+(%d-%d)", v.min, v.max)
+						return string.format("+(%" .. v.fmt .. "-%" .. v.fmt .. ")", v.min, v.max)
 					end
 				else
 					return string.format("(%"..fmt..v.fmt.."-%"..fmt..v.fmt..")", v.min, v.max)

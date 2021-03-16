@@ -98,12 +98,14 @@ end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
 	return mod.Family == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis") and not (
 			mod.Id:match("PurityOfFireReducedReflectedFireDamage") or
-			mod.Id:match( "PurityOfIceReducedReflectedColdDamage") or
-			mod.Id:match( "PurityOfLightningReducedReflectedLightningDamage") or
-			mod.Id:match( "MalevolenceSkillEffectDuration") or
-			mod.Id:match( "ZealotryMaximumEnergyShieldPerSecondToMaximumEnergyShieldLeechRate") or
-			mod.Id:match( "MalevolenceColdDamageOverTimeMultiplier") or
-			mod.Id:match( "MalevolenceChaosNonAilmentDamageOverTimeMultiplier")
+			mod.Id:match("PurityOfIceReducedReflectedColdDamage") or
+			mod.Id:match("PurityOfLightningReducedReflectedLightningDamage") or
+			mod.Id:match("MalevolenceSkillEffectDuration") or
+			mod.Id:match("ZealotryMaximumEnergyShieldPerSecondToMaximumEnergyShieldLeechRate$") or
+			mod.Id:match("MalevolenceColdDamageOverTimeMultiplier") or
+			mod.Id:match("MalevolenceChaosNonAilmentDamageOverTimeMultiplier") or
+			mod.Id:match("WrathLightningDamageManaLeech") or
+			mod.Id:match("VitalityFlatLifeRegen")
 	)
 end)
 
