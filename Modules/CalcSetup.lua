@@ -618,8 +618,12 @@ function calcs.initEnv(build, mode, override)
 				quality = 0,
 				enabled = true,
 			}
+			activeGemInstance.gemId = nil
 			activeGemInstance.level = grantedSkill.level
 			activeGemInstance.enableGlobal1 = true
+			if grantedSkill.triggered then
+				activeGemInstance.triggered = grantedSkill.triggered
+			end
 			wipeTable(group.gemList)
 			t_insert(group.gemList, activeGemInstance)
 			if grantedSkill.noSupports then

@@ -1129,6 +1129,10 @@ function ItemClass:BuildModList()
 				noSupports = skill.noSupports,
 				source = self.modSource,
 			})
+			local index = #self.grantedSkills
+			if skill.triggered then
+				self.grantedSkills[index].triggered = skill.triggered 
+			end
 		end
 	end
 	local socketCount = sumLocal(baseList, "SocketCount", "BASE", 0)

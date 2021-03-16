@@ -948,7 +948,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Calculate mana cost (may be slightly off due to rounding differences)
-	if isTriggered then
+	if isTriggered or activeSkill.activeEffect.grantedEffect.triggered then
 		output.ManaCost = 0
 	else
 		do
