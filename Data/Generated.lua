@@ -104,6 +104,64 @@ end
 table.insert(skinOfTheLords, "Corrupted")
 table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
 
+local watchersEyeLegacyMods = {
+	[1] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Clarity: Mana as ES (Pre 3.12.0)",
+		["variantText"] = "Gain (12-18)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity",
+	},
+	[2] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Clarity: Mana Recovery Rate (Pre 3.12.0)",
+		["variantText"] = "(20-30)% increased Mana Recovery Rate while affected by Clarity",
+	},
+	[3] = {
+		["version"] = "3.8",
+		["variantName"] = "Variant: Clarity: Red. Mana Cost (Pre 3.8)",
+		["variantText"] = "-(10-5) to Total Mana Cost of Skills while affected by Clarity",
+	},
+	[4] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Discipline: ES Recovery Rate (Pre 3.12.0)",
+		["variantText"] = "(20-30)% increased Energy Shield Recovery Rate while affected by Discipline",
+	},
+	[5] = {
+		["version"] = "3.8.0",
+		["variantName"] = "Variant: Malevolence: Inc. DoT Multi (Pre 3.8.0)",
+		["variantText"] = "+(36-44)% Damage over Time Multiplier while affected by Malevolence",
+	},
+	[6] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Malevolence: Life/ES Rec. Rate (Pre 3.12.0)",
+		["variantText"] = "(15-20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence",
+	},
+	[7] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Precision: Inc. Crit Multiplier (Pre 3.12.0)",
+		["variantText"] = "+(30-50)% to Critical Strike Multiplier while affected by Precision",
+	},
+	[8] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Vitality: Dmg Leeched as Life (Pre 3.12.0)",
+		["variantText"] = "(1-1.5)% of Damage leeched as Life while affected by Vitality",
+	},
+	[9] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Vitality: Flat Life Regeneration (Pre 3.12.0)",
+		["variantText"] = "(100-140) Life Regenerated per Second while affected by Vitality",
+	},
+	[10] = {
+		["version"] = "3.12.0",
+		["variantName"] = "Variant: Vitality: Life Recovery Rate (Pre 3.12.0)",
+		["variantText"] = "(20-30)% increased Life Recovery Rate while affected by Vitality",
+	},
+	[11] = {
+		["version"] = "3.8.0",
+		["variantName"] = "Variant: Wrath: Lightn. Dmg Leech as Mana (Pre 3.8.0)",
+		["variantText"] = "(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath",
+	},
+}
+
 local watchersEye = { [[
 		Watcher's Eye
 		Prismatic Jewel
@@ -113,7 +171,10 @@ local watchersEye = { [[
 }
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	table.insert(watchersEye, "Variant: " .. mod.Id:match("^%u%l+") .. ": ")
+	table.insert(watchersEye, "Variant: " .. mod.Id:gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("[%u%d]", " %1"):gsub("_", ""))
+end
+for _, mod in ipairs(watchersEyeLegacyMods) do
+	table.insert(watchersEye, mod.variantName)
 end
 
 table.insert(watchersEye,
@@ -125,6 +186,10 @@ table.insert(watchersEye,
 local index = 1
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
+	index = index + 1
+end
+for _, mod in ipairs(watchersEyeLegacyMods) do
+	table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.variantText)
 	index = index + 1
 end
 
