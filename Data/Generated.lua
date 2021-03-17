@@ -184,12 +184,14 @@ end
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	local variantName = abbreviate(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
-	if watchersEyeLegacyMods[mod.Id] and watchersEyeLegacyMods[mod.Id].version then
-		table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
+	if watchersEyeLegacyMods[mod.Id] then
+		if watchersEyeLegacyMods[mod.Id].version then
+			table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
+		end
 		if watchersEyeLegacyMods[mod.Id].legacyMod then
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
-	elseif watchersEyeLegacyMods[mod.Id] == nil then
+	else
 		table.insert(watchersEye, "Variant:" .. variantName)
 	end
 end
@@ -211,7 +213,7 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 			table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
 			index = index + 1
 		end
-	elseif watchersEyeLegacyMods[mod.Id] == nil then
+	else
 		table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
 		index = index + 1
 	end
