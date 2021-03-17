@@ -104,62 +104,63 @@ end
 table.insert(skinOfTheLords, "Corrupted")
 table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
 
+--[[ 3 scenarios exist for legacy mods
+	- Mod changed, but kept the same mod Id
+		-- Has legacyMod
+	- Mod removed, or changed with a new mod Id
+		-- Has only a version when it changed
+	- Mod changed/removed, but isn't legacy
+		-- Has empty table to exclude it from the list
+]]
 local watchersEyeLegacyMods = {
-	[1] = {
+	["ClarityManaAddedAsEnergyShield"] = {
 		["version"] = "3.12.0",
-		["variantName"] = "Variant: Clarity: Mana as ES (Pre 3.12.0)",
-		["variantText"] = "Gain (12-18)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(12-18)")) end,
 	},
-	[2] = {
-		["version"] = "3.12.0",
-		["variantName"] = "Variant: Clarity: Mana Recovery Rate (Pre 3.12.0)",
-		["variantText"] = "(20-30)% increased Mana Recovery Rate while affected by Clarity",
-	},
-	[3] = {
-		["version"] = "3.8",
-		["variantName"] = "Variant: Clarity: Red. Mana Cost (Pre 3.8)",
-		["variantText"] = "-(10-5) to Total Mana Cost of Skills while affected by Clarity",
-	},
-	[4] = {
-		["version"] = "3.12.0",
-		["variantName"] = "Variant: Discipline: ES Recovery Rate (Pre 3.12.0)",
-		["variantText"] = "(20-30)% increased Energy Shield Recovery Rate while affected by Discipline",
-	},
-	[5] = {
+	["ClarityReducedManaCost"] = {
 		["version"] = "3.8.0",
-		["variantName"] = "Variant: Malevolence: Inc. DoT Multi (Pre 3.8.0)",
-		["variantText"] = "+(36-44)% Damage over Time Multiplier while affected by Malevolence",
 	},
-	[6] = {
+	["ClarityManaRecoveryRate"] = {
 		["version"] = "3.12.0",
-		["variantName"] = "Variant: Malevolence: Life/ES Rec. Rate (Pre 3.12.0)",
-		["variantText"] = "(15-20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(20-30)")) end,
 	},
-	[7] = {
+	["DisciplineEnergyShieldRecoveryRate"] = {
 		["version"] = "3.12.0",
-		["variantName"] = "Variant: Precision: Inc. Crit Multiplier (Pre 3.12.0)",
-		["variantText"] = "+(30-50)% to Critical Strike Multiplier while affected by Precision",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(20-30)")) end,
 	},
-	[8] = {
-		["version"] = "3.12.0",
-		["variantName"] = "Variant: Vitality: Dmg Leeched as Life (Pre 3.12.0)",
-		["variantText"] = "(1-1.5)% of Damage leeched as Life while affected by Vitality",
-	},
-	[9] = {
-		["version"] = "3.12.0",
-		["variantName"] = "Variant: Vitality: Flat Life Regeneration (Pre 3.12.0)",
-		["variantText"] = "(100-140) Life Regenerated per Second while affected by Vitality",
-	},
-	[10] = {
-		["version"] = "3.12.0",
-		["variantName"] = "Variant: Vitality: Life Recovery Rate (Pre 3.12.0)",
-		["variantText"] = "(20-30)% increased Life Recovery Rate while affected by Vitality",
-	},
-	[11] = {
+	["MalevolenceDamageOverTimeMultiplier"] = {
 		["version"] = "3.8.0",
-		["variantName"] = "Variant: Wrath: Lightn. Dmg Leech as Mana (Pre 3.8.0)",
-		["variantText"] = "(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(36-44)")) end,
 	},
+	["MalevolenceLifeAndEnergyShieldRecoveryRate"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(15-20)")) end,
+	},
+	["PrecisionIncreasedCriticalStrikeMultiplier"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(30-50)")) end,
+	},
+	["VitalityDamageLifeLeech"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(1-1.5)")) end,
+	},
+	["VitalityFlatLifeRegen"] = {
+		["version"] = "3.12.0",
+	},
+	["VitalityLifeRecoveryRate"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(20-30)")) end,
+	},
+	["WrathLightningDamageManaLeech"] = {
+		["version"] = "3.8.0",
+	},
+	["PurityOfFireReducedReflectedFireDamage"] = { },
+	["PurityOfIceReducedReflectedColdDamage"] = { },
+	["PurityOfLightningReducedReflectedLightningDamage"] = { },
+	["MalevolenceSkillEffectDuration"] = { },
+	["ZealotryMaximumEnergyShieldPerSecondToMaximumEnergyShieldLeechRate"] = { },
+	["MalevolenceColdDamageOverTimeMultiplier"] = { },
+	["MalevolenceChaosNonAilmentDamageOverTimeMultiplier"] = { },
 }
 
 local watchersEye = { [[
@@ -170,11 +171,27 @@ local watchersEye = { [[
 		Has Alt Variant Two: true]]
 }
 
-for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	table.insert(watchersEye, "Variant:" .. mod.Id:gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("[%u%d]", " %1"):gsub("_", ""))
+local abbreviate = function(string)
+	return (string:
+	gsub("Increased", "Inc"):
+	gsub("Reduced", "Red."):
+	gsub("Critical", "Crit"):
+	gsub("Physical", "Phys"):
+	gsub("Elemental", "Ele"):
+	gsub("Multiplier", "Mult"):
+	gsub("EnergyShield", "ES"))
 end
-for _, mod in ipairs(watchersEyeLegacyMods) do
-	table.insert(watchersEye, mod.variantName)
+
+for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
+	local variantName = abbreviate(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+	if watchersEyeLegacyMods[mod.Id] and watchersEyeLegacyMods[mod.Id].version then
+		table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
+		if watchersEyeLegacyMods[mod.Id].legacyMod then
+			table.insert(watchersEye, "Variant:" .. variantName)
+		end
+	elseif watchersEyeLegacyMods[mod.Id] == nil then
+		table.insert(watchersEye, "Variant:" .. variantName)
+	end
 end
 
 table.insert(watchersEye,
@@ -185,12 +202,19 @@ table.insert(watchersEye,
 
 local index = 1
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
-	index = index + 1
-end
-for _, mod in ipairs(watchersEyeLegacyMods) do
-	table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.variantText)
-	index = index + 1
+	if watchersEyeLegacyMods[mod.Id] then
+		if watchersEyeLegacyMods[mod.Id].legacyMod then
+			table.insert(watchersEye, "{variant:" .. index .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
+			index = index + 1
+		end
+		if watchersEyeLegacyMods[mod.Id].version then
+			table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
+			index = index + 1
+		end
+	elseif watchersEyeLegacyMods[mod.Id] == nil then
+		table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
+		index = index + 1
+	end
 end
 
 table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
