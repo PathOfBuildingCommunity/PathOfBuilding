@@ -204,6 +204,9 @@ return {
 ["triggered_by_spiritual_cry"] = {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
 },
+["skill_can_own_mirage_archers"] = {
+	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.SkillCanMirageArcher }),
+},
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
