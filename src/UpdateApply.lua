@@ -22,6 +22,7 @@ for _, line in ipairs(lines) do
 	local op, args = line:match("(%a+) ?(.*)")
 	if op == "move" then
 		local src, dst = args:match('"(.*)" "(.*)"')
+		dst = dst:gsub("{space}", " ")
 		print("Updating '"..dst.."'")
 		local srcFile = io.open(src, "rb")
 		assert(srcFile, "couldn't open "..src)
