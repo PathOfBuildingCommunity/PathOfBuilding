@@ -5,7 +5,7 @@
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
-	<Source part="exe" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/executable.zip" />
+	<Source part="exe" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/launcher.zip" />
 	<File name="LICENSE.md" part="default" sha1="afa44563af35aff416da7f07abbaabb74de96591" />
 	<File name="Launch.lua" part="program" sha1="fdb15d26267d7c2769ce7b3249308e3327b765b9" />
 	<File name="UpdateCheck.lua" part="program" sha1="b349d7d5541fcc809bcfb67308646cb79ffb1add" />
