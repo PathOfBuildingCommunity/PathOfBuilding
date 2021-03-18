@@ -1668,7 +1668,7 @@ local specialModList = {
 	["regenerate (%d+)%% of energy shield over 2 seconds when you consume a corpse"] = function(num) return { mod("EnergyShieldRegenPercent", "BASE", num / 2, { type = "Condition", var = "ConsumedCorpseInPast2Sec" }) } end,
 	["regenerate (%d+)%% of mana over 2 seconds when you consume a corpse"] = function(num) return { mod("ManaRegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num / 2 }, { type = "Condition", var = "ConsumedCorpseInPast2Sec" }) } end,
 	-- Occultist
-	["enemies you curse have malediction"] = { mod("AffectedByCurseMod", "LIST", { mod = mod("DamageTaken", "INC", 10) }) },
+	["enemies you curse have malediction"] = { mod("AffectedByCurseMod", "LIST", { mod = flag("HasMalediction") }) },
 	["nearby enemies have (%-%d+)%% to chaos resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", num) }) } end,
 	["nearby enemies have (%-%d+)%% to cold resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", num) }) } end,
 	["when you kill an enemy, for each curse on that enemy, gain (%d+)%% of non%-chaos damage as extra chaos damage for 4 seconds"] = function(num) return {
@@ -2559,6 +2559,7 @@ local specialModList = {
 	["hits ignore enemy monster fire resistance while you are ignited"] = { flag("IgnoreFireResistance", { type = "Condition", var = "Ignited" }) },
 	["your hits can't be evaded by blinded enemies"] = { flag("CannotBeEvaded", { type = "ActorCondition", actor = "enemy", var = "Blinded" }) },
 	["blind does not affect your chance to hit"] = { flag("IgnoreBlindHitChance") },
+	["enemies blinded by you while you are blinded have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }, { type = "Condition", var = "Blinded" } )},
 	["skills which throw traps have blood magic"] = { flag("BloodMagic", { type = "SkillType", skillType = SkillType.Trap }) },
 	["lose ([%d%.]+) mana per second"] = function(num) return { mod("ManaDegen", "BASE", num) } end,
 	["lose ([%d%.]+)%% of maximum mana per second"] = function(num) return { mod("ManaDegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }) } end,
