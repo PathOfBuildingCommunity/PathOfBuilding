@@ -2195,9 +2195,9 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if env.mode == "CALCS" then
 		if skillData.showAverage then
-			output.DisplayDamage = s_format("%.1f average damage", output.AverageDamage)
+			output.DisplayDamage = formatNumSep(s_format("%.1f", output.AverageDamage)) .. " average damage"
 		else
-			output.DisplayDamage = s_format("%.1f DPS", output.TotalDPS)
+			output.DisplayDamage = formatNumSep(s_format("%.1f", output.TotalDPS)) .. " DPS"
 		end
 	end
 	if breakdown then
