@@ -3067,6 +3067,6 @@ minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
 	},
 	modList = {
 		-- MonsterOneThirdDamageTaken [base_damage_taken_+% = -67]
-		-- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
+		mod("PhysicalDamageConvertToChaos", "BASE", 50), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
 	},
 }
