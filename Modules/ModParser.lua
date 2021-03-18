@@ -1317,6 +1317,9 @@ local function extraSkill(name, level, noSupports)
 		}
 	end
 end
+local function upperCaseFirstLetter(str)
+	return (str:gsub("^%l", string.upper))
+end
 
 -- List of special modifiers
 local specialModList = {
@@ -2628,6 +2631,7 @@ local specialModList = {
 		flag("Condition:CanBeElusive"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanBeElusive" }), -- Make the Configuration option appear
 	},
+	["nearby enemies have (%a+) resistance equal to yours"] = function(_, res) return { flag("Enemy"..upperCaseFirstLetter(res).."ResistEqualToYours") } end,
 	["for each nearby corpse, regenerate ([%d%.]+)%% life per second, up to ([%d%.]+)%%"] = function(num, _, limit) return { mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "NearbyCorpse", limit = tonumber(limit), limitTotal = true }) } end,
 	["gain sacrificial zeal when you use a skill, dealing you %d+%% of the skill's mana cost as physical damage per second"] = {
 		flag("Condition:SacrificialZeal"),
