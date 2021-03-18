@@ -1657,14 +1657,20 @@ function calcs.offence(env, actor, activeSkill)
 			output.BonusCritDotMultiplier = 0
 			output.CritEffect = 1
 		else
-			local baseCrit = source.CritChance or 0
+			local critOverride = skillModList:Override(cfg, "CritChance")
+			local baseCrit = critOverride or source.CritChance or 0
 			if baseCrit == 100 then
 				output.PreEffectiveCritChance = 100
 				output.CritChance = 100
 			else
-				local base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
-				local inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
-				local more = skillModList:More(cfg, "CritChance")
+				local base = 0
+				local inc = 0
+				local more = 1
+				if not critOverride then
+					base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
+					inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
+					more = skillModList:More(cfg, "CritChance")
+				end
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				local preCapCritChance = output.CritChance
 				output.CritChance = m_min(output.CritChance, 100)
@@ -1906,8 +1912,35 @@ function calcs.offence(env, actor, activeSkill)
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
 							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
 						else
-							resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
-							if isElemental[damageType] then
+							if (skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") and damageType == "Chaos") or 
+							   (skillModList:Flag(cfg, "ElementalDamageUsesLowestResistance") and isElemental[damageType]) then
+								-- Default to using the current damage type 
+								local elementUsed = damageType
+								if isElemental[damageType] then
+									resist = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, damageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+								elseif damageType == "Chaos" then
+									resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
+								end
+								-- Find the lowest resist of all the elements and use that if it's lower
+								for _, eleDamageType in ipairs(dmgTypeList) do
+									if isElemental[eleDamageType] and useThisResist(eleDamageType) and damageType ~= eleDamageType then
+										local currentElementResist = m_min(enemyDB:Sum("BASE", nil, eleDamageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, eleDamageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+										-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
+										if resist > currentElementResist then
+											resist = currentElementResist
+											elementUsed = eleDamageType
+										end
+									end
+								end
+								-- Update the penetration based on the element used
+								if isElemental[elementUsed] then
+									pen = skillModList:Sum("BASE", cfg, elementUsed.."Penetration", "ElementalPenetration")
+								elseif elementUsed == "Chaos" then
+									pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
+								end
+								sourceRes = elementUsed
+							elseif isElemental[damageType] then
+								resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 								if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
 									resist = globalOutput[damageType.."Resist"]
 								else
@@ -1917,27 +1950,8 @@ function calcs.offence(env, actor, activeSkill)
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
 								takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 							elseif damageType == "Chaos" then
+								resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
-								if skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") then
-									-- Default to using Chaos
-									local elementUsed = "Chaos"
-									-- Find the lowest resist of all the elements and use that if it's lower than chaos
-									for _, damageTypeForChaos in ipairs(dmgTypeList) do
-										if isElemental[damageTypeForChaos] and useThisResist(damageTypeForChaos) then
-											local elementalResistForChaos = enemyDB:Sum("BASE", nil, damageTypeForChaos.."Resist")
-											local base = elementalResistForChaos + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
-											local currentElementResist = base * calcLib.mod(enemyDB, nil, damageTypeForChaos.."Resist")
-											-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
-											if resist > currentElementResist then
-												resist = currentElementResist
-												elementUsed = damageTypeForChaos
-											end
-										end
-									end
-									-- Update the penetration based on the element used
-									pen = skillModList:Sum("BASE", cfg, elementUsed.."Penetration", "ElementalPenetration")
-									sourceRes = elementUsed
-								end
 							end
 							resist = m_min(resist, data.misc.EnemyMaxResist)
 						end
@@ -1962,10 +1976,10 @@ function calcs.offence(env, actor, activeSkill)
 						if env.mode == "CALCS" then
 							output[damageType.."EffMult"] = effMult
 						end
-						if pass == 2 and breakdown and effMult ~= 1 and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= 0) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes)
-						elseif pass == 2 and breakdown and effMult ~= 1 then
+						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= 0) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes)
 						end
@@ -2193,9 +2207,9 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if env.mode == "CALCS" then
 		if skillData.showAverage then
-			output.DisplayDamage = s_format("%.1f average damage", output.AverageDamage)
+			output.DisplayDamage = formatNumSep(s_format("%.1f", output.AverageDamage)) .. " average damage"
 		else
-			output.DisplayDamage = s_format("%.1f DPS", output.TotalDPS)
+			output.DisplayDamage = formatNumSep(s_format("%.1f", output.TotalDPS)) .. " DPS"
 		end
 	end
 	if breakdown then
@@ -3702,6 +3716,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
+	end
+	if output.CullMultiplier > 1 then
+		output.CullingDPS = output.CombinedDPS * (output.CullMultiplier - 1)
 	end
 	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 end

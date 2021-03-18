@@ -262,7 +262,8 @@ data.keystones = {
 }
 
 data.misc = { -- magic numbers
-	ServerTickRate = 30,
+	ServerTickTime = 0.033,
+	ServerTickRate = 1 / 0.033,
 	TemporalChainsEffectCap = 75,
 	DamageReductionCap = 90,
 	MaxResistCap = 90,

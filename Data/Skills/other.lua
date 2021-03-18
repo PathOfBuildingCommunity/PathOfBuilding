@@ -3026,3 +3026,25 @@ skills["Unhinge"] = {
 		[20] = { cooldown = 5, levelRequirement = 70, statInterpolation = { }, },
 	},
 }
+skills["SupportTriggerSpellOnAttack"] = {
+	name = "The Poet's Pen",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
+	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_has_trigger_from_unique_item",
+		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
+	},
+	levels = {
+		[1] = { 1, cooldown = 0.15, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}

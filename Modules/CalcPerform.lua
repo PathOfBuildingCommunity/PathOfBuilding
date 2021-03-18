@@ -233,6 +233,11 @@ local function doActorAttribsPoolsConditions(env, actor)
 		modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 	end
 
+	-- Check shrine buffs, must be done before life pool calculated for massive shrine
+	for _, value in ipairs(modDB:List(nil, "ShrineBuff")) do
+		modDB:ScaleAddList({ value.mod }, calcLib.mod(modDB, nil, "BuffEffectOnSelf", "ShrineBuffEffect"))
+	end
+
 	-- Life/mana pools
 	if modDB:Flag(nil, "ChaosInoculation") then
 		output.Life = 1

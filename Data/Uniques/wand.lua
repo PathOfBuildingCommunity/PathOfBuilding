@@ -195,7 +195,7 @@ Implicits: 1
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
 (8-12)% increased Attack Speed 
-Trigger a Socketed Spell when you Attack
+Trigger a Socketed Spell when you Attack with this Weapon
 ]],[[
 Reverberation Rod
 Spiraled Wand
