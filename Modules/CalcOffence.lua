@@ -3695,5 +3695,8 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
+	if output.CullMultiplier > 1 then
+		output.CullingDPS = output.CombinedDPS * (output.CullMultiplier - 1)
+	end
 	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 end
