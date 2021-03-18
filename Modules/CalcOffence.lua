@@ -1657,14 +1657,20 @@ function calcs.offence(env, actor, activeSkill)
 			output.BonusCritDotMultiplier = 0
 			output.CritEffect = 1
 		else
-			local baseCrit = source.CritChance or 0
+			local critOverride = skillModList:Override(cfg, "CritChance")
+			local baseCrit = critOverride or source.CritChance or 0
 			if baseCrit == 100 then
 				output.PreEffectiveCritChance = 100
 				output.CritChance = 100
 			else
-				local base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
-				local inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
-				local more = skillModList:More(cfg, "CritChance")
+				local base = 0
+				local inc = 0
+				local more = 1
+				if not critOverride then
+					base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
+					inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
+					more = skillModList:More(cfg, "CritChance")
+				end
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				local preCapCritChance = output.CritChance
 				output.CritChance = m_min(output.CritChance, 100)
