@@ -69,7 +69,9 @@ local function getCalculator(build, fullInit, modFunc)
 
 	-- Run base calculation pass
 	calcs.perform(env)
+	GlobalCache.dontUseCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
+	GlobalCache.dontUseCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
@@ -91,9 +93,7 @@ local function getCalculator(build, fullInit, modFunc)
 		
 		-- Run calculation pass
 		calcs.perform(env)
-		GlobalCache.dontUseCache = true
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
-		GlobalCache.dontUseCache = nil
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
 
@@ -122,6 +122,9 @@ function calcs.getMiscCalculator(build)
 	return function(override)
 		env = calcs.initEnv(build, "CALCULATOR", override)
 		calcs.perform(env)
+		-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
+		-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
+		-- A with A (do to cache reuse) instead of A with B
 		GlobalCache.dontUseCache = true
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override)
 		GlobalCache.dontUseCache = nil
