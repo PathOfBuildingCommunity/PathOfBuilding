@@ -3082,11 +3082,7 @@ skills["SupportStormBarrier"] = {
 			div = 60
 		},
 		["infusion_effect_+%"] = {
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseMods = {
