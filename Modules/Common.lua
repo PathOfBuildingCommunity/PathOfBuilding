@@ -617,27 +617,32 @@ function cacheData(uuid, env)
 	end
 end
 
+-- Obtian a stored cached processed skill identified by
+--   its UUID and pulled from an appropriate env mode (e.g., MAIN)
 function getCachedData(skill, mode)
 	local uuid = cacheSkillUUID(skill)
 	return GlobalCache.cachedData[mode][uuid]
 end
 
+-- Add an entry for a fabricated skill (e.g., Mirage Archers)
+--   to be deleted if it's not longer needed
 function addDeleteGroupEntry(name)
 	if not GlobalCache.deleteGroup[name] then
 		GlobalCache.deleteGroup[name] = true
-		GlobalCache.deleteGroup.count = (GlobalCache.deleteGroup.count or 0) + 1
 	end
 end
 
+-- Remove an entry from the "to be deleted" list
+--   because it is still needed
 function removeDeleteGroupEntry(name)
 	if GlobalCache.deleteGroup[name] then
 		GlobalCache.deleteGroup[name] = nil
-		GlobalCache.deleteGroup.count = (GlobalCache.deleteGroup.count or 1) - 1
 	end
 end
 
+-- Delete a skill-group entry from the skill list if it has
+--   been marked for deletion and nothing over-wrote that
 function deleteFabricatedGroup(skillsTab)
-	-- Delete skill groups that were auto-generated but no longer apply
 	for index, socketGroup in ipairs(skillsTab.controls.groupList.list) do
 		if GlobalCache.deleteGroup[socketGroup.label] then
 			t_remove(skillsTab.controls.groupList.list, index)
@@ -653,6 +658,7 @@ function deleteFabricatedGroup(skillsTab)
 	end
 end
 
+-- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
 	--ConPrintf("WIPING GlobalCache.cacheData")
 	wipeTable(GlobalCache.cachedData.MAIN)
@@ -675,6 +681,7 @@ function isExcludedFromFullDps(skill)
 	return GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)]
 end
 
+-- Check if a specific named gem is enabled in a socket group belonging to a skill
 function supportEnabled(skillName, activeSkill)
 	for _, gemInstance in ipairs(activeSkill.socketGroup.gemList) do
 		if gemInstance.skillId == skillName then

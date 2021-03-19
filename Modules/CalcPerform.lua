@@ -2035,12 +2035,12 @@ function calcs.perform(env)
 		local usedSkill = nil
 		local uuid = cacheSkillUUID(env.player.mainSkill)
 
-		-- if we don't have a processed cached copy of this skill, get one
-		if not GlobalCache.cachedData["MAIN"][uuid] then
-			calcs.buildActiveSkill(env.build, "MAIN", env.player.mainSkill, true)
-		end
-		if GlobalCache.cachedData["MAIN"][uuid] then
-			usedSkill = GlobalCache.cachedData["MAIN"][uuid].ActiveSkill
+		-- re-build the active skill in this case and don't cache
+		calcs.buildActiveSkill(env.build, "CALCS", env.player.mainSkill, true)
+		env.dontCache = true
+
+		if GlobalCache.cachedData["CALCS"][uuid] then
+			usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
 		end
 
 		if usedSkill then
@@ -2060,11 +2060,11 @@ function calcs.perform(env)
 				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
 				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
 			else
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+				env.player.mainSkill.skillPartName = nil
 			end
 			env.player.mainSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
 			newSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
-			newSkill.infoTrigger = "MA"
+			env.player.mainSkill.infoTrigger = "MA"
 
 			-- Recalculate the offensive/defensive aspects of the Mirage Archer influence on skill
 			newEnv.player.mainSkill = newSkill
