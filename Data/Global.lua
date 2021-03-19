@@ -254,6 +254,7 @@ SkillType = {
 
 GlobalCache = { 
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
+	deleteGroup = { },
 	excludeFullDpsList = { },
 	dontUseCache = nil,
 }

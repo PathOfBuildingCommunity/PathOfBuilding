@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local type = type
 local t_insert = table.insert
+local t_remove = table.remove
 local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
@@ -621,6 +622,37 @@ function getCachedData(skill, mode)
 	return GlobalCache.cachedData[mode][uuid]
 end
 
+function addDeleteGroupEntry(name)
+	if not GlobalCache.deleteGroup[name] then
+		GlobalCache.deleteGroup[name] = true
+		GlobalCache.deleteGroup.count = (GlobalCache.deleteGroup.count or 0) + 1
+	end
+end
+
+function removeDeleteGroupEntry(name)
+	if GlobalCache.deleteGroup[name] then
+		GlobalCache.deleteGroup[name] = nil
+		GlobalCache.deleteGroup.count = (GlobalCache.deleteGroup.count or 1) - 1
+	end
+end
+
+function deleteFabricatedGroup(skillsTab)
+	-- Delete skill groups that were auto-generated but no longer apply
+	for index, socketGroup in ipairs(skillsTab.controls.groupList.list) do
+		if GlobalCache.deleteGroup[socketGroup.label] then
+			t_remove(skillsTab.controls.groupList.list, index)
+			if skillsTab.displayGroup == socketGroup then
+				skillsTab:SetDisplayGroup()
+			end
+			skillsTab:AddUndoState()
+			skillsTab.build.buildFlag = true
+			skillsTab.controls.groupList.selValue = nil
+			wipeTable(GlobalCache.deleteGroup)
+			break
+		end
+	end
+end
+
 function wipeGlobalCache()
 	--ConPrintf("WIPING GlobalCache.cacheData")
 	wipeTable(GlobalCache.cachedData.MAIN)
@@ -628,6 +660,7 @@ function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
 	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
+	wipeTable(GlobalCache.deleteGroup)
 	GlobalCache.dontUseCache = nil
 end
 
@@ -640,4 +673,13 @@ end
 -- Full DPS related: check if skill is in roll-up exclusion list
 function isExcludedFromFullDps(skill)
 	return GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)]
+end
+
+function supportEnabled(skillName, activeSkill)
+	for _, gemInstance in ipairs(activeSkill.socketGroup.gemList) do
+		if gemInstance.skillId == skillName then
+			return gemInstance.enabled
+		end
+	end
+	return true
 end

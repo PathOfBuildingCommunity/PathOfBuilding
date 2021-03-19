@@ -279,11 +279,12 @@ function calcs.calcFullDPS(build, mode, override)
 end
 
 -- Process active skill
-function calcs.buildActiveSkill(build, mode, skill)
+function calcs.buildActiveSkill(build, mode, skill, setMark)
 	local fullEnv = calcs.initEnv(build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill
+			fullEnv.player.mainSkill.marked = setMark
 			calcs.perform(fullEnv)
 			return
 		end

@@ -810,7 +810,8 @@ function buildMode:OnFrame(inputEvents)
 			self.controls[diff]:SelByValue(self[diff], "id")
 		end
 	end
-	
+
+	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
 		-- Wipe Global Cache
 		wipeGlobalCache()
@@ -836,6 +837,12 @@ function buildMode:OnFrame(inputEvents)
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
+
+	-- Delete any possible fabricated groups
+	if checkFabricatedGroups then
+		deleteFabricatedGroup(self.skillsTab)
+		checkFabricatedGroups = false
+	end
 
 	-- Draw contents of current tab
 	local sideBarWidth = 312

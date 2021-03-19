@@ -1981,14 +1981,56 @@ function calcs.perform(env)
 		end
 
 		-- Mirage Archer Support
-		if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then
+		-- This creates a new skill group for the Mirage Archer DPS over-write called 'Mirage Archer'
+		if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label ~= "Mirage Archer" then
 			local usedSkill = nil
 			local uuid = cacheSkillUUID(env.player.mainSkill)
 
 			-- if we don't have a processed cached copy of this skill, get one
-			--if not GlobalCache.cachedData["CACHE"][uuid] then
-			--	calcs.buildActiveSkill(env.build, "CACHE", env.player.mainSkill)
-			--end
+			if not GlobalCache.cachedData["MAIN"][uuid] then
+				calcs.buildActiveSkill(env.build, "MAIN", env.player.mainSkill, true)
+			end
+			if GlobalCache.cachedData["MAIN"][uuid] then
+				usedSkill = GlobalCache.cachedData["MAIN"][uuid].ActiveSkill
+			end
+
+			if usedSkill then
+				local newLabel = "Mirage Archer"
+				local exists = false
+				for _, group in ipairs(env.build.skillsTab.socketGroupList) do
+					if group.label == newLabel then
+						exists = true
+						break
+					end
+				end
+				if not exists then
+					local socketGroup = usedSkill.socketGroup
+					local newGroup = copyTable(socketGroup, true)
+					newGroup.label = newLabel
+					newGroup.gemList = { }
+					for index, gemInstance in pairs(socketGroup.gemList) do
+						newGroup.gemList[index] = copyTable(gemInstance, true)
+					end
+					newGroup.marked = true
+					t_insert(env.build.skillsTab.socketGroupList, newGroup)
+				end
+			end
+		end
+
+		if not env.player.mainSkill.skillData.triggeredByMirageArcher and env.player.mainSkill.socketGroup and env.player.mainSkill.socketGroup.label ~= "Mirage Archer" and not supportEnabled("SupportGemMirageArcher", env.player.mainSkill) then
+			addDeleteGroupEntry("Mirage Archer")
+		end
+
+		-- Mirage Archer Support
+		-- This over-writes the skill used by Mirage Archer(s) with their DPS contribution
+		if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label == "Mirage Archer" then
+			local usedSkill = nil
+			local uuid = cacheSkillUUID(env.player.mainSkill)
+
+			-- if we don't have a processed cached copy of this skill, get one
+			if not GlobalCache.cachedData["MAIN"][uuid] then
+				calcs.buildActiveSkill(env.build, "MAIN", env.player.mainSkill, true)
+			end
 			if GlobalCache.cachedData["MAIN"][uuid] then
 				usedSkill = GlobalCache.cachedData["MAIN"][uuid].ActiveSkill
 			end
@@ -2013,33 +2055,26 @@ function calcs.perform(env)
 					env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 				end
 				env.player.mainSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
+				newSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
+				newSkill.infoTrigger = "MA"
 
 				-- Recalculate the offensive/defensive aspects of the Mirage Archer influence on skill
 				newEnv.player.mainSkill = newSkill
 				newEnv.player.mainSkill.marked = true
 				calcs.perform(newEnv)
+				env.player.mainSkill = newSkill
 
-				-- Combine appropriate output data
-				local baseOutput = GlobalCache.cachedData["CACHE"][uuid].Env.player.output
-				local mirageOutput = newEnv.player.output
+				env.player.output = newEnv.player.output
 
-				for _, key in ipairs{"TotalDPS"} do
-					ConPrintf(env.mode .. " - COPY: " .. key)
-					ConPrintf("    " .. tostring(baseOutput[key] + mirageOutput[key]) .. "\n")
-				end
-
-				--[[
 				-- Make any necessary corrections to output
 				env.player.output.ManaCost = 0
 
-				-- Re-link over the breakdown (if present)
 				if newEnv.player.breakdown then
 					env.player.breakdown = newEnv.player.breakdown
-
 					-- Make any necessary corrections to breakdown
 					env.player.breakdown.ManaCost = nil
 				end
-				--]]
+				newEnv.player.mainSkill.marked = true
 			else
 				env.player.mainSkill.infoMessage2 = "No Mirage Archer active skill found"
 			end
