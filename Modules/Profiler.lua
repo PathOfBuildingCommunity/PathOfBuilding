@@ -80,7 +80,7 @@ new table using the matched key names:
 --[[ Configuration ]]--
 
 local config = {
-    outputFile = "profiler.lua", -- Name of this profiler (to remove itself from reports)
+    outputFile = "Profiler.lua", -- Name of this profiler (to remove itself from reports)
     emptyToThis = "~", -- Rows with no time are set to this value
     fW = 30, -- Width of the file column
     fnW = 48, -- Width of the function name column
