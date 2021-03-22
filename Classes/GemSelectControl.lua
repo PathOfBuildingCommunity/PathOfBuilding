@@ -182,7 +182,7 @@ function GemSelectClass:UpdateSortCache()
 				gemInstance.level = gemData.defaultLevel
 			end
 			--Calculate the impact of using this gem
-			local output = calcFunc()
+			local output = calcFunc({}, true)
 			if oldGem then
 				gemInstance.gemData = oldGem.gemData
 				gemInstance.level = oldGem.level

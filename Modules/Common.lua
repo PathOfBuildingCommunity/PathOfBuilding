@@ -375,6 +375,31 @@ do
 	end
 end
 
+--[[
+function dbCopy(retDB, modDB)
+	retDB = new("ModDB")
+	if modDB then
+		retDB:AddDB(modDB)
+		retDB.conditions = copyTable(modDB.conditions)
+		retDB.multipliers = copyTable(modDB.multipliers)
+	end
+end
+--]]
+
+function specCopy(env)
+	local modDB = new("ModDB")
+	modDB:AddDB(env.modDB)
+	modDB.conditions = copyTable(env.modDB.conditions)
+	modDB.multipliers = copyTable(env.modDB.multipliers)
+	local enemyDB = new("ModDB")
+	if env.enemyDB then
+		enemyDB:AddDB(env.enemyDB)
+		enemyDB.conditions = copyTable(env.enemyDB.conditions)
+		enemyDB.multipliers = copyTable(env.enemyDB.multipliers)
+	end
+	return modDB, enemyDB
+end
+
 -- Wipe all keys from the table and return it, or return a new table if no table provided
 function wipeTable(tbl)
 	if not tbl then

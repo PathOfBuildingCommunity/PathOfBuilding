@@ -177,10 +177,12 @@ end
 -- 4. Merges modifiers for all allocated passive nodes
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
-function calcs.initEnv(build, mode, override)
+function calcs.initEnv(build, mode, override, specEnv)
 	override = override or { }
 
 	local env = { }
+	local db1 = specEnv and specEnv.db1 or nil
+	local db2 = specEnv and specEnv.db2 or nil
 	env.build = build
 	env.data = build.data
 	env.configInput = build.configTab.input
@@ -214,107 +216,115 @@ function calcs.initEnv(build, mode, override)
 		env.mode_effective = false
 	end
 
-	-- Initialise modifier database with base values
 	local modDB = new("ModDB")
 	env.modDB = modDB
-	local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
-	for _, stat in pairs({"Str","Dex","Int"}) do
-		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
-	end
-	modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
-	calcs.initModDB(env, modDB)
-	modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
-	modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
-	modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
-	modDB:NewMod("Devotion", "BASE", 0, "Base")
-	modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
-	modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
-	modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
-	modDB:NewMod("DotMultiplier", "BASE", 50, "Base", { type = "Condition", var = "CriticalStrike" })
-	modDB:NewMod("FireResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
-	modDB:NewMod("ColdResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
-	modDB:NewMod("LightningResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
-	modDB:NewMod("ChaosResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
-	modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
-	modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
-	modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
-	modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-	modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-	modDB:NewMod("Multiplier:RageEffect", "BASE", 1, "Base")
-	modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" })
-	modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" })
-	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", div = 5 }, { type = "Multiplier", var = "RageEffect" })
-	modDB:NewMod("MaximumRage", "BASE", 50, "Base")
-	modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
-	modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
-	modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
-	modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
-	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
-	modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
-	modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
-	modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
-	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
-	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
-	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
-	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
-	modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
-	modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
-	modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
-	modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
-	modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
-	modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
-
-	-- Add bandit mods
-	if build.bandit == "Alira" then
-		modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
-		modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
-		modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
-	elseif build.bandit == "Kraityn" then
-		modDB:NewMod("Speed", "INC", 6, "Bandit")
-		modDB:NewMod("AttackDodgeChance", "BASE", 3, "Bandit")
-		modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
-	elseif build.bandit == "Oak" then
-		modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
-		modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
-		modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
-	else
-		modDB:NewMod("ExtraPoints", "BASE", 2, "Bandit")
-	end
-
-	-- Add Pantheon mods
-	local parser = modLib.parseMod
-	-- Major Gods
-	if build.pantheonMajorGod ~= "None" then
-		local majorGod = env.data.pantheons[build.pantheonMajorGod]
-		pantheon.applySoulMod(modDB, parser, majorGod)
-	end
-	-- Minor Gods
-	if build.pantheonMinorGod ~= "None" then
-		local minorGod = env.data.pantheons[build.pantheonMinorGod]
-		pantheon.applySoulMod(modDB, parser, minorGod)
-	end
-
-	-- Initialise enemy modifier database
 	local enemyDB = new("ModDB")
 	env.enemyDB = enemyDB
-	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
-	calcs.initModDB(env, enemyDB)
-	enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
-	enemyDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.enemyLevel], "Base")
-	enemyDB:NewMod("Armour", "BASE", env.data.monsterArmourTable[env.enemyLevel], "Base")
 
+	local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
+	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
+
+	if not db1 then
+		-- Initialise modifier database with base values
+		for _, stat in pairs({"Str","Dex","Int"}) do
+			modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
+		end
+		modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
+		calcs.initModDB(env, modDB)
+		modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
+		modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
+		modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
+		modDB:NewMod("Devotion", "BASE", 0, "Base")
+		modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
+		modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
+		modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
+		modDB:NewMod("DotMultiplier", "BASE", 50, "Base", { type = "Condition", var = "CriticalStrike" })
+		modDB:NewMod("FireResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+		modDB:NewMod("ColdResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+		modDB:NewMod("LightningResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+		modDB:NewMod("ChaosResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+		modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
+		modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		modDB:NewMod("Multiplier:RageEffect", "BASE", 1, "Base")
+		modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" })
+		modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" })
+		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", div = 5 }, { type = "Multiplier", var = "RageEffect" })
+		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
+		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
+		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
+		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
+		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
+		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
+		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
+		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
+		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
+		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
+		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
+		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
+		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
+		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
+		modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
+		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
+		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
+		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
+		
+		-- Add bandit mods
+		if build.bandit == "Alira" then
+			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
+			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
+			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
+		elseif build.bandit == "Kraityn" then
+			modDB:NewMod("Speed", "INC", 6, "Bandit")
+			modDB:NewMod("AttackDodgeChance", "BASE", 3, "Bandit")
+			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
+		elseif build.bandit == "Oak" then
+			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
+			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
+			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
+		else
+			modDB:NewMod("ExtraPoints", "BASE", 2, "Bandit")
+		end
+
+		-- Add Pantheon mods
+		local parser = modLib.parseMod
+		-- Major Gods
+		if build.pantheonMajorGod ~= "None" then
+			local majorGod = env.data.pantheons[build.pantheonMajorGod]
+			pantheon.applySoulMod(modDB, parser, majorGod)
+		end
+		-- Minor Gods
+		if build.pantheonMinorGod ~= "None" then
+			local minorGod = env.data.pantheons[build.pantheonMinorGod]
+			pantheon.applySoulMod(modDB, parser, minorGod)
+		end
+		
+		-- Initialise enemy modifier database
+		calcs.initModDB(env, enemyDB)
+		enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
+		enemyDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.enemyLevel], "Base")
+		enemyDB:NewMod("Armour", "BASE", env.data.monsterArmourTable[env.enemyLevel], "Base")
+
+		db1, db2 = specCopy(env)
+	else
+		env.modDB.parent = db1
+		env.enemyDB.parent = db2
+	end
 	-- Add mods from the config tab
-	modDB:AddList(build.configTab.modList)
-	enemyDB:AddList(build.configTab.enemyModList)
+	env.modDB:AddList(build.configTab.modList)
+	env.enemyDB:AddList(build.configTab.enemyModList)
 
 	-- Create player/enemy actors
 	env.player = {
-		modDB = modDB,
+		modDB = env.modDB,
 		level = build.characterLevel,
 	}
-	modDB.actor = env.player
+	env.modDB.actor = env.player
 	env.enemy = {
-		modDB = enemyDB,
+		modDB = env.enemyDB,
 		level = env.enemyLevel,
 	}
 	enemyDB.actor = env.enemy
@@ -893,5 +903,5 @@ function calcs.initEnv(build, mode, override)
 		calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
-	return env
+	return env, db1, db2
 end
