@@ -55,7 +55,7 @@ end
 -- Generate a function for calculating the effect of some modification to the environment
 local function getCalculator(build, fullInit, modFunc)
 	-- Initialise environment
-	local env, db1, db2 = calcs.initEnv(build, "CALCULATOR")
+	local env, db1, db2, storedInfo = calcs.initEnv(build, "CALCULATOR")
 
 	-- Run base calculation pass
 	calcs.perform(env)
@@ -102,7 +102,7 @@ end
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
-	local env, db1, db2 = calcs.initEnv(build, "CALCULATOR")
+	local env, db1, db2, storedInfo = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR")
 	env.player.output.SkillDPS = fullDPS.skills
@@ -111,16 +111,16 @@ function calcs.getMiscCalculator(build)
 
 	return function(override, skip)
 		if skip then
-			env, db1, db2 = calcs.initEnv(build, "CALCULATOR", override, { db1 = db1, db2 = db2 })
+			env, db1, db2, storedInfo = calcs.initEnv(build, "CALCULATOR", override, { db1 = db1, db2 = db2, si = storedInfo })
 		else
-			env, db1, db2 = calcs.initEnv(build, "CALCULATOR", override)
+			env, db1, db2, storedInfo = calcs.initEnv(build, "CALCULATOR", override)
 		end
 		calcs.perform(env)
 		-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 		-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 		-- A with A (do to cache reuse) instead of A with B
 		GlobalCache.dontUseCache = true
-		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { db1 = db1, db2 = db2 })
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { db1 = db1, db2 = db2, si = storedInfo })
 		GlobalCache.dontUseCache = nil
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
@@ -153,7 +153,7 @@ local function getActiveSkillCount(activeSkill)
 end
 
 function calcs.calcFullDPS(build, mode, override, specEnv)
-	local fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, specEnv)
+	local fullEnv, _, _, _ = calcs.initEnv(build, mode, override or {}, specEnv)
 	local usedEnv = nil
 
 	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0 }
@@ -241,7 +241,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 				end
 				-- Re-Build env calculator for new run
-				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, specEnv)
+				fullEnv, _, _, _ = calcs.initEnv(build, mode, override or {}, specEnv)
 			end
 		end
 	end
@@ -277,7 +277,7 @@ end
 
 -- Process active skill
 function calcs.buildActiveSkill(build, mode, skill, setMark)
-	local fullEnv = calcs.initEnv(build, mode)
+	local fullEnv, _, _, _ = calcs.initEnv(build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill
@@ -291,14 +291,14 @@ end
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
 	-- Build output for selected main skill
-	local env, db1, db2 = calcs.initEnv(build, mode)
+	local env, db1, db2, storedInfo = calcs.initEnv(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
 
 	-- Build output across all active skills
 	GlobalCache.dontUseCache = true
-	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { db1 = db1, db2 = db2 })
+	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { db1 = db1, db2 = db2, si = storedInfo })
 	GlobalCache.dontUseCache = nil
 
 	-- Add Full DPS data to main `env`

@@ -127,7 +127,7 @@ end
 -- Copy an Active Skill
 function calcs.copyActiveSkill(build, mode, skill)
 	local newSkill = calcs.createActiveSkill(skill.activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
-	local newEnv = calcs.initEnv(build, mode)
+	local newEnv, _, _, _ = calcs.initEnv(build, mode)
 	calcs.buildActiveSkillModList(newEnv, newSkill)
 	return newSkill, newEnv
 end

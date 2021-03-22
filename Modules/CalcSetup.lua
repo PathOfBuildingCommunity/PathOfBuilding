@@ -180,9 +180,13 @@ end
 function calcs.initEnv(build, mode, override, specEnv)
 	override = override or { }
 
-	local env = { }
+	-- accelerator variables
 	local db1 = specEnv and specEnv.db1 or nil
 	local db2 = specEnv and specEnv.db2 or nil
+	local storedInfo = specEnv and specEnv.si or { }
+
+	-- environment variables
+	local env = { }
 	env.build = build
 	env.data = build.data
 	env.configInput = build.configTab.input
@@ -222,7 +226,31 @@ function calcs.initEnv(build, mode, override, specEnv)
 	env.enemyDB = enemyDB
 
 	local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
-	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
+	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
+
+	-- Create player/enemy actors
+	env.player = {
+		modDB = env.modDB,
+		level = build.characterLevel,
+	}
+	env.modDB.actor = env.player
+	env.enemy = {
+		modDB = env.enemyDB,
+		level = env.enemyLevel,
+	}
+	enemyDB.actor = env.enemy
+	env.player.enemy = env.enemy
+	env.enemy.enemy = env.player
+
+	-- Set up requirements tracking
+	env.requirementsTable = { }
+
+	-- Prepare item, skill, flask tables
+	env.radiusJewelList = wipeTable(env.radiusJewelList)
+	env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
+	env.player.itemList = { }
+	env.grantedSkills = { }
+	env.flasks = { }
 
 	if not db1 then
 		-- Initialise modifier database with base values
@@ -308,57 +336,44 @@ function calcs.initEnv(build, mode, override, specEnv)
 		enemyDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.enemyLevel], "Base")
 		enemyDB:NewMod("Armour", "BASE", env.data.monsterArmourTable[env.enemyLevel], "Base")
 
+		-- Add mods from the config tab
+		env.modDB:AddList(build.configTab.modList)
+		env.enemyDB:AddList(build.configTab.enemyModList)
+
+	--	db1, db2 = specCopy(env)
+	--else
+	--	env.modDB.parent = db1
+	--	env.enemyDB.parent = db2
+	--end
+
+		-- Build list of passive nodes
+		local nodes
+		if override.addNodes or override.removeNodes then
+			nodes = { }
+			if override.addNodes then
+				for node in pairs(override.addNodes) do
+					nodes[node.id] = node
+				end
+			end
+			for _, node in pairs(env.spec.allocNodes) do
+				if not override.removeNodes or not override.removeNodes[node] then
+					nodes[node.id] = node
+				end
+			end
+		else
+			nodes = copyTable(env.spec.allocNodes, true)
+		end
+		env.allocNodes = nodes
+
+		storedInfo.allocNodes = copyTable(env.allocNodes, true)
 		db1, db2 = specCopy(env)
 	else
 		env.modDB.parent = db1
 		env.enemyDB.parent = db2
+		env.allocNodes = copyTable(storedInfo.allocNodes, true)
 	end
-	-- Add mods from the config tab
-	env.modDB:AddList(build.configTab.modList)
-	env.enemyDB:AddList(build.configTab.enemyModList)
-
-	-- Create player/enemy actors
-	env.player = {
-		modDB = env.modDB,
-		level = build.characterLevel,
-	}
-	env.modDB.actor = env.player
-	env.enemy = {
-		modDB = env.enemyDB,
-		level = env.enemyLevel,
-	}
-	enemyDB.actor = env.enemy
-	env.player.enemy = env.enemy
-	env.enemy.enemy = env.player
-
-	-- Build list of passive nodes
-	local nodes
-	if override.addNodes or override.removeNodes then
-		nodes = { }
-		if override.addNodes then
-			for node in pairs(override.addNodes) do
-				nodes[node.id] = node
-			end
-		end
-		for _, node in pairs(env.spec.allocNodes) do
-			if not override.removeNodes or not override.removeNodes[node] then
-				nodes[node.id] = node
-			end
-		end
-	else
-		nodes = copyTable(env.spec.allocNodes, true)
-	end
-	env.allocNodes = nodes
-
-	-- Set up requirements tracking
-	env.requirementsTable = { }
 
 	-- Build and merge item modifiers, and create list of radius jewels
-	env.radiusJewelList = wipeTable(env.radiusJewelList)
-	env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
-	env.player.itemList = { }
-	env.grantedSkills = { }
-	env.flasks = { }
 	for _, slot in pairs(build.itemsTab.orderedSlots) do
 		local slotName = slot.slotName
 		local item
@@ -390,7 +405,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		if slot.nodeId then
 			-- Slot is a jewel socket, check if socket is allocated
-			if not nodes[slot.nodeId] then
+			if not env.allocNodes[slot.nodeId] then
 				item = nil
 			elseif item and item.jewelRadiusIndex then
 				-- Jewel has a radius, add it to the list
@@ -416,7 +431,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if func.type ~= "Self" and node.nodesInRadius then
 						-- Add nearby unallocated nodes to the extra node list
 						for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
-							if not nodes[nodeId] then
+							if not env.allocNodes[nodeId] then
 								env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
 							end
 						end
@@ -472,7 +487,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end
-			if item.type == "Shield" and nodes[45175] and nodes[45175].dn == "Necromantic Aegis" then
+			if item.type == "Shield" and env.allocNodes[45175] and env.allocNodes[45175].dn == "Necromantic Aegis" then
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = new("ModList")
 				for _, mod in ipairs(srcList) do
@@ -580,16 +595,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local node = env.spec.tree.notableMap[passive]
 		if node then
 			if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
-				nodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
+				env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
 			else
-				nodes[node.id] = node
+				env.allocNodes[node.id] = node
 			end
 			env.grantedPassives[node.id] = true
 		end
 	end
 
 	-- Merge modifiers for allocated passives
-	env.modDB:AddList(calcs.buildModListForNodeList(env, nodes, true))
+	env.modDB:AddList(calcs.buildModListForNodeList(env, env.allocNodes, true))
 
 	-- Find skills granted by tree nodes
 	for _, node in pairs(env.allocNodes) do
@@ -903,5 +918,5 @@ function calcs.initEnv(build, mode, override, specEnv)
 		calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
-	return env, db1, db2
+	return env, db1, db2, storedInfo
 end
