@@ -26,6 +26,8 @@ common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
 
+profiler = LoadModule("Modules/Profiler")
+
 -- Class library
 common.classes = { }
 local function addSuperParents(class, parent)

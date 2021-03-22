@@ -124,6 +124,7 @@ function GemSelectClass:BuildList(buf)
 end
 
 function GemSelectClass:UpdateSortCache()
+	--profiler.start()
 	local sortCache = self.sortCache
 	--Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and 
@@ -201,6 +202,8 @@ function GemSelectClass:UpdateSortCache()
 			sortCache.dpsColor[gemId] = "^xFFFF66"
 		end
 	end
+	--profiler.stop()
+	--profiler.report('sortCache.txt')
 end
 
 function GemSelectClass:SortGemList(gemList)
