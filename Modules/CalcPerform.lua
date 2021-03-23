@@ -1507,15 +1507,18 @@ function calcs.perform(env)
 	for _, source in ipairs({curses, minionCurses}) do
 		for _, curse in ipairs(source) do
 			if curse.ignoreHexLimit then 	
-				local foundLowerPriorityCurse = false
+				local skipAddingCurse = false
 				for i = 1, #curseSlots do
-					if curseSlots[i].name == curse.name and curseSlots[i].priority < curse.priority then
-						curseSlots[i] = curse
-						foundLowerPriorityCurse = true
+					if curseSlots[i].name == curse.name then
+						-- if curse is higher priority, replace current curse with it, otherwise if same or lower priority skip it entirely
+						if curseSlots[i].priority < curse.priority then
+							curseSlots[i] = curse
+						end
+						skipAddingCurse = true
 						break
 					end
 				end
-				if not foundLowerPriorityCurse then
+				if not skipAddingCurse then
 					curseSlots[#curseSlots + 1] = curse
 				end
 			end
