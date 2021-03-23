@@ -89,10 +89,37 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.showSupportGemTypes = value.show
 	end)
 	self.controls.showSupportGemTypesLabel = new("LabelControl", {"RIGHT",self.controls.showSupportGemTypes,"LEFT"}, -4, 0, 0, 16, "^7Show support gems:")
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 0779f72e8d748c77eb594ad36dd316818863f86d
 	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 20, "^7Show gem quality variants:", function(state)
 		self.showAltQualityGems = state
 	end)
 
+<<<<<<< HEAD
+
+	-- Gem obtained by
+	self.controls.gemObtainedBySection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 200, 320, 450, "Gems Obtained By")
+	self.controls.gemObtainedByGroupList = new("SkillObtainedByListControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 10, 215, 300, 420, self)
+	
+=======
+	
+	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 20, "^7Show gem quality variants:", function(state)
+		self.showAltQualityGems = state
+	end)
+
+=======
+>>>>>>> 0779f72e8d748c77eb594ad36dd316818863f86d
+	-- Gem obtained by
+	self.controls.gemObtainedBySection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 220, 374, 450, "Gems Obtained By")
+	self.controls.gemObtainedByGroupList = new("SkillObtainedByListControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 10, 235, 355, 420, self)
+
+<<<<<<< HEAD
+>>>>>>> 0779f72e... cleaned up code, fixed location due to new option added to Gem Options, Now sorts by level requirement
+=======
+>>>>>>> 0779f72e8d748c77eb594ad36dd316818863f86d
 	-- Socket group details
 	self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
 	self.anchorGroupDetail.shown = function()
@@ -401,6 +428,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		self:AddUndoState()
 		self.build.buildFlag = true
+		
+		-- Update obtained by list on delete
+		self.controls.gemObtainedByGroupList:UpdateAllGems(self)
 	end)
 	if index == 1 then
 		slot.delete:SetAnchor("TOPLEFT", self.anchorGemSlots, "TOPLEFT", 0, 0)
@@ -665,6 +695,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		return "Enable "..self.displayGroup.gemList[index].gemData.grantedEffectList[2].name..":"
 	end
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
+
+	-- Update obtained by list on add
+	self.controls.gemObtainedByGroupList:UpdateAllGems(self)
 end
 
 
