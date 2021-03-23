@@ -170,6 +170,46 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	return modList
 end
 
+function wipeEnv(env)
+	wipeTable(env.modDB.mods)
+	wipeTable(env.modDB.conditions)
+	wipeTable(env.modDB.multipliers)
+	wipeTable(env.enemyDB.mods)
+	wipeTable(env.enemyDB.conditions)
+	wipeTable(env.enemyDB.multipliers)
+
+	wipeTable(env.allocNodes)
+
+	wipeTable(env.radiusJewelList)
+	wipeTable(env.extraRadiusNodeList)
+	wipeTable(env.player.itemList)
+	wipeTable(env.grantedSkills)
+	wipeTable(env.flasks)
+
+	wipeTable(env.requirementsTable)
+	if env.aegisModList then
+		wipeTable(env.aegisModList)
+	end
+	if env.theIronMass then
+		wipeTable(env.theIronMass)
+	end
+	if env.weaponModList1 then
+		wipeTable(env.weaponModList1)
+	end
+
+	--env.modDB.multipliers.CorruptedItem
+	--env.modDB.multipliers.NonCorruptedItem
+	--env.modDB.multipliers.ShaperItem
+	--env.modDB.multipliers.NonShaperItem
+	--env.modDB.multipliers.ElderItem
+	--env.modDB.multipliers.NonElderItem
+	--env.modDB.multipliers.ShaperOrElderItem
+
+	wipeTable(env.grantedPassives)
+	wipeTable(env.player.activeSkillList)
+	wipeTable(env.auxSkillList)
+end
+
 -- Initialise environment: 
 -- 1. Initialises the player and enemy modifier databases
 -- 2. Merges modifiers for all items
@@ -185,15 +225,67 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local db2 = specEnv and specEnv.db2 or nil
 	local storedInfo = specEnv and specEnv.si or { }
 
+	local env = specEnv and specEnv.env or nil
+
 	-- environment variables
-	local env = { }
-	env.build = build
-	env.data = build.data
-	env.configInput = build.configTab.input
-	env.calcsInput = build.calcsTab.input
-	env.mode = mode
-	env.spec = override.spec or build.spec
-	env.classId = env.spec.curClassId
+	local modDB = nil
+	local enemyDB = nil
+	local classStats = nil
+
+	if not env then
+		env = { }
+		env.build = build
+		env.data = build.data
+		env.configInput = build.configTab.input
+		env.calcsInput = build.calcsTab.input
+		env.mode = mode
+		env.spec = override.spec or build.spec
+		env.classId = env.spec.curClassId
+
+		modDB = new("ModDB")
+		env.modDB = modDB
+		enemyDB = new("ModDB")
+		env.enemyDB = enemyDB
+
+		env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
+
+		-- Create player/enemy actors
+		env.player = {
+			modDB = env.modDB,
+			level = build.characterLevel,
+		}
+		env.modDB.actor = env.player
+		env.enemy = {
+			modDB = env.enemyDB,
+			level = env.enemyLevel,
+		}
+		enemyDB.actor = env.enemy
+		env.player.enemy = env.enemy
+		env.enemy.enemy = env.player
+
+		-- Set up requirements tracking
+		env.requirementsTable = { }
+
+		-- Prepare item, skill, flask tables
+		env.radiusJewelList = wipeTable(env.radiusJewelList)
+		env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
+		env.player.itemList = { }
+		env.grantedSkills = { }
+		env.flasks = { }
+
+		-- tree based
+		env.grantedPassives = { }
+
+		-- skill-related
+		env.player.activeSkillList = { }
+		env.auxSkillList = { }
+
+	else
+		ConPrintf(mode .. " -- wiping")
+		wipeEnv(env)
+		modDB = env.modDB
+		enemyDB = env.enemyDB
+	end
 
 	-- Set buff mode
 	local buffMode
@@ -219,38 +311,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.mode_combat = false
 		env.mode_effective = false
 	end
-
-	local modDB = new("ModDB")
-	env.modDB = modDB
-	local enemyDB = new("ModDB")
-	env.enemyDB = enemyDB
-
-	local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
-	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
-
-	-- Create player/enemy actors
-	env.player = {
-		modDB = env.modDB,
-		level = build.characterLevel,
-	}
-	env.modDB.actor = env.player
-	env.enemy = {
-		modDB = env.enemyDB,
-		level = env.enemyLevel,
-	}
-	enemyDB.actor = env.enemy
-	env.player.enemy = env.enemy
-	env.enemy.enemy = env.player
-
-	-- Set up requirements tracking
-	env.requirementsTable = { }
-
-	-- Prepare item, skill, flask tables
-	env.radiusJewelList = wipeTable(env.radiusJewelList)
-	env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
-	env.player.itemList = { }
-	env.grantedSkills = { }
-	env.flasks = { }
+	classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
 
 	if not db1 then
 		-- Initialise modifier database with base values
@@ -340,11 +401,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.modDB:AddList(build.configTab.modList)
 		env.enemyDB:AddList(build.configTab.enemyModList)
 
-	--	db1, db2 = specCopy(env)
-	--else
-	--	env.modDB.parent = db1
-	--	env.enemyDB.parent = db2
-	--end
+		db1, db2 = specCopy(env)
+	else
+		env.modDB.parent = db1
+		env.enemyDB.parent = db2
+	end
 
 		-- Build list of passive nodes
 		local nodes
@@ -365,13 +426,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 
-		storedInfo.allocNodes = copyTable(env.allocNodes, true)
-		db1, db2 = specCopy(env)
-	else
-		env.modDB.parent = db1
-		env.enemyDB.parent = db2
-		env.allocNodes = copyTable(storedInfo.allocNodes, true)
-	end
+	--	db1, db2 = specCopy(env)
+	--else
+	--	env.modDB.parent = db1
+	--	env.enemyDB.parent = db2
+	--end
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	for _, slot in pairs(build.itemsTab.orderedSlots) do
@@ -590,7 +649,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	-- Add granted passives
-	env.grantedPassives = { }
 	for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 		local node = env.spec.tree.notableMap[passive]
 		if node then
@@ -704,7 +762,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	-- Build list of active skills
-	env.player.activeSkillList = { }
 	local groupCfg = wipeTable(tempTable1)
 	for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 		local socketGroupSkillList = { }
@@ -913,10 +970,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	-- Build skill modifier lists
-	env.auxSkillList = { }
 	for _, activeSkill in pairs(env.player.activeSkillList) do
 		calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
-	return env, db1, db2, storedInfo
+	return env, db1, db2
 end
