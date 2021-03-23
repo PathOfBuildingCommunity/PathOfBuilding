@@ -223,8 +223,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 	-- accelerator variables
 	local db1 = specEnv and specEnv.db1 or nil
 	local db2 = specEnv and specEnv.db2 or nil
-	local storedInfo = specEnv and specEnv.si or { }
-
 	local env = specEnv and specEnv.env or nil
 
 	-- environment variables
