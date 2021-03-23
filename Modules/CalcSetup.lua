@@ -171,6 +171,10 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 end
 
 function wipeEnv(env)
+	-- Always wipe the below as we will be pushing in the modifiers,
+	-- multipliers and conditions for player and enemy DBs via `parent`
+	-- extensions of those DBs later which allow us to do a table-pointer
+	-- link and save time on having to do a copyTable() function.
 	wipeTable(env.modDB.mods)
 	wipeTable(env.modDB.conditions)
 	wipeTable(env.modDB.multipliers)
@@ -178,15 +182,24 @@ function wipeEnv(env)
 	wipeTable(env.enemyDB.conditions)
 	wipeTable(env.enemyDB.multipliers)
 
+	-- Passive tree node allocations
 	wipeTable(env.allocNodes)
 
+	-- Item-related tables
+	-- 1) Jewels and Jewel-Radius related node modifications
+	-- 2) Player items
+	-- 3) Granted Skill from items (e.g., Curse on Hit rings)
+	-- 4) Flasks
 	wipeTable(env.radiusJewelList)
 	wipeTable(env.extraRadiusNodeList)
 	wipeTable(env.player.itemList)
 	wipeTable(env.grantedSkills)
 	wipeTable(env.flasks)
 
+	-- Requirements from Items (Str, Dex, Int)
 	wipeTable(env.requirementsTable)
+
+	-- Special / Unique Items that have their own ModDB()
 	if env.aegisModList then
 		wipeTable(env.aegisModList)
 	end
@@ -197,6 +210,13 @@ function wipeEnv(env)
 		wipeTable(env.weaponModList1)
 	end
 
+	-- Below are an extension of ModDB multipliers which
+	-- come after all items are accounted for in order to
+	-- provide meaning to modifiers that are based on amount
+	-- of 'Corrupted/Non-Corrupted' items, Elder, Shaper, etc.
+	-- The code for this is not very intense so we might always
+	-- just want to re-evaluate this... it's just a count over
+	-- items
 	--env.modDB.multipliers.CorruptedItem
 	--env.modDB.multipliers.NonCorruptedItem
 	--env.modDB.multipliers.ShaperItem
@@ -205,8 +225,14 @@ function wipeEnv(env)
 	--env.modDB.multipliers.NonElderItem
 	--env.modDB.multipliers.ShaperOrElderItem
 
+	-- Passive Tree based granted Passives and Legion mods to nodes
+	-- Usually the tree node states: `Allocates <NAME>`
 	wipeTable(env.grantedPassives)
+
+	-- Player Active Skills generation
 	wipeTable(env.player.activeSkillList)
+	-- Enhances Active Skills with skill ModFlags, KeywordFlags
+	-- and modifiers that affect skill scaling (e.g., global buffs/effects)
 	wipeTable(env.auxSkillList)
 end
 
