@@ -109,9 +109,9 @@ function calcs.getMiscCalculator(build)
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
-	return function(override, skip)
-		if skip then
-			env, db1, db2 = calcs.initEnv(build, "CALCULATOR", override, { db1 = db1, db2 = db2, env = env })
+	return function(override, accelerate)
+		if accelerate then
+			env, db1, db2 = calcs.initEnv(build, "CALCULATOR", override, { db1 = db1, db2 = db2, env = env, accelerate = accelerate })
 		else
 			env, db1, db2 = calcs.initEnv(build, "CALCULATOR", override)
 		end
@@ -120,7 +120,7 @@ function calcs.getMiscCalculator(build)
 		-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 		-- A with A (do to cache reuse) instead of A with B
 		GlobalCache.dontUseCache = true
-		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { db1 = db1, db2 = db2, env = env })
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { db1 = db1, db2 = db2, env = env, accelerate = accelerate })
 		GlobalCache.dontUseCache = nil
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
@@ -241,7 +241,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 				end
 				-- Re-Build env calculator for new run
-				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { db1 = db1, db2 = db2, env = fullEnv })
+				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { db1 = db1, db2 = db2, env = fullEnv, accelerate = { nodeAlloc = true } })
 			end
 		end
 	end

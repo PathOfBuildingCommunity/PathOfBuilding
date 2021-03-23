@@ -2523,7 +2523,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				tooltip:AddLine(14, stat)
 			end
 		end
-		local output = calcFunc({ toggleFlask = item })
+		local output = calcFunc({ toggleFlask = item }, {})
 		local header
 		if self.build.calcsTab.mainEnv.flasks[item] then
 			header = "^7Deactivating this flask will give you:"
@@ -2560,7 +2560,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- Add comparisons for each slot
 		for _, slot in pairs(compareSlots) do
 			local selItem = self.items[slot.selItemId]
-			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item })
+			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
 			local header
 			if item == selItem then
 				header = "^7Removing this item from "..slot.label.." will give you:"

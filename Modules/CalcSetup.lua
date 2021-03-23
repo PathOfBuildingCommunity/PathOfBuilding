@@ -170,7 +170,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	return modList
 end
 
-function wipeEnv(env)
+function wipeEnv(env, accelerate)
 	-- Always wipe the below as we will be pushing in the modifiers,
 	-- multipliers and conditions for player and enemy DBs via `parent`
 	-- extensions of those DBs later which allow us to do a table-pointer
@@ -183,7 +183,9 @@ function wipeEnv(env)
 	wipeTable(env.enemyDB.multipliers)
 
 	-- Passive tree node allocations
-	wipeTable(env.allocNodes)
+	if not accelerate.nodeAlloc then
+		wipeTable(env.allocNodes)
+	end
 
 	-- Item-related tables
 	-- 1) Jewels and Jewel-Radius related node modifications
@@ -250,6 +252,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local db1 = specEnv and specEnv.db1 or nil
 	local db2 = specEnv and specEnv.db2 or nil
 	local env = specEnv and specEnv.env or nil
+	local accelerate = specEnv and specEnv.accelerate or { }
 
 	-- environment variables
 	local modDB = nil
@@ -303,9 +306,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- skill-related
 		env.player.activeSkillList = { }
 		env.auxSkillList = { }
-
 	else
-		wipeEnv(env)
+		wipeEnv(env, accelerate)
 		modDB = env.modDB
 		enemyDB = env.enemyDB
 	end
@@ -430,6 +432,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyDB.parent = db2
 	end
 
+	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
 		if override.addNodes or override.removeNodes then
@@ -448,12 +451,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			nodes = copyTable(env.spec.allocNodes, true)
 		end
 		env.allocNodes = nodes
-
-	--	db1, db2 = specCopy(env)
-	--else
-	--	env.modDB.parent = db1
-	--	env.enemyDB.parent = db2
-	--end
+	end
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	for _, slot in pairs(build.itemsTab.orderedSlots) do
@@ -675,10 +673,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 	for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 		local node = env.spec.tree.notableMap[passive]
 		if node then
-			if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
-				env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
-			else
-				env.allocNodes[node.id] = node
+			if not accelerate.nodeAlloc then
+				if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
+					env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
+				else
+					env.allocNodes[node.id] = node
+				end
 			end
 			env.grantedPassives[node.id] = true
 		end

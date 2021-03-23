@@ -571,7 +571,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				local tempQual = self.displayGroup.gemList[index].qualityId
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
-				local output = calcFunc({}, true)
+				local output = calcFunc({}, {})
 				self.displayGroup.gemList[index].qualityId = tempQual
 				tooltip:AddSeparator(10)
 				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
@@ -627,7 +627,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
-					local output = calcFunc({}, true)
+					local output = calcFunc({}, {})
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
 				end
