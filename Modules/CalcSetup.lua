@@ -281,7 +281,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.auxSkillList = { }
 
 	else
-		ConPrintf(mode .. " -- wiping")
 		wipeEnv(env)
 		modDB = env.modDB
 		enemyDB = env.enemyDB
