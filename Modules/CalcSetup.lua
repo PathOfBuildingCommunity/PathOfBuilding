@@ -681,7 +681,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				else
 					env.allocNodes[node.id] = node
 				end
-				ConPrintf("GrantedPassive: " .. env.allocNodes[node.id].dn)
+				--ConPrintf("GrantedPassive: " .. env.allocNodes[node.id].dn)
 				env.grantedPassives[node.id] = true
 			end
 		end
