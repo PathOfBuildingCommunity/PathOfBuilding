@@ -183,56 +183,51 @@ function wipeEnv(env, accelerate)
 	wipeTable(env.enemyDB.multipliers)
 
 	-- Passive tree node allocations
+	-- Also in a further pass tracks Legion influenced mods
 	if not accelerate.nodeAlloc then
 		wipeTable(env.allocNodes)
+		-- Usually states: `Allocates <NAME>` (e.g., amulet anointment)
+		wipeTable(env.grantedPassives)
 	end
 
-	-- Item-related tables
-	-- 1) Jewels and Jewel-Radius related node modifications
-	-- 2) Player items
-	-- 3) Granted Skill from items (e.g., Curse on Hit rings)
-	-- 4) Flasks
-	wipeTable(env.radiusJewelList)
-	wipeTable(env.extraRadiusNodeList)
-	wipeTable(env.player.itemList)
-	wipeTable(env.grantedSkills)
-	wipeTable(env.flasks)
+	if not accelerate.requirementsItems then
+		-- Item-related tables
+		wipeTable(env.itemModDB.mods)
+		wipeTable(env.itemModDB.conditions)
+		wipeTable(env.itemModDB.multipliers)
+		-- 1) Jewels and Jewel-Radius related node modifications
+		-- 2) Player items
+		-- 3) Granted Skill from items (e.g., Curse on Hit rings)
+		-- 4) Flasks
+		wipeTable(env.radiusJewelList)
+		wipeTable(env.extraRadiusNodeList)
+		wipeTable(env.player.itemList)
+		wipeTable(env.grantedSkills)
+		wipeTable(env.flasks)
 
-	-- Requirements from Items (Str, Dex, Int)
-	wipeTable(env.requirementsTable)
+		-- Special / Unique Items that have their own ModDB()
+		if env.aegisModList then
+			wipeTable(env.aegisModList)
+		end
+		if env.theIronMass then
+			wipeTable(env.theIronMass)
+		end
+		if env.weaponModList1 then
+			wipeTable(env.weaponModList1)
+		end
 
-	-- Special / Unique Items that have their own ModDB()
-	if env.aegisModList then
-		wipeTable(env.aegisModList)
+		-- Requirements from Items (Str, Dex, Int)
+		wipeTable(env.requirementsTableItems)
 	end
-	if env.theIronMass then
-		wipeTable(env.theIronMass)
-	end
-	if env.weaponModList1 then
-		wipeTable(env.weaponModList1)
-	end
 
-	-- Below are an extension of ModDB multipliers which
-	-- come after all items are accounted for in order to
-	-- provide meaning to modifiers that are based on amount
-	-- of 'Corrupted/Non-Corrupted' items, Elder, Shaper, etc.
-	-- The code for this is not very intense so we might always
-	-- just want to re-evaluate this... it's just a count over
-	-- items
-	--env.modDB.multipliers.CorruptedItem
-	--env.modDB.multipliers.NonCorruptedItem
-	--env.modDB.multipliers.ShaperItem
-	--env.modDB.multipliers.NonShaperItem
-	--env.modDB.multipliers.ElderItem
-	--env.modDB.multipliers.NonElderItem
-	--env.modDB.multipliers.ShaperOrElderItem
-
-	-- Passive Tree based granted Passives and Legion mods to nodes
-	-- Usually the tree node states: `Allocates <NAME>`
-	wipeTable(env.grantedPassives)
+	-- Requirements from Gems (Str, Dex, Int)
+	if not accelerate.requirementsGems then
+		wipeTable(env.requirementsTableGems)
+	end
 
 	-- Player Active Skills generation
 	wipeTable(env.player.activeSkillList)
+
 	-- Enhances Active Skills with skill ModFlags, KeywordFlags
 	-- and modifiers that affect skill scaling (e.g., global buffs/effects)
 	wipeTable(env.auxSkillList)
@@ -273,6 +268,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.modDB = modDB
 		enemyDB = new("ModDB")
 		env.enemyDB = enemyDB
+		env.itemModDB = new("ModDB")
 
 		env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
 
@@ -291,7 +287,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemy.enemy = env.player
 
 		-- Set up requirements tracking
-		env.requirementsTable = { }
+		env.requirementsTableItems = { }
+		env.requirementsTableGems = { }
 
 		-- Prepare item, skill, flask tables
 		env.radiusJewelList = wipeTable(env.radiusJewelList)
@@ -454,212 +451,217 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	-- Build and merge item modifiers, and create list of radius jewels
-	for _, slot in pairs(build.itemsTab.orderedSlots) do
-		local slotName = slot.slotName
-		local item
-		if slotName == override.repSlotName then
-			item = override.repItem
-		elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") and 
-		  (override.repItem.base.type == "Staff" or override.repItem.base.type == "Two Handed Sword" or override.repItem.base.type == "Two Handed Axe" or override.repItem.base.type == "Two Handed Mace" 
-		  or (override.repItem.base.type == "Bow" and item and item.base.type ~= "Quiver")) then
-			item = nil
-		elseif slot.nodeId and override.spec then
-			item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
-		else
-			item = build.itemsTab.items[slot.selItemId]
-		end
-		if item then
-			-- Find skills granted by this item
-			for _, skill in ipairs(item.grantedSkills) do
-				local grantedSkill = copyTable(skill)
-				grantedSkill.sourceItem = item
-				grantedSkill.slotName = slotName
-				t_insert(env.grantedSkills, grantedSkill)
-			end
-		end
-		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
-			item = nil
-		end
-		if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then
-			slotName = slotName:gsub(" Swap","")
-		end
-		if slot.nodeId then
-			-- Slot is a jewel socket, check if socket is allocated
-			if not env.allocNodes[slot.nodeId] then
+	if not (accelerate.requirementsItems) then
+		for _, slot in pairs(build.itemsTab.orderedSlots) do
+			local slotName = slot.slotName
+			local item
+			if slotName == override.repSlotName then
+				item = override.repItem
+			elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") and 
+			(override.repItem.base.type == "Staff" or override.repItem.base.type == "Two Handed Sword" or override.repItem.base.type == "Two Handed Axe" or override.repItem.base.type == "Two Handed Mace" 
+			or (override.repItem.base.type == "Bow" and item and item.base.type ~= "Quiver")) then
 				item = nil
-			elseif item and item.jewelRadiusIndex then
-				-- Jewel has a radius, add it to the list
-				local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
-					-- Default function just tallies all stats in radius
-					if node then
-						for _, stat in pairs({"Str","Dex","Int"}) do
-							data[stat] = (data[stat] or 0) + out:Sum("BASE", nil, stat)
+			elseif slot.nodeId and override.spec then
+				item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
+			else
+				item = build.itemsTab.items[slot.selItemId]
+			end
+			if item then
+				-- Find skills granted by this item
+				for _, skill in ipairs(item.grantedSkills) do
+					local grantedSkill = copyTable(skill)
+					grantedSkill.sourceItem = item
+					grantedSkill.slotName = slotName
+					t_insert(env.grantedSkills, grantedSkill)
+				end
+			end
+			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
+				item = nil
+			end
+			if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then
+				slotName = slotName:gsub(" Swap","")
+			end
+			if slot.nodeId then
+				-- Slot is a jewel socket, check if socket is allocated
+				if not env.allocNodes[slot.nodeId] then
+					item = nil
+				elseif item and item.jewelRadiusIndex then
+					-- Jewel has a radius, add it to the list
+					local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
+						-- Default function just tallies all stats in radius
+						if node then
+							for _, stat in pairs({"Str","Dex","Int"}) do
+								data[stat] = (data[stat] or 0) + out:Sum("BASE", nil, stat)
+							end
 						end
-					end
-				end } }
-				for _, func in ipairs(funcList) do
-					local node = env.spec.nodes[slot.nodeId]
-					t_insert(env.radiusJewelList, {
-						nodes = node.nodesInRadius and node.nodesInRadius[item.jewelRadiusIndex] or { },
-						func = func.func,
-						type = func.type,
-						item = item,
-						nodeId = slot.nodeId,
-						attributes = node.attributesInRadius and node.attributesInRadius[item.jewelRadiusIndex] or { },
-						data = { }
-					})
-					if func.type ~= "Self" and node.nodesInRadius then
-						-- Add nearby unallocated nodes to the extra node list
-						for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
-							if not env.allocNodes[nodeId] then
-								env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
+					end } }
+					for _, func in ipairs(funcList) do
+						local node = env.spec.nodes[slot.nodeId]
+						t_insert(env.radiusJewelList, {
+							nodes = node.nodesInRadius and node.nodesInRadius[item.jewelRadiusIndex] or { },
+							func = func.func,
+							type = func.type,
+							item = item,
+							nodeId = slot.nodeId,
+							attributes = node.attributesInRadius and node.attributesInRadius[item.jewelRadiusIndex] or { },
+							data = { }
+						})
+						if func.type ~= "Self" and node.nodesInRadius then
+							-- Add nearby unallocated nodes to the extra node list
+							for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
+								if not env.allocNodes[nodeId] then
+									env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
+								end
 							end
 						end
 					end
 				end
 			end
-		end
-		if item and item.type == "Flask" then
-			if slot.active then
-				env.flasks[item] = true
-			end
-			item = nil
-		end
-		local scale = 1
-		if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
-			-- Check if the item in the parent slot has enough Abyssal Sockets
-			local parentItem = env.player.itemList[slot.parentSlot.slotName]
-			if not parentItem or parentItem.abyssalSocketCount < slot.slotNum then
+			if item and item.type == "Flask" then
+				if slot.active then
+					env.flasks[item] = true
+				end
 				item = nil
-			else
-				scale = parentItem.socketedJewelEffectModifier
 			end
-		end
-		if slot.nodeId and item and item.type == "Jewel" and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
-			local node = env.spec.nodes[slot.nodeId]
-			if node and node.distanceToClassStart then
-				scale = scale + node.distanceToClassStart * (item.jewelData.jewelIncEffectFromClassStart / 100)
-			end
-		end
-		if item then
-			env.player.itemList[slotName] = item
-			-- Merge mods for this item
-			local srcList = item.modList or item.slotModList[slot.slotNum]
-			if item.requirements then	
-				t_insert(env.requirementsTable, {
-					source = "Item",
-					sourceItem = item,
-					sourceSlot = slotName,
-					Str = item.requirements.strMod,
-					Dex = item.requirements.dexMod,
-					Int = item.requirements.intMod,
-				})
-			end
-			if item.type == "Jewel" and item.base.subType == "Abyss" then
-				-- Update Abyss Jewel conditions/multipliers
-				local cond = "Have"..item.baseName:gsub(" ","")
-				if not env.modDB.conditions[cond] then
-					env.modDB.conditions[cond] = true
-					env.modDB.multipliers["AbyssJewelType"] = (env.modDB.multipliers["AbyssJewelType"] or 0) + 1
+			local scale = 1
+			if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
+				-- Check if the item in the parent slot has enough Abyssal Sockets
+				local parentItem = env.player.itemList[slot.parentSlot.slotName]
+				if not parentItem or parentItem.abyssalSocketCount < slot.slotNum then
+					item = nil
+				else
+					scale = parentItem.socketedJewelEffectModifier
 				end
-				if slot.parentSlot then
-					env.modDB.conditions[cond.."In"..slot.parentSlot.slotName] = true
-				end
-				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end
-			if item.type == "Shield" and env.allocNodes[45175] and env.allocNodes[45175].dn == "Necromantic Aegis" then
-				-- Special handling for Necromantic Aegis
-				env.aegisModList = new("ModList")
-				for _, mod in ipairs(srcList) do
-					-- Filter out mods that apply to socketed gems, or which add supports
-					local add = true
-					for _, tag in ipairs(mod) do
-						if tag.type == "SocketedIn" then
-							add = false
-							break
+			if slot.nodeId and item and item.type == "Jewel" and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
+				local node = env.spec.nodes[slot.nodeId]
+				if node and node.distanceToClassStart then
+					scale = scale + node.distanceToClassStart * (item.jewelData.jewelIncEffectFromClassStart / 100)
+				end
+			end
+			if item then
+				env.player.itemList[slotName] = item
+				-- Merge mods for this item
+				local srcList = item.modList or item.slotModList[slot.slotNum]
+				if item.requirements and not accelerate.requirementsItems then	
+					t_insert(env.requirementsTableItems, {
+						source = "Item",
+						sourceItem = item,
+						sourceSlot = slotName,
+						Str = item.requirements.strMod,
+						Dex = item.requirements.dexMod,
+						Int = item.requirements.intMod,
+					})
+				end
+				if item.type == "Jewel" and item.base.subType == "Abyss" then
+					-- Update Abyss Jewel conditions/multipliers
+					local cond = "Have"..item.baseName:gsub(" ","")
+					if not env.itemModDB.conditions[cond] then
+						env.itemModDB.conditions[cond] = true
+						env.itemModDB.multipliers["AbyssJewelType"] = (env.itemModDB.multipliers["AbyssJewelType"] or 0) + 1
+					end
+					if slot.parentSlot then
+						env.itemModDB.conditions[cond.."In"..slot.parentSlot.slotName] = true
+					end
+					env.itemModDB.multipliers["AbyssJewel"] = (env.itemModDB.multipliers["AbyssJewel"] or 0) + 1
+				end
+				if item.type == "Shield" and env.allocNodes[45175] and env.allocNodes[45175].dn == "Necromantic Aegis" then
+					-- Special handling for Necromantic Aegis
+					env.aegisModList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						-- Filter out mods that apply to socketed gems, or which add supports
+						local add = true
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								add = false
+								break
+							end
+						end
+						if add then
+							env.aegisModList:ScaleAddMod(mod, scale)
+						else
+							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
-					if add then
-						env.aegisModList:ScaleAddMod(mod, scale)
+				elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
+					-- Special handling for The Iron Mass
+					env.theIronMass = new("ModList")
+					for _, mod in ipairs(srcList) do
+						-- Filter out mods that apply to socketed gems, or which add supports
+						local add = true
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								add = false
+								break
+							end
+						end
+						if add then
+							env.theIronMass:ScaleAddMod(mod, scale)
+						end
+						-- Add all the stats to player as well
+						env.itemModDB:ScaleAddMod(mod, scale)
+					end
+				elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
+					-- Special handling for The Dancing Dervish
+					env.weaponModList1 = new("ModList")
+					for _, mod in ipairs(srcList) do
+						-- Filter out mods that apply to socketed gems, or which add supports
+						local add = true
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								add = false
+								break
+							end
+						end
+						if add then
+							env.weaponModList1:ScaleAddMod(mod, scale)
+						else
+							env.itemModDB:ScaleAddMod(mod, scale)
+						end
+					end
+				else
+					env.itemModDB:ScaleAddList(srcList, scale)
+				end
+				if item.type ~= "Jewel" and item.type ~= "Flask" then
+					-- Update item counts
+					local key
+					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
+						key = "UniqueItem"
+					elseif item.rarity == "RARE" then
+						key = "RareItem"
+					elseif item.rarity == "MAGIC" then
+						key = "MagicItem"
 					else
-						env.modDB:ScaleAddMod(mod, scale)
+						key = "NormalItem"
 					end
-				end
-			elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
-				-- Special handling for The Iron Mass
-				env.theIronMass = new("ModList")
-				for _, mod in ipairs(srcList) do
-					-- Filter out mods that apply to socketed gems, or which add supports
-					local add = true
-					for _, tag in ipairs(mod) do
-						if tag.type == "SocketedIn" then
-							add = false
-							break
-						end
-					end
-					if add then
-						env.theIronMass:ScaleAddMod(mod, scale)
-					end
-					-- Add all the stats to player as well
-					env.modDB:ScaleAddMod(mod, scale)
-				end
-			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
-				-- Special handling for The Dancing Dervish
-				env.weaponModList1 = new("ModList")
-				for _, mod in ipairs(srcList) do
-					-- Filter out mods that apply to socketed gems, or which add supports
-					local add = true
-					for _, tag in ipairs(mod) do
-						if tag.type == "SocketedIn" then
-							add = false
-							break
-						end
-					end
-					if add then
-						env.weaponModList1:ScaleAddMod(mod, scale)
+					env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
+					if item.corrupted then
+						env.itemModDB.multipliers.CorruptedItem = (env.itemModDB.multipliers.CorruptedItem or 0) + 1
 					else
-						env.modDB:ScaleAddMod(mod, scale)
+						env.itemModDB.multipliers.NonCorruptedItem = (env.itemModDB.multipliers.NonCorruptedItem or 0) + 1
 					end
-				end
-			else
-				env.modDB:ScaleAddList(srcList, scale)
-			end
-			if item.type ~= "Jewel" and item.type ~= "Flask" then
-				-- Update item counts
-				local key
-				if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
-					key = "UniqueItem"
-				elseif item.rarity == "RARE" then
-					key = "RareItem"
-				elseif item.rarity == "MAGIC" then
-					key = "MagicItem"
-				else
-					key = "NormalItem"
-				end
-				env.modDB.multipliers[key] = (env.modDB.multipliers[key] or 0) + 1
-				if item.corrupted then
-					env.modDB.multipliers.CorruptedItem = (env.modDB.multipliers.CorruptedItem or 0) + 1
-				else
-					env.modDB.multipliers.NonCorruptedItem = (env.modDB.multipliers.NonCorruptedItem or 0) + 1
-				end
-				if item.shaper then
-					env.modDB.multipliers.ShaperItem = (env.modDB.multipliers.ShaperItem or 0) + 1
-					env.modDB.conditions["ShaperItemIn"..slotName] = true
-				else
-					env.modDB.multipliers.NonShaperItem = (env.modDB.multipliers.NonShaperItem or 0) + 1
-				end
-				if item.elder then
-					env.modDB.multipliers.ElderItem = (env.modDB.multipliers.ElderItem or 0) + 1
-					env.modDB.conditions["ElderItemIn"..slotName] = true
-				else
-					env.modDB.multipliers.NonElderItem = (env.modDB.multipliers.NonElderItem or 0) + 1
-				end
-				if item.shaper or item.elder then
-					env.modDB.multipliers.ShaperOrElderItem = (env.modDB.multipliers.ShaperOrElderItem or 0) + 1
+					if item.shaper then
+						env.itemModDB.multipliers.ShaperItem = (env.itemModDB.multipliers.ShaperItem or 0) + 1
+						env.itemModDB.conditions["ShaperItemIn"..slotName] = true
+					else
+						env.itemModDB.multipliers.NonShaperItem = (env.itemModDB.multipliers.NonShaperItem or 0) + 1
+					end
+					if item.elder then
+						env.itemModDB.multipliers.ElderItem = (env.itemModDB.multipliers.ElderItem or 0) + 1
+						env.itemModDB.conditions["ElderItemIn"..slotName] = true
+					else
+						env.itemModDB.multipliers.NonElderItem = (env.itemModDB.multipliers.NonElderItem or 0) + 1
+					end
+					if item.shaper or item.elder then
+						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
+					end
 				end
 			end
 		end
 	end
+
+	-- Merge env.itemModDB with env.ModDB
+	mergeDB(env.modDB, env.itemModDB)
 
 	if override.toggleFlask then
 		if env.flasks[override.toggleFlask] then
@@ -669,18 +671,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
-	-- Add granted passives
-	for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
-		local node = env.spec.tree.notableMap[passive]
-		if node then
-			if not accelerate.nodeAlloc then
+	-- Add granted passives (e.g., amulet anoints)
+	if not accelerate.nodeAlloc then
+		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
+			local node = env.spec.tree.notableMap[passive]
+			if node then
 				if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
 					env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
 				else
 					env.allocNodes[node.id] = node
 				end
+				ConPrintf("GrantedPassive: " .. env.allocNodes[node.id].dn)
+				env.grantedPassives[node.id] = true
 			end
-			env.grantedPassives[node.id] = true
 		end
 	end
 
@@ -930,8 +933,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 							t_insert(env.player.activeSkillList, activeSkill)
 						end
 					end
-					if gemInstance.gemData then
-						t_insert(env.requirementsTable, {
+					if gemInstance.gemData and not accelerate.requirementsGems then
+						t_insert(env.requirementsTableGems, {
 							source = "Gem",
 							sourceGem = gemInstance,
 							Str = gemInstance.reqStr,
@@ -996,6 +999,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 	for _, activeSkill in pairs(env.player.activeSkillList) do
 		calcs.buildActiveSkillModList(env, activeSkill)
 	end
+
+	-- Merge Requirements Tables
+	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
 
 	return env, db1, db2
 end

@@ -60,7 +60,7 @@ local function getCalculator(build, fullInit, modFunc)
 	-- Run base calculation pass
 	calcs.perform(env)
 	GlobalCache.dontUseCache = true
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { db1 = db1, db2 = db2, env = nil})
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { db1 = db1, db2 = db2, env = nil })
 	GlobalCache.dontUseCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
@@ -241,7 +241,12 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 				end
 				-- Re-Build env calculator for new run
-				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { db1 = db1, db2 = db2, env = fullEnv, accelerate = { nodeAlloc = true } })
+				local accelerationTbl = {
+					nodeAlloc = true,
+					requirementsItems = true,
+					requirementsGems = true,
+				}
+				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { db1 = db1, db2 = db2, env = fullEnv, accelerate = accelerationTbl })
 			end
 		end
 	end

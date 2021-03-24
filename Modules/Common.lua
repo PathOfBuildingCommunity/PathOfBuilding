@@ -377,16 +377,17 @@ do
 	end
 end
 
---[[
-function dbCopy(retDB, modDB)
-	retDB = new("ModDB")
+function mergeDB(srcDB, modDB)
 	if modDB then
-		retDB:AddDB(modDB)
-		retDB.conditions = copyTable(modDB.conditions)
-		retDB.multipliers = copyTable(modDB.multipliers)
+		srcDB:AddDB(modDB)
+		for k,v in pairs(modDB.conditions) do
+			srcDB.conditions[k] = v
+		end
+		for k,v in pairs(modDB.multipliers) do
+			srcDB.multipliers[k] = v
+		end
 	end
 end
---]]
 
 function specCopy(env)
 	local modDB = new("ModDB")
