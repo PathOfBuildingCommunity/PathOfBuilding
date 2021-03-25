@@ -1736,8 +1736,12 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	if haveSkills then
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 			for _, gemInstance in ipairs(socketGroup.gemList) do
-				if gemInstance.gemData and not gemInstance.gemData.grantedEffect.support and enchantments[gemInstance.nameSpec] then
-					skillsUsed[gemInstance.nameSpec] = true
+				if gemInstance.gemData then 
+					for _, grantedEffect in ipairs(gemInstance.gemData.grantedEffectList) do
+						if not grantedEffect.support and enchantments[grantedEffect.name] then
+							skillsUsed[grantedEffect.name] = true
+						end
+					end
 				end
 			end
 		end
