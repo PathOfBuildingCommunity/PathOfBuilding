@@ -188,6 +188,7 @@ function wipeEnv(env, accelerate)
 		wipeTable(env.allocNodes)
 		-- Usually states: `Allocates <NAME>` (e.g., amulet anointment)
 		wipeTable(env.grantedPassives)
+		wipeTable(env.grantedSkillsNodes)
 	end
 
 	if not accelerate.requirementsItems then
@@ -202,7 +203,7 @@ function wipeEnv(env, accelerate)
 		wipeTable(env.radiusJewelList)
 		wipeTable(env.extraRadiusNodeList)
 		wipeTable(env.player.itemList)
-		wipeTable(env.grantedSkills)
+		wipeTable(env.grantedSkillsItems)
 		wipeTable(env.flasks)
 
 		-- Special / Unique Items that have their own ModDB()
@@ -225,12 +226,14 @@ function wipeEnv(env, accelerate)
 		wipeTable(env.requirementsTableGems)
 	end
 
-	-- Player Active Skills generation
-	wipeTable(env.player.activeSkillList)
+	if not accelerate.skills then
+		-- Player Active Skills generation
+		wipeTable(env.player.activeSkillList)
 
-	-- Enhances Active Skills with skill ModFlags, KeywordFlags
-	-- and modifiers that affect skill scaling (e.g., global buffs/effects)
-	wipeTable(env.auxSkillList)
+		-- Enhances Active Skills with skill ModFlags, KeywordFlags
+		-- and modifiers that affect skill scaling (e.g., global buffs/effects)
+		wipeTable(env.auxSkillList)
+	end
 end
 
 -- Initialise environment: 
@@ -295,6 +298,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
 		env.player.itemList = { }
 		env.grantedSkills = { }
+		env.grantedSkillsNodes = { }
+		env.grantedSkillsItems = { }
 		env.flasks = { }
 
 		-- tree based
@@ -472,7 +477,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local grantedSkill = copyTable(skill)
 					grantedSkill.sourceItem = item
 					grantedSkill.slotName = slotName
-					t_insert(env.grantedSkills, grantedSkill)
+					t_insert(env.grantedSkillsItems, grantedSkill)
 				end
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
@@ -691,313 +696,320 @@ function calcs.initEnv(build, mode, override, specEnv)
 	env.modDB:AddList(calcs.buildModListForNodeList(env, env.allocNodes, true))
 
 	-- Find skills granted by tree nodes
-	for _, node in pairs(env.allocNodes) do
-		for _, skill in ipairs(node.grantedSkills) do
-			local grantedSkill = copyTable(skill)
-			grantedSkill.sourceNode = node
-			t_insert(env.grantedSkills, grantedSkill)
+	if not accelerate.nodeAlloc then
+		for _, node in pairs(env.allocNodes) do
+			for _, skill in ipairs(node.grantedSkills) do
+				local grantedSkill = copyTable(skill)
+				grantedSkill.sourceNode = node
+				t_insert(env.grantedSkillsNodes, grantedSkill)
+			end
 		end
 	end
 
-	if env.mode == "MAIN" then
-		-- Process extra skills granted by items or tree nodes
-		local markList = wipeTable(tempTable1)
-		for _, grantedSkill in ipairs(env.grantedSkills) do
-			-- Check if a matching group already exists
-			local group
-			for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
-				if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
-					if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and socketGroup.gemList[1].level == grantedSkill.level then
-						group = socketGroup
-						markList[socketGroup] = true
-						break
+	-- Merge Granted Skills Tables
+	env.grantedSkills = tableConcat(env.grantedSkillsNodes, env.grantedSkillsItems)
+
+	if not accelerate.skills then
+		if env.mode == "MAIN" then
+			-- Process extra skills granted by items or tree nodes
+			local markList = wipeTable(tempTable1)
+			for _, grantedSkill in ipairs(env.grantedSkills) do
+				-- Check if a matching group already exists
+				local group
+				for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
+						if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and socketGroup.gemList[1].level == grantedSkill.level then
+							group = socketGroup
+							markList[socketGroup] = true
+							break
+						end
 					end
 				end
-			end
-			if not group then
-				-- Create a new group for this skill
-				group = { label = "", enabled = true, gemList = { }, source = grantedSkill.source, slot = grantedSkill.slotName }
-				t_insert(build.skillsTab.socketGroupList, group)
-				markList[group] = true
+				if not group then
+					-- Create a new group for this skill
+					group = { label = "", enabled = true, gemList = { }, source = grantedSkill.source, slot = grantedSkill.slotName }
+					t_insert(build.skillsTab.socketGroupList, group)
+					markList[group] = true
+				end
+				
+				-- Update the group
+				group.sourceItem = grantedSkill.sourceItem
+				group.sourceNode = grantedSkill.sourceNode
+				local activeGemInstance = group.gemList[1] or {
+					skillId = grantedSkill.skillId,
+					quality = 0,
+					enabled = true,
+				}
+				activeGemInstance.gemId = nil
+				activeGemInstance.level = grantedSkill.level
+				activeGemInstance.enableGlobal1 = true
+				if grantedSkill.triggered then
+					activeGemInstance.triggered = grantedSkill.triggered
+				end
+				wipeTable(group.gemList)
+				t_insert(group.gemList, activeGemInstance)
+				if grantedSkill.noSupports then
+					group.noSupports = true
+				else
+					for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+						-- Look for other groups that are socketed in the item
+						if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
+							-- Add all support gems to the skill's group
+							for _, gemInstance in ipairs(socketGroup.gemList) do
+								if gemInstance.gemData and gemInstance.gemData.grantedEffect.support then
+									t_insert(group.gemList, gemInstance)
+								end
+							end
+						end
+					end
+				end
+				build.skillsTab:ProcessSocketGroup(group)
 			end
 			
-			-- Update the group
-			group.sourceItem = grantedSkill.sourceItem
-			group.sourceNode = grantedSkill.sourceNode
-			local activeGemInstance = group.gemList[1] or {
-				skillId = grantedSkill.skillId,
-				quality = 0,
-				enabled = true,
-			}
-			activeGemInstance.gemId = nil
-			activeGemInstance.level = grantedSkill.level
-			activeGemInstance.enableGlobal1 = true
-			if grantedSkill.triggered then
-				activeGemInstance.triggered = grantedSkill.triggered
-			end
-			wipeTable(group.gemList)
-			t_insert(group.gemList, activeGemInstance)
-			if grantedSkill.noSupports then
-				group.noSupports = true
-			else
-				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
-					-- Look for other groups that are socketed in the item
-					if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
-						-- Add all support gems to the skill's group
-						for _, gemInstance in ipairs(socketGroup.gemList) do
-							if gemInstance.gemData and gemInstance.gemData.grantedEffect.support then
-								t_insert(group.gemList, gemInstance)
-							end
-						end
+			-- Remove any socket groups that no longer have a matching item
+			local i = 1
+			while build.skillsTab.socketGroupList[i] do
+				local socketGroup = build.skillsTab.socketGroupList[i]
+				if socketGroup.source and not markList[socketGroup] then
+					t_remove(build.skillsTab.socketGroupList, i)
+					if build.skillsTab.displayGroup == socketGroup then
+						build.skillsTab.displayGroup = nil
 					end
+				else
+					i = i + 1
 				end
-			end
-			build.skillsTab:ProcessSocketGroup(group)
-		end
-		
-		-- Remove any socket groups that no longer have a matching item
-		local i = 1
-		while build.skillsTab.socketGroupList[i] do
-			local socketGroup = build.skillsTab.socketGroupList[i]
-			if socketGroup.source and not markList[socketGroup] then
-				t_remove(build.skillsTab.socketGroupList, i)
-				if build.skillsTab.displayGroup == socketGroup then
-					build.skillsTab.displayGroup = nil
-				end
-			else
-				i = i + 1
 			end
 		end
-	end
 
-	-- Get the weapon data tables for the equipped weapons
-	env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
-	if env.player.weaponData1.countsAsDualWielding then
-		env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
-	else
-		env.player.weaponData2 = env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
-	end
+		-- Get the weapon data tables for the equipped weapons
+		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
+		if env.player.weaponData1.countsAsDualWielding then
+			env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
+		else
+			env.player.weaponData2 = env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
+		end
 
-	-- Determine main skill group
-	if env.mode == "CALCS" then
-		env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
-		env.mainSocketGroup = env.calcsInput.skill_number
-	else
-		build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
-		env.mainSocketGroup = build.mainSocketGroup
-	end
+		-- Determine main skill group
+		if env.mode == "CALCS" then
+			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
+			env.mainSocketGroup = env.calcsInput.skill_number
+		else
+			build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
+			env.mainSocketGroup = build.mainSocketGroup
+		end
 
-	-- Build list of active skills
-	local groupCfg = wipeTable(tempTable1)
-	for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
-		local socketGroupSkillList = { }
-		local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
-		socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
-		if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
-			groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
-			local propertyModList = env.modDB:List(groupCfg, "GemProperty")
+		-- Build list of active skills
+		local groupCfg = wipeTable(tempTable1)
+		for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+			local socketGroupSkillList = { }
+			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
+			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
+			if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
+				groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
+				local propertyModList = env.modDB:List(groupCfg, "GemProperty")
 
-			-- Build list of supports for this socket group
-			local supportList = { }
-			if not socketGroup.source then
-				-- Add extra supports from the item this group is socketed in
-				for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
-					local grantedEffect = env.data.skills[value.skillId]
-					-- Some skill gems share the same name as support gems, e.g. Barrage.
-					-- Since a support gem is expected here, if the first lookup returns a skill, then
-					-- prepending "Support" to the skillId will find the support version of the gem.
-					if grantedEffect and not grantedEffect.support then
-						grantedEffect = env.data.skills["Support"..value.skillId]
-					end
-					if grantedEffect then
-						t_insert(supportList, { 
-							grantedEffect = grantedEffect,
-							level = value.level,
-							quality = 0,
-							enabled = true,
-						})
+				-- Build list of supports for this socket group
+				local supportList = { }
+				if not socketGroup.source then
+					-- Add extra supports from the item this group is socketed in
+					for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
+						local grantedEffect = env.data.skills[value.skillId]
+						-- Some skill gems share the same name as support gems, e.g. Barrage.
+						-- Since a support gem is expected here, if the first lookup returns a skill, then
+						-- prepending "Support" to the skillId will find the support version of the gem.
+						if grantedEffect and not grantedEffect.support then
+							grantedEffect = env.data.skills["Support"..value.skillId]
+						end
+						if grantedEffect then
+							t_insert(supportList, { 
+								grantedEffect = grantedEffect,
+								level = value.level,
+								quality = 0,
+								enabled = true,
+							})
+						end
 					end
 				end
-			end
-			for _, gemInstance in ipairs(socketGroup.gemList) do
-				-- Add support gems from this group
-				if env.mode == "MAIN" then
-					gemInstance.displayEffect = nil
-					gemInstance.supportEffect = nil
-				end
-				if gemInstance.enabled then
-					local function processGrantedEffect(grantedEffect)
-						if not grantedEffect or not grantedEffect.support then
-							return
-						end
-						local supportEffect = {
-							grantedEffect = grantedEffect,
-							level = gemInstance.level,
-							quality = gemInstance.quality,
-							qualityId = gemInstance.qualityId,
-							srcInstance = gemInstance,
-							gemData = gemInstance.gemData,
-							superseded = false,
-							isSupporting = { },
-						}
-						if env.mode == "MAIN" then
-							gemInstance.displayEffect = supportEffect
-							gemInstance.supportEffect = supportEffect
-						end
-						if gemInstance.gemData then
-							for _, value in ipairs(propertyModList) do
-								if calcLib.gemIsType(supportEffect.gemData, value.keyword) then
-									supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
-								end
-							end
-						end
-						local add = true
-						for index, otherSupport in ipairs(supportList) do
-							-- Check if there's another support with the same name already present
-							if grantedEffect == otherSupport.grantedEffect then
-								add = false
-								if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
-									if env.mode == "MAIN" then
-										otherSupport.superseded = true
-									end
-									supportList[index] = supportEffect
-								else
-									supportEffect.superseded = true
-								end
-								break
-							elseif grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
-								add = false
-								if env.mode == "MAIN" then
-									otherSupport.superseded = true
-								end
-								supportList[index] = supportEffect
-							elseif otherSupport.grantedEffect.plusVersionOf == grantedEffect.id then
-								add = false
-								supportEffect.superseded = true
-							end
-						end
-						if add then
-							t_insert(supportList, supportEffect)
-						end
+				for _, gemInstance in ipairs(socketGroup.gemList) do
+					-- Add support gems from this group
+					if env.mode == "MAIN" then
+						gemInstance.displayEffect = nil
+						gemInstance.supportEffect = nil
 					end
-					if gemInstance.gemData then
-						processGrantedEffect(gemInstance.gemData.grantedEffect)
-						processGrantedEffect(gemInstance.gemData.secondaryGrantedEffect)
-					else
-						processGrantedEffect(gemInstance.grantedEffect)
-					end
-				end	
-			end
-
-			-- Create active skills
-			for _, gemInstance in ipairs(socketGroup.gemList) do	
-				if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
-					local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
-					for index, grantedEffect in ipairs(grantedEffectList) do
-						if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
-							local activeEffect = {
+					if gemInstance.enabled then
+						local function processGrantedEffect(grantedEffect)
+							if not grantedEffect or not grantedEffect.support then
+								return
+							end
+							local supportEffect = {
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
 								quality = gemInstance.quality,
 								qualityId = gemInstance.qualityId,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
+								superseded = false,
+								isSupporting = { },
 							}
+							if env.mode == "MAIN" then
+								gemInstance.displayEffect = supportEffect
+								gemInstance.supportEffect = supportEffect
+							end
 							if gemInstance.gemData then
 								for _, value in ipairs(propertyModList) do
-									local match = false
-									if value.keywordList then
-										match = true
-										for _, keyword in ipairs(value.keywordList) do
-											if not calcLib.gemIsType(activeEffect.gemData, keyword) then
-												match = false
-												break
-											end
-										end
-									else
-										match = calcLib.gemIsType(activeEffect.gemData, value.keyword)
-									end
-									if match then
-										activeEffect[value.key] = (activeEffect[value.key] or 0) + value.value
+									if calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+										supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
 									end
 								end
 							end
-							if env.mode == "MAIN" then
-								gemInstance.displayEffect = activeEffect
+							local add = true
+							for index, otherSupport in ipairs(supportList) do
+								-- Check if there's another support with the same name already present
+								if grantedEffect == otherSupport.grantedEffect then
+									add = false
+									if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
+										if env.mode == "MAIN" then
+											otherSupport.superseded = true
+										end
+										supportList[index] = supportEffect
+									else
+										supportEffect.superseded = true
+									end
+									break
+								elseif grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
+									add = false
+									if env.mode == "MAIN" then
+										otherSupport.superseded = true
+									end
+									supportList[index] = supportEffect
+								elseif otherSupport.grantedEffect.plusVersionOf == grantedEffect.id then
+									add = false
+									supportEffect.superseded = true
+								end
 							end
-							local activeSkill = calcs.createActiveSkill(activeEffect, supportList, env.player, socketGroup)
-							if gemInstance.gemData then
-								activeSkill.slotName = groupCfg.slotName
+							if add then
+								t_insert(supportList, supportEffect)
 							end
-							t_insert(socketGroupSkillList, activeSkill)
-							t_insert(env.player.activeSkillList, activeSkill)
+						end
+						if gemInstance.gemData then
+							processGrantedEffect(gemInstance.gemData.grantedEffect)
+							processGrantedEffect(gemInstance.gemData.secondaryGrantedEffect)
+						else
+							processGrantedEffect(gemInstance.grantedEffect)
+						end
+					end	
+				end
+
+				-- Create active skills
+				for _, gemInstance in ipairs(socketGroup.gemList) do	
+					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
+						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+						for index, grantedEffect in ipairs(grantedEffectList) do
+							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
+								local activeEffect = {
+									grantedEffect = grantedEffect,
+									level = gemInstance.level,
+									quality = gemInstance.quality,
+									qualityId = gemInstance.qualityId,
+									srcInstance = gemInstance,
+									gemData = gemInstance.gemData,
+								}
+								if gemInstance.gemData then
+									for _, value in ipairs(propertyModList) do
+										local match = false
+										if value.keywordList then
+											match = true
+											for _, keyword in ipairs(value.keywordList) do
+												if not calcLib.gemIsType(activeEffect.gemData, keyword) then
+													match = false
+													break
+												end
+											end
+										else
+											match = calcLib.gemIsType(activeEffect.gemData, value.keyword)
+										end
+										if match then
+											activeEffect[value.key] = (activeEffect[value.key] or 0) + value.value
+										end
+									end
+								end
+								if env.mode == "MAIN" then
+									gemInstance.displayEffect = activeEffect
+								end
+								local activeSkill = calcs.createActiveSkill(activeEffect, supportList, env.player, socketGroup)
+								if gemInstance.gemData then
+									activeSkill.slotName = groupCfg.slotName
+								end
+								t_insert(socketGroupSkillList, activeSkill)
+								t_insert(env.player.activeSkillList, activeSkill)
+							end
+						end
+						if gemInstance.gemData and not accelerate.requirementsGems then
+							t_insert(env.requirementsTableGems, {
+								source = "Gem",
+								sourceGem = gemInstance,
+								Str = gemInstance.reqStr,
+								Dex = gemInstance.reqDex,
+								Int = gemInstance.reqInt,
+							})
 						end
 					end
-					if gemInstance.gemData and not accelerate.requirementsGems then
-						t_insert(env.requirementsTableGems, {
-							source = "Gem",
-							sourceGem = gemInstance,
-							Str = gemInstance.reqStr,
-							Dex = gemInstance.reqDex,
-							Int = gemInstance.reqInt,
-						})
+				end
+
+				if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
+					-- Select the main skill from this socket group
+					local activeSkillIndex
+					if env.mode == "CALCS" then
+						socketGroup.mainActiveSkillCalcs = m_min(#socketGroupSkillList, socketGroup.mainActiveSkillCalcs or 1)
+						activeSkillIndex = socketGroup.mainActiveSkillCalcs
+					else
+						activeSkillIndex = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
+						if env.mode == "MAIN" then
+							socketGroup.mainActiveSkill = activeSkillIndex
+						end
 					end
+					env.player.mainSkill = socketGroupSkillList[activeSkillIndex]
 				end
 			end
 
-			if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
-				-- Select the main skill from this socket group
-				local activeSkillIndex
-				if env.mode == "CALCS" then
-					socketGroup.mainActiveSkillCalcs = m_min(#socketGroupSkillList, socketGroup.mainActiveSkillCalcs or 1)
-					activeSkillIndex = socketGroup.mainActiveSkillCalcs
+			if env.mode == "MAIN" then
+				-- Create display label for the socket group if the user didn't specify one
+				if socketGroup.label and socketGroup.label:match("%S") then
+					socketGroup.displayLabel = socketGroup.label
 				else
-					activeSkillIndex = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
-					if env.mode == "MAIN" then
-						socketGroup.mainActiveSkill = activeSkillIndex
+					socketGroup.displayLabel = nil
+					for _, gemInstance in ipairs(socketGroup.gemList) do
+						local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
+						if grantedEffect and not grantedEffect.support and gemInstance.enabled then
+							socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. grantedEffect.name
+						end
 					end
+					socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
 				end
-				env.player.mainSkill = socketGroupSkillList[activeSkillIndex]
+
+				-- Save the active skill list for display in the socket group tooltip
+				socketGroup.displaySkillList = socketGroupSkillList
+			elseif env.mode == "CALCS" then
+				socketGroup.displaySkillListCalcs = socketGroupSkillList
 			end
 		end
 
-		if env.mode == "MAIN" then
-			-- Create display label for the socket group if the user didn't specify one
-			if socketGroup.label and socketGroup.label:match("%S") then
-				socketGroup.displayLabel = socketGroup.label
-			else
-				socketGroup.displayLabel = nil
-				for _, gemInstance in ipairs(socketGroup.gemList) do
-					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
-					if grantedEffect and not grantedEffect.support and gemInstance.enabled then
-						socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. grantedEffect.name
-					end
-				end
-				socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
-			end
-
-			-- Save the active skill list for display in the socket group tooltip
-			socketGroup.displaySkillList = socketGroupSkillList
-		elseif env.mode == "CALCS" then
-			socketGroup.displaySkillListCalcs = socketGroupSkillList
+		if not env.player.mainSkill then
+			-- Add a default main skill if none are specified
+			local defaultEffect = {
+				grantedEffect = env.data.skills.Melee,
+				level = 1,
+				quality = 0,
+				enabled = true,
+			}
+			env.player.mainSkill = calcs.createActiveSkill(defaultEffect, { }, env.player)
+			t_insert(env.player.activeSkillList, env.player.mainSkill)
 		end
-	end
 
-	if not env.player.mainSkill then
-		-- Add a default main skill if none are specified
-		local defaultEffect = {
-			grantedEffect = env.data.skills.Melee,
-			level = 1,
-			quality = 0,
-			enabled = true,
-		}
-		env.player.mainSkill = calcs.createActiveSkill(defaultEffect, { }, env.player)
-		t_insert(env.player.activeSkillList, env.player.mainSkill)
-	end
-
-	-- Build skill modifier lists
-	for _, activeSkill in pairs(env.player.activeSkillList) do
-		calcs.buildActiveSkillModList(env, activeSkill)
+		-- Build skill modifier lists
+		for _, activeSkill in pairs(env.player.activeSkillList) do
+			calcs.buildActiveSkillModList(env, activeSkill)
+		end
 	end
 
 	-- Merge Requirements Tables
