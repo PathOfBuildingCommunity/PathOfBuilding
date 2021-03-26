@@ -32,11 +32,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	end
 	self.skillsTab = skillsTab
 	self.gems = { }
-	for gemId, gemData in pairs(skillsTab.build.data.gems) do
-		for _, altQual in ipairs(skillsTab:getGemAltQualityList(gemData)) do
-			self.gems[altQual.type .. ":" .. gemId] = gemData
-		end
-	end
+	self:PopulateGemList()
 	self.index = index
 	self.gemChangeFunc = changeFunc
 	self.list = { }
@@ -50,6 +46,19 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		self:UpdateGem()
 	end
 end)
+
+function GemSelectClass:PopulateGemList()
+	wipeTable(self.gems)
+	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
+		if self.skillsTab.showAltQualityGems then
+			for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
+				self.gems[altQual.type .. ":" .. gemId] = gemData
+			end
+		else
+			self.gems["Default:" .. gemId] = gemData
+		end
+	end
+end
 
 function GemSelectClass:GetQualityType(gemId)
 	return gemId and gemId:gsub(":.+","") or "Default"
@@ -130,11 +139,18 @@ function GemSelectClass:UpdateSortCache()
 	--Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and 
 	  sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel 
-	  and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField then
+	  and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField 
+	  and sortCache.considerAlternates == self.skillsTab.showAltQualityGems then
 		return
 	end
+
+	if sortCache and sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems then
+		self:PopulateGemList()
+	end
+
 	--Initialize a new sort cache
 	sortCache = {
+		considerAlternates = self.skillsTab.showAltQualityGems,
 		socketGroup = self.skillsTab.displayGroup,
 		gemInstance = self.skillsTab.displayGroup.gemList[self.index],
 		outputRevision = self.skillsTab.build.outputRevision,
@@ -184,7 +200,7 @@ function GemSelectClass:UpdateSortCache()
 				gemInstance.level = gemData.defaultLevel
 			end
 			--Calculate the impact of using this gem
-			local output = calcFunc({}, { requirementsItems = true, requirementsGems = true })
+			local output = calcFunc({}, { allocNodes = true, requirementsItems = true, requirementsGems = true })
 			if oldGem then
 				gemInstance.gemData = oldGem.gemData
 				gemInstance.level = oldGem.level
