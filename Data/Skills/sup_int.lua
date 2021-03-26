@@ -432,7 +432,7 @@ skills["SupportBlasphemy"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
-	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
+	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.DamageCannotBeReflected, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -504,7 +504,7 @@ skills["SupportBlasphemyPlus"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
-	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.Type31, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
+	addSkillTypes = { SkillType.ManaCostReserved, SkillType.ManaCostPercent, SkillType.DamageCannotBeReflected, SkillType.Aura, SkillType.AuraDebuff, SkillType.CanHaveBlessing, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
@@ -3084,11 +3084,7 @@ skills["SupportStormBarrier"] = {
 			div = 60
 		},
 		["infusion_effect_+%"] = {
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseMods = {
@@ -3676,7 +3672,7 @@ skills["SupportMinionDamage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
 		["minion_ailment_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment) }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
 		},
 	},
 	baseMods = {
@@ -3798,6 +3794,10 @@ skills["SupportMinionLife"] = {
 	statMap = {
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+		},
+		["minion_life_regeneration_rate_per_minute_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
+			div = 60
 		},
 		["minion_damage_+%_on_full_life"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
@@ -4025,8 +4025,8 @@ skills["SupportPhysicalToLightning"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["enemies_you_shock_take_%_increased_physical_damage"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", nil) }, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
-		}
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Shocked" }),
+		},
 	},
 	baseMods = {
 	},
@@ -4563,7 +4563,7 @@ skills["SupportSpellEchoPlus"] = {
 	support = true,
 	requireSkillTypes = { SkillType.SpellCanRepeat, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Type101, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.CreatesMirageWarrior, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	plusVersionOf = "SupportMulticast",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -4638,6 +4638,12 @@ skills["SupportSummonGhostOnKill"] = {
 		},
 		["damage_+%_for_non_minions"] = {
 			-- mod("Damage", "INC", nil, 0, 0, {type = "Actor"})
+		},
+		["phantasm_minimum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
+		},
+		["phantasm_maximum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
 		}
 	},
 	baseMods = {

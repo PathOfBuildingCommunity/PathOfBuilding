@@ -103,6 +103,8 @@ function ModStoreClass:Combine(modType, cfg, ...)
 		return self:Override(cfg, ...)
 	elseif modType == "LIST" then
 		return self:List(cfg, ...)
+	elseif modType == "MAX" then
+		return self:Max(cfg, ...)
 	else
 		return self:Sum(modType, cfg, ...)
 	end
@@ -176,6 +178,16 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 	local result = { }
 	self:TabulateInternal(self, result, modType, cfg, flags, keywordFlags, source, ...)
 	return result
+end
+
+function ModStoreClass:Max(cfg, ...)
+	local max = 0
+	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
+		if value.mod.value > max then
+			max = value.mod.value
+		end	
+	end
+	return max		
 end
 
 ---HasMod

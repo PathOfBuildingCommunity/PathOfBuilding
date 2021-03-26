@@ -3,6 +3,9 @@
 -- Module: Main
 -- Main module of program.
 --
+
+USE_DAT64 = false
+
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
@@ -46,6 +49,7 @@ local ourClassList = {
 	"RowListControl",
 	"SpecColListControl",
 	"DatFile",
+	"Dat64File",
 	"GGPKData",
 }
 for _, className in ipairs(classList) do
@@ -68,7 +72,12 @@ function main:Init()
 	self.datFileByName = { }
 
 	self:LoadSettings()
-	self:LoadDatFiles()
+
+	if USE_DAT64 then
+		self:LoadDat64Files()
+	else
+		self:LoadDatFiles()
+	end
 
 	self.scriptList = { }
 	local handle = NewFileSearch("Scripts/*.lua")
@@ -140,7 +149,11 @@ function main:Init()
 	self.controls.datSource = new("EditControl", nil, 10, 30, 250, 18, self.datSource) {
 		enterFunc = function(buf)
 			self.datSource = buf
-			self:LoadDatFiles()
+			if USE_DAT64 then
+				self:LoadDat64Files()
+			else
+				self:LoadDatFiles()
+			end
 		end
 	}
 
@@ -323,6 +336,33 @@ function main:LoadDatFiles()
 			self.datFileByName[datFile.name] = datFile
 		end
 		ConPrintf("DAT read: %d ms", GetTime() - now)
+	end
+end
+
+function main:LoadDat64Files()
+	wipeTable(self.datFileList)
+	wipeTable(self.datFileByName)
+	self:SetCurrentDat()
+	self.ggpk = nil
+
+	if not self.datSource then
+		return
+	elseif self.datSource:match("%.ggpk") or self.datSource:match("steamapps[/\\].+[/\\]Path of Exile") then
+		local now = GetTime()
+		self.ggpk = new("GGPKData", self.datSource)
+		ConPrintf("GGPK: %d ms", GetTime() - now)
+
+		now = GetTime()
+		for i, record in ipairs(self.ggpk.dat) do
+			if i == 1 then
+				ConPrintf("DAT64 find: %d ms", GetTime() - now)
+				now = GetTime()
+			end
+			local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
+			t_insert(self.datFileList, datFile)
+			self.datFileByName[datFile.name] = datFile
+		end
+		ConPrintf("DAT64 read: %d ms", GetTime() - now)
 	end
 end
 

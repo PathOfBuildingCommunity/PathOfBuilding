@@ -138,6 +138,7 @@ data.jewelRadius = {
 }
 
 data.labyrinths = {
+	{ name = "HARVEST", label = "Harvest" },
 	{ name = "ENDGAME", label = "Eternal" },
 	{ name = "MERCILESS", label = "Merciless" },
 	{ name = "CRUEL", label = "Cruel" },
@@ -261,7 +262,8 @@ data.keystones = {
 }
 
 data.misc = { -- magic numbers
-	ServerTickRate = 30,
+	ServerTickTime = 0.033,
+	ServerTickRate = 1 / 0.033,
 	TemporalChainsEffectCap = 75,
 	DamageReductionCap = 90,
 	MaxResistCap = 90,
@@ -305,6 +307,7 @@ data.enchantments = {
 	Helmet = LoadModule("Data/EnchantmentHelmet"),
 	Boots = LoadModule("Data/EnchantmentBoots"),
 	Gloves = LoadModule("Data/EnchantmentGloves"),
+	Belt = LoadModule("Data/EnchantmentBelt"),
 }
 data.essences = LoadModule("Data/Essence")
 data.pantheons = LoadModule("Data/Pantheons")

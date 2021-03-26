@@ -826,10 +826,10 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
-			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
-			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
-			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
@@ -1121,7 +1121,7 @@ local skills, mod, flag, skill = ...
 #skill OrbOfStorms
 #flags spell chaining duration
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
 	end,
 	statMap = {
 		["orb_of_storms_base_bolt_frequency_ms"] = {
@@ -1232,6 +1232,9 @@ local skills, mod, flag, skill = ...
 		},
 		["base_avoid_shock_%"] = {
 			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_reduce_enemy_lightning_resistance_%"] = {
+			mod("LightningPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 40)
@@ -1683,6 +1686,7 @@ local skills, mod, flag, skill = ...
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",
+		"RaisedSkeletonArcher",
 	},
 	statMap = {
 		["damage_+%"] = {

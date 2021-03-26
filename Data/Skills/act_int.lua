@@ -3028,7 +3028,7 @@ skills["VaalFireballSpiralNova"] = {
 	baseEffectiveness = 2.9384000301361,
 	incrementalEffectiveness = 0.041200000792742,
 	description = "Launches a series of fireballs in a spiral around the caster.",
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type70] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.LaunchesSeriesOfProjectiles] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	parts = {
@@ -3308,9 +3308,11 @@ skills["Firewall"] = {
 	parts = {
 		{
 			name = "Primary Debuff",
+			area = true,
 		},
 		{
 			name = "Secondary Debuff",
+			area = false,
 		},
 	},
 	statMap = {
@@ -4612,10 +4614,10 @@ skills["WaterSphere"] = {
 	end,
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
-			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
-			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
-			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
@@ -4663,6 +4665,7 @@ skills["WaterSphere"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"water_sphere_does_weird_conversion_stuff",
 		"active_skill_display_suppress_physical_to_cold_damage_conversion",
+		"damage_cannot_be_reflected_or_leech_if_used_by_other_object",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 100, 400, 4000, 1500, -10, critChance = 5, duration = 8, manaCost = 12, damageEffectiveness = 0.8, levelRequirement = 34, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, },
@@ -5218,7 +5221,7 @@ skills["ColdProjectileMine"] = {
 	baseEffectiveness = 1.6928999423981,
 	incrementalEffectiveness = 0.038100000470877,
 	description = "Throws a mine that fires projectiles around it when detonated. These projectiles quickly dissipate as they travel, before disappearing",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.Mine] = true, [SkillType.ColdSkill] = true, [SkillType.ManaCostReserved] = true, [SkillType.SkillCanVolley] = true, [SkillType.Aura] = true, [SkillType.Area] = true, [SkillType.AuraDebuff] = true, [SkillType.Type93] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.Mine] = true, [SkillType.ColdSkill] = true, [SkillType.ManaCostReserved] = true, [SkillType.SkillCanVolley] = true, [SkillType.Aura] = true, [SkillType.Area] = true, [SkillType.AuraDebuff] = true, [SkillType.CanDetonate] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
@@ -6308,7 +6311,7 @@ skills["OrbOfStorms"] = {
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
 	end,
 	statMap = {
 		["orb_of_storms_base_bolt_frequency_ms"] = {
@@ -6345,6 +6348,7 @@ skills["OrbOfStorms"] = {
 		"storm_cloud_charged_damage_+%_final",
 		"orb_of_storms_base_bolt_frequency_ms",
 		"skill_can_add_multiple_charges_per_action",
+		"damage_cannot_be_reflected_or_leech_if_used_by_other_object",
 	},
 	levels = {
 		[1] = { 0.5, 1.5, 6000, 0, 2, 0, 1500, critChance = 5, manaCost = 4, damageEffectiveness = 0.65, cooldown = 0.5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, },
@@ -6587,7 +6591,7 @@ skills["VaalPowerSiphon"] = {
 	name = "Vaal Power Siphon",
 	color = 3,
 	description = "Fires your wand simultaneously at all nearby enemies, culling those close to death and granting you a power charge for each. Cannot be supported by Volley.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.Type83] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.CantUseFistOfWar] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -6875,6 +6879,9 @@ skills["LightningResistAura"] = {
 		["base_avoid_shock_%"] = {
 			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_reduce_enemy_lightning_resistance_%"] = {
+			mod("LightningPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7031,7 +7038,7 @@ skills["MortarBarrageMine"] = {
 	baseEffectiveness = 0.90490001440048,
 	incrementalEffectiveness = 0.036100000143051,
 	description = "Throws a mine that deals damage in an area when detonated, then launches fiery projectiles that rain down around it, each dealing damage in a smaller area.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.FireSkill] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.Type83] = true, [SkillType.NovaSpell] = true, [SkillType.Type93] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.FireSkill] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.NovaSpell] = true, [SkillType.CanDetonate] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.18,
 	statMap = {
@@ -8071,7 +8078,7 @@ skills["VaalSparkSpiralNova"] = {
 	baseEffectiveness = 1.4524999856949,
 	incrementalEffectiveness = 0.02559999935329,
 	description = "Continuously launches unpredictable sparks in all directions that move randomly until they hit an enemy or expire.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type70] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.LaunchesSeriesOfProjectiles] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.CantUseFistOfWar] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
 	baseFlags = {
@@ -8651,7 +8658,7 @@ skills["LightningExplosionMine"] = {
 	baseEffectiveness = 1.1905000209808,
 	incrementalEffectiveness = 0.043999999761581,
 	description = "Throws a mine that deals damage in an area when detonated.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.NovaSpell] = true, [SkillType.Type93] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.NovaSpell] = true, [SkillType.CanDetonate] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
@@ -9659,12 +9666,13 @@ skills["SummonSkeletons"] = {
 	color = 3,
 	description = "Summon Skeleton Warrior minions at the targeted location. They use a melee attack and die after a duration. If made aggressive, Skeleton Warriors will also dash towards nearby enemies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Type54] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type66] = true, [SkillType.SkillCanVolley] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MinionProjectile] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type66] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.5,
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",
+		"RaisedSkeletonArcher",
 	},
 	statMap = {
 		["damage_+%"] = {
@@ -9881,6 +9889,7 @@ skills["BlackHole"] = {
 		"base_blackhole_tick_rate_ms",
 		"is_area_damage",
 		"skill_can_add_multiple_charges_per_action",
+		"damage_cannot_be_reflected_or_leech_if_used_by_other_object",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -30, 40, 400, critChance = 5, duration = 5, manaCost = 30, damageEffectiveness = 0.55, cooldown = 10, levelRequirement = 34, statInterpolation = { 3, 3, 1, 1, 1, }, },
@@ -9929,7 +9938,7 @@ skills["Skitterbots"] = {
 	name = "Summon Skitterbots",
 	color = 3,
 	description = "Summon a Chilling Skitterbot and a Shocking Skitterbot, which will trigger your traps and detonate your mines. Mines detonated by Skitterbots will re-arm and can then be detonated again. The Skitterbots grant you more trap and mine damage, and cannot be targeted or damaged.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.Type93] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.CanDetonate] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0,
 	minionList = {
@@ -10289,7 +10298,7 @@ skills["FrostFury"] = {
 	baseEffectiveness = 1.1656999588013,
 	incrementalEffectiveness = 0.031800001859665,
 	description = "Channel to conjure an orb above you, which pelts nearby enemies with projectiles that impact the ground and explode. Channelling for longer builds up stages on the skill. When you stop channelling, the stages decay over a duration.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.Type83] = true, [SkillType.Orb] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
 	parts = {
@@ -10727,7 +10736,7 @@ skills["SpellDamageAura"] = {
 			{ "base_skill_area_of_effect_+%", 2 },
 		},
 		Alternate1 = {
-			{ "base_critical_strike_multiplier_+", 0.1 },
+			{ "skill_buff_grant_critical_strike_multiplier_+", 0.1 },
 		},
 		Alternate2 = {
 			{ "life_regeneration_rate_per_minute_%", 0.3 },

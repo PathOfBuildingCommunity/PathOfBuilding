@@ -109,6 +109,7 @@ local skills, mod, flag, skill = ...
 			mod("Duration", "INC", nil),
 		},
 	},
+#baseMod skill("triggeredOnDeath", true)
 #mods
 
 #skill SupportChain
@@ -243,7 +244,7 @@ local skills, mod, flag, skill = ...
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
 		},
 		["freeze_applies_cold_resistance_+"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", nil, 0, 0, {type = "Condition", var = "Frozen" }) }),
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Frozen" }),
 		},
 	},
 #mods

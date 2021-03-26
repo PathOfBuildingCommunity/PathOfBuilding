@@ -177,7 +177,7 @@ return {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
-	skill("repeatCount", nil),
+	mod("RepeatCount", "BASE", nil),
 },
 ["display_minion_monster_level"] = {
 	skill("minionLevel", nil),
@@ -619,6 +619,9 @@ return {
 ["support_slashing_damage_+%_final_from_distance"] = {
 	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
 },
+["shield_charge_damage_+%_maximum"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
+},
 ["damage_+%_on_full_energy_shield"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield"})
 },
@@ -943,7 +946,7 @@ return {
 	mod("EnemyCurseLimit", "BASE", nil),
 },
 ["consecrated_ground_enemy_damage_taken_+%"] = {
-	mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", nil, 0, 0, { type = "Condition", var = "OnConsecratedGround" }) }),
+	mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
 },
 -- Projectiles
 ["base_projectile_speed_+%"] = {
@@ -974,7 +977,8 @@ return {
 	mod("ProjectileCount", "BASE", nil),
 },
 ["projectile_damage_+%_per_remaining_chain"] = {
-	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
+	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" }),
+	mod("Damage", "INC", nil, ModFlag.Ailment, 0, { type = "PerStat", stat = "ChainRemaining" }),
 },
 ["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
@@ -1317,8 +1321,9 @@ return {
 ["summon_totem_cast_speed_+%"] = {
 	mod("TotemPlacementSpeed", "INC", nil),
 },
-["totems_regenerate_%_life_per_second"] = {
-	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+["totems_regenerate_%_life_per_minute"] = {
+    mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+    div = 60,
 },
 ["totem_duration_+%"] = {
 	mod("TotemDuration", "INC", nil),
@@ -1507,5 +1512,11 @@ return {
 ["discharge_damage_+%_if_3_charge_types_removed"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 1 }, { type = "Multiplier", var = "RemovableFrenzyCharge", limit = 1 }, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
 },
-
+["support_added_cooldown_count_if_not_instant"] = {
+	mod("AdditionalCooldownUses", "BASE", nil)
+},
+["kill_enemy_on_hit_if_under_10%_life"] = {
+	mod("CullPercent", "MAX", nil), 
+	value = 10
+},
 }

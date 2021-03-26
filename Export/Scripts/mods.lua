@@ -20,16 +20,17 @@ local function writeMods(outName, condFunc)
 		if condFunc(mod) then
 			if mod.Domain == 16 and string.match(outName, "Item") then
 				if mod.SpawnTags[1].Id == "abyss_jewel" and mod.SpawnTags[2].Id == "jewel" and #mod.SpawnTags == 3 then
+					print("[Item]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
 			elseif mod.Domain == 16 and string.match(outName, "JewelAbyss") then
 				if not table.containsId(mod.SpawnTags, "abyss_jewel") then
-					print("baz")
+					print("[Abyss Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
 			elseif mod.Domain == 16 and string.match(outName, "Jewel") then
 				if not table.containsId(mod.SpawnTags, "jewel") then
-					print("qux")
+					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
 			end

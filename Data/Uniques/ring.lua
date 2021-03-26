@@ -832,7 +832,7 @@ Implicits: 1
 {tags:jewellery_elemental}(20-30)% increased Fire Damage
 {tags:jewellery_elemental}(20-30)% increased Cold Damage
 {tags:mana}(20-30)% increased Mana Regeneration Rate
-10% Chance to summon a Spectral Wolf on Kill
+10% Chance to Trigger Level 10 Summon Spectral Wolf on Kill
 ]],[[
 Romira's Banquet
 Diamond Ring

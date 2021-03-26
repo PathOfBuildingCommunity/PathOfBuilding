@@ -71,7 +71,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skills apply their Curse as Auras\nSupported Curse Skills also count as Aura Skills"
+					text="Supported Skills apply their Curse as Auras\nSupported Curse Skills also count as Aura Skills\nHexes from Supported Skills do not gain Doom over time"
 				}
 			}
 		},
@@ -15712,16 +15712,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skills have a {0}% Chance to apply an additional stack of Wither​"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills apply an additional stack of Wither​"
+					text="Supported Skills have a {0}% chance to apply an additional Wither​ed Debuff when inflicting Withered"
 				}
 			}
 		},
