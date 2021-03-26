@@ -182,6 +182,10 @@ function wipeEnv(env, accelerate)
 	wipeTable(env.enemyDB.conditions)
 	wipeTable(env.enemyDB.multipliers)
 
+	if accelerate.everything then
+		return
+	end
+
 	-- Passive tree node allocations
 	-- Also in a further pass tracks Legion influenced mods
 	if not accelerate.nodeAlloc then
@@ -244,8 +248,6 @@ end
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
 function calcs.initEnv(build, mode, override, specEnv)
-	override = override or { }
-
 	-- accelerator variables
 	local db1 = specEnv and specEnv.db1 or nil
 	local db2 = specEnv and specEnv.db2 or nil
@@ -253,6 +255,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local accelerate = specEnv and specEnv.accelerate or { }
 
 	-- environment variables
+	override = override or { }
 	local modDB = nil
 	local enemyDB = nil
 	local classStats = nil
@@ -308,6 +311,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- skill-related
 		env.player.activeSkillList = { }
 		env.auxSkillList = { }
+	elseif accelerate.everything then
+		env.modDB.parent, env.enemyDB.parent = specCopy(env)
+		wipeEnv(env, accelerate)
 	else
 		wipeEnv(env, accelerate)
 		modDB = env.modDB

@@ -246,6 +246,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					requirementsItems = true,
 					requirementsGems = true,
 					skills = true,
+					everything = true,
 				}
 				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { db1 = db1, db2 = db2, env = fullEnv, accelerate = accelerationTbl })
 			end

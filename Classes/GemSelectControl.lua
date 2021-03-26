@@ -49,13 +49,20 @@ end)
 
 function GemSelectClass:PopulateGemList()
 	wipeTable(self.gems)
+	local showAll = self.skillsTab.showSupportGemTypes == "ALL"
+	local showAwakened = self.skillsTab.showSupportGemTypes == "AWAKENED"
+	local showNormal = self.skillsTab.showSupportGemTypes == "NORMAL"
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
-		if self.skillsTab.showAltQualityGems then
-			for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
-				self.gems[altQual.type .. ":" .. gemId] = gemData
-			end
-		else
+		if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
 			self.gems["Default:" .. gemId] = gemData
+		elseif (showNormal or showAll) then
+			if self.skillsTab.showAltQualityGems and self.skillsTab.defaultGemQuality > 0 then
+				for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
+					self.gems[altQual.type .. ":" .. gemId] = gemData
+				end
+			else
+				self.gems["Default:" .. gemId] = gemData
+			end
 		end
 	end
 end
@@ -140,16 +147,18 @@ function GemSelectClass:UpdateSortCache()
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and 
 	  sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel 
 	  and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField 
-	  and sortCache.considerAlternates == self.skillsTab.showAltQualityGems then
+	  and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
 		return
 	end
 
-	if sortCache and sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems then
+	if sortCache and (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes 
+	  or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality) then
 		self:PopulateGemList()
 	end
 
 	--Initialize a new sort cache
 	sortCache = {
+		considerGemType = self.skillsTab.showSupportGemTypes,
 		considerAlternates = self.skillsTab.showAltQualityGems,
 		socketGroup = self.skillsTab.displayGroup,
 		gemInstance = self.skillsTab.displayGroup.gemList[self.index],
