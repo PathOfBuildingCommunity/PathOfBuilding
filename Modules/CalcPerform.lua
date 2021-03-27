@@ -903,6 +903,7 @@ function calcs.perform(env)
 			activeSkill.minion.modDB = new("ModDB")
 			activeSkill.minion.modDB.actor = activeSkill.minion
 			calcs.createMinionSkills(env, activeSkill)
+			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
 		end
 	end
 
