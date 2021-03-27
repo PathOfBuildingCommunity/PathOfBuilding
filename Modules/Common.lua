@@ -400,7 +400,14 @@ function specCopy(env)
 		enemyDB.conditions = copyTable(env.enemyDB.conditions)
 		enemyDB.multipliers = copyTable(env.enemyDB.multipliers)
 	end
-	return modDB, enemyDB
+	local minionDB = nil
+	if env.minion then
+		minionDB = new("ModDB")
+		minionDB:AddDB(env.minion.modDB)
+		minionDB.conditions = copyTable(env.minion.modDB.conditions)
+		minionDB.multipliers = copyTable(env.minion.modDB.multipliers)
+	end
+	return modDB, enemyDB, minionDB
 end
 
 -- Wipe all keys from the table and return it, or return a new table if no table provided

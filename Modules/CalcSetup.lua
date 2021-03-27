@@ -181,6 +181,11 @@ function wipeEnv(env, accelerate)
 	wipeTable(env.enemyDB.mods)
 	wipeTable(env.enemyDB.conditions)
 	wipeTable(env.enemyDB.multipliers)
+	if env.minion then
+		wipeTable(env.minion.modDB.mods)
+		wipeTable(env.minion.modDB.conditions)
+		wipeTable(env.minion.modDB.multipliers)
+	end
 
 	if accelerate.everything then
 		return
@@ -249,8 +254,9 @@ end
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
 function calcs.initEnv(build, mode, override, specEnv)
 	-- accelerator variables
-	local db1 = specEnv and specEnv.db1 or nil
-	local db2 = specEnv and specEnv.db2 or nil
+	local cachedPlayerDB = specEnv and specEnv.cachedPlayerDB or nil
+	local cachedEnemyDB = specEnv and specEnv.cachedEnemyDB or nil
+	local cachedMinionDB = specEnv and specEnv.cachedMinionDB or nil
 	local env = specEnv and specEnv.env or nil
 	local accelerate = specEnv and specEnv.accelerate or { }
 
@@ -312,7 +318,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.player.activeSkillList = { }
 		env.auxSkillList = { }
 	elseif accelerate.everything then
-		env.modDB.parent, env.enemyDB.parent = specCopy(env)
+		local minionDB = nil
+		env.modDB.parent, env.enemyDB.parent, minionDB = specCopy(env)
+		if minionDB then
+			env.minion.modDB.parent = minionDB
+		end
 		wipeEnv(env, accelerate)
 	else
 		wipeEnv(env, accelerate)
@@ -346,7 +356,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 	classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
 
-	if not db1 then
+	if not cachedPlayerDB then
 		-- Initialise modifier database with base values
 		for _, stat in pairs({"Str","Dex","Int"}) do
 			modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
@@ -434,10 +444,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.modDB:AddList(build.configTab.modList)
 		env.enemyDB:AddList(build.configTab.enemyModList)
 
-		db1, db2 = specCopy(env)
+		cachedPlayerDB, cachedEnemyDB, cachedMinionDB = specCopy(env)
 	else
-		env.modDB.parent = db1
-		env.enemyDB.parent = db2
+		env.modDB.parent = cachedPlayerDB
+		env.enemyDB.parent = cachedEnemyDB
+		if cachedMinionDB then
+			env.minion.modDB.parent = cachedMinionDB
+		end
 	end
 
 	if not accelerate.nodeAlloc then
@@ -1021,5 +1034,5 @@ function calcs.initEnv(build, mode, override, specEnv)
 	-- Merge Requirements Tables
 	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
 
-	return env, db1, db2
+	return env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB
 end

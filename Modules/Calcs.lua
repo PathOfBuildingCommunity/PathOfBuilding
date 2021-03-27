@@ -55,19 +55,22 @@ end
 -- Generate a function for calculating the effect of some modification to the environment
 local function getCalculator(build, fullInit, modFunc)
 	-- Initialise environment
-	local env, db1, db2 = calcs.initEnv(build, "CALCULATOR")
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 
 	-- Run base calculation pass
 	calcs.perform(env)
 	GlobalCache.dontUseCache = true
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { db1 = db1, db2 = db2, env = nil })
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
 	GlobalCache.dontUseCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
-	env.modDB.parent = db1
-	env.enemyDB.parent = db2
+	env.modDB.parent = dbcachedPlayerDB1
+	env.enemyDB.parent = cachedEnemyDB
+	if cachedMinionDB then
+		env.minion.modDB.parent = cachedMinionDB
+	end
 
 	return function(...)
 		-- Remove mods added during the last pass
@@ -83,7 +86,7 @@ local function getCalculator(build, fullInit, modFunc)
 		
 		-- Run calculation pass
 		calcs.perform(env)
-		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { db1 = db1, db2 = db2, env = env})
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
 
@@ -102,25 +105,25 @@ end
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
-	local env, db1, db2 = calcs.initEnv(build, "CALCULATOR")
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { db1 = db1, db2 = db2, env = env})
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, env = env})
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
 	return function(override, accelerate)
 		if accelerate then
-			env, db1, db2 = calcs.initEnv(build, "CALCULATOR", override, { db1 = db1, db2 = db2, env = env, accelerate = accelerate })
+			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
 		else
-			env, db1, db2 = calcs.initEnv(build, "CALCULATOR", override)
+			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
 		end
 		calcs.perform(env)
 		-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 		-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 		-- A with A (do to cache reuse) instead of A with B
 		GlobalCache.dontUseCache = true
-		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { db1 = db1, db2 = db2, env = env, accelerate = accelerate })
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
 		GlobalCache.dontUseCache = nil
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
@@ -153,7 +156,7 @@ local function getActiveSkillCount(activeSkill)
 end
 
 function calcs.calcFullDPS(build, mode, override, specEnv)
-	local fullEnv, db1, db2 = calcs.initEnv(build, mode, override or {}, specEnv)
+	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override or {}, specEnv)
 	local usedEnv = nil
 
 	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0 }
@@ -248,7 +251,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					skills = true,
 					everything = true,
 				}
-				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { db1 = db1, db2 = db2, env = fullEnv, accelerate = accelerationTbl })
+				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
 			end
 		end
 	end
@@ -298,14 +301,14 @@ end
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
 	-- Build output for selected main skill
-	local env, db1, db2 = calcs.initEnv(build, mode)
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
 
 	-- Build output across all active skills
 	GlobalCache.dontUseCache = true
-	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { db1 = db1, db2 = db2, env = nil })
+	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
 	GlobalCache.dontUseCache = nil
 
 	-- Add Full DPS data to main `env`
