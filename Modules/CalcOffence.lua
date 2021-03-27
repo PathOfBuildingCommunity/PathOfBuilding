@@ -3689,7 +3689,6 @@ function calcs.offence(env, actor, activeSkill)
 			local moreDamage =  usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage")
 			local exertInc = env.modDB:Sum("INC", usedSkill.skillCfg, "ExertIncrease")
 			local exertMore = env.modDB:Sum("MORE", usedSkill.skillCfg, "ExertIncrease")
-			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount")
 
 			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
 
@@ -3697,7 +3696,12 @@ function calcs.offence(env, actor, activeSkill)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "General's Cry", activeSkill.ModFlags, activeSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Damage", "INC", exertInc, "General's Cry Exerted Attacks", activeSkill.ModFlags, activeSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Damage", "MORE", exertMore, "General's Cry Exerted Attacks", activeSkill.ModFlags, activeSkill.KeywordFlags)
-			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "General's Cry Max Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
+			local maxMirageWarriors = 0
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
+				local mod = value.mod
+				newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", mod.value, mod.source, activeSkill.ModFlags, activeSkill.KeywordFlags)
+				maxMirageWarriors = maxMirageWarriors + mod.value
+			end
 
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill

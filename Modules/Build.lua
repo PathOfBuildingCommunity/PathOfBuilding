@@ -347,7 +347,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 		{ },
-		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end, skillDPSStat = true },
+		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end },
 		
 	}
 	self.minionDisplayStats = {

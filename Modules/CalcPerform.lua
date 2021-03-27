@@ -111,9 +111,9 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 	local mainRate = 0
 	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
 	if wasted > 0 then
-		t_insert(trigRateTable.rates, { name = "Wasted_Need Higher_ICDR", rate = wasted / SIM_TIME })
+		trigRateTable.extraSimInfo = "Wasted trigger opportunities exist. Increase your ICDR to fix this."
 	else
-		t_insert(trigRateTable.rates, { name = "No Wasted Hits_ _ ", rate = wasted / SIM_TIME })
+		trigRateTable.extraSimInfo = "Good Job! There are no wasted trigger opportunities"
 	end
 	for _, sd in ipairs(skillRotation) do
 		if cacheSkillUUID(env.player.mainSkill) == sd.uuid then
@@ -158,6 +158,10 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 						s_format("Simulation Breakdown"),
 						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 					}
+					if simBreakdown.extraSimInfo then
+						t_insert(breakdown.SourceTriggerRate, "")
+						t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
+					end
 					breakdown.SimData = {
 						rowList = { },
 						colList = {
@@ -170,7 +174,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 					for _, rateData in ipairs(simBreakdown.rates) do
 						local t = { }
 						for str in string.gmatch(rateData.name, "([^_]+)") do
-							table.insert(t, str)
+							t_insert(t, str)
 						end
 
 						local row = {
@@ -204,6 +208,10 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 						s_format("Simulation Breakdown"),
 						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 					}
+					if simBreakdown.extraSimInfo then
+						t_insert(breakdown.SourceTriggerRate, "")
+						t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
+					end
 					breakdown.SimData = {
 						rowList = { },
 						colList = {
@@ -216,7 +224,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 					for _, rateData in ipairs(simBreakdown.rates) do
 						local t = { }
 						for str in string.gmatch(rateData.name, "([^_]+)") do
-							table.insert(t, str)
+							t_insert(t, str)
 						end
 
 						local row = {
@@ -2044,14 +2052,18 @@ function calcs.perform(env)
 		if usedSkill then
 			local moreDamage =  usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "MirageArcherLessDamage")
 			local moreAttackSpeed = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "MirageArcherLessAttackSpeed")
-			local maxMirageArchers = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")
 
 			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Speed", "MORE", moreAttackSpeed, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageArchers, "Max Mirage Archers", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+			local maxMirageArchers = 0
+			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")) do
+				local mod = value.mod
+				newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", mod.value, mod.source, env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+				maxMirageArchers = maxMirageArchers + mod.value
+			end
 
 			if usedSkill.skillPartName then
 				env.player.mainSkill.skillPart = usedSkill.skillPart
