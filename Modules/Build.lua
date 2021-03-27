@@ -1148,7 +1148,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
 						end
 					end
-					if statData.skillDPSStat then
+					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
 						for _, skillData in ipairs(actor.output.SkillDPS) do
