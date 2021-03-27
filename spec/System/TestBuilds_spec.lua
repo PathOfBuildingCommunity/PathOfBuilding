@@ -17,7 +17,7 @@ end
 
 describe("test all test builds", function()
 
-    local buildList = fetchBuilds("spec/TestBuilds")
+    local buildList = fetchBuilds("../spec/TestBuilds")
     for _, testBuild in ipairs(buildList) do
         loadBuildFromXML(testBuild.xml)
         for key, value in pairs(testBuild.output) do
