@@ -434,7 +434,6 @@ function CalcsTabClass:BuildPower()
 		self.powerBuilder = coroutine.create(self.PowerBuilder)
 	end
 	if self.powerBuilder then
-		collectgarbage("stop")
 		local res, errMsg = coroutine.resume(self.powerBuilder, self)
 		if launch.devMode and not res then
 			error(errMsg)
@@ -442,7 +441,6 @@ function CalcsTabClass:BuildPower()
 		if coroutine.status(self.powerBuilder) == "dead" then
 			self.powerBuilder = nil
 		end
-		collectgarbage("restart")
 	end
 end
 
