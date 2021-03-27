@@ -3711,20 +3711,20 @@ function calcs.offence(env, actor, activeSkill)
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill
 			calcs.perform(newEnv)
-			activeSkill = newSkill
+			env.player.mainSkill = newSkill
 
 			-- Re-link over the output
-			actor.output = newEnv.player.output
+			env.player.output = newEnv.player.output
 
 			-- Make any necessary corrections to output
-			actor.output.ManaCost = 0
+			env.player.output.ManaCost = 0
 
 			-- Re-link over the breakdown (if present)
 			if newEnv.player.breakdown then
-				actor.breakdown = newEnv.player.breakdown
+				env.player.breakdown = newEnv.player.breakdown
 
 				-- Make any necessary corrections to breakdown
-				actor.breakdown.ManaCost = nil
+				env.player.breakdown.ManaCost = nil
 			end
 
 			usedSkill.TotalDPS = 0
@@ -3783,19 +3783,20 @@ function calcs.offence(env, actor, activeSkill)
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill
 			calcs.perform(newEnv)
+			env.player.mainSkill = newSkill
 
 			-- Re-link over the output
-			actor.output = newEnv.player.output
+			env.player.output = newEnv.player.output
 
 			-- Make any necessary corrections to output
-			actor.output.ManaCost = 0
+			env.player.output.ManaCost = 0
 
 			-- Re-link over the breakdown (if present)
 			if newEnv.player.breakdown then
-				actor.breakdown = newEnv.player.breakdown
+				env.player.breakdown = newEnv.player.breakdown
 
 				-- Make any necessary corrections to breakdown
-				actor.breakdown.ManaCost = nil
+				env.player.breakdown.ManaCost = nil
 			end
 		else
 			activeSkill.infoMessage2 = "No Saviour active skill found"
