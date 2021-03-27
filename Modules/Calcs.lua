@@ -180,9 +180,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullEnv.player.mainSkill = activeSkill
 					calcs.perform(fullEnv)
 					usedEnv = fullEnv
-					if forceCache then
-						GlobalCache.dontUseCache = true
-					end
+				        GlobalCache.dontUseCache = forceCache
 				end
 				if activeSkill.minion then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
