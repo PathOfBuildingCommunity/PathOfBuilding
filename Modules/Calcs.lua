@@ -66,7 +66,7 @@ local function getCalculator(build, fullInit, modFunc)
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
-	env.modDB.parent = dbcachedPlayerDB1
+	env.modDB.parent = cachedPlayerDB
 	env.enemyDB.parent = cachedEnemyDB
 	if cachedMinionDB then
 		env.minion.modDB.parent = cachedMinionDB
