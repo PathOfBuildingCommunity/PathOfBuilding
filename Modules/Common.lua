@@ -26,7 +26,8 @@ common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
 
-profiler = LoadModule("Modules/Profiler")
+-- Uncomment if you need to perform in-depth profiling
+--profiler = LoadModule("Modules/Profiler")
 
 -- Class library
 common.classes = { }

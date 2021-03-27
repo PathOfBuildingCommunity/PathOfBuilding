@@ -23,7 +23,7 @@ local tempTable1 = { }
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] then
-		calcs.buildActiveSkill(env.build, "CACHE", skill)
+		calcs.buildActiveSkill(env, "CACHE", skill)
 		env.dontCache = true
 	end
 
@@ -31,14 +31,12 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
 		if not source and GlobalCache.cachedData["CACHE"][uuid].Speed then
 			if reqManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost >= reqManaCost then
-				ConPrintf(skill.activeEffect.grantedEffect.name)
 				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
 			elseif not reqManaCost then
 				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
 			end
 		elseif GlobalCache.cachedData["CACHE"][uuid].Speed and GlobalCache.cachedData["CACHE"][uuid].Speed > triggerRate then
 			if reqManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost >= reqManaCost then
-				ConPrintf(skill.activeEffect.grantedEffect.name)
 				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
 			elseif not reqManaCost then
 				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
@@ -268,7 +266,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 end
 
 -- Account for APS modifications do to Dual Wield or Simultaneous Strikes
-local function calcDualWieldImpact(env, sourceAPS, sourceName)
+local function calcDualWieldImpact(env, sourceAPS, skillDoubleHitsWhenDualWielding)
 	-- See if we are dual wielding
 	local dualWield = false
 	if env.player.weaponData1.type and env.player.weaponData2.type then
@@ -277,7 +275,7 @@ local function calcDualWieldImpact(env, sourceAPS, sourceName)
 	end
 
 	-- See if we are using a trigger skill that hits with both weapons simultaneously
-	if dualWield and (sourceName == "Cleave" or sourceName == "Dual Strike" or sourceName == "Viper Strike" or sourceName == "Riposte") then
+	if dualWield and skillDoubleHitsWhenDualWielding then
 		-- those source skills hit with both weapons simultaneously, thus doubling the trigger rate
 		sourceAPS = sourceAPS * 2.0
 	end
@@ -1914,7 +1912,7 @@ function calcs.perform(env)
 			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
 
-			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
+			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.skillData.doubleHitsWhenDualWielding)
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
@@ -1964,7 +1962,7 @@ function calcs.perform(env)
 			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
 
-			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
+			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.skillData.doubleHitsWhenDualWielding)
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
@@ -1997,7 +1995,7 @@ function calcs.perform(env)
 
 		-- if we don't have a processed cached copy of this skill, get one
 		if not GlobalCache.cachedData["MAIN"][uuid] then
-			calcs.buildActiveSkill(env.build, "MAIN", env.player.mainSkill, true)
+			calcs.buildActiveSkill(env, "MAIN", env.player.mainSkill, true)
 		end
 		if GlobalCache.cachedData["MAIN"][uuid] then
 			usedSkill = GlobalCache.cachedData["MAIN"][uuid].ActiveSkill
@@ -2037,7 +2035,7 @@ function calcs.perform(env)
 		local uuid = cacheSkillUUID(env.player.mainSkill)
 
 		-- re-build the active skill in this case and don't cache
-		calcs.buildActiveSkill(env.build, "CALCS", env.player.mainSkill, true)
+		calcs.buildActiveSkill(env, "CALCS", env.player.mainSkill, true)
 		env.dontCache = true
 
 		if GlobalCache.cachedData["CALCS"][uuid] then
@@ -2049,7 +2047,7 @@ function calcs.perform(env)
 			local moreAttackSpeed = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "MirageArcherLessAttackSpeed")
 			local maxMirageArchers = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")
 
-			local newSkill, newEnv = calcs.copyActiveSkill(env.build, "CALCS", usedSkill)
+			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
@@ -2333,7 +2331,7 @@ function calcs.perform(env)
 			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
 
-			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.activeEffect.grantedEffect.name)
+			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.skillData.doubleHitsWhenDualWielding)
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)

@@ -251,7 +251,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					skills = true,
 					everything = true,
 				}
-				fullEnv, _, _ = calcs.initEnv(build, mode, override or {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				fullEnv, _, _, _ = calcs.initEnv(build, mode, override or {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
 			end
 		end
 	end
@@ -286,8 +286,8 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 end
 
 -- Process active skill
-function calcs.buildActiveSkill(build, mode, skill, setMark)
-	local fullEnv, _, _ = calcs.initEnv(build, mode)
+function calcs.buildActiveSkill(env, mode, skill, setMark)
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, {}, {})
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill

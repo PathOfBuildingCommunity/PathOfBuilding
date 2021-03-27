@@ -3675,7 +3675,7 @@ function calcs.offence(env, actor, activeSkill)
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData["CALCS"][uuid] then
-					calcs.buildActiveSkill(env.build, "CALCS", triggerSkill)
+					calcs.buildActiveSkill(env, "CALCS", triggerSkill)
 					env.dontCache = true
 				end
 				if GlobalCache.cachedData["CALCS"][uuid] then
@@ -3691,7 +3691,7 @@ function calcs.offence(env, actor, activeSkill)
 			local exertMore = env.modDB:Sum("MORE", usedSkill.skillCfg, "ExertIncrease")
 			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount")
 
-			local newSkill, newEnv = calcs.copyActiveSkill(env.build, "CALCS", usedSkill)
+			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "General's Cry", activeSkill.ModFlags, activeSkill.KeywordFlags)
@@ -3741,7 +3741,7 @@ function calcs.offence(env, actor, activeSkill)
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData["CALCS"][uuid] then
-					calcs.buildActiveSkill(env.build, "CALCS", triggerSkill)
+					calcs.buildActiveSkill(env, "CALCS", triggerSkill)
 					env.dontCache = true
 				end
 				-- We found a skill and it can crit
@@ -3762,7 +3762,7 @@ function calcs.offence(env, actor, activeSkill)
 		if usedSkill then
 			local moreDamage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorLessDamage")
 			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorMaxCount")
-			local newSkill, newEnv = calcs.copyActiveSkill(env.build, "CALCS", usedSkill)
+			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "The Saviour", activeSkill.ModFlags, activeSkill.KeywordFlags)

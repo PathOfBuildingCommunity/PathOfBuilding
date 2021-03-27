@@ -55,7 +55,7 @@ function GemSelectClass:PopulateGemList()
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
 		if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
 			self.gems["Default:" .. gemId] = gemData
-		elseif (showNormal or showAll) then
+		elseif showNormal or showAll then
 			if self.skillsTab.showAltQualityGems and self.skillsTab.defaultGemQuality > 0 then
 				for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
 					self.gems[altQual.type .. ":" .. gemId] = gemData
@@ -140,8 +140,7 @@ function GemSelectClass:BuildList(buf)
 end
 
 function GemSelectClass:UpdateSortCache()
-	--profiler.start()
-	local start = GetTime()
+	--local start = GetTime()
 	local sortCache = self.sortCache
 	--Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and 
@@ -228,8 +227,6 @@ function GemSelectClass:UpdateSortCache()
 			sortCache.dpsColor[gemId] = "^xFFFF66"
 		end
 	end
-	--profiler.stop()
-	--profiler.report('sortCache.txt')
 	--ConPrintf("Gem Selector time: %d ms", GetTime() - start)
 end
 

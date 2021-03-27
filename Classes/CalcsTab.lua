@@ -448,7 +448,7 @@ end
 
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
-	local timer_start = GetTime()
+	--local timer_start = GetTime()
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local newPowerMax = {
