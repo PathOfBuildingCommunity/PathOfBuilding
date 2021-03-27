@@ -121,7 +121,7 @@ function calcs.getMiscCalculator(build)
 		calcs.perform(env)
 		-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 		-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
-		-- A with A (do to cache reuse) instead of A with B
+		-- A with A (due to cache reuse) instead of A with B
 		GlobalCache.dontUseCache = true
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
 		GlobalCache.dontUseCache = nil
@@ -180,9 +180,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullEnv.player.mainSkill = activeSkill
 					calcs.perform(fullEnv)
 					usedEnv = fullEnv
-					if forceCache then
-						GlobalCache.dontUseCache = true
-					end
+				        GlobalCache.dontUseCache = forceCache
 				end
 				if activeSkill.minion then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then

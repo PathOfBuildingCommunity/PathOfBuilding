@@ -475,7 +475,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	-- Build and merge item modifiers, and create list of radius jewels
-	if not (accelerate.requirementsItems) then
+	if not accelerate.requirementsItems then
 		for _, slot in pairs(build.itemsTab.orderedSlots) do
 			local slotName = slot.slotName
 			local item

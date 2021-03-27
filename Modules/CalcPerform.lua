@@ -17,7 +17,6 @@ local s_format = string.format
 local bor = bit.bor
 local band = bit.band
 
-local tempTable1 = { }
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
