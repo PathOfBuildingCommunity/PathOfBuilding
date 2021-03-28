@@ -711,7 +711,7 @@ Triggers Level 20 Reflection when Equipped
 </PathOfBuilding>
 
 ]],
-    ouput = {    ["CombinedAvg"] = 0,
+    output = {    ["CombinedAvg"] = 0,
     ["FrenzyChargesMin"] = 0,
     ["WithIgniteDPS"] = 0,
     ["HitChance"] = 100,

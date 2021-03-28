@@ -1314,7 +1314,7 @@ Implicits: 0
 </PathOfBuilding>
 
 ]],
-    ouput = {    ["CombinedAvg"] = 104290.52274695,
+    output = {    ["CombinedAvg"] = 104290.52274695,
     ["FrenzyChargesMin"] = 0,
     ["EnergyShieldOnGloves"] = 4,
     ["HitChance"] = 91,

@@ -1166,7 +1166,7 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 </PathOfBuilding>
 
 ]],
-    ouput = {    ["CombinedAvg"] = 372408.52275,
+    output = {    ["CombinedAvg"] = 372408.52275,
     ["FrenzyChargesMin"] = 0,
     ["EnergyShieldOnGloves"] = 202,
     ["HitChance"] = 100,

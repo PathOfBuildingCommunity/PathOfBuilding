@@ -1185,7 +1185,7 @@ Gain 50 Life when you Stun an Enemy
 </PathOfBuilding>
 
 ]],
-    ouput = {    ["CombinedAvg"] = 0,
+    output = {    ["CombinedAvg"] = 0,
     ["FrenzyChargesMin"] = 0,
     ["EnergyShieldOnGloves"] = 69,
     ["HitChance"] = 100,
