@@ -56,7 +56,7 @@ function GemSelectClass:PopulateGemList()
 		if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
 			self.gems["Default:" .. gemId] = gemData
 		elseif showNormal or showAll then
-			if self.skillsTab.showAltQualityGems and self.skillsTab.defaultGemQuality > 0 then
+			if self.skillsTab.showAltQualityGems and self.skillsTab.defaultGemQuality or 0 > 0 then
 				for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
 					self.gems[altQual.type .. ":" .. gemId] = gemData
 				end
