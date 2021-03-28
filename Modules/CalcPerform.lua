@@ -122,7 +122,8 @@ end
 local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
 	-- Get action trigger rate
 	if sourceAPS == nil and source.skillTypes[SkillType.Channelled] then
-		output.ActionTriggerRate = 1 / source.skillData.triggerTime
+		ConPrintf(source.activeEffect.grantedEffect.name)
+		output.ActionTriggerRate = 1 / (source.skillData.triggerTime or 1)
 		if breakdown then
 			breakdown.ActionTriggerRate = {
 				s_format("%.2f ^8(base cooldown of trigger)", source.skillData.triggerTime),
