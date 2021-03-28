@@ -28,18 +28,12 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 
 	if GlobalCache.cachedData["CACHE"][uuid] then
 		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-		if not source and GlobalCache.cachedData["CACHE"][uuid].Speed then
-			if reqManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost >= reqManaCost then
-				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
-			elseif not reqManaCost then
-				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
-			end
-		elseif GlobalCache.cachedData["CACHE"][uuid].Speed and GlobalCache.cachedData["CACHE"][uuid].Speed > triggerRate then
-			if reqManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost and GlobalCache.cachedData["CACHE"][uuid].ManaCost >= reqManaCost then
-				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
-			elseif not reqManaCost then
-				return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
-			end
+		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+		local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
+
+		if ((not source and cachedSpeed) or (cachedSpeed and cachedSpeed > triggerRate)) and 
+			((reqManaCost and cachedManaCost and cachedManaCost >= reqManaCost) or not reqManaCost) then
+			return skill, GlobalCache.cachedData["CACHE"][uuid].Speed
 		end
 	end
 	return source, triggerRate
