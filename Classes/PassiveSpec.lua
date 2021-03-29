@@ -43,6 +43,7 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 
 	-- List of nodes allocated in subgraphs; used to maintain allocation when loading, and when rebuilding subgraphs
 	self.allocSubgraphNodes = { }
+	self.allocExtendedNodes = { }
 
 	-- Table of jewels equipped in this tree
 	-- Keys are node IDs, values are items
@@ -192,8 +193,8 @@ function PassiveSpecClass:PostLoad()
 	self:BuildClusterJewelGraphs()
 end
 
--- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
+-- Import passive spec from the provided class IDs and node hash and hash_ex lists
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, hashExtendedList)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
@@ -205,7 +206,9 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 			t_insert(self.allocSubgraphNodes, id)
 		end
 	end
+	self.allocExtendedNodes = copyTable(hashExtendedList)
 	self:SelectAscendClass(ascendClassId)
+	self:BuildClusterJewelGraphs()
 end
 
 -- Decode the given passive tree URL
@@ -952,6 +955,12 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
+		for _, id in ipairs(self.allocExtendedNodes) do
+			if (id + 1) == nodeIndex then
+				node.alloc = true
+				self.allocNodes[node.id] = node
+			end
+		end
 	end
 
 	-- First pass: sockets
@@ -1020,6 +1029,12 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
+		for _, id in ipairs(self.allocExtendedNodes) do
+			if (id + 1) == nodeIndex then
+				node.alloc = true
+				self.allocNodes[node.id] = node
+			end
+		end
 	end
 
 	-- Third pass: small fill
@@ -1072,6 +1087,12 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		end
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
+		for _, id in ipairs(self.allocExtendedNodes) do
+			if (id - 1) == index then
+				node.alloc = true
+				self.allocNodes[node.id] = node
+			end
+		end
 	end
 
 	assert(indicies[0], "No entrance to subgraph")
