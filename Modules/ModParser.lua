@@ -1830,11 +1830,11 @@ local specialModList = {
 	["curse enemies with (%D+) on %a+"] = function(_, skill) return extraSkill(skill, 1, true) end,
 	["curse enemies with (%D+) on %a+, with (%d+)%% increased effect"] = function(_, skill, num) return {
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill], level = 1, noSupports = true }),
-		mod("CurseEffect", "INC", tonumber(num), { type = "SkillName", skillName = gemIdLookup[skill] }),
+		mod("CurseEffect", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
 	} end,
 	["%d+%% chance to curse n?o?n?%-?c?u?r?s?e?d? ?enemies with (%D+) on %a+, with (%d+)%% increased effect"] = function(_, skill, num) return {
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill], level = 1, noSupports = true }),
-		mod("CurseEffect", "INC", tonumber(num), { type = "SkillName", skillName = gemIdLookup[skill] }),
+		mod("CurseEffect", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
 	} end,
 	["curse enemies with level (%d+) (%D+) on %a+, which can apply to hexproof enemies"] = function(num, _, skill) return extraSkill(skill, num, true) end,
 	["curse enemies with level (%d+) (.+) on %a+"] = function(num, _, skill) return extraSkill(skill, num, true) end,
@@ -2061,7 +2061,7 @@ local specialModList = {
 	["you are cursed with level (%d+) (%D+)"] = function(num, _, name) return { mod("ExtraCurse", "LIST", { skillId = gemIdLookup[name], level = num, applyToPlayer = true }) } end,
 	["you are cursed with (%D+), with (%d+)%% increased effect"] = function(_, skill, num) return {
 		mod("ExtraCurse", "LIST", { skillId = gemIdLookup[skill], level = 1, applyToPlayer = true }),
-		mod("CurseEffectOnSelf", "INC", tonumber(num), { type = "SkillName", skillName = gemIdLookup[skill] }),
+		mod("CurseEffectOnSelf", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
 	} end,
 	["you count as on low life while you are cursed with vulnerability"] = { flag("Condition:LowLife", { type = "Condition", var = "AffectedByVulnerability" }) },
 	["if you consumed a corpse recently, you and nearby allies regenerate (%d+)%% of life per second"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("LifeRegenPercent", "BASE", num) }, { type = "Condition", var = "ConsumedCorpseRecently" }) } end,
