@@ -193,7 +193,7 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, hashExtendedList)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
@@ -735,7 +735,7 @@ function PassiveSpecClass:ReconnectNodeToClassStart(node)
 	end
 end
 
-function PassiveSpecClass:BuildClusterJewelGraphs()
+function PassiveSpecClass:BuildClusterJewelGraphs(jewelData)
 	-- Remove old subgraphs
 	for id, subGraph in pairs(self.subGraphs) do
 		for _, node in ipairs(subGraph.nodes) do
@@ -754,23 +754,53 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	end
 	wipeTable(self.subGraphs)
 
-	for nodeId in pairs(self.tree.sockets) do
-		local node = self.tree.nodes[nodeId]
-		local jewel = self:GetJewel(self.jewels[nodeId])
-		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
-			-- This is a Large Jewel Socket, and it has a cluster jewel in it
-			self:BuildSubgraph(jewel, self.nodes[nodeId])
+	if self.jewel_data then
+		local groups = { }
+		local nodes = { }
+		local clusterType = nil
+		for _, value in pairs(self.jewel_data) do
+			if value.subgraph then
+				for groupId, groupData in pairs(value.subgraph.groups) do
+					groups[groupId] = groupData
+				end
+				for nodeId, nodeValue in pairs(value.subgraph.nodes) do
+					nodes[nodeId] = nodeValue
+				end
+				clusterType = value.type
+			end
 		end
+		for id, data in pairs(nodes) do
+			local link = data["in"][1]
+			if link then
+				for nodeId in pairs(self.tree.sockets) do
+					if nodeId == tonumber(link) then
+						local node = self.tree.nodes[nodeId]
+						local jewel = self:GetJewel(self.jewels[nodeId])
+						self:BuildSubgraphFromImport(jewel, self.nodes[nodeId], data, groups[data.group], nodes, clusterType)
+					end
+				end
+			end
+		end
+	--else
+	--	for nodeId in pairs(self.tree.sockets) do
+	--		local node = self.tree.nodes[nodeId]
+	--		local jewel = self:GetJewel(self.jewels[nodeId])
+	--		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
+	--			-- This is a Large Jewel Socket, and it has a cluster jewel in it
+	--			self:BuildSubgraph(jewel, self.nodes[nodeId])
+	--		end
+	--	end
 	end
+	--wipeTable(self.jewel_data)
 
 	-- (Re-)allocate subgraph nodes
-	for _, nodeId in ipairs(self.allocSubgraphNodes) do
-		local node = self.nodes[nodeId]
-		if node then
-			node.alloc = true
-			self.allocNodes[nodeId] = node
-		end
-	end
+	--for _, nodeId in ipairs(self.allocSubgraphNodes) do
+	--	local node = self.nodes[nodeId]
+	--	if node then
+	--		node.alloc = true
+	--		self.allocNodes[nodeId] = node
+	--	end
+	--end
 	wipeTable(self.allocSubgraphNodes)
 
 	-- Rebuild paths to account for new/removed nodes
@@ -778,6 +808,147 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 
 	-- Rebuild node search cache because the tree might have changed
 	self.build.treeTab.viewer.searchStrCached = ""
+end
+
+function PassiveSpecClass:BuildSubgraphFromImport(jewel, parentSocket, nodeData, groupData, nodesData, clusterType)
+	if not parentSocket then return end
+
+	local subGraph = {
+		nodes = { },
+		group = { oo = { } },
+		connectors = { },
+		parentSocket = parentSocket,
+	}
+
+	-- Locate the proxy group
+	local proxyNode = self.tree.nodes[tonumber(groupData.proxy)]
+	assert(proxyNode, "Proxy node not found")
+	local proxyGroup = proxyNode.group
+
+	self.subGraphs[tonumber(nodeData["in"][1])] = subGraph
+
+	subGraph.group.x = groupData.x
+	subGraph.group.y = groupData.y
+
+	local function linkNodes(node1, node2)
+		t_insert(node1.linked, node2)
+		t_insert(node2.linked, node1)
+		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
+		ConPrintf("Linking node: " .. tostring(node1.id) .. " to " .. tostring(node2.id))
+	end
+
+	local function findSocket(group, index)
+		-- Find the given socket index in the group
+		for _, nodeId in ipairs(group.n) do
+			local node = self.tree.nodes[tonumber(nodeId)]
+			if node.expansionJewel and node.expansionJewel.index == index then
+				return node
+			end
+		end
+	end
+
+	-- Initialise orbit flags
+	subGraph.group.oo[groupData.orbits[0]] = true
+
+	local indicies = { }
+
+	for _, clusterNodeId in ipairs(groupData.nodes) do
+		ConPrintf("CREATING NODE: " .. clusterNodeId)
+		clusterNodeId = tonumber(clusterNodeId)
+		local nodeData = nodesData[clusterNodeId]
+		if nodeData.isMastery then
+			subGraph.group.oo[0] = true
+			t_insert(subGraph.nodes, {
+				type = "Mastery",
+				id = clusterNodeId,
+				dn = nodeData.name,
+				icon = nodeData.icon,
+				group = subGraph.group,
+				o = nodeData.orbit,
+				oidx = nodeData.orbitIndex,
+			})
+		elseif nodeData.isNotable then
+			local node = {
+				type = "Notable",
+				id = clusterNodeId,
+				dn = nodeData.name,
+				sd = copyTable(nodeData.stats),
+				icon = nodeData.icon,
+				expansionSkill = true,
+				group = subGraph.group,
+				o = nodeData.orbit,
+				oidx = nodeData.orbitIndex,
+			}
+			t_insert(subGraph.nodes, node)
+			--indicies[clusterNodeId] = node
+			t_insert(indicies, node)
+		elseif nodeData.isJewelSocket then
+			local node = {
+				type = "Socket",
+				id = clusterNodeId,
+				dn = nodeData.name,
+				sd = { },
+				icon = nodeData.icon,
+				expansionJewel = nodeData.expansionJewel,
+				group = subGraph.group,
+				o = nodeData.orbit,
+				oidx = nodeData.orbitIndex,
+			}
+			t_insert(subGraph.nodes, node)
+			--indicies[clusterNodeId] = node
+			t_insert(indicies, node)
+			self.build.itemsTab.sockets[node.id] = node
+		else
+			local node = {
+				type = "Normal",
+				id = clusterNodeId,
+				dn = nodeData.name,
+				sd = copyTable(nodeData.stats),
+				icon = nodeData.icon,
+				expansionSkill = true,
+				group = subGraph.group,
+				o = nodeData.orbit,
+				oidx = nodeData.orbitIndex,
+			}
+			t_insert(subGraph.nodes, node)
+			--indicies[clusterNodeId] = node
+			t_insert(indicies, node)
+		end
+	end
+
+	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
+	for _, node in ipairs(subGraph.nodes) do
+		node.linked = { }
+		node.power = { }
+		self.tree:ProcessNode(node)
+	end
+
+	-- Generate connectors
+	local firstNode, lastNode
+	for _, value in ipairs(indicies) do
+		local thisNode = value
+		if thisNode then
+			if not firstNode then
+				firstNode = thisNode
+			end
+			if lastNode then
+				linkNodes(thisNode, lastNode)
+			end
+			lastNode = thisNode
+		end
+	end
+	if clusterType ~= "JewelPassiveTreeExpansionSmall" then
+		-- Close the loop on non-small clusters
+		linkNodes(firstNode, lastNode)
+	end
+	subGraph.entranceNode = indicies[1]
+	linkNodes(subGraph.entranceNode, parentSocket)
+
+	-- Add synthetic nodes to the main node list
+	for _, node in ipairs(subGraph.nodes) do
+		self.nodes[node.id] = node
+		-- TODO - recurse to sub-cluster-jewels
+	end
 end
 
 function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)

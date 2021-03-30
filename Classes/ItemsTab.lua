@@ -1053,7 +1053,7 @@ function ItemsTabClass:EquipItemInSet(item, itemSetId)
 	end
 	self:PopulateSlots()
 	self:AddUndoState()
-	self.build.buildFlag = true	
+	self.build.buildFlag = true
 end
 
 -- Update the item lists for all the slot controls

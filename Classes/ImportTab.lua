@@ -462,6 +462,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		return
 	end
 	self.charImportStatus = colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
+	self.build.spec.jewel_data = copyTable(charPassiveData.jewel_data)
 	--ConPrintTable(charPassiveData)
 	if self.controls.charImportTreeClearJewels.state then
 		for _, slot in pairs(self.build.itemsTab.slots) do
@@ -475,7 +476,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes)
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.hashes_ex)
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.controls.characterLevel:SetText(charData.level)
