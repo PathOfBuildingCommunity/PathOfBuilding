@@ -193,7 +193,7 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, hashExtendedList)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
@@ -683,6 +683,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				if prune then
 					depNode.alloc = false
 					self.allocNodes[depNode.id] = nil
+					ConPrintf("Pruned ID: " .. tostring(depNode.id))
 				end
 			end
 		end
@@ -860,6 +861,15 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		end
 	end
 
+	local function inExtendedHashes(nodeId)
+		for _, exID in ipairs(self.extended_hashes) do
+			if nodeId == exID then
+				return true
+			end
+		end
+		return false
+	end
+
 	local function addToAllocatedSubgraphNodes(node)
 		local proxyGroup = matchGroup(expansionJewel.proxy)
 		if proxyGroup then
@@ -867,7 +877,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 				if proxyGroup == data.group then
 					if node.oidx == data.orbitIndex and node.type ~= "Mastery" then
 						for _, extendedId in ipairs(importedGroups[proxyGroup].nodes) do
-							if id == tonumber(extendedId) then
+							if id == tonumber(extendedId) and inExtendedHashes(id) then
 								return true
 							end
 						end
