@@ -44,6 +44,9 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	-- List of nodes allocated in subgraphs; used to maintain allocation when loading, and when rebuilding subgraphs
 	self.allocSubgraphNodes = { }
 
+	-- List of cluster nodes to allocate
+	self.allocExtendedNodes = { }
+
 	-- Table of jewels equipped in this tree
 	-- Keys are node IDs, values are items
 	self.jewels = { }
@@ -203,6 +206,13 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 			self.allocNodes[id] = node
 		else
 			t_insert(self.allocSubgraphNodes, id)
+		end
+	end
+	for _, id in pairs(self.allocExtendedNodes) do
+		local node = self.nodes[id]
+		if node then
+			node.alloc = true
+			self.allocNodes[id] = node
 		end
 	end
 	self:SelectAscendClass(ascendClassId)
@@ -683,7 +693,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				if prune then
 					depNode.alloc = false
 					self.allocNodes[depNode.id] = nil
-					ConPrintf("Pruned ID: " .. tostring(depNode.id))
 				end
 			end
 		end
@@ -779,14 +788,13 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	end
 
 	-- (Re-)allocate subgraph nodes
-	ConPrintf("\n")
 	for _, nodeId in ipairs(self.allocSubgraphNodes) do
 		local node = self.nodes[nodeId]
 		if node then
 			node.alloc = true
 			if not self.allocNodes[nodeId] then
 				self.allocNodes[nodeId] = node
-				ConPrintf("Added Subgraph Node: " .. tostring(node.id))
+				t_insert(self.allocExtendedNodes, nodeId)
 			end
 		end
 	end
@@ -904,7 +912,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 			expansionSkill = true,
 			group = subGraph.group,
 			o = 0,
-			oidx = 0,
+			oidx = 1,
 			linked = { },
 			power = { },
 		}
@@ -917,6 +925,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		self.nodes[node.id] = node
 		if addToAllocatedSubgraphNodes(node) then
 			t_insert(self.allocSubgraphNodes, node.id)
+			t_insert(self.allocExtendedNodes, node.id)
 		end
 		return
 	end
