@@ -736,7 +736,7 @@ function PassiveSpecClass:ReconnectNodeToClassStart(node)
 	end
 end
 
-function PassiveSpecClass:BuildClusterJewelGraphs(jewelData)
+function PassiveSpecClass:BuildClusterJewelGraphs()
 	-- Remove old subgraphs
 	for id, subGraph in pairs(self.subGraphs) do
 		for _, node in ipairs(subGraph.nodes) do
