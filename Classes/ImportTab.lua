@@ -457,9 +457,9 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	--out:write(json)
 	--out:close()
 	local charPassiveData, errMsg = self:ProcessJSON(json)
-	local out = io.open("get-passive-skills.json", "w")
-	writeLuaTable(out, charPassiveData, 1)
-	out:close()
+	--local out = io.open("get-passive-skills.json", "w")
+	--writeLuaTable(out, charPassiveData, 1)
+	--out:close()
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
