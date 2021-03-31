@@ -657,6 +657,25 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.count.shown = function()
+		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
+		if gemInstance then
+			local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+			for index, grantedEffect in ipairs(grantedEffectList) do
+				if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
+					return true
+				end
+			end
+		end
+		return false
+	end
+	slot.count.tooltipFunc = function(tooltip)
+		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
+			tooltip:AddLine(16, "^8Note: `count` integer value scales the DPS of associated skill by a scalar.")
+			tooltip:AddLine(16, "^8To be used with totems, minions, shot-gunning of projectiles (e.g., VD, magma-orbs),")
+			tooltip:AddLine(16, "^8multi-hit projectiles (e.g. ball-lightning), traps, mines.")
+		end
+	end
 	slot.count.enabled = function()
 		return index <= #self.displayGroup.gemList
 	end
