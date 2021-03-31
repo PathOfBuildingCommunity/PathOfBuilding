@@ -40,9 +40,9 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
 		if type(scaledMod.value) == "number" then
-			scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(scaledMod.value * scale) or scaledMod.value * scale
+			scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(round(scaledMod.value * scale, 2)) or scaledMod.value * scale
 		elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
-			scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(scaledMod.value.mod.value * scale) or scaledMod.value.mod.value * scale
+			scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale
 		end
 		self:AddMod(scaledMod)
 	end
@@ -62,9 +62,9 @@ function ModStoreClass:ScaleAddList(modList, scale)
 		for i = 1, #modList do
 			local scaledMod = copyTable(modList[i])
 			if type(scaledMod.value) == "number" then
-				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(scaledMod.value * scale) or scaledMod.value * scale
+				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(round(scaledMod.value * scale, 2)) or scaledMod.value * scale
 			elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
-				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(scaledMod.value.mod.value * scale) or scaledMod.value.mod.value * scale
+				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale
 			end
 			self:AddMod(scaledMod)
 		end
