@@ -24,9 +24,9 @@ jobs:
               run: >
                 sed -i '$d' temp_change.md;
                 sed -i 's/\[Quotae\]/\[Quote_a\]/' temp_change.md;
-                echo "VERSION[][`date +'%Y/%m/%d'`]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\1/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt;
+                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\1/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt;
                 cat CHANGELOG.md | sed '1d' >> temp_change.md;
-                cp temp_change.md CHANGELOG.md;
+                mv temp_change.md CHANGELOG.md;
                 mv changelog_new.txt changelog.txt
             - name: Update manifest.xml
               run: python3 update_manifest.py --quiet --in-place --set-version=${{ github.event.inputs.releaseVersion }}
