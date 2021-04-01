@@ -173,7 +173,7 @@ Has Alt Variant Two: true
 ]]
 }
 
-local abbreviate = function(string)
+local abbreviateModId = function(string)
 	return (string:
 	gsub("Increased", "Inc"):
 	gsub("Reduced", "Red."):
@@ -185,7 +185,7 @@ local abbreviate = function(string)
 end
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	local variantName = abbreviate(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+	local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
 	if watchersEyeLegacyMods[mod.Id] then
 		if watchersEyeLegacyMods[mod.Id].version then
 			table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")

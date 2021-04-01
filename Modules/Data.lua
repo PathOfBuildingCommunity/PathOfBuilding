@@ -492,11 +492,10 @@ for modId in pairs(unsortedMods) do
 end
 table.sort(sortedMods)
 for _, modId in ipairs(sortedMods) do
-	local datum = {
+	table.insert(data.uniqueMods["Watcher's Eye"], {
 		Id = modId,
 		mod = unsortedMods[modId],
-	}
-	table.insert(data.uniqueMods["Watcher's Eye"], datum)
+	})
 end
 LoadModule("Data/Generated")
 LoadModule("Data/New")
