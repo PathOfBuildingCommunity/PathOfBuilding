@@ -22,7 +22,7 @@ jobs:
               id: getprevioustag
               uses: WyriHaximus/github-action-get-previous-tag@v1.0.1
             - name: Generate Release notes
-              run: github_changelog_generator --user PathOfBuildingCommunity --project PathOfBuilding -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --token ${{ secrets.CHANGELOG_GITHUB_TOKEN }} --since-tag ${{ steps.previoustag.outputs.tag }} --no-issues true --date-format %Y/%m/%d
+              run: github_changelog_generator --user PathOfBuildingCommunity --project PathOfBuilding -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --token ${{ secrets.CHANGELOG_GITHUB_TOKEN }} --since-tag ${{ github.event.inputs.sinceTag }} --no-issues true --date-format %Y/%m/%d
             - name: Tweak changelogs
               run: >
                 sed -i '$d' temp_change.md;
