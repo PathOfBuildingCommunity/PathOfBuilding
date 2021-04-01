@@ -18,9 +18,6 @@ jobs:
               uses: actions/checkout@v2
             - name: Install changelog generator
               run: sudo gem install github_changelog_generator
-            - name: Get Latest Tag
-              id: getprevioustag
-              uses: WyriHaximus/github-action-get-previous-tag@v1.0.1
             - name: Generate Release notes
               run: github_changelog_generator --user PathOfBuildingCommunity --project PathOfBuilding -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --token ${{ secrets.CHANGELOG_GITHUB_TOKEN }} --since-tag ${{ github.event.inputs.sinceTag }} --no-issues true --date-format %Y/%m/%d
             - name: Tweak changelogs
