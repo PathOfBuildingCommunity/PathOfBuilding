@@ -163,12 +163,14 @@ local watchersEyeLegacyMods = {
 	["MalevolenceChaosNonAilmentDamageOverTimeMultiplier"] = { },
 }
 
-local watchersEye = { [[
-		Watcher's Eye
-		Prismatic Jewel
-		Source: Drops from unique{The Elder}
-		Has Alt Variant: true
-		Has Alt Variant Two: true]]
+local watchersEye = {
+[[
+Watcher's Eye
+Prismatic Jewel
+Source: Drops from unique{The Elder}
+Has Alt Variant: true
+Has Alt Variant Two: true
+]]
 }
 
 local abbreviate = function(string)

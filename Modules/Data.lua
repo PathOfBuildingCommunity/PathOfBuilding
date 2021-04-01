@@ -487,7 +487,9 @@ data.uniqueMods = { }
 data.uniqueMods["Watcher's Eye"] = { }
 local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")
 local sortedMods = { }
-for modId in pairs(unsortedMods) do table.insert(sortedMods, modId) end
+for modId in pairs(unsortedMods) do
+	table.insert(sortedMods, modId)
+end
 table.sort(sortedMods)
 for _, modId in ipairs(sortedMods) do
 	local datum = {
