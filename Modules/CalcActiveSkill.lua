@@ -124,6 +124,14 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	return activeSkill
 end
 
+-- Copy an Active Skill
+function calcs.copyActiveSkill(env, mode, skill)
+	local newSkill = calcs.createActiveSkill(skill.activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
+	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, {}, {})
+	calcs.buildActiveSkillModList(newEnv, newSkill)
+	return newSkill, newEnv
+end
+
 -- Get weapon flags and info for given weapon
 local function getWeaponFlags(env, weaponData, weaponTypes)
 	local info = env.data.weaponTypeInfo[weaponData.type]

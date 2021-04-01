@@ -573,7 +573,7 @@ skills["SupportCastOnCrit"] = {
 	statMap = {
 		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
-		}
+		},
 	},
 	baseMods = {
 	},
@@ -650,7 +650,6 @@ skills["SupportCastOnCritTriggered"] = {
 		},
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
@@ -773,7 +772,6 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 		},
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
@@ -2613,6 +2611,27 @@ skills["SupportGemMirageArcher"] = {
 	excludeSkillTypes = { SkillType.Vaal, SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Minion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_mirage_archer_base_duration"] = {
+			mod("MirageArcherDuration", "BASE", nil),
+			div = 1000,
+		},
+		["support_mirage_archer_damage_+%_final"] = {
+			mod("MirageArcherLessDamage", "BASE", nil),
+		},
+		["support_mirage_archer_attack_speed_+%_final"] = {
+			mod("MirageArcherLessAttackSpeed", "BASE", nil),
+		},
+		["mirage_archer_number_of_additional_projectiles"] = {
+			mod("MirageArcherAdditionalProjectileCount", "BASE", nil)
+		},
+		["summon_mirage_archer_on_hit"] = {
+			mod("MirageArcherMaxCount", "BASE", 1),
+		},
+	},
+	baseFlags = {
+		duration = true,
+	},
 	baseMods = {
 	},
 	qualityStats = {

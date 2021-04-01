@@ -952,15 +952,15 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		local nodeOutput, pathOutput
 		if node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependent nodes
-			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
+			nodeOutput = calcFunc({ removeNodes = { [node] = true } }, {})
 			if pathLength > 1 then
-				pathOutput = calcFunc({ removeNodes = pathNodes })
+				pathOutput = calcFunc({ removeNodes = pathNodes }, {})
 			end
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			nodeOutput = calcFunc({ addNodes = { [node] = true } }, {})
 			if pathLength > 1 then
-				pathOutput = calcFunc({ addNodes = pathNodes })
+				pathOutput = calcFunc({ addNodes = pathNodes }, {})
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")

@@ -1128,6 +1128,7 @@ function ItemClass:BuildModList()
 				level = skill.level,
 				noSupports = skill.noSupports,
 				source = self.modSource,
+				triggered = skill.triggered,
 			})
 		end
 	end

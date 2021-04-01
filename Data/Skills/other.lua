@@ -326,7 +326,6 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 		},
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -384,7 +383,6 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -1798,6 +1796,14 @@ skills["UniqueMirageWarriors"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromItem = true,
+	statMap = {
+		["skill_used_by_mirage_warrior_damage_+%_final"] = {
+			mod("SaviourMirageWarriorLessDamage", "BASE", nil),
+		},
+		["maximum_number_of_mirage_warriors"] = {
+			mod("SaviourMirageWarriorMaxCount", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -3046,5 +3052,136 @@ skills["SupportTriggerSpellOnAttack"] = {
 	},
 	levels = {
 		[1] = { 1, cooldown = 0.15, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SupportTriggerSpellOnBowAttack"] = {
+	name = "Asenath's Chant",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
+	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_has_trigger_from_unique_item",
+		"triggered_skill_uses_main_hand_or_averaged_attack_time_for_pvp_scaling",
+	},
+	levels = {
+		[1] = { 1, cooldown = 0.3, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SupportTriggerSpellFromHelmet"] = {
+	name = "Focus",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
+	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_triggered_when_you_focus_chance_%",
+	},
+	levels = {
+		[1] = { 100, cooldown = 0.25, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SupportTriggerSpellOnSkillUse"] = {
+	name = "Craft",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
+	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_has_trigger_from_crafted_item_mod",
+	},
+	levels = {
+		[1] = { 1, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SupportTriggerBowSkillOnBowAttack"] = {
+	name = "Maloney's Mechanism",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Vaal, SkillType.TriggeredGrantedSkill, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_has_trigger_from_unique_item",
+	},
+	levels = {
+		[1] = { 1, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SupportCastOnManaSpent"] = {
+	name = "Kitava's Thirst",
+	hidden = true,
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
+	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Aura, SkillType.TriggeredGrantedSkill, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"support_cast_on_mana_spent",
+	},
+	levels = {
+		[1] = { cooldown = 0.1, levelRequirement = 1, statInterpolation = { }, },
+	},
+}
+skills["Focus"] = {
+	name = "Focus",
+	hidden = true,
+	color = 2,
+	description = "Focus your power, granting yourself the Focussed buff.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.SecondWindSupport] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	cannotBeSupported = true,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"base_skill_is_instant",
+		"fixed_skill_effect_duration",
+		"display_skill_fixed_duration_buff",
+	},
+	levels = {
+		[1] = { 4000, cooldown = 12, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }

@@ -78,6 +78,7 @@ data = { }
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
+	{ stat="FullDPS", label="Full DPS" },
 	{ stat="CombinedDPS", label="Combined DPS" },
 	{ stat="TotalDPS", label="Total DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
@@ -286,6 +287,7 @@ data.misc = { -- magic numbers
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
 	PurposefulHarbingerMaxBuffPercent = 40,
+	MaxEnemyLevel = 84,
 }
 
 -- Misc data tables

@@ -787,7 +787,6 @@ skills["SupportCastWhileChannellingTriggered"] = {
 		},
 	},
 	baseMods = {
-		skill("triggeredWhileChannelling", true),
 	},
 	qualityStats = {
 		Default = {
@@ -913,7 +912,6 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 		},
 	},
 	baseMods = {
-		skill("triggeredWhileChannelling", true),
 	},
 	qualityStats = {
 		Default = {

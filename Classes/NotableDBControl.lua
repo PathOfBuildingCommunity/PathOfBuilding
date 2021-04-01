@@ -134,12 +134,12 @@ function NotableDBClass:ListBuilder()
 		local start = GetTime()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
-		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) })
+		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) }, {})
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
 			node.measuredPower = 0
 			if node.modKey ~= "" then
-				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) })
+				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) }, {})
 				node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
 				self.sortMaxPower = m_max(self.sortMaxPower, node.measuredPower)
 			end
