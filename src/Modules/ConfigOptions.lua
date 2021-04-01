@@ -1316,7 +1316,7 @@ return {
 	{ var = "enemyChaosResist", type = "integer", label = "Enemy Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
-	{ var = "EhpCalcMode", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\tMinimum: calculates each one and uses the worst\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Minimum",label="Minimum"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
+	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemyHit", type = "count", label = "Enemy Hit Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet." },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:"},
 	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill Lightning Damage:"},
