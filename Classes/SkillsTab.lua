@@ -158,6 +158,9 @@ will automatically apply to the skill.]]
 		return label
 	end
 
+	-- Scroll bar
+	self.controls.scrollBarH = new("ScrollBarControl", nil, 0, 0, 0, 18, 100, "HORIZONTAL", true)
+
 	-- Skill gem slots
 	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16, 0, 0)
 	self.gemSlots = { }
@@ -330,6 +333,16 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	self.y = viewPort.y
 	self.width = viewPort.width
 	self.height = viewPort.height
+	self.controls.scrollBarH.width = viewPort.width
+	self.controls.scrollBarH.x = viewPort.x
+	self.controls.scrollBarH.y = viewPort.y + viewPort.height - 18
+
+	do
+		local maxX = self.controls.gemCountHeader:GetPos() + self.controls.gemCountHeader:GetSize() + 15
+		local contentWidth = maxX - self.x
+		self.controls.scrollBarH:SetContentDimension(contentWidth, viewPort.width)
+	end
+	self.x = self.x - self.controls.scrollBarH.offset
 
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
@@ -345,6 +358,15 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyUp" then
+			if event.key == "WHEELDOWN" or event.key == "PAGEDOWN" then
+				self.controls.scrollBarH:Scroll(1)
+			elseif event.key == "WHEELUP" or event.key == "PAGEUP" then
+				self.controls.scrollBarH:Scroll(-1)
+			end
+		end
+	end
 
 	main:DrawBackground(viewPort)
 
