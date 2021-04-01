@@ -512,10 +512,7 @@ return {
 	{ var = "multiplierGaleForce", type = "count", label = "# of Gale Force:", ifCond = "CanGainGaleForce", tooltip = "Base maximum Gale Force is 10.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:GaleForce", "BASE", val, "Config", { type = "IgnoreCond" }, { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainGaleForce" })
 	end },
-	{ var = "useInspirationCharges", type = "check", label = "Do you use Inspiration Charges?", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
-		modList:NewMod("UseInspirationCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "overrideInspirationCharges", type = "count", label = "# of Inspiration Charges (if not maximum):", ifOption = "useInspirationCharges", apply = function(val, modList, enemyModList)
+	{ var = "overrideInspirationCharges", type = "count", label = "# of Inspiration Charges (if not maximum):", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("InspirationCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "useGhostShrouds", type = "check", label = "Do you use Ghost Shrouds?", ifMult = "GhostShroud", apply = function(val, modList, enemyModList)
