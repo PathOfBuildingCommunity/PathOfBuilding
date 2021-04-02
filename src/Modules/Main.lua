@@ -940,9 +940,9 @@ end
 
 function main:SetWindowTitleSubtext(subtext)
 	if not subtext or not self.showTitlebarName then
-		SetWindowTitle("Path of Building")
+		SetWindowTitle(APP_NAME)
 	else
-		SetWindowTitle("Path of Building - "..subtext)
+		SetWindowTitle(APP_NAME.." - "..subtext)
 	end
 end
 

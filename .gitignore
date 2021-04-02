@@ -1,6 +1,10 @@
 # Development tools
 .idea/
 .vs/
+.vscode/
+
+# Development files
+*.lnk
 
 # Application files
 Builds/
