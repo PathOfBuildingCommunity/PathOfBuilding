@@ -66,7 +66,7 @@ function main:Init()
 	end
 	
 	self.tree = { }
-	self.tree[latestTreeVersion] = new("PassiveTree", latestTreeVersion)
+	self:LoadTree(latestTreeVersion)
 
 	ConPrintf("Loading item databases...")
 	self.uniqueDB = { list = { } }
