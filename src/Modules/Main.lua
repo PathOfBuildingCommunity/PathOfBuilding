@@ -66,9 +66,7 @@ function main:Init()
 	end
 	
 	self.tree = { }
-	for _, treeVersion in ipairs(treeVersionList) do
-		self.tree[treeVersion] = new("PassiveTree", treeVersion)
-	end
+	self.tree[latestTreeVersion] = new("PassiveTree", latestTreeVersion)
 
 	ConPrintf("Loading item databases...")
 	self.uniqueDB = { list = { } }
@@ -209,6 +207,17 @@ the "Releases" section of the GitHub page.]])
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
 	self:LoadSettings(ignoreBuild)
+end
+
+function main:LoadTree(treeVersion)
+	if self.tree[treeVersion] then
+		return self.tree[treeVersion]
+	elseif isValueInTable(treeVersionList, treeVersion) then
+		--ConPrintf("[main:LoadTree] - Lazy Loading Tree " .. treeVersion)
+		self.tree[treeVersion] = new("PassiveTree", treeVersion)
+		return self.tree[treeVersion]
+	end
+	return nil
 end
 
 function main:CanExit()
