@@ -706,6 +706,12 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
 		end
 	end
+	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
+		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		if breakdown then
+			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "SupportManaMultiplier")
+		end
+	end
 	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
 		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
 		if breakdown then
