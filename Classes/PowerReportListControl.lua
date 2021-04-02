@@ -60,7 +60,7 @@ function PowerReportListClass:ReSort(colIndex)
 		end)
 	elseif colIndex == 5 then
 		t_sort(self.list, function (a,b)
-			if a.pathPower == b.pathPower and type(a.pathDist) == "number" and type(b.pathDist) == "number"then
+			if a.pathPower == b.pathPower and type(a.pathDist) == "number" and type(b.pathDist) == "number" then
 				return a.pathDist < b.pathDist
 			end
 			return a.pathPower > b.pathPower

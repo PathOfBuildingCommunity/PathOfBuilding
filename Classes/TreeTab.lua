@@ -610,7 +610,7 @@ function TreeTabClass:TogglePowerReport(caller)
 	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT",self.controls.specSelect,"TOPLEFT"}, -2, 24, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
 		-- this code is called by the list control when the user "selects" one of the passives in the list.
 		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
-		if(selectedNode.x) then
+		if selectedNode.x then
 			self.jumpToNode = true
 			self.jumpToX = selectedNode.x
 			self.jumpToY = selectedNode.y
