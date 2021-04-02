@@ -1,0 +1,23 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Jewel
+#baseTags 
+#base Metadata/Items/Jewels/JewelStr
+#base Metadata/Items/Jewels/JewelDex
+#base Metadata/Items/Jewels/JewelInt
+#base Metadata/Items/Jewels/JewelPrismatic
+
+#subType Abyss
+#base Metadata/Items/Jewels/JewelAbyssSummoner
+#base Metadata/Items/Jewels/JewelAbyssCaster
+#base Metadata/Items/Jewels/JewelAbyssMelee
+#base Metadata/Items/Jewels/JewelAbyssRanged
+
+#subType Cluster
+#base Metadata/Items/Jewels/JewelPassiveTreeExpansionLarge
+#base Metadata/Items/Jewels/JewelPassiveTreeExpansionMedium
+#base Metadata/Items/Jewels/JewelPassiveTreeExpansionSmall
+
+#subType Timeless
+#base Metadata/Items/Jewels/JewelTimeless

@@ -1,0 +1,6 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Quiver
+#baseTags quiver
+#baseMatch Metadata/Items/Quivers/Quiver%d+
