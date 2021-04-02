@@ -156,21 +156,21 @@ local powerChargeMods = {
 }
 
 local precursorsEmblem = {
-	"Precursor's Emblem",
-	"League: Delve",
-	"Variant: Topaz Ring",
-	"Variant: Sapphire Ring",
-	"Variant: Ruby Ring",
-	"Variant: Two-Stone Ring (Cold/Lightning)",
-	"Variant: Two-Stone Ring (Fire/Lightning)",
-	"Variant: Two-Stone Ring (Fire/Cold)",
-	"Variant: Prismatic Ring",
+[[Precursor's Emblem
+League: Delve
+Variant: Topaz Ring
+Variant: Sapphire Ring
+Variant: Ruby Ring
+Variant: Two-Stone Ring (Cold/Lightning)
+Variant: Two-Stone Ring (Fire/Lightning)
+Variant: Two-Stone Ring (Fire/Cold)
+Variant: Prismatic Ring]]
 }
 
-for prefix, type in pairs({ ["Endurance - "] = enduranceChargeMods, ["Frenzy - "] = frenzyChargeMods, ["Power - "] = powerChargeMods }) do
-	for tier, mods in ipairs(type) do
+for _, type in ipairs({ { prefix = "Endurance - ", mods = enduranceChargeMods }, { prefix = "Frenzy - ", mods = frenzyChargeMods }, { prefix = "Power - ", mods = powerChargeMods } }) do
+	for tier, mods in ipairs(type.mods) do
 		for desc, mod in pairs(mods) do
-			table.insert(precursorsEmblem, "Variant: " .. prefix .. desc)
+			table.insert(precursorsEmblem, "Variant: " .. type.prefix .. desc)
 		end
 	end
 end
@@ -215,7 +215,6 @@ for _, type in ipairs({ enduranceChargeMods, frenzyChargeMods, powerChargeMods }
 			elseif mod:match("%(%d+%-%d+%) to %(%d+%-%d+%)") then
 				mod = mod:gsub("(%(%d+%-)(%d+)(%) to %(%d+%-)(%d+)%)", function(preceeding, higher1, middle, higher2) return preceeding .. higher1 * tier .. middle .. higher2 * tier .. ")" end)
 			end
-
 			table.insert(precursorsEmblem, "{variant:" .. index .. "}{range:0}" .. mod)
 			index = index + 1
 		end
