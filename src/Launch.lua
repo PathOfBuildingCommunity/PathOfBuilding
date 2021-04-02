@@ -5,7 +5,7 @@
 -- Program entry point; loads and runs the Main module within a protected environment
 --
 
-APP_NAME = "PoB Community Fork"
+APP_NAME = "Path of Building"
 
 SetWindowTitle(APP_NAME)
 ConExecute("set vid_mode 8")
