@@ -44,6 +44,9 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	-- List of nodes allocated in subgraphs; used to maintain allocation when loading, and when rebuilding subgraphs
 	self.allocSubgraphNodes = { }
 
+	-- List of cluster nodes to allocate
+	self.allocExtendedNodes = { }
+
 	-- Table of jewels equipped in this tree
 	-- Keys are node IDs, values are items
 	self.jewels = { }
@@ -203,6 +206,13 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 			self.allocNodes[id] = node
 		else
 			t_insert(self.allocSubgraphNodes, id)
+		end
+	end
+	for _, id in pairs(self.allocExtendedNodes) do
+		local node = self.nodes[id]
+		if node then
+			node.alloc = true
+			self.allocNodes[id] = node
 		end
 	end
 	self:SelectAscendClass(ascendClassId)
@@ -754,12 +764,26 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	end
 	wipeTable(self.subGraphs)
 
+	local importedGroups = { }
+	local importedNodes = { }
+	if self.jewel_data then
+		for _, value in pairs(self.jewel_data) do
+			if value.subgraph then
+				for groupId, groupData in pairs(value.subgraph.groups) do
+					importedGroups[groupId] = groupData
+				end
+				for nodeId, nodeValue in pairs(value.subgraph.nodes) do
+					importedNodes[nodeId] = nodeValue
+				end
+			end
+		end
+	end
 	for nodeId in pairs(self.tree.sockets) do
 		local node = self.tree.nodes[nodeId]
 		local jewel = self:GetJewel(self.jewels[nodeId])
 		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
 			-- This is a Large Jewel Socket, and it has a cluster jewel in it
-			self:BuildSubgraph(jewel, self.nodes[nodeId])
+			self:BuildSubgraph(jewel, self.nodes[nodeId], nil, nil, importedNodes, importedGroups)
 		end
 	end
 
@@ -768,7 +792,10 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 		local node = self.nodes[nodeId]
 		if node then
 			node.alloc = true
-			self.allocNodes[nodeId] = node
+			if not self.allocNodes[nodeId] then
+				self.allocNodes[nodeId] = node
+				t_insert(self.allocExtendedNodes, nodeId)
+			end
 		end
 	end
 	wipeTable(self.allocSubgraphNodes)
@@ -780,7 +807,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	self.build.treeTab.viewer.searchStrCached = ""
 end
 
-function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
+function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importedNodes, importedGroups)
 	local expansionJewel = parentSocket.expansionJewel
 	local clusterJewel = jewel.clusterJewel
 	local jewelData = jewel.jewelData
@@ -834,6 +861,42 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
 	end
 
+	local function matchGroup(proxyId)
+		for groupId, groupData in pairs(importedGroups) do
+			if groupData.proxy == proxyId then
+				return groupId
+			end
+		end
+	end
+
+	local function inExtendedHashes(nodeId)
+		for _, exID in ipairs(self.extended_hashes) do
+			if nodeId == exID then
+				return true
+			end
+		end
+		return false
+	end
+
+	local function addToAllocatedSubgraphNodes(node)
+		local proxyGroup = matchGroup(expansionJewel.proxy)
+		if proxyGroup then
+			for id, data in pairs(importedNodes) do
+				if proxyGroup == data.group then
+					if node.oidx == data.orbitIndex and node.type ~= "Mastery" then
+						for _, extendedId in ipairs(importedGroups[proxyGroup].nodes) do
+							if id == tonumber(extendedId) and inExtendedHashes(id) then
+								return true
+							end
+						end
+						return false
+					end
+				end
+			end
+		end
+		return false
+	end
+
 	if jewelData.clusterJewelKeystone then
 		-- Special handling for keystones
 		local keystoneNode = self.tree.clusterNodeMap[jewelData.clusterJewelKeystone]
@@ -849,7 +912,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 			expansionSkill = true,
 			group = subGraph.group,
 			o = 0,
-			oidx = 0,
+			oidx = 1,
 			linked = { },
 			power = { },
 		}
@@ -860,6 +923,10 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		linkNodes(node, parentSocket)
 		subGraph.entranceNode = node
 		self.nodes[node.id] = node
+		if addToAllocatedSubgraphNodes(node) then
+			t_insert(self.allocSubgraphNodes, node.id)
+			t_insert(self.allocExtendedNodes, node.id)
+		end
 		return
 	end
 
@@ -1115,11 +1182,14 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	-- Add synthetic nodes to the main node list
 	for _, node in ipairs(subGraph.nodes) do
 		self.nodes[node.id] = node
+		if addToAllocatedSubgraphNodes(node) then
+			t_insert(self.allocSubgraphNodes, node.id)
+		end
 		if node.type == "Socket" then
 			-- Recurse to smaller jewels
 			local jewel = self:GetJewel(self.jewels[node.id])
 			if jewel and jewel.jewelData.clusterJewelValid then
-				self:BuildSubgraph(jewel, node, id, upSize)
+				self:BuildSubgraph(jewel, node, id, upSize, importedNodes, importedGroups)
 			end
 		end
 	end
