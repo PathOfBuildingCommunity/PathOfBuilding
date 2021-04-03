@@ -702,7 +702,7 @@ end
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(self.tree["2_6"].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	DrawImage(self.tree[latestTreeVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
 	SetDrawLayer(nil, 0)
 end
 
@@ -940,9 +940,9 @@ end
 
 function main:SetWindowTitleSubtext(subtext)
 	if not subtext or not self.showTitlebarName then
-		SetWindowTitle("Path of Building")
+		SetWindowTitle(APP_NAME)
 	else
-		SetWindowTitle("Path of Building - "..subtext)
+		SetWindowTitle(APP_NAME.." - "..subtext)
 	end
 end
 
