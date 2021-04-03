@@ -37,7 +37,7 @@ function launch:OnInit()
 		end
 	end
 	local xml = require("xml")
-	local localManXML = xml.LoadXMLFile("manifest.xml")
+	local localManXML = xml.LoadXMLFile("manifest.xml") or xml.LoadXMLFile("../manifest.xml")
 	if localManXML and localManXML[1].elem == "PoBVersion" then
 		for _, node in ipairs(localManXML[1]) do
 			if type(node) == "table" then
