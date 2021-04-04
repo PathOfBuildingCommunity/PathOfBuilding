@@ -3676,16 +3676,17 @@ function calcs.offence(env, actor, activeSkill)
 	-- General's Cry Mirage Warriors
 	if activeSkill.activeEffect.grantedEffect.name == "General's Cry" then
 		local usedSkill = nil
+		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			if triggerSkill.socketGroup == activeSkill.socketGroup and triggerSkill ~= activeSkill and triggerSkill.skillData.triggeredByGeneralsCry then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
-				if not GlobalCache.cachedData["CALCS"][uuid] then
-					calcs.buildActiveSkill(env, "CALCS", triggerSkill)
+				if not GlobalCache.cachedData[calcMode][uuid] then
+					calcs.buildActiveSkill(env, calcMode, triggerSkill)
 					env.dontCache = true
 				end
-				if GlobalCache.cachedData["CALCS"][uuid] then
-					usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
+				if GlobalCache.cachedData[calcMode][uuid] then
+					usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 				end
 				break
 			end
@@ -3696,7 +3697,7 @@ function calcs.offence(env, actor, activeSkill)
 			local exertInc = env.modDB:Sum("INC", usedSkill.skillCfg, "ExertIncrease")
 			local exertMore = env.modDB:Sum("MORE", usedSkill.skillCfg, "ExertIncrease")
 
-			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
+			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "General's Cry", activeSkill.ModFlags, activeSkill.KeywordFlags)
@@ -3709,11 +3710,6 @@ function calcs.offence(env, actor, activeSkill)
 				maxMirageWarriors = maxMirageWarriors + mod.value
 			end
 
-			-- Recalculate the offensive/defensive aspects of this new skill
-			newEnv.player.mainSkill = newSkill
-			calcs.perform(newEnv)
-			env.player.mainSkill = newSkill
-
 			if usedSkill.skillPartName then
 				env.player.mainSkill.skillPart = usedSkill.skillPart
 				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
@@ -3721,6 +3717,12 @@ function calcs.offence(env, actor, activeSkill)
 			else
 				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
+
+			-- Recalculate the offensive/defensive aspects of this new skill
+			newEnv.player.mainSkill = newSkill
+			calcs.perform(newEnv)
+			env.player.mainSkill = newSkill
+
 			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 
 			-- Re-link over the output
@@ -3735,7 +3737,11 @@ function calcs.offence(env, actor, activeSkill)
 				env.player.breakdown = newEnv.player.breakdown
 
 				-- Make any necessary corrections to breakdown
-				env.player.breakdown.ManaCost = nil
+			end
+
+			-- Copy over original breakdown components (if present)
+			if breakdown then
+				env.player.breakdown.ManaCost = breakdown.ManaCost
 			end
 
 			usedSkill.TotalDPS = 0
