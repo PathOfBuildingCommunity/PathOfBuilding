@@ -254,3 +254,122 @@ for index, name in ipairs(keystones) do
 end
 table.insert(skinOfTheLords, "Corrupted")
 table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
+
+--[[ 3 scenarios exist for legacy mods
+	- Mod changed, but kept the same mod Id
+		-- Has legacyMod
+	- Mod removed, or changed with a new mod Id
+		-- Has only a version when it changed
+	- Mod changed/removed, but isn't legacy
+		-- Has empty table to exclude it from the list
+]]
+local watchersEyeLegacyMods = {
+	["ClarityManaAddedAsEnergyShield"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(12-18)")) end,
+	},
+	["ClarityReducedManaCost"] = {
+		["version"] = "3.8.0",
+	},
+	["ClarityManaRecoveryRate"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(20-30)")) end,
+	},
+	["DisciplineEnergyShieldRecoveryRate"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(20-30)")) end,
+	},
+	["MalevolenceDamageOverTimeMultiplier"] = {
+		["version"] = "3.8.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(36-44)")) end,
+	},
+	["MalevolenceLifeAndEnergyShieldRecoveryRate"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(15-20)")) end,
+	},
+	["PrecisionIncreasedCriticalStrikeMultiplier"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(30-50)")) end,
+	},
+	["VitalityDamageLifeLeech"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(1-1.5)")) end,
+	},
+	["VitalityFlatLifeRegen"] = {
+		["version"] = "3.12.0",
+	},
+	["VitalityLifeRecoveryRate"] = {
+		["version"] = "3.12.0",
+		["legacyMod"] = function(currentMod) return (currentMod:gsub("%(.*%)", "(20-30)")) end,
+	},
+	["WrathLightningDamageManaLeech"] = {
+		["version"] = "3.8.0",
+	},
+	["PurityOfFireReducedReflectedFireDamage"] = { },
+	["PurityOfIceReducedReflectedColdDamage"] = { },
+	["PurityOfLightningReducedReflectedLightningDamage"] = { },
+	["MalevolenceSkillEffectDuration"] = { },
+	["ZealotryMaximumEnergyShieldPerSecondToMaximumEnergyShieldLeechRate"] = { },
+	["MalevolenceColdDamageOverTimeMultiplier"] = { },
+	["MalevolenceChaosNonAilmentDamageOverTimeMultiplier"] = { },
+}
+
+local watchersEye = {
+[[
+Watcher's Eye
+Prismatic Jewel
+Source: Drops from unique{The Elder}
+Has Alt Variant: true
+Has Alt Variant Two: true
+]]
+}
+
+local abbreviateModId = function(string)
+	return (string:
+	gsub("Increased", "Inc"):
+	gsub("Reduced", "Red."):
+	gsub("Critical", "Crit"):
+	gsub("Physical", "Phys"):
+	gsub("Elemental", "Ele"):
+	gsub("Multiplier", "Mult"):
+	gsub("EnergyShield", "ES"))
+end
+
+for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
+	local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+	if watchersEyeLegacyMods[mod.Id] then
+		if watchersEyeLegacyMods[mod.Id].version then
+			table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
+		end
+		if watchersEyeLegacyMods[mod.Id].legacyMod then
+			table.insert(watchersEye, "Variant:" .. variantName)
+		end
+	else
+		table.insert(watchersEye, "Variant:" .. variantName)
+	end
+end
+
+table.insert(watchersEye,
+[[Limited to: 1
+(4-6)% increased maximum Energy Shield
+(4-6)% increased maximum Life
+(4-6)% increased maximum Mana]])
+
+local index = 1
+for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
+	if watchersEyeLegacyMods[mod.Id] then
+		if watchersEyeLegacyMods[mod.Id].legacyMod then
+			table.insert(watchersEye, "{variant:" .. index .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
+			index = index + 1
+		end
+		if watchersEyeLegacyMods[mod.Id].version then
+			table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
+			index = index + 1
+		end
+	else
+		table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
+		index = index + 1
+	end
+end
+
+table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
