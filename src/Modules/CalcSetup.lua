@@ -317,13 +317,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- skill-related
 		env.player.activeSkillList = { }
 		env.auxSkillList = { }
-	elseif accelerate.everything then
-		local minionDB = nil
-		env.modDB.parent, env.enemyDB.parent, minionDB = specCopy(env)
-		if minionDB then
-			env.minion.modDB.parent = minionDB
-		end
-		wipeEnv(env, accelerate)
+	--elseif accelerate.everything then
+	--	local minionDB = nil
+	--	env.modDB.parent, env.enemyDB.parent, minionDB = specCopy(env)
+	--	if minionDB then
+	--		env.minion.modDB.parent = minionDB
+	--	end
+	--	wipeEnv(env, accelerate)
 	else
 		wipeEnv(env, accelerate)
 		modDB = env.modDB

@@ -257,4 +257,5 @@ GlobalCache = {
 	deleteGroup = { },
 	excludeFullDpsList = { },
 	dontUseCache = nil,
+	useFullDPS = false,
 }
