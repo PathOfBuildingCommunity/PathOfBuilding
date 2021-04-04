@@ -61,6 +61,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	if dbType == "UNIQUE" then
 		self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY + 20, 179, 18, self.sortDropList, function(index, value)
 			self:SetSortMode(value.sortMode)
+			GlobalCache.useFullDPS = value.sortMode == "FullDPS"
 		end)
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
 			self.listBuildFlag = true
