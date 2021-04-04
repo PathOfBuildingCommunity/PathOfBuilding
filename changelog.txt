@@ -1,3 +1,46 @@
+VERSION[2.0.0][2021/04/04]
+
+* Lazy Passive Tree Loading Nostrademous
+* Add mana reservation breakdown Wires77
+* Add ability to paste with right-click Wires77
+* Handle Cluster Generation based on New Import Format Nostrademous
+* Removing garbage collection calls to improve memory Wires77
+* Profiling Nostrademous
+* Made inspiration charges default to maximum Wires77
+* Add support for Doryani's Prototype lightning resist equal to yours andrewbelu
+* Add handling for Doedre's Skin ignore curse limit mod andrewbelu
+* Add support for Blunderbore's shrine effects andrewbelu
+* Add admiral lowest resist andrewbelu
+* Use thousands separator preference in damage header mweber15
+* Add support for Actum crit modifier andrewbelu
+* Updated ServerTickRate; Added ServerTickTime Nostrademous
+* Add Culling DPS left-hand-side Display if build includes culling Nostrademous
+* Add support for The Dark Seer's Malediction debuff Helyos96
+* Automatically generate Watcher's Eye Wires77
+* Add support for Precursor's Emblem Wires77
+* PR: Triggers & FullDPS Nostrademous
+
+* Fix brand attachment limit for several skills Wires77
+* Add enchants and fix enchanting UI PJacek
+* Fix flask effect incorrect in certain situations Wires77
+* Fix: changed divergent nightblade from base crit to inc crit% pundm
+* Add support for Flickershade spectre chaos damage conversion Wires77
+* Fix Fanaticism should not apply to attacks Wires77
+* Fix wording on Poet's Pen Nostrademous
+* Add more support for intimidate/unnerve andrewbelu
+* Fix Voidshot Parsing LocalIdentity
+* Fix Divergent Ensnaring Arrow LocalIdentity
+* Fix Physical Damage Reduction able to go below zero andrewbelu
+*  Fix Anomalous Infused Channelling ALT-F-X
+
+* Testing manifest update for auto-updater Wires77
+* Update manifest file location Wires77
+* New Structure Fix-Ups Nostrademous
+* Fix - curses with two words weren't being parsed correctly Wires77
+* Refactor project structure ppoelzl
+
+
+
 VERSION[1.4.170.28][2021/03/04]
 
 * Add support for Culling (andrewbelu)
