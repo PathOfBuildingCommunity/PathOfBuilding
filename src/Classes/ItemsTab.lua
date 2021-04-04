@@ -261,7 +261,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		if not self.controls.displayItemVariant:IsShown() then
 			return 0
 		end
-		return 28 + (self.displayItem.hasAltVariant and 24 or 0) + (self.displayItem.hasAltVariant2 and 24 or 0)
+		return 28 + (self.displayItem.hasAltVariant and 24 or 0) + (self.displayItem.hasAltVariant2 and 24 or 0) + (self.displayItem.hasAltVariant3 and 24 or 0)
 	end)
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
 		self.displayItem.variant = index
@@ -289,6 +289,15 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end)
 	self.controls.displayItemAltVariant2.shown = function()
 		return self.displayItem.hasAltVariant2
+	end
+	self.controls.displayItemAltVariant3 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant2,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+		self.displayItem.variantAlt3 = index
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant3.shown = function()
+		return self.displayItem.hasAltVariant3
 	end
 
 	-- Section: Sockets and Links
@@ -750,6 +759,10 @@ function ItemsTabClass:Load(xml, dbFileName)
 			if node.attrib.variantAlt2 then
 				item.hasAltVariant2 = true
 				item.variantAlt2 = tonumber(node.attrib.variantAlt2)
+			end
+			if node.attrib.variantAlt3 then
+				item.hasAltVariant3 = true
+				item.variantAlt3 = tonumber(node.attrib.variantAlt3)
 			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
@@ -1242,6 +1255,10 @@ function ItemsTabClass:SetDisplayItem(item)
 		if item.hasAltVariant2 then
 			self.controls.displayItemAltVariant2.list = item.variantList
 			self.controls.displayItemAltVariant2.selIndex = item.variantAlt2
+		end
+		if item.hasAltVariant3 then
+			self.controls.displayItemAltVariant3.list = item.variantList
+			self.controls.displayItemAltVariant3.selIndex = item.variantAlt3
 		end
 		self:UpdateSocketControls()
 		if item.crafted then
