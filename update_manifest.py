@@ -17,7 +17,7 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
     :param replace: Whether to overwrite the existing manifest file.
     :return:
     """
-    base_path = pathlib.Path("")
+    base_path = pathlib.Path()
     try:
         manifest = xml.etree.ElementTree.parse(base_path / "manifest.xml")
     except FileNotFoundError:
