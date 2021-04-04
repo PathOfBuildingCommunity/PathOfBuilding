@@ -282,7 +282,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportGemMirageArcher
-#flags duration
 	statMap = {
 		["support_mirage_archer_base_duration"] = {
 			mod("MirageArcherDuration", "BASE", nil),
