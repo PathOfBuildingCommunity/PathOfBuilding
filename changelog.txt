@@ -1,3 +1,31 @@
+VERSION[1.4.170.28][2021/03/04]
+
+* Add support for Culling (andrewbelu)
+* Add full support for Cast on Death support (Nostrademous)
+* Add support for additional cooldown usages in Warcry uptime calculations (andrewbelu)
+* Add support for "Enemies Taunted by your Warcries take x% increased Damage" (Helyos96)
+* Add character import options for Garena and Tencent realms (Wires77)
+
+* Fix crash when loading old build with cluster jewel notables added in a later patch (Wires77)
+* Fix crash when the default gem level is zero (Wires77)
+* Fix error caused by missing source of Affliction Charges (Wires77)
+* Fix Cast Rate for Self-Cast Skills that have Cooldown & Display DPS (Nostrademous)
+* Fix DoT skills incorrectly considering Attack modifiers (Nostrademous)
+* Fix Orb of Storms Activation Frequency not accounting for More multipliers to Cast Speed (pundm)
+* Fix eHP Calculation for Glancing Blows + new Block boots (LocalIdentity)
+* Fix Ballista limit with (Replica) Iron Commander equipped (pundm)
+* Fix Accuracy per Quality incorrectly being considered a local modifier (Wires77)
+* Fix Hydrosphere damage conversion not being considered local (PJacek)
+* Fix Anomalous Flesh and Stone applying twice with Iron Reflexes active (Wires77)
+* Fix Alternate Quality Purifying Flame, Hypothermia, Physical to Lightning (Wires77)
+* Fix Alternate Quality mod on Divergent Pride (ALT-F-X)
+* Fix Chain Hook not being considered an Area Skill (pundm)
+* Fix parsing of Enemy modifiers (Wires77)
+* Fix Quality mod on Devouring Diadem (Wires77)
+* Fix Yoke of Suffering equipment level requirements (pundm)
+* Fix typo in Doryani's Prototype (Helyos96)
+* Remove Crafting Bench options from items that cannot be crafted that way (pundm)
+
 VERSION[1.4.170.27][2021/02/21]
 
 * Add charge distance multiplier for Shield Charge (Helyos96)

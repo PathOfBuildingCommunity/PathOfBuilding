@@ -1,0 +1,7 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Bow
+#baseTags weapon twohand bow ranged two_hand_weapon
+#socketLimit 6
+#baseMatch Metadata/Items/Weapons/TwoHandWeapons/Bows/Bow
