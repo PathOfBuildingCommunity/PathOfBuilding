@@ -18,7 +18,7 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 
 	self.build = build
 	self.treeVersion = treeVersion
-	self.tree = main.tree[treeVersion]
+	self.tree = main:LoadTree(treeVersion)
 
 	-- Make a local copy of the passive tree that we can modify
 	self.nodes = { }

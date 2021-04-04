@@ -66,9 +66,7 @@ function main:Init()
 	end
 	
 	self.tree = { }
-	for _, treeVersion in ipairs(treeVersionList) do
-		self.tree[treeVersion] = new("PassiveTree", treeVersion)
-	end
+	self:LoadTree(latestTreeVersion)
 
 	ConPrintf("Loading item databases...")
 	self.uniqueDB = { list = { } }
@@ -209,6 +207,17 @@ the "Releases" section of the GitHub page.]])
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
 	self:LoadSettings(ignoreBuild)
+end
+
+function main:LoadTree(treeVersion)
+	if self.tree[treeVersion] then
+		return self.tree[treeVersion]
+	elseif isValueInTable(treeVersionList, treeVersion) then
+		--ConPrintf("[main:LoadTree] - Lazy Loading Tree " .. treeVersion)
+		self.tree[treeVersion] = new("PassiveTree", treeVersion)
+		return self.tree[treeVersion]
+	end
+	return nil
 end
 
 function main:CanExit()
@@ -702,7 +711,7 @@ end
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(self.tree["2_6"].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	DrawImage(self.tree[latestTreeVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
 	SetDrawLayer(nil, 0)
 end
 
@@ -940,9 +949,9 @@ end
 
 function main:SetWindowTitleSubtext(subtext)
 	if not subtext or not self.showTitlebarName then
-		SetWindowTitle("Path of Building")
+		SetWindowTitle(APP_NAME)
 	else
-		SetWindowTitle("Path of Building - "..subtext)
+		SetWindowTitle(APP_NAME.." - "..subtext)
 	end
 end
 

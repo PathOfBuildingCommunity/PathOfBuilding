@@ -2629,9 +2629,6 @@ skills["SupportGemMirageArcher"] = {
 			mod("MirageArcherMaxCount", "BASE", 1),
 		},
 	},
-	baseFlags = {
-		duration = true,
-	},
 	baseMods = {
 	},
 	qualityStats = {

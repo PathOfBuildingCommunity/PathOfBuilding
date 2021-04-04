@@ -122,7 +122,7 @@ end
 local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
 	-- Get action trigger rate
 	if sourceAPS == nil and source.skillTypes[SkillType.Channelled] then
-		ConPrintf(source.activeEffect.grantedEffect.name)
+		--ConPrintf(source.activeEffect.grantedEffect.name)
 		output.ActionTriggerRate = 1 / (source.skillData.triggerTime or 1)
 		if breakdown then
 			breakdown.ActionTriggerRate = {
@@ -1001,12 +1001,7 @@ function calcs.perform(env)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillFlags.brand then
-			local attachLimit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BrandsAttachedLimit")
-			if activeSkill.activeEffect.grantedEffect.name == "Arcanist Brand" then
-				attachLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit")
-			elseif activeSkill.activeEffect.grantedEffect.name == "Wintertide Brand" then
-				attachLimit = attachLimit + 1
-			end
+			local attachLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit")
 			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
 			local activeBrands = modDB:Sum("BASE", nil, "Multiplier:ConfigActiveBrands")
 			local actual = m_min(attachLimit, attached)

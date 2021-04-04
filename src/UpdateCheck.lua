@@ -72,7 +72,7 @@ if localManXML and localManXML[1].elem == "PoBVersion" then
 				localPlatform = node.attrib.platform
 				localBranch = node.attrib.branch
 			elseif node.elem == "Source" then
-				if node.attrib.part == "program" then
+				if node.attrib.part == "default" then
 					localSource = node.attrib.url
 				end
 			elseif node.elem == "File" then

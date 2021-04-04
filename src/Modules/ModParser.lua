@@ -670,6 +670,7 @@ local modFlagList = {
 	["vaal skill"] = { keywordFlags = KeywordFlag.Vaal },
 	["with movement skills"] = { keywordFlags = KeywordFlag.Movement },
 	["of movement skills"] = { keywordFlags = KeywordFlag.Movement },
+	["of movement skills used"] = { keywordFlags = KeywordFlag.Movement },
 	["of travel skills"] = { tag = { type = "SkillType", skillType = SkillType.TravelSkill } },
 	["of banner skills"] = { tag = { type = "SkillType", skillType = SkillType.Banner } },
 	["with lightning skills"] = { keywordFlags = KeywordFlag.Lightning },

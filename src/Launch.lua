@@ -5,7 +5,9 @@
 -- Program entry point; loads and runs the Main module within a protected environment
 --
 
-SetWindowTitle("Path of Building")
+APP_NAME = "Path of Building"
+
+SetWindowTitle(APP_NAME)
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
@@ -37,7 +39,7 @@ function launch:OnInit()
 		end
 	end
 	local xml = require("xml")
-	local localManXML = xml.LoadXMLFile("manifest.xml")
+	local localManXML = xml.LoadXMLFile("manifest.xml") or xml.LoadXMLFile("../manifest.xml")
 	if localManXML and localManXML[1].elem == "PoBVersion" then
 		for _, node in ipairs(localManXML[1]) do
 			if type(node) == "table" then

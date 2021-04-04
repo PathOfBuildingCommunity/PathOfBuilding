@@ -90,9 +90,9 @@ local config = {
     cW = 12, -- Width of the call count column
     reportSaved = "> Report saved to: ", -- Text for the file output confirmation
   }
-  
+
   --[[ Locals ]]--
-  
+
   local module = {}
   local getTime = os.clock
   local string, debug, table = string, debug, table
@@ -103,10 +103,10 @@ local config = {
   local stopTime = 0
   local printFun = nil
   local verbosePrint = false
-  
+
   local outputHeader, formatHeader, outputTitle, formatOutput, formatTotalTime
   local formatFunLine, formatFunTime, formatFunRelative, formatFunCount, divider, nilTime
-  
+
   local function deepCopy(input)
     if type(input) == "table" then
       local output = {}
@@ -118,7 +118,7 @@ local config = {
       return input
     end
   end
-  
+
   local function charRepetition(n, character)
     local s = ""
     character = character or " "
@@ -127,14 +127,14 @@ local config = {
     end
     return s
   end
-  
+
   local function singleSearchReturn(inputString, search)
     for _ in string.gmatch(inputString, search) do -- luacheck: ignore
       return true
     end
     return false
   end
-  
+
   local function rebuildColumnPatterns()
     local c = config
     local str = "s: %-"
@@ -151,7 +151,7 @@ local config = {
     -- nilTime = "0."..charRepetition(c.tW - 3, "0")
     nilTime = "0.0000"
   end
-  
+
   local function functionReport(information)
     local src = information.short_src
     if not src then
@@ -180,7 +180,7 @@ local config = {
     end
     return report
   end
-  
+
   local onDebugHook = function(hookType)
     local information = debug.getinfo(2, "nS")
     if hookType == "call" then
@@ -194,9 +194,9 @@ local config = {
       end
     end
   end
-  
+
   --[[ Functions ]]--
-  
+
   --[[Attach a print function to the profiler, to receive a single string parameter
   @param fn (function) <required>
   @param verbose (boolean) <default: false>
@@ -205,7 +205,7 @@ local config = {
     printFun = fn
     verbosePrint = verbose or false
   end
-  
+
   --[[Start the profiling
   ]]
   function module.start()
@@ -219,14 +219,14 @@ local config = {
     stopTime = nil
     debug.sethook(onDebugHook, "cr", 0)
   end
-  
+
   --[[Stop profiling
   ]]
   function module.stop()
     stopTime = getTime()
     debug.sethook()
   end
-  
+
   --[[Writes the profile report to file (will stop profiling if not stopped already)
   @param filename (string) <default: "profiler.log"> [File will be created and overwritten]
   ]]
@@ -289,7 +289,7 @@ local config = {
       printFun(config.reportSaved.."'"..filename.."'")
     end
   end
-  
+
   --[[Modify the configuration of this module programmatically;
   Provide a table with keys that share the same name as the configuration parameters:
   @param overrides (table) <required> [Each key is from a valid name, the value is the override]
@@ -306,6 +306,6 @@ local config = {
     end
     rebuildColumnPatterns()
   end
-  
+
   --[[ End ]]--
   return module

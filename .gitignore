@@ -1,6 +1,10 @@
 # Development tools
 .idea/
 .vs/
+.vscode/
+
+# Development files
+*.lnk
 
 # Application files
 Builds/
@@ -14,7 +18,7 @@ luajit/
 manifest-updated.xml
 
 # GGPK Export
-Export/ggpk/Metadata/*
-Export/ggpk/Data/*
-Export/ggpk/*.exe
-Export/ggpk/*.dll
+src/Export/ggpk/Metadata/*
+src/Export/ggpk/Data/*
+src/Export/ggpk/*.exe
+src/Export/ggpk/*.dll

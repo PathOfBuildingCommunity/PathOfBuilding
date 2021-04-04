@@ -486,5 +486,19 @@ data.uniques = { }
 for _, type in pairs(itemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
+data.uniqueMods = { }
+data.uniqueMods["Watcher's Eye"] = { }
+local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")
+local sortedMods = { }
+for modId in pairs(unsortedMods) do
+	table.insert(sortedMods, modId)
+end
+table.sort(sortedMods)
+for _, modId in ipairs(sortedMods) do
+	table.insert(data.uniqueMods["Watcher's Eye"], {
+		Id = modId,
+		mod = unsortedMods[modId],
+	})
+end
 LoadModule("Data/Generated")
 LoadModule("Data/New")
