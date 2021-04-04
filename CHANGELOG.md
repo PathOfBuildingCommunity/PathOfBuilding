@@ -11,6 +11,8 @@
 - Add support for DPS roll-up comprised of more than one skill [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
 - Add support for integer scaling of any active skill via a `count` variable [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
 - Modifies loading older passive trees to be dynamic (as needed) reducing memory consumption [\#2395](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2395) ([Nostrademous](https://github.com/Nostrademous))
+- Power report can now the show least effective allocated node [\#2250](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2250) ([Wires77](https://github.com/Wires77))
+- Node power now takes total power along the path into account [\#2250](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2250) ([Wires77](https://github.com/Wires77))
 - Add mana reservation breakdown [\#2392](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2392) ([Wires77](https://github.com/Wires77))
 - Add ability to paste with right-click [\#2387](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2387) ([Wires77](https://github.com/Wires77))
 - Add character import support for GGG's new API allowing cluster-gem node population as part of import [\#2381](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2381) ([Nostrademous](https://github.com/Nostrademous))
