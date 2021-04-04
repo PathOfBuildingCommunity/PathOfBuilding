@@ -580,6 +580,10 @@ return {
 		{ breakdown = "AuraEffectMod" },
 		{ modName = "AuraEffect", cfg = "skill" },
 	}, },
+	{ label = "Reservation Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
+		{ breakdown = "ManaReservedMod" },
+		{ modName = { "ManaReserved", "SupportManaMultiplier" }, cfg = "skill"}
+	}, },
 	{ label = "Curse Effect Mod", haveOutput = "CurseEffectMod", { format = "x {2:output:CurseEffectMod}",
 		{ breakdown = "CurseEffectMod" },
 		{ modName = "CurseEffect", cfg = "skill" },
