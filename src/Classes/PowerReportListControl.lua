@@ -12,13 +12,14 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 
 	self.originalList = report
 
-	self.ListControl(anchor, 0, 50, width, height-50, 20, false, false, self:ReList())
+	self.ListControl(anchor, 0, 50, width, height-50, 16, false, false, self:ReList())
 
 	self.colList = {
 		{ width = width * 0.15, label = "Type", sortable = true },
-		{ width = width * 0.50, label = "Node Name" },
-		{ width = width * 0.18, label = powerLabel, sortable = true },
-		{ width = width * 0.12, label = "Distance", sortable = true },
+		{ width = width * 0.45, label = "Node Name" },
+		{ width = width * 0.13, label = powerLabel, sortable = true },
+		{ width = width * 0.11, label = "Points", sortable = true },
+		{ width = width * 0.10, label = "Per Point", sortable = true },
 	}
 	self.label = "Click to focus node on tree"
 	self.colLabels = true
@@ -57,21 +58,32 @@ function PowerReportListClass:ReSort(colIndex)
 			end
 			return a.pathDist < b.pathDist
 		end)
+	elseif colIndex == 5 then
+		t_sort(self.list, function (a,b)
+			if a.pathPower == b.pathPower and type(a.pathDist) == "number" and type(b.pathDist) == "number" then
+				return a.pathDist < b.pathDist
+			end
+			return a.pathPower > b.pathPower
+		end)
 	end
 end
 
 function PowerReportListClass:ReList()
+	if not next(self.originalList) then
+		return { }
+	end
 	local filteredList = { }
 	local iterate = 1
 	local insert = true
 
 	while(true) do
 
-		if (self.originalList[iterate].power <= 0) then
-			insert = false
-		end
+		insert = self.originalList[iterate].power > 0
 		if (not self.showClusters) and (self.originalList[iterate].pathDist == "Cluster") then
 			insert = false
+		end
+		if self.allocated and self.originalList[iterate].pathDist ~= "Cluster" then
+			insert = self.originalList[iterate].allocated and (self.originalList[iterate].pathDist <= (self.pathLength or 100))
 		end
 
 		if insert then
@@ -114,6 +126,8 @@ function PowerReportListClass:GetRowValue(column, index, report)
 		else
 			return report.pathDist
 		end
+	elseif column == 5 then
+		return report.pathPowerStr
 	else
 		return ""
 	end
