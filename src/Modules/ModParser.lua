@@ -261,7 +261,6 @@ local modNameList = {
 	["recovery rate of life and energy shield"] = { "LifeRecoveryRate", "EnergyShieldRecoveryRate" },
 	["maximum life, mana and global energy shield"] = { "Life", "Mana", "EnergyShield", tag = { type = "Global" } },
 	["non-chaos damage taken bypasses energy shield"] = {"PhysicalEnergyShieldBypass", "LightningEnergyShieldBypass", "ColdEnergyShieldBypass", "FireEnergyShieldBypass" },
-	["damage from hits is taken from your spectres' life before you"] = "DamageFromHitsTakenFromSpectres",
 	-- Stun/knockback modifiers
 	["stun recovery"] = "StunRecovery",
 	["stun and block recovery"] = "StunRecovery",
@@ -2503,6 +2502,7 @@ local specialModList = {
 	} end,
 	["primordial"] = { mod("Multiplier:PrimordialItem", "BASE", 1) },
 	["spectres have a base duration of (%d+) seconds"] = function(num) return { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre" }) } end,
+	["(%d+)%% of damage from hits is taken from your spectres' life before you"] = function(num) return { mod("DamageTakenWhenHit", "MORE", -num, { type = "StatThreshold", stat = "ActiveSpectreLimit", threshold = 1 }) } end,
 	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num) } end,
 	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelNodeCount", value = num }) } end,
 	["1 added passive skill is a jewel socket"] = { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 1 }) },
