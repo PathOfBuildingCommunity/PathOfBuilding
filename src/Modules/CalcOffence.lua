@@ -3727,7 +3727,8 @@ function calcs.offence(env, actor, activeSkill)
 			env.player.output = newEnv.player.output
 
 			-- Make any necessary corrections to output
-			env.player.output.ManaCost = 0
+			env.player.output.ManaCost = output.ManaCost
+			env.player.output.Cooldown = output.Cooldown
 
 			-- Re-link over the breakdown (if present)
 			if newEnv.player.breakdown then
