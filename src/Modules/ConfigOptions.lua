@@ -1128,9 +1128,11 @@ return {
 	end },
 	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Intimidated", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("DamageTaken", "INC", 10, "Config", ModFlag.Attack, { type = "Condition", var = "Intimidated" })
 	end },
 	{ var = "conditionEnemyUnnerved", type = "check", label = "Is the enemy Unnerved?", tooltip = "Unnerved enemies take 10% increased Spell Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Unnerved", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("DamageTaken", "INC", 10, "Config", ModFlag.Spell, { type = "Condition", var = "Unnerved" })
 	end },
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "Covered in Ash applies the following to the enemy:\n\t20% increased Fire Damage taken\n\t20% less Movement Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("CoveredInAshEffect", "BASE", 20, "Covered in Ash")
