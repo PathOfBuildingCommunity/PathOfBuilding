@@ -1,5 +1,52 @@
 # Changelog
 
+## [2.0.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.0) (2021/04/04)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v1.4.170.28...2.0.0)
+
+**Implemented enhancements:**
+
+- Add support for many trigger-based skills and items [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for General's Cry and Mirage Archer [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for DPS roll-up comprised of more than one skill [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for integer scaling of any active skill via a `count` variable [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
+- Modifies loading older passive trees to be dynamic (as needed) reducing memory consumption [\#2395](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2395) ([Nostrademous](https://github.com/Nostrademous))
+- Power report can now the show least effective allocated node [\#2250](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2250) ([Wires77](https://github.com/Wires77))
+- Node power now takes total power along the path into account [\#2250](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2250) ([Wires77](https://github.com/Wires77))
+- Add mana reservation breakdown [\#2392](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2392) ([Wires77](https://github.com/Wires77))
+- Add ability to paste with right-click [\#2387](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2387) ([Wires77](https://github.com/Wires77))
+- Add character import support for GGG's new API allowing cluster-gem node population as part of import [\#2381](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2381) ([Nostrademous](https://github.com/Nostrademous))
+- Remove garbage collection calls to improve memory [\#2376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2376) ([Wires77](https://github.com/Wires77))
+- Inspiration charges now default to maximum [\#2340](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2340) ([Wires77](https://github.com/Wires77))
+- Add full support for Doryani's Prototype lightning resist mods [\#2336](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2336) ([andrewbelu](https://github.com/andrewbelu))
+- Add handling for Doedre's Skin ignore curse limit mod [\#2335](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2335) ([andrewbelu](https://github.com/andrewbelu))
+- Add support for Blunderbore's shrine effect mods [\#2334](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2334) ([andrewbelu](https://github.com/andrewbelu))
+- Add support for The Admiral lowest resist mod [\#2333](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2333) ([andrewbelu](https://github.com/andrewbelu))
+- Use thousands separator preference in damage header [\#2329](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2329) ([mweber15](https://github.com/mweber15))
+- Add support for Actum crit modifier [\#2326](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2326) ([andrewbelu](https://github.com/andrewbelu))
+- Add Culling DPS left-hand-side display if build includes culling [\#2313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2313) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for The Dark Seer's Malediction debuff [\#2310](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2310) ([Helyos96](https://github.com/Helyos96))
+- Automatically generate Watcher's Eye [\#2305](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2305) ([Wires77](https://github.com/Wires77))
+- Add support for Precursor's Emblem [\#2304](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2304) ([Wires77](https://github.com/Wires77))
+
+**Fixed bugs:**
+
+- Fix brand attachment limit for several skills [\#2386](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2386) ([Wires77](https://github.com/Wires77))
+- Add enchants and fix enchanting UI [\#2370](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2370) ([PJacek](https://github.com/PJacek))
+- Fix flask effect being incorrect in certain situations [\#2363](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2363) ([Wires77](https://github.com/Wires77))
+- Fix: changed divergent nightblade from base crit to inc crit% [\#2358](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2358) ([pundm](https://github.com/pundm))
+- Add support for Flickershade spectre chaos damage conversion [\#2352](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2352) ([Wires77](https://github.com/Wires77))
+- Fix Fanaticism applying to attacks [\#2347](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2347) ([Wires77](https://github.com/Wires77))
+- Fix wording on Poet's Pen [\#2337](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2337) ([Nostrademous](https://github.com/Nostrademous))
+- Fix wording on Hyperboreus [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
+- Fix wording on Kitava's Thirst [\#2294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2294) ([Nostrademous](https://github.com/Nostrademous))
+- Add more support for intimidate/unnerve [\#2332](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2332) ([andrewbelu](https://github.com/andrewbelu))
+- Fix Voidshot Parsing [\#2331](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2331) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Divergent Ensnaring Arrow [\#2330](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2330) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Physical Damage Reduction able to go below zero [\#2325](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2325) ([andrewbelu](https://github.com/andrewbelu))
+- Fix Anomalous Infused Channelling [\#2317](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2317) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix: curses with two words weren't being parsed correctly [\#2375](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2375) ([Wires77](https://github.com/Wires77))
+
 ## [1.4.170.28](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/1.4.170.28) (2021/03/04)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v1.4.170.27...1.4.170.28)
