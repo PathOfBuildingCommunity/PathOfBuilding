@@ -612,11 +612,11 @@ function cacheSkillUUID(skill)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
 	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
 	local indx = 1
-	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.gemData then
+	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
 			-- we compare table addresses rather than names since two of the same gem
 			-- can be socketed in the same slot
-			if gem.gemData == skill.activeEffect.gemData then
+			if gem == skill.activeEffect.srcInstance then
 				indx = idx
 				break
 			end
