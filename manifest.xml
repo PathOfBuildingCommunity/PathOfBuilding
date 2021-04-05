@@ -7,7 +7,7 @@
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<File name="LICENSE.md" part="default" sha1="cc059ae0f4955dfdcf53bf2f40de51ac96e095b2" />
 	<File name="Launch.lua" part="program" sha1="35bf94cd83059bf540d4762e0d657c7dfdea3997" />
-	<File name="UpdateCheck.lua" part="program" sha1="982a5746e763b391ae4aeda938b595ffb76e4870" />
+	<File name="UpdateCheck.lua" part="program" sha1="82970f85659291b7a794c0f89b7d35db572bc460" />
 	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
 	<File name="GameVersions.lua" part="program" sha1="ba9b08700c20bb54453133f67139836a3997f685" />
 	<File name="changelog.txt" part="default" sha1="58b5ff05c31af4a6e2ddfcfa51924d20dab8980c" />
