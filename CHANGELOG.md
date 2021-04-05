@@ -1,4 +1,10 @@
 # Changelog
+## [2.0.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.2) (2021/04/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/2.0.1...2.0.2)
+
+- Fix looking at wrong location for saved user builds [abd8c12e](https://github.com/PathOfBuildingCommunity/PathOfBuilding-Launcher/commit/abd8c12ef23327c9605612cfc229c12bc5394f55) (https://github.com/dclamage)
+
 ## [2.0.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.1) (2021/04/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/2.0.0...2.0.1)
