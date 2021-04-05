@@ -161,7 +161,8 @@ end
 local deleteFiles = { }
 for name, data in pairs(localFiles) do
 	data.name = name
-	if not remoteFiles[name] then
+	local sanitizedName = name:gsub("{space}", " ")
+	if not remoteFiles[name] and not remoteFiles[sanitizedName] then
 		table.insert(deleteFiles, data)
 	end
 end
