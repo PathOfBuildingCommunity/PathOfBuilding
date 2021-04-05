@@ -1,13 +1,13 @@
 # Changelog
-## [2.0.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.0) (2021/04/05)
+## [2.0.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.1) (2021/04/05)
 
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v1.4.170.28...2.0.0)
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/2.0.0...2.0.1)
 
 **Fixed bugs:**
 
 - Fix crash related to Arcanist Brand [\#2408](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2408) ([Wires77](https://github.com/Wires77))
 - Fix crash related to triggered mana cost on skills from items without a level [\#2409](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2409) ([Wires77](https://github.com/Wires77))
-- Fix loading PoB from Unicode filepath [\#2413](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2413) ([Wires77](https://github.com/Wires77))
+- Fix crash when loading PoB from Unicode filepath [\#2413](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2413) ([Wires77](https://github.com/Wires77))
 
 ## [2.0.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.0) (2021/04/05)
 
