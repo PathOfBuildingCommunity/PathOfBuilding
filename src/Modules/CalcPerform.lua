@@ -2406,7 +2406,7 @@ function calcs.perform(env)
 				breakdown.Speed = {
 					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
 					s_format("x %.2f%% ^8(%s crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name),
-					s_format("x %.2f%% ^8(chance to trigger on crit)", source.skillData.chanceToTriggerOnCrit),
+					s_format("x %.2f%% ^8(chance to trigger on crit)", source.skillData.chanceToTriggerOnCrit or 100),
 					s_format("= %.2f ^8per second", trigRate),
 				}
 			end
