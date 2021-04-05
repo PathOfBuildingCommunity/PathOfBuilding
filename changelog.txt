@@ -1,3 +1,7 @@
+VERSION[2.0.2][2021/04/05]
+
+* Fix looking at wrong location for saved user builds (dclamage)
+
 VERSION[2.0.1][2021/04/05]
 
 * Fix crash related to Arcanist Brand (Wires77)
