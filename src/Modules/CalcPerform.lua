@@ -1180,7 +1180,6 @@ function calcs.perform(env)
 			activeSkill.skillData.triggered = true
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
-				ConPrintf(skill.activeEffect.grantedEffect.fromItem or "None")
 				local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 				local match2 = not skill.activeEffect.grantedEffect.fromItem and skill.socketGroup == env.player.mainSkill.socketGroup
 				if skill.skillData.triggeredByBrand and (match1 or match2) then
