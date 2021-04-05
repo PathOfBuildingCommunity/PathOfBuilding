@@ -140,7 +140,8 @@ end
 local updateFiles = { }
 for name, data in pairs(remoteFiles) do
 	data.name = name
-	if not localFiles[name] or localFiles[name].sha1 ~= data.sha1 then
+	local sanitizedName = name:gsub("{space}", " ")
+	if (not localFiles[name] or localFiles[name].sha1 ~= data.sha1) and (not localFiles[sanitizedName] or localFiles[sanitizedName].sha1 ~= data.sha1) then
 		table.insert(updateFiles, data)
 	elseif localFiles[name] then
 		local file = io.open(localFiles[name].fullPath, "rb")
@@ -160,7 +161,8 @@ end
 local deleteFiles = { }
 for name, data in pairs(localFiles) do
 	data.name = name
-	if not remoteFiles[name] then
+	local unSanitizedName = name:gsub(" ", "{space}")
+	if not remoteFiles[name] and not remoteFiles[unSanitizedName] then
 		table.insert(deleteFiles, data)
 	end
 end
