@@ -77,6 +77,7 @@ if localManXML and localManXML[1].elem == "PoBVersion" then
 				end
 			elseif node.elem == "File" then
 				local fullPath
+				node.attrib.name = node.attrib.name:gsub("{space}", " ")
 				if node.attrib.part == "runtime" then
 					fullPath = runtimePath .. "/" .. node.attrib.name
 				else
