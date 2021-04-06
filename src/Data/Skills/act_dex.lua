@@ -3103,9 +3103,9 @@ skills["ExplosiveArrow"] = {
 		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 4 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 5 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 6, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 6, 0, 0, { type = "SkillPart", skillPart = 4 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 6, 0, 0, { type = "SkillPart", skillPart = 5 }),
 	},
 	qualityStats = {
 		Default = {
