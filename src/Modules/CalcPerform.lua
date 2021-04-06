@@ -2012,13 +2012,14 @@ function calcs.perform(env)
 	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label ~= "Mirage Archer" then
 		local usedSkill = nil
 		local uuid = cacheSkillUUID(env.player.mainSkill)
+		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 
 		-- if we don't have a processed cached copy of this skill, get one
-		if not GlobalCache.cachedData["MAIN"][uuid] then
-			calcs.buildActiveSkill(env, "MAIN", env.player.mainSkill, true)
+		if not GlobalCache.cachedData[calcMode][uuid] then
+			calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
 		end
-		if GlobalCache.cachedData["MAIN"][uuid] then
-			usedSkill = GlobalCache.cachedData["MAIN"][uuid].ActiveSkill
+		if GlobalCache.cachedData[calcMode][uuid] then
+			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 		end
 
 		if usedSkill then
@@ -2053,20 +2054,21 @@ function calcs.perform(env)
 	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label == "Mirage Archer" then
 		local usedSkill = nil
 		local uuid = cacheSkillUUID(env.player.mainSkill)
+		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 
 		-- re-build the active skill in this case and don't cache
-		calcs.buildActiveSkill(env, "CALCS", env.player.mainSkill, true)
+		calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
 		env.dontCache = true
 
-		if GlobalCache.cachedData["CALCS"][uuid] then
-			usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
+		if GlobalCache.cachedData[calcMode][uuid] then
+			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 		end
 
 		if usedSkill then
 			local moreDamage =  usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "MirageArcherLessDamage")
 			local moreAttackSpeed = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "MirageArcherLessAttackSpeed")
 
-			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
+			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
