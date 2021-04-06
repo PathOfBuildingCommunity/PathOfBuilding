@@ -289,7 +289,7 @@ end
 
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, setMark)
-	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, {}, {})
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill
