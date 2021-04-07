@@ -115,7 +115,7 @@ function calcs.getMiscCalculator(build)
 	local baseOutput = env.player.output
 
 	return function(override, accelerate)
-		if accelerate then
+		if accelerate and (accelerate.everything or accelerate.nodeAlloc or accelerate.requirementsItems or accelerate.requirementsGems or accelerate.skills) then
 			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
 		else
 			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
@@ -289,7 +289,7 @@ end
 
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, setMark)
-	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, {}, {})
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill

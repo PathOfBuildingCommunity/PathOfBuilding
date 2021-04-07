@@ -3753,23 +3753,24 @@ function calcs.offence(env, actor, activeSkill)
 	if activeSkill.activeEffect.grantedEffect.name == "Reflection" then
 		local usedSkill = nil
 		local usedSkillBestDps = 0
+		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Attack] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
-				if not GlobalCache.cachedData["CALCS"][uuid] then
-					calcs.buildActiveSkill(env, "CALCS", triggerSkill)
+				if not GlobalCache.cachedData[calcMode][uuid] then
+					calcs.buildActiveSkill(env, calcMode, triggerSkill)
 					env.dontCache = true
 				end
 				-- We found a skill and it can crit
-				if GlobalCache.cachedData["CALCS"][uuid] and GlobalCache.cachedData["CALCS"][uuid].CritChance and GlobalCache.cachedData["CALCS"][uuid].CritChance > 0 then
+				if GlobalCache.cachedData[calcMode][uuid] and GlobalCache.cachedData[calcMode][uuid].CritChance and GlobalCache.cachedData[calcMode][uuid].CritChance > 0 then
 					if not usedSkill then
-						usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
-						usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].TotalDPS
+						usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+						usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
 					else
-						if GlobalCache.cachedData["CALCS"][uuid].TotalDPS > usedSkillBestDps then
-							usedSkill = GlobalCache.cachedData["CALCS"][uuid].ActiveSkill
-							usedSkillBestDps = GlobalCache.cachedData["CALCS"][uuid].TotalDPS
+						if GlobalCache.cachedData[calcMode][uuid].TotalDPS > usedSkillBestDps then
+							usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+							usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
 						end
 					end
 				end
@@ -3779,7 +3780,7 @@ function calcs.offence(env, actor, activeSkill)
 		if usedSkill then
 			local moreDamage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorLessDamage")
 			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorMaxCount")
-			local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCS", usedSkill)
+			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "The Saviour", activeSkill.ModFlags, activeSkill.KeywordFlags)
@@ -3887,6 +3888,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * (skillData.dpsMultiplier or 1)
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
+			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
 		else
 			skillFlags.notAverage = true
 			output.ImpaleDPS = output.ImpaleDPS * (output.HitSpeed or output.Speed)

@@ -127,8 +127,17 @@ end
 -- Copy an Active Skill
 function calcs.copyActiveSkill(env, mode, skill)
 	local newSkill = calcs.createActiveSkill(skill.activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
-	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, {}, {})
+	local newEnv, _, _, _ = calcs.initEnv(env.build, mode)
 	calcs.buildActiveSkillModList(newEnv, newSkill)
+	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
+	if newSkill.minion then
+		if newSkill.minion then
+			newSkill.minion.modDB = new("ModDB")
+			newSkill.minion.modDB.actor = newSkill.minion
+			calcs.createMinionSkills(env, newSkill)
+			newSkill.skillPartName = newSkill.minion.mainSkill.activeEffect.grantedEffect.name
+		end
+	end
 	return newSkill, newEnv
 end
 
