@@ -69,17 +69,20 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	return 1 / rateCapAdjusted
 end
 
--- Calculate Trigger Rate impact due to other skills in rotation
--- This is achieved by simulation a 10 second cast rotation
+-- Calculate Trigger Rate
+-- This is achieved by simulation a 100 second cast rotation
 local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 	local SIM_TIME = 100.0
+	local TIME_STEP = 0.0001
 	local index = 1
 	local time = 0
+	local tick = 0
+	local currTick = 0
 	local next_trigger = 0
 	local trigger_increment = 1 / sourceAPS
 	local wasted = 0
-
-	while time < SIM_TIME do
+	
+	while time <= SIM_TIME do
 		local currIndex = index
 	
 		if time >= next_trigger then
@@ -87,25 +90,40 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 				index = (index % #skillRotation) + 1
 				if index == currIndex then
 					wasted = wasted + 1
+					--triggers are free from the server tick so cooldown starts at current time
+					next_trigger = time + trigger_increment
 					break
 				end
 			end
 
 			if skillRotation[index].next_trig <= time then
 				skillRotation[index].count = skillRotation[index].count + 1
-				skillRotation[index].next_trig = skillRotation[index].next_trig + skillRotation[index].cd
+				-- cooldown starts at the beginning of current tick
+				skillRotation[index].next_trig = currTick + skillRotation[index].cd
+				local tempTick = tick
+
+				while skillRotation[index].next_trig > tempTick do
+					tempTick = tempTick + (1/data.misc.ServerTickRate)
+				end
+				--cooldown ends at the start of the next tick. Price is right rules.
+				skillRotation[index].next_trig = tempTick
 				index = (index % #skillRotation) + 1
-				next_trigger = next_trigger + trigger_increment
+				next_trigger = time + trigger_increment 
 			end
 		end
-		-- increment time by server tick time passage
-		time = time + (1 / data.misc.ServerTickRate)
+		-- increment time by smallest reasonible amount to attempt to hit every trigger event and every server tick. Frees attacks from the server tick. 
+		time = time + TIME_STEP
+		-- keep track of the server tick as the trigger cooldown is still bound by it
+		if tick < time then
+			currTick = tick
+			tick = tick + (1/data.misc.ServerTickRate)
+		end
 	end
 
 	local mainRate = 0
 	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
 	if wasted > 0 then
-		trigRateTable.extraSimInfo = "Wasted trigger opportunities exist. Increase your ICDR to fix this."
+		trigRateTable.extraSimInfo = "Wasted trigger opportunities exist. Increasing your ICDR may fix this."
 	else
 		trigRateTable.extraSimInfo = "Good Job! There are no wasted trigger opportunities"
 	end
