@@ -10,7 +10,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
               with:
-                ref: 'dev'
+                ref: 'beta'
             - name: Fetch tags
               run: git fetch --prune --unshallow --tags
             - name: Get current date
@@ -49,4 +49,5 @@ jobs:
                   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git config --global user.name "github-actions[bot]"
                   git commit -am "Weekly beta-${{ steps.current-version.outputs.ver }} release" --allow-empty --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+                  git rebase origin/dev
                   git push origin beta
