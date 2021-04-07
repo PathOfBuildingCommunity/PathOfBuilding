@@ -1,0 +1,44 @@
+name: Release next version
+on: 
+  schedule:
+    - cron: '* * * * 5'
+  push:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                ref: 'dev'
+            - name: Get current date
+              id: date
+              run: echo "::set-output name=date::$(date +'%Y/%m/%d')"
+            - name: Get current version
+              id: current-version
+              run: echo "::set-output name=ver::git describe --tags --abbrev=0 --first-parent | sed 's/^.//'"
+            - name: Get next version
+              id: next-version
+              run: |
+                ver=`git describe --tags | sed -r 's/^v[0-9]+\.([0-9]+)\.[0-9]+/\1/'`
+                let ver+=1
+                echo "::set-output name=ver::echo $ver"
+            - name: Install changelog generator
+              run: sudo gem install github_changelog_generator --version 1.15.2
+            - name: Generate Release notes
+              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ steps.next-version.outputs.ver }} --since-tag `git describe --tags --abbrev=0` --max-issues 0 --no-issues true --date-format %Y/%m/%d
+            - name: Tweak changelogs
+              run: |
+                sed -i '$d' temp_change.md
+                sed -i 's/\[Quotae\]/\[Quote_a\]/' temp_change.md
+                echo "VERSION[${{ steps.current-version.outputs.ver }}][${{ steps.date.outputs.date }}]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\(\1\)/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt
+                cat CHANGELOG.md | sed '1d' >> temp_change.md
+                mv temp_change.md CHANGELOG.md
+                mv changelog_new.txt changelog.txt
+            - name: Update manifest.xml
+              run: python3 update_manifest.py --quiet --in-place --set-version=${{ github.event.inputs.releaseVersion }}
+              
+            - name: Push to beta branch
+              run: |
+                  git commit -am "Weekly beta-${{ steps.current-version.outputs.ver }} release" --allow-empty --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+                  git push origin beta
