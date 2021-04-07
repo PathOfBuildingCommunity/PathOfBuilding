@@ -600,7 +600,6 @@ function SkillsTabClass:CreateGemSlot(index)
 			end
 		end
 	end
-	slot.qualityId:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."QualityId"] = slot.qualityId
 
 	-- Gem quality
