@@ -1,32 +1,38 @@
-name: Release next version
+name: Push beta branch
 on: 
   schedule:
     - cron: '* * * * 5'
   push:
 jobs:
-  release:
+  push-beta:
     runs-on: ubuntu-latest
     steps:
             - name: Checkout
               uses: actions/checkout@v2
               with:
                 ref: 'dev'
+            - name: Fetch tags
+              run: git fetch --prune --unshallow --tags
             - name: Get current date
               id: date
               run: echo "::set-output name=date::$(date +'%Y/%m/%d')"
             - name: Get current version
               id: current-version
-              run: echo "::set-output name=ver::git describe --tags --abbrev=0 --first-parent | sed 's/^.//'"
+              run: echo "::set-output name=ver::$(git describe --tags --abbrev=0 | sed 's/^.//')"
             - name: Get next version
               id: next-version
               run: |
-                ver=`git describe --tags | sed -r 's/^v[0-9]+\.([0-9]+)\.[0-9]+/\1/'`
-                let ver+=1
-                echo "::set-output name=ver::echo $ver"
+                ver=`git describe --tags --abbrev=0`
+                major=echo $ver | sed -r 's/^v([0-9]+)\.([0-9]+)\.([0-9]+)/\1/'
+                minor=echo $ver | sed -r 's/^v([0-9]+)\.([0-9]+)\.([0-9]+)/\2/'
+                patch=echo $ver | sed -r 's/^v([0-9]+)\.([0-9]+)\.([0-9]+)/\3/'
+                let minor+=1
+                semVer="$major.$minor.$patch"
+                echo "::set-output name=ver::$(echo $semVer)"
             - name: Install changelog generator
               run: sudo gem install github_changelog_generator --version 1.15.2
             - name: Generate Release notes
-              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ steps.next-version.outputs.ver }} --since-tag `git describe --tags --abbrev=0` --max-issues 0 --no-issues true --date-format %Y/%m/%d
+              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ steps.next-version.outputs.ver }} --since-tag `echo v${{ steps.current-version.outputs.ver }}` --max-issues 0 --no-issues true --date-format %Y/%m/%d
             - name: Tweak changelogs
               run: |
                 sed -i '$d' temp_change.md
