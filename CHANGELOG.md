@@ -1,4 +1,25 @@
 # Changelog
+
+## [2.0.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.3) (2021/04/07)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.0.2...2.0.3)
+
+**Fixed bugs:**
+
+- Fix ability to tab between inputs on the skills tab [\#2430](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2430) ([Wires77](https://github.com/Wires77))
+- Fixes stat comparison between tree specs [\#2428](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2428) ([Wires77](https://github.com/Wires77))
+- Fix General's Cry and Same Gems Crashes [\#2426](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2426) ([Nostrademous](https://github.com/Nostrademous))
+
+**Merged pull requests:**
+
+- Fix reliance on a mode for Mirage Archer [\#2432](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2432) ([Nostrademous](https://github.com/Nostrademous))
+- Fix: Saviour's Reflection Multi-part Skill behavior [\#2431](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2431) ([Nostrademous](https://github.com/Nostrademous))
+- Fix export formatter missing '+' for some item implicits [\#2425](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2425) ([Wires77](https://github.com/Wires77))
+- Fix crash with certain CoC triggered skills [\#2422](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2422) ([Helyos96](https://github.com/Helyos96))
+- Added Impale Damage to Combined Total Damage  [\#2341](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2341) ([ALT-F-X](https://github.com/ALT-F-X))
+
+
+
 ## [2.0.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.2) (2021/04/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/2.0.1...2.0.2)
