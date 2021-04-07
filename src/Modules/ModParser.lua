@@ -1326,6 +1326,22 @@ local function triggerExtraSkill(name, level, noSupports)
 		}
 	end
 end
+local function supportedByEffects(name, level)
+	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")] or "Unknown"
+	local secondarySkillId = "Unknown"
+	for gemId, gem in pairs(data.gems) do
+		if gem.grantedEffectId == skillId and gem.secondaryGrantedEffectId then
+			secondarySkillId = gem.secondaryGrantedEffectId
+			return {
+				mod("ExtraSupport", "LIST", { skillId = skillId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" }),
+				mod("ExtraSupport", "LIST", { skillId = secondarySkillId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" })
+			}
+		end
+	end
+	return {
+		mod("ExtraSupport", "LIST", { skillId = skillId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" }),
+	}
+end
 local function upperCaseFirstLetter(str)
 	return (str:gsub("^%l", string.upper))
 end
@@ -1870,7 +1886,7 @@ local specialModList = {
 	["[at][tr][ti][ag][cg][ke]r? with (.+) when you take a critical strike"] = function( _, skill) return triggerExtraSkill(skill, 1, true) end,
 	["trigger (.+) on critical strike"] = function( _, skill) return triggerExtraSkill(skill, 1, true) end,
 	["triggers? (.+) when you take a critical strike"] = function( _, skill) return triggerExtraSkill(skill, 1, true) end,
-	["socketed [%a+]* ?gems a?r?e? ?supported by level (%d+) (.+)"] = function(num, _, support) return { mod("ExtraSupport", "LIST", { skillId = gemIdLookup[support] or gemIdLookup[support:gsub("^increased ","")] or "Unknown", level = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
+	["socketed [%a+]* ?gems a?r?e? ?supported by level (%d+) (.+)"] = function(num, _, support) return supportedByEffects(support, num) end, 
 	["socketed hex curse skills are triggered by doedre's effigy when summoned"] = { mod("ExtraSupport", "LIST", { skillId = "SupportCursePillarTriggerCurses", level = 20 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger level (%d+) (.+) every (%d+) seconds"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+), (.+) or (.+) every (%d+) seconds"] = function(num, _, skill1, skill2, skill3) return {
