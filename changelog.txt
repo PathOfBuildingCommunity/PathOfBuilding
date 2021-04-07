@@ -7,7 +7,7 @@ VERSION[2.0.3][2021/04/07]
 * Fix Saviour's Reflection Multi-part Skill behavior (Nostrademous)
 * Fix export formatter missing '+' for some item implicits (Wires77)
 * Fix crash with certain CoC triggered skills (Helyos96)
-* Added impale damage to combined total damage  (ALT-F-X)
+* Fix impale damage not showing up in combined total damage (ALT-F-X)
 
 VERSION[2.0.2][2021/04/05]
 

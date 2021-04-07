@@ -13,7 +13,7 @@
 - Fix Saviour's Reflection Multi-part Skill behavior [\#2431](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2431) ([Nostrademous](https://github.com/Nostrademous))
 - Fix export formatter missing '+' for some item implicits [\#2425](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2425) ([Wires77](https://github.com/Wires77))
 - Fix crash with certain CoC triggered skills [\#2422](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2422) ([Helyos96](https://github.com/Helyos96))
-- Added impale damage to combined total damage  [\#2341](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2341) ([ALT-F-X](https://github.com/ALT-F-X))
+- Fix impale damage not showing up in combined total damage  [\#2341](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2341) ([ALT-F-X](https://github.com/ALT-F-X))
 ## [2.0.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.2) (2021/04/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/2.0.1...2.0.2)
