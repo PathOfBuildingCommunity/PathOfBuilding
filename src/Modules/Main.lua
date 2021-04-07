@@ -160,7 +160,7 @@ function main:Init()
 	end
 	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, -2, 0, 16, "")
 	self.controls.versionLabel.label = function()
-		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
+		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
 	end
 	self.controls.devMode = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, "^1Dev Mode")
 	self.controls.devMode.shown = function()
@@ -511,6 +511,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showTitlebarName then
 					self.showTitlebarName = node.attrib.showTitlebarName == "true"
 				end
+				if node.attrib.betaTest then
+					self.betaTest = node.attrib.betaTest == "true"
+				end
 			end
 		end
 	end
@@ -557,6 +560,7 @@ function main:SaveSettings()
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
+		betaTest = tostring(self.betaTest),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -614,13 +618,18 @@ function main:OpenOptionsPopup()
 	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 160, 20, "Show build name in window title:", function(state)
 		self.showTitlebarName = state
 	end)
+	controls.betaTest = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 182, 20, "Opt-in to weekly beta test builds:", function(state)
+		self.betaTest = state
+	end)
+	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
-	controls.save = new("ButtonControl", nil, -45, 182, 80, 20, "Save", function()
+	local initialBetaTest = self.betaTest
+	controls.save = new("ButtonControl", nil, -45, 204, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -637,17 +646,39 @@ function main:OpenOptionsPopup()
 		if self.mode == "LIST" then
 			self.modes.LIST:BuildList()
 		end
+		main:SetManifestBranch(self.betaTest and "beta" or "master")
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 182, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 204, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
 		self.showTitlebarName = initialTitlebarName
+		self.betaTest = initialBetaTest
 		main:ClosePopup()
 	end)
-	self:OpenPopup(450, 218, "Options", controls, "save", nil, "cancel")
+	self:OpenPopup(450, 240, "Options", controls, "save", nil, "cancel")
+end
+
+function main:SetManifestBranch(branchName)
+	local xml = require("xml")
+	local manifestLocation = "manifest.xml"
+	local localManXML = xml.LoadXMLFile(manifestLocation)
+	if not localManXML then
+		manifestLocation = "../manifest.xml"
+		xml.LoadXMLFile(manifestLocation)
+	end
+	if localManXML and localManXML[1].elem == "PoBVersion" then
+		for _, node in ipairs(localManXML[1]) do
+			if type(node) == "table" then
+				if node.elem == "Version" then
+					node.attrib.branch = branchName
+				end
+			end
+		end
+	end
+	xml.SaveXMLFile(localManXML[1], manifestLocation)
 end
 
 function main:OpenUpdatePopup()
