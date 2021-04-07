@@ -70,7 +70,7 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 end
 
 -- Calculate Trigger Rate
--- This is achieved by simulation a 100 second cast rotation
+-- This is achieved by simulating a 100 second cast rotation
 local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 	local SIM_TIME = 100.0
 	local TIME_STEP = 0.0001
@@ -82,7 +82,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 	local trigger_increment = 1 / sourceAPS
 	local wasted = 0
 	
-	while time <= SIM_TIME do
+	while time < SIM_TIME do
 		local currIndex = index
 	
 		if time >= next_trigger then
@@ -90,7 +90,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 				index = (index % #skillRotation) + 1
 				if index == currIndex then
 					wasted = wasted + 1
-					--triggers are free from the server tick so cooldown starts at current time
+					-- Triggers are free from the server tick so cooldown starts at current time
 					next_trigger = time + trigger_increment
 					break
 				end
@@ -98,22 +98,22 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 
 			if skillRotation[index].next_trig <= time then
 				skillRotation[index].count = skillRotation[index].count + 1
-				-- cooldown starts at the beginning of current tick
+				-- Cooldown starts at the beginning of current tick
 				skillRotation[index].next_trig = currTick + skillRotation[index].cd
 				local tempTick = tick
 
 				while skillRotation[index].next_trig > tempTick do
 					tempTick = tempTick + (1/data.misc.ServerTickRate)
 				end
-				--cooldown ends at the start of the next tick. Price is right rules.
+				-- Cooldown ends at the start of the next tick. Price is right rules.
 				skillRotation[index].next_trig = tempTick
 				index = (index % #skillRotation) + 1
 				next_trigger = time + trigger_increment 
 			end
 		end
-		-- increment time by smallest reasonible amount to attempt to hit every trigger event and every server tick. Frees attacks from the server tick. 
+		-- Increment time by smallest reasonable amount to attempt to hit every trigger event and every server tick. Frees attacks from the server tick. 
 		time = time + TIME_STEP
-		-- keep track of the server tick as the trigger cooldown is still bound by it
+		-- Keep track of the server tick as the trigger cooldown is still bound by it
 		if tick < time then
 			currTick = tick
 			tick = tick + (1/data.misc.ServerTickRate)
