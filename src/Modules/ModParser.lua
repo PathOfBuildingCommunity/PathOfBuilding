@@ -1328,7 +1328,6 @@ local function triggerExtraSkill(name, level, noSupports)
 end
 local function supportedByEffects(name, level)
 	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")]
-	local ids = {}
 	if skillId then
 		local gemId = data.gemForBaseName[data.skills[skillId].name .. " Support"]
 		if gemId then
