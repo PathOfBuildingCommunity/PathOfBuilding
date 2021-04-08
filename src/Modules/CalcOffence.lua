@@ -3727,6 +3727,10 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- Re-link over the output
 			env.player.output = newEnv.player.output
+			if newSkill.minion then
+				env.minion = newEnv.player.mainSkill.minion
+				env.minion.output = newEnv.minion.output
+			end
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = output.ManaCost
@@ -3735,6 +3739,9 @@ function calcs.offence(env, actor, activeSkill)
 			-- Re-link over the breakdown (if present)
 			if newEnv.player.breakdown then
 				env.player.breakdown = newEnv.player.breakdown
+				if newSkill.minion then
+					env.minion.breakdown = newEnv.minion.breakdown
+				end
 
 				-- Make any necessary corrections to breakdown
 			end
