@@ -81,7 +81,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 	local next_trigger = 0
 	local trigger_increment = 1 / sourceAPS
 	local wasted = 0
-	
+
 	while time < SIM_TIME do
 		local currIndex = index
 	
@@ -108,7 +108,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 				-- Cooldown ends at the start of the next tick. Price is right rules.
 				skillRotation[index].next_trig = tempTick
 				index = (index % #skillRotation) + 1
-				next_trigger = time + trigger_increment 
+				next_trigger = time + trigger_increment
 			end
 		end
 		-- Increment time by smallest reasonable amount to attempt to hit every trigger event and every server tick. Frees attacks from the server tick. 
@@ -159,103 +159,82 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	if sourceAPS ~= nil then
 		output.SourceTriggerRate = sourceAPS / skillRotationImpact
 		if dualWield then
-			if #spellCount > 1 then
-				output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
-						s_format("/ 2) ^8(due to dual wielding)"),
-						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
-						s_format(""),
-						s_format("Simulation Breakdown"),
-						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
-					}
-					if simBreakdown.extraSimInfo then
-						t_insert(breakdown.SourceTriggerRate, "")
-						t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
-					end
-					breakdown.SimData = {
-						rowList = { },
-						colList = {
-							{ label = "Rate", key = "rate" },
-							{ label = "Skill Name", key = "skillName" },
-							{ label = "Slot Name", key = "slotName" },
-							{ label = "Gem Index", key = "gemIndex" },
-						},
-					}
-					for _, rateData in ipairs(simBreakdown.rates) do
-						local t = { }
-						for str in string.gmatch(rateData.name, "([^_]+)") do
-							t_insert(t, str)
-						end
-
-						local row = {
-							rate = rateData.rate,
-							skillName = t[1],
-							slotName = t[2],
-							gemIndex = t[3],
-						}
-						t_insert(breakdown.SimData.rowList, row)
-					end
+			output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+			if breakdown then
+				breakdown.SourceTriggerRate = {
+					s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
+					s_format("/ 2) ^8(due to dual wielding)"),
+					s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
+					s_format("= %.2f ^8per second", output.SourceTriggerRate),
+					s_format(""),
+					s_format("Simulation Breakdown"),
+					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+				}
+				if simBreakdown.extraSimInfo then
+					t_insert(breakdown.SourceTriggerRate, "")
+					t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
 				end
-			else
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
-						s_format("/ 2) ^8(due to dual wielding)"),
-						s_format("/ %.2f ^8(number of linked active spells to trigger)", skillRotationImpact),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
+				breakdown.SimData = {
+					rowList = { },
+					colList = {
+						{ label = "Rate", key = "rate" },
+						{ label = "Skill Name", key = "skillName" },
+						{ label = "Slot Name", key = "slotName" },
+						{ label = "Gem Index", key = "gemIndex" },
+					},
+				}
+				for _, rateData in ipairs(simBreakdown.rates) do
+					local t = { }
+					for str in string.gmatch(rateData.name, "([^_]+)") do
+						t_insert(t, str)
+					end
+
+					local row = {
+						rate = rateData.rate,
+						skillName = t[1],
+						slotName = t[2],
+						gemIndex = t[3],
 					}
+					t_insert(breakdown.SimData.rowList, row)
 				end
 			end
 		else
-			if #spellCount > 1 then
-				output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
-						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
-						s_format(""),
-						s_format("Simulation Breakdown"),
-						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
-					}
-					if simBreakdown.extraSimInfo then
-						t_insert(breakdown.SourceTriggerRate, "")
-						t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
-					end
-					breakdown.SimData = {
-						rowList = { },
-						colList = {
-							{ label = "Rate", key = "rate" },
-							{ label = "Skill Name", key = "skillName" },
-							{ label = "Slot Name", key = "slotName" },
-							{ label = "Gem Index", key = "gemIndex" },
-						},
-					}
-					for _, rateData in ipairs(simBreakdown.rates) do
-						local t = { }
-						for str in string.gmatch(rateData.name, "([^_]+)") do
-							t_insert(t, str)
-						end
-
-						local row = {
-							rate = rateData.rate,
-							skillName = t[1],
-							slotName = t[2],
-							gemIndex = t[3],
-						}
-						t_insert(breakdown.SimData.rowList, row)
-					end
+			output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+			if breakdown then
+				breakdown.SourceTriggerRate = {
+					s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
+					s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
+					s_format("= %.2f ^8per second", output.SourceTriggerRate),
+					s_format(""),
+					s_format("Simulation Breakdown"),
+					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+				}
+				if simBreakdown.extraSimInfo then
+					t_insert(breakdown.SourceTriggerRate, "")
+					t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
 				end
-			else
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
-						s_format("/ %.2f ^8(number of linked active spells to trigger)", skillRotationImpact),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
+				breakdown.SimData = {
+					rowList = { },
+					colList = {
+						{ label = "Rate", key = "rate" },
+						{ label = "Skill Name", key = "skillName" },
+						{ label = "Slot Name", key = "slotName" },
+						{ label = "Gem Index", key = "gemIndex" },
+					},
+				}
+				for _, rateData in ipairs(simBreakdown.rates) do
+					local t = { }
+					for str in string.gmatch(rateData.name, "([^_]+)") do
+						t_insert(t, str)
+					end
+
+					local row = {
+						rate = rateData.rate,
+						skillName = t[1],
+						slotName = t[2],
+						gemIndex = t[3],
 					}
+					t_insert(breakdown.SimData.rowList, row)
 				end
 			end
 		end
