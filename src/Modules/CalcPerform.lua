@@ -1203,7 +1203,7 @@ function calcs.perform(env)
 		end
 		-- General's Cry Support
 		--     this exist to infrom display to not show DPS for this skill as it only has damage due to General's Cry
-		if activeSkill.skillData.triggeredByGeneralsCry and not activeSkill.skillFlags.minion then
+		if activeSkill.skillData.triggeredByGeneralsCry then
 			addToFullDpsExclusionList(activeSkill)
 			activeSkill.infoMessage = "Used by General's Cry Mirage Warriors"
 			activeSkill.infoTrigger = "General's Cry"
