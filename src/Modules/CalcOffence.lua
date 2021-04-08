@@ -3712,8 +3712,8 @@ function calcs.offence(env, actor, activeSkill)
 
 			if usedSkill.skillPartName then
 				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+				env.player.mainSkill.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
 			else
 				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
