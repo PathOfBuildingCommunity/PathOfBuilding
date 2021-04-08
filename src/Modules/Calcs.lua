@@ -115,7 +115,7 @@ function calcs.getMiscCalculator(build)
 	local baseOutput = env.player.output
 
 	return function(override, accelerate)
-		if accelerate then
+		if accelerate and (accelerate.everything or accelerate.nodeAlloc or accelerate.requirementsItems or accelerate.requirementsGems or accelerate.skills) then
 			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
 		else
 			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)

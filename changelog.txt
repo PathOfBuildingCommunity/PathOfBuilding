@@ -1,3 +1,14 @@
+VERSION[2.0.3][2021/04/07]
+
+* Fix ability to tab between inputs on the skills tab (Wires77)
+* Fix stat comparison between tree specs (Wires77)
+* Fix General's Cry and build load failures when using the same gem multiple times (Nostrademous)
+* Fix reliance on a calculation mode for Mirage Archer (Nostrademous)
+* Fix Saviour's Reflection Multi-part Skill behavior (Nostrademous)
+* Fix export formatter missing '+' for some item implicits (Wires77)
+* Fix crash with certain CoC triggered skills (Helyos96)
+* Fix impale damage not showing up in combined total damage (ALT-F-X)
+
 VERSION[2.0.2][2021/04/05]
 
 * Fix looking at wrong location for saved user builds (dclamage)
