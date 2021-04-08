@@ -1327,20 +1327,21 @@ local function triggerExtraSkill(name, level, noSupports)
 	end
 end
 local function supportedByEffects(name, level)
-	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")] or "Unknown"
-	local secondarySkillId = "Unknown"
-	for gemId, gem in pairs(data.gems) do
-		if gem.grantedEffectId == skillId and gem.secondaryGrantedEffectId then
-			secondarySkillId = gem.secondaryGrantedEffectId
+	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")]
+	local ids = {}
+	if skillId then
+		local gemId = data.gemForBaseName[data.skills[skillId].name .. " Support"]
+		if gemId then
+			return {
+				mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" }),
+				mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" })
+			}
+		else
 			return {
 				mod("ExtraSupport", "LIST", { skillId = skillId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" }),
-				mod("ExtraSupport", "LIST", { skillId = secondarySkillId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" })
 			}
 		end
 	end
-	return {
-		mod("ExtraSupport", "LIST", { skillId = skillId, level = level }, { type = "SocketedIn", slotName = "{SlotName}" }),
-	}
 end
 local function upperCaseFirstLetter(str)
 	return (str:gsub("^%l", string.upper))
