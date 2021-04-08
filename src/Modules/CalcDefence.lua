@@ -809,6 +809,9 @@ function calcs.defence(env, actor)
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenOverTime")
 			end
 			local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."Resist"]
+			if damageType == "Physical" then
+				resist = m_max(resist, 0)
+			end
 			output[damageType.."TakenDotMult"] = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			if breakdown then
 				breakdown[damageType.."TakenDotMult"] = { }
@@ -1021,6 +1024,7 @@ function calcs.defence(env, actor)
 							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, doubleArmourChance)
 							resist = m_min(output.DamageReductionMax, resist + armourReduct)
 						end
+						resist = m_max(resist, 0)
 					else
 						portionArmour = 100 - resist
 						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, doubleArmourChance)

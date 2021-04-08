@@ -78,6 +78,7 @@ data = { }
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
+	{ stat="FullDPS", label="Full DPS" },
 	{ stat="CombinedDPS", label="Combined DPS" },
 	{ stat="TotalDPS", label="Total DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
@@ -262,7 +263,8 @@ data.keystones = {
 }
 
 data.misc = { -- magic numbers
-	ServerTickRate = 30,
+	ServerTickTime = 0.033,
+	ServerTickRate = 1 / 0.033,
 	TemporalChainsEffectCap = 75,
 	DamageReductionCap = 90,
 	MaxResistCap = 90,
@@ -285,6 +287,7 @@ data.misc = { -- magic numbers
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
 	PurposefulHarbingerMaxBuffPercent = 40,
+	MaxEnemyLevel = 84,
 }
 
 -- Misc data tables
@@ -482,6 +485,20 @@ data.rares = LoadModule("Data/Rares")
 data.uniques = { }
 for _, type in pairs(itemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
+end
+data.uniqueMods = { }
+data.uniqueMods["Watcher's Eye"] = { }
+local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")
+local sortedMods = { }
+for modId in pairs(unsortedMods) do
+	table.insert(sortedMods, modId)
+end
+table.sort(sortedMods)
+for _, modId in ipairs(sortedMods) do
+	table.insert(data.uniqueMods["Watcher's Eye"], {
+		Id = modId,
+		mod = unsortedMods[modId],
+	})
 end
 LoadModule("Data/Generated")
 LoadModule("Data/New")

@@ -72,11 +72,12 @@ if localManXML and localManXML[1].elem == "PoBVersion" then
 				localPlatform = node.attrib.platform
 				localBranch = node.attrib.branch
 			elseif node.elem == "Source" then
-				if node.attrib.part == "program" then
+				if node.attrib.part == "default" then
 					localSource = node.attrib.url
 				end
 			elseif node.elem == "File" then
 				local fullPath
+				node.attrib.name = node.attrib.name:gsub("{space}", " ")
 				if node.attrib.part == "runtime" then
 					fullPath = runtimePath .. "/" .. node.attrib.name
 				else
@@ -139,7 +140,8 @@ end
 local updateFiles = { }
 for name, data in pairs(remoteFiles) do
 	data.name = name
-	if not localFiles[name] or localFiles[name].sha1 ~= data.sha1 then
+	local sanitizedName = name:gsub("{space}", " ")
+	if (not localFiles[name] or localFiles[name].sha1 ~= data.sha1) and (not localFiles[sanitizedName] or localFiles[sanitizedName].sha1 ~= data.sha1) then
 		table.insert(updateFiles, data)
 	elseif localFiles[name] then
 		local file = io.open(localFiles[name].fullPath, "rb")
@@ -159,7 +161,8 @@ end
 local deleteFiles = { }
 for name, data in pairs(localFiles) do
 	data.name = name
-	if not remoteFiles[name] then
+	local unSanitizedName = name:gsub(" ", "{space}")
+	if not remoteFiles[name] and not remoteFiles[unSanitizedName] then
 		table.insert(deleteFiles, data)
 	end
 end

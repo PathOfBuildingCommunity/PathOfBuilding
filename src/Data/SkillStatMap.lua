@@ -162,13 +162,50 @@ return {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["unique_mjolner_lightning_spells_triggered"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+	skill("triggeredByMjolner", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.LightningSkill }),
 },
 ["unique_cospris_malice_cold_spells_triggered"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+},
+["skill_has_trigger_from_unique_item"] = {
+	skill("triggeredByUnique", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
+["skill_triggered_when_you_focus_chance_%"] = {
+	skill("triggeredByFocus", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+	div = 100,
+},
+["spell_has_trigger_from_crafted_item_mod"] = {
+	skill("triggeredByCraft", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["support_cast_on_mana_spent"] = {
+	skill("triggeredByManaSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["display_mirage_warriors_no_spirit_strikes"] = {
+	skill("triggeredBySaviour", true, { type = "SkillType", skillType = SkillType.Attack } ),
+},
+["cast_spell_on_linked_attack_crit"] = {
+	skill("triggeredByCoC", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["cast_linked_spells_on_attack_crit_%"] = {
+	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
+},
+["cast_spell_on_linked_melee_kill"] = {
+	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["cast_linked_spells_on_melee_kill_%"] = {
+	skill("chanceToTriggerOnMeleeKill", nil , { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Melee })
+},
+["cast_spell_while_linked_skill_channelling"] = {
+	skill("triggeredWhileChannelling", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["skill_triggered_by_snipe"] = {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
+["triggered_by_spiritual_cry"] = {
+	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
+},
+["skill_can_own_mirage_archers"] = {
+	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.SkillCanMirageArcher }),
 },
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
@@ -453,7 +490,7 @@ return {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 },
 ["critical_strike_chance_against_enemies_on_full_life_+%"] = {
-	mod("CritChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
+	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 },
 ["critical_strike_chance_+%_vs_blinded_enemies"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})

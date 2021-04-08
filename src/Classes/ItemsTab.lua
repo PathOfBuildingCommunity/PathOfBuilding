@@ -261,7 +261,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		if not self.controls.displayItemVariant:IsShown() then
 			return 0
 		end
-		return 28 + (self.displayItem.hasAltVariant and 24 or 0) + (self.displayItem.hasAltVariant2 and 24 or 0)
+		return 28 + (self.displayItem.hasAltVariant and 24 or 0) + (self.displayItem.hasAltVariant2 and 24 or 0) + (self.displayItem.hasAltVariant3 and 24 or 0)
 	end)
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
 		self.displayItem.variant = index
@@ -289,6 +289,15 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end)
 	self.controls.displayItemAltVariant2.shown = function()
 		return self.displayItem.hasAltVariant2
+	end
+	self.controls.displayItemAltVariant3 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant2,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+		self.displayItem.variantAlt3 = index
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant3.shown = function()
+		return self.displayItem.hasAltVariant3
 	end
 
 	-- Section: Sockets and Links
@@ -751,6 +760,10 @@ function ItemsTabClass:Load(xml, dbFileName)
 				item.hasAltVariant2 = true
 				item.variantAlt2 = tonumber(node.attrib.variantAlt2)
 			end
+			if node.attrib.variantAlt3 then
+				item.hasAltVariant3 = true
+				item.variantAlt3 = tonumber(node.attrib.variantAlt3)
+			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
@@ -1053,7 +1066,7 @@ function ItemsTabClass:EquipItemInSet(item, itemSetId)
 	end
 	self:PopulateSlots()
 	self:AddUndoState()
-	self.build.buildFlag = true	
+	self.build.buildFlag = true
 end
 
 -- Update the item lists for all the slot controls
@@ -1242,6 +1255,10 @@ function ItemsTabClass:SetDisplayItem(item)
 		if item.hasAltVariant2 then
 			self.controls.displayItemAltVariant2.list = item.variantList
 			self.controls.displayItemAltVariant2.selIndex = item.variantAlt2
+		end
+		if item.hasAltVariant3 then
+			self.controls.displayItemAltVariant3.list = item.variantList
+			self.controls.displayItemAltVariant3.selIndex = item.variantAlt3
 		end
 		self:UpdateSocketControls()
 		if item.crafted then
@@ -1736,8 +1753,12 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	if haveSkills then
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 			for _, gemInstance in ipairs(socketGroup.gemList) do
-				if gemInstance.gemData and not gemInstance.gemData.grantedEffect.support and enchantments[gemInstance.nameSpec] then
-					skillsUsed[gemInstance.nameSpec] = true
+				if gemInstance.gemData then 
+					for _, grantedEffect in ipairs(gemInstance.gemData.grantedEffectList) do
+						if not grantedEffect.support and enchantments[grantedEffect.name] then
+							skillsUsed[grantedEffect.name] = true
+						end
+					end
 				end
 			end
 		end
@@ -1897,8 +1918,8 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 		header = "^7"..actionText.." nothing will give you: "
 	end
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
-	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem })
-	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) })
+	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem }, {})
+	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) }, {})
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
@@ -2523,7 +2544,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				tooltip:AddLine(14, stat)
 			end
 		end
-		local output = calcFunc({ toggleFlask = item })
+		local output = calcFunc({ toggleFlask = item }, {})
 		local header
 		if self.build.calcsTab.mainEnv.flasks[item] then
 			header = "^7Deactivating this flask will give you:"
@@ -2560,7 +2581,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- Add comparisons for each slot
 		for _, slot in pairs(compareSlots) do
 			local selItem = self.items[slot.selItemId]
-			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item })
+			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
 			local header
 			if item == selItem then
 				header = "^7Removing this item from "..slot.label.." will give you:"

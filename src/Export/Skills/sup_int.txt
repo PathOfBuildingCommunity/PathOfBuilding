@@ -101,7 +101,6 @@ local skills, mod, flag, skill = ...
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
-#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportCastWhileChannellingPlus
@@ -119,7 +118,6 @@ local skills, mod, flag, skill = ...
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
-#baseMod skill("triggeredWhileChannelling", true)
 #mods
 
 #skill SupportChanceToIgnite
@@ -394,11 +392,7 @@ local skills, mod, flag, skill = ...
 			div = 60
 		},
 		["infusion_effect_+%"] = {
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
-			mod("BuffEffect", "INC", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion" }),
+			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })

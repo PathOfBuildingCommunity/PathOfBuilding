@@ -524,15 +524,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- Calculate color based on a single stat
 					local stat = m_max(node.power.singleStat or 0, 0)
 					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
-					if(stat ~= 0) then
-						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
-							statCol = stat / node.pathDist == build.calcsTab.powerMax.singleStatPerPoint and 1.5 ^ 0.5 or 0
-						elseif self.heatMapStatPerPoint then
-							statCol = statCol / node.pathDist * 4
-						elseif self.heatMapTopPick then
-							statCol = stat == build.calcsTab.powerMax.singleStat and 1.5 ^ 0.5 or 0
-						end
-					end
 					if main.nodePowerTheme == "RED/BLUE" then
 						SetDrawColor(statCol, 0, 0)
 					elseif main.nodePowerTheme == "RED/GREEN" then
@@ -546,18 +537,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local defence = m_max(node.power.defence or 0, 0)
 					local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
 					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
-					if offence ~= 0 or defence ~= 0 then
-						if(self.heatMapStatPerPoint and self.heatMapTopPick) then
-							dpsCol = offence / node.pathDist == build.calcsTab.powerMax.offencePerPoint and 1.5 ^ 0.5 or 0
-							defCol = defence / node.pathDist == build.calcsTab.powerMax.defencePerPoint and 1.5 ^ 0.5 or 0
-						elseif self.heatMapStatPerPoint then
-							dpsCol = dpsCol / node.pathDist * 4
-							defCol = defCol / node.pathDist * 4
-						elseif self.heatMapTopPick then
-							dpsCol = offence == build.calcsTab.powerMax.offence and 1.5 ^ 0.5 or 0
-							defCol = defence == build.calcsTab.powerMax.defence and 1.5 ^ 0.5 or 0
-						end
-					end
 					local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
 					if main.nodePowerTheme == "RED/BLUE" then
 						SetDrawColor(dpsCol, mixCol, defCol)
@@ -952,15 +931,15 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		local nodeOutput, pathOutput
 		if node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependent nodes
-			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
+			nodeOutput = calcFunc({ removeNodes = { [node] = true } }, {})
 			if pathLength > 1 then
-				pathOutput = calcFunc({ removeNodes = pathNodes })
+				pathOutput = calcFunc({ removeNodes = pathNodes }, {})
 			end
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			nodeOutput = calcFunc({ addNodes = { [node] = true } }, {})
 			if pathLength > 1 then
-				pathOutput = calcFunc({ addNodes = pathNodes })
+				pathOutput = calcFunc({ addNodes = pathNodes }, {})
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")

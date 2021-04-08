@@ -55,24 +55,22 @@ end
 -- Generate a function for calculating the effect of some modification to the environment
 local function getCalculator(build, fullInit, modFunc)
 	-- Initialise environment
-	local env = calcs.initEnv(build, "CALCULATOR")
-
-	-- Save a copy of the initial mod database
-	local initModDB = new("ModDB")
-	initModDB:AddDB(env.modDB)
-	initModDB.conditions = copyTable(env.modDB.conditions)
-	initModDB.multipliers = copyTable(env.modDB.multipliers)
-	local initEnemyDB = new("ModDB")
-	initEnemyDB:AddDB(env.enemyDB)
-	initEnemyDB.conditions = copyTable(env.enemyDB.conditions)
-	initEnemyDB.multipliers = copyTable(env.enemyDB.multipliers)
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 
 	-- Run base calculation pass
 	calcs.perform(env)
+	GlobalCache.dontUseCache = true
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
+	GlobalCache.dontUseCache = nil
+	env.player.output.SkillDPS = fullDPS.skills
+	env.player.output.FullDPS = fullDPS.combinedDPS
 	local baseOutput = env.player.output
 
-	env.modDB.parent = initModDB
-	env.enemyDB.parent = initEnemyDB
+	env.modDB.parent = cachedPlayerDB
+	env.enemyDB.parent = cachedEnemyDB
+	if cachedMinionDB then
+		env.minion.modDB.parent = cachedMinionDB
+	end
 
 	return function(...)
 		-- Remove mods added during the last pass
@@ -88,6 +86,9 @@ local function getCalculator(build, fullInit, modFunc)
 		
 		-- Run calculation pass
 		calcs.perform(env)
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
+		env.player.output.SkillDPS = fullDPS.skills
+		env.player.output.FullDPS = fullDPS.combinedDPS
 
 		return env.player.output
 	end, baseOutput	
@@ -104,24 +105,217 @@ end
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
-	local env = calcs.initEnv(build, "CALCULATOR")
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
+	if GlobalCache.useFullDPS then
+		local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, env = env})
+		env.player.output.SkillDPS = fullDPS.skills
+		env.player.output.FullDPS = fullDPS.combinedDPS
+	end
 	local baseOutput = env.player.output
 
-	return function(override)
-		env = calcs.initEnv(build, "CALCULATOR", override)
+	return function(override, accelerate)
+		if accelerate and (accelerate.everything or accelerate.nodeAlloc or accelerate.requirementsItems or accelerate.requirementsGems or accelerate.skills) then
+			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
+		else
+			env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
+		end
 		calcs.perform(env)
+		if GlobalCache.useFullDPS then
+			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
+			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
+			-- A with A (due to cache reuse) instead of A with B
+			GlobalCache.dontUseCache = true
+			fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
+			GlobalCache.dontUseCache = nil
+			env.player.output.SkillDPS = fullDPS.skills
+			env.player.output.FullDPS = fullDPS.combinedDPS
+		end
 		return env.player.output
 	end, baseOutput	
 end
 
+local function getActiveSkillCount(activeSkill)
+	if not activeSkill.socketGroup then
+		return 1, true
+	else
+		local gemList = activeSkill.socketGroup.gemList
+		for _, gemData in pairs(gemList) do
+			if gemData.gemData then
+				if gemData.gemData.vaalGem then
+					if activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffectList[1] then
+						return gemData.count or 1,  gemData.enableGlobal1 == true
+					elseif activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffectList[2] then
+						return gemData.count or 1,  gemData.enableGlobal2 == true
+					end
+				else
+					if activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect then
+						return gemData.count or 1, true
+					end
+				end
+			end
+		end
+	end
+	return 1, true
+end
+
+function calcs.calcFullDPS(build, mode, override, specEnv)
+	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override or {}, specEnv)
+	local usedEnv = nil
+
+	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0 }
+	local bleedSource = ""
+	local igniteDPS = 0
+	local igniteSource = ""
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
+			if enabled then
+				local cacheData = getCachedData(activeSkill, mode)
+				if cacheData and not override and not GlobalCache.dontUseCache then
+					usedEnv = cacheData.Env
+					activeSkill = usedEnv.player.mainSkill
+				else
+					local forceCache = false
+					if GlobalCache.dontUseCache then 
+						forceCache = true
+						GlobalCache.dontUseCache = nil
+					end
+					fullEnv.player.mainSkill = activeSkill
+					calcs.perform(fullEnv)
+					usedEnv = fullEnv
+				        GlobalCache.dontUseCache = forceCache
+				end
+				if activeSkill.minion then
+					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
+						if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+							t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.minion.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = activeSkill.skillPartName })
+						else
+							ConPrintf("[Minion] HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+						end
+						fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.minion.output.TotalDPS * activeSkillCount
+					end
+					if usedEnv.minion.output.BleedDPS and usedEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = usedEnv.minion.output.BleedDPS
+						bleedSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.minion.output.IgniteDPS and usedEnv.minion.output.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = usedEnv.minion.output.IgniteDPS
+						igniteSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
+						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * (usedEnv.minion.output.TotalPoisonStacks or 1) * activeSkillCount
+					end
+					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
+					end
+					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
+					end
+					if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
+						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
+					end
+				else
+					if usedEnv.player.output.TotalDPS and usedEnv.player.output.TotalDPS > 0 then
+						if not fullDPS.skills[activeSkill.activeEffect.grantedEffect.name] then
+							t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = activeSkill.skillPartName })
+						else
+							ConPrintf("HELP! Numerous same-named effects! '" .. activeSkill.activeEffect.grantedEffect.name .. "'")
+						end
+						fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.player.output.TotalDPS * activeSkillCount
+					end
+					if usedEnv.player.output.BleedDPS and usedEnv.player.output.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = usedEnv.player.output.BleedDPS
+						bleedSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.player.output.IgniteDPS and usedEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = usedEnv.player.output.IgniteDPS
+						igniteSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
+						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * (usedEnv.player.output.TotalPoisonStacks or 1) * activeSkillCount
+					end
+					if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
+					end
+					if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
+					end
+					if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
+						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot
+					end
+				end
+				-- Re-Build env calculator for new run
+				local accelerationTbl = {
+					nodeAlloc = true,
+					requirementsItems = true,
+					requirementsGems = true,
+					skills = true,
+					everything = true,
+				}
+				fullEnv, _, _, _ = calcs.initEnv(build, mode, override or {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+			end
+		end
+	end
+
+	-- Re-Add ailment DPS components
+	if fullDPS.bleedDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.bleedDPS
+	end
+	if fullDPS.igniteDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.igniteDPS
+	end
+	if fullDPS.poisonDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.poisonDPS
+	end
+	if fullDPS.impaleDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Impale DPS", dps = fullDPS.impaleDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.impaleDPS
+	end
+	if fullDPS.decayDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full Decay DPS", dps = fullDPS.decayDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.decayDPS
+	end
+	if fullDPS.dotDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.dotDPS
+	end
+
+	return fullDPS
+end
+
+-- Process active skill
+function calcs.buildActiveSkill(env, mode, skill, setMark)
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode)
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
+			fullEnv.player.mainSkill = activeSkill
+			fullEnv.player.mainSkill.marked = setMark
+			calcs.perform(fullEnv)
+			return
+		end
+	end
+end
+
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
-	-- Build output
-	local env = calcs.initEnv(build, mode)
+	-- Build output for selected main skill
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
+
+	-- Build output across all active skills
+	GlobalCache.dontUseCache = true
+	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
+	GlobalCache.dontUseCache = nil
+
+	-- Add Full DPS data to main `env`
+	env.player.output.SkillDPS = fullDPS.skills
+	env.player.output.FullDPS = fullDPS.combinedDPS
 
 	if mode == "MAIN" then
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
@@ -280,7 +474,7 @@ function calcs.buildOutput(build, mode)
 		if output.BlitzCharges > 0 then
 			t_insert(combatList, s_format("%d Blitz Charges", output.BlitzCharges))
 		end
-		if output.InspirationCharges > 0 then
+		if build.calcsTab.mainEnv.multipliersUsed["InspirationCharge"] then
 			t_insert(combatList, s_format("%d Inspiration Charges", output.InspirationCharges))
 		end
 		if output.GhostShrouds > 0 then

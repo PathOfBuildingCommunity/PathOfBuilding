@@ -168,7 +168,7 @@ function describeStats(stats)
 					val[spec.v].min = round(val[spec.v].min / 60, 1)
 					val[spec.v].max = round(val[spec.v].max / 60, 1)
 					val[spec.v].fmt = "g"
-				elseif spec.k == "per_minute_to_per_second_2dp_if_required" then
+				elseif spec.k == "per_minute_to_per_second_2dp_if_required" or spec.k == "per_minute_to_per_second_2dp" then
 					val[spec.v].min = round(val[spec.v].min / 60, 2)
 					val[spec.v].max = round(val[spec.v].max / 60, 2)
 					val[spec.v].fmt = "g"
@@ -193,6 +193,9 @@ function describeStats(stats)
 				elseif spec.k == "60%_of_value" then
 					val[spec.v].min = val[spec.v].min * 0.6
 					val[spec.v].max = val[spec.v].max * 0.6
+				elseif spec.k == "30%_of_value" then
+					val[spec.v].min = val[spec.v].min * 0.3
+					val[spec.v].max = val[spec.v].max * 0.3
 				elseif spec.k == "mod_value_to_item_class" then
 					val[spec.v].min = ItemClasses[val[spec.v].min].Name
 					val[spec.v].max = ItemClasses[val[spec.v].max].Name
@@ -225,22 +228,16 @@ function describeStats(stats)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{:%+?d}", function() 
-				local v = val[1]
-				if v.min == v.max then
-					return string.format("%"..v.fmt, v.min)
-				else
-					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
-				end
-			end):gsub("{(%d):(%+?)d}", function(n, fmt)
+			end):gsub("{(%d?):(%+?)d}", function(n, fmt)
+				n = n ~= "" and n or "0"
 				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..fmt..v.fmt, v.min)
 				elseif fmt == "+" then
 					if v.max < 0 then
-						return string.format("-(%d-%d)", -v.min, -v.max)
+						return string.format("-(%" .. v.fmt .. "-%" .. v.fmt .. ")", -v.min, -v.max)
 					else
-						return string.format("+(%d-%d)", v.min, v.max)
+						return string.format("+(%" .. v.fmt .. "-%" .. v.fmt .. ")", v.min, v.max)
 					end
 				else
 					return string.format("(%"..fmt..v.fmt.."-%"..fmt..v.fmt..")", v.min, v.max)

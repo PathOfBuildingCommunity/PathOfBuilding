@@ -61,6 +61,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	if dbType == "UNIQUE" then
 		self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY + 20, 179, 18, self.sortDropList, function(index, value)
 			self:SetSortMode(value.sortMode)
+			GlobalCache.useFullDPS = value.sortMode == "FullDPS"
 		end)
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
 			self.listBuildFlag = true
@@ -209,7 +210,7 @@ function ItemDBClass:ListBuilder()
 			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or { repSlotName = slotName, repItem = item })
+					local output = calcFunc(item.base.flask and { toggleFlask = item } or { repSlotName = slotName, repItem = item }, { nodeAlloc = true, requirementsGems = true })
 					local measuredPower = output.Minion and output.Minion[self.sortMode] or output[self.sortMode] or 0
 					if self.sortDetail.transform then
 						measuredPower = self.sortDetail.transform(measuredPower)

@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local type = type
 local t_insert = table.insert
+local t_remove = table.remove
 local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
@@ -24,6 +25,9 @@ common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
+
+-- Uncomment if you need to perform in-depth profiling
+-- profiler = require("lua-profiler")
 
 -- Class library
 common.classes = { }
@@ -374,6 +378,39 @@ do
 	end
 end
 
+function mergeDB(srcDB, modDB)
+	if modDB then
+		srcDB:AddDB(modDB)
+		for k,v in pairs(modDB.conditions) do
+			srcDB.conditions[k] = v
+		end
+		for k,v in pairs(modDB.multipliers) do
+			srcDB.multipliers[k] = v
+		end
+	end
+end
+
+function specCopy(env)
+	local modDB = new("ModDB")
+	modDB:AddDB(env.modDB)
+	modDB.conditions = copyTable(env.modDB.conditions)
+	modDB.multipliers = copyTable(env.modDB.multipliers)
+	local enemyDB = new("ModDB")
+	if env.enemyDB then
+		enemyDB:AddDB(env.enemyDB)
+		enemyDB.conditions = copyTable(env.enemyDB.conditions)
+		enemyDB.multipliers = copyTable(env.enemyDB.multipliers)
+	end
+	local minionDB = nil
+	if env.minion then
+		minionDB = new("ModDB")
+		minionDB:AddDB(env.minion.modDB)
+		minionDB.conditions = copyTable(env.minion.modDB.conditions)
+		minionDB.multipliers = copyTable(env.minion.modDB.multipliers)
+	end
+	return modDB, enemyDB, minionDB
+end
+
 -- Wipe all keys from the table and return it, or return a new table if no table provided
 function wipeTable(tbl)
 	if not tbl then
@@ -568,4 +605,124 @@ function zip(a, b)
 		table.insert(zipped, { a[i], b[i] })
     end
     return zipped
+end
+
+-- Generate a UUID for a skill
+function cacheSkillUUID(skill)
+	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
+	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local indx = 1
+	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
+		for idx, gem in ipairs(skill.socketGroup.gemList) do
+			-- we compare table addresses rather than names since two of the same gem
+			-- can be socketed in the same slot
+			if gem == skill.activeEffect.srcInstance then
+				indx = idx
+				break
+			end
+		end
+	end
+	return strName.."_"..strSlotName.."_"..tostring(indx)
+end
+
+-- Global Cache related
+function cacheData(uuid, env)
+	if GlobalCache.dontUseCache then
+		return
+	end
+
+	local mode = env.mode
+
+	if not GlobalCache.cachedData[mode][uuid] or mode == "MAIN" or mode == "CALCS" then
+		-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
+		if GlobalCache.cachedData[mode][uuid] then
+			GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
+			GlobalCache.cachedData[mode][uuid].Env = nil
+		end
+		GlobalCache.cachedData[mode][uuid] = {
+			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
+			Speed = env.player.output.Speed,
+			ManaCost = env.player.output.ManaCost,
+			HitChance = env.player.output.HitChance,
+			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
+			CritChance = env.player.output.CritChance,
+			TotalDPS = env.player.output.TotalDPS,
+			ActiveSkill = env.player.mainSkill,
+			Env = env,
+		}
+	end
+end
+
+-- Obtian a stored cached processed skill identified by
+--   its UUID and pulled from an appropriate env mode (e.g., MAIN)
+function getCachedData(skill, mode)
+	local uuid = cacheSkillUUID(skill)
+	return GlobalCache.cachedData[mode][uuid]
+end
+
+-- Add an entry for a fabricated skill (e.g., Mirage Archers)
+--   to be deleted if it's not longer needed
+function addDeleteGroupEntry(name)
+	if not GlobalCache.deleteGroup[name] then
+		GlobalCache.deleteGroup[name] = true
+	end
+end
+
+-- Remove an entry from the "to be deleted" list
+--   because it is still needed
+function removeDeleteGroupEntry(name)
+	if GlobalCache.deleteGroup[name] then
+		GlobalCache.deleteGroup[name] = nil
+	end
+end
+
+-- Delete a skill-group entry from the skill list if it has
+--   been marked for deletion and nothing over-wrote that
+function deleteFabricatedGroup(skillsTab)
+	for index, socketGroup in ipairs(skillsTab.controls.groupList.list) do
+		if GlobalCache.deleteGroup[socketGroup.label] then
+			t_remove(skillsTab.controls.groupList.list, index)
+			if skillsTab.displayGroup == socketGroup then
+				skillsTab:SetDisplayGroup()
+			end
+			skillsTab:AddUndoState()
+			skillsTab.build.buildFlag = true
+			skillsTab.controls.groupList.selValue = nil
+			wipeTable(GlobalCache.deleteGroup)
+			break
+		end
+	end
+end
+
+-- Wipe all the tables associated with Global Cache
+function wipeGlobalCache()
+	--ConPrintf("WIPING GlobalCache.cacheData")
+	wipeTable(GlobalCache.cachedData.MAIN)
+	wipeTable(GlobalCache.cachedData.CALCS)
+	wipeTable(GlobalCache.cachedData.CALCULATOR)
+	wipeTable(GlobalCache.cachedData.CACHE)
+	wipeTable(GlobalCache.excludeFullDpsList)
+	wipeTable(GlobalCache.deleteGroup)
+	GlobalCache.dontUseCache = nil
+end
+
+-- Full DPS related: add to roll-up exclusion list
+-- this is for skills that are used by Mirage Warriors for example
+function addToFullDpsExclusionList(skill)
+	GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)] = true
+end
+
+-- Full DPS related: check if skill is in roll-up exclusion list
+function isExcludedFromFullDps(skill)
+	return GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)]
+end
+
+-- Check if a specific named gem is enabled in a socket group belonging to a skill
+function supportEnabled(skillName, activeSkill)
+	for _, gemInstance in ipairs(activeSkill.socketGroup.gemList) do
+		if gemInstance.skillId == skillName then
+			return gemInstance.enabled
+		end
+	end
+	return true
 end

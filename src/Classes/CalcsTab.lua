@@ -428,31 +428,34 @@ function CalcsTabClass:BuildOutput()
 end
 
 -- Controls the coroutine that calculations node power
-function CalcsTabClass:BuildPower()
+function CalcsTabClass:BuildPower(callbackContext)
 	if self.powerBuildFlag then
 		self.powerBuildFlag = false
+		self.powerBuilderCallback = callbackContext or self.powerBuilderCallback
 		self.powerBuilder = coroutine.create(self.PowerBuilder)
 	end
 	if self.powerBuilder then
-		collectgarbage("stop")
 		local res, errMsg = coroutine.resume(self.powerBuilder, self)
 		if launch.devMode and not res then
 			error(errMsg)
 		end
 		if coroutine.status(self.powerBuilder) == "dead" then
 			self.powerBuilder = nil
+			if self.powerBuilderCallback then
+				self.powerBuilderCallback.func(self.powerBuilderCallback.caller)
+			end
 		end
-		collectgarbage("restart")
 	end
 end
 
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
+	--local timer_start = GetTime()
+	GlobalCache.useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS" or false
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local newPowerMax = {
 		singleStat = 0,
-		singleStatPerPoint = 0,
 		offence = 0,
 		offencePerPoint = 0,
 		defence = 0,
@@ -469,14 +472,21 @@ function CalcsTabClass:PowerBuilder()
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
 			end
 			local output = cache[node.modKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 				if node.path and not node.ascendancyName then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
-					newPowerMax.singleStatPerPoint = m_max(node.power.singleStat / node.pathDist, newPowerMax.singleStatPerPoint)
+					node.power.pathPower = node.power.singleStat
+					local pathNodes = { }
+					for _, node in pairs(node.path) do
+						pathNodes[node] = true
+					end
+					if node.pathDist > 1 then
+						node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
+					end
 				end
 			else
 				if calcBase.Minion then
@@ -498,6 +508,21 @@ function CalcsTabClass:PowerBuilder()
 
 				end
 			end
+		elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			local output = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+				if node.depends and not node.ascendancyName then
+					node.power.pathPower = node.power.singleStat
+					local pathNodes = { }
+					for _, node in pairs(node.depends) do
+						pathNodes[node] = true
+					end
+					if #node.depends > 1 then
+						node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ removeNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
+					end
+				end
+			end
 		end
 		if coroutine.running() and GetTime() - start > 100 then
 			coroutine.yield()
@@ -514,7 +539,7 @@ function CalcsTabClass:PowerBuilder()
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } })
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
 			end
 			local output = cache[node.modKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
@@ -527,6 +552,7 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end
 	self.powerMax = newPowerMax
+	--ConPrintf("Power Build time: %d ms", GetTime() - timer_start)
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)

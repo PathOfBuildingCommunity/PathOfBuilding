@@ -62,7 +62,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
 		},
 	},
-#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportAuraDuration Blessing
@@ -81,7 +80,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
-#baseMod skill("showAverage", true)
 #mods
 
 #skill RepeatingShockwave
@@ -463,6 +461,14 @@ local skills, mod, flag, skill = ...
 #skill UniqueMirageWarriors
 #flags spell duration minion
 	fromItem = true,
+	statMap = {
+		["skill_used_by_mirage_warrior_damage_+%_final"] = {
+			mod("SaviourMirageWarriorLessDamage", "BASE", nil),
+		},
+		["maximum_number_of_mirage_warriors"] = {
+			mod("SaviourMirageWarriorMaxCount", "BASE", nil),
+		},
+	},
 #mods
 
 #skill TriggeredSummonSpider
@@ -755,4 +761,31 @@ local skills, mod, flag, skill = ...
 #skill Unhinge
 #flags spell
 	fromItem = true,
+#mods
+
+#skill SupportTriggerSpellOnAttack The Poet's Pen
+	fromItem = true,
+#mods
+
+#skill SupportTriggerSpellOnBowAttack Asenath's Chant
+	fromItem = true,
+#mods
+
+#skill SupportTriggerSpellFromHelmet Focus
+	fromItem = true,
+#mods
+
+#skill SupportTriggerSpellOnSkillUse Craft
+	fromItem = true,
+#mods
+
+#skill SupportTriggerBowSkillOnBowAttack Maloney's Mechanism
+	fromItem = true,
+#mods
+
+#skill SupportCastOnManaSpent Kitava's Thirst
+	fromItem = true,
+#mods
+
+#skill Focus
 #mods
