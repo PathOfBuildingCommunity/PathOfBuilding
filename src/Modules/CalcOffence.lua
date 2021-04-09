@@ -3796,22 +3796,27 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "The Saviour Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
 
+			if usedSkill.skillPartName then
+				env.player.mainSkill.skillPart = usedSkill.skillPart
+				env.player.mainSkill.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
+			else
+				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+			end
+
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill
 			calcs.perform(newEnv)
 			env.player.mainSkill = newSkill
 
-			if usedSkill.skillPartName then
-				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-			else
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
-			end
 			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 
 			-- Re-link over the output
 			env.player.output = newEnv.player.output
+			if newSkill.minion then
+				env.minion = newEnv.player.mainSkill.minion
+				env.minion.output = newEnv.minion.output
+			end
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = 0
@@ -3822,6 +3827,10 @@ function calcs.offence(env, actor, activeSkill)
 
 				-- Make any necessary corrections to breakdown
 				env.player.breakdown.ManaCost = nil
+
+				if newSkill.minion then
+					env.minion.breakdown = newEnv.minion.breakdown
+				end
 			end
 		else
 			activeSkill.infoMessage2 = "No Saviour active skill found"

@@ -2079,13 +2079,11 @@ function calcs.perform(env)
 
 			if usedSkill.skillPartName then
 				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+				env.player.mainSkill.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
 			else
 				env.player.mainSkill.skillPartName = nil
 			end
-			env.player.mainSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
-			newSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = "MA"
 
 			-- Recalculate the offensive/defensive aspects of the Mirage Archer influence on skill
@@ -2094,7 +2092,14 @@ function calcs.perform(env)
 			calcs.perform(newEnv)
 			env.player.mainSkill = newSkill
 
+			env.player.mainSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
+
+			-- Re-link over the output
 			env.player.output = newEnv.player.output
+			if newSkill.minion then
+				env.minion = newEnv.player.mainSkill.minion
+				env.minion.output = newEnv.minion.output
+			end
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = 0
@@ -2103,6 +2108,9 @@ function calcs.perform(env)
 				env.player.breakdown = newEnv.player.breakdown
 				-- Make any necessary corrections to breakdown
 				env.player.breakdown.ManaCost = nil
+				if newSkill.minion then
+					env.minion.breakdown = newEnv.minion.breakdown
+				end
 			end
 			newEnv.player.mainSkill.marked = true
 		else
