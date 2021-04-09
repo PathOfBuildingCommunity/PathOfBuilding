@@ -168,7 +168,7 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental}45% reduced Effect of Chill on You
 {variant:2}{tags:jewellery_elemental}75% reduced Effect of Chill on You
 {variant:1}100% increased Ignite Duration on You
-{variant:2}10% increased Movement Speed while Ignited
+{variant:2}{tags:speed}10% increased Movement Speed while Ignited
 ]],[[
 Winterweave
 Coral Ring
@@ -180,7 +180,7 @@ Implicits: 1
 {tags:jewellery_elemental,attack}Adds (12-15) to (25-30) Cold Damage to Attacks
 {tags:life}+(20-40) to maximum Life
 {tags:jewellery_resistance}+(25-30)% to Cold Resistance
-10% increased Movement Speed while Ignited
+{tags:speed}10% increased Movement Speed while Ignited
 The Effect of Chill on you is reversed
 ]],[[
 Brinerot Mark
@@ -406,7 +406,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
 {variant:2,3}{tags:jewellery_elemental}(30-40)% increased Fire Damage
-{tags:caster}(5-10)% increased Cast Speed
+{tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
 {variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
 You can inflict an additional Ignite on an Enemy
@@ -422,7 +422,7 @@ Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:jewellery_elemental}(30-40)% increased Fire Damage
-{tags:caster}(5-10)% increased Cast Speed
+{tags:caster,speed}(5-10)% increased Cast Speed
 90% reduced Ignite Duration on Enemies
 10% chance to Ignite
 {tags:jewellery_elemental}Ignites you inflict deal Damage (35-45)% faster
@@ -443,7 +443,7 @@ Requires Level 38
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {tags:jewellery_attribute}+(20-40) to Intelligence
-Curse Skills have (8-12)% increased Cast Speed
+{tags:caster,speed}Curse Skills have (8-12)% increased Cast Speed
 Hexes you inflict have their Effect increased by twice their Doom instead
 Hexes have (-20-20)% reduced Doom gain rate
 Hexes expire 0.5 seconds after reaching maximum Doom
@@ -455,12 +455,12 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28
 Implicits: 1
-(20-30)% increased Global Critical Strike Chance
+{tags:critical}(20-30)% increased Global Critical Strike Chance
 {variant:2}Trigger level 10 Consecrate when you deal a Critical Strike
-(30-35)% increased Global Critical Strike Chance
+{tags:critical}(30-35)% increased Global Critical Strike Chance
 (10-15)% increased Light Radius
 {variant:1}Creates Consecrated Ground on Critical Strike
-(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
+{tags:critical}(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
 {variant:2}50% increased Damage while on Consecrated Ground
 {variant:2}5% additional Block Chance while on Consecrated Ground
 ]],[[
@@ -482,7 +482,7 @@ Requires Level 44
 Implicits: 1
 (6-15)% increased Rarity of Items found
 (15-25)% increased Rarity of Items found
-5% increased Movement Speed
+{tags:speed}5% increased Movement Speed
 25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
 0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
 Total Recovery per second from Life Leech is Doubled
@@ -571,7 +571,7 @@ Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
 {tags:jewellery_resistance}+10% to all Elemental Resistances
-(6-8)% increased Movement Speed when on Low Life
+{tags:speed}(6-8)% increased Movement Speed when on Low Life
 31% increased Light Radius
 {tags:jewellery_defense,life}+(20-25)% Chaos Resistance when on Low Life
 While on Low Life, Enemies are Unlucky when Damaging you
@@ -665,8 +665,8 @@ Implicits: 1
 {tags:jewellery_elemental}(15-25)% increased Fire Damage
 {tags:jewellery_resistance}+(25-40)% to Cold Resistance
 {tags:jewellery_elemental}(5-10)% chance to Ignite
-{tags:attack}20% increased Attack Speed while Ignited
-{tags:caster}20% increased Cast Speed while Ignited
+{tags:attack,speed}20% increased Attack Speed while Ignited
+{tags:caster,speed}20% increased Cast Speed while Ignited
 {tags:jewellery_elemental}+25% chance to be Ignited
 ]],[[
 Mutewind Seal
@@ -680,9 +680,9 @@ Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
-{variant:2}{tags:attack,caster}Socketed Golem Skills have 20% increased Attack and Cast Speed
+{variant:2}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack}Adds (5-10) to (11-15) Physical Damage to Attacks
-{tags:attack}(5-10)% increased Attack Speed
+{tags:attack,speed}(5-10)% increased Attack Speed
 {variant:1}(1-2)% chance to Dodge Attack Hits
 {variant:2}(3-5)% chance to Dodge Attack Hits
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
@@ -712,7 +712,7 @@ Requires Level 60
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
-{tags:attack,caster}(5-10)% increased Attack and Cast Speed
+{tags:attack,caster,speed}(5-10)% increased Attack and Cast Speed
 {tags:life}+100 to Maximum Life per Red Socket
 {tags:jewellery_defense}+100 to Maximum Energy Shield per Blue Socket
 {tags:mana}+100 to Maximum Mana per Green Socket
@@ -841,11 +841,11 @@ Variant: Pre 2.2.0
 Variant: Current
 Requires Level 60
 Implicits: 1
-(20-30)% increased Global Critical Strike Chance
+{tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:attack}+333 to Accuracy Rating
-{variant:1}+(10-20)% to Global Critical Strike Multiplier
-{variant:2}+(10-15)% to Global Critical Strike Multiplier
-{variant:3}+(15-25)% to Global Critical Strike Multiplier
+{tags:critical}{variant:1}+(10-20)% to Global Critical Strike Multiplier
+{tags:critical}{variant:2}+(10-15)% to Global Critical Strike Multiplier
+{tags:critical}{variant:3}+(15-25)% to Global Critical Strike Multiplier
 {tags:mana}+(40-60) to maximum Mana
 {tags:attack,mana}0.4% of Physical Attack Damage Leeched as Mana
 Gain a Power Charge on non-Critical Strike
@@ -913,7 +913,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {variant:1}{tags:jewellery_elemental}(20-40)% increased Cold Damage
 {variant:2}{tags:caster}(20-40)% increased Spell Damage
-{tags:caster}(5-10)% increased Cast Speed
+{tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}Spells have an additional Projectile
 {variant:2}Left ring slot: Projectiles from Spells cannot Chain
 {variant:2}Left ring slot: Projectiles from Spells Fork
@@ -1024,15 +1024,15 @@ Variant: Current
 Requires Level 22
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
-{tags:attack}(10-15)% increased Attack Speed
-{variant:1}{tags:attack}(5-8)% increased Cast Speed
-{variant:2}{tags:caster}(5-10)% increased Cast Speed
+{tags:attack,speed}(10-15)% increased Attack Speed
+{variant:1}{tags:caster,speed}(5-8)% increased Cast Speed
+{variant:2}{tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}{tags:mana}15% reduced Mana Regeneration Rate
 {variant:2}{tags:mana}15% increased Mana Regeneration Rate
 {variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
 {variant:2}{tags:jewellery_defense}+(15-25) to maximum Energy Shield
-{variant:1}Temporal Chains has 30% reduced Effect on You
-{variant:2}Temporal Chains has 50% reduced Effect on You
+{variant:1}{tags:caster}Temporal Chains has 30% reduced Effect on You
+{variant:2}{tags:caster}Temporal Chains has 50% reduced Effect on You
 ]],[[
 Timetwist
 Moonstone Ring
@@ -1040,8 +1040,8 @@ Source: Upgraded from unique{Timeclasp} via prophecy{A Rift in Time}
 Requires Level 64
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
-{tags:attack}(10-15)% increased Attack Speed
-{tags:caster}(5-10)% increased Cast Speed
+{tags:attack,speed}(10-15)% increased Attack Speed
+{tags:caster,speed}(5-10)% increased Cast Speed
 {tags:jewellery_defense}+(30-50) to maximum Energy Shield
 {tags:mana}15% increased Mana Regeneration Rate
 (-10-10)% increased Skill Effect Duration
@@ -1194,7 +1194,7 @@ Requires Level 30
 Implicits: 1
 {tags:attack}Adds 1 to 4 Physical Damage to Attacks
 {tags:attack}Adds (5-15) to (25-50) Physical Damage to Attacks
-{tags:attack}30% reduced Attack Speed
+{tags:attack,speed}30% reduced Attack Speed
 15% chance to gain a Frenzy Charge when you Stun an Enemy
 ]],[[
 Warrior's Legacy
@@ -1206,7 +1206,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(30-50) to Strength
 {tags:attack}(20-25)% increased Melee Damage
 30% chance to Avoid being Stunned
-20% less Attack Speed
+{tags:speed}20% less Attack Speed
 Strike Skills also target the previous location they were Used
 ]],
 }
