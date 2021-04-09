@@ -288,6 +288,7 @@ data.misc = { -- magic numbers
 	MineAuraRadiusBase = 35,
 	PurposefulHarbingerMaxBuffPercent = 40,
 	MaxEnemyLevel = 84,
+	LowThreshold = 0.5,
 }
 
 -- Misc data tables

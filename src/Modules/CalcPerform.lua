@@ -603,7 +603,7 @@ local function doActorLifeManaReservation(actor)
 			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
 			output[pool.."Unreserved"] = max - reserved
 			output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
-			if (max - reserved) / max <= 0.35 then
+			if (max - reserved) / max <= data.misc.LowThreshold then
 				condList["Low"..pool] = true
 			end
 		else
