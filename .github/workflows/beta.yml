@@ -41,7 +41,7 @@ jobs:
                 mv temp_change.md CHANGELOG.md
                 mv changelog_new.txt changelog.txt
             - name: Update manifest.xml
-              run: python3 update_manifest.py --quiet --in-place --set-version=${{ github.event.inputs.releaseVersion }}
+              run: python3 update_manifest.py --quiet --in-place --set-version=${{ steps.next-version.outputs.ver }}
               
             - name: Push to beta branch
               run: |
