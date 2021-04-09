@@ -30,7 +30,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 You have Phasing if Energy Shield Recharge has started Recently
 6% chance to Dodge Attacks while Phasing
-10% increased Movement Speed while Phasing
+{tags:speed}10% increased Movement Speed while Phasing
 ]],[[
 Auxium
 Chain Belt
@@ -105,7 +105,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {variant:1}10% reduced Chance to Block Attacks and Spells
 (15-25)% increased Physical Damage
-You take 30% reduced Extra Damage from Critical Strikes
+{tags:critical}You take 30% reduced Extra Damage from Critical Strikes
 {tags:life}+(30-40) to maximum Life
 {variant:1}{tags:jewellery_resistance}+(6-10)% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
@@ -142,7 +142,7 @@ Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 (20-25)% increased Damage
 {tags:jewellery_attribute}+(10-15) to all Attributes
-(5-10)% increased Movement Speed
+{tags:speed}(5-10)% increased Movement Speed
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 {tags:caster}You are cursed with Vulnerability, with 40% increased Effect
 ]],[[
@@ -154,7 +154,7 @@ Requires Level 52
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_attribute}+(15-20) to all Attributes
-(5-10)% increased Movement Speed
+{tags:speed}(5-10)% increased Movement Speed
 {tags:caster}50% increased Effect of Curses on you
 {tags:life}You count as on Low Life while you are Cursed with Vulnerability
 {tags:caster}You are Cursed with Vulnerability, with 80% increased Effect
@@ -284,7 +284,7 @@ Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
-{tags:caster,attack}(10-15)% increased Attack and Cast Speed
+{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
 {tags:life}(15-20)% increased Life Recovery rate
 {tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
 (15-20)% increased Cooldown Recovery Speed
@@ -298,7 +298,7 @@ Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Greater Harbinger of Time Skill
-{tags:caster,attack}(10-15)% increased Attack and Cast Speed
+{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
 {tags:life}(15-20)% increased Life Recovery rate
 {tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
 (15-20)% increased Cooldown Recovery Speed
@@ -466,7 +466,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(40-50) to Intelligence
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
-(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
+{tags:critical}(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
 ]],[[
 Maligaro's Restraint
 Chain Belt
@@ -477,7 +477,7 @@ Implicits: 1
 100% increased Shock Duration on You
 Shocks you cause are reflected back to you
 60% increased Damage while Shocked
-15% increased Movement Speed while Shocked
+{tags:speed}15% increased Movement Speed while Shocked
 ]],[[
 Meginord's Girdle
 Heavy Belt
@@ -513,7 +513,7 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_defense}+(600-700) to Evasion Rating
 {tags:jewellery_resistance}+(40-60)% to Cold Resistance
-(8-12)% increased Movement Speed
+{tags:speed}(8-12)% increased Movement Speed
 Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
 Maximum Affliction Charges is equal to Maximum Frenzy Charges
 Gain Affliction Charges instead of Frenzy Charges
@@ -598,7 +598,7 @@ Implicits: 1
 60% increased Flask Effect Duration
 30% reduced Flask Charges gained while using a Flask
 {tags:life}200% of Life Leech applies to enemies as Chaos Damage
-15% increased Movement Speed while using a Flask
+{tags:speed}15% increased Movement Speed while using a Flask
 ]],[[
 Ryslatha's Coil
 Studded Belt
@@ -705,14 +705,14 @@ Variant: Strength/Intelligence
 Variant: Elemental Resistances
 Implicits: 24
 {variant:1}(24-30)% increased Area of Effect
-{variant:2}+(60-75)% to Critical Strike Multiplier during any Flask Effect
-{variant:3}(24-36)% increased Attack Speed during any Flask Effect
-{variant:4}(24-36)% increased Cast Speed during any Flask Effect
-{variant:5}(105-120)% increased Critical Strike Chance during any Flask Effect
+{variant:2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
+{variant:3}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
+{variant:4}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
+{variant:5}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
 {variant:6}(36-45)% increased Skill Effect Duration
 {variant:7}(24-30)% increased maximum Energy Shield
 {variant:8}(18-24)% increased maximum Life
-{variant:9}(24-36)% increased Movement Speed during any Flask Effect
+{variant:9}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
 {variant:10}(60-90)% increased Rarity of Items found
 {variant:11}(9-15)% increased Quantity of Items found
 {variant:12}Wrath has (45-60)% increased Aura Effect
