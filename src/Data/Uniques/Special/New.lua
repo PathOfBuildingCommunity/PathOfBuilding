@@ -41,17 +41,6 @@ Queen's Demand can Trigger Level 20 Storm of Judgement
 Cannot be Stunned
 Damage cannot be Reflected
 ]],[[
-Atziri's Splendour
-Sacrificial Garb
-Requires Level 75, 66 Str, 66 Dex, 66 Int
-Implicits: 1
-+1 to Level of all Vaal Skill Gems
-202% increased Evasion and Energy Shield
-+72 to maximum Energy Shield
-+20% to all Elemental Resistances
-+100 Life gained on Kill
-+100 Mana gained on Kill
-]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
 Requires Level 40
@@ -86,5 +75,16 @@ Limited to: 1
 17% increased Vaal Skill Effect Duration
 Vaal Skills have 20% chance to regain consumed Souls when used
 Corrupted
+]],[[
+Atziri's Splendour
+Sacrificial Garb
+Requires Level 75, 66 Str, 66 Dex, 66 Int
+Implicits: 1
++1 to Level of all Vaal Skill Gems
+202% increased Evasion and Energy Shield
++72 to maximum Energy Shield
++20% to all Elemental Resistances
++100 Life gained on Kill
++100 Mana gained on Kill
 ]],
 }
