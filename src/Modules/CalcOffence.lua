@@ -3710,6 +3710,11 @@ function calcs.offence(env, actor, activeSkill)
 				maxMirageWarriors = maxMirageWarriors + mod.value
 			end
 
+			-- Non-channeled skills only attack once, disregard attack rate
+			if not usedSkill.skillTypes[SkillType.Channelled] then
+				newSkill.skillData.timeOverride = 1
+			end
+
 			if usedSkill.skillPartName then
 				env.player.mainSkill.skillPart = usedSkill.skillPart
 				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
@@ -3729,6 +3734,10 @@ function calcs.offence(env, actor, activeSkill)
 			env.player.output = newEnv.player.output
 
 			-- Make any necessary corrections to output
+			-- Don't show attack rate for non-channeled skills
+			if not usedSkill.skillTypes[SkillType.Channelled] then
+				env.player.output.Speed = 0
+			end
 			env.player.output.ManaCost = output.ManaCost
 			env.player.output.Cooldown = output.Cooldown
 
