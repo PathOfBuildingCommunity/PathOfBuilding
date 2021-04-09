@@ -77,9 +77,7 @@
 	<File name="Classes/TooltipHost.lua" part="program" sha1="23274906162877c09d2119237414b6747a0e6cea" />
 	<File name="Classes/TreeTab.lua" part="program" sha1="d3da26dc40724583ba3f17f63f960f7d198098ef" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
-	<File name="Data/Generated.lua" part="program" sha1="3208f58983074b1f1af9433149c7ed29f195fa43" />
 	<File name="Data/Global.lua" part="program" sha1="5175e2b462adc06ddcebd07ccdaaa827a7f0a803" />
-	<File name="Data/New.lua" part="program" sha1="9a2b7e19c805b2fca91c06620b6ad467f887014a" />
 	<File name="Data/Uniques/amulet.lua" part="program" sha1="2bd0212855c6a8ac26c4b2693af2fa9448accccb" />
 	<File name="Data/Uniques/axe.lua" part="program" sha1="8b3e9fdf7a32069927941d741e024aae40656466" />
 	<File name="Data/Uniques/belt.lua" part="program" sha1="4def57a5929a3802a61be668ac5b38217b6da955" />
@@ -99,6 +97,8 @@
 	<File name="Data/Uniques/staff.lua" part="program" sha1="1c17aa5b9fad792e6340c75b88a44f10da00e7f5" />
 	<File name="Data/Uniques/sword.lua" part="program" sha1="e003e9eeae91049362cf6d3ac8ab54cb9d452ef6" />
 	<File name="Data/Uniques/wand.lua" part="program" sha1="9e59ad904dfd39c6e2a881db9435812c9ce07aed" />
+	<File name="Data/Uniques/Special/Generated.lua" part="program" sha1="3208f58983074b1f1af9433149c7ed29f195fa43" />
+	<File name="Data/Uniques/Special/New.lua" part="program" sha1="9a2b7e19c805b2fca91c06620b6ad467f887014a" />
 	<File name="Data/Uniques/Special/WatchersEye.lua" part="program" sha1="992e791e48b7d62d192b47174f52cbec806683af" />
 	<File name="Data/ClusterJewels.lua" part="program" sha1="75b6d48ff4f2eb0546886cd3c0bf14bf2163b964" />
 	<File name="Data/EnchantmentBelt.lua" part="program" sha1="5c23fa0d3e09af45bb63a8eb637a57e700c1035d" />
