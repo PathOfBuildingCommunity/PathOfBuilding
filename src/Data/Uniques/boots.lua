@@ -153,11 +153,11 @@ Enemies can have 1 additional Curse
 Abberath's Hooves
 Goathide Boots
 Requires Level 12, 26 Dex
+Triggers level 7 Abberath's Fury when equipped
 +(20-30) to Strength
 15% increased Movement Speed
 (6-10)% chance to Ignite
-Ignite a nearby Enemy on Killing an Ignited Enemy
-Triggers level 7 Abberath's Fury when equipped
+When you Kill an Ignited Enemy, inflict an equivalent Ignite on each nearby Enemy
 1% increased Fire Damage per 20 Strength
 Burning Hoofprints
 ]],[[
