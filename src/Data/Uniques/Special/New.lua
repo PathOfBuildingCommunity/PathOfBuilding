@@ -66,7 +66,12 @@ Has no Energy Shield
 +46 to maximum Mana
 3 to 7 added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower
 Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
-]],
+]],[[
+Ulaman's Gaze
+Searching Eye Jewel
++14 to Dexterity
+Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%
+]]
 -- Reworked
 [[
 Atziri's Reign
