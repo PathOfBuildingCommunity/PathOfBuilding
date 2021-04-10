@@ -17,9 +17,17 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Install changelog generator
-              run: sudo gem install github_changelog_generator
+              run: sudo gem install github_changelog_generator --version 1.15.2
             - name: Generate Release notes
-              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} -b CHANGELOG.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --no-issues true --date-format %Y/%m/%d
+              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --max-issues 0 --no-issues true --date-format %Y/%m/%d
+            - name: Tweak changelogs
+              run: >
+                sed -i '$d' temp_change.md;
+                sed -i 's/\[Quotae\]/\[Quote_a\]/' temp_change.md;
+                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\(\1\)/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt;
+                cat CHANGELOG.md | sed '1d' >> temp_change.md;
+                mv temp_change.md CHANGELOG.md;
+                mv changelog_new.txt changelog.txt
             - name: Update manifest.xml
               run: python3 update_manifest.py --quiet --in-place --set-version=${{ github.event.inputs.releaseVersion }}
             - name: Create Pull Request

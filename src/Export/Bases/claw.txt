@@ -1,0 +1,7 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Claw
+#baseTags weapon onehand claw one_hand_weapon
+#socketLimit 3
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/Claws/Claw

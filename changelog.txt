@@ -1,3 +1,63 @@
+VERSION[2.0.3][2021/04/07]
+
+* Fix ability to tab between inputs on the skills tab (Wires77)
+* Fix stat comparison between tree specs (Wires77)
+* Fix General's Cry and build load failures when using the same gem multiple times (Nostrademous)
+* Fix reliance on a calculation mode for Mirage Archer (Nostrademous)
+* Fix Saviour's Reflection Multi-part Skill behavior (Nostrademous)
+* Fix export formatter missing '+' for some item implicits (Wires77)
+* Fix crash with certain CoC triggered skills (Helyos96)
+* Fix impale damage not showing up in combined total damage (ALT-F-X)
+
+VERSION[2.0.2][2021/04/05]
+
+* Fix looking at wrong location for saved user builds (dclamage)
+
+VERSION[2.0.1][2021/04/05]
+
+* Fix crash related to Arcanist Brand (Wires77)
+* Fix crash related to triggered mana cost on skills from items without a level (Wires77)
+* Fix crash when loading PoB from Unicode filepath (Wires77)
+
+VERSION[2.0.0][2021/04/05]
+
+* Add support for many trigger-based skills and items (Nostrademous)
+* Add support for General's Cry and Mirage Archer (Nostrademous)
+* Add support for total DPS roll-up of multiple skills (Nostrademous)
+* Add integer scaling for active skills via a "count" variable (multiple minions, mines, etc.) (Nostrademous)
+* Add least effective allocated node setting to power report (Wires77)
+* Add dynamic loading for passive skill tree versions, reducing memory allocation (Nostrademous)
+* Add mana reservation breakdown (Wires77)
+* Add ability to paste with right-click (Wires77)
+* Add support for GGG's new API allowing us to populate Cluster Jewel nodes on character import (Nostrademous)
+* Add full support for Doryani's Prototype's lightning resist mods (andrewbelu)
+* Add handling for Doedre's Skin's ignore curse limit mod (andrewbelu)
+* Add support for Blunderbore's shrine effect mods (andrewbelu)
+* Add support for The Admiral's lowest resist mod (andrewbelu)
+* Add support for Actum's crit modifier (andrewbelu)
+* Add Culling DPS to sidebar if build includes a source for Culling (Nostrademous)
+* Add support for The Dark Seer's Malediction debuff (Helyos96)
+* Add support for Precursor's Emblem (Wires77)
+* Add new Enchantments and fix enchanting UI (PJacek)
+* Add support for Flickershade Spectre chaos damage conversion (Wires77)
+* Add more support for Intimidate and Unnerve (andrewbelu)
+* Automatically generate Watcher's Eye mods (Wires77)
+* Node power now accounts for total power along the path (Wires77)
+* Inspiration charges now default to maximum (Wires77)
+* Damage header in calcs tab now respects thousands separator preference (mweber15)
+* Remove garbage collection calls to improve memory usage(Wires77)
+
+* Fix Brand Attachment Limit for several skills (Wires77)
+* Fix Flask Effect calculating incorrectly in certain situations (Wires77)
+* Fix Divergent Nightblade to grant Increased Crit Chance instead of Base Crit Chance
+* Fix Fanaticism applying to attacks (Wires77)
+* Fix wording on Hyperboreus, Kitava's Thirst, and Poet's Pen (Nostrademous)
+* Fix Voidshot parsing incorrectly (LocalIdentity)
+* Fix Divergent Ensnaring Arrow (LocalIdentity)
+* Fix Physical Damage Reduction incorrectly assuming negative values (andrewbelu)
+* Fix Anomalous Infused Channelling Support (ALT-F-X)
+* Fix Curses with two words parsing incorrectly (Wires77)
+
 VERSION[1.4.170.28][2021/03/04]
 
 * Add support for Culling (andrewbelu)
