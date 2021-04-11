@@ -2606,7 +2606,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
+					local resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
