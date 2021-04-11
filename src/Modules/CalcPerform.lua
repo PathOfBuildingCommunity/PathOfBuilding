@@ -2005,8 +2005,8 @@ function calcs.perform(env)
 	end
 
 	-- Mirage Archer Support
-	-- This creates a new skill group for the Mirage Archer DPS over-write called 'Mirage Archer'
-	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label ~= "Mirage Archer" then
+	-- This creates and populates env.player.mainSkill.mirage table
+	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then
 		local usedSkill = nil
 		local uuid = cacheSkillUUID(env.player.mainSkill)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
@@ -2015,48 +2015,6 @@ function calcs.perform(env)
 		if not GlobalCache.cachedData[calcMode][uuid] then
 			calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
 		end
-		if GlobalCache.cachedData[calcMode][uuid] then
-			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-		end
-
-		if usedSkill then
-			local newLabel = "Mirage Archer"
-			local exists = false
-			for _, group in ipairs(env.build.skillsTab.socketGroupList) do
-				if group.label == newLabel then
-					exists = true
-					break
-				end
-			end
-			if not exists then
-				local socketGroup = usedSkill.socketGroup
-				local newGroup = copyTable(socketGroup, true)
-				newGroup.label = newLabel
-				newGroup.gemList = { }
-				for index, gemInstance in pairs(socketGroup.gemList) do
-					newGroup.gemList[index] = copyTable(gemInstance, true)
-				end
-				newGroup.marked = true
-				t_insert(env.build.skillsTab.socketGroupList, newGroup)
-			end
-		end
-	end
-
-	if not env.player.mainSkill.skillData.triggeredByMirageArcher and env.player.mainSkill.socketGroup and env.player.mainSkill.socketGroup.label ~= "Mirage Archer" and not supportEnabled("SupportGemMirageArcher", env.player.mainSkill) then
-		addDeleteGroupEntry("Mirage Archer")
-	end
-
-	-- Mirage Archer Support
-	-- This over-writes the skill used by Mirage Archer(s) with their DPS contribution
-	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label == "Mirage Archer" then
-		local usedSkill = nil
-		local uuid = cacheSkillUUID(env.player.mainSkill)
-		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
-
-		-- re-build the active skill in this case and don't cache
-		calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
-		env.dontCache = true
-
 		if GlobalCache.cachedData[calcMode][uuid] then
 			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 		end
@@ -2076,34 +2034,35 @@ function calcs.perform(env)
 				newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", mod.value, mod.source, env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 				maxMirageArchers = maxMirageArchers + mod.value
 			end
+			env.player.mainSkill.mirage = { }
 
 			if usedSkill.skillPartName then
-				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
+				env.player.mainSkill.mirage.skillPart = usedSkill.skillPart
+				env.player.mainSkill.mirage.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.mirage.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
 			else
-				env.player.mainSkill.skillPartName = nil
+				env.player.mainSkill.mirage.skillPartName = nil
 			end
-			env.player.mainSkill.infoTrigger = "MA"
+			env.player.mainSkill.mirage.infoTrigger = "MA"
 
 			-- Recalculate the offensive/defensive aspects of the Mirage Archer influence on skill
 			newEnv.player.mainSkill = newSkill
 			newEnv.player.mainSkill.marked = true
 			calcs.perform(newEnv)
-			env.player.mainSkill = newSkill
 
 			env.player.mainSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
 
 			-- Re-link over the output
-			env.player.output = newEnv.player.output
+			env.player.mainSkill.mirage.output = newEnv.player.output
 			if newSkill.minion then
-				env.minion = newEnv.player.mainSkill.minion
-				env.minion.output = newEnv.minion.output
+				env.player.mainSkill.mirage.minion = {}
+				env.player.mainSkill.mirage.minion.output = newEnv.minion.output
 			end
 
 			-- Make any necessary corrections to output
-			env.player.output.ManaCost = 0
+			env.player.mainSkill.mirage.output.ManaCost = 0
 
+			--[[
 			if newEnv.player.breakdown then
 				env.player.breakdown = newEnv.player.breakdown
 				-- Make any necessary corrections to breakdown
@@ -2113,6 +2072,7 @@ function calcs.perform(env)
 				end
 			end
 			newEnv.player.mainSkill.marked = true
+			--]]
 		else
 			env.player.mainSkill.infoMessage2 = "No Mirage Archer active skill found"
 		end

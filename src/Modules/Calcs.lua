@@ -215,6 +215,33 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 				end
 
+				if activeSkill.mirage then
+					if activeSkill.mirage.output.TotalDPS and activeSkill.mirage.output.TotalDPS > 0 then
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = activeSkill.mirage.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.mirage.infoTrigger, skillPart = activeSkill.mirage.skillPartName })
+						fullDPS.combinedDPS = fullDPS.combinedDPS + activeSkill.mirage.output.TotalDPS * activeSkillCount
+					end
+					if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = activeSkill.mirage.output.BleedDPS
+						bleedSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = activeSkill.mirage.output.IgniteDPS
+						igniteSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if activeSkill.mirage.output.PoisonDPS and activeSkill.mirage.output.PoisonDPS > 0 then
+						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.output.TotalPoisonStacks or 1) * activeSkillCount
+					end
+					if activeSkill.mirage.output.ImpaleDPS and activeSkill.mirage.output.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * activeSkillCount
+					end
+					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
+					end
+					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 then
+						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot
+					end
+				end
+
 				if usedEnv.player.output.TotalDPS and usedEnv.player.output.TotalDPS > 0 then
 					t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = minionName and activeSkill.infoMessage2 or activeSkill.skillPartName })
 					fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.player.output.TotalDPS * activeSkillCount
