@@ -53,15 +53,17 @@ function GemSelectClass:PopulateGemList()
 	local showAwakened = self.skillsTab.showSupportGemTypes == "AWAKENED"
 	local showNormal = self.skillsTab.showSupportGemTypes == "NORMAL"
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
-		if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
-			self.gems["Default:" .. gemId] = gemData
-		elseif showNormal or showAll then
-			if self.skillsTab.showAltQualityGems and self.skillsTab.defaultGemQuality or 0 > 0 then
-				for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
-					self.gems[altQual.type .. ":" .. gemId] = gemData
-				end
-			else
+		if gemData.grantedEffect and not gemData.grantedEffect.fromItem then
+			if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
 				self.gems["Default:" .. gemId] = gemData
+			elseif showNormal or showAll then
+				if self.skillsTab.showAltQualityGems and self.skillsTab.defaultGemQuality or 0 > 0 then
+					for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
+						self.gems[altQual.type .. ":" .. gemId] = gemData
+					end
+				else
+					self.gems["Default:" .. gemId] = gemData
+				end
 			end
 		end
 	end
