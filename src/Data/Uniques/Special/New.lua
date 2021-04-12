@@ -9,7 +9,6 @@ data.uniques.new = {
 Mahuxotl's Machination
 Steel Kite Shield
 Requires Level 46, 60 Str, 60 Int
-Implicits: 1
 Corrupted Soul
 Divine Flesh
 Eternal Youth
