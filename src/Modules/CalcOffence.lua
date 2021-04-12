@@ -3938,33 +3938,33 @@ function calcs.offence(env, actor, activeSkill)
 	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 
 	if activeSkill.mirage and activeSkill.mirage.output and activeSkill.mirage.output.TotalDPS then
-		local mirageCount = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount") or 1
-		output.Mirage = activeSkill.mirage.output.TotalDPS * mirageCount
+		local mirageCount = activeSkill.mirage.count or 1
+		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
 		output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
 
 		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > output.IgniteDPS then
-			output.Mirage = output.Mirage + activeSkill.mirage.output.IgniteDPS
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.IgniteDPS
 			output.IgniteDPS = 0
 		end
 		if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > output.BleedDPS then
-			output.Mirage = output.Mirage + activeSkill.mirage.output.BleedDPS
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.BleedDPS
 			output.BleedDPS = 0
 		end
 
 		if activeSkill.mirage.output.PoisonDPS then
-			output.Mirage = output.Mirage + activeSkill.mirage.output.PoisonDPS * mirageCount
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.PoisonDPS * mirageCount
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.PoisonDPS * mirageCount
 		end
 		if activeSkill.mirage.output.ImpaleDPS then
-			output.Mirage = output.Mirage + activeSkill.mirage.output.ImpaleDPS * mirageCount
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
 		end
 		if activeSkill.mirage.output.DecayDPS then
-			output.Mirage = output.Mirage + activeSkill.mirage.output.DecayDPS
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.DecayDPS
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
 		end
 		if activeSkill.mirage.output.TotalDot then
-			output.Mirage = output.Mirage + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end
 	end

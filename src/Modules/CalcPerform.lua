@@ -883,7 +883,8 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env)
+function calcs.perform(env, avoidCache)
+	local avoidCache = avoidCache or false
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 
@@ -2012,11 +2013,17 @@ function calcs.perform(env)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 
 		-- cache a new copy of this skill that's affected by Mirage Archer
-		calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
-		env.dontCache = true
+		if avoidCache then
+			usedSkill = env.player.mainSkill
+			env.dontCache = true
+		else
+			if not GlobalCache.cachedData[calcMode][uuid] then
+				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
+			end
 
-		if GlobalCache.cachedData[calcMode][uuid] then
-			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+			if GlobalCache.cachedData[calcMode][uuid] and not avoidCache then
+				usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+			end
 		end
 
 		if usedSkill then
@@ -2030,17 +2037,10 @@ function calcs.perform(env)
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Speed", "MORE", moreAttackSpeed, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-			--[[
-			local maxMirageArchers = 0
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")) do
-				local mod = value.mod
-				newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", mod.value, mod.source, env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-				maxMirageArchers = maxMirageArchers + mod.value
-			end
-			--]]
+
 			env.player.mainSkill.mirage = { }
-			env.player.mainSkill.mirage.name = usedSkill.activeEffect.grantedEffect.name
 			env.player.mainSkill.mirage.count = mirageCount
+			env.player.mainSkill.mirage.name = usedSkill.activeEffect.grantedEffect.name
 
 			if usedSkill.skillPartName then
 				env.player.mainSkill.mirage.skillPart = usedSkill.skillPart
@@ -2055,6 +2055,7 @@ function calcs.perform(env)
 			newEnv.player.mainSkill = newSkill
 			-- mark it so we don't recurse infinitely
 			newSkill.marked = true
+			newEnv.dontCache = true
 			calcs.perform(newEnv)
 
 			env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
