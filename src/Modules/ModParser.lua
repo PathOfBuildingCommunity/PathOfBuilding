@@ -10,10 +10,6 @@ local band = bit.band
 local bor = bit.bor
 local bnot = bit.bnot
 
-local function upperCaseFirstLetter(str)
-	return (str:gsub("^%l", string.upper))
-end
-
 local conquerorList = {
 	["xibaqua"]		=	{id = 1, type = "vaal"},
 	["zerphi"]		=	{id = 2, type = "vaal"},
@@ -903,7 +899,7 @@ local modTagList = {
 	["per abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewel" } },
 	["for each herald s?k?i?l?l? ?affecting you"] = { tag = { type = "Multiplier", var = "Herald" } },
 	["for each type of abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewelType" } },
-	["per (.+) eye jewel affecting you, up to a maximum of %+?(%d+)%%"] = function(type, _, num) return { tag = { type = "Multiplier", var = upperCaseFirstLetter(type) .. "EyeJewel", limit = tonumber(num), limitTotal = true } } end,
+	["per (.+) eye jewel affecting you, up to a maximum of %+?(%d+)%%"] = function(type, _, num) return { tag = { type = "Multiplier", var = (type:gsub("^%l", string.upper)) .. "EyeJewel", limit = tonumber(num), limitTotal = true } } end,
 	["per sextant affecting the area"] = { tag = { type = "Multiplier", var = "Sextant" } },
 	["per buff on you"] = { tag = { type = "Multiplier", var = "BuffOnSelf" } },
 	["per curse on enemy"] = { tag = { type = "Multiplier", var = "CurseOnEnemy" } },
@@ -2656,7 +2652,7 @@ local specialModList = {
 		flag("Condition:CanBeElusive"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanBeElusive" }), -- Make the Configuration option appear
 	},
-	["nearby enemies have (%a+) resistance equal to yours"] = function(_, res) return { flag("Enemy"..upperCaseFirstLetter(res).."ResistEqualToYours") } end,
+	["nearby enemies have (%a+) resistance equal to yours"] = function(_, res) return { flag("Enemy"..(res:gsub("^%l", string.upper)).."ResistEqualToYours") } end,
 	["for each nearby corpse, regenerate ([%d%.]+)%% life per second, up to ([%d%.]+)%%"] = function(num, _, limit) return { mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "NearbyCorpse", limit = tonumber(limit), limitTotal = true }) } end,
 	["gain sacrificial zeal when you use a skill, dealing you %d+%% of the skill's mana cost as physical damage per second"] = {
 		flag("Condition:SacrificialZeal"),

@@ -10,7 +10,6 @@ Mahuxotl's Machination
 Steel Kite Shield
 Requires Level 46, 60 Str, 60 Int
 Implicits: 1
-Chance to Block: 26%
 Corrupted Soul
 Divine Flesh
 Eternal Youth
@@ -59,7 +58,6 @@ The Scales of Justice
 Chiming Spirit Shield
 Requires Level 49, 118 Int
 Implicits: 1
-Chance to Block: 23%
 13% increased Spell Damage
 Has no Energy Shield
 +54 to maximum Life
@@ -69,9 +67,10 @@ Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
+Requires Level 40
 +14 to Dexterity
 Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%
-]]
+]],
 -- Reworked
 [[
 Atziri's Reign
