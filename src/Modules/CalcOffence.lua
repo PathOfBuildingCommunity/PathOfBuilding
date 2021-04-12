@@ -3937,7 +3937,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 
-	if activeSkill.mirage then
+	if activeSkill.mirage and activeSkill.mirage.output and activeSkill.mirage.output.TotalDPS then
 		output.Mirage = activeSkill.mirage.output.TotalDPS * (activeSkill.mirage.count or 1)
 		output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDPS * (activeSkill.mirage.count or 1)
 
