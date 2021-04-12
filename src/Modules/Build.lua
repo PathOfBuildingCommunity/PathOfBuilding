@@ -278,6 +278,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end  },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
+		{ stat = "Mirage", label = "Mirage (with Ailments)", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.CullingDPS or 0 > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end },
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
@@ -1224,6 +1225,9 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
+			if statData.stat == "FullDPS" and not GlobalCache.useFullDPS then
+				diff = 0
+			end
 			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then
 				if count == 0 then
 					tooltip:AddLine(14, header)
@@ -1234,17 +1238,17 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 
 				valStr = formatNumSep(valStr)
 
-				local line = string.format("%s%s %s", color, valStr, statData.label)
+				local line = s_format("%s%s %s", color, valStr, statData.label)
 				local pcPerPt = ""
 				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then
 					local pc = statVal1 / statVal2 * 100 - 100
-					line = line .. string.format(" (%+.1f%%)", pc)
+					line = line .. s_format(" (%+.1f%%)", pc)
 					if nodeCount then
-						pcPerPt = string.format(" (%+.1f%%)", pc / nodeCount)
+						pcPerPt = s_format(" (%+.1f%%)", pc / nodeCount)
 					end
 				end
 				if nodeCount then
-					line = line .. string.format(" ^8[%+"..statData.fmt.."%s per point]", diff * ((statData.pc or statData.mod) and 100 or 1) / nodeCount, pcPerPt)
+					line = line .. s_format(" ^8[%+"..statData.fmt.."%s per point]", diff * ((statData.pc or statData.mod) and 100 or 1) / nodeCount, pcPerPt)
 				end
 				tooltip:AddLine(14, line)
 				count = count + 1

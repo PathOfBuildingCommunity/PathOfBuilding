@@ -3646,6 +3646,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillModList:Flag(nil, "DotCanStack") then
+		skillFlags.DotCanStack = true
 		local speed = output.Speed
 		-- Check if skill is being triggered via Mine (e.g., Blastchain Mine Support) or Trap
 		-- if "yes", you cannot use output.Speed but rather should use output.MineLayingSpeed or output.TrapThrowingSpeed
@@ -3935,4 +3936,36 @@ function calcs.offence(env, actor, activeSkill)
 		output.CullingDPS = output.CombinedDPS * (output.CullMultiplier - 1)
 	end
 	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
+
+	if activeSkill.mirage then
+		output.Mirage = activeSkill.mirage.output.TotalDPS * (activeSkill.mirage.count or 1)
+		output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDPS * (activeSkill.mirage.count or 1)
+
+		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > output.IgniteDPS then
+			output.Mirage = output.Mirage + activeSkill.mirage.output.IgniteDPS
+			output.IgniteDPS = 0
+		end
+		if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > output.BleedDPS then
+			output.Mirage = output.Mirage + activeSkill.mirage.output.BleedDPS
+			output.BleedDPS = 0
+		end
+
+		if activeSkill.mirage.output.PoisonDPS then
+			output.Mirage = output.Mirage + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.count or 1) 
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.count or 1)
+		end
+		if activeSkill.mirage.output.ImpaleDPS then
+			output.Mirage = output.Mirage + activeSkill.mirage.output.ImpaleDPS * (activeSkill.mirage.count or 1)
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.ImpaleDPS * (activeSkill.mirage.count or 1)
+		end
+		if activeSkill.mirage.output.DecayDPS then
+			output.Mirage = output.Mirage + activeSkill.mirage.output.DecayDPS
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
+		end
+		if activeSkill.mirage.output.TotalDot then
+			output.Mirage = output.Mirage + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and activeSkill.mirage.count or 1)
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and activeSkill.mirage.count or 1)
+		end
+
+	end
 end

@@ -107,11 +107,10 @@ function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
-	if GlobalCache.useFullDPS then
-		local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, env = env})
-		env.player.output.SkillDPS = fullDPS.skills
-		env.player.output.FullDPS = fullDPS.combinedDPS
-	end
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, env = env})
+	env.player.output.SkillDPS = fullDPS.skills
+	env.player.output.FullDPS = fullDPS.combinedDPS
+
 	local baseOutput = env.player.output
 
 	return function(override, accelerate)
@@ -216,9 +215,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				end
 
 				if activeSkill.mirage then
+					local mirageCount = (activeSkill.mirage.count or 1) * activeSkillCount
 					if activeSkill.mirage.output.TotalDPS and activeSkill.mirage.output.TotalDPS > 0 then
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = activeSkill.mirage.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.mirage.infoTrigger, skillPart = activeSkill.mirage.skillPartName })
-						fullDPS.combinedDPS = fullDPS.combinedDPS + activeSkill.mirage.output.TotalDPS * activeSkillCount
+						t_insert(fullDPS.skills, { name = activeSkill.mirage.name, dps = activeSkill.mirage.output.TotalDPS, count = mirageCount, trigger = activeSkill.mirage.infoTrigger, skillPart = activeSkill.mirage.skillPartName })
+						fullDPS.combinedDPS = fullDPS.combinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
 					end
 					if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > fullDPS.bleedDPS then
 						fullDPS.bleedDPS = activeSkill.mirage.output.BleedDPS
@@ -229,16 +229,16 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						igniteSource = activeSkill.activeEffect.grantedEffect.name
 					end
 					if activeSkill.mirage.output.PoisonDPS and activeSkill.mirage.output.PoisonDPS > 0 then
-						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.output.TotalPoisonStacks or 1) * activeSkillCount
+						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.output.TotalPoisonStacks or 1) * mirageCount
 					end
 					if activeSkill.mirage.output.ImpaleDPS and activeSkill.mirage.output.ImpaleDPS > 0 then
-						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * activeSkillCount
+						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
 					end
 					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > 0 then
 						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
 					end
 					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 then
-						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot
+						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot * (activeSkill.skillFlags.DotCanStack and mirageCount or 1)
 					end
 				end
 
@@ -264,7 +264,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
 				end
 				if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
-					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot
+					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot * (activeSkill.skillFlags.DotCanStack and activeSkillCount or 1)
 				end
 
 				-- Re-Build env calculator for new run

@@ -219,7 +219,7 @@ function GemSelectClass:UpdateSortCache()
 				gemList[self.index] = nil
 			end
 			-- Check for nil because some fields may not be populated, default to 0
-			sortCache.dps[gemId] = (dpsField == "FullDPS" and calcBase[dpsField] ~= nil and calcBase[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
+			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
 		--Color based on the dps
 		if sortCache.dps[gemId] > baseDPS then
