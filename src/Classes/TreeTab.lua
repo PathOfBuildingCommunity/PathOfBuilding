@@ -180,7 +180,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
 	t_insert(self.controls.specSelect.list, "Manage trees...")
-	
+
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
 	end
@@ -192,7 +192,12 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 			self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
 		end
 	end
-	
+	if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
+		self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
+	else
+		self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
+	end
+
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)

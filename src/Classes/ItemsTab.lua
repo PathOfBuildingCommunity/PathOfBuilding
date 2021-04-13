@@ -232,12 +232,15 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end)
 	self.controls.displayItemTip = new("LabelControl", {"TOPLEFT",self.controls.craftDisplayItem,"BOTTOMLEFT"}, 0, 8, 100, 16, 
 [[^7Double-click an item from one of the lists,
-or copy and paste an item from in game (hover over the item and Ctrl+C)
-to view or edit the item and add it to your build.
-You can Control + Click an item to equip it, or drag it onto the slot.
-This will also add it to your build if it's from the unique/template list.
-If there's 2 slots an item can go in, holding Shift will put it in the second.]])
-	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 142, 360, 308, self)
+or copy and paste an item from in game
+(hover over the item and Ctrl+C) to view or edit
+the item and add it to your build.
+You can Control + Click an item to equip it,
+or drag it onto the slot.  This will also add it to your
+build if it's from the unique/template list.
+If there's 2 slots an item can go in,
+holding Shift will put it in the second.]])
+	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 194, 340, 308, self)
 
 	-- Display item
 	self.displayItemTooltip = new("Tooltip")
