@@ -422,6 +422,14 @@ local skills, mod, flag, skill = ...
 
 #skill DetonateDead
 #flags spell area
+    statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 #baseMod skill("radius", 22)
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 	parts = {
@@ -440,6 +448,14 @@ local skills, mod, flag, skill = ...
 
 #skill VaalDetonateDead
 #flags cast area
+    statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 24)
 	parts = {
@@ -1309,6 +1325,14 @@ local skills, mod, flag, skill = ...
 
 #skill VolatileDead
 #flags spell area
+    statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 	parts = {
 		{
