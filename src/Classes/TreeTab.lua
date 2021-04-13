@@ -103,7 +103,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-	self.controls.treeSearch.tooltip = "Uses Lua pattern matching for complex searches"
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 	self.controls.powerReport = new("ButtonControl", {"LEFT", self.controls.treeSearch, "RIGHT"}, 8, 0, 140, 20, self.viewer.showHeatMap and "Hide Power Report" or "Show Power Report", function()
 		self.viewer.showHeatMap = not self.viewer.showHeatMap
 		self:TogglePowerReport()
