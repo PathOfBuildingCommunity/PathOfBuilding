@@ -138,6 +138,8 @@ end
 local function getActiveSkillCount(activeSkill)
 	if not activeSkill.socketGroup then
 		return 1, true
+	elseif activeSkill.socketGroup.groupCount then
+		return activeSkill.socketGroup.groupCount, true
 	else
 		local gemList = activeSkill.socketGroup.gemList
 		for _, gemData in pairs(gemList) do
