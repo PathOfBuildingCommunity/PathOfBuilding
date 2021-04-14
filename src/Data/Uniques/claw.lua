@@ -220,11 +220,14 @@ Adds 2 to 10 Physical Damage
 100% increased Accuracy Rating when on Low Life
 ]],[[
 Replica Last Resort
+Variant: Pre 3.14.0
+Variant: Current
 Nailed Fist
 League: Heist
 Implicits: 1
 +3 Life gained for each Enemy hit by Attacks
-50% increased Attack Speed when on Low Life
+{variant:1}50% increased Attack Speed when on Low Life
+{variant:2}25% increased Attack Speed when on Low Life
 (80-100)% increased Physical Damage
 100% increased Accuracy Rating when on Low Life
 200% increased Damage with Claws while on Low Life
