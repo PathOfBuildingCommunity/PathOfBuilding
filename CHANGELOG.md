@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.1.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.1.0) (2021/04/15)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.0.3...2.1.0)
+
+**Implemented enhancements:**
+
+- Add support for the 3.14 Skill Tree [\#2513](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2513) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for count-scaling Active Skills from items [\#2496](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2496) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Accelerating, Noxious, and Unstable catalysts [\#2471](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2471) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Defiance [\#2504](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2504) ([Helyos96](https://github.com/Helyos96))
+- Add support for leech mods rewordings [\#2510](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2510) ([Helyos96](https://github.com/Helyos96))
+- Adds support for Vaal Ground Slam having Exertions [\#2512](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2512) ([Nostrademous](https://github.com/Nostrademous))
+- Add new Ultimatum uniques, implemented Tecrod's Gaze [\#2461](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2461) ([Wires77](https://github.com/Wires77))
+- Update uniques from 3.14 patch notes [\#2509](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2509) ([pundm](https://github.com/pundm))
+- Update Low Life/Mana threshold [\#2463](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2463) ([Nostrademous](https://github.com/Nostrademous))
+- Add radius to Death Aura [\#2514](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2514) ([LocalIdentity](https://github.com/LocalIdentity))
+
+**Fixed bugs:**
+
+- Fix Wintertide brand not getting +1 to attached brand [\#2501](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2501) ([Wires77](https://github.com/Wires77))
+- Fix DD and VD having their spell damage apply to corpse explosions [\#2498](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2498) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix some gems appearing in the gem list when they shouldn't have [\#2493](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2493) ([Wires77](https://github.com/Wires77))
+- Fix physical damage reduction for bleed from going below zero [\#2481](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2481) ([Wires77](https://github.com/Wires77))
+- Fix outdated modifier text on Aberrath's Hooves [\#2474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2474) ([pundm](https://github.com/pundm))
+- Fix many crashes related to Generals Cry [\#2453](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2453) ([Nostrademous](https://github.com/Nostrademous))
+- Fix crash related to Brands with Item-granted Active Skills [\#2450](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2450) ([Nostrademous](https://github.com/Nostrademous))
+- Fix "Socketed Gems are supported by..." mods for trigger skills (e.g. CwC) [\#2442](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2442) ([Nostrademous](https://github.com/Nostrademous))
+- Fix incorrect application of Buff Effect [\#2391](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2391) ([PJacek](https://github.com/PJacek))
+
 ## [2.0.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.3) (2021/04/07)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.0.2...2.0.3)
