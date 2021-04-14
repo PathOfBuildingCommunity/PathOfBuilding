@@ -1344,8 +1344,11 @@ Corrupted
 ]],[[
 Atziri's Reign
 Crimson Jewel
-Limited to: 2
-(15-20)% increased Vaal Skill Effect Duration
+Variant: Pre 3.14.0
+Variant: Current
+Limited to: 1
+{variant:1,2}(15-20)% increased Vaal Skill Effect Duration
+{variant:2}Vaal Skills to have (15-20)% chance to regain consumed Souls when used
 Corrupted
 ]],[[
 Blood Sacrifice
