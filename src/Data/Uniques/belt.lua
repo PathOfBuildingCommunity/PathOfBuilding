@@ -135,13 +135,17 @@ Immune to Curses while you have at least 25 Rage
 ]],[[
 Coward's Chains
 Chain Belt
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
 Requires Level 22
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
-(20-25)% increased Damage
-{tags:jewellery_attribute}+(10-15) to all Attributes
+{variant:1}(20-25)% increased Damage
+{variant:1}{tags:jewellery_attribute}+(10-15) to all Attributes
+{variant:2}{tags:jewellery_attribute}+(15-20) to all Attributes
+{variant:2}You count as on Full Life while you are Cursed with Vulnerability
 {tags:speed}(5-10)% increased Movement Speed
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 {tags:caster}You are cursed with Vulnerability, with 40% increased Effect
