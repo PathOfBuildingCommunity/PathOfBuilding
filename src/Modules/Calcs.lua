@@ -482,6 +482,9 @@ function calcs.buildOutput(build, mode)
 		if output.GhostShrouds > 0 then
 			t_insert(combatList, s_format("%d Ghost Shrouds", output.GhostShrouds))
 		end
+		if build.calcsTab.mainEnv.multipliersUsed["BloodCharge"] then
+			t_insert(combatList, s_format("%d Blood Charges", output.BloodCharges))
+		end
 		if output.CrabBarriers > 0 then
 			t_insert(combatList, s_format("%d Crab Barriers", output.CrabBarriers))
 		end

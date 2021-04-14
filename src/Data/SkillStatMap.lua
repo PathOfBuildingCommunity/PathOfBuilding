@@ -113,6 +113,10 @@ return {
 	skill("ChaosDot", nil),
 	div = 60,
 },
+["base_physical_damage_to_deal_per_minute"] = {
+	skill("PhysicalDot", nil),
+	div = 60,
+},
 ["critical_ailment_dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil, 0, 0, {type = "Condition", var = "CriticalStrike"})
 },

@@ -15885,6 +15885,100 @@ return {
 			[1]="minions_are_defensive"
 		}
 	},
+	[558]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0} Base Physical Damage per second"
+				}
+			}
+		},
+		stats={
+			[1]="base_physical_damage_to_deal_per_minute"
+		}
+	},
+	[559]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Gain a Blood Charge if this Skill Hits Enemies and none of them Die"
+				}
+			}
+		},
+		stats={
+			[1]="gain_blood_charge_on_enemy_survives"
+		}
+	},
+	[560]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Damage per Blood Charge"
+				}
+			}
+		},
+		stats={
+			[1]="damage_+%_final_per_blood_charge"
+		}
+	},
+	[561]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Costs {0}% more Life per Blood Charge"
+				}
+			}
+		},
+		stats={
+			[1]="costs_life_+%_final_per_blood_charge"
+		}
+	},
+	[562]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Loose a Blood Charge when an Enemy Dies while affected by this Skill's Debuff"
+				}
+			}
+		},
+		stats={
+			[1]="loose_blood_charge_on_enemy_death"
+		}
+	},
 	["%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy"]=399,
 	["%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"]=400,
 	["%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"]=401,
@@ -16485,5 +16579,10 @@ return {
 	["weapon_elemental_damage_+%"]=550,
 	["wither_applies_additional_wither_%"]=551,
 	["withered_on_hit_chance_%"]=137,
-	["you_and_enemy_movement_velocity_+%_while_affected_by_ailment_you_inflicted"]=552
+	["you_and_enemy_movement_velocity_+%_while_affected_by_ailment_you_inflicted"]=552,
+	["base_physical_damage_to_deal_per_minute"]=558,
+	["gain_blood_charge_on_enemy_survives"]=559,
+	["damage_+%_final_per_blood_charge"]=560,
+	["costs_life_+%_final_per_blood_charge"]=561,
+	["loose_blood_charge_on_enemy_death"]=562
 }

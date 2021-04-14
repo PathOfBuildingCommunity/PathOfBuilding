@@ -6651,3 +6651,47 @@ skills["BloodstainedBanner"] = {
 		[40] = { 28, 14, 8, 1, 1000, 50, levelRequirement = 100, cooldown = 1, duration = 10, manaCost = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
+skills["Reap"] = {
+	name = "Reap",
+	color = 1,
+	baseEffectiveness = 1,
+	incrementalEffectiveness = 1,
+	description = "A bloody scythe swipes across a selected area, applying a physical damage over time debuff in addition to hitting enemies with physical damage. If enemies survive you gain a blood charge, which raises the damage and cost of the skill.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.DamageOverTime] = true, [SkillType.SkillCanMine] = true, },
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	statMap = {
+		["damage_+%_final_per_blood_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("showAverage", true),
+	},
+	qualityStats = {
+		Default = {
+		},
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_skill_effect_duration",
+		"base_physical_damage_to_deal_per_minute",
+		"damage_+%_final_per_blood_charge",
+		"costs_life_+%_final_per_blood_charge",
+		"is_area_damage",
+		"spell_damage_modifiers_apply_to_skill_dot",
+		"gain_blood_charge_on_enemy_survives",
+		"loose_blood_charge_on_enemy_death",
+	},
+	levels = {
+		[1] = { 58, 87, 1000, 7212, 10, 20, damageEffectiveness = 1.80, critChance = 6, levelRequirement = 28, manaCost = 25, statInterpolation = { 0, }, },
+		[20] = { 58, 87, 1000, 7212, 10, 20, damageEffectiveness = 1.80, critChance = 6, levelRequirement = 28, manaCost = 25, statInterpolation = { 0, }, },
+	}
+}

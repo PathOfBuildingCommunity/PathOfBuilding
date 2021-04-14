@@ -515,6 +515,9 @@ return {
 	{ var = "overrideInspirationCharges", type = "count", label = "# of Inspiration Charges (if not maximum):", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("InspirationCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "overrideBloodCharges", type = "count", label = "# of Blood Charges (if not maximum):", ifMult = "BloodCharge", apply = function(val, modList, enemyModList)
+		modList:NewMod("BloodCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "useGhostShrouds", type = "check", label = "Do you use Ghost Shrouds?", ifMult = "GhostShroud", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseGhostShrouds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },

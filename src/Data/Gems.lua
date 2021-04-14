@@ -7420,4 +7420,21 @@ return {
 		reqInt = 60,
 		defaultLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemReap"] = {
+		name = "Reap",
+		grantedEffectId = "Reap",
+		tags = {
+			strength = true,
+			active_skill = true,
+			spell = true,
+			area = true,
+			duration = true,
+			physical = true,
+		},
+		tagString = "Spell, AoE, Duration, Physical",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 20,
+	},
 }

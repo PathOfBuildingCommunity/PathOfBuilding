@@ -642,6 +642,7 @@ local function doActorMisc(env, actor)
 	output.AbsorptionChargesMax = modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0
 	output.AfflictionChargesMin = modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and output.FrenzyChargesMin or 0
 	output.AfflictionChargesMax = modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0
+	output.BloodChargesMax = modDB:Sum("BASE", nil, "BloodChargesMax")
 
 	-- Initialize Charges
 	output.PowerCharges = 0
@@ -655,6 +656,7 @@ local function doActorMisc(env, actor)
 	output.BrutalCharges = 0
 	output.AbsorptionCharges = 0
 	output.AfflictionCharges = 0
+	output.BloodCharges = 0
 
 	-- Conditionally over-write Charge values
 	if modDB:Flag(nil, "UsePowerCharges") then
@@ -709,6 +711,7 @@ local function doActorMisc(env, actor)
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
 	end
+	output.BloodCharges = modDB:Override(nil, "BloodCharges") or output.BloodChargesMax
 
 	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
@@ -730,6 +733,7 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
 	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
 	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
+	modDB.multipliers["BloodCharge"] = output.BloodCharges
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
