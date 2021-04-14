@@ -784,9 +784,23 @@ Triggers Level 20 Corpse Walk when Equipped
 25% increased Movement Speed
 (20-40)% increased Damage if you have Consumed a corpse Recently
 For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+]],
+[[
+Dance of the Offered
+Carnal Boots
+Variant: Current
+League: Incursion
+Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
+Requires Level 34, 34 Dex, 34 Int
++(50-60) to maximum Mana
++(25-30)% to Lightning Resistance
+25% increased Movement Speed
+You have Onslaught while not on Low Mana
+The Agnostic
 ]],[[
 Dance of the Offered
 Shackled Boots
+Variant: Pre 3.14.0
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 Requires Level 34, 34 Dex, 34 Int
