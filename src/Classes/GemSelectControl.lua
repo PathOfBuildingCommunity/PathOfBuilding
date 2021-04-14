@@ -187,7 +187,7 @@ function GemSelectClass:UpdateSortCache()
 	GlobalCache.useFullDPS = dpsField == "FullDPS"
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 	-- Check for nil because some fields may not be populated, default to 0
-	local baseDPS = (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0
+	local baseDPS = (dpsField == "FullDPS" and calcBase[dpsField] ~= nil and calcBase[dpsField]) or (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0
 
 	for gemId, gemData in pairs(self.gems) do
 		sortCache.dps[gemId] = baseDPS
@@ -209,7 +209,7 @@ function GemSelectClass:UpdateSortCache()
 				gemInstance.level = gemData.defaultLevel
 			end
 			--Calculate the impact of using this gem
-			local output = calcFunc({}, { allocNodes = true, requirementsItems = true, requirementsGems = true })
+			local output = calcFunc({}, { allocNodes = true, requirementsItems = true })
 			if oldGem then
 				gemInstance.gemData = oldGem.gemData
 				gemInstance.level = oldGem.level
@@ -217,7 +217,7 @@ function GemSelectClass:UpdateSortCache()
 				gemList[self.index] = nil
 			end
 			-- Check for nil because some fields may not be populated, default to 0
-			sortCache.dps[gemId] = (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
+			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
 		--Color based on the dps
 		if sortCache.dps[gemId] > baseDPS then

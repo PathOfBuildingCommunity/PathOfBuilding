@@ -709,6 +709,7 @@ end
 -- Full DPS related: add to roll-up exclusion list
 -- this is for skills that are used by Mirage Warriors for example
 function addToFullDpsExclusionList(skill)
+	--ConPrintf("ADDING TO FULL DPS EXCLUDE: " .. cacheSkillUUID(skill))
 	GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)] = true
 end
 
