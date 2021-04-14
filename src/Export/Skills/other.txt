@@ -238,6 +238,7 @@ local skills, mod, flag, skill = ...
 #flags spell aura area
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 30)
 #mods
 
 #skill DeathWalk

@@ -939,6 +939,7 @@ skills["ChaosDegenAuraUnique"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		skill("radius", 30),
 	},
 	qualityStats = {
 	},
