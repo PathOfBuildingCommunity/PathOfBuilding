@@ -525,16 +525,18 @@ Nearby Enemies cannot deal Critical Strikes
 Infernal Mantle
 Widowsilk Robe
 Variant: Pre 3.0.0
+Variant: Pre 3.14.0
 Variant: Current
 Requires Level 65, 187 Int
 +1 to Level of Socketed Fire Gems
 (25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
 {variant:1}(190-230)% increased Energy Shield
-{variant:2}(120-160)% increased Energy Shield
+{variant:2,3}(120-160)% increased Energy Shield
 15% of Fire Damage Converted to Chaos Damage
 {variant:1}100% increased Spell Damage taken when on Low Mana
 {variant:2}25% increased Spell Damage taken when on Low Mana
+{variant:3}15% increased Spell Damage taken when on Low Mana
 ]],[[
 Infernal Mantle
 Occultist's Vestment
