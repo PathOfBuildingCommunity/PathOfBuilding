@@ -11,15 +11,18 @@ local m_max = math.max
 local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-local catalystList = {"Abrasive", "Fertile", "Imbued", "Intrinsic", "Prismatic", "Tempering", "Turbulent"}
+local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
 local catalystTags = {
 	{ "attack" },
+	{ "speed" },
 	{ "life", "mana", "resource" },
 	{ "caster" },
 	{ "jewellery_attribute", "attribute" },
+	{ "physical", "chaos" },
 	{ "jewellery_resistance", "resistance" },
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
+	{ "critical" },
 }
 
 local function getCatalystScalar(catalystId, tags, quality)
@@ -351,8 +354,8 @@ function ItemClass:ParseRaw(raw)
 					self.name = self.name:gsub(" %(.+%)","")
 				end
 				local baseName = self.baseName or ""
-				if self.variant and varSpec then
-					if tonumber(varSpec) == self.variant then
+				if self.variant and variantList then
+					if variantList[self.variant] then
 						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 					end
 				elseif baseName == "" then
@@ -435,6 +438,11 @@ function ItemClass:ParseRaw(raw)
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
+				end
+
+				if data.itemBases[line] then
+					self.baseLines = self.baseLines or { }
+					self.baseLines[line] = { line = line, variantList = variantList}
 				end
 
 				local modLines
@@ -643,23 +651,40 @@ function ItemClass:BuildRaw()
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: "..self.itemLevel)
 	end
+	local function writeModLine(modLine)
+		local line = modLine.line
+		if modLine.range then
+			line = "{range:"..round(modLine.range,3).."}" .. line
+		end
+		if modLine.crafted then
+			line = "{crafted}" .. line
+		end
+		if modLine.custom then
+			line = "{custom}" .. line
+		end
+		if modLine.fractured then
+			line = "{fractured}" .. line
+		end
+		if modLine.variantList then
+			local varSpec
+			for varId in pairs(modLine.variantList) do
+				varSpec = (varSpec and varSpec.."," or "") .. varId
+			end
+			line = "{variant:"..varSpec.."}"..line
+		end
+		if modLine.modTags and #modLine.modTags > 0 then
+			line = "{tags:"..table.concat(modLine.modTags, ",").."}"..line
+		end
+		t_insert(rawLines, line)
+	end
 	if self.variantList then
 		for _, variantName in ipairs(self.variantList) do
 			t_insert(rawLines, "Variant: "..variantName)
 		end
 		t_insert(rawLines, "Selected Variant: "..self.variant)
 
-		local hasVariantBases = false
-		local i = 1
-		for _, variantName in ipairs(self.variantList) do
-			if data.itemBases[variantName] then
-				t_insert(rawLines, "{variant:"..i.."}"..variantName)
-				hasVariantBases = true
-			end
-			i = i + 1
-		end
-		if not hasVariantBases then
-			t_insert(rawLines, self.baseName)
+		for _, baseLine in pairs(self.baseLines) do
+			writeModLine(baseLine)
 		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
@@ -697,32 +722,6 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, "Limited to: "..self.limit)
 	end
 	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines))
-	local function writeModLine(modLine)
-		local line = modLine.line
-		if modLine.range then
-			line = "{range:"..round(modLine.range,3).."}" .. line
-		end
-		if modLine.crafted then
-			line = "{crafted}" .. line
-		end
-		if modLine.custom then
-			line = "{custom}" .. line
-		end
-		if modLine.fractured then
-			line = "{fractured}" .. line
-		end
-		if modLine.variantList then
-			local varSpec
-			for varId in pairs(modLine.variantList) do
-				varSpec = (varSpec and varSpec.."," or "") .. varId
-			end
-			line = "{variant:"..varSpec.."}"..line
-		end
-		if modLine.modTags and #modLine.modTags > 0 then
-			line = "{tags:"..table.concat(modLine.modTags, ",").."}"..line
-		end
-		t_insert(rawLines, line)
-	end
 	for _, modLine in ipairs(self.enchantModLines) do
 		writeModLine(modLine)
 	end

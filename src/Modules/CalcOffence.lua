@@ -1334,7 +1334,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
-			if not activeSkill.skillTypes[SkillType.Vaal] and not activeSkill.skillTypes[SkillType.Channelled] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
+			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Channelled] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] and not globalOutput.AncestralCryCalculated then
 						globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2606,7 +2606,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
+					local resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -3646,6 +3646,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillModList:Flag(nil, "DotCanStack") then
+		skillFlags.DotCanStack = true
 		local speed = output.Speed
 		-- Check if skill is being triggered via Mine (e.g., Blastchain Mine Support) or Trap
 		-- if "yes", you cannot use output.Speed but rather should use output.MineLayingSpeed or output.TrapThrowingSpeed
@@ -3712,8 +3713,8 @@ function calcs.offence(env, actor, activeSkill)
 
 			if usedSkill.skillPartName then
 				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+				env.player.mainSkill.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
 			else
 				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
@@ -3727,6 +3728,10 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- Re-link over the output
 			env.player.output = newEnv.player.output
+			if newSkill.minion then
+				env.minion = newEnv.player.mainSkill.minion
+				env.minion.output = newEnv.minion.output
+			end
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = output.ManaCost
@@ -3735,6 +3740,9 @@ function calcs.offence(env, actor, activeSkill)
 			-- Re-link over the breakdown (if present)
 			if newEnv.player.breakdown then
 				env.player.breakdown = newEnv.player.breakdown
+				if newSkill.minion then
+					env.minion.breakdown = newEnv.minion.breakdown
+				end
 
 				-- Make any necessary corrections to breakdown
 			end
@@ -3789,22 +3797,27 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "The Saviour Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
 
+			if usedSkill.skillPartName then
+				env.player.mainSkill.skillPart = usedSkill.skillPart
+				env.player.mainSkill.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
+			else
+				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+			end
+
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill
 			calcs.perform(newEnv)
 			env.player.mainSkill = newSkill
 
-			if usedSkill.skillPartName then
-				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-			else
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
-			end
 			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
 
 			-- Re-link over the output
 			env.player.output = newEnv.player.output
+			if newSkill.minion then
+				env.minion = newEnv.player.mainSkill.minion
+				env.minion.output = newEnv.minion.output
+			end
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = 0
@@ -3815,6 +3828,10 @@ function calcs.offence(env, actor, activeSkill)
 
 				-- Make any necessary corrections to breakdown
 				env.player.breakdown.ManaCost = nil
+
+				if newSkill.minion then
+					env.minion.breakdown = newEnv.minion.breakdown
+				end
 			end
 		else
 			activeSkill.infoMessage2 = "No Saviour active skill found"
@@ -3919,4 +3936,36 @@ function calcs.offence(env, actor, activeSkill)
 		output.CullingDPS = output.CombinedDPS * (output.CullMultiplier - 1)
 	end
 	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
+
+	if activeSkill.mirage and activeSkill.mirage.output and activeSkill.mirage.output.TotalDPS then
+		local mirageCount = activeSkill.mirage.count or 1
+		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
+		output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
+
+		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > output.IgniteDPS then
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.IgniteDPS
+			output.IgniteDPS = 0
+		end
+		if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > output.BleedDPS then
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.BleedDPS
+			output.BleedDPS = 0
+		end
+
+		if activeSkill.mirage.output.PoisonDPS then
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.PoisonDPS * mirageCount
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.PoisonDPS * mirageCount
+		end
+		if activeSkill.mirage.output.ImpaleDPS then
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
+		end
+		if activeSkill.mirage.output.DecayDPS then
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.DecayDPS
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
+		end
+		if activeSkill.mirage.output.TotalDot then
+			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
+			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
+		end
+	end
 end

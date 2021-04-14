@@ -603,7 +603,7 @@ local function doActorLifeManaReservation(actor)
 			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
 			output[pool.."Unreserved"] = max - reserved
 			output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
-			if (max - reserved) / max <= 0.35 then
+			if (max - reserved) / max <= data.misc.LowPoolThreshold then
 				condList["Low"..pool] = true
 			end
 		else
@@ -869,6 +869,11 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("DamageTaken", "INC", 10, "Malediction")
 			modDB:NewMod("Damage", "INC", -10, "Malediction")
 		end
+		if modDB:Sum("INC", nil, "VastPowerAoE") > 0 then
+			local incFromVastPower = modDB:Sum("INC", nil, "VastPowerAoE")
+			local maxVastPower = data.misc.VastPowerMaxAoEPercent
+			modDB:NewMod("AreaOfEffect", "INC", incFromVastPower, "Vast Power", { type = "Multiplier", var = "PowerCharge", limit = maxVastPower, limitTotal = true })
+		end
 	end	
 end
 
@@ -883,7 +888,8 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env)
+function calcs.perform(env, avoidCache)
+	local avoidCache = avoidCache or false
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 
@@ -1177,8 +1183,8 @@ function calcs.perform(env)
 			activeSkill.skillData.triggered = true
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
-				local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-				local match2 = not skill.activeEffect.grantedEffect.fromItem and skill.socketGroup == env.player.mainSkill.socketGroup
+				local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == activeSkill.socketGroup.slot
+				local match2 = not skill.activeEffect.grantedEffect.fromItem and skill.socketGroup == activeSkill.socketGroup
 				if skill.skillData.triggeredByBrand and (match1 or match2) then
 					spellCount = spellCount + 1
 				end
@@ -1203,7 +1209,7 @@ function calcs.perform(env)
 		end
 		-- General's Cry Support
 		--     this exist to infrom display to not show DPS for this skill as it only has damage due to General's Cry
-		if activeSkill.skillData.triggeredByGeneralsCry and not activeSkill.skillFlags.minion then
+		if activeSkill.skillData.triggeredByGeneralsCry then
 			addToFullDpsExclusionList(activeSkill)
 			activeSkill.infoMessage = "Used by General's Cry Mirage Warriors"
 			activeSkill.infoTrigger = "General's Cry"
@@ -1487,6 +1493,7 @@ function calcs.perform(env)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
+						mergeBuff(buff.unscalableModList, buffs, buff.name)
 						if activeSkill.skillData.thisIsNotABuff then
 							buffs[buff.name].notBuff = true
 						end
@@ -1499,6 +1506,7 @@ function calcs.perform(env)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, minionBuffs, buff.name)
+						mergeBuff(buff.unscalableModList, minionBuffs, buff.name)
 					end
 				end
 			elseif buff.type == "Guard" then
@@ -1512,6 +1520,7 @@ function calcs.perform(env)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, guards, buff.name)
+						mergeBuff(buff.unscalableModList, guards, buff.name)
 					end
 				end
 			elseif buff.type == "Aura" then
@@ -1630,6 +1639,7 @@ function calcs.perform(env)
 								local more = modStore:More(skillCfg, "BuffEffect") * modDB:More(nil, "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, buffs, buff.name)
+								mergeBuff(buff.unscalableModList, buffs, buff.name)
 							end
 							if env.minion and (env.minion == castingMinion or buff.applyAllies) then
 				 				env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
@@ -1638,6 +1648,7 @@ function calcs.perform(env)
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, minionBuffs, buff.name)
+								mergeBuff(buff.unscalableModList, minionBuffs, buff.name)
 							end
 						end
 					elseif buff.type == "Aura" then
@@ -2005,106 +2016,79 @@ function calcs.perform(env)
 	end
 
 	-- Mirage Archer Support
-	-- This creates a new skill group for the Mirage Archer DPS over-write called 'Mirage Archer'
-	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label ~= "Mirage Archer" then
+	-- This creates and populates env.player.mainSkill.mirage table
+	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then
 		local usedSkill = nil
 		local uuid = cacheSkillUUID(env.player.mainSkill)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 
-		-- if we don't have a processed cached copy of this skill, get one
-		if not GlobalCache.cachedData[calcMode][uuid] then
-			calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
-		end
-		if GlobalCache.cachedData[calcMode][uuid] then
-			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-		end
-
-		if usedSkill then
-			local newLabel = "Mirage Archer"
-			local exists = false
-			for _, group in ipairs(env.build.skillsTab.socketGroupList) do
-				if group.label == newLabel then
-					exists = true
-					break
-				end
+		-- cache a new copy of this skill that's affected by Mirage Archer
+		if avoidCache then
+			usedSkill = env.player.mainSkill
+			env.dontCache = true
+		else
+			if not GlobalCache.cachedData[calcMode][uuid] then
+				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
 			end
-			if not exists then
-				local socketGroup = usedSkill.socketGroup
-				local newGroup = copyTable(socketGroup, true)
-				newGroup.label = newLabel
-				newGroup.gemList = { }
-				for index, gemInstance in pairs(socketGroup.gemList) do
-					newGroup.gemList[index] = copyTable(gemInstance, true)
-				end
-				newGroup.marked = true
-				t_insert(env.build.skillsTab.socketGroupList, newGroup)
+
+			if GlobalCache.cachedData[calcMode][uuid] and not avoidCache then
+				usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 			end
-		end
-	end
-
-	if not env.player.mainSkill.skillData.triggeredByMirageArcher and env.player.mainSkill.socketGroup and env.player.mainSkill.socketGroup.label ~= "Mirage Archer" and not supportEnabled("SupportGemMirageArcher", env.player.mainSkill) then
-		addDeleteGroupEntry("Mirage Archer")
-	end
-
-	-- Mirage Archer Support
-	-- This over-writes the skill used by Mirage Archer(s) with their DPS contribution
-	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked and env.player.mainSkill.socketGroup.label == "Mirage Archer" then
-		local usedSkill = nil
-		local uuid = cacheSkillUUID(env.player.mainSkill)
-		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
-
-		-- re-build the active skill in this case and don't cache
-		calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
-		env.dontCache = true
-
-		if GlobalCache.cachedData[calcMode][uuid] then
-			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 		end
 
 		if usedSkill then
 			local moreDamage =  usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "MirageArcherLessDamage")
 			local moreAttackSpeed = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "MirageArcherLessAttackSpeed")
+			local mirageCount =  usedSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")
 
+			-- Make a copy of this skill so we can add new modifiers to the copy affected by Mirage Archers
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
 
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Speed", "MORE", moreAttackSpeed, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-			local maxMirageArchers = 0
-			for i, value in ipairs(env.player.mainSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")) do
-				local mod = value.mod
-				newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", mod.value, mod.source, env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-				maxMirageArchers = maxMirageArchers + mod.value
-			end
+
+			env.player.mainSkill.mirage = { }
+			env.player.mainSkill.mirage.count = mirageCount
+			env.player.mainSkill.mirage.name = usedSkill.activeEffect.grantedEffect.name
 
 			if usedSkill.skillPartName then
-				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name .. " " .. usedSkill.skillPartName
+				env.player.mainSkill.mirage.skillPart = usedSkill.skillPart
+				env.player.mainSkill.mirage.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.mirage.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
 			else
-				env.player.mainSkill.skillPartName = nil
+				env.player.mainSkill.mirage.skillPartName = nil
 			end
-			env.player.mainSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
-			newSkill.infoMessage = tostring(maxMirageArchers) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
-			env.player.mainSkill.infoTrigger = "MA"
+			env.player.mainSkill.mirage.infoTrigger = "MA"
 
 			-- Recalculate the offensive/defensive aspects of the Mirage Archer influence on skill
 			newEnv.player.mainSkill = newSkill
-			newEnv.player.mainSkill.marked = true
+			-- mark it so we don't recurse infinitely
+			newSkill.marked = true
+			newEnv.dontCache = true
 			calcs.perform(newEnv)
-			env.player.mainSkill = newSkill
 
-			env.player.output = newEnv.player.output
+			env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
+
+			-- Re-link over the output
+			env.player.mainSkill.mirage.output = newEnv.player.output
+
+			if newSkill.minion then
+				env.player.mainSkill.mirage.minion = {}
+				env.player.mainSkill.mirage.minion.output = newEnv.minion.output
+			end
 
 			-- Make any necessary corrections to output
-			env.player.output.ManaCost = 0
+			env.player.mainSkill.mirage.output.ManaCost = 0
 
 			if newEnv.player.breakdown then
-				env.player.breakdown = newEnv.player.breakdown
+				env.player.mainSkill.mirage.breakdown = newEnv.player.breakdown
 				-- Make any necessary corrections to breakdown
-				env.player.breakdown.ManaCost = nil
+				env.player.mainSkill.mirage.breakdown.ManaCost = nil
+				if newSkill.minion then
+					env.player.mainSkill.mirage.minion.breakdown = newEnv.minion.breakdown
+				end
 			end
-			newEnv.player.mainSkill.marked = true
 		else
 			env.player.mainSkill.infoMessage2 = "No Mirage Archer active skill found"
 		end

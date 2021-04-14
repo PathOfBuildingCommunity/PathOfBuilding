@@ -1261,12 +1261,14 @@ With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to ga
 The Vigil
 Crimson Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.14.0
 Variant: Current
 Limited to: 1
 Radius: Medium
 (8-15)% increased Armour
 {variant:1}With at least 40 Strength in Radius, Vigilant Strike also Fortifies Nearby Allies for 3 seconds.
 {variant:2}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 12 seconds
+{variant:3}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 8 seconds
 ]],[[
 Violent Dead
 Cobalt Jewel
@@ -1344,8 +1346,11 @@ Corrupted
 ]],[[
 Atziri's Reign
 Crimson Jewel
-Limited to: 2
-(15-20)% increased Vaal Skill Effect Duration
+Variant: Pre 3.14.0
+Variant: Current
+Limited to: 1
+{variant:1,2}(15-20)% increased Vaal Skill Effect Duration
+{variant:2}Vaal Skills have (15-20)% chance to regain consumed Souls when used
 Corrupted
 ]],[[
 Blood Sacrifice

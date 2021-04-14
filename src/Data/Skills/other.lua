@@ -441,7 +441,7 @@ skills["BoneArmour"] = {
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["quick_guard_damage_absorb_limit"] = {
-			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -664,7 +664,7 @@ skills["CrabAspect"] = {
 			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "Multiplier", var = "CrabBarrier" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["max_crab_aspect_stacks"] = {
-			mod("CrabBarriersMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("CrabBarriersMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -925,6 +925,7 @@ skills["TriggeredSummonLesserShrine"] = {
 }
 skills["ChaosDegenAuraUnique"] = {
 	name = "Death Aura",
+	hidden = true,
 	color = 4,
 	description = "Casts an aura that deals Chaos Damage over Time to nearby Enemies. This skill cannot be cast by Totems.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.ChaosSkill] = true, [SkillType.AreaSpell] = true, },
@@ -938,6 +939,7 @@ skills["ChaosDegenAuraUnique"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		skill("radius", 30),
 	},
 	qualityStats = {
 	},
@@ -1281,6 +1283,7 @@ skills["OnHitWhileCursedTriggeredCurseNova"] = {
 }
 skills["Envy"] = {
 	name = "Envy",
+	hidden = true,
 	color = 3,
 	baseEffectiveness = 2.0999999046326,
 	incrementalEffectiveness = 0.023000000044703,
@@ -1447,6 +1450,7 @@ skills["SupportGreaterSpellEcho"] = {
 }
 skills["VaalAuraElementalDamageHealing"] = {
 	name = "Gluttony of Elements",
+	hidden = true,
 	color = 4,
 	description = "Casts an aura that causes taking elemental damage to heal you and nearby allies instead.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.CantUseFistOfWar] = true, },

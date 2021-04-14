@@ -96,7 +96,7 @@ local skills, mod, flag, skill = ...
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["quick_guard_damage_absorb_limit"] = {
-			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 	},
 #baseMod mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" })
@@ -169,7 +169,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "Multiplier", var = "CrabBarrier" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["max_crab_aspect_stacks"] = {
-			mod("CrabBarriersMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("CrabBarriersMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 #mods
@@ -233,10 +233,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#noGem
 #skill ChaosDegenAuraUnique
 #flags spell aura area
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 30)
 #mods
 
 #skill DeathWalk
@@ -331,6 +333,7 @@ local skills, mod, flag, skill = ...
 	#baseMod mod("SkillPhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
+#noGem
 #skill Envy
 #flags spell aura area chaos
 	fromItem = true,
@@ -373,6 +376,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
 #mods
 
+#noGem
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
 	fromItem = true,

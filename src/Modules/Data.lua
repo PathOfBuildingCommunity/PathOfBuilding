@@ -287,7 +287,9 @@ data.misc = { -- magic numbers
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
 	PurposefulHarbingerMaxBuffPercent = 40,
+	VastPowerMaxAoEPercent = 50,
 	MaxEnemyLevel = 84,
+	LowPoolThreshold = 0.5,
 }
 
 -- Misc data tables
@@ -500,5 +502,5 @@ for _, modId in ipairs(sortedMods) do
 		mod = unsortedMods[modId],
 	})
 end
-LoadModule("Data/Generated")
-LoadModule("Data/New")
+LoadModule("Data/Uniques/Special/Generated")
+LoadModule("Data/Uniques/Special/New")
