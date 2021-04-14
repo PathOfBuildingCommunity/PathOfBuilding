@@ -708,9 +708,10 @@ Raise Zombie does not require a Corpse
 Your Raised Zombies count as Corpses
 ]],[[
 Architect's Hand
-Ambush Mitts
 Variant: Pre 3.14.0
 Variant: Current
+{variant:1}Strapped Mitts
+{variant:2}Ambush Mitts
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 {variant:1}Requires Level 16

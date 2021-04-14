@@ -786,9 +786,10 @@ Triggers Level 20 Corpse Walk when Equipped
 For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
 ]],[[
 Dance of the Offered
-Carnal Boots
 Variant: Pre 3.14.0
 Variant: Current
+{variant:1}Shackled Boots
+{variant:2}Carnal Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 {variant:1}Requires Level 34, 34 Dex, 34 Int

@@ -479,9 +479,10 @@ Minions have +29% to Chaos Resistance
 Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 Story of the Vaal
-Gemstone Sword
 Variant: Pre 3.14.0
 Variant: Current
+{variant:1}Variscite Blade
+{variant:2}Gemstone Sword
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 {variant:1}Requires Level 35, 62 Str, 62 Dex
