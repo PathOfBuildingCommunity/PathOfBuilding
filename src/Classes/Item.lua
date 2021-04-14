@@ -320,45 +320,42 @@ function ItemClass:ParseRaw(raw)
 				end
 				self.namePrefix = self.namePrefix or ""
 				self.nameSuffix = self.nameSuffix or ""
+				local baseName
 				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
 					-- Exact match (affix-less magic and normal items)
 					if data.itemBases[self.name] then
-						self.baseName = self.name
-						self.type = data.itemBases[self.name].type
+						baseName = self.name
 					else
 						-- Partial match (magic items with affixes)
-						for baseName, baseData in pairs(data.itemBases) do
-							local s, e = self.name:find(baseName, 1, true)
+						for itemBaseName, baseData in pairs(data.itemBases) do
+							local s, e = self.name:find(itemBaseName, 1, true)
 							if s then
 								-- Set the base name if it isn't there, or we found a better match, so replace it
-								if (self.baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
-										or self.baseName == nil or self.baseName == "" then
+								if (baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
+										or baseName == nil then
 									self.namePrefix = self.name:sub(1, s - 1)
 									self.nameSuffix = self.name:sub(e + 1)
-									self.baseName = baseName
-									self.type = baseData.type
+									baseName = itemBaseName
 								end
 							end
 						end
 					end
-					if not self.baseName then
+					if not baseName then
 						local s, e = self.name:find("Two-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
 							self.baseName = "Two-Toned Boots (Armour/Energy Shield)"
 							self.namePrefix = self.name:sub(1, s - 1)
 							self.nameSuffix = self.name:sub(e + 1)
-							self.type = "Boots"
 						end
 					end
 					self.name = self.name:gsub(" %(.+%)","")
 				end
-				local baseName = self.baseName or ""
 				if self.variant and variantList then
 					if variantList[self.variant] then
 						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 					end
-				elseif baseName == "" then
+				elseif not baseName then
 					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 				end
 				if baseName and data.itemBases[baseName] then
