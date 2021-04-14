@@ -6672,7 +6672,6 @@ skills["Reap"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
