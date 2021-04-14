@@ -292,11 +292,14 @@ Hits can't be Evaded
 ]],[[
 Null's Inclination
 Ranger Bow
+Variant: Pre 3.14.0
+Variant: Current
 Requires Level 60, 212 Dex, 212 Int
 Adds (50-80) to (130-180) Chaos Damage
 (7-12)% increased Attack Speed
 +(7-11)% to Chaos Resistance
-Minions deal 1% increased Damage per 5 Dexterity
+{variant:1}Minions deal 1% increased Damage per 10 Dexterity
+{variant:2}Minions deal 1% increased Damage per 5 Dexterity
 +212 Intelligence Requirement
 Cast Socketed Minion Spells on Kill with this Weapon
 ]],[[

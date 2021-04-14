@@ -480,32 +480,21 @@ Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 Story of the Vaal
 Gemstone Sword
+Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
-Requires Level 35, 62 Str, 62 Dex
+{variant:1}Requires Level 35, 62 Str, 62 Dex
+{variant:2}Requires Level 56, 96 Str, 96 Dex
 Implicits: 1
 +240 to Accuracy Rating
-(180-210)% increased Physical Damage
+{variant:1}(110-120)% increased Physical Damage
+{variant:2}(180-210)% increased Physical Damage
+{variant:1}+(20-30) Life gained on Kill
 (10-15)% increased Attack Speed
-Hits with this Weapon Freeze Enemies as though dealing (150-200)% more Damage
-Hits with this Weapon Shock Enemies as though dealing (150-200)% more Damage
-Ignites inflicted with this Weapon deal (50-75)% more Damage
-50% of Physical Damage from Hits with this Weapon is Converted to a random Element
-Hits with this Weapon always inflict Elemental Ailments
-]],
-[[
-Story of the Vaal
-Variscite Blade
-Variant: Pre 3.14.0
-League: Incursion
-Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
-Requires Level 35, 62 Str, 62 Dex
-Implicits: 1
-+240 to Accuracy Rating
-(110-120)% increased Physical Damage
-(10-15)% increased Attack Speed
-+(20-30) Life gained on Kill
+{variant:2}Hits with this Weapon Freeze Enemies as though dealing (150-200)% more Damage
+{variant:2}Hits with this Weapon Shock Enemies as though dealing (150-200)% more Damage
+{variant:2}Ignites inflicted with this Weapon deal (50-75)% more Damage
 50% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always inflict Elemental Ailments
 ]],[[

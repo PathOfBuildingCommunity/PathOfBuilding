@@ -787,27 +787,19 @@ For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
 ]],[[
 Dance of the Offered
 Carnal Boots
+Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
-Requires Level 34, 34 Dex, 34 Int
+{variant:1}Requires Level 34, 34 Dex, 34 Int
+{variant:2}Requires Level 55, 52 Dex, 52 Int
 +(50-60) to maximum Mana
-+(25-30)% to Lightning Resistance
+{variant:1}+(15-20)% to Lightning Resistance
+{variant:2}+(25-30)% to Lightning Resistance
 25% increased Movement Speed
 You have Onslaught while not on Low Mana
-The Agnostic
-]],[[
-Dance of the Offered
-Shackled Boots
-Variant: Pre 3.14.0
-League: Incursion
-Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
-Requires Level 34, 34 Dex, 34 Int
-+(50-60) to maximum Mana
-+(15-20)% to Lightning Resistance
-25% increased Movement Speed
-You have Onslaught while not on Low Mana
-Lose (30-40) Mana per Second
+{variant:1}Lose (30-40) Mana per Second
+{variant:2}The Agnostic
 ]],[[
 Omeyocan
 Carnal Boots

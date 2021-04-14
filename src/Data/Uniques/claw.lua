@@ -232,12 +232,15 @@ Deal no Damage when not on Low Life
 ]],[[
 Law of the Wilds
 Hellion's Paw
+Variant: Pre 3.14.0
+Variant: Current
 League: Harvest
 Source: Drops from unique{Avatar of the Grove}
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
-20% chance to Trigger Level 25 Summon Spectral Wolf on Critical Strike with this Weapon
+{variant:1}20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
+{variant:2}20% chance to Trigger Level 25 Summon Spectral Wolf on Critical Strike with this Weapon
 (15-20)% increased Attack Speed
 (22-28)% increased Critical Strike Chance
 +(15-25)% to Global Critical Strike Multiplier
