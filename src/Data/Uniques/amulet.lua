@@ -11,20 +11,20 @@ Variant: Current
 Requires Level 45
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
-{tags:attack}10% reduced Attack Speed
-{tags:caster}10% reduced Cast Speed
+{tags:attack,speed}10% reduced Attack Speed
+{tags:caster,speed}10% reduced Cast Speed
 {tags:jewellery_defense}+(400-500) to Armour
 {variant:1}{tags:life}+(30-40) Life gained when you Block
 {variant:2,3}{tags:life}+(34-48) Life gained when you Block
 {variant:1}{tags:mana}+(10-20) Mana gained when you Block
 {variant:2,3}{tags:mana}+(10-24) Mana gained when you Block
-{variant:1}20% reduced Movement Speed
-{variant:2}10% reduced Movement Speed
+{variant:1}{tags:speed}20% reduced Movement Speed
+{variant:2}{tags:speed}10% reduced Movement Speed
 +3% to maximum Block Chance
 {variant:1}10% Chance to Block
 {variant:2,3}8% Chance to Block
-{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
-{variant:2,3}Reflects 240 to 300 Physical Damage to Attackers on Block
+{tags:physical}{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
+{tags:physical}{variant:2,3}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
 Araku Tiki
 Coral Amulet
@@ -63,7 +63,7 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_attribute}+(80-100) to all Attributes
--4 Physical Damage taken from Attacks
+{tags:attack,physical}-4 Physical Damage taken from Attacks
 ]],[[
 Atziri's Foible
 Paua Amulet
@@ -125,9 +125,9 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1,2,3,4,5}10% reduced Stun and Block Recovery
 {variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
-{variant:10,11,12,13,14,15,16}2% additional Chance to receive a Critical Strike
+{tags:critical}{variant:10,11,12,13,14,15,16}2% additional Chance to receive a Critical Strike
 {variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
-{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
+{tags:critical}{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
 {variant:17}{tags:jewellery_defense}(15-20)% increased Global Defences
 {variant:1}Anger Reserves no Mana
 {variant:2}Determination Reserves no Mana
@@ -160,7 +160,7 @@ Implicits: 1
 {tags:mana}10% increased Mana Regeneration Rate Per Power Charge
 {variant:2}(80-100)% increased Power Charge Duration
 {tags:mana}1% of Damage is taken from Mana before Life per Power Charge
-40% reduced Critical Strike Chance per Power Charge
+{tags:critical}40% reduced Critical Strike Chance per Power Charge
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
@@ -209,9 +209,9 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 Grants level 10 Gluttony of Elements Skill
-{tags:attack}Adds 19-43 Chaos Damage to Attacks
+{tags:attack,chaos}Adds 19-43 Chaos Damage to Attacks
 {tags:jewellery_resistance}−(10-5)% to all Elemental Resistances
-{tags:jewellery_resistance}+(17-29)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-29)% to Chaos Resistance
 Corrupted
 ]],[[
 Bloodgrip
@@ -221,7 +221,7 @@ Variant: Current
 Requires Level 55
 Implicits: 1
 {tags:life}(2.0-4.0) Life Regenerated per second
-{tags:attack}Adds 10 to 20 Physical Damage to Attacks
+{tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
 {variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
 {variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
@@ -235,7 +235,7 @@ Variant: Current
 Requires Level 74
 Implicits: 1
 {tags:life}(1.2-1.6)% of Life Regenerated per second
-{tags:attack}Adds 10 to 20 Physical Damage to Attacks
+{tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
 {variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
 {variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
@@ -253,7 +253,7 @@ Implicits: 1
 {tags:life}{variant:1}25% reduced maximum Life
 {tags:jewellery_defense}{variant:1}25% reduced maximum Energy Shield
 {tags:jewellery_resistance}+(10-20)% to all Elemental Resistances
-{tags:attack,life}(1.2-2)% of Physical Attack Damage Leeched as Life
+{tags:attack,life,physical}(1.2-2)% of Physical Attack Damage Leeched as Life
 {tags:life}{variant:2}(30-40)% increased Damage while Leeching
 {tags:life}{variant:2}50% increased Life Leeched per second
 Extra Gore
@@ -267,7 +267,7 @@ Implicits: 1
 {tags:jewellery_defense}50% reduced maximum Energy Shield
 {tags:jewellery_resistance}+(30-40)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
-{tags:life}10% increased Movement Speed when on Full Life
+{tags:life,speed}10% increased Movement Speed when on Full Life
 {tags:attack}+2 to Melee Weapon and Unarmed range
 {tags:attack,life}60% increased Melee Damage when on Full Life
 ]],[[
@@ -279,7 +279,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:mana}(25-40)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+(15-25)% to all Elemental Resistances
-+(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
+{tags:critical}+(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
 {tags:jewellery_elemental}(1-2) to (36-40) Lightning Damage per Power Charge
 90% less Power Charge Duration
 ]],[[
@@ -317,7 +317,7 @@ Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 30% increased Rarity of Items found
-{tags:jewellery_resistance}+60% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+60% to Chaos Resistance
 Cannot be Stunned
 {tags:jewellery_defense,life}20% of Maximum Life Converted to Energy Shield
 ]],[[
@@ -410,7 +410,7 @@ Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-50) to Intelligence
-{tags:caster}(10-15)% increased Cast Speed
+{tags:caster,speed}(10-15)% increased Cast Speed
 (10-15)% increased Area of Effect
 {tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
 {tags:caster}Your Curses have 25% increased Effect if 50% of Curse Duration expired
@@ -425,7 +425,7 @@ Implicits: 1
 {tags:jewellery_defense}(15-25)% increased Evasion Rating
 {tags:jewellery_resistance}+(15-20)% to all Elemental Resistances
 Skills fire 2 additional Projectiles
-(20-30)% increased Projectile Speed
+{tags:speed}(20-30)% increased Projectile Speed
 Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards
 ]],[[
 Gloomfang
@@ -440,9 +440,9 @@ Implicits: 1
 {tags:caster,life}Lose (10-15) Life for each Enemy hit by your Spells
 {tags:attack,life}Lose (20-25) Life for each Enemy hit by your Attacks
 Skills Chain +1 times
-{variant:2}(30-40)% increased Projectile Speed
-{variant:1}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
-{variant:2}Projectiles that have Chained gain (20-35)% of Non-Chaos Damage as extra Chaos Damage
+{tags:speed}{variant:2}(30-40)% increased Projectile Speed
+{variant:1}{tags:chaos}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
+{variant:2}{tags:chaos}Projectiles that have Chained gain (20-35)% of Non-Chaos Damage as extra Chaos Damage
 ]],[[
 The Halcyon
 Jade Amulet
@@ -490,11 +490,11 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Precision Skill
 {tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack}Adds (12-15) to (24-28) Physical Damage to Attacks
+{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
-{tags:attack,life}(0.8-1)% of Physical Attack Damage Leeched as Life
-Precision has 50% less Mana Reservation
+{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
+{tags:mana}Precision has 50% less Mana Reservation
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
@@ -504,11 +504,11 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
 {tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack}Adds (12-15) to (24-28) Physical Damage to Attacks
+{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-+(23-28)% to Global Critical Strike Multiplier
+{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-{tags:life}Hatred has 50% less Mana Reservation
+{tags:mana}Hatred has 50% less Mana Reservation
 ]],[[
 The Ignomon
 Gold Amulet
@@ -547,11 +547,11 @@ Variant: Chaos
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-{variant:1}{tags:attack}Adds (12-16) to (20-25) Physical Damage
+{variant:1}{tags:attack,physical}Adds (12-16) to (20-25) Physical Damage
 {variant:2}{tags:jewellery_elemental}Adds (20-24) to (33-36) Fire Damage
 {variant:3}{tags:jewellery_elemental}Adds (20-24) to (33-36) Cold Damage
 {variant:4}{tags:jewellery_elemental}Adds (10-13) to (43-47) Lightning Damage
-{variant:5}Adds (17-19) to (23-29) Chaos Damage
+{variant:5}{tags:chaos}Adds (17-19) to (23-29) Chaos Damage
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:jewellery_defense}+(400-500) to Armour
 {variant:2}{tags:life}Regenerate 1% of Life per second
@@ -562,7 +562,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_resistance}+(20-25)% to Fire Resistance
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
-{variant:5}{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}Vulnerability has 100% reduced Mana Reservation if Cast as an Aura
 {variant:2}Flammability has 100% reduced Mana Reservation if Cast as an Aura
 {variant:3}Frostbite has 100% reduced Mana Reservation if Cast as an Aura
@@ -582,8 +582,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:attack}+100 to Accuracy Rating
 {variant:2}30% increased Projectile Damage
-30% increased Projectile Speed
-10% increased Movement Speed
+{tags:speed}30% increased Projectile Speed
+{tags:speed}10% increased Movement Speed
 ]],[[
 Replica Karui Ward
 Jade Amulet
@@ -593,7 +593,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:attack}+100 to Accuracy Rating
-10% increased Movement Speed
+{tags:speed}10% increased Movement Speed
 30% increased Area of Effect
 30% increased Area Damage
 ]],[[
@@ -606,12 +606,12 @@ Requires Level 24
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_attribute}+(20-30) to Strength
-{tags:attack}{variant:1}(15-20)% increased Attack Speed
-{tags:attack}{variant:2}(5-10)% increased Attack Speed
+{tags:attack,speed}{variant:1}(15-20)% increased Attack Speed
+{tags:attack,speed}{variant:2}(5-10)% increased Attack Speed
 {tags:attack}+100 to Accuracy Rating
 {variant:2}30% increased Projectile Damage
-30% increased Projectile Speed
-10% increased Movement Speed
+{tags:speed}30% increased Projectile Speed
+{tags:speed}10% increased Movement Speed
 ]],[[
 Maligaro's Cruelty
 Turquoise Amulet
@@ -621,8 +621,8 @@ Implicits: 1
 {tags:life}(4-8)% increased maximum Life
 (25-30)% chance to gain a Frenzy Charge on Killing an Enemy affected by 5 or more Poisons
 (12-15)% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons
-10% increased Damage with Poison per Frenzy Charge
-3% increased Poison Duration per Power Charge
+{tags:chaos}10% increased Damage with Poison per Frenzy Charge
+{tags:chaos}3% increased Poison Duration per Power Charge
 ]],[[
 The Jinxed Juju
 Citrine Amulet
@@ -630,8 +630,8 @@ Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:jewellery_resistance}+(23-31)% to Chaos Resistance
-(10-15)% increased Effect of your Curses
+{tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
+{tags:caster}(10-15)% increased Effect of your Curses
 (10-15)% increased effect of Non-Curse Auras from your Skills
 10% of Damage from Hits is taken from your Spectres' Life before you
 (The damage they take will be divided evenly between them)
@@ -647,15 +647,15 @@ Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:attack}+(80-120) to Accuracy Rating
-{variant:1,2,3}+(140-160)% to Global Critical Strike Multiplier
-{variant:4,5}+(210-240)% to Global Critical Strike Multiplier
+{tags:critical}{variant:1,2,3}+(140-160)% to Global Critical Strike Multiplier
+{tags:critical}{variant:4,5}+(210-240)% to Global Critical Strike Multiplier
 {tags:jewellery_defense}+(80-100) to Evasion Rating
 (10-15)% increased Light Radius
 {variant:1,2}Non-critical strikes deal 25% Damage
 {variant:3,4}Non-critical strikes deal 40% Damage
-{variant:1}60% less Critical Strike Chance
-{variant:2}50% less Critical Strike Chance
-{variant:3,4,5}40% less Critical Strike Chance
+{tags:critical}{variant:1}60% less Critical Strike Chance
+{tags:critical}{variant:2}50% less Critical Strike Chance
+{tags:critical}{variant:3,4,5}40% less Critical Strike Chance
 Your Critical Strikes have Culling Strike
 ]],[[
 Natural Hierarchy
@@ -691,7 +691,7 @@ Requires Level 29
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {tags:jewellery_attribute}+(40-50) to Dexterity
-(5-8)% increased Movement Speed
+{tags:speed}(5-8)% increased Movement Speed
 Lightning Damage from Enemies Hitting you is Lucky
 Nearby Allies' Damage with Hits is Lucky
 ]],[[
@@ -705,8 +705,8 @@ Implicits: 1
 You cannot have non-Golem Minions
 25% reduced Golem Size
 Golems Deal (35-45)% less Damage
-Golems have (35-45)% less Life
-Golems have (80-100)% increased Movement Speed
+{tags:life}Golems have (35-45)% less Life
+{tags:speed}Golems have (80-100)% increased Movement Speed
 Primordial
 ]],[[
 Rashkaldor's Patience
@@ -727,8 +727,8 @@ Requires Level 30
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 (25-40)% increased Damage with Hits and Ailments against Blinded Enemies
-(30-50)% increased Critical Strike Chance against Blinded Enemies
-(40-50)% chance to Blind Enemies on Critical Strike
+{tags:critical}(30-50)% increased Critical Strike Chance against Blinded Enemies
+{tags:critical}(40-50)% chance to Blind Enemies on Critical Strike
 Blind does not affect your Light Radius
 Blind you inflict is Reflected to you
 ]],[[
@@ -761,7 +761,7 @@ Implicits: 1
 {tags:jewellery_elemental}Adds (1-3) to (47-52) Lightning Damage
 Gain a Power Charge when you use a Vaal Skill
 {tags:life}10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
-10% increased Movement Speed if you have used a Vaal Skill Recently
+{tags:speed}10% increased Movement Speed if you have used a Vaal Skill Recently
 ]],[[
 Zerphi's Heart
 Paua Amulet
@@ -772,7 +772,7 @@ Variant: Current
 Requires Level 70
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
-Adds (48-53) to (58-60) Chaos Damage
+{tags:chaos}Adds (48-53) to (58-60) Chaos Damage
 {tags:jewellery_attribute}Items and Gems have 50% increased Attribute Requirements
 Chaos Damage can Ignite, Chill and Shock
 {variant:1}Gain Soul Eater for 10 seconds when you use a Vaal Skill
@@ -796,12 +796,12 @@ Paua Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
-(20-30)% increased Mana Regeneration Rate
+{tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
-Minions have (10-15)% increased maximum Life
-Minions have (10-15)% increased Movement Speed
-{variant:3}Minions deal 6 to 13 additional Cold Damage
+{tags:life}Minions have (10-15)% increased maximum Life
+{tags:speed}Minions have (10-15)% increased Movement Speed
+{tags:jewellery_elemental}{variant:3}Minions deal 6 to 13 additional Cold Damage
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:2,3}{tags:mana}(10-15)% reduced Mana Cost of Minion Skills
 ]],[[
@@ -860,11 +860,11 @@ Requires Level 54
 Implicits: 1
 {tags:life}(2.0-4.0) Life regenerated per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
 Summoned Raging Spirits deal (60-80)% increased Damage
 {tags:life}Summoned Raging Spirits have (80-100)% increased maximum Life
-{tags:life}Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
+{tags:chaos}Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
 ]],[[
 Tear of Purity
 Lapis Amulet
@@ -883,8 +883,8 @@ Variant: Current
 Requires Level 23
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
-{variant:1}100% increased Global Critical Strike Chance
-{variant:2}(250-350)% increased Global Critical Strike Chance
+{tags:critical}{variant:1}100% increased Global Critical Strike Chance
+{tags:critical}{variant:2}(250-350)% increased Global Critical Strike Chance
 {tags:life}+(30-50) to maximum Life
 {tags:mana}+(30-50) to maximum Mana
 40% increased Stun and Block Recovery
@@ -897,10 +897,10 @@ Requires Level 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:jewellery_resistance}+(30-40)% to Lightning Resistance
-{tags:jewellery_resistance}+(8-10)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(8-10)% to Chaos Resistance
 10% chance to gain a Frenzy Charge on Kill
 10% chance to gain a Power Charge on Kill
-5% increased Projectile Speed per Frenzy Charge
+{tags:speed}5% increased Projectile Speed per Frenzy Charge
 5% increased Projectile Damage per Power Charge
 ]],[[
 Voice of the Storm
@@ -951,11 +951,11 @@ Variant: Current
 Requires Level 50
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
-{variant:1}{tags:attack}(8-12)% increased Attack Speed
-{variant:2}{tags:attack}(10-15)% increased Attack Speed
-{variant:1}{tags:caster}(8-12)% increased Cast Speed
-{variant:2}{tags:caster}(10-15)% increased Cast Speed
-12% increased Movement Speed
+{variant:1}{tags:attack,speed}(8-12)% increased Attack Speed
+{variant:2}{tags:attack,speed}(10-15)% increased Attack Speed
+{variant:1}{tags:caster,speed}(8-12)% increased Cast Speed
+{variant:2}{tags:caster,speed}(10-15)% increased Cast Speed
+{tags:speed}12% increased Movement Speed
 {variant:1}(8-12)% reduced Skill Effect Duration
 {variant:2}(10-15)% reduced Skill Effect Duration
 30% increased total Recovery per second from Life, Mana, or Energy Shield Leech
@@ -970,7 +970,7 @@ Implicits: 1
 {tags:jewellery_resistance}-(30-20)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
 Fortify Buffs you create instead grant 30% more Evasion Rating
-{tags:caster,attack}(15-25)% increased Attack and Cast Speed while you have Fortify
+{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while you have Fortify
 ]],[[
 Winterheart
 Gold Amulet
