@@ -784,8 +784,7 @@ Triggers Level 20 Corpse Walk when Equipped
 25% increased Movement Speed
 (20-40)% increased Damage if you have Consumed a corpse Recently
 For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
-]],
-[[
+]],[[
 Dance of the Offered
 Carnal Boots
 Variant: Current
