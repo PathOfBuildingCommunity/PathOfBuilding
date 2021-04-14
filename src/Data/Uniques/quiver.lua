@@ -202,7 +202,7 @@ Implicits: 1
 +7 Life gained for each Enemy hit by your Attacks
 20% reduced Projectile Speed
 (30-50)% increased Projectile Damage
-Projectiles Fork
+Arrows Fork
 ]],[[
 Saemus' Gift
 Spike-Point Arrow Quiver
