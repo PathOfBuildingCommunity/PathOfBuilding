@@ -1,33 +1,25 @@
-VERSION[2.1.0][2021/04/14]
+VERSION[2.1.0][2021/04/15]
 
-* 3.14 Skill Tree (LocalIdentity)
+* Add support for the 3.14 Skill Tree
 * Add support for count-scaling Active Skills from items (Nostrademous)
-* Adding more flags for parsing enemy modifiers (Wires77)
 * Add support for Accelerating, Noxious, and Unstable catalysts (Nostrademous)
-* Update Low Life/Mana threshold (Nostrademous)
+* Add support for Defiance (Helyos96)
+* Add support for leech mods rewordings (Helyos96)
+* Adds support for Vaal Ground Slam having Exertions (Nostrademous)
 * Add new Ultimatum uniques, implemented Tecrod's Gaze (Wires77)
+* Update uniques from 3.14 patch notes (pundm)
+* Update Low Life/Mana threshold (Nostrademous)
+* Add radius value to Death Aura
 
 * Fix Wintertide brand not getting +1 to attached brand (Wires77)
-* Fix DD and VD having their spell damage apply to corpse explosions (LocalIdentity)
-* Adding noGem directive to skills from items (Wires77)
+* Fix DD and VD having their spell damage apply to corpse explosions
+* Fix some gems appearing in the gem list when they shouldn't have (Wires77)
 * Fix physical damage reduction for bleed from going below zero (Wires77)
 * Fix outdated modifier text on Aberrath's Hooves (pundm)
-* Generals Cry crash fixes (Nostrademous)
-* Fix TriggerByBrand interaction with Item-granted Active Skill (Nostrademous)
-* Fix "Socketed Gems are supported by..." mods for trigger skills \(e.g. CwC\) (Nostrademous)
+* Fix many crashes related to Generals Cry (Nostrademous)
+* Fix crash related to Brands with Item-granted Active Skills (Nostrademous)
+* Fix "Socketed Gems are supported by..." mods for trigger skills (e.g. CwC) (Nostrademous)
 * Fix incorrect application of Buff Effect (PJacek)
-
-* Add radius to Death Aura (LocalIdentity)
-* Adds support for Vaal Ground Slam having Exertions (Nostrademous)
-* Add support for leech mods rewordings (Helyos96)
-* 314 uniques (pundm)
-* replicas last resort now grants 25% ias when on low life (pundm)
-* update the vigils fortify duration to 8 seconds (pundm)
-* Add support for Defiance \(berserker Defy Pain\) (Helyos96)
-* Unsupported Mod Additions (Nostrademous)
-* refactor: move generated and new uniques to special directory (ppoelzl)
-
-
 
 VERSION[2.0.3][2021/04/07]
 
