@@ -219,11 +219,11 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > fullDPS.bleedDPS then
 						fullDPS.bleedDPS = activeSkill.mirage.output.BleedDPS
-						bleedSource = activeSkill.activeEffect.grantedEffect.name
+						bleedSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 					if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > fullDPS.igniteDPS then
 						fullDPS.igniteDPS = activeSkill.mirage.output.IgniteDPS
-						igniteSource = activeSkill.activeEffect.grantedEffect.name
+						igniteSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 					if activeSkill.mirage.output.PoisonDPS and activeSkill.mirage.output.PoisonDPS > 0 then
 						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.output.TotalPoisonStacks or 1) * mirageCount
