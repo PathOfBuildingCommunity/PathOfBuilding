@@ -1988,6 +1988,7 @@ local specialModList = {
 	["ignites you inflict deal damage (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num) } end,
 	["enemies ignited by you during flask effect take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) } end,
 	["enemies ignited by you take chaos damage instead of fire damage from ignite"] = { flag("IgniteToChaos") },
+	["ignites inflicted with this weapon deal (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Ignite) } end,
 	["enemies chilled by your hits are shocked"] = {
 		mod("ShockBase", "BASE", 15, { type = "ActorCondition", actor = "enemy", var = "ChilledByYourHits" } ),
 		mod("EnemyModifier", "LIST", { mod = mod("Condition:Shocked", "FLAG", true, { type = "Condition", var = "ChilledByYourHits" } ) } )
@@ -1997,12 +1998,14 @@ local specialModList = {
 	["cannot inflict shock"] = { flag("CannotShock") },
 	["cannot ignite, chill, freeze or shock"] = { flag("CannotIgnite"), flag("CannotChill"), flag("CannotFreeze"), flag("CannotShock") },
 	["shock enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("ShockAsThoughDealing", "MORE", num) } end,
+	["hits with this weapon shock enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("ShockAsThoughDealing", "MORE", num, nil, ModFlag.Hit) } end,
 	["inflict non%-damaging ailments as though dealing (%d+)%% more damage"] = function(num) return {
 		mod("ShockAsThoughDealing", "MORE", num),
 		mod("ChillAsThoughDealing", "MORE", num),
 		mod("FreezeAsThoughDealing", "MORE", num)
 	} end,
 	["freeze chilled enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" } ) } end,
+	["hits with this weapon freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, nil, ModFlag.Hit) } end,
 	["(%d+)%% chance to shock attackers for (%d+) seconds on block"] = { mod("ShockBase", "BASE", 15) },
 	["shock attackers for (%d+) seconds on block"]  = {
 		mod("ShockBase", "BASE", 15, { type = "Condition", var = "BlockedRecently" }),
