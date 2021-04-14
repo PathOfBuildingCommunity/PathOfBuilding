@@ -6675,6 +6675,7 @@ skills["Reap"] = {
 	},
 	qualityStats = {
 		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -6690,7 +6691,7 @@ skills["Reap"] = {
 		"loose_blood_charge_on_enemy_death",
 	},
 	levels = {
-		[1] = { 58, 87, 1000, 7212, 10, 20, damageEffectiveness = 1.80, critChance = 6, levelRequirement = 28, manaCost = 25, statInterpolation = { 0, }, },
-		[20] = { 58, 87, 1000, 7212, 10, 20, damageEffectiveness = 1.80, critChance = 6, levelRequirement = 28, manaCost = 25, statInterpolation = { 0, }, },
+		[1] = { 58, 87, 1000, 7212, 10, 20, damageEffectiveness = 1.60, critChance = 6, levelRequirement = 28, manaCost = 25, statInterpolation = { 0, }, },
+		[20] = { 702, 1053, 1000, 87786, 15, 20, damageEffectiveness = 1.60, critChance = 6, levelRequirement = 70, manaCost = 46, statInterpolation = { 0, }, },
 	}
 }
