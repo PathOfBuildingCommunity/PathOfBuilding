@@ -480,6 +480,7 @@ Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 Story of the Vaal
 Gemstone Sword
+Variant: Current
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Requires Level 35, 62 Str, 62 Dex
@@ -496,6 +497,7 @@ Hits with this Weapon always inflict Elemental Ailments
 [[
 Story of the Vaal
 Variscite Blade
+Variant: Pre 3.14.0
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Requires Level 35, 62 Str, 62 Dex
