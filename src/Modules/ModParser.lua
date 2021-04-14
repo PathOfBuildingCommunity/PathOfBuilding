@@ -373,7 +373,7 @@ local modNameList = {
 	["maximum total mana recovery per second from leech"] = "MaxManaLeechRate",
 	["to impale enemies on hit"] = "ImpaleChance",
 	["to impale on spell hit"] = { "ImpaleChance", flags = ModFlag.Spell },
-    ["impale effect"] = "ImpaleEffect",
+	["impale effect"] = "ImpaleEffect",
 	["effect of impales you inflict"] = "ImpaleEffect",
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
@@ -1376,7 +1376,7 @@ local specialModList = {
 	} end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["removes all mana"] = { mod("Mana", "MORE", -100) },
-    ["skills cost life instead of mana"] = { flag("BloodMagic") },
+	["skills cost life instead of mana"] = { flag("BloodMagic") },
 	["skills reserve life instead of mana"] = { },
 	["spend life instead of mana for effects of skills"] = { },
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
@@ -1799,7 +1799,7 @@ local specialModList = {
 		flag("CannotFreeze", { type = "SocketedIn", slotName = "{SlotName}" }), 
 		flag("CannotShock", { type = "SocketedIn", slotName = "{SlotName}" }),
 		flag("CritAlwaysAltAilments", { type = "SocketedIn", slotName = "{SlotName}" })
-    },
+	},
 	["socketed skills deal double damage"] = { mod("ExtraSkillMod", "LIST", { mod = mod("DoubleDamageChance", "BASE", 100) }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength" }) } end,
