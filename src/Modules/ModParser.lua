@@ -111,12 +111,17 @@ local modNameList = {
 	["mana cost"] = "ManaCost",
 	["mana cost of"] = "ManaCost",
 	["mana cost of skills"] = "ManaCost",
+	["total cost"] = "ManaCost",
 	["total mana cost"] = "ManaCost",
 	["total mana cost of skills"] = "ManaCost",
+	["cost of"] = "ManaCost",
+	["cost of skills"] = "ManaCost",
 	["mana reserved"] = "ManaReserved",
 	["mana reservation"] = "ManaReserved",
 	["mana reservation of skills"] = "ManaReserved",
+	["reservation of skills"] = "ManaReserved",
 	["mana reservation if cast as an aura"] = { "ManaReserved", tag = { type = "SkillType", skillType = SkillType.Aura } },
+	["reservation"] = { "ManaReserved" },
 	-- Primary defences
 	["maximum energy shield"] = "EnergyShield",
 	["energy shield recharge rate"] = "EnergyShieldRecharge",
@@ -370,7 +375,7 @@ local modNameList = {
 	["maximum total mana recovery per second from leech"] = "MaxManaLeechRate",
 	["to impale enemies on hit"] = "ImpaleChance",
 	["to impale on spell hit"] = { "ImpaleChance", flags = ModFlag.Spell },
-    ["impale effect"] = "ImpaleEffect",
+	["impale effect"] = "ImpaleEffect",
 	["effect of impales you inflict"] = "ImpaleEffect",
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
@@ -689,7 +694,8 @@ local modFlagList = {
 	["with channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channelled } },
 	["channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channelled } },
 	["with brand skills"] = { tag = { type = "SkillType", skillType = SkillType.Brand } },
-	["for stance skills"] = { tag = { type = "SkillName", skillNameList = { "Blood and Sand", "Flesh and Stone" } } },
+	["for stance skills"] = { tag = { type = "SkillType", skillType = SkillType.StanceSkill } },
+	["of stance skills"] = { tag = { type = "SkillType", skillType = SkillType.StanceSkill } },
 	["zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
 	["raised zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
 	["skeleton"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Summon Skeleton" } },
@@ -1374,6 +1380,10 @@ local specialModList = {
 		mod("ColdDamageConvertToFire", "BASE", num),
 	} end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
+	["removes all mana"] = { mod("Mana", "MORE", -100) },
+	["skills cost life instead of mana"] = { flag("BloodMagic") },
+	["skills reserve life instead of mana"] = { },
+	["spend life instead of mana for effects of skills"] = { },
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
 		minus = tonumber(minus)
 		return {
@@ -1391,7 +1401,7 @@ local specialModList = {
 	["minions explode when reduced to low life, dealing 33%% of their maximum life as fire damage to surrounding enemies"] = { mod("ExtraMinionSkill", "LIST", { skillId = "MinionInstability" }) },
 	["minions explode when reduced to low life, dealing 33%% of their life as fire damage to surrounding enemies"] = { mod("ExtraMinionSkill", "LIST", { skillId = "MinionInstability" }) },
 	["all bonuses from an equipped shield apply to your minions instead of you"] = { }, -- The node itself is detected by the code that handles it
-	["spend energy shield before mana for skill costs"] = { },
+	["spend energy shield before mana for skill m?a?n?a? ?costs"] = { },
 	["you have perfect agony if you've dealt a critical strike recently"] = {mod("Keystone", "LIST", "Perfect Agony", { type = "Condition", var = "CritRecently" })},
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
 	["modifiers to critical strike multiplier also apply to damage over time multiplier for ailments from critical strikes at (%d+)%% of their value"] = function(num) return { mod("CritMultiplierAppliesToDegen", "BASE", num) } end,
@@ -1497,6 +1507,7 @@ local specialModList = {
 	["exerted attacks deal (%d+)%% more damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertIncrease", "MORE", num, nil, ModFlag.Attack, 0) } end,
 	-- Champion
 	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortify" }) },
+	["fortify"] = { flag("Condition:Fortify") },
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
 	["if you've impaled an enemy recently, you and nearby allies have %+(%d+) to armour"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("Armour", "BASE", num) }, { type = "Condition", var = "ImpaledRecently" }) } end,
 	["your hits permanently intimidate enemies that are on full life"] = { mod("EnemyModifier", "LIST", { mod = mod("Condition:Intimidated", "FLAG", true)} )},
@@ -1791,7 +1802,7 @@ local specialModList = {
 		flag("CannotFreeze", { type = "SocketedIn", slotName = "{SlotName}" }), 
 		flag("CannotShock", { type = "SocketedIn", slotName = "{SlotName}" }),
 		flag("CritAlwaysAltAilments", { type = "SocketedIn", slotName = "{SlotName}" })
-    },
+	},
 	["socketed skills deal double damage"] = { mod("ExtraSkillMod", "LIST", { mod = mod("DoubleDamageChance", "BASE", 100) }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength" }) } end,
@@ -2069,6 +2080,10 @@ local specialModList = {
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you, up to (%d+)%%"] = function(num, _, limit) return {
 		mod("PurpHarbAuraBuffEffect", "INC", num, { type = "Multiplier", var = "Herald" })
 		-- Maximum buff effect is handled in CalcPerform, PurpHarbAuraBuffEffect is capped with a constant there.
+	} end,
+	["(%d+)%% increased area of effect per power charge, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
+		mod("VastPowerAoE", "INC", num),
+		-- Maximum effect is handled in CalcPerform, VastPowerAoE is capped with a constant there.
 	} end,
 	["nearby allies' damage with hits is lucky"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("LuckyHits", "FLAG", true) }) },
 	["your damage with hits is lucky"] = { flag("LuckyHits") },
@@ -2400,6 +2415,7 @@ local specialModList = {
 	["cannot be shocked if intelligence is higher than strength"] = { mod("AvoidShock", "BASE", 100, { type = "Condition", var = "IntHigherThanStr" }) },
 	["cannot be frozen if dexterity is higher than intelligence"] = { mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "DexHigherThanInt" }) },
 	["cannot be ignited if strength is higher than dexterity"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "StrHigherThanDex" }) },
+	["cannot be chilled while burning"] = { mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Burning" }) },
 	["cannot be inflicted with bleeding"] = { mod("AvoidBleed", "BASE", 100) },
 	["bleeding cannot be inflicted on you"] = { mod("AvoidBleed", "BASE", 100) },
 	["you are immune to bleeding"] = { mod("AvoidBleed", "BASE", 100) },
@@ -2570,7 +2586,8 @@ local specialModList = {
 	["items and gems have (%d+)%% increased attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", num) } end,
 	["mana reservation of herald skills is always (%d+)%%"] = function(num) return { mod("SkillData", "LIST", { key = "manaCostForced", value = num }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["([%a%s]+) reserves no mana"] = function(_, name) return { mod("SkillData", "LIST", { key = "manaCostForced", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }) } end,
-	["banner skills reserve no mana"] = { mod("SkillData", "LIST", { key = "manaCostForced", value = 0 }, { type = "SkillName", skillNameList = { "Dread Banner", "War Banner" } }) },
+	["banner skills reserve no mana"] = { mod("SkillData", "LIST", { key = "manaCostForced", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }) },
+	["banner skills have no reservation"] = { mod("SkillData", "LIST", { key = "manaCostForced", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }) },
 	["placed banners also grant (%d+)%% increased attack damage to you and allies"] = function(num) return { mod("ExtraAuraEffect", "LIST", { mod = mod("Damage", "INC", num, nil, ModFlag.Attack) }, { type = "Condition", var = "BannerPlanted" }) } end,
 	["your aura skills are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura }) },
 	["your spells are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Spell }) },
