@@ -878,6 +878,7 @@ local modTagList = {
 	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "Rage", div = num } } end,
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
 	["per (%d+) player levels"] = function(num) return { tag = { type = "Multiplier", var = "Level", div = num } } end,
+	["per defiance"] = { tag = { type = "Multiplier", var = "Defiance" } },
 	["for each equipped normal item"] = { tag = { type = "Multiplier", var = "NormalItem" } },
 	["for each normal item equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
 	["for each normal item you have equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
@@ -1242,6 +1243,7 @@ local modTagList = {
 	["while you have sacrificial zeal"] = { tag = { type = "Condition", var = "SacrificialZeal" } },
 	["while sane"] = { tag = { type = "Condition", var = "Insane", neg = true } },
 	["while insane"] = { tag = { type = "Condition", var = "Insane" } },
+	["while you have defiance"] = { tag = { type = "MultiplierThreshold", var = "Defiance", threshold = 1 } },
 	-- Enemy status conditions
 	["at close range"] = { tag = { type = "Condition", var = "AtCloseRange" } },
 	["against rare and unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
