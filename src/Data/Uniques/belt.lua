@@ -41,7 +41,7 @@ Implicits: 1
 {tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
 {tags:mana}+(45-55) to maximum Mana
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
-{tags:attack,life,physical}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
+{tags:attack,mana,physical}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
 Chill and Freeze duration on you is based on 65% of Energy Shield
 ]],[[
 Auxium
@@ -55,7 +55,7 @@ Implicits: 1
 {variant:2}{tags:attack,jewellery_elemental}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
 {tags:mana}+(45-55) to maximum Mana
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
-{tags:attack,life}0.2% of Attack Damage Leeched as Mana per Power Charge
+{tags:attack,mana,physical}0.2% of Attack Damage Leeched as Mana per Power Charge
 {variant:1}{tags:jewellery_defense}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
 {variant:2}{tags:jewellery_defense}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
 ]],[[
