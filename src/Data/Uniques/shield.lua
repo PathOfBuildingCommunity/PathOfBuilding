@@ -387,6 +387,22 @@ Reflects 1 to 1000 Physical Damage to Attackers on Block
 -- Shield: Energy Shield
 [[
 Apep's Slumber
+Variant: Current
+Vaal Spirit Shield
+League: Incursion
+Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
+Requires Level 45, 110 Int
+Implicits: 1
+(5-10)% increased Spell Damage
+Adds (50-55) to (72-80) Chaos Damage
++(80-100) to maximum Energy Shield
++25% chance to be Poisoned
++3% to all maximum Resistances while Poisoned
+80 Energy Shield Regenerated per Second per Poison on you, up to 400 per second
+Poisons on you expire 50% slower
+]],[[
+Apep's Slumber
+Variant: Pre 3.14.0
 Ancient Spirit Shield
 League: Incursion
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
