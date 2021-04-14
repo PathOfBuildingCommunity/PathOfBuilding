@@ -237,7 +237,7 @@ Source: Drops from unique{Avatar of the Grove}
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
-20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
+20% chance to Trigger Level 25 Summon Spectral Wolf on Critical Strike with this Weapon
 (15-20)% increased Attack Speed
 (22-28)% increased Critical Strike Chance
 +(15-25)% to Global Critical Strike Multiplier
