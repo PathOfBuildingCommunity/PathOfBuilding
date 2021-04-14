@@ -145,7 +145,7 @@ Implicits: 1
 {variant:1}(20-25)% increased Damage
 {variant:1}{tags:jewellery_attribute}+(10-15) to all Attributes
 {variant:2}{tags:jewellery_attribute}+(15-20) to all Attributes
-{variant:2}You count as on Full Life while you are Cursed with Vulnerability
+{variant:2}{tags:life}You count as on Full Life while you are Cursed with Vulnerability
 {tags:speed}(5-10)% increased Movement Speed
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 {tags:caster}You are cursed with Vulnerability, with 40% increased Effect
