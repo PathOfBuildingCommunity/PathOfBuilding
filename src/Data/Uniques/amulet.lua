@@ -750,6 +750,8 @@ Corrupted
 ]],[[
 Sacrificial Heart
 Paua Amulet
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
@@ -759,9 +761,10 @@ Implicits: 1
 {tags:jewellery_elemental}Adds (22-27) to (34-38) Fire Damage
 {tags:jewellery_elemental}Adds (20-23) to (31-35) Cold Damage
 {tags:jewellery_elemental}Adds (1-3) to (47-52) Lightning Damage
-Gain a Power Charge when you use a Vaal Skill
+{variant:1}Gain a Power Charge when you use a Vaal Skill
 {tags:life}10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
 {tags:speed}10% increased Movement Speed if you have used a Vaal Skill Recently
+{variant:2}Gain up to maximum Power Charges when you use a Vaal Skill
 ]],[[
 Zerphi's Heart
 Paua Amulet
