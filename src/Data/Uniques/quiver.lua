@@ -36,6 +36,8 @@ Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 The Signal Fire
 Fire Arrow Quiver
+Variant: Pre 3.14.0
+Variant: Current
 Source: Upgraded from unique{Blackgleam} using prophecy{Fire and Brimstone}
 Requires Level 24
 Implicits: 1
@@ -43,7 +45,8 @@ Adds 4 to 8 Fire Damage to Attacks with Bows
 10% increased Attack Speed
 +(80-100) to Evasion Rating
 +(10-30) to maximum Mana
-Gain (25-35)% of Physical Damage as Extra Fire Damage
+{variant:1}Gain (25-35)% of Physical Damage as Extra Fire Damage
+{variant:2}Gain (25-35)% of Physical Attack Damage as Extra Fire Damage
 50% of Physical Damage Converted to Fire Damage
 Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
@@ -192,6 +195,8 @@ Adds 6 to 12 Physical Damage to Attacks with Bows
 ]],[[
 Rigwald's Quills
 Two-Point Arrow Quiver
+Variant: Pre 3.14.0
+Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
 Requires Level 56
@@ -202,7 +207,8 @@ Implicits: 1
 +7 Life gained for each Enemy hit by your Attacks
 20% reduced Projectile Speed
 (30-50)% increased Projectile Damage
-Projectiles Fork
+{variant:1}Projectiles Fork
+{variant:2}Arrows Fork
 ]],[[
 Saemus' Gift
 Spike-Point Arrow Quiver

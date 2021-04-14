@@ -708,14 +708,20 @@ Raise Zombie does not require a Corpse
 Your Raised Zombies count as Corpses
 ]],[[
 Architect's Hand
-Strapped Mitts
+Variant: Pre 3.14.0
+Variant: Current
+{variant:1}Strapped Mitts
+{variant:2}Ambush Mitts
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
-Requires Level 16
+{variant:1}Requires Level 16
+{variant:2}Requires Level 45, 35 Dex, 35 Int
 +(30-40) to Dexterity
-(100-125)% increased Evasion and Energy Shield
+{variant:1}(100-125)% increased Evasion and Energy Shield
+{variant:2}(200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
-Skills used by Traps have (10-20)% increased Area of Effect
+{variant:1}Skills used by Traps have (10-20)% increased Area of Effect
+{variant:2}(4-6)% chance to throw up to 4 additional Traps
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
 ]],[[
 Slavedriver's Hand
