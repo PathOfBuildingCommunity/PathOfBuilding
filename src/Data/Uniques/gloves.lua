@@ -708,7 +708,20 @@ Raise Zombie does not require a Corpse
 Your Raised Zombies count as Corpses
 ]],[[
 Architect's Hand
+Ambush Mitts
+Variant: Current
+League: Incursion
+Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
+Requires Level 16
++(30-40) to Dexterity
+(200-250)% increased Evasion and Energy Shield
+(20-30)% reduced Trap Throwing Speed
+(4-6)% chance to throw up to 4 additional Traps
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+]],[[
+Architect's Hand
 Strapped Mitts
+Variant: Pre 3.14.0
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 Requires Level 16
