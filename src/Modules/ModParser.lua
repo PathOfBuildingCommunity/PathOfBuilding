@@ -899,6 +899,7 @@ local modTagList = {
 	["per abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewel" } },
 	["for each herald s?k?i?l?l? ?affecting you"] = { tag = { type = "Multiplier", var = "Herald" } },
 	["for each type of abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewelType" } },
+	["per (.+) eye jewel affecting you, up to a maximum of %+?(%d+)%%"] = function(type, _, num) return { tag = { type = "Multiplier", var = (type:gsub("^%l", string.upper)) .. "EyeJewel", limit = tonumber(num), limitTotal = true } } end,
 	["per sextant affecting the area"] = { tag = { type = "Multiplier", var = "Sextant" } },
 	["per buff on you"] = { tag = { type = "Multiplier", var = "BuffOnSelf" } },
 	["per curse on enemy"] = { tag = { type = "Multiplier", var = "CurseOnEnemy" } },
@@ -1325,9 +1326,6 @@ local function triggerExtraSkill(name, level, noSupports)
 			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports, triggered = true })
 		}
 	end
-end
-local function upperCaseFirstLetter(str)
-	return (str:gsub("^%l", string.upper))
 end
 
 -- List of special modifiers
@@ -2654,7 +2652,7 @@ local specialModList = {
 		flag("Condition:CanBeElusive"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanBeElusive" }), -- Make the Configuration option appear
 	},
-	["nearby enemies have (%a+) resistance equal to yours"] = function(_, res) return { flag("Enemy"..upperCaseFirstLetter(res).."ResistEqualToYours") } end,
+	["nearby enemies have (%a+) resistance equal to yours"] = function(_, res) return { flag("Enemy"..(res:gsub("^%l", string.upper)).."ResistEqualToYours") } end,
 	["for each nearby corpse, regenerate ([%d%.]+)%% life per second, up to ([%d%.]+)%%"] = function(num, _, limit) return { mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "NearbyCorpse", limit = tonumber(limit), limitTotal = true }) } end,
 	["gain sacrificial zeal when you use a skill, dealing you %d+%% of the skill's mana cost as physical damage per second"] = {
 		flag("Condition:SacrificialZeal"),
@@ -3287,12 +3285,20 @@ local function parseMod(line, order)
 	local modTag, modTag2, tagCap
 	modTag, line, tagCap = scan(line, modTagList)
 	if type(modTag) == "function" then
-		modTag = modTag(tonumber(tagCap[1]), unpack(tagCap))
+		if tagCap[1]:match("%d+") then
+			modTag = modTag(tonumber(tagCap[1]), unpack(tagCap))
+		else
+			modTag = modTag(tagCap[1], unpack(tagCap))
+		end
 	end
 	if modTag then
 		modTag2, line, tagCap = scan(line, modTagList)
 		if type(modTag2) == "function" then
-			modTag2 = modTag2(tonumber(tagCap[1]), unpack(tagCap))
+			if tagCap[1]:match("%d+") then
+				modTag2 = modTag2(tonumber(tagCap[1]), unpack(tagCap))
+			else
+				modTag2 = modTag2(tagCap[1], unpack(tagCap))
+			end
 		end
 	end
 	
