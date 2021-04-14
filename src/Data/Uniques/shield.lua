@@ -389,8 +389,8 @@ Reflects 1 to 1000 Physical Damage to Attackers on Block
 Apep's Slumber
 Variant: Pre 3.14.0
 Variant: Current
-{variant:1}Ancient Spirit Shield
 {variant:2}Vaal Spirit Shield
+{variant:1}Ancient Spirit Shield
 League: Incursion
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 {variant:1}Requires Level 45, 110 Int

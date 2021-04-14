@@ -865,8 +865,8 @@ Corrupted
 Mask of the Spirit Drinker
 Variant: Pre 3.14.0
 Variant: Current
-{variant:1}Crusader Helmet
 {variant:2}Magistrate Crown
+{variant:1}Crusader Helmet
 League: Incursion
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
 {variant:1}Requires Level 31, 36 Str, 36 Int

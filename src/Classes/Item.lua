@@ -353,14 +353,15 @@ function ItemClass:ParseRaw(raw)
 					end
 					self.name = self.name:gsub(" %(.+%)","")
 				end
+				local baseName = self.baseName or ""
 				if self.variant and variantList then
 					if variantList[self.variant] then
 						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 					end
-				else
+				elseif baseName == "" then
 					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 				end
-				if data.itemBases[baseName] then
+				if baseName and data.itemBases[baseName] then
 					self.baseName = baseName
 					if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
 						self.title = self.name
