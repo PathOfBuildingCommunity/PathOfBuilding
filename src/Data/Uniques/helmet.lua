@@ -863,6 +863,22 @@ Regenerate 35 Mana per second if all Equipped Items are Corrupted
 Corrupted
 ]],[[
 Mask of the Spirit Drinker
+Variant: Current
+Magistrate Crown
+League: Incursion
+Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
+Requires Level 31, 36 Str, 36 Int
++(30-60) to maximum Energy Shield
+(140-220)% increased Armour and Energy Shield
++(80-100) to maximum Life
+Your Energy Shield starts at zero
+Cannot gain Energy Shield
+50 Life Regenerated per second if you have at least 500 Maximum Energy Shield
+100 Life Regenerated per second if you have at least 1000 Maximum Energy Shield
+150 Life Regenerated per second if you have at least 1500 Maximum Energy Shield
+]],[[
+Mask of the Spirit Drinker
+Variant: Pre 3.14.0
 Crusader Helmet
 League: Incursion
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
