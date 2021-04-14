@@ -287,6 +287,7 @@ data.misc = { -- magic numbers
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
 	PurposefulHarbingerMaxBuffPercent = 40,
+	VastPowerMaxAoEPercent = 50,
 	MaxEnemyLevel = 84,
 	LowPoolThreshold = 0.5,
 }

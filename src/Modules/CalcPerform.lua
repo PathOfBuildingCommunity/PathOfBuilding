@@ -869,6 +869,11 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("DamageTaken", "INC", 10, "Malediction")
 			modDB:NewMod("Damage", "INC", -10, "Malediction")
 		end
+		if modDB:Sum("INC", nil, "VastPowerAoE") > 0 then
+			local incFromVastPower = modDB:Sum("INC", nil, "VastPowerAoE")
+			local maxVastPower = data.misc.VastPowerMaxAoEPercent
+			modDB:NewMod("AreaOfEffect", "INC", incFromVastPower, "Vast Power", { type = "Multiplier", var = "PowerCharge", limit = maxVastPower, limitTotal = true })
+		end
 	end	
 end
 
