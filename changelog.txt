@@ -1,3 +1,34 @@
+VERSION[2.1.0][2021/04/14]
+
+* 3.14 Skill Tree (LocalIdentity)
+* Add support for count-scaling Active Skills from items (Nostrademous)
+* Adding more flags for parsing enemy modifiers (Wires77)
+* Add support for Accelerating, Noxious, and Unstable catalysts (Nostrademous)
+* Update Low Life/Mana threshold (Nostrademous)
+* Add new Ultimatum uniques, implemented Tecrod's Gaze (Wires77)
+
+* Fix Wintertide brand not getting +1 to attached brand (Wires77)
+* Fix DD and VD having their spell damage apply to corpse explosions (LocalIdentity)
+* Adding noGem directive to skills from items (Wires77)
+* Fix physical damage reduction for bleed from going below zero (Wires77)
+* Fix outdated modifier text on Aberrath's Hooves (pundm)
+* Generals Cry crash fixes (Nostrademous)
+* Fix TriggerByBrand interaction with Item-granted Active Skill (Nostrademous)
+* Fix "Socketed Gems are supported by..." mods for trigger skills \(e.g. CwC\) (Nostrademous)
+* Fix incorrect application of Buff Effect (PJacek)
+
+* Add radius to Death Aura (LocalIdentity)
+* Adds support for Vaal Ground Slam having Exertions (Nostrademous)
+* Add support for leech mods rewordings (Helyos96)
+* 314 uniques (pundm)
+* replicas last resort now grants 25% ias when on low life (pundm)
+* update the vigils fortify duration to 8 seconds (pundm)
+* Add support for Defiance \(berserker Defy Pain\) (Helyos96)
+* Unsupported Mod Additions (Nostrademous)
+* refactor: move generated and new uniques to special directory (ppoelzl)
+
+
+
 VERSION[2.0.3][2021/04/07]
 
 * Fix ability to tab between inputs on the skills tab (Wires77)

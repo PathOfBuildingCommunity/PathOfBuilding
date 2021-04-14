@@ -1,5 +1,45 @@
 # Changelog
 
+## [2.1.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.1.0) (2021/04/14)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.0.3...2.1.0)
+
+**Implemented enhancements:**
+
+- 3.14 Skill Tree [\#2513](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2513) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for count-scaling Active Skills from items [\#2496](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2496) ([Nostrademous](https://github.com/Nostrademous))
+- Adding more flags for parsing enemy modifiers [\#2472](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2472) ([Wires77](https://github.com/Wires77))
+- Add support for Accelerating, Noxious, and Unstable catalysts [\#2471](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2471) ([Nostrademous](https://github.com/Nostrademous))
+- Update Low Life/Mana threshold [\#2463](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2463) ([Nostrademous](https://github.com/Nostrademous))
+- Add new Ultimatum uniques, implemented Tecrod's Gaze [\#2461](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2461) ([Wires77](https://github.com/Wires77))
+
+**Fixed bugs:**
+
+- Fix Wintertide brand not getting +1 to attached brand [\#2501](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2501) ([Wires77](https://github.com/Wires77))
+- Fix DD and VD having their spell damage apply to corpse explosions [\#2498](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2498) ([LocalIdentity](https://github.com/LocalIdentity))
+- Adding noGem directive to skills from items [\#2493](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2493) ([Wires77](https://github.com/Wires77))
+- Fix physical damage reduction for bleed from going below zero [\#2481](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2481) ([Wires77](https://github.com/Wires77))
+- Fix outdated modifier text on Aberrath's Hooves [\#2474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2474) ([pundm](https://github.com/pundm))
+- Generals Cry crash fixes [\#2453](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2453) ([Nostrademous](https://github.com/Nostrademous))
+- Fix TriggerByBrand interaction with Item-granted Active Skill [\#2450](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2450) ([Nostrademous](https://github.com/Nostrademous))
+- Fix "Socketed Gems are supported by..." mods for trigger skills \(e.g. CwC\) [\#2442](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2442) ([Nostrademous](https://github.com/Nostrademous))
+- Fix incorrect application of Buff Effect [\#2391](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2391) ([PJacek](https://github.com/PJacek))
+
+**Merged pull requests:**
+
+- Add radius to Death Aura [\#2514](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2514) ([LocalIdentity](https://github.com/LocalIdentity))
+- Adds support for Vaal Ground Slam having Exertions [\#2512](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2512) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for leech mods rewordings [\#2510](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2510) ([Helyos96](https://github.com/Helyos96))
+- 314 uniques [\#2509](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2509) ([pundm](https://github.com/pundm))
+- replicas last resort now grants 25% ias when on low life [\#2508](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2508) ([pundm](https://github.com/pundm))
+- update the vigils fortify duration to 8 seconds [\#2507](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2507) ([pundm](https://github.com/pundm))
+- Add support for Defiance \(berserker Defy Pain\) [\#2504](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2504) ([Helyos96](https://github.com/Helyos96))
+- Unsupported Mod Additions [\#2469](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2469) ([Nostrademous](https://github.com/Nostrademous))
+- refactor: move generated and new uniques to special directory [\#2459](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2459) ([ppoelzl](https://github.com/ppoelzl))
+
+
+
+
 ## [2.0.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.0.3) (2021/04/07)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.0.2...2.0.3)
