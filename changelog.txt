@@ -6,7 +6,8 @@ VERSION[2.1.0][2021/04/15]
 * Add support for Defiance (Helyos96)
 * Add support for leech mods rewordings (Helyos96)
 * Adds support for Vaal Ground Slam having Exertions (Nostrademous)
-* Add new Ultimatum uniques, implemented Tecrod's Gaze (Wires77)
+* Add new Ultimatum uniques (Wires77)
+* Implemented Tecrod's Gaze (Wires77)
 * Update uniques from 3.14 patch notes (pundm)
 * Update Low Life/Mana threshold (Nostrademous)
 * Add radius value to Death Aura
