@@ -189,7 +189,7 @@ skills["ArcaneCloak"] = {
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["arcane_cloak_consume_%_of_mana"] = {
-			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 			div = 100,
 		},
 		["arcane_cloak_gain_%_of_consumed_mana_as_lightning_damage"] = {
@@ -203,7 +203,7 @@ skills["ArcaneCloak"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard" }),
+		mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
