@@ -10437,7 +10437,10 @@ skills["ImmolationSigil"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }),
 		},
 		["winter_brand_max_number_of_stages"] = {
-			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil)
+			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil),
+		},
+		["active_skill_brands_allowed_on_enemy_+"] = {
+			mod("BrandsAttachedLimit", "BASE", nil),
 		},
 	},
 	baseFlags = {
