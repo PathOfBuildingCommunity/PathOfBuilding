@@ -43,7 +43,7 @@ Adds 4 to 8 Fire Damage to Attacks with Bows
 10% increased Attack Speed
 +(80-100) to Evasion Rating
 +(10-30) to maximum Mana
-Gain (25-35)% of Physical Damage as Extra Fire Damage
+Gain (25-35)% of Physical Attack Damage as Extra Fire Damage
 50% of Physical Damage Converted to Fire Damage
 Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
