@@ -710,8 +710,8 @@ Your Raised Zombies count as Corpses
 Architect's Hand
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Ambush Mitts
 {variant:1}Strapped Mitts
+{variant:2}Ambush Mitts
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 {variant:1}Requires Level 16
