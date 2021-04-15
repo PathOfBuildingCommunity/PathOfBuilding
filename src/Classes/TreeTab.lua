@@ -127,8 +127,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self:TogglePowerReport()
 	end)
 
-	-- Sets up UI elements and power report calculations if the power report is already shown
+	-- Sets up UI elements and power report calculations
 	self:TogglePowerReport()
+	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
@@ -181,17 +182,17 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 		self.controls.specSelect.y = -24
 		self.controls.specConvertText.y = -16
-		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.treeHeatMap,"TOPLEFT",-self.controls.treeHeatMap.x,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
+		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
 	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
 		twoLineHeight = 0
 		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 0
 		self.controls.treeHeatMap.x = 130
-		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"TOPLEFT",0,48)
+		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.specSelect.height + 4)
 	end
 
 	local bottomDrawerHeight = self.showPowerReport and 200 or 0
-	self.controls.specSelect.y = -bottomDrawerHeight + 2 - twoLineHeight
+	self.controls.specSelect.y = -bottomDrawerHeight - twoLineHeight
 
 	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + bottomDrawerHeight + twoLineHeight or 32 + bottomDrawerHeight + twoLineHeight)}
 	if self.jumpToNode then
@@ -618,7 +619,7 @@ end
 function TreeTabClass:BuildPowerReportUI()
 	self.controls.powerReport.tooltipText = "A report of node efficacy based on current heat map selection"
 
-	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT",self.controls.powerReportList,"TOPRIGHT"}, 0, 4, 150, 20, "Show allocated nodes", function()
+	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT",self.controls.powerReportList,"TOPRIGHT"}, 8, 4, 160, 20, "Show allocated nodes", function()
 		self.controls.powerReportList.allocated = not self.controls.powerReportList.allocated
 		self.controls.allocatedNodeDistance.shown = self.controls.powerReportList.allocated
 		self.controls.allocatedNodeDistance.enabled = self.controls.powerReportList.allocated
@@ -644,8 +645,8 @@ function TreeTabClass:TogglePowerReport(caller)
 	end
 
 	report = self:BuildPowerReportList(currentStat)
-	local yPos = self.controls.treeHeatMap.y == self.controls.specSelect.y and 24 or 48
-	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT",self.controls.specSelect,"TOPLEFT"}, -2, yPos, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
+	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
+	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT",self.controls.specSelect,"BOTTOMLEFT"}, 0, yPos, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
 		-- this code is called by the list control when the user "selects" one of the passives in the list.
 		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
 		if selectedNode.x then
@@ -658,6 +659,8 @@ function TreeTabClass:TogglePowerReport(caller)
 	if not self.controls.allocatedNodeToggle then
 		self:BuildPowerReportUI()
 	end
+	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"TOPRIGHT")
+	self.controls.powerReportList.shown = self.showPowerReport
 
 	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
 	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
