@@ -386,7 +386,7 @@ function GemSelectClass:Draw(viewPort)
 				-- Add hovered gem to tooltip
 				self:AddGemTooltip(gemInstance)
 				-- Calculate with the new gem
-				local output = calcFunc({}, { requirementsItems = true, requirementsGems = true })
+				local output = calcFunc({}, { nodeAlloc = true, requirementsItems = true, requirementsGems = true })
 				-- Put the original gem back into the list
 				if oldGem then
 					gemInstance.gemData = oldGem.gemData
