@@ -2381,6 +2381,9 @@ local specialModList = {
 		mod("ColdResist", "OVERRIDE", 0),
 		mod("LightningResist", "OVERRIDE", 0),
 	},
+	["chaos resistance is zero"] = {
+		mod("ChaosResist", "OVERRIDE", 0),
+	},
 	["your maximum resistances are (%d+)%%"] = function(num) return {
 		mod("FireResistMax", "OVERRIDE", num),
 		mod("ColdResistMax", "OVERRIDE", num),
@@ -2443,6 +2446,18 @@ local specialModList = {
 	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
 	["armour also applies to lightning damage taken from hits"] = { flag("ArmourAppliesToLightningDamageTaken") },
 	["lightning resistance does not affect lightning damage taken"] = { flag("SelfIgnoreLightningResistance") },
+	["(%d+)%% increased maximum life and reduced fire resistance"] = function(num) return {
+		mod("Life", "INC", num),
+		mod("FireResist", "INC", -num),
+	} end,
+	["(%d+)%% increased maximum mana and reduced cold resistance"] = function(num) return {
+		mod("Mana", "INC", num),
+		mod("ColdResist", "INC", -num),
+	} end,
+	["(%d+)%% increased global maximum energy shield and reduced lightning resistance"] = function(num) return {
+		mod("EnergyShield", "INC", num, { type = "Global" }),
+		mod("LightningResist", "INC", -num),
+	} end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },
