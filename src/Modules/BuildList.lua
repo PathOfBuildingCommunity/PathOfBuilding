@@ -60,10 +60,6 @@ function listMode:Init(selBuildName, subPath)
 		self:SortList()
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
-	-- self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 50, 640, 0, self)
-	-- self.controls.buildList.height = function()
-	-- 	return main.screenH - 58
-	-- end
 	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, 640, 0, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
