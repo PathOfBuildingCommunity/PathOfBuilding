@@ -1,3 +1,13 @@
+VERSION[2.1.1][2021/04/15]
+
+* Fix Physical Aegis checkbox getting mixed with Innervate (PJacek)
+* Fix Trap and Mines to use Throwing/Laying Speed for DPS calcs (Nostrademous)
+* Fixes Mirage Archer applying DoT stacks when they shouldn't (Nostrademous)
+* Fixes Minion Full DPS crash; Fixes Item Full DPS stat compare (Nostrademous)
+* General's cry: ignore speed for non-channeled skills (Helyos96)
+
+
+
 VERSION[2.1.0][2021/04/15]
 
 * Add support for the 3.14 Skill Tree
