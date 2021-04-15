@@ -388,6 +388,12 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
+	if main.portraitMode then
+		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.optionSection,"BOTTOMLEFT", 0, 20)
+	else
+		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.groupList,"TOPRIGHT", 20, 0)
+	end
+
 	self:UpdateGemSlots()
 
 	self:DrawControls(viewPort)

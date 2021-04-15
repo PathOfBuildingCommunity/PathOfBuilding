@@ -240,6 +240,8 @@ function main:OnFrame()
 
 	if self.screenH > self.screenW then
 		self.portraitMode = true
+	else
+		self.portraitMode = false
 	end
 	while self.newMode do
 		if self.mode then
