@@ -86,6 +86,7 @@ local formList = {
 	["adds (%d+) to (%d+) (%a+) damage to hits"] = "DMGBOTH",
 	["adds (%d+)%-(%d+) (%a+) damage to hits"] = "DMGBOTH",
 	["^you have "] = "FLAG",
+	["^you are "] = "FLAG",
 	["^are "] = "FLAG",
 }
 
@@ -1019,6 +1020,7 @@ local modTagList = {
 	["with this weapon"] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
 	["if your other ring is a shaper item"] = { tag = { type = "Condition", var = "ShaperItemInRing {OtherSlotNum}" } },
 	["if your other ring is an elder item"] = { tag = { type = "Condition", var = "ElderItemInRing {OtherSlotNum}" } },
+	["if you have a (%a+) (%a+) in (%a+) slot"] = function(_, rarity, item, slot) return { tag = { type = "Condition", var = rarity:gsub("^%l", string.upper).."ItemIn"..item:gsub("^%l", string.upper).." "..(slot == "right" and 2 or slot == "left" and 1) } } end,
 	-- Equipment conditions
 	["while holding a shield"] = { tag = { type = "Condition", var = "UsingShield" } },
 	["while your off hand is empty"] = { tag = { type = "Condition", var = "OffHandIsEmpty" } },
@@ -2438,7 +2440,6 @@ local specialModList = {
 		mod("AvoidStun", "BASE", 100, { type = "Condition", var = "UsingFlask" }),
 	},
 	["unaffected by curses"] = { mod("CurseEffectOnSelf", "MORE", -100) },
-	["you are hexproof if you have a (%a+) (%a+) in (%a+) slot"] = function(_, rarity, item, slot) return { mod("AvoidCurse", "BASE", 100, { type = "Condition", var = rarity:gsub("^%l", string.upper).."ItemIn"..item:gsub("^%l", string.upper).." "..(slot == "right" and 2 or slot == "left" and 1) }) } end,
 	["immune to curses while you have at least (%d+) rage"] = function(num) return { mod("AvoidCurse", "BASE", 100, { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["the effect of chill on you is reversed"] = { flag("SelfChillEffectIsReversed") },
 	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
@@ -2888,6 +2889,7 @@ local flagTypes = {
 	["chilled"] = "Condition:Chilled",
 	["blinded"] = "Condition:Blinded",
 	["no life regeneration"] = "NoLifeRegen",
+	["hexproof"] = { name = "AvoidCurse", value = 100, type = "BASE" },
 	["hindered, with 25% reduced movement speed"] = "Condition:Hindered",
 }
 
@@ -3439,9 +3441,9 @@ local function parseMod(line, order)
 		modName = { damageType.."Min", damageType.."Max" }
 		modFlag = modFlag or { keywordFlags = bor(KeywordFlag.Attack, KeywordFlag.Spell) }
 	elseif modForm == "FLAG" then
-		modName = modValue
-		modValue = true
-		modType = "FLAG"
+		modName = type(modValue) == "table" and modValue.name or modValue
+		modType = type(modValue) == "table" and modValue.type or "FLAG"
+		modValue = type(modValue) == "table" and modValue.value or true
 	end
 	if not modName then
 		return { }, line
