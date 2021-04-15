@@ -869,8 +869,10 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 
 	controls.importAnchorPoint = new("Control", nil, 0, 0, 280, 0)
 	controls.importFromLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 20, 0, 16, "Import from:")
-	controls.importFrom = new("DropDownControl", {"LEFT",controls.importFromLabel,"RIGHT"}, 8, 0, 140, 20, importWebsiteList)
-	controls.importFrom:SelByValue( "Pastebin", "id" )
+	controls.importFrom = new("DropDownControl", {"LEFT",controls.importFromLabel,"RIGHT"}, 8, 0, 140, 20, importWebsiteList, function(newSel)
+		self.importWebsiteSelected = importWebsiteList[newSel].id
+	end)
+	controls.importFrom:SelByValue( self.importWebsiteSelected or "Pastebin", "id" )
 	controls.editLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 44, 0, 16, "Enter website link:")
 	controls.edit = new("EditControl", nil, 0, 64, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
 		controls.msg.label = ""
