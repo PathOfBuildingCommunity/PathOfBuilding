@@ -17,15 +17,23 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
     :param replace: Whether to overwrite the existing manifest file.
     :return:
     """
+    base_path = pathlib.Path()
     try:
-        manifest = xml.etree.ElementTree.parse("manifest.xml")
+        manifest = xml.etree.ElementTree.parse(base_path / "manifest.xml")
     except FileNotFoundError:
-        logger.critical(f"Manifest file not found in path '{pathlib.Path().cwd()}'")
+        logger.critical(f"Manifest file not found in path '{base_path}'")
         return
     root = manifest.getroot()
 
+    base_url = min((source.get("url") for source in root.iter("Source")), key=len)
+    parts = {
+        source.get("part"): pathlib.Path(source.get("url")).relative_to(base_url)
+        for source in root.iter("Source")
+    }
+
     for file in root.iter("File"):
-        path = pathlib.Path(file.get("name"))
+        name, part = file.get("name"), file.get("part")
+        path = parts.get(part) / name
         try:
             data = path.read_bytes()
         except FileNotFoundError:
@@ -34,12 +42,12 @@ def update_manifest(version: Optional[str] = None, replace: bool = False):
         sha1_hash = hashlib.sha1(data).hexdigest()
         file.set("sha1", sha1_hash)
         logger.info(f"Path: {path} hash: {sha1_hash}")
-    if version:
+    if version is not None:
         root.find("Version").set("number", version)
         logger.info(f"Updated to version {version}")
 
     file_name = "manifest.xml" if replace else "manifest-updated.xml"
-    manifest.write(file_name, encoding="UTF-8", xml_declaration=True)
+    manifest.write(base_path / file_name, encoding="UTF-8", xml_declaration=True)
 
 
 def cli():
@@ -51,7 +59,7 @@ def cli():
         description="Update Path of Building's manifest file for a new release.",
         allow_abbrev=False,
     )
-    parser.version = "1.0.0"
+    parser.version = "1.1.0"
     parser.add_argument("--version", action="version")
     logging_level = parser.add_mutually_exclusive_group()
     logging_level.add_argument(
