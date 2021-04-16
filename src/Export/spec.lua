@@ -3015,10 +3015,10 @@ return {
 		},
 		[35]={
 			list=false,
-			name="",
+			name="StoredUses",
 			refTo="",
 			type="Int",
-			width=50
+			width=70
 		},
 		[36]={
 			list=false,
@@ -3098,45 +3098,45 @@ return {
 			width=150
 		},
 		[47]={
-			list=false,
+			list=true,
 			name="CostAmount",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[48]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
+			list=true,
+			name="CostTypes",
+			refTo="CostTypes",
+			type="Key",
+			width=90
 		},
 		[49]={
 			list=false,
-			name="ManaCost",
+			name="ManaReservationFlat",
 			refTo="",
-			type="UIntOffset",
+			type="UInt",
 			width=150
 		},
 		[50]={
 			list=false,
-			name="",
+			name="ManaReservationPercent",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[51]={
 			list=false,
-			name="",
+			name="LifeReservationFlat",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[52]={
 			list=false,
-			name="",
+			name="LifeReservationPercent",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[53]={
