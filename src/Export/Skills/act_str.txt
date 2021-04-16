@@ -261,6 +261,13 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 23)
 #mods
 
+#skill CorruptingFever
+#flags spell duration
+#baseMod skill("debuff", true)
+#baseMod mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10)
+#baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStage"})
+#mods
+
 #skill DecoyTotem
 #flags spell totem area duration
 #baseMod skill("radius", 60)
@@ -320,7 +327,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 46)
-#baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
 
 #skill Earthquake
@@ -420,6 +427,13 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 60)
+#mods
+
+#skill Exsanguinate
+#flags spell duration
+#baseMod skill("debuff", true)
+#baseMod mod("Multiplier:ExsanguinateMaxStages", "BASE", 3)
+#baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "ExsanguinateStage"})
 #mods
 
 #skill BloodSandArmour
@@ -773,6 +787,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8, { type = "Condition", var = "BloodStance" })
 #mods
 
+#skill PetrifiedBlood
+#baseMod mod("ManaCost", "MORE", -60, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+#mods
+
 #skill PhysicalDamageAura
 #flags spell aura area
 	statMap = {
@@ -989,6 +1007,16 @@ end,
 	},
 #mods
 
+#skill Bloodreap
+#flags spell area duration
+    statMap = {
+		["blood_scythe_damage_+%_final_per_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#mods
+
 #skill SummonFireGolem
 #flags spell minion golem
 	minionList = {
@@ -1150,5 +1178,5 @@ end,
 		},
 	},
 #baseMod skill("radius", 46)
-#baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #mods

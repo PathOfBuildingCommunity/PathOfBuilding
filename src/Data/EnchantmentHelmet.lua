@@ -39,10 +39,10 @@ return {
 	},
 	["Anger"] = {
 		["MERCILESS"] = {
-			"Anger has 10% reduced Mana Reservation",
+			"Anger has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Anger has 15% reduced Mana Reservation",
+			"Anger has 15% reduced Reservation",
 		},
 	},
 	["Animate Guardian"] = {
@@ -101,11 +101,11 @@ return {
 	["Arctic Armour"] = {
 		["MERCILESS"] = {
 			"24% increased Arctic Armour Buff Effect",
-			"Arctic Armour has 20% reduced Mana Reservation",
+			"Arctic Armour has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
 			"36% increased Arctic Armour Buff Effect",
-			"Arctic Armour has 30% reduced Mana Reservation",
+			"Arctic Armour has 30% reduced Reservation",
 		},
 	},
 	["Armageddon Brand"] = {
@@ -396,10 +396,10 @@ return {
 	},
 	["Clarity"] = {
 		["MERCILESS"] = {
-			"Clarity has 20% reduced Mana Reservation",
+			"Clarity has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Clarity has 30% reduced Mana Reservation",
+			"Clarity has 30% reduced Reservation",
 		},
 	},
 	["Cleave"] = {
@@ -495,6 +495,17 @@ return {
 		["ENDGAME"] = {
 			"Convocation has 30% increased Cooldown Recovery Rate",
 			"36% increased Convocation Buff Effect",
+		},
+	},
+	["Corrupting Fever"] = {
+		["MERCILESS"] = {
+			"Corrupting Fever deals 25% increased Damage",
+			"20% increased Corrupting Fever Duration",
+		},
+		["ENDGAME"] = {
+			"Corrupting Fever deals 40% increased Damage",
+			"30% increased Corrupting Fever Duration",
+			"Corrupting Fever has +50% chance to inflict an additional Corrupted Blood Debuff",
 		},
 	},
 	["Crackling Lance"] = {
@@ -595,10 +606,10 @@ return {
 	},
 	["Determination"] = {
 		["MERCILESS"] = {
-			"Determination has 10% reduced Mana Reservation",
+			"Determination has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Determination has 15% reduced Mana Reservation",
+			"Determination has 15% reduced Reservation",
 		},
 	},
 	["Detonate Dead"] = {
@@ -637,10 +648,10 @@ return {
 	},
 	["Discipline"] = {
 		["MERCILESS"] = {
-			"Discipline has 14% reduced Mana Reservation",
+			"Discipline has 14% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Discipline has 20% reduced Mana Reservation",
+			"Discipline has 20% reduced Reservation",
 		},
 	},
 	["Divine Ire"] = {
@@ -823,6 +834,17 @@ return {
 			"Explosive Trap causes 2 additional smaller explosions",
 		},
 	},
+	["Exsanguinate"] = {
+		["MERCILESS"] = {
+			"Exsanguinate deals 25% increased Damage",
+			"20% increased Exsanguinate Duration",
+		},
+		["ENDGAME"] = {
+			"Exsanguinate deals 40% increased Damage",
+			"30% increased Exsanguinate Duration",
+			"Exsanguinate has a 25% chance to Chain an additional time",
+		},
+	},
 	["Fire Trap"] = {
 		["MERCILESS"] = {
 			"25% increased Fire Trap Damage",
@@ -942,10 +964,10 @@ return {
 	},
 	["Flesh and Stone"] = {
 		["MERCILESS"] = {
-			"Flesh and Stone has 20% reduced Mana Reservation",
+			"Flesh and Stone has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Flesh and Stone has 30% reduced Mana Reservation",
+			"Flesh and Stone has 30% reduced Reservation",
 		},
 	},
 	["Flicker Strike"] = {
@@ -1106,10 +1128,10 @@ return {
 	},
 	["Grace"] = {
 		["MERCILESS"] = {
-			"Grace has 10% reduced Mana Reservation",
+			"Grace has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Grace has 15% reduced Mana Reservation",
+			"Grace has 15% reduced Reservation",
 		},
 	},
 	["Ground Slam"] = {
@@ -1126,18 +1148,18 @@ return {
 	},
 	["Haste"] = {
 		["MERCILESS"] = {
-			"Haste has 10% reduced Mana Reservation",
+			"Haste has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Haste has 15% reduced Mana Reservation",
+			"Haste has 15% reduced Reservation",
 		},
 	},
 	["Hatred"] = {
 		["MERCILESS"] = {
-			"Hatred has 10% reduced Mana Reservation",
+			"Hatred has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Hatred has 15% reduced Mana Reservation",
+			"Hatred has 15% reduced Reservation",
 		},
 	},
 	["Heavy Strike"] = {
@@ -1154,50 +1176,50 @@ return {
 	},
 	["Herald of Agony"] = {
 		["MERCILESS"] = {
-			"Herald of Agony has 20% reduced Mana Reservation",
+			"Herald of Agony has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Herald of Agony has 30% reduced Mana Reservation",
+			"Herald of Agony has 30% reduced Reservation",
 			"Summoned Agony Crawler fires 2 additional Projectiles",
 		},
 	},
 	["Herald of Ash"] = {
 		["MERCILESS"] = {
 			"25% increased Herald of Ash Damage",
-			"Herald of Ash has 20% reduced Mana Reservation",
+			"Herald of Ash has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
 			"40% increased Herald of Ash Damage",
-			"Herald of Ash has 30% reduced Mana Reservation",
+			"Herald of Ash has 30% reduced Reservation",
 		},
 	},
 	["Herald of Ice"] = {
 		["MERCILESS"] = {
 			"25% increased Herald of Ice Damage",
-			"Herald of Ice has 20% reduced Mana Reservation",
+			"Herald of Ice has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
 			"40% increased Herald of Ice Damage",
-			"Herald of Ice has 30% reduced Mana Reservation",
+			"Herald of Ice has 30% reduced Reservation",
 		},
 	},
 	["Herald of Purity"] = {
 		["MERCILESS"] = {
-			"Herald of Purity has 20% reduced Mana Reservation",
+			"Herald of Purity has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Herald of Purity has 30% reduced Mana Reservation",
+			"Herald of Purity has 30% reduced Reservation",
 			"+1 to maximum number of Sentinels of Purity",
 		},
 	},
 	["Herald of Thunder"] = {
 		["MERCILESS"] = {
 			"25% increased Herald of Thunder Damage",
-			"Herald of Thunder has 20% reduced Mana Reservation",
+			"Herald of Thunder has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
 			"40% increased Herald of Thunder Damage",
-			"Herald of Thunder has 30% reduced Mana Reservation",
+			"Herald of Thunder has 30% reduced Reservation",
 		},
 	},
 	["Hexblast"] = {
@@ -1407,11 +1429,11 @@ return {
 	["Lancing Steel"] = {
 		["MERCILESS"] = {
 			"Lancing Steel deals 25% increased Damage",
-			"Lancing Steel has 20% chance count as consuming Steel Shards without Consuming them",
+			"Lancing Steel has 20% chance to count as consuming Steel Shards without Consuming them",
 		},
 		["ENDGAME"] = {
 			"Lancing Steel deals 40% increased Damage",
-			"Lancing Steel has 30% chance count as consuming Steel Shards without Consuming them",
+			"Lancing Steel has 30% chance to count as consuming Steel Shards without Consuming them",
 			"Lancing Steel fires an additional Projectile",
 		},
 	},
@@ -1506,10 +1528,10 @@ return {
 	},
 	["Malevolence"] = {
 		["MERCILESS"] = {
-			"Malevolence has 10% reduced Mana Reservation",
+			"Malevolence has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Malevolence has 15% reduced Mana Reservation",
+			"Malevolence has 15% reduced Reservation",
 		},
 	},
 	["Mirror Arrow"] = {
@@ -1596,6 +1618,14 @@ return {
 			"Pestilent Strike has 24% increased Area of Effect",
 		},
 	},
+	["Petrified Blood"] = {
+		["MERCILESS"] = {
+			"Petrified Blood has 14% reduced Reservation",
+		},
+		["ENDGAME"] = {
+			"Petrified Blood has 20% reduced Reservation",
+		},
+	},
 	["Phase Run"] = {
 		["MERCILESS"] = {
 			"20% chance for Phase Run to increase Duration without removing Frenzy Charges",
@@ -1642,18 +1672,18 @@ return {
 	},
 	["Precision"] = {
 		["MERCILESS"] = {
-			"Precision has 20% reduced Mana Reservation",
+			"Precision has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Precision has 30% reduced Mana Reservation",
+			"Precision has 30% reduced Reservation",
 		},
 	},
 	["Pride"] = {
 		["MERCILESS"] = {
-			"Pride has 10% reduced Mana Reservation",
+			"Pride has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Pride has 15% reduced Mana Reservation",
+			"Pride has 15% reduced Reservation",
 		},
 	},
 	["Puncture"] = {
@@ -1692,34 +1722,34 @@ return {
 	},
 	["Purity of Elements"] = {
 		["MERCILESS"] = {
-			"Purity of Elements has 14% reduced Mana Reservation",
+			"Purity of Elements has 14% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Purity of Elements has 20% reduced Mana Reservation",
+			"Purity of Elements has 20% reduced Reservation",
 		},
 	},
 	["Purity of Fire"] = {
 		["MERCILESS"] = {
-			"Purity of Fire has 14% reduced Mana Reservation",
+			"Purity of Fire has 14% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Purity of Fire has 20% reduced Mana Reservation",
+			"Purity of Fire has 20% reduced Reservation",
 		},
 	},
 	["Purity of Ice"] = {
 		["MERCILESS"] = {
-			"Purity of Ice has 14% reduced Mana Reservation",
+			"Purity of Ice has 14% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Purity of Ice has 20% reduced Mana Reservation",
+			"Purity of Ice has 20% reduced Reservation",
 		},
 	},
 	["Purity of Lightning"] = {
 		["MERCILESS"] = {
-			"Purity of Lightning has 14% reduced Mana Reservation",
+			"Purity of Lightning has 14% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Purity of Lightning has 20% reduced Mana Reservation",
+			"Purity of Lightning has 20% reduced Reservation",
 		},
 	},
 	["Pyroclast Mine"] = {
@@ -1778,6 +1808,17 @@ return {
 		["ENDGAME"] = {
 			"15% increased Rallying Cry Buff Effect",
 			"Rallying Cry Exerts 1 additional Attack",
+		},
+	},
+	["Reap"] = {
+		["MERCILESS"] = {
+			"Reap deals 25% increased Damage",
+			"16% increased Reap Area of Effect",
+		},
+		["ENDGAME"] = {
+			"Reap deals 40% increased Damage",
+			"24% increased Reap Area of Effect",
+			"+1 to Maximum Blood Charges",
 		},
 	},
 	["Reave"] = {
@@ -2295,11 +2336,11 @@ return {
 	["Summon Skitterbots"] = {
 		["MERCILESS"] = {
 			"Summoned Skitterbots have 60% increased Area of Effect",
-			"Summon Skitterbots has 14% reduced Mana Reservation",
+			"Summon Skitterbots has 14% reduced Reservation",
 		},
 		["ENDGAME"] = {
 			"Summoned Skitterbots have 90% increased Area of Effect",
-			"Summon Skitterbots has 20% reduced Mana Reservation",
+			"Summon Skitterbots has 20% reduced Reservation",
 		},
 	},
 	["Summon Stone Golem"] = {
@@ -2457,10 +2498,10 @@ return {
 	},
 	["Vitality"] = {
 		["MERCILESS"] = {
-			"Vitality has 20% reduced Mana Reservation",
+			"Vitality has 20% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Vitality has 30% reduced Mana Reservation",
+			"Vitality has 30% reduced Reservation",
 		},
 	},
 	["Void Sphere"] = {
@@ -2607,18 +2648,18 @@ return {
 	},
 	["Wrath"] = {
 		["MERCILESS"] = {
-			"Wrath has 10% reduced Mana Reservation",
+			"Wrath has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Wrath has 15% reduced Mana Reservation",
+			"Wrath has 15% reduced Reservation",
 		},
 	},
 	["Zealotry"] = {
 		["MERCILESS"] = {
-			"Zealotry has 10% reduced Mana Reservation",
+			"Zealotry has 10% reduced Reservation",
 		},
 		["ENDGAME"] = {
-			"Zealotry has 15% reduced Mana Reservation",
+			"Zealotry has 15% reduced Reservation",
 		},
 	},
 }

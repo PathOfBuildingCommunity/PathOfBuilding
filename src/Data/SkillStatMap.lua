@@ -113,6 +113,10 @@ return {
 	skill("ChaosDot", nil),
 	div = 60,
 },
+["base_physical_damage_to_deal_per_minute"] = {
+	skill("PhysicalDot", nil),
+	div = 60,
+},
 ["critical_ailment_dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil, 0, 0, {type = "Condition", var = "CriticalStrike"})
 },
@@ -150,6 +154,12 @@ return {
 	mod("BuffEffect", "INC", nil)
 },
 ["base_use_life_in_place_of_mana"] = {
+	flag("SkillBloodMagic"),
+},
+["base_skill_reserve_life_instead_of_mana"] = {
+	flag("SkillBloodMagic"),
+},
+["base_skill_cost_life_instead_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
 ["base_active_skill_totem_level"] = {
@@ -317,6 +327,9 @@ return {
 ["no_mana_cost"] = {
 	mod("ManaCost", "MORE", nil),
 	value = -100,
+},
+["base_life_cost_+%"] = {
+	mod("ManaCost", "INC", nil),
 },
 ["flask_mana_to_recover_+%"] = {
 	mod("FlaskManaRecovery", "INC", nil),
@@ -1161,6 +1174,9 @@ return {
 ["base_attack_speed_+%_per_frenzy_charge"] = {
 	mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
+["attack_speed_+%_when_on_low_life"] = {
+	mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Condition", var = "LowLife"})
+},
 ["damage_+%_per_power_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" })
 },
@@ -1504,6 +1520,9 @@ return {
 	mod("AuraEffect", "INC", nil),
 },
 ["base_mana_reservation_+%"] = {
+	mod("ManaReserved", "INC", nil)
+},
+["base_life_reservation_+%"] = {
 	mod("ManaReserved", "INC", nil)
 },
 -- Brand

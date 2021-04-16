@@ -162,6 +162,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
+		"Data/CostTypes.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
@@ -175,6 +176,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/buff_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/curse_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/debuff_skill_stat_descriptions.txt",
+		"Metadata/StatDescriptions/secondary_debuff_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/gem_stat_descriptions.txt",
 		"Metadata/StatDescriptions/minion_attack_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/minion_skill_stat_descriptions.txt",

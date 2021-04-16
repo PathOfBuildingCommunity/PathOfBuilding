@@ -642,6 +642,7 @@ local function doActorMisc(env, actor)
 	output.AbsorptionChargesMax = modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0
 	output.AfflictionChargesMin = modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and output.FrenzyChargesMin or 0
 	output.AfflictionChargesMax = modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0
+	output.BloodChargesMax = modDB:Sum("BASE", nil, "BloodChargesMax")
 
 	-- Initialize Charges
 	output.PowerCharges = 0
@@ -655,6 +656,7 @@ local function doActorMisc(env, actor)
 	output.BrutalCharges = 0
 	output.AbsorptionCharges = 0
 	output.AfflictionCharges = 0
+	output.BloodCharges = 0
 
 	-- Conditionally over-write Charge values
 	if modDB:Flag(nil, "UsePowerCharges") then
@@ -709,6 +711,7 @@ local function doActorMisc(env, actor)
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
 	end
+	output.BloodCharges = m_min(modDB:Override(nil, "BloodCharges") or output.BloodChargesMax, output.BloodChargesMax)
 
 	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
@@ -730,6 +733,7 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
 	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
 	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
+	modDB.multipliers["BloodCharge"] = output.BloodCharges
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
@@ -1324,20 +1328,24 @@ function calcs.perform(env, avoidCache)
 		if activeSkill.skillTypes[SkillType.ManaCostReserved] and not activeSkill.skillFlags.totem then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
-			local suffix = activeSkill.skillTypes[SkillType.ManaCostPercent] and "Percent" or "Base"
-			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
+			local baseValFlat = activeSkill.skillData.manaReservationFlat or activeSkill.activeEffect.grantedEffectLevel.manaReservationFlat or 0
+			local baseValPercent = activeSkill.skillData.manaReservationPercent or activeSkill.activeEffect.grantedEffectLevel.manaReservationPercent or 0
 			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
 			local more = skillModList:More(skillCfg, "ManaReserved")
 			local inc = skillModList:Sum("INC", skillCfg, "ManaReserved")
-			local base = m_floor(baseVal * mult)
+			local baseFlat = m_floor(baseValFlat * mult)
+			local basePercent = m_floor(baseValPercent * mult)
 			local cost
 			if activeSkill.skillData.manaCostForced then
-				cost = activeSkill.skillData.manaCostForced
+				costFlat = activeSkill.skillData.manaCostForced
+				costPercent = activeSkill.skillData.manaCostForced
 			else
-				cost = m_max(base - m_modf(base * -m_floor((100 + inc) * more - 100) / 100), 0)
+				costFlat = m_max(baseFlat - m_modf(baseFlat * -m_floor((100 + inc) * more - 100) / 100), 0)
+				costPercent = m_max(basePercent - m_modf(basePercent * -m_floor((100 + inc) * more - 100) / 100), 0)
 			end
 			if activeSkill.activeMineCount then
-				cost = cost * activeSkill.activeMineCount
+				costFlat = costFlat * activeSkill.activeMineCount
+				costPercent = costPercent * activeSkill.activeMineCount
 			end
 			local pool
 			if skillModList:Flag(skillCfg, "BloodMagic", "SkillBloodMagic") then
@@ -1345,16 +1353,31 @@ function calcs.perform(env, avoidCache)
 			else
 				pool = "Mana"
 			end
-			env.player["reserved_"..pool..suffix] = env.player["reserved_"..pool..suffix] + cost
-			if breakdown then
-				t_insert(breakdown[pool.."Reserved"].reservations, {
-					skillName = activeSkill.activeEffect.grantedEffect.name,
-					base = baseVal .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
-					mult = mult ~= 1 and ("x "..mult),
-					more = more ~= 1 and ("x "..more),
-					inc = inc ~= 0 and ("x "..(1 + inc/100)),
-					total = cost .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
-				})
+			if costFlat ~= 0 then
+				env.player["reserved_"..pool.."Base"] = env.player["reserved_"..pool.."Base"] + costFlat
+				if breakdown then
+					t_insert(breakdown[pool.."Reserved"].reservations, {
+						skillName = activeSkill.activeEffect.grantedEffect.name,
+						base = baseValFlat,
+						mult = mult ~= 1 and ("x "..mult),
+						more = more ~= 1 and ("x "..more),
+						inc = inc ~= 0 and ("x "..(1 + inc/100)),
+						total = costFlat,
+					})
+				end
+			end
+			if costPercent ~= 0 then
+				env.player["reserved_"..pool.."Percent"] = env.player["reserved_"..pool.."Percent"] + costPercent
+				if breakdown then
+					t_insert(breakdown[pool.."Reserved"].reservations, {
+						skillName = activeSkill.activeEffect.grantedEffect.name,
+						base = baseValPercent .. "%",
+						mult = mult ~= 1 and ("x "..mult),
+						more = more ~= 1 and ("x "..more),
+						inc = inc ~= 0 and ("x "..(1 + inc/100)),
+						total = costPercent .. "%",
+					})
+				end
 			end
 		end
 	end

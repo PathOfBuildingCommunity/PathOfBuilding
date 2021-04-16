@@ -340,6 +340,7 @@ local modNameList = {
 	["maximum challenger charges"] = "ChallengerChargesMax",
 	["maximum blitz charges"] = "BlitzChargesMax",
 	["maximum number of crab barriers"] = "CrabBarriersMax",
+	["maximum blood charges"] = "BloodChargesMax",
 	-- On hit/kill/leech effects
 	["life gained on kill"] = "LifeOnKill",
 	["mana gained on kill"] = "ManaOnKill",
@@ -2586,7 +2587,7 @@ local specialModList = {
 	["(%d+)%% of fire damage taken as lightning"] = function(num) return { mod("FireDamageTakenAsLightning", "BASE", num) } end,
 	["items and gems have (%d+)%% reduced attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", -num) } end,
 	["items and gems have (%d+)%% increased attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", num) } end,
-	["mana reservation of herald skills is always (%d+)%%"] = function(num) return { mod("SkillData", "LIST", { key = "manaCostForced", value = num }, { type = "SkillType", skillType = SkillType.Herald }) } end,
+	["mana reservation of herald skills is always (%d+)%%"] = function(num) return { mod("SkillData", "LIST", { key = "manaReservationPercent", value = num }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["([%a%s]+) reserves no mana"] = function(_, name) return { mod("SkillData", "LIST", { key = "manaCostForced", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }) } end,
 	["banner skills reserve no mana"] = { mod("SkillData", "LIST", { key = "manaCostForced", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }) },
 	["banner skills have no reservation"] = { mod("SkillData", "LIST", { key = "manaCostForced", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }) },

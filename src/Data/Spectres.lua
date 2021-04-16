@@ -2837,7 +2837,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 -- Primal Crushclaw
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	name = "Primal Crushclaw",
-	life = 12,
+	life = 6,
 	armour = 1,
 	fireResist = 20,
 	coldResist = 20,
@@ -2989,7 +2989,7 @@ minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 	},
 	modList = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
-		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 1]
 	},
 }
 -- Ashblessed Warden
@@ -3018,7 +3018,7 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 	},
 	modList = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
-		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 0]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 1]
 	},
 }
 -- Snow Rhex

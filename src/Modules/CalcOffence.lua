@@ -964,7 +964,7 @@ function calcs.offence(env, actor, activeSkill)
 			local more = m_floor(skillModList:More(skillCfg, "ManaCost") * 100 + 0.0001) / 100
 			local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
 			local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
-			local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
+			local manaCost = activeSkill.activeEffect.grantedEffectLevel.cost.Mana or 0
 			if skillData.baseManaCostIsAtLeastPercentUnreservedMana then
 				manaCost = m_max(manaCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 			end
