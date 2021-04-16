@@ -3189,3 +3189,77 @@ skills["Focus"] = {
 		[1] = { 4000, cooldown = 12, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["QueensDemand"] = {
+	name = "Queen's Demand",
+	hidden = true,
+	color = 4,
+	description = "Alternates triggering Flames of Judgement and Storm of Judgement",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { attackSpeedMultiplier = 1, cooldown = 0.004, levelRequirement = 70, statInterpolation = { }, },
+	},
+}
+skills["AtziriUniqueStaffStormCall"] = {
+	name = "Storm of Judgement",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.033500000834465,
+	description = "Creates a number of markers around the targeted location, which will explode after a duration, dealing lightning damage. Cannot be supported by Spell Cascade.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.LightningSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_chance_to_shock_%",
+		"atziri_unique_staff_storm_call_number_of_markers_to_place",
+		"shock_effect_+%",
+		"base_reduce_enemy_lightning_resistance_%",
+	},
+	levels = {
+		[20] = { 977, 1815, 50, 12, 50, 25, critChance = 6, manaCost = 150, damageEffectiveness = 1.01, cooldown = 0.004, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+	},
+}
+skills["AtziriUniqueStaffFlameblast"] = {
+	name = "Flames of Judgement",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 4.9499998092651,
+	incrementalEffectiveness = 0.048000000417233,
+	description = "Creates markers at your location and a targeted location, which grow over time based on cast speed, then explode, dealing fire damage. Cannot be supported by Spell Cascade.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.FireSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_chance_to_ignite_%",
+		"base_reduce_enemy_fire_resistance_%",
+	},
+	levels = {
+		[20] = { 2892, 4337, 50, 25, critChance = 6, manaCost = 550, damageEffectiveness = 1.01, cooldown = 0.004, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, }, },
+	},
+}
