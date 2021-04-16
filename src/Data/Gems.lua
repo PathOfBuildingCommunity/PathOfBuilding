@@ -7421,21 +7421,6 @@ return {
 		reqInt = 60,
 		defaultLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBlindingAura"] = {
-		name = "Blinding Aura",
-		grantedEffectId = "CastAuraBlinding",
-		tags = {
-			active_skill = true,
-			spell = true,
-			area = true,
-			aura = true,
-		},
-		tagString = "Spell, AoE, Aura",
-		reqStr = 0,
-		reqDex = 0,
-		reqInt = 0,
-		defaultLevel = 1,
-	},
 	["Metadata/Items/Gems/SkillGemExsanguinate"] = {
 		name = "Exsanguinate",
 		grantedEffectId = "Exsanguinate",

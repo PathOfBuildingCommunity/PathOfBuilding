@@ -35,6 +35,16 @@ local skills, mod, flag, skill = ...
 #skill SupportBloodMagic
 #mods
 
+#skill SupportBloodthirst
+    statMap = {
+		["support_blood_thirst_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#baseMod mod("PhysicalMin", "BASE", 1, ModFlag.Weapon, 0, { type = "PerStat", stat = "Life", div = 50 }, { type = "Condition", var = "LowLife"})
+#baseMod mod("PhysicalMax", "BASE", 1, ModFlag.Weapon, 0, { type = "PerStat", stat = "Life", div = 50 }, { type = "Condition", var = "LowLife"})
+#mods
+
 #skill SupportBloodlust
 	statMap = {
 		["support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies"] = {
@@ -103,6 +113,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportColdToFire
+#mods
+
+#skill SupportCruelty
+    statMap = {
+		["support_cruelty_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit),
+		},
+	},
 #mods
 
 #skill SupportMeleeDamageOnFullLife
@@ -243,6 +261,14 @@ local skills, mod, flag, skill = ...
 		["maximum_life_leech_amount_per_leech_+%"] = {
 			mod("MaxLifeLeechRate", "INC", nil)
 		}
+	},
+#mods
+
+#skill SupportLifetap
+    statMap = {
+		["support_lifetap_damage_+%_final_while_buffed"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Lifetap" }),
+		},
 	},
 #mods
 
@@ -419,7 +445,7 @@ local skills, mod, flag, skill = ...
 	addFlags = {
 		totem = true,
 	},
-	statMap = {	
+	statMap = {
 		["support_spell_totem_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
@@ -433,19 +459,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportUrgentOrders
-	statMap = {	
+	statMap = {
 		["base_cooldown_modifier_ms"] = {
 			mod("CooldownRecovery", "BASE", nil),
 			div = 1000,
 		},
 	},
-#mods
-
-#skill SupportCruelty
-#mods
-
-#skill SupportBloodthirst
-#mods
-
-#skill SupportLifetap
 #mods

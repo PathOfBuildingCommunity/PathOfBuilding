@@ -504,6 +504,9 @@ function calcs.buildOutput(build, mode)
 		if output.CrabBarriers > 0 then
 			t_insert(combatList, s_format("%d Crab Barriers", output.CrabBarriers))
 		end
+		if build.calcsTab.mainEnv.multipliersUsed["BloodCharge"] then
+			t_insert(combatList, s_format("%d Blood Charges", output.BloodCharges))
+		end
 		if env.modDB:Flag(nil, "Fortify") then
 			t_insert(combatList, "Fortify")
 		end
