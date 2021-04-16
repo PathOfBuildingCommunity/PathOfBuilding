@@ -156,9 +156,6 @@ return {
 ["base_skill_reserve_life_instead_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
-["base_skill_reserve_life_instead_of_mana"] = {
-	flag("SkillBloodMagic"),
-},
 ["base_skill_cost_life_instead_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
@@ -329,7 +326,7 @@ return {
 	value = -100,
 },
 ["base_life_cost_+%"] = {
-	mod("ManaCost", "INC", nil),
+	mod("LifeCost", "INC", nil),
 },
 ["flask_mana_to_recover_+%"] = {
 	mod("FlaskManaRecovery", "INC", nil),
@@ -1523,7 +1520,7 @@ return {
 	mod("ManaReserved", "INC", nil)
 },
 ["base_life_reservation_+%"] = {
-	mod("ManaReserved", "INC", nil)
+	mod("LifeReserved", "INC", nil)
 },
 -- Brand
 ["sigil_attached_target_damage_+%_final"] = {

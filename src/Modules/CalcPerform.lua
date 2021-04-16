@@ -1379,19 +1379,6 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 			end
-			if costPercent ~= 0 then
-				env.player["reserved_"..pool.."Percent"] = env.player["reserved_"..pool.."Percent"] + costPercent
-				if breakdown then
-					t_insert(breakdown[pool.."Reserved"].reservations, {
-						skillName = activeSkill.activeEffect.grantedEffect.name,
-						base = baseValPercent .. "%",
-						mult = mult ~= 1 and ("x "..mult),
-						more = more ~= 1 and ("x "..more),
-						inc = inc ~= 0 and ("x "..(1 + inc/100)),
-						total = costPercent .. "%",
-					})
-				end
-			end
 		end
 	end
 	

@@ -788,7 +788,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PetrifiedBlood
-#baseMod mod("ManaCost", "MORE", -60, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+#baseMod mod("LifeCost", "MORE", -60, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 #mods
 
 #skill PhysicalDamageAura
@@ -1013,8 +1013,8 @@ end,
 		["blood_scythe_damage_+%_final_per_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
-		["costs_life_+%_final_per_blood_charge"] = {
-			mod("ManaCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		["blood_scythe_cost_+%_final_per_charge"] = {
+			mod("LifeCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
 	},
 #baseMod skill("debuff", true)
