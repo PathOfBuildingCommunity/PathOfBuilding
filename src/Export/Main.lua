@@ -4,7 +4,7 @@
 -- Main module of program.
 --
 
-USE_DAT64 = true
+USE_DAT64 = false
 
 local ipairs = ipairs
 local t_insert = table.insert
