@@ -512,6 +512,18 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		if grantedEffectLevel.cost.Life then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Cost: ^7%d", grantedEffectLevel.cost.Life))
 		end
+		if grantedEffectLevel.cost.ES then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FEnergy Shield Cost: ^7%d", grantedEffectLevel.cost.ES))
+		end
+		if grantedEffectLevel.cost.Rage then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FRage Cost: ^7%d", grantedEffectLevel.cost.Rage))
+		end
+		if grantedEffectLevel.cost.ManaPercent then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Cost: ^7%d%%", grantedEffectLevel.cost.ManaPercent))
+		end
+		if grantedEffectLevel.cost.LifePercent then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Cost: ^7%d%%", grantedEffectLevel.cost.LifePercent))
+		end
 		if grantedEffectLevel.cooldown then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
 		end
