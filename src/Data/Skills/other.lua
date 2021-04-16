@@ -2999,7 +2999,7 @@ skills["SupportCursePillarTriggerCurses"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	baseMods = {
-		skill("manaCostForced", 0),
+		skill("manaReservationPercent", 0),
 	},
 	qualityStats = {
 	},
