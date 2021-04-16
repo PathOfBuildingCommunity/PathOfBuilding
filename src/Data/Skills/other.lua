@@ -2851,9 +2851,6 @@ skills["VampiricIcon"] = {
 		["vampiric_icon_bleeding_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["base_use_life_in_place_of_mana"] = {
-			flag("SkillBloodMagic"),
-		},
 	},
 	baseFlags = {
 		spell = true,
