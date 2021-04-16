@@ -1389,6 +1389,7 @@ local specialModList = {
 	["skills cost life instead of mana"] = { flag("BloodMagic") },
 	["skills reserve life instead of mana"] = { },
 	["spend life instead of mana for effects of skills"] = { },
+	["skills cost %+(%d+) rage"] = function(num) return { mod("RageCostBase", "BASE", num) } end,
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
 		minus = tonumber(minus)
 		return {
