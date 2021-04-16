@@ -64,15 +64,8 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
 	end
-	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, -29, 25, 340, 20, self.filterBuildList)
-	self.controls.searchTextLabel = new("LabelControl", {"RIGHT",self.controls.searchText,"LEFT"}, -4, 0, 0, 16, "^7Search for a Build:")
-	self.controls.search = new("ButtonControl", {"TOP",self.controls.searchText,"TOP"}, 218, 0, 80, 20, "Search", function()
-		main.filterBuildList = self.controls.searchText.buf
-		self:BuildList()
-	end)
-	self.controls.reset = new("ButtonControl", {"TOP",self.controls.searchText,"TOP"}, 308, 0, 80, 20, "Clear", function()
-		self.controls.searchText.buf = ""
-		main.filterBuildList = ""
+	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, -29, 25, 340, 20, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
+		main.filterBuildList = buf
 		self:BuildList()
 	end)
 
@@ -152,11 +145,10 @@ end
 
 function listMode:BuildList()
 	wipeTable(self.list)
-	-- local handle = NewFileSearch(main.buildPath..self.subPath.."*.xml")
 	local filterList = main.filterBuildList or ""
 	local handle = nil
-	if filterList ~= "" and filterList ~= nil then
-		handle = NewFileSearch(main.buildPath..self.subPath..filterList..".xml")
+	if filterList ~= "" then
+		handle = NewFileSearch(main.buildPath..self.subPath.."*"..filterList.."*.xml")
 	else
 		handle = NewFileSearch(main.buildPath..self.subPath.."*.xml")
 	end
