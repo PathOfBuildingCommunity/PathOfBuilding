@@ -149,7 +149,7 @@ return {
 ["skill_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil)
 },
-["base_use_life_in_place_of_mana"] = {
+["base_skill_reserve_life_instead_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
 ["base_active_skill_totem_level"] = {

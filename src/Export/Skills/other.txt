@@ -759,7 +759,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCursePillarTriggerCurses Doedre's Effigy
 	fromItem = true,
-#baseMod skill("manaCostForced", 0)
+#baseMod skill("manaReservationPercent", 0)
 #mods
 
 #skill Unhinge
