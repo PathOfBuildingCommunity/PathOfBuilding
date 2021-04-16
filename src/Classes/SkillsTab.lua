@@ -858,7 +858,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 			if gemInstance.triggered then
 				if gemInstance.grantedEffect.levels[gemInstance.level] then
-					gemInstance.grantedEffect.levels[gemInstance.level].manaCost = 0
+					gemInstance.grantedEffect.levels[gemInstance.level].cost = {}
 				end
 				gemInstance.grantedEffect.triggered = gemInstance.triggered
 			end

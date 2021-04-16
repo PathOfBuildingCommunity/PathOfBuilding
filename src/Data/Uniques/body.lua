@@ -1168,7 +1168,8 @@ Requires Level 52, 76 Dex, 76 Int
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Radius of Auras
 {variant:2}(20-40)% increased Area of Effect of Aura Skills
-(10-15)% increased effect of Non-Curse Auras you Cast
+{variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
+{variant:2}(10-15)% increased effect of Non-Curse Auras from your Skills
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[

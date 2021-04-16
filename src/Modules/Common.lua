@@ -262,6 +262,10 @@ function bytesToUInt(b, o)
 	o = o or 1
 	return (b:byte(o + 0) or 0) + (b:byte(o + 1) or 0) * 256 + (b:byte(o + 2) or 0) * 65536 + (b:byte(o + 3) or 0) * 16777216
 end
+function bytesToUShort(b, o)
+	o = o or 1
+	return (b:byte(o + 0) or 0) + (b:byte(o + 1) or 0) * 256
+end
 function bytesToULong(b, o)
 	o = o or 1
 	return bytesToUInt(b, o) + bytesToUInt(b, o + 4) * 4294967296

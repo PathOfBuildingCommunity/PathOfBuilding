@@ -306,7 +306,7 @@ return {
 					},
 					[2]={
 						k="reminderstring",
-						v="ReminderTextFortify"
+						v="ReminderTextFortifyNoDuration"
 					},
 					limit={
 						[1]={
@@ -323,7 +323,7 @@ return {
 					},
 					[2]={
 						k="reminderstring",
-						v="ReminderTextFortify"
+						v="ReminderTextFortifyNoDuration"
 					},
 					limit={
 						[1]={

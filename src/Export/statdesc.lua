@@ -152,6 +152,10 @@ function describeStats(stats)
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
 					val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+				elseif spec.k == "divide_by_six" then
+					val[spec.v].min = round(val[spec.v].min / 6, 1)
+					val[spec.v].max = round(val[spec.v].max / 6, 1)
+					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_twelve" then
 					val[spec.v].min = round(val[spec.v].min / 12, 1)
 					val[spec.v].max = round(val[spec.v].max / 12, 1)

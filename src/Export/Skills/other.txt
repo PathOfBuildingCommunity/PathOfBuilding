@@ -759,7 +759,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCursePillarTriggerCurses Doedre's Effigy
 	fromItem = true,
-#baseMod skill("manaCostForced", 0)
+#baseMod skill("manaReservationPercent", 0)
 #mods
 
 #skill Unhinge
@@ -792,4 +792,20 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Focus
+#mods
+
+#skill QueensDemand
+	fromItem = true,
+#mods
+
+#skill AtziriUniqueStaffStormCall
+	fromItem = true,
+#mods
+
+#skill AtziriUniqueStaffFlameblast
+	fromItem = true,
+#mods
+
+#skill BloodSacramentUnique
+	fromItem = true,
 #mods

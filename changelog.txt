@@ -1,3 +1,27 @@
+VERSION[2.2.0][2021/04/17]
+
+* Add support for new 3.14 Skill Gems
+    * Corrupting Fever
+    * Exsanguinate
+    * Reap
+    * Petrified Blood
+    * Arrogance Support
+    * Bloodthirst Support
+    * Cruelty Support
+    * Lifetap Support
+* Update skills with 3.14 changes
+* Update enchantments with 3.14 changes
+* Update item mods to 3.14 stats
+* Update minions with 3.14 changes (Nostrademous)
+* Add new skills from 3.14 Uniques (Not Supported yet)
+* Add support for Glimpse of Chaos (PJacek)
+* Add support for new Skill Costs (Life / Mana / Rage) (PJacek])
+
+* Fix non-integer catalyst scaling issues (Wires77)
+* Fix Victarios Influence using old mods(pundm)
+* Fix Tailwind not appearing on Passive Tree (Helyos96)
+* Fixes Bow DoT Skills double-dipping on nodes that grant a Dot & Hit (Nostrademous)
+
 VERSION[2.1.1][2021/04/15]
 
 * Fix Physical Aegis config option affecting the Innervate config option (PJacek)

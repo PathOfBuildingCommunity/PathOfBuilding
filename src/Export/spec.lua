@@ -1406,6 +1406,29 @@ return {
 	},
 	CooldownGroups={
 	},
+	CostTypes={
+		[1]={
+			list=false,
+			name="Resource",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="ResourceString",
+			refTo="",
+			type="String",
+			width=150
+		}
+	},
 	CraftingBenchCustomActions={
 	},
 	CraftingBenchOptions={
@@ -2943,56 +2966,56 @@ return {
 		},
 		[28]={
 			list=false,
-			name="ManaCost",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[29]={
-			list=false,
 			name="DamageEffectiveness",
 			refTo="",
 			type="Int",
 			width=120
 		},
-		[30]={
+		[29]={
 			list=false,
 			name="CooldownCount",
 			refTo="",
 			type="Int",
 			width=90
 		},
-		[31]={
+		[30]={
 			list=false,
 			name="Cooldown",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[32]={
+		[31]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=40
 		},
-		[33]={
+		[32]={
 			list=true,
 			name="BooleanStats",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[34]={
+		[33]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=40
 		},
+		[34]={
+			list=false,
+			name="SoulCost",
+			refTo="",
+			type="Int",
+			width=50
+		},
 		[35]={
 			list=false,
-			name="",
+			name="StoredUses",
 			refTo="",
 			type="Int",
 			width=50
@@ -3013,10 +3036,10 @@ return {
 		},
 		[38]={
 			list=false,
-			name="ManaCostOverride",
+			name="DamageMultiplier",
 			refTo="",
 			type="Int",
-			width=110
+			width=90
 		},
 		[39]={
 			list=false,
@@ -3027,56 +3050,98 @@ return {
 		},
 		[40]={
 			list=false,
-			name="DamageMultiplier",
-			refTo="",
-			type="Int",
-			width=90
-		},
-		[41]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[42]={
-			list=false,
 			name="ArtVariation",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[43]={
+		[41]={
 			list=true,
 			name="InterpolationTypes",
 			refTo="StatInterpolationTypes",
 			type="Enum",
 			width=130
 		},
-		[44]={
+		[42]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[45]={
+		[43]={
 			list=false,
 			name="SoulGainPreventionDuration",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[46]={
+		[44]={
 			list=false,
 			name="Duration",
 			refTo="",
 			type="Int",
 			width=80
 		},
-		[47]={
+		[45]={
 			list=false,
 			name="AttackSpeedMultiplier",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[46]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[47]={
+			list=true,
+			name="CostAmounts",
+			refTo="",
+			type="Int",
+			width=90
+		},
+		[48]={
+			list=true,
+			name="CostTypes",
+			refTo="CostTypes",
+			type="Key",
+			width=90
+		},
+		[49]={
+			list=false,
+			name="ManaReservationFlat",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[50]={
+			list=false,
+			name="ManaReservationPercent",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[51]={
+			list=false,
+			name="LifeReservationFlat",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[52]={
+			list=false,
+			name="LifeReservationPercent",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[53]={
+			list=false,
+			name="",
 			refTo="",
 			type="Int",
 			width=150
