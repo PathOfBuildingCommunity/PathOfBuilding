@@ -795,10 +795,17 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill QueensDemand
+	fromItem = true,
 #mods
 
 #skill AtziriUniqueStaffStormCall
+	fromItem = true,
 #mods
 
 #skill AtziriUniqueStaffFlameblast
+	fromItem = true,
+#mods
+
+#skill BloodSacramentUnique
+	fromItem = true,
 #mods
