@@ -1,12 +1,11 @@
 VERSION[2.1.1][2021/04/15]
 
-* Fix Physical Aegis checkbox getting mixed with Innervate (PJacek)
+* Fix Physical Aegis config option affecting the Innervate config option (PJacek)
 * Fix Trap and Mines to use Throwing/Laying Speed for DPS calcs (Nostrademous)
-* Fixes Mirage Archer applying DoT stacks when they shouldn't (Nostrademous)
-* Fixes Minion Full DPS crash; Fixes Item Full DPS stat compare (Nostrademous)
-* General's cry: ignore speed for non-channeled skills (Helyos96)
-
-
+* Fix Mirage Archer applying DoT stacks when they shouldn't (Nostrademous)
+* Fix Minion Full DPS crash (Nostrademous)
+* Fix Full DPS stat comparison for items (Nostrademous)
+* Fix General's Cry to ignore speed for non-channeled skills (Helyos96)
 
 VERSION[2.1.0][2021/04/15]
 
