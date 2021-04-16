@@ -254,11 +254,23 @@ directiveTable.skill = function(state, args, out)
 		end
 	end
 	for _, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
-		local level = { extra = { }, statInterpolation = { } }
+		local level = { extra = { }, statInterpolation = { }, cost = { } }
 		level.level = levelRow.Level
 		level.extra.levelRequirement = levelRow.PlayerLevel
-		if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
-			level.extra.manaCost = levelRow.ManaCost
+		for i, cost in ipairs(levelRow.CostTypes) do
+			level.cost[cost["Resource"]] = levelRow.CostAmounts[i]
+		end
+		if levelRow.ManaReservationFlat ~= 0 then
+			level.extra.manaReservationFlat = levelRow.ManaReservationFlat
+		end
+		if levelRow.ManaReservationPercent ~= 0 then
+			level.extra.manaReservationPercent = levelRow.ManaReservationPercent / 100
+		end
+		if levelRow.LifeReservationFlat ~= 0 then
+			level.extra.lifeReservationFlat = levelRow.LifeReservationFlat
+		end
+		if levelRow.LifeReservationPercent ~= 0 then
+			level.extra.lifeReservationPercent = levelRow.LifeReservationPercent / 100
 		end
 		if levelRow.ManaMultiplier ~= 100 then
 			level.extra.manaMultiplier = levelRow.ManaMultiplier - 100
@@ -274,9 +286,6 @@ directiveTable.skill = function(state, args, out)
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
-		end
-		if levelRow.ManaCostOverride ~= 0 then
-			level.extra.manaCostOverride = levelRow.ManaCostOverride
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
@@ -311,13 +320,13 @@ directiveTable.skill = function(state, args, out)
 	end
 	if not skill.qualityStats then
 		skill.qualityStats = { }
-		for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
-			skill.qualityStats[i] = { }
-			for j, stat in ipairs(qualityStatsRow.GrantedStats) do
-				table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / 1000 })
+		--[[for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
+			--skill.qualityStats[i] = { }
+			--for j, stat in ipairs(qualityStatsRow.GrantedStats) do
+				--table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / 1000 })
 				--ConPrintf("[%d] %s %s", i, granted.ActiveSkill.DisplayName, stat.Id)
-			end
-		end
+			--end
+		end--]]
 	end
 end
 
@@ -384,6 +393,11 @@ directiveTable.mods = function(state, args, out)
 		out:write('statInterpolation = { ')
 		for _, type in ipairs(level.statInterpolation) do
 			out:write(type, ', ')
+		end
+		out:write('}, ')
+		out:write('cost = { ')
+		for k, v in pairs(level.cost) do
+			out:write(k, ' = ', tostring(v), ', ')
 		end
 		out:write('}, ')
 		out:write('},\n')
