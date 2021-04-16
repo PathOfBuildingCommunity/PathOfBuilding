@@ -156,6 +156,8 @@ local skillMap = {
 	["Hexblast"] = "Hexblast",
 	["FlameWall"] = "Flame Wall",
 	["WaterSphere"] = "Hydrosphere",
+	["CorruptingFever"] = "Corrupting Fever",
+	["Bloodreap"] = "Reap",
 }
 
 local bySkill = { }
