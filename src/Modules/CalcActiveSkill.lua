@@ -410,7 +410,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				skillModList:NewMod("SupportManaMultiplier", "MORE", level.manaMultiplier, skillEffect.grantedEffect.modSource)
 			end
 			if level.manaReservationPercent then
-				activeSkill.skillData.manaCostOverride = level.manaReservationPercent
+				activeSkill.skillData.manaReservationPercent = level.manaReservationPercent
 			end
 			if level.cooldown then
 				activeSkill.skillData.cooldown = level.cooldown

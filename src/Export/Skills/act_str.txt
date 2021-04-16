@@ -320,7 +320,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 46)
-#baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
 
 #skill Earthquake
@@ -1150,5 +1150,5 @@ end,
 		},
 	},
 #baseMod skill("radius", 46)
-#baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
