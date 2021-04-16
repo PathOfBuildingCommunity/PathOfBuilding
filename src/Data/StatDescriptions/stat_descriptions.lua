@@ -134805,7 +134805,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Lancing Steel has {0}% chance t ocount as consuming Steel Shards without Consuming them"
+					text="Lancing Steel has {0}% chance to count as consuming Steel Shards without Consuming them"
 				}
 			}
 		},
