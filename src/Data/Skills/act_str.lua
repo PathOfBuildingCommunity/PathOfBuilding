@@ -5859,6 +5859,9 @@ skills["Bloodreap"] = {
 		["blood_scythe_damage_+%_final_per_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
+		["costs_life_+%_final_per_blood_charge"] = {
+			mod("ManaCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
