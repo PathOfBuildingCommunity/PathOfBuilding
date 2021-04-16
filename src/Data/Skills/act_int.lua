@@ -27,6 +27,18 @@ skills["Arc"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_chance_to_shock_%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chaining_range_+%", 1 },
+		},
+		Alternate2 = {
+			{ "damage_+%_per_chain", 0.5 },
+		},
+		Alternate3 = {
+			{ "base_stun_threshold_reduction_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -105,6 +117,9 @@ skills["VaalArcChain"] = {
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeLucky" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_ailment_duration_+%", 1.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -190,6 +205,15 @@ skills["ArcaneCloak"] = {
 		mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "damage_taken_goes_to_mana_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "skill_buff_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"arcane_cloak_damage_absorbed_%",
@@ -261,6 +285,18 @@ skills["ArcticBreath"] = {
 		skill("dotIsArea", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "number_of_additional_projectiles", 0.05 },
+		},
+		Alternate3 = {
+			{ "chilling_area_movement_velocity_+%", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -342,6 +378,15 @@ skills["CataclysmSigil"] = {
 		skill("radiusSecondary", 8),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chance_to_deal_double_damage_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "armageddon_brand_brands_attach_to_new_enemy_each_activation_%_chance", 1 },
+		},
 	},
 	stats = {
 		"base_number_of_sigils_allowed_per_target",
@@ -435,6 +480,15 @@ skills["AssassinsMark"] = {
 		skill("debuff", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "grant_attacker_power_charge_when_hit_%_chance", 0.25 },
+		},
+		Alternate1 = {
+			{ "base_damage_taken_+%", 0.2 },
+		},
+		Alternate2 = {
+			{ "enemy_additional_critical_strike_chance_against_self", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -512,6 +566,15 @@ skills["BallLightning"] = {
 		skill("radius", 18),
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "ball_lightning_superball_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -601,6 +664,15 @@ skills["DarkRitual"] = {
 		skill("radius", 21),
 	},
 	qualityStats = {
+		Default = {
+			{ "display_linked_curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "bane_enemies_explode_on_death_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -669,6 +741,15 @@ skills["SupportDarkRitual"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"local_support_gem_max_skill_level_requirement_to_support",
@@ -753,6 +834,15 @@ skills["Ember"] = {
 		skill("radiusSecondaryLabel", "Maximum Range:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 2 },
+		},
+		Alternate2 = {
+			{ "fire_damage_%_to_add_as_chaos", 0.25 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -833,6 +923,15 @@ skills["Blight"] = {
 		skill("radius", 26),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chaos_damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "secondary_skill_effect_duration_+%", 3 },
+		},
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -910,6 +1009,9 @@ skills["VaalBlight"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -1019,6 +1121,18 @@ skills["CorpseWarp"] = {
 		skill("radius", 10),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "burn_damage_+%", 5 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate3 = {
+			{ "bodyswap_damage_+%_when_not_consuming_corpse", 2 },
+		},
 	},
 	stats = {
 		"corpse_explosion_monster_life_%",
@@ -1098,6 +1212,17 @@ skills["BoneOffering"] = {
 		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "cast_speed_+%_granted_from_skill", 0.5 },
+		},
+		Alternate1 = {
+			{ "active_skill_quality_duration_+%_final", -2 },
+			{ "minion_recover_X_life_on_block", 5 },
+		},
+		Alternate2 = {
+			{ "monster_base_block_%", 0.1 },
+			{ "base_spell_block_%", 0.1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -1163,6 +1288,12 @@ skills["SigilRecall"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "recall_sigil_target_search_range_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"base_cooldown_speed_+%",
@@ -1223,6 +1354,15 @@ skills["Clarity"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "flask_mana_to_recover_+%", 0.25 },
+		},
+		Alternate2 = {
+			{ "damage_+%_on_full_mana", 0.25 },
+		},
 	},
 	stats = {
 		"base_mana_regeneration_rate_per_minute",
@@ -1295,6 +1435,9 @@ skills["VaalClarity"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"active_skill_base_radius_+",
@@ -1365,6 +1508,15 @@ skills["ColdSnap"] = {
 		skill("dotIsArea", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chill_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "damage_+%_with_hits_and_ailments", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -1442,6 +1594,9 @@ skills["VaalColdSnap"] = {
 		skill("radiusSecondaryLabel", "Final Area:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -1533,6 +1688,15 @@ skills["Conductivity"] = {
 		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_self_shock_duration_-%", -1 },
+		},
+		Alternate1 = {
+			{ "curse_maximum_doom", 0.25 },
+		},
+		Alternate2 = {
+			{ "chance_to_be_shocked_%", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -1605,6 +1769,15 @@ skills["Contagion"] = {
 		skill("radius", 17),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chaos_damage_+%", 3 },
+		},
+		Alternate2 = {
+			{ "contagion_spread_on_hit_affected_enemy_%", 3 },
+		},
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -1676,6 +1849,15 @@ skills["ConversionTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "conversion_trap_converted_enemies_chance_to_taunt_on_hit_%", 1 },
+		},
+		Alternate2 = {
+			{ "conversation_trap_converted_enemy_damage_+%", 20 },
+		},
 	},
 	stats = {
 		"is_trap",
@@ -1750,6 +1932,17 @@ skills["Convocation"] = {
 		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+			{ "base_cooldown_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_movement_velocity_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_cooldown_speed_+%", -2 },
+			{ "unnerve_nearby_enemies_on_use_for_ms", 200 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -1821,6 +2014,18 @@ skills["Disintegrate"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_chance_to_shock_%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_lightning_damage_%_to_convert_to_chaos", 1 },
+		},
+		Alternate2 = {
+			{ "intensity_loss_frequency_while_moving_+%", -1 },
+		},
+		Alternate3 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -1925,6 +2130,15 @@ skills["DarkPact"] = {
 		skill("radius", 26),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skeletal_chains_aoe_%_health_dealt_as_chaos_damage", 0.05 },
+		},
+		Alternate2 = {
+			{ "dark_pact_minions_recover_%_life_on_hit", 0.1 },
+		},
 	},
 	stats = {
 		"skeletal_chains_aoe_%_health_dealt_as_chaos_damage",
@@ -2014,6 +2228,15 @@ skills["Despair"] = {
 		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "degen_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "chance_to_be_hindered_when_hit_by_spells_%", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -2095,6 +2318,18 @@ skills["Discharge"] = {
 		skill("radius", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", 2 },
+		},
+		Alternate2 = {
+			{ "discharge_chance_not_to_consume_charges_%", 0.5 },
+		},
+		Alternate3 = {
+			{ "discharge_damage_+%_if_3_charge_types_removed", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage_per_removable_power_charge",
@@ -2181,6 +2416,16 @@ skills["Discipline"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "damage_+%_on_full_energy_shield", 0.25 },
+		},
+		Alternate2 = {
+			{ "energy_shield_delay_-%", -0.5 },
+			{ "energy_shield_recharge_rate_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_maximum_energy_shield",
@@ -2253,6 +2498,9 @@ skills["VaalDiscipline"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"base_maximum_energy_shield",
@@ -2345,6 +2593,15 @@ skills["DivineTempest"] = {
 		skill("radius", 38),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "divine_tempest_beam_width_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_cold", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -2434,6 +2691,15 @@ skills["ElementalWeakness"] = {
 		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_resist_all_elements_%", -0.25 },
+		},
+		Alternate1 = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "self_elemental_status_duration_-%", -0.5 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -2516,6 +2782,15 @@ skills["Enfeeble"] = {
 		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "hex_doom_gain_rate_+%", 2 },
+		},
+		Alternate2 = {
+			{ "curse_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -2590,6 +2865,15 @@ skills["EssenceDrain"] = {
 		skill("radius", 8),
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "siphon_life_leech_from_damage_permyriad", 0.5 },
+		},
+		Alternate2 = {
+			{ "hit_damage_+%", 5 },
+		},
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -2670,6 +2954,20 @@ skills["Fireball"] = {
 		skill("radius", 9),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", -2 },
+			{ "base_skill_area_of_effect_+%", 3 },
+		},
+		Alternate2 = {
+			{ "non_damaging_ailment_effect_+%", 3 },
+			{ "active_skill_ignite_damage_+%_final", -2 },
+		},
+		Alternate3 = {
+			{ "debilitate_enemies_for_1_second_on_hit_%_chance", 0.25 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -2750,6 +3048,9 @@ skills["VaalFireballSpiralNova"] = {
 		skill("radius", 9),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -2844,6 +3145,16 @@ skills["Firestorm"] = {
 		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "firestorm_initial_impact_damage_+%_final", 3 },
+			{ "base_skill_effect_duration", -3 },
+		},
+		Alternate2 = {
+			{ "base_stun_threshold_reduction_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -2922,6 +3233,16 @@ skills["FlameDash"] = {
 		skill("dotIsArea", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cooldown_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_travel_distance_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_chance_to_ignite_%", 2 },
+			{ "flame_dash_burning_damage_+%_final", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -3027,6 +3348,19 @@ skills["Firewall"] = {
 		skill("buffAllies", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "fire_dot_multiplier_+", 0.5 },
+			{ "skill_effect_duration_+%", -1 },
+		},
+		Alternate2 = {
+			{ "base_cast_speed_+%", 2 },
+		},
+		Alternate3 = {
+			{ "firewall_applies_%_fire_exposure", -0.5 },
+		},
 	},
 	stats = {
 		"base_fire_damage_to_deal_per_minute",
@@ -3107,6 +3441,15 @@ skills["FlameWhip"] = {
 		skill("radius", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chance_to_scorch_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "active_skill_base_area_length_+", 0.25 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -3195,6 +3538,21 @@ skills["Flameblast"] = {
 		skill("showAverage", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "skill_fire_damage_%_to_convert_to_chaos", 2 },
+			{ "base_chance_to_poison_on_hit_%", 1 },
+		},
+		Alternate2 = {
+			{ "flameblast_maximum_stages", 0.1 },
+			{ "active_skill_cast_speed_+%_final", -1 },
+		},
+		Alternate3 = {
+			{ "active_skill_base_radius_+", 0.5 },
+			{ "flameblast_area_+%_final_per_stage", -0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -3287,6 +3645,9 @@ skills["VaalFlameblast"] = {
 		skill("radius", 35),
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -3374,6 +3735,15 @@ skills["Flammability"] = {
 		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_self_ignite_duration_-%", -0.5 },
+		},
+		Alternate1 = {
+			{ "curse_maximum_doom", 0.25 },
+		},
+		Alternate2 = {
+			{ "chance_to_be_ignited_%", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -3453,6 +3823,15 @@ skills["FleshOffering"] = {
 		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "life_leech_from_any_damage_permyriad", 2 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%_granted_from_skill", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -3525,6 +3904,16 @@ skills["FreezingPulse"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 2 },
+		},
+		Alternate1 = {
+			{ "freezing_pulse_damage_+%_final_at_long_range", 3 },
+			{ "active_skill_damage_+%_final", -1 },
+		},
+		Alternate2 = {
+			{ "projectile_chance_to_not_pierce_%", 5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -3604,6 +3993,19 @@ skills["FrostBomb"] = {
 		skill("radius", 24),
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_chance_to_freeze_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate3 = {
+			{ "active_skill_quality_duration_+%_final", -1 },
+			{ "base_cooldown_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -3687,6 +4089,18 @@ skills["FrostGlobe"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_ailment_effect_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "frost_globe_absorb_damage_%_enemy_in_bubble", 0.5 },
+		},
+		Alternate3 = {
+			{ "frost_globe_life_regeneration_rate_per_minute_%", 0.6 },
+		},
 	},
 	stats = {
 		"frost_globe_absorb_damage_%_enemy_in_bubble",
@@ -3756,6 +4170,15 @@ skills["FrostWall"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 3 },
+		},
+		Alternate2 = {
+			{ "freeze_as_though_dealt_damage_+%", 5 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -3840,6 +4263,15 @@ skills["Frostbite"] = {
 		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_self_freeze_duration_-%", -1 },
+		},
+		Alternate1 = {
+			{ "curse_maximum_doom", 0.25 },
+		},
+		Alternate2 = {
+			{ "chance_to_be_frozen_%", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -3914,6 +4346,15 @@ skills["IceDash"] = {
 		skill("radiusSecondaryLabel", "Area of Chilled Ground:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_ailment_effect_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "ice_dash_cooldown_recovery_per_nearby_rare_or_unique_enemy", 2 },
+		},
 	},
 	stats = {
 		"ice_dash_cooldown_recovery_per_nearby_normal_or_magic_enemy",
@@ -3988,6 +4429,19 @@ skills["FrostBolt"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "damage_+%", -5 },
+			{ "base_inflict_cold_exposure_on_hit_%_chance", 1 },
+		},
+		Alternate2 = {
+			{ "frostbolt_projectile_speed_+%_final", -1 },
+		},
+		Alternate3 = {
+			{ "projectile_return_%_chance", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -4069,6 +4523,16 @@ skills["GlacialCascade"] = {
 		mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", -1 },
+			{ "glacial_cascade_final_spike_damage_+%_final", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -4178,6 +4642,15 @@ skills["WaterSphere"] = {
 		skill("radius", 23),
 	},
 	qualityStats = {
+		Default = {
+			{ "hydro_sphere_pulse_frequency_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -4285,6 +4758,19 @@ skills["DoomBlast"] = {
 		flag("ChaosCanShock"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_ailment_damage_+%", 2 },
+			{ "non_damaging_ailment_effect_+%", 1 },
+		},
+		Alternate3 = {
+			{ "hexblast_%_chance_to_not_consume_hex", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -4388,6 +4874,16 @@ skills["HeraldOfThunder"] = {
 		skill("showAverage", false),
 	},
 	qualityStats = {
+		Default = {
+			{ "herald_of_thunder_lightning_damage_+%", 0.75 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_buff_grants_damage_+%", 1.5 },
+			{ "base_damage_taken_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_added_lightning_damage",
@@ -4470,6 +4966,18 @@ skills["IceNova"] = {
 		skill("radius", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%_vs_chilled_enemies", 1.5 },
+		},
+		Alternate2 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate3 = {
+			{ "chill_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -4541,6 +5049,9 @@ skills["VaalIceNova"] = {
 		skill("radius", 26),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -4637,6 +5148,18 @@ skills["IceSpear"] = {
 		mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 2 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "cold_damage_+%", 1 },
+		},
+		Alternate3 = {
+			{ "ice_spear_distance_before_form_change_+%", -1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -4713,6 +5236,15 @@ skills["ColdProjectileMine"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_projectiles", 0.1 },
+		},
+		Alternate2 = {
+			{ "critical_strike_chance_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -4825,6 +5357,17 @@ skills["ExpandingFireCone"] = {
 		skill("radiusSecondaryLabel", "Flame Width:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "flamethrower_damage_+%_per_stage_final", 0.2 },
+			{ "expanding_fire_cone_release_hit_damage_+%_final", -10 },
+			{ "grant_expanding_fire_cone_release_ignite_damage_+%_final", -10 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -4919,6 +5462,15 @@ skills["ClusterBurst"] = {
 		skill("radius", 14),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "kinetic_blast_projectiles_gain_%_aoe_after_forking", 1.5 },
+		},
 	},
 	stats = {
 		"cluster_burst_spawn_amount",
@@ -5000,6 +5552,15 @@ skills["KineticBolt"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "cast_speed_+%_applies_to_attack_speed_at_%_of_original_value", 2.5 },
+		},
+		Alternate2 = {
+			{ "mana_gain_per_target", 0.1 },
+		},
 	},
 	stats = {
 		"kinetic_wand_base_number_of_zig_zags",
@@ -5070,6 +5631,16 @@ skills["LightningTowerTrap"] = {
 		skill("radius", 24),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_chance_to_shock_%", 1 },
+		},
+		Alternate1 = {
+			{ "active_skill_quality_duration_+%_final", -1 },
+			{ "base_cooldown_speed_+%", 3 },
+		},
+		Alternate2 = {
+			{ "spells_chance_to_hinder_on_hit_%", 0.5 },
+		},
 	},
 	stats = {
 		"base_trap_duration",
@@ -5157,6 +5728,19 @@ skills["LightningTendrilsChannelled"] = {
 		skill("radius", 22),
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate3 = {
+			{ "active_skill_damage_+%_final", -2 },
+			{ "lightning_tendrils_channelled_larger_pulse_damage_+%_final", 10 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -5227,6 +5811,16 @@ skills["LightningTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 1 },
+			{ "lightning_ailment_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate2 = {
+			{ "projectile_return_%_chance", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -5308,6 +5902,9 @@ skills["VaalLightningTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "shocked_ground_base_magnitude_override", 0.25 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -5389,6 +5986,19 @@ skills["LightningWarp"] = {
 		skill("radius", 16),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 1 },
+			{ "damage_+%", 3 },
+		},
+		Alternate3 = {
+			{ "active_skill_quality_duration_+%_final", -0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -5461,6 +6071,9 @@ skills["VaalLightningWarpInstant"] = {
 		skill("radius", 16),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -5533,6 +6146,18 @@ skills["MagmaOrb"] = {
 		skill("radius", 14),
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate3 = {
+			{ "magma_orb_%_chance_to_big_explode_instead_of_chaining", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -5616,6 +6241,15 @@ skills["DamageOverTimeAura"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "delirium_skill_effect_duration_+%", 0.1 },
+		},
+		Alternate2 = {
+			{ "base_ailment_damage_+%", 0.25 },
+		},
 	},
 	stats = {
 		"delirium_aura_damage_over_time_+%_final",
@@ -5693,6 +6327,16 @@ skills["OrbOfStorms"] = {
 		skill("radius", 28),
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "projectile_number_to_split", 0.1 },
+		},
+		Alternate2 = {
+			{ "base_cast_speed_+%", 1 },
+			{ "active_skill_quality_duration_+%_final", -1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -5795,6 +6439,15 @@ skills["MagmaSigil"] = {
 		mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_physical_damage_%_to_convert_to_fire", 1 },
+		},
+		Alternate2 = {
+			{ "base_chance_to_shock_%", 1 },
+		},
 	},
 	stats = {
 		"base_number_of_sigils_allowed_per_target",
@@ -5872,6 +6525,15 @@ skills["PowerSiphon"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_projectiles", 0.05 },
+		},
+		Alternate2 = {
+			{ "critical_ailment_dot_multiplier_+", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -5942,6 +6604,9 @@ skills["VaalPowerSiphon"] = {
 		flag("OneShotProj"),
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
 	},
 	stats = {
 		"chance_to_gain_power_charge_on_rare_or_unique_enemy_hit_%",
@@ -6029,6 +6694,18 @@ skills["Sanctify"] = {
 		skill("radiusSecondary", 50),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "purifying_flame_%_chance_to_create_consecrated_ground_around_you", 0.5 },
+		},
+		Alternate2 = {
+			{ "consecrated_ground_enemy_damage_taken_+%", 0.25 },
+		},
+		Alternate3 = {
+			{ "consecrated_ground_effect_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -6123,6 +6800,15 @@ skills["Purity"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "avoid_all_elemental_status_%", 0.1 },
+		},
+		Alternate2 = {
+			{ "reduce_enemy_elemental_resistance_%", 0.05 },
+		},
 	},
 	stats = {
 		"base_resist_all_elements_%",
@@ -6205,6 +6891,15 @@ skills["LightningResistAura"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "base_avoid_shock_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_reduce_enemy_lightning_resistance_%", 0.05 },
+		},
 	},
 	stats = {
 		"base_lightning_damage_resistance_%",
@@ -6279,6 +6974,9 @@ skills["LightningImpurity"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"base_maximum_lightning_damage_resistance_%",
@@ -6374,6 +7072,19 @@ skills["MortarBarrageMine"] = {
 		skill("radiusTertiaryLabel", "Area of projectile explosions:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate1 = {
+			{ "burn_damage_+%", 5 },
+			{ "base_chance_to_ignite_%", 1 },
+		},
+		Alternate2 = {
+			{ "aura_effect_+%", 1 },
+		},
+		Alternate3 = {
+			{ "damage_+%_if_firing_atleast_7_projectiles", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -6462,6 +7173,19 @@ skills["RaiseSpectre"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_movement_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "minion_melee_damage_+%", 1 },
+			{ "minion_maximum_life_+%", 1 },
+		},
+		Alternate2 = {
+			{ "minion_stun_threshold_reduction_+%", 0.5 },
+		},
+		Alternate3 = {
+			{ "minion_%_chance_to_be_summoned_with_maximum_frenzy_charges", 5 },
+		},
 	},
 	stats = {
 		"base_number_of_spectres_allowed",
@@ -6540,6 +7264,20 @@ skills["RaiseZombie"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_maximum_life_+%", 1 },
+			{ "minion_movement_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "zombie_slam_cooldown_speed_+%", 2 },
+		},
+		Alternate2 = {
+			{ "minion_life_regeneration_rate_per_minute_%", 6 },
+		},
+		Alternate3 = {
+			{ "minions_take_%_of_life_as_chaos_damage_when_summoned_over_1_second", 1 },
+			{ "minions_deal_%_of_physical_damage_as_additional_chaos_damage", 0.5 },
+		},
 	},
 	stats = {
 		"base_number_of_zombies_allowed",
@@ -6633,6 +7371,15 @@ skills["RighteousFire"] = {
 		skill("radius", 18),
 	},
 	qualityStats = {
+		Default = {
+			{ "burn_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "spell_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"righteous_fire_spell_damage_+%_final",
@@ -6711,6 +7458,9 @@ skills["VaalRighteousFire"] = {
 		skill("radius", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "burn_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"vaal_righteous_fire_life_and_es_%_to_lose_on_use",
@@ -6787,6 +7537,16 @@ skills["FireBeam"] = {
 		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_beam_length_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_cast_speed_+%", 2 },
+			{ "active_skill_quality_duration_+%_final", -2 },
+		},
 	},
 	stats = {
 		"base_fire_damage_to_deal_per_minute",
@@ -6875,6 +7635,16 @@ skills["ShockNova"] = {
 		skill("radius", 26),
 	},
 	qualityStats = {
+		Default = {
+			{ "shock_duration_+%", 2 },
+		},
+		Alternate1 = {
+			{ "shock_nova_ring_chance_to_shock_+%", 2 },
+			{ "shock_nova_ring_shocks_as_if_dealing_damage_+%_final", 5 },
+		},
+		Alternate2 = {
+			{ "lightning_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -6959,6 +7729,19 @@ skills["CircleOfPower"] = {
 		skill("buffAllies", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "circle_of_power_max_stages", -0.05 },
+		},
+		Alternate2 = {
+			{ "base_chance_to_shock_%", 1 },
+		},
+		Alternate3 = {
+			{ "circle_of_power_skill_cost_mana_cost_+%", -0.5 },
+			{ "spell_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"circle_of_power_skill_cost_mana_cost_+%",
@@ -7052,6 +7835,18 @@ skills["IceSiphonTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_ailment_effect_+%", 1 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "ice_siphon_trap_max_beam_targets", 0.1 },
+		},
+		Alternate3 = {
+			{ "skill_energy_shield_regeneration_%_per_minute_per_affected_enemy", 1.2 },
+		},
 	},
 	stats = {
 		"base_trap_duration",
@@ -7128,6 +7923,18 @@ skills["Soulrend"] = {
 		skill("radius", 10),
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate3 = {
+			{ "hit_damage_+%", 5 },
+		},
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -7200,6 +8007,18 @@ skills["Spark"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "number_of_additional_projectiles", 0.1 },
+		},
+		Alternate3 = {
+			{ "skill_lightning_damage_%_to_convert_to_chaos", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -7269,6 +8088,9 @@ skills["VaalSparkSpiralNova"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -7338,6 +8160,15 @@ skills["Spellslinger"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"spellslinger_mana_reservation",
@@ -7406,6 +8237,16 @@ skills["SupportSpellslinger"] = {
 		skill("showAverage", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "chance_to_freeze_shock_ignite_%", 1 },
+		},
+		Alternate2 = {
+			{ "gain_%_of_base_wand_damage_as_added_spell_damage", 2 },
+			{ "base_cooldown_speed_+%", -2 },
+		},
 	},
 	stats = {
 		"spellslinger_trigger_on_wand_attack_%",
@@ -7473,6 +8314,18 @@ skills["BrandSupport"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "sigil_repeat_frequency_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate3 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"base_number_of_sigils_allowed_per_target",
@@ -7550,6 +8403,18 @@ skills["SupportBrandSupport"] = {
 		skill("triggeredByBrand", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate3 = {
+			{ "chaining_range_+%", 1 },
+		},
 	},
 	stats = {
 		"support_brand_damage_+%_final",
@@ -7630,6 +8495,15 @@ skills["SpiritOffering"] = {
 		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_resist_all_elements_%", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -7708,6 +8582,18 @@ skills["ConduitSigil"] = {
 		skill("radius", 9),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "additional_chain_chance_%", 1 },
+		},
+		Alternate3 = {
+			{ "shock_effect_+%", 1 },
+		},
 	},
 	stats = {
 		"base_number_of_sigils_allowed_per_target",
@@ -7789,6 +8675,19 @@ skills["LightningExplosionMine"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_chance_to_shock_%", 0.5 },
+			{ "lightning_ailment_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "aura_effect_+%", 1 },
+		},
+		Alternate3 = {
+			{ "lightning_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -7896,6 +8795,19 @@ skills["Stormbind"] = {
 		skill("radius", 16),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "shock_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "rune_paint_area_of_effect_+%_per_rune_level", 0.5 },
+		},
+		Alternate3 = {
+			{ "active_skill_quality_damage_+%_final", 1 },
+			{ "rune_paint_damage_+%_final_per_rune_level", -3 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -7966,6 +8878,18 @@ skills["RuneBlast"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate3 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 	},
@@ -8057,6 +8981,16 @@ skills["StormBurstNew"] = {
 		skill("radiusSecondary", 22),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "storm_burst_zap_area_of_effect_+%", 2 },
+			{ "storm_burst_explosion_area_of_effect_+%", -2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -8135,6 +9069,19 @@ skills["StormCall"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 2 },
+			{ "base_cast_speed_+%", -2 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", -0.5 },
+		},
+		Alternate3 = {
+			{ "storm_call_chance_to_strike_on_cast_%", 0.25 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -8210,6 +9157,9 @@ skills["VaalStormCall"] = {
 		skill("radiusSecondaryLabel", "Final Lightning Strike area:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -8300,6 +9250,16 @@ skills["SummonBoneGolem"] = {
 		flag("Condition:HaveCarrionGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_maximum_life_+%", 1 },
+			{ "minion_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "golem_buff_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "golem_cooldown_recovery_+%", 1 },
+		},
 	},
 	stats = {
 		"base_actor_scale_+%",
@@ -8382,6 +9342,16 @@ skills["SummonChaosGolem"] = {
 		flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_maximum_life_+%", 1 },
+			{ "minion_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "golem_buff_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "golem_cooldown_recovery_+%", 1 },
+		},
 	},
 	stats = {
 		"base_actor_scale_+%",
@@ -8460,6 +9430,15 @@ skills["SummonRelic"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "minion_maximum_life_+%", 3 },
+		},
+		Alternate2 = {
+			{ "holy_relic_cooldown_recovery_+%", 1 },
+		},
 	},
 	stats = {
 		"base_number_of_relics_allowed",
@@ -8539,6 +9518,16 @@ skills["SummonLightningGolem"] = {
 		flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_maximum_life_+%", 1 },
+			{ "minion_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "golem_buff_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "golem_cooldown_recovery_+%", 1 },
+		},
 	},
 	stats = {
 		"base_actor_scale_+%",
@@ -8610,6 +9599,18 @@ skills["SummonRagingSpirit"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_movement_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_number_of_raging_spirits_allowed", 0.1 },
+		},
+		Alternate3 = {
+			{ "minions_cannot_be_damaged_after_summoned_ms", 100 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -8686,6 +9687,18 @@ skills["SummonSkeletons"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "minions_cannot_be_damaged_after_summoned_ms", 100 },
+		},
+		Alternate2 = {
+			{ "minion_maim_on_hit_%", 0.5 },
+		},
+		Alternate3 = {
+			{ "chance_for_melee_skeletons_to_summon_as_archer_skeletons_%", 5 },
+		},
 	},
 	stats = {
 		"number_of_melee_skeletons_to_summon",
@@ -8764,6 +9777,9 @@ skills["VaalSummonSkeletons"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_melee_skeletons_to_summon",
@@ -8851,6 +9867,19 @@ skills["BlackHole"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", -2 },
+			{ "base_cooldown_speed_+%", 2 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_cold", 3 },
+		},
+		Alternate3 = {
+			{ "blackhole_pulse_frequency_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -8929,6 +9958,15 @@ skills["Skitterbots"] = {
 		skill("radius", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_movement_speed_+%", 2 },
+		},
+		Alternate1 = {
+			{ "minion_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "non_damaging_ailment_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"skitterbots_trap_mine_damage_+%_final",
@@ -9007,6 +10045,16 @@ skills["TempestShield"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_chains", 0.1 },
+		},
+		Alternate2 = {
+			{ "shield_block_%", 0.05 },
+			{ "shield_spell_block_%", 0.05 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -9082,6 +10130,19 @@ skills["FrostBoltNova"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "cold_damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_cooldown_speed_+%", 1 },
+			{ "active_skill_quality_duration_+%_final", -1 },
+		},
+		Alternate3 = {
+			{ "active_skill_damage_+%_when_cast_on_frostbolt", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -9162,6 +10223,18 @@ skills["Purge"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate3 = {
+			{ "skill_physical_damage_%_to_convert_to_cold", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -9272,6 +10345,18 @@ skills["FrostFury"] = {
 		skill("radius", 16),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate3 = {
+			{ "base_projectile_speed_+%", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -9367,6 +10452,16 @@ skills["ImmolationSigil"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_dot_multiplier_+", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 2 },
+			{ "base_cast_speed_+%", -2 },
+		},
 	},
 	stats = {
 		"base_number_of_sigils_allowed_per_target",
@@ -9458,6 +10553,15 @@ skills["Wither"] = {
 		skill("radius", 18),
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "hinder_enemy_chaos_damage_+%", -0.2 },
+		},
+		Alternate2 = {
+			{ "wither_chance_to_apply_another_stack_if_hand_cast_%", 5 },
+		},
 	},
 	stats = {
 		"base_movement_velocity_+%",
@@ -9538,6 +10642,15 @@ skills["Wrath"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "aura_effect_+%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_reservation_+%", -0.1 },
+		},
 	},
 	stats = {
 		"attack_minimum_added_lightning_damage",
@@ -9622,6 +10735,15 @@ skills["SpellDamageAura"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "skill_buff_grant_critical_strike_multiplier_+", 0.1 },
+		},
+		Alternate2 = {
+			{ "life_regeneration_rate_per_minute_%", 0.3 },
+		},
 	},
 	stats = {
 		"spell_damage_aura_spell_damage_+%_final",

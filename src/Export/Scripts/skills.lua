@@ -320,13 +320,13 @@ directiveTable.skill = function(state, args, out)
 	end
 	if not skill.qualityStats then
 		skill.qualityStats = { }
-		--[[for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
-			--skill.qualityStats[i] = { }
-			--for j, stat in ipairs(qualityStatsRow.GrantedStats) do
-				--table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / 1000 })
+		for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
+			skill.qualityStats[i] = { }
+			for j, stat in ipairs(qualityStatsRow.GrantedStats) do
+				table.insert(skill.qualityStats[i], { stat.Id, qualityStatsRow.StatValues[j] / 1000 })
 				--ConPrintf("[%d] %s %s", i, granted.ActiveSkill.DisplayName, stat.Id)
-			--end
-		end--]]
+			end
+		end
 	end
 end
 

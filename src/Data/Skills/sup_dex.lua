@@ -20,6 +20,15 @@ skills["SupportAddedColdDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_cold", 1 },
+		},
 	},
 	stats = {
 		"global_minimum_added_cold_damage",
@@ -86,6 +95,9 @@ skills["SupportAddedColdDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"global_minimum_added_cold_damage",
@@ -132,6 +144,15 @@ skills["SupportAdditionalAccuracy"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "accuracy_rating_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_critical_strike_multiplier_+", 1 },
+		},
+		Alternate2 = {
+			{ "attack_damage_+%_per_1000_accuracy_rating", 0.2 },
+		},
 	},
 	stats = {
 		"accuracy_rating",
@@ -197,6 +218,16 @@ skills["SupportArrowNova"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", -2 },
+			{ "damage_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -268,6 +299,9 @@ skills["SupportArrowNovaPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -328,6 +362,15 @@ skills["SupportBarrage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "barrage_support_projectile_spread_+%", 5 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -392,6 +435,15 @@ skills["SupportBlind"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "blind_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "global_chance_to_blind_on_hit_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "critical_strike_chance_+%_vs_blinded_enemies", 2 },
+		},
 	},
 	stats = {
 		"global_chance_to_blind_on_hit_%",
@@ -452,6 +504,12 @@ skills["SupportBlockReduction"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "global_reduce_enemy_block_%", 0.25 },
+		},
+		Alternate1 = {
+			{ "overpowered_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"support_reduce_enemy_block_and_spell_block_%",
@@ -520,6 +578,15 @@ skills["SupportCastOnCrit"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "support_cast_on_crit_quality_attack_damage_+%_final", 1 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"cast_linked_spells_on_attack_crit_%",
@@ -585,6 +652,15 @@ skills["SupportCastOnCritTriggered"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"support_cast_on_crit_spell_damage_+%_final",
@@ -649,6 +725,9 @@ skills["SupportCastOnCritPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_critical_strike_chance_+%", 1 },
+		},
 	},
 	stats = {
 		"cast_linked_spells_on_attack_crit_%",
@@ -695,6 +774,9 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_critical_strike_chance_+%", 1 },
+		},
 	},
 	stats = {
 		"support_cast_on_crit_spell_damage_+%_final",
@@ -754,6 +836,15 @@ skills["SupportCastOnDeath"] = {
 		skill("triggeredOnDeath", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "area_of_effect_+%_while_dead", 3 },
+		},
+		Alternate1 = {
+			{ "additional_critical_strike_chance_permyriad_while_dead", 500 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%_while_dead", 3 },
+		},
 	},
 	stats = {
 		"cast_on_death_%",
@@ -822,6 +913,15 @@ skills["SupportChain"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "chaining_range_+%", 1 },
+		},
+		Alternate2 = {
+			{ "projectile_chance_to_not_pierce_%", 4 },
+		},
 	},
 	stats = {
 		"number_of_chains",
@@ -889,6 +989,10 @@ skills["SupportChainPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"number_of_chains",
@@ -930,6 +1034,12 @@ skills["SupportChanceToFlee"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "global_hit_causes_monster_flee_%", 1 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", -0.5 },
+		},
 	},
 	stats = {
 		"global_hit_causes_monster_flee_%",
@@ -994,6 +1104,16 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "trap_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy", 0.5 },
+			{ "%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy", 0.5 },
+		},
+		Alternate2 = {
+			{ "trap_trigger_radius_+%_per_power_charge", 0.5 },
+		},
 	},
 	stats = {
 		"%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy",
@@ -1057,6 +1177,15 @@ skills["SupportSlashingWeapon"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "melee_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "combat_rush_effect_+%", 2 },
+		},
+		Alternate2 = {
+			{ "close_combat_damage_to_close_range_+%", 1 },
+		},
 	},
 	stats = {
 		"support_slashing_damage_+%_final_from_distance",
@@ -1125,6 +1254,15 @@ skills["SupportClusterTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "trap_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "trap_throwing_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "trap_spread_+%", -2 },
+		},
 	},
 	stats = {
 		"number_of_additional_traps_to_throw",
@@ -1188,6 +1326,15 @@ skills["SupportColdPenetration"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_chance_to_freeze_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "cold_ailment_effect_+%", 1 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
@@ -1248,6 +1395,9 @@ skills["SupportColdPenetrationPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
@@ -1287,6 +1437,16 @@ skills["SupportCullingStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_vs_enemies_on_low_life_+%", 3 },
+		},
+		Alternate2 = {
+			{ "recover_%_maximum_life_on_cull", 0.1 },
+		},
 	},
 	stats = {
 		"kill_enemy_on_hit_if_under_10%_life",
@@ -1357,6 +1517,16 @@ skills["SupportDeadlyAilments"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_all_ailment_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "dot_multiplier_+", 0.5 },
+			{ "support_better_ailments_hit_damage_+%_final", -3 },
+		},
 	},
 	stats = {
 		"support_better_ailments_ailment_damage_+%_final",
@@ -1426,6 +1596,9 @@ skills["SupportDeadlyAilmentsPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_better_ailments_ailment_damage_+%_final",
@@ -1473,6 +1646,12 @@ skills["SupportAdditionalQuality"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+		Alternate1 = {
+			{ "local_gem_dex_requirement_+%", -3 },
+		},
 	},
 	stats = {
 		"supported_active_skill_gem_quality_%",
@@ -1502,6 +1681,15 @@ skills["SupportFasterAttack"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "faster_bleed_%", 0.5 },
+		},
 	},
 	stats = {
 		"attack_speed_+%",
@@ -1561,6 +1749,17 @@ skills["SupportFasterProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectiles_chance_to_return_%_from_final_target", 3 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 0.5 },
+			{ "projectile_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_projectile_speed_+%",
@@ -1626,6 +1825,15 @@ skills["SupportFork"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chance_to_fork_extra_projectile_%", 1 },
+		},
+		Alternate2 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.05 },
+		},
 	},
 	stats = {
 		"support_fork_projectile_damage_+%_final",
@@ -1693,6 +1901,9 @@ skills["SupportForkPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_forks_base",
@@ -1740,6 +1951,17 @@ skills["SupportGreaterMultipleProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cost_+%", -1 },
+			{ "base_projectile_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "multiple_projectiles_projectile_spread_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -1808,6 +2030,10 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 1 },
+			{ "base_cast_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -1855,6 +2081,15 @@ skills["SupportGreaterVolley"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "parallel_projectile_firing_point_x_dist_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"support_parallel_projectile_number_of_points_per_side",
@@ -1929,6 +2164,15 @@ skills["SupportDamageAgainstChilled"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chill_duration_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "additional_chance_to_freeze_chilled_enemies_%", 1 },
+		},
+		Alternate2 = {
+			{ "freeze_applies_cold_resistance_+", -0.2 },
+		},
 	},
 	stats = {
 		"support_hypothermia_damage_+%_vs_chilled_enemies_final",
@@ -2000,6 +2244,15 @@ skills["SupportImpale"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "impale_debuff_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attacks_impale_on_hit_%_chance", 0.5 },
+		},
+		Alternate2 = {
+			{ "chance_to_inflict_additional_impale_%", 0.25 },
+		},
 	},
 	stats = {
 		"attacks_impale_on_hit_%_chance",
@@ -2064,6 +2317,15 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%_vs_frozen_enemies", 1 },
+		},
+		Alternate1 = {
+			{ "damage_+%_per_frenzy_charge", 0.1 },
+		},
+		Alternate2 = {
+			{ "chance_to_gain_frenzy_charge_on_killing_frozen_enemy_%", 1 },
+		},
 	},
 	stats = {
 		"chance_to_gain_frenzy_charge_on_killing_frozen_enemy_%",
@@ -2133,6 +2395,17 @@ skills["SupportLesserMultipleProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cost_+%", -1 },
+			{ "base_projectile_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "multiple_projectiles_projectile_spread_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -2197,6 +2470,15 @@ skills["SupportLesserPoison"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_poison_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_poison_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "hit_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"global_minimum_added_chaos_damage",
@@ -2263,6 +2545,15 @@ skills["SupportManaLeech"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%_while_mana_leeching", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%_per_200_mana_spent_recently", 0.5 },
+		},
+		Alternate2 = {
+			{ "mana_gain_per_target", 0.2 },
+		},
 	},
 	stats = {
 		"attack_skill_mana_leech_from_any_damage_permyriad",
@@ -2341,6 +2632,16 @@ skills["SupportGemMirageArcher"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "mirage_archer_number_of_additional_projectiles", 0.1 },
+			{ "support_mirage_archer_base_duration", -100 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
 	},
 	stats = {
 		"support_mirage_archer_base_duration",
@@ -2411,6 +2712,15 @@ skills["SupportMultiTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "trap_trigger_radius_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_traps_allowed", 0.1 },
+		},
+		Alternate2 = {
+			{ "support_additional_trap_%_chance_for_1_additional_trap", 0.2 },
+		},
 	},
 	stats = {
 		"number_of_additional_traps_to_throw",
@@ -2481,6 +2791,15 @@ skills["SupportPuncturingWeapon"] = {
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
 	},
 	qualityStats = {
+		Default = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "elusive_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "critical_strike_chance_against_enemies_on_full_life_+%", 5 },
+		},
 	},
 	stats = {
 		"gain_elusive_on_crit_%_chance",
@@ -2549,6 +2868,15 @@ skills["SupportOnslaught"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "support_scion_onslaught_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "attack_and_cast_speed_+%_during_onslaught", 1 },
+		},
 	},
 	stats = {
 		"support_scion_onslaught_on_killing_blow_%_chance",
@@ -2615,6 +2943,15 @@ skills["SupportPierce"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "projectile_damage_+%_if_pierced_enemy", 2 },
+		},
 	},
 	stats = {
 		"projectile_base_number_of_targets_to_pierce",
@@ -2683,6 +3020,15 @@ skills["SupportPointBlank"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "knockback_chance_%_at_close_range", 2 },
+		},
+		Alternate2 = {
+			{ "projectiles_pierce_all_targets_in_x_range", 1 },
+		},
 	},
 	stats = {
 		"keystone_point_blank",
@@ -2748,6 +3094,15 @@ skills["SupportPoison"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_poison_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_chance_to_poison_on_hit_%", 1 },
+		},
+		Alternate2 = {
+			{ "faster_poison_%", 0.5 },
+		},
 	},
 	stats = {
 		"base_chance_to_poison_on_hit_%",
@@ -2808,6 +3163,16 @@ skills["SupportAdditionalCooldown"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cooldown_speed_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "support_added_cooldown_count_if_not_instant", 0.05 },
+			{ "base_cooldown_speed_+%", -0.5 },
+		},
+		Alternate2 = {
+			{ "regenerate_%_life_over_1_second_on_skill_use", 0.05 },
+		},
 	},
 	stats = {
 		"support_added_cooldown_count_if_not_instant",
@@ -2879,6 +3244,15 @@ skills["SupportSlowerProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectile_damage_+%_vs_nearby_enemies", 0.75 },
+		},
+		Alternate2 = {
+			{ "projectile_chance_to_not_pierce_%", 3 },
+		},
 	},
 	stats = {
 		"support_slower_projectiles_projectile_speed_+%_final",
@@ -2944,6 +3318,16 @@ skills["SupportRapidDecay"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.25 },
+			{ "base_projectile_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "you_and_enemy_movement_velocity_+%_while_affected_by_ailment_you_inflicted", 1 },
+		},
 	},
 	stats = {
 		"support_rapid_decay_damage_over_time_+%_final",
@@ -3010,6 +3394,10 @@ skills["SupportSwiftAfflictionPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+			{ "dot_multiplier_+", 0.5 },
+		},
 	},
 	stats = {
 		"support_rapid_decay_damage_over_time_+%_final",
@@ -3050,6 +3438,17 @@ skills["SupportAdditionalTrapMine"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "mine_laying_speed_+%", 0.5 },
+			{ "trap_throwing_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "trap_duration_+%", -2 },
+		},
+		Alternate2 = {
+			{ "trap_throwing_speed_+%_per_frenzy_charge", 0.1 },
+			{ "mine_throwing_speed_+%_per_frenzy_charge", 0.1 },
+		},
 	},
 	stats = {
 		"support_additional_trap_mine_%_chance_for_1_additional_trap_mine",
@@ -3121,6 +3520,15 @@ skills["SupportTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "trap_throwing_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "trap_trigger_radius_+%", 1 },
+		},
 	},
 	stats = {
 		"is_trap",
@@ -3186,6 +3594,15 @@ skills["SupportTrapCooldown"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "trap_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
 	},
 	stats = {
 		"placing_traps_cooldown_recovery_+%",
@@ -3253,6 +3670,16 @@ skills["SupportTrapAndMineDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cost_+%", -0.5 },
+			{ "base_reservation_+%", -0.5 },
+		},
+		Alternate2 = {
+			{ "damage_+%_per_power_charge", 0.1 },
+		},
 	},
 	stats = {
 		"support_trap_and_mine_damage_+%_final",
@@ -3328,6 +3755,16 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "physical_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "bleed_on_hit_with_attacks_%", 0.5 },
+			{ "base_chance_to_poison_on_hit_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "attacks_impale_on_hit_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"support_projectile_attack_physical_damage_+%_final",
@@ -3405,6 +3842,9 @@ skills["SupportViciousProjectilesPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "physical_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"support_projectile_attack_physical_damage_+%_final",
@@ -3458,6 +3898,15 @@ skills["SupportDebilitate"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_poison_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_poison_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "faster_poison_%", 0.25 },
+		},
 	},
 	stats = {
 		"support_debilitate_poison_damage_+%_final",
@@ -3524,6 +3973,16 @@ skills["SupportVoidManipulation"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.25 },
+			{ "attack_and_cast_speed_+%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_life_leech_from_chaos_damage_permyriad", 2 },
+		},
 	},
 	stats = {
 		"support_void_manipulation_chaos_damage_+%_final",
@@ -3590,6 +4049,9 @@ skills["SupportVoidManipulationPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"support_void_manipulation_chaos_damage_+%_final",
@@ -3635,6 +4097,15 @@ skills["SupportParallelProjectiles"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "parallel_projectile_firing_point_x_dist_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_parallel_projectile_number_of_points_per_side",
@@ -3697,6 +4168,15 @@ skills["SupportChaosAttacks"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "wither_applies_additional_wither_%", 1 },
+		},
 	},
 	stats = {
 		"support_withered_base_duration_ms",

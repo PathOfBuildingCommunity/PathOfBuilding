@@ -20,6 +20,15 @@ skills["SupportAddedChaosDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "reduce_enemy_chaos_resistance_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_chaos", 1 },
+		},
 	},
 	stats = {
 		"global_minimum_added_chaos_damage",
@@ -86,6 +95,9 @@ skills["SupportAddedChaosDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"global_minimum_added_chaos_damage",
@@ -129,6 +141,15 @@ skills["SupportAddedLightningDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "critical_strike_chance_+%", 1.5 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_lightning", 1 },
+		},
 	},
 	stats = {
 		"global_minimum_added_lightning_damage",
@@ -195,6 +216,9 @@ skills["SupportAddedLightningDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"global_minimum_added_lightning_damage",
@@ -251,6 +275,15 @@ skills["SupportArcaneSurge"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "support_arcane_surge_mana_regeneration_rate_per_minute_%", 0.6 },
+		},
+		Alternate2 = {
+			{ "support_arcane_surge_base_duration_ms", 100 },
+		},
 	},
 	stats = {
 		"support_arcane_surge_spell_damage_+%_final",
@@ -305,7 +338,7 @@ skills["SupportArcaneSurge"] = {
 }
 skills["SupportArchmage"] = {
 	name = "Archmage",
-	description = "Supports spell skills that deal damage with hits and have no reservation. Cannot support Vaal skill, triggered skills, or skills used by totems, traps or mines. Cannot modify the skills of minions.",
+	description = "Supports spell skills that deal damage with hits and have no reservation. Cannot support Vaal skills, triggered skills, or skills used by totems, traps or mines. Cannot modify the skills of minions.",
 	color = 3,
 	baseEffectiveness = 0.17499999701977,
 	incrementalEffectiveness = 0.039000000804663,
@@ -333,6 +366,16 @@ skills["SupportArchmage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_mana_cost_-%", -0.5 },
+		},
+		Alternate1 = {
+			{ "manaweave_added_cold_damage_%_cost_if_payable", 3 },
+			{ "manaweave_added_lightning_damage_%_cost_if_payable", -3 },
+		},
+		Alternate2 = {
+			{ "base_mana_cost_-%", 1 },
+		},
 	},
 	stats = {
 		"global_minimum_added_lightning_damage",
@@ -396,6 +439,16 @@ skills["SupportBlasphemy"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "curse_effect_+%", -0.5 },
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_reservation_+%", -0.1 },
+		},
 	},
 	stats = {
 		"curse_area_of_effect_+%",
@@ -464,6 +517,10 @@ skills["SupportBlasphemyPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+			{ "supported_curse_skill_gem_level_+", 0.05 },
+		},
 	},
 	stats = {
 		"curse_area_of_effect_+%",
@@ -511,6 +568,15 @@ skills["SupportBonechill"] = {
 		skill("supportBonechill", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "chill_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "cold_damage_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "chill_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"chill_effect_+%",
@@ -574,6 +640,15 @@ skills["SupportCastOnStunned"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "cast_on_stunned_%", 1 },
+		},
 	},
 	stats = {
 		"cast_on_stunned_%",
@@ -641,6 +716,15 @@ skills["SupportCastWhileChannelling"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "channelled_skill_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "non_damaging_ailment_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"cast_while_channelling_time_ms",
@@ -705,6 +789,15 @@ skills["SupportCastWhileChannellingTriggered"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "triggered_skill_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"support_cast_while_channelling_triggered_skill_damage_+%_final",
@@ -773,6 +866,9 @@ skills["SupportCastWhileChannellingPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "channelled_skill_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"cast_while_channelling_time_ms",
@@ -818,6 +914,9 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "triggered_skill_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_cast_while_channelling_triggered_skill_damage_+%_final",
@@ -867,6 +966,16 @@ skills["SupportChanceToIgnite"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "faster_burn_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "faster_burn_%", -0.5 },
+			{ "fire_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"base_chance_to_ignite_%",
@@ -939,6 +1048,16 @@ skills["SupportChargedMines"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "mine_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy", 0.5 },
+			{ "%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy", 0.5 },
+		},
+		Alternate2 = {
+			{ "mine_projectile_speed_+%_per_frenzy_charge", 0.2 },
+		},
 	},
 	stats = {
 		"%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy",
@@ -1009,6 +1128,15 @@ skills["SupportConcentratedEffect"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "area_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "support_concentrated_effect_skill_area_of_effect_+%_final", -0.5 },
+		},
+		Alternate2 = {
+			{ "base_stun_threshold_reduction_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_concentrated_effect_skill_area_of_effect_+%_final",
@@ -1074,6 +1202,16 @@ skills["SupportControlledDestruction"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "critical_strike_chance_+%", -3 },
+			{ "chance_to_freeze_shock_ignite_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "chance_for_extra_damage_roll_%", 0.5 },
+		},
 	},
 	stats = {
 		"support_controlled_destruction_spell_damage_+%_final",
@@ -1140,6 +1278,10 @@ skills["SupportControlledDestructionPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+			{ "base_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_controlled_destruction_spell_damage_+%_final",
@@ -1186,6 +1328,15 @@ skills["SupportCurseOnHit"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate1 = {
+			{ "damage_vs_cursed_enemies_per_enemy_curse_+%", 1 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"apply_linked_curses_on_hit_%",
@@ -1246,6 +1397,16 @@ skills["SupportCurseOnHitCurse"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "curse_effect_+%", -0.5 },
+			{ "base_curse_duration_+%", 2 },
+		},
 	},
 	stats = {
 		"base_curse_duration_+%",
@@ -1356,6 +1517,10 @@ skills["SupportCurseOnHitCursePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+			{ "chance_to_ignore_hexproof_%", 0.5 },
+		},
 	},
 	stats = {
 		"chance_to_ignore_hexproof_%",
@@ -1412,6 +1577,16 @@ skills["SupportMinionFocusFire"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target", 1.5 },
+			{ "support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target", 0.75 },
+		},
 	},
 	stats = {
 		"support_minion_focus_fire_damage_+%_final_vs_focussed_target",
@@ -1473,6 +1648,15 @@ skills["MinionFocusFire"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate1 = {
+			{ "resist_all_%", -0.2 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -1534,6 +1718,15 @@ skills["SupportDecay"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chaos_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_chaos", 0.5 },
+		},
 	},
 	stats = {
 		"deal_chaos_damage_per_second_for_10_seconds_on_hit",
@@ -1601,6 +1794,15 @@ skills["SupportEfficacy"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_over_time_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_cost_+%", -0.5 },
+		},
 	},
 	stats = {
 		"support_efficacy_spell_damage_+%_final",
@@ -1667,6 +1869,15 @@ skills["SupportElementalFocus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "avoid_interruption_while_using_this_skill_%", 1 },
+		},
 	},
 	stats = {
 		"support_gem_elemental_damage_+%_final",
@@ -1733,6 +1944,9 @@ skills["SupportElementalFocusPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"support_gem_elemental_damage_+%_final",
@@ -1780,6 +1994,15 @@ skills["SupportElementalProliferation"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_elemental_status_ailment_duration_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "damage_+%_vs_enemies_per_freeze_shock_ignite", 1 },
+		},
 	},
 	stats = {
 		"elemental_status_effect_aura_radius",
@@ -1853,6 +2076,15 @@ skills["SupportEnergyShieldLeech"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%_while_es_leeching", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%_on_full_energy_shield", 0.5 },
+		},
+		Alternate2 = {
+			{ "maximum_energy_shield_leech_amount_per_leech_+%", 2 },
+		},
 	},
 	stats = {
 		"energy_shield_leech_from_any_damage_permyriad",
@@ -1920,6 +2152,12 @@ skills["SupportAdditionalXP"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+		Alternate1 = {
+			{ "local_gem_int_requirement_+%", -3 },
+		},
 	},
 	stats = {
 	},
@@ -1948,6 +2186,15 @@ skills["SupportFasterCast"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "faster_burn_%", 0.5 },
+		},
 	},
 	stats = {
 		"base_cast_speed_+%",
@@ -2012,6 +2259,15 @@ skills["SupportMinionOffensiveStance"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "puppet_master_base_duration_ms", 50 },
+		},
+		Alternate1 = {
+			{ "minion_recover_%_maximum_life_on_hit", 0.05 },
+		},
+		Alternate2 = {
+			{ "minion_movement_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"minion_grant_puppet_master_buff_to_parent_on_hit_%",
@@ -2085,6 +2341,15 @@ skills["SupportRemoteMine2"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "mine_laying_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_critical_strike_multiplier_+", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_stun_threshold_reduction_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_remote_mine_2_base_mine_duration",
@@ -2158,6 +2423,15 @@ skills["SupportIgniteProliferation"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_chance_to_ignite_%", 0.5 },
+		},
 	},
 	stats = {
 		"support_ignite_proliferation_radius",
@@ -2220,6 +2494,15 @@ skills["SupportImmolation"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_chance_to_ignite_%", 0.5 },
+		},
 	},
 	stats = {
 		"global_minimum_added_fire_damage_vs_burning_enemies",
@@ -2280,6 +2563,15 @@ skills["ViciousHexSupport"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate1 = {
+			{ "curse_skill_effect_duration_+%", -2 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
 	},
 	stats = {
 		"trigger_vicious_hex_explosion_when_curse_ends",
@@ -2350,6 +2642,16 @@ skills["ViciousHexExplosion"] = {
 		skill("showAverage", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "base_added_cooldown_count", 0.05 },
+			{ "doom_blast_damage_+%_final_per_5_doom_on_hex", -1.25 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -2413,6 +2715,15 @@ skills["SupportIncreasedAreaOfEffect"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "area_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_area_of_effect_+%",
@@ -2478,6 +2789,9 @@ skills["SupportIncreasedAreaOfEffectPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "area_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_area_of_effect_+%",
@@ -2518,6 +2832,15 @@ skills["SupportIncreasedCriticalDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_critical_strike_multiplier_+", 0.75 },
+		},
+		Alternate1 = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+		Alternate2 = {
+			{ "critical_ailment_dot_multiplier_+", 1.5 },
+		},
 	},
 	stats = {
 		"base_critical_strike_multiplier_+",
@@ -2577,6 +2900,15 @@ skills["SupportIncreasedCriticalStrikes"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_critical_strike_multiplier_+", 0.25 },
+		},
+		Alternate2 = {
+			{ "gain_power_charge_on_kill_with_hit_%", 0.5 },
+		},
 	},
 	stats = {
 		"critical_strike_chance_+%",
@@ -2656,6 +2988,15 @@ skills["SupportBurningMinions"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_fire_damage_taken_+%", -1 },
+		},
+		Alternate1 = {
+			{ "minion_fire_damage_%_of_maximum_life_taken_per_minute", 30 },
+		},
+		Alternate2 = {
+			{ "minion_burning_damage_+%", 1.5 },
+		},
 	},
 	stats = {
 		"support_minion_instability_minion_base_fire_area_damage_per_minute",
@@ -2753,6 +3094,15 @@ skills["SupportStormBarrier"] = {
 		flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.ChaosSkill }),
 	},
 	qualityStats = {
+		Default = {
+			{ "support_storm_barrier_damage_buff_time_threshold_ms", -20 },
+		},
+		Alternate1 = {
+			{ "infusion_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "infusion_grants_life_regeneration_rate_per_minute_%", 1.5 },
+		},
 	},
 	stats = {
 		"support_storm_barrier_physical_damage_taken_when_hit_+%_final",
@@ -2828,6 +3178,15 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "shock_duration_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "support_innervate_buff_base_duration_ms", 100 },
+		},
+		Alternate2 = {
+			{ "support_innervate_chance_to_gain_buff_on_shock_vs_unique_%", 0.2 },
+		},
 	},
 	stats = {
 		"global_minimum_added_lightning_damage",
@@ -2901,6 +3260,18 @@ skills["SupportHandcastSpellBoost"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "area_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "intensity_loss_frequency_while_moving_+%", 2 },
+		},
+		Alternate3 = {
+			{ "intensity_loss_frequency_while_moving_+%", -1 },
+		},
 	},
 	stats = {
 		"support_spell_boost_area_damage_+%_final_per_charge",
@@ -2963,6 +3334,12 @@ skills["SupportItemRarity"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_killed_monster_dropped_item_rarity_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chance_for_coin_shower_on_kill_%", 0.1 },
+		},
 	},
 	stats = {
 		"base_killed_monster_dropped_item_rarity_+%",
@@ -3022,6 +3399,15 @@ skills["SupportLightningPenetration"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_chance_to_shock_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "lightning_ailment_effect_+%", 1 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_lightning_resistance_%",
@@ -3082,6 +3468,9 @@ skills["SupportLightningPenetrationPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "lightning_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"base_reduce_enemy_lightning_resistance_%",
@@ -3132,6 +3521,15 @@ skills["SupportMinionDefensiveStance"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_additional_physical_damage_reduction_%", 0.25 },
+		},
+		Alternate1 = {
+			{ "support_minion_defensive_stance_minion_damage_+%_final_against_enemies_near_you", 0.25 },
+		},
+		Alternate2 = {
+			{ "minion_block_%", 0.4 },
+		},
 	},
 	stats = {
 		"support_minion_defensive_stance_minion_damage_taken_+%_final",
@@ -3200,6 +3598,15 @@ skills["SupportMinefield"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "mine_laying_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chance_to_place_an_additional_mine_%", 0.2 },
+		},
+		Alternate2 = {
+			{ "number_of_additional_remote_mines_allowed", 0.2 },
+		},
 	},
 	stats = {
 		"number_of_additional_mines_to_place",
@@ -3270,6 +3677,15 @@ skills["SupportMinionDamage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "minion_chance_to_deal_double_damage_%", 0.15 },
+		},
+		Alternate2 = {
+			{ "minion_ailment_damage_+%", 2 },
+		},
 	},
 	stats = {
 		"support_minion_damage_+%_final",
@@ -3335,6 +3751,9 @@ skills["SupportMinionDamagePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"support_minion_damage_+%_final",
@@ -3386,6 +3805,15 @@ skills["SupportMinionLife"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_maximum_life_+%", 0.75 },
+		},
+		Alternate1 = {
+			{ "minion_life_regeneration_rate_per_minute_%", 3 },
+		},
+		Alternate2 = {
+			{ "minion_damage_+%_on_full_life", 1 },
+		},
 	},
 	stats = {
 		"support_minion_maximum_life_+%_final",
@@ -3445,6 +3873,15 @@ skills["SupportMinionSpeed"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_movement_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_minion_duration_+%", -2 },
+		},
+		Alternate2 = {
+			{ "minion_cooldown_recovery_+%", 1 },
+		},
 	},
 	stats = {
 		"minion_movement_speed_+%",
@@ -3517,6 +3954,15 @@ skills["SupportSummonElementalResistances"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_maximum_all_elemental_resistances_%", 0.1 },
+		},
+		Alternate1 = {
+			{ "minion_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "minion_life_leech_from_elemental_damage_permyriad", 2 },
+		},
 	},
 	stats = {
 		"minion_elemental_resistance_%",
@@ -3584,6 +4030,16 @@ skills["SupportPhysicalToLightning"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "physical_damage_+%", 0.5 },
+			{ "lightning_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_physical_damage_%_to_convert_to_lightning", 0.5 },
+		},
+		Alternate2 = {
+			{ "enemies_you_shock_take_%_increased_physical_damage", 0.5 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_lightning",
@@ -3656,6 +4112,15 @@ skills["SupportProjectileIntensity"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "intensity_loss_frequency_while_moving_+%", -1 },
+		},
+		Alternate2 = {
+			{ "intensity_loss_frequency_while_moving_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -3724,6 +4189,15 @@ skills["SupportPowerChargeOnCrit"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+		Alternate1 = {
+			{ "add_power_charge_on_critical_strike_%", 1 },
+		},
+		Alternate2 = {
+			{ "damage_+%_per_power_charge", 0.1 },
+		},
 	},
 	stats = {
 		"add_power_charge_on_critical_strike_%",
@@ -3795,6 +4269,15 @@ skills["SupportRemoteMine"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "mine_laying_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_reservation_+%", -1 },
+		},
+		Alternate2 = {
+			{ "mine_detonation_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"is_remote_mine",
@@ -3872,6 +4355,16 @@ skills["SupportSpellCascade"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+			{ "support_spell_cascade_area_delay_+%", 5 },
+		},
 	},
 	stats = {
 		"support_spell_cascade_number_of_cascades_per_side",
@@ -3943,6 +4436,10 @@ skills["SupportSpellCascadePlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "spell_damage_+%", 0.5 },
+		},
 	},
 	stats = {
 		"support_spell_cascade_number_of_cascades_per_side",
@@ -3999,6 +4496,16 @@ skills["SupportMulticast"] = {
 		flag("Condition:HaveSpellEcho"),
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "support_echo_damage_+%_final", -1 },
+			{ "support_spell_echo_final_repeat_damage_+%_final", 3 },
+		},
 	},
 	stats = {
 		"base_spell_repeat_count",
@@ -4076,6 +4583,10 @@ skills["SupportSpellEchoPlus"] = {
 		mod("DoubleDamageChance", "BASE", -3, ModFlag.Spell, 0, { type = "Condition", var = "HaveGreaterSpellEcho" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+			{ "base_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_spell_repeat_count",
@@ -4138,6 +4649,15 @@ skills["SupportSummonGhostOnKill"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "chance_to_summon_support_ghost_on_killing_blow_%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%_for_non_minions", 3 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
 	},
 	stats = {
 		"chance_to_summon_support_ghost_on_killing_blow_%",
@@ -4217,6 +4737,16 @@ skills["SupportRapidActivation"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "sigil_repeat_frequency_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "support_rapid_activation_brand_skill_only_primary_duration_+%_final", 1 },
+			{ "support_rapid_activation_brand_skill_only_secondary_duration_+%_final", -1 },
+		},
+		Alternate2 = {
+			{ "from_quality_brand_activation_rate_+%_final_if_75%_attached_duration_expired", 1 },
+		},
 	},
 	stats = {
 		"support_rapid_activation_brand_activation_rate_+%_final",
@@ -4288,6 +4818,15 @@ skills["SupportTrinity"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "attack_and_cast_speed_+%_while_all_resonance_is_at_least_25", 0.75 },
+		},
+		Alternate2 = {
+			{ "skill_convert_%_physical_damage_to_random_element", 0.5 },
+		},
 	},
 	stats = {
 		"elemental_damage_+%_final_per_5_lowest_resonance",
@@ -4357,6 +4896,15 @@ skills["SupportAilments"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_all_ailment_duration_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_ailment_damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_damage_+%_while_an_ailment_on_you", 1.5 },
+		},
 	},
 	stats = {
 		"base_all_ailment_duration_+%",
@@ -4424,6 +4972,10 @@ skills["SupportUnboundAilmentsPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_all_ailment_duration_+%", 0.5 },
+			{ "dot_multiplier_+", 0.5 },
+		},
 	},
 	stats = {
 		"base_all_ailment_duration_+%",
@@ -4465,6 +5017,17 @@ skills["SupportHandcastAnticipation"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_cast_speed_+%", 1 },
+			{ "support_anticipation_charge_gain_frequency_+%", -0.5 },
+		},
+		Alternate2 = {
+			{ "unleash_support_seal_gain_frequency_+%_while_channelling", 2.5 },
+			{ "unleash_support_seal_gain_frequency_+%_while_not_channelling", -5 },
+		},
 	},
 	stats = {
 		"support_anticipation_rapid_fire_count",
@@ -4527,6 +5090,9 @@ skills["SupportUnleashPlus"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"support_anticipation_rapid_fire_count",

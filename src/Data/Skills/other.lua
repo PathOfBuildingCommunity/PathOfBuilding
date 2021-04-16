@@ -71,6 +71,12 @@ skills["GemDetonateMines"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "mine_detonation_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 1 },
+		},
 	},
 	stats = {
 		"display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine",
@@ -102,6 +108,12 @@ skills["Portal"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 3 },
+		},
+		Alternate1 = {
+			{ "portal_alternate_destination_chance_permyriad", 1 },
+		},
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -132,6 +144,9 @@ skills["VaalBreach"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 3 },
+		},
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -1163,6 +1178,12 @@ skills["SupportElementalPenetration"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "non_damaging_ailment_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"reduce_enemy_elemental_resistance_%",

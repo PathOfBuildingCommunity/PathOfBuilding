@@ -51,6 +51,18 @@ skills["AnimateWeapon"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_movement_velocity_+%", 1 },
+		},
+		Alternate1 = {
+			{ "minions_chance_to_intimidate_on_hit_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "animate_weapon_chance_to_create_additional_copy_%", 1 },
+		},
+		Alternate3 = {
+			{ "minion_global_maximum_added_lightning_damage", 5 },
+		},
 	},
 	stats = {
 		"animate_item_maximum_level_requirement",
@@ -129,6 +141,16 @@ skills["ArcticArmour"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "arctic_armour_freeze_enemies_when_you_are_hit_%_chance", 1 },
+		},
+		Alternate2 = {
+			{ "new_arctic_armour_physical_damage_taken_when_hit_+%_final", -0.05 },
+			{ "new_arctic_armour_fire_damage_taken_when_hit_+%_final", -0.05 },
+		},
 	},
 	stats = {
 		"arctic_armour_chill_when_hit_duration",
@@ -201,6 +223,15 @@ skills["ArtilleryBallista"] = {
 		flag("OneShotProj"),
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "burn_damage_+%", 5 },
+		},
+		Alternate2 = {
+			{ "base_number_of_additional_arrows", 0.05 },
+		},
 	},
 	stats = {
 		"base_totem_range",
@@ -296,6 +327,18 @@ skills["Barrage"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_global_chance_to_knockback_%", 1 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate3 = {
+			{ "non_damaging_ailments_as_though_damage_+%_final", 5 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -368,6 +411,18 @@ skills["BearTrap"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "physical_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_cooldown_speed_+%", 0.5 },
+		},
+		Alternate3 = {
+			{ "impale_on_hit_%_chance", 1 },
+		},
 	},
 	stats = {
 		"is_trap",
@@ -470,6 +525,18 @@ skills["BladeBlast"] = {
 		skill("dpsMultiplier", 50, { type = "SkillPart", skillPart = 6 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "chaos_dot_multiplier_+", 0.5 },
+		},
+		Alternate2 = {
+			{ "spells_impale_on_hit_%_chance", 0.5 },
+		},
+		Alternate3 = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -569,6 +636,15 @@ skills["ChargedAttack"] = {
 		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "blade_flurry_final_flurry_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "blade_flurry_elemental_damage_+%_while_channeling", 2 },
+		},
 	},
 	stats = {
 		"charged_attack_damage_per_stack_+%_final",
@@ -672,6 +748,18 @@ skills["BladeVortex"] = {
 		flag("Condition:HaveBladeVortex"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "life_leech_from_any_damage_permyriad", 2 },
+		},
+		Alternate2 = {
+			{ "blade_vortex_additional_blade_chance_%", 1 },
+		},
+		Alternate3 = {
+			{ "blade_vortex_damage_+%_with_5_or_fewer_blades", 3 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -751,6 +839,9 @@ skills["VaalBladeVortex"] = {
 		skill("radius", 15),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -829,6 +920,15 @@ skills["Bladefall"] = {
 		skill("radiusSecondaryLabel", "Volley Length:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_global_chance_to_knockback_%", 1 },
+		},
+		Alternate2 = {
+			{ "bladefall_volley_gap_distance_+%", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -926,6 +1026,18 @@ skills["BlastRain"] = {
 		flag("OneShotProj"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "cover_in_ash_on_hit_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "blast_rain_damage_+%_vs_distant_enemies", 2 },
+		},
+		Alternate3 = {
+			{ "blast_rain_area_of_effect_+%", 3 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_fire",
@@ -1004,6 +1116,18 @@ skills["BlinkArrow"] = {
 		skill("minionUseBowAndQuiver", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_arrow_speed_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "minion_maximum_life_+%", 3 },
+		},
+		Alternate3 = {
+			{ "base_added_cooldown_count", 0.05 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -1098,6 +1222,15 @@ skills["BloodRage"] = {
 		skill("thisIsNotABuff", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%_granted_from_skill", 0.25 },
+		},
+		Alternate1 = {
+			{ "gain_frenzy_charge_on_hitting_unique_enemy_%", 0.1 },
+		},
+		Alternate2 = {
+			{ "blood_rage_life_leech_from_elemental_damage_permyriad", 2 },
+		},
 	},
 	stats = {
 		"attack_speed_+%_granted_from_skill",
@@ -1194,6 +1327,15 @@ skills["BurningArrow"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_dot_multiplier_+", 0.5 },
+		},
+		Alternate1 = {
+			{ "critical_strike_chance_+%", 3 },
+		},
+		Alternate2 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
 	},
 	stats = {
 		"base_chance_to_ignite_%",
@@ -1268,6 +1410,9 @@ skills["VaalBurningArrow"] = {
 		skill("radius", 16),
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_dot_multiplier_+", 0.5 },
+		},
 	},
 	stats = {
 		"base_chance_to_ignite_%",
@@ -1348,6 +1493,15 @@ skills["PoisonArrow"] = {
 		skill("dotIsArea", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "withered_on_hit_for_2_seconds_%_chance", 1 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_chaos", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -1466,6 +1620,15 @@ skills["ChargedDash"] = {
 		skill("radiusSecondaryLabel", "End of Dash:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_code_movement_speed_+%_final", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_travel_distance_+%", 1 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_lightning",
@@ -1545,6 +1708,15 @@ skills["CobraLash"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "critical_strike_chance_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "chaining_range_+%", 1 },
+		},
+		Alternate2 = {
+			{ "projectile_damage_+%_per_remaining_chain", 0.75 },
+		},
 	},
 	stats = {
 		"attack_minimum_added_chaos_damage",
@@ -1651,6 +1823,18 @@ skills["CorpseEruption"] = {
 		skill("radius", 15),
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "burn_damage_+%", 5 },
+		},
+		Alternate2 = {
+			{ "cremation_fires_projectiles_faster_+%_final", 0.25 },
+		},
+		Alternate3 = {
+			{ "cremation_chance_to_explode_nearby_corpse_when_firing_projectiles", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -1763,6 +1947,18 @@ skills["Cyclone"] = {
 		skill("radiusExtra", 1, { type = "Multiplier", var = "CycloneStage" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_global_chance_to_knockback_%", 1 },
+		},
+		Alternate2 = {
+			{ "cyclone_movement_speed_+%_final", 0.25 },
+		},
+		Alternate3 = {
+			{ "avoid_interruption_while_using_this_skill_%", 1 },
+		},
 	},
 	stats = {
 		"cyclone_movement_speed_+%_final",
@@ -1869,6 +2065,9 @@ skills["VaalCyclone"] = {
 		skill("radius", 24),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -1940,6 +2139,15 @@ skills["QuickDodge"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cooldown_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_travel_distance_+%", 1 },
+		},
+		Alternate2 = {
+			{ "dash_grants_phasing_after_use_ms", 100 },
+		},
 	},
 	stats = {
 		"base_cooldown_speed_+%",
@@ -2013,6 +2221,18 @@ skills["Desecrate"] = {
 		skill("radius", 12),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "chaos_damage_+%", 10 },
+		},
+		Alternate2 = {
+			{ "desecrate_chance_for_additional_corpse_%", 3 },
+		},
+		Alternate3 = {
+			{ "desecrate_chance_for_special_corpse_%", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -2103,6 +2323,15 @@ skills["DetonateDead"] = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_fire_damage_%_to_convert_to_chaos", 3 },
+		},
+		Alternate2 = {
+			{ "detonate_dead_damage_+%_if_corpse_ignited", 4 },
+		},
 	},
 	stats = {
 		"corpse_explosion_monster_life_%",
@@ -2192,6 +2421,9 @@ skills["VaalDetonateDead"] = {
 		skill("radius", 24),
 	},
 	qualityStats = {
+		Default = {
+			{ "area_damage_+%", 1 },
+		},
 	},
 	stats = {
 		"corpse_explosion_monster_life_%",
@@ -2273,6 +2505,15 @@ skills["DoubleStrike"] = {
 		skill("dpsMultiplier", 2),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "elemental_damage_+%", 2 },
+		},
+		Alternate2 = {
+			{ "maim_on_hit_%", 1 },
+		},
 	},
 	stats = {
 		"base_skill_number_of_additional_hits",
@@ -2355,6 +2596,9 @@ skills["VaalDoubleStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_number_of_additional_hits",
@@ -2456,6 +2700,19 @@ skills["DualStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "critical_strike_chance_+%", 1 },
+			{ "base_critical_strike_multiplier_+", 0.5 },
+		},
+		Alternate1 = {
+			{ "melee_range_+", 0.25 },
+		},
+		Alternate2 = {
+			{ "damage_+%_vs_enemies_on_full_life", 5 },
+		},
+		Alternate3 = {
+			{ "active_skill_added_damage_+%_final", 0.5 },
+		},
 	},
 	stats = {
 		"melee_range_+",
@@ -2555,6 +2812,15 @@ skills["ElementalHit"] = {
 		skill("radius", 10),
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "non_damaging_ailment_effect_+%", 1 },
+		},
 	},
 	stats = {
 		"attack_minimum_added_fire_damage",
@@ -2644,6 +2910,15 @@ skills["EnsnaringArrow"] = {
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanEnsnare" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "ensnaring_arrow_enemy_spell_damage_taken_+%", 0.5 },
+		},
 	},
 	stats = {
 		"tethered_movement_speed_+%_final_per_rope",
@@ -2712,6 +2987,15 @@ skills["EtherealKnives"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_projectiles", 0.1 },
+		},
+		Alternate2 = {
+			{ "spells_impale_on_hit_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -2841,6 +3125,17 @@ skills["ExplosiveArrow"] = {
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 5 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_chance_to_ignite_%", 1 },
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "critical_strike_chance_+%", 3 },
+		},
+		Alternate2 = {
+			{ "explosive_arrow_stack_limit", 0.2 },
+			{ "active_skill_quality_duration_+%_final", -2 },
+		},
 	},
 	stats = {
 		"fuse_arrow_explosion_radius_+_per_fuse_arrow_orb",
@@ -2917,6 +3212,15 @@ skills["ShrapnelTrap"] = {
 		skill("radiusSecondaryLabel", "Secondary Explosion:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "burn_damage_+%", 3 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_cold", 2 },
+		},
 	},
 	stats = {
 		"base_trap_duration",
@@ -2993,6 +3297,16 @@ skills["FireTrap"] = {
 		skill("radius", 15),
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_chance_to_ignite_%", 3 },
+			{ "active_skill_area_of_effect_+%_final", -1 },
+		},
 	},
 	stats = {
 		"base_trap_duration",
@@ -3076,6 +3390,16 @@ skills["FlamethrowerTrap"] = {
 		skill("radius", 32),
 	},
 	qualityStats = {
+		Default = {
+			{ "fire_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "active_skill_quality_duration_+%_final", -1 },
+			{ "base_cooldown_speed_+%", 3 },
+		},
+		Alternate2 = {
+			{ "base_cast_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"base_trap_duration",
@@ -3171,6 +3495,15 @@ skills["FlickerStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "add_frenzy_charge_on_skill_hit_%", 0.25 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", 3 },
+		},
+		Alternate2 = {
+			{ "flicker_strike_teleport_range_+%", 1 },
+		},
 	},
 	stats = {
 		"base_attack_speed_+%_per_frenzy_charge",
@@ -3247,6 +3580,18 @@ skills["Frenzy"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_projectiles", 0.05 },
+		},
+		Alternate2 = {
+			{ "melee_attack_number_of_spirit_strikes", 0.05 },
+		},
+		Alternate3 = {
+			{ "ailment_damage_+%_per_frenzy_charge", 0.25 },
+		},
 	},
 	stats = {
 		"frenzy_skill_attack_damage_+%_final_per_frenzy_charge",
@@ -3340,6 +3685,16 @@ skills["FrostBlades"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_projectiles", 0.1 },
+		},
+		Alternate2 = {
+			{ "cold_ailment_duration_+%", 1 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -3425,6 +3780,15 @@ skills["ShrapnelShot"] = {
 		skill("radius", 28),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_stun_threshold_reduction_+%", 1 },
+		},
+		Alternate2 = {
+			{ "shrapnel_shot_cone_placement_distance_+", 1 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_lightning",
@@ -3509,6 +3873,15 @@ skills["Grace"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "avoid_all_elemental_status_%", 0.1 },
+		},
+		Alternate2 = {
+			{ "avoid_chaos_damage_%", 0.05 },
+		},
 	},
 	stats = {
 		"base_evasion_rating",
@@ -3584,6 +3957,9 @@ skills["VaalGrace"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"base_chance_to_dodge_%",
@@ -3672,6 +4048,18 @@ skills["Haste"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "summon_totem_cast_speed_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 0.2 },
+		},
+		Alternate3 = {
+			{ "buff_time_passed_+%_only_buff_category", 0.25 },
+		},
 	},
 	stats = {
 		"attack_speed_+%_granted_from_skill",
@@ -3752,6 +4140,9 @@ skills["VaalHaste"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"attack_speed_+%_granted_from_skill",
@@ -3834,6 +4225,15 @@ skills["Hatred"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "chill_and_freeze_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "movement_velocity_+%_on_chilled_ground", 0.5 },
+		},
 	},
 	stats = {
 		"physical_damage_%_to_add_as_cold",
@@ -3930,6 +4330,16 @@ skills["HeraldOfAgony"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_movement_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "active_skill_minion_damage_+%_final", -2 },
+			{ "withered_on_hit_for_2_seconds_%_chance", 1 },
+		},
+		Alternate2 = {
+			{ "skill_buff_grants_chance_to_poison_%", 1 },
+		},
 	},
 	stats = {
 		"skill_buff_grants_chance_to_poison_%",
@@ -4023,6 +4433,15 @@ skills["HeraldOfIce"] = {
 		skill("radius", 12),
 	},
 	qualityStats = {
+		Default = {
+			{ "herald_of_ice_cold_damage_+%", 0.75 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_buff_grants_chance_to_freeze_%", 0.5 },
+		},
 	},
 	stats = {
 		"spell_minimum_added_cold_damage",
@@ -4114,6 +4533,15 @@ skills["IceShot"] = {
 		skill("radius", 23),
 	},
 	qualityStats = {
+		Default = {
+			{ "cold_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_cold", 1 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_cold",
@@ -4189,6 +4617,15 @@ skills["IceTrap"] = {
 		skill("radiusTertiaryLabel", "Third Explosion:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_reduce_enemy_cold_resistance_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "freeze_as_though_dealt_damage_+%", 5 },
+		},
 	},
 	stats = {
 		"base_trap_duration",
@@ -4284,6 +4721,15 @@ skills["DoubleSlash"] = {
 		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "physical_damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_bleed_duration_+%", 1 },
+		},
 	},
 	stats = {
 		"active_skill_base_radius_+",
@@ -4379,6 +4825,18 @@ skills["LancingSteel"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "impale_debuff_effect_+%", 1 },
+		},
+		Alternate1 = {
+			{ "lancing_steel_targeting_range_+%", 1.5 },
+		},
+		Alternate2 = {
+			{ "lancing_steel_damage_+%_at_close_range", 2 },
+		},
+		Alternate3 = {
+			{ "attacks_impale_on_hit_%_chance", 0.5 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -4453,6 +4911,18 @@ skills["LightningArrow"] = {
 		skill("radius", 18),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_chance_to_shock_%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_lightning", 1 },
+		},
+		Alternate3 = {
+			{ "lightning_arrow_%_chance_to_hit_an_additional_enemy", 1 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_lightning",
@@ -4553,6 +5023,19 @@ skills["LightningStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "number_of_additional_projectiles", 0.1 },
+		},
+		Alternate3 = {
+			{ "skill_physical_damage_%_to_convert_to_lightning", 1 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_lightning",
@@ -4651,6 +5134,10 @@ skills["VaalLightningStrike"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+			{ "base_projectile_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_lightning",
@@ -4732,6 +5219,18 @@ skills["MirrorArrow"] = {
 		skill("minionUseBowAndQuiver", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_arrow_speed_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "minion_maximum_life_+%", 3 },
+		},
+		Alternate3 = {
+			{ "base_added_cooldown_count", 0.1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -4811,6 +5310,18 @@ skills["MambaStrike"] = {
 		skill("radius", 27),
 	},
 	qualityStats = {
+		Default = {
+			{ "poison_dot_multiplier_+", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate3 = {
+			{ "skill_physical_damage_%_to_convert_to_chaos", 1 },
+		},
 	},
 	stats = {
 		"mamba_strike_deal_%_of_all_poison_total_damage_per_minute",
@@ -4888,6 +5399,15 @@ skills["NewPhaseRun"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_movement_velocity_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "phase_run_%_chance_to_not_replace_buff_on_skill_use", 0.5 },
+		},
 	},
 	stats = {
 		"base_movement_velocity_+%",
@@ -4959,6 +5479,15 @@ skills["CorrosiveShroud"] = {
 		skill("radius", 25),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "plague_bearer_movement_speed_+%_while_infecting", 0.25 },
+		},
+		Alternate2 = {
+			{ "corrosive_shroud_poison_dot_multiplier_+_while_aura_active", 0.5 },
+		},
 	},
 	stats = {
 		"corrosive_shroud_maximum_stored_poison_damage",
@@ -5047,6 +5576,15 @@ skills["PoachersMark"] = {
 		skill("debuff", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "grant_attacker_frenzy_charge_when_hit_%_chance", 0.25 },
+		},
+		Alternate1 = {
+			{ "base_damage_taken_+%", 0.2 },
+		},
+		Alternate2 = {
+			{ "base_additional_physical_damage_reduction_%", -0.25 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -5131,6 +5669,15 @@ skills["AccuracyAndCritsAura"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "base_reservation_+%", -0.5 },
+		},
+		Alternate2 = {
+			{ "auras_grant_damage_+%_to_you_and_your_allies", 0.1 },
+		},
 	},
 	stats = {
 		"accuracy_rating",
@@ -5203,6 +5750,15 @@ skills["SnipersMark"] = {
 		skill("debuff", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_taken_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "curse_cast_speed_+%", 1 },
+		},
+		Alternate2 = {
+			{ "chance_to_be_knocked_back_%", 2 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -5287,6 +5843,18 @@ skills["Puncture"] = {
 		skill("bleedIsSkillEffect", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "faster_bleed_%", 0.5 },
+		},
+		Alternate1 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate2 = {
+			{ "melee_attack_number_of_spirit_strikes", 0.1 },
+		},
+		Alternate3 = {
+			{ "maim_on_hit_%", 0.5 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -5371,6 +5939,15 @@ skills["ColdResistAura"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "base_avoid_freeze_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_reduce_enemy_cold_resistance_%", 0.05 },
+		},
 	},
 	stats = {
 		"base_cold_damage_resistance_%",
@@ -5445,6 +6022,9 @@ skills["ColdImpurity"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
 	},
 	stats = {
 		"base_maximum_cold_damage_resistance_%",
@@ -5520,6 +6100,18 @@ skills["RainOfArrows"] = {
 		flag("OneShotProj"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "rain_of_arrows_additional_sequence_chance_%", 0.25 },
+		},
+		Alternate2 = {
+			{ "base_number_of_additional_arrows", 0.2 },
+		},
+		Alternate3 = {
+			{ "maim_on_hit_%", 0.5 },
+		},
 	},
 	stats = {
 		"active_skill_base_radius_+",
@@ -5594,6 +6186,9 @@ skills["VaalRainOfArrows"] = {
 		flag("OneShotProj"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
 	},
 	stats = {
 		"active_skill_base_radius_+",
@@ -5679,6 +6274,18 @@ skills["Reave"] = {
 		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_convert_%_physical_damage_to_random_element", 5 },
+		},
+		Alternate2 = {
+			{ "bleed_on_hit_with_attacks_%", 1 },
+		},
+		Alternate3 = {
+			{ "reave_additional_max_stacks", 0.1 },
+		},
 	},
 	stats = {
 		"reave_area_of_effect_+%_final_per_stage",
@@ -5758,6 +6365,9 @@ skills["VaalReave"] = {
 		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"reave_area_of_effect_+%_final_per_stage",
@@ -5843,6 +6453,15 @@ skills["Riposte"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_cooldown_speed_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_onlsaught_on_hit_%_chance", 1 },
+		},
 	},
 	stats = {
 		"melee_counterattack_trigger_on_block_%",
@@ -5935,6 +6554,18 @@ skills["ScourgeArrow"] = {
 		mod("Multiplier:ScourgeArrowMaxStages", "BASE", 5),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "virulent_arrow_number_of_pod_projectiles", 0.05 },
+		},
+		Alternate2 = {
+			{ "damage_+%", 1 },
+		},
+		Alternate3 = {
+			{ "base_chance_to_poison_on_hit_%", 1 },
+		},
 	},
 	stats = {
 		"virulent_arrow_maximum_number_of_stacks",
@@ -6031,6 +6662,19 @@ skills["ShatteringSteel"] = {
 		skill("radius", 28),
 	},
 	qualityStats = {
+		Default = {
+			{ "impale_debuff_effect_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate2 = {
+			{ "number_of_additional_projectiles", 0.05 },
+		},
+		Alternate3 = {
+			{ "base_projectile_speed_+%", 1.5 },
+		},
 	},
 	stats = {
 		"attacks_impale_on_hit_%_chance",
@@ -6107,6 +6751,19 @@ skills["PhysCascadeTrap"] = {
 		skill("radius", 12),
 	},
 	qualityStats = {
+		Default = {
+			{ "physical_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_cooldown_speed_+%", 1 },
+		},
+		Alternate3 = {
+			{ "base_cast_speed_+%", -3 },
+			{ "damage_+%", 5 },
+		},
 	},
 	stats = {
 		"base_trap_duration",
@@ -6185,6 +6842,18 @@ skills["ShrapnelBallista"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_chains", 0.1 },
+		},
+		Alternate2 = {
+			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
+		},
+		Alternate3 = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_totem_range",
@@ -6264,6 +6933,19 @@ skills["SiegeBallista"] = {
 		flag("ProjectileRain"),
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "number_of_additional_projectiles", 0.1 },
+			{ "attack_speed_+%", -1 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate3 = {
+			{ "attacks_impale_on_hit_%_chance", 1 },
+		},
 	},
 	stats = {
 		"base_totem_range",
@@ -6344,6 +7026,15 @@ skills["SmokeMine"] = {
 		skill("radius", 10),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 2 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 1 },
+		},
+		Alternate2 = {
+			{ "skill_buff_grants_attack_and_cast_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"base_mine_duration",
@@ -6437,6 +7128,18 @@ skills["ThrownShield"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 2 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate3 = {
+			{ "critical_multiplier_+%_per_100_max_es_on_shield", 1 },
+		},
 	},
 	stats = {
 		"off_hand_local_minimum_added_physical_damage",
@@ -6522,6 +7225,16 @@ skills["ThrownWeapon"] = {
 		mod("PierceChance", "BASE", 100),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_projectile_speed_+%", -0.5 },
+			{ "number_of_additional_projectiles", 0.05 },
+		},
 	},
 	stats = {
 		"base_is_projectile",
@@ -6597,6 +7310,9 @@ skills["VaalThrownWeapon"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"number_of_additional_projectiles",
@@ -6678,6 +7394,19 @@ skills["RainOfSpores"] = {
 		skill("radiusLabel", "Pod Area:"),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "skill_physical_damage_%_to_convert_to_chaos", 1 },
+		},
+		Alternate3 = {
+			{ "skill_buff_effect_+%", -1 },
+			{ "base_number_of_additional_arrows", 0.1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -6755,6 +7484,15 @@ skills["SplitArrow"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "base_number_of_additional_arrows", 0.05 },
+		},
+		Alternate2 = {
+			{ "damage_+%", 1 },
+		},
 	},
 	stats = {
 		"base_number_of_additional_arrows",
@@ -6847,6 +7585,20 @@ skills["ImpactingSteel"] = {
 		flag("NoAdditionalProjectiles"),
 	},
 	qualityStats = {
+		Default = {
+			{ "impale_debuff_effect_+%", 1 },
+		},
+		Alternate1 = {
+			{ "chance_to_inflict_additional_impale_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "base_projectile_speed_+%", 1 },
+		},
+		Alternate3 = {
+			{ "attacks_impale_on_hit_%_chance", -2 },
+			{ "damage_+%", 2 },
+		},
 	},
 	stats = {
 		"projectile_number_to_split",
@@ -6935,6 +7687,16 @@ skills["SummonIceGolem"] = {
 		flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
+		Default = {
+			{ "minion_maximum_life_+%", 1 },
+			{ "minion_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "golem_buff_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "golem_cooldown_recovery_+%", 1 },
+		},
 	},
 	stats = {
 		"base_actor_scale_+%",
@@ -7022,6 +7784,15 @@ skills["TemporalChains"] = {
 		mod("MaxDoom", "BASE", 30),
 	},
 	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "hex_doom_gain_rate_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_curse_duration_+%", 1 },
+		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -7093,6 +7864,15 @@ skills["TornadoShot"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "projectile_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "skill_convert_%_physical_damage_to_random_element", 3 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%", 0.5 },
+		},
 	},
 	stats = {
 		"tornado_shot_num_of_secondary_projectiles",
@@ -7158,6 +7938,18 @@ skills["BoneLance"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "physical_damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "desecrate_maximum_number_of_corpses", 0.1 },
+		},
+		Alternate3 = {
+			{ "maximum_life_+%_for_corpses_you_create", 2 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -7238,6 +8030,15 @@ skills["SnappingAdder"] = {
 		flag("Condition:ReturningProjectile", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_poison_duration_+%", 1 },
+		},
+		Alternate1 = {
+			{ "active_skill_returning_projectile_damage_+%_final", 1 },
+		},
+		Alternate2 = {
+			{ "number_of_chains", 0.05 },
+		},
 	},
 	stats = {
 		"maximum_number_of_snapping_adder_projectiles",
@@ -7332,6 +8133,19 @@ skills["ViperStrike"] = {
 		skill("poisonIsSkillEffect", true),
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+			{ "base_poison_duration_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "skill_physical_damage_%_to_convert_to_chaos", 1 },
+		},
+		Alternate2 = {
+			{ "chaos_damage_+%", 1 },
+		},
+		Alternate3 = {
+			{ "chance_%_when_poison_to_also_poison_another_enemy", 0.5 },
+		},
 	},
 	stats = {
 		"skill_physical_damage_%_to_convert_to_chaos",
@@ -7427,6 +8241,15 @@ skills["VolatileDead"] = {
 		skill("radius", 15),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "fire_damage_+%", 1 },
+		},
+		Alternate2 = {
+			{ "volatile_dead_core_movement_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -7505,6 +8328,15 @@ skills["WhirlingBlades"] = {
 	baseMods = {
 	},
 	qualityStats = {
+		Default = {
+			{ "attack_speed_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "damage_+%", 3 },
+		},
+		Alternate2 = {
+			{ "whirling_blades_evasion_rating_+%_while_moving", 10 },
+		},
 	},
 	stats = {
 		"additional_weapon_base_attack_time_ms",
@@ -7632,6 +8464,18 @@ skills["WildStrike"] = {
 		skill("radius", 24, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
+		Default = {
+			{ "elemental_damage_+%", 1 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "number_of_additional_projectiles", 0.1 },
+		},
+		Alternate3 = {
+			{ "chaining_range_+%", 1 },
+		},
 	},
 	stats = {
 		"elemental_strike_physical_damage_%_to_convert",
@@ -7708,6 +8552,15 @@ skills["Slither"] = {
 		skill("radius", 26),
 	},
 	qualityStats = {
+		Default = {
+			{ "elusive_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "slither_wither_stacks", 0.1 },
+		},
+		Alternate2 = {
+			{ "withering_step_chance_to_not_remove_on_skill_use_%", 1 },
+		},
 	},
 	stats = {
 		"active_skill_base_radius_+",
