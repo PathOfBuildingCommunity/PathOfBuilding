@@ -110,7 +110,7 @@
 	<File name="Data/LegionPassives.lua" part="program" sha1="cf1ed1922f3278a8c4c1d0b6054eddd883cf8f48" />
 	<File name="Data/Minions.lua" part="program" sha1="1fd054f34f516eb4e0176b0864926789a2d0946b" />
 	<File name="Data/Misc.lua" part="program" sha1="15a1acdcf6ca2980bd5d7424048c7db1d31295c6" />
-	<File name="Data/ModCache.lua" part="program" sha1="4900076bfb627a4fab92ce2d95fd5dc5636ac1dc" />
+	<File name="Data/ModCache.lua" part="program" sha1="436c1263cb4735f70eae0869e82e4709aad9e2b5" />
 	<File name="Data/ModFlask.lua" part="program" sha1="4d61f6b9a6d775e951b0868a64b5926724a4af06" />
 	<File name="Data/ModItem.lua" part="program" sha1="5b88505e167741df09dc2668c6a0037d0abefb57" />
 	<File name="Data/ModJewel.lua" part="program" sha1="1070f30c2b93375c5a185f3b814378d99cf95f5a" />
