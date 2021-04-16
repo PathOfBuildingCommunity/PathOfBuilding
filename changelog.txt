@@ -1,3 +1,17 @@
+VERSION[2.2.0][2021/04/16]
+
+* Add support for Glimpse of Chaos (PJacek)
+
+* Fix non-integer catalyst scaling issues (Wires77)
+
+* Update spec (PJacek)
+* added current aura effect variant to victarios influence (pundm)
+* Add Tailwind back to Deadeye and Gathering Winds (Helyos96)
+* Ultimatum (Nostrademous)
+* Fixes Bow DoT Skills double-dipping on nodes that grant a Dot & Hit (Nostrademous)
+
+
+
 VERSION[2.1.1][2021/04/15]
 
 * Fix Physical Aegis config option affecting the Innervate config option (PJacek)
