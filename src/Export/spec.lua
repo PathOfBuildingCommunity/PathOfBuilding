@@ -1409,21 +1409,21 @@ return {
 	CostTypes={
 		[1]={
 			list=false,
-			name="Type",
+			name="Resource",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[2]={
 			list=false,
-			name="Stat1",
+			name="Stat",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
 		[3]={
 			list=false,
-			name="Description",
+			name="ResourceString",
 			refTo="",
 			type="String",
 			width=150
@@ -3015,7 +3015,7 @@ return {
 		},
 		[35]={
 			list=false,
-			name="",
+			name="StoredUses",
 			refTo="",
 			type="Int",
 			width=50
@@ -3095,80 +3095,57 @@ return {
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=70
 		},
 		[47]={
-			list=false,
-			name="",
+			list=true,
+			name="CostAmounts",
 			refTo="",
 			type="Int",
-			width=150
+			width=90
 		},
 		[48]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
+			list=true,
+			name="CostTypes",
+			refTo="CostTypes",
+			type="Key",
+			width=90
 		},
 		[49]={
 			list=false,
-			name="ManaCost",
+			name="ManaReservationFlat",
 			refTo="",
-			type="UIntOffset",
+			type="UInt",
 			width=150
 		},
 		[50]={
 			list=false,
-			name="",
+			name="ManaReservationPercent",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[51]={
 			list=false,
-			name="",
+			name="LifeReservationFlat",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[52]={
 			list=false,
-			name="",
+			name="LifeReservationPercent",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[53]={
 			list=false,
 			name="",
 			refTo="",
-			type="UIntOffset",
-			width=150
-		},
-		[54]={
-			list=false,
-			name="",
-			refTo="",
 			type="Int",
-			width=150
-		},
-		[55]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[56]={
-			list=false,
-			name="ReservationCost",
-			refTo="",
-			type="UInt",
 			width=150
 		}
-	},
-	GroundEffectEffectTypes={
 	},
 	GroundEffectTypes={
 	},
