@@ -796,3 +796,9 @@ local skills, mod, flag, skill = ...
 
 #skill QueensDemand
 #mods
+
+#skill AtziriUniqueStaffStormCall
+#mods
+
+#skill AtziriUniqueStaffFlameblast
+#mods
