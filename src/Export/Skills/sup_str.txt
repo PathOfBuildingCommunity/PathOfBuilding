@@ -440,3 +440,12 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+
+#skill SupportCruelty
+#mods
+
+#skill SupportBloodthirst
+#mods
+
+#skill SupportLifetap
+#mods

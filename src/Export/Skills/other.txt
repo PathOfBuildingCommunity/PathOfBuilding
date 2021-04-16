@@ -793,3 +793,6 @@ local skills, mod, flag, skill = ...
 
 #skill Focus
 #mods
+
+#skill QueensDemand
+#mods

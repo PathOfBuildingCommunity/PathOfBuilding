@@ -1152,3 +1152,18 @@ end,
 #baseMod skill("radius", 46)
 #baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
+
+#skill CastAuraBlinding
+#mods
+
+#skill Exsanguinate
+#mods
+
+#skill CorruptingFever
+#mods
+
+#skill Bloodreap
+#mods
+
+#skill PetrifiedBlood
+#mods
