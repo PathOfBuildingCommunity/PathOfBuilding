@@ -505,6 +505,7 @@ return {
 		["ENDGAME"] = {
 			"Corrupting Fever deals 40% increased Damage",
 			"30% increased Corrupting Fever Duration",
+			"Corrupting Fever has +50% chance to inflict an additional Corrupted Blood Debuff",
 		},
 	},
 	["Crackling Lance"] = {
@@ -1817,6 +1818,7 @@ return {
 		["ENDGAME"] = {
 			"Reap deals 40% increased Damage",
 			"24% increased Reap Area of Effect",
+			"+1 to Maximum Blood Charges",
 		},
 	},
 	["Reave"] = {
