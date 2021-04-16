@@ -3008,7 +3008,7 @@ return {
 		},
 		[34]={
 			list=false,
-			name="",
+			name="SoulCost",
 			refTo="",
 			type="Int",
 			width=50
@@ -3143,7 +3143,7 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="UIntOffset",
 			width=150
 		},
 		[54]={
