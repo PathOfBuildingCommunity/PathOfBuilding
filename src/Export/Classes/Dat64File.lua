@@ -51,6 +51,15 @@ local dataTypes = {
 			return convertUTF16to8(b, d + stro)
 		end,
 	},
+	UIntOffset = {
+		size = 4,
+		read = function(b, o, d)
+			if o > #b - 1 then return "<no offset>" end
+			local offset = bytesToUInt(b, o)
+			if offset > #b - 1 then return "<bad offset>" end
+			return bytesToUShort(b, d + offset)
+		end,
+	},
 	Enum = { 
 		size = 4, 
 		ref = true,

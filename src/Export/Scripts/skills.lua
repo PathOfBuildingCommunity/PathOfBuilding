@@ -258,7 +258,7 @@ directiveTable.skill = function(state, args, out)
 		level.level = levelRow.Level
 		level.extra.levelRequirement = levelRow.PlayerLevel
 		if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
-			level.extra.manaCost = levelRow.ManaCost
+			level.extra.manaCost = levelRow.ManaCost ~= 1475 and levelRow.ManaCost or levelRow.ReservationCost / 100
 		end
 		if levelRow.ManaMultiplier ~= 100 then
 			level.extra.manaMultiplier = levelRow.ManaMultiplier - 100
@@ -274,9 +274,6 @@ directiveTable.skill = function(state, args, out)
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
-		end
-		if levelRow.ManaCostOverride ~= 0 then
-			level.extra.manaCostOverride = levelRow.ManaCostOverride
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
