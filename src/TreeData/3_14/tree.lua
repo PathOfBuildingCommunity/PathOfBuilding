@@ -12366,7 +12366,8 @@ return {
             ["stats"]= {
                 "25% increased Effect of your Marks",
                 "Projectiles gain Damage as they travel farther, dealing up\nto 50% increased Damage with Hits to targets",
-                "Skills fire an additional Projectile"
+                "Skills fire an additional Projectile",
+                "You and nearby Allies have Tailwind"
             },
             ["reminderText"]= {
                 "(You can only take one of the three Ranger Ascendancy passives)"
@@ -54865,7 +54866,8 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Deadeye",
             ["stats"]= {
-                "Gain 1 Gale Force when you use a Skill\n15% increased Effect of Tailwind on you per Gale Force"
+                "Gain 1 Gale Force when you use a Skill\n15% increased Effect of Tailwind on you per Gale Force",
+                "You and nearby Allies have Tailwind"
             },
             ["reminderText"]= {
                 "(Each instance of Gale Force lasts 4 seconds. Maximum 10 Gale Force)"
