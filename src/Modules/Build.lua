@@ -288,7 +288,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "LifeCost", label = "Life Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "RageCost", label = "RageCost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "RageCost", label = "Rage Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ },
