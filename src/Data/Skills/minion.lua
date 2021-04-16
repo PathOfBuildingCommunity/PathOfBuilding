@@ -1241,7 +1241,7 @@ skills["MinionInstability"] = {
 	levelMods = {
 	},
 	levels = {
-		[1] = { },
+		[1] = { cost = { } },
 	},
 }
 skills["SiegebreakerCausticGround"] = {
@@ -1263,7 +1263,7 @@ skills["SiegebreakerCausticGround"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { },
+		[1] = { cost = { } },
 	},
 }
 skills["InfernalLegion"] = {
@@ -1284,6 +1284,6 @@ skills["InfernalLegion"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { },
+		[1] = { cost = { } },
 	},
 }
