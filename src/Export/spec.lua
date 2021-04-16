@@ -3099,7 +3099,7 @@ return {
 		},
 		[47]={
 			list=false,
-			name="",
+			name="CostAmount",
 			refTo="",
 			type="Int",
 			width=150
