@@ -154,10 +154,10 @@ return {
 	mod("BuffEffect", "INC", nil)
 },
 ["base_skill_reserve_life_instead_of_mana"] = {
-	flag("SkillBloodMagic"),
+	flag("BloodMagicReserved"),
 },
 ["base_skill_cost_life_instead_of_mana"] = {
-	flag("SkillBloodMagic"),
+	flag("BloodMagicCost"),
 },
 ["base_active_skill_totem_level"] = {
 	skill("totemLevel", nil),

@@ -1334,7 +1334,7 @@ function calcs.perform(env, avoidCache)
 			pool.Mana.basePercent = activeSkill.skillData.manaReservationPercent or activeSkill.activeEffect.grantedEffectLevel.manaReservationPercent or 0
 			pool.Life.baseFlat = activeSkill.skillData.lifeReservationFlat or activeSkill.activeEffect.grantedEffectLevel.lifeReservationFlat or 0
 			pool.Life.basePercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
-			if skillModList:Flag(skillCfg, "BloodMagic", "SkillBloodMagic") then
+			if skillModList:Flag(skillCfg, "BloodMagicReserved") then
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
 				pool.Mana.baseFlat = 0
 				pool.Life.basePercent = pool.Life.basePercent + pool.Mana.basePercent

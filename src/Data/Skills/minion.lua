@@ -1043,7 +1043,7 @@ skills["DropBearSummonedGroundSlam"] = {
 	hidden = true,
 	color = 4,
 	description = "The character slams the ground in front of them with a Staff, Mace or Sceptre, creating a wave that travels forward and damages enemies with an increased chance to stun.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1167,7 +1167,7 @@ skills["BoneGolemLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1241,7 +1241,7 @@ skills["MinionInstability"] = {
 	levelMods = {
 	},
 	levels = {
-		[1] = { },
+		[1] = { cost = { } },
 	},
 }
 skills["SiegebreakerCausticGround"] = {
@@ -1263,7 +1263,7 @@ skills["SiegebreakerCausticGround"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { },
+		[1] = { cost = { } },
 	},
 }
 skills["InfernalLegion"] = {
@@ -1284,6 +1284,6 @@ skills["InfernalLegion"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { },
+		[1] = { cost = { } },
 	},
 }
