@@ -3301,10 +3301,10 @@ skills["BloodSacramentUnique"] = {
 			skill("PhysicalMax", nil),
 		},
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage", div = 100 }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage", div = 100 }, { type = "Multiplier", var = "BloodSacramentStageAfterFirst" }),
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "Multiplier", var = "BloodSacramentStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -3312,6 +3312,7 @@ skills["BloodSacramentUnique"] = {
 		area = true,
 	},
 	baseMods = {
+		mod("Multiplier:BloodSacramentMaxStagesAfterFirst", "BASE", 32)
 	},
 	qualityStats = {
 	},
