@@ -219,13 +219,11 @@ Variant: Pre 3.0.0 (Coral Amulet)
 Variant: Pre 3.12.0 (Marble Amulet)
 Variant: Current (Coral Amulet)
 Variant: Current (Marble Amulet)
-{variant:1}Coral Amulet
-{variant:2}Marble Amulet
-{variant:3}Coral Amulet
-{variant:4}Marble Amulet
+{variant:1,3}Coral Amulet
+{variant:2,4}Marble Amulet
 {variant:1,3}Requires Level 55
 {variant:2,4}Requires Level 74
-Implicits: 1
+Implicits: 2
 {variant:1,3}{tags:life}(2.0-4.0) Life Regenerated per second
 {variant:2,4}{tags:life}(1.2-1.6)% of Life Regenerated per second
 {tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
