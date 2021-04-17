@@ -804,5 +804,29 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BloodSacramentUnique
+#flags spell
 	fromItem = true,
+	parts = {
+		{
+			name = "Channelling",
+		},
+		{
+			name = "Release",
+			area = true,
+		},
+	},
+	statMap = {
+		["spell_minimum_base_physical_damage"] = {
+			skill("PhysicalMin", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["spell_maximum_base_physical_damage"] = {
+			skill("PhysicalMax", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
+			skill("radiusExtra", nil, { type = "PerStat", var = "LifeReservedPercent", div = 100 }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["flameblast_damage_+%_final_per_10_life_reserved"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "PerStat", stat = "LifeReserved", div = 10 }, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 #mods

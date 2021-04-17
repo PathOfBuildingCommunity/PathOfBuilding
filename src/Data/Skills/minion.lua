@@ -191,6 +191,7 @@ skills["IceElementalIceCyclone"] = {
 	name = "Cyclone",
 	hidden = true,
 	color = 2,
+	baseEffectiveness = 0.85000002384186,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
 	weaponTypes = {
@@ -365,6 +366,7 @@ skills["SpectralSkullShieldCharge"] = {
 	name = "Charge",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Charges at an enemy, bashing it with the character's shield and striking it. This knocks it back and stuns it. Enemies in the way are pushed to the side. Damage and stun are proportional to distance travelled. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
@@ -403,6 +405,7 @@ skills["RagingSpiritMeleeAttack"] = {
 	name = "Default Attack",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Strike your foes down with a powerful blow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -529,6 +532,7 @@ skills["RockGolemSlam"] = {
 	name = "Slam",
 	hidden = true,
 	color = 1,
+	baseEffectiveness = 0,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -556,6 +560,7 @@ skills["RockGolemWhirlingBlades"] = {
 	name = "Roll",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
@@ -658,6 +663,7 @@ skills["DancingDervishCyclone"] = {
 	name = "Cyclone",
 	hidden = true,
 	color = 2,
+	baseEffectiveness = 0.85000002384186,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
 	weaponTypes = {
@@ -846,6 +852,7 @@ skills["SentinelHolySlam"] = {
 	name = "Crusade Slam",
 	hidden = true,
 	color = 1,
+	baseEffectiveness = 0,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -942,6 +949,7 @@ skills["DominatingBlowMinionCharge"] = {
 	name = "Shield Charge",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
@@ -979,6 +987,7 @@ skills["SummonedRhoaShieldCharge"] = {
 	name = "Shield Charge",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
@@ -1019,6 +1028,7 @@ skills["SummonedSnakeProjectile"] = {
 	name = "Chaos Projectile",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 1.8700000047684,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
@@ -1042,6 +1052,7 @@ skills["DropBearSummonedGroundSlam"] = {
 	name = "Ground Slam",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "The character slams the ground in front of them with a Staff, Mace or Sceptre, creating a wave that travels forward and damages enemies with an increased chance to stun.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {

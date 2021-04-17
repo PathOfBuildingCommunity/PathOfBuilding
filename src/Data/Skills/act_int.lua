@@ -448,6 +448,7 @@ skills["CataclysmSigil"] = {
 skills["AssassinsMark"] = {
 	name = "Assassin's Mark",
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Curses a single enemy, making them more vulnerable to Critical Strikes. Killing the cursed enemy will grant life and mana, and a power charge. You can only have one Mark at a time.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
@@ -2663,6 +2664,7 @@ skills["DivineTempest"] = {
 skills["ElementalWeakness"] = {
 	name = "Elemental Weakness",
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Curses all targets in an area, lowering their elemental resistances.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
@@ -2754,6 +2756,7 @@ skills["ElementalWeakness"] = {
 skills["Enfeeble"] = {
 	name = "Enfeeble",
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
@@ -5971,7 +5974,6 @@ skills["VaalLightningTrap"] = {
 skills["LightningWarp"] = {
 	name = "Lightning Warp",
 	color = 3,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.037799999117851,
 	description = "Waits for a duration before teleporting to a targeted destination, with the duration based on the distance and your movement speed. When the teleport occurs, lightning damage is dealt to the area around both where the player was and where they teleported to. Casting again will queue up multiple teleportations to occur in sequence.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.MovementSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, [SkillType.TravelSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, },
@@ -6056,7 +6058,6 @@ skills["LightningWarp"] = {
 skills["VaalLightningWarpInstant"] = {
 	name = "Vaal Lightning Warp",
 	color = 3,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Casts a delayed teleport for nearby enemies to a target destination. When the teleport occurs, lightning damage is dealt to the enemies both before and after they teleport.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, },
@@ -7149,6 +7150,7 @@ skills["MortarBarrageMine"] = {
 skills["RaiseSpectre"] = {
 	name = "Raise Spectre",
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Raises a spectral version of a defeated foe as a minion to fight for you in battle.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.Chaining] = true, [SkillType.Duration] = true, [SkillType.Totem] = true, [SkillType.Trap] = true, [SkillType.Mine] = true, [SkillType.DamageOverTime] = true, [SkillType.Channelled] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanVolley] = true, },
@@ -7241,6 +7243,7 @@ skills["RaiseSpectre"] = {
 skills["RaiseZombie"] = {
 	name = "Raise Zombie",
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee attack and an area of effect slam which cannot be evaded.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Area] = true, },
@@ -9664,6 +9667,7 @@ skills["SummonRagingSpirit"] = {
 skills["SummonSkeletons"] = {
 	name = "Summon Skeletons",
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Summon Skeleton Warrior minions at the targeted location. They use a melee attack and die after a duration. If made aggressive, Skeleton Warriors will also dash towards nearby enemies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MinionProjectile] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type66] = true, [SkillType.SkillCanVolley] = true, },
@@ -9754,6 +9758,7 @@ skills["SummonSkeletons"] = {
 skills["VaalSummonSkeletons"] = {
 	name = "Vaal Summon Skeletons",
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Summons an army of skeletal warriors, archers and mages, led by a powerful general.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanVolley] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Type66] = true, },

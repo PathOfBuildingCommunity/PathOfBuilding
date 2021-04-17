@@ -10,6 +10,7 @@ skills["Melee"] = {
 	name = "Default Attack",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Strike your foes down with a powerful blow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -35,6 +36,7 @@ skills["MeleeUseContactPoint"] = {
 	name = "Default Attack",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Strike your foes down with a powerful blow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -98,6 +100,7 @@ skills["GemDetonateMines"] = {
 skills["Portal"] = {
 	name = "Portal",
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Creates a portal to the current area's town.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Type27] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -134,6 +137,7 @@ skills["Portal"] = {
 skills["VaalBreach"] = {
 	name = "Vaal Breach",
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Type27] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1484,6 +1488,7 @@ skills["IcestormUniqueStaff12"] = {
 	name = "Icestorm",
 	hidden = true,
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Icy bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies and chilling them, as well as causing patches of chilled ground. Skill damage is based on Intelligence.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.ChillingArea] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -3276,6 +3281,7 @@ skills["BloodSacramentUnique"] = {
 	name = "Blood Sacrament",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 4.8000001907349,
 	description = "Channel this skill to reserve more and more of your life, building up power in a marker on the ground under you. Release to deal physical damage in an area based on how much life you reserved. Cannot be cast by Totems.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, [SkillType.ManaCostReserved] = true, [SkillType.PhysicalSkill] = true, [SkillType.NovaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -3301,10 +3307,11 @@ skills["BloodSacramentUnique"] = {
 			skill("radiusExtra", nil, { type = "PerStat", var = "LifeReservedPercent", div = 100 }, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "ModFlagOr", modFlags = bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "PerStat", stat = "LifeReserved", div = 10 }, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "PerStat", stat = "LifeReserved", div = 10 }, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
 	baseFlags = {
+		spell = true,
 	},
 	baseMods = {
 	},
