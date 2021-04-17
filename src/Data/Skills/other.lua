@@ -3287,31 +3287,31 @@ skills["BloodSacramentUnique"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.24,
 	fromItem = true,
-	parts = {
-		{
-			name = "Channelling",
-		},
-		{
-			name = "Release",
-			area = true,
-		},
-	},
+	preDamageFunc = function(activeSkill, output)
+		local lifeReservedPerc = activeSkill.skillData["LifeReservedPercent"] or 3
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or (lifeReservedPerc / 100) * output.Life
+		ConPrintf("Perc: " .. tostring(lifeReservedPerc))
+		ConPrintf("Flat: " .. tostring(lifeReserved))
+		mod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved)
+		mod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPerc)
+	end,
 	statMap = {
 		["spell_minimum_base_physical_damage"] = {
-			skill("PhysicalMin", nil, { type = "SkillPart", skillPart = 2 }),
+			skill("PhysicalMin", nil),
 		},
 		["spell_maximum_base_physical_damage"] = {
-			skill("PhysicalMax", nil, { type = "SkillPart", skillPart = 2 }),
+			skill("PhysicalMax", nil),
 		},
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
-			skill("radiusExtra", nil, { type = "PerStat", var = "LifeReservedPercent", div = 100 }, { type = "SkillPart", skillPart = 2 }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage", div = 100 }),
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "PerStat", stat = "LifeReserved", div = 10 }, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
 		},
 	},
 	baseFlags = {
 		spell = true,
+		area = true,
 	},
 	baseMods = {
 	},
