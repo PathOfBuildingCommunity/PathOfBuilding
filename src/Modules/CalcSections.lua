@@ -585,9 +585,13 @@ return {
 		{ breakdown = "AuraEffectMod" },
 		{ modName = "AuraEffect", cfg = "skill" },
 	}, },
-	{ label = "Reservation Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
+	{ label = "Mana Reserve Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
 		{ breakdown = "ManaReservedMod" },
-		{ modName = { "ManaReserved", "SupportManaMultiplier" }, cfg = "skill"}
+		{ modName = { "ManaReserved", "Reserved", "SupportManaMultiplier" }, cfg = "skill"}
+	}, },
+	{ label = "Life Reserve Mod", haveOutput = "LifeReservedMod", { format = "x {2:output:LifeReservedMod}",
+		{ breakdown = "LifeReservedMod" },
+		{ modName = { "LifeReserved", "Reserved", "SupportManaMultiplier" }, cfg = "skill"}
 	}, },
 	{ label = "Curse Effect Mod", haveOutput = "CurseEffectMod", { format = "x {2:output:CurseEffectMod}",
 		{ breakdown = "CurseEffectMod" },

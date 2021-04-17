@@ -707,9 +707,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
-		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
 		if breakdown then
-			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "SupportManaMultiplier")
+			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "Reserved", "SupportManaMultiplier")
+		end
+		output.LifeReservedMod = calcLib.mod(skillModList, skillCfg, "LifeReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		if breakdown then
+			breakdown.LifeReservedMod = breakdown.mod(skillModList, skillCfg, "LifeReserved", "Reserved", "SupportManaMultiplier")
 		end
 	end
 	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
