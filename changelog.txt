@@ -2,8 +2,8 @@ VERSION[2.2.1][2021/04/17]
 
 * Add support for Chainbreaker rage cost (PJacek)
 
-* Fix skill tags (LocalIdentity)
-* Fix Exsanguinate and Corrupting Fever stack damage (LocalIdentity)
+* Fix skill tags
+* Fix Exsanguinate and Corrupting Fever stack damage
 * Fix Blood Magic (PJacek)
 * Fix crash related to fake minion skill costs (PJacek)
 
