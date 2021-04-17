@@ -449,7 +449,7 @@ skills["AssassinsMark"] = {
 	name = "Assassin's Mark",
 	color = 3,
 	description = "Curses a single enemy, making them more vulnerable to Critical Strikes. Killing the cursed enemy will grant life and mana, and a power charge. You can only have one Mark at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -631,7 +631,7 @@ skills["DarkRitual"] = {
 	baseEffectiveness = 4.6849999427795,
 	incrementalEffectiveness = 0.047100000083447,
 	description = "Applies a debuff to enemies in an area, which deals chaos damage over Time. Linked hex curses are also applied to those enemies. The debuff deals more damage and lasts longer for each hex applied this way.  This skill cannot be used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.Triggerable] = true, [SkillType.Type59] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.Triggerable] = true, [SkillType.Type59] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	preDamageFunc = function(activeSkill, output)
@@ -729,7 +729,7 @@ skills["SupportDarkRitual"] = {
 	name = "Bane",
 	color = 3,
 	support = true,
-	requireSkillTypes = { SkillType.AppliesCurse, SkillType.SteelSkill, SkillType.AND, },
+	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.AuraDebuff, SkillType.TriggeredGrantedSkill, },
 	statDescriptionScope = "gem_stat_descriptions",
@@ -1660,7 +1660,7 @@ skills["Conductivity"] = {
 	name = "Conductivity",
 	color = 3,
 	description = "Curses all targets in an area, lowering their lightning resistance and giving them a chance to be shocked when hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2198,7 +2198,7 @@ skills["Despair"] = {
 	baseEffectiveness = 0.66670000553131,
 	incrementalEffectiveness = 0.016000000759959,
 	description = "Curses all targets in an area, lowering their chaos resistance and increasing damage over time they take. All hits will deal added chaos damage to the cursed enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.ChaosSkill] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.ChaosSkill] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2664,7 +2664,7 @@ skills["ElementalWeakness"] = {
 	name = "Elemental Weakness",
 	color = 3,
 	description = "Curses all targets in an area, lowering their elemental resistances.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2755,7 +2755,7 @@ skills["Enfeeble"] = {
 	name = "Enfeeble",
 	color = 3,
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3707,7 +3707,7 @@ skills["Flammability"] = {
 	name = "Flammability",
 	color = 3,
 	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3972,7 +3972,7 @@ skills["FrostBomb"] = {
 	baseEffectiveness = 3.1175999641418,
 	incrementalEffectiveness = 0.043299999088049,
 	description = "Creates a crystal that pulses with cold for a duration. Each pulse applies a debuff to nearby enemies for a secondary duration which reduces life and energy shield regeneration rate, and reduces energy shield recharge rate, and also inflicts Cold Exposure. When the crystal's duration ends, it explodes, dealing heavy cold damage to enemies around it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.Aegis] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -4235,7 +4235,7 @@ skills["Frostbite"] = {
 	name = "Frostbite",
 	color = 3,
 	description = "Curses all targets in an area, lowering their cold resistance and giving them a chance to be frozen when hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -4594,7 +4594,7 @@ skills["WaterSphere"] = {
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.046999998390675,
 	description = "Create a sphere of water, or move an existing sphere and reset its duration. The sphere continually applies a drenched debuff with a short duration to enemies in its area or those it moves through. You can hit the sphere with other skills to inflict Cold and Lightning Ailments (other than Chill). The sphere pulses when created, at regular intervals while afflicted by an Ailment, and after moving, damaging all drenched enemies in a large area.",
-	skillTypes = { [SkillType.Hit] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aegis] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Hit] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Orb] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
@@ -4715,7 +4715,7 @@ skills["DoomBlast"] = {
 	baseEffectiveness = 2.5945999622345,
 	incrementalEffectiveness = 0.036100000143051,
 	description = "Deals chaos damage to a single enemy, dealing more damage if they are Hexed, then removes the Hex with the highest Doom. If a Hex was removed this way, also deals area damage to other enemies around the target, boosting damage and removing Hexes from those enemies in the same way.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ChaosSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.SteelSkill] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ChaosSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Hex] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	statMap = {
@@ -6306,7 +6306,7 @@ skills["OrbOfStorms"] = {
 	baseEffectiveness = 0.82090002298355,
 	incrementalEffectiveness = 0.040699999779463,
 	description = "Creates a stationary electrical orb that frequently unleashes a splitting bolt of lightning at a nearby enemy. Modifiers to cast speed will increase how frequently it does this. Using a lightning skill while inside the orb's cloud unleashes additional bolts. Casting this skill again will replace the previous orb.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.Aegis] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
@@ -9841,7 +9841,7 @@ skills["BlackHole"] = {
 	baseEffectiveness = 0.50940001010895,
 	incrementalEffectiveness = 0.044799998402596,
 	description = "Creates a Void Sphere which Hinders enemies in an area around it, with the debuff being stronger on enemies closer to the sphere. It also regularly releases pulses of area damage. The Void Sphere will consume the corpses of any enemies which die in its area. Can only have one Void Sphere at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SkillCanTotem] = true, [SkillType.PhysicalSkill] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, [SkillType.Aegis] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SkillCanTotem] = true, [SkillType.PhysicalSkill] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	preDamageFunc = function(activeSkill, output)
@@ -10298,7 +10298,7 @@ skills["FrostFury"] = {
 	baseEffectiveness = 1.1656999588013,
 	incrementalEffectiveness = 0.031800001859665,
 	description = "Channel to conjure an orb above you, which pelts nearby enemies with projectiles that impact the ground and explode. Channelling for longer builds up stages on the skill. When you stop channelling, the stages decay over a duration.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.Aegis] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
 	parts = {

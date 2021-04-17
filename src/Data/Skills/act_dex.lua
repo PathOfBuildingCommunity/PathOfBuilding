@@ -1561,7 +1561,7 @@ skills["ImpactingSteelReload"] = {
 	hidden = true,
 	color = 1,
 	description = "Calls impale debuffs from enemies, alive or dead, in a large area around you to gain steel shards. Deals reflected damage in a smaller area around each such enemy based on the impales removed from them. Continues to grant shards over time until you reach maximum or spend them.",
-	skillTypes = { [SkillType.SecondWindSupport] = true, [SkillType.Area] = true, [SkillType.UsesSupportedTriggerSkill] = true, },
+	skillTypes = { [SkillType.SecondWindSupport] = true, [SkillType.Area] = true, [SkillType.SteelSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	cannotBeSupported = true,
@@ -4790,7 +4790,7 @@ skills["LancingSteel"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Thrust an Axe or Sword forward, consuming your Steel Shards to form a cluster of shards in front of you. The cluster will fire a number of projectiles in sequence, aiming at enemies in front of or close to it. Steel Shards are gained with the Call of Steel Skill.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.PhysicalSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.UsesSupportedTriggerSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.PhysicalSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SteelSkill] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -5468,7 +5468,7 @@ skills["CorrosiveShroud"] = {
 	baseEffectiveness = 31.920000076294,
 	incrementalEffectiveness = 0.10670000314713,
 	description = "Gain an Incubating buff, adding to its Plague Value as you inflict poisons. Use the skill again to begin Infecting, dealing chaos damage over time to nearby enemies until the Plague Value is depleted. Your damage modifiers don't apply to this skill's damage. Using the skill again alternates between Incubating and Infecting.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.Orb] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.Type112] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
@@ -5546,7 +5546,7 @@ skills["PoachersMark"] = {
 	baseEffectiveness = 0.43999999761581,
 	incrementalEffectiveness = 0.016000000759959,
 	description = "Curses a single enemy, lowering their physical damage reduction, and adding physical damage to all hits against them. Attacking the cursed enemy will grant life and mana, and killing them will grant a frenzy charge. You can only have one Mark at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -5732,7 +5732,7 @@ skills["SnipersMark"] = {
 	name = "Sniper's Mark",
 	color = 2,
 	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can gain charges for your life and mana flasks by hitting the cursed enemy. You can only have one Mark at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -6629,7 +6629,7 @@ skills["ShatteringSteel"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Swing an Axe or Sword, consuming Steel Shards to gain a Steel Ward that protects you for a duration, and fire projectiles which shatter on impact or soon after being launched, dealing area damage in front of where they shatter. Steel Shards are gained with the Call of Steel Skill.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.PhysicalSkill] = true, [SkillType.SkillCanVolley] = true, [SkillType.UsesSupportedTriggerSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.PhysicalSkill] = true, [SkillType.SkillCanVolley] = true, [SkillType.SteelSkill] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -7550,7 +7550,7 @@ skills["ImpactingSteel"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Consume a Steel Shard to fire a single projectile that splits on impact or at the targeted location, dealing area damage when it splits and again when the split projectiles explode at the end of their flight. Requires a Sword or Axe. Steel Shards are gained with the Call of Steel Skill.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.UsesSupportedTriggerSkill] = true, [SkillType.Area] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SteelSkill] = true, [SkillType.Area] = true, [SkillType.PhysicalSkill] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -7754,7 +7754,7 @@ skills["TemporalChains"] = {
 	name = "Temporal Chains",
 	color = 2,
 	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {

@@ -405,7 +405,7 @@ skills["AncestorTotemSlam"] = {
 	name = "Ancestral Warchief",
 	color = 1,
 	description = "Summons an Ancestor Totem which attacks enemies with a powerful slam while you're near it. Being near it grants you more melee damage.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Totem] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Totem] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1031,7 +1031,7 @@ skills["BloodSandStance"] = {
 	name = "Blood and Sand",
 	color = 1,
 	description = "Casts a buff that grants different bonuses to melee skills depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.StanceSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -1303,7 +1303,7 @@ skills["ConsecratedPath"] = {
 	name = "Consecrated Path",
 	color = 1,
 	description = "Slams the ground at a targeted location. If an enemy is near where you target, you'll teleport to it from a short distance away, slam, and create an area of consecrated ground. Can't be supported by Multistrike, and requires a Sword, Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Melee] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.FireSkill] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Melee] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.FireSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1934,7 +1934,7 @@ skills["Earthquake"] = {
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.CantUseFistOfWar] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -2053,7 +2053,7 @@ skills["VaalEarthquake"] = {
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. After using this skill, your steps will deal damage around you, cracking the earth if the previous cracks have erupted. This effect ends after a secondary duration, or after a maximum number of aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -2151,7 +2151,7 @@ skills["SpikeSlam"] = {
 	name = "Earthshatter",
 	color = 1,
 	description = "Slam the ground, sending out rectangular fissures that deal area damage to enemies and thrust a spike from the ground when they end. Warcries or other Slam Attacks performed by you or allied players near any spike will cause them to shatter, damaging surrounding enemies. Works with Maces, Sceptres, Axes, Staves and Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.CantUseFistOfWar] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -2437,7 +2437,7 @@ skills["BloodSandArmour"] = {
 	name = "Flesh and Stone",
 	color = 1,
 	description = "Casts an aura that affects you and nearby enemies differently depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.Maims] = true, [SkillType.Area] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.Maims] = true, [SkillType.Area] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.StanceSkill] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -2614,7 +2614,7 @@ skills["GeneralsCrySupport"] = {
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Melee, SkillType.Attack, SkillType.AND, },
-	addSkillTypes = { SkillType.StanceSkill, SkillType.CreatesMirageWarrior, },
+	addSkillTypes = { SkillType.CreatesMirageWarrior, SkillType.UsesSupportedTriggerSkill, },
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Spell, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -2861,7 +2861,7 @@ skills["GroundSlam"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Slams the ground in front of you, creating a wave that travels forward and damages enemies with an increased chance to stun. The wave deals more damage to closer enemies. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -2955,7 +2955,7 @@ skills["VaalGroundSlam"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Slams the ground in front of you, creating a wave that travels in all directions that damages and stuns enemies. The wave deals more damage to closer enemies. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Vaal] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Vaal] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -3419,7 +3419,7 @@ skills["IceCrash"] = {
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Slam the ground, damaging enemies in an area around the impact in three stages. Enemies take slightly less damage on the second and third stage. Works with Swords, Maces, Sceptres, Axes, Staves and Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.ColdSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.ColdSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -3915,7 +3915,7 @@ skills["LeapSlam"] = {
 	name = "Leap Slam",
 	color = 1,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -4343,7 +4343,7 @@ skills["BloodSpears"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Smash the ground to bring forth multiple spears to damage enemies. When in Blood Stance, multiple spikes burst from the ground in sequence, able to hit enemies multiple times. In Sand Stance, the spikes are thrust outwards. Requires a Sword or Axe. You are in Blood Stance by default.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -4614,7 +4614,7 @@ skills["Punishment"] = {
 	name = "Punishment",
 	color = 1,
 	description = "Curses all targets in an area, causing them to be debilitated when they hit enemies and increasing damage they take while on low life. Some overkill damage from a killing blow on a cursed enemy will be reflected to surrounding targets.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -6116,7 +6116,7 @@ skills["NewSunder"] = {
 	name = "Sunder",
 	color = 1,
 	description = "Slams the ground, creating a slow wave of churning terrain that damages enemies in a sequence of areas in front of you. A number of enemies hit by the wave will release a shockwave, damaging other enemies around them. Using the skill again will stop the previous wave. Requires a Mace, Sceptre, Axe, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -6327,7 +6327,7 @@ skills["EnduranceChargeSlam"] = {
 	name = "Tectonic Slam",
 	color = 1,
 	description = "Slam the ground, unleashing a fiery fissure in front of you, dealing area damage and randomly releasing a number of smaller fissures branching off from it. Consume an Endurance Charge every third time you slam the ground with this skill. Requires a Mace, Sceptre, Sword, Axe, Staff, or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.CantUseFistOfWar] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.SlamSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -6704,7 +6704,7 @@ skills["Vulnerability"] = {
 	name = "Vulnerability",
 	color = 1,
 	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SteelSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -6799,7 +6799,7 @@ skills["WarlordsMark"] = {
 	name = "Warlord's Mark",
 	color = 1,
 	description = "Curses a single enemy, giving a chance to double the duration of stuns on them. Attacking the cursed enemy will leech life and mana, stunning them will grant rage, and killing it will grant an endurance charge. You can only have one Mark at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
