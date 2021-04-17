@@ -240,16 +240,16 @@ SkillType = {
 	FiresArrowsAtTargetLocation = 100,
 	SecondWindSupport = 101,
 	Type97= 102,
-	CantUseFistOfWar = 103,
-	SlamSkill = 104,
-	StanceSkill = 105, -- Bload and Sand + Flesh and Stone
-	CreatesMirageWarrior = 106,
-	UsesSupportedTriggerSkill = 107,
-	SteelSkill = 108,
-	Hex = 109,
-	Mark = 110,
-	Aegis = 111,
-	Orb = 112,
+	SlamSkill = 103,
+	StanceSkill = 104,
+	CreatesMirageWarrior = 105, -- Bload and Sand + Flesh and Stone
+	UsesSupportedTriggerSkill = 106,
+	SteelSkill = 107,
+	Hex = 108,
+	Mark = 109,
+	Aegis = 110,
+	Orb = 111,
+	Type112 = 112,
 }
 
 GlobalCache = { 
