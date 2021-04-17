@@ -976,6 +976,14 @@ function calcs.offence(env, actor, activeSkill)
 				local base = skillModList:Sum("BASE", skillCfg, resource.."CostBase")
 				local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
 				local cost = base + (activeSkill.activeEffect.grantedEffectLevel.cost[resource] or 0)
+
+				-- example: Petrified Blood (% of base mana cost as extra base life cost)
+				for res, dummy in pairs(names) do
+					local extra = skillModList:Sum("BASE", skillCfg, "Base"..res.."CostAsExtraBase"..resource.."Cost") / 100
+					local extraBase = activeSkill.activeEffect.grantedEffectLevel.cost[res] or 0
+					extraBase = extraBase + skillModList:Sum("BASE", skillCfg, res.."CostBase") 
+					cost = cost + m_floor(extraBase * extra)
+				end
 				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
 					cost = m_max(cost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 				end
