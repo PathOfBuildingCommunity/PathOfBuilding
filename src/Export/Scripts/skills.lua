@@ -90,7 +90,6 @@ local skillTypes = {
 	"FiresArrowsAtTargetLocation",
 	"SecondWindSupport",
 	"Type97",
-	"CantUseFistOfWar",
 	"SlamSkill",
 	"StanceSkill",
 	"CreatesMirageWarrior",
@@ -100,6 +99,7 @@ local skillTypes = {
 	"Mark",
 	"Aegis",
 	"Orb",
+	"Type112",
 }
 
 local function mapAST(ast)
