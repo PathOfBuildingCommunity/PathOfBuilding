@@ -1960,6 +1960,7 @@ local specialModList = {
 	["(%d+)%% of physical damage from hits with this weapon is converted to a random element"] = function(num) return { mod("PhysicalDamageConvertToRandom", "BASE", num ) } end,
 	-- Crit
 	["your critical strike chance is lucky"] = { flag("CritChanceLucky") },
+	["your critical strike chance is lucky while on low life"] = { flag("CritChanceLucky", { type = "Condition", var = "LowLife" }) },
 	["your critical strike chance is lucky while focussed"] = { flag("CritChanceLucky", { type = "Condition", var = "Focused" }) },
 	["your critical strikes do not deal extra damage"] = { flag("NoCritMultiplier") },
 	["lightning damage with non%-critical strikes is lucky"] = { flag("LightningNoCritLucky") },
