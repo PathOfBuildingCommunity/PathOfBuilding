@@ -5,9 +5,7 @@ VERSION[2.2.1][2021/04/17]
 * Fix skill tags (LocalIdentity)
 * Fix Exsanguinate and Corrupting Fever stack damage (LocalIdentity)
 * Fix Blood Magic (PJacek)
-* Fix fake minion skill costs (PJacek)
-
-
+* Fix crash related to fake minion skill costs (PJacek)
 
 VERSION[2.2.0][2021/04/17]
 

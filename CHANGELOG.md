@@ -13,10 +13,7 @@
 - Fix skill tags [\#2580](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2580) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Exsanguinate and Corrupting Fever stack damage [\#2579](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2579) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Blood Magic [\#2577](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2577) ([PJacek](https://github.com/PJacek))
-- Fix fake minion skill costs [\#2574](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2574) ([PJacek](https://github.com/PJacek))
-
-
-
+- Fix crash related to fake minion skill costs [\#2574](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2574) ([PJacek](https://github.com/PJacek))
 
 ## [2.2.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.2.0) (2021/04/17)
 
