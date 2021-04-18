@@ -3289,7 +3289,7 @@ skills["BloodSacramentUnique"] = {
 	fromItem = true,
 	preDamageFunc = function(activeSkill, output)
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
-		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or (activeSkill.skillData.lifeReservedPerc / 100) * output.Life
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"]
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
 	end,
@@ -3301,10 +3301,10 @@ skills["BloodSacramentUnique"] = {
 			skill("PhysicalMax", nil),
 		},
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage", div = 100 }, { type = "Multiplier", var = "BloodSacramentStageAfterFirst" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage", div = 100 }, { type = "Multiplier", var = "BloodSacramentStage" }),
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "Multiplier", var = "BloodSacramentStageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "Multiplier", var = "BloodSacramentStage" }),
 		},
 	},
 	baseFlags = {
@@ -3312,7 +3312,7 @@ skills["BloodSacramentUnique"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BloodSacramentMaxStagesAfterFirst", "BASE", 32)
+		mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
 	},
 	qualityStats = {
 	},

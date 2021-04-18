@@ -1799,6 +1799,7 @@ local specialModList = {
 	["socketed gems fire an additional projectile"] = { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", 1) }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems fire (%d+) additional projectiles"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["socketed gems have no reservation"] = { mod("Reserved", "MORE", -100, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed skill gems get a (%d+)%% mana multiplier"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("SupportManaMultiplier", "MORE", num - 100) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed gems have blood magic"] = { flag("SkillBloodMagic", { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems have elemental equilibrium"] = { mod("Keystone", "LIST", "Elemental Equilibrium") },
