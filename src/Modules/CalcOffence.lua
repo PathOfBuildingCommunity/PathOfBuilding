@@ -979,6 +979,10 @@ function calcs.offence(env, actor, activeSkill)
 				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
 					cost = m_max(cost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 				end
+				if resource == "Mana" and skillModList:Flag(skillCfg, "BloodMagicCost") then
+					skillModList:NewMod("LifeCostBase", "BASE", cost, "Blood Magic")
+					cost = 0
+				end
 				output[resource.."Cost"] = m_floor(cost * mult)
 				output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
 				output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
