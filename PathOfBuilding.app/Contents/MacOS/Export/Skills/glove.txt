@@ -1,0 +1,342 @@
+-- Path of Building
+--
+-- Glove enchantment skills
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill EnchantmentOfBladesOnHit
+#flags spell projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfBladesOnHit2
+#flags spell projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfBladesOnHit3
+#flags spell projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfBladesOnHit4
+#flags spell projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFlamesOnHit
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFlamesOnHit2
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFlamesOnHit3
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFlamesOnHit4
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfForceOnHit
+#flags attack area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfForceOnHit2
+#flags attack area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfForceOnHit3
+#flags attack area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfForceOnHit4
+#flags attack area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFrostOnKill
+#flags spell projectile 
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFrostOnKill2
+#flags spell projectile 
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFrostOnKill3
+#flags spell projectile 
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFrostOnKill4
+#flags spell projectile 
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFuryOnHit
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFuryOnHit2
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFuryOnHit3
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfFuryOnHit4
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfInfernoOnKill
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfInfernoOnKill2
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfInfernoOnKill3
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfInfernoOnKill4
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfIreWhenHit
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfIreWhenHit2
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfIreWhenHit3
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfIreWhenHit4
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfLightWhenCrit
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfLightWhenCrit2
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfLightWhenCrit3
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfLightWhenCrit4
+#flags attack area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfReflectionWhenHit
+#flags spell minion duration
+	minionList = {
+		"Clone",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfReflectionWhenHit2
+#flags spell minion duration
+	minionList = {
+		"Clone",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfReflectionWhenHit3
+#flags spell minion duration
+	minionList = {
+		"Clone",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfReflectionWhenHit4
+#flags spell minion duration
+	minionList = {
+		"Clone",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfSpiteWhenHit
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfSpiteWhenHit2
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfSpiteWhenHit3
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfSpiteWhenHit4
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTempestOnHit
+#flags spell area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTempestOnHit2
+#flags spell area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTempestOnHit3
+#flags spell area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTempestOnHit4
+#flags spell area duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTheGraveOnKill
+#flags spell minion duration
+	minionList = {
+		"IcyRagingSpirit",
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTheGraveOnKill2
+#flags spell minion duration
+	minionList = {
+		"IcyRagingSpirit",
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTheGraveOnKill3
+#flags spell minion duration
+	minionList = {
+		"IcyRagingSpirit",
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfTheGraveOnKill4
+#flags spell minion duration
+	minionList = {
+		"IcyRagingSpirit",
+	},
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfThunderOnKill
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfThunderOnKill2
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfThunderOnKill3
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfThunderOnKill4
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWarOnKill
+#flags attack duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWarOnKill2
+#flags attack duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWarOnKill3
+#flags attack duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWarOnKill4
+#flags attack duration
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWinterWhenHit
+#flags spell projectile area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWinterWhenHit2
+#flags spell projectile area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWinterWhenHit3
+#flags spell projectile area
+	fromItem = true,
+#mods
+
+#skill EnchantmentOfWinterWhenHit4
+#flags spell projectile area
+	fromItem = true,
+#mods

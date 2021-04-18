@@ -1,0 +1,21 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Flask
+#subType Life
+#baseTags flask life_flask
+#baseMatch Metadata/Items/Flasks/FlaskLife
+
+#subType Mana
+#baseTags flask mana_flask
+#baseMatch Metadata/Items/Flasks/FlaskMana
+
+#subType Hybrid
+#baseTags flask hybrid_flask
+#baseMatch Metadata/Items/Flasks/FlaskHybrid
+
+#subType Utility
+#baseTags flask utility_flask
+#baseMatch Metadata/Items/Flasks/FlaskUtility
+#baseTags flask utility_flask critical_utility_flask
+#base Metadata/Items/Flasks/FlaskUtility1
