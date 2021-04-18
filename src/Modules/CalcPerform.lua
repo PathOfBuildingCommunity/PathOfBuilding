@@ -2373,6 +2373,15 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoMessage = triggerName .. "'s Triggering Skill: " .. source.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = triggerName
 		end
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Storm of Judgement" then
+			env.player.mainSkill.skillData.triggered = true
+			env.player.mainSkill.skillData.triggerRate = 2.0
+			env.player.mainSkill.skillData.triggerSource = nil
+		elseif env.player.mainSkill.activeEffect.grantedEffect.name == "Flames of Judgement" then
+			env.player.mainSkill.skillData.triggered = true
+			env.player.mainSkill.skillData.triggerRate = 2.0
+			env.player.mainSkill.skillData.triggerSource = nil
+		end
 	end
 
 	-- Cast On Critical Strike Support (CoC)
