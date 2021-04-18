@@ -2657,7 +2657,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[25] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[25] = { 30000, 10, 20, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
@@ -3294,12 +3294,6 @@ skills["BloodSacramentUnique"] = {
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
 	end,
 	statMap = {
-		["spell_minimum_base_physical_damage"] = {
-			skill("PhysicalMin", nil),
-		},
-		["spell_maximum_base_physical_damage"] = {
-			skill("PhysicalMax", nil),
-		},
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage", div = 100 }, { type = "Multiplier", var = "BloodSacramentStage" }),
 		},
@@ -3312,7 +3306,8 @@ skills["BloodSacramentUnique"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
+		skill("radius", 13),
+		mod("Multiplier:BloodSacramentMaxStages", "BASE", 33),
 	},
 	qualityStats = {
 	},

@@ -805,8 +805,8 @@ local skills, mod, flag, skill = ...
 
 #skill BloodSacramentUnique
 #baseMod skill("radius", 13)
-#baseMod mod("Multiplier:BloodSacramentMaxStagesAfterFirst", "BASE", 33)
-#flags spell, area
+#baseMod mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
+#flags spell area
 	fromItem = true,
 	preDamageFunc = function(activeSkill, output)
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
@@ -815,12 +815,6 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
 	end,
 	statMap = {
-		["spell_minimum_base_physical_damage"] = {
-			skill("PhysicalMin", nil),
-		},
-		["spell_maximum_base_physical_damage"] = {
-			skill("PhysicalMax", nil),
-		},
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage", div = 100 }, { type = "Multiplier", var = "BloodSacramentStage" }),
 		},
