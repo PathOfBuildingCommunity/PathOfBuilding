@@ -215,6 +215,7 @@ Socketed Gems are Supported by Level 10 Spell Echo
 Relic of the Pact
 Spiraled Wand
 Requires Level 24, 83 Int
+Implicits: 1
 (15-19)% increased Spell Damage
 Grants Level 1 Blood Sacrament Skill
 Your Critical Strike Chance is Lucky while on Low Life

@@ -629,6 +629,17 @@ Requires Level 68, 159 Int
 {variant:3}2% increased Critical Strike Chance for Spells per 100 Maximum Life
 {variant:3}2% increased Spell Damage per 100 Maximum Life
 ]],[[
+The Scales of Justice
+Chiming Spirit Shield
+Requires Level 49, 118 Int
+Implicits: 1
+(10-15)% increased Spell Damage
+Has no Energy Shield
++(40-70) to maximum Life
++(40-70) to maximum Mana
+(3-4) to (7-8) added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower
+Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
+]],[[
 Sentari's Answer
 Brass Spirit Shield
 Variant: Pre 3.4.0

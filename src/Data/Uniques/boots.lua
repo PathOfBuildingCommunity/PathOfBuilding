@@ -289,6 +289,7 @@ Enemies Cannot Leech Life From You
 ]],[[
 Temptation Step
 Shagreen Boots
+Requires Level 55, 97 Dex
 (170-250)% increased Evasion Rating
 +(19-29)% to Chaos Resistance
 15% increased Damage for each Poison on you up to a maximum of 75%

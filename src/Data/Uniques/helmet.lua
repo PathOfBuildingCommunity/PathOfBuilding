@@ -1037,6 +1037,17 @@ Requires Level: 62, 79 Dex, 72 Int
 1% increased Elemental Damage per 10 Dexterity
 +2 to Maximum Life per 10 Intelligence
 ]],[[
+Glimpse of Chaos
+Vaal Mask
+Requires Level 62, 79 Dex, 72 Int
+Implicits: 1
+Can be modified while Corrupted
+(30-40)% increased maximum Life and reduced Fire Resistance
+(30-40)% increased maximum Mana and reduced Cold Resistance
+(30-40)% increased Global maximum Energy Shield and reduced Lightning Resistance
+Chaos Resistance is Zero
+Corrupted
+]],[[
 Gorgon's Gaze
 Regicide Mask
 Requires Level 52, 58 Dex, 58 Int

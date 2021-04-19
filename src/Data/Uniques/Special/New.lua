@@ -16,46 +16,12 @@ Everlasting Sacrifice
 Immortal Ambition
 Vaal Pact
 ]],[[
-Glimpse of Chaos
-Vaal Mask
-Requires Level 62, 79 Dex, 72 Int
+Triumvirate Authority
+Unset Ring
+Requires Level 64
 Implicits: 1
-Nearby Enemies are Crushed
-Can be modified while Corrupted
-32% increased maximum Life and reduced Fire Resistance
-32% increased maximum Mana and reduced Cold Resistance
-31% increased Global maximum Energy Shield and reduced Lightning Resistance
-Chaos Resistance is Zero
-Corrupted
-]],[[
-Atziri's Rule
-Judgement Staff
-Requires Level 68, 113 Str, 113 Int
-Implicits: 1
-+20% Chance to Block Spell Damage while wielding a Staff
-Grants Level 20 Queen's Demand Skill
-Queen's Demand can Trigger Level 20 Flames of Judgement
-Queen's Demand can Trigger Level 20 Storm of Judgement
-Cannot be Stunned
-Damage cannot be Reflected
-]],[[
-Cane of Kulemak
-Serpentine Staff
-Requires Level 68, 85 Str, 85 Int
-Implicits: 1
-+20% Chance to Block Attack Damage while wielding a Staff
-61% increased Unveiled Modifier magnitudes
-]],[[
-The Scales of Justice
-Chiming Spirit Shield
-Requires Level 49, 118 Int
-Implicits: 1
-13% increased Spell Damage
-Has no Energy Shield
-+54 to maximum Life
-+46 to maximum Mana
-3 to 7 added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower
-Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
+Has 1 Socket
++2 to Level of Socketed Vaal Gems
 ]],
 -- Reworked
 [[
