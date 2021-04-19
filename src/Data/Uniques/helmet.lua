@@ -1041,6 +1041,10 @@ Glimpse of Chaos
 Vaal Mask
 Requires Level 62, 79 Dex, 72 Int
 Implicits: 1
+Variant: 1
+Variant: 2
+{variant:1}(15-25)% increased Area of Effect
+{variant:2}Nearby Enemies are Blinded
 Can be modified while Corrupted
 (30-40)% increased maximum Life and reduced Fire Resistance
 (30-40)% increased maximum Mana and reduced Cold Resistance

@@ -289,6 +289,7 @@ Enemies Cannot Leech Life From You
 ]],[[
 Temptation Step
 Shagreen Boots
+League: Ultimatum
 Requires Level 55, 97 Dex
 (170-250)% increased Evasion Rating
 +(19-29)% to Chaos Resistance

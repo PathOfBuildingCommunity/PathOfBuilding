@@ -810,6 +810,17 @@ Socketed Gems have 25% reduced Mana Reservation
 +(20-30) to Dexterity
 +25% to all Elemental Resistances
 ]],[[
+Mahuxotl's Machination
+Steel Kite Shield
+League: Ultimatum
+Requires Level 46, 60 Str, 60 Int
+Corrupted Soul
+Divine Flesh
+Eternal Youth
+Everlasting Sacrifice
+Immortal Ambition
+Vaal Pact
+]],[[
 Rise of the Phoenix
 Mosaic Kite Shield
 Variant: Pre 1.1.0

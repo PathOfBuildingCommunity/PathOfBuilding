@@ -551,6 +551,7 @@ Implicits: 2
 ]],[[
 Yaomac's Accord
 Vaal Sceptre
+League: Ultimatum
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 32% increased Elemental Damage

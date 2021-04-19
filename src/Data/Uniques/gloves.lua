@@ -60,6 +60,7 @@ Requires Level 63, 100 Str
 ]],[[
 Hateforge
 Ancient Gauntlets
+League: Ultimatum
 Requires Level 47, 68 Str
 Socketed Gems are Supported by Level 30 Rage
 (120-150)% increased Armour

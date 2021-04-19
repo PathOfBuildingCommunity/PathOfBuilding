@@ -6,16 +6,6 @@ data.uniques.new = {
 
 -- New
 [[
-Mahuxotl's Machination
-Steel Kite Shield
-Requires Level 46, 60 Str, 60 Int
-Corrupted Soul
-Divine Flesh
-Eternal Youth
-Everlasting Sacrifice
-Immortal Ambition
-Vaal Pact
-]],[[
 Triumvirate Authority
 Unset Ring
 Requires Level 64
