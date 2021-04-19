@@ -805,8 +805,8 @@ local skills, mod, flag, skill = ...
 
 #skill BloodSacramentUnique
 #baseMod skill("radius", 5)
-#baseMod mod("Multiplier:BloodSacramentMaxStagesAfterFirst", "BASE", 33)
-#flags spell, area
+#baseMod mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
+#flags spell area
 	fromItem = true,
 	preDamageFunc = function(activeSkill, output)
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
