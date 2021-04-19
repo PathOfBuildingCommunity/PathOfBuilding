@@ -294,8 +294,7 @@ Requires Level 55, 97 Dex
 +(19-29)% to Chaos Resistance
 15% increased Damage for each Poison on you up to a maximum of 75%
 10% increased Movement Speed for each Poison on you up to a maximum of 50%
-Poison you inflict with Travel Skills is Reflected to you if you
-have fewer than 5 Poisons on you
+Poison you inflict with Travel Skills is Reflected to you if you have fewer than 5 Poisons on you
 ]],[[
 Three-step Assault
 Shagreen Boots
