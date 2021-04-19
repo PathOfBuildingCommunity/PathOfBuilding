@@ -1039,6 +1039,7 @@ Requires Level: 62, 79 Dex, 72 Int
 ]],[[
 Glimpse of Chaos
 Vaal Mask
+League: Ultimatum
 Requires Level 62, 79 Dex, 72 Int
 Implicits: 1
 Variant: 1
