@@ -39,13 +39,6 @@ Queen's Demand can Trigger Level 20 Storm of Judgement
 Cannot be Stunned
 Damage cannot be Reflected
 ]],[[
-Tecrod's Gaze
-Murderous Eye Jewel
-Requires Level 40
-+10 to Strength
-20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
-+10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
-]],[[
 Cane of Kulemak
 Serpentine Staff
 Requires Level 68, 85 Str, 85 Int
@@ -63,12 +56,6 @@ Has no Energy Shield
 +46 to maximum Mana
 3 to 7 added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower
 Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
-]],[[
-Ulaman's Gaze
-Searching Eye Jewel
-Requires Level 40
-+14 to Dexterity
-Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%
 ]],
 -- Reworked
 [[
