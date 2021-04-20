@@ -94,6 +94,13 @@ itemBases["Marble Amulet"] = {
 	implicitModTypes = { { "resource", "life" }, },
 	req = { level = 74, },
 }
+itemBases["Seaglass Amulet"] = {
+	type = "Amulet",
+	tags = { not_for_sale = true, atlas_base_type = true, amuletatlas3 = true, amulet = true, default = true, },
+	implicit = "(10-15)% faster start of Energy Shield Recharge",
+	implicitModTypes = { { "energy_shield", "defences" }, },
+	req = { level = 74, },
+}
 itemBases["Astrolabe Amulet"] = {
 	type = "Amulet",
 	tags = { not_for_sale = true, default = true, amulet = true, },

@@ -105,3 +105,10 @@ itemBases["Ornate Quiver"] = {
 	implicitModTypes = { {  }, },
 	req = { level = 45, },
 }
+itemBases["Artillery Quiver"] = {
+	type = "Quiver",
+	tags = { not_for_sale = true, atlas_base_type = true, quiveratlas1 = true, quiver = true, default = true, },
+	implicit = "(20-30)% increased Totem Placement speed",
+	implicitModTypes = { { "speed" }, },
+	req = { level = 74, },
+}
