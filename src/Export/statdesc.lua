@@ -267,5 +267,5 @@ function describeMod(mod)
 	end
 	local out, orders = describeStats(stats)
 	out.modTags = describeModTags(mod.ImplicitTags)
-	return out, ordres
+	return out, orders
 end
