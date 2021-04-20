@@ -806,3 +806,7 @@ local skills, mod, flag, skill = ...
 #skill BloodSacramentUnique
 	fromItem = true,
 #mods
+
+#skill SupportBloodMagicUniquePrismGuardian Blood Magic
+	fromItem = true,
+#mods

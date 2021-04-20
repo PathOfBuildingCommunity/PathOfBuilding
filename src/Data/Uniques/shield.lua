@@ -794,8 +794,8 @@ Implicits: 2
 {variant:2,3}+12% to all Elemental Resistances
 {variant:1,2}+1 to Level of Aura Gems in this item
 {variant:3}+2 to Level of Socketed Aura Gems
-Socketed Gems have Blood Magic
-Socketed Gems have 25% reduced Mana Reservation
+Socketed Gems Cost and Reserve Life instead of Mana
+Socketed Gems have 25% reduced Reservation
 +(20-30) to Dexterity
 +25% to all Elemental Resistances
 ]],[[
