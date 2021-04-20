@@ -869,6 +869,7 @@ function ImportTabClass:OpenPastebinImportPopup()
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
 		controls.edit.buf = controls.edit.buf:gsub("^%s+", ""):gsub("%s+$", "") -- Quick Trim
+		controls.edit.buf = controls.edit.buf:gsub("%?$", "") -- Strip spurious empty query parameter
 		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)%s*$","pastebin.com/raw/%1"), function(page, errMsg)
 			if errMsg then
 				controls.msg.label = "^1"..errMsg
