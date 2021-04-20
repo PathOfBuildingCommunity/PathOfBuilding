@@ -12,10 +12,7 @@ local itemBases = ...
 #base Metadata/Items/Rings/RingE1
 #base Metadata/Items/Rings/RingE2
 #forceShow false
-#base Metadata/Items/Rings/RingAtlas1
-#base Metadata/Items/Rings/RingAtlas2
-#base Metadata/Items/Rings/RingAtlas3
-#base Metadata/Items/Rings/RingAtlas4
+#baseMatch Metadata/Items/Rings/RingAtlas%d+
 
 #base Metadata/Items/Rings/BreachRing
 #base Metadata/Items/Rings/RingDemigods1

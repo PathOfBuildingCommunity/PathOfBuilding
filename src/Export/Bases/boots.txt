@@ -33,6 +33,7 @@ local itemBases = ...
 #baseMatch Metadata/Items/Armours/Boots/BootsDexInt%d+
 #forceShow true
 #base Metadata/Items/Armours/Boots/BootsAtlas1 Two-Toned Boots (Evasion/Energy Shield)
+#base Metadata/Items/Armours/Boots/BootsAtlas4
 #forceShow false
 
 #subType
