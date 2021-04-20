@@ -186,6 +186,8 @@ return {
 			width=80
 		}
 	},
+	Acts={
+	},
 	AddBuffToTargetVarieties={
 	},
 	AdditionalLifeScaling={
@@ -675,9 +677,15 @@ return {
 	},
 	AtlasQuadrant={
 	},
+	AtlasRegionUpgradeRegions={
+	},
+	AtlasRegionUpgradesInventoryLayout={
+	},
 	AtlasRegions={
 	},
 	AtlasSector={
+	},
+	AtlasSkillGraphs={
 	},
 	Attributes={
 	},
@@ -910,6 +918,8 @@ return {
 	Bloodlines={
 	},
 	BreachBossLifeScalingPerLevel={
+	},
+	BreachElement={
 	},
 	BreachstoneUpgrades={
 	},
@@ -1147,7 +1157,13 @@ return {
 	},
 	BuffStackUIModes={
 	},
+	BuffTemplates={
+	},
+	BuffVisualOrbArt={
+	},
 	BuffVisualOrbTypes={
+	},
+	BuffVisualOrbs={
 	},
 	BuffVisualSetEntries={
 	},
@@ -1260,6 +1276,8 @@ return {
 			type="String",
 			width=230
 		}
+	},
+	ChatIcons={
 	},
 	ChestClusters={
 	},
@@ -1676,7 +1694,11 @@ return {
 	},
 	CustomLeagueMods={
 	},
+	DaemonSpawningData={
+	},
 	DamageHitEffects={
+	},
+	DamageHitTypes={
 	},
 	DamageParticleEffectTypes={
 	},
@@ -1830,6 +1852,8 @@ return {
 	},
 	DelveResourcePerLevel={
 	},
+	DelveRewardTierConstants={
+	},
 	DelveRooms={
 	},
 	DelveStashTabLayout={
@@ -1843,6 +1867,8 @@ return {
 	DescentRewardChests={
 	},
 	DescentStarterChest={
+	},
+	DialogueEvent={
 	},
 	Directions={
 	},
@@ -2521,9 +2547,13 @@ return {
 	},
 	GeometryAttack={
 	},
+	GeometryChannel={
+	},
 	GeometryProjectiles={
 	},
 	GeometryTrigger={
+	},
+	GiftWrapArtVariations={
 	},
 	GlobalAudioConfig={
 	},
@@ -3147,6 +3177,8 @@ return {
 			width=150
 		}
 	},
+	GroundEffectEffectTypes={
+	},
 	GroundEffectTypes={
 	},
 	GroundEffects={
@@ -3183,11 +3215,79 @@ return {
 	},
 	HarvestSeedTypes={
 	},
+	HarvestSeeds={
+	},
 	HarvestSpecialCraftCosts={
 	},
 	HarvestSpecialCraftOptions={
 	},
 	HarvestStorageLayout={
+	},
+	HeistAreaFormationLayout={
+	},
+	HeistAreas={
+	},
+	HeistBalancePerLevel={
+	},
+	HeistBlueprintWindowTypes={
+	},
+	HeistChestRewardTypes={
+	},
+	HeistChestTypes={
+	},
+	HeistChests={
+	},
+	HeistChokepointFormation={
+	},
+	HeistConstants={
+	},
+	HeistContracts={
+	},
+	HeistDoodadNPCs={
+	},
+	HeistDoors={
+	},
+	HeistEquipment={
+	},
+	HeistFormationMarkerType={
+	},
+	HeistGeneration={
+	},
+	HeistIntroAreas={
+	},
+	HeistJobs={
+	},
+	HeistJobsExperiencePerLevel={
+	},
+	HeistLockType={
+	},
+	HeistNPCAuras={
+	},
+	HeistNPCBlueprintTypes={
+	},
+	HeistNPCDialogue={
+	},
+	HeistNPCStats={
+	},
+	HeistNPCs={
+	},
+	HeistObjectiveValueDescriptions={
+	},
+	HeistObjectives={
+	},
+	HeistPatrolPacks={
+	},
+	HeistQuestContracts={
+	},
+	HeistRevealingNPCs={
+	},
+	HeistRoomTypes={
+	},
+	HeistRooms={
+	},
+	HeistStorageLayout={
+	},
+	HeistValueScaling={
 	},
 	HideoutDoodads={
 	},
@@ -3230,6 +3330,10 @@ return {
 	},
 	InfluenceExalts={
 	},
+	InfluenceModUpgrades={
+	},
+	InfluenceTags={
+	},
 	InfluenceTypes={
 	},
 	InvasionMonsterGroups={
@@ -3264,6 +3368,8 @@ return {
 			width=150
 		}
 	},
+	ItemCostPerLevel={
+	},
 	ItemCreationTemplateCustomAction={
 	},
 	ItemExperiencePerLevel={
@@ -3289,9 +3395,13 @@ return {
 			width=150
 		}
 	},
+	ItemNoteCode={
+	},
 	ItemSetNames={
 	},
 	ItemShopType={
+	},
+	ItemStances={
 	},
 	ItemSynthesisCorruptedMods={
 		[1]={
@@ -3441,6 +3551,8 @@ return {
 	},
 	LevelRelativePlayerScaling={
 	},
+	MTXSetBonus={
+	},
 	MagicMonsterLifeScalingPerLevel={
 	},
 	MapCompletionAchievements={
@@ -3483,6 +3595,10 @@ return {
 	},
 	MasterHideoutLevels={
 	},
+	MavenDialog={
+	},
+	MavenFights={
+	},
 	Melee={
 	},
 	MeleeTrails={
@@ -3511,7 +3627,11 @@ return {
 	},
 	MicrotransactionCombineForumula={
 	},
+	MicrotransactionCursorVariations={
+	},
 	MicrotransactionFireworksVariations={
+	},
+	MicrotransactionGemCategory={
 	},
 	MicrotransactionPeriodicCharacterEffectVariations={
 	},
@@ -3528,6 +3648,8 @@ return {
 	MicrotransactionSlotId={
 	},
 	MicrotransactionSocialFrameVariations={
+	},
+	MiniQuestStates={
 	},
 	MinimapIcons={
 	},
@@ -3551,6 +3673,8 @@ return {
 	},
 	ModDomains={
 	},
+	ModEffectStats={
+	},
 	ModEquivalencies={
 	},
 	ModFamily={
@@ -3572,17 +3696,17 @@ return {
 			width=400
 		},
 		[2]={
-			list=true,
+			list=false,
 			name="",
 			refTo="",
-			type="Key",
-			width=90
+			type="UInt",
+			width=190
 		},
 		[3]={
-			list=true,
+			list=false,
 			name="Tags",
 			refTo="Tags",
-			type="Key",
+			type="UInt",
 			width=130
 		}
 	},
@@ -3880,6 +4004,153 @@ return {
 			refTo="ItemClasses",
 			type="Key",
 			width=200
+		},
+		[43]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[44]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[45]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[46]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[47]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[48]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[49]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[50]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[51]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[52]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[53]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[54]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[55]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[56]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[57]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[58]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[59]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[60]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[61]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[62]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[63]={
+			list=true,
+			name="ImplicitTags",
+			refTo="Tags",
+			type="Key",
+			width=150
 		}
 	},
 	MonsterAdditionalMonsterDrops={
@@ -3891,6 +4162,8 @@ return {
 	MonsterBonuses={
 	},
 	MonsterChanceToDropItemTemplate={
+	},
+	MonsterConditionalEffectPacks={
 	},
 	MonsterConditions={
 	},
@@ -3923,6 +4196,8 @@ return {
 	MonsterProjectileAttack={
 	},
 	MonsterProjectileSpell={
+	},
+	MonsterPushTypes={
 	},
 	MonsterResistances={
 		[1]={
@@ -4705,11 +4980,17 @@ return {
 	},
 	NPCAudio={
 	},
+	NPCConversations={
+	},
+	NPCDialogueStyles={
+	},
 	NPCFollowerVariations={
 	},
 	NPCMaster={
 	},
 	NPCMasterLevels={
+	},
+	NPCPortraits={
 	},
 	NPCShop={
 	},
@@ -4722,6 +5003,8 @@ return {
 	NPCTalkConsoleQuickActions={
 	},
 	NPCTextAudio={
+	},
+	NPCTextAudioInterruptRules={
 	},
 	NPCs={
 		[1]={
@@ -4747,6 +5030,8 @@ return {
 	PCBangRewardMicros={
 	},
 	PVPTypes={
+	},
+	PackFormation={
 	},
 	PantheonPanelLayout={
 		[1]={
@@ -4973,6 +5258,8 @@ return {
 	PassiveSkillStatCategories={
 	},
 	PassiveSkillTreeTutorial={
+	},
+	PassiveSkillTypes={
 	},
 	PassiveSkills={
 		[1]={
@@ -5326,6 +5613,8 @@ return {
 	},
 	PreloadPriorities={
 	},
+	ProjectileCollisionTypes={
+	},
 	ProjectileVariations={
 	},
 	Projectiles={
@@ -5346,6 +5635,8 @@ return {
 	},
 	QuestFlags={
 	},
+	QuestItems={
+	},
 	QuestRewardOffers={
 	},
 	QuestRewardType={
@@ -5359,6 +5650,8 @@ return {
 	QuestStates={
 	},
 	QuestStaticRewards={
+	},
+	QuestTrackerGroup={
 	},
 	QuestType={
 	},
@@ -5383,6 +5676,16 @@ return {
 	RecipeUnlockObjects={
 	},
 	RelativeImportanceConstants={
+	},
+	RitualBalancePerLevel={
+	},
+	RitualConstants={
+	},
+	RitualRuneTypes={
+	},
+	RitualSetKillAchievements={
+	},
+	RitualSpawnPatterns={
 	},
 	RogueExiles={
 	},
@@ -5555,6 +5858,10 @@ return {
 	},
 	SkillMorphDisplay={
 	},
+	SkillMorphDisplayOverlayCondition={
+	},
+	SkillMorphDisplayOverlayStyle={
+	},
 	SkillSurgeEffects={
 	},
 	SkillTotemVariations={
@@ -5627,6 +5934,8 @@ return {
 	StartingPassiveSkills={
 	},
 	StashId={
+	},
+	StashTabAffinities={
 	},
 	StashType={
 	},
@@ -5779,6 +6088,8 @@ return {
 	},
 	SurgeCategory={
 	},
+	SurgeEffects={
+	},
 	SurgeTypes={
 	},
 	Synthesis={
@@ -5832,6 +6143,12 @@ return {
 	},
 	Talismans={
 	},
+	TalkingPetAudioEvents={
+	},
+	TalkingPetNPCAudio={
+	},
+	TalkingPets={
+	},
 	TencentAutoLootPetCurrencies={
 	},
 	TencentAutoLootPetCurrenciesExcludable={
@@ -5856,6 +6173,18 @@ return {
 	},
 	UITalkText={
 	},
+	UltimatumEncounterTypes={
+	},
+	UltimatumEncounters={
+	},
+	UltimatumItemisedRewards={
+	},
+	UltimatumModifierTypes={
+	},
+	UltimatumModifiers={
+	},
+	UltimatumTrialMasterAudio={
+	},
 	UniqueChests={
 	},
 	UniqueFragments={
@@ -5871,6 +6200,8 @@ return {
 	UniqueStashLayout={
 	},
 	UniqueStashTypes={
+	},
+	VirtualStatContextFlags={
 	},
 	VoteState={
 	},
@@ -5959,11 +6290,15 @@ return {
 			width=50
 		}
 	},
+	WindowCursors={
+	},
 	Wordlists={
 	},
 	Words={
 	},
 	WorldAreas={
+	},
+	WorldPopupIconTypes={
 	},
 	ZanaLevels={
 	},

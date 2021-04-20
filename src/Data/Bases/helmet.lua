@@ -679,7 +679,7 @@ itemBases["Blizzard Crown"] = {
 itemBases["Golden Wreath"] = {
 	type = "Helmet",
 	socketLimit = 4,
-	tags = { helmet = true, armour = true, not_for_sale = true, default = true, },
+	tags = { not_for_sale = true, helmet = true, armour = true, demigods = true, default = true, },
 	implicit = "+(16-24) to all Attributes",
 	implicitModTypes = { { "attribute" }, },
 	armour = { },
