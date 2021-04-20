@@ -31,6 +31,7 @@ local itemBases = ...
 
 #subType Evasion/Energy Shield
 #baseMatch Metadata/Items/Armours/Boots/BootsDexInt%d+
+#base Metadata/Items/Armours/Boots/BootsAtlas4
 #forceShow true
 #base Metadata/Items/Armours/Boots/BootsAtlas1 Two-Toned Boots (Evasion/Energy Shield)
 #forceShow false

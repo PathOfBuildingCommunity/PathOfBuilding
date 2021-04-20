@@ -514,6 +514,16 @@ itemBases["Crusader Gloves"] = {
 	armour = { ArmourBase = 121, EnergyShieldBase = 24, },
 	req = { level = 66, str = 51, int = 51, },
 }
+itemBases["Apothecary's Gloves"] = {
+	type = "Gloves",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { gloves = true, str_int_armour = true, not_for_sale = true, atlas_base_type = true, armour = true, glovesatlasstrint = true, default = true, },
+	implicit = "(14-18)% increased Damage over Time",
+	implicitModTypes = { { "damage" }, },
+	armour = { ArmourBase = 108, EnergyShieldBase = 27, },
+	req = { level = 70, str = 46, int = 58, },
+}
 
 itemBases["Wrapped Mitts"] = {
 	type = "Gloves",

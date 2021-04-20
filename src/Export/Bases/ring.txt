@@ -5,17 +5,13 @@ local itemBases = ...
 #baseTags ring
 
 #baseMatch Metadata/Items/Rings/Ring%d+
+#baseMatch Metadata/Items/Rings/RingAtlas%d+
 #forceShow true
 #base Metadata/Items/Rings/Ring12 Two-Stone Ring (Fire/Lightning)
 #base Metadata/Items/Rings/Ring13 Two-Stone Ring (Cold/Lightning)
 #base Metadata/Items/Rings/Ring14 Two-Stone Ring (Fire/Cold)
-#base Metadata/Items/Rings/RingE1
-#base Metadata/Items/Rings/RingE2
+#baseMatch Metadata/Items/Rings/RingE%d+
 #forceShow false
-#base Metadata/Items/Rings/RingAtlas1
-#base Metadata/Items/Rings/RingAtlas2
-#base Metadata/Items/Rings/RingAtlas3
-#base Metadata/Items/Rings/RingAtlas4
 
 #base Metadata/Items/Rings/BreachRing
 #base Metadata/Items/Rings/RingDemigods1
