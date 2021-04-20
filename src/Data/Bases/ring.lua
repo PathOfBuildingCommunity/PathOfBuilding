@@ -183,7 +183,7 @@ itemBases["Breach Ring"] = {
 }
 itemBases["Golden Hoop"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { ring = true, demigods = true, not_for_sale = true, default = true, },
 	implicit = "+(8-12) to all Attributes",
 	implicitModTypes = { { "attribute" }, },
 	req = { level = 12, },
@@ -191,7 +191,7 @@ itemBases["Golden Hoop"] = {
 itemBases["Jet Ring"] = {
 	type = "Ring",
 	hidden = true,
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { ring = true, demigods = true, not_for_sale = true, default = true, },
 	implicit = "(5-10)% increased Global Defences",
 	implicitModTypes = { { "defences" }, },
 	req = { },

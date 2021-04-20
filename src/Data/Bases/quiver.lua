@@ -45,7 +45,7 @@ itemBases["Light Quiver"] = {
 itemBases["Serrated Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "Adds 1 to 4 Physical Damage to Bow Attacks",
+	implicit = "1 to 4 Added Physical Damage with Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 5, },
 }
@@ -73,14 +73,14 @@ itemBases["Blunt Arrow Quiver"] = {
 itemBases["Fire Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "Adds 4 to 8 Fire Damage to Bow Attacks",
+	implicit = "4 to 8 Added Fire Damage with Bow Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	req = { level = 22, },
 }
 itemBases["Broadhead Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "Adds 6 to 12 Physical Damage to Bow Attacks",
+	implicit = "6 to 12 Added Physical Damage with Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 28, },
 }

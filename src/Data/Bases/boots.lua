@@ -600,7 +600,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 itemBases["Golden Caligae"] = {
 	type = "Boots",
 	socketLimit = 4,
-	tags = { not_for_sale = true, armour = true, boots = true, default = true, },
+	tags = { boots = true, not_for_sale = true, armour = true, demigods = true, default = true, },
 	implicit = "+(8-16)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { },

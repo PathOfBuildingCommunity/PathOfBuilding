@@ -111,7 +111,7 @@ itemBases["Simplex Amulet"] = {
 itemBases["Jet Amulet"] = {
 	type = "Amulet",
 	hidden = true,
-	tags = { not_for_sale = true, default = true, amulet = true, },
+	tags = { demigods = true, not_for_sale = true, default = true, amulet = true, },
 	implicit = "+(8-12)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
 	req = { level = 12, },
@@ -170,7 +170,7 @@ itemBases["Deadhand Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	implicit = "(19-31)% increased Chaos Damage",
-	implicitModTypes = { { "damage", "chaos" }, },
+	implicitModTypes = { { "chaos_damage", "damage", "chaos" }, },
 	req = { },
 }
 itemBases["Undying Flesh Talisman"] = {
@@ -346,7 +346,7 @@ itemBases["Longtooth Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	implicit = "(4-6)% additional Physical Damage Reduction",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "physical" }, },
 	req = { },
 }
 itemBases["Rotfeather Talisman"] = {
