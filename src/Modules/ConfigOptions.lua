@@ -792,6 +792,9 @@ return {
 	{ var = "conditionBeenCritRecently", type = "check", label = "Have you been Crit Recently?", ifCond = "BeenCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionConsumed12SteelShardsRecently", type = "check", label = "Consumed 12 Steel Shards Recently?", ifCond = "Consumed12SteelShardsRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Consumed12SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },

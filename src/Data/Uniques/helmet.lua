@@ -1042,10 +1042,32 @@ Vaal Mask
 League: Ultimatum
 Requires Level 62, 79 Dex, 72 Int
 Implicits: 1
-Variant: 1
-Variant: 2
+Variant: Area of Effect
+Variant: Blind
+Variant: Mana Cost + Reservation
+Variant: Curse Effect
+Variant: Skill Effect Duration
+Variant: Crushed
+Variant: +2 Gems
+Variant: Minimum Charges
+Variant: Cooldown Recovery
+Variant: Aura Effect
+Variant: Additional Projectile
+Variant: Malediction
+Variant: Quantity
 {variant:1}(15-25)% increased Area of Effect
 {variant:2}Nearby Enemies are Blinded
+{variant:3}Socketed Skill Gems get a 80% Cost & Reservation Multiplier
+{variant:4}(10-15)% increased Effect of your Curses
+{variant:5}(15-25)% increased Skill Effect Duration
+{variant:6}Nearby Enemies are Crushed
+{variant:7}+2 to Level of Socketed Gems
+{variant:8}+1 to Minimum Endurance, Frenzy and Power Charges
+{variant:9}(8-12)% increased Cooldown Recovery Rate
+{variant:10}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:11}Skills fire an additional Projectile
+{variant:12}Nearby Enemies have Malediction
+{variant:13}(5-7)% increased Quantity of Items found
 Can be modified while Corrupted
 (30-40)% increased maximum Life and reduced Fire Resistance
 (30-40)% increased maximum Mana and reduced Cold Resistance
