@@ -118,7 +118,7 @@ Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}20% Chance to Block Attack Damage while wielding a Staff
-{variant:3}25% Chance to Block Attack Damage while wielding a Staff
+{variant:3,4}25% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Adds (270-300) to (340-380) Physical Damage
 {variant:2}Adds (250-280) to (315-355) Physical Damage
 {variant:3,4}Adds (220-240) to (270-300) Physical Damage
