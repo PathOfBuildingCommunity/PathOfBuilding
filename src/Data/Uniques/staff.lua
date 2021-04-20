@@ -67,6 +67,17 @@ Adds (5-15) to (100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
+Atziri's Rule
+Judgement Staff
+Requires Level 68, 113 Str, 113 Int
+Implicits: 1
++20% Chance to Block Spell Damage while wielding a Staff
+Grants Level 20 Queen's Demand Skill
+Queen's Demand can Trigger Level 20 Flames of Judgement
+Queen's Demand can Trigger Level 20 Storm of Judgement
+Cannot be Stunned
+Damage cannot be Reflected
+]],[[
 The Blood Thorn
 Gnarled Branch
 Variant: Pre 2.6.0
@@ -90,6 +101,13 @@ Implicits: 1
 (5-10)% increased Attack Speed
 Curse Enemies with Flammability on Block, with 20% increased Effect
 Reflects (22-44) Fire Damage to Attackers on Block
+]],[[
+Cane of Kulemak
+Serpentine Staff
+Requires Level 68, 85 Str, 85 Int
+Implicits: 1
++20% Chance to Block Attack Damage while wielding a Staff
+(60-90)% increased Unveiled Modifier magnitudes
 ]],[[
 Cane of Unravelling
 Ezomyte Staff

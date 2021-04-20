@@ -10,6 +10,7 @@ skills["Melee"] = {
 	name = "Default Attack",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Strike your foes down with a powerful blow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -35,6 +36,7 @@ skills["MeleeUseContactPoint"] = {
 	name = "Default Attack",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Strike your foes down with a powerful blow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -98,6 +100,7 @@ skills["GemDetonateMines"] = {
 skills["Portal"] = {
 	name = "Portal",
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Creates a portal to the current area's town.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Type27] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -134,6 +137,7 @@ skills["Portal"] = {
 skills["VaalBreach"] = {
 	name = "Vaal Breach",
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Type27] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1484,6 +1488,7 @@ skills["IcestormUniqueStaff12"] = {
 	name = "Icestorm",
 	hidden = true,
 	color = 3,
+	baseEffectiveness = 0,
 	description = "Icy bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies and chilling them, as well as causing patches of chilled ground. Skill damage is based on Intelligence.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.ChillingArea] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -2652,7 +2657,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[25] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[25] = { 30000, 10, 20, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
@@ -3276,14 +3281,34 @@ skills["BloodSacramentUnique"] = {
 	name = "Blood Sacrament",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 4.8000001907349,
 	description = "Channel this skill to reserve more and more of your life, building up power in a marker on the ground under you. Release to deal physical damage in an area based on how much life you reserved. Cannot be cast by Totems.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, [SkillType.ManaCostReserved] = true, [SkillType.PhysicalSkill] = true, [SkillType.NovaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.24,
 	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"]
+		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
+		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
+	end,
+	statMap = {
+		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			div = 100,
+		},
+		["flameblast_damage_+%_final_per_10_life_reserved"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "Multiplier", var = "BloodSacramentStage" }),
+		},
+	},
 	baseFlags = {
+		spell = true,
+		area = true,
 	},
 	baseMods = {
+		skill("radius", 5),
+		mod("Multiplier:BloodSacramentMaxStages", "BASE", 33),
 	},
 	qualityStats = {
 	},

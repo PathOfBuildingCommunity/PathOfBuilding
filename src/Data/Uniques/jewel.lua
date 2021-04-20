@@ -966,6 +966,31 @@ Limited to: 1
 {variant:103}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
 {variant:104}30% increased Maximum total Recovery per second from Energy Shield Leech while affected by Zealotry
 ]],
+-- Jewel: Abyss
+[[
+Amanamu's Gaze
+Ghastly Eye Jewel
++(5-10) to all Attributes
+Minions have +6% to Damage over Time Multiplier per Ghastly Eye Jewel affecting you, up to a maximum of +30%
+]],[[
+Kurgal's Gaze
+Hypnotic Eye Jewel
++(10-20) to Intelligence
+8% increased Effect of Arcane Surge on you per Hypnotic Eye Jewel affecting you, up to a maximum of 40%
+]],[[
+Tecrod's Gaze
+Murderous Eye Jewel
+Requires Level 40
++(10-20) to Strength
+20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
++10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
+]],[[
+Ulaman's Gaze
+Searching Eye Jewel
+Requires Level 40
++(10-20) to Dexterity
+Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%
+]],
 -- Jewel: Threshold
 [[
 Combat Focus

@@ -212,6 +212,15 @@ Implicits: 2
 Socketed Gems are Supported by Level 10 Spell Echo
 +(10-30) to Intelligence
 ]],[[
+Relic of the Pact
+Spiraled Wand
+League: Ultimatum
+Requires Level 24, 83 Int
+Implicits: 1
+(15-19)% increased Spell Damage
+Grants Level 1 Blood Sacrament Skill
+Your Critical Strike Chance is Lucky while on Low Life
+]],[[
 Amplification Rod
 Spiraled Wand
 Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
