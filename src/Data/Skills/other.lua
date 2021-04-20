@@ -3325,3 +3325,25 @@ skills["BloodSacramentUnique"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, 40, 80, 200, damageEffectiveness = 0.03, lifeReservationPercent = 3, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
 	},
 }
+skills["SupportBloodMagicUniquePrismGuardian"] = {
+	name = "Blood Magic",
+	hidden = true,
+	color = 1,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_reserve_life_instead_of_mana",
+		"base_skill_cost_life_instead_of_mana",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, statInterpolation = { }, cost = { }, },
+	},
+}

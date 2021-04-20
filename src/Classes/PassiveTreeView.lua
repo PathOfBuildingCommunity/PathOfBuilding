@@ -433,6 +433,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		local function prepSearch(search)
 			search = search:lower()
+			--gsub("([%[%]%%])", "%%%1")
 			local searchWords = {}
 			for matchstring, v in search:gmatch('"([^"]*)"') do
 				searchWords[#searchWords+1] = matchstring
@@ -784,6 +785,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	-- Check node name
 	err, needMatches = PCall(search, node.dn:lower(), needMatches)
+	if err then return false end
 	if #needMatches == 0 then
 		return true
 	end
@@ -792,6 +794,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	for index, line in ipairs(node.sd) do
 		-- Check display text first
 		err, needMatches = PCall(search, line:lower(), needMatches)
+		if err then return false end
 		if #needMatches == 0 then
 			return true
 		end
@@ -799,6 +802,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 			-- Then check modifiers
 			for _, mod in ipairs(node.mods[index].list) do
 				err, needMatches = PCall(search, mod.name, needMatches)
+				if err then return false end
 				if #needMatches == 0 then
 					return true
 				end
@@ -808,6 +812,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	-- Check node type
 	err, needMatches = PCall(search, node.type:lower(), needMatches)
+	if err then return false end
 	if #needMatches == 0 then
 		return true
 	end

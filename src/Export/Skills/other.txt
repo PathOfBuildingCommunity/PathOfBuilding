@@ -824,3 +824,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+
+#skill SupportBloodMagicUniquePrismGuardian Blood Magic
+	fromItem = true,
+#mods
