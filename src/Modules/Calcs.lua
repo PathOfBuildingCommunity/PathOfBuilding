@@ -107,7 +107,7 @@ function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, env = env})
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 
@@ -236,7 +236,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > 0 then
 						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
 					end
-					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 then
+					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 and (activeSkill.skillFlags.DotCanStack or (usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot == 0)) then
 						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot * (activeSkill.skillFlags.DotCanStack and mirageCount or 1)
 					end
 				end
@@ -503,6 +503,9 @@ function calcs.buildOutput(build, mode)
 		end
 		if output.CrabBarriers > 0 then
 			t_insert(combatList, s_format("%d Crab Barriers", output.CrabBarriers))
+		end
+		if build.calcsTab.mainEnv.multipliersUsed["BloodCharge"] then
+			t_insert(combatList, s_format("%d Blood Charges", output.BloodCharges))
 		end
 		if env.modDB:Flag(nil, "Fortify") then
 			t_insert(combatList, "Fortify")

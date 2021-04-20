@@ -707,9 +707,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
-		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
 		if breakdown then
-			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "SupportManaMultiplier")
+			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "Reserved", "SupportManaMultiplier")
+		end
+		output.LifeReservedMod = calcLib.mod(skillModList, skillCfg, "LifeReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		if breakdown then
+			breakdown.LifeReservedMod = breakdown.mod(skillModList, skillCfg, "LifeReserved", "Reserved", "SupportManaMultiplier")
 		end
 	end
 	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
@@ -727,6 +731,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
 		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, data.misc.ServerTickRate)
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
+		skillData.timeOverride = output.TrapThrowingTime
 		if breakdown then
 			breakdown.TrapThrowingSpeed = { }
 			breakdown.multiChain(breakdown.TrapThrowingSpeed, {
@@ -786,6 +791,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
 		output.MineLayingSpeed = m_min(output.MineLayingSpeed, data.misc.ServerTickRate)
 		output.MineLayingTime = 1 / output.MineLayingSpeed
+		skillData.timeOverride = output.MineLayingTime
 		if breakdown then
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
@@ -953,43 +959,68 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
-	-- Calculate mana cost (may be slightly off due to rounding differences)
-	if isTriggered or activeSkill.activeEffect.grantedEffect.triggered then
-		output.ManaCost = 0
-	else
-		do
-			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
-			local more = m_floor(skillModList:More(skillCfg, "ManaCost") * 100 + 0.0001) / 100
-			local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
-			local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
-			local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
-			if skillData.baseManaCostIsAtLeastPercentUnreservedMana then
-				manaCost = m_max(manaCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
-			end
-			output.ManaCost = m_floor(manaCost * mult)
-			output.ManaCost = m_floor(m_abs(inc / 100) * output.ManaCost) * (inc >= 0 and 1 or -1) + output.ManaCost
-			output.ManaCost = m_floor(m_abs(more - 1) * output.ManaCost) * (more >= 1 and 1 or -1) + output.ManaCost
-			output.ManaCost = m_max(0, m_floor(output.ManaCost + base))
-			if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
-				output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
-			end
-			if breakdown and output.ManaCost ~= manaCost then
-				breakdown.ManaCost = {
-					s_format("%d ^8(base mana cost)", manaCost)
-				}
-				if mult ~= 1 then
-					t_insert(breakdown.ManaCost, s_format("x %.2f ^8(mana cost multiplier)", mult))
+	-- Calculate costs (may be slightly off due to rounding differences)
+	local names = {
+		["Mana"] = "mana",
+		["Life"] = "life",
+		["ES"] = "energy shield",
+		["Rage"] = "rage",
+		["ManaPercent"] = "mana",
+		["LifePercent"] = "life",
+	}
+	for resource, name in pairs(names) do
+		local percent = resource == "ManaPercent" or resource == "LifePercent"
+		if isTriggered or activeSkill.activeEffect.grantedEffect.triggered then
+			output[resource.."Cost"] = 0
+		else
+			do
+				local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
+				local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
+				local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+				local base = skillModList:Sum("BASE", skillCfg, resource.."CostBase")
+				local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
+				local cost = base + (activeSkill.activeEffect.grantedEffectLevel.cost[resource] or 0)
+				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
+					cost = m_max(cost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 				end
-				if inc ~= 0 then
-					t_insert(breakdown.ManaCost, s_format("x %.2f ^8(increased/reduced mana cost)", 1 + inc/100))
-				end	
-				if more ~= 1 then
-					t_insert(breakdown.ManaCost, s_format("x %.2f ^8(more/less mana cost)", more))
-				end	
-				if base ~= 0 then
-					t_insert(breakdown.ManaCost, s_format("- %d ^8(- mana cost)", -base))
+				output[resource.."Cost"] = m_floor(cost * mult)
+				output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
+				output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
+				output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
+				if resource == "Mana" and skillFlags.totem then
+					local reservedFlat = activeSkill.skillData.manaReservationFlat or activeSkill.activeEffect.grantedEffectLevel.manaReservationFlat or 0
+					output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
+					local reservedPercent = activeSkill.skillData.manaReservationPercent or activeSkill.activeEffect.grantedEffectLevel.manaReservationPercent or 0
+					if reservedPercent ~= 0 then
+						skillModList:NewMod("ManaPercentCostBase", "BASE", reservedPercent, "Totem Reservation")
+					end
 				end
-				t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
+				if resource == "Life" and skillFlags.totem then
+					local reservedFlat = activeSkill.skillData.lifeReservationFlat or activeSkill.activeEffect.grantedEffectLevel.lifeReservationFlat or 0
+					output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
+					local reservedPercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
+					if reservedPercent ~= 0 then
+						skillModList:NewMod("LifePercentCostBase", "BASE", reservedPercent, "Totem Reservation")
+					end
+				end
+				if breakdown and output[resource.."Cost"] ~= cost then
+					breakdown[resource.."Cost"] = {
+						s_format("%d"..(percent and "%%" or "").." ^8(base "..name.." cost)", cost)
+					}
+					if mult ~= 1 then
+						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
+					end
+					if inc ~= 0 then
+						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(increased/reduced "..name.." cost)", 1 + inc/100))
+					end	
+					if more ~= 1 then
+						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(more/less "..name.." cost)", more))
+					end	
+					if total ~= 0 then
+						t_insert(breakdown[resource.."Cost"], s_format("- %d ^8(- "..name.." cost)", -total))
+					end
+					t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
+				end
 			end
 		end
 	end
@@ -3580,6 +3611,9 @@ function calcs.offence(env, actor, activeSkill)
 	if bor(dotCfg.flags, ModFlag.Attack) == dotCfg.flags and not skillData.dotIsAttack then
 		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Attack))
 	end
+	if bor(dotCfg.flags, ModFlag.Hit) == dotCfg.flags and not skillData.dotIsHit then
+		dotCfg.flags = band(dotCfg.flags, bnot(ModFlag.Hit))
+	end
 
 	-- spell_damage_modifiers_apply_to_skill_dot does not apply to enemy damage taken
 	local dotTakenCfg = copyTable(dotCfg, true)
@@ -3711,6 +3745,11 @@ function calcs.offence(env, actor, activeSkill)
 				maxMirageWarriors = maxMirageWarriors + mod.value
 			end
 
+			-- Non-channeled skills only attack once, disregard attack rate
+			if not usedSkill.skillTypes[SkillType.Channelled] then
+				newSkill.skillData.timeOverride = 1
+			end
+
 			if usedSkill.skillPartName then
 				env.player.mainSkill.skillPart = usedSkill.skillPart
 				env.player.mainSkill.skillPartName = usedSkill.skillPartName
@@ -3734,6 +3773,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			-- Make any necessary corrections to output
+			-- Don't show attack rate for non-channeled skills
+			if not usedSkill.skillTypes[SkillType.Channelled] then
+				env.player.output.Speed = 0
+			end
 			env.player.output.ManaCost = output.ManaCost
 			env.player.output.Cooldown = output.Cooldown
 
@@ -3963,7 +4006,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.DecayDPS
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
 		end
-		if activeSkill.mirage.output.TotalDot then
+		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or output.TotalDot == 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end

@@ -36,12 +36,15 @@ local influenceInfo = itemLib.influenceInfo
 
 local catalystQualityFormat = {
 	"^x7F7F7FQuality (Attack Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
+	"^x7F7F7FQuality (Speed Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Life and Mana Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Caster Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Attribute Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
+	"^x7F7F7FQuality (Physical and Chaos Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Resistance Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Defense Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Elemental Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
+	"^x7F7F7FQuality (Critical Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 }
 
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -1698,7 +1701,7 @@ function ItemsTabClass:EditDisplayItemText()
 	local controls = { }
 	local function buildRaw()
 		local editBuf = controls.edit.buf
-		if editBuf:match("^Rarity: ") then
+		if editBuf:match("^Item Class: .*\nRarity: ") then
 			return editBuf
 		else
 			return "Rarity: "..controls.rarity.list[controls.rarity.selIndex].rarity.."\n"..controls.edit.buf
@@ -2017,7 +2020,11 @@ function ItemsTabClass:CorruptDisplayItem()
 			if control.selIndex > 1 then
 				local mod = control.list[control.selIndex].mod
 				for _, modLine in ipairs(mod) do
-					t_insert(newImplicit, { line = modLine })
+					if mod.modTags[1] then
+						t_insert(newImplicit, { line = "{tags:" .. table.concat(mod.modTags, ",") .. "}" .. modLine })
+					else
+						t_insert(newImplicit, { line = modLine })
+					end
 				end
 			end
 		end
@@ -2593,7 +2600,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- Add comparisons for each slot
 		for _, slot in pairs(compareSlots) do
 			local selItem = self.items[slot.selItemId]
+			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
+			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 			local header
 			if item == selItem then
 				header = "^7Removing this item from "..slot.label.." will give you:"

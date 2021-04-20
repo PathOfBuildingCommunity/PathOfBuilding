@@ -1,5 +1,63 @@
 # Changelog
 
+## [2.2.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.2.1) (2021/04/17)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.2.0...2.2.1)
+
+**Implemented enhancements:**
+
+- Add support for Chainbreaker rage cost [\#2575](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2575) ([PJacek](https://github.com/PJacek))
+
+**Fixed bugs:**
+
+- Fix skill tags [\#2580](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2580) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Exsanguinate and Corrupting Fever stack damage [\#2579](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2579) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Blood Magic [\#2577](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2577) ([PJacek](https://github.com/PJacek))
+- Fix crash related to fake minion skill costs [\#2574](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2574) ([PJacek](https://github.com/PJacek))
+
+## [2.2.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.2.0) (2021/04/17)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.1.1...2.2.0)
+
+**Implemented enhancements:**
+
+- Add support for new 3.14 Skill Gems [\#2557](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2557) ([Nostrademous](https://github.com/Nostrademous))
+    - Corrupting Fever
+    - Exsanguinate
+    - Reap
+    - Petrified Blood
+    - Arrogance Support
+    - Bloodthirst Support
+    - Cruelty Support
+    - Lifetap Support
+- Update skills with 3.14 changes
+- Update enchantments with 3.14 changes
+- Update item mods to 3.14 stats
+- Update minions with 3.14 changes
+- Add new skills from 3.14 Uniques (Not Supported yet)
+- Add support for Glimpse of Chaos [\#2547](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2547) ([PJacek](https://github.com/PJacek))
+- Add support for new Skill Costs (Life / Mana / Rage) [\#2567](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2567) ([PJacek](https://github.com/PJacek))
+
+**Fixed bugs:**
+
+- Fix non-integer catalyst scaling issues [\#2544](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2544) ([Wires77](https://github.com/Wires77))
+- Fix Victarios Influence using old mods[\#2562](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2562) ([pundm](https://github.com/pundm))
+- Fix Tailwind not appearing on Passive Tree [\#2559](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2559) ([Helyos96](https://github.com/Helyos96))
+- Fixes Bow DoT Skills double-dipping on nodes that grant a Dot & Hit [\#2554](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2554) ([Nostrademous](https://github.com/Nostrademous))
+
+## [2.1.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.1.1) (2021/04/15)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.1.0...2.1.1)
+
+**Fixed bugs:**
+
+- Fix Physical Aegis config option affecting the Innervate config option [\#2545](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2545) ([PJacek](https://github.com/PJacek))
+- Fix Trap and Mines to use Throwing/Laying Speed for DPS calculations [\#2542](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2542) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Mirage Archer applying DoT stacks when they shouldn't [\#2539](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2539) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Minion Full DPS crash [\#2528](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2528) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Full DPS stat comparison for items [\#2528](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2528) ([Nostrademous](https://github.com/Nostrademous))
+- Fix General's Cry to ignore speed for non-channeled skills [\#2460](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2460) ([Helyos96](https://github.com/Helyos96))
+
 ## [2.1.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.1.0) (2021/04/15)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.0.3...2.1.0)

@@ -726,9 +726,6 @@ local skills, mod, flag, skill = ...
 		["vampiric_icon_bleeding_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["base_use_life_in_place_of_mana"] = {
-			flag("SkillBloodMagic"),
-		},
 	},
 #mods 
 
@@ -759,7 +756,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCursePillarTriggerCurses Doedre's Effigy
 	fromItem = true,
-#baseMod skill("manaCostForced", 0)
+#baseMod skill("manaReservationPercent", 0)
 #mods
 
 #skill Unhinge
@@ -792,4 +789,42 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Focus
+#mods
+
+#skill QueensDemand
+	fromItem = true,
+#mods
+
+#skill AtziriUniqueStaffStormCall
+	fromItem = true,
+#mods
+
+#skill AtziriUniqueStaffFlameblast
+	fromItem = true,
+#mods
+
+#skill BloodSacramentUnique
+#baseMod skill("radius", 5)
+#baseMod mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
+#flags spell area
+	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"]
+		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
+		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
+	end,
+	statMap = {
+		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			div = 100,
+		},
+		["flameblast_damage_+%_final_per_10_life_reserved"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "Multiplier", var = "BloodSacramentStage" }),
+		},
+	},
+#mods
+
+#skill SupportBloodMagicUniquePrismGuardian Blood Magic
+	fromItem = true,
 #mods

@@ -386,7 +386,7 @@ function GemSelectClass:Draw(viewPort)
 				-- Add hovered gem to tooltip
 				self:AddGemTooltip(gemInstance)
 				-- Calculate with the new gem
-				local output = calcFunc({}, { requirementsItems = true, requirementsGems = true })
+				local output = calcFunc({}, { nodeAlloc = true, requirementsItems = true, requirementsGems = true })
 				-- Put the original gem back into the list
 				if oldGem then
 					gemInstance.gemData = oldGem.gemData
@@ -478,23 +478,51 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		if grantedEffectLevel.manaMultiplier then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Multiplier: ^7%d%%", grantedEffectLevel.manaMultiplier + 100))
 		end
-		if grantedEffectLevel.manaCostOverride then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reservation Override: ^7%d%%", grantedEffectLevel.manaCostOverride))
+		if grantedEffectLevel.manaReservationFlat then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reservation Override: ^7%d", grantedEffectLevel.manaReservationFlat))
+		end
+		if grantedEffectLevel.manaReservationPercent then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reservation Override: ^7%d%%", grantedEffectLevel.manaReservationPercent))
+		end
+		if grantedEffectLevel.lifeReservationFlat then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reservation Override: ^7%d", grantedEffectLevel.lifeReservationFlat))
+		end
+		if grantedEffectLevel.lifeReservationPercent then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reservation Override: ^7%d%%", grantedEffectLevel.lifeReservationPercent))
 		end
 		if grantedEffectLevel.cooldown then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
 		end
 	else
-		if grantedEffectLevel.manaCost then
-			if grantedEffect.skillTypes[SkillType.ManaCostReserved] then
-				if grantedEffect.skillTypes[SkillType.ManaCostPercent] then
-					self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d%%", grantedEffectLevel.manaCost))
-				else
-					self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d", grantedEffectLevel.manaCost))
-				end
-			else
-				self.tooltip:AddLine(16, string.format("^x7F7F7FMana Cost: ^7%d", grantedEffectLevel.manaCost))
-			end
+		if grantedEffectLevel.manaReservationFlat then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d", grantedEffectLevel.manaReservationFlat))
+		end
+		if grantedEffectLevel.manaReservationPercent then
+				self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d%%", grantedEffectLevel.manaReservationPercent))
+		end
+		if grantedEffectLevel.lifeReservationFlat then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reserved: ^7%d", grantedEffectLevel.lifeReservationFlat))
+		end
+		if grantedEffectLevel.lifeReservationPercent then
+				self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reserved: ^7%d%%", grantedEffectLevel.lifeReservationPercent))
+		end
+		if grantedEffectLevel.cost.Mana then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Cost: ^7%d", grantedEffectLevel.cost.Mana))
+		end
+		if grantedEffectLevel.cost.Life then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Cost: ^7%d", grantedEffectLevel.cost.Life))
+		end
+		if grantedEffectLevel.cost.ES then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FEnergy Shield Cost: ^7%d", grantedEffectLevel.cost.ES))
+		end
+		if grantedEffectLevel.cost.Rage then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FRage Cost: ^7%d", grantedEffectLevel.cost.Rage))
+		end
+		if grantedEffectLevel.cost.ManaPercent then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Cost: ^7%d%%", grantedEffectLevel.cost.ManaPercent))
+		end
+		if grantedEffectLevel.cost.LifePercent then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Cost: ^7%d%%", grantedEffectLevel.cost.LifePercent))
 		end
 		if grantedEffectLevel.cooldown then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))

@@ -309,7 +309,12 @@ return {
 	}, },
 	{ label = "Skill DPS", flag = "notAverage", notFlag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
 	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
-	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
+	{ label = "Mana Cost", haveOutput = "ManaCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life Cost", haveOutput = "LifeCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES Cost", haveOutput = "ESCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Rage Cost", haveOutput = "RageCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = { "RageCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", haveOutput = "ManaPercentCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaPercentCost", "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life % Cost", haveOutput = "LifePercentCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifePercentCost", "LifeCost", "Cost" }, cfg = "skill" }, }, },
 } }
 } },
 { 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
@@ -580,9 +585,13 @@ return {
 		{ breakdown = "AuraEffectMod" },
 		{ modName = "AuraEffect", cfg = "skill" },
 	}, },
-	{ label = "Reservation Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
+	{ label = "Mana Reserve Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
 		{ breakdown = "ManaReservedMod" },
-		{ modName = { "ManaReserved", "SupportManaMultiplier" }, cfg = "skill"}
+		{ modName = { "ManaReserved", "Reserved", "SupportManaMultiplier" }, cfg = "skill"}
+	}, },
+	{ label = "Life Reserve Mod", haveOutput = "LifeReservedMod", { format = "x {2:output:LifeReservedMod}",
+		{ breakdown = "LifeReservedMod" },
+		{ modName = { "LifeReserved", "Reserved", "SupportManaMultiplier" }, cfg = "skill"}
 	}, },
 	{ label = "Curse Effect Mod", haveOutput = "CurseEffectMod", { format = "x {2:output:CurseEffectMod}",
 		{ breakdown = "CurseEffectMod" },

@@ -244,8 +244,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
 		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
-		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return (o.TriggerTime or 0) == 0 end },
-		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell", condFunc = function(v,o) return (o.TriggerTime or 0) == 0 end },
+		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
+		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "ServerTriggerRate", label = "Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
 		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 and o.ServerTriggerRate ~= o.Speed end },
 		{ stat = "WarcryCastTime", label = "Cast Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, flag = "warcry" },
@@ -285,7 +285,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
-		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
+		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifeCost", label = "Life Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "RageCost", label = "Rage Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
 		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
@@ -1263,15 +1268,18 @@ end
 -- Returns the number of stat lines added
 function buildMode:AddStatComparesToTooltip(tooltip, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
-	if baseOutput.Minion and compareOutput.Minion then
+	if baseOutput.FullDPS and compareOutput.FullDPS then
+		count = count + self:CompareStatList(tooltip, self.displayStats, self.calcsTab.mainEnv.player, baseOutput, compareOutput, header, nodeCount)
+	elseif baseOutput.Minion and compareOutput.Minion then
 		count = count + self:CompareStatList(tooltip, self.minionDisplayStats, self.calcsTab.mainEnv.minion, baseOutput.Minion, compareOutput.Minion, header.."\n^7Minion:", nodeCount)
 		if count > 0 then
 			header = "^7Player:"
 		else
 			header = header.."\n^7Player:"
 		end
+	else
+		count = count + self:CompareStatList(tooltip, self.displayStats, self.calcsTab.mainEnv.player, baseOutput, compareOutput, header, nodeCount)
 	end
-	count = count + self:CompareStatList(tooltip, self.displayStats, self.calcsTab.mainEnv.player, baseOutput, compareOutput, header, nodeCount)
 	return count
 end
 

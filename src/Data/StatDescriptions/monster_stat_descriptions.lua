@@ -2824,116 +2824,6 @@ return {
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="metamorphosis_reward_description",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}"
-				}
-			}
-		},
-		stats={
-			[1]="metamorphosis_boss_item_reward_slot_1_index"
-		}
-	},
-	[150]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="metamorphosis_reward_description",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}"
-				}
-			}
-		},
-		stats={
-			[1]="metamorphosis_boss_item_reward_slot_2_index"
-		}
-	},
-	[151]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="metamorphosis_reward_description",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}"
-				}
-			}
-		},
-		stats={
-			[1]="metamorphosis_boss_item_reward_slot_3_index"
-		}
-	},
-	[152]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="metamorphosis_reward_description",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}"
-				}
-			}
-		},
-		stats={
-			[1]="metamorphosis_boss_item_reward_slot_4_index"
-		}
-	},
-	[153]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="metamorphosis_reward_description",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}"
-				}
-			}
-		},
-		stats={
-			[1]="metamorphosis_boss_item_reward_slot_5_index"
-		}
-	},
-	[154]={
-		lang={
-			English={
-				[1]={
 					limit={
 						[1]={
 							[1]="#",
@@ -3010,11 +2900,6 @@ return {
 	["life_regeneration_rate_per_minute_%"]=11,
 	["maximum_energy_shield_+%"]=12,
 	["maximum_life_+%"]=6,
-	["metamorphosis_boss_item_reward_slot_1_index"]=149,
-	["metamorphosis_boss_item_reward_slot_2_index"]=150,
-	["metamorphosis_boss_item_reward_slot_3_index"]=151,
-	["metamorphosis_boss_item_reward_slot_4_index"]=152,
-	["metamorphosis_boss_item_reward_slot_5_index"]=153,
 	["monster_base_block_%"]=139,
 	["monster_casts_arc_text"]=102,
 	["monster_casts_arctic_breath_text"]=28,
@@ -3103,6 +2988,6 @@ return {
 	["physical_damage_%_to_add_as_lightning"]=2,
 	["physical_damage_reduction_rating_+%"]=7,
 	["spell_block_%"]=88,
-	["trigger_charge_additional_block_chance_against_projectiles_%"]=154,
+	["trigger_charge_additional_block_chance_against_projectiles_%"]=149,
 	["undead_description"]=27
 }
