@@ -3985,11 +3985,11 @@ function calcs.offence(env, actor, activeSkill)
 		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
 		output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
 
-		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > output.IgniteDPS then
+		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > (output.IgniteDPS or 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.IgniteDPS
 			output.IgniteDPS = 0
 		end
-		if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > output.BleedDPS then
+		if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > (output.BleedDPS or 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.BleedDPS
 			output.BleedDPS = 0
 		end
@@ -4006,7 +4006,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.DecayDPS
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
 		end
-		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or output.TotalDot == 0) then
+		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or (output.TotalDot and output.TotalDot == 0)) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end
