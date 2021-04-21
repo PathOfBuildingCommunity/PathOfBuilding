@@ -981,8 +981,10 @@ function calcs.offence(env, actor, activeSkill)
 				for res, dummy in pairs(names) do
 					local extra = skillModList:Sum("BASE", skillCfg, "Base"..res.."CostAsExtraBase"..resource.."Cost") / 100
 					local extraBase = activeSkill.activeEffect.grantedEffectLevel.cost[res] or 0
-					extraBase = extraBase + skillModList:Sum("BASE", skillCfg, res.."CostBase") 
-					cost = cost + m_floor(extraBase * extra)
+					local extraTotal = skillModList:Sum("BASE", skillCfg, res.."Cost")
+					extraBase = extraBase + skillModList:Sum("BASE", skillCfg, res.."CostBase")
+					cost = cost + round(extraBase * extra)
+					total = total + round(extraTotal * extra)
 				end
 				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
 					cost = m_max(cost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
