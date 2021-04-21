@@ -4006,7 +4006,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.DecayDPS
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
 		end
-		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or (output.TotalDot and output.TotalDot == 0)) then
+		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or not output.TotalDot or output.TotalDot == 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end
