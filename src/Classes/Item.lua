@@ -79,9 +79,6 @@ function ItemClass:ParseRaw(raw)
 	local mode = "WIKI"
 	local l = 1
 	if self.rawLines[l] then
-		if self.rawLines[l]:match("^Item Class:") then
-			l = l + 1 -- Item class is already determined by the base type
-		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
 		if rarity then
 			mode = "GAME"

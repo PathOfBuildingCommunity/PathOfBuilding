@@ -1353,7 +1353,6 @@ function calcs.perform(env, avoidCache)
 					values.costPercent = values.costPercent * activeSkill.activeMineCount
 				end
 				if values.costFlat ~= 0 then
-					activeSkill.skillData[name.."ReservedBase"] = values.costFlat
 					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + values.costFlat
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {
@@ -1367,8 +1366,6 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 				if values.costPercent ~= 0 then
-					activeSkill.skillData[name.."ReservedPercent"] = values.costPercent
-					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + m_ceil(output[name] * values.costPercent / 100)
 					env.player["reserved_"..name.."Percent"] = env.player["reserved_"..name.."Percent"] + values.costPercent
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {

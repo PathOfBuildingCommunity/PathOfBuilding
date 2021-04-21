@@ -94,13 +94,6 @@ itemBases["Marble Amulet"] = {
 	implicitModTypes = { { "resource", "life" }, },
 	req = { level = 74, },
 }
-itemBases["Seaglass Amulet"] = {
-	type = "Amulet",
-	tags = { not_for_sale = true, atlas_base_type = true, amuletatlas3 = true, amulet = true, default = true, },
-	implicit = "(10-15)% faster start of Energy Shield Recharge",
-	implicitModTypes = { { "energy_shield", "defences" }, },
-	req = { level = 74, },
-}
 itemBases["Astrolabe Amulet"] = {
 	type = "Amulet",
 	tags = { not_for_sale = true, default = true, amulet = true, },
@@ -118,7 +111,7 @@ itemBases["Simplex Amulet"] = {
 itemBases["Jet Amulet"] = {
 	type = "Amulet",
 	hidden = true,
-	tags = { demigods = true, not_for_sale = true, default = true, amulet = true, },
+	tags = { not_for_sale = true, default = true, amulet = true, },
 	implicit = "+(8-12)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
 	req = { level = 12, },
@@ -177,7 +170,7 @@ itemBases["Deadhand Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	implicit = "(19-31)% increased Chaos Damage",
-	implicitModTypes = { { "chaos_damage", "damage", "chaos" }, },
+	implicitModTypes = { { "damage", "chaos" }, },
 	req = { },
 }
 itemBases["Undying Flesh Talisman"] = {
@@ -353,7 +346,7 @@ itemBases["Longtooth Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	implicit = "(4-6)% additional Physical Damage Reduction",
-	implicitModTypes = { { "physical" }, },
+	implicitModTypes = { {  }, },
 	req = { },
 }
 itemBases["Rotfeather Talisman"] = {

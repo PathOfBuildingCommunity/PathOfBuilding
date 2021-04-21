@@ -45,7 +45,7 @@ itemBases["Light Quiver"] = {
 itemBases["Serrated Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "1 to 4 Added Physical Damage with Bow Attacks",
+	implicit = "Adds 1 to 4 Physical Damage to Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 5, },
 }
@@ -73,14 +73,14 @@ itemBases["Blunt Arrow Quiver"] = {
 itemBases["Fire Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "4 to 8 Added Fire Damage with Bow Attacks",
+	implicit = "Adds 4 to 8 Fire Damage to Bow Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	req = { level = 22, },
 }
 itemBases["Broadhead Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "6 to 12 Added Physical Damage with Bow Attacks",
+	implicit = "Adds 6 to 12 Physical Damage to Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 28, },
 }
@@ -104,11 +104,4 @@ itemBases["Ornate Quiver"] = {
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
 	req = { level = 45, },
-}
-itemBases["Artillery Quiver"] = {
-	type = "Quiver",
-	tags = { not_for_sale = true, atlas_base_type = true, quiveratlas1 = true, quiver = true, default = true, },
-	implicit = "(20-30)% increased Totem Placement speed",
-	implicitModTypes = { { "speed" }, },
-	req = { level = 74, },
 }

@@ -107,12 +107,15 @@ local function matchLimit(lang, val)
 	end
 end
 
-function describeModTags(modTags)
-	if not modTags then
+function describeModTags(modType)
+	if not modType then
 		return ""
 	end
 
+	local modTypesDat = dat("ModType")
 	local tagsDat = dat("Tags")
+	local modTypeIndex = modType._rowIndex
+	local modTags = modTypesDat:ReadCell(modTypeIndex, 3)
 	local modTagsText = ""
 	for i=1,#modTags do
 		local curModTagIndex = modTags[i]._rowIndex
@@ -252,6 +255,8 @@ function describeStats(stats)
 			end
 		end
 	end
+
+	out.modTags = describeModTags(stats.Type)
 	return out, orders
 end
 
@@ -265,7 +270,5 @@ function describeMod(mod)
 	if mod.Type then
 		stats.Type = mod.Type
 	end
-	local out, orders = describeStats(stats)
-	out.modTags = describeModTags(mod.ImplicitTags)
-	return out, orders
+	return describeStats(stats)
 end
