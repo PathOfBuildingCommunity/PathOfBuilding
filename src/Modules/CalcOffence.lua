@@ -983,6 +983,7 @@ function calcs.offence(env, actor, activeSkill)
 				output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
 				output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
 				output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
+				output[resource.."CostNoMult"] = m_max(0, m_floor(cost * mult) + total)
 				if resource == "Mana" and skillFlags.totem then
 					local reservedFlat = activeSkill.skillData.manaReservationFlat or activeSkill.activeEffect.grantedEffectLevel.manaReservationFlat or 0
 					output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
@@ -1027,7 +1028,7 @@ function calcs.offence(env, actor, activeSkill)
 		for res, dummy in pairs(names) do
 			for resExtra, dummy in pairs(names) do
 				local extra = skillModList:Sum("BASE", skillCfg, res.."CostAsExtra"..resExtra.."Cost") / 100
-				output[resExtra.."Cost"] = output[resExtra.."Cost"] + m_floor(output[res.."Cost"] * extra)
+				output[resExtra.."Cost"] = output[resExtra.."Cost"] + m_floor(output[res.."CostNoMult"] * extra)
 			end
 		end
 	end
