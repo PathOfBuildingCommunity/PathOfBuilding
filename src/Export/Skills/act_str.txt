@@ -790,7 +790,7 @@ local skills, mod, flag, skill = ...
 #skill PetrifiedBlood
 	statMap = {
 		["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"] = {
-			mod("BaseManaCostAsExtraBaseLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Condition", var = "LowLife", neg = true }),
+			mod("ManaCostAsExtraLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Condition", var = "LowLife", neg = true }),
 		},
 	},
 #mods
