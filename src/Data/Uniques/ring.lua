@@ -433,8 +433,8 @@ Requires Level 38
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
-Socketed Gems Reserve No Mana
-{tags:mana}40% increased Mana Reserved
+Socketed Gems Have no Reservation
+{tags:mana}40% increased Reservation of Skills
 ]],[[
 Fated End
 Paua Ring
