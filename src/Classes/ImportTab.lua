@@ -866,11 +866,17 @@ function ImportTabClass:OpenPastebinImportPopup()
 	end)
 	controls.msg = new("LabelControl", nil, 0, 58, 0, 16, "")
 	controls.import = new("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+		local url, pasteId
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
-		controls.edit.buf = controls.edit.buf:gsub("^%s+", ""):gsub("%s+$", "") -- Quick Trim
-		controls.edit.buf = controls.edit.buf:gsub("%?$", "") -- Strip spurious empty query parameter
-		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)%s*$","pastebin.com/raw/%1"), function(page, errMsg)
+		url = controls.edit.buf
+		url = url:gsub("^%s+", ""):gsub("%s+$", "") -- Quick Trim
+		if url:match("youtube%.com/redirect%?") then
+			pasteId = url:gsub(".*[?&]q=https%%3A%%2F%%2Fpastebin%.com%%2F(%w+).*", "%1")
+		else
+			pasteId = url:gsub(".*pastebin%.com/(%w+)%??$", "%1")
+		end
+		launch:DownloadPage("https://pastebin.com/raw/" .. pasteId, function(page, errMsg)
 			if errMsg then
 				controls.msg.label = "^1"..errMsg
 				controls.import.enabled = true
@@ -881,7 +887,7 @@ function ImportTabClass:OpenPastebinImportPopup()
 		end)
 	end)
 	controls.import.enabled = function()
-		return #controls.edit.buf > 0 and controls.edit.buf:match("pastebin%.com/%w+")
+		return #controls.edit.buf > 0 and (controls.edit.buf:match("pastebin%.com/%w+") or controls.edit.buf:match("youtube%.com/redirect%?"))
 	end
 	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
 		main:ClosePopup()
