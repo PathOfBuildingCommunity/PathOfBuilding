@@ -1346,15 +1346,15 @@ function calcs.perform(env, avoidCache)
 				values.baseFlatVal = m_floor(values.baseFlat * mult)
 				values.basePercentVal = values.basePercent * mult
 
-				values.costFlat = m_max(values.baseFlatVal - m_modf(values.baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
-				values.costPercent = m_max(values.basePercentVal - m_modf(values.basePercentVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+				values.reservedFlat = m_max(values.baseFlatVal - m_modf(values.baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+				values.reservedPercent = m_max(values.basePercentVal - m_modf(values.basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100, 0)
 				if activeSkill.activeMineCount then
-					values.costFlat = values.costFlat * activeSkill.activeMineCount
-					values.costPercent = values.costPercent * activeSkill.activeMineCount
+					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
+					values.reservedPercent = values.reservedPercent * activeSkill.activeMineCount
 				end
-				if values.costFlat ~= 0 then
-					activeSkill.skillData[name.."ReservedBase"] = values.costFlat
-					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + values.costFlat
+				if values.reservedFlat ~= 0 then
+					activeSkill.skillData[name.."ReservedBase"] = values.reservedFlat
+					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + values.reservedFlat
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {
 							skillName = activeSkill.activeEffect.grantedEffect.name,
@@ -1362,14 +1362,15 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
-							total = values.costFlat,
+							total = values.reservedFlat,
 						})
 					end
 				end
-				if values.costPercent ~= 0 then
-					activeSkill.skillData[name.."ReservedPercent"] = values.costPercent
-					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + m_ceil(output[name] * values.costPercent / 100)
-					env.player["reserved_"..name.."Percent"] = env.player["reserved_"..name.."Percent"] + values.costPercent
+				if values.reservedPercent ~= 0 then
+					local reservedBase = m_ceil(output[name] * values.reservedPercent / 100)
+					activeSkill.skillData[name.."ReservedPercent"] = values.reservedPercent
+					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + reservedBase
+					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + reservedBase
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {
 							skillName = activeSkill.activeEffect.grantedEffect.name,
@@ -1377,7 +1378,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
-							total = values.costPercent .. "%",
+							total = values.reservedPercent .. "% (" .. reservedBase .. ")",
 						})
 					end
 				end
