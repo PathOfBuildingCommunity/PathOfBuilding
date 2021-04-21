@@ -976,6 +976,14 @@ function calcs.offence(env, actor, activeSkill)
 				local base = skillModList:Sum("BASE", skillCfg, resource.."CostBase")
 				local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
 				local cost = base + (activeSkill.activeEffect.grantedEffectLevel.cost[resource] or 0)
+
+				-- example: Petrified Blood (% of base mana cost as extra base life cost)
+				for res, dummy in pairs(names) do
+					local extra = skillModList:Sum("BASE", skillCfg, "Base"..res.."CostAsExtraBase"..resource.."Cost") / 100
+					local extraBase = activeSkill.activeEffect.grantedEffectLevel.cost[res] or 0
+					extraBase = extraBase + skillModList:Sum("BASE", skillCfg, res.."CostBase") 
+					cost = cost + m_floor(extraBase * extra)
+				end
 				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
 					cost = m_max(cost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 				end
@@ -1017,17 +1025,6 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
 				end
-			end
-		end
-	end
-
-	-- Resource cost as another extra resource cost
-	-- example: Petrified Blood (% of mana cost as extra life cost)
-	if not isTriggered and not activeSkill.activeEffect.grantedEffect.triggered then
-		for res, dummy in pairs(names) do
-			for resExtra, dummy in pairs(names) do
-				local extra = skillModList:Sum("BASE", skillCfg, res.."CostAsExtra"..resExtra.."Cost") / 100
-				output[resExtra.."Cost"] = output[resExtra.."Cost"] + m_floor(output[res.."Cost"] * extra)
 			end
 		end
 	end

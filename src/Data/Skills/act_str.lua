@@ -4458,7 +4458,7 @@ skills["PetrifiedBlood"] = {
 	castTime = 0,
 	statMap = {
 		["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"] = {
-			mod("ManaCostAsExtraLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Condition", var = "LowLife", neg = true }),
+			mod("BaseManaCostAsExtraBaseLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Condition", var = "LowLife", neg = true }),
 		},
 	},
 	baseFlags = {
