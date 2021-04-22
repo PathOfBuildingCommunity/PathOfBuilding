@@ -7443,14 +7443,25 @@ skills["VaalRighteousFire"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = output.TotemLife * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		else
+			activeSkill.skillData.FireDot = (output.Life + output.EnergyShield) * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		end
+	end,
 	statMap = {
 		["vaal_righteous_fire_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["vaal_righteous_fire_life_and_es_%_as_damage_per_second"] = {
-			skill("FireDot", nil, { type = "PerStat", statList = { "Life", "EnergyShield" } }),
+			skill("RFMultiplier", nil),
 			div = 100,
 		},
+		["vaal_righteous_fire_life_and_es_%_to_lose_on_use"] = {
+			skill("percentSacrificed", nil),
+			div = 100,
+		}
 	},
 	baseFlags = {
 		spell = true,
