@@ -936,26 +936,16 @@ itemBases["Sacrificial Garb"] = {
 	subType = "Armour/Evasion/Energy Shield",
 	socketLimit = 6,
 	tags = { body_armour = true, str_dex_int_armour = true, armour = true, not_for_sale = true, default = true, },
-	implicit = "+1 to Level of all Vaal Skill Gems",
-	implicitModTypes = { { "gem" }, },
+	implicitModTypes = { },
 	armour = { ArmourBase = 329, EvasionBase = 329, EnergyShieldBase = 64, MovementPenalty = 3, },
 	req = { level = 72, str = 66, dex = 66, int = 66, },
-}
-itemBases["Grasping Mail"] = {
-	type = "Body Armour",
-	subType = "Armour/Evasion/Energy Shield",
-	socketLimit = 6,
-	tags = { body_armour = true, str_dex_int_armour = true, armour = true, not_for_sale = true, default = true, },
-	implicitModTypes = { },
-	armour = { ArmourBase = 217, EvasionBase = 217, EnergyShieldBase = 42, MovementPenalty = 3, },
-	req = { level = 70, str = 60, dex = 60, int = 60, },
 }
 itemBases["Golden Mantle"] = {
 	type = "Body Armour",
 	subType = "Armour/Evasion/Energy Shield",
 	hidden = true,
 	socketLimit = 6,
-	tags = { body_armour = true, str_dex_int_armour = true, demigods = true, armour = true, not_for_sale = true, default = true, },
+	tags = { body_armour = true, str_dex_int_armour = true, armour = true, not_for_sale = true, default = true, },
 	implicit = "+(15-25)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { ArmourBase = 75, EvasionBase = 75, EnergyShieldBase = 16, },

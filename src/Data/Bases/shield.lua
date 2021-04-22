@@ -972,7 +972,7 @@ itemBases["Supreme Spiked Shield"] = {
 itemBases["Golden Flame"] = {
 	type = "Shield",
 	socketLimit = 3,
-	tags = { not_for_sale = true, demigods = true, armour = true, default = true, shield = true, },
+	tags = { not_for_sale = true, armour = true, shield = true, default = true, },
 	implicit = "+(11-19)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
 	armour = { BlockChance = 20, MovementPenalty = 3, },

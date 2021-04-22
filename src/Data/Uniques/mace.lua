@@ -548,17 +548,6 @@ Implicits: 2
 {variant:2,3}3% increased Experience gain
 20% increased Elemental Damage
 60% increased Intelligence Requirement
-]],[[
-Yaomac's Accord
-Vaal Sceptre
-League: Ultimatum
-Requires Level 64, 113 Str, 113 Int
-Implicits: 1
-32% increased Elemental Damage
-(80-120)% increased Damage with Vaal Skills
-(6-8)% reduced Soul Gain Prevention Duration
-Gain an Endurance Charge, Frenzy Charge, and Power Charge when you use a Vaal Skill
-Shepherd of Souls
 ]],
 -- Weapon: Two Handed Mace
 [[

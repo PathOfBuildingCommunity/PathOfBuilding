@@ -167,8 +167,8 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			-- Effectiveness interpolation
 			if not availableEffectiveness then
 				availableEffectiveness = 
-					(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
-					* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
+					(3.885209 + 0.360246 * (actorLevel - 1)) * grantedEffect.baseEffectiveness
+					* (1 + grantedEffect.incrementalEffectiveness) ^ (actorLevel - 1)
 			end
 			statValue = round(availableEffectiveness * level[index])
 		elseif level.statInterpolation[index] == 2 then

@@ -231,7 +231,6 @@ data.keystones = {
 	"Corrupted Soul",
 	"Crimson Dance",
 	"Doomsday",
-	"Divine Flesh",
 	"Eldritch Battery",
 	"Elemental Equilibrium",
 	"Elemental Overload",

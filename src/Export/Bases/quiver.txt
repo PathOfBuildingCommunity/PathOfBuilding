@@ -4,4 +4,3 @@ local itemBases = ...
 #type Quiver
 #baseTags quiver
 #baseMatch Metadata/Items/Quivers/Quiver%d+
-#baseMatch Metadata/Items/Quivers/QuiverAtlas%d+

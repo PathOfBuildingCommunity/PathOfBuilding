@@ -183,10 +183,8 @@ directiveTable.skill = function(state, args, out)
 	local statMap = { }
 	skill.stats = { }
 	out:write('\tcolor = ', granted.Attribute, ',\n')
-	if granted.BaseEffectiveness ~= 1 then
-		out:write('\tbaseEffectiveness = ', granted.BaseEffectiveness, ',\n')
-	end
 	if granted.IncrementalEffectiveness ~= 0 then
+		out:write('\tbaseEffectiveness = ', granted.BaseEffectiveness, ',\n')
 		out:write('\tincrementalEffectiveness = ', granted.IncrementalEffectiveness, ',\n')
 	end
 	if granted.IsSupport then
