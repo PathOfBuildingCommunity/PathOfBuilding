@@ -177238,7 +177238,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Skills have no Cost while Focussed"
+					text="Skills Cost no Mana or Life while Focussed"
 				}
 			}
 		},
