@@ -95,7 +95,11 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	end)
 
 	-- Socket group details
-	self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
+	if main.portraitMode then
+		self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.optionSection,"BOTTOMLEFT"}, 0, 20, 0, 0)
+	else
+		self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
+	end
 	self.anchorGroupDetail.shown = function()
 		return self.displayGroup ~= nil
 	end
@@ -383,6 +387,12 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	end
 
 	main:DrawBackground(viewPort)
+
+	if main.portraitMode then
+		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.optionSection,"BOTTOMLEFT", 0, 20)
+	else
+		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.groupList,"TOPRIGHT", 20, 0)
+	end
 
 	self:UpdateGemSlots()
 
