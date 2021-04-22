@@ -156,8 +156,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 	end
 	self.controls.pointDisplay.width = function(control)
+		if (self.calcsTab.mainOutput.ExtraPoints == nil) 
+		then 
+		  bandit = 0 
+		else 
+		  bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
+		end
+		
 		local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-		local bandit = self.calcsTab.mainOutput.ExtraPoints or 0
 		local banditStr = ""
 		local usedMax, ascMax, levelreq = 99 + 22 + bandit, 8, 1
 		
