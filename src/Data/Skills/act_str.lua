@@ -2372,7 +2372,7 @@ skills["Exsanguinate"] = {
 	baseMods = {
 		skill("debuff", true),
 		mod("Multiplier:ExsanguinateMaxStagesAfterFirst", "BASE", 2),
-		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
+		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
 	},
 	qualityStats = {
 		Default = {

@@ -433,7 +433,7 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 #baseMod skill("debuff", true)
 #baseMod mod("Multiplier:ExsanguinateMaxStagesAfterFirst", "BASE", 2)
-#baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"})
+#baseMod mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"})
 #mods
 
 #skill BloodSandArmour
