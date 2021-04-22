@@ -1,40 +1,31 @@
 # Changelog
 
-## [2.2.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.2.2) (2021/04/22)
+## [2.3.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.3.0) (2021/04/23)
 
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.2.1...2.2.2)
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.2.1...2.3.0)
 
-**Implemented enhancements:**
+- Add new 3.14 uniques (Nostrademous)
+- Add new 3.14 bases and clean up base matching [\#2615](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2615) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update reservation rounding with 3.14 Changes (PJacek) [\#2644](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2644) ([PJacek](https://github.com/PJacek))
+- Add parsing for many new unique mods [\#2630](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2630) ([PJacek](https://github.com/LocalIdentity))
+- Add support for portrait display resolutions (Wires77) [\#2443](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2443) ([Wires77](https://github.com/Wires77))
+- Implemented Support for Blood Sacrament (from Relic of the Pact unique) (Nostrademous) [\#2583](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2583) ([Nostrademous](https://github.com/Nostrademous))
+- More accurately simulate triggered attacks (Moneypouch) [\#2446](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2446) ([Nostrademous](https://github.com/Moneypouch))
+- Split reservation into mana and life reservation mods (PJacek) [\#2587](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2587) ([PJacek](https://github.com/PJacek))
+- Add Divine Flesh to be able to be parsed on items (Wires77) [\#2613](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2613) ([Wires77](https://github.com/Wires77))
+- Change power report to only appear when selected (Wires77) [\#2443](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2443) ([Wires77](https://github.com/Wires77))
 
-- Add parsing for many new mods [\#2630](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2630) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add new bases and clean up base matching [\#2615](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2615) ([LocalIdentity](https://github.com/LocalIdentity))
-- Split reservation mod into mana and life reservation mods [\#2587](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2587) ([PJacek](https://github.com/PJacek))
-- Updated Uniques [\#2583](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2583) ([Nostrademous](https://github.com/Nostrademous))
-
-**Fixed bugs:**
-
-- Fix scaling for Vaal Righteous Fire [\#2645](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2645) ([Wires77](https://github.com/Wires77))
-- Update reservation rounding [\#2644](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2644) ([PJacek](https://github.com/PJacek))
-- Fix Mine aura effect applying to DoTs from mines [\#2622](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2622) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Exsanguinate stacks applying to all DoTs [\#2621](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2621) ([LocalIdentity](https://github.com/LocalIdentity))
-- Updating item parser to handle new copy/paste format [\#2603](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2603) ([Wires77](https://github.com/Wires77))
-- Add parsing for new damage mods [\#2596](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2596) ([PJacek](https://github.com/PJacek))
-- Fix Prism Guardian [\#2586](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2586) ([PJacek](https://github.com/PJacek))
-- Fixes \#2494 - short circuits out of search function if the lua pattern is invalid [\#2497](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2497) ([Wires77](https://github.com/Wires77))
-
-**Merged pull requests:**
-
-- Fix updated marylenes culling strike mod to the newest version [\#2651](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2651) ([pundm](https://github.com/pundm))
-- Fix Punishment Curse doesn't affect the DPS while select "Enemy is on Low Life" [\#2638](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2638) ([Typepluto](https://github.com/Typepluto))
-- Fix error when comparing bows with Mirage Archer for Ignite/Bleed [\#2629](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2629) ([Nostrademous](https://github.com/Nostrademous))
-- Improve Mods.dat for finding implicit mods [\#2620](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2620) ([Wires77](https://github.com/Wires77))
-- add cowards chains mod parsing [\#2616](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2616) ([pundm](https://github.com/pundm))
-- Adding Divine Flesh to be able to be parsed on items [\#2613](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2613) ([Wires77](https://github.com/Wires77))
-- Fix for DAT64 implicitTags [\#2608](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2608) ([Nostrademous](https://github.com/Nostrademous))
-- Fix: added missing implicit on Disintegrator [\#2591](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2591) ([pundm](https://github.com/pundm))
-
-
-
+- Fix item parser to handle new copy/paste format (Wires77) [\#2603](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2603) ([Wires77](https://github.com/Wires77))
+- Fix parsing and update uniques (pundm, Nostrademous) [\#2583](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2583) ([pundm](https://github.com/pundm), [Nostrademous](https://github.com/Nostrademous))
+- Fix Punishment Curse not affecting DPS while an "Enemy is on Low Life" (Typepluto) [\#2638](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2638) ([Typepluto](https://github.com/Typepluto))
+- Fix scaling for Vaal Righteous Fire (Wires77) [\#2645](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2645) ([Wires77](https://github.com/Wires77))
+- Fix Mine Aura effect applying to DoTs from mines [\#2622](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2622) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Exsanguinate stacks applying to Poison and Ignite [\#2621](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2621) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix support for Prism Guardian (PJacek) [\#2586](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2586) ([PJacek](https://github.com/PJacek))
+- Fix crash when searching in boxes with many symbols (Wires77) [\#2497](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2497) ([Wires77](https://github.com/Wires77))
+- Fix crash when comparing bows with Mirage Archer for Ignite/Bleed (Nostrademous) [\#2629](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2629) ([Nostrademous](https://github.com/Nostrademous))
+- Fix exporting of implicit tags (Nostrademous) [\#2608](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2608) ([Nostrademous](https://github.com/Nostrademous))
+- Fix missing implicit on Disintegrator (pundm) [\#2591](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2591) ([pundm](https://github.com/pundm))
 
 ## [2.2.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.2.1) (2021/04/17)
 
