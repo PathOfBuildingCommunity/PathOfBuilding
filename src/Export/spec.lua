@@ -4022,9 +4022,9 @@ return {
 		[45]={
 			list=false,
 			name="",
-			refTo="",
-			type="Int",
-			width=150
+			refTo="GrantedEffectsPerLevel",
+			type="Key",
+			width=240
 		},
 		[46]={
 			list=false,
@@ -4037,21 +4037,21 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
-			width=150
+			type="Interval",
+			width=250
 		},
 		[48]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
-			width=150
+			type="Key",
+			width=240
 		},
 		[49]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Key",
 			width=150
 		},
 		[50]={
@@ -4064,7 +4064,7 @@ return {
 		[51]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="Tags",
 			type="Int",
 			width=150
 		},
@@ -4076,76 +4076,6 @@ return {
 			width=150
 		},
 		[53]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[54]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[55]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[56]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[57]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[58]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[59]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[60]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[61]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[62]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[63]={
 			list=true,
 			name="ImplicitTags",
 			refTo="Tags",
