@@ -1367,10 +1367,9 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 				if values.reservedPercent ~= 0 then
-					local reservedBase = m_ceil(output[name] * values.reservedPercent / 100)
 					activeSkill.skillData[name.."ReservedPercent"] = values.reservedPercent
-					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + reservedBase
-					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + reservedBase
+					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + m_ceil(output[name] * values.reservedPercent / 100)
+					env.player["reserved_"..name.."Percent"] = env.player["reserved_"..name.."Percent"] + values.reservedPercent
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {
 							skillName = activeSkill.activeEffect.grantedEffect.name,
@@ -1378,7 +1377,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
-							total = values.reservedPercent .. "% (" .. reservedBase .. ")",
+							total = values.reservedPercent .. "%",
 						})
 					end
 				end
