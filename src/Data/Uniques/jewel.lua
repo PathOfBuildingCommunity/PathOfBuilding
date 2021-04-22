@@ -966,6 +966,31 @@ Limited to: 1
 {variant:103}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
 {variant:104}30% increased Maximum total Recovery per second from Energy Shield Leech while affected by Zealotry
 ]],
+-- Jewel: Abyss
+[[
+Amanamu's Gaze
+Ghastly Eye Jewel
++(5-10) to all Attributes
+Minions have +6% to Damage over Time Multiplier per Ghastly Eye Jewel affecting you, up to a maximum of +30%
+]],[[
+Kurgal's Gaze
+Hypnotic Eye Jewel
++(10-20) to Intelligence
+8% increased Effect of Arcane Surge on you per Hypnotic Eye Jewel affecting you, up to a maximum of 40%
+]],[[
+Tecrod's Gaze
+Murderous Eye Jewel
+Requires Level 40
++(10-20) to Strength
+20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
++10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
+]],[[
+Ulaman's Gaze
+Searching Eye Jewel
+Requires Level 40
++(10-20) to Dexterity
+Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%
+]],
 -- Jewel: Threshold
 [[
 Combat Focus
@@ -1341,7 +1366,7 @@ Radius: Medium
 Ancient Waystones
 Crimson Jewel
 Limited to: 1
-60% reduced Mana Cost of Totem Skills that cast an Aura
+60% reduced Cost of Aura Skills that summon Totems
 Corrupted
 ]],[[
 Atziri's Reign
@@ -1663,7 +1688,7 @@ Variant: Duration of Curses
 Variant: Minion Attack and Cast Speed
 Variant: Minions Accuracy Rating
 Variant: Mana Regen
-Variant: Mana Cost
+Variant: Skill Cost
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
 Radius: Large
@@ -1684,7 +1709,7 @@ Implicits: 0
 {variant:14}1% increased Minion Attack and Cast Speed per 10 Devotion
 {variant:15}Minions have +60 to Accuracy Rating per 10 Devotion
 {variant:16}Regenerate 0.6 Mana per Second per 10 Devotion
-{variant:17}1% reduced Mana Cost of Skills per 10 Devotion
+{variant:17}1% reduced Cost of Skills per 10 Devotion
 {variant:18}1% increased effect of Non-Curse Auras per 10 Devotion
 {variant:19}3% increased Defences from Equipped Shield per 10 Devotion
 Passives in radius are Conquered by the Templars

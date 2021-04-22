@@ -231,6 +231,7 @@ local skinOfTheLords = {
 local excludedKeystones = {
 	"Chaos Inoculation", -- to prevent infinite loop
 	"Corrupted Soul", -- exclusive to specific unique
+	"Divine Flesh", -- exclusive to specific unique
 	"Hollow Palm Technique", -- exclusive to specific unique
 	"Immortal Ambition", -- exclusive to specific unique
 	"Necromantic Aegis", -- to prevent infinite loop

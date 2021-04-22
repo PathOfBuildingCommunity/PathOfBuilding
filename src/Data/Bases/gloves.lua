@@ -333,7 +333,7 @@ itemBases["Leyline Gloves"] = {
 	subType = "Energy Shield",
 	socketLimit = 4,
 	tags = { gloves = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
-	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Mana Cost to gain that much Mana",
+	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Cost to gain that much Mana",
 	implicitModTypes = { { "resource", "mana" }, { "resource", "mana" }, },
 	armour = { EnergyShieldBase = 8, },
 	req = { level = 10, int = 18, },
@@ -343,7 +343,7 @@ itemBases["Aetherwind Gloves"] = {
 	subType = "Energy Shield",
 	socketLimit = 4,
 	tags = { gloves = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
-	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Mana Cost to gain that much Mana",
+	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Cost to gain that much Mana",
 	implicitModTypes = { { "resource", "mana" }, { "resource", "mana" }, },
 	armour = { EnergyShieldBase = 26, },
 	req = { level = 40, int = 59, },
@@ -353,7 +353,7 @@ itemBases["Nexus Gloves"] = {
 	subType = "Energy Shield",
 	socketLimit = 4,
 	tags = { gloves = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
-	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Mana Cost to gain that much Mana",
+	implicit = "30% reduced maximum Mana\n(25-30)% chance when you pay a Skill's Cost to gain that much Mana",
 	implicitModTypes = { { "resource", "mana" }, { "resource", "mana" }, },
 	armour = { EnergyShieldBase = 45, },
 	req = { level = 70, int = 101, },
@@ -514,6 +514,16 @@ itemBases["Crusader Gloves"] = {
 	armour = { ArmourBase = 121, EnergyShieldBase = 24, },
 	req = { level = 66, str = 51, int = 51, },
 }
+itemBases["Apothecary's Gloves"] = {
+	type = "Gloves",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { gloves = true, str_int_armour = true, not_for_sale = true, atlas_base_type = true, armour = true, glovesatlasstrint = true, default = true, },
+	implicit = "(14-18)% increased Damage over Time",
+	implicitModTypes = { { "damage" }, },
+	armour = { ArmourBase = 108, EnergyShieldBase = 27, },
+	req = { level = 70, str = 46, int = 58, },
+}
 
 itemBases["Wrapped Mitts"] = {
 	type = "Gloves",
@@ -591,7 +601,7 @@ itemBases["Murder Mitts"] = {
 itemBases["Golden Bracers"] = {
 	type = "Gloves",
 	socketLimit = 4,
-	tags = { not_for_sale = true, armour = true, gloves = true, default = true, },
+	tags = { gloves = true, not_for_sale = true, armour = true, demigods = true, default = true, },
 	implicit = "+(20-30) to maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
 	armour = { },

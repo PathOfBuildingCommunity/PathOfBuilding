@@ -350,7 +350,7 @@ Requires Level 65, 197 Dex
 +(50-80) to maximum Life
 -30% to Cold Resistance
 (5-10)% increased Dexterity
-100% reduced Arctic Armour Mana Reservation
+Arctic Armour has 100% reduced Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Phase Acrobatics
 ]],[[
@@ -696,7 +696,7 @@ Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 69, 95 Str, 116 Dex
 (100-150)% increased Armour and Evasion
 +(90-100) to maximum Life
-Aspect of the Cat Reserves no Mana
+Aspect of the Cat has no Reservation
 +2 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
 You have Phasing while you have Cat's Stealth
@@ -708,7 +708,7 @@ Requires Level 69, 95 Str, 116 Dex
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
 +2.00 seconds to Cat's Agility Duration
-Aspect of the Cat Reserves no Mana
+Aspect of the Cat has no Reservation
 Gain up to your maximum number of Frenzy and Endurance Charges when you gain Cat's Agility
 You have Onslaught while you have Cat's Agility
 ]],[[

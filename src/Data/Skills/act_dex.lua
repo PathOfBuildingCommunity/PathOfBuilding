@@ -120,7 +120,6 @@ skills["AnimateWeapon"] = {
 skills["ArcticArmour"] = {
 	name = "Arctic Armour",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.029999999329448,
 	description = "Conjures an icy barrier that chills enemies when they hit you. You drop chilled ground while moving, and take less Fire and Physical damage while stationary.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.SkillCanTotem] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ColdSkill] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Instant] = true, [SkillType.NonHitChill] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
@@ -1187,6 +1186,7 @@ skills["BlinkArrow"] = {
 skills["BloodRage"] = {
 	name = "Blood Rage",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Adds a buff that deals Physical Damage over time, while increasing Attack Speed and Life Leech. Killing an enemy while this buff is active refreshes the buff duration, and can grant a Frenzy Charge.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.PhysicalSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1686,7 +1686,6 @@ skills["ChargedDash"] = {
 skills["CobraLash"] = {
 	name = "Cobra Lash",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Fires a poisonous projectile based on your weapon that will chain between enemies. Requires a Dagger or Claw.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, },
@@ -2478,7 +2477,6 @@ skills["VaalDetonateDead"] = {
 skills["DoubleStrike"] = {
 	name = "Double Strike",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast strikes with a melee weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.PhysicalSkill] = true, },
@@ -2568,7 +2566,6 @@ skills["DoubleStrike"] = {
 skills["VaalDoubleStrike"] = {
 	name = "Vaal Double Strike",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast strikes with a melee weapon, each of which summons a double of you for a duration to continuously attack monsters in this fashion.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.PhysicalSkill] = true, },
@@ -2659,6 +2656,7 @@ skills["VaalDoubleStrike"] = {
 skills["DualStrike"] = {
 	name = "Dual Strike",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Attacks with both weapons, dealing the damage of both in one strike. Dual wield only. Does not work with wands.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.DualWield] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Type53] = true, },
 	weaponTypes = {
@@ -3460,6 +3458,7 @@ skills["FlamethrowerTrap"] = {
 skills["FlickerStrike"] = {
 	name = "Flicker Strike",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MovementSkill] = true, [SkillType.Duration] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
@@ -3560,6 +3559,7 @@ skills["FlickerStrike"] = {
 skills["Frenzy"] = {
 	name = "Frenzy",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Performs an attack that gives the character a frenzy charge if it hits. Frenzy charges increase your attack speed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -4787,7 +4787,6 @@ skills["DoubleSlash"] = {
 skills["LancingSteel"] = {
 	name = "Lancing Steel",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Thrust an Axe or Sword forward, consuming your Steel Shards to form a cluster of shards in front of you. The cluster will fire a number of projectiles in sequence, aiming at enemies in front of or close to it. Steel Shards are gained with the Call of Steel Skill.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.PhysicalSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SteelSkill] = true, },
@@ -5290,7 +5289,6 @@ skills["MirrorArrow"] = {
 skills["MambaStrike"] = {
 	name = "Pestilent Strike",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Attacks with your weapon, inflicting a debuff on enemies hit by the strike. If a debuffed enemy dies while poisoned, Pestilent Strike inflicts a secondary chaos damage over time debuff on enemies around them, based on the poisons on the slain enemy. This damage is not affected by your damage modifiers. Requires a Claw or Dagger.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.ChaosSkill] = true, },
@@ -5731,6 +5729,7 @@ skills["AccuracyAndCritsAura"] = {
 skills["SnipersMark"] = {
 	name = "Sniper's Mark",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can gain charges for your life and mana flasks by hitting the cursed enemy. You can only have one Mark at a time.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
@@ -6083,6 +6082,7 @@ skills["ColdImpurity"] = {
 skills["RainOfArrows"] = {
 	name = "Rain of Arrows",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Fires multiple arrows into the air, to land in sequence after a delay, starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
 	weaponTypes = {
@@ -6518,7 +6518,6 @@ skills["Riposte"] = {
 skills["ScourgeArrow"] = {
 	name = "Scourge Arrow",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Channel to infuse an arrow with chaos, gaining stages while it is held. Release to fire it, leaving spore pods in its wake. Each spore pod blooms, firing thorn arrows, which travel for a short time before dissipating. Modifiers that cause additional projectiles to be fired will only apply to the initial arrows, and the spore pods will be split between those arrows.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.Hit] = true, [SkillType.Channelled] = true, [SkillType.ChaosSkill] = true, },
@@ -6626,7 +6625,6 @@ skills["ScourgeArrow"] = {
 skills["ShatteringSteel"] = {
 	name = "Shattering Steel",
 	color = 2,
-	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Swing an Axe or Sword, consuming Steel Shards to gain a Steel Ward that protects you for a duration, and fire projectiles which shatter on impact or soon after being launched, dealing area damage in front of where they shatter. Steel Shards are gained with the Call of Steel Skill.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.PhysicalSkill] = true, [SkillType.SkillCanVolley] = true, [SkillType.SteelSkill] = true, },
@@ -7753,6 +7751,7 @@ skills["SummonIceGolem"] = {
 skills["TemporalChains"] = {
 	name = "Temporal Chains",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
@@ -8306,6 +8305,7 @@ skills["VolatileDead"] = {
 skills["WhirlingBlades"] = {
 	name = "Whirling Blades",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
 	weaponTypes = {
@@ -8533,6 +8533,7 @@ skills["WildStrike"] = {
 skills["Slither"] = {
 	name = "Withering Step",
 	color = 2,
+	baseEffectiveness = 0,
 	description = "Removes any existing Elusive buff before applying both Elusive and a buff that grants Phasing. While you have this buff, monsters that enter an area around you will be Withered. Using a skill or losing the Elusive buff ends this skill's effects. Shares a cooldown with other Blink skills.",
 	skillTypes = { [SkillType.TravelSkill] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Area] = true, [SkillType.ChaosSkill] = true, [SkillType.MovementSkill] = true, [SkillType.BlinkSkill] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",

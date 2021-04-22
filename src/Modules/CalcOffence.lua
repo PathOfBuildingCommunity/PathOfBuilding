@@ -707,9 +707,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
-		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
 		if breakdown then
-			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "SupportManaMultiplier")
+			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "Reserved", "SupportManaMultiplier")
+		end
+		output.LifeReservedMod = calcLib.mod(skillModList, skillCfg, "LifeReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		if breakdown then
+			breakdown.LifeReservedMod = breakdown.mod(skillModList, skillCfg, "LifeReserved", "Reserved", "SupportManaMultiplier")
 		end
 	end
 	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
@@ -3663,7 +3667,7 @@ function calcs.offence(env, actor, activeSkill)
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local more = round(skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
 			local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
-			local aura = activeSkill.skillTypes[SkillType.Aura] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
+			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.Mine] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
 			if output[damageType.."Dot"] == 0 then
 				output[damageType.."Dot"] = total
@@ -3981,11 +3985,11 @@ function calcs.offence(env, actor, activeSkill)
 		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
 		output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
 
-		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > output.IgniteDPS then
+		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > (output.IgniteDPS or 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.IgniteDPS
 			output.IgniteDPS = 0
 		end
-		if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > output.BleedDPS then
+		if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > (output.BleedDPS or 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.BleedDPS
 			output.BleedDPS = 0
 		end
@@ -4002,7 +4006,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.DecayDPS
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
 		end
-		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or output.TotalDot == 0) then
+		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or not output.TotalDot or output.TotalDot == 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end

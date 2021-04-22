@@ -459,7 +459,7 @@ Requires Level 69, 154 Int
 (6-10)% increased maximum Mana
 Recover (8-10)% of maximum Life when you use a Mana Flask
 Non-instant Mana recovery from Flasks is also recovered as Life
-(50-60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
+(50-60)% increased Cost of Skills for each 200 total Mana Spent Recently
 {variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 Shaper Item
@@ -1036,6 +1036,44 @@ Requires Level: 62, 79 Dex, 72 Int
 15% increased Dexterity if Strength is higher than Intelligence
 1% increased Elemental Damage per 10 Dexterity
 +2 to Maximum Life per 10 Intelligence
+]],[[
+Glimpse of Chaos
+Vaal Mask
+League: Ultimatum
+Requires Level 62, 79 Dex, 72 Int
+Implicits: 1
+Variant: Area of Effect
+Variant: Blind
+Variant: Mana Cost + Reservation
+Variant: Curse Effect
+Variant: Skill Effect Duration
+Variant: Crushed
+Variant: +2 Gems
+Variant: Minimum Charges
+Variant: Cooldown Recovery
+Variant: Aura Effect
+Variant: Additional Projectile
+Variant: Malediction
+Variant: Quantity
+{variant:1}(15-25)% increased Area of Effect
+{variant:2}Nearby Enemies are Blinded
+{variant:3}Socketed Skill Gems get a 80% Cost & Reservation Multiplier
+{variant:4}(10-15)% increased Effect of your Curses
+{variant:5}(15-25)% increased Skill Effect Duration
+{variant:6}Nearby Enemies are Crushed
+{variant:7}+2 to Level of Socketed Gems
+{variant:8}+1 to Minimum Endurance, Frenzy and Power Charges
+{variant:9}(8-12)% increased Cooldown Recovery Rate
+{variant:10}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:11}Skills fire an additional Projectile
+{variant:12}Nearby Enemies have Malediction
+{variant:13}(5-7)% increased Quantity of Items found
+Can be modified while Corrupted
+(30-40)% increased maximum Life and reduced Fire Resistance
+(30-40)% increased maximum Mana and reduced Cold Resistance
+(30-40)% increased Global maximum Energy Shield and reduced Lightning Resistance
+Chaos Resistance is Zero
+Corrupted
 ]],[[
 Gorgon's Gaze
 Regicide Mask
