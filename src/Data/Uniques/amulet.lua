@@ -656,7 +656,7 @@ Implicits: 1
 {tags:critical}{variant:1}60% less Critical Strike Chance
 {tags:critical}{variant:2}50% less Critical Strike Chance
 {tags:critical}{variant:3,4,5}40% less Critical Strike Chance
-Your Critical Strikes have Culling Strike
+Critical Strikes have Culling Strike
 ]],[[
 Natural Hierarchy
 Rotfeather Talisman
