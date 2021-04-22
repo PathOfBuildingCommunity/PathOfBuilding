@@ -1,3 +1,30 @@
+VERSION[2.2.2][2021/04/22]
+
+* Add parsing for many new mods (LocalIdentity)
+* Add new bases and clean up base matching (LocalIdentity)
+* Split reservation mod into mana and life reservation mods (PJacek)
+* Updated Uniques (Nostrademous)
+
+* Fix scaling for Vaal Righteous Fire (Wires77)
+* Update reservation rounding (PJacek)
+* Fix Mine aura effect applying to DoTs from mines (LocalIdentity)
+* Fix Exsanguinate stacks applying to all DoTs (LocalIdentity)
+* Updating item parser to handle new copy/paste format (Wires77)
+* Add parsing for new damage mods (PJacek)
+* Fix Prism Guardian (PJacek)
+* Fixes \#2494 - short circuits out of search function if the lua pattern is invalid (Wires77)
+
+* Fix updated marylenes culling strike mod to the newest version (pundm)
+* Fix Punishment Curse doesn't affect the DPS while select "Enemy is on Low Life" (Typepluto)
+* Fix error when comparing bows with Mirage Archer for Ignite/Bleed (Nostrademous)
+* Improve Mods.dat for finding implicit mods (Wires77)
+* add cowards chains mod parsing (pundm)
+* Adding Divine Flesh to be able to be parsed on items (Wires77)
+* Fix for DAT64 implicitTags (Nostrademous)
+* Fix: added missing implicit on Disintegrator (pundm)
+
+
+
 VERSION[2.2.1][2021/04/17]
 
 * Add support for Chainbreaker rage cost (PJacek)
