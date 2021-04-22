@@ -4627,7 +4627,7 @@ skills["Punishment"] = {
 	castTime = 0.5,
 	statMap = {
 		["damage_taken_+%_on_low_life"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "CurseBuff" }, { type = "ActorCondition", actor = "enemy", var="LowLife" }),
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "LowLife"}),
 		},
 	},
 	baseFlags = {
