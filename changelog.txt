@@ -5,7 +5,7 @@ VERSION[2.3.0][2021/04/23]
 * Update reservation rounding with 3.14 Changes (PJacek)
 * Add parsing for many new unique mods
 * Add support for portrait display resolutions (Wires77)
-* Implemented Support for Blood Sacrament (from Relic of the Pact unique) (Nostrademous)
+* Add support for Blood Sacrament (from Relic of the Pact unique) (Nostrademous)
 * More accurately simulate triggered attacks (Moneypouch)
 * Split reservation into mana and life reservation mods (PJacek)
 * Add Divine Flesh to be able to be parsed on items (Wires77)
