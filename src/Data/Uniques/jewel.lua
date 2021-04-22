@@ -1366,7 +1366,7 @@ Radius: Medium
 Ancient Waystones
 Crimson Jewel
 Limited to: 1
-60% reduced Mana Cost of Totem Skills that cast an Aura
+60% reduced Cost of Aura Skills that summon Totems
 Corrupted
 ]],[[
 Atziri's Reign
@@ -1688,7 +1688,7 @@ Variant: Duration of Curses
 Variant: Minion Attack and Cast Speed
 Variant: Minions Accuracy Rating
 Variant: Mana Regen
-Variant: Mana Cost
+Variant: Skill Cost
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
 Radius: Large
@@ -1709,7 +1709,7 @@ Implicits: 0
 {variant:14}1% increased Minion Attack and Cast Speed per 10 Devotion
 {variant:15}Minions have +60 to Accuracy Rating per 10 Devotion
 {variant:16}Regenerate 0.6 Mana per Second per 10 Devotion
-{variant:17}1% reduced Mana Cost of Skills per 10 Devotion
+{variant:17}1% reduced Cost of Skills per 10 Devotion
 {variant:18}1% increased effect of Non-Curse Auras per 10 Devotion
 {variant:19}3% increased Defences from Equipped Shield per 10 Devotion
 Passives in radius are Conquered by the Templars
