@@ -234,8 +234,8 @@ Variant: Fire Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Fire Damage
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}{tags:mana}Herald of Ash has (30-40)% reduced Mana Reservation
-{variant:2}{tags:mana}Herald of Ash has (15-20)% reduced Mana Reservation
+{variant:1}{tags:mana}Herald of Ash has (30-40)% reduced Reservation
+{variant:2}{tags:mana}Herald of Ash has (15-20)% reduced Reservation
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
 {variant:4}Herald of Ash has (70-100)% increased Buff Effect
 {variant:5}Herald of Ash has (40-60)% increased Buff Effect
@@ -260,8 +260,8 @@ Variant: Cold Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Cold Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}{tags:mana}Herald of Ice has (30-40)% reduced Mana Reservation
-{variant:2}{tags:mana}Herald of Ice has (15-20)% reduced Mana Reservation
+{variant:1}{tags:mana}Herald of Ice has (30-40)% reduced Reservation
+{variant:2}{tags:mana}Herald of Ice has (15-20)% reduced Reservation
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
 {variant:4}Herald of Ice has (70-100)% increased Buff Effect
 {variant:5}Herald of Ice has (40-60)% increased Buff Effect
@@ -286,8 +286,8 @@ Variant: Damage Reduction
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:physical}Adds (8-10) to (13-15) Physical Damage
 {tags:jewellery_defense}+(350-400) to Armour
-{variant:1}{tags:mana}Herald of Purity has (30-40)% reduced Mana Reservation
-{variant:2}{tags:mana}Herald of Purity has (15-20)% reduced Mana Reservation
+{variant:1}{tags:mana}Herald of Purity has (30-40)% reduced Reservation
+{variant:2}{tags:mana}Herald of Purity has (15-20)% reduced Reservation
 {variant:3}{tags:physical}(40-60)% increased Physical Damage while affected by Herald of Purity
 {variant:4}Herald of Purity has (70-100)% increased Buff Effect
 {variant:5}Herald of Purity has (40-60)% increased Buff Effect
@@ -312,8 +312,8 @@ Variant: Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:chaos}Adds (15-20) to (21-30) Chaos Damage
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}{tags:mana}Herald of Agony has (30-40)% reduced Mana Reservation
-{variant:2}{tags:mana}Herald of Agony has (15-20)% reduced Mana Reservation
+{variant:1}{tags:mana}Herald of Agony has (30-40)% reduced Reservation
+{variant:2}{tags:mana}Herald of Agony has (15-20)% reduced Reservation
 {variant:3}{tags:chaos}(40-60)% increased Chaos Damage while affected by Herald of Agony
 {variant:4}Herald of Agony has (70-100)% increased Buff Effect
 {variant:5}Herald of Agony has (40-60)% increased Buff Effect
@@ -338,8 +338,8 @@ Variant: Lightning Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_elemental}Adds 1 to (48-60) Lightning Damage
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-{variant:1}{tags:mana}Herald of Thunder has (30-40)% reduced Mana Reservation
-{variant:2}{tags:mana}Herald of Thunder has (15-20)% reduced Mana Reservation
+{variant:1}{tags:mana}Herald of Thunder has (30-40)% reduced Reservation
+{variant:2}{tags:mana}Herald of Thunder has (15-20)% reduced Reservation
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
 {variant:4}Herald of Thunder has (70-100)% increased Buff Effect
 {variant:5}Herald of Thunder has (40-60)% increased Buff Effect
