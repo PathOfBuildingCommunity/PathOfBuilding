@@ -41,7 +41,7 @@ Implicits: 1
 (20-40)% increased Physical Damage
 Adds (3-6) to (9-13) Physical Damage
 10% increased Attack Speed
-Extra Gore
+Extra gore
 {variant:1}10% chance to cause Bleeding on Hit
 {variant:2}30% chance to cause Bleeding on Hit
 ]],[[
@@ -202,7 +202,7 @@ Implicits: 1
 10% reduced Attack Speed
 +(6-10)% to all Elemental Resistances
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}50% chance to Cause Bleeding on Critical Strike
+{variant:3}50% chance to cause Bleeding on Critical Strike
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
 {variant:3}50% chance to Cause Poison on Critical Strike
 ]],[[

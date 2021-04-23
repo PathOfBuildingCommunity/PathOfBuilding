@@ -10,7 +10,7 @@ Variant: Current
 Requires Level 10
 Implicits: 1
 (20-30)% increased Accuracy Rating
-{variant:2}Grants level 5 Frostbite Skill
+{variant:2}Grants Level 5 Frostbite Skill
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
@@ -202,7 +202,7 @@ Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
 Requires Level 56
 Implicits: 1
 (20-30)% increased Accuracy Rating
-−10% to Fire Resistance
+-10% to Fire Resistance
 +(20-30)% to Lightning Resistance
 +7 Life gained for each Enemy hit by your Attacks
 20% reduced Projectile Speed

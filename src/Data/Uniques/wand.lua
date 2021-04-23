@@ -14,7 +14,7 @@ Implicits: 2
 (20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
 (40-60)% increased Global Critical Strike Chance
-+10 Life Gained on Killing Ignited Enemies
++10 Life gained on Killing Ignited Enemies
 25% reduced Ignite Duration on Enemies
 ]],[[
 Apep's Rage
@@ -114,9 +114,9 @@ Implicits: 2
 {variant:3}Minions have (20-30)% increased Movement Speed
 {variant:1,2}Minions deal (10-30)% increased Damage
 {variant:3}Minions deal (50-70)% increased Damage
-+1 to Maximum number of Raised Zombies
-+1 to Maximum number of Spectres
-+1 to Maximum number of Skeletons
++1 to maximum number of Raised Zombies
++1 to maximum number of Spectres
++1 to maximum number of Skeletons
 Reserves 30% of Life
 Cannot be used with Chaos Inoculation
 ]],[[
@@ -145,7 +145,7 @@ Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
 {variant:1,2,3}Socketed Gems are supported by level 5 Blind
-{variant:4}Socketed Gems are supported by level 20 Blind
+{variant:4}Socketed Gems are supported by Level 20 Blind
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage

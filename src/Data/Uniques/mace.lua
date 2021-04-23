@@ -87,11 +87,11 @@ Implicits: 2
 (60-80)% increased Physical Damage
 Adds 10 to 15 Physical Damage
 10% increased Attack Speed
-1% of Physical Attack Damage leeched as Life
+1% of Physical Attack Damage Leeched as Life
 {variant:1}10% Chance to cause Bleeding on Hit
-{variant:2}30% Chance to cause Bleeding on Hit
-{variant:1}1% of Attack Damage leeched as Life against Bleeding Enemies
-{variant:2}3% of Attack Damage leeched as Life against Bleeding Enemies
+{variant:2}30% chance to cause Bleeding on Hit
+{variant:1}1% of Attack Damage Leeched as Life against Bleeding Enemies
+{variant:2}3% of Attack Damage Leeched as Life against Bleeding Enemies
 ]],[[
 Frostbreath
 Ornate Mace
@@ -109,7 +109,7 @@ Implicits: 2
 (8-14)% increased Attack Speed
 +(40-50)% to Fire Resistance
 (35-50)% increased Chill Duration on Enemies
-Attacks with this Weapon deal double Damage to Chilled Enemies
+Attacks with this Weapon deal Double Damage to Chilled Enemies
 ]],[[
 Replica Frostbreath
 Ornate Mace
@@ -187,7 +187,7 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-{fractured}(15-20)% increased Cast Speed
+(15-20)% increased Cast Speed
 (15-20)% increased Cold Damage per 1% Cold Resistance above 75%
 (15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
 ]],[[
@@ -197,7 +197,7 @@ League: Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-{fractured}(15-20)% increased Cast Speed
+(15-20)% increased Cast Speed
 (15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
 (15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
 ]],[[
@@ -273,11 +273,11 @@ Implicits: 2
 {variant:1}15% increased Elemental Damage
 {variant:2,3}22% increased Elemental Damage
 {variant:3}Socketed Gems are Supported by Level 1 Bonechill
-Socketed Gems are Supported by level 1 Hypothermia
-Socketed Gems are Supported by level 1 Ice Bite
-Socketed Gems are Supported by level 1 Cold Penetration
-{variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
-Socketed Gems are Supported by level 10 Added Cold Damage
+Socketed Gems are Supported by Level 1 Hypothermia
+Socketed Gems are Supported by Level 1 Ice Bite
+Socketed Gems are Supported by Level 1 Cold Penetration
+{variant:1,2}Socketed Gems are Supported by Level 1 Mana Leech
+Socketed Gems are Supported by Level 10 Added Cold Damage
 Socketed Gems are Supported by level 1 Reduced Mana
 ]],[[
 Replica Bitterdream
@@ -405,7 +405,7 @@ Implicits: 2
 +(50-70) to Strength
 (15-18)% increased Cast Speed
 +(20-30) to maximum Mana
-Socketed Gems are Supported by level 30 Iron Will
+Socketed Gems are Supported by Level 30 Iron Will
 1% increased Damage per 8 Strength when in Main Hand
 1% increased Armour per 16 Strength when in Off Hand
 ]],[[
@@ -418,7 +418,7 @@ Requires Level 75, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
-Socketed Gems are Supported by level 20 Elemental Proliferation
+Socketed Gems are Supported by Level 20 Elemental Proliferation
 Adds (65-85) to (100-160) Physical Damage
 (11-15)% increased Attack Speed
 (6-10)% increased Cast Speed
@@ -480,9 +480,9 @@ Implicits: 2
 {variant:1,2}20% increased Elemental Damage
 {variant:3,4}30% increased Elemental Damage
 {variant:4}+2 to Level of Socketed Fire Gems
-{variant:1,2,3}Socketed Gems are Supported by level 10 Added Fire Damage
-{variant:1,2,3}Socketed Gems are Supported by level 10 Cold to Fire
-Socketed Gems are Supported by level 10 Fire Penetration
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Added Fire Damage
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Cold to Fire
+Socketed Gems are Supported by Level 10 Fire Penetration
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
 (20-30)% increased Spell Damage
 {variant:2,3,4}(150-200)% increased Physical Damage
@@ -690,7 +690,7 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
-{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
+{variant:2}25% chance to Trigger Level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
 (8-12)% increased Attack Speed
 (8-12)% increased Cast Speed
@@ -744,7 +744,7 @@ Implicits: 3
 {variant:2,3}30% increased Stun Duration on Enemies
 {variant:4}45% increased Stun Duration on Enemies
 {variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
-{variant:3,4}Socketed Gems are Supported by level 15 Pulverise
+{variant:3,4}Socketed Gems are Supported by Level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
 {variant:4}(200-230)% increased Physical Damage

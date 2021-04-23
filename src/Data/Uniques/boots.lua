@@ -196,7 +196,7 @@ Deerskin Boots
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22, 42 Dex
-Socketed Gems are Supported by level 11 Trap
+Socketed Gems are Supported by Level 11 Trap
 (160-200)% increased Evasion Rating
 +(35-45) to maximum Life
 (14-18)% increased Trap Throwing Speed
@@ -247,7 +247,7 @@ Variant: Current
 Requires Level 34, 62 Dex
 60% increased Mana Regeneration Rate
 {variant:1}(20-30)% increased Quantity of Items Found
-{variant:2}(14-20)% increased Quantity of Items Found
+{variant:2}(14-20)% increased Quantity of Items found
 +(40-50)% to Fire Resistance
 10% increased Movement Speed
 ]],[[
@@ -285,7 +285,7 @@ Requires Level 62, 117 Dex
 {variant:3}+(100-160) to maximum Energy Shield
 {variant:4}+(100-150) to maximum Energy Shield
 30% increased Movement Speed
-Enemies Cannot Leech Life From You
+Enemies Cannot Leech Life From you
 ]],[[
 Temptation Step
 Shagreen Boots
@@ -348,8 +348,8 @@ Requires Level 22, 42 Int
 +20 to maximum Mana
 (40-60)% increased Energy Shield
 (5-15)% increased Movement Speed
-{variant:1}+1 to Maximum number of Raised Zombies
-{variant:1}+1 to Maximum number of Spectres
+{variant:1}+1 to maximum number of Raised Zombies
+{variant:1}+1 to maximum number of Spectres
 {variant:2}+1 to Level of all Raise Zombie Gems
 {variant:2}+1 to Level of all Raise Spectre Gems
 ]],[[
@@ -680,7 +680,7 @@ Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
 +(9-12)% to Chaos Resistance
 20% increased Movement Speed
-+1 to Maximum number of Skeletons
++1 to maximum number of Skeletons
 (15-18)% increased Strength
 ]],[[
 Replica Alberon's Warpath
@@ -703,7 +703,7 @@ Requires Level 64, 62 Str, 62 Int
 +(10-15)% to all Elemental Resistances
 25% increased Movement Speed
 +1 to Maximum Endurance Charges
-50% increased Elemental Ailment Duration on You
+50% increased Elemental Ailment Duration on you
 Bleeding cannot be inflicted on you
 ]],[[
 Gang's Momentum
@@ -748,7 +748,7 @@ Adds 1 to 120 Lightning Damage to Attacks
 (20-60)% increased Armour and Energy Shield
 +(10-20) Life gained on Kill
 {variant:2,3}15% increased Movement Speed
-{variant:1,2}10% Chance to Cause Monsters to Flee
+{variant:1,2}10% chance to Cause Monsters to Flee
 {variant:3}Drops Shocked Ground while moving, lasting 2 seconds
 ]],
 -- Boots: Evasion/Energy Shield
@@ -779,7 +779,7 @@ Variant: Two Abyssal Sockets
 Requires Level 69, 82 Dex, 42 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-Triggers level 20 Death Walk when Equipped
+Triggers Level 20 Death Walk when Equipped
 (4-6)% increased maximum Life
 30% increased Movement Speed
 10% increased Damage for each type of Abyssal Jewel affecting you

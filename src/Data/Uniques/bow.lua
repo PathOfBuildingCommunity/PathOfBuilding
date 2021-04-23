@@ -453,7 +453,7 @@ Requires Level 64, 212 Dex
 Adds 1 to (275-325) Lightning Damage
 (10-15)% increased Attack Speed
 60% of Lightning Damage Converted to Chaos Damage
-10% Chance to Shock
+10% chance to Shock
 Your Chaos Damage can Shock
 {variant:2}Shock Enemies as though dealing 300% more Damage
 {variant:2}Your Shocks can increase Damage taken by up to a maximum of 100%

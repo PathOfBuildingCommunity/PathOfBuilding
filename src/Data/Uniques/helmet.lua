@@ -312,7 +312,7 @@ Requires Level 69, 154 Int
 {variant:1}+(200-250) to Accuracy Rating
 {variant:2}+(300-350) to Accuracy Rating
 (120-150)% increased Energy Shield
-−30% to Fire Resistance
+-30% to Fire Resistance
 (0.4-0.8)% of Attack Damage Leeched as Life
 (0.2-0.4)% of Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
@@ -395,7 +395,7 @@ Hubris Circlet
 Source: Drops from The Pale Council
 Requires Level 69, 154 Int
 Implicits: 0
-Trigger level 10 Void Gaze when you use a Skill
+Trigger Level 10 Void Gaze when you use a Skill
 +(50-80) to maximum Mana
 (120-150)% increased Energy Shield
 50% increased Stun and Block Recovery
@@ -458,7 +458,7 @@ Requires Level 69, 154 Int
 (150-180)% increased Energy Shield
 (6-10)% increased maximum Mana
 Recover (8-10)% of maximum Life when you use a Mana Flask
-Non-instant Mana recovery from Flasks is also recovered as Life
+Non-instant Mana Recovery from Flasks is also Recovered as Life
 (50-60)% increased Cost of Skills for each 200 total Mana Spent Recently
 {variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
@@ -505,8 +505,8 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 65, 138 Int
-{variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
-{variant:2,3}Socketed Gems are Supported by level 20 Concentrated Effect
+{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
+{variant:2,3}Socketed Gems are Supported by Level 20 Concentrated Effect
 30% increased Cold Damage
 +(40-60) to maximum Mana
 {variant:1}(100-120)% increased Energy Shield
@@ -586,11 +586,11 @@ Variant: Pre 1.3.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 67, 62 Str, 85 Dex
-Socketed Gems are Supported by level 18 Melee Physical Damage
-{variant:1,4}Socketed Gems are Supported by level 18 Faster Attacks
-{variant:2,3}Socketed Gems are Supported by level 12 Faster Attacks
-{variant:1,4}Socketed Gems are Supported by level 18 Blind
-{variant:2,3}Socketed Gems are Supported by level 6 Blind
+Socketed Gems are Supported by Level 18 Melee Physical Damage
+{variant:1,4}Socketed Gems are Supported by Level 18 Faster Attacks
+{variant:2,3}Socketed Gems are Supported by Level 12 Faster Attacks
+{variant:1,4}Socketed Gems are supported by Level 18 Blind
+{variant:2,3}Socketed Gems are supported by Level 6 Blind
 {variant:1,2}15% Chance to Block
 {variant:3,4}6% Chance to Block
 Adds 20 to 30 Physical Damage to Attacks
@@ -727,7 +727,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 63, 85 Str, 62 Int
-Socketed Gems are supported by level 20 Cast on Death
+Socketed Gems are supported by Level 20 Cast on Death
 20% increased Damage when on Low Life
 +(10-15) to all Attributes
 (60-100)% increased Armour and Energy Shield
@@ -940,7 +940,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:1}+(100-150) to maximum Mana
 {variant:2}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
-Enemies Cannot Leech Mana From You
+Enemies Cannot Leech Mana From you
 (5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
 Cannot Leech Mana
 ]],[[
@@ -979,7 +979,7 @@ Requires Level 68, 62 Str, 91 Int
 +(26-32)% to Fire Resistance
 +(8-16)% to Chaos Resistance
 20% increased Light Radius
-(8-12)% increased maximum Life if no Equipped Items are Corrupted
+(8-12)% increased Maximum Life if no Equipped Items are Corrupted
 Regenerate 100 Life per second if no Equipped Items are Corrupted
 ]],
 -- Helmet: Evasion/Energy Shield
@@ -1093,7 +1093,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 38, 44 Dex, 44 Int
-{variant:2,3}Trigger level 1 Create Lesser Shrine when you Kill an Enemy
+{variant:2,3}Trigger Level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
 {variant:3}+(30-45) to maximum Energy Shield
@@ -1183,7 +1183,7 @@ Requires Level 57, 64 Dex, 64 Int
 +20% chance to be Shocked
 30% of Lightning Damage is taken from Mana before Life
 {variant:1}Recover 3% of Maximum Mana when you Shock an Enemy
-{variant:2}Attack Skills have added Lightning Damage equal to 6% of maximum Mana
+{variant:2}Attack Skills have Added Lightning Damage equal to 6% of maximum Mana
 {variant:2}Lose 3% of Mana when you use an Attack Skill
 ]],[[
 The Tempest's Binding
@@ -1228,7 +1228,7 @@ Requires Level 62, 79 Dex, 72 Int
 (245-280)% increased Evasion and Energy Shield
 +(30-40) to maximum Energy Shield
 +(24-30)% to Chaos Resistance
-Enemies cannot Leech Mana from You
+Enemies Cannot Leech Mana From you
 Socketed Gems have 50% reduced Mana Cost
 ]],[[
 Viridi's Veil

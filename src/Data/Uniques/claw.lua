@@ -11,7 +11,7 @@ Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}+21 Life gained for each Enemy hit by Attacks
 {variant:2}+44 Life gained for each Enemy hit by Attacks
-Socketed Gems are Supported by level 12 Fortify
+Socketed Gems are Supported by Level 12 Fortify
 (100-120)% increased Physical Damage
 +110 to Evasion Rating
 +(30-50) to maximum Life
@@ -278,7 +278,7 @@ Implicits: 2
 {variant:1}+21 Life gained for each Enemy hit by Attacks
 {variant:2,3}+44 Life gained for each Enemy hit by Attacks
 +1 to Level of Socketed Dexterity Gems
-{variant:3}Socketed Gems are Supported by level 10 Faster Attacks
+{variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
 {variant:3}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
@@ -293,7 +293,7 @@ Implicits: 1
 (60-80)% increased Physical Damage
 Adds (25-35) to (50-65) Physical Damage
 25% chance to cause Bleeding on Hit
-2% increased Physical Damage over time per 10 Dexterity
+2% increased Physical Damage Over Time per 10 Dexterity
 1% increased Bleed Duration per 12 Intelligence
 30% Chance to cause Bleeding Enemies to Flee on hit
 ]],[[

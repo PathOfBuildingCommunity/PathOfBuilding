@@ -20,7 +20,7 @@ Variant: Current
 Requires Level 16, 48 Str
 Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
-(7-10)% Increased Attack Speed
+(7-10)% increased Attack Speed
 +(15-25)% to Fire Resistance
 5% increased Movement Speed
 {variant:1}Curse Enemies with Flammability on Hit
@@ -51,7 +51,7 @@ Requires Level 69, 158 Str, 76 Dex
 {variant:1}Enemies Chilled by you take 40% increased Burning Damage
 {variant:2}Enemies Chilled by you take 100% increased Burning Damage
 {variant:3}100% increased Damage with Ignites inflicted on Chilled Enemies
-25% Chance to Ignite when in Main Hand
+25% chance to Ignite when in Main Hand
 {variant:1}100% increased Chill Duration on Enemies when in Off Hand
 {variant:2,3}Chill Enemies for 1 second on Hit with this Weapon when in Off Hand
 ]],[[
@@ -66,13 +66,13 @@ Requires Level 6, 21 Str
 +(10-15) to maximum Life
 +(5-7) Life gained on Kill
 10% increased Movement Speed
-Socketed Gems are supported by level 2 Chance to Flee
+Socketed Gems are supported by Level 2 Chance to Flee
 ]],[[
 The Gryphon
 Jade Hatchet
 Source: Upgraded from unique{The Screaming Eagle} via prophecy{The Apex Predator}
 Requires Level 32, 21 Str
-Socketed Gems are supported by level 2 Chance to Flee
+Socketed Gems are supported by Level 2 Chance to Flee
 (170-190)% increased Physical Damage
 Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
@@ -100,7 +100,7 @@ Tomahawk
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 39, 81 Str, 56 Dex
-{variant:1}Grants level 1 Lightning Warp Skill
+{variant:1}Grants Level 1 Lightning Warp Skill
 {variant:2}Trigger Level 15 Lightning Warp on Hit with this Weapon
 {variant:1}(70-90)% increased Physical Damage
 {variant:2}(30-50)% increased Physical Damage
@@ -176,7 +176,7 @@ Implicits: 1
 {variant:2}Adds (205-220) to (250-270) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
-+2 to Weapon range
++2 to Weapon Range
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -277,7 +277,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 149 Str, 76 Dex
-Socketed Gems are supported by level 25 Melee Splash
+Socketed Gems are supported by Level 25 Melee Splash
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
 {variant:3}(200-240)% increased Physical Damage
@@ -330,7 +330,7 @@ Reaper's Pursuit
 Shadow Axe
 Requires Level 33, 80 Str, 37 Dex
 (100-125)% increased Physical Damage
-+10 Life Gained on Kill
++10 Life gained on Kill
 (30-40)% increased Rarity of Items found
 15% increased Movement Speed when on Full Life
 Culling Strike
@@ -378,13 +378,13 @@ Poleaxe
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 18, 44 Str, 25 Dex
-Socketed Gems are Supported by level 20 Increased Area of Effect
+Socketed Gems are Supported by Level 20 Increased Area of Effect
 (120-160)% increased Physical Damage
 +10 to Strength
 {variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
-+10 Mana Gained on Kill
-+2 to Weapon range
++10 Mana gained on Kill
++2 to Weapon Range
 ]],[[
 Wings of Entropy
 Ezomyte Axe
@@ -420,7 +420,7 @@ Implicits:1
 {variant:1,2}25% of Block Chance applied to Spells
 {variant:3}7% chance to Block Spell Damage
 {variant:4}(6-7)% chance to Block Spell Damage
-{variant:5}(7-10)% chance to Block Spell Damage
+{variant:5}(7-10)% Chance to Block Spell Damage
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding
 {variant:2,3,4}+8% Chance to Block Attack Damage while Dual Wielding
 {variant:5}+(8-10)% Chance to Block Attack Damage while Dual Wielding

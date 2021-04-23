@@ -45,7 +45,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 63, 100 Str
-{variant:2,3,4}Grants level 20 Doryani's Touch Skill
+{variant:2,3,4}Grants Level 20 Doryani's Touch Skill
 {variant:1,2,3}+30 to maximum Energy Shield
 {variant:4}+(80-100) to maximum Energy Shield
 {variant:1,2,3}10% chance to Shock
@@ -73,7 +73,7 @@ Goliath Gauntlets
 Requires Level 53, 76 Str
 +(400-600) to Armour
 Knockback direction is reversed
-Socketed Gems are Supported by level 10 Knockback
+Socketed Gems are Supported by Level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
@@ -236,7 +236,7 @@ Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
 Allelopathy
 Sorcerer Gloves
 Requires Level 69, 97 Int
-Grants level 22 Blight Skill
+Grants Level 22 Blight Skill
 (20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
@@ -270,7 +270,7 @@ Requires Level 25, 39 Int
 {variant:1}Curse Enemies with Temporal Chains on Hit
 {variant:2,3}Curse Enemies with Temporal Chains on Hit, with 40% increased Effect
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
-{variant:3}Enemies near Corpses affected by your Curses are Blinded
+{variant:3}Enemies near corpses affected by your Curses are Blinded
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
 {variant:3}3% of their Life as Physical Damage
 ]],[[
@@ -505,7 +505,7 @@ Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 Wyrmsign
 Wyrmscale Gauntlets
 Requires Level 49, 38 Str, 38 Dex
-Socketed Gems are Supported by level 5 Concentrated Effect
+Socketed Gems are Supported by Level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
 4% reduced Mana Cost per Endurance Charge
@@ -636,7 +636,7 @@ Adds (30-36) to (44-50) Cold Damage to Attacks
 +(40-50)% to Cold Resistance
 {variant:2}50% increased Herald of Ice Damage
 25% increased Freeze Duration on Enemies
-Your Hits can only Kill Frozen enemies
+Your Hits can only Kill Frozen Enemies
 ]],[[
 Triad Grip
 Mesh Gloves
@@ -714,8 +714,8 @@ Requires Level 31, 25 Dex 25 Int
 (5-7)% increased Cast Speed
 (100-150)% increased Evasion and Energy Shield
 Raised Zombies have (80-100)% increased maximum Life
-Raise Zombie does not require a Corpse
-Your Raised Zombies count as Corpses
+Raise Zombie does not require a corpse
+Your Raised Zombies count as corpses
 ]],[[
 Architect's Hand
 Variant: Pre 3.14.0
@@ -857,7 +857,7 @@ Requires Level 58, 45 Dex, 45 Int
 2% increased Attack Speed per Frenzy Charge
 6% increased Accuracy Rating per Frenzy Charge
 10% reduced Frenzy Charge Duration per Frenzy Charge
-{variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
+{variant:1}While at maximum Frenzy Charges, Attacks Poison Enemies
 {variant:2,3}Attacks have 60% chance to Poison while at maximum Frenzy Charges
 {variant:3}+5% to Damage over Time Multiplier for Poison per Frenzy Charge
 ]],[[
@@ -878,7 +878,7 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
-Socketed Gems are Supported by level 18 Added Lightning Damage
+Socketed Gems are Supported by Level 18 Added Lightning Damage
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed

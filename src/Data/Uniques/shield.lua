@@ -13,7 +13,7 @@ Implicits: 1
 {variant:2,3}+(10-20) to maximum Life
 (50-100)% increased Armour
 +(60-80) to maximum Life
--1 to maximum Endurance Charges
+-1 to Maximum Endurance Charges
 -10% to maximum Block Chance
 +6% Chance to Block
 {variant:1,2}+3% to all maximum Resistances while you have no Endurance Charges
@@ -45,7 +45,7 @@ Variant: Current
 Requires Level 64, 159 Str
 Implicits: 1
 {variant:2}+(30-40) to maximum Life
-Grants level 30 Reckoning Skill
+Grants Level 30 Reckoning Skill
 (130-170)% increased Armour
 +(65-80) to maximum Life
 Recover 250 Life when you Block
@@ -84,7 +84,7 @@ Implicits: 1
 {variant:2,3}+(160-180) to maximum Life
 5% reduced Movement Speed
 20% increased Stun Recovery
-−25 Physical Damage taken from Projectile Attacks
+-25 Physical Damage taken from Projectile Attacks
 +5% Chance to Block
 ]],[[
 Lycosidae
@@ -361,7 +361,7 @@ Implicits: 1
 {variant:3,4}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:1}(20-30)% increased Chaos Damage
-{variant:2,3,4}(80-100)% Increased Evasion Rating
+{variant:2,3,4}(80-100)% increased Evasion Rating
 +(20-40)% to Cold Resistance
 10% increased Area of Effect of Area Skills
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
@@ -523,7 +523,7 @@ Implicits: 2
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}(15-20)% increased Spell Damage
 {Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
-{Variant:3,4}Trigger Level 20 Fog of War when your Trap is triggered
+{variant:3,4}Trigger Level 20 Fog of War when your Trap is triggered
 +(20-30) to Intelligence
 {variant:1,2}(80-120)% increased Energy Shield
 {variant:3,4}(250-300)% increased Energy Shield
@@ -671,7 +671,7 @@ Implicits: 1
 {variant:1}+(10-20)% to Lightning Resistance
 {variant:2,3}+(10-20)% to all Elemental Resistances
 {variant:1,2}+36% chance to Block Spell Damage while on Low Life
-{variant:3}+30% chance to Block Spell Damage while on Low Life
+{variant:3}+30% Chance to Block Spell Damage while on Low Life
 +(3-6)% Chance to Block
 {variant:2,3}20% chance to Block Spells if you've Blocked an Attack Recently
 {variant:2,3}20% chance to Block Attacks if you've Blocked a Spell Recently
@@ -766,8 +766,8 @@ Implicits: 1
 {variant:2}5% Chance to Block
 {variant:1}(20-30)% increased Damage while you have no Energy Shield
 {variant:2,3}100% increased Global Armour while you have no Energy Shield
-{variant:1}30% Chance to gain Unholy Might on Block for 3 seconds
-{variant:2}Gain Unholy Might on Block for 10 seconds
+{variant:1}30% chance to gain Unholy Might on block for 3 seconds
+{variant:2}Gain Unholy Might on block for 10 seconds
 {variant:3}You have Unholy Might while you have no Energy Shield
 Create Profane Ground instead of Consecrated Ground
 ]],[[
@@ -870,7 +870,7 @@ Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
-50% reduced Freeze Duration on You
+50% reduced Freeze Duration on you
 {variant:3}1% of Life Regenerated per Second
 {variant:4}3% of Life Regenerated per Second
 {variant:1,2}6% of Life Regenerated per Second while on Low Life
@@ -887,7 +887,7 @@ Implicits: 1
 +4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
-50% reduced Freeze Duration on You
+50% reduced Freeze Duration on you
 {variant:1}1% of Life Regenerated per Second
 {variant:2}3% of Life Regenerated per Second
 {variant:1}5% of Life Regenerated per Second while on Low Life
@@ -1036,7 +1036,7 @@ Implicits: 2
 {variant:2,3}2% chance to Dodge Spell Damage
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
-−50% to all Elemental Resistances
+-50% to all Elemental Resistances
 10% increased Area of Effect of Area Skills
 {variant:1,2}Nearby allies Recover 2% of your Maximum Life when you Die
 {variant:3}Nearby allies Recover 1% of your Maximum Life when you Die

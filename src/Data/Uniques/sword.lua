@@ -78,8 +78,8 @@ Implicits: 2
 +10 to Intelligence
 50% increased Global Critical Strike Chance
 (0.6-1)% of Physical Attack Damage Leeched as Mana
-10% reduced Maximum Life
-(40-50)% increased Maximum Energy Shield
+10% reduced maximum Life
+(40-50)% increased maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
@@ -345,7 +345,7 @@ Implicits: 2
 Adds 2 to 6 Physical Damage
 10% increased Attack Speed
 +(20-30) to maximum Life
-+2 Life Gained for each Enemy hit by Attacks
++2 Life gained for each Enemy hit by Attacks
 ]],[[
 Dreadbeak
 Rusted Sword
@@ -390,7 +390,7 @@ Requires Level 62, 122 Str, 104 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
-Trigger level 20 Storm Cascade when you Attack
+Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
 Adds 1 to (60-70) Lightning Damage
@@ -471,7 +471,7 @@ Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
-Grants level 15 Envy Skill
+Grants Level 15 Envy Skill
 Minions deal (30-40)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
@@ -589,7 +589,7 @@ Implicits: 3
 {variant:3}+25% to Global Critical Strike Multiplier
 (140-160)% increased Physical Damage
 +30 to Strength
-+30 to Maximum Mana
++30 to maximum Mana
 5% increased Movement Speed
 30% increased Elemental Damage
 +2 to Weapon Range
@@ -653,7 +653,7 @@ Adds 1 to (40-50) Lightning Damage
 (25-30)% increased Attack Speed
 +2 Life gained for each Enemy hit by Attacks
 {variant:1,2}5% Chance to Shock
-{variant:3}(15-20)% Chance to Shock
+{variant:3}(15-20)% chance to Shock
 {variant:3}50% increased Herald of Thunder Buff Effect
 ]],[[
 The Goddess Bound
@@ -772,7 +772,7 @@ Socketed Gems are Supported by level 1 Blood Magic
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
 Enemies you Attack Reflect 100 Physical Damage to you
-+2 to Weapon range
++2 to Weapon Range
 ]],[[
 Kondo's Pride 
 Ezomyte Blade
@@ -931,7 +931,7 @@ Implicits: 2
 {variant:3}(180-220)% increased Physical Damage
 {variant:2,3}(50-75)% increased Critical Strike Chance
 20% increased Attack Speed
-+10 Mana Gained on Kill
++10 Mana gained on Kill
 10% increased Movement Speed
 Gain a Frenzy Charge on Critical Strike
 ]],[[

@@ -69,6 +69,10 @@ function loadStatFile(fileName)
 						end
 						table.insert(desc.limit, limit)
 					end
+					-- Manual fix for GGG typo
+					if special:match("divide_by_one_hundred 2reminderstring ReminderTextLifeLeech") then
+						special = "divide_by_one_hundred 2 reminderstring ReminderTextLifeLeech"
+					end
 					for k, v in special:gmatch("([%w%%_]+) (%w+)") do
 						table.insert(desc, {
 							k = k,

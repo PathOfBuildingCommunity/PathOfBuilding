@@ -40,7 +40,7 @@ Requires Level 65, 177 Str
 30% reduced Chance to Block Attacks and Spells
 (600-650)% increased Armour
 10% reduced Movement Speed
-50% increased Shock Duration on You
+50% increased Shock Duration on you
 Take no Extra Damage from Critical Strikes
 ]],[[
 Craiceann's Carapace
@@ -63,7 +63,7 @@ Variant: Current
 Requires Level 62, 180 Str
 Implicits: 1
 +(8-12)% to all Elemental Resistances
-{variant:3}Grants level 20 Death Aura Skill
+{variant:3}Grants Level 20 Death Aura Skill
 +(40-50) to all Attributes
 {variant:3}+(60-70) to maximum Life
 (10-15)% increased Attack Speed
@@ -90,9 +90,9 @@ Golden Plate
 Requires Level 56, 106 Str
 (10-15)% increased Quantity of Items found
 (30-50)% increased Rarity of Items found
-−10% to Fire Resistance
+-10% to Fire Resistance
 +(20-30)% to Cold Resistance
-−20% to Lightning Resistance
+-20% to Lightning Resistance
 20% reduced Movement Speed
 30% reduced Strength Requirement
 ]],[[
@@ -122,9 +122,9 @@ Requires Level 59, 160 Str
 (200-250)% increased Armour
 +(60-100) to maximum Life
 0.4% of Physical Attack Damage Leeched as Mana
-Socketed Gems are Supported by level 15 Pierce
+Socketed Gems are Supported by Level 15 Pierce
 Enemy Projectiles Pierce you
-{Variant:2}+160 Dexterity Requirement
+{variant:2}+160 Dexterity Requirement
 ]],[[
 Iron Heart
 Crusader Plate
@@ -170,7 +170,7 @@ Requires Level 17, 53 Str
 Chaos Damage does not bypass Energy Shield
 {variant:1}−10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
-{variant:2}25% reduced Chaos Damage Taken Over Time
+{variant:2}25% reduced Chaos Damage taken over time
 ]],
 -- Body: Evasion
 [[
@@ -179,7 +179,7 @@ Buckskin Tunic
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 53 Dex
-{variant:2}Socketed Gems are Supported by level 10 Added Fire Damage
+{variant:2}Socketed Gems are Supported by Level 10 Added Fire Damage
 (80-100)% increased Evasion Rating
 {variant:2}+(30-50) to maximum Life
 +(40-50)% to Fire Resistance
@@ -277,7 +277,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}+(20-30) to Dexterity
-{variant:4.5,6}+(40-50) to Dexterity
++(40-50) to Dexterity
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
@@ -386,9 +386,9 @@ Variant: Rhoa
 Variant: Snake
 Variant: Ursa
 Requires Level 62, 170 Dex
-{variant:1}Grants level 20 Summon Bestial Rhoa Skill
-{variant:2}Grants level 20 Summon Bestial Snake Skill
-{variant:3}Grants level 20 Summon Bestial Ursa Skill
+{variant:1}Grants Level 20 Summon Bestial Rhoa Skill
+{variant:2}Grants Level 20 Summon Bestial Snake Skill
+{variant:3}Grants Level 20 Summon Bestial Ursa Skill
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
@@ -413,7 +413,7 @@ Requires Level 68, 194 Int
 {variant:2}+(15-25) to maximum Energy Shield
 10% increased Area of Effect of Area Skills
 5% increased Damage taken
-(30-40)% increased Energy Shield Recovery Rate
+(30-40)% increased Energy Shield Recovery rate
 ]],[[
 Cloak of Flame
 Scholar's Robe
@@ -453,7 +453,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 49, 134 Int
-Socketed Gems are Supported by level 15 Added Chaos Damage
+Socketed Gems are Supported by Level 15 Added Chaos Damage
 +(20-30) to Intelligence
 {variant:1,2,3}20% reduced maximum Life
 {variant:4,5}10% increased maximum Life
@@ -513,7 +513,7 @@ Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 56, 152 Int
-{fractured}(180-230)% increased Energy Shield
+(180-230)% increased Energy Shield
 +600 Strength and Intelligence Requirement
 +10 to maximum Divine Charges
 Gain a Divine Charge on Hit
@@ -584,7 +584,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 49, 134 Int
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
-{variant:3}Socketed Gems are Supported by level 20 Spell Totem
+{variant:3}Socketed Gems are Supported by Level 20 Spell Totem
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
@@ -600,7 +600,7 @@ Thousand Ribbons
 Simple Robe
 Variant: Pre 3.0.0
 Variant: Current
-Socketed Gems are Supported by level 5 Elemental Proliferation
+Socketed Gems are Supported by Level 5 Elemental Proliferation
 Adds 2 to 3 Fire Damage to Spells and Attacks
 Adds 2 to 3 Cold Damage to Spells and Attacks
 Adds 1 to 4 Lightning Damage to Spells and Attacks
@@ -622,9 +622,9 @@ Requires Level 59, 160 Int
 {variant:1}(100-120)% increased Energy Shield
 {variant:2,3}(200-220)% increased Energy Shield
 +(20-30) to maximum Mana
-Minions have 20% reduced Maximum Life
+Minions have 20% reduced maximum Life
 Minions deal 15% increased Damage
-{variant:1,2}+1 to Maximum number of Spectres
+{variant:1,2}+1 to maximum number of Spectres
 {variant:1}Minions gain Unholy Might for 5 seconds on Kill
 {variant:2}Minions gain Unholy Might for 10 seconds on Kill
 {variant:3}Minions gain (15-20)% of Elemental Damage as Extra Chaos Damage
@@ -656,7 +656,7 @@ Requires Level 46, 68 Str, 68 Dex
 (30-40)% increased maximum Life
 +(10-15)% to all Elemental Resistances
 50% increased Flask Life Recovery rate
-Extra Gore
+Extra gore
 ]],[[
 Cherrubim's Maleficence
 Triumphant Lamellar
@@ -736,7 +736,7 @@ Requires Level 60, 96 Str, 96 Dex
 Adds 1 to (20-30) Lightning Damage to Attacks
 (90-120)% increased Armour and Evasion
 +(60-80) to maximum Life
-−60% to Lightning Resistance
+-60% to Lightning Resistance
 {variant:1}40% of Physical Damage from Hits taken as Lightning Damage
 {variant:2}30% of Physical Damage from Hits taken as Lightning Damage
 ]],[[
@@ -1164,7 +1164,7 @@ Requires Level 52, 76 Dex, 76 Int
 {variant:1}Socketed Gems have 20% reduced Mana Reservation
 {variant:2}Socketed Gems have 30% reduced Mana Reservation
 {variant:1}Socketed Gems are Supported by level 1 Generosity
-{variant:2}Socketed Gems are Supported by level 30 Generosity
+{variant:2}Socketed Gems are Supported by Level 30 Generosity
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Radius of Auras
 {variant:2}(20-40)% increased Area of Effect of Aura Skills
@@ -1212,12 +1212,12 @@ Requires Level 75, 66 Str, 66 Dex, 66 Int
 {variant:6,15}(270-300)% increased Energy Shield
 {variant:7,8,16,17}(200-220)% increased Armour and Energy Shield
 {variant:9,18}(270-340)% increased Armour, Evasion and Energy Shield
-{variant:1,2,3,4,7,10,11,12,13,16}+(90-100) to Maximum Life
+{variant:1,2,3,4,7,10,11,12,13,16}+(90-100) to maximum Life
 {variant:5,6,8}+(90-100) to Maximum Energy Shield
-{variant:14,15,17}+(70-80) to Maximum Energy Shield
+{variant:14,15,17}+(70-80) to maximum Energy Shield
 +(20-24)% to all Elemental Resistances
-+100 Life Gained on Kill
-+100 Mana Gained on Kill
++100 Life gained on Kill
++100 Mana gained on Kill
 ]],[[
 Shadowstitch
 Sacrificial Garb
