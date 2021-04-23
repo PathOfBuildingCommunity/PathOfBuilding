@@ -187,7 +187,7 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__16
+{fractured}IncreasedCastSpeedUnique__16
 ColdDamagePerResistanceAbove75Unique__1
 LightningDamagePerResistanceAbove75Unique__1
 ]],[[
@@ -197,7 +197,7 @@ League: Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__16
+{fractured}IncreasedCastSpeedUnique__16
 ColdDamagePerMissingColdResistanceUnique__1
 FireDamagePerMissingFireResistanceUnique__1
 ]],[[

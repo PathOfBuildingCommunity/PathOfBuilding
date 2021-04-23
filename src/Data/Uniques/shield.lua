@@ -522,7 +522,7 @@ Requires Level 41, 100 Int
 Implicits: 2
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}(15-20)% increased Spell Damage
-{Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
+{variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
 {variant:3,4}Trigger Level 20 Fog of War when your Trap is triggered
 +(20-30) to Intelligence
 {variant:1,2}(80-120)% increased Energy Shield

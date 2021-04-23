@@ -231,7 +231,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Fire Resistance
 FireResistUniqueAmulet4
-StrengthUniqueClaw5_
+{fractured}StrengthUniqueClaw5_
 GlobalAddedFireDamageUnique__3_
 FireResistUniqueAmulet4
 {variant:1}{tags:mana}Herald of Ash has (30-40)% reduced Reservation
@@ -257,7 +257,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
 ColdResistUnique__3
-DexterityUniqueGlovesInt4__
+{fractured}DexterityUniqueGlovesInt4__
 GlobalAddedColdDamageUnique__3
 ColdResistUnique__3
 {variant:1}{tags:mana}Herald of Ice has (30-40)% reduced Reservation
@@ -283,7 +283,7 @@ Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
 AddedPhysicalDamageImplicitRing1
-AllAttributesUnique__3
+{fractured}AllAttributesUnique__3
 GlobalAddedPhysicalDamageUnique__2
 IncreasedPhysicalDamageReductionRatingUnique__4
 {variant:1}{tags:mana}Herald of Purity has (30-40)% reduced Reservation
@@ -309,7 +309,7 @@ Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
 ChaosResistImplicitRing1
-AllAttributesUnique__3
+{fractured}AllAttributesUnique__3
 GlobalAddedChaosDamageUnique__5_
 ChaosResistUnique__17
 {variant:1}{tags:mana}Herald of Agony has (30-40)% reduced Reservation
@@ -335,7 +335,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
 LightningResistUnique__2
-IntelligenceUnique__7
+{fractured}IntelligenceUnique__7
 GlobalAddedLightningDamageUnique__3
 LightningResistUnique__2
 {variant:1}{tags:mana}Herald of Thunder has (30-40)% reduced Reservation

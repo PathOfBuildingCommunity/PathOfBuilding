@@ -30,10 +30,12 @@ for _, name in pairs(itemTypes) do
 		local specName, specVal = line:match("^([%a ]+): (.+)$")
 		if not specName and line ~= "]],[[" then
 			local variants = line:match("{[vV]ariant:([%d,]+)}")
+			local fractured = line:match("({fractured})") or ""
 			local foundMod = false
 			local modText = line:gsub("{.+}", ""):gsub("{.+}", ""):gsub("−", "-"):lower() -- Dang EM-dash made it in here somehow
 			for modName, mod in pairs(uniqueMods) do
 				if mod[1]:lower() == modText then
+					out:write(fractured)
 					if variants then
 						out:write("{variant:" .. variants .. "}")
 					end

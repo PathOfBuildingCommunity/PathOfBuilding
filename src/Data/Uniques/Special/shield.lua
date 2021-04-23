@@ -522,7 +522,7 @@ Requires Level 41, 100 Int
 Implicits: 2
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}SpellDamageImplicitShield3
-{Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
+{variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
 {variant:3,4}CreateSmokeCloudWhenTrapTriggeredUnique__1
 IntelligenceUnique__7
 {variant:1,2}LocalIncreasedEnergyShieldPercentUnique__27

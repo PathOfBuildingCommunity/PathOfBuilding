@@ -277,7 +277,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}DexterityUniqueGlovesInt4__
-DexterityUnique__7
+{variant:4,5,6}DexterityUnique__7
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
@@ -513,7 +513,7 @@ Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 56, 152 Int
-LocalIncreasedEnergyShieldPercentUnique__24
+{fractured}LocalIncreasedEnergyShieldPercentUnique__24
 StrengthIntelligenceRequirementsUnique__1
 DivineChargeOnHitUnique__1_
 Gain a Divine Charge on Hit
