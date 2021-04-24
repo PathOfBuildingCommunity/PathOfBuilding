@@ -1277,7 +1277,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.showAverage = false
 				skillData.showAverage = false
 			end
-			local stages = activeSkill.activeEffect.srcInstance.skillStageCount
+			local stages = activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.skillStageCount or 0
 			if skillFlags.showAverage and stages then
 				output.Speed = output.Speed / stages
 				skillFlags.notAverage = true
