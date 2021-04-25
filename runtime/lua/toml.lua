@@ -1,3 +1,10 @@
+-- Original source from lua-toml 2.0.1 https://github.com/jonstoler/lua-toml
+-- MIT licence
+-- Copyright (c) 2017 Jonathan Stoler
+--
+-- Changelog:
+-- Fix bug where empty arrays would be discarded
+
 local TOML = {
 	-- denotes the current supported TOML version
 	version = 0.40,
@@ -589,6 +596,9 @@ TOML.encode = function(tbl)
 				v = v:gsub("/", "\\/")
 				toml = toml .. k .. " = " .. quote .. v .. quote .. "\n"
 			elseif type(v) == "table" then
+				if next(v) == nil then
+					toml = toml .. k .. " = []\n"
+				end
 				local array, arrayTable = true, true
 				local first = {}
 				for kk, vv in pairs(v) do
