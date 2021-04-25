@@ -66,7 +66,10 @@ function main:Init()
 	self.inputEvents = { }
 	self.popups = { }
 
-	self.datSpecs = LoadModule("spec")
+	local f = io.open("spec.toml", "r")
+	local data = f:read("*a")
+	f:close()
+	self.datSpecs = common.toml.parse(data, { strict = false })
 
 	self.datFileList = { }
 	self.datFileByName = { }
@@ -275,9 +278,8 @@ function main:CanExit()
 end
 
 function main:Shutdown()
-	local out = io.open("spec.lua", "w")
-	out:write('return ')
-	writeLuaTable(out, self.datSpecs, 1)
+	local out = io.open("spec.toml", "w")
+	out:write(common.toml.encode(self.datSpecs))
 	out:close()
 
 	self:SaveSettings()
