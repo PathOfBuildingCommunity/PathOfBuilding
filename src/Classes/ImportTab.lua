@@ -858,6 +858,19 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	end	
 end
 
+function HexToChar(x)
+	return string.char(tonumber(x, 16))
+end
+  
+function UrlDecode(url)
+	if url == nil then
+		return
+	end
+	url = url:gsub("+", " ")
+	url = url:gsub("%%(%x%x)", HexToChar)
+	return url
+end
+
 function ImportTabClass:OpenPastebinImportPopup()
 	local controls = { }
 	controls.editLabel = new("LabelControl", nil, 0, 20, 0, 16, "Enter Pastebin.com link:")
@@ -866,17 +879,14 @@ function ImportTabClass:OpenPastebinImportPopup()
 	end)
 	controls.msg = new("LabelControl", nil, 0, 58, 0, 16, "")
 	controls.import = new("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
-		local url, pasteId
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
-		url = controls.edit.buf
-		url = url:gsub("^%s+", ""):gsub("%s+$", "") -- Quick Trim
-		if url:match("youtube%.com/redirect%?") then
-			pasteId = url:gsub(".*[?&]q=https%%3A%%2F%%2Fpastebin%.com%%2F(%w+).*", "%1")
-		else
-			pasteId = url:gsub(".*pastebin%.com/(%w+)%??$", "%1")
+		controls.edit.buf = controls.edit.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+		if controls.edit.buf:match("youtube%.com/redirect%?") then
+			local nested_url = controls.edit.buf:gsub(".*[?&]q=([^&]+).*", "%1")
+			controls.edit.buf = UrlDecode(nested_url)
 		end
-		launch:DownloadPage("https://pastebin.com/raw/" .. pasteId, function(page, errMsg)
+		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)","pastebin.com/raw/%1"), function(page, errMsg)
 			if errMsg then
 				controls.msg.label = "^1"..errMsg
 				controls.import.enabled = true
