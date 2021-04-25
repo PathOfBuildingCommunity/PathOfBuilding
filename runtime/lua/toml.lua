@@ -5,6 +5,7 @@
 -- Changelog:
 -- Fix bug where empty arrays would be discarded
 -- Add whitespace after array of tables
+-- Add alphanumerical sorting for table keys
 
 local TOML = {
 	-- denotes the current supported TOML version
@@ -571,8 +572,26 @@ TOML.encode = function(tbl)
 
 	local cache = {}
 
+	function sortedPairs(t)
+		-- collect and sort keys
+		local keys = {}
+		for k in pairs(t) do
+			keys[#keys+1] = k
+		end
+		table.sort(keys)
+
+		-- return new sorted iterator function
+		local i = 0
+		return function()
+			i = i + 1
+			if keys[i] then
+				return keys[i], t[keys[i]]
+			end
+		end
+	end
+
 	local function parse(tbl)
-		for k, v in pairs(tbl) do
+		for k, v in sortedPairs(tbl) do
 			if type(v) == "boolean" then
 				toml = toml .. k .. " = " .. tostring(v) .. "\n"
 			elseif type(v) == "number" then
