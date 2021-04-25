@@ -4,6 +4,7 @@
 --
 -- Changelog:
 -- Fix bug where empty arrays would be discarded
+-- Add whitespace after array of tables
 
 local TOML = {
 	-- denotes the current supported TOML version
@@ -625,6 +626,7 @@ TOML.encode = function(tbl)
 							parse(first)
 							parse(vv)
 						end
+						toml = toml .. "\n"
 						table.remove(cache)
 					else
 						-- plain ol boring array
