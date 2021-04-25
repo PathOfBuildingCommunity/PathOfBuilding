@@ -25,6 +25,7 @@ common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
+common.toml = require("toml")
 
 -- Uncomment if you need to perform in-depth profiling
 -- profiler = require("lua-profiler")
