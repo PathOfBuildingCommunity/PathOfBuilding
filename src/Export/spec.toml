@@ -1,0 +1,5495 @@
+AbyssObjects = []
+
+AbyssRegions = []
+
+AbyssTheme = []
+
+AccountQuestFlags = []
+
+AchievementItemRewards = []
+
+[[AchievementItems]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+
+AchievementSetRewards = []
+
+AchievementSets = []
+
+AchievementSetsDisplay = []
+
+Achievements = []
+
+ActiveSkillTargetTypes = []
+
+ActiveSkillType = []
+
+[[ActiveSkills]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 190
+[[ActiveSkills]]
+list = false
+name = "DisplayName"
+refTo = ""
+type = "String"
+width = 150
+[[ActiveSkills]]
+list = false
+name = "Description"
+refTo = ""
+type = "String"
+width = 500
+[[ActiveSkills]]
+list = false
+name = "ActionName"
+refTo = ""
+type = "String"
+width = 170
+[[ActiveSkills]]
+list = false
+name = "Icon"
+refTo = ""
+type = "String"
+width = 100
+[[ActiveSkills]]
+list = true
+name = "TargetTypes"
+refTo = "ActiveSkillTargetTypes"
+type = "Enum"
+width = 100
+[[ActiveSkills]]
+list = true
+name = "SkillTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 330
+[[ActiveSkills]]
+list = true
+name = "WeaponRestrictions"
+refTo = "ItemClasses"
+type = "Key"
+width = 240
+[[ActiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 150
+[[ActiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 150
+[[ActiveSkills]]
+list = false
+name = "HideOnWebsite"
+refTo = ""
+type = "Bool"
+width = 80
+[[ActiveSkills]]
+list = false
+name = "GrantedEffect"
+refTo = ""
+type = "String"
+width = 150
+[[ActiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[ActiveSkills]]
+list = false
+name = "SkillTotem"
+refTo = "SkillTotems"
+type = "Enum"
+width = 80
+[[ActiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[ActiveSkills]]
+list = true
+name = "SkillSpecificStat"
+refTo = "Stats"
+type = "Key"
+width = 1800
+[[ActiveSkills]]
+list = true
+name = "GenericStat"
+refTo = "Stats"
+type = "Key"
+width = 1420
+[[ActiveSkills]]
+list = true
+name = "MinionSkillTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 150
+[[ActiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 70
+[[ActiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 70
+[[ActiveSkills]]
+list = true
+name = ""
+refTo = "Stats"
+type = "Key"
+width = 400
+[[ActiveSkills]]
+list = false
+name = "SkillMine"
+refTo = "SkillMines"
+type = "Enum"
+width = 80
+
+Acts = []
+
+AddBuffToTargetVarieties = []
+
+AdditionalLifeScaling = []
+
+AdditionalLifeScalingPerLevel = []
+
+AdditionalMonsterPacksFromStats = []
+
+AdditionalMonsterPacksStatMode = []
+
+AdvancedSkillsTutorial = []
+
+[[AegisVariations]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[AegisVariations]]
+list = false
+name = "MitigatesPhysicalDmg"
+refTo = ""
+type = "Bool"
+width = 150
+[[AegisVariations]]
+list = false
+name = "MitigatesFireDmg"
+refTo = ""
+type = "Bool"
+width = 150
+[[AegisVariations]]
+list = false
+name = "MitigatesColdDmg"
+refTo = ""
+type = "Bool"
+width = 150
+[[AegisVariations]]
+list = false
+name = "MitigatesLightningDmg"
+refTo = ""
+type = "Bool"
+width = 150
+[[AegisVariations]]
+list = false
+name = "MitigatesChaosDmg"
+refTo = ""
+type = "Bool"
+width = 150
+[[AegisVariations]]
+list = false
+name = ""
+refTo = "BuffDefinitions"
+type = "Key"
+width = 150
+[[AegisVariations]]
+list = false
+name = ""
+refTo = "BuffDefinitions"
+type = "Key"
+width = 150
+[[AegisVariations]]
+list = false
+name = ""
+refTo = "BuffDefinitions"
+type = "Key"
+width = 150
+[[AegisVariations]]
+list = false
+name = ""
+refTo = "BuffDefinitions"
+type = "Key"
+width = 150
+
+AfflictionBalancePerLevel = []
+
+AfflictionEndgameAreas = []
+
+AfflictionEndgameWaveMods = []
+
+AfflictionFixedMods = []
+
+AfflictionRandomModCategories = []
+
+AfflictionRandomSpawns = []
+
+AfflictionRewardMapMods = []
+
+AfflictionRewardTypeVisuals = []
+
+AfflictionRewardTypes = []
+
+AfflictionSplitDemons = []
+
+AfflictionStartDialogue = []
+
+AlternateBehaviourTypes = []
+
+[[AlternatePassiveAdditions]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 260
+[[AlternatePassiveAdditions]]
+list = false
+name = "AlternateTreeVersionsKey"
+refTo = "AlternateTreeVersions"
+type = "Key"
+width = 150
+[[AlternatePassiveAdditions]]
+list = false
+name = "SpawnWeight"
+refTo = ""
+type = "Int"
+width = 80
+[[AlternatePassiveAdditions]]
+list = true
+name = "StatsKeys"
+refTo = ""
+type = "UInt"
+width = 80
+[[AlternatePassiveAdditions]]
+list = false
+name = "Stat1"
+refTo = ""
+type = "Interval"
+width = 150
+[[AlternatePassiveAdditions]]
+list = false
+name = "Unknown6"
+refTo = ""
+type = "Int"
+width = 30
+[[AlternatePassiveAdditions]]
+list = false
+name = "Unknown7"
+refTo = ""
+type = "Int"
+width = 30
+[[AlternatePassiveAdditions]]
+list = false
+name = "Unknown8"
+refTo = ""
+type = "Int"
+width = 30
+[[AlternatePassiveAdditions]]
+list = false
+name = "Unknown9"
+refTo = ""
+type = "Int"
+width = 30
+[[AlternatePassiveAdditions]]
+list = true
+name = "PassiveType"
+refTo = ""
+type = "Int"
+width = 150
+[[AlternatePassiveAdditions]]
+list = false
+name = "Unknown11"
+refTo = ""
+type = "Int"
+width = 150
+
+[[AlternatePassiveSkills]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 230
+[[AlternatePassiveSkills]]
+list = false
+name = "AlternateTreeVersionsKey"
+refTo = "AlternateTreeVersions"
+type = "Key"
+width = 140
+[[AlternatePassiveSkills]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 150
+[[AlternatePassiveSkills]]
+list = true
+name = "PassiveType"
+refTo = ""
+type = "Int"
+width = 70
+[[AlternatePassiveSkills]]
+list = true
+name = "StatsKeys"
+refTo = "Stats"
+type = "Key"
+width = 460
+[[AlternatePassiveSkills]]
+list = false
+name = "Stat1"
+refTo = ""
+type = "Interval"
+width = 70
+[[AlternatePassiveSkills]]
+list = false
+name = "Stat2"
+refTo = ""
+type = "Interval"
+width = 50
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown9"
+refTo = ""
+type = "Int"
+width = 70
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown10"
+refTo = ""
+type = "Int"
+width = 70
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown11"
+refTo = ""
+type = "Int"
+width = 70
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown12"
+refTo = ""
+type = "Int"
+width = 70
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown13"
+refTo = ""
+type = "Int"
+width = 70
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown14"
+refTo = ""
+type = "Int"
+width = 70
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown15"
+refTo = ""
+type = "Int"
+width = 30
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown16"
+refTo = ""
+type = "Int"
+width = 50
+[[AlternatePassiveSkills]]
+list = false
+name = "SpawnWeight"
+refTo = ""
+type = "Int"
+width = 30
+[[AlternatePassiveSkills]]
+list = false
+name = "Unknown18"
+refTo = ""
+type = "Int"
+width = 150
+[[AlternatePassiveSkills]]
+list = false
+name = "Random"
+refTo = ""
+type = "Interval"
+width = 150
+[[AlternatePassiveSkills]]
+list = false
+name = "FlavourText"
+refTo = ""
+type = "String"
+width = 150
+[[AlternatePassiveSkills]]
+list = false
+name = "DDSIcon"
+refTo = ""
+type = "String"
+width = 150
+[[AlternatePassiveSkills]]
+list = true
+name = "AchievementItemsKeys"
+refTo = ""
+type = "UInt"
+width = 150
+
+AlternateQualityCurrencyDecayFactors = []
+
+AlternateQualityTypes = []
+
+AlternateSkillTargetingBehaviours = []
+
+AlternateTreePassiveSizes = []
+
+[[AlternateTreeVersions]]
+list = false
+name = "ConquerorType"
+refTo = ""
+type = "String"
+width = 150
+
+[[Animation]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+
+ApplyDamageFunctions = []
+
+ArchetypeRewards = []
+
+Archetypes = []
+
+ArchitectLifeScalingPerLevel = []
+
+AreaInfluenceDoodads = []
+
+AreaTransitionAnimationTypes = []
+
+AreaTransitionAnimations = []
+
+AreaTransitionInfo = []
+
+AreaType = []
+
+ArmourClasses = []
+
+ArmourSurfaceTypes = []
+
+[[ArmourTypes]]
+list = false
+name = ""
+refTo = "BaseItemTypes"
+type = "Key"
+width = 330
+
+[[Ascendancy]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 90
+[[Ascendancy]]
+list = false
+name = "Index"
+refTo = ""
+type = "Int"
+width = 50
+[[Ascendancy]]
+list = false
+name = "Class"
+refTo = "Characters"
+type = "Key"
+width = 250
+[[Ascendancy]]
+list = false
+name = "FlavourRect"
+refTo = ""
+type = "String"
+width = 120
+[[Ascendancy]]
+list = false
+name = "FlavourColour"
+refTo = ""
+type = "String"
+width = 100
+[[Ascendancy]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 90
+[[Ascendancy]]
+list = false
+name = "Flavour"
+refTo = ""
+type = "String"
+width = 150
+[[Ascendancy]]
+list = false
+name = "Audio"
+refTo = ""
+type = "String"
+width = 480
+
+AtlasAwakeningStats = []
+
+AtlasBaseTypeDrops = []
+
+AtlasExileBossArenas = []
+
+AtlasExileInfluence = []
+
+AtlasExileInfluenceData = []
+
+AtlasExileInfluenceOutcomeTypes = []
+
+AtlasExileInfluenceOutcomes = []
+
+AtlasExileInfluencePacks = []
+
+AtlasExileInfluenceSets = []
+
+AtlasExileRegionQuestFlags = []
+
+AtlasExiles = []
+
+AtlasFog = []
+
+AtlasInfluenceOutcomes = []
+
+AtlasModTiers = []
+
+AtlasMods = []
+
+AtlasNode = []
+
+AtlasNodeDefinition = []
+
+AtlasPositions = []
+
+AtlasQuadrant = []
+
+AtlasRegionUpgradeRegions = []
+
+AtlasRegionUpgradesInventoryLayout = []
+
+AtlasRegions = []
+
+AtlasSector = []
+
+AtlasSkillGraphs = []
+
+Attributes = []
+
+AwardDisplay = []
+
+BackendErrors = []
+
+[[BaseItemTypes]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 480
+[[BaseItemTypes]]
+list = false
+name = "ItemClass"
+refTo = "ItemClasses"
+type = "Key"
+width = 130
+[[BaseItemTypes]]
+list = false
+name = "Width"
+refTo = ""
+type = "Int"
+width = 40
+[[BaseItemTypes]]
+list = false
+name = "Height"
+refTo = ""
+type = "Int"
+width = 40
+[[BaseItemTypes]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 160
+[[BaseItemTypes]]
+list = false
+name = "BaseType"
+refTo = ""
+type = "String"
+width = 290
+[[BaseItemTypes]]
+list = false
+name = "DropLevel"
+refTo = ""
+type = "UInt"
+width = 60
+[[BaseItemTypes]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 60
+[[BaseItemTypes]]
+list = true
+name = "ImplicitMods"
+refTo = "Mods"
+type = "Key"
+width = 470
+[[BaseItemTypes]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 30
+[[BaseItemTypes]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 50
+[[BaseItemTypes]]
+list = true
+name = ""
+refTo = "BaseItemTypes"
+type = "Key"
+width = 150
+[[BaseItemTypes]]
+list = true
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[BaseItemTypes]]
+list = true
+name = ""
+refTo = "BaseItemTypes"
+type = "Key"
+width = 150
+[[BaseItemTypes]]
+list = true
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[BaseItemTypes]]
+list = true
+name = "Tags"
+refTo = "Tags"
+type = "Key"
+width = 150
+[[BaseItemTypes]]
+list = false
+name = "ModDomain"
+refTo = "ModDomains"
+type = "Enum"
+width = 80
+[[BaseItemTypes]]
+list = false
+name = "Hidden"
+refTo = ""
+type = "Bool"
+width = 50
+
+BestiaryCapturableMonsters = []
+
+BestiaryEncounters = []
+
+BestiaryFamilies = []
+
+BestiaryGenus = []
+
+BestiaryGroups = []
+
+BestiaryNets = []
+
+BestiaryRecipeComponent = []
+
+BestiaryRecipeItemCreation = []
+
+BestiaryRecipes = []
+
+BetrayalChoiceActions = []
+
+BetrayalChoices = []
+
+BetrayalDialogue = []
+
+BetrayalDialogueCue = []
+
+BetrayalFlags = []
+
+BetrayalForts = []
+
+BetrayalJobs = []
+
+BetrayalRanks = []
+
+BetrayalRelationshipState = []
+
+BetrayalTargetFlags = []
+
+BetrayalTargetJobAchievements = []
+
+BetrayalTargetLifeScalingPerLevel = []
+
+BetrayalTargets = []
+
+BetrayalTraitorRewards = []
+
+BetrayalUpgradeSlots = []
+
+BetrayalUpgrades = []
+
+BetrayalWallLifeScalingPerLevel = []
+
+BeyondDemons = []
+
+BindableVirtualKeys = []
+
+BlightBalancePerLevel = []
+
+BlightBossLifeScalingPerLevel = []
+
+BlightChestTypes = []
+
+BlightCraftingItems = []
+
+BlightCraftingRecipes = []
+
+BlightCraftingResults = []
+
+BlightCraftingTypes = []
+
+BlightCraftingUniques = []
+
+BlightEncounterTypes = []
+
+BlightEncounterWaves = []
+
+BlightRewardTypes = []
+
+BlightStashTabLayout = []
+
+BlightTopologies = []
+
+BlightTopologyNodes = []
+
+BlightTowerAuras = []
+
+BlightTowers = []
+
+BlightTowersPerLevel = []
+
+BlightedSporeAuras = []
+
+BloodTypes = []
+
+Bloodlines = []
+
+BreachBossLifeScalingPerLevel = []
+
+BreachElement = []
+
+BreachstoneUpgrades = []
+
+BuffCategories = []
+
+[[BuffDefinitions]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 200
+[[BuffDefinitions]]
+list = false
+name = "Description"
+refTo = ""
+type = "String"
+width = 150
+[[BuffDefinitions]]
+list = false
+name = "Invisible"
+refTo = ""
+type = "Bool"
+width = 50
+[[BuffDefinitions]]
+list = false
+name = "Removable"
+refTo = ""
+type = "Bool"
+width = 60
+[[BuffDefinitions]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 170
+[[BuffDefinitions]]
+list = true
+name = "Stats"
+refTo = "Stats"
+type = "Key"
+width = 610
+[[BuffDefinitions]]
+list = false
+name = "CancelOnDeath"
+refTo = ""
+type = "Bool"
+width = 90
+[[BuffDefinitions]]
+list = false
+name = "MergeMode"
+refTo = ""
+type = "Enum"
+width = 70
+[[BuffDefinitions]]
+list = false
+name = "ShowCount"
+refTo = ""
+type = "Bool"
+width = 70
+[[BuffDefinitions]]
+list = false
+name = "MaxStat"
+refTo = "Stats"
+type = "Key"
+width = 250
+[[BuffDefinitions]]
+list = false
+name = "CurrentStat"
+refTo = "Stats"
+type = "Key"
+width = 170
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 60
+[[BuffDefinitions]]
+list = false
+name = "Catagory"
+refTo = "BuffCatagory"
+type = "Enum"
+width = 60
+[[BuffDefinitions]]
+list = false
+name = "Visual"
+refTo = "BuffVisuals"
+type = "Key"
+width = 180
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Enum"
+width = 50
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[BuffDefinitions]]
+list = false
+name = "Limit"
+refTo = ""
+type = "Int"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = "Implementation"
+refTo = ""
+type = "String"
+width = 180
+[[BuffDefinitions]]
+list = false
+name = "isRecovery"
+refTo = ""
+type = "Bool"
+width = 60
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = "MinStat"
+refTo = "Stats"
+type = "Key"
+width = 180
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[BuffDefinitions]]
+list = false
+name = "UIStackMode"
+refTo = ""
+type = "Int"
+width = 80
+[[BuffDefinitions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[BuffDefinitions]]
+list = false
+name = "IsSkillBuff"
+refTo = ""
+type = "Bool"
+width = 70
+
+BuffGroups = []
+
+BuffMergeModes = []
+
+BuffStackUIModes = []
+
+BuffTemplates = []
+
+BuffVisualOrbArt = []
+
+BuffVisualOrbTypes = []
+
+BuffVisualOrbs = []
+
+BuffVisualSetEntries = []
+
+BuffVisualSets = []
+
+[[BuffVisuals]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[BuffVisuals]]
+list = false
+name = "Icon"
+refTo = ""
+type = "String"
+width = 150
+[[BuffVisuals]]
+list = true
+name = ""
+refTo = ""
+type = "String"
+width = 150
+[[BuffVisuals]]
+list = true
+name = ""
+refTo = ""
+type = "String"
+width = 150
+[[BuffVisuals]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 150
+[[BuffVisuals]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 150
+[[BuffVisuals]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+[[BuffVisuals]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 150
+
+CharacterAudioEvents = []
+
+CharacterPanelDescriptionModes = []
+
+CharacterPanelStatContexts = []
+
+CharacterPanelStats = []
+
+CharacterPanelTabs = []
+
+CharacterStartItems = []
+
+CharacterStartQuestState = []
+
+CharacterStartStateSet = []
+
+CharacterStartStates = []
+
+CharacterTextAudio = []
+
+[[Characters]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 250
+[[Characters]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 70
+[[Characters]]
+list = false
+name = "AnimatedObject"
+refTo = ""
+type = "String"
+width = 270
+[[Characters]]
+list = false
+name = "ActorFile"
+refTo = ""
+type = "String"
+width = 230
+
+ChatIcons = []
+
+ChestClusters = []
+
+ChestEffects = []
+
+ChestItemTemplates = []
+
+Chests = []
+
+[[ClientStrings]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 320
+[[ClientStrings]]
+list = false
+name = "Text"
+refTo = ""
+type = "String"
+width = 670
+[[ClientStrings]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 150
+[[ClientStrings]]
+list = false
+name = "Hash"
+refTo = ""
+type = "UInt"
+width = 90
+[[ClientStrings]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 150
+
+ClientUIScreens = []
+
+CloneShot = []
+
+Commands = []
+
+[[ComponentArmour]]
+list = false
+name = "BaseItemType"
+refTo = ""
+type = "String"
+width = 320
+[[ComponentArmour]]
+list = false
+name = "Armour"
+refTo = ""
+type = "Int"
+width = 70
+[[ComponentArmour]]
+list = false
+name = "Evasion"
+refTo = ""
+type = "Int"
+width = 70
+[[ComponentArmour]]
+list = false
+name = "EnergyShield"
+refTo = ""
+type = "Int"
+width = 70
+[[ComponentArmour]]
+list = false
+name = "MovementPenalty"
+refTo = ""
+type = "Int"
+width = 100
+
+[[ComponentAttributeRequirements]]
+list = false
+name = "BaseItemType"
+refTo = ""
+type = "String"
+width = 310
+[[ComponentAttributeRequirements]]
+list = false
+name = "Str"
+refTo = ""
+type = "Int"
+width = 40
+[[ComponentAttributeRequirements]]
+list = false
+name = "Dex"
+refTo = ""
+type = "Int"
+width = 40
+[[ComponentAttributeRequirements]]
+list = false
+name = "Int"
+refTo = ""
+type = "Int"
+width = 40
+
+[[ComponentCharges]]
+list = false
+name = "BaseItemType"
+refTo = ""
+type = "String"
+width = 250
+[[ComponentCharges]]
+list = false
+name = "Max"
+refTo = ""
+type = "Int"
+width = 50
+[[ComponentCharges]]
+list = false
+name = "PerUse"
+refTo = ""
+type = "Int"
+width = 50
+
+CooldownBypassTypes = []
+
+CooldownGroups = []
+
+[[CostTypes]]
+list = false
+name = "Resource"
+refTo = ""
+type = "String"
+width = 150
+[[CostTypes]]
+list = false
+name = "Stat"
+refTo = "Stats"
+type = "Key"
+width = 150
+[[CostTypes]]
+list = false
+name = "ResourceString"
+refTo = ""
+type = "String"
+width = 150
+
+CraftingBenchCustomActions = []
+
+[[CraftingBenchOptions]]
+list = false
+name = "HideoutNPC"
+refTo = "HideoutNPCs"
+type = "Key"
+width = 300
+[[CraftingBenchOptions]]
+list = false
+name = "Order"
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = "Mod"
+refTo = "Mods"
+type = "Key"
+width = 130
+[[CraftingBenchOptions]]
+list = true
+name = ""
+refTo = "BaseItemTypes"
+type = "Key"
+width = 150
+[[CraftingBenchOptions]]
+list = true
+name = ""
+refTo = ""
+type = "Int"
+width = 60
+[[CraftingBenchOptions]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 200
+[[CraftingBenchOptions]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = true
+name = "ItemClasses"
+refTo = "ItemClasses"
+type = "Key"
+width = 130
+[[CraftingBenchOptions]]
+list = false
+name = "Links"
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = "Colours"
+refTo = ""
+type = "String"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = "Sockets"
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = true
+name = ""
+refTo = ""
+type = "Int"
+width = 100
+[[CraftingBenchOptions]]
+list = false
+name = "Description"
+refTo = ""
+type = "String"
+width = 150
+[[CraftingBenchOptions]]
+list = false
+name = "IsDisabled"
+refTo = ""
+type = "Bool"
+width = 70
+[[CraftingBenchOptions]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[CraftingBenchOptions]]
+list = true
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = "Tier"
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = "ModFamily"
+refTo = ""
+type = "String"
+width = 150
+[[CraftingBenchOptions]]
+list = true
+name = "ItemCategories"
+refTo = "CraftingItemClassCategories"
+type = "Key"
+width = 750
+[[CraftingBenchOptions]]
+list = false
+name = ""
+refTo = ""
+type = "Enum"
+width = 60
+[[CraftingBenchOptions]]
+list = false
+name = "UnlockCategories"
+refTo = "CraftingBenchUnlockCategories"
+type = "Key"
+width = 150
+[[CraftingBenchOptions]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[CraftingBenchOptions]]
+list = false
+name = "Affix"
+refTo = ""
+type = "String"
+width = 100
+[[CraftingBenchOptions]]
+list = true
+name = ""
+refTo = "CraftingItemClassCategories"
+type = "Key"
+width = 320
+[[CraftingBenchOptions]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 100
+
+[[CraftingBenchUnlockCategories]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 280
+
+[[CraftingItemClassCategories]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 110
+[[CraftingItemClassCategories]]
+list = true
+name = "ItemClasses"
+refTo = "ItemClasses"
+type = "Key"
+width = 610
+[[CraftingItemClassCategories]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 100
+[[CraftingItemClassCategories]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 130
+
+CurrencyItems = []
+
+CurrencyStashTabLayout = []
+
+CurrencyUseTypes = []
+
+CustomLeagueMods = []
+
+DaemonSpawningData = []
+
+DamageHitEffects = []
+
+DamageHitTypes = []
+
+DamageParticleEffectTypes = []
+
+DamageParticleEffects = []
+
+Dances = []
+
+DaressoPitFights = []
+
+Default = []
+
+[[DefaultMonsterStats]]
+list = false
+name = "Level"
+refTo = ""
+type = "String"
+width = 50
+[[DefaultMonsterStats]]
+list = false
+name = "Damage"
+refTo = ""
+type = "Float"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = "Evasion"
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = "Accuracy"
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = "MonsterLife"
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = "MinionLife"
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Float"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Float"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Float"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 70
+[[DefaultMonsterStats]]
+list = false
+name = "Armour"
+refTo = ""
+type = "Int"
+width = 70
+
+DeliriumStashTabLayout = []
+
+DelveAzuriteShop = []
+
+DelveBiomes = []
+
+DelveCatchupDepths = []
+
+DelveCraftingModifierDescriptions = []
+
+DelveCraftingModifiers = []
+
+DelveCraftingTags = []
+
+DelveDynamite = []
+
+DelveFeatureRewards = []
+
+DelveFeatures = []
+
+DelveFlares = []
+
+DelveLevelScaling = []
+
+DelveMonsterSpawners = []
+
+DelveResourcePerLevel = []
+
+DelveRewardTierConstants = []
+
+DelveRooms = []
+
+DelveStashTabLayout = []
+
+DelveUpgradeType = []
+
+DelveUpgrades = []
+
+DescentExiles = []
+
+DescentRewardChests = []
+
+DescentStarterChest = []
+
+DialogueEvent = []
+
+Directions = []
+
+[[DisplayMinionMonsterType]]
+list = false
+name = "Id"
+refTo = ""
+type = "Int"
+width = 40
+[[DisplayMinionMonsterType]]
+list = false
+name = ""
+refTo = "MonsterVarieties"
+type = "Key"
+width = 390
+
+DivinationCardArt = []
+
+DivinationCardStashTabLayout = []
+
+Doors = []
+
+DropEffects = []
+
+DropModifiers = []
+
+DropPool = []
+
+EclipseMods = []
+
+EffectDrivenSkill = []
+
+Effectiveness = []
+
+[[EffectivenessCostConstants]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[EffectivenessCostConstants]]
+list = false
+name = "Value"
+refTo = ""
+type = "Float"
+width = 150
+
+EinharMissions = []
+
+EinharPackFallback = []
+
+ElderBossArenas = []
+
+ElderMapBossOverride = []
+
+EndlessLedgeChests = []
+
+EnvironmentTransitions = []
+
+Environments = []
+
+EssenceStashTabLayout = []
+
+[[EssenceType]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 90
+[[EssenceType]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[EssenceType]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[EssenceType]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 150
+
+[[Essences]]
+list = false
+name = "BaseItemType"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 350
+[[Essences]]
+list = false
+name = "Unknown1"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown2"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown3"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown4"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown5"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown6"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown7"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown8"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown9"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown10"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "Unknown11"
+refTo = ""
+type = "Key"
+width = 50
+[[Essences]]
+list = false
+name = "WandsMod"
+refTo = "Mods"
+type = "Key"
+width = 160
+[[Essences]]
+list = false
+name = "BowMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "QuiverMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "AmuletMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "RingMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "BeltMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "GlovesMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "BootsMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "BodyArmourMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "HelmetMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "ShieldMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "Unknown23"
+refTo = ""
+type = "UInt"
+width = 100
+[[Essences]]
+list = false
+name = "DropLevelMinimum"
+refTo = ""
+type = "Int"
+width = 100
+[[Essences]]
+list = false
+name = "DropLevelMaximum"
+refTo = ""
+type = "Int"
+width = 50
+[[Essences]]
+list = true
+name = "MonterMods"
+refTo = "Mods"
+type = "Key"
+width = 300
+[[Essences]]
+list = false
+name = "Type"
+refTo = "EssenceType"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "Tier"
+refTo = ""
+type = "Int"
+width = 80
+[[Essences]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "HelmetMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "BodyArmourMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "BootsMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "GlovesMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "BowMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "WandMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "StaffMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "TwoHandSwordMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "TwoHandAxeMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "TwoHandMaceMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "ClawMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "DaggerMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "OneHandSwordMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "ThrustingOneHandSwordMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "OneHandAxeMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "OneHandMaceMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "SceptreMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Int"
+width = 50
+[[Essences]]
+list = false
+name = "BeltMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "AmuletMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "RingMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = "ShieldMod"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 150
+[[Essences]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+
+EventSeason = []
+
+EventSeasonRewards = []
+
+EvergreenAchievementTypes = []
+
+EvergreenAchievements = []
+
+ExecuteGEAL = []
+
+ExpandingPulse = []
+
+ExperienceLevels = []
+
+ExplodingStormBuffs = []
+
+ExtraTerrainFeatureFamily = []
+
+ExtraTerrainFeatures = []
+
+FixedHideoutDoodadTypes = []
+
+FixedHideoutDoodads = []
+
+FixedMissions = []
+
+FlaskType = []
+
+[[Flasks]]
+list = false
+name = "BaseItemType"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 250
+[[Flasks]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 150
+[[Flasks]]
+list = false
+name = ""
+refTo = "FlaskType"
+type = "Enum"
+width = 50
+[[Flasks]]
+list = false
+name = "LifePerUse"
+refTo = ""
+type = "Int"
+width = 80
+[[Flasks]]
+list = false
+name = "ManaPerUse"
+refTo = ""
+type = "Int"
+width = 80
+[[Flasks]]
+list = false
+name = "RecoveryTime"
+refTo = ""
+type = "Int"
+width = 80
+[[Flasks]]
+list = false
+name = "Buff"
+refTo = "BuffDefinitions"
+type = "Key"
+width = 210
+[[Flasks]]
+list = true
+name = "BuffMagnitudes"
+refTo = ""
+type = "Int"
+width = 90
+
+FlavourText = []
+
+FlavourTextImages = []
+
+Footprints = []
+
+FootstepAudio = []
+
+FragmentStashTabLayout = []
+
+[[GameConstants]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 250
+[[GameConstants]]
+list = false
+name = "Value"
+refTo = ""
+type = "Int"
+width = 150
+
+GameStats = []
+
+[[GemTags]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[GemTags]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 150
+
+GemTypes = []
+
+GenericBuffAuras = []
+
+GeometryAttack = []
+
+GeometryChannel = []
+
+GeometryProjectiles = []
+
+GeometryTrigger = []
+
+GiftWrapArtVariations = []
+
+GlobalAudioConfig = []
+
+Grandmasters = []
+
+GrantedEffectGroups = []
+
+[[GrantedEffectQualityStats]]
+list = false
+name = "GrantedEffect"
+refTo = "GrantedEffects"
+type = "Key"
+width = 150
+[[GrantedEffectQualityStats]]
+list = false
+name = "AlternateID"
+refTo = ""
+type = "Int"
+width = 90
+[[GrantedEffectQualityStats]]
+list = true
+name = "GrantedStats"
+refTo = "Stats"
+type = "Key"
+width = 460
+[[GrantedEffectQualityStats]]
+list = true
+name = "StatValues"
+refTo = ""
+type = "Int"
+width = 150
+[[GrantedEffectQualityStats]]
+list = false
+name = "Weight"
+refTo = ""
+type = "Int"
+width = 90
+[[GrantedEffectQualityStats]]
+list = true
+name = "AddTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 100
+[[GrantedEffectQualityStats]]
+list = true
+name = "AddMinionTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 100
+
+[[GrantedEffectQualityTypes]]
+list = false
+name = "AlternateId"
+refTo = ""
+type = "Int"
+width = 150
+[[GrantedEffectQualityTypes]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 150
+[[GrantedEffectQualityTypes]]
+list = false
+name = "DisplayString"
+refTo = "ClientStrings"
+type = "Key"
+width = 170
+
+[[GrantedEffects]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 200
+[[GrantedEffects]]
+list = false
+name = "IsSupport"
+refTo = ""
+type = "Bool"
+width = 60
+[[GrantedEffects]]
+list = true
+name = "SupportTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 170
+[[GrantedEffects]]
+list = false
+name = "BaseEffectiveness"
+refTo = ""
+type = "Float"
+width = 150
+[[GrantedEffects]]
+list = false
+name = "IncrementalEffectiveness"
+refTo = ""
+type = "Float"
+width = 150
+[[GrantedEffects]]
+list = false
+name = "SupportGemLetter"
+refTo = ""
+type = "String"
+width = 100
+[[GrantedEffects]]
+list = false
+name = "Attribute"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffects]]
+list = true
+name = "AddTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 90
+[[GrantedEffects]]
+list = true
+name = "ExcludeTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 200
+[[GrantedEffects]]
+list = false
+name = "SupportGemsOnly"
+refTo = ""
+type = "Bool"
+width = 100
+[[GrantedEffects]]
+list = false
+name = "Hash"
+refTo = ""
+type = "UInt"
+width = 100
+[[GrantedEffects]]
+list = true
+name = ""
+refTo = ""
+type = "Enum"
+width = 60
+[[GrantedEffects]]
+list = false
+name = "CannotBeSupported"
+refTo = ""
+type = "Bool"
+width = 110
+[[GrantedEffects]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[GrantedEffects]]
+list = false
+name = "CastTime"
+refTo = ""
+type = "Int"
+width = 70
+[[GrantedEffects]]
+list = false
+name = "ActiveSkill"
+refTo = "ActiveSkills"
+type = "Key"
+width = 110
+[[GrantedEffects]]
+list = false
+name = "IgnoreMinionTypes"
+refTo = ""
+type = "Bool"
+width = 100
+[[GrantedEffects]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[GrantedEffects]]
+list = true
+name = "AddMinionTypes"
+refTo = "ActiveSkillType"
+type = "Enum"
+width = 150
+[[GrantedEffects]]
+list = false
+name = "Animation"
+refTo = "Animation"
+type = "Key"
+width = 120
+[[GrantedEffects]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 50
+[[GrantedEffects]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[GrantedEffects]]
+list = true
+name = "RequireUsableWith"
+refTo = "ItemClasses"
+type = "Key"
+width = 150
+[[GrantedEffects]]
+list = false
+name = "PlusVersionOf"
+refTo = "GrantedEffects"
+type = "Key"
+width = 150
+
+[[GrantedEffectsPerLevel]]
+list = false
+name = "GrantedEffect"
+refTo = "GrantedEffects"
+type = "Key"
+width = 210
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Level"
+refTo = "GrantedEffects"
+type = "Int"
+width = 40
+[[GrantedEffectsPerLevel]]
+list = true
+name = "Stats"
+refTo = "Stats"
+type = "Key"
+width = 520
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff1"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff2"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff3"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff4"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff5"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff6"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff7"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff8"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StatEff9"
+refTo = ""
+type = "Float"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = true
+name = "EffectivenessCost"
+refTo = "EffectivenessCostConstants"
+type = "Key"
+width = 250
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat1"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat2"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat3"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat4"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat5"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat6"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat7"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat8"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Stat9"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = "PlayerLevel"
+refTo = ""
+type = "Int"
+width = 70
+[[GrantedEffectsPerLevel]]
+list = false
+name = "ManaMultiplier"
+refTo = ""
+type = "Int"
+width = 80
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 40
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 40
+[[GrantedEffectsPerLevel]]
+list = false
+name = "SpellCritChance"
+refTo = ""
+type = "Int"
+width = 90
+[[GrantedEffectsPerLevel]]
+list = false
+name = "DamageEffectiveness"
+refTo = ""
+type = "Int"
+width = 120
+[[GrantedEffectsPerLevel]]
+list = false
+name = "CooldownCount"
+refTo = ""
+type = "Int"
+width = 90
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Cooldown"
+refTo = ""
+type = "Int"
+width = 60
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 40
+[[GrantedEffectsPerLevel]]
+list = true
+name = "BooleanStats"
+refTo = "Stats"
+type = "Key"
+width = 150
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[GrantedEffectsPerLevel]]
+list = false
+name = "SoulCost"
+refTo = ""
+type = "Int"
+width = 50
+[[GrantedEffectsPerLevel]]
+list = false
+name = "StoredUses"
+refTo = ""
+type = "Int"
+width = 50
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[GrantedEffectsPerLevel]]
+list = false
+name = "DamageMultiplier"
+refTo = ""
+type = "Int"
+width = 90
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[GrantedEffectsPerLevel]]
+list = false
+name = "ArtVariation"
+refTo = ""
+type = "Int"
+width = 70
+[[GrantedEffectsPerLevel]]
+list = true
+name = "InterpolationTypes"
+refTo = "StatInterpolationTypes"
+type = "Enum"
+width = 130
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[GrantedEffectsPerLevel]]
+list = false
+name = "SoulGainPreventionDuration"
+refTo = ""
+type = "Int"
+width = 150
+[[GrantedEffectsPerLevel]]
+list = false
+name = "Duration"
+refTo = ""
+type = "Int"
+width = 80
+[[GrantedEffectsPerLevel]]
+list = false
+name = "AttackSpeedMultiplier"
+refTo = ""
+type = "Int"
+width = 150
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 70
+[[GrantedEffectsPerLevel]]
+list = true
+name = "CostAmounts"
+refTo = ""
+type = "Int"
+width = 90
+[[GrantedEffectsPerLevel]]
+list = true
+name = "CostTypes"
+refTo = "CostTypes"
+type = "Key"
+width = 90
+[[GrantedEffectsPerLevel]]
+list = false
+name = "ManaReservationFlat"
+refTo = ""
+type = "UInt"
+width = 150
+[[GrantedEffectsPerLevel]]
+list = false
+name = "ManaReservationPercent"
+refTo = ""
+type = "UInt"
+width = 150
+[[GrantedEffectsPerLevel]]
+list = false
+name = "LifeReservationFlat"
+refTo = ""
+type = "UInt"
+width = 150
+[[GrantedEffectsPerLevel]]
+list = false
+name = "LifeReservationPercent"
+refTo = ""
+type = "UInt"
+width = 150
+[[GrantedEffectsPerLevel]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+
+GroundEffectEffectTypes = []
+
+GroundEffectTypes = []
+
+GroundEffects = []
+
+HarbingerMaps = []
+
+Harbingers = []
+
+HarvestColours = []
+
+HarvestCraftOptionIcons = []
+
+HarvestCraftOptions = []
+
+HarvestCraftTiers = []
+
+HarvestDurability = []
+
+HarvestEncounterScaling = []
+
+HarvestInfrastructure = []
+
+HarvestInfrastructureCategories = []
+
+HarvestMetaCraftingOptions = []
+
+HarvestObjects = []
+
+HarvestPerLevelValues = []
+
+HarvestPlantBoosterFamilies = []
+
+HarvestPlantBoosters = []
+
+HarvestSeedTypes = []
+
+HarvestSeeds = []
+
+HarvestSpecialCraftCosts = []
+
+HarvestSpecialCraftOptions = []
+
+HarvestStorageLayout = []
+
+HeistAreaFormationLayout = []
+
+HeistAreas = []
+
+HeistBalancePerLevel = []
+
+HeistBlueprintWindowTypes = []
+
+HeistChestRewardTypes = []
+
+HeistChestTypes = []
+
+HeistChests = []
+
+HeistChokepointFormation = []
+
+HeistConstants = []
+
+HeistContracts = []
+
+HeistDoodadNPCs = []
+
+HeistDoors = []
+
+HeistEquipment = []
+
+HeistFormationMarkerType = []
+
+HeistGeneration = []
+
+HeistIntroAreas = []
+
+HeistJobs = []
+
+HeistJobsExperiencePerLevel = []
+
+HeistLockType = []
+
+HeistNPCAuras = []
+
+HeistNPCBlueprintTypes = []
+
+HeistNPCDialogue = []
+
+HeistNPCStats = []
+
+HeistNPCs = []
+
+HeistObjectiveValueDescriptions = []
+
+HeistObjectives = []
+
+HeistPatrolPacks = []
+
+HeistQuestContracts = []
+
+HeistRevealingNPCs = []
+
+HeistRoomTypes = []
+
+HeistRooms = []
+
+HeistStorageLayout = []
+
+HeistValueScaling = []
+
+HideoutDoodads = []
+
+[[HideoutNPCs]]
+list = false
+name = "NPC"
+refTo = "NPCs"
+type = "Key"
+width = 370
+
+HideoutRarity = []
+
+Hideouts = []
+
+ImpactSoundData = []
+
+Incubators = []
+
+IncursionArchitect = []
+
+IncursionBrackets = []
+
+IncursionChestRewards = []
+
+IncursionChests = []
+
+IncursionRoomAdditionalBossDrops = []
+
+IncursionRoomBossFightEvents = []
+
+IncursionRooms = []
+
+IncursionUniqueUpgradeComponents = []
+
+IncursionUniqueUpgrades = []
+
+IndexableSupportGems = []
+
+InfluenceExalts = []
+
+InfluenceModUpgrades = []
+
+InfluenceTags = []
+
+InfluenceTypes = []
+
+InvasionMonsterGroups = []
+
+InvasionMonsterRestrictions = []
+
+InvasionMonsterRoles = []
+
+InvasionMonstersPerArea = []
+
+Inventories = []
+
+InventoryId = []
+
+InventoryType = []
+
+ItemClassCategories = []
+
+[[ItemClasses]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[ItemClasses]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 150
+
+ItemCostPerLevel = []
+
+ItemCreationTemplateCustomAction = []
+
+[[ItemExperiencePerLevel]]
+list = false
+name = "BaseItemType"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 410
+[[ItemExperiencePerLevel]]
+list = false
+name = "Level"
+refTo = ""
+type = "Int"
+width = 50
+[[ItemExperiencePerLevel]]
+list = false
+name = "Experience"
+refTo = ""
+type = "Int"
+width = 150
+
+ItemNoteCode = []
+
+ItemSetNames = []
+
+ItemShopType = []
+
+ItemStances = []
+
+[[ItemSynthesisCorruptedMods]]
+list = false
+name = "ItemClass"
+refTo = "ItemClasses"
+type = "Key"
+width = 170
+[[ItemSynthesisCorruptedMods]]
+list = true
+name = "ImplicitMods"
+refTo = "Mods"
+type = "Key"
+width = 910
+
+[[ItemSynthesisMods]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 120
+[[ItemSynthesisMods]]
+list = false
+name = "Stat"
+refTo = "Stats"
+type = "Key"
+width = 350
+[[ItemSynthesisMods]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+[[ItemSynthesisMods]]
+list = true
+name = "ItemClasses"
+refTo = "ItemClasses"
+type = "Key"
+width = 440
+[[ItemSynthesisMods]]
+list = true
+name = "ImplicitMod"
+refTo = "Mods"
+type = "Key"
+width = 450
+
+ItemThemes = []
+
+ItemTradeData = []
+
+ItemVisualEffect = []
+
+ItemVisualHeldBodyModel = []
+
+[[ItemVisualIdentity]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+
+ItemisedVisualEffect = []
+
+JobAssassinationSpawnerGroups = []
+
+JobRaidBrackets = []
+
+KillstreakThresholds = []
+
+LabyrinthAreas = []
+
+LabyrinthBonusItems = []
+
+LabyrinthExclusionGroups = []
+
+LabyrinthIzaroChests = []
+
+LabyrinthNodeOverrides = []
+
+LabyrinthRewardTypes = []
+
+LabyrinthRewards = []
+
+LabyrinthSecretEffects = []
+
+LabyrinthSecretLocations = []
+
+LabyrinthSecrets = []
+
+LabyrinthSection = []
+
+LabyrinthSectionLayout = []
+
+LabyrinthTrials = []
+
+LabyrinthTrinkets = []
+
+Labyrinths = []
+
+Languages = []
+
+LeagueCategory = []
+
+LeagueFlag = []
+
+LeagueFlags = []
+
+LeagueInfo = []
+
+LeagueQuestFlags = []
+
+LeagueTrophy = []
+
+LegionBalancePerLevel = []
+
+LegionChestCounts = []
+
+LegionChests = []
+
+LegionFactions = []
+
+LegionMonsterCounts = []
+
+LegionMonsterTypes = []
+
+LegionMonsterVarieties = []
+
+LegionRankTypes = []
+
+LegionRanks = []
+
+LegionRewardTypeVisuals = []
+
+LegionRewardTypes = []
+
+LegionRewards = []
+
+LevelRelativePlayerScaling = []
+
+MTXSetBonus = []
+
+MagicMonsterLifeScalingPerLevel = []
+
+MapCompletionAchievements = []
+
+MapConnections = []
+
+MapCreationInformation = []
+
+MapDeviceRecipes = []
+
+MapDevices = []
+
+MapFragmentFamilies = []
+
+MapFragmentMods = []
+
+MapInhabitants = []
+
+MapPins = []
+
+MapPurchaseCosts = []
+
+MapSeries = []
+
+MapSeriesTiers = []
+
+MapStashTabLayout = []
+
+MapStatAchievements = []
+
+MapStatConditions = []
+
+MapStatsFromMapStats = []
+
+MapTierAchievements = []
+
+MapTiers = []
+
+Maps = []
+
+MasterHideoutLevels = []
+
+MavenDialog = []
+
+MavenFights = []
+
+Melee = []
+
+MeleeTrails = []
+
+MetamorphLifeScalingPerLevel = []
+
+MetamorphosisMetaMonsters = []
+
+MetamorphosisMetaSkillTypes = []
+
+MetamorphosisMetaSkills = []
+
+MetamorphosisRewardTypeItemsClient = []
+
+MetamorphosisRewardTypes = []
+
+MetamorphosisScaling = []
+
+MetamorphosisStashTabLayout = []
+
+MicroMigrationData = []
+
+MicrotransactionCharacterPortraitVariations = []
+
+MicrotransactionCombineFormula = []
+
+MicrotransactionCombineForumula = []
+
+MicrotransactionCursorVariations = []
+
+MicrotransactionFireworksVariations = []
+
+MicrotransactionGemCategory = []
+
+MicrotransactionPeriodicCharacterEffectVariations = []
+
+MicrotransactionPortalVariations = []
+
+MicrotransactionRarityDisplay = []
+
+MicrotransactionRecycleCategories = []
+
+MicrotransactionRecycleOutcomes = []
+
+MicrotransactionRecycleSalvageValues = []
+
+MicrotransactionSlotId = []
+
+MicrotransactionSocialFrameVariations = []
+
+MiniQuestStates = []
+
+MinimapIcons = []
+
+MiscAnimated = []
+
+MiscBeams = []
+
+MiscEffectPacks = []
+
+MiscObjects = []
+
+MissionFavourPerLevel = []
+
+MissionTileMap = []
+
+MissionTimerTypes = []
+
+MissionTransitionTiles = []
+
+ModAuraFlags = []
+
+ModDomains = []
+
+ModEffectStats = []
+
+ModEquivalencies = []
+
+ModFamily = []
+
+ModGenerationType = []
+
+ModSellPriceTypes = []
+
+ModSetNames = []
+
+ModSets = []
+
+[[ModType]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 400
+[[ModType]]
+list = false
+name = ""
+refTo = ""
+type = "UInt"
+width = 190
+[[ModType]]
+list = false
+name = "Tags"
+refTo = "Tags"
+type = "UInt"
+width = 130
+
+[[Mods]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 300
+[[Mods]]
+list = false
+name = "Hash"
+refTo = ""
+type = "UInt"
+width = 60
+[[Mods]]
+list = false
+name = "Type"
+refTo = "ModType"
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = "Level"
+refTo = ""
+type = "Int"
+width = 60
+[[Mods]]
+list = false
+name = "Stat1"
+refTo = "Stats"
+type = "Key"
+width = 280
+[[Mods]]
+list = false
+name = "Stat2"
+refTo = "Stats"
+type = "Key"
+width = 280
+[[Mods]]
+list = false
+name = "Stat3"
+refTo = "Stats"
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = "Stat4"
+refTo = "Stats"
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = "Domain"
+refTo = "ModDomains"
+type = "Enum"
+width = 60
+[[Mods]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 130
+[[Mods]]
+list = false
+name = "GenerationType"
+refTo = "ModGenerationType"
+type = "Enum"
+width = 100
+[[Mods]]
+list = false
+name = "Family"
+refTo = "ModFamily"
+type = "String"
+width = 120
+[[Mods]]
+list = false
+name = "Stat1Value"
+refTo = ""
+type = "Interval"
+width = 70
+[[Mods]]
+list = false
+name = "Stat2Value"
+refTo = ""
+type = "Interval"
+width = 70
+[[Mods]]
+list = false
+name = "Stat3Value"
+refTo = ""
+type = "Interval"
+width = 70
+[[Mods]]
+list = false
+name = "Stat4Value"
+refTo = ""
+type = "Interval"
+width = 70
+[[Mods]]
+list = true
+name = "SpawnTags"
+refTo = "Tags"
+type = "Key"
+width = 150
+[[Mods]]
+list = true
+name = "SpawnWeights"
+refTo = "Tags"
+type = "Int"
+width = 150
+[[Mods]]
+list = false
+name = "Aura"
+refTo = "BuffDefinitions"
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = "AuraRadius"
+refTo = ""
+type = "Int"
+width = 70
+[[Mods]]
+list = true
+name = "Tags"
+refTo = "Tags"
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = "GrantedEffect"
+refTo = "GrantedEffectsPerLevel"
+type = "Key"
+width = 150
+[[Mods]]
+list = true
+name = "AuraFlags"
+refTo = "ModAuraFlags"
+type = "Enum"
+width = 80
+[[Mods]]
+list = true
+name = ""
+refTo = ""
+type = "Int"
+width = 80
+[[Mods]]
+list = false
+name = "Daemon"
+refTo = ""
+type = "String"
+width = 150
+[[Mods]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 100
+[[Mods]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 100
+[[Mods]]
+list = false
+name = "AuraVisualOverride"
+refTo = "BuffVisuals"
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = "Stat5Value"
+refTo = ""
+type = "Interval"
+width = 60
+[[Mods]]
+list = false
+name = "Stat5"
+refTo = "Stats"
+type = "Key"
+width = 150
+[[Mods]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 100
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 100
+[[Mods]]
+list = true
+name = "GenerationWeightTags"
+refTo = "Tags"
+type = "Key"
+width = 120
+[[Mods]]
+list = true
+name = "GenerationWeightValues"
+refTo = "Tags"
+type = "Int"
+width = 120
+[[Mods]]
+list = true
+name = ""
+refTo = ""
+type = "Key"
+width = 100
+[[Mods]]
+list = false
+name = "IsEssence"
+refTo = ""
+type = "Bool"
+width = 60
+[[Mods]]
+list = false
+name = "Stat6Value"
+refTo = ""
+type = "Interval"
+width = 60
+[[Mods]]
+list = false
+name = "Stat6"
+refTo = "Stats"
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 100
+[[Mods]]
+list = true
+name = ""
+refTo = "ItemClasses"
+type = "Key"
+width = 200
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+[[Mods]]
+list = false
+name = ""
+refTo = "GrantedEffectsPerLevel"
+type = "Key"
+width = 240
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Interval"
+width = 250
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 240
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 150
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+[[Mods]]
+list = false
+name = ""
+refTo = "Tags"
+type = "Int"
+width = 150
+[[Mods]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 150
+[[Mods]]
+list = true
+name = "ImplicitTags"
+refTo = "Tags"
+type = "Key"
+width = 150
+
+MonsterAdditionalMonsterDrops = []
+
+MonsterArmours = []
+
+MonsterBehavior = []
+
+MonsterBonuses = []
+
+MonsterChanceToDropItemTemplate = []
+
+MonsterConditionalEffectPacks = []
+
+MonsterConditions = []
+
+MonsterDeathAchievements = []
+
+MonsterDeathConditions = []
+
+MonsterFleeConditions = []
+
+MonsterGroupEntries = []
+
+MonsterGroupNames = []
+
+MonsterHeightBrackets = []
+
+MonsterHeights = []
+
+MonsterMapBossDifficulty = []
+
+MonsterMapDifficulty = []
+
+MonsterMortar = []
+
+MonsterPackCounts = []
+
+MonsterPackEntries = []
+
+MonsterPacks = []
+
+MonsterProjectileAttack = []
+
+MonsterProjectileSpell = []
+
+MonsterPushTypes = []
+
+[[MonsterResistances]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[MonsterResistances]]
+list = false
+name = "FireNormal"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "ColdNormal"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "LightningNormal"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "ChaosNormal"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "FireCruel"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "ColdCruel"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "LightningCruel"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "ChaosCruel"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "FireMerciless"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "ColdMerciless"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "LightningMerciless"
+refTo = ""
+type = "Int"
+width = 80
+[[MonsterResistances]]
+list = false
+name = "ChaosMerciless"
+refTo = ""
+type = "Int"
+width = 80
+
+MonsterScalingByLevel = []
+
+MonsterSegments = []
+
+MonsterSize = []
+
+MonsterSkillsAliveDead = []
+
+MonsterSkillsAttackSpell = []
+
+MonsterSkillsClientInstance = []
+
+MonsterSkillsHull = []
+
+MonsterSkillsOrientation = []
+
+MonsterSkillsPlacement = []
+
+MonsterSkillsReference = []
+
+MonsterSkillsSequenceMode = []
+
+MonsterSkillsShape = []
+
+MonsterSkillsTargets = []
+
+MonsterSkillsWaveDirection = []
+
+MonsterSpawnerGroups = []
+
+MonsterSpawnerGroupsPerLevel = []
+
+MonsterSpawnerOverrides = []
+
+MonsterStatsFromMapStats = []
+
+[[MonsterTypes]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[MonsterTypes]]
+list = false
+name = "Accuracy"
+refTo = ""
+type = "Int"
+width = 70
+[[MonsterTypes]]
+list = false
+name = "IsPlayerMinion"
+refTo = ""
+type = "Bool"
+width = 80
+[[MonsterTypes]]
+list = false
+name = "Armour"
+refTo = ""
+type = "Int"
+width = 60
+[[MonsterTypes]]
+list = false
+name = "Evasion"
+refTo = ""
+type = "Int"
+width = 60
+[[MonsterTypes]]
+list = false
+name = "EnergyShield"
+refTo = ""
+type = "Int"
+width = 70
+[[MonsterTypes]]
+list = false
+name = "DamageSpread"
+refTo = ""
+type = "Int"
+width = 100
+[[MonsterTypes]]
+list = true
+name = "Tags"
+refTo = "Tags"
+type = "Key"
+width = 150
+[[MonsterTypes]]
+list = false
+name = "Resistances"
+refTo = "MonsterResistances"
+type = "Key"
+width = 150
+[[MonsterTypes]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[MonsterTypes]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+
+[[MonsterVarieties]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 450
+[[MonsterVarieties]]
+list = false
+name = "Type"
+refTo = "MonsterTypes"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = "MovementSpeed"
+refTo = ""
+type = "Int"
+width = 100
+[[MonsterVarieties]]
+list = false
+name = "ObjectSize"
+refTo = ""
+type = "Enum"
+width = 60
+[[MonsterVarieties]]
+list = false
+name = "MinimumAttackRange"
+refTo = ""
+type = "Int"
+width = 110
+[[MonsterVarieties]]
+list = false
+name = "MaximumAttackRange"
+refTo = ""
+type = "Int"
+width = 110
+[[MonsterVarieties]]
+list = true
+name = "Actor"
+refTo = ""
+type = "String"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = "AnimatedObject"
+refTo = ""
+type = "String"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = "ObjectType"
+refTo = ""
+type = "String"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = "Mods"
+refTo = "Mods"
+type = "Key"
+width = 200
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = true
+name = "Tags"
+refTo = "Tags"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = true
+name = "GrantedEffects"
+refTo = "GrantedEffects"
+type = "Key"
+width = 500
+[[MonsterVarieties]]
+list = false
+name = "AIScript"
+refTo = ""
+type = "String"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "Mods"
+type = "Key"
+width = 200
+[[MonsterVarieties]]
+list = false
+name = "Stance"
+refTo = ""
+type = "String"
+width = 100
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 200
+[[MonsterVarieties]]
+list = false
+name = "DamageMultiplier"
+refTo = ""
+type = "Int"
+width = 100
+[[MonsterVarieties]]
+list = false
+name = "LifeMultiplier"
+refTo = ""
+type = "Int"
+width = 100
+[[MonsterVarieties]]
+list = false
+name = "AttackDuration"
+refTo = ""
+type = "Int"
+width = 100
+[[MonsterVarieties]]
+list = true
+name = "MainHandItem"
+refTo = "ItemVisualIdentity"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = "OffHandItem"
+refTo = "ItemVisualIdentity"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = "BackItem"
+refTo = "ItemVisualIdentity"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = "MainHandItemClass"
+refTo = "ItemClasses"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = "OffHandItemClass"
+refTo = "ItemClasses"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = "HelmetItem"
+refTo = "ItemVisualIdentity"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = "SpecialMods"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 60
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = "Hash"
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 40
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = "ModsPart1"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = "ModsPart2"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = "ModsEndgame"
+refTo = "Mods"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 50
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "AchievementItems"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "MultiPartAchievements"
+type = "Key"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[MonsterVarieties]]
+list = false
+name = "SinkAnimation"
+refTo = ""
+type = "String"
+width = 150
+[[MonsterVarieties]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[MonsterVarieties]]
+list = true
+name = ""
+refTo = "MultiPartAchievements"
+type = "Key"
+width = 150
+
+MoveDaemon = []
+
+MultiPartAchievementAreas = []
+
+MultiPartAchievementConditions = []
+
+[[MultiPartAchievements]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 350
+
+Music = []
+
+MusicCategories = []
+
+MysteryBoxes = []
+
+NPCAdditionalVendorItems = []
+
+NPCAudio = []
+
+NPCConversations = []
+
+NPCDialogueStyles = []
+
+NPCFollowerVariations = []
+
+NPCMaster = []
+
+NPCMasterLevels = []
+
+NPCPortraits = []
+
+NPCShop = []
+
+NPCShopAdditionalItems = []
+
+NPCTalk = []
+
+NPCTalkCategory = []
+
+NPCTalkConsoleQuickActions = []
+
+NPCTextAudio = []
+
+NPCTextAudioInterruptRules = []
+
+[[NPCs]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 360
+
+NearbyMonsterConditions = []
+
+NetTiers = []
+
+Notifications = []
+
+OldMapStashTabLayout = []
+
+OnKillAchievements = []
+
+Orientations = []
+
+PCBangRewardMicros = []
+
+PVPTypes = []
+
+PackFormation = []
+
+[[PantheonPanelLayout]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[PantheonPanelLayout]]
+list = false
+name = "X"
+refTo = ""
+type = "Int"
+width = 50
+[[PantheonPanelLayout]]
+list = false
+name = "Y"
+refTo = ""
+type = "Int"
+width = 50
+[[PantheonPanelLayout]]
+list = false
+name = "IsMajorGod"
+refTo = ""
+type = "Bool"
+width = 80
+[[PantheonPanelLayout]]
+list = false
+name = "CoverImage"
+refTo = ""
+type = "String"
+width = 380
+[[PantheonPanelLayout]]
+list = false
+name = "GodName2"
+refTo = ""
+type = "String"
+width = 220
+[[PantheonPanelLayout]]
+list = false
+name = "SelectionFrame"
+refTo = ""
+type = "String"
+width = 390
+[[PantheonPanelLayout]]
+list = true
+name = "Effect1StatsKey"
+refTo = "Stats"
+type = "Key"
+width = 650
+[[PantheonPanelLayout]]
+list = true
+name = "Effect1Values"
+refTo = ""
+type = "Int"
+width = 150
+[[PantheonPanelLayout]]
+list = true
+name = "Effect2StatsKey"
+refTo = "Stats"
+type = "Key"
+width = 530
+[[PantheonPanelLayout]]
+list = false
+name = "GodName3"
+refTo = ""
+type = "String"
+width = 170
+[[PantheonPanelLayout]]
+list = true
+name = "Effect3Values"
+refTo = ""
+type = "Int"
+width = 150
+[[PantheonPanelLayout]]
+list = true
+name = "Effect3StatsKey"
+refTo = "Stats"
+type = "Key"
+width = 470
+[[PantheonPanelLayout]]
+list = false
+name = "GodName4"
+refTo = ""
+type = "String"
+width = 170
+[[PantheonPanelLayout]]
+list = true
+name = "Effect4StatsKey"
+refTo = "Stats"
+type = "Key"
+width = 370
+[[PantheonPanelLayout]]
+list = true
+name = "Effect4Values"
+refTo = ""
+type = "Int"
+width = 150
+[[PantheonPanelLayout]]
+list = false
+name = "GodName1"
+refTo = ""
+type = "String"
+width = 150
+[[PantheonPanelLayout]]
+list = true
+name = "Effect2Values"
+refTo = ""
+type = "Int"
+width = 150
+[[PantheonPanelLayout]]
+list = false
+name = "Unknown1"
+refTo = ""
+type = "Int"
+width = 70
+[[PantheonPanelLayout]]
+list = false
+name = "Unknown2"
+refTo = ""
+type = "Int"
+width = 60
+[[PantheonPanelLayout]]
+list = false
+name = "Unknown3"
+refTo = ""
+type = "Int"
+width = 60
+[[PantheonPanelLayout]]
+list = false
+name = "Unknown4"
+refTo = ""
+type = "Int"
+width = 60
+[[PantheonPanelLayout]]
+list = false
+name = "IsDisabled"
+refTo = ""
+type = "Bool"
+width = 150
+
+PantheonSouls = []
+
+[[PassiveJewelSlots]]
+list = false
+name = "Passive"
+refTo = "PassiveSkills"
+type = "Key"
+width = 180
+[[PassiveJewelSlots]]
+list = false
+name = "ClusterSize"
+refTo = "PassiveTreeExpansionJewelSizes"
+type = "Key"
+width = 80
+[[PassiveJewelSlots]]
+list = false
+name = "ClusterIndex"
+refTo = ""
+type = "Int"
+width = 80
+[[PassiveJewelSlots]]
+list = false
+name = "Parent"
+refTo = "PassiveJewelSlots"
+type = "Enum"
+width = 170
+[[PassiveJewelSlots]]
+list = false
+name = "Proxy"
+refTo = "PassiveSkills"
+type = "Key"
+width = 210
+
+[[PassiveSkillBuffs]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 350
+[[PassiveSkillBuffs]]
+list = false
+name = "Buff"
+refTo = "BuffDefinitions"
+type = "Key"
+width = 350
+
+PassiveSkillFilterCatagories = []
+
+PassiveSkillFilterOptions = []
+
+PassiveSkillStatCategories = []
+
+PassiveSkillTreeTutorial = []
+
+PassiveSkillTypes = []
+
+[[PassiveSkills]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 350
+[[PassiveSkills]]
+list = false
+name = "Icon"
+refTo = ""
+type = "String"
+width = 330
+[[PassiveSkills]]
+list = true
+name = "Stats"
+refTo = "Stats"
+type = "Key"
+width = 640
+[[PassiveSkills]]
+list = false
+name = "Stat1"
+refTo = ""
+type = "Int"
+width = 50
+[[PassiveSkills]]
+list = false
+name = "Stat2"
+refTo = ""
+type = "Int"
+width = 50
+[[PassiveSkills]]
+list = false
+name = "Stat3"
+refTo = ""
+type = "Int"
+width = 50
+[[PassiveSkills]]
+list = false
+name = "Stat4"
+refTo = ""
+type = "Int"
+width = 50
+[[PassiveSkills]]
+list = false
+name = "Hash"
+refTo = ""
+type = "Int"
+width = 60
+[[PassiveSkills]]
+list = false
+name = "Name"
+refTo = ""
+type = "String"
+width = 150
+[[PassiveSkills]]
+list = true
+name = "ClassStart"
+refTo = ""
+type = "Int"
+width = 70
+[[PassiveSkills]]
+list = false
+name = "Keystone"
+refTo = ""
+type = "Bool"
+width = 60
+[[PassiveSkills]]
+list = false
+name = "Notable"
+refTo = ""
+type = "Bool"
+width = 60
+[[PassiveSkills]]
+list = false
+name = "Flavour"
+refTo = ""
+type = "String"
+width = 300
+[[PassiveSkills]]
+list = false
+name = "Mastery"
+refTo = ""
+type = "Bool"
+width = 60
+[[PassiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 40
+[[PassiveSkills]]
+list = false
+name = "JewelSocket"
+refTo = ""
+type = "Bool"
+width = 70
+[[PassiveSkills]]
+list = false
+name = "Ascendancy"
+refTo = "Ascendancy"
+type = "Key"
+width = 90
+[[PassiveSkills]]
+list = false
+name = "AscendancyStart"
+refTo = ""
+type = "Bool"
+width = 100
+[[PassiveSkills]]
+list = true
+name = "ReminderTexts"
+refTo = "ClientStrings"
+type = "Key"
+width = 150
+[[PassiveSkills]]
+list = false
+name = "PassivePointsGranted"
+refTo = ""
+type = "Int"
+width = 120
+[[PassiveSkills]]
+list = false
+name = "MultipleChoice"
+refTo = ""
+type = "Bool"
+width = 80
+[[PassiveSkills]]
+list = false
+name = "MultipleChoiceOption"
+refTo = ""
+type = "Bool"
+width = 110
+[[PassiveSkills]]
+list = false
+name = "Stat5"
+refTo = ""
+type = "Int"
+width = 50
+[[PassiveSkills]]
+list = true
+name = "Buffs"
+refTo = "PassiveSkillBuffs"
+type = "Key"
+width = 150
+[[PassiveSkills]]
+list = false
+name = "GrantedEffect"
+refTo = "GrantedEffectsPerLevel"
+type = "Key"
+width = 90
+[[PassiveSkills]]
+list = false
+name = "Blighted"
+refTo = ""
+type = "Bool"
+width = 50
+[[PassiveSkills]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+[[PassiveSkills]]
+list = false
+name = "ClusterNode"
+refTo = ""
+type = "Bool"
+width = 70
+[[PassiveSkills]]
+list = false
+name = "Proxy"
+refTo = ""
+type = "Bool"
+width = 60
+
+[[PassiveTreeExpansionJewelSizes]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+
+[[PassiveTreeExpansionJewels]]
+list = false
+name = "BaseItemType"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 360
+[[PassiveTreeExpansionJewels]]
+list = false
+name = "Size"
+refTo = "PassiveTreeExpansionJewelSizes"
+type = "Key"
+width = 70
+[[PassiveTreeExpansionJewels]]
+list = false
+name = "MinNodes"
+refTo = ""
+type = "Int"
+width = 70
+[[PassiveTreeExpansionJewels]]
+list = false
+name = "MaxNodes"
+refTo = ""
+type = "Int"
+width = 70
+[[PassiveTreeExpansionJewels]]
+list = true
+name = "SmallIndicies"
+refTo = ""
+type = "Int"
+width = 200
+[[PassiveTreeExpansionJewels]]
+list = true
+name = "NotableIndicies"
+refTo = ""
+type = "Int"
+width = 130
+[[PassiveTreeExpansionJewels]]
+list = true
+name = "SocketIndicies"
+refTo = ""
+type = "Int"
+width = 90
+[[PassiveTreeExpansionJewels]]
+list = false
+name = "Art"
+refTo = ""
+type = "String"
+width = 150
+[[PassiveTreeExpansionJewels]]
+list = false
+name = "TotalIndicies"
+refTo = ""
+type = "Int"
+width = 80
+[[PassiveTreeExpansionJewels]]
+list = false
+name = "SoundEffect"
+refTo = "SoundEffects"
+type = "Key"
+width = 150
+
+[[PassiveTreeExpansionSkills]]
+list = false
+name = "Node"
+refTo = "PassiveSkills"
+type = "Key"
+width = 320
+[[PassiveTreeExpansionSkills]]
+list = false
+name = "Mastery"
+refTo = "PassiveSkills"
+type = "Key"
+width = 410
+[[PassiveTreeExpansionSkills]]
+list = false
+name = "Tag"
+refTo = "Tags"
+type = "Key"
+width = 350
+[[PassiveTreeExpansionSkills]]
+list = false
+name = "JewelSize"
+refTo = "PassiveTreeExpansionJewelSizes"
+type = "Key"
+width = 70
+
+[[PassiveTreeExpansionSpecialSkills]]
+list = false
+name = "Node"
+refTo = "PassiveSkills"
+type = "Key"
+width = 270
+[[PassiveTreeExpansionSpecialSkills]]
+list = false
+name = "Stat"
+refTo = "Stats"
+type = "Key"
+width = 350
+
+PathOfEndurance = []
+
+PerLevelValues = []
+
+PerandusBosses = []
+
+PerandusChests = []
+
+PerandusDaemons = []
+
+PerandusGuards = []
+
+Pet = []
+
+PlayerConditions = []
+
+PreloadGroups = []
+
+PreloadPriorities = []
+
+ProjectileCollisionTypes = []
+
+ProjectileVariations = []
+
+Projectiles = []
+
+Prophecies = []
+
+ProphecyChain = []
+
+ProphecySetNames = []
+
+ProphecySets = []
+
+ProphecyType = []
+
+Quest = []
+
+QuestAchievements = []
+
+QuestFlags = []
+
+QuestItems = []
+
+QuestRewardOffers = []
+
+QuestRewardType = []
+
+QuestRewards = []
+
+QuestStateCalcuation = []
+
+QuestStateCalculation = []
+
+QuestStates = []
+
+QuestStaticRewards = []
+
+QuestTrackerGroup = []
+
+QuestType = []
+
+QuestVendorRewards = []
+
+RaceAreas = []
+
+RaceTimes = []
+
+Races = []
+
+RandomUniqueMonsters = []
+
+RareMonsterLifeScalingPerLevel = []
+
+Rarity = []
+
+Realms = []
+
+RecipeUnlockDisplay = []
+
+RecipeUnlockObjects = []
+
+RelativeImportanceConstants = []
+
+RitualBalancePerLevel = []
+
+RitualConstants = []
+
+RitualRuneTypes = []
+
+RitualSetKillAchievements = []
+
+RitualSpawnPatterns = []
+
+RogueExiles = []
+
+Rulesets = []
+
+RunicCircles = []
+
+SafehouseBYOCrafting = []
+
+SafehouseCraftingSpree = []
+
+SafehouseCraftingSpreeCurrencies = []
+
+SalvageBoxes = []
+
+ScarabTypes = []
+
+Scarabs = []
+
+SessionQuestFlags = []
+
+ShaperMemoryFragments = []
+
+ShaperOrbs = []
+
+[[ShieldTypes]]
+list = false
+name = "BaseItemType"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 290
+[[ShieldTypes]]
+list = false
+name = "Block"
+refTo = ""
+type = "Int"
+width = 60
+
+ShopCategory = []
+
+ShopCountry = []
+
+ShopCurrency = []
+
+ShopForumBadge = []
+
+ShopPackagePlatform = []
+
+ShopPaymentPackage = []
+
+ShopPaymentPackageItems = []
+
+ShopPaymentPackagePrice = []
+
+ShopPaymentPackageProxy = []
+
+ShopRegion = []
+
+ShopToken = []
+
+ShrineBuffs = []
+
+ShrineSounds = []
+
+Shrines = []
+
+SigilDisplay = []
+
+SkillGemInfo = []
+
+[[SkillGems]]
+list = false
+name = "BaseItemType"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 360
+[[SkillGems]]
+list = false
+name = "GrantedEffect"
+refTo = "GrantedEffects"
+type = "Key"
+width = 210
+[[SkillGems]]
+list = false
+name = "Str"
+refTo = ""
+type = "Int"
+width = 40
+[[SkillGems]]
+list = false
+name = "Dex"
+refTo = ""
+type = "Int"
+width = 40
+[[SkillGems]]
+list = false
+name = "Int"
+refTo = ""
+type = "Int"
+width = 40
+[[SkillGems]]
+list = true
+name = "Tags"
+refTo = "GemTags"
+type = "Key"
+width = 500
+[[SkillGems]]
+list = false
+name = "VaalGem"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 290
+[[SkillGems]]
+list = false
+name = "IsVaalGem"
+refTo = ""
+type = "Bool"
+width = 70
+[[SkillGems]]
+list = false
+name = "Description"
+refTo = ""
+type = "String"
+width = 300
+[[SkillGems]]
+list = false
+name = "HungryLoopMod"
+refTo = "Mods"
+type = "Key"
+width = 250
+[[SkillGems]]
+list = false
+name = "SecondaryGrantedEffect"
+refTo = "GrantedEffects"
+type = "Key"
+width = 150
+[[SkillGems]]
+list = false
+name = "GlobalGemLevelStat"
+refTo = "Stats"
+type = "Key"
+width = 150
+[[SkillGems]]
+list = false
+name = "SecondarySupportName"
+refTo = ""
+type = "String"
+width = 150
+
+SkillMineVariations = []
+
+SkillMines = []
+
+SkillMorphDisplay = []
+
+SkillMorphDisplayOverlayCondition = []
+
+SkillMorphDisplayOverlayStyle = []
+
+SkillSurgeEffects = []
+
+[[SkillTotemVariations]]
+list = false
+name = "SkillTotem"
+refTo = "SkillTotems"
+type = "Enum"
+width = 60
+[[SkillTotemVariations]]
+list = false
+name = "Variation"
+refTo = ""
+type = "Int"
+width = 60
+[[SkillTotemVariations]]
+list = false
+name = "MonsterVariety"
+refTo = "MonsterVarieties"
+type = "Key"
+width = 390
+
+SkillTotems = []
+
+SkillTrapVariations = []
+
+[[SoundEffects]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[SoundEffects]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 480
+[[SoundEffects]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 360
+[[SoundEffects]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 150
+
+SpawnAdditionalChestsOrClusters = []
+
+SpawnObject = []
+
+SpecialRooms = []
+
+SpecialTiles = []
+
+SpectreOverrides = []
+
+StartingPassiveSkills = []
+
+StashId = []
+
+StashTabAffinities = []
+
+StashType = []
+
+StatDescriptionFunctions = []
+
+StatInterpolationTypes = []
+
+StatSemantics = []
+
+StatSets = []
+
+[[Stats]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 310
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = "Local"
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = "Proxied"
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Enum"
+width = 50
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "String"
+width = 160
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = "Virtual"
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = "Main Hand Stat"
+refTo = "Stats"
+type = "Enum"
+width = 150
+[[Stats]]
+list = false
+name = "Off Hand Stat"
+refTo = "Stats"
+type = "Enum"
+width = 150
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = "Hash"
+refTo = ""
+type = "UInt"
+width = 80
+[[Stats]]
+list = true
+name = "Skills"
+refTo = ""
+type = "String"
+width = 150
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Key"
+width = 110
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+[[Stats]]
+list = false
+name = ""
+refTo = ""
+type = "Bool"
+width = 50
+
+StrDexIntMissionExtraRequirement = []
+
+StrDexIntMissions = []
+
+Strongboxes = []
+
+SuicideExplosion = []
+
+SummonedSpecificBarrels = []
+
+SummonedSpecificMonsters = []
+
+SummonedSpecificMonstersOnDeath = []
+
+SuperShaperInfluence = []
+
+SupporterPackSets = []
+
+SurgeCategory = []
+
+SurgeEffects = []
+
+SurgeTypes = []
+
+Synthesis = []
+
+SynthesisAreaSize = []
+
+SynthesisAreas = []
+
+SynthesisBonuses = []
+
+SynthesisBrackets = []
+
+SynthesisFragmentDialogue = []
+
+SynthesisGlobalMods = []
+
+SynthesisMonsterExperiencePerLevel = []
+
+SynthesisRewardCategories = []
+
+SynthesisRewardTypes = []
+
+TableMonsterSpawners = []
+
+[[Tags]]
+list = false
+name = "Id"
+refTo = ""
+type = "String"
+width = 150
+[[Tags]]
+list = false
+name = "Hash"
+refTo = ""
+type = "UInt"
+width = 150
+[[Tags]]
+list = false
+name = "DisplayText"
+refTo = ""
+type = "String"
+width = 210
+
+TalismanMonsterMods = []
+
+TalismanPacks = []
+
+Talismans = []
+
+TalkingPetAudioEvents = []
+
+TalkingPetNPCAudio = []
+
+TalkingPets = []
+
+TencentAutoLootPetCurrencies = []
+
+TencentAutoLootPetCurrenciesExcludable = []
+
+TerrainPlugins = []
+
+Tips = []
+
+Topologies = []
+
+TormentSpirits = []
+
+TreasureHunterMissions = []
+
+TriggerBeam = []
+
+TriggerSpawners = []
+
+Tutorial = []
+
+UITalkCategories = []
+
+UITalkText = []
+
+UltimatumEncounterTypes = []
+
+UltimatumEncounters = []
+
+UltimatumItemisedRewards = []
+
+UltimatumModifierTypes = []
+
+UltimatumModifiers = []
+
+UltimatumTrialMasterAudio = []
+
+UniqueChests = []
+
+UniqueFragments = []
+
+UniqueJewelLimits = []
+
+UniqueMapInfo = []
+
+UniqueMaps = []
+
+UniqueSetNames = []
+
+UniqueStashLayout = []
+
+UniqueStashTypes = []
+
+VirtualStatContextFlags = []
+
+VoteState = []
+
+VoteType = []
+
+WarbandsGraph = []
+
+WarbandsMapGraph = []
+
+WarbandsPackMonsters = []
+
+WarbandsPackNumbers = []
+
+WeaponArmourCommon = []
+
+[[WeaponClasses]]
+list = false
+name = "ItemClass"
+refTo = "ItemClasses"
+type = "Key"
+width = 150
+[[WeaponClasses]]
+list = false
+name = "MaxRange"
+refTo = ""
+type = "Int"
+width = 150
+
+WeaponDamageScaling = []
+
+WeaponImpactSoundData = []
+
+WeaponSoundTypes = []
+
+[[WeaponTypes]]
+list = false
+name = "BaseItemType"
+refTo = "BaseItemTypes"
+type = "Key"
+width = 490
+[[WeaponTypes]]
+list = false
+name = "CritChance"
+refTo = ""
+type = "Int"
+width = 70
+[[WeaponTypes]]
+list = false
+name = "Speed"
+refTo = ""
+type = "Int"
+width = 50
+[[WeaponTypes]]
+list = false
+name = "DamageMin"
+refTo = ""
+type = "Int"
+width = 70
+[[WeaponTypes]]
+list = false
+name = "DamageMax"
+refTo = ""
+type = "Int"
+width = 80
+[[WeaponTypes]]
+list = false
+name = "Range"
+refTo = ""
+type = "Int"
+width = 50
+[[WeaponTypes]]
+list = false
+name = ""
+refTo = ""
+type = "Int"
+width = 50
+
+WindowCursors = []
+
+Wordlists = []
+
+Words = []
+
+WorldAreas = []
+
+WorldPopupIconTypes = []
+
+ZanaLevels = []
+
+ZanaQuests = []
