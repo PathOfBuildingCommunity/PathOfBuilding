@@ -70,7 +70,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 	-- Gem options
 	local optionInputsX = 204
-	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 374, 154, "Gem Options")
+	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 374, 178, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end)
@@ -93,6 +93,14 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 20, "^7Show gem quality variants:", function(state)
 		self.showAltQualityGems = state
 	end)
+	
+		
+	self.controls.compareQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 190, 60, 20, nil, nil, "%D", 2, function(buf)
+		self.compareGemQuality = m_min(tonumber(buf) or 0, 23)
+	end)
+	self.controls.compareQualityLabel = new("LabelControl", {"RIGHT",self.controls.compareQuality,"LEFT"}, -4, 0, 0, 16, "^7Compare gem quality:")
+	self.compareGemQuality = 20
+	
 
 	-- Socket group details
 	if main.portraitMode then
@@ -643,6 +651,21 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.quality:AddToTabGroup(self.controls.groupLabel)
+	slot.quality.tooltipFunc = function(tooltip)
+    	if self.displayGroup.gemList[index] then
+    		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+    		if calcFunc then
+    			local currentQuality = self.displayGroup.gemList[index].quality
+    			self.displayGroup.gemList[index].quality = self.compareGemQuality
+    			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+    			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+    			local output = calcFunc({},{})
+    			GlobalCache.useFullDPS = storedGlobalCacheDPSView
+    			self.displayGroup.gemList[index].quality = currentQuality
+    			self.build:AddStatComparesToTooltip(tooltip, calcBase, output,"This gem at "..self.compareGemQuality.." % Quality gives you following stats:")
+    		end
+    	end
+    end
 	slot.quality.enabled = function()
 		return index <= #self.displayGroup.gemList
 	end
