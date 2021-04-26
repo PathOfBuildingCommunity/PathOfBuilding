@@ -3672,7 +3672,7 @@ function calcs.offence(env, actor, activeSkill)
 			if output[damageType.."Dot"] == 0 or output[damageType.."Dot"] == nil then
 				output[damageType.."Dot"] = total
 			end
-			output.TotalDotInstance = output.TotalDotInstance + total + (output[damageType.."Dot"] or 0)
+			output.TotalDotInstance = output.TotalDotInstance + total
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
 				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, mult, nil, aura, effMult, total)
