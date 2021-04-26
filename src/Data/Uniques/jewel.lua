@@ -1494,13 +1494,10 @@ Limited to: 1
 ]],[[
 Conqueror's Efficiency
 Crimson Jewel
-Variant: Pre 3.14.0
-Variant: Current
 Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
-{variant:1}2% reduced Mana Reserved
-{variant:2}2% reduced Reservation of Skills
+2% reduced Reservation of Skills
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
