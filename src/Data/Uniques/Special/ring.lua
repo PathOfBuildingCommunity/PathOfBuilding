@@ -231,7 +231,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Fire Resistance
 FireResistUniqueAmulet4
-{fractured}StrengthUniqueClaw5_
+StrengthUniqueClaw5_
 GlobalAddedFireDamageUnique__3_
 FireResistUniqueAmulet4
 {variant:1}{tags:mana}Herald of Ash has (30-40)% reduced Reservation
@@ -257,7 +257,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
 ColdResistUnique__3
-{fractured}DexterityUniqueGlovesInt4__
+DexterityUniqueGlovesInt4__
 GlobalAddedColdDamageUnique__3
 ColdResistUnique__3
 {variant:1}{tags:mana}Herald of Ice has (30-40)% reduced Reservation
@@ -283,7 +283,7 @@ Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
 AddedPhysicalDamageImplicitRing1
-{fractured}AllAttributesUnique__3
+AllAttributesUnique__3
 GlobalAddedPhysicalDamageUnique__2
 IncreasedPhysicalDamageReductionRatingUnique__4
 {variant:1}{tags:mana}Herald of Purity has (30-40)% reduced Reservation
@@ -309,7 +309,7 @@ Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
 ChaosResistImplicitRing1
-{fractured}AllAttributesUnique__3
+AllAttributesUnique__3
 GlobalAddedChaosDamageUnique__5_
 ChaosResistUnique__17
 {variant:1}{tags:mana}Herald of Agony has (30-40)% reduced Reservation
@@ -335,7 +335,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
 LightningResistUnique__2
-{fractured}IntelligenceUnique__7
+IntelligenceUnique__7
 GlobalAddedLightningDamageUnique__3
 LightningResistUnique__2
 {variant:1}{tags:mana}Herald of Thunder has (30-40)% reduced Reservation
@@ -584,7 +584,7 @@ Sockets: W
 Requires Level 5
 Implicits: 1
 RingHasOneSocket
-{variant:1}{tags:jewellery_resistance}−25% to all Elemental Resistances
+{variant:1}{tags:jewellery_resistance}-25% to all Elemental Resistances
 {variant:2}AllResistancesUniqueRing25
 FireResistanceWhenSocketedWithRedGemUniqueRing25
 ColdResistanceWhenSocketedWithGreenGemUniqueRing25
@@ -739,7 +739,7 @@ Implicits: 1
 IncreasedManaUniqueBodyInt9
 IncreasedManaUniqueHelmetInt8
 {tags:mana}(3-6) Mana Regenerated per second
-{tags:mana}−(4-8) to Mana Cost of Skills
+{tags:mana}-(4-8) to Mana Cost of Skills
 {tags:mana}8% of Damage taken gained as Mana over 4 seconds when Hit
 ]],[[
 Profane Proxy
@@ -1132,11 +1132,11 @@ Requires Level 65
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 IncreasedLifeUniqueRing32
-(−10 to 10)% increased Quantity of Items found
-(−40 to 40)% increased Rarity of Items found
-{tags:jewellery_resistance}+(−25 to 50)% to Fire Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Cold Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Lightning Resistance
+(-10 to 10)% increased Quantity of Items found
+(-40 to 40)% increased Rarity of Items found
+{tags:jewellery_resistance}+(-25 to 50)% to Fire Resistance
+{tags:jewellery_resistance}+(-25 to 50)% to Cold Resistance
+{tags:jewellery_resistance}+(-25 to 50)% to Lightning Resistance
 ]],[[
 Vivinsect
 Unset Ring

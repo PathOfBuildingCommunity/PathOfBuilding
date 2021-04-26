@@ -3,6 +3,8 @@ if not loadStatFile then
 end
 loadStatFile("stat_descriptions.txt")
 
+LoadModule("../Data/Global.lua")
+
 local directiveTable = { }
 
 directiveTable.type = function(state, args, out)
@@ -213,28 +215,7 @@ directiveTable.baseMatch = function(state, argstr, out)
 	end
 end
 
-local itemTypes = {
-	"axe",
-	"bow",
-	"claw",
-	"dagger",
-	"mace",
-	"staff",
-	"sword",
-	"wand",
-	"helmet",
-	"body",
-	"gloves",
-	"boots",
-	"shield",
-	"quiver",
-	"amulet",
-	"ring",
-	"belt",
-	"jewel",
-	"flask",
-}
-for _, name in pairs(itemTypes) do
+for _, name in pairs(ItemTypes) do
 	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)
 end
 

@@ -415,11 +415,11 @@ IncreasedLifeImplicitBelt1
 IncreasedLifeUniqueBelt8
 {tags:life}(67-75) Life Regenerated per second
 {tags:mana}(8-10) Mana Regenerated per second
-{variant:1}−40% to all Elemental Resistances
-{variant:3}−(15-25)% to all Elemental Resistances
-{variant:1}−10% to all maximum Resistances
-{variant:2}−5% to all maximum Resistances
-{tags:physical}−(50-40) Physical Damage taken from Attacks
+{variant:1}-40% to all Elemental Resistances
+{variant:3}-(15-25)% to all Elemental Resistances
+{variant:1}-10% to all maximum Resistances
+{variant:2}-5% to all maximum Resistances
+{tags:physical}-(50-40) Physical Damage taken from Attacks
 ArmourWhileNotIgnitedFrozenShockedBelt8
 ]],[[
 Leash of Oblation
@@ -534,7 +534,7 @@ AllAttributesUnique__8_
 {variant:2}ItemFoundQuantityIncreaseUniqueBelt3
 FireResistUniqueAmulet7
 BeltIncreasedFlaskDurationUniqueBelt3
-{tags:physical}−2 Physical Damage taken from Attacks
+{tags:physical}-2 Physical Damage taken from Attacks
 ]],[[
 Perseverance
 Vanguard Belt

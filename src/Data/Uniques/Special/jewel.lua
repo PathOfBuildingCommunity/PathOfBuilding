@@ -1434,7 +1434,7 @@ Corrupted
 ]],[[
 Fragility
 Crimson Jewel
-−1 Maximum Endurance Charges
+-1 Maximum Endurance Charges
 Corrupted
 ]],[[
 Hungry Abyss
@@ -1451,12 +1451,12 @@ Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
-−1 Maximum Frenzy Charges
+-1 Maximum Frenzy Charges
 Corrupted
 ]],[[
 Powerlessness
 Cobalt Jewel
-−1 Maximum Power Charges
+-1 Maximum Power Charges
 Corrupted
 ]],[[
 Sacrificial Harvest

@@ -584,7 +584,7 @@ Sockets: W
 Requires Level 5
 Implicits: 1
 Has 1 Socket
-{variant:1}{tags:jewellery_resistance}−25% to all Elemental Resistances
+{variant:1}{tags:jewellery_resistance}-25% to all Elemental Resistances
 {variant:2}{tags:resistance}-20% to all Elemental Resistances
 {tags:resistance}+(75-100)% to Fire Resistance when Socketed with a Red Gem
 {tags:resistance}+(75-100)% to Cold Resistance when Socketed with a Green Gem
@@ -739,7 +739,7 @@ Implicits: 1
 {tags:resource,mana}+(20-30) to maximum Mana
 {tags:resource,mana}+(30-60) to maximum Mana
 {tags:mana}(3-6) Mana Regenerated per second
-{tags:mana}−(4-8) to Mana Cost of Skills
+{tags:mana}-(4-8) to Mana Cost of Skills
 {tags:mana}8% of Damage taken gained as Mana over 4 seconds when Hit
 ]],[[
 Profane Proxy
@@ -1132,11 +1132,11 @@ Requires Level 65
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:resource,life}+(0-60) to maximum Life
-(−10 to 10)% increased Quantity of Items found
-(−40 to 40)% increased Rarity of Items found
-{tags:jewellery_resistance}+(−25 to 50)% to Fire Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Cold Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Lightning Resistance
+(-10 to 10)% increased Quantity of Items found
+(-40 to 40)% increased Rarity of Items found
+{tags:jewellery_resistance}+(-25 to 50)% to Fire Resistance
+{tags:jewellery_resistance}+(-25 to 50)% to Cold Resistance
+{tags:jewellery_resistance}+(-25 to 50)% to Lightning Resistance
 ]],[[
 Vivinsect
 Unset Ring

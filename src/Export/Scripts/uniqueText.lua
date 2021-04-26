@@ -1,28 +1,7 @@
 if not table.containsId then
 	dofile("Scripts/mods.lua")
 end
-
-local itemTypes = {
-	"axe",
-	"bow",
-	"claw",
-	"dagger",
-	"mace",
-	"staff",
-	"sword",
-	"wand",
-	"helmet",
-	"body",
-	"gloves",
-	"boots",
-	"shield",
-	"quiver",
-	"amulet",
-	"ring",
-	"belt",
-	"jewel",
-	"flask",
-}
+LoadModule("../Data/Global.lua")
 local catalystTags = {
 	["attack"] = true,
 	["speed"] = true,
@@ -38,7 +17,7 @@ local catalystTags = {
 	["elemental_damage"] = true,
 	["critical"] = true,
 }
-for _, name in pairs(itemTypes) do
+for _, name in pairs(ItemTypes) do
 	local uniqueMods = LoadModule("../Data/Uniques/Special/Uniques.lua")
 	local out = io.open("../Data/Uniques/"..name..".lua", "w")
 	for line in io.lines("../Data/Uniques/Special/"..name..".lua") do
@@ -51,7 +30,7 @@ for _, name in pairs(itemTypes) do
 					out:write(variantString)
 				end
 				local tags = {}
-				if name == "belt" or name == "amulet" or name == "ring" then
+				if isValueInArray({"belt", "amulet", "ring"}, name) then
 					for _, tag in ipairs(uniqueMods[modName].modTags) do
 						if catalystTags[tag] then
 							table.insert(tags, tag)
@@ -60,10 +39,8 @@ for _, name in pairs(itemTypes) do
 				end
 				if tags[1] then
 					out:write("{tags:" .. table.concat(tags, ",") .. "}")
-					out:write(uniqueMods[modName][1], "\n")
-				else
-					out:write(uniqueMods[modName][1], "\n")
 				end
+				out:write(uniqueMods[modName][1], "\n")
 			else
 				out:write(line, "\n")
 			end

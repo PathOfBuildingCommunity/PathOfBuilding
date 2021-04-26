@@ -415,11 +415,11 @@ Implicits: 1
 {tags:resource,life}+(75-100) to maximum Life
 {tags:life}(67-75) Life Regenerated per second
 {tags:mana}(8-10) Mana Regenerated per second
-{variant:1}−40% to all Elemental Resistances
-{variant:3}−(15-25)% to all Elemental Resistances
-{variant:1}−10% to all maximum Resistances
-{variant:2}−5% to all maximum Resistances
-{tags:physical}−(50-40) Physical Damage taken from Attacks
+{variant:1}-40% to all Elemental Resistances
+{variant:3}-(15-25)% to all Elemental Resistances
+{variant:1}-10% to all maximum Resistances
+{variant:2}-5% to all maximum Resistances
+{tags:physical}-(50-40) Physical Damage taken from Attacks
 {tags:defences}40% increased Armour while not Ignited, Frozen or Shocked
 ]],[[
 Leash of Oblation
@@ -534,7 +534,7 @@ Implicits: 1
 {variant:2}(6-8)% increased Quantity of Items found
 {tags:resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
-{tags:physical}−2 Physical Damage taken from Attacks
+{tags:physical}-2 Physical Damage taken from Attacks
 ]],[[
 Perseverance
 Vanguard Belt

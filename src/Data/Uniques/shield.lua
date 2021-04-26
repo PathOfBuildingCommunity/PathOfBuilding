@@ -144,8 +144,8 @@ Implicits: 1
 {variant:3}+(10-20) to maximum Life
 (60-80)% increased Armour
 +(30-50) to maximum Life
-{variant:1}−10 Physical Damage taken from Projectile Attacks
-{variant:2,3}−(50-80) Physical Damage taken from Projectile Attacks
+{variant:1}-10 Physical Damage taken from Projectile Attacks
+{variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
 200% increased Armour against Projectiles
 +25% additional Block Chance against Projectiles
 ]],[[
@@ -1006,7 +1006,7 @@ Implicits: 2
 (18-28)% increased Trap Damage
 (15-25)% increased Physical Damage
 +(60-80) to maximum Life
-−(14-18) Physical Damage taken from Attacks
+-(14-18) Physical Damage taken from Attacks
 {variant:1}15% chance to gain a Power Charge on Throwing a Trap
 {variant:2,3,4}25% chance to gain a Power Charge on Throwing a Trap
 ]],[[

@@ -164,9 +164,9 @@ Requires Level 20, 46 Dex
 {variant:2}IncreasedFireDamageIfUsedColdSkillRecentlyUnique__1
 LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
 ManaRegenerationUniqueBootsDex2
-{variant:1}−(20-10)% to Fire Resistance
+{variant:1}-(20-10)% to Fire Resistance
 {variant:2}FireResistUniqueAmulet4
-{variant:1}−(20-10)% to Cold Resistance
+{variant:1}-(20-10)% to Cold Resistance
 {variant:2}ColdResistUnique__3
 ]],[[
 Frostferno

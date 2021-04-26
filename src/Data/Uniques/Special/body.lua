@@ -20,7 +20,7 @@ Plate Vest
 Upgrade: Upgrades to unique{Wall of Brambles} via prophecy{The King and the Brambles}
 AddedPhysicalDamageUniqueBodyStr2
 IncreasedLifeUniqueBodyStr2
-−2 Physical Damage taken from Attacks
+-2 Physical Damage taken from Attacks
 PhysicalDamageTakenPercentToReflectUniqueBodyStr2
 ]],[[
 Wall of Brambles
@@ -30,7 +30,7 @@ Requires Level 30
 AddedPhysicalDamageUniqueBodyStr2
 LocalIncreasedPhysicalDamageReductionRatingTransformedUnique__1
 IncreasedLifeUniqueBodyStr2
-−2 Physical Damage taken from Attacks
+-2 Physical Damage taken from Attacks
 PhysicalDamageTakenPercentToReflectUniqueBodyStr2
 ]],[[
 The Brass Dome
@@ -168,7 +168,7 @@ StrengthUniqueBodyStr4
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr4
 LightRadiusUniqueSceptre2
 ChaosTakenOnES
-{variant:1}−10 Chaos Damage taken
+{variant:1}-10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
 {variant:2}ChaosDamageOverTimeUnique__1
 ]],
@@ -185,7 +185,7 @@ LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
 FireResistUniqueBootsDex2
 AvoidIgniteUnique__1
 RangedWeaponPhysicalDamagePlusPercentUniqueBodyDex3
-−(5-7) Physical Damage taken from Attacks
+-(5-7) Physical Damage taken from Attacks
 ]],[[
 Briskwrap
 Strapped Leather
@@ -312,7 +312,7 @@ ColdResistanceBodyDex6
 LightningResistanceBodyDex6
 MovementVeolcityUniqueBodyDex6
 MovementVelicityPerEvasionUniqueBodyDex6
-−(50-40) Physical Damage taken when hit by Animals
+-(50-40) Physical Damage taken when hit by Animals
 ]],[[
 The Rat Cage
 Sharkskin Tunic
@@ -322,7 +322,7 @@ Variant: Current
 Requires Level 56, 152 Dex
 LocalIncreasedEvasionRatingPercentUniqueBodyStrDex5
 IncreasedLifeUniqueBodyStrDex5
-{variant:1}−5% to maximum Fire Resistance
+{variant:1}-5% to maximum Fire Resistance
 {variant:2}FireResistUnique__11
 MovementVelocityUniqueBootsStrDex3
 IncreasedFireDamageTakenUniqueBodyStrDex5
@@ -513,7 +513,7 @@ Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 56, 152 Int
-{fractured}LocalIncreasedEnergyShieldPercentUnique__24
+LocalIncreasedEnergyShieldPercentUnique__24
 StrengthIntelligenceRequirementsUnique__1
 DivineChargeOnHitUnique__1_
 Gain a Divine Charge on Hit

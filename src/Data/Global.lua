@@ -252,6 +252,28 @@ SkillType = {
 	Type112 = 112,
 }
 
+ItemTypes = {
+	"axe",
+	"bow",
+	"claw",
+	"dagger",
+	"mace",
+	"staff",
+	"sword",
+	"wand",
+	"helmet",
+	"body",
+	"gloves",
+	"boots",
+	"shield",
+	"quiver",
+	"amulet",
+	"ring",
+	"belt",
+	"jewel",
+	"flask",
+}
+
 GlobalCache = { 
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
 	deleteGroup = { },

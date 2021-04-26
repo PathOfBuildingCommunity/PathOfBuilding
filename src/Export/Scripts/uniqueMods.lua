@@ -2,28 +2,9 @@ if not table.containsId then
 	dofile("Scripts/mods.lua")
 end
 
-local itemTypes = {
-	"axe",
-	"bow",
-	"claw",
-	"dagger",
-	"mace",
-	"staff",
-	"sword",
-	"wand",
-	"helmet",
-	"body",
-	"gloves",
-	"boots",
-	"shield",
-	"quiver",
-	"amulet",
-	"ring",
-	"belt",
-	"jewel",
-	"flask",
-}
-for _, name in pairs(itemTypes) do
+LoadModule("../Data/Global.lua")
+
+for _, name in pairs(ItemTypes) do
 	local uniqueMods = LoadModule("../Data/Uniques/Special/Uniques.lua")
 	local out = io.open("../Data/Uniques/Special/"..name..".lua", "w")
 	for line in io.lines("../Data/Uniques/"..name..".lua") do
@@ -32,9 +13,9 @@ for _, name in pairs(itemTypes) do
 			local variants = line:match("{[vV]ariant:([%d,]+)}")
 			local fractured = line:match("({fractured})") or ""
 			local foundMod = false
-			local modText = line:gsub("{.+}", ""):gsub("{.+}", ""):gsub("−", "-"):lower() -- Dang EM-dash made it in here somehow
+			local modText = line:gsub("{.+}", ""):gsub("{.+}", "")
 			for modName, mod in pairs(uniqueMods) do
-				if mod[1]:lower() == modText then
+				if mod[1]:lower() == modText:lower() then
 					out:write(fractured)
 					if variants then
 						out:write("{variant:" .. variants .. "}")

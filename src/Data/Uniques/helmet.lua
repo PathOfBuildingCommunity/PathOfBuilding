@@ -164,9 +164,9 @@ Requires Level 20, 46 Dex
 {variant:2}(20-30)% increased Fire Damage if you have used a Cold Skill Recently
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
-{variant:1}−(20-10)% to Fire Resistance
+{variant:1}-(20-10)% to Fire Resistance
 {variant:2}+(20-30)% to Fire Resistance
-{variant:1}−(20-10)% to Cold Resistance
+{variant:1}-(20-10)% to Cold Resistance
 {variant:2}+(20-30)% to Cold Resistance
 ]],[[
 Frostferno

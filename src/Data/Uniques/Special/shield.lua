@@ -144,8 +144,8 @@ Implicits: 1
 {variant:3}IncreasedLifeUniqueHelmetDex5
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr4
 IncreasedLifeUniqueAmulet4
-{variant:1}−10 Physical Damage taken from Projectile Attacks
-{variant:2,3}−(50-80) Physical Damage taken from Projectile Attacks
+{variant:1}-10 Physical Damage taken from Projectile Attacks
+{variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
 ArmourPercent VsProjectilesUniqueShieldStr2
 +25% additional Block Chance against Projectiles
 ]],[[
@@ -1006,7 +1006,7 @@ Implicits: 2
 TrapDamageUniqueShieldDexInt1
 (15-25)% increased Physical Damage
 IncreasedLifeUniqueGlovesInt3
-−(14-18) Physical Damage taken from Attacks
+-(14-18) Physical Damage taken from Attacks
 {variant:1}15% chance to gain a Power Charge on Throwing a Trap
 {variant:2,3,4}25% chance to gain a Power Charge on Throwing a Trap
 ]],[[

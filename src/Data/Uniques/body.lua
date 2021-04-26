@@ -20,7 +20,7 @@ Plate Vest
 Upgrade: Upgrades to unique{Wall of Brambles} via prophecy{The King and the Brambles}
 Adds 2 to 4 Physical Damage to Attacks
 +(12-20) to maximum Life
-−2 Physical Damage taken from Attacks
+-2 Physical Damage taken from Attacks
 40% of Melee Physical Damage taken reflected to Attacker
 ]],[[
 Wall of Brambles
@@ -30,7 +30,7 @@ Requires Level 30
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
 +(12-20) to maximum Life
-−2 Physical Damage taken from Attacks
+-2 Physical Damage taken from Attacks
 40% of Melee Physical Damage taken reflected to Attacker
 ]],[[
 The Brass Dome
@@ -168,7 +168,7 @@ Requires Level 17, 53 Str
 (60-80)% increased Armour
 25% increased Light Radius
 Chaos Damage does not bypass Energy Shield
-{variant:1}−10 Chaos Damage taken
+{variant:1}-10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
 {variant:2}25% reduced Chaos Damage taken over time
 ]],
@@ -185,7 +185,7 @@ Requires Level 17, 53 Dex
 +(40-50)% to Fire Resistance
 Cannot be Ignited
 (10-15)% increased Physical Damage with Ranged Weapons
-−(5-7) Physical Damage taken from Attacks
+-(5-7) Physical Damage taken from Attacks
 ]],[[
 Briskwrap
 Strapped Leather
@@ -312,7 +312,7 @@ Requires Level 59, 160 Dex
 +(11-25)% to Lightning Resistance
 25% reduced Movement Speed
 1% increased Movement Speed per 600 Evasion Rating, up to 75%
-−(50-40) Physical Damage taken when hit by Animals
+-(50-40) Physical Damage taken when hit by Animals
 ]],[[
 The Rat Cage
 Sharkskin Tunic
@@ -322,7 +322,7 @@ Variant: Current
 Requires Level 56, 152 Dex
 (100-120)% increased Evasion Rating
 +(160-200) to maximum Life
-{variant:1}−5% to maximum Fire Resistance
+{variant:1}-5% to maximum Fire Resistance
 {variant:2}-50% to Fire Resistance
 15% increased Movement Speed
 20% increased Fire Damage taken
