@@ -2633,7 +2633,7 @@ local specialModList = {
 	["(%d+)%% of fire damage taken as lightning"] = function(num) return { mod("FireDamageTakenAsLightning", "BASE", num) } end,
 	["items and gems have (%d+)%% reduced attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", -num) } end,
 	["items and gems have (%d+)%% increased attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", num) } end,
-	["mana reservation of herald skills is always (%d+)%%"] = function(num) return { mod("SkillData", "LIST", { key = "manaReservationPercent", value = num }, { type = "SkillType", skillType = SkillType.Herald }) } end,
+	["mana reservation of herald skills is always (%d+)%%"] = function(num) return { mod("SkillData", "LIST", { key = "ManaReservationPercentForced", value = num }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["([%a%s]+) reserves no mana"] = function(_, name) return {
 		mod("SkillData", "LIST", { key = "manaReservationFlat", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }),
 		mod("SkillData", "LIST", { key = "lifeReservationFlat", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }),
