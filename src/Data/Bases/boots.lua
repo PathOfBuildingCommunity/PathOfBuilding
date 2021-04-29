@@ -586,6 +586,16 @@ itemBases["Murder Boots"] = {
 	armour = { EvasionBase = 185, EnergyShieldBase = 17, },
 	req = { level = 69, dex = 82, int = 42, },
 }
+itemBases["Blessed Boots"] = {
+	type = "Boots",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { boots = true, bootsatlasdexint = true, not_for_sale = true, atlas_base_type = true, armour = true, dex_int_armour = true, default = true, },
+	implicit = "+(7-13)% to Chaos Resistance",
+	implicitModTypes = { { "chaos", "resistance" }, },
+	armour = { EvasionBase = 112, EnergyShieldBase = 31, },
+	req = { level = 70, dex = 56, int = 76, },
+}
 itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
@@ -600,7 +610,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 itemBases["Golden Caligae"] = {
 	type = "Boots",
 	socketLimit = 4,
-	tags = { not_for_sale = true, armour = true, boots = true, default = true, },
+	tags = { boots = true, not_for_sale = true, armour = true, demigods = true, default = true, },
 	implicit = "+(8-16)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
 	armour = { },

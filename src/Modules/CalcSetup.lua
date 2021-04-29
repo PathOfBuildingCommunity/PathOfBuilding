@@ -33,6 +33,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("BrutalChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("AbsorptionChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("AfflictionChargesMax", "BASE", 0, "Base")
+	modDB:NewMod("BloodChargesMax", "BASE", 5, "Base")
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
@@ -448,7 +449,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	else
 		env.modDB.parent = cachedPlayerDB
 		env.enemyDB.parent = cachedEnemyDB
-		if cachedMinionDB then
+		if cachedMinionDB and env.minion then
 			env.minion.modDB.parent = cachedMinionDB
 		end
 	end
@@ -588,6 +589,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB.conditions[cond.."In"..slot.parentSlot.slotName] = true
 					end
 					env.itemModDB.multipliers["AbyssJewel"] = (env.itemModDB.multipliers["AbyssJewel"] or 0) + 1
+					env.itemModDB.multipliers[item.baseName:gsub(" ","")] = (env.itemModDB.multipliers[item.baseName:gsub(" ","")] or 0) + 1
 				end
 				if item.type == "Shield" and env.allocNodes[45175] and env.allocNodes[45175].dn == "Necromantic Aegis" then
 					-- Special handling for Necromantic Aegis

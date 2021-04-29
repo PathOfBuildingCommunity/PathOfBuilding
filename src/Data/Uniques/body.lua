@@ -350,7 +350,7 @@ Requires Level 65, 197 Dex
 +(50-80) to maximum Life
 -30% to Cold Resistance
 (5-10)% increased Dexterity
-100% reduced Arctic Armour Mana Reservation
+Arctic Armour has 100% reduced Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Phase Acrobatics
 ]],[[
@@ -525,16 +525,18 @@ Nearby Enemies cannot deal Critical Strikes
 Infernal Mantle
 Widowsilk Robe
 Variant: Pre 3.0.0
+Variant: Pre 3.14.0
 Variant: Current
 Requires Level 65, 187 Int
 +1 to Level of Socketed Fire Gems
 (25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
 {variant:1}(190-230)% increased Energy Shield
-{variant:2}(120-160)% increased Energy Shield
+{variant:2,3}(120-160)% increased Energy Shield
 15% of Fire Damage Converted to Chaos Damage
 {variant:1}100% increased Spell Damage taken when on Low Mana
 {variant:2}25% increased Spell Damage taken when on Low Mana
+{variant:3}15% increased Spell Damage taken when on Low Mana
 ]],[[
 Infernal Mantle
 Occultist's Vestment
@@ -694,7 +696,7 @@ Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 69, 95 Str, 116 Dex
 (100-150)% increased Armour and Evasion
 +(90-100) to maximum Life
-Aspect of the Cat Reserves no Mana
+Aspect of the Cat has no Reservation
 +2 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
 You have Phasing while you have Cat's Stealth
@@ -706,7 +708,7 @@ Requires Level 69, 95 Str, 116 Dex
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
 +2.00 seconds to Cat's Agility Duration
-Aspect of the Cat Reserves no Mana
+Aspect of the Cat has no Reservation
 Gain up to your maximum number of Frenzy and Endurance Charges when you gain Cat's Agility
 You have Onslaught while you have Cat's Agility
 ]],[[
@@ -1166,7 +1168,8 @@ Requires Level 52, 76 Dex, 76 Int
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Radius of Auras
 {variant:2}(20-40)% increased Area of Effect of Aura Skills
-(10-15)% increased effect of Non-Curse Auras you Cast
+{variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
+{variant:2}(10-15)% increased effect of Non-Curse Auras from your Skills
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[

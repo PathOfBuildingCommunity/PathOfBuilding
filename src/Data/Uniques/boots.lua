@@ -153,11 +153,11 @@ Enemies can have 1 additional Curse
 Abberath's Hooves
 Goathide Boots
 Requires Level 12, 26 Dex
+Triggers Level 7 Abberath's Fury when Equipped
 +(20-30) to Strength
 15% increased Movement Speed
 (6-10)% chance to Ignite
-Ignite a nearby Enemy on Killing an Ignited Enemy
-Triggers level 7 Abberath's Fury when equipped
+When you Kill an Ignited Enemy, inflict an equivalent Ignite on each nearby Enemy
 1% increased Fire Damage per 20 Strength
 Burning Hoofprints
 ]],[[
@@ -286,6 +286,16 @@ Requires Level 62, 117 Dex
 {variant:4}+(100-150) to maximum Energy Shield
 30% increased Movement Speed
 Enemies Cannot Leech Life From You
+]],[[
+Temptation Step
+Shagreen Boots
+League: Ultimatum
+Requires Level 55, 97 Dex
+(170-250)% increased Evasion Rating
++(19-29)% to Chaos Resistance
+15% increased Damage for each Poison on you up to a maximum of 75%
+10% increased Movement Speed for each Poison on you up to a maximum of 50%
+Poison you inflict with Travel Skills is Reflected to you if you have fewer than 5 Poisons on you
 ]],[[
 Three-step Assault
 Shagreen Boots
@@ -786,15 +796,21 @@ Triggers Level 20 Corpse Walk when Equipped
 For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
 ]],[[
 Dance of the Offered
-Shackled Boots
+Variant: Pre 3.14.0
+Variant: Current
+{variant:2}Carnal Boots
+{variant:1}Shackled Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
-Requires Level 34, 34 Dex, 34 Int
+{variant:1}Requires Level 34, 34 Dex, 34 Int
+{variant:2}Requires Level 55, 52 Dex, 52 Int
 +(50-60) to maximum Mana
-+(15-20)% to Lightning Resistance
+{variant:1}+(15-20)% to Lightning Resistance
+{variant:2}+(25-30)% to Lightning Resistance
 25% increased Movement Speed
 You have Onslaught while not on Low Mana
-Lose (30-40) Mana per Second
+{variant:1}Lose (30-40) Mana per Second
+{variant:2}The Agnostic
 ]],[[
 Omeyocan
 Carnal Boots
