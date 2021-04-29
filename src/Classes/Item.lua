@@ -88,7 +88,7 @@ function ItemClass:ParseRaw(raw)
 			if colorCodes[rarity:upper()] then
 				self.rarity = rarity:upper()
 			end
-			if self.rarity == "NORMAL" then
+			if self.rarity == "UNIQUE" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
 					if line == "Relic Unique" then
