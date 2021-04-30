@@ -3670,10 +3670,10 @@ function calcs.offence(env, actor, activeSkill)
 			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.Mine] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
 			if output[damageType.."Dot"] == 0 or output[damageType.."Dot"] == nil then
-			  output[damageType.."Dot"] = total
-			  output.TotalDotInstance = output.TotalDotInstance + total
+				output[damageType.."Dot"] = total
+				output.TotalDotInstance = output.TotalDotInstance + total
 			else
-			  output.TotalDotInstance = output.TotalDotInstance + total + (output[damageType.."Dot"] or 0)
+				output.TotalDotInstance = output.TotalDotInstance + total + (output[damageType.."Dot"] or 0)
 			end
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
