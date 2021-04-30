@@ -10141,6 +10141,9 @@ skills["FrostBoltNova"] = {
 		duration = true,
 		forceInstant = true,
 	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
 	baseMods = {
 		skill("dotIsArea", true),
 		skill("radius", 20),
