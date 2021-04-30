@@ -1630,9 +1630,9 @@ return {
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	extra = "{0:output:TotalEHP}",
 	{ label = "CH. % dmg hit", { format = "{0:output:ConfiguredDamageChance}%", { breakdown = "ConfiguredDamageChance" }, }, },
-	{ label = "Ave. # hits given^", { format = "{2:output:NumberOfMitigatedDamagingHits}", }, },
+	{ label = "Avg. # hits given^", { format = "{2:output:NumberOfMitigatedDamagingHits}", }, },
 	{ label = "CH. to not be hit", { format = "{0:output:ConfiguredNotHitChance}%", { breakdown = "ConfiguredNotHitChance" }, }, },
-	{ label = "Ave. # hits given^", { format = "{2:output:TotalNumberOfHits}"}, },
+	{ label = "Avg. # hits given^", { format = "{2:output:TotalNumberOfHits}", { breakdown = "TotalNumberOfHits" }}, },
 	{ label = "Effective Hit Pool",{ format = "{0:output:TotalEHP}", { breakdown = "TotalEHP" }, },}
 }, }, { defaultCollapsed = false, label = "Maximum Hit Taken", data = {
 	extra = "2nd minimum; {0:output:PhysicalMaximumHitTaken}",
@@ -1646,8 +1646,8 @@ return {
 		{ format = "Chaos:" },
 	},
 	{ label = "Maximum Hit Taken",
-		{ format = "{0:output:PhysicalMaximumHitTaken}", 
-			{ breakdown = "PhysicalMaximumHitTaken" }, 
+		{ format = "{0:output:SecondMinimalMaximumHitTaken}", 
+			{ breakdown = "SecondMinimalMaximumHitTaken" }, 
 		},
 		{ format = "{0:output:PhysicalMaximumHitTaken}", 
 			{ breakdown = "PhysicalMaximumHitTaken" }, 
