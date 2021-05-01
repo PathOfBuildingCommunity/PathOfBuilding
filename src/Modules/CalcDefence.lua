@@ -785,7 +785,7 @@ function calcs.defence(env, actor)
 		end
 		for _, damageType in ipairs(dmgTypeList) do
 			local stringVal = "Defualt"
-			local enemyDamageMult = 1 --this value should be modified from things like enfeeble/maladiction etc
+			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage") --only works for generic damage not all?
 			local enemyDamage = 0
 			if damageType == "Physical" then
 				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or env.data.monsterDamageTable[env.enemyLevel] * 1.5
@@ -801,13 +801,13 @@ function calcs.defence(env, actor)
 			if breakdown then
 				breakdown[damageType.."EnemyDamage"] = {
 				s_format("from %s: %d", stringVal, enemyDamage),
-				s_format("* %d (modifiers to enemy damage)", enemyDamageMult),
+				s_format("* %.2f (modifiers to enemy damage)", enemyDamageMult),
 				s_format("= %d", output[damageType.."EnemyDamage"]),
 				}
 				t_insert(breakdown["totalEnemyDamage"].rowList, {
 					type = s_format("%s", damageType),
 					value = s_format("%d", enemyDamage),
-					mult = s_format("%d", enemyDamageMult),
+					mult = s_format("%.2f", enemyDamageMult),
 					final = s_format("%d", output[damageType.."EnemyDamage"]),
 					from = s_format("%s", stringVal),
 				})
@@ -1076,16 +1076,6 @@ function calcs.defence(env, actor)
 		end
 		output[damageType.."EnergyShieldBypass"] = m_max(m_min(output[damageType.."EnergyShieldBypass"], 100), 0)
 		output.MinimumBypass = m_min(output.MinimumBypass, output[damageType.."EnergyShieldBypass"])
-		if modDB:Flag(nil, "BlockedDamageDoesntBypassES") and output[damageType.."EnergyShieldBypass"] > 0 then
-			local damageCategoryConfig = env.configInput.enemyDamageType or "Average"
-			if damageCategoryConfig == "Minimum" then
-				output[damageType.."BlockedEnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - m_min(output.BlockChance, output.ProjectileBlockChance, output.SpellBlockChance, output.SpellProjectileBlockChance) / 100) 
-			elseif damageCategoryConfig == "Melee" then
-				output[damageType.."BlockedEnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - output.BlockChance / 100)
-			else
-				output[damageType.."BlockedEnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - output[damageCategoryConfig.."BlockChance"] / 100)
-			end
-		end
 	end
 
 	-- Mind over Matter
