@@ -785,7 +785,7 @@ function calcs.defence(env, actor)
 		end
 		for _, damageType in ipairs(dmgTypeList) do
 			local stringVal = "Defualt"
-			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage") --only works for generic damage not all?
+			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
 			local enemyDamage = 0
 			if damageType == "Physical" then
 				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or env.data.monsterDamageTable[env.enemyLevel] * 1.5
