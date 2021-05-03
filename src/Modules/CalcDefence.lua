@@ -978,10 +978,14 @@ function calcs.defence(env, actor)
 	end
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Calculate incoming damage multiplier
-		local mult = 0
-		local multReflect = 0
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
 		local enemyPen = env.configInput["enemy"..damageType.."Pen"] or 0
+		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
+			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
+		elseif damageCategoryConfig == "Average" then
+			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
+		end
 		if damageType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken") then
 			local damage = output[damageType.."TakenDamage"]
 			local armourReduct = 0
@@ -1010,15 +1014,12 @@ function calcs.defence(env, actor)
 		end
 		local takenMult = output[damageType.."TakenHitMult"]
 		local takenMultReflect = output[damageType.."TakenReflect"]
-		local final = (1 - (resist - enemyPen) / 100) * takenMult
 		local finalReflect = (1 - (resist - enemyPen) / 100) * takenMultReflect
-		mult = mult + final
-		output[damageType.."TakenHitMult"] = mult
-		output[damageType.."TakenHit"] = output[damageType.."TakenDamage"] * mult
+		output[damageType.."TakenHit"] = m_max(output[damageType.."TakenDamage"] * (1 - (resist - enemyPen) / 100) + takenFlat, 0) * takenMult
+		output[damageType.."TakenHitMult"] = (output[damageType.."TakenDamage"] > 0) and (output[damageType.."TakenHit"] / output[damageType.."TakenDamage"]) or 0
 		output["totalTakenHit"] = output["totalTakenHit"] + output[damageType.."TakenHit"]
 		if output.AnyTakenReflect then
-			multReflect = multReflect + finalReflect
-			output[damageType.."TakenReflectMult"] = multReflect
+			output[damageType.."TakenReflectMult"] = finalReflect
 		end
 		if breakdown then
 			breakdown[damageType.."TakenHitMult"] = {
@@ -1027,18 +1028,19 @@ function calcs.defence(env, actor)
 			if enemyPen > 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Pen: %.2f", enemyPen))
 			end
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("Taken: %.2f", takenMult))
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.2f", final))
+			t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Flat: %.2f", takenFlat))
+			t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Taken: %.2f", takenMult))
+			t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.2f", output[damageType.."TakenHitMult"]))
 			breakdown[damageType.."TakenHit"] = {
 				s_format("Final %s Damage taken:", damageType),
 				s_format("%.1f incoming damage", output[damageType.."TakenDamage"]),
-				s_format("x %.2f damage mult", mult),
+				s_format("x %.2f damage mult", output[damageType.."TakenHitMult"]),
 				s_format("= %.1f", output[damageType.."TakenHit"]),
 			}
 			t_insert(breakdown["totalTakenHit"].rowList, {
 				type = s_format("%s", damageType),
 				incoming = s_format("%.1f incoming damage", output[damageType.."TakenDamage"]),
-				mult = s_format("x %.2f damage mult", mult),
+				mult = s_format("x %.2f damage mult", output[damageType.."TakenHitMult"] ),
 				value = s_format("%d", output[damageType.."TakenHit"]),
 			})
 			if output.AnyTakenReflect then
