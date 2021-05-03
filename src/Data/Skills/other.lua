@@ -1619,6 +1619,9 @@ skills["LightningSpell"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
