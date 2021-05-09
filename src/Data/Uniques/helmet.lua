@@ -110,7 +110,7 @@ Requires Level 64, 138 Dex
 +(20-30)% to Cold Resistance
 25% chance to Avoid being Chilled
 Cannot be Frozen
-8% reduced Mana Reserved
+8% reduced Reservation of Skills
 ]],[[
 Replica Alpha's Howl
 Sinner Tricorne
@@ -120,7 +120,7 @@ Requires Level 64, 138 Dex
 (80-100)% increased Evasion Rating
 +(20-30)% to Chaos Resistance
 25% chance to Avoid being Poisoned
-8% reduced Mana Reserved
+8% reduced Reservation of Skills
 You cannot be Hindered
 ]],[[
 Assailum
