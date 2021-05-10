@@ -380,7 +380,7 @@ Implicits: 32
 {variant:9}(40-60)% increased Global Physical Damage
 {variant:10}(40-60)% increased maximum Mana
 {variant:11}(50-70)% increased Damage
-{variant:12}(8-12)% increased Physical Damage Reduction
+{variant:12}(8-12)% additional Physical Damage Reduction
 {variant:13}(8-12)% chance to Freeze, Shock and Ignite
 {variant:14}(80-100)% increased Global Critical Strike Chance
 {variant:15}(10-16)% increased Area of Effect
