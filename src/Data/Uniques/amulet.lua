@@ -494,7 +494,7 @@ Grants Level 22 Precision Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
 {tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
-{tags:mana}Precision has 50% less Reservation
+Precision has 50% less Reservation
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
@@ -508,7 +508,7 @@ Grants Level 22 Hatred Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-{tags:mana}Hatred has 50% less Mana Reservation
+Hatred has 50% less Reservation
 ]],[[
 The Ignomon
 Gold Amulet
@@ -822,7 +822,7 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Mana Reservation
+{tags:mana}Temporal Chains has 100% reduced Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast

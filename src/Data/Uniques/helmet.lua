@@ -358,7 +358,7 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 +1 to Level of Socketed Gems
-Socketed Gems have 20% reduced Mana Reservation
+Socketed Gems have 20% reduced Reservation
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -906,7 +906,7 @@ Requires Level 58, 64 Str, 64 Int
 Nearby Allies have (4-6)% increased Defences per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
-1% reduced Mana Reserved per 250 total attributes
+1% reduced Reservation of Skills per 250 total Attributes
 ]],[[
 Maw of Mischief
 Bone Helmet
@@ -1117,7 +1117,7 @@ Requires Level 67, 73 Dex, 88 Int
 {variant:1}+2 to Level of Socketed Curse Gems
 {variant:2,3}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-Socketed Curse Gems have 12% reduced Mana Reservation
+Socketed Curse Gems have 12% reduced Reservation
 ]],[[
 Leer Cast
 Festival Mask
