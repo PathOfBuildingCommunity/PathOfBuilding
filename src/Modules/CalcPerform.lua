@@ -708,6 +708,9 @@ local function doActorMisc(env, actor)
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
 	end
+	if modDB:Flag(nil, "WarcryInfinitePower") then
+		modDB:NewMod("WarcryPower", "OVERRIDE", 999999, "Warcries have infinite power")
+	end
 	output.BloodCharges = m_min(modDB:Override(nil, "BloodCharges") or output.BloodChargesMax, output.BloodChargesMax)
 
 	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
