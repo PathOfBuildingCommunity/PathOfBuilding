@@ -779,6 +779,9 @@ return {
 	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionSpentLifeRecently", type = "check", label = "Have you spent Life Recently?", ifCond = "SpentLifeRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SpentLifeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierManaSpentRecently", type = "count", label = "# of Mana spent Recently:", ifMult = "ManaSpentRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ManaSpentRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
