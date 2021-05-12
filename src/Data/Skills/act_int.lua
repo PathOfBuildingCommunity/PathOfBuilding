@@ -374,7 +374,7 @@ skills["CataclysmSigil"] = {
 		brand = true,
 	},
 	baseMods = {
-		skill("radius", 18),
+		skill("radius", 22),
 		skill("radiusSecondary", 8),
 	},
 	qualityStats = {
