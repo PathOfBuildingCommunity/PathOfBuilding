@@ -906,6 +906,7 @@ local modTagList = {
 	["per gale force"] = { tag = { type = "Multiplier", var = "GaleForce" } },
 	["per intensity"] = { tag = { type = "Multiplier", var = "Intensity" } },
 	["per brand"] = { tag = { type = "Multiplier", var = "ActiveBrand" } },
+	["per brand, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "ActiveBrand", limit = tonumber(num), limitTotal = true } } end,
 	["per blitz charge"] = { tag = { type = "Multiplier", var = "BlitzCharge" } },
 	["per ghost shroud"] = { tag = { type = "Multiplier", var = "GhostShroud" } },
 	["per crab barrier"] = { tag = { type = "Multiplier", var = "CrabBarrier" } },
