@@ -858,6 +858,19 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	end	
 end
 
+function HexToChar(x)
+	return string.char(tonumber(x, 16))
+end
+  
+function UrlDecode(url)
+	if url == nil then
+		return
+	end
+	url = url:gsub("+", " ")
+	url = url:gsub("%%(%x%x)", HexToChar)
+	return url
+end
+
 function ImportTabClass:OpenImportFromWebsitePopup()
 	local importWebsiteList = {
 		{ label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1" },
@@ -882,7 +895,11 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
-		controls.edit.buf = controls.edit.buf:gsub("^%s+", ""):gsub("%s+$", "") -- Quick Trim
+		controls.edit.buf = controls.edit.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+		if controls.edit.buf:match("youtube%.com/redirect%?") then
+			local nested_url = controls.edit.buf:gsub(".*[?&]q=([^&]+).*", "%1")
+			controls.edit.buf = UrlDecode(nested_url)
+		end
 		launch:DownloadPage(controls.edit.buf:gsub(selectedWebsite.regexURL,selectedWebsite.downloadURL), function(page, errMsg)
 			if errMsg then
 				controls.msg.label = "^1"..errMsg
@@ -895,7 +912,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 	end)
 	controls.import.enabled = function()
 		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
-		return #controls.edit.buf > 0 and controls.edit.buf:match(selectedWebsite.matchURL)
+		return #controls.edit.buf > 0 and (controls.edit.buf:match(selectedWebsite.matchURL) or controls.edit.buf:match("youtube%.com/redirect%?"))
 	end
 	controls.cancel = new("ButtonControl", nil, 45, 104, 80, 20, "Cancel", function()
 		main:ClosePopup()
