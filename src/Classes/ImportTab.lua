@@ -912,7 +912,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 	end)
 	controls.import.enabled = function()
 		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
-		return #controls.edit.buf > 0 and controls.edit.buf:match(selectedWebsite.matchURL) or controls.edit.buf:match("youtube%.com/redirect%?"))
+		return #controls.edit.buf > 0 and (controls.edit.buf:match(selectedWebsite.matchURL) or controls.edit.buf:match("youtube%.com/redirect%?"))
 	end
 	controls.cancel = new("ButtonControl", nil, 45, 104, 80, 20, "Cancel", function()
 		main:ClosePopup()
