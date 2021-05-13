@@ -24,7 +24,7 @@ describe("test all test builds", function()
             it("test key: " .. key, function()
                 if type(value) == "number" then
                     value = round(value, 4)
-                    build.calcsTab.mainOutput[key] = round(build.calcsTab.mainOutput[key], 4)
+                    build.calcsTab.mainOutput[key] = round(build.calcsTab.mainOutput[key] or 0, 4)
                 end
                 assert.are.equals(build.calcsTab.mainOutput[key], value)
             end)
