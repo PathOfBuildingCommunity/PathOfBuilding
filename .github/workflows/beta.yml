@@ -29,6 +29,8 @@ jobs:
                 let minor+=1
                 semVer="$major.$minor.$patch"
                 echo "::set-output name=ver::$(echo $semVer)"
+            - name: Update from dev
+              run: git rebase -X ours origin/dev
             - name: Install changelog generator
               run: sudo gem install github_changelog_generator --version 1.15.2
             - name: Generate Release notes
@@ -49,5 +51,4 @@ jobs:
                   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git config --global user.name "github-actions[bot]"
                   git commit -am "Weekly beta-${{ steps.current-version.outputs.ver }} release" --allow-empty --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
-                  git rebase origin/dev
                   git push origin beta
