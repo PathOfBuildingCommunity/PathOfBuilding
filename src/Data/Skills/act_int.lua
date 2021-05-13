@@ -8791,7 +8791,7 @@ skills["Stormbind"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["rune_paint_area_of_effect_+%_per_rune_level"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
