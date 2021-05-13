@@ -5,7 +5,7 @@ on:
           sinceTag:
               description: 'Gather updates from this tag until now'
               required: true
-              default: '2.0.x'
+              default: 'v2.0.x'
           releaseVersion:
               description: 'Version number to use for this release'
               required: true
