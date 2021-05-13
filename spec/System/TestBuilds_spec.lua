@@ -8,25 +8,25 @@ local function fetchBuilds(path, buildList)
             if attr.mode == "directory" then
                 fetchBuilds(f, buildList)
             else
-                table.insert(buildList, LoadModule(f))
+                buildList[file] = LoadModule(f)
             end
         end
     end
     return buildList
 end
 
-describe("test all test builds", function()
+describe("test all builds", function()
 
     local buildList = fetchBuilds("../spec/TestBuilds")
-    for _, testBuild in ipairs(buildList) do
+    for buildName, testBuild in pairs(buildList) do
         loadBuildFromXML(testBuild.xml)
         for key, value in pairs(testBuild.output) do
-            it("test key: " .. key, function()
+            it("on build: " .. buildName .. ", testing stat: " .. key, function()
                 if type(value) == "number" then
-                    value = round(value, 4)
-                    build.calcsTab.mainOutput[key] = round(build.calcsTab.mainOutput[key] or 0, 4)
+                    assert.are.same(round(value, 4), round(build.calcsTab.mainOutput[key] or 0, 4))
+                else
+                    assert.are.same(value, build.calcsTab.mainOutput[key])
                 end
-                assert.are.equals(build.calcsTab.mainOutput[key], value)
             end)
         end
     end
