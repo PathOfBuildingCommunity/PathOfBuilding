@@ -1,7 +1,7 @@
 name: Push beta branch
 on: 
   schedule:
-    - cron: '* * * * 5'
+    - cron: '0 0 * * 5'
   workflow_dispatch:
 jobs:
   push-beta:
