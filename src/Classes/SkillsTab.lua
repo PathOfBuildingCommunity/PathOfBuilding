@@ -617,7 +617,10 @@ function SkillsTabClass:CreateGemSlot(index)
 				local tempQual = self.displayGroup.gemList[index].qualityId
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
+				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+				GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 				local output = calcFunc({}, {})
+				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				self.displayGroup.gemList[index].qualityId = tempQual
 				tooltip:AddSeparator(10)
 				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
