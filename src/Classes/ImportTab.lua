@@ -242,8 +242,8 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeState.label = function()
 		return (self.importCodeState == "VALID" and colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and colorCodes.NEGATIVE.."Invalid code") or ""
 	end
-	self.controls.importCodePastebin = new("ButtonControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 90, 0, 160, 20, "Import from Pastebin...", function()
-		self:OpenPastebinImportPopup()
+	self.controls.importCodePastebin = new("ButtonControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 90, 0, 160, 20, "Import from website...", function()
+		self:OpenImportFromWebsitePopup()
 	end)
 	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build" })
 	self.controls.importCodeMode.enabled = function()
@@ -858,18 +858,49 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	end	
 end
 
-function ImportTabClass:OpenPastebinImportPopup()
+function HexToChar(x)
+	return string.char(tonumber(x, 16))
+end
+  
+function UrlDecode(url)
+	if url == nil then
+		return
+	end
+	url = url:gsub("+", " ")
+	url = url:gsub("%%(%x%x)", HexToChar)
+	return url
+end
+
+function ImportTabClass:OpenImportFromWebsitePopup()
+	local importWebsiteList = {
+		{ label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1" },
+		{ label = "Ghostbin", id = "Ghostbin", matchURL = "ghostbin%.co/paste/%w+", regexURL = "ghostbin%.co/paste/(%w+)%s*$", downloadURL = "ghostbin.co/paste/%1/raw" },
+		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
+		{ label = "TinyPaste", id = "TinyPaste", matchURL = "penyacom%.org/%w+", regexURL = "penyacom%.org/[pr]%?q=(%w+)%s*$", downloadURL = "penyacom.org/r?q=%1" },
+	}
 	local controls = { }
-	controls.editLabel = new("LabelControl", nil, 0, 20, 0, 16, "Enter Pastebin.com link:")
-	controls.edit = new("EditControl", nil, 0, 40, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
+
+	controls.importAnchorPoint = new("Control", nil, 0, 0, 280, 0)
+	controls.importFromLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 20, 0, 16, "Import from:")
+	controls.importFrom = new("DropDownControl", {"LEFT",controls.importFromLabel,"RIGHT"}, 8, 0, 140, 20, importWebsiteList, function(_, selectedWebsite)
+		self.importWebsiteSelected = selectedWebsite.id
+	end)
+	controls.importFrom:SelByValue( self.importWebsiteSelected or "Pastebin", "id" )
+	controls.editLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 44, 0, 16, "Enter website link:")
+	controls.edit = new("EditControl", nil, 0, 64, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
 		controls.msg.label = ""
 	end)
-	controls.msg = new("LabelControl", nil, 0, 58, 0, 16, "")
-	controls.import = new("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+	controls.msg = new("LabelControl", nil, 0, 82, 0, 16, "")
+	controls.import = new("ButtonControl", nil, -45, 104, 80, 20, "Import", function()
+		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
-		controls.edit.buf = controls.edit.buf:gsub("^%s+", ""):gsub("%s+$", "") -- Quick Trim
-		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)%s*$","pastebin.com/raw/%1"), function(page, errMsg)
+		controls.edit.buf = controls.edit.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+		if controls.edit.buf:match("youtube%.com/redirect%?") then
+			local nested_url = controls.edit.buf:gsub(".*[?&]q=([^&]+).*", "%1")
+			controls.edit.buf = UrlDecode(nested_url)
+		end
+		launch:DownloadPage(controls.edit.buf:gsub(selectedWebsite.regexURL,selectedWebsite.downloadURL), function(page, errMsg)
 			if errMsg then
 				controls.msg.label = "^1"..errMsg
 				controls.import.enabled = true
@@ -880,12 +911,13 @@ function ImportTabClass:OpenPastebinImportPopup()
 		end)
 	end)
 	controls.import.enabled = function()
-		return #controls.edit.buf > 0 and controls.edit.buf:match("pastebin%.com/%w+")
+		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
+		return #controls.edit.buf > 0 and (controls.edit.buf:match(selectedWebsite.matchURL) or controls.edit.buf:match("youtube%.com/redirect%?"))
 	end
-	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 104, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(280, 110, "Import from Pastebin", controls, "import", "edit")
+	main:OpenPopup(280, 130, "Import from website", controls, "import", "edit")
 end
 
 function ImportTabClass:ProcessJSON(json)

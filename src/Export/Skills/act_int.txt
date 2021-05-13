@@ -32,7 +32,7 @@ local skills, mod, flag, skill = ...
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["arcane_cloak_consume_%_of_mana"] = {
-			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 			div = 100,
 		},
 		["arcane_cloak_gain_%_of_consumed_mana_as_lightning_damage"] = {
@@ -41,7 +41,7 @@ local skills, mod, flag, skill = ...
 			div = 100,
 		},
 	},
-#baseMod mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard" })
+#baseMod mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true })
 #mods
 
 #skill ArcticBreath
@@ -59,7 +59,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
-#baseMod skill("radius", 18)
+#baseMod skill("radius", 22)
 #baseMod skill("radiusSecondary", 8)
 #mods
 
@@ -1339,14 +1339,25 @@ local skills, mod, flag, skill = ...
 
 #skill VaalRighteousFire
 #flags spell area
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = output.TotemLife * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		else
+			activeSkill.skillData.FireDot = (output.Life + output.EnergyShield) * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		end
+	end,
 	statMap = {
 		["vaal_righteous_fire_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["vaal_righteous_fire_life_and_es_%_as_damage_per_second"] = {
-			skill("FireDot", nil, { type = "PerStat", statList = { "Life", "EnergyShield" } }),
+			skill("RFMultiplier", nil),
 			div = 100,
 		},
+		["vaal_righteous_fire_life_and_es_%_to_lose_on_use"] = {
+			skill("percentSacrificed", nil),
+			div = 100,
+		}
 	},
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 30)
@@ -1546,7 +1557,7 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["rune_paint_area_of_effect_+%_per_rune_level"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -1754,6 +1765,9 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBoltNova
 #flags spell area duration forceInstant
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 20)
 #mods
@@ -1820,7 +1834,10 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }),
 		},
 		["winter_brand_max_number_of_stages"] = {
-			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil)
+			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil),
+		},
+		["active_skill_brands_allowed_on_enemy_+"] = {
+			mod("BrandsAttachedLimit", "BASE", nil),
 		},
 	},
 #mods
@@ -1870,7 +1887,7 @@ local skills, mod, flag, skill = ...
 		["spell_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["base_critical_strike_multiplier_+"] = {
+		["skill_buff_grant_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["life_regeneration_rate_per_minute_%"] = {

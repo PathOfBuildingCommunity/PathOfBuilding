@@ -335,25 +335,32 @@ Variant: Pre 3.0.0 (Penetration)
 Variant: Pre 3.0.0 (Spells)
 Variant: Pre 3.0.0 (Attacks)
 Variant: Pre 3.0.0 (Conversion)
+Variant: Pre 3.14.0 (Spells)
+Variant: Pre 3.14.0 (Conversion)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
 Variant: Current (Conversion)
+Variant: Current (Proliferation)
 Requires Level 68
-{variant:5,6,7,8,9,10,11,12}(80-100)% increased Charges used
+{variant:5,6,7,8,9,10,11,12,13,14,15}(80-100)% increased Charges used
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Flask effect
-{variant:9,10,11,12}Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken
+{variant:9,10,11,12,13,14,15}Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken
 {variant:1,2,3,4,5,6,7,8}You are Shocked during Flask effect
-{variant:9,10,11,12}You are Shocked during Flask effect, causing 50% increased Damage taken
+{variant:9,10,11,12,13,14,15}You are Shocked during Flask effect, causing 50% increased Damage taken
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Life during Flask effect
-{variant:5,6,7,8,9,10,11,12}20% of Lightning Damage Leeched as Life during Flask effect
+{variant:5,6,7,8,9,10,11,12,13,14,15}20% of Lightning Damage Leeched as Life during Flask effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Flask effect
 {variant:5,6,7,8}20% of Lightning Damage Leeched as Mana during Flask effect
 {variant:1,2,3,4}Life and Mana Leech are instant during effect
-{variant:1,5,9}Damage Penetrates 10% Lightning Resistance during Flask effect
-{variant:2,6,10}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
-{variant:3,7,11}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect
-{variant:4,8,12}20% of Physical Damage Converted to Lightning during Flask effect
+{variant:1,5,11}Damage Penetrates 10% Lightning Resistance during Flask effect
+{variant:2,6,9}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
+{variant:12}Adds (25-35) to (110-130) Lightning Damage to Spells during Flask effect
+{variant:3,7,13}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect
+{variant:4,8,10}20% of Physical Damage Converted to Lightning during Flask effect
+{variant:14}50% of Physical Damage Converted to Lightning during Flask effect
+{variant:15}(25-40)% increased Effect of Shock during Flask effect
+{variant:15}Shocks you inflict during Flask Effect spread to other Enemies within a Radius of 20
 ]],[[
 The Wise Oak
 Bismuth Flask

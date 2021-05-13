@@ -24,14 +24,17 @@ itemLib.influenceInfo = {
 -- Apply a value scalar to any numbers present
 function itemLib.applyValueScalar(line, valueScalar)
 	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
-		return line:gsub("(%d+%.%d*)", function(num)
-			local numVal = (m_floor(tonumber(num) * valueScalar * 10 + 0.001) / 10)
-			return tostring(numVal)
-		end)
-		:gsub("(%d+)([^%.])", function(num, suffix)
-			local numVal = m_floor(num * valueScalar + 0.001)
-			return tostring(numVal)..suffix
-		end)
+		if line:match("(%d+%.%d*)") then
+			return line:gsub("(%d+%.%d*)", function(num)
+				local numVal = (m_floor(tonumber(num) * valueScalar * 100 + 0.001) / 100)
+				return tostring(numVal)
+			end)
+		else
+			return line:gsub("(%d+)([^%.])", function(num, suffix)
+				local numVal = m_floor(num * valueScalar + 0.001)
+				return tostring(numVal)..suffix
+			end)
+		end
 	end
 	return line
 end

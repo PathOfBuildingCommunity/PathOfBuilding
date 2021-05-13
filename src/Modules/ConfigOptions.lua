@@ -38,7 +38,7 @@ return {
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Inoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },
-	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 65% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 50% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
 	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full Energy Shield?", ifCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
@@ -216,7 +216,7 @@ return {
 		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillName = "Perforate" })
 	end },
 	{ label = "Physical Aegis:", ifSkill = "Physical Aegis" },
-	{ var = "innervateInnervation", type = "check", label = "Is Physical Aegis depleted?", ifSkill = "Physical Aegis", apply = function(val, modList, enemyModList)
+	{ var = "physicalAegisDepleted", type = "check", label = "Is Physical Aegis depleted?", ifSkill = "Physical Aegis", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:PhysicalAegisDepleted", "FLAG", true, "Config")
 	end },
 	{ label = "Pride:", ifSkill = "Pride" },
@@ -521,6 +521,9 @@ return {
 	{ var = "overrideGhostShrouds", type = "count", label = "# of Ghost Shrouds (if not maximum):", ifOption = "useGhostShrouds", apply = function(val, modList, enemyModList)
 		modList:NewMod("GhostShrouds", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "overrideBloodCharges", type = "count", label = "# of Blood Charges (if not maximum):", ifMult = "BloodCharge", apply = function(val, modList, enemyModList)
+		modList:NewMod("BloodCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "minionsUsePowerCharges", type = "check", label = "Do your Minions use Power Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) }, "Config")
 	end },
@@ -544,6 +547,9 @@ return {
 	end },
 	{ var = "conditionFocused", type = "check", label = "Are you Focussed?", ifCond = "Focused", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Focused", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffLifetap", type = "check", label = "Do you have Lifetap?", ifCond = "Lifetap", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Lifetap", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffOnslaught", type = "check", label = "Do you have Onslaught?", tooltip = "In addition to allowing any 'while you have Onslaught' modifiers to apply,\nthis will enable the Onslaught buff itself. (Grants 20% increased Attack, Cast, and Movement Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Onslaught", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -575,6 +581,9 @@ return {
 	end },
 	{ var = "buffDivinity", type = "check", label = "Do you have Divinity?", ifCond = "Divinity", tooltip = "This will enable the Divinity buff, which grants:\n\t50% more Elemental Damage\n\t20% less Elemental Damage taken", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Divinity", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierDefiance", type = "count", label = "Defiance:", ifMult = "Defiance", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:Defiance", "BASE", m_min(val, 10), "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierRage", type = "count", label = "Rage:", ifCond = "CanGainRage", tooltip = "Base Maximum Rage is 50, and inherently grants the following:\n\t1% increased Attack Damage per 1 Rage\n\t1% increased Attack Speed per 2 Rage\n\t1% increased Movement Speed per 5 Rage\nYou lose 1 Rage every 0.5 seconds if you have not been Hit or gained Rage Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:RageStack", "BASE", val, "Config", { type = "IgnoreCond" }, { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainRage" })
@@ -782,6 +791,9 @@ return {
 	end },
 	{ var = "conditionBeenCritRecently", type = "check", label = "Have you been Crit Recently?", ifCond = "BeenCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionConsumed12SteelShardsRecently", type = "check", label = "Consumed 12 Steel Shards Recently?", ifCond = "Consumed12SteelShardsRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Consumed12SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1074,10 +1086,10 @@ return {
 		enemyModList:NewMod("Condition:Ignited", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyScorched", type = "check", ifFlag = "inflictScorch", label = "Is the enemy Scorched?", tooltip = "Scorched enemies have lowered elemental resistances, up to -30%.\nThis option will also allow you to input the effect of Scorched.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictScorch" })
+		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionScorchedEffect", type = "count", label = "Effect of Scorched:", ifOption = "conditionEnemyScorched", tooltip = "This effect will only be applied while you can inflict Scorched.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ElementalResist", "BASE", -m_min(val, 30), "Config", { type = "Condition", var = "Scorched" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictScorch" })
+		enemyModList:NewMod("ElementalResist", "BASE", -m_min(val, 30), "Config", { type = "Condition", var = "Scorched" })
 	end },
 	{ var = "conditionEnemyOnScorchedGround", type = "check", label = "Is the enemy on Scorched Ground?", tooltip = "This also implies that the enemy is Scorched.", ifEnemyCond = "OnScorchedGround", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1097,7 +1109,7 @@ return {
 		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionBrittleEffect", type = "count", label = "Effect of Brittle:", ifOption = "conditionEnemyBrittle", tooltip = "This effect will only be applied while you can inflict Brittle.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("SelfCritChance", "BASE", m_min(val, 15), "Config", { type = "Condition", var = "Brittle" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictBrittle" })
+		enemyModList:NewMod("SelfCritChance", "BASE", m_min(val, 15), "Config", { type = "Condition", var = "Brittle" })
 	end },
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will allow you to input the effect of the Shock applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

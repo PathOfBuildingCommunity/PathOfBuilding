@@ -387,17 +387,23 @@ Reflects 1 to 1000 Physical Damage to Attackers on Block
 -- Shield: Energy Shield
 [[
 Apep's Slumber
-Ancient Spirit Shield
+Variant: Pre 3.14.0
+Variant: Current
+{variant:1}Ancient Spirit Shield
+{variant:2}Vaal Spirit Shield
 League: Incursion
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
-Requires Level 45, 110 Int
+{variant:1}Requires Level 45, 110 Int
+{variant:2}Requires Level 62, 159 Int
 Implicits: 1
 (5-10)% increased Spell Damage
-Adds (20-22) to (30-37) Chaos Damage
+{variant:1}Adds (20-22) to (30-37) Chaos Damage
+{variant:2}Adds (50-55) to (72-80) Chaos Damage
 +(80-100) to maximum Energy Shield
 +25% chance to be Poisoned
 +3% to all maximum Resistances while Poisoned
-50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
+{variant:1}50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
+{variant:2}80 Energy Shield Regenerated per Second per Poison on you, up to 400 per second
 Poisons on you expire 50% slower
 ]],[[
 Apep's Supremacy
@@ -623,6 +629,17 @@ Requires Level 68, 159 Int
 {variant:3}2% increased Critical Strike Chance for Spells per 100 Maximum Life
 {variant:3}2% increased Spell Damage per 100 Maximum Life
 ]],[[
+The Scales of Justice
+Chiming Spirit Shield
+Requires Level 49, 118 Int
+Implicits: 1
+(10-15)% increased Spell Damage
+Has no Energy Shield
++(40-70) to maximum Life
++(40-70) to maximum Mana
+(3-4) to (7-8) added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower
+Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
+]],[[
 Sentari's Answer
 Brass Spirit Shield
 Variant: Pre 3.4.0
@@ -788,10 +805,21 @@ Implicits: 2
 {variant:2,3}+12% to all Elemental Resistances
 {variant:1,2}+1 to Level of Aura Gems in this item
 {variant:3}+2 to Level of Socketed Aura Gems
-Socketed Gems have Blood Magic
-Socketed Gems have 25% reduced Mana Reservation
+Socketed Gems Cost and Reserve Life instead of Mana
+Socketed Gems have 25% reduced Reservation
 +(20-30) to Dexterity
 +25% to all Elemental Resistances
+]],[[
+Mahuxotl's Machination
+Steel Kite Shield
+League: Ultimatum
+Requires Level 46, 60 Str, 60 Int
+Corrupted Soul
+Divine Flesh
+Eternal Youth
+Everlasting Sacrifice
+Immortal Ambition
+Vaal Pact
 ]],[[
 Rise of the Phoenix
 Mosaic Kite Shield

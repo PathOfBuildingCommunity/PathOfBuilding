@@ -11,15 +11,18 @@ local m_max = math.max
 local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-local catalystList = {"Abrasive", "Fertile", "Imbued", "Intrinsic", "Prismatic", "Tempering", "Turbulent"}
+local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
 local catalystTags = {
 	{ "attack" },
+	{ "speed" },
 	{ "life", "mana", "resource" },
 	{ "caster" },
 	{ "jewellery_attribute", "attribute" },
+	{ "physical", "chaos" },
 	{ "jewellery_resistance", "resistance" },
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
+	{ "critical" },
 }
 
 local function getCatalystScalar(catalystId, tags, quality)
@@ -76,13 +79,16 @@ function ItemClass:ParseRaw(raw)
 	local mode = "WIKI"
 	local l = 1
 	if self.rawLines[l] then
+		if self.rawLines[l]:match("^Item Class:") then
+			l = l + 1 -- Item class is already determined by the base type
+		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
 		if rarity then
 			mode = "GAME"
 			if colorCodes[rarity:upper()] then
 				self.rarity = rarity:upper()
 			end
-			if self.rarity == "NORMAL" then
+			if self.rarity == "UNIQUE" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
 					if line == "Relic Unique" then
@@ -317,45 +323,42 @@ function ItemClass:ParseRaw(raw)
 				end
 				self.namePrefix = self.namePrefix or ""
 				self.nameSuffix = self.nameSuffix or ""
+				local baseName
 				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
 					-- Exact match (affix-less magic and normal items)
 					if data.itemBases[self.name] then
-						self.baseName = self.name
-						self.type = data.itemBases[self.name].type
+						baseName = self.name
 					else
 						-- Partial match (magic items with affixes)
-						for baseName, baseData in pairs(data.itemBases) do
-							local s, e = self.name:find(baseName, 1, true)
+						for itemBaseName, baseData in pairs(data.itemBases) do
+							local s, e = self.name:find(itemBaseName, 1, true)
 							if s then
 								-- Set the base name if it isn't there, or we found a better match, so replace it
-								if (self.baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
-										or self.baseName == nil or self.baseName == "" then
+								if (baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
+										or baseName == nil then
 									self.namePrefix = self.name:sub(1, s - 1)
 									self.nameSuffix = self.name:sub(e + 1)
-									self.baseName = baseName
-									self.type = baseData.type
+									baseName = itemBaseName
 								end
 							end
 						end
 					end
-					if not self.baseName then
+					if not baseName then
 						local s, e = self.name:find("Two-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
 							self.baseName = "Two-Toned Boots (Armour/Energy Shield)"
 							self.namePrefix = self.name:sub(1, s - 1)
 							self.nameSuffix = self.name:sub(e + 1)
-							self.type = "Boots"
 						end
 					end
 					self.name = self.name:gsub(" %(.+%)","")
 				end
-				local baseName = self.baseName or ""
-				if self.variant and varSpec then
-					if tonumber(varSpec) == self.variant then
+				if self.variant and variantList then
+					if variantList[self.variant] then
 						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 					end
-				elseif baseName == "" then
+				elseif not baseName then
 					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 				end
 				if baseName and data.itemBases[baseName] then
@@ -435,6 +438,11 @@ function ItemClass:ParseRaw(raw)
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
+				end
+
+				if data.itemBases[line] then
+					self.baseLines = self.baseLines or { }
+					self.baseLines[line] = { line = line, variantList = variantList}
 				end
 
 				local modLines
@@ -643,23 +651,40 @@ function ItemClass:BuildRaw()
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: "..self.itemLevel)
 	end
+	local function writeModLine(modLine)
+		local line = modLine.line
+		if modLine.range then
+			line = "{range:"..round(modLine.range,3).."}" .. line
+		end
+		if modLine.crafted then
+			line = "{crafted}" .. line
+		end
+		if modLine.custom then
+			line = "{custom}" .. line
+		end
+		if modLine.fractured then
+			line = "{fractured}" .. line
+		end
+		if modLine.variantList then
+			local varSpec
+			for varId in pairs(modLine.variantList) do
+				varSpec = (varSpec and varSpec.."," or "") .. varId
+			end
+			line = "{variant:"..varSpec.."}"..line
+		end
+		if modLine.modTags and #modLine.modTags > 0 then
+			line = "{tags:"..table.concat(modLine.modTags, ",").."}"..line
+		end
+		t_insert(rawLines, line)
+	end
 	if self.variantList then
 		for _, variantName in ipairs(self.variantList) do
 			t_insert(rawLines, "Variant: "..variantName)
 		end
 		t_insert(rawLines, "Selected Variant: "..self.variant)
 
-		local hasVariantBases = false
-		local i = 1
-		for _, variantName in ipairs(self.variantList) do
-			if data.itemBases[variantName] then
-				t_insert(rawLines, "{variant:"..i.."}"..variantName)
-				hasVariantBases = true
-			end
-			i = i + 1
-		end
-		if not hasVariantBases then
-			t_insert(rawLines, self.baseName)
+		for _, baseLine in pairs(self.baseLines) do
+			writeModLine(baseLine)
 		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
@@ -697,32 +722,6 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, "Limited to: "..self.limit)
 	end
 	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines))
-	local function writeModLine(modLine)
-		local line = modLine.line
-		if modLine.range then
-			line = "{range:"..round(modLine.range,3).."}" .. line
-		end
-		if modLine.crafted then
-			line = "{crafted}" .. line
-		end
-		if modLine.custom then
-			line = "{custom}" .. line
-		end
-		if modLine.fractured then
-			line = "{fractured}" .. line
-		end
-		if modLine.variantList then
-			local varSpec
-			for varId in pairs(modLine.variantList) do
-				varSpec = (varSpec and varSpec.."," or "") .. varId
-			end
-			line = "{variant:"..varSpec.."}"..line
-		end
-		if modLine.modTags and #modLine.modTags > 0 then
-			line = "{tags:"..table.concat(modLine.modTags, ",").."}"..line
-		end
-		t_insert(rawLines, line)
-	end
 	for _, modLine in ipairs(self.enchantModLines) do
 		writeModLine(modLine)
 	end

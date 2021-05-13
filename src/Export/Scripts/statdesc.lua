@@ -86,6 +86,7 @@ local statFileList = {
 	"brand_skill_stat_descriptions",
 	"curse_skill_stat_descriptions",
 	"debuff_skill_stat_descriptions",
+	"secondary_debuff_skill_stat_descriptions",
 	"gem_stat_descriptions",
 	"minion_attack_skill_stat_descriptions",
 	"minion_skill_stat_descriptions",

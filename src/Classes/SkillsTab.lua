@@ -95,7 +95,11 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	end)
 
 	-- Socket group details
-	self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
+	if main.portraitMode then
+		self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.optionSection,"BOTTOMLEFT"}, 0, 20, 0, 0)
+	else
+		self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
+	end
 	self.anchorGroupDetail.shown = function()
 		return self.displayGroup ~= nil
 	end
@@ -134,11 +138,23 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.includeInFullDPS = new("CheckBoxControl", {"LEFT",self.controls.groupEnabled,"RIGHT"}, 155, 0, 20, "Include in Full DPS:", function(state)
+	self.controls.includeInFullDPS = new("CheckBoxControl", {"LEFT",self.controls.groupEnabled,"RIGHT"}, 145, 0, 20, "Include in Full DPS:", function(state)
 		self.displayGroup.includeInFullDPS = state
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	self.controls.groupCountLabel = new("LabelControl", {"LEFT",self.controls.includeInFullDPS,"RIGHT"}, 16, 0, 0, 16, "Count:")
+	self.controls.groupCountLabel.shown = function()
+		return self.displayGroup.source ~= nil
+	end
+	self.controls.groupCount = new("EditControl", {"LEFT",self.controls.groupCountLabel,"RIGHT"}, 4, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+		self.displayGroup.groupCount = tonumber(buf) or 1
+		self:AddUndoState()
+		self.build.buildFlag = true
+	end)
+	self.controls.groupCount.shown = function()
+		return self.displayGroup.source ~= nil
+	end
 	self.controls.sourceNote = new("LabelControl", {"TOPLEFT",self.controls.groupSlotLabel,"TOPLEFT"}, 0, 30, 0, 16)
 	self.controls.sourceNote.shown = function()
 		return self.displayGroup.source ~= nil
@@ -216,6 +232,7 @@ function SkillsTabClass:Load(xml, fileName)
 			local socketGroup = { }
 			socketGroup.enabled = node.attrib.active == "true" or node.attrib.enabled == "true"
 			socketGroup.includeInFullDPS = node.attrib.includeInFullDPS and node.attrib.includeInFullDPS == "true"
+			socketGroup.groupCount = tonumber(node.attrib.groupCount)
 			socketGroup.label = node.attrib.label
 			socketGroup.slot = node.attrib.slot
 			socketGroup.source = node.attrib.source
@@ -291,6 +308,7 @@ function SkillsTabClass:Save(xml)
 		local node = { elem = "Skill", attrib = {
 			enabled = tostring(socketGroup.enabled),
 			includeInFullDPS = tostring(socketGroup.includeInFullDPS),
+			groupCount = tostring(socketGroup.groupCount),
 			label = socketGroup.label,
 			slot = socketGroup.slot,
 			source = socketGroup.source,
@@ -369,6 +387,12 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	end
 
 	main:DrawBackground(viewPort)
+
+	if main.portraitMode then
+		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.optionSection,"BOTTOMLEFT", 0, 20)
+	else
+		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.groupList,"TOPRIGHT", 20, 0)
+	end
 
 	self:UpdateGemSlots()
 
@@ -648,7 +672,10 @@ function SkillsTabClass:CreateGemSlot(index)
 				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
+					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 					local output = calcFunc({}, {})
+					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
 				end
@@ -841,7 +868,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 			if gemInstance.triggered then
 				if gemInstance.grantedEffect.levels[gemInstance.level] then
-					gemInstance.grantedEffect.levels[gemInstance.level].manaCost = 0
+					gemInstance.grantedEffect.levels[gemInstance.level].cost = {}
 				end
 				gemInstance.grantedEffect.triggered = gemInstance.triggered
 			end
@@ -899,6 +926,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.groupSlot:SelByValue(socketGroup.slot, "slotName")
 		self.controls.groupEnabled.state = socketGroup.enabled
 		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS and socketGroup.enabled
+		self.controls.groupCount:SetText(socketGroup.groupCount or 1)
 
 		-- Update the gem slot controls
 		self:UpdateGemSlots()

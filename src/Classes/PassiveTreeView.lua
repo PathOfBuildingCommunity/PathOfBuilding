@@ -433,6 +433,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		local function prepSearch(search)
 			search = search:lower()
+			--gsub("([%[%]%%])", "%%%1")
 			local searchWords = {}
 			for matchstring, v in search:gmatch('"([^"]*)"') do
 				searchWords[#searchWords+1] = matchstring
@@ -784,6 +785,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	-- Check node name
 	err, needMatches = PCall(search, node.dn:lower(), needMatches)
+	if err then return false end
 	if #needMatches == 0 then
 		return true
 	end
@@ -792,6 +794,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	for index, line in ipairs(node.sd) do
 		-- Check display text first
 		err, needMatches = PCall(search, line:lower(), needMatches)
+		if err then return false end
 		if #needMatches == 0 then
 			return true
 		end
@@ -799,6 +802,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 			-- Then check modifiers
 			for _, mod in ipairs(node.mods[index].list) do
 				err, needMatches = PCall(search, mod.name, needMatches)
+				if err then return false end
 				if #needMatches == 0 then
 					return true
 				end
@@ -808,6 +812,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	-- Check node type
 	err, needMatches = PCall(search, node.type:lower(), needMatches)
+	if err then return false end
 	if #needMatches == 0 then
 		return true
 	end
@@ -931,15 +936,15 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		local nodeOutput, pathOutput
 		if node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependent nodes
-			nodeOutput = calcFunc({ removeNodes = { [node] = true } }, {})
+			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
 			if pathLength > 1 then
-				pathOutput = calcFunc({ removeNodes = pathNodes }, {})
+				pathOutput = calcFunc({ removeNodes = pathNodes })
 			end
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			nodeOutput = calcFunc({ addNodes = { [node] = true } }, {})
+			nodeOutput = calcFunc({ addNodes = { [node] = true } })
 			if pathLength > 1 then
-				pathOutput = calcFunc({ addNodes = pathNodes }, {})
+				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
