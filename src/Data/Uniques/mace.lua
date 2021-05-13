@@ -344,6 +344,7 @@ Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 47, 81 Str, 81 Int
+Implicits: 1
 24% increased Elemental Damage
 (70-100)% increased Spell Damage
 (15-20)% increased Cast Speed

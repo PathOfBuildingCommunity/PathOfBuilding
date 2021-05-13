@@ -172,7 +172,7 @@ Adds (5-10) to (13-20) Physical Damage
 {variant:2}(80-95)% increased Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:2}(20-25)% increased Attack Speed
-5% reduced Mana Reserved
+5% reduced Reservation of Skills
 Allies' Aura Buffs do not affect you
 Your Aura Buffs do not affect allies
 10% increased Effect of Buffs on you
@@ -481,8 +481,8 @@ Minions Leech 5% of Damage as Life against Poisoned Enemies
 Story of the Vaal
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Gemstone Sword
 {variant:1}Variscite Blade
+{variant:2}Gemstone Sword
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 {variant:1}Requires Level 35, 62 Str, 62 Dex

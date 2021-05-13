@@ -468,7 +468,7 @@ Requires Level 67, 123 Int
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
-6% reduced Mana Reserved
+6% reduced Reservation of Skills
 You have no Life Regeneration
 Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
@@ -798,8 +798,8 @@ For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
 Dance of the Offered
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Carnal Boots
 {variant:1}Shackled Boots
+{variant:2}Carnal Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 {variant:1}Requires Level 34, 34 Dex, 34 Int

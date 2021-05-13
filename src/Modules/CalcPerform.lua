@@ -69,12 +69,15 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	return 1 / rateCapAdjusted
 end
 
--- Calculate Trigger Rate impact due to other skills in rotation
--- This is achieved by simulation a 10 second cast rotation
+-- Calculate Trigger Rate
+-- This is achieved by simulating a 100 second cast rotation
 local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 	local SIM_TIME = 100.0
+	local TIME_STEP = 0.0001
 	local index = 1
 	local time = 0
+	local tick = 0
+	local currTick = 0
 	local next_trigger = 0
 	local trigger_increment = 1 / sourceAPS
 	local wasted = 0
@@ -87,25 +90,40 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 				index = (index % #skillRotation) + 1
 				if index == currIndex then
 					wasted = wasted + 1
+					-- Triggers are free from the server tick so cooldown starts at current time
+					next_trigger = time + trigger_increment
 					break
 				end
 			end
 
 			if skillRotation[index].next_trig <= time then
 				skillRotation[index].count = skillRotation[index].count + 1
-				skillRotation[index].next_trig = skillRotation[index].next_trig + skillRotation[index].cd
+				-- Cooldown starts at the beginning of current tick
+				skillRotation[index].next_trig = currTick + skillRotation[index].cd
+				local tempTick = tick
+
+				while skillRotation[index].next_trig > tempTick do
+					tempTick = tempTick + (1/data.misc.ServerTickRate)
+				end
+				-- Cooldown ends at the start of the next tick. Price is right rules.
+				skillRotation[index].next_trig = tempTick
 				index = (index % #skillRotation) + 1
-				next_trigger = next_trigger + trigger_increment
+				next_trigger = time + trigger_increment
 			end
 		end
-		-- increment time by server tick time passage
-		time = time + (1 / data.misc.ServerTickRate)
+		-- Increment time by smallest reasonable amount to attempt to hit every trigger event and every server tick. Frees attacks from the server tick. 
+		time = time + TIME_STEP
+		-- Keep track of the server tick as the trigger cooldown is still bound by it
+		if tick < time then
+			currTick = tick
+			tick = tick + (1/data.misc.ServerTickRate)
+		end
 	end
 
 	local mainRate = 0
 	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
 	if wasted > 0 then
-		trigRateTable.extraSimInfo = "Wasted trigger opportunities exist. Increase your ICDR to fix this."
+		trigRateTable.extraSimInfo = "Wasted trigger opportunities exist. Increasing your ICDR may fix this."
 	else
 		trigRateTable.extraSimInfo = "Good Job! There are no wasted trigger opportunities"
 	end
@@ -141,103 +159,82 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	if sourceAPS ~= nil then
 		output.SourceTriggerRate = sourceAPS / skillRotationImpact
 		if dualWield then
-			if #spellCount > 1 then
-				output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
-						s_format("/ 2) ^8(due to dual wielding)"),
-						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
-						s_format(""),
-						s_format("Simulation Breakdown"),
-						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
-					}
-					if simBreakdown.extraSimInfo then
-						t_insert(breakdown.SourceTriggerRate, "")
-						t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
-					end
-					breakdown.SimData = {
-						rowList = { },
-						colList = {
-							{ label = "Rate", key = "rate" },
-							{ label = "Skill Name", key = "skillName" },
-							{ label = "Slot Name", key = "slotName" },
-							{ label = "Gem Index", key = "gemIndex" },
-						},
-					}
-					for _, rateData in ipairs(simBreakdown.rates) do
-						local t = { }
-						for str in string.gmatch(rateData.name, "([^_]+)") do
-							t_insert(t, str)
-						end
-
-						local row = {
-							rate = rateData.rate,
-							skillName = t[1],
-							slotName = t[2],
-							gemIndex = t[3],
-						}
-						t_insert(breakdown.SimData.rowList, row)
-					end
+			output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+			if breakdown then
+				breakdown.SourceTriggerRate = {
+					s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
+					s_format("/ 2) ^8(due to dual wielding)"),
+					s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
+					s_format("= %.2f ^8per second", output.SourceTriggerRate),
+					s_format(""),
+					s_format("Simulation Breakdown"),
+					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+				}
+				if simBreakdown.extraSimInfo then
+					t_insert(breakdown.SourceTriggerRate, "")
+					t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
 				end
-			else
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("(%.2f ^8(%s attacks per second)", sourceAPS * 2, source.activeEffect.grantedEffect.name),
-						s_format("/ 2) ^8(due to dual wielding)"),
-						s_format("/ %.2f ^8(number of linked active spells to trigger)", skillRotationImpact),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
+				breakdown.SimData = {
+					rowList = { },
+					colList = {
+						{ label = "Rate", key = "rate" },
+						{ label = "Skill Name", key = "skillName" },
+						{ label = "Slot Name", key = "slotName" },
+						{ label = "Gem Index", key = "gemIndex" },
+					},
+				}
+				for _, rateData in ipairs(simBreakdown.rates) do
+					local t = { }
+					for str in string.gmatch(rateData.name, "([^_]+)") do
+						t_insert(t, str)
+					end
+
+					local row = {
+						rate = rateData.rate,
+						skillName = t[1],
+						slotName = t[2],
+						gemIndex = t[3],
 					}
+					t_insert(breakdown.SimData.rowList, row)
 				end
 			end
 		else
-			if #spellCount > 1 then
-				output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
-						s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
-						s_format(""),
-						s_format("Simulation Breakdown"),
-						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
-					}
-					if simBreakdown.extraSimInfo then
-						t_insert(breakdown.SourceTriggerRate, "")
-						t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
-					end
-					breakdown.SimData = {
-						rowList = { },
-						colList = {
-							{ label = "Rate", key = "rate" },
-							{ label = "Skill Name", key = "skillName" },
-							{ label = "Slot Name", key = "slotName" },
-							{ label = "Gem Index", key = "gemIndex" },
-						},
-					}
-					for _, rateData in ipairs(simBreakdown.rates) do
-						local t = { }
-						for str in string.gmatch(rateData.name, "([^_]+)") do
-							t_insert(t, str)
-						end
-
-						local row = {
-							rate = rateData.rate,
-							skillName = t[1],
-							slotName = t[2],
-							gemIndex = t[3],
-						}
-						t_insert(breakdown.SimData.rowList, row)
-					end
+			output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS)
+			if breakdown then
+				breakdown.SourceTriggerRate = {
+					s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
+					s_format("/ %.2f ^8(simulated impact of linked spells)", sourceAPS / output.SourceTriggerRate),
+					s_format("= %.2f ^8per second", output.SourceTriggerRate),
+					s_format(""),
+					s_format("Simulation Breakdown"),
+					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+				}
+				if simBreakdown.extraSimInfo then
+					t_insert(breakdown.SourceTriggerRate, "")
+					t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
 				end
-			else
-				if breakdown then
-					breakdown.SourceTriggerRate = {
-						s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
-						s_format("/ %.2f ^8(number of linked active spells to trigger)", skillRotationImpact),
-						s_format("= %.2f ^8per second", output.SourceTriggerRate),
+				breakdown.SimData = {
+					rowList = { },
+					colList = {
+						{ label = "Rate", key = "rate" },
+						{ label = "Skill Name", key = "skillName" },
+						{ label = "Slot Name", key = "slotName" },
+						{ label = "Gem Index", key = "gemIndex" },
+					},
+				}
+				for _, rateData in ipairs(simBreakdown.rates) do
+					local t = { }
+					for str in string.gmatch(rateData.name, "([^_]+)") do
+						t_insert(t, str)
+					end
+
+					local row = {
+						rate = rateData.rate,
+						skillName = t[1],
+						slotName = t[2],
+						gemIndex = t[3],
 					}
+					t_insert(breakdown.SimData.rowList, row)
 				end
 			end
 		end
@@ -421,7 +418,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if (actor.weaponData1.type == "Claw" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Claw" or actor.weaponData2.countsAsAll1H) then
 			condList["DualWieldingClaws"] = true
 		end
-		if actor.weaponData1.type ~= actor.weaponData2.type then
+		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.type) then
 			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
 			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
 			if info1.oneHand and info2.oneHand then
@@ -1346,15 +1343,15 @@ function calcs.perform(env, avoidCache)
 				values.baseFlatVal = m_floor(values.baseFlat * mult)
 				values.basePercentVal = values.basePercent * mult
 
-				values.costFlat = m_max(values.baseFlatVal - m_modf(values.baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
-				values.costPercent = m_max(values.basePercentVal - m_modf(values.basePercentVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+				values.reservedFlat = m_max(values.baseFlatVal - m_modf(values.baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+				values.reservedPercent = m_max(values.basePercentVal - m_modf(values.basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100, 0)
 				if activeSkill.activeMineCount then
-					values.costFlat = values.costFlat * activeSkill.activeMineCount
-					values.costPercent = values.costPercent * activeSkill.activeMineCount
+					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
+					values.reservedPercent = values.reservedPercent * activeSkill.activeMineCount
 				end
-				if values.costFlat ~= 0 then
-					activeSkill.skillData[name.."ReservedBase"] = values.costFlat
-					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + values.costFlat
+				if values.reservedFlat ~= 0 then
+					activeSkill.skillData[name.."ReservedBase"] = values.reservedFlat
+					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + values.reservedFlat
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {
 							skillName = activeSkill.activeEffect.grantedEffect.name,
@@ -1362,14 +1359,14 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
-							total = values.costFlat,
+							total = values.reservedFlat,
 						})
 					end
 				end
-				if values.costPercent ~= 0 then
-					activeSkill.skillData[name.."ReservedPercent"] = values.costPercent
-					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + m_ceil(output[name] * values.costPercent / 100)
-					env.player["reserved_"..name.."Percent"] = env.player["reserved_"..name.."Percent"] + values.costPercent
+				if values.reservedPercent ~= 0 then
+					activeSkill.skillData[name.."ReservedPercent"] = values.reservedPercent
+					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + m_ceil(output[name] * values.reservedPercent / 100)
+					env.player["reserved_"..name.."Percent"] = env.player["reserved_"..name.."Percent"] + values.reservedPercent
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {
 							skillName = activeSkill.activeEffect.grantedEffect.name,
@@ -1377,7 +1374,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
-							total = values.costPercent .. "%",
+							total = values.reservedPercent .. "%",
 						})
 					end
 				end

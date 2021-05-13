@@ -59,7 +59,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
-#baseMod skill("radius", 18)
+#baseMod skill("radius", 22)
 #baseMod skill("radiusSecondary", 8)
 #mods
 
@@ -1339,14 +1339,25 @@ local skills, mod, flag, skill = ...
 
 #skill VaalRighteousFire
 #flags spell area
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = output.TotemLife * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		else
+			activeSkill.skillData.FireDot = (output.Life + output.EnergyShield) * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		end
+	end,
 	statMap = {
 		["vaal_righteous_fire_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["vaal_righteous_fire_life_and_es_%_as_damage_per_second"] = {
-			skill("FireDot", nil, { type = "PerStat", statList = { "Life", "EnergyShield" } }),
+			skill("RFMultiplier", nil),
 			div = 100,
 		},
+		["vaal_righteous_fire_life_and_es_%_to_lose_on_use"] = {
+			skill("percentSacrificed", nil),
+			div = 100,
+		}
 	},
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 30)
@@ -1754,6 +1765,9 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBoltNova
 #flags spell area duration forceInstant
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 20)
 #mods
@@ -1873,7 +1887,7 @@ local skills, mod, flag, skill = ...
 		["spell_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["base_critical_strike_multiplier_+"] = {
+		["skill_buff_grant_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["life_regeneration_rate_per_minute_%"] = {
