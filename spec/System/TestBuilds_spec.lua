@@ -7,7 +7,7 @@ local function fetchBuilds(path, buildList)
             assert(type(attr) == "table")
             if attr.mode == "directory" then
                 fetchBuilds(f, buildList)
-            else
+            elseif file:match("^.+(%..+)$") == ".lua" then
                 buildList[file] = LoadModule(f)
             end
         end
