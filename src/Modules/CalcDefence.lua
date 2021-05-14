@@ -1341,11 +1341,19 @@ function calcs.defence(env, actor)
 		local blockEffect = 1
 		local ExtraAvoidChance = 0
 		local averageAvoidChance = 0
-		--block effect and gain on block
+		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
+		--block effect
 		if damageCategoryConfig == "Melee" then
 			BlockChance = output.BlockChance / 100
 		else
 			BlockChance = output[damageCategoryConfig.."BlockChance"] / 100
+		end
+		--unlucky config to lower the value of block, dodge, evade etc for ehp
+		if worstOf == 2 or worstOf == 4 then
+			BlockChance = BlockChance * BlockChance
+		end
+		if worstOf == 4 then
+			BlockChance = BlockChance * BlockChance
 		end
 		blockEffect = (1 - BlockChance * output.BlockEffect / 100)
 		DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
@@ -1366,6 +1374,13 @@ function calcs.defence(env, actor)
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - BlockChance) 
 			end
 			local AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
+			--unlucky config to lower the value of block, dodge, evade etc for ehp
+			if worstOf == 2 or worstOf == 4 then
+				AvoidChance = AvoidChance / 100 * AvoidChance
+			end
+			if worstOf == 4 then
+				AvoidChance = AvoidChance / 100 * AvoidChance
+			end
 			averageAvoidChance = averageAvoidChance + AvoidChance
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * (1 - AvoidChance / 100))
 		end
@@ -1392,30 +1407,43 @@ function calcs.defence(env, actor)
 	end
 	
 	--chance to not be hit
-	output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-	output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-	output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-	output.SpellProjectileNotHitChance = output.SpellNotHitChance
-	output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
-	output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
-	output["TotalNumberOfHits"] = output["NumberOfMitigatedDamagingHits"] / (1 - output["ConfiguredNotHitChance"] / 100)
-	if breakdown then
-		breakdown.ConfiguredNotHitChance = { }
+	do
+		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
+		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
+		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
+		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
+		output.SpellProjectileNotHitChance = output.SpellNotHitChance
+		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
+		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
+		--unlucky config to lower the value of block, dodge, evade etc for ehp
+		if worstOf == 2 or worstOf == 4 then
+			output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
+		end
+		if worstOf == 4 then
+			output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
+		end
+		output["TotalNumberOfHits"] = output["NumberOfMitigatedDamagingHits"] / (1 - output["ConfiguredNotHitChance"] / 100)
+		if breakdown then
+			breakdown.ConfiguredNotHitChance = { }
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
 			t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
 		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
 			t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
 		elseif damageCategoryConfig == "Average" then
-			t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
-			t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+			end
+			if worstOf > 1 then
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("unlucky worst of %d", worstOf))
+			end
+			t_insert(breakdown["ConfiguredNotHitChance"], s_format("= %d%% ^8(chance to be hit by a%s hit)", 100 - output.ConfiguredNotHitChance, (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
+			breakdown["TotalNumberOfHits"] = {
+				s_format("%.2f ^8(Number of mitigated hits)", output["NumberOfMitigatedDamagingHits"]),
+				s_format("/ %.2f ^8(Chance to even be hit)", 1 - output["ConfiguredNotHitChance"] / 100),
+				s_format("= %.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
+			}
 		end
-		t_insert(breakdown["ConfiguredNotHitChance"], s_format("= %d%% ^8(chance to be hit by a%s hit)", 100 - output.ConfiguredNotHitChance, (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
-		breakdown["TotalNumberOfHits"] = {
-			s_format("%.2f ^8(Number of mitigated hits)", output["NumberOfMitigatedDamagingHits"]),
-			s_format("/ %.2f ^8(Chance to even be hit)", 1 - output["ConfiguredNotHitChance"] / 100),
-			s_format("= %.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
-		}
 	end
 	
 	--effective hit pool
