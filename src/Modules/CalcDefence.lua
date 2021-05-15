@@ -1309,11 +1309,12 @@ function calcs.defence(env, actor)
 		end
 		
 		local numHits = 0
+		local itterMult = 1
 		while life > 0 and numHits < 1000 do
-			numHits = numHits + 1
+			numHits = numHits + itterMult
 			local Damage = {}
 			for _, damageType in ipairs(dmgTypeList) do
-				Damage[damageType] = DamageIn[damageType]
+				Damage[damageType] = DamageIn[damageType] * itterMult
 			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
@@ -1366,9 +1367,26 @@ function calcs.defence(env, actor)
 				end
 			end
 			if DamageIn.GainWhenHit and life > 0 then
-				life = m_min(life + DamageIn.LifeWhenHit, output.LifeUnreserved or 0)
-				mana = m_min(mana + DamageIn.ManaWhenHit, output.ManaUnreserved or 0)
-				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit, output.EnergyShield or 0)
+				life = m_min(life + DamageIn.LifeWhenHit * itterMult, output.LifeUnreserved or 0)
+				mana = m_min(mana + DamageIn.ManaWhenHit * itterMult, output.ManaUnreserved or 0)
+				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterMult, output.EnergyShield or 0)
+			end
+			--this is to speed this up
+			itterMult = 1
+			DamageIn["c"] = DamageIn["c"] or 0
+			local maxdepth = 4 --move to data.misc
+			local speedUp = 5 --move to data.misc
+			if life > 0 and DamageIn["c"] < maxdepth then
+				Damage = {}
+				for _, damageType in ipairs(dmgTypeList) do
+					Damage[damageType] = DamageIn[damageType] * speedUp
+				end	
+				Damage.LifeWhenHit = DamageIn.LifeWhenHit or 0 * speedUp
+				Damage.ManaWhenHite = DamageIn.ManaWhenHit or 0 * speedUp
+				Damage.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit or 0 * speedUp
+				Damage["c"] = DamageIn["c"] + 1
+				itterMult = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
+				DamageIn["c"] = maxdepth --only run once
 			end
 		end
 		return numHits
