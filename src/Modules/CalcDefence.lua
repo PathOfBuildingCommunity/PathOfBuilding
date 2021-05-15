@@ -1491,9 +1491,23 @@ function calcs.defence(env, actor)
 	if breakdown then
 		breakdown["TotalEHP"] = {
 			s_format("%.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
-			s_format("* %d ^8(total incomming damage)", output["totalEnemyDamageIn"]),
+			s_format("x %d ^8(total incomming damage)", output["totalEnemyDamageIn"]),
 			s_format("= %d ^8(total damage you can take)", output["TotalEHP"]),
 		}
+	end
+	
+	--survival time
+	do
+		local enemySkillTime = env.configInput.enemySpeed or 700 --should be modifed by enemy speed eg temp chains/chill
+		enemySkillTime = enemySkillTime / 1000
+		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * enemySkillTime
+		if breakdown then
+			breakdown["EHPsurvivalTime"] = {
+				s_format("%.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
+				s_format("x %.2f ^8enemy attack/cast time", enemySkillTime),
+				s_format("= %.2f seconds ^8(total time it would take to die)", output["EHPsurvivalTime"]),
+			}
+		end
 	end
 
 	--effective health pool vs dots

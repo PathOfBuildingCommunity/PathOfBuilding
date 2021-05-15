@@ -1626,7 +1626,8 @@ return {
 	{ label = "Avg. # hits given", { format = "{2:output:NumberOfMitigatedDamagingHits}", }, },
 	{ label = "CH. to not be hit", { format = "{0:output:ConfiguredNotHitChance}%", { breakdown = "ConfiguredNotHitChance" }, }, },
 	{ label = "Avg. # hits given", { format = "{2:output:TotalNumberOfHits}", { breakdown = "TotalNumberOfHits" }}, },
-	{ label = "Effective Hit Pool",{ format = "{0:output:TotalEHP}", { breakdown = "TotalEHP" }, },}
+	{ label = "Effective Hit Pool",{ format = "{0:output:TotalEHP}", { breakdown = "TotalEHP" }, },},
+	{ label = "Eff. Survival Time",{ format = "{2:output:EHPsurvivalTime}s", { breakdown = "EHPsurvivalTime" }, },}
 }, }, { defaultCollapsed = false, label = "Maximum Hit Taken", data = {
 	extra = "2nd minimum; {0:output:PhysicalMaximumHitTaken}",
 	colWidth = 95,

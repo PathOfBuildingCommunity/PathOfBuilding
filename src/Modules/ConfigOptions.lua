@@ -1318,7 +1318,7 @@ return {
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
-	{ var = "enemySpeed", type = "integer", label = "Enemy Skill use time:" },
+	{ var = "enemySpeed", type = "integer", label = "Enemy Skill use time (ms):" },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet."},
 	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill Lightning Damage:"},
 	{ var = "enemyLightningPen", type = "integer", label = "Enemy Skill Lightning Pen:"},
