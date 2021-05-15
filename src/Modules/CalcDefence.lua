@@ -1143,6 +1143,7 @@ function calcs.defence(env, actor)
 		end
 		local poolProtected = sourcePool / (output["sharedMindOverMatter"] / 100) * (1 - output["sharedMindOverMatter"] / 100)
 		if output["sharedMindOverMatter"] >= 100 then
+			poolProtected = m_huge
 			output["sharedManaEffectiveLife"] = output.LifeUnreserved + sourcePool
 		else
 			output["sharedManaEffectiveLife"] = m_max(output.LifeUnreserved - poolProtected, 0) + m_min(output.LifeUnreserved, poolProtected) / (1 - output["sharedMindOverMatter"] / 100)
@@ -1163,9 +1164,9 @@ function calcs.defence(env, actor)
 		output["sharedManaEffectiveLife"] = output.LifeUnreserved
 	end
 	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100)
+		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100 - output["sharedMindOverMatter"])
 		if output[damageType.."MindOverMatter"] > 0 or (output[damageType.."EnergyShieldBypass"] > output.MinimumBypass and output["sharedMindOverMatter"] > 0) then
-			local MindOverMatter = m_min(output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"], 100)
+			local MindOverMatter = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
 			output.AnyMindOverMatter = true
 			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
 			local manatext = "unreserved mana"
@@ -1180,6 +1181,7 @@ function calcs.defence(env, actor)
 			end
 			local poolProtected = sourcePool / (MindOverMatter / 100) * (1 - MindOverMatter / 100)
 			if MindOverMatter >= 100 then
+				poolProtected = m_huge
 				output[damageType.."ManaEffectiveLife"] = output.LifeUnreserved + sourcePool
 			else
 				output[damageType.."ManaEffectiveLife"] = m_max(output.LifeUnreserved - poolProtected, 0) + m_min(output.LifeUnreserved, poolProtected) / (1 - MindOverMatter / 100)
@@ -1205,7 +1207,7 @@ function calcs.defence(env, actor)
 	output.AnyGuard = false
 	output["sharedGuardAbsorbRate"] = m_min(modDB:Sum("BASE", nil, "GuardAbsorbRate"), 100)
 	if output["sharedGuardAbsorbRate"] > 0 then
-		output.AnyGuard = true
+		output.OnlySharedGuard = true
 		output["sharedGuardAbsorb"] = calcLib.val(modDB, "GuardAbsorbLimit")
 		local lifeProtected = output["sharedGuardAbsorb"] / (output["sharedGuardAbsorbRate"] / 100) * (1 - output["sharedGuardAbsorbRate"] / 100)
 		if breakdown then
@@ -1222,6 +1224,7 @@ function calcs.defence(env, actor)
 		output[damageType.."GuardAbsorbRate"] = m_min(modDB:Sum("BASE", nil, damageType.."GuardAbsorbRate"), 100)
 		if output[damageType.."GuardAbsorbRate"] > 0 then
 			output.AnyGuard = true
+			output.OnlySharedGuard = false
 			output[damageType.."GuardAbsorb"] = calcLib.val(modDB, damageType.."GuardAbsorbLimit")
 			local lifeProtected = output[damageType.."GuardAbsorb"] / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
 			if breakdown then
