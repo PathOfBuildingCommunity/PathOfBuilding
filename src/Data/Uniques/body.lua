@@ -207,7 +207,7 @@ Wildwrap
 Strapped Leather
 Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
 Requires Level 57, 32 Dex
-(5-8)% increased Attack Speed
+10% increased Attack Speed
 +(600-700) to Evasion Rating
 +(30-40)% to Cold Resistance
 5% increased Movement Speed
