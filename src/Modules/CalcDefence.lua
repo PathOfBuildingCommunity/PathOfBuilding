@@ -1058,6 +1058,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		local takenMult = output[damageType.."TakenHitMult"]
+		output[damageType.."BaseTakenHitMult"] = (1 - resist / 100) * takenMult
 		local takenMultReflect = output[damageType.."TakenReflect"]
 		local finalReflect = (1 - (resist - enemyPen) / 100) * takenMultReflect
 		output[damageType.."TakenHit"] = m_max(output[damageType.."TakenDamage"] * (1 - (resist - enemyPen) / 100) + takenFlat, 0) * takenMult
@@ -1695,16 +1696,69 @@ function calcs.defence(env, actor)
 	end
 
 	--maximum hit taken
-	-- this is not done yet
+	-- this is not done yet, using old max hit taken
+	--fix total pools, as they arnt used anymore
 	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."MaximumHitTaken"] = 1000
-		if breakdown then
-			breakdown[damageType.."MaximumHitTaken"] = {
-				s_format("Total Pool: %d", output[damageType.."TotalPool"]),
-				s_format("Taken Mult: %.2f",  output[damageType.."TotalPool"] / output[damageType.."MaximumHitTaken"]),
-				s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"])
-			}
+		--base + aegis
+		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
+		--guardskill
+		local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
+		if GuardAbsorbRate > 0 then
+			local GuardAbsorb = output["sharedGuardAbsorb"] or 0 + output[damageType.."GuardAbsorb"] or 0
+			if GuardAbsorbRate >= 100 then
+				output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + GuardAbsorb
+			else
+				local poolProtected = GuardAbsorb / (GuardAbsorbRate / 100) * (1 - GuardAbsorbRate / 100)
+				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - GuardAbsorbRate / 100)
+			end
 		end
 	end
-	output.SecondMinimalMaximumHitTaken = output["Physical".."MaximumHitTaken"]
+	for _, damageType in ipairs(dmgTypeList) do
+		if breakdown then
+			breakdown[damageType.."MaximumHitTaken"] = { 
+				label = "Maximum Hit Taken (uses lowest value)",
+				rowList = { },
+				colList = {
+					{ label = "Type", key = "type" },
+					{ label = "TotalPool", key = "pool" },
+					{ label = "Taken", key = "taken" },
+					{ label = "Final", key = "final" },
+				},
+			}
+		end
+		output[damageType.."MaximumHitTaken"] = m_huge
+		for _, damageConvertedType in ipairs(dmgTypeList) do
+			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
+				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				if hitTaken < output[damageType.."MaximumHitTaken"] then
+					output[damageType.."MaximumHitTaken"] = hitTaken
+				end
+				if breakdown then
+					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
+						type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
+						pool = s_format("x %d", output[damageConvertedType.."TotalHitPool"]),
+						taken = s_format("/ %.2f", output[damageConvertedType.."BaseTakenHitMult"]),
+						final = s_format("x %.0f", hitTaken),
+					})
+				end
+			end
+		end
+		if breakdown then
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.2f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+		end
+	end
+	
+	local minimum = m_huge
+	local SecondMinimum = m_huge
+	for _, damageType in ipairs(dmgTypeList) do
+		if output[damageType.."MaximumHitTaken"] < minimum then
+			SecondMinimum = minimum
+			minimum = output[damageType.."MaximumHitTaken"]
+		elseif output[damageType.."MaximumHitTaken"] < SecondMinimum then
+			SecondMinimum = output[damageType.."MaximumHitTaken"]
+		end
+	end
+	output.SecondMinimalMaximumHitTaken = SecondMinimum
 end
