@@ -459,6 +459,51 @@ function calcs.defence(env, actor)
 		local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
 		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
 	end
+	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
+		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
+	end
+	output.ShieldBlockChance = baseBlockChance
+	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
+		output.BlockChance = output.BlockChanceMax
+	else
+		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+	end
+	output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
+		output.SpellBlockChanceMax = output.BlockChanceMax
+	else
+		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
+	end
+	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
+		output.SpellBlockChance = output.BlockChance
+		output.SpellProjectileBlockChance = output.ProjectileBlockChance
+	else
+		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
+		output.SpellProjectileBlockChance = output.SpellBlockChance
+	end
+	if breakdown then
+		breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
+		breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
+	end
+	if modDB:Flag(nil, "CannotBlockAttacks") then
+		output.BlockChance = 0
+		output.ProjectileBlockChance = 0
+	end
+	if modDB:Flag(nil, "CannotBlockSpells") then
+		output.SpellBlockChance = 0
+		output.SpellProjectileBlockChance = 0
+	end
+	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
+	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
+	if output.BlockEffect == 0 or output.BlockEffect == 100 then
+		output.BlockEffect = 100
+	else
+		output.ShowBlockEffect = true
+		output.DamageTakenOnBlock = 100 - output.BlockEffect
+	end
+	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
@@ -784,7 +829,7 @@ function calcs.defence(env, actor)
 			}
 		end
 		for _, damageType in ipairs(dmgTypeList) do
-			local stringVal = "Defualt"
+			local stringVal = "Default"
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
 			local enemyDamage = 0
 			if damageType == "Physical" then
@@ -1349,11 +1394,11 @@ function calcs.defence(env, actor)
 			BlockChance = output[damageCategoryConfig.."BlockChance"] / 100
 		end
 		--unlucky config to lower the value of block, dodge, evade etc for ehp
-		if worstOf == 2 or worstOf == 4 then
+		if worstOf > 1 then
 			BlockChance = BlockChance * BlockChance
-		end
-		if worstOf == 4 then
-			BlockChance = BlockChance * BlockChance
+			if worstOf == 4 then
+				BlockChance = BlockChance * BlockChance
+			end
 		end
 		blockEffect = (1 - BlockChance * output.BlockEffect / 100)
 		DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
@@ -1375,11 +1420,11 @@ function calcs.defence(env, actor)
 			end
 			local AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
 			--unlucky config to lower the value of block, dodge, evade etc for ehp
-			if worstOf == 2 or worstOf == 4 then
+			if worstOf > 1 then
 				AvoidChance = AvoidChance / 100 * AvoidChance
-			end
-			if worstOf == 4 then
-				AvoidChance = AvoidChance / 100 * AvoidChance
+				if worstOf == 4 then
+					AvoidChance = AvoidChance / 100 * AvoidChance
+				end
 			end
 			averageAvoidChance = averageAvoidChance + AvoidChance
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * (1 - AvoidChance / 100))
@@ -1388,21 +1433,16 @@ function calcs.defence(env, actor)
 		averageAvoidChance = averageAvoidChance / 5
 		output["ConfiguredDamageChance"] = 100 * (blockEffect * (1 - averageAvoidChance / 100))
 		if breakdown then
-			breakdown["ConfiguredDamageChance"] = { }
+			breakdown["ConfiguredDamageChance"] = {
+				s_format("%.2f ^8(chance for block to fail)", 1 - BlockChance)
+			}	
 			if output.ShowBlockEffect then
-				breakdown.multiChain(breakdown["ConfiguredDamageChance"], {
-					{ "%.2f ^8(chance for block to fail)", 1 - BlockChance },
-					{ "%.2f ^8(block effect)", output.BlockEffect / 100 },
-					{ "%.2f ^8(chance for avoidance to fail)", 1 - averageAvoidChance / 100 },
-					total = s_format("= %d%% ^8(chance to take damage from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig),
-				})
-			else
-				breakdown.multiChain(breakdown["ConfiguredDamageChance"], {
-					{ "%.2f ^8(chance for block to fail)", 1 - BlockChance },
-					{ "%.2f ^8(chance for avoidance to fail)", 1 - averageAvoidChance / 100 },
-					total = s_format("= %d%% ^8(chance to take damage from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig),
-				})
+				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(block effect)", output.BlockEffect / 100))
 			end
+			if averageAvoidChance > 0 then
+				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - averageAvoidChance / 100))
+			end
+			t_insert(breakdown["ConfiguredDamageChance"], s_format("= %d%% ^8(chance to take damage from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
 		end
 	end
 	
@@ -1416,21 +1456,21 @@ function calcs.defence(env, actor)
 		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
 		--unlucky config to lower the value of block, dodge, evade etc for ehp
-		if worstOf == 2 or worstOf == 4 then
+		if worstOf > 1 then
 			output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
-		end
-		if worstOf == 4 then
-			output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
+			if worstOf == 4 then
+				output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
+			end
 		end
 		output["TotalNumberOfHits"] = output["NumberOfMitigatedDamagingHits"] / (1 - output["ConfiguredNotHitChance"] / 100)
 		if breakdown then
 			breakdown.ConfiguredNotHitChance = { }
-		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
-			t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
-			t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
-		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
-			t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
-		elseif damageCategoryConfig == "Average" then
+			if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
+			elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
+			elseif damageCategoryConfig == "Average" then
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
 			end
