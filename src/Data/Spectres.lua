@@ -3070,3 +3070,25 @@ minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
 		mod("PhysicalDamageConvertToChaos", "BASE", 50), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
 	},
 }
+-- Trail Galecaller
+minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
+	name = "Trial Galecaller",
+	life = 3.06,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.36,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 58,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"UltimatumGuardMeleeCold",
+		"UltimatumGuardConeArrowCold",
+	},
+	modList = {
+	},
+}

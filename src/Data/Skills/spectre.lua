@@ -5303,3 +5303,62 @@ skills["SecretDesecrateMonsterMultiSlash"] = {
 		[1] = { attackSpeedMultiplier = -33, levelRequirement = 0, statInterpolation = { }, cost = { }, },
 	},
 }
+skills["UltimatumGuardMeleeCold"] = {
+	name = "Cold Arrow",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"number_of_additional_projectiles",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"arrow_projectile_variation",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 2, 50, -50, 34, levelRequirement = 1, statInterpolation = { 1, 1, 2, 1, }, cost = { }, },
+		[2] = { 2, 50, 0, 34, levelRequirement = 68, statInterpolation = { 1, 1, 2, 1, }, cost = { }, },
+	},
+}
+skills["UltimatumGuardConeArrowCold"] = {
+	name = "Cone Arrow",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 100, 0, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 100, 250, cooldown = 8, levelRequirement = 83, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+}
