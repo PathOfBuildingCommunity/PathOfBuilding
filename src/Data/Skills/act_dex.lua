@@ -4703,11 +4703,6 @@ skills["DoubleSlash"] = {
 			name = "Both slashes",
 		},
 	},
-	statMap = {
-		["chance_to_bleed_on_hit_%_chance_in_blood_stance"] = {
-			mod("BleedChance", "BASE", nil, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
-		},
-	},
 	baseFlags = {
 		attack = true,
 		melee = true,
