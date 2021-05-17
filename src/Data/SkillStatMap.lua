@@ -663,9 +663,6 @@ return {
 ["global_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil),
 },
-["support_slashing_damage_+%_final_from_distance"] = {
-	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
-},
 ["shield_charge_damage_+%_maximum"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
 },

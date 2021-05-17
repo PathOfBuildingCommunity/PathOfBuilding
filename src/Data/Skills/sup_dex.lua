@@ -1178,6 +1178,14 @@ skills["SupportSlashingWeapon"] = {
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_slashing_damage_+%_final_from_distance"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+		},
+		["close_combat_damage_to_close_range_+%"] = {
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
