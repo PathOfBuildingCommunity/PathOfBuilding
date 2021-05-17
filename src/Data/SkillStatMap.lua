@@ -768,6 +768,9 @@ return {
 ["bleed_on_melee_attack_chance_%"] = {
 	mod("BleedChance", "BASE", nil, ModFlag.Melee),
 },
+["chance_to_bleed_on_hit_%_chance_in_blood_stance"] = {
+	mod("BleedChance", "BASE", nil, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
+},
 ["faster_bleed_%"] = {
 	mod("BleedFaster", "INC", nil),
 },
@@ -882,6 +885,9 @@ return {
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
+},
+["active_skill_bleeding_damage_+%_final_in_blood_stance"] = {
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "BloodStance" }),
 },
 ["base_poison_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Poison),
