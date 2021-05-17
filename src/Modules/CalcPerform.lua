@@ -1337,17 +1337,28 @@ function calcs.perform(env, avoidCache)
 			if skillModList:Flag(skillCfg, "BloodMagicReserved") then
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
 				pool.Mana.baseFlat = 0
+				activeSkill.skillData["LifeReservationFlatForced"] = activeSkill.skillData["ManaReservationFlatForced"]
+				activeSkill.skillData["ManaReservationFlatForced"] = 0
 				pool.Life.basePercent = pool.Life.basePercent + pool.Mana.basePercent
 				pool.Mana.basePercent = 0
+				activeSkill.skillData["LifeReservationPercentForced"] = activeSkill.skillData["ManaReservationPercentForced"]
+				activeSkill.skillData["ManaReservationPercentForced"] = 0
 			end
 			for name, values in pairs(pool) do
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
-				values.baseFlatVal = m_floor(values.baseFlat * mult)
-				values.basePercentVal = values.basePercent * mult
-
-				values.reservedFlat = m_max(values.baseFlatVal - m_modf(values.baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
-				values.reservedPercent = m_max(values.basePercentVal - m_modf(values.basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100, 0)
+				if activeSkill.skillData[name.."ReservationFlatForced"] then
+					values.reservedFlat = activeSkill.skillData[name.."ReservationFlatForced"]
+				else
+					local baseFlatVal = m_floor(values.baseFlat * mult)
+					values.reservedFlat = m_max(baseFlatVal - m_modf(baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+				end
+				if activeSkill.skillData[name.."ReservationPercentForced"] then
+					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
+				else
+					local basePercentVal = values.basePercent * mult
+					values.reservedPercent = m_max(basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+				end
 				if activeSkill.activeMineCount then
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
 					values.reservedPercent = values.reservedPercent * activeSkill.activeMineCount
