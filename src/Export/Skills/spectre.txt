@@ -825,7 +825,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill UltimatumGuardMeleeCold Cold Arrow
-#flags attack projectile
+#flags attack projectile melee
 #mods
 
 #skill UltimatumGuardConeArrowCold Cone Arrow

@@ -5275,6 +5275,7 @@ skills["UltimatumGuardMeleeCold"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		melee = true,
 	},
 	baseMods = {
 	},
