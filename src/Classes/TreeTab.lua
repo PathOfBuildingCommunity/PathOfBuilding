@@ -127,6 +127,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
 	end)
+	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
