@@ -1338,11 +1338,11 @@ function calcs.perform(env, avoidCache)
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
 				pool.Mana.baseFlat = 0
 				activeSkill.skillData["LifeReservationFlatForced"] = activeSkill.skillData["ManaReservationFlatForced"]
-				activeSkill.skillData["ManaReservationFlatForced"] = 0
+				activeSkill.skillData["ManaReservationFlatForced"] = nil
 				pool.Life.basePercent = pool.Life.basePercent + pool.Mana.basePercent
 				pool.Mana.basePercent = 0
 				activeSkill.skillData["LifeReservationPercentForced"] = activeSkill.skillData["ManaReservationPercentForced"]
-				activeSkill.skillData["ManaReservationPercentForced"] = 0
+				activeSkill.skillData["ManaReservationPercentForced"] = nil
 			end
 			for name, values in pairs(pool) do
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
