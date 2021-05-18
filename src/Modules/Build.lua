@@ -156,56 +156,52 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 	end
 	self.controls.pointDisplay.width = function(control)
-		if (self.calcsTab.mainOutput.ExtraPoints == nil) 
-		then 
-		  bandit = 0 
-		else 
-		  bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
-		end
-		
 		local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-		local banditStr = ""
-		local usedMax, ascMax, levelreq = 99 + 22 + bandit, 8, 1
-		
-		-- level per act as of ingame description last waypoint, 10 entries
-		local act = {12,22,32,40,44,50,54,60,64,67}
-		-- skillpoints accumulated without bandits per act, 10 entries
-		local skillpoints = {2,3,5,6,8,11,14,17,19,22}
+		local bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
+		local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + bandit, 8, 1, 1, "", ""
+		local acts = { 
+			[1] = { level = 12, questPoints = 2}, 
+			[2] = { level = 22, questPoints = 3}, 
+			[3] = { level = 32, questPoints = 5},
+			[4] = { level = 40, questPoints = 6},
+			[5] = { level = 44, questPoints = 8},
+			[6] = { level = 50, questPoints = 11},
+			[7] = { level = 54, questPoints = 14},
+			[8] = { level = 60, questPoints = 17},
+			[9] = { level = 64, questPoints = 19},
+			[10] = { level = 67, questPoints = 22}
+			}
 				
-		-- when I'm already "fixing" the leveling info, I'm adding a suggestion for running the lab as well :)
-		local labSuggest, labstr = "", {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
-		
-		-- cursor
-		local cursor = 1
-						
 		-- loop for how much quest skillpoints are used with the progress
 		repeat
-		  if PointsUsed >= act[cursor]+skillpoints[cursor]
-		    then 
-			  cursor=cursor+1 
+		  if PointsUsed >= acts[currentAct].level+acts[currentAct].questPoints then 
+			currentAct=currentAct+1 
 		  else 
 			break 
 		  end
-		until cursor>=10
+		until currentAct>=10
 
-		-- bandits notification should only be available when considered and after act 2
-		if (cursor >=2 and bandit ~= 0) then
+		-- bandits notification; when considered and in calculation after act 2
+		if (currentAct >=2 and bandit ~= 0) then
 			banditStr = "\nBandits Skillpoints: " .. bandit
 		end
 		
 		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until catched up with quest skillpoints 
-		levelreq = math.max(PointsUsed - skillpoints[cursor],1)
-		if (levelreq <= skillpoints[cursor]) then levelreq = PointsUsed+1 end  
+		levelreq = math.max(PointsUsed - acts[currentAct].questPoints,1)
+		if levelreq <= acts[currentAct].questPoints then levelreq = PointsUsed+1 end  
 		
 		-- Ascendency points for lab
 		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
-		if levelreq >= 33 and levelreq <= 38 then labSuggest= labstr[1] end
-		if levelreq >= 55 and levelreq <= 60 then labSuggest= labstr[2] end
-		if levelreq >= 68 and levelreq <= 73 then labSuggest= labstr[3] end
-		if levelreq >= 75 and levelreq <= 85 then labSuggest= labstr[4] end -- a little bit more leeway for Uber Lab
+		local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
+		local strAct = "Endgame"
+		if levelreq >= 33 and levelreq < 55 then labSuggest= labstr[1] end
+		if levelreq >= 55 and levelreq < 68 then labSuggest= labstr[2] end
+		if levelreq >= 68 and levelreq < 75 then labSuggest= labstr[3] end
+		if levelreq >= 75 and levelreq < 90 then labSuggest= labstr[4] end
+		if levelreq < 90 then strAct = currentAct end
 		
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
-		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. cursor .. "\nQuest Skillpoints: " .. skillpoints[cursor] .. banditStr .. labSuggest
+		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints .. banditStr .. labSuggest
 		
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
