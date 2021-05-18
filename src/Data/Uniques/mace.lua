@@ -177,7 +177,7 @@ Skills Chain +1 times
 +300 Intelligence Requirement
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
-{variant:3,4}Trigger a Socketed Lightning Spell on Hit
+{variant:3,4}Trigger a Socketed Lightning Spell on Hit, with a 0.15 second Cooldown
 Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
