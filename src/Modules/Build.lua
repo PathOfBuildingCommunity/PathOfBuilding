@@ -174,7 +174,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 				
 		-- loop for how much quest skillpoints are used with the progress
 		repeat
-		  if PointsUsed >= acts[currentAct].level+acts[currentAct].questPoints then 
+		  if PointsUsed > acts[currentAct].level+acts[currentAct].questPoints then 
 			currentAct=currentAct+1 
 		  else 
 			break 
