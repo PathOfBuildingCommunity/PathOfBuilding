@@ -1318,16 +1318,7 @@ function calcs.defence(env, actor)
 			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
-					if guard[damageType] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
-						guard[damageType] = guard[damageType] - tempDamage
-						Damage[damageType] = Damage[damageType] - tempDamage
-					end
-					if guard["shared"] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100, guard["shared"])
-						guard["shared"] = guard["shared"] - tempDamage
-						Damage[damageType] = Damage[damageType] - tempDamage
-					end
+					--frost sheild goes here in this order when implemented
 					if aegis[damageType] > 0 then
 						local tempDamage = m_min(Damage[damageType], aegis[damageType])
 						aegis[damageType] = aegis[damageType] - tempDamage
@@ -1341,6 +1332,16 @@ function calcs.defence(env, actor)
 					if aegis["shared"] > 0 then
 						local tempDamage = m_min(Damage[damageType], aegis["shared"])
 						aegis["shared"] = aegis["shared"] - tempDamage
+						Damage[damageType] = Damage[damageType] - tempDamage
+					end
+					if guard[damageType] > 0 then
+						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
+						guard[damageType] = guard[damageType] - tempDamage
+						Damage[damageType] = Damage[damageType] - tempDamage
+					end
+					if guard["shared"] > 0 then
+						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100, guard["shared"])
+						guard["shared"] = guard["shared"] - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if energyShield > 0 and (not modDB:Flag(nil, "EnergyShieldProtectsMana")) and DamageIn[damageType.."EnergyShieldBypass"] < 100 then
