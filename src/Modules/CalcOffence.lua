@@ -968,6 +968,18 @@ function calcs.offence(env, actor, activeSkill)
 		["ManaPercent"] = "mana",
 		["LifePercent"] = "life",
 	}
+	-- First pass to calculate base costs.  Used for cost conversion (e.g. Petrified Blood)
+	for resource, name in pairs(names) do
+		local base = skillModList:Sum("BASE", skillCfg, resource.."CostBase")
+		local cost = base + (activeSkill.activeEffect.grantedEffectLevel.cost[resource] or 0)
+		if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
+			cost = m_max(cost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
+		end
+		output[resource.."Cost"] = cost
+	end
+	if skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") then
+		output["LifeCost"] = output["LifeCost"] + output["ManaCost"] * skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
+	end
 	for resource, name in pairs(names) do
 		local percent = resource == "ManaPercent" or resource == "LifePercent"
 		if isTriggered or activeSkill.activeEffect.grantedEffect.triggered then
@@ -977,35 +989,23 @@ function calcs.offence(env, actor, activeSkill)
 				local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
 				local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
 				local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
-				local base = skillModList:Sum("BASE", skillCfg, resource.."CostBase")
 				local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
-				local cost = base + (activeSkill.activeEffect.grantedEffectLevel.cost[resource] or 0)
-				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
-					cost = m_max(cost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
-				end
-				output[resource.."Cost"] = m_floor(cost * mult)
+				local baseCost = output[resource.."Cost"]
+				output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
 				output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
 				output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
 				output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
-				if resource == "Mana" and skillFlags.totem then
-					local reservedFlat = activeSkill.skillData.manaReservationFlat or activeSkill.activeEffect.grantedEffectLevel.manaReservationFlat or 0
+				if skillFlags.totem then
+					local reservedFlat = activeSkill.skillData[name.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationFlat"] or 0
 					output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
-					local reservedPercent = activeSkill.skillData.manaReservationPercent or activeSkill.activeEffect.grantedEffectLevel.manaReservationPercent or 0
+					local reservedPercent = activeSkill.skillData[name.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationPercent"] or 0
 					if reservedPercent ~= 0 then
-						skillModList:NewMod("ManaPercentCostBase", "BASE", reservedPercent, "Totem Reservation")
+						skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
 					end
 				end
-				if resource == "Life" and skillFlags.totem then
-					local reservedFlat = activeSkill.skillData.lifeReservationFlat or activeSkill.activeEffect.grantedEffectLevel.lifeReservationFlat or 0
-					output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
-					local reservedPercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
-					if reservedPercent ~= 0 then
-						skillModList:NewMod("LifePercentCostBase", "BASE", reservedPercent, "Totem Reservation")
-					end
-				end
-				if breakdown and output[resource.."Cost"] ~= cost then
+				if breakdown and output[resource.."Cost"] ~= baseCost then
 					breakdown[resource.."Cost"] = {
-						s_format("%d"..(percent and "%%" or "").." ^8(base "..name.." cost)", cost)
+						s_format("%d"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
 					}
 					if mult ~= 1 then
 						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
