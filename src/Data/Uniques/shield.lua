@@ -626,8 +626,8 @@ Requires Level 68, 159 Int
 10% increased maximum Life
 {variant:1,2}+25% to Lightning Resistance
 {variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
-{variant:3}2% increased Critical Strike Chance for Spells per 100 Maximum Life
-{variant:3}2% increased Spell Damage per 100 Maximum Life
+{variant:3}2% increased Critical Strike Chance for Spells per 100 Player Maximum Life
+{variant:3}2% increased Spell Damage per 100 Player Maximum Life
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
