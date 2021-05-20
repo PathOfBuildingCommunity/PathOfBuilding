@@ -127,9 +127,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
 	end)
-
-	-- Sets up UI elements and power report calculations
-	self:TogglePowerReport()
 	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
@@ -228,10 +225,12 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	if self.build.calcsTab.powerStat then
 		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
 	end
-	if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
-		self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
-	else
-		self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
+	if self.controls.powerReportList then
+		if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
+			self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
+		else
+			self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
+		end
 	end
 
 	SetDrawLayer(1)
