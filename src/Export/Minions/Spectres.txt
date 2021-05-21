@@ -194,3 +194,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__
 -- Flickershade
 #spectre Metadata/Monsters/Maligaro/SecretDesecrateMonster
+-- Trail Galecaller
+#spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre
