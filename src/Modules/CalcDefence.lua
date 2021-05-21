@@ -1292,6 +1292,18 @@ function calcs.defence(env, actor)
 	
 	-- helper function that itterativly reduces pools untill life hits 0 to determine the number of hits it would take with given damage to die
 	function numberOfHitsToDie(DamageIn)
+		local numHits = 0
+		
+		--check damage in isnt 0
+		for _, damageType in ipairs(dmgTypeList) do
+			numHits = numHits + DamageIn[damageType]
+		end
+		if numHits == 0 then
+			return m_huge
+		else
+			numHits = 0
+		end
+		
 		local life = output.LifeUnreserved or 0
 		local mana = output.ManaUnreserved or 0
 		local energyShield = output.EnergyShield or 0
@@ -1308,13 +1320,14 @@ function calcs.defence(env, actor)
 			end
 		end
 		
-		local numHits = 0
-		local itterMult = 1
-		while life > 0 and numHits < 1000 do
-			numHits = numHits + itterMult
+		local itterationMultiplier = 1
+		local maxHits = 10000 --arbitrary number needs to be moved to data.misc
+		maxHits = maxHits / ((DamageIn["c"] or 0) + 1)
+		while life > 0 and numHits < maxHits do
+			numHits = numHits + itterationMultiplier
 			local Damage = {}
 			for _, damageType in ipairs(dmgTypeList) do
-				Damage[damageType] = DamageIn[damageType] * itterMult
+				Damage[damageType] = DamageIn[damageType] * itterationMultiplier
 			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
@@ -1368,12 +1381,12 @@ function calcs.defence(env, actor)
 				end
 			end
 			if DamageIn.GainWhenHit and life > 0 then
-				life = m_min(life + DamageIn.LifeWhenHit * itterMult, output.LifeUnreserved or 0)
-				mana = m_min(mana + DamageIn.ManaWhenHit * itterMult, output.ManaUnreserved or 0)
-				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterMult, output.EnergyShield or 0)
+				life = m_min(life + DamageIn.LifeWhenHit * itterationMultiplier, output.LifeUnreserved or 0)
+				mana = m_min(mana + DamageIn.ManaWhenHit * itterationMultiplier, output.ManaUnreserved or 0)
+				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterationMultiplier, output.EnergyShield or 0)
 			end
 			--this is to speed this up
-			itterMult = 1
+			itterationMultiplier = 1
 			DamageIn["c"] = DamageIn["c"] or 0
 			local maxdepth = 4 --move to data.misc
 			local speedUp = 5 --move to data.misc
@@ -1386,7 +1399,7 @@ function calcs.defence(env, actor)
 				Damage.ManaWhenHite = DamageIn.ManaWhenHit or 0 * speedUp
 				Damage.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit or 0 * speedUp
 				Damage["c"] = DamageIn["c"] + 1
-				itterMult = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
+				itterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
 				DamageIn["c"] = maxdepth --only run once
 			end
 		end
