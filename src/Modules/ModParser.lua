@@ -929,6 +929,7 @@ local preFlagList = {
 	["^nearby enemies have "] = { applyToEnemy = true },
 	["^nearby enemies deal "] = { applyToEnemy = true },
 	["^nearby enemies "] = { applyToEnemy = true },
+	["^enemies near your totems deal "] = { applyToEnemy = true },
 	-- Other
 	["^your flasks grant "] = { },
 	["^when hit, "] = { },
@@ -1680,9 +1681,6 @@ local specialModList = {
 	["enemies near your totems take (%d+)%% increased physical and fire damage"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num) }),
 		mod("EnemyModifier", "LIST", { mod = mod("FireDamageTaken", "INC", num) }),
-	} end,
-	["enemies near your totems deal (%d+)%% less damage"] = function(num) return {
-		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -num) }),
 	} end,
 	["every %d+ seconds, gain (%d+)%% of physical damage as extra fire damage for %d+ seconds"] = function(_, num, _) return {
 		mod("PhysicalDamageGainAsFire", "BASE", num, { type = "Condition", var = "NgamahuFlamesAdvance" }),
