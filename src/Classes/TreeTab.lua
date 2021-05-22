@@ -180,15 +180,19 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 		self.controls.specSelect.y = -24
 		self.controls.specConvertText.y = -16
-		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
-		self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"BOTTOMLEFT", 0, 4)
+		if self.controls.powerReportList then
+			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"BOTTOMLEFT", 0, 4)
+		end
 	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
 		twoLineHeight = 0
 		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 0
 		self.controls.treeHeatMap.x = 130
-		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.specSelect.height + 4)
-		self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"TOPRIGHT", 8, 4)
+		if self.controls.powerReportList then
+			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.specSelect.height + 4)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"TOPRIGHT", 8, 4)
+		end
 	end
 
 	local bottomDrawerHeight = self.showPowerReport and 200 or 0
