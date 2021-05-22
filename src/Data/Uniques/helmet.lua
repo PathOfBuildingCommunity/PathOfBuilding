@@ -251,7 +251,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
 {variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
-{variant:2}Trigger a Socketed Spell when you Attack with a Bow
+{variant:2}Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
 (10-15)% increased Attack Speed
 (10-15)% increased Cast Speed
 +(100-120) to maximum Energy Shield
