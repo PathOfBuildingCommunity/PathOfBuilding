@@ -6688,7 +6688,7 @@ c["(25-35)% increased Fire Damage Damage Penetrates (2-4)% Fire Resistance"]={ni
 c["+30 Life gained for each Enemy hit by your Attacks"]={{[1]={flags=1,keywordFlags=0,name="LifeOnHit",type="BASE",value=30}},nil}
 c["Granite Flask Variant: Pre 2.2.0"]={nil,"Granite Flask Variant: Pre 2.2.0 "}
 c["You can inflict Bleeding on an Enemy up to 8 times"]={{[1]={flags=0,keywordFlags=0,name="BleedStacksMax",type="OVERRIDE",value=8}},nil}
-c["Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second"]={nil,"Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second "}
+c["Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second"]={{[1]={flags=0,keywordFlags=0,name="ExtraMinionSkill",type="LIST",value={skillId="ReplicaSiegebreakerBurningGround"}}},nil}
 c["Minions have 5% chance to Taunt on Hit with Attacks Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=65536,name="Life",type="BASE",value=5}}}}," to Taunt on Hit  Your Minions spread Caustic Ground on Death, dealing 20% of their  as Chaos Damage per second "}
 c["Searching Eye Jewel Requires Level 40"]={nil,"Searching Eye Jewel Requires Level 40 "}
 c["Minions have 5% chance to Taunt on Hit with Attacks"]={{}," to Taunt on Hit  "}
