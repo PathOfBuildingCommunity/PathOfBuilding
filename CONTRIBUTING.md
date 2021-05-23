@@ -123,7 +123,7 @@ Note: If you've configured a remote already, you can skip ahead to step 3.
 
        git push -f origin dev
 
-## Exporting GGPK Data from Path of Exile
+## Exporting GGPK data from Path of Exile
 
 Note: This tutorial assumes that you are already familiar with the GGPK and its structure. [poe-tool-dev/ggpk.discussion](https://github.com/poe-tool-dev/ggpk.discussion/wiki)
 is a good starting point.
