@@ -232,7 +232,7 @@ itemBases["Shadow Fangs"] = {
 	socketLimit = 3,
 	tags = { onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "Adds (23-33) to (45-60) Chaos Damage",
-	implicitModTypes = { { "damage", "chaos", "attack" }, },
+	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
 	weapon = { PhysicalMin = 13, PhysicalMax = 24, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 30, dex = 54, int = 54, },
 }
@@ -241,7 +241,7 @@ itemBases["Malign Fangs"] = {
 	socketLimit = 3,
 	tags = { onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "Adds (38-48) to (70-90) Chaos Damage",
-	implicitModTypes = { { "damage", "chaos", "attack" }, },
+	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
 	weapon = { PhysicalMin = 20, PhysicalMax = 37, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 50, dex = 86, int = 86, },
 }
@@ -250,7 +250,7 @@ itemBases["Void Fangs"] = {
 	socketLimit = 3,
 	tags = { onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "Adds (40-55) to (80-98) Chaos Damage",
-	implicitModTypes = { { "damage", "chaos", "attack" }, },
+	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 41, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 70, dex = 113, int = 113, },
 }

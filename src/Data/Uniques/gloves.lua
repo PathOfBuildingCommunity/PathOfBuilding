@@ -58,6 +58,16 @@ Requires Level 63, 100 Str
 {variant:4}+(200-250) Energy Shield gained on Killing a Shocked Enemy
 {variant:4}30% increased Effect of Lightning Ailments
 ]],[[
+Hateforge
+Ancient Gauntlets
+League: Ultimatum
+Requires Level 47, 68 Str
+Socketed Gems are Supported by Level 30 Rage
+(120-150)% increased Armour
+(10-25)% reduced Rage Cost of Skills
+Vaal Attack Skills Cost Rage instead of requiring Souls to Use
+You cannot gain Rage during Soul Gain Prevention
+]],[[
 Empire's Grasp
 Goliath Gauntlets
 Requires Level 53, 76 Str

@@ -5,11 +5,9 @@ local itemBases = ...
 #baseTags amulet
 
 #baseMatch Metadata/Items/Amulets/Amulet%d+
-#base Metadata/Items/Amulet/AmuletAtlas1
-#base Metadata/Items/Amulet/AmuletAtlas2
+#baseMatch Metadata/Items/Amulet/AmuletAtlas%d+
 #forceShow true
-#base Metadata/Items/Amulets/AmuletE1
-#base Metadata/Items/Amulets/AmuletE2
+#baseMatch Metadata/Items/Amulets/AmuletE%d+
 #forceShow false
 #base Metadata/Items/Amulet/AmuletVictor1
 
