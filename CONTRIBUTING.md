@@ -2,40 +2,40 @@
 
 ## Reporting bugs
 
-#### Before creating an issue:
+### Before creating an issue:
 * Check that the bug hasn't been reported in an existing issue. View similar issues on the left of the submit button.
 * Make sure you are running the latest version of the program. Click "Check for Update" in the bottom left corner.
 * If you've found an issue with offence or defence calculations, make sure you check the breakdown for that calculation in the Calcs tab to see how it is being performed, as this may help you find the cause.
 
-#### When creating an issue:
+### When creating an issue:
 * Please provide detailed instructions on how to reproduce the bug, if possible.
 * Provide the build share code to a build that is affected by the bug, if possible. In the "Import/Export Build" tab, click "Generate", then "Share with Pastebin" and add the link to your post.
 
 ## Requesting features
 Feature requests are always welcome. Note that not all requests will receive an immediate response.
 
-#### Before submitting a feature request:
+### Before submitting a feature request:
 * Check that the feature hasn't already been requested. Look at all issues with titles that might be related to the feature.
 * Make sure you are running the latest version of the program, as the feature may already have been added. Click "Check for Update" in the bottom left corner.
 
-#### When submitting a feature request:
+### When submitting a feature request:
 * Be specific! The more details, the better.
 * Small requests are fine, even if it's just adding support for a minor modifier on a rarely-used unique.
 
 ## Contributing code
 
-#### Before submitting a pull request:
+### Before submitting a pull request:
 * Familiarise yourself with the code base [here](docs/rundown.md) to get you started.
 * There is a [Discord](https://discordapp.com/) server for **active development** on the fork and members are happy to answer your questions there.
   If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invitation.
 
-#### When submitting a pull request:
+### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
 * Make sure that the changes have been thoroughly tested!
 * Make sure not to commit `./src/Data/ModCache.lua`. This is a very large, automatically generated file that is updated in the repository for releases only.
 * There are many more files in the `./src/Data` directory that are automatically generated. To change these, instead change the scripts in the `./src/Export` directory.
 
-#### Setting up a development installation
+## Setting up a development installation
 Note: This tutorial assumes that you are already familiar with Git.
 
 The easiest way to make and test changes is by setting up a development installation, in which the program runs directly from a local copy of the repository:
@@ -59,7 +59,7 @@ You can now use the shortcut to run the program from the repository. Running the
 
 Note that automatic updates are disabled in Dev Mode, so you must update manually.
 
-#### Keeping your fork up to date
+## Keeping your fork up to date
 
 Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
 
@@ -84,7 +84,7 @@ Note: If you've configured a remote already, you can skip ahead to step 3.
 
        git push -f origin dev
 
-#### Setting up a development environment
+## Setting up a development environment
 
 Note: This tutorial assumes that you are already familiar with the development tool of your choice.
 
@@ -92,7 +92,7 @@ If you want to use a text editor, [Visual Studio Code](https://code.visualstudio
 If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) are recommended.
 They are all free and open source and support [EmmyLua](https://github.com/EmmyLua), a Lua plugin that comes with a language server, debugger and many pleasant features. It is recommended to use it over the built-in Lua plugins.
 
-##### Visual Studio Code
+### Visual Studio Code
 
 1. Create a new 'Debug Configuration' of type 'EmmyLua New Debug'
 2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
@@ -110,7 +110,7 @@ dbg.tcpListen('localhost', 9966)
 5. Start Path of Building Community
 6. Attach the debugger
 
-##### PyCharm Community / IntelliJ Idea Community
+### PyCharm Community / IntelliJ Idea Community
 
 1. Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
 2. Select 'x86' version.
@@ -119,7 +119,7 @@ dbg.tcpListen('localhost', 9966)
 5. Start Path of Building Community
 6. Attach the debugger
 
-#### Exporting GGPK Data from Path of Exile
+## Exporting GGPK Data from Path of Exile
 
 Note: This tutorial assumes that you are already familiar with the GGPK and its structure. [poe-tool-dev/ggpk.discussion](https://github.com/poe-tool-dev/ggpk.discussion/wiki)
 is a good starting point.
