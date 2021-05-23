@@ -59,31 +59,6 @@ You can now use the shortcut to run the program from the repository. Running the
 
 Note that automatic updates are disabled in Dev Mode, so you must update manually.
 
-## Keeping your fork up to date
-
-Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
-
-Note: If you've configured a remote already, you can skip ahead to step 3.
-
-1. Add a new remote repository and name it `upstream`.
-
-       git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
-2. Verify that adding the remote worked.
-
-       git remote -v
-3. Fetch all branches and their commits from upstream.
-
-       git fetch upstream
-4. Check out your local `dev` branch if you haven't already.
-
-       git checkout dev
-5. Merge all changes from `upstream/dev` into your local `dev` branch.
-
-       git rebase upstream/dev
-6. Push your updated branch to GitHub.
-
-       git push -f origin dev
-
 ## Setting up a development environment
 
 Note: This tutorial assumes that you are already familiar with the development tool of your choice.
@@ -118,6 +93,31 @@ dbg.tcpListen('localhost', 9966)
 4. Copy the generated code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`.
 5. Start Path of Building Community
 6. Attach the debugger
+
+## Keeping your fork up to date
+
+Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
+
+Note: If you've configured a remote already, you can skip ahead to step 3.
+
+1. Add a new remote repository and name it `upstream`.
+
+       git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
+2. Verify that adding the remote worked.
+
+       git remote -v
+3. Fetch all branches and their commits from upstream.
+
+       git fetch upstream
+4. Check out your local `dev` branch if you haven't already.
+
+       git checkout dev
+5. Merge all changes from `upstream/dev` into your local `dev` branch.
+
+       git rebase upstream/dev
+6. Push your updated branch to GitHub.
+
+       git push -f origin dev
 
 ## Exporting GGPK Data from Path of Exile
 
