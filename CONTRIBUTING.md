@@ -63,9 +63,13 @@ Note that automatic updates are disabled in Dev Mode, so you must update manuall
 
 Note: This tutorial assumes that you are already familiar with the development tool of your choice.
 
-If you want to use a text editor, [Visual Studio Code](https://code.visualstudio.com/) is recommended.
-If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) are recommended.
-They are all free and open source and support [EmmyLua](https://github.com/EmmyLua), a Lua plugin that comes with a language server, debugger and many pleasant features. It is recommended to use it over the built-in Lua plugins.
+If you want to use a text editor, [Visual Studio Code](https://code.visualstudio.com/) (proprietary) is recommended.
+If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) (open source) are recommended.
+They are all free and support [EmmyLua](https://github.com/EmmyLua), a Lua plugin that comes with a language server, debugger and many pleasant features.
+It is recommended to use it over the built-in Lua plugins.
+
+Please note that EmmyLua is not available for other editors based on Visual Studio Code,
+such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org).
 
 ### Visual Studio Code
 
