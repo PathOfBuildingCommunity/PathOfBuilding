@@ -30,7 +30,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
   If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invitation.
 
 ### When submitting a pull request:
-* **Pull requests must be made against the "dev" branch**, as all changes to the code are staged there before merging to "master".
+* **Pull requests must be made against the `dev` branch**, as all changes to the code are staged there before merging to `master`.
 * Make sure that the changes have been thoroughly tested!
 * Make sure not to commit `./src/Data/ModCache.lua`. This is a very large, automatically generated file that is updated in the repository for releases only.
 * There are many more files in the `./src/Data` directory that are automatically generated. To change these, instead change the scripts in the `./src/Export` directory.
