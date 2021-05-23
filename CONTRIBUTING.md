@@ -30,7 +30,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
   If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invitation.
 
 ### When submitting a pull request:
-* **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
+* **Pull requests must be made against the "dev" branch**, as all changes to the code are staged there before merging to "master".
 * Make sure that the changes have been thoroughly tested!
 * Make sure not to commit `./src/Data/ModCache.lua`. This is a very large, automatically generated file that is updated in the repository for releases only.
 * There are many more files in the `./src/Data` directory that are automatically generated. To change these, instead change the scripts in the `./src/Export` directory.
@@ -45,7 +45,7 @@ The easiest way to make and test changes is by setting up a development installa
        git clone -b dev https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
 2. Start Path of Building from the repository by running `./runtime/Path of Building.exe`.
 
-You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables 'Dev Mode', which has some handy debugging feature:
+You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables "Dev Mode", which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
 * `Ctrl` + `~` toggles the console (Note that this does not work with all keyboard layouts. US layout is a safe bet though).
 * `ConPrintf()` can be used to output to the console. Search for "===" in the project files if you want to get rid of the default debugging strings.
@@ -73,16 +73,16 @@ such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.or
 
 ### Visual Studio Code
 
-1. Create a new 'Debug Configuration' of type 'EmmyLua New Debug'
+1. Create a new "Debug Configuration" of type "EmmyLua New Debug"
 2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
 3. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x86. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86`.
 4. Paste the following code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`:
   ```lua
 -- This is the path to emmy_core.dll. The ?.dll at the end is intentional.
-package.cpath = package.cpath .. ';C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86/?.dll'
-local dbg = require('emmy_core')
+package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86/?.dll"
+local dbg = require("emmy_core")
 -- This port must match the Visual Studio Code configuration. Default is 9966.
-dbg.tcpListen('localhost', 9966)
+dbg.tcpListen("localhost", 9966)
 -- Uncomment the next line if you want Path of Building to block until the debugger is attached
 --dbg.waitIDE()
   ```
@@ -91,8 +91,8 @@ dbg.tcpListen('localhost', 9966)
 
 ### PyCharm Community / IntelliJ Idea Community
 
-1. Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
-2. Select 'x86' version.
+1. Create a new "Debug Configuration" of type "Emmy Debugger(NEW)".
+2. Select "x86" version.
 3. Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
 4. Copy the generated code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`.
 5. Start Path of Building Community
