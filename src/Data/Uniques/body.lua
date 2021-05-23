@@ -207,7 +207,7 @@ Wildwrap
 Strapped Leather
 Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
 Requires Level 57, 32 Dex
-(5-8)% increased Attack Speed
+10% increased Attack Speed
 +(600-700) to Evasion Rating
 +(30-40)% to Cold Resistance
 5% increased Movement Speed
@@ -350,7 +350,7 @@ Requires Level 65, 197 Dex
 +(50-80) to maximum Life
 -30% to Cold Resistance
 (5-10)% increased Dexterity
-100% reduced Arctic Armour Mana Reservation
+Arctic Armour has 100% reduced Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Phase Acrobatics
 ]],[[
@@ -362,7 +362,7 @@ Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
 +(50-80) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has 100% reduced Mana Reservation
+Flesh and Stone has 100% reduced Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Hollow Palm Technique
 ]],[[
@@ -696,7 +696,7 @@ Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 69, 95 Str, 116 Dex
 (100-150)% increased Armour and Evasion
 +(90-100) to maximum Life
-Aspect of the Cat Reserves no Mana
+Aspect of the Cat has no Reservation
 +2 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
 You have Phasing while you have Cat's Stealth
@@ -708,7 +708,7 @@ Requires Level 69, 95 Str, 116 Dex
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
 +2.00 seconds to Cat's Agility Duration
-Aspect of the Cat Reserves no Mana
+Aspect of the Cat has no Reservation
 Gain up to your maximum number of Frenzy and Endurance Charges when you gain Cat's Agility
 You have Onslaught while you have Cat's Agility
 ]],[[
@@ -1109,7 +1109,7 @@ Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 65, 107 Dex, 90 Int
 +(25-75) to all Attributes
 +(30-40)% to Lightning Resistance
-(6-10)% reduced Mana Reserved
+(6-10)% reduced Reservation of Skills
 100% increased Aspect of the Avian Buff Effect
 Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
 +(120-150) to Evasion Rating and Energy Shield
@@ -1161,8 +1161,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
-{variant:1}Socketed Gems have 20% reduced Mana Reservation
-{variant:2}Socketed Gems have 30% reduced Mana Reservation
+{variant:1}Socketed Gems have 20% reduced Reservation
+{variant:2}Socketed Gems have 30% reduced Reservation
 {variant:1}Socketed Gems are Supported by level 1 Generosity
 {variant:2}Socketed Gems are Supported by level 30 Generosity
 (120-150)% increased Evasion and Energy Shield

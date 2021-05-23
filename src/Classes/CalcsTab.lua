@@ -215,6 +215,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	local baseX = viewPort.x + 4
 	local baseY = viewPort.y + 4
 	local maxCol = m_floor(viewPort.width / (self.colWidth + 8))
+	if main.portraitMode then maxCol = 3 end
 	local colY = { }
 	local maxY = 0
 	for _, section in ipairs(self.sectionList) do
@@ -241,7 +242,9 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			elseif section.group == 2 then
 				-- Group 2: Defense (the first 4 sections)
 				-- This group is put entirely into the 4th column
-				col = 4
+				if maxCol >= 4 then
+					col = 4
+				end
 			elseif section.group == 3 then
 				-- Group 3: Defense (the remaining sections)
 				-- This group is put into a 5th column if there's room for one, otherwise they are handled separately
@@ -266,8 +269,8 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			colY[c] = m_max(colY[1], colY[2], colY[3])
 		end
 		for _, section in ipairs(self.sectionList) do
-			if section.enabled and section.group == 3 then
-				local col = 4
+			if section.enabled and (main.portraitMode and section.group == 2 or section.group == 3) then
+				local col = 3
 				if colY[col] + section.height + 4 >= m_max(viewPort.y + viewPort.height, maxY) then
 					-- No room in the 4th column, find the highest available location in columns 1-4
 					local minY = colY[col]

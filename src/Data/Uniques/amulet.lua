@@ -129,23 +129,23 @@ Implicits: 1
 {variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
 {tags:critical}{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
 {variant:17}{tags:jewellery_defense}(15-20)% increased Global Defences
-{variant:1}Anger Reserves no Mana
-{variant:2}Determination Reserves no Mana
-{variant:3}Pride Reserves no Mana
-{variant:4}Purity of Fire Reserves no Mana
-{variant:5}Vitality Reserves no Mana
-{variant:6}Grace Reserves no Mana
-{variant:7}Haste Reserves no Mana
-{variant:8}Hatred Reserves no Mana
-{variant:9}Purity of Ice Reserves no Mana
-{variant:10}Clarity Reserves no Mana
-{variant:11}Discipline Reserves no Mana
-{variant:12}Malevolence Reserves no Mana
-{variant:13}Purity of Elements Reserves no Mana
-{variant:14}Purity of Lightning Reserves no Mana
-{variant:15}Wrath Reserves no Mana
-{variant:16}Zealotry Reserves no Mana
-{variant:17}Envy Reserves no Mana
+{variant:1}Anger has no Reservation
+{variant:2}Determination has no Reservation
+{variant:3}Pride has no Reservation
+{variant:4}Purity of Fire has no Reservation
+{variant:5}Vitality has no Reservation
+{variant:6}Grace has no Reservation
+{variant:7}Haste has no Reservation
+{variant:8}Hatred has no Reservation
+{variant:9}Purity of Ice has no Reservation
+{variant:10}Clarity has no Reservation
+{variant:11}Discipline has no Reservation
+{variant:12}Malevolence has no Reservation
+{variant:13}Purity of Elements has no Reservation
+{variant:14}Purity of Lightning has no Reservation
+{variant:15}Wrath has no Reservation
+{variant:16}Zealotry has no Reservation
+{variant:17}Envy has no Reservation
 ]],[[
 The Aylardex
 Agate Amulet
@@ -380,7 +380,7 @@ Implicits: 32
 {variant:9}(40-60)% increased Global Physical Damage
 {variant:10}(40-60)% increased maximum Mana
 {variant:11}(50-70)% increased Damage
-{variant:12}(8-12)% increased Physical Damage Reduction
+{variant:12}(8-12)% additional Physical Damage Reduction
 {variant:13}(8-12)% chance to Freeze, Shock and Ignite
 {variant:14}(80-100)% increased Global Critical Strike Chance
 {variant:15}(10-16)% increased Area of Effect
@@ -494,7 +494,7 @@ Grants Level 22 Precision Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
 {tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
-{tags:mana}Precision has 50% less Mana Reservation
+Precision has 50% less Reservation
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
@@ -508,7 +508,7 @@ Grants Level 22 Hatred Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-{tags:mana}Hatred has 50% less Mana Reservation
+Hatred has 50% less Reservation
 ]],[[
 The Ignomon
 Gold Amulet
@@ -563,11 +563,11 @@ Implicits: 1
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
 {variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}Vulnerability has 100% reduced Mana Reservation if Cast as an Aura
-{variant:2}Flammability has 100% reduced Mana Reservation if Cast as an Aura
-{variant:3}Frostbite has 100% reduced Mana Reservation if Cast as an Aura
-{variant:4}Conductivity has 100% reduced Mana Reservation if Cast as an Aura
-{variant:5}Despair has 100% reduced Mana Reservation if Cast as an Aura
+{variant:1}Vulnerability has 100% reduced Reservation if Cast as an Aura
+{variant:2}Flammability has 100% reduced Reservation if Cast as an Aura
+{variant:3}Frostbite has 100% reduced Reservation if Cast as an Aura
+{variant:4}Conductivity has 100% reduced Reservation if Cast as an Aura
+{variant:5}Despair has 100% reduced Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 Elder Item
 ]],[[
@@ -656,7 +656,8 @@ Implicits: 1
 {tags:critical}{variant:1}60% less Critical Strike Chance
 {tags:critical}{variant:2}50% less Critical Strike Chance
 {tags:critical}{variant:3,4,5}40% less Critical Strike Chance
-Your Critical Strikes have Culling Strike
+{variant:1,2,3,4}Your Critical Strikes have Culling Strike
+{variant:5}Critical Strikes have Culling Strike
 ]],[[
 Natural Hierarchy
 Rotfeather Talisman
@@ -821,7 +822,7 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Mana Reservation
+{tags:mana}Temporal Chains has 100% reduced Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast

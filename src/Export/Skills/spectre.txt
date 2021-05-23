@@ -823,3 +823,11 @@ local skills, mod, flag, skill = ...
 #skill SecretDesecrateMonsterMultiSlash Multi Slash
 #flags attack hit area triggerable
 #mods
+
+#skill UltimatumGuardMeleeCold Cold Arrow
+#flags attack projectile melee
+#mods
+
+#skill UltimatumGuardConeArrowCold Cone Arrow
+#flags attack hit area triggerable
+#mods

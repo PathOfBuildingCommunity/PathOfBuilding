@@ -238,6 +238,11 @@ end
 function main:OnFrame()
 	self.screenW, self.screenH = GetScreenSize()
 
+	if self.screenH > self.screenW then
+		self.portraitMode = true
+	else
+		self.portraitMode = false
+	end
 	while self.newMode do
 		if self.mode then
 			self:CallMode("Shutdown")

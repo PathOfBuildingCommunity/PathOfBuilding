@@ -110,7 +110,7 @@ Requires Level 64, 138 Dex
 +(20-30)% to Cold Resistance
 25% chance to Avoid being Chilled
 Cannot be Frozen
-8% reduced Mana Reserved
+8% reduced Reservation of Skills
 ]],[[
 Replica Alpha's Howl
 Sinner Tricorne
@@ -120,7 +120,7 @@ Requires Level 64, 138 Dex
 (80-100)% increased Evasion Rating
 +(20-30)% to Chaos Resistance
 25% chance to Avoid being Poisoned
-8% reduced Mana Reserved
+8% reduced Reservation of Skills
 You cannot be Hindered
 ]],[[
 Assailum
@@ -251,7 +251,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
 {variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
-{variant:2}Trigger a Socketed Spell when you Attack with a Bow
+{variant:2}Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
 (10-15)% increased Attack Speed
 (10-15)% increased Cast Speed
 +(100-120) to maximum Energy Shield
@@ -358,7 +358,7 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 +1 to Level of Socketed Gems
-Socketed Gems have 20% reduced Mana Reservation
+Socketed Gems have 20% reduced Reservation
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -459,7 +459,7 @@ Requires Level 69, 154 Int
 (6-10)% increased maximum Mana
 Recover (8-10)% of maximum Life when you use a Mana Flask
 Non-instant Mana recovery from Flasks is also recovered as Life
-(50-60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
+(50-60)% increased Cost of Skills for each 200 total Mana Spent Recently
 {variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 Shaper Item
@@ -865,8 +865,8 @@ Corrupted
 Mask of the Spirit Drinker
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Magistrate Crown
 {variant:1}Crusader Helmet
+{variant:2}Magistrate Crown
 League: Incursion
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
 {variant:1}Requires Level 31, 36 Str, 36 Int
@@ -906,7 +906,7 @@ Requires Level 58, 64 Str, 64 Int
 Nearby Allies have (4-6)% increased Defences per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
-1% reduced Mana Reserved per 250 total attributes
+1% reduced Reservation of Skills per 250 total Attributes
 ]],[[
 Maw of Mischief
 Bone Helmet
@@ -927,7 +927,7 @@ Requires Level 68, 62 Str, 91 Int
 +(150-200) to maximum Mana
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
-10% increased Mana Reserved
+10% increased Reservation of Skills
 Gain Armour equal to your Reserved Mana
 ]],[[
 Mindspiral
@@ -1042,10 +1042,32 @@ Vaal Mask
 League: Ultimatum
 Requires Level 62, 79 Dex, 72 Int
 Implicits: 1
-Variant: 1
-Variant: 2
+Variant: Area of Effect
+Variant: Blind
+Variant: Mana Cost + Reservation
+Variant: Curse Effect
+Variant: Skill Effect Duration
+Variant: Crushed
+Variant: +2 Gems
+Variant: Minimum Charges
+Variant: Cooldown Recovery
+Variant: Aura Effect
+Variant: Additional Projectile
+Variant: Malediction
+Variant: Quantity
 {variant:1}(15-25)% increased Area of Effect
 {variant:2}Nearby Enemies are Blinded
+{variant:3}Socketed Skill Gems get a 80% Cost & Reservation Multiplier
+{variant:4}(10-15)% increased Effect of your Curses
+{variant:5}(15-25)% increased Skill Effect Duration
+{variant:6}Nearby Enemies are Crushed
+{variant:7}+2 to Level of Socketed Gems
+{variant:8}+1 to Minimum Endurance, Frenzy and Power Charges
+{variant:9}(8-12)% increased Cooldown Recovery Rate
+{variant:10}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:11}Skills fire an additional Projectile
+{variant:12}Nearby Enemies have Malediction
+{variant:13}(5-7)% increased Quantity of Items found
 Can be modified while Corrupted
 (30-40)% increased maximum Life and reduced Fire Resistance
 (30-40)% increased maximum Mana and reduced Cold Resistance
@@ -1095,7 +1117,7 @@ Requires Level 67, 73 Dex, 88 Int
 {variant:1}+2 to Level of Socketed Curse Gems
 {variant:2,3}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-Socketed Curse Gems have 12% reduced Mana Reservation
+Socketed Curse Gems have 12% reduced Reservation
 ]],[[
 Leer Cast
 Festival Mask

@@ -2372,7 +2372,7 @@ skills["Exsanguinate"] = {
 	baseMods = {
 		skill("debuff", true),
 		mod("Multiplier:ExsanguinateMaxStagesAfterFirst", "BASE", 2),
-		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
+		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
 	},
 	qualityStats = {
 		Default = {
@@ -4627,7 +4627,7 @@ skills["Punishment"] = {
 	castTime = 0.5,
 	statMap = {
 		["damage_taken_+%_on_low_life"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "CurseBuff" }, { type = "ActorCondition", actor = "enemy", var="LowLife" }),
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "LowLife"}),
 		},
 	},
 	baseFlags = {
