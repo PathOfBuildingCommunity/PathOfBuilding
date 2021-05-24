@@ -1522,6 +1522,9 @@ return {
 ["base_life_reservation_+%"] = {
 	mod("LifeReserved", "INC", nil)
 },
+["base_reservation_+%"] = {
+	mod("Reserved", "INC", nil)
+},
 -- Brand
 ["sigil_attached_target_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
