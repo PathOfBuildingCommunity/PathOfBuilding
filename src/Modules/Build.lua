@@ -194,10 +194,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
 		local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
 		local strAct = "Endgame"
-		if levelreq >= 33 and levelreq < 55 then labSuggest= labstr[1] end
-		if levelreq >= 55 and levelreq < 68 then labSuggest= labstr[2] end
-		if levelreq >= 68 and levelreq < 75 then labSuggest= labstr[3] end
-		if levelreq >= 75 and levelreq < 90 then labSuggest= labstr[4] end
+		if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1] end
+		if levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2] end
+		if levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3] end
+		if levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
 		if levelreq < 90 then strAct = currentAct end
 		
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
