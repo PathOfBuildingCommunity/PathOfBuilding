@@ -1916,7 +1916,8 @@ skills["SupportIncreasedDuration"] = {
 			{ "skill_effect_duration_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "base_cost_+%", -1 },
+			{ "base_mana_cost_-%", 1 },
+			{ "base_life_cost_+%", -1 },
 			{ "skill_effect_duration_+%", -0.5 },
 		},
 		Alternate2 = {

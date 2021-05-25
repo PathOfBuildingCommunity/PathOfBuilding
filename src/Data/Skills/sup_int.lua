@@ -1803,7 +1803,8 @@ skills["SupportEfficacy"] = {
 			{ "skill_effect_duration_+%", 0.5 },
 		},
 		Alternate2 = {
-			{ "base_cost_+%", -0.5 },
+			{ "base_mana_cost_-%", 0.5 },
+			{ "base_life_cost_+%", -0.5 },
 		},
 	},
 	stats = {

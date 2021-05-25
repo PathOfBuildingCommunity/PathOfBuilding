@@ -1971,7 +1971,8 @@ skills["SupportGreaterMultipleProjectiles"] = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "base_cost_+%", -1 },
+			{ "base_mana_cost_-%", 1 },
+			{ "base_life_cost_+%", -1 },
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -2416,7 +2417,8 @@ skills["SupportLesserMultipleProjectiles"] = {
 			{ "base_cast_speed_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "base_cost_+%", -1 },
+			{ "base_mana_cost_-%", 1 },
+			{ "base_life_cost_+%", -1 },
 			{ "base_projectile_speed_+%", 0.5 },
 		},
 		Alternate2 = {
@@ -3693,7 +3695,8 @@ skills["SupportTrapAndMineDamage"] = {
 			{ "damage_+%", 0.5 },
 		},
 		Alternate1 = {
-			{ "base_cost_+%", -0.5 },
+			{ "base_mana_cost_-%", 0.5 },
+			{ "base_life_cost_+%", -0.5 },
 			{ "base_reservation_+%", -0.5 },
 		},
 		Alternate2 = {

@@ -5307,6 +5307,7 @@ skills["UltimatumGuardMeleeCold"] = {
 	name = "Cold Arrow",
 	hidden = true,
 	color = 4,
+	baseEffectiveness = 0,
 	description = "Strike your foes down with a powerful blow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",

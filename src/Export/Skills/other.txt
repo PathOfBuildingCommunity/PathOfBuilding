@@ -380,7 +380,7 @@ local skills, mod, flag, skill = ...
 #flags attack area melee
 	fromItem = true,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
+		activeSkill.skillData.timeOverride = output.Cooldown
 	end,
 #mods
 
