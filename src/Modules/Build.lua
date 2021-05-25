@@ -170,7 +170,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			[8] = { level = 60, questPoints = 17},
 			[9] = { level = 64, questPoints = 19},
 			[10] = { level = 67, questPoints = 22}
-			}
+		}
 				
 		-- loop for how much quest skillpoints are used with the progress
 		repeat
