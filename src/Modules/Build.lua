@@ -173,13 +173,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		}
 				
 		-- loop for how much quest skillpoints are used with the progress
-		repeat
-		  if PointsUsed > acts[currentAct].level+acts[currentAct].questPoints then 
-			currentAct=currentAct+1 
-		  else 
-			break 
-		  end
-		until currentAct>=10
+		while currentAct < 10 and PointsUsed > acts[currentAct].level + acts[currentAct].questPoints do
+			currentAct = currentAct + 1
+		end
 
 		-- bandits notification; when considered and in calculation after act 2
 		if currentAct >= 2 and bandit ~= 0 then
