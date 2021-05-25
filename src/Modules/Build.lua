@@ -182,7 +182,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		until currentAct>=10
 
 		-- bandits notification; when considered and in calculation after act 2
-		if (currentAct >=2 and bandit ~= 0) then
+		if currentAct >= 2 and bandit ~= 0 then
 			banditStr = "\nBandits Skillpoints: " .. bandit
 		end
 		
