@@ -131,8 +131,18 @@ is a good starting point.
 The `./src/Data` folder contains generated files which are created using the scripts in the `./src/Export/Scripts` folder based on Path of Exile game data. 
 If you change any logic/configuration in `./src/Export`, you will need to regenerate the appropriate `./src/Data` files. You can do so by running the `./src/Export` scripts using the `.dat` viewer at `./src/Export/Launch.lua`:
 
-1. Obtain a copy of an OOZ extractor and copy it into `./src/Export/ggpk/`.
-2. Create a shortcut to `./runtime/Path of Building.exe` with the path to `./src/Export/Launch.lua` as first argument. You should end up with something like: `"<path to repo>\runtime\Path of Building.exe" "<path to repo>\src\Export\Launch.lua"`.
+### Obtain an Oodle extractor
+Note: For this tutorial, you will need a working installation of [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/)
+as well as some familiarity with build tools such as [CMake](https://cmake.org).
+1. In Visual Studio, clone the following repository using this command:
+
+        git clone -b master https://github.com/zao/ooz
+2. Configure CMake.
+3. Build `bun_extract_file.exe`, `libbun.dll` and `libooz.dll`.
+
+### Set up the exporter   
+1. Copy `bun_extract_file.exe`, `libbun.dll` and `libooz.dll` to `./src/Export/ggpk/`.
+2. Create a shortcut to `./runtime/Path{space}of{space}Building.exe` with the path to `./src/Export/Launch.lua` as first argument. You should end up with something like: `"<path to repo>\runtime\Path{space}of{space}Building.exe" "<path to repo>\src\Export\Launch.lua"`.
 3. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building Community.
 4. Paste the path to `Content.ggpk` (or, for Steam users, `C:\Program Files (x86)\Steam\steamapps\common\Path of Exile`) into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `Data` section.
 5. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
