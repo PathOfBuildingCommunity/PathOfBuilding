@@ -651,7 +651,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 				if calcFunc then
 					local storedQuality = self.displayGroup.gemList[index].quality
-					self.displayGroup.gemList[index].quality = 20;
+					self.displayGroup.gemList[index].quality = 20
 					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 					local output = calcFunc({}, {})
