@@ -43,7 +43,7 @@ The easiest way to make and test changes is by setting up a development installa
 1. Clone the repository using this command:
 
        git clone -b dev https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
-2. Start Path of Building from the repository by running `./runtime/Path of Building.exe`.
+2. Start Path of Building from the repository by running `./runtime/Path{space}of{space}Building.exe`.
 
 You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables "Dev Mode", which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
