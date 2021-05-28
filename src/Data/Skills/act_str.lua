@@ -4556,6 +4556,7 @@ skills["PhysicalDamageAura"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {

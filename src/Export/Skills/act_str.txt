@@ -807,6 +807,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
+#baseMod skill("radius", 40)	
 #mods
 
 #skill Punishment
