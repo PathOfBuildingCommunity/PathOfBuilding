@@ -351,6 +351,7 @@ local skills, mod, flag, skill = ...
 #skill FireBurstOnHit
 #flags spell area
 	fromItem = true,
+#baseMod skill("radius", 24)
 #mods
 
 #skill AtziriUniqueStaffFlameblast

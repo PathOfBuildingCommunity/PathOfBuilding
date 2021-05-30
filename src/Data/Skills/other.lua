@@ -1224,6 +1224,7 @@ skills["FireBurstOnHit"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 24),
 	},
 	qualityStats = {
 	},
