@@ -700,7 +700,7 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
 {variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
-{variant:2}{tags:life}Recover (20-30) Life Gained on Igniting an Enemy
+{variant:2}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 15% increased Ignite Duration on Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
 {variant:2}{tags:jewellery_elemental}10% chance to Ignite
