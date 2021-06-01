@@ -2563,7 +2563,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				tooltip:AddLine(14, stat)
 			end
 		end
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 		local output = calcFunc({ toggleFlask = item }, {})
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		local header
 		if self.build.calcsTab.mainEnv.flasks[item] then
 			header = "^7Deactivating this flask will give you:"
