@@ -121,6 +121,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 	end
 	local searchStr = self.controls.search.buf:lower()
 	if searchStr:match("%S") then
+		searchStr = searchStr:gsub("([^%w ])", "%%%1"):gsub("%%%*", "%.%*")
 		local found = false
 		local mode = self.controls.searchMode.selIndex
 		if mode == 1 or mode == 2 then
@@ -130,19 +131,19 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		end
 		if mode == 1 or mode == 3 then
 			for _, line in pairs(item.enchantModLines) do
-				if line.line:lower():find(searchStr, 1, true) then
+				if line.line:lower():find(searchStr, 1, false) then
 					found = true
 					break
 				end
 			end
 			for _, line in pairs(item.implicitModLines) do
-				if line.line:lower():find(searchStr, 1, true) then
+				if line.line:lower():find(searchStr, 1, false) then
 					found = true
 					break
 				end
 			end
 			for _, line in pairs(item.explicitModLines) do
-				if line.line:lower():find(searchStr, 1, true) then
+				if line.line:lower():find(searchStr, 1, false) then
 					found = true
 					break
 				end
@@ -150,7 +151,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			if not found then
 				searchStr = searchStr:gsub(" ","")
 				for i, mod in ipairs(item.baseModList) do
-					if mod.name:lower():find(searchStr, 1, true) then
+					if mod.name:lower():find(searchStr, 1, false) then
 						found = true
 						break
 					end
