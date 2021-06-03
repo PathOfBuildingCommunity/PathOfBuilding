@@ -661,6 +661,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						key = "NormalItem"
 					end
 					env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
+					env.itemModDB.conditions[key .. "In" .. slotName] = true
 					if item.corrupted then
 						env.itemModDB.multipliers.CorruptedItem = (env.itemModDB.multipliers.CorruptedItem or 0) + 1
 					else
