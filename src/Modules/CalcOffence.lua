@@ -561,18 +561,29 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on seals count
 		output.SealCooldown = skillModList:Sum("BASE", skillCfg, "SealGainFrequency")  / calcLib.mod(skillModList, skillCfg, "SealGainFrequency") /  1000
 		output.SealMax = skillModList:Sum("BASE", skillCfg, "SealCount")
+		output.TimeMaxSeals = output.SealCooldown * output.SealMax
+
 		if not skillData.hitTimeOverride then
-			skillData.dpsMultiplier = 1 + 1 / output.SealCooldown / (1 / activeSkill.activeEffect.grantedEffect.castTime * 1.1 * calcLib.mod(skillModList, skillCfg, "Speed") * output.ActionSpeedMod) * calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty")
+			if skillModList:Flag(nil, "UseMaxUnleash") then
+				for i, value in ipairs(skillModList:Tabulate("INC",  { }, "MaxSealCrit")) do
+					local mod = value.mod
+					skillModList:NewMod("CritChance", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				end
+				skillData.dpsMultiplier = (1 + output.SealMax * calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty"))
+				skillData.hitTimeOverride = output.TimeMaxSeals
+			else
+				skillData.dpsMultiplier = 1 + 1 / output.SealCooldown / (1 / activeSkill.activeEffect.grantedEffect.castTime * 1.1 * calcLib.mod(skillModList, skillCfg, "Speed") * output.ActionSpeedMod) * calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty")
+			end
 		end
 		
 		if breakdown then
 			breakdown.SealGainTime = { }
 			breakdown.multiChain(breakdown.SealGainTime, {
 				label = "Gain frequency:",
-				base = s_format("%.2f ^8(base gain frequency)", skillModList:Sum("BASE", skillCfg, "SealGainFrequency") / 1000),
+				base = s_format("%.2fs ^8(base gain frequency)", skillModList:Sum("BASE", skillCfg, "SealGainFrequency") / 1000),
 				{ "%.2f ^8(increased/reduced gain frequency)", 1 + skillModList:Sum("INC", skillCfg, "SealGainFrequency") / 100 },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
-				total = s_format("= %.2f ^8per second", output.SealCooldown),
+				total = s_format("= %.2fs ^8per Seal", output.SealCooldown),
 			})
 		end
 	end

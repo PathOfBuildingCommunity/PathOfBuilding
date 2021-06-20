@@ -629,7 +629,7 @@ return {
 		{ breakdown = "TrapTriggerRadius" },
 		{ label = "Area of Effect modifiers", modName = "TrapTriggerAreaOfEffect", cfg = "skill" },
 	}, },
-	{ label = "Seal Gain Rate", haveOutput = "SealMax", { format = "{0:output:SealCooldown}", 
+	{ label = "Seal Gain Rate", haveOutput = "SealMax", { format = "{2:output:SealCooldown}s", 
 		{ breakdown = "SealGainTime" },
 		{ modName = "SealGainFrequency", cfg = "skill" }, 
 	}, },
