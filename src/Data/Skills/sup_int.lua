@@ -5026,7 +5026,19 @@ skills["SupportHandcastAnticipation"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Channelled, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
 	baseMods = {
+		flag("HasSeals"),
 	},
 	qualityStats = {
 		Default = {
@@ -5099,7 +5111,19 @@ skills["SupportUnleashPlus"] = {
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Channelled, },
 	plusVersionOf = "SupportHandcastAnticipation",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
 	baseMods = {
+		flag("HasSeals"),
 	},
 	qualityStats = {
 		Default = {
