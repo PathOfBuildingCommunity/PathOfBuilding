@@ -374,7 +374,7 @@ skills["CataclysmSigil"] = {
 		brand = true,
 	},
 	baseMods = {
-		skill("radius", 18),
+		skill("radius", 22),
 		skill("radiusSecondary", 8),
 	},
 	qualityStats = {
@@ -8791,7 +8791,7 @@ skills["Stormbind"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["rune_paint_area_of_effect_+%_per_rune_level"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -10135,6 +10135,9 @@ skills["FrostBoltNova"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -10734,7 +10737,7 @@ skills["SpellDamageAura"] = {
 		["spell_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["base_critical_strike_multiplier_+"] = {
+		["skill_buff_grant_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["life_regeneration_rate_per_minute_%"] = {

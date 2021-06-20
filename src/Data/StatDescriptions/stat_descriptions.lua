@@ -47711,7 +47711,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Vaal Attack Skills Cost Rage instead of requiring Souls to Use"
+					text="Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls"
 				}
 			}
 		},
@@ -177184,7 +177184,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Channelling Skills have {0:+d} to Total Cost"
+					text="Channelling Skills have {0:+d} to Total Mana Cost"
 				}
 			}
 		},
