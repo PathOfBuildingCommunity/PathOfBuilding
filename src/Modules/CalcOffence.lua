@@ -134,6 +134,18 @@ local function calcRadius(baseRadius, areaMod)
 	return m_floor(baseRadius * m_floor(100 * m_sqrt(areaMod)) / 100)
 end
 
+---Calculates the tertiary radius for Molten Strike, correctly handling the deadzone.
+---@param baseRadius number
+---@param deadzoneRadius number
+---@param areaMod number
+---@param speedMod number
+local function calcMoltenStrikeTertiaryRadius(baseRadius, deadzoneRadius, areaMod, speedMod)
+	-- For now, we assume that PoE only rounds at the end.
+	local maxDistIgnoringSpeed = m_sqrt(baseRadius * baseRadius * areaMod - deadzoneRadius * deadzoneRadius * (areaMod - 1))
+	local maxDist = m_floor((maxDistIgnoringSpeed - deadzoneRadius) * speedMod + deadzoneRadius)
+	return maxDist
+end
+
 ---Calculates modifiers needed to reach the next and previous radius breakpoints
 ---@param baseRadius number
 ---@param incArea number @Additive modifier
@@ -165,6 +177,76 @@ local function calcRadiusBreakpoints(baseRadius, incArea, moreArea)
 		until (newRadius < radius)
 	end
 	return incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint
+end
+
+---Computes and sets the breakdown for Molten Strike's tertiary radius.
+---@param breakdown table
+---@param deadzoneRadius number min ball landing distance (cannot be changed by any mods)
+---@param baseRadius number default max landing distance with no aoe or proj. speed modifiers
+---@param label string top level label to use for the breakdown
+---@param incArea number current net increased area modifier
+---@param moreArea number current product of all "more" and "less" area modifiers
+---@param incSpd number current net increased projectile speed modifier
+---@param moreSpd number current product of all "more" and "less" projectile speed modifiers
+local function setMoltenStrikeTertiaryRadiusBreakdown(breakdown, deadzoneRadius, baseRadius, label, incArea, moreArea, incSpd, moreSpd)
+	-- nil -> 1 (no multiplier)
+	incArea = incArea or 1
+	moreArea = moreArea or 1
+	incSpd = incSpd or 1
+	moreSpd = moreSpd or 1
+	---Helper that calculates the tertiary radius with incremental modifiers to the 4 relevant pools.
+	---This helps declutter the code below.
+	local function calc(extraIncAoePct, extraMoreAoePct, extraIncSpdPct, extraMoreSpdPct)
+		local areaMod = round(round((incArea + extraIncAoePct / 100) * moreArea * (1 + extraMoreAoePct / 100), 10), 2)
+		local speedMod = round(round((incSpd + extraIncSpdPct / 100) * moreSpd * (1 + extraMoreSpdPct / 100), 10), 2)
+		local dist = calcMoltenStrikeTertiaryRadius(baseRadius, deadzoneRadius, areaMod, speedMod)
+		return dist, areaMod, speedMod
+	end
+	-- Current settings.
+	local currentDist, currentAreaMod, currentSpeedMod = calc(0, 0, 0, 0)
+	-- Create the detailed breakdown. This includes:
+	--  * the complete formula as an algebraic expression (ignoring rounding),
+	--  * the final value,
+	--  * breakpoints on the 4 modifier pools (increased vs. more crossed with aoe and projectile speed), and
+	--  * the input variables for the algebraic expression.
+	local breakdownRadius = breakdown.AreaOfEffectRadiusTertiary or { }
+	breakdown.AreaOfEffectRadiusTertiary = breakdownRadius
+	t_insert(breakdownRadius, label)
+	t_insert(breakdownRadius, " = (sqrt(R*R*a - r*r*(a-1)) - r) * s + r")
+	t_insert(breakdownRadius, s_format(" = %d", currentDist))
+	if currentDist > 0 then
+		---Helper for finding one tertiary radius breakpoint value. This is a little slower than what
+		---we do in the generic calcRadiusBreakpoints, but this approach requires a lot less code and
+		---should be more maintainable given that we need to search for 8 different breakpoints.
+		---@param sign number +1 (for increased and more breakpoints) or -1 (for reduced and less breakpoints)
+		---@param argIdx number which argument to the calc function we're modifying
+		local function findBreakpoint(sign, argIdx)
+			local args = {0, 0, 0, 0} -- starter args for the calc function
+			repeat
+				args[argIdx] = args[argIdx] + sign -- increment or decrement the desired arg
+				local newDist, _, _ = calc(unpack(args))
+			until (newDist ~= currentDist) or (newDist == 0) -- stop once we've hit a new radius breakpoint
+			return args[argIdx] * sign -- remove the sign since we want all positive numbers
+		end
+		t_insert(breakdownRadius, s_format("^8Next AoE breakpoint: %d%% increased or %d%% more", findBreakpoint(1, 1), findBreakpoint(1, 2)))
+		t_insert(breakdownRadius, s_format("^8Next Proj. Speed breakpoint: %d%% increased or %d%% more", findBreakpoint(1, 3), findBreakpoint(1, 4)))
+		t_insert(breakdownRadius, s_format("^8Previous AoE breakpoint: %d%% increased or %d%% more", findBreakpoint(-1, 1), findBreakpoint(-1, 2)))
+		t_insert(breakdownRadius, s_format("^8Previous Proj. Speed breakpoint: %d%% increased or %d%% more", findBreakpoint(-1, 3), findBreakpoint(-1, 4)))
+	end
+	-- This is the input variable table.
+	breakdownRadius.label = "Inputs"
+	breakdownRadius.rowList = { }
+	breakdownRadius.colList = {
+		{ label = "Variable", key = "name" },
+		{ label = "Value", key = "value"},
+		{ label = "Description", key = "description" }
+	}
+	t_insert(breakdownRadius.rowList, { name = "r", value = s_format("%d", deadzoneRadius), description = "fixed deadzone radius" })
+	t_insert(breakdownRadius.rowList, { name = "R", value = s_format("%d", baseRadius), description = "base outer radius" })
+	t_insert(breakdownRadius.rowList, { name = "a", value = s_format("%.2f", currentAreaMod), description = "net AoE multiplier (scales area)" })
+	t_insert(breakdownRadius.rowList, { name = "s", value = s_format("%.2f", currentSpeedMod), description = "net projectile speed multiplier (scales range)" })
+	-- Trigger the inclusion of the radius display.
+	breakdownRadius.radius = currentDist
 end
 
 function calcSkillCooldown(skillModList, skillCfg, skillData)
@@ -249,7 +331,10 @@ function calcs.offence(env, actor, activeSkill)
 				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
 				output.AreaOfEffectRadiusSecondary = calcRadius(baseRadius, output.AreaOfEffectModSecondary)
 				if breakdown then
-					local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
+					local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary
+					if not skillData.projectileSpeedAppliesToMSAreaOfEffect then
+						local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
+					end
 					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary, incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary, skillData.radiusSecondaryLabel)
 				end
 			end
@@ -257,10 +342,22 @@ function calcs.offence(env, actor, activeSkill)
 				local incAreaTertiary, moreAreaTertiary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectTertiary")
 				output.AreaOfEffectModTertiary = round(round(incAreaTertiary * moreAreaTertiary, 10), 2)
 				baseRadius = skillData.radiusTertiary + (skillData.radiusExtra or 0)
-				output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary)
-				if breakdown then
-					local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary)
-					breakdown.AreaOfEffectRadiusTertiary = breakdown.area(baseRadius, output.AreaOfEffectModTertiary, output.AreaOfEffectRadiusTertiary, incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary, skillData.radiusTertiaryLabel)
+				if skillData.projectileSpeedAppliesToMSAreaOfEffect then
+					local incSpeedTertiary, moreSpeedTertiary = calcLib.mods(skillModList, skillCfg, "ProjectileSpeed")
+					output.SpeedModTertiary = round(round(incSpeedTertiary * moreSpeedTertiary, 10), 2)
+					output.AreaOfEffectRadiusTertiary = calcMoltenStrikeTertiaryRadius(baseRadius, skillData.radiusSecondary, output.AreaOfEffectModTertiary, output.SpeedModTertiary)
+					if breakdown then
+						setMoltenStrikeTertiaryRadiusBreakdown(
+							breakdown, skillData.radiusSecondary, baseRadius, skillData.radiusTertiaryLabel,
+							incAreaTertiary, moreAreaTertiary, incSpeedTertiary, moreSpeedTertiary
+						)
+					end
+				else
+					output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary)
+					if breakdown then
+						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary)
+						breakdown.AreaOfEffectRadiusTertiary = breakdown.area(baseRadius, output.AreaOfEffectModTertiary, output.AreaOfEffectRadiusTertiary, incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary, skillData.radiusTertiaryLabel)
+					end
 				end
 			end
 		end
@@ -507,19 +604,6 @@ function calcs.offence(env, actor, activeSkill)
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Bow }, "ProjectileSpeed")) do
 			local mod = value.mod
 			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-		end
-	end
-	if skillData.projectileSpeedAppliesToMSAreaOfEffect then
-		-- Projectile Speed conversion for Molten Stikes Projectile Range
-		for i, value in ipairs(skillModList:Tabulate("INC",  { }, "ProjectileSpeed")) do
-			local mod = value.mod
-			skillModList:NewMod("AreaOfEffectSecondary", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			skillModList:NewMod("AreaOfEffectTertiary", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-		end
-		for i, value in ipairs(skillModList:Tabulate("MORE",  { }, "ProjectileSpeed")) do
-			local mod = value.mod
-			skillModList:NewMod("AreaOfEffectSecondary", "MORE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			skillModList:NewMod("AreaOfEffectTertiary", "MORE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
 	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil, "TriggeredBySnipe") then
