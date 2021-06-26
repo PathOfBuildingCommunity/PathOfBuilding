@@ -1214,7 +1214,7 @@ skills["FireBurstOnHit"] = {
 	color = 4,
 	baseEffectiveness = 3.4000000953674,
 	incrementalEffectiveness = 0.043999999761581,
-	description = "A burst of flame errupts from the location of a hit, dealing fire damage.",
+	description = "A burst of flame erupts from the location of a hit, dealing fire damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1842,6 +1842,38 @@ skills["TriggeredMoltenStrike"] = {
 		[16] = { 3, 20, damageEffectiveness = 1.15, cooldown = 0.15, baseMultiplier = 1.15, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 }
+
+skills["TriggeredFieryImpact"] = {
+	name = "Fiery Impact",
+	hidden = true,
+	color = 1,
+	description = "Creates an AoE fire attack on melee hit.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Hit] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Melee] = true},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_fire",
+		"attack_trigger_on_melee_hit_%",
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+	},
+	levels = {
+		[10] = { 60, 100, damageEffectiveness = 2.00, cooldown = 2.00, baseMultiplier = 2.00, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
+		[15] = { 60, 100, damageEffectiveness = 2.50, cooldown = 2.00, baseMultiplier = 2.50, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
+		[20] = { 60, 100, damageEffectiveness = 3.00, cooldown = 2.00, baseMultiplier = 3.00, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
+	},
+}
+
 skills["PhysicalAegis"] = {
 	name = "Physical Aegis",
 	hidden = true,
