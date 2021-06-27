@@ -1,4 +1,5 @@
 ﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Helmet: Armour
@@ -650,6 +651,17 @@ Requires Level 67, 62 Str, 85 Dex
 +(15-25)% to Chaos Resistance
 20% increased Movement Speed
 Mercury Footprints
+]],[[
+The Fledgling
+Lacquered Helmet
+League: Heist
+Source: Drops from unique{Nashta, The Usurper}
+Requires Level 51, 57 Str, 57 Dex
+(150-200)% increased Armour and Evasion
+(30-50)% increased Projectile Speed
+(30-50)% increased Projectile Damage
+Projectiles cannot collide with Enemies at Close Range
+Far Shot
 ]],[[
 The Peregrine
 Visored Sallet
