@@ -1277,6 +1277,13 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.showAverage = false
 				skillData.showAverage = false
 			end
+			local stages = activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.skillStageCount or 0
+			if skillFlags.showAverage and stages then
+				output.Speed = output.Speed / stages
+				skillFlags.notAverage = true
+				skillFlags.showAverage = false
+				skillData.showAverage = false
+			end
 			output.Speed = m_min(output.Speed, data.misc.ServerTickRate)
 			if output.Speed == 0 then 
 				output.Time = 0
@@ -1300,7 +1307,12 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", output.Repeats / output.Cooldown))
 					t_insert(breakdown.Speed, s_format("\n"))
-					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.Speed))
+					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.Speed * (stages or 1)))
+				end
+				if stages and stages > 0 then
+					t_insert(breakdown.Speed, s_format("\n"))
+					t_insert(breakdown.Speed, s_format("/ %d ^8(stages per cast)", stages))
+					t_insert(breakdown.Speed, s_format("= %.2f ^8(actual cast rate)", output.Speed))
 				end
 			end
 			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
