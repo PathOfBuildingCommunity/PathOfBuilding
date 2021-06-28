@@ -184,8 +184,8 @@ function newBuild()
 	mainObject.main:SetMode("BUILD", false, "Help, I'm stuck in Path of Building!")
 	runCallback("OnFrame")
 end
-function loadBuildFromXML(xmlText)
-	mainObject.main:SetMode("BUILD", false, "", xmlText)
+function loadBuildFromXML(xmlText, name)
+	mainObject.main:SetMode("BUILD", false, name or "", xmlText)
 	runCallback("OnFrame")
 end
 function loadBuildFromJSON(getItemsJSON, getPassiveSkillsJSON)

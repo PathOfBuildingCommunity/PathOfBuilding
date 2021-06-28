@@ -31,6 +31,8 @@ function buildTable(tableName, values, string)
             buildTable(key, value, string)
         elseif type(value) == "boolean" then
             string = string .. "[\"" .. key .. "\"] = " .. (value and "true" or "false") .. ",\n"
+        elseif type(value) == "string" then
+            string = string .. "[\"" .. key .. "\"] = \"" .. value .. "\",\n"
         else
             string = string .. "[\"" .. key .. "\"] = " .. value .. ",\n"
         end
