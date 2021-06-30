@@ -2,6 +2,7 @@
 .idea/
 .vs/
 .vscode/
+*.code-workspace
 
 # Development files
 *.lnk
