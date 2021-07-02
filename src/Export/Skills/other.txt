@@ -828,3 +828,8 @@ local skills, mod, flag, skill = ...
 #skill SupportBloodMagicUniquePrismGuardian Blood Magic
 	fromItem = true,
 #mods
+
+#skill UniqueEnchantmentOfInfernoOnCrit
+#flags spell area hit
+	fromItem = true,
+#mods
