@@ -3,6 +3,7 @@
 -- Module: Main
 -- Main module of program.
 --
+local module_args = {...}
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
@@ -393,11 +394,11 @@ function main:CallMode(func, ...)
 end
 
 function main:LoadPastebinBuild()
-	local fullUri = arg[1]
+	local fullUri = module_args[1]
 	if not fullUri then
 		return false
 	end
-	arg[1] = nil -- Protect against downloading again this session.
+	module_args[1] = nil -- Protect against downloading again this session.
 	local pastebinCode = string.match(fullUri, "^pob:[/\\]*pastebin[/\\]+(%w+)[/\\]*")
 	if pastebinCode then
 		launch:DownloadPage("https://pastebin.com/raw/" .. pastebinCode, function(page, errMsg)
