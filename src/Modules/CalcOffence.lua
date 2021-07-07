@@ -237,7 +237,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillData.radius then
 			skillFlags.area = true
-			local baseRadius = skillData.radius + (skillData.radiusExtra or 0) + skillModList:Sum("BASE", skillCfg, "AreaOfEffect")
+			local baseRadius = skillData.radius + (skillData.radiusExtra or 0) + (skillData.radiusExtra2 or 0) + skillModList:Sum("BASE", skillCfg, "AreaOfEffect")
 			output.AreaOfEffectRadius = calcRadius(baseRadius, output.AreaOfEffectMod)
 			if breakdown then
 				local incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint = calcRadiusBreakpoints(baseRadius, incArea, moreArea)
@@ -246,7 +246,7 @@ function calcs.offence(env, actor, activeSkill)
 			if skillData.radiusSecondary then
 				local incAreaSecondary, moreAreaSecondary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectSecondary")
 				output.AreaOfEffectModSecondary = round(round(incAreaSecondary * moreAreaSecondary, 10), 2)
-				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
+				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0) + (skillData.radiusExtra2 or 0)
 				output.AreaOfEffectRadiusSecondary = calcRadius(baseRadius, output.AreaOfEffectModSecondary)
 				if breakdown then
 					local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
@@ -256,7 +256,7 @@ function calcs.offence(env, actor, activeSkill)
 			if skillData.radiusTertiary then
 				local incAreaTertiary, moreAreaTertiary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectTertiary")
 				output.AreaOfEffectModTertiary = round(round(incAreaTertiary * moreAreaTertiary, 10), 2)
-				baseRadius = skillData.radiusTertiary + (skillData.radiusExtra or 0)
+				baseRadius = skillData.radiusTertiary + (skillData.radiusExtra or 0) + (skillData.radiusExtra2 or 0)
 				output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary)
 				if breakdown then
 					local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary)
