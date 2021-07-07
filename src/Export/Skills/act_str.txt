@@ -238,7 +238,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 24)
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "Rage" , div = 5 })
+#baseMod mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = 5 })
 #mods
 
 #skill Cleave
