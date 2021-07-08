@@ -1,0 +1,8 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Fishing Rod
+#baseTags weapon twohand fishing_rod two_hand_weapon
+#socketLimit 4
+#forceShow true
+#baseMatch Metadata/Items/Weapons/TwoHandWeapon/FishingRods/FishingRod

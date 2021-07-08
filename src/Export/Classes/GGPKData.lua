@@ -203,6 +203,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Weapons/OneHandWeapons/Claws/AbstractClaw.ot",
 		"Metadata/Items/Armours/Shields/AbstractShield.ot",
 		"Metadata/Items/Weapons/TwoHandWeapons/Bows/AbstractBow.ot",
+		"Metadata/Items/Weapons/TwoHandWeapons/FishingRods/AbstractFishingRod.ot",
 		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/AbstractTwoHandMace.ot",
 		"Metadata/Items/Armours/Boots/AbstractBoots.ot",
 		"Metadata/Items/Jewels/AbstractAbyssJewel.ot",

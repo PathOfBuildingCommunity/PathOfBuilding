@@ -21,6 +21,7 @@ local itemClassMap = {
 	["One Hand Axe"] = "One Handed Axe",
 	["One Hand Mace"] = "One Handed Mace",
 	["Bow"] = "Bow",
+	["Fishing Rod"] = "Fishing Rod",
 	["Staff"] = "Staff",
 	["Two Hand Sword"] = "Two Handed Sword",
 	["Two Hand Axe"] = "Two Handed Axe",
