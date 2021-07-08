@@ -8,7 +8,6 @@ Fishing Rod
 Variant: Pre 2.6.0
 Variant: Current
 Requires 8 Str, 8 Dex
-Implicits: 0
 (30-40)% increased Cast Speed
 Thaumaturgical Lure
 {variant:1}(30-40)% increased Quantity of Fish Caught
