@@ -1905,7 +1905,7 @@ function calcs.offence(env, actor, activeSkill)
 			local noEnergyShieldLeech = skillModList:Flag(cfg, "CannotLeechEnergyShield") or enemyDB:Flag(nil, "CannotLeechEnergyShieldFromSelf")
 			local noManaLeech = skillModList:Flag(cfg, "CannotLeechMana") or enemyDB:Flag(nil, "CannotLeechManaFromSelf")
 			for _, damageType in ipairs(dmgTypeList) do
-				local damageTypeHitMin, damageTypeHitMax, damageTypeHitAvg = 0, 0, 0
+				local damageTypeHitMin, damageTypeHitMax, damageTypeHitAvg, damageTypeLuckyChance, damageTypeHitAvgLucky, damageTypeHitAvgNotLucky = 0, 0, 0, 0, 0
 				if skillFlags.hit and canDeal[damageType] then
 					damageTypeHitMin, damageTypeHitMax = calcDamage(activeSkill, output, cfg, pass == 2 and breakdown and breakdown[damageType], damageType, 0)
 					local convMult = activeSkill.conversionTable[damageType].mult
@@ -1943,17 +1943,20 @@ function calcs.offence(env, actor, activeSkill)
 					if pass == 1 then
 						-- Apply crit multiplier
 						allMult = allMult * output.CritMultiplier
-					end				
+					end
 					damageTypeHitMin = damageTypeHitMin * allMult
 					damageTypeHitMax = damageTypeHitMax * allMult
 					if skillModList:Flag(skillCfg, "LuckyHits")
-				 	or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky"))
-				 	or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky"))
-				 	or ((damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
-						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
+					or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky"))
+					or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky"))
+					or ((damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
+						damageTypeLuckyChance = 1
 					else
-						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
+						damageTypeLuckyChance = m_min(skillModList:Sum("BASE", skillCfg, "LuckyHitsChance"), 100) / 100
 					end
+					damageTypeHitAvgNotLucky = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
+					damageTypeHitAvgLucky = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
+					damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
 					if (damageTypeHitMin ~= 0 or damageTypeHitMax ~= 0) and env.mode_effective then
 						-- Apply enemy resistances and damage taken modifiers
 						local resist = 0

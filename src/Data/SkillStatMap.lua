@@ -537,6 +537,9 @@ return {
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
 },
+["chance_for_extra_damage_roll_%"] = {
+	mod("LuckyHitsChance", "BASE", nil)
+},
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
 },
