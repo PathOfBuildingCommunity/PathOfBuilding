@@ -2678,18 +2678,6 @@ skills["DualStrike"] = {
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
-		["active_skill_added_damage_+%_final"] = {
-			mod("PhysicalMax", "MORE", nil),
-			mod("FireMax", "MORE", nil),
-			mod("ColdMax", "MORE", nil),
-			mod("LightningMax", "MORE", nil),
-			mod("ChaosMax", "MORE", nil),
-			mod("PhysicalMin", "MORE", nil),
-			mod("FireMin", "MORE", nil),
-			mod("ColdMin", "MORE", nil),
-			mod("LightningMin", "MORE", nil),
-			mod("ChaosMin", "MORE", nil),
-		}
 	},
 	baseFlags = {
 		attack = true,

@@ -663,6 +663,12 @@ return {
 ["global_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil),
 },
+["added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
+},
+["active_skill_added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
+},
 ["shield_charge_damage_+%_maximum"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
 },

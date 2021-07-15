@@ -1850,28 +1850,33 @@ function calcs.offence(env, actor, activeSkill)
 			local damageEffectiveness = activeSkill.activeEffect.grantedEffectLevel.damageEffectiveness or skillData.damageEffectiveness or 1
 			local addedMin = skillModList:Sum("BASE", cfg, damageTypeMin) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMin)
 			local addedMax = skillModList:Sum("BASE", cfg, damageTypeMax) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMax)
-			local baseMin = ((source[damageTypeMin] or 0) + (source[damageType.."BonusMin"] or 0)) * baseMultiplier + addedMin * damageEffectiveness
-			local baseMax = ((source[damageTypeMax] or 0) + (source[damageType.."BonusMax"] or 0)) * baseMultiplier + addedMax * damageEffectiveness
+			local addedMult = calcLib.mod(skillModList, cfg, "Added"..damageType.."Damage", "AddedDamage")
+			local baseMin = ((source[damageTypeMin] or 0) + (source[damageType.."BonusMin"] or 0)) * baseMultiplier + addedMin * damageEffectiveness * addedMult
+			local baseMax = ((source[damageTypeMax] or 0) + (source[damageType.."BonusMax"] or 0)) * baseMultiplier + addedMax * damageEffectiveness * addedMult
 			output[damageTypeMin.."Base"] = baseMin
 			output[damageTypeMax.."Base"] = baseMax
 			if breakdown then
 				breakdown[damageType] = { damageTypes = { } }
 				if baseMin ~= 0 and baseMax ~= 0 then
 					t_insert(breakdown[damageType], "Base damage:")
-					local plus = ""
+					local plus = false
 					if (source[damageTypeMin] or 0) ~= 0 or (source[damageTypeMax] or 0) ~= 0 then
+						t_insert(breakdown[damageType], s_format("%d to %d ^8(base damage from %s)", source[damageTypeMin], source[damageTypeMax], source.type and "weapon" or "skill"))
 						if baseMultiplier ~= 1 then
-							t_insert(breakdown[damageType], s_format("(%d to %d) x %.2f ^8(base damage from %s multiplied by base damage multiplier)", source[damageTypeMin], source[damageTypeMax], baseMultiplier, source.type and "weapon" or "skill"))
-						else
-							t_insert(breakdown[damageType], s_format("%d to %d ^8(base damage from %s)", source[damageTypeMin], source[damageTypeMax], source.type and "weapon" or "skill"))
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(base damage multiplier)", baseMultiplier))
 						end
-						plus = "+ "
+						plus = true
 					end
 					if addedMin ~= 0 or addedMax ~= 0 then
+						if plus then
+							t_insert(breakdown[damageType], "+")
+						end
+						t_insert(breakdown[damageType], s_format("%d to %d ^8(added damage)", addedMin, addedMax))
 						if damageEffectiveness ~= 1 then
-							t_insert(breakdown[damageType], s_format("%s(%d to %d) x %.2f ^8(added damage multiplied by damage effectiveness)", plus, addedMin, addedMax, damageEffectiveness))
-						else
-							t_insert(breakdown[damageType], s_format("%s%d to %d ^8(added damage)", plus, addedMin, addedMax))
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(damage effectiveness)", damageEffectiveness))
+						end
+						if addedMult ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(added damage multiplier)", addedMult))
 						end
 					end
 					t_insert(breakdown[damageType], s_format("= %.1f to %.1f", baseMin, baseMax))
