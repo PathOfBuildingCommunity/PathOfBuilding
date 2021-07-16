@@ -1422,6 +1422,9 @@ return {
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
 },
+["minion_additional_physical_damage_reduction_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", nil) }),
+},
 ["summon_fire_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("FireResist", "BASE", nil) }),
 },
