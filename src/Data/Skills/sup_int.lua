@@ -2986,7 +2986,7 @@ skills["SupportBurningMinions"] = {
 			div = 60,
 			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
 		},
-		["minion_burning_damage_"] = {
+		["minion_burning_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot) }),
 		},
 		["minion_fire_damage_taken_+%"] = {
