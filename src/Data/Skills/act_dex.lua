@@ -4796,6 +4796,9 @@ skills["LancingSteel"] = {
 		["number_of_projectiles_to_fire_+%_final_per_steel_ammo_consumed"] = {
 			mod("ProjectileCount", "MORE", nil, 0, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 4 } )
 		},
+		["lancing_steel_damage_+%_at_close_range"] = {
+			mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "DistanceRamp", ramp = {{10,1},{70,0}} }),
+		},
 	},
 	baseFlags = {
 		attack = true,
