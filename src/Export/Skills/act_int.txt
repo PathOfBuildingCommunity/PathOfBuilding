@@ -828,7 +828,7 @@ local skills, mod, flag, skill = ...
 		}
 	},
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "HydroSphereFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
 	end,
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
@@ -891,7 +891,7 @@ local skills, mod, flag, skill = ...
 #skill HeraldOfThunder
 #flags cast duration
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "HeraldStormFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HeraldStormFrequency") / 100)
 	end,
 	statMap = {
 		["herald_of_thunder_lightning_damage_+%"] = {
@@ -1730,7 +1730,7 @@ local skills, mod, flag, skill = ...
 #flags spell area duration physical chaos
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
-		 / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "VoidSphereFrequency") / 100)
+		 / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoidSphereFrequency") / 100)
 	end,
 	statMap = {
 		["blackhole_pulse_frequency_+%"] = {
