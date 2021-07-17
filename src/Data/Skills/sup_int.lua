@@ -1569,10 +1569,10 @@ skills["SupportMinionFocusFire"] = {
 		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_chance_+%_final_vs_focussed_target"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CritChance", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_multiplier_+%_final_vs_focussed_target"] = {
+		["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
 	},
