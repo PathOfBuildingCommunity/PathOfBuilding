@@ -2605,6 +2605,7 @@ function calcs.offence(env, actor, activeSkill)
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
 					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = skillCfg.skillCond } ),
+					skillDist = skillCfg.skillDist,
 				}
 			end
 			local dotCfg = activeSkill.bleedCfg
@@ -2734,6 +2735,7 @@ function calcs.offence(env, actor, activeSkill)
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
 					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = skillCfg.skillCond } ),
+					skillDist = skillCfg.skillDist,
 				}
 			end
 			local dotCfg = activeSkill.poisonCfg
@@ -2917,6 +2919,7 @@ function calcs.offence(env, actor, activeSkill)
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
 					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = skillCfg.skillCond } ),
+					skillDist = skillCfg.skillDist,
 				}
 			end
 			local dotCfg = activeSkill.igniteCfg
