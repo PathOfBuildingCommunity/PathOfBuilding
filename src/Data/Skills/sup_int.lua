@@ -3680,6 +3680,9 @@ skills["SupportMinionDamage"] = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }),
+		},
 		["minion_ailment_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
 		},
