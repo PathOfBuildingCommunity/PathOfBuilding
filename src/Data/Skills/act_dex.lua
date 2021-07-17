@@ -5546,6 +5546,9 @@ skills["PoachersMark"] = {
 		["maximum_added_physical_damage_taken"] = {
 			mod("SelfPhysicalMax", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
