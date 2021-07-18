@@ -145,9 +145,13 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	if not info then
 		return
 	end
-	if weaponTypes and not weaponTypes[weaponData.type] and 
-		(not weaponData.countsAsAll1H or not (weaponTypes["Claw"] or weaponTypes["Dagger"] or weaponTypes["One Handed Axe"] or weaponTypes["One Handed Mace"] or weaponTypes["One Handed Sword"])) then
-		return nil, info
+	if weaponTypes then
+		for _, types in ipairs(weaponTypes) do
+			if not types[weaponData.type] and
+			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])) then
+				return nil, info
+			end
+		end
 	end
 	local flags = ModFlag[info.flag]
 	if weaponData.countsAsAll1H then
@@ -222,7 +226,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.weapon2Flags = 0
 	elseif skillFlags.attack then
 		-- Set weapon flags
-		local weaponTypes = activeGrantedEffect.weaponTypes
+		local weaponTypes = { activeGrantedEffect.weaponTypes }
+		for _, skillEffect in pairs(activeSkill.effectList) do
+			if skillEffect.grantedEffect.support and skillEffect.grantedEffect.weaponTypes then
+				t_insert(weaponTypes, skillEffect.grantedEffect.weaponTypes)
+			end
+		end
 		local weapon1Flags, weapon1Info = getWeaponFlags(env, activeSkill.actor.weaponData1, weaponTypes)
 		if not weapon1Flags and activeSkill.summonSkill then
 			-- Minion skills seem to ignore weapon types

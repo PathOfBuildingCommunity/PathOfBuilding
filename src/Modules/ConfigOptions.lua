@@ -134,6 +134,10 @@ return {
 	{ var = "carrionGolemNearbyMinion", type = "count", label = "# of Nearby Non-Golem Minions:", ifSkill = "Summon Carrion Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyNonGolemMinion", "BASE", val, "Config")
 	end },
+	{ label = "Close Combat:", ifSkill = "Close Combat" },
+	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
+	end },
 	{ label = "Cyclone:", ifSkill = "Cyclone" },
 	{ var = "channellingCycloneCheck", type = "check", label = "Are you Channelling Cyclone?", ifSkill = "Cyclone", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChannellingCyclone", "FLAG", true, "Config")

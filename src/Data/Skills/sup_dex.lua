@@ -1177,15 +1177,29 @@ skills["SupportSlashingWeapon"] = {
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	weaponTypes = {
+		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+	},
 	statMap = {
 		["support_slashing_damage_+%_final_from_distance"] = {
-			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
+		},
+		["support_slashing_buff_attack_cast_speed_+%_final_to_grant"] = {
+			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.TravelSkill }),
 		},
 		["close_combat_damage_to_close_range_+%"] = {
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
+		},
+		["combat_rush_effect_+%"] = {
+			mod("CombatRushEffect", "INC", nil),
 		},
 	},
 	baseMods = {
+		flag("Condition:SupportedByCloseCombat"),
 	},
 	qualityStats = {
 		Default = {
@@ -2789,14 +2803,18 @@ skills["SupportPuncturingWeapon"] = {
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	weaponTypes = {
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	statMap = {
 		["elusive_effect_+%"] = {
-			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
+			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
 		},
 	},	
 	baseMods = {
-		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
+		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
+		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
 	qualityStats = {
 		Default = {
