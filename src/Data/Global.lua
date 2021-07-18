@@ -75,6 +75,7 @@ ModFlag.Staff =		 0x00200000
 ModFlag.Sword =		 0x00400000
 ModFlag.Wand =		 0x00800000
 ModFlag.Unarmed =	 0x01000000
+ModFlag.Fishing =	 0x02000000
 -- Weapon classes
 ModFlag.WeaponMelee =0x02000000
 ModFlag.WeaponRanged=0x04000000
