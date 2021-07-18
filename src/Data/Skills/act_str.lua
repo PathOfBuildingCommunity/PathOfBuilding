@@ -1854,7 +1854,7 @@ skills["PuresteelBanner"] = {
 			mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["impale_debuff_effect_+%"] = {
-			mod("ImpaleEffect", "INC", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ImpaleEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
