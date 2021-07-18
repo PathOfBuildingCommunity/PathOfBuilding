@@ -507,7 +507,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			if self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] and self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] then
 				self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			end
-			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, " \n"..modDesc, false)
 		end
 		self.build.spec:ReconnectNodeToClassStart(selectedNode)
 		if not self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
