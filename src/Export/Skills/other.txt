@@ -840,3 +840,8 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 	fromItem = true,
 #mods
+
+#skill UniqueEnchantmentOfInfernoOnCrit
+#flags spell area hit
+	fromItem = true,
+#mods
