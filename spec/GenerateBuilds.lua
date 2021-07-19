@@ -34,7 +34,7 @@ function buildTable(tableName, values, string)
         elseif type(value) == "string" then
             string = string .. "[\"" .. key .. "\"] = \"" .. value .. "\",\n"
         else
-            string = string .. "[\"" .. key .. "\"] = " .. value .. ",\n"
+            string = string .. "[\"" .. key .. "\"] = " .. round(value, 4) .. ",\n"
         end
     end
     string = string .. "}\n"
