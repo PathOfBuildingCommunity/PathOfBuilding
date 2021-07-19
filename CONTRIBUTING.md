@@ -119,6 +119,23 @@ dbg.tcpListen('localhost', 9966)
 5. Start Path of Building Community
 6. Attach the debugger
 
+#### Testing
+
+PoB uses the [Busted](https://olivinelabs.com/busted/) framework to run its tests.  Tests are stored under `spec/System` and run automatically when a PR is modified.
+More tests can be added to this folder to test specific functionality, or new test builds can be added to ensure nothing changed that wasn't intended. 
+
+##### Running tests
+1. Install [LuaRocks](https://luarocks.org/)
+2. Run `luarocks install busted`
+3. Run `busted --lua=luajit` from the command line.  You may need to add `luajit` to your PATH
+
+##### Creating new test builds or fixing an existing build
+
+Sometimes a change will be made that intends to change the stats garnered by PoB, which will break our tests.
+1. Add the new build XML (if applicable) to the `TestBuilds` folder
+2. Run `busted --lua=luajit -r generate` to generate a LUA file that contains the current stats of that build
+3. Run `busted --lua=luajit` and the tests should pass
+
 #### Exporting GGPK Data from Path of Exile
 
 Note: This tutorial assumes that you are already familiar with the GGPK and its structure. [poe-tool-dev/ggpk.discussion](https://github.com/poe-tool-dev/ggpk.discussion/wiki)
