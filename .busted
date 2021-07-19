@@ -11,7 +11,7 @@ return {
     },
     generate = {
 	directory = "src",
-	lpath = "../runtime/lua/?.lua",
+	lpath = "../runtime/lua/?.lua;../runtime/lua/?/init.lua",
 	helper = "HeadlessWrapper.lua",
 	ROOT = { "../spec/GenerateBuilds.lua" },
     }
