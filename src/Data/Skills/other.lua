@@ -354,6 +354,7 @@ skills["BloodOffering"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
+		[1] = { 5000, 1000, 20, 35, 10, 50, levelRequirement = 12, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 		[15] = { 5000, 1000, 20, 35, 10, 50, levelRequirement = 12, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
