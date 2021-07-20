@@ -2268,6 +2268,8 @@ local specialModList = {
 	["totems fire (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
 	["([%d%.]+)%% of damage dealt by y?o?u?r? ?totems is leeched to you as life"] = function(num) return { mod("DamageLifeLeechToPlayer", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
 	["([%d%.]+)%% of damage dealt by y?o?u?r? ?mines is leeched to you as life"] = function(num) return { mod("DamageLifeLeechToPlayer", "BASE", num, nil, 0, KeywordFlag.Mine) } end,
+	["you gain ([%d%.]+)%% increased damage for each trap"] = function(num) return { mod("Damage", "INC", num, { type = "PerStat", stat = "ActiveTrapLimit", div = 1 } ) } end,
+	["you gain ([%d%.]+)%% increased area of effect for each mine"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "PerStat", stat = "ActiveMineLimit", div = 1 } ) } end,
 	["you can cast an additional brand"] = { mod("ActiveBrandLimit", "BASE", 1) },
 	-- Minions
 	["your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
