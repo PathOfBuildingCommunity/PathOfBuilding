@@ -1002,7 +1002,7 @@ function calcs.perform(env, avoidCache)
 	end
 	if modDB:Flag(nil, "AlchemistsGenius") then
 		local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
-		modDB:NewMod("FlaskEffect", "INC", m_floor(20 * effectMod), "Alchemist's Genius")
+		modDB:NewMod("FlaskEffect", "INC", m_floor(10 * effectMod), "Alchemist's Genius")
 		modDB:NewMod("FlaskChargesGained", "INC", m_floor(20 * effectMod), "Alchemist's Genius")
 	end
 
