@@ -68,7 +68,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	else
 		ConPrintf("Downloading passive tree data...")
 		local page
-		local pageFile = io.open("TreeData/"..treeVersion.."/tree.txt", "r")
+		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
 		if pageFile then
 			page = pageFile:read("*a")
 			pageFile:close()
