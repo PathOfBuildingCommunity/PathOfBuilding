@@ -218,7 +218,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("radius", 10)
+#baseMod skill("radius", 14)
 #mods
 
 #skill BoneOffering
@@ -1386,11 +1386,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["newshocknova_first_ring_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-		},
 		["shock_nova_ring_chance_to_shock_+%"] =  {
-			mod("EnemyShockChance", "BASE", nil),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["shock_nova_ring_shocks_as_if_dealing_damage_+%_final"] = {
 			mod("ShockAsThoughDealing", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
