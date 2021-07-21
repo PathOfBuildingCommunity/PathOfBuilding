@@ -4942,7 +4942,7 @@ skills["LightningArrow"] = {
 		[18] = { 50, 3, 0.10000000149012, 1.8999999761581, 185, damageEffectiveness = 1.31, baseMultiplier = 1.315, levelRequirement = 66, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 10, }, },
 		[19] = { 50, 3, 0.10000000149012, 1.8999999761581, 190, damageEffectiveness = 1.33, baseMultiplier = 1.327, levelRequirement = 68, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 11, }, },
 		[20] = { 50, 3, 0.10000000149012, 1.8999999761581, 290, damageEffectiveness = 1.54, baseMultiplier = 1.54, levelRequirement = 70, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 11, }, },
-		[21] = { 50, 3, 0.10000000149012, 1.8999999761581, 295, damageEffectiveness = 1.55 baseMultiplier = 1.553, levelRequirement = 72, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 11, }, },
+		[21] = { 50, 3, 0.10000000149012, 1.8999999761581, 295, damageEffectiveness = 1.55, baseMultiplier = 1.553, levelRequirement = 72, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 11, }, },
 		[22] = { 50, 3, 0.10000000149012, 1.8999999761581, 205, damageEffectiveness = 1.37, baseMultiplier = 1.365, levelRequirement = 74, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 11, }, },
 		[23] = { 50, 3, 0.10000000149012, 1.8999999761581, 210, damageEffectiveness = 1.38, baseMultiplier = 1.378, levelRequirement = 76, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 11, }, },
 		[24] = { 50, 3, 0.10000000149012, 1.8999999761581, 215, damageEffectiveness = 1.39, baseMultiplier = 1.391, levelRequirement = 78, statInterpolation = { 1, 1, 3, 3, 1, 1, }, cost = { Mana = 11, }, },
