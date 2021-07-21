@@ -5,14 +5,7 @@
 data.uniques.new = {
 
 -- New
-[[
-Triumvirate Authority
-Unset Ring
-Requires Level 64
-Implicits: 1
-Has 1 Socket
-+2 to Level of Socketed Vaal Gems
-]],
+
 -- Reworked
 [[
 Atziri's Reign

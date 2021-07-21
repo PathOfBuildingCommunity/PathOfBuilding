@@ -391,7 +391,7 @@ Variant: Current
 Radius: Small
 {variant:1}(10-15)% increased Area of Effect while Unarmed
 {variant:2}+(3-4) to Melee Strike Range while Unarmed
-{variant:2}Passive Skills in Radius also grant: 1% increased Attack Speed with Unarmed Attacks
+{variant:2}Passive Skills in Radius also grant: 1% increased Unarmed Attack Speed with Melee Skills
 ]],[[
 Might in All Forms
 Crimson Jewel
@@ -1038,16 +1038,16 @@ Minions have +(7-10)% to all Elemental Resistances
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
 ]],[[
-Divide and Conquer
+Seething Fury
 Viridian Jewel
 League: Legion
 Requires Level: 20
 Limited to: 1
 Radius: Medium
 (10-15)% increased Attack Damage while holding a Shield
-With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times
-With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires Shard Projectiles when Chaining
-With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles
++0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
++4% to Off Hand Critical Strike Multiplier per 10 Maximum Energy Shield on Shield
+(10-15)% increased Attack Damage while holding a Shield
 ]],[[
 Fight for Survival
 Viridian Jewel
