@@ -3426,3 +3426,45 @@ skills["UniqueEnchantmentOfInfernoOnCrit"] = {
 		[1] = { 2.4000000953674, 3.7999999523163, 2000, 100, 450, 100, critChance = 5, cooldown = 3, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
+skills["FieryImpactHeistMaceImplicit"] = {
+	name = "Fiery Impact",
+	hidden = true,
+	color = 4,
+	description = "Deals attack damage in an area.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.TriggeredGrantedSkill] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_fire",
+		"is_area_damage",
+		"skill_has_trigger_from_unique_item",
+	},
+	levels = {
+		[10] = { 60, damageEffectiveness = 2, cooldown = 2, baseMultiplier = 2, levelRequirement = 30, statInterpolation = { 1, }, cost = { }, },
+		[15] = { 60, damageEffectiveness = 2.5, cooldown = 2, baseMultiplier = 2.5, levelRequirement = 50, statInterpolation = { 1, }, cost = { }, },
+		[20] = { 60, damageEffectiveness = 3, cooldown = 2, baseMultiplier = 3, levelRequirement = 70, statInterpolation = { 1, }, cost = { }, },
+	},
+}
