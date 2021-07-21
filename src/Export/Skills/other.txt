@@ -117,6 +117,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#noGem
 #skill BloodOffering
 #flags spell duration
 	fromItem = true,
