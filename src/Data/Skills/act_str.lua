@@ -4463,10 +4463,14 @@ skills["PetrifiedBlood"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.ManaCostReserved] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"] = {
+			mod("ManaCostAsLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type="Condition", var="LowLife", neg = true }),
+		},
+	},
 	baseFlags = {
 	},
 	baseMods = {
-		mod("LifeCost", "MORE", -60, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
