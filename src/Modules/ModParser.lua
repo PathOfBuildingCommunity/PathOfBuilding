@@ -867,7 +867,10 @@ local preFlagList = {
 	end,
 	["^enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
-	end,	
+	end,
+	["^hits against enemies (%a+) by you have "] = function(cond)
+		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper) } }
+	end,
 	["^enemies affected by your spider's webs [th]a[vk]e "] = { tag = { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }, applyToEnemy = true },
 	["^enemies you curse take "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true, modSuffix = "Taken" },
 	["^enemies you curse have "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true },
@@ -2999,6 +3002,7 @@ local flagTypes = {
 	["no life regeneration"] = "NoLifeRegen",
 	["hexproof"] = { name = "AvoidCurse", value = 100, type = "BASE" },
 	["hindered, with 25% reduced movement speed"] = "Condition:Hindered",
+	["unnerved"] = "Condition:Unnerved",
 }
 
 -- Build active skill name lookup
