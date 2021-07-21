@@ -1144,7 +1144,7 @@ skills["ChainStrike"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
-		skill("radiusExtra", 1, { type = "Multiplier", var = "Rage" , div = 5 }),
+		mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = 5 }),
 	},
 	qualityStats = {
 		Default = {
