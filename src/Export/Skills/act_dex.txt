@@ -88,7 +88,7 @@ local skills, mod, flag, skill = ...
 
 #skill BladeBlast
 #flags spell area
-#baseMod skill("radius", 18)
+#baseMod skill("radius", 14)
 	parts = {
 		{
 			name = "1 Blade",
@@ -1146,7 +1146,10 @@ local skills, mod, flag, skill = ...
 
 #skill PhysCascadeTrap
 #flags spell area trap duration
-#baseMod skill("radius", 12)
+#baseMod skill("radius", 18)
+#baseMod ("radiusLabel", "Large Burst:")
+#baseMod ("radiusSecondary", 9)
+#baseMod ("radiusSecondaryLabel", "Small Burst:")
 #mods
 
 #skill ShrapnelBallista
@@ -1168,7 +1171,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
-#baseMod skill("radius", 10)
+#baseMod skill("radius", 18)
 #mods
 
 #skill ThrownShield

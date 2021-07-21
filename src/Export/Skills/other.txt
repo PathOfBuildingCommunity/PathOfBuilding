@@ -694,7 +694,7 @@ local skills, mod, flag, skill = ...
 #skill SummonHarbingerOfTimeUber
 #flags spell minion
 	fromItem = true,
-#baseMod mod("ActionSpeed", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" })
+#baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" })
 #baseMod skill("buffMinions", true)
 #mods
 
@@ -726,7 +726,7 @@ local skills, mod, flag, skill = ...
 #skill SummonHarbingerOfTime
 #flags spell minion
 	fromItem = true,
-#baseMod mod("ActionSpeed", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" })
+#baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" })
 #baseMod skill("buffMinions", true)
 #mods
 
