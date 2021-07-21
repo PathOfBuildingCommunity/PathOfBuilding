@@ -700,6 +700,7 @@ local modFlagList = {
 	["vaal"] = { keywordFlags = KeywordFlag.Vaal },
 	["vaal skill"] = { keywordFlags = KeywordFlag.Vaal },
 	["with vaal skills"] = { keywordFlags = KeywordFlag.Vaal },
+	["with non-vaal skills"] = { tag = { type = "SkillType", skillType = SkillType.Vaal, neg = true } },
 	["with movement skills"] = { keywordFlags = KeywordFlag.Movement },
 	["of movement skills"] = { keywordFlags = KeywordFlag.Movement },
 	["of movement skills used"] = { keywordFlags = KeywordFlag.Movement },
