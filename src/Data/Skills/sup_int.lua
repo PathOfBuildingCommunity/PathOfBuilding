@@ -4829,9 +4829,6 @@ skills["SupportTrinity"] = {
 		["damage_penetrates_%_elemental_resistances_while_all_resonance_is_25"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "ResonanceCount", threshold = 25 }),
 		},
-		["attack_and_cast_speed_+%_while_all_resonance_is_at_least_25"] = {
-			mod("Speed", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "ResonanceCount", threshold = 25 }),
-		},
 	},
 	baseMods = {
 	},
