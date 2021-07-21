@@ -845,3 +845,8 @@ local skills, mod, flag, skill = ...
 #flags spell area hit
 	fromItem = true,
 #mods
+
+#skill FieryImpactHeistMaceImplicit
+#flags attack area melee
+	fromItem = true,
+#mods
