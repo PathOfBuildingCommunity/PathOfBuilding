@@ -1156,10 +1156,8 @@ return {
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "Covered in Ash applies the following to the enemy:\n\t20% increased Fire Damage taken\n\t20% less Movement Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("CoveredInAshEffect", "BASE", 20, "Covered in Ash")
 	end },
-	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on Consecrated Ground?", tooltip = "In addition to allowing any relevant modifiers to apply,\nthis will cause hits to have 100% increased Critical Strike Chance on the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on Consecrated Ground?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-		modList:NewMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" })
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }) })
 	end },
 	{ var = "conditionEnemyOnProfaneGround", type = "check", label = "Is the enemy on Profane Ground?", ifCond = "CreateProfaneGround", tooltip = "Enemies on Profane Ground receive the following modifiers:\n\t-10% to all Resistances\n\t+1% chance to be Critically Hit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
