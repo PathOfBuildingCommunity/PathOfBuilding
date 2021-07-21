@@ -2659,7 +2659,7 @@ skills["GeneralsCrySupport"] = {
 		[18] = { -32, levelRequirement = 66, statInterpolation = { 1, }, cost = { }, },
 		[19] = { -31, levelRequirement = 68, statInterpolation = { 1, }, cost = { }, },
 		[20] = { -36, levelRequirement = 70, statInterpolation = { 1, }, cost = { }, },
-		[21] = { -29, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
+		[21] = { -35, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
 		[22] = { -28, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
 		[23] = { -28, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
 		[24] = { -27, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
