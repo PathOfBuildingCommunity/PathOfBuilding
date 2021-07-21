@@ -1062,6 +1062,7 @@ Variant: Tailwind
 Variant: Area of Effect
 Variant: Proj. Speed
 Variant: Skill Effect Duration
+Variant: Soul Gain Prevention Duration
 Variant: Lucky Damage
 Variant: Aura Effect
 Variant: Regain Souls

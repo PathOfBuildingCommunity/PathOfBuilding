@@ -3,6 +3,17 @@
 return {
 -- Body: Armour
 [[
+Atziri's Splendour
+Sacrificial Garb
+Requires Level 75, 66 Str, 66 Dex, 66 Int
+Implicits: 1
++1 to Level of all Vaal Skill Gems
+202% increased Evasion and Energy Shield
++72 to maximum Energy Shield
++20% to all Elemental Resistances
++100 Life gained on Kill
++100 Mana gained on Kill
+]],[[
 Blunderbore
 Astral Plate
 League: Heist

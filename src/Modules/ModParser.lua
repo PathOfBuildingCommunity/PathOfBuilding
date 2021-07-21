@@ -634,8 +634,11 @@ local modFlagList = {
 	["to wand attacks"] = { flags = bor(ModFlag.Wand, ModFlag.Hit) },
 	["with wand attacks"] = { flags = bor(ModFlag.Wand, ModFlag.Hit) },
 	["unarmed"] = { flags = bor(ModFlag.Unarmed, ModFlag.Hit) },
+	["unarmed melee"] = { flags = bor(ModFlag.Unarmed, ModFlag.Melee, ModFlag.Hit) },
 	["with unarmed attacks"] = { flags = bor(ModFlag.Unarmed, ModFlag.Hit) },
+	["with unarmed melee attacks"] = { flags = bor(ModFlag.Unarmed, ModFlag.Melee) },
 	["to unarmed attacks"] = { flags = bor(ModFlag.Unarmed, ModFlag.Hit) },
+	["to unarmed melee hits"] = { flags = bor(ModFlag.Unarmed, ModFlag.Melee, ModFlag.Hit) },
 	["with one handed weapons"] = { flags = bor(ModFlag.Weapon1H, ModFlag.Hit) },
 	["with one handed melee weapons"] = { flags = bor(ModFlag.Weapon1H, ModFlag.WeaponMelee, ModFlag.Hit) },
 	["with two handed weapons"] = { flags = bor(ModFlag.Weapon2H, ModFlag.Hit) },
@@ -759,6 +762,7 @@ local preFlagList = {
 	-- Damage types
 	["^hits deal "] = { keywordFlags = KeywordFlag.Hit },
 	["^critical strikes deal "] = { tag = { type = "Condition", var = "CriticalStrike" } },
+	["^poisons you inflict with critical strikes have "] = { keywordFlags = bor(KeywordFlag.Poison, KeywordFlag.MatchAll), tag = { type = "Condition", var = "CriticalStrike" } },
 	-- Add to minion
 	["^minions "] = { addToMinion = true },
 	["^minions [hd][ae][va][el] "] = { addToMinion = true },
@@ -3112,10 +3116,10 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
-	["Passive Skills in Radius also grant: (%d+)%% increased Attack Speed with Unarmed Attacks"] = function(num)
+	["Passive Skills in Radius also grant: (%d+)%% increased Unarmed Attack Speed with Melee Skills"] = function(num)
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" then
-				out:NewMod("Speed", "INC", num, data.modSource, bor(ModFlag.Unarmed, ModFlag.Attack))
+				out:NewMod("Speed", "INC", num, data.modSource, bor(ModFlag.Unarmed, ModFlag.Attack, ModFlag.Melee))
 			end
 		end
 	end,

@@ -124,7 +124,7 @@ Creates Consecrated Ground on Use
 {variant:2}(20-40)% increased Duration
 Consecrated Ground created by this Flask has Tripled Radius
 {variant:1}+(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
-{variant:2}100-150% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
+{variant:2}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
 Consecrated Ground created during Effect applies (7-10)% increased Damage taken to Enemies
 ]],[[
 Coralito's Signature
@@ -156,7 +156,6 @@ Silver Flask
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
 Has Alt Variant: true
-Has Alt Variant Two: true
 Variant: Crit Chance
 Variant: Damage Taken is Leeched as Life
 Variant: Item Rarity
@@ -196,7 +195,7 @@ Requires Level 68
 {variant:3}(40-60)% reduced duration
 {variant:1}30% increased Area of Effect during Flask Effect
 {variant:2}(15-25)% increased Area of Effect during Flask Effect
-{variant:2}(10-20)% increased Area of Effect during Flask Effect
+{variant:3}(10-20)% increased Area of Effect during Flask Effect
 2 additional Projectiles during Flask Effect
 ]],[[
 Forbidden Taste
@@ -209,7 +208,7 @@ Requires Level 27
 {variant:1,2}50% increased Charges used
 {variant:1}Recover 50% of your maximum Life on use
 {variant:2}Recover 75% of your maximum Life on use
-{variant:3}Recover (75-100)% of your maximum Life on use
+{variant:3,4}Recover (75-100)% of your maximum Life on use
 {variant:1}15% of maximum Life taken as Chaos Damage per second
 {variant:2,3}8% of maximum Life taken as Chaos Damage per second
 {variant:4}25% of maximum Life taken as Chaos Damage per second
@@ -257,7 +256,7 @@ Requires Level 40
 {variant:3}50% chance to gain a Flask Charge when you deal a Critical Strike
 Consumes Frenzy Charges on use
 {variant:1,2}Gain Onslaught for 1 second per Frenzy Charge on use
-{variant:3}Gain Onslaught for 2 second per Frenzy Charge on use
+{variant:3}Gain Onslaught for 2 seconds per Frenzy Charge on use
 {variant:4}Gain Onslaught for 3 seconds per Frenzy Charge on use
 ]],[[
 Rumi's Concoction
@@ -415,7 +414,7 @@ Requires Level 68
 {variant:5,6,7,8}20% of Lightning Damage Leeched as Mana during Flask effect
 {variant:1,2,3,4}Life and Mana Leech are instant during effect
 {variant:1,5,11}Damage Penetrates 10% Lightning Resistance during Flask effect
-{variant:1,5,11,16}Damage Penetrates 6% Lightning Resistance during Flask effect
+{variant:16}Damage Penetrates 6% Lightning Resistance during Flask effect
 {variant:2,6,9}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
 {variant:12}Adds (25-35) to (110-130) Lightning Damage to Spells during Flask effect
 {variant:17}Adds (10-15) to (55-65) Lightning Damage to Spells during Flask effect
