@@ -1,5 +1,80 @@
 # Changelog
 
+## [2.4.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.4.0) (2021/07/21)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.3.0...2.4.0)
+
+**Implemented enhancements:**
+
+- Add 3.15 passive skill tree [\#2910](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2910) ([ppoelzl](https://github.com/ppoelzl))
+- Added Parsing for 'Perfect Crime' and 'Bomb Specialist' [\#2905](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2905) ([Nostrademous](https://github.com/Nostrademous))
+- Add weapon crit to mod breakdown and fix a typo [\#2901](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2901) ([PJacek](https://github.com/PJacek))
+- Various gem fixes and improvements [\#2898](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2898) ([PJacek](https://github.com/PJacek))
+- Add unique helmet The Fledgling [\#2873](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2873) ([ppoelzl](https://github.com/ppoelzl))
+- Implement Replica Siegebreaker burning ground [\#2820](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2820) ([ifnjeff](https://github.com/ifnjeff))
+- Bump SimpleGraphic to latest build [\#2802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2802) ([Wires77](https://github.com/Wires77))
+- 20 Quality gem DPS tooltip comparison \(aka. Is GCP vendor recipe worth doing?\) [\#2800](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2800) ([7e11](https://github.com/7e11))
+- Update SHA-1 library [\#2791](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2791) ([ppoelzl](https://github.com/ppoelzl))
+- Add support for Divergent Close Combat [\#2788](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2788) ([Wires77](https://github.com/Wires77))
+
+**Fixed bugs:**
+
+- Remove Blood Offering gem [\#2904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2904) ([PJacek](https://github.com/PJacek))
+- Fix Anomalous Chain Hook [\#2889](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2889) ([PJacek](https://github.com/PJacek))
+- Fix Interation between Agnostic and Pious Path [\#2883](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2883) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add unique variant of Commandment of Inferno [\#2882](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2882) ([PJacek](https://github.com/PJacek))
+- Fix parsing for Sacrificial Garb implicit [\#2874](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2874) ([Wires77](https://github.com/Wires77))
+- Fix The Agnostic calculation [\#2825](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2825) ([roastpiece](https://github.com/roastpiece))
+- Fix support for Petrified Blood [\#2806](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2806) ([Wires77](https://github.com/Wires77))
+- Add support for Rathpith Globe and legacy Femur of the Saints [\#2799](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2799) ([Wires77](https://github.com/Wires77))
+- Update gem tooltip generation [\#2796](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2796) ([PJacek](https://github.com/PJacek))
+- Fix Triggered skill parsings [\#2795](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2795) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Wildwrap Attack Speed mod [\#2790](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2790) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Blood Stance not granting more Bleed damage [\#2789](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2789) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix power report crash when loading builds [\#2785](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2785) ([Wires77](https://github.com/Wires77))
+- Divergent Stormbind quality has more AoE vs. Increased [\#2772](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2772) ([Wires77](https://github.com/Wires77))
+- fixed wording on eyes of the greatwolf [\#2761](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2761) ([pundm](https://github.com/pundm))
+- Adds trap and mine speed essence mod [\#2760](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2760) ([pundm](https://github.com/pundm))
+- Fix: Mana Reservation mods [\#2756](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2756) ([pundm](https://github.com/pundm))
+- Fix maces/sceptres and thrusting/non-thrusting swords counting as different weapon types [\#2732](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2732) ([Wires77](https://github.com/Wires77))
+
+**Merged pull requests:**
+
+- Support unnerved belt enchant [\#2922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2922) ([Wires77](https://github.com/Wires77))
+- Update RELEASE.md [\#2920](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2920) ([Wires77](https://github.com/Wires77))
+- Gem changes from 3.15 patch notes [\#2919](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2919) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fixes \#2879 - Add skill parts for Smite [\#2918](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2918) ([Wires77](https://github.com/Wires77))
+- Update wording for non-vaal skill damage during soul gain prevention [\#2917](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2917) ([Wires77](https://github.com/Wires77))
+- Disciples cooldown applies to all Sentinels now [\#2916](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2916) ([Wires77](https://github.com/Wires77))
+- Update evasion, poison, and consecrated ground calculations [\#2913](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2913) ([ifnjeff](https://github.com/ifnjeff))
+- 3.15 Nerf to Alchemist's Genius [\#2912](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2912) ([Wires77](https://github.com/Wires77))
+- 3.15 uniques [\#2911](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2911) ([Wires77](https://github.com/Wires77))
+- Fiery Impact [\#2909](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2909) ([celuck](https://github.com/celuck))
+- Parse Increased Chaos Damage Over Time Mod found on weapons \(\#2750\) [\#2902](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2902) ([Puddlestomper](https://github.com/Puddlestomper))
+- add space and newline before any custom mods [\#2888](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2888) ([Nightblade](https://github.com/Nightblade))
+- Fix the "increased Impale Effect" of Dread Banner only apply to attac… [\#2878](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2878) ([Typepluto](https://github.com/Typepluto))
+- Fixed some confusing indentation mistakes. [\#2876](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2876) ([MoldyDwarf](https://github.com/MoldyDwarf))
+- Addition of missing fishing rods [\#2841](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2841) ([aletrop](https://github.com/aletrop))
+- cosmetic change to ngamahus sign, fixes \#2838 [\#2839](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2839) ([pundm](https://github.com/pundm))
+- added fire burst radius based on 3.14 patch notes [\#2837](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2837) ([quashtaki](https://github.com/quashtaki))
+- CONTRIBUTING overhaul [\#2835](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2835) ([ppoelzl](https://github.com/ppoelzl))
+- Added missing pride aura radius [\#2833](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2833) ([pundm](https://github.com/pundm))
+- Fix alternative quality for Precision [\#2827](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2827) ([czarandy](https://github.com/czarandy))
+- Fixes error when powerReportList is not initialized [\#2815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2815) ([Nostrademous](https://github.com/Nostrademous))
+- Fixes FullDPS comparison for Alternate Gem Qualities [\#2780](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2780) ([Nostrademous](https://github.com/Nostrademous))
+- Fix fullDPS comparison of enabling/disabling flasks [\#2779](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2779) ([Nostrademous](https://github.com/Nostrademous))
+- Re-Adds separation of Minion and Player breakdown in stat comparison [\#2778](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2778) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Chip Away brand cluster notable [\#2777](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2777) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for reworked Arborix mods [\#2776](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2776) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Gore Shockwave skill [\#2775](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2775) ([LocalIdentity](https://github.com/LocalIdentity))
+- General's Cry Mirage fixes [\#2770](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2770) ([Nostrademous](https://github.com/Nostrademous))
+- Adds: functionality for blood artist [\#2767](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2767) ([pundm](https://github.com/pundm))
+- Warcries have infinite power [\#2762](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2762) ([pundm](https://github.com/pundm))
+- Add Trial Galecaller spectre [\#2751](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2751) ([Kayella](https://github.com/Kayella))
+
+
+
+
 ## [2.3.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.3.0) (2021/04/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.2.1...2.3.0)
