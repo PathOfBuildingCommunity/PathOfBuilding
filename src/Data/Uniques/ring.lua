@@ -1047,6 +1047,43 @@ Implicits: 1
 (-10-10)% increased Skill Effect Duration
 Unaffected by Temporal Chains
 ]],[[
+Triumvirate Authority
+Unset Ring
+Requires Level 64
+Has Alt Variant: true
+Has Alt Variant Two: true
+Variant: More Damage
+Variant: Less souls
+Variant: Additional Use (Pre 3.15.0)
+Variant: Ignore resistances
+Variant: Ignore Phys. Dmg. Reduction
+Variant: Grant Elusive
+Variant: Tailwind
+Variant: Area of Effect
+Variant: Proj. Speed
+Variant: Skill Effect Duration
+Variant: Soul Gain Prevention Duration
+Variant: Lucky Damage
+Variant: Aura Effect
+Variant: Regain Souls
+Implicits: 1
+Has 1 Socket
++2 to Level of Socketed Vaal Gems
+{variant:1}Socketed Vaal Skills deal 150% more Damage
+{variant:2}Socketed Vaal Skills require 30% less Souls per Use
+{variant:3}Socketed Vaal Skills can store Souls for 1 additional Use
+{variant:4}Hits from Socketed Vaal Skills ignore Enemy Monster Resistances
+{variant:5}Hits from Socketed Vaal Skills ignore Enemy Monster Physical Damage Reduction
+{variant:6}Socketed Vaal Skills grant Elusive when Used
+{variant:7}You have Tailwind if you've used a Socketed Vaal Skill Recently
+{variant:8}Socketed Vaal Skills have 60% increased Area of Effect
+{variant:9}Socketed Vaal Skills have 80% increased Projectile Speed
+{variant:10}Socketed Vaal Skills have 80% increased Skill Effect Duration
+{variant:11}Socketed Vaal Skills have 30% reduced Soul Gain Prevention Duration
+{variant:12}Damage with Hits from Socketed Vaal Skills is Lucky
+{variant:13}Socketed Vaal Skills have 50% increased Aura Effect
+{variant:14}Socketed Vaal Skills have 20% chance to regain consumed Souls when used
+]],[[
 Uzaza's Meadow
 Sapphire Ring
 League: Delve

@@ -152,12 +152,17 @@ Glorious Plate
 Requires Level 68, 191 Str
 League: Delirium
 Source: Drops from the Simulacrum Encounter
+Has Alt Variant: true
+Variant: War Banner
+Variant: Dread Banner
+Variant: Defiance Banner
 (25-40)% increased Melee Damage
 +(60-90) to maximum Life
 You can have two different Banners at the same time
 Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
-War Banner has (100-200)% increased Adrenaline duration
-Dread Banner has (100-200)% increased Fortify duration
+{variant:1}War Banner has (100-200)% increased Adrenaline duration
+{variant:2}Dread Banner has (100-200)% increased Fortify duration
+{variant:3}Defiance Banner has (100-200)% increased Taunt duration
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -1205,6 +1210,8 @@ Variant: Current (Armour/ES + Life)
 Variant: Current (Armour/ES + ES)
 Variant: Current (Armour/Evasion/ES)
 Requires Level 75, 66 Str, 66 Dex, 66 Int
+Implicits: 1
++1 to Level of all Vaal Skill Gems
 {variant:1,10}(380-420)% increased Armour
 {variant:2,11}(200-220)% increased Evasion Rating and Armour
 {variant:3,12}(380-420)% increased Evasion Rating

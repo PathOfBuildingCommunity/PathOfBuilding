@@ -51,7 +51,7 @@ Requires Level 63, 100 Str
 {variant:1,2,3}10% chance to Shock
 {variant:4}30% chance to Shock
 {variant:1,2}Adds (225-335) to (785-900) Lightning Damage to Unarmed Attacks
-{variant:3,4}Adds (150-225) to (525-600) Lightning Damage to Unarmed Attacks
+{variant:3,4}Adds (150-225) to (525-600) Lightning Damage to Unarmed Melee Hits
 {variant:1,2}Adds (60-90) to (210-240) Lightning Damage to Spells while Unarmed
 {variant:3,4}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
 {variant:1,2,3}+30 Energy Shield gained on Killing a Shocked Enemy
@@ -783,7 +783,7 @@ Requires Level 16, 14 Dex, 14 Int
 {variant:5}+30% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
 {variant:1}(800-1000)% more Unarmed Physical Damage
-{variant:2,3,4,5}(600-800)% more Unarmed Physical Damage
+{variant:2,3,4,5}(600-800)% more Physical Damage with Unarmed Melee Attacks
 Extra gore
 ]],[[
 Fenumus' Weave

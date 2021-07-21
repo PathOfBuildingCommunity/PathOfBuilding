@@ -128,7 +128,7 @@ Requires Level 64, 138 Dex
 Implicits: 0
 Grants Level 20 Snipe Skill
 Socketed Non-Channelling Bow Skills are Triggered by Snipe
-Socketed Triggered Bow Skills deal 33% less Damage
+Socketed Triggered Bow Skills deal 40% less Damage
 +(350-500) to Accuracy Rating
 +(350-500) to Evasion Rating
 (7-10)% chance to Dodge Attack Hits while Channelling
