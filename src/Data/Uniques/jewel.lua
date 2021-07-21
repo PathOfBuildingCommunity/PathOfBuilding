@@ -30,13 +30,6 @@ Viridian Jewel
 Minions have (5-10)% increased Movement Speed
 Minions have (2-5)% additional chance to Dodge Attacks
 ]],[[
-Atziri's Reign
-Crimson Jewel
-Limited to: 1
-17% increased Vaal Skill Effect Duration
-Vaal Skills have 20% chance to regain consumed Souls when used
-Corrupted
-]],[[
 The Blue Dream
 Cobalt Jewel
 League: Breach
