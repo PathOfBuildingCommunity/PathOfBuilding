@@ -1872,6 +1872,9 @@ local specialModList = {
 	["%+(%d+) to level of all dexterity skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "dexterity", "active_skill" }, key = "level", value = num }) } end,
 	["%+(%d+) to level of all intelligence skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "intelligence", "active_skill" }, key = "level", value = num }) } end,
 	["%+(%d+) to level of all (.+) gems"] = function(num, _, skill)
+		if gemIdLookup[skill] then
+			return { mod("GemProperty", "LIST", {keyword = skill, key = "level", value = num }) }
+		end
 		local wordList = {}
 		for tag in skill:gmatch("%w+") do
 			if tag == "skill" then
