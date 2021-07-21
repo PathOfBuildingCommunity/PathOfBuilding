@@ -2187,6 +2187,7 @@ function calcs.perform(env, avoidCache)
 			local moreDamage = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage")
 			local exertInc = env.modDB:Sum("INC", usedSkill.skillCfg, "ExertIncrease")
 			local exertMore = env.modDB:Sum("MORE", usedSkill.skillCfg, "ExertIncrease")
+			local ddChance = env.modDB:Sum("BASE", usedSkill.skillCfg, "ExertDoubleDamageChance")
 
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
 
@@ -2194,6 +2195,7 @@ function calcs.perform(env, avoidCache)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "General's Cry", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Damage", "INC", exertInc, "General's Cry Exerted Attacks", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Damage", "MORE", exertMore, "General's Cry Exerted Attacks", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+			newSkill.skillModList:NewMod("DoubleDamageChance", "BASE", ddChance, "General's Cry Exerted Attacks", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			local maxMirageWarriors = 0
 			if mirageActiveSkill then
 				for i, value in ipairs(mirageActiveSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
@@ -2202,6 +2204,11 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 			maxMirageWarriors = m_max(maxMirageWarriors, 1)
+
+			-- Non-channelled skills only attack once, disregard attack rate
+			if not usedSkill.skillTypes[SkillType.Channelled] then
+				newSkill.skillData.timeOverride = 1
+			end
 
 			env.player.mainSkill.mirage = { }
 			env.player.mainSkill.mirage.count = maxMirageWarriors
