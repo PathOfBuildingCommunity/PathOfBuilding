@@ -1005,7 +1005,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if breakdown and output[resource.."Cost"] ~= baseCost then
 					breakdown[resource.."Cost"] = {
-						s_format("%d"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
+						s_format("%.2f"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
 					}
 					if mult ~= 1 then
 						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
