@@ -810,6 +810,10 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
+		if modDB:Flag(nil, "OnConsecratedGround") then
+			local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+			modDB:NewMod("LifeRegenPercent", "BASE", 6 * effect, "Consecrated Ground")
+		end
 		if modDB:Flag(nil, "Blind") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
 				modDB:NewMod("HitChance", "MORE", -50, "Blind")

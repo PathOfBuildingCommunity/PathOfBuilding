@@ -298,6 +298,7 @@ local modNameList = {
 	["effect of curses applied by bane"] = { "CurseEffect", tag = { type = "Condition", var = "AppliedByBane" } },
 	["effect of your marks"] = { "CurseEffect", tag = { type = "SkillType", skillType = SkillType.Mark } },
 	["effect of arcane surge on you"] = "ArcaneSurgeEffect",
+	["effect of consecrated ground you create"] = "ConsecratedGroundEffect",
 	["curse duration"] = { "Duration", keywordFlags = KeywordFlag.Curse },
 	["hex duration"] = { "Duration", tag = { type = "SkillType", skillType = SkillType.Hex } },
 	["radius of auras"] = { "AreaOfEffect", keywordFlags = KeywordFlag.Aura },
