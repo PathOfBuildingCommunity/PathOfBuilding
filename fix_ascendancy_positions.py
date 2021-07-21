@@ -74,7 +74,7 @@ def main():
             data["groups"][group]["y"] = NODE_GROUPS[asc][ascendancy_count[asc]]["y"]
             ascendancy_count[asc] += 1
 
-    with open("data.json", "w") as o:
+    with open("data_fixed.json", "w") as o:
         o.write(json.dumps(data, indent=4))
 
 
