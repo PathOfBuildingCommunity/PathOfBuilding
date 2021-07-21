@@ -1859,19 +1859,16 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown[damageType] = { damageTypes = { } }
 				if baseMin ~= 0 and baseMax ~= 0 then
 					t_insert(breakdown[damageType], "Base damage:")
-					local plus = false
+					local plus = ""
 					if (source[damageTypeMin] or 0) ~= 0 or (source[damageTypeMax] or 0) ~= 0 then
 						t_insert(breakdown[damageType], s_format("%d to %d ^8(base damage from %s)", source[damageTypeMin], source[damageTypeMax], source.type and "weapon" or "skill"))
 						if baseMultiplier ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(base damage multiplier)", baseMultiplier))
 						end
-						plus = true
+						plus = "+ "
 					end
 					if addedMin ~= 0 or addedMax ~= 0 then
-						if plus then
-							t_insert(breakdown[damageType], "+")
-						end
-						t_insert(breakdown[damageType], s_format("%d to %d ^8(added damage)", addedMin, addedMax))
+						t_insert(breakdown[damageType], s_format("%s%d to %d ^8(added damage)", plus, addedMin, addedMax))
 						if damageEffectiveness ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(damage effectiveness)", damageEffectiveness))
 						end
