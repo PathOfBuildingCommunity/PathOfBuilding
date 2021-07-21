@@ -209,7 +209,9 @@ directiveTable.baseMatch = function(state, argstr, out)
 		value = args[2]
 	end
 	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList(key, value, true)) do
-		directiveTable.base(state, baseItemType.Id, out)
+		if not string.find(baseItemType.Id, "Royale") then
+			directiveTable.base(state, baseItemType.Id, out)
+		end
 	end
 end
 

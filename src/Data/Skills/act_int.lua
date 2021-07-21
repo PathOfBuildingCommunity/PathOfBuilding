@@ -3375,6 +3375,7 @@ skills["Firewall"] = {
 		"wall_maximum_length",
 		"is_area_damage",
 		"spell_damage_modifiers_apply_to_skill_dot",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 5.0000003104409, 20.000001241763, 3, 5, 1000, 3, 40, duration = 3, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },

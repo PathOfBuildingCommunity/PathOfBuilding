@@ -988,6 +988,7 @@ skills["ElementalAegis"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
+		[1] = { 50, 2, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
 		[20] = { 1000, 2, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
@@ -2106,6 +2107,7 @@ skills["ShieldShatter"] = {
 		"buff_added_spell_maximum_base_physical_damage_per_shield_quality",
 	},
 	levels = {
+		[1] = { 100, 0.80000001192093, 1.2000000476837, 1, 2, duration = 4, levelRequirement = 4, statInterpolation = { 1, 3, 3, 1, 1, }, cost = { }, },
 		[20] = { 100, 0.80000001192093, 1.2000000476837, 10, 16, duration = 4, levelRequirement = 70, statInterpolation = { 1, 3, 3, 1, 1, }, cost = { }, },
 	},
 }
@@ -3103,6 +3105,7 @@ skills["SummonMirageChieftain"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
+		[1] = { 100, -40, levelRequirement = 1, duration = 3, cooldown = 2, statInterpolation = { 1, 1, }, cost = { }, },
 		[20] = { 100, 50, levelRequirement = 1, duration = 3, cooldown = 2, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 }

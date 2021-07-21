@@ -8478,6 +8478,7 @@ skills["WildStrike"] = {
 		"melee_range_+",
 		"show_number_of_projectiles",
 		"always_pierce",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 100, 4, 70, 2, 0, 0, damageEffectiveness = 1.6, baseMultiplier = 1.6, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
