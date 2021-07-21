@@ -139,12 +139,14 @@ data.jewelRadius = {
 	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
 }
 
-data.labyrinths = {
+data.enchantmentSource = {
+	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
-	{ name = "ENDGAME", label = "Eternal" },
-	{ name = "MERCILESS", label = "Merciless" },
-	{ name = "CRUEL", label = "Cruel" },
-	{ name = "NORMAL", label = "Normal" },
+	{ name = "DEDICATION", label = "Dedication to the Goddess" },
+	{ name = "ENDGAME", label = "Eternal Labyrinth" },
+	{ name = "MERCILESS", label = "Merciless Labyrinth" },
+	{ name = "CRUEL", label = "Cruel Labyrinth" },
+	{ name = "NORMAL", label = "Normal Labyrinth" },
 }
 
 local maxPenaltyFreeAreaLevel = 70
@@ -311,10 +313,12 @@ data.itemMods = {
 }
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
-	Helmet = LoadModule("Data/EnchantmentHelmet"),
-	Boots = LoadModule("Data/EnchantmentBoots"),
-	Gloves = LoadModule("Data/EnchantmentGloves"),
-	Belt = LoadModule("Data/EnchantmentBelt"),
+	["Helmet"] = LoadModule("Data/EnchantmentHelmet"),
+	["Boots"] = LoadModule("Data/EnchantmentBoots"),
+	["Gloves"] = LoadModule("Data/EnchantmentGloves"),
+	["Belt"] = LoadModule("Data/EnchantmentBelt"),
+	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
+	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
 }
 data.essences = LoadModule("Data/Essence")
 data.pantheons = LoadModule("Data/Pantheons")

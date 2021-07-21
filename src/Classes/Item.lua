@@ -371,7 +371,11 @@ function ItemClass:ParseRaw(raw)
 					self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 							or data.itemMods[self.base.type]
 							or data.itemMods.Item
-					self.enchantments = data.enchantments[self.base.type]
+					if self.base.weapon then
+						self.enchantments = data.enchantments["Weapon"]
+					else
+						self.enchantments = data.enchantments[self.base.type]
+					end
 					self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
 					self.influenceTags = data.specialBaseTags[self.type]
 					self.canBeInfluenced = self.influenceTags
