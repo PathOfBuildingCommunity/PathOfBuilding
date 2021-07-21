@@ -444,6 +444,18 @@ function isValueInArray(tbl, val)
 	end
 end
 
+---Returns the array index of the first element for which the predicate evaluates to true
+---@param table table
+---@param predicate fun(value:any):any
+---@return number
+function isValueInArrayPred(table, predicate)
+	for i, v in ipairs(table) do
+		if predicate(v) then
+			return i
+		end
+	end
+end
+
 -- Pretty-prints a table
 function prettyPrintTable(tbl, pre)
 	pre = pre or ""
