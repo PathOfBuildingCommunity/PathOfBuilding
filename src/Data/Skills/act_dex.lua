@@ -2678,18 +2678,6 @@ skills["DualStrike"] = {
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
-		["active_skill_added_damage_+%_final"] = {
-			mod("PhysicalMax", "MORE", nil),
-			mod("FireMax", "MORE", nil),
-			mod("ColdMax", "MORE", nil),
-			mod("LightningMax", "MORE", nil),
-			mod("ChaosMax", "MORE", nil),
-			mod("PhysicalMin", "MORE", nil),
-			mod("FireMin", "MORE", nil),
-			mod("ColdMin", "MORE", nil),
-			mod("LightningMin", "MORE", nil),
-			mod("ChaosMin", "MORE", nil),
-		}
 	},
 	baseFlags = {
 		attack = true,
@@ -4808,6 +4796,9 @@ skills["LancingSteel"] = {
 		["number_of_projectiles_to_fire_+%_final_per_steel_ammo_consumed"] = {
 			mod("ProjectileCount", "MORE", nil, 0, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 4 } )
 		},
+		["lancing_steel_damage_+%_at_close_range"] = {
+			mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "DistanceRamp", ramp = {{10,1},{70,0}} }),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -5554,6 +5545,9 @@ skills["PoachersMark"] = {
 		},
 		["maximum_added_physical_damage_taken"] = {
 			mod("SelfPhysicalMax", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {

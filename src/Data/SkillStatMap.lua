@@ -537,6 +537,9 @@ return {
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
 },
+["chance_for_extra_damage_roll_%"] = {
+	mod("LuckyHitsChance", "BASE", nil)
+},
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
 },
@@ -662,6 +665,12 @@ return {
 },
 ["global_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil),
+},
+["added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
+},
+["active_skill_added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
 },
 ["shield_charge_damage_+%_maximum"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
@@ -1412,6 +1421,9 @@ return {
 },
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
+},
+["minion_additional_physical_damage_reduction_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", nil) }),
 },
 ["summon_fire_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("FireResist", "BASE", nil) }),
