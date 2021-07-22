@@ -199,7 +199,7 @@ skills["TotemMelee"] = {
 	name = "Ancestral Protector",
 	color = 1,
 	description = "Summons an Ancestor Totem which attacks enemies with melee strikes while you're near it. Being near it grants you more attack speed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Totem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, SkillType.AttackCanRepeat, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Totem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -405,7 +405,7 @@ skills["AncestorTotemSlam"] = {
 	name = "Ancestral Warchief",
 	color = 1,
 	description = "Summons an Ancestor Totem which attacks enemies with a powerful slam while you're near it. Being near it grants you more melee damage.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Totem] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.SlamSkill] = true, SkillType.AttackCanRepeat, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Totem] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.SlamSkill] = true, [SkillType.AttackCanRepeat] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,

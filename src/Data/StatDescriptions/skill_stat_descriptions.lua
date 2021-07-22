@@ -32678,6 +32678,44 @@ return {
 			[1]="minions_are_defensive"
 		}
 	},
+	[1156]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals {0}% of your maximum Life as base Chaos Damage"
+				}
+			}
+		},
+		name="forbidden_rite_health_percent",
+		stats={
+			[1]="forbidden_rite_%_health_dealt_as_chaos_damage"
+		}
+	},
+	[1157]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals {0}% of your maximum Energy Shield as base Chaos Damage"
+				}
+			}
+		},
+		name="forbidden_rite_energy_shield_percent",
+		stats={
+			[1]="forbidden_rite_%_energy_shield_dealt_as_chaos_damage"
+		}
+	},
 	["%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy"]=863,
 	["%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"]=864,
 	["%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"]=865,
@@ -33942,5 +33980,7 @@ return {
 	["withered_on_hit_chance_%"]=1143,
 	["withering_step_chance_to_not_remove_on_skill_use_%"]=1144,
 	["you_and_enemy_movement_velocity_+%_while_affected_by_ailment_you_inflicted"]=1145,
-	["zombie_slam_cooldown_speed_+%"]=1153
+	["zombie_slam_cooldown_speed_+%"]=1153,
+	["forbidden_rite_%_health_dealt_as_chaos_damage"]=1156,
+	["forbidden_rite_%_energy_shield_dealt_as_chaos_damage"]=1157
 }
