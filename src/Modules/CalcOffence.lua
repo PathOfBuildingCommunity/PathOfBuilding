@@ -2854,7 +2854,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalBreakdown.PoisonDotMulti = breakdown.critDot(globalOutput.PoisonDotMulti, globalOutput.CritPoisonDotMulti, totalFromHit, totalFromCrit)
 						globalOutput.PoisonDotMulti = (globalOutput.PoisonDotMulti * totalFromHit) + (globalOutput.CritPoisonDotMulti * totalFromCrit)
 					end
-					t_insert(breakdown.PoisonDPS, "x 0.20 ^8(poison deals 20% per second)")
+					t_insert(breakdown.PoisonDPS, "x 0.30 ^8(poison deals 30% per second)")
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.PoisonDPS, {
 						label = "Poison DPS:",
