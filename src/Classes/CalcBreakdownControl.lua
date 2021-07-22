@@ -3,6 +3,10 @@
 -- Class: Calc Breakdown Control
 -- Calculation breakdown control used in the Calcs tab
 --
+
+_G.GlobalArray = {}
+_G.GlobalArrayLen = 0
+
 local t_insert = table.insert
 local m_max = math.max
 local m_min = math.min
@@ -26,6 +30,8 @@ local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlH
 	self.uiOverlay:Load("Assets/game_ui_small.png")
 	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -2, 0, 18, 0, 80, "VERTICAL", true)
 end)
+
+
 
 function CalcBreakdownClass:IsMouseOver()
 	if not self:IsShown() then
@@ -286,6 +292,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			{ label = "Source Name", key = "sourceName" },
 		},
 	}
+	GlobalArray = {}
 	t_insert(self.sectionList, section)
 
 	if not modList and not sectionData.modType then
@@ -349,6 +356,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	end
 
 	-- Process modifier data
+	local combVal = ""
 	for _, row in ipairs(rowList) do
 		if not sectionData.modType then
 			-- No modifier type specified, so format the value to convey type
@@ -361,6 +369,9 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Multiple stat names specified, add this modifier's stat to the table
 			row.name = self:FormatModName(row.mod.name)
 		end
+
+		--print(row.flags)
+	
 		local sourceType = row.mod.source:match("[^:]+")
 		if not modList and not sectionData.modSource then
 			-- No modifier source specified, add the source type to the table
@@ -409,7 +420,26 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			end
 			table.sort(flagNames)
 			row.flags = table.concat(flagNames, ", ")
+
+
+				--print(row.mod.type)
+				combVal = row.displayValue .. ":" .. row.name .. ":" .. row.flags .. ":" .. row.sourceName
+				table.insert(GlobalArray, combVal)
+				GlobalArrayLen = #GlobalArray
+		else
+			combVal = row.displayValue .. ":" .. row.name .. ":" .. row.mod.flags .. ":" .. row.sourceName
+			table.insert(GlobalArray, combVal)
+			GlobalArrayLen = #GlobalArray
+
+
+
 		end
+		
+
+		--print(GlobalArray[#GlobalArray])
+		--print(#GlobalArray)
+		--print(combVal)
+		
 		row.tags = nil
 		if row.mod[1] then
 			-- Format modifier tags
