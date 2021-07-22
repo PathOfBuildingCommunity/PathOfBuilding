@@ -29,9 +29,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportArcaneSurge
 	statMap = {
-		["support_arcane_surge_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-		},
 		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
 			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
 			div = 60.0001,
@@ -75,11 +72,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBonechill
-	statMap = {
-		["support_chills_also_grant_cold_damage_taken_per_minute_+%"] = {
-			mod("ColdDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill", effectEnemyCond = "Chilled" }),
-		},
-	},
 #baseMod skill("supportBonechill", true)
 #mods
 
@@ -96,11 +88,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastWhileChannellingTriggered
-	statMap = {
-		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
-		},
-	},
 #mods
 
 #skill SupportCastWhileChannellingPlus
@@ -203,10 +190,10 @@ local skills, mod, flag, skill = ...
 		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_chance_+%_final_vs_focussed_target"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CritChance", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_multiplier_+%_final_vs_focussed_target"] = {
+		["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
 	},
@@ -355,7 +342,7 @@ local skills, mod, flag, skill = ...
 			div = 60,
 			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
 		},
-		["minion_burning_damage_"] = {
+		["minion_burning_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot) }),
 		},
 		["minion_fire_damage_taken_+%"] = {
@@ -459,6 +446,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }),
 		},
 		["minion_ailment_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),

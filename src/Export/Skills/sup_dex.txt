@@ -138,6 +138,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportSlashingWeapon
+	statMap = {
+		["support_slashing_damage_+%_final_from_distance"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+		},
+		["close_combat_damage_to_close_range_+%"] = {
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+		},
+	},
 #mods
 
 #skill SupportClusterTrap
@@ -332,6 +340,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_pierce_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+		["projectile_damage_+%_if_pierced_enemy"] = {
+			mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
 		},
 	},
 #mods

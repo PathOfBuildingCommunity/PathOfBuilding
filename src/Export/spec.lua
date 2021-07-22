@@ -1420,6 +1420,8 @@ return {
 			width=50
 		}
 	},
+	ComponentWeapon={
+	},
 	CooldownBypassTypes={
 	},
 	CooldownGroups={
@@ -4627,52 +4629,52 @@ return {
 		},
 		[42]={
 			list=false,
-			name="",
-			refTo="",
-			type="Key",
-			width=50
-		},
-		[43]={
-			list=false,
 			name="HelmetItem",
 			refTo="ItemVisualIdentity",
 			type="Key",
 			width=150
 		},
-		[44]={
+		[43]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[45]={
+		[44]={
 			list=true,
 			name="",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[46]={
+		[45]={
 			list=true,
 			name="SpecialMods",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[47]={
+		[46]={
 			list=true,
 			name="",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[48]={
+		[47]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=60
+		},
+		[48]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
 		},
 		[49]={
 			list=false,
@@ -4711,38 +4713,38 @@ return {
 		},
 		[54]={
 			list=false,
-			name="",
+			name="Hash",
 			refTo="",
 			type="Int",
 			width=50
 		},
 		[55]={
 			list=false,
-			name="Hash",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[56]={
-			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=40
 		},
-		[57]={
+		[56]={
 			list=false,
 			name="",
 			refTo="",
 			type="String",
 			width=50
 		},
-		[58]={
+		[57]={
 			list=false,
 			name="",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
+		},
+		[58]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
 		},
 		[59]={
 			list=false,
@@ -4754,12 +4756,12 @@ return {
 		[60]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="AchievementItems",
 			type="Key",
-			width=50
+			width=150
 		},
 		[61]={
-			list=false,
+			list=true,
 			name="",
 			refTo="AchievementItems",
 			type="Key",
@@ -4767,29 +4769,29 @@ return {
 		},
 		[62]={
 			list=true,
-			name="",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
-		},
-		[63]={
-			list=true,
 			name="ModsPart1",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[64]={
+		[63]={
 			list=true,
 			name="ModsPart2",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[65]={
+		[64]={
 			list=true,
 			name="ModsEndgame",
 			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[65]={
+			list=true,
+			name="",
+			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
@@ -4808,25 +4810,25 @@ return {
 			width=150
 		},
 		[68]={
-			list=true,
-			name="",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
-		},
-		[69]={
 			list=false,
 			name="",
 			refTo="",
 			type="Key",
 			width=50
 		},
-		[70]={
+		[69]={
 			list=true,
 			name="",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
+		},
+		[70]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
 		},
 		[71]={
 			list=false,
@@ -4836,48 +4838,41 @@ return {
 			width=50
 		},
 		[72]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[73]={
 			list=true,
 			name="",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[74]={
+		[73]={
 			list=true,
 			name="",
 			refTo="MultiPartAchievements",
 			type="Key",
 			width=150
 		},
-		[75]={
+		[74]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[76]={
+		[75]={
 			list=false,
 			name="SinkAnimation",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[77]={
+		[76]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[78]={
+		[77]={
 			list=true,
 			name="",
 			refTo="MultiPartAchievements",

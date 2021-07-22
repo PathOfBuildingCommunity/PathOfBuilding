@@ -5,7 +5,7 @@ on:
           sinceTag:
               description: 'Gather updates from this tag until now'
               required: true
-              default: '2.0.x'
+              default: 'v2.0.x'
           releaseVersion:
               description: 'Version number to use for this release'
               required: true
@@ -16,6 +16,8 @@ jobs:
     steps:
             - name: Checkout
               uses: actions/checkout@v2
+              with:
+                ref: 'dev'
             - name: Install changelog generator
               run: sudo gem install github_changelog_generator --version 1.15.2
             - name: Generate Release notes

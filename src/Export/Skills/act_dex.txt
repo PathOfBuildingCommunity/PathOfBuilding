@@ -88,7 +88,7 @@ local skills, mod, flag, skill = ...
 
 #skill BladeBlast
 #flags spell area
-#baseMod skill("radius", 18)
+#baseMod skill("radius", 14)
 	parts = {
 		{
 			name = "1 Blade",
@@ -490,18 +490,6 @@ local skills, mod, flag, skill = ...
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
-		["active_skill_added_damage_+%_final"] = {
-			mod("PhysicalMax", "MORE", nil),
-			mod("FireMax", "MORE", nil),
-			mod("ColdMax", "MORE", nil),
-			mod("LightningMax", "MORE", nil),
-			mod("ChaosMax", "MORE", nil),
-			mod("PhysicalMin", "MORE", nil),
-			mod("FireMin", "MORE", nil),
-			mod("ColdMin", "MORE", nil),
-			mod("LightningMin", "MORE", nil),
-			mod("ChaosMin", "MORE", nil),
-		}
 	},
 #mods
 
@@ -878,14 +866,6 @@ local skills, mod, flag, skill = ...
 			name = "Both slashes",
 		},
 	},
-	statMap = {
-		["double_slash_bleeding_damage_+%_final_in_blood_stance"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "BloodStance" }),
-		},
-		["chance_to_bleed_on_hit_%_chance_in_blood_stance"] = {
-			mod("BleedChance", "BASE", nil, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
-		},
-	},
 #baseMod skill("radius", 38)
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
@@ -908,6 +888,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["number_of_projectiles_to_fire_+%_final_per_steel_ammo_consumed"] = {
 			mod("ProjectileCount", "MORE", nil, 0, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 4 } )
+		},
+		["lancing_steel_damage_+%_at_close_range"] = {
+			mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "DistanceRamp", ramp = {{10,1},{70,0}} }),
 		},
 	},
 #mods
@@ -1002,6 +985,9 @@ local skills, mod, flag, skill = ...
 		},
 		["maximum_added_physical_damage_taken"] = {
 			mod("SelfPhysicalMax", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
@@ -1160,7 +1146,10 @@ local skills, mod, flag, skill = ...
 
 #skill PhysCascadeTrap
 #flags spell area trap duration
-#baseMod skill("radius", 12)
+#baseMod skill("radius", 18)
+#baseMod ("radiusLabel", "Large Burst:")
+#baseMod ("radiusSecondary", 9)
+#baseMod ("radiusSecondaryLabel", "Small Burst:")
 #mods
 
 #skill ShrapnelBallista
@@ -1182,7 +1171,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
-#baseMod skill("radius", 10)
+#baseMod skill("radius", 18)
 #mods
 
 #skill ThrownShield

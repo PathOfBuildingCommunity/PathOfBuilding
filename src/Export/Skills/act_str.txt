@@ -238,7 +238,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 24)
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "Rage" , div = 5 })
+#baseMod mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = 5 })
 #mods
 
 #skill Cleave
@@ -323,7 +323,7 @@ local skills, mod, flag, skill = ...
 			mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["impale_debuff_effect_+%"] = {
-			mod("ImpaleEffect", "INC", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ImpaleEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 46)
@@ -607,6 +607,10 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
 			div = 100,
 		},
+		["immortal_call_elemental_damage_taken_+%_final_per_endurance_charge_consumed_permyriad"] = {
+			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
+			div = 100,
+		},
 	},
 #mods
 
@@ -788,7 +792,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PetrifiedBlood
-#baseMod mod("LifeCost", "MORE", -60, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+	statMap = {
+		["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"] = {
+			mod("ManaCostAsLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type="Condition", var="LowLife", neg = true }),
+		},
+	},
 #mods
 
 #skill PhysicalDamageAura
@@ -807,6 +815,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 #skill Punishment
@@ -938,6 +947,16 @@ local skills, mod, flag, skill = ...
 
 #skill Smite
 #flags attack melee duration area
+	parts = {
+		{
+			name = "Melee Hit",
+			area = false,
+		},
+		{
+			name = "Area Hit",
+			area = true,
+		},
+	},
 	statMap = {
 		["base_chance_to_shock_%_from_skill"] = {
 			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -1161,6 +1180,9 @@ end,
 		},
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["enemy_rage_regeneration_on_stun"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),

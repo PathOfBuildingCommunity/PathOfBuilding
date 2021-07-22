@@ -528,7 +528,7 @@ return {
 	mod("FortifyDuration", "INC", nil),
 },
 ["skill_effect_and_damaging_ailment_duration_+%"] = {
-	mod("SkillAndDamagingAilmentDuration", "INC", nil),
+	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
 	mod("BleedDuration", "INC", nil),
@@ -536,6 +536,9 @@ return {
 -- Damage
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
+},
+["chance_for_extra_damage_roll_%"] = {
+	mod("LuckyHitsChance", "BASE", nil)
 },
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
@@ -663,8 +666,11 @@ return {
 ["global_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil),
 },
-["support_slashing_damage_+%_final_from_distance"] = {
-	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+["added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
+},
+["active_skill_added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
 },
 ["shield_charge_damage_+%_maximum"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
@@ -770,6 +776,9 @@ return {
 },
 ["bleed_on_melee_attack_chance_%"] = {
 	mod("BleedChance", "BASE", nil, ModFlag.Melee),
+},
+["chance_to_bleed_on_hit_%_chance_in_blood_stance"] = {
+	mod("BleedChance", "BASE", nil, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
 },
 ["faster_bleed_%"] = {
 	mod("BleedFaster", "INC", nil),
@@ -885,6 +894,9 @@ return {
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
+},
+["active_skill_bleeding_damage_+%_final_in_blood_stance"] = {
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "BloodStance" }),
 },
 ["base_poison_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Poison),
@@ -1410,6 +1422,9 @@ return {
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
 },
+["minion_additional_physical_damage_reduction_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", nil) }),
+},
 ["summon_fire_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("FireResist", "BASE", nil) }),
 },
@@ -1521,6 +1536,9 @@ return {
 },
 ["base_life_reservation_+%"] = {
 	mod("LifeReserved", "INC", nil)
+},
+["base_reservation_+%"] = {
+	mod("Reserved", "INC", nil)
 },
 -- Brand
 ["sigil_attached_target_damage_+%_final"] = {

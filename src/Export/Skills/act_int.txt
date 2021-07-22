@@ -59,7 +59,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
-#baseMod skill("radius", 18)
+#baseMod skill("radius", 22)
 #baseMod skill("radiusSecondary", 8)
 #mods
 
@@ -218,7 +218,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("radius", 10)
+#baseMod skill("radius", 14)
 #mods
 
 #skill BoneOffering
@@ -716,8 +716,14 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillModList:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "FreezingPulseRamp"), "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 		activeSkill.skillModList:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
+	statMap = {
+		["freezing_pulse_damage_+%_final_at_long_range"] = {
+			mod("FreezingPulseRamp", "BASE", nil)
+		},
+	},
 #mods
 
 #skill FrostBomb
@@ -822,7 +828,7 @@ local skills, mod, flag, skill = ...
 		}
 	},
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "HydroSphereFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
 	end,
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
@@ -885,7 +891,7 @@ local skills, mod, flag, skill = ...
 #skill HeraldOfThunder
 #flags cast duration
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "HeraldStormFrequency") / 100)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HeraldStormFrequency") / 100)
 	end,
 	statMap = {
 		["herald_of_thunder_lightning_damage_+%"] = {
@@ -1386,11 +1392,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["newshocknova_first_ring_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-		},
 		["shock_nova_ring_chance_to_shock_+%"] =  {
-			mod("EnemyShockChance", "BASE", nil),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["shock_nova_ring_shocks_as_if_dealing_damage_+%_final"] = {
 			mod("ShockAsThoughDealing", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
@@ -1557,7 +1560,7 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["rune_paint_area_of_effect_+%_per_rune_level"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -1724,7 +1727,7 @@ local skills, mod, flag, skill = ...
 #flags spell area duration physical chaos
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
-		 / (1 + activeSkill.skillModList:Sum("INC", activeSkill,skillCfg, "VoidSphereFrequency") / 100)
+		 / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoidSphereFrequency") / 100)
 	end,
 	statMap = {
 		["blackhole_pulse_frequency_+%"] = {
@@ -1765,6 +1768,14 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBoltNova
 #flags spell area duration forceInstant
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
+	statMap = {
+		["active_skill_damage_+%_when_cast_on_frostbolt"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+		},
+	},
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 20)
 #mods
@@ -1884,7 +1895,7 @@ local skills, mod, flag, skill = ...
 		["spell_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["base_critical_strike_multiplier_+"] = {
+		["skill_buff_grant_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["life_regeneration_rate_per_minute_%"] = {

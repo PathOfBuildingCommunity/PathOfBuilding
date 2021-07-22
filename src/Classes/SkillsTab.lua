@@ -617,7 +617,10 @@ function SkillsTabClass:CreateGemSlot(index)
 				local tempQual = self.displayGroup.gemList[index].qualityId
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
+				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+				GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 				local output = calcFunc({}, {})
+				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				self.displayGroup.gemList[index].qualityId = tempQual
 				tooltip:AddSeparator(10)
 				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
@@ -642,6 +645,23 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.quality.tooltipFunc = function(tooltip)
+		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
+			if self.displayGroup.gemList[index] then
+				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+				if calcFunc then
+					local storedQuality = self.displayGroup.gemList[index].quality
+					self.displayGroup.gemList[index].quality = 20
+					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					local output = calcFunc({}, {})
+					GlobalCache.useFullDPS = storedGlobalCacheDPSView
+					self.displayGroup.gemList[index].quality = storedQuality
+					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Setting to 20 quality will give you:")
+				end
+			end
+		end
+	end
 	slot.quality:AddToTabGroup(self.controls.groupLabel)
 	slot.quality.enabled = function()
 		return index <= #self.displayGroup.gemList

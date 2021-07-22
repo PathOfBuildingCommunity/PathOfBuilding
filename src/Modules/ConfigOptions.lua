@@ -38,7 +38,7 @@ return {
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Inoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },
-	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 65% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 50% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
 	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full Energy Shield?", ifCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
@@ -779,6 +779,9 @@ return {
 	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierLifeSpentRecently", type = "count", label = "# of Life spent Recently:", ifMult = "LifeSpentRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LifeSpentRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierManaSpentRecently", type = "count", label = "# of Mana spent Recently:", ifMult = "ManaSpentRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ManaSpentRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -906,6 +909,12 @@ return {
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionUsedTravelSkillRecently", type = "check", label = "Have you used a Travel Skill Recently?", ifCond = "UsedTravelSkillRecently", implyCond = "UsedSkillRecently", tooltip = "This also implies that you have used a Skill Recently..", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedTravelSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedMovementSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedDashRecently", type = "check", label = "Have you cast Dash Recently?", ifCond = "CastDashRecently", implyCondList = { "UsedTravelSkillRecently", "UsedMovementSkillRecently", "UsedSkillRecently"}, tooltip = "This also implies that you have used a Skill Recently..", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CastDashRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedTravelSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedMovementSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1086,10 +1095,10 @@ return {
 		enemyModList:NewMod("Condition:Ignited", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyScorched", type = "check", ifFlag = "inflictScorch", label = "Is the enemy Scorched?", tooltip = "Scorched enemies have lowered elemental resistances, up to -30%.\nThis option will also allow you to input the effect of Scorched.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictScorch" })
+		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionScorchedEffect", type = "count", label = "Effect of Scorched:", ifOption = "conditionEnemyScorched", tooltip = "This effect will only be applied while you can inflict Scorched.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ElementalResist", "BASE", -m_min(val, 30), "Config", { type = "Condition", var = "Scorched" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictScorch" })
+		enemyModList:NewMod("ElementalResist", "BASE", -m_min(val, 30), "Config", { type = "Condition", var = "Scorched" })
 	end },
 	{ var = "conditionEnemyOnScorchedGround", type = "check", label = "Is the enemy on Scorched Ground?", tooltip = "This also implies that the enemy is Scorched.", ifEnemyCond = "OnScorchedGround", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1109,7 +1118,7 @@ return {
 		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionBrittleEffect", type = "count", label = "Effect of Brittle:", ifOption = "conditionEnemyBrittle", tooltip = "This effect will only be applied while you can inflict Brittle.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("SelfCritChance", "BASE", m_min(val, 15), "Config", { type = "Condition", var = "Brittle" }, { type = "ActorCondition", actor = "enemy", var = "CanInflictBrittle" })
+		enemyModList:NewMod("SelfCritChance", "BASE", m_min(val, 15), "Config", { type = "Condition", var = "Brittle" })
 	end },
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will allow you to input the effect of the Shock applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1147,10 +1156,8 @@ return {
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "Covered in Ash applies the following to the enemy:\n\t20% increased Fire Damage taken\n\t20% less Movement Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("CoveredInAshEffect", "BASE", 20, "Covered in Ash")
 	end },
-	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on Consecrated Ground?", tooltip = "In addition to allowing any relevant modifiers to apply,\nthis will cause hits to have 100% increased Critical Strike Chance on the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on Consecrated Ground?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-		modList:NewMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" })
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }) })
 	end },
 	{ var = "conditionEnemyOnProfaneGround", type = "check", label = "Is the enemy on Profane Ground?", ifCond = "CreateProfaneGround", tooltip = "Enemies on Profane Ground receive the following modifiers:\n\t-10% to all Resistances\n\t+1% chance to be Critically Hit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

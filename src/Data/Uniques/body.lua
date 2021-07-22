@@ -152,12 +152,17 @@ Glorious Plate
 Requires Level 68, 191 Str
 League: Delirium
 Source: Drops from the Simulacrum Encounter
+Has Alt Variant: true
+Variant: War Banner
+Variant: Dread Banner
+Variant: Defiance Banner
 (25-40)% increased Melee Damage
 +(60-90) to maximum Life
 You can have two different Banners at the same time
 Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
-War Banner has (100-200)% increased Adrenaline duration
-Dread Banner has (100-200)% increased Fortify duration
+{variant:1}War Banner has (100-200)% increased Adrenaline duration
+{variant:2}Dread Banner has (100-200)% increased Fortify duration
+{variant:3}Defiance Banner has (100-200)% increased Taunt duration
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -207,7 +212,7 @@ Wildwrap
 Strapped Leather
 Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
 Requires Level 57, 32 Dex
-(5-8)% increased Attack Speed
+10% increased Attack Speed
 +(600-700) to Evasion Rating
 +(30-40)% to Cold Resistance
 5% increased Movement Speed
@@ -362,7 +367,7 @@ Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
 +(50-80) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has 100% reduced Mana Reservation
+Flesh and Stone has 100% reduced Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Hollow Palm Technique
 ]],[[
@@ -1109,7 +1114,7 @@ Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 65, 107 Dex, 90 Int
 +(25-75) to all Attributes
 +(30-40)% to Lightning Resistance
-(6-10)% reduced Mana Reserved
+(6-10)% reduced Reservation of Skills
 100% increased Aspect of the Avian Buff Effect
 Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
 +(120-150) to Evasion Rating and Energy Shield
@@ -1161,8 +1166,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
-{variant:1}Socketed Gems have 20% reduced Mana Reservation
-{variant:2}Socketed Gems have 30% reduced Mana Reservation
+{variant:1}Socketed Gems have 20% reduced Reservation
+{variant:2}Socketed Gems have 30% reduced Reservation
 {variant:1}Socketed Gems are Supported by level 1 Generosity
 {variant:2}Socketed Gems are Supported by level 30 Generosity
 (120-150)% increased Evasion and Energy Shield
@@ -1205,6 +1210,8 @@ Variant: Current (Armour/ES + Life)
 Variant: Current (Armour/ES + ES)
 Variant: Current (Armour/Evasion/ES)
 Requires Level 75, 66 Str, 66 Dex, 66 Int
+Implicits: 1
++1 to Level of all Vaal Skill Gems
 {variant:1,10}(380-420)% increased Armour
 {variant:2,11}(200-220)% increased Evasion Rating and Armour
 {variant:3,12}(380-420)% increased Evasion Rating

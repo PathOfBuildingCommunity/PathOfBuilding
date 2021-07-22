@@ -1,5 +1,4 @@
 ﻿-- Item data (c) Grinding Gear Games
-
 return {
 -- Helmet: Armour
 [[
@@ -110,7 +109,7 @@ Requires Level 64, 138 Dex
 +(20-30)% to Cold Resistance
 25% chance to Avoid being Chilled
 Cannot be Frozen
-8% reduced Mana Reserved
+8% reduced Reservation of Skills
 ]],[[
 Replica Alpha's Howl
 Sinner Tricorne
@@ -120,7 +119,7 @@ Requires Level 64, 138 Dex
 (80-100)% increased Evasion Rating
 +(20-30)% to Chaos Resistance
 25% chance to Avoid being Poisoned
-8% reduced Mana Reserved
+8% reduced Reservation of Skills
 You cannot be Hindered
 ]],[[
 Assailum
@@ -129,7 +128,7 @@ Requires Level 64, 138 Dex
 Implicits: 0
 Grants Level 20 Snipe Skill
 Socketed Non-Channelling Bow Skills are Triggered by Snipe
-Socketed Triggered Bow Skills deal 33% less Damage
+Socketed Triggered Bow Skills deal 40% less Damage
 +(350-500) to Accuracy Rating
 +(350-500) to Evasion Rating
 (7-10)% chance to Dodge Attack Hits while Channelling
@@ -251,7 +250,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
 {variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
-{variant:2}Trigger a Socketed Spell when you Attack with a Bow
+{variant:2}Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
 (10-15)% increased Attack Speed
 (10-15)% increased Cast Speed
 +(100-120) to maximum Energy Shield
@@ -358,7 +357,7 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 +1 to Level of Socketed Gems
-Socketed Gems have 20% reduced Mana Reservation
+Socketed Gems have 20% reduced Reservation
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -651,6 +650,17 @@ Requires Level 67, 62 Str, 85 Dex
 20% increased Movement Speed
 Mercury Footprints
 ]],[[
+The Fledgling
+Lacquered Helmet
+League: Heist
+Source: Drops from unique{Nashta, The Usurper}
+Requires Level 51, 57 Str, 57 Dex
+(150-200)% increased Armour and Evasion
+(30-50)% increased Projectile Speed
+(30-50)% increased Projectile Damage
+Projectiles cannot collide with Enemies at Close Range
+Far Shot
+]],[[
 The Peregrine
 Visored Sallet
 Variant: Pre 2.6.0
@@ -865,8 +875,8 @@ Corrupted
 Mask of the Spirit Drinker
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Magistrate Crown
 {variant:1}Crusader Helmet
+{variant:2}Magistrate Crown
 League: Incursion
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
 {variant:1}Requires Level 31, 36 Str, 36 Int
@@ -906,7 +916,7 @@ Requires Level 58, 64 Str, 64 Int
 Nearby Allies have (4-6)% increased Defences per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
-1% reduced Mana Reserved per 250 total attributes
+1% reduced Reservation of Skills per 250 total Attributes
 ]],[[
 Maw of Mischief
 Bone Helmet
@@ -927,7 +937,7 @@ Requires Level 68, 62 Str, 91 Int
 +(150-200) to maximum Mana
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
-10% increased Mana Reserved
+10% increased Reservation of Skills
 Gain Armour equal to your Reserved Mana
 ]],[[
 Mindspiral
@@ -1117,7 +1127,7 @@ Requires Level 67, 73 Dex, 88 Int
 {variant:1}+2 to Level of Socketed Curse Gems
 {variant:2,3}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-Socketed Curse Gems have 12% reduced Mana Reservation
+Socketed Curse Gems have 12% reduced Reservation
 ]],[[
 Leer Cast
 Festival Mask

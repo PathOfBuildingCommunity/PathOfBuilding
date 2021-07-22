@@ -223,8 +223,8 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Mana Reservation (Pre 3.11.0)
-Variant: Mana Reservation (Current)
+Variant: Skill Reservation (Pre 3.11.0)
+Variant: Skill Reservation (Current)
 Variant: Fire Damage
 Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
@@ -234,8 +234,8 @@ Variant: Fire Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Fire Damage
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}{tags:mana}Herald of Ash has (30-40)% reduced Reservation
-{variant:2}{tags:mana}Herald of Ash has (15-20)% reduced Reservation
+{variant:1}Herald of Ash has (30-40)% reduced Reservation
+{variant:2}Herald of Ash has (15-20)% reduced Reservation
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
 {variant:4}Herald of Ash has (70-100)% increased Buff Effect
 {variant:5}Herald of Ash has (40-60)% increased Buff Effect
@@ -249,8 +249,8 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Mana Reservation (Pre 3.11.0)
-Variant: Mana Reservation (Current)
+Variant: Skill Reservation (Pre 3.11.0)
+Variant: Skill Reservation (Current)
 Variant: Cold Damage
 Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
@@ -260,8 +260,8 @@ Variant: Cold Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Cold Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}{tags:mana}Herald of Ice has (30-40)% reduced Reservation
-{variant:2}{tags:mana}Herald of Ice has (15-20)% reduced Reservation
+{variant:1}Herald of Ice has (30-40)% reduced Reservation
+{variant:2}Herald of Ice has (15-20)% reduced Reservation
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
 {variant:4}Herald of Ice has (70-100)% increased Buff Effect
 {variant:5}Herald of Ice has (40-60)% increased Buff Effect
@@ -275,8 +275,8 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Mana Reservation (Pre 3.11.0)
-Variant: Mana Reservation (Current)
+Variant: Skill Reservation (Pre 3.11.0)
+Variant: Skill Reservation (Current)
 Variant: Physical Damage
 Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
@@ -286,8 +286,8 @@ Variant: Damage Reduction
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:physical}Adds (8-10) to (13-15) Physical Damage
 {tags:jewellery_defense}+(350-400) to Armour
-{variant:1}{tags:mana}Herald of Purity has (30-40)% reduced Reservation
-{variant:2}{tags:mana}Herald of Purity has (15-20)% reduced Reservation
+{variant:1}Herald of Purity has (30-40)% reduced Reservation
+{variant:2}Herald of Purity has (15-20)% reduced Reservation
 {variant:3}{tags:physical}(40-60)% increased Physical Damage while affected by Herald of Purity
 {variant:4}Herald of Purity has (70-100)% increased Buff Effect
 {variant:5}Herald of Purity has (40-60)% increased Buff Effect
@@ -301,8 +301,8 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Mana Reservation (Pre 3.11.0)
-Variant: Mana Reservation (Current)
+Variant: Skill Reservation (Pre 3.11.0)
+Variant: Skill Reservation (Current)
 Variant: Chaos Damage
 Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
@@ -312,8 +312,8 @@ Variant: Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:chaos}Adds (15-20) to (21-30) Chaos Damage
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}{tags:mana}Herald of Agony has (30-40)% reduced Reservation
-{variant:2}{tags:mana}Herald of Agony has (15-20)% reduced Reservation
+{variant:1}Herald of Agony has (30-40)% reduced Reservation
+{variant:2}Herald of Agony has (15-20)% reduced Reservation
 {variant:3}{tags:chaos}(40-60)% increased Chaos Damage while affected by Herald of Agony
 {variant:4}Herald of Agony has (70-100)% increased Buff Effect
 {variant:5}Herald of Agony has (40-60)% increased Buff Effect
@@ -327,8 +327,8 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
 Implicits: 1
 Has Alt Variant: true
-Variant: Mana Reservation (Pre 3.11.0)
-Variant: Mana Reservation (Current)
+Variant: Skill Reservation (Pre 3.11.0)
+Variant: Skill Reservation (Current)
 Variant: Lightning Damage
 Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
@@ -338,8 +338,8 @@ Variant: Lightning Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_elemental}Adds 1 to (48-60) Lightning Damage
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-{variant:1}{tags:mana}Herald of Thunder has (30-40)% reduced Reservation
-{variant:2}{tags:mana}Herald of Thunder has (15-20)% reduced Reservation
+{variant:1}Herald of Thunder has (30-40)% reduced Reservation
+{variant:2}Herald of Thunder has (15-20)% reduced Reservation
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
 {variant:4}Herald of Thunder has (70-100)% increased Buff Effect
 {variant:5}Herald of Thunder has (40-60)% increased Buff Effect
@@ -434,7 +434,7 @@ Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Have no Reservation
-{tags:mana}40% increased Reservation of Skills
+40% increased Reservation of Skills
 ]],[[
 Fated End
 Paua Ring
@@ -700,7 +700,7 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
 {variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
-{variant:2}{tags:life}Recover (20-30) Life Gained on Igniting an Enemy
+{variant:2}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 15% increased Ignite Duration on Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
 {variant:2}{tags:jewellery_elemental}10% chance to Ignite
@@ -859,10 +859,10 @@ Implicits: 1
 Has 1 Socket
 Socketed Gems are Supported by Level 20 Blasphemy
 Curse Auras from Socketed Skills also affect you
-{tags:mana}Socketed Curse Gems have 50% reduced Mana Reservation
+{tags:caster}Socketed Curse Gems have 50% reduced Reservation
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:caster}20% reduced Effect of Curses on you
-{tags:caster}(15-25)% increased Damage with Hits and Ailments against Cursed Enemies
+(15-25)% increased Damage with Hits and Ailments against Cursed Enemies
 ]],[[
 Shavronne's Revelation
 Moonstone Ring
@@ -1047,6 +1047,43 @@ Implicits: 1
 (-10-10)% increased Skill Effect Duration
 Unaffected by Temporal Chains
 ]],[[
+Triumvirate Authority
+Unset Ring
+Requires Level 64
+Has Alt Variant: true
+Has Alt Variant Two: true
+Variant: More Damage
+Variant: Less souls
+Variant: Additional Use (Pre 3.15.0)
+Variant: Ignore resistances
+Variant: Ignore Phys. Dmg. Reduction
+Variant: Grant Elusive
+Variant: Tailwind
+Variant: Area of Effect
+Variant: Proj. Speed
+Variant: Skill Effect Duration
+Variant: Soul Gain Prevention Duration
+Variant: Lucky Damage
+Variant: Aura Effect
+Variant: Regain Souls
+Implicits: 1
+Has 1 Socket
++2 to Level of Socketed Vaal Gems
+{variant:1}Socketed Vaal Skills deal 150% more Damage
+{variant:2}Socketed Vaal Skills require 30% less Souls per Use
+{variant:3}Socketed Vaal Skills can store Souls for 1 additional Use
+{variant:4}Hits from Socketed Vaal Skills ignore Enemy Monster Resistances
+{variant:5}Hits from Socketed Vaal Skills ignore Enemy Monster Physical Damage Reduction
+{variant:6}Socketed Vaal Skills grant Elusive when Used
+{variant:7}You have Tailwind if you've used a Socketed Vaal Skill Recently
+{variant:8}Socketed Vaal Skills have 60% increased Area of Effect
+{variant:9}Socketed Vaal Skills have 80% increased Projectile Speed
+{variant:10}Socketed Vaal Skills have 80% increased Skill Effect Duration
+{variant:11}Socketed Vaal Skills have 30% reduced Soul Gain Prevention Duration
+{variant:12}Damage with Hits from Socketed Vaal Skills is Lucky
+{variant:13}Socketed Vaal Skills have 50% increased Aura Effect
+{variant:14}Socketed Vaal Skills have 20% chance to regain consumed Souls when used
+]],[[
 Uzaza's Meadow
 Sapphire Ring
 League: Delve
@@ -1156,7 +1193,7 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
-{tags:mana}Socketed Gems have 10% increased Mana Reservation
+Socketed Gems have 10% increased Reservation
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}15 Life Regenerated per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped

@@ -1277,6 +1277,28 @@ skills["SiegebreakerCausticGround"] = {
 		[1] = { cost = { } },
 	},
 }
+skills["ReplicaSiegebreakerBurningGround"] = {
+	name = "Burning Ground",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { },
+	baseMods = {
+		skill("FireDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("dotIsArea", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
 skills["InfernalLegion"] = {
 	name = "Infernal Legion",
 	hidden = true,

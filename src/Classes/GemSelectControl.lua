@@ -45,6 +45,13 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		self:BuildList(self.buf)
 		self:UpdateGem()
 	end
+	self.costs = LoadModule("Data/Costs")
+	self.reservationMap = {
+		manaReservationFlat = "Mana",
+		manaReservationPercent = "ManaPercent",
+		lifeReservationFlat = "Life",
+		lifeReservationPercent = "LifePercent",
+	}
 end)
 
 function GemSelectClass:PopulateGemList()
@@ -476,60 +483,48 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	end
 	if grantedEffect.support then
 		if grantedEffectLevel.manaMultiplier then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Multiplier: ^7%d%%", grantedEffectLevel.manaMultiplier + 100))
+			self.tooltip:AddLine(16, string.format("^x7F7F7FCost & Reservation Multiplier: ^7%d%%", grantedEffectLevel.manaMultiplier + 100))
 		end
-		if grantedEffectLevel.manaReservationFlat then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reservation Override: ^7%d", grantedEffectLevel.manaReservationFlat))
+		local reservation
+		for name, res in pairs(self.reservationMap) do
+			if grantedEffectLevel[name] then
+				reservation = (reservation and (reservation..", ") or "")..self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
+			end
 		end
-		if grantedEffectLevel.manaReservationPercent then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reservation Override: ^7%d%%", grantedEffectLevel.manaReservationPercent))
-		end
-		if grantedEffectLevel.lifeReservationFlat then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reservation Override: ^7%d", grantedEffectLevel.lifeReservationFlat))
-		end
-		if grantedEffectLevel.lifeReservationPercent then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reservation Override: ^7%d%%", grantedEffectLevel.lifeReservationPercent))
+		if reservation then
+			self.tooltip:AddLine(16, "^x7F7F7FReservation Override: ^7"..reservation)
 		end
 		if grantedEffectLevel.cooldown then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
 		end
 	else
-		if grantedEffectLevel.manaReservationFlat then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d", grantedEffectLevel.manaReservationFlat))
+		local reservation
+		for name, res in pairs(self.reservationMap) do
+			if grantedEffectLevel[name] then
+				reservation = (reservation and (reservation..", ") or "")..self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
+			end
 		end
-		if grantedEffectLevel.manaReservationPercent then
-				self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d%%", grantedEffectLevel.manaReservationPercent))
+		if reservation then
+			self.tooltip:AddLine(16, "^x7F7F7FReservation: ^7"..reservation)
 		end
-		if grantedEffectLevel.lifeReservationFlat then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reserved: ^7%d", grantedEffectLevel.lifeReservationFlat))
+		local cost
+		for _, res in ipairs(self.costs) do
+			if grantedEffectLevel.cost[res.Resource] then
+				cost = (cost and (cost..", ") or "")..res.ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel.cost[res.Resource]))
+			end
 		end
-		if grantedEffectLevel.lifeReservationPercent then
-				self.tooltip:AddLine(16, string.format("^x7F7F7FLife Reserved: ^7%d%%", grantedEffectLevel.lifeReservationPercent))
-		end
-		if grantedEffectLevel.cost.Mana then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Cost: ^7%d", grantedEffectLevel.cost.Mana))
-		end
-		if grantedEffectLevel.cost.Life then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Cost: ^7%d", grantedEffectLevel.cost.Life))
-		end
-		if grantedEffectLevel.cost.ES then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FEnergy Shield Cost: ^7%d", grantedEffectLevel.cost.ES))
-		end
-		if grantedEffectLevel.cost.Rage then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FRage Cost: ^7%d", grantedEffectLevel.cost.Rage))
-		end
-		if grantedEffectLevel.cost.ManaPercent then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Cost: ^7%d%%", grantedEffectLevel.cost.ManaPercent))
-		end
-		if grantedEffectLevel.cost.LifePercent then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FLife Cost: ^7%d%%", grantedEffectLevel.cost.LifePercent))
+		if cost then
+			self.tooltip:AddLine(16, "^x7F7F7FCost: ^7"..cost)
 		end
 		if grantedEffectLevel.cooldown then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
 		end
 		if gemInstance.gemData.tags.attack then
 			if grantedEffectLevel.attackSpeedMultiplier then
-				self.tooltip:AddLine(16, string.format("^x7F7F7FAttack Speed Multiplier: ^7%d%% of base", grantedEffectLevel.attackSpeedMultiplier + 100))
+				self.tooltip:AddLine(16, string.format("^x7F7F7FAttack Speed: ^7%d%% of base", grantedEffectLevel.attackSpeedMultiplier + 100))
+			end
+			if grantedEffectLevel.baseMultiplier then
+				self.tooltip:AddLine(16, string.format("^x7F7F7FAttack Damage: ^7%g%% of base", grantedEffectLevel.baseMultiplier * 100))
 			end
 		else
 			if grantedEffect.castTime > 0 then
@@ -568,9 +563,6 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	if self.skillsTab.build.data.describeStats then
 		self.tooltip:AddSeparator(10)
 		local stats = calcLib.buildSkillInstanceStats(displayInstance, grantedEffect)
-		if grantedEffectLevel.baseMultiplier then
-			stats["active_skill_attack_damage_final_permyriad"] = (grantedEffectLevel.baseMultiplier - 1) * 10000
-		end
 		if mergeStatsFrom then
 			for stat, val in pairs(calcLib.buildSkillInstanceStats(displayInstance, mergeStatsFrom)) do
 				stats[stat] = (stats[stat] or 0) + val
