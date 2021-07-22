@@ -10824,7 +10824,7 @@ skills["ForbiddenRite"] = {
 	name = "Forbidden Rite",
 	color = 3,
 	baseEffectiveness = 1.1964719435,
-	incrementalEffectiveness = 0.037,
+	incrementalEffectiveness = 0.037000000476837,
 	description = "Lobs an exploding projectile near the targeted location, and extra projectiles toward enemies around you. The projectiles deal chaos damage based on your life and energy shield. Casting this spell damages you.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ChaosSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -10868,6 +10868,9 @@ skills["ForbiddenRite"] = {
 		skill("radius", 8),
 	},
 	qualityStats = {
+		Default = {
+			{ "base_projectile_speed_+%", 1 },
+		},
 	},
 	stats = {
 		"forbidden_rite_%_health_dealt_as_chaos_damage",
