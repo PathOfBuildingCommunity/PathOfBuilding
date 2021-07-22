@@ -4,6 +4,7 @@ VERSION[2.4.0][2021/07/22]
 * Add level 20/21 gems from 3.15 patch notes (LocalIdentity)
     * BEWARE: numbers may not be 100% accurate
 * Add 3.15 uniques (Wires77)
+* Add 3.15 flask changes (Helyos96)
 * Update Evasion, Poison, and Consecrated Ground calculations to 3.15 values (ifnjeff)
 * Update Alchemist's Genius to 3.15 value (Wires77)
 * Update Gem tooltip generation (PJacek)

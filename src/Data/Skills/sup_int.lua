@@ -3694,7 +3694,7 @@ skills["SupportMinionDamage"] = {
 	},
 	stats = {
 		"support_minion_damage_+%_final",
-		"minion_maximum_life_+%",
+		"active_skill_minion_life_+%_final",
 	},
 	levels = {
 		[1] = { 25, -25, manaMultiplier = 50, levelRequirement = 8, statInterpolation = { 1, }, cost = { }, },
@@ -3763,7 +3763,7 @@ skills["SupportMinionDamagePlus"] = {
 	},
 	stats = {
 		"support_minion_damage_+%_final",
-		"minion_maximum_life_+%",
+		"active_skill_minion_life_+%_final",
 	},
 	levels = {
 		[1] = { 40, -25, manaMultiplier = 50, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
