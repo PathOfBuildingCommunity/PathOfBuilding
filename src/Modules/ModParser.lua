@@ -75,7 +75,6 @@ local formList = {
 	["adds (%d+) to (%d+) (%a+) attack damage"] = "DMGATTACKS",
 	["adds (%d+)%-(%d+) (%a+) attack damage"] = "DMGATTACKS",
 	["(%d+) to (%d+) added attack (%a+) damage"] = "DMGATTACKS",
-	["adds (%d+) to (%d+) attack (%a+) damage to melee skills"] = "DMGATTACKSMELEE",
 	["adds (%d+) to (%d+) (%a+) damage to spells"] = "DMGSPELLS",
 	["adds (%d+)%-(%d+) (%a+) damage to spells"] = "DMGSPELLS",
 	["adds (%d+) to (%d+) (%a+) spell damage"] = "DMGSPELLS",
@@ -1499,6 +1498,10 @@ local specialModList = {
 	} end,
 	["life leech effects recover energy shield instead while on full life"] = { flag("ImmortalAmbition", { type = "Condition", var = "FullLife" }, { type = "Condition", var = "LeechingLife"}) },
 	["shepherd of souls"] = { mod("Damage", "MORE", -30, { type = "SkillType", skillType = SkillType.Vaal, neg = true }) },
+	["adds (%d+) to (%d+) attack physical damage to melee skills per (%d+) dexterity while you are unencumbered"] = function(_, min, max, dex) return { -- Hollow Palm 3 suffixes
+		mod("PhysicalMin", "BASE", tonumber(min), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
+		mod("PhysicalMax", "BASE", tonumber(max), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
+	} end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
@@ -3552,14 +3555,6 @@ local function parseMod(line, order)
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }
 		modName = { damageType.."Min", damageType.."Max" }
 		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
-	elseif modForm == "DMGATTACKSMELEE" then
-		local damageType = dmgTypes[formCap[3]]
-		if not damageType then
-			return { }, line
-		end
-		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }
-		modName = { damageType.."Min", damageType.."Max" }
-		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack, flags = ModFlag.Melee }
 	elseif modForm == "DMGSPELLS" then
 		local damageType = dmgTypes[formCap[3]]
 		if not damageType then
