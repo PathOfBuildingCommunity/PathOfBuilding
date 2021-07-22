@@ -983,7 +983,7 @@ function calcs.offence(env, actor, activeSkill)
 	for resource, name in pairs(names) do
 		local percent = resource == "ManaPercent" or resource == "LifePercent"
 		if isTriggered or activeSkill.activeEffect.grantedEffect.triggered then
-			output[resource.."Cost"] = 0
+			output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
 		else
 			do
 				local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100

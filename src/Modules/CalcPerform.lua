@@ -1202,6 +1202,7 @@ function calcs.perform(env, avoidCache)
 		end
 		if activeSkill.skillData.triggeredOnDeath and not activeSkill.skillFlags.minion then
 			activeSkill.skillData.triggered = true
+			activeSkill.skillData.triggerCostMultiplier = 0
 			for _, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
 				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 			end
@@ -2016,6 +2017,7 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
+			env.player.mainSkill.skillData.triggerCostMultiplier = 0
 			local uuid = cacheSkillUUID(source)
 			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
