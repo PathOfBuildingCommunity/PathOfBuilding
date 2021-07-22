@@ -13,7 +13,7 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 
 	self.lastContent = ""
 
-	local colorDesc = [[^7This field supports different colors.  Using the caret symbol (^) followed by a Hex code or a number will set the color.  Below are some common color codes PoB uses
+	local colorDesc = [[^7This field supports different colors.  Using the caret symbol (^) followed by a Hex code or a number will set the color.  Below are some common color codes PoB uses:
 ^7xC8C8C8: ^xC8C8C8Normal    ^7x8888FF: ^x8888FFMagic    ^7xFFFF77: ^xFFFF77Rare    ^7xAF6025: ^xAF6025Unique
 ^7xB97123: ^xB97123Fire     ^7x3F6DB3: ^x3F6DB3Cold    ^7xADAA47: ^xADAA47Lightning     ^7xD02090: ^xD02090Chaos
 	]]
