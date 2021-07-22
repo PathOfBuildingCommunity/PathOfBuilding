@@ -982,22 +982,42 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	for resource, name in pairs(names) do
 		local percent = resource == "ManaPercent" or resource == "LifePercent"
-		local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
-		local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
-		local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
-		local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
-		local baseCost = output[resource.."Cost"]
 		output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
-		output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
-		output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
-		output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
-		output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
-		if skillFlags.totem then
-			local reservedFlat = activeSkill.skillData[name.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationFlat"] or 0
-			output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
-			local reservedPercent = activeSkill.skillData[name.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationPercent"] or 0
-			if reservedPercent ~= 0 then
-				skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
+		do
+			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
+			local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
+			local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+			local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
+			local baseCost = output[resource.."Cost"]
+			output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
+			output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
+			output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
+			output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
+			if skillFlags.totem then
+				local reservedFlat = activeSkill.skillData[name.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationFlat"] or 0
+				output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
+				local reservedPercent = activeSkill.skillData[name.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationPercent"] or 0
+				if reservedPercent ~= 0 then
+					skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
+				end
+			end
+			if breakdown and output[resource.."Cost"] ~= baseCost then
+				breakdown[resource.."Cost"] = {
+					s_format("%.2f"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
+				}
+				if mult ~= 1 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
+				end
+				if inc ~= 0 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(increased/reduced "..name.." cost)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(more/less "..name.." cost)", more))
+				end
+				if total ~= 0 then
+					t_insert(breakdown[resource.."Cost"], s_format("- %d ^8(- "..name.." cost)", -total))
+				end
+				t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
 			end
 		end
 		if breakdown and output[resource.."Cost"] ~= baseCost then
