@@ -10823,7 +10823,7 @@ skills["SpellDamageAura"] = {
 skills["ForbiddenRite"] = {
 	name = "Forbidden Rite",
 	color = 3,
-	baseEffectiveness = 1.1964719435,
+	baseEffectiveness = 1.2987999916077,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Lobs an exploding projectile near the targeted location, and extra projectiles toward enemies around you. The projectiles deal chaos damage based on your life and energy shield. Casting this spell damages you.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ChaosSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, },
