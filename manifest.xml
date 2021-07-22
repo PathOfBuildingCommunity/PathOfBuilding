@@ -156,7 +156,7 @@
 	<File name="Data/Skills/other.lua" part="program" sha1="4dbc6116499080bbf9a011a7c2c45f7f9a9acf41" />
 	<File name="Data/Skills/spectre.lua" part="program" sha1="89c4b999b4e3d5c581e9c0f32e9abf3033429ada" />
 	<File name="Data/Skills/sup_dex.lua" part="program" sha1="fda8ecc29ae752f500b9cfa2d4e5fd1f3220e6a5" />
-	<File name="Data/Skills/sup_int.lua" part="program" sha1="c2e1a4e09bad0e91eae02934bc03e9e61edcd91b" />
+	<File name="Data/Skills/sup_int.lua" part="program" sha1="4f08c4b5d5164d333e3c20863e115e2b97640e80" />
 	<File name="Data/Skills/sup_str.lua" part="program" sha1="c4b4e574611f6939e7d538d21b8745f634ae87ba" />
 	<File name="Data/StatDescriptions/active_skill_gem_stat_descriptions.lua" part="program" sha1="07f147edc2c92386297b569eb8cbf0d797a5ed3b" />
 	<File name="Data/StatDescriptions/aura_skill_stat_descriptions.lua" part="program" sha1="e927dcb3a1ca1dc215c0d1efe3f2e6d142600725" />
