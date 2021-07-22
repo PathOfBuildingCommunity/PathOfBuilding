@@ -1020,24 +1020,6 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
 			end
 		end
-		if breakdown and output[resource.."Cost"] ~= baseCost then
-			breakdown[resource.."Cost"] = {
-				s_format("%.2f"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
-			}
-			if mult ~= 1 then
-				t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
-			end
-			if inc ~= 0 then
-				t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(increased/reduced "..name.." cost)", 1 + inc/100))
-			end
-			if more ~= 1 then
-				t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(more/less "..name.." cost)", more))
-			end
-			if total ~= 0 then
-				t_insert(breakdown[resource.."Cost"], s_format("- %d ^8(- "..name.." cost)", -total))
-			end
-			t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
-		end
 	end
 
 	-- account for Sacrificial Zeal
