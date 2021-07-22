@@ -75,6 +75,7 @@ local formList = {
 	["adds (%d+) to (%d+) (%a+) attack damage"] = "DMGATTACKS",
 	["adds (%d+)%-(%d+) (%a+) attack damage"] = "DMGATTACKS",
 	["(%d+) to (%d+) added attack (%a+) damage"] = "DMGATTACKS",
+	["adds (%d+) to (%d+) attack (%a+) damage to melee skills"] = "DMGATTACKSMELEE",
 	["adds (%d+) to (%d+) (%a+) damage to spells"] = "DMGSPELLS",
 	["adds (%d+)%-(%d+) (%a+) damage to spells"] = "DMGSPELLS",
 	["adds (%d+) to (%d+) (%a+) spell damage"] = "DMGSPELLS",
@@ -659,6 +660,7 @@ local modFlagList = {
 	["melee"] = { flags = ModFlag.Melee },
 	["with melee attacks"] = { flags = ModFlag.Melee },
 	["with melee critical strikes"] = { flags = ModFlag.Melee, tag = { type = "Condition", var = "CriticalStrike" } },
+	["with melee skills"] = { flags = ModFlag.Melee },
 	["with bow skills"] = { keywordFlags = KeywordFlag.Bow },
 	["on melee hit"] = { flags = ModFlag.Melee },
 	["with hits"] = { keywordFlags = KeywordFlag.Hit },
@@ -3550,6 +3552,14 @@ local function parseMod(line, order)
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }
 		modName = { damageType.."Min", damageType.."Max" }
 		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
+	elseif modForm == "DMGATTACKSMELEE" then
+		local damageType = dmgTypes[formCap[3]]
+		if not damageType then
+			return { }, line
+		end
+		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }
+		modName = { damageType.."Min", damageType.."Max" }
+		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack, flags = ModFlag.Melee }
 	elseif modForm == "DMGSPELLS" then
 		local damageType = dmgTypes[formCap[3]]
 		if not damageType then
