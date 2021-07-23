@@ -20,5 +20,9 @@ Please try to fill in as much of the template below as you're able.
 * **Does it reproduce every time?**
 * **Provide a build code:**
 Always provide a build code that exhibits the bug you want to report, even if it is not specific to a particular build. This helps us greatly to reproduce bugs faster. Otherwise, we will have to ask you for the code first before investigating, which would delay any possible fixes.
+
+```
+<Click "Import/Export Build" in the top left, "Generate" the code, and copy the code here>
+```
 * **Screenshots:**
 If you receive an error or experience graphical bugs, include one or multiple screenshots. GIFs or short videos are also okay, if the bug cannot be displayed in a still image.
