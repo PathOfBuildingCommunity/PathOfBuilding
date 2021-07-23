@@ -527,7 +527,7 @@ return {
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
 },
-["skill_effect_and_damaging_ailment_duration_+%"] = {
+["support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final"] = {
 	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
@@ -1195,6 +1195,9 @@ return {
 ["accuracy_rating_+%"] = {
 	mod("Accuracy", "INC", nil),
 },
+["accuracy_rating_+%_when_on_low_life"] = {
+	mod("Accuracy", "INC", nil, 0, 0, { type = "Condition", var = "LowLife"})
+},
 ["attack_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Attack),
 },
@@ -1478,6 +1481,9 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", nil) }),
 },
 ["active_skill_minion_life_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+},
+["support_minion_damage_minion_life_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
 },
 ["active_skill_minion_energy_shield_+%_final"] = {

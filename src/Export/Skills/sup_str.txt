@@ -32,6 +32,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportBehead
+#flags strike
+#mods
+
 #skill SupportBloodMagic
 #mods
 
@@ -129,6 +133,10 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "FullLife" }),
 		},
 	},
+#mods
+
+#skill SupportEarthbreaker
+#flags slam area melee
 #mods
 
 #skill SupportWeaponElementalDamage
@@ -294,6 +302,9 @@ local skills, mod, flag, skill = ...
 		["support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"] = {
 			mod("Damage", "MORE", nil, ModFlag.MeleeHit, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison)),
 		},
+		["support_melee_physical_damage_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
 	},
 #mods
 
@@ -304,6 +315,9 @@ local skills, mod, flag, skill = ...
 		},
 		["support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"] = {
 			mod("Damage", "MORE", nil, ModFlag.MeleeHit, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison)),
+		},
+		["support_melee_physical_damage_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
 		},
 	},
 #mods

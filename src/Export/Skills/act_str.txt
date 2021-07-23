@@ -5,6 +5,10 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill Absolution
+#flags spell minion duration area physical lightning
+#mods
+
 #skill AbyssalCry
 #flags warcry area duration chaos
 	statMap = {
@@ -145,6 +149,13 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill BattlemagesCry
+#flags area duration warcry
+#mods
+
+#skill BattlemagesCrySupport
+#mods
+
 #skill Berserk
 #flags spell
 	statMap = {
@@ -229,6 +240,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Boneshatter
+#flags melee strike area duration physical
+#mods
+
 #skill ChainStrike
 #flags attack melee area
 	statMap = {
@@ -271,6 +286,10 @@ local skills, mod, flag, skill = ...
 #skill DecoyTotem
 #flags spell totem area duration
 #baseMod skill("radius", 60)
+#mods
+
+#skill DefianceBanner
+#flags spell area duration aura physical banner
 #mods
 
 #skill Determination
@@ -862,6 +881,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill RageVortex
+#flags area duration melee
+#mods
+
 #skill RallyingCry
 #flags warcry area duration
 	statMap = {
@@ -1037,6 +1060,10 @@ end,
 		},
 	},
 #baseMod skill("debuff", true)
+#mods
+
+#skill ShieldCrush
+#flags area physical melee
 #mods
 
 #skill SummonFireGolem

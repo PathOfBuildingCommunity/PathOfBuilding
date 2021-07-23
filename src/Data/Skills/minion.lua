@@ -193,7 +193,7 @@ skills["IceElementalIceCyclone"] = {
 	color = 2,
 	baseEffectiveness = 0.85000002384186,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -478,7 +478,7 @@ skills["SkeletonMinionProjectileFire"] = {
 	name = "Fire Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 2.7166500091553,
+	baseEffectiveness = 2.7167000770569,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -505,7 +505,7 @@ skills["SkeletonMinionProjectileLightning"] = {
 	name = "Lightning Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 3.0562500953674,
+	baseEffectiveness = 3.0562999248505,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -665,7 +665,7 @@ skills["DancingDervishCyclone"] = {
 	color = 2,
 	baseEffectiveness = 0.85000002384186,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1054,7 +1054,7 @@ skills["DropBearSummonedGroundSlam"] = {
 	color = 4,
 	baseEffectiveness = 0,
 	description = "The character slams the ground in front of them with a Staff, Mace or Sceptre, creating a wave that travels forward and damages enemies with an increased chance to stun.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SlamSkill] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1178,7 +1178,7 @@ skills["BoneGolemLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,

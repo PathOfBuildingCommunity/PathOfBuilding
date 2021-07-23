@@ -183,6 +183,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/minion_spell_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/monster_stat_descriptions.txt",
 		"Metadata/StatDescriptions/offering_skill_stat_descriptions.txt",
+		"Metadata/StatDescriptions/single_minion_spell_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/skillpopup_stat_filters.txt",
 		"Metadata/StatDescriptions/skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/stat_descriptions.txt",

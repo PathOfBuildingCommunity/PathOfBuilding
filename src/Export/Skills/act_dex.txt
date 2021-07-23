@@ -5,6 +5,10 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill Ambush
+#flags spell movement duration travel
+#mods
+
 #skill AnimateWeapon
 #flags spell minion duration
 	minionHasItemSet = true,
@@ -115,6 +119,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 10, { type = "SkillPart", skillPart = 4 })
 #baseMod skill("dpsMultiplier", 40, { type = "SkillPart", skillPart = 5 })
 #baseMod skill("dpsMultiplier", 50, { type = "SkillPart", skillPart = 6 })
+#mods
+
+#skill BladeTrap
+#flags area
 #mods
 
 #skill ChargedAttack
@@ -602,6 +610,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 5 })
 #mods
 
+#skill ExplosiveConcoction
+#flags area fire cold lightning projectile
+#mods
+
 #skill ShrapnelTrap
 #flags spell trap area
 #baseMod skill("radius", 12)
@@ -1022,6 +1034,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #mods
 
+#skill StormRain
+#flags area lightning projectile bow
+#mods
+
 #skill Puncture
 #flags attack melee projectile duration
 	statMap = {
@@ -1147,9 +1163,9 @@ local skills, mod, flag, skill = ...
 #skill PhysCascadeTrap
 #flags spell area trap duration
 #baseMod skill("radius", 18)
-#baseMod ("radiusLabel", "Large Burst:")
-#baseMod ("radiusSecondary", 9)
-#baseMod ("radiusSecondaryLabel", "Small Burst:")
+#baseMod skill("radiusLabel", "Large Burst:")
+#baseMod skill("radiusSecondary", 9)
+#baseMod skill("radiusSecondaryLabel", "Small Burst:")
 #mods
 
 #skill ShrapnelBallista
@@ -1190,7 +1206,10 @@ local skills, mod, flag, skill = ...
 		},
 		["critical_multiplier_+%_per_100_max_es_on_shield"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, {type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2"})
-		}
+		},
+		["primary_projectile_chains_+"] = {
+			mod("ChainCountMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
 	},
 #mods
 
@@ -1201,6 +1220,11 @@ local skills, mod, flag, skill = ...
 
 #skill VaalThrownWeapon
 #flags attack projectile vaal
+	statMap = {
+		["base_number_of_projectiles_in_spiral_nova"] = {
+			mod("ProjectileCount", "BASE", nil),
+		},
+	},
 #mods
 
 #skill RainOfSpores
@@ -1213,6 +1237,10 @@ local skills, mod, flag, skill = ...
 #baseMod flag("OneShotProj")
 #baseMod skill("radius", 18)
 #baseMod skill("radiusLabel", "Pod Area:")
+#mods
+
+#skill SpectralHelix
+#flags projectile
 #mods
 
 #skill SplitArrow

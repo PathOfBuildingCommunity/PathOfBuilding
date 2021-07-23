@@ -100,6 +100,10 @@ local skillTypes = {
 	"Aegis",
 	"Orb",
 	"Type112",
+	"Prismatic",
+	"Type114",
+	"Arcane",
+	"Type116",
 }
 
 local function mapAST(ast)

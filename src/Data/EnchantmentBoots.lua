@@ -18,7 +18,7 @@ return {
 		"60% increased Critical Strike Chance if you haven't Crit Recently",
 		"Damage Penetrates 6% of Enemy Elemental Resistances if you haven't Killed Recently",
 		"Adds 44 to 64 Chaos Damage if you've taken a Critical Strike Recently",
-		"30% increased Mana Regeneration Rate if you've cast a Spell Recently",
+		"15% increased Mana Regeneration Rate if you've cast a Spell Recently",
 	},
 	["MERCILESS"] = {
 		"Adds 33 to 50 Fire Damage if you've Killed Recently",
@@ -36,7 +36,7 @@ return {
 		"90% increased Critical Strike Chance if you haven't Crit Recently",
 		"Damage Penetrates 8% of Enemy Elemental Resistances if you haven't Killed Recently",
 		"Adds 88 to 132 Chaos Damage if you've taken a Critical Strike Recently",
-		"50% increased Mana Regeneration Rate if you've cast a Spell Recently",
+		"25% increased Mana Regeneration Rate if you've cast a Spell Recently",
 	},
 	["ENDGAME"] = {
 		"Adds 45 to 68 Fire Damage if you've Killed Recently",
@@ -54,6 +54,6 @@ return {
 		"120% increased Critical Strike Chance if you haven't Crit Recently",
 		"Damage Penetrates 10% of Enemy Elemental Resistances if you haven't Killed Recently",
 		"Adds 120 to 180 Chaos Damage if you've taken a Critical Strike Recently",
-		"70% increased Mana Regeneration Rate if you've cast a Spell Recently",
+		"35% increased Mana Regeneration Rate if you've cast a Spell Recently",
 	},
 }

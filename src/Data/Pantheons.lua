@@ -11,7 +11,7 @@ return {
 					[1] = { line = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Puruna, the Challenger",
+			[2] = { name = "Otesha, the Giantslayer",
 				mods = {
 					-- base_stun_recovery_+%
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
@@ -23,7 +23,7 @@ return {
 					[1] = { line = "You cannot be Frozen if you've been Frozen Recently", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Sumter the Twisted",
+			[4] = { name = "Nassar, Lion of the Seas",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -56,7 +56,7 @@ return {
 					[2] = { line = "30% reduced Shock Duration on you", value = { 30 }, },
 				},
 			},
-			[4] = { name = "Excellis Aurafix",
+			[4] = { name = "Witch of the Cauldron",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+25% Chaos Resistance against Damage Over Time", value = { 25 }, },
@@ -81,13 +81,13 @@ return {
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "Erythrophagia",
+			[3] = { name = "Nightmare's Omen",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
 				},
 			},
-			[4] = { name = "Kitava, The Destroyer",
+			[4] = { name = "Pesquin, the Mad Baron",
 				mods = {
 					-- avoid_ailments_%_from_crit
 					[1] = { line = "50% chance to avoid Ailments from Critical Strikes", value = { 50 }, },
@@ -106,13 +106,13 @@ return {
 					[2] = { line = "1% increased Movement Speed for each nearby Enemy, up to 8%", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Ancient Architect",
+			[2] = { name = "Tunneltrap",
 				mods = {
 					-- base_avoid_projectiles_%_chance
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Shock and Horror",
+			[3] = { name = "The High Templar",
 				mods = {
 					-- dodge_attacks_and_spells_%_chance_if_have_been_hit_recently
 					[1] = { line = "5% chance to Dodge Attack and Spell Hits if you've been Hit Recently", value = { 5 }, },
@@ -177,8 +177,8 @@ return {
 			},
 			[2] = { name = "Varhesh, Shimmering Aberration",
 				mods = {
-					-- cold_damage_taken_+%_if_have_been_hit_recently
-					[1] = { line = "5% reduced Cold Damage taken if you've been Hit Recently", value = { -5 }, },
+					-- curse_effect_on_self_+%
+					[1] = { line = "20% reduced Effect of Curses on you", value = { -20 }, },
 				},
 			},
 		},
@@ -234,10 +234,8 @@ return {
 			},
 			[2] = { name = "Drek, Apex Hunter",
 				mods = {
-					-- cannot_be_blinded
-					[1] = { line = "Cannot be Blinded", value = { 1 }, },
-					-- avoid_maim_%_chance
-					[2] = { line = "You cannot be Maimed", value = { 100 }, },
+					-- cannot_gain_corrupted_blood_while_you_have_at_least_5_stacks
+					[1] = { line = "Corrupted Blood cannot be inflicted on you if you have at least 5 Corrupted Blood Debuffs on you", value = { 1 }, },
 				},
 			},
 		},
@@ -253,8 +251,10 @@ return {
 			},
 			[2] = { name = "Stalker of the Endless Dunes",
 				mods = {
-					-- enchantment_boots_movement_speed_+%_when_not_hit_for_4_seconds
-					[1] = { line = "6% increased Movement Speed if you haven't been Hit Recently", value = { 6 }, },
+					-- cannot_be_blinded
+					[1] = { line = "Cannot be Blinded", value = { 1 }, },
+					-- avoid_maim_%_chance
+					[2] = { line = "You cannot be Maimed", value = { 100 }, },
 				},
 			},
 		},

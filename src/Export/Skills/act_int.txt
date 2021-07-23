@@ -510,6 +510,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8)
 #mods
 
+#skill EyeOfWinter
+#flags spell projectile cold
+#mods
+
 #skill Fireball
 #flags spell projectile
 	parts = {
@@ -710,6 +714,10 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill ForbiddenRite
+#flags spell projectile chaos area
 #mods
 
 #skill FreezingPulse
@@ -1122,6 +1130,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 40)
+#mods
+
+#skill Manabond
+#flags spell area lightning arcane
 #mods
 
 #skill OrbOfStorms
@@ -1572,6 +1584,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 16)
 #mods
 
+#skill SummonReaper
+#flags spell physical minion
+#mods
+
 #skill RuneBlast
 #flags spell
 #mods
@@ -1764,6 +1780,10 @@ local skills, mod, flag, skill = ...
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#mods
+
+#skill VoltaxicBurst
+#flags spell area chaos lightning nova duration
 #mods
 
 #skill FrostBoltNova
