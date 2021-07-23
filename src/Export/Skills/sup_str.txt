@@ -466,3 +466,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+
+#skill SupportBehead
+#flags strike
+#mods

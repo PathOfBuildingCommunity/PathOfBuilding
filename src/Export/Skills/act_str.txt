@@ -1205,3 +1205,11 @@ end,
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
+
+#skill ShieldCrush
+#flags area physical melee
+#mods
+
+#skill Boneshatter
+#flags melee strike area duration physical
+#mods

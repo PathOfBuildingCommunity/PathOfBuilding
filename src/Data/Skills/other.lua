@@ -897,7 +897,7 @@ skills["TouchOfGod"] = {
 	hidden = true,
 	color = 1,
 	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while wielding a Weapon. Cannot be Evaded.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.SlamSkill] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["None"] = true,
 	},
@@ -1021,41 +1021,41 @@ skills["SupportElementalPenetration"] = {
 		[3] = { 15, manaMultiplier = 40, levelRequirement = 36, statInterpolation = { 1, }, cost = { }, },
 		[4] = { 16, manaMultiplier = 40, levelRequirement = 38, statInterpolation = { 1, }, cost = { }, },
 		[5] = { 17, manaMultiplier = 40, levelRequirement = 40, statInterpolation = { 1, }, cost = { }, },
-		[6] = { 18, manaMultiplier = 40, levelRequirement = 42, statInterpolation = { 1, }, cost = { }, },
-		[7] = { 19, manaMultiplier = 40, levelRequirement = 44, statInterpolation = { 1, }, cost = { }, },
-		[8] = { 20, manaMultiplier = 40, levelRequirement = 46, statInterpolation = { 1, }, cost = { }, },
-		[9] = { 21, manaMultiplier = 40, levelRequirement = 48, statInterpolation = { 1, }, cost = { }, },
-		[10] = { 22, manaMultiplier = 40, levelRequirement = 50, statInterpolation = { 1, }, cost = { }, },
-		[11] = { 23, manaMultiplier = 40, levelRequirement = 52, statInterpolation = { 1, }, cost = { }, },
-		[12] = { 24, manaMultiplier = 40, levelRequirement = 54, statInterpolation = { 1, }, cost = { }, },
-		[13] = { 25, manaMultiplier = 40, levelRequirement = 56, statInterpolation = { 1, }, cost = { }, },
-		[14] = { 25, manaMultiplier = 40, levelRequirement = 58, statInterpolation = { 1, }, cost = { }, },
-		[15] = { 26, manaMultiplier = 40, levelRequirement = 60, statInterpolation = { 1, }, cost = { }, },
-		[16] = { 26, manaMultiplier = 40, levelRequirement = 62, statInterpolation = { 1, }, cost = { }, },
-		[17] = { 27, manaMultiplier = 40, levelRequirement = 64, statInterpolation = { 1, }, cost = { }, },
-		[18] = { 27, manaMultiplier = 40, levelRequirement = 66, statInterpolation = { 1, }, cost = { }, },
-		[19] = { 28, manaMultiplier = 40, levelRequirement = 68, statInterpolation = { 1, }, cost = { }, },
+		[6] = { 17, manaMultiplier = 40, levelRequirement = 42, statInterpolation = { 1, }, cost = { }, },
+		[7] = { 18, manaMultiplier = 40, levelRequirement = 44, statInterpolation = { 1, }, cost = { }, },
+		[8] = { 19, manaMultiplier = 40, levelRequirement = 46, statInterpolation = { 1, }, cost = { }, },
+		[9] = { 20, manaMultiplier = 40, levelRequirement = 48, statInterpolation = { 1, }, cost = { }, },
+		[10] = { 20, manaMultiplier = 40, levelRequirement = 50, statInterpolation = { 1, }, cost = { }, },
+		[11] = { 21, manaMultiplier = 40, levelRequirement = 52, statInterpolation = { 1, }, cost = { }, },
+		[12] = { 22, manaMultiplier = 40, levelRequirement = 54, statInterpolation = { 1, }, cost = { }, },
+		[13] = { 23, manaMultiplier = 40, levelRequirement = 56, statInterpolation = { 1, }, cost = { }, },
+		[14] = { 23, manaMultiplier = 40, levelRequirement = 58, statInterpolation = { 1, }, cost = { }, },
+		[15] = { 24, manaMultiplier = 40, levelRequirement = 60, statInterpolation = { 1, }, cost = { }, },
+		[16] = { 25, manaMultiplier = 40, levelRequirement = 62, statInterpolation = { 1, }, cost = { }, },
+		[17] = { 26, manaMultiplier = 40, levelRequirement = 64, statInterpolation = { 1, }, cost = { }, },
+		[18] = { 26, manaMultiplier = 40, levelRequirement = 66, statInterpolation = { 1, }, cost = { }, },
+		[19] = { 27, manaMultiplier = 40, levelRequirement = 68, statInterpolation = { 1, }, cost = { }, },
 		[20] = { 28, manaMultiplier = 40, levelRequirement = 70, statInterpolation = { 1, }, cost = { }, },
 		[21] = { 29, manaMultiplier = 40, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
-		[22] = { 30, manaMultiplier = 40, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
-		[23] = { 31, manaMultiplier = 40, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
-		[24] = { 32, manaMultiplier = 40, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
-		[25] = { 33, manaMultiplier = 40, levelRequirement = 80, statInterpolation = { 1, }, cost = { }, },
-		[26] = { 34, manaMultiplier = 40, levelRequirement = 82, statInterpolation = { 1, }, cost = { }, },
-		[27] = { 35, manaMultiplier = 40, levelRequirement = 84, statInterpolation = { 1, }, cost = { }, },
-		[28] = { 36, manaMultiplier = 40, levelRequirement = 86, statInterpolation = { 1, }, cost = { }, },
-		[29] = { 37, manaMultiplier = 40, levelRequirement = 88, statInterpolation = { 1, }, cost = { }, },
-		[30] = { 38, manaMultiplier = 40, levelRequirement = 90, statInterpolation = { 1, }, cost = { }, },
-		[31] = { 38, manaMultiplier = 40, levelRequirement = 91, statInterpolation = { 1, }, cost = { }, },
-		[32] = { 39, manaMultiplier = 40, levelRequirement = 92, statInterpolation = { 1, }, cost = { }, },
-		[33] = { 39, manaMultiplier = 40, levelRequirement = 93, statInterpolation = { 1, }, cost = { }, },
-		[34] = { 40, manaMultiplier = 40, levelRequirement = 94, statInterpolation = { 1, }, cost = { }, },
-		[35] = { 40, manaMultiplier = 40, levelRequirement = 95, statInterpolation = { 1, }, cost = { }, },
-		[36] = { 41, manaMultiplier = 40, levelRequirement = 96, statInterpolation = { 1, }, cost = { }, },
-		[37] = { 41, manaMultiplier = 40, levelRequirement = 97, statInterpolation = { 1, }, cost = { }, },
-		[38] = { 42, manaMultiplier = 40, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
-		[39] = { 42, manaMultiplier = 40, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
-		[40] = { 43, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
+		[22] = { 29, manaMultiplier = 40, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
+		[23] = { 30, manaMultiplier = 40, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
+		[24] = { 31, manaMultiplier = 40, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
+		[25] = { 32, manaMultiplier = 40, levelRequirement = 80, statInterpolation = { 1, }, cost = { }, },
+		[26] = { 32, manaMultiplier = 40, levelRequirement = 82, statInterpolation = { 1, }, cost = { }, },
+		[27] = { 33, manaMultiplier = 40, levelRequirement = 84, statInterpolation = { 1, }, cost = { }, },
+		[28] = { 34, manaMultiplier = 40, levelRequirement = 86, statInterpolation = { 1, }, cost = { }, },
+		[29] = { 35, manaMultiplier = 40, levelRequirement = 88, statInterpolation = { 1, }, cost = { }, },
+		[30] = { 35, manaMultiplier = 40, levelRequirement = 90, statInterpolation = { 1, }, cost = { }, },
+		[31] = { 36, manaMultiplier = 40, levelRequirement = 91, statInterpolation = { 1, }, cost = { }, },
+		[32] = { 36, manaMultiplier = 40, levelRequirement = 92, statInterpolation = { 1, }, cost = { }, },
+		[33] = { 36, manaMultiplier = 40, levelRequirement = 93, statInterpolation = { 1, }, cost = { }, },
+		[34] = { 37, manaMultiplier = 40, levelRequirement = 94, statInterpolation = { 1, }, cost = { }, },
+		[35] = { 37, manaMultiplier = 40, levelRequirement = 95, statInterpolation = { 1, }, cost = { }, },
+		[36] = { 38, manaMultiplier = 40, levelRequirement = 96, statInterpolation = { 1, }, cost = { }, },
+		[37] = { 38, manaMultiplier = 40, levelRequirement = 97, statInterpolation = { 1, }, cost = { }, },
+		[38] = { 38, manaMultiplier = 40, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
+		[39] = { 39, manaMultiplier = 40, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
+		[40] = { 39, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["OnHitWhileCursedTriggeredCurseNova"] = {
@@ -1304,7 +1304,7 @@ skills["Focus"] = {
 	name = "Focus",
 	hidden = true,
 	color = 2,
-	description = "Focus your power, granting yourself the Focussed buff.",
+	description = "Focus your power, granting yourself the Focused buff.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
@@ -1320,9 +1320,10 @@ skills["Focus"] = {
 		"base_skill_is_instant",
 		"fixed_skill_effect_duration",
 		"display_skill_fixed_duration_buff",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
 	},
 	levels = {
-		[1] = { 4000, cooldown = 12, levelRequirement = 1, statInterpolation = { 1, }, cost = { }, },
+		[1] = { 4000, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["SupportTriggerSpellFromHelmet"] = {
@@ -1454,8 +1455,8 @@ skills["SupportGreaterSpellEcho"] = {
 	},
 	baseMods = {
 		flag("Condition:HaveGreaterSpellEcho"),
-		mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
-		mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
+		mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
+		mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
 	},
 	qualityStats = {
 	},
@@ -1605,7 +1606,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		"use_intimidating_cry_buff_visual_for_intimidate",
 	},
 	levels = {
-		[20] = { 5, 2, 38, 0, levelRequirement = 70, duration = 4.9, cooldown = 8, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[20] = { 5, 2, 38, 0, levelRequirement = 70, duration = 4.9, cooldown = 8, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 19, }, },
 	},
 }
 skills["SupportCastOnManaSpent"] = {
@@ -1807,12 +1808,11 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"triggered_spell_spell_damage_+%",
 		"unique_mjolner_lightning_spells_triggered",
 		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
 	},
 	levels = {
-		[1] = { 100, cooldown = 0.15, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+		[1] = { cooldown = 0.15, levelRequirement = 0, manaMultiplier = -100, statInterpolation = { }, cost = { }, },
 	},
 }
 skills["TriggeredMoltenStrike"] = {
@@ -2334,7 +2334,7 @@ skills["VolatileDeadChaos"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[15] = { 0.80000001192093, 1.2000000476837, 1, 9, 13, 10, 100, damageEffectiveness = 1.4, cooldown = 2, critChance = 5, levelRequirement = 59, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 23, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 1, 9, 13, 10, 100, damageEffectiveness = 1.4, cooldown = 2, critChance = 5, levelRequirement = 59, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["StormCascadeTriggered"] = {
@@ -2606,7 +2606,7 @@ skills["SummonHarbingerOfTheArcaneUber"] = {
 	name = "Summon Greater Harbinger of the Arcane",
 	hidden = true,
 	color = 4,
-	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting More Spell Damage, Cast Speed and Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
+	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting More Spell Damage and increased Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -2765,7 +2765,7 @@ skills["SummonHarbingerOfTheArcane"] = {
 	name = "Summon Harbinger of the Arcane",
 	hidden = true,
 	color = 4,
-	description = "Summons an immortal Harbinger minion. The minion will occasionally cast Arcane Surge on you, granting More Spell Damage, Cast Speed and Mana Regeneration.",
+	description = "Summons an immortal Harbinger minion. The minion will occasionally cast Arcane Surge on you, granting More Spell Damage and increased Mana Regeneration.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -3010,7 +3010,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[25] = { 30000, 10, 20, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[25] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
@@ -3226,8 +3226,8 @@ skills["SupportTriggerSpellOnSkillUse"] = {
 		"spell_has_trigger_from_crafted_item_mod",
 	},
 	levels = {
-		[1] = { 1, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, }, cost = { }, },
-		[2] = { 1, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, }, cost = { }, },
+		[1] = { 1, cooldown = 8, levelRequirement = 1, manaMultiplier = 150, statInterpolation = { 1, }, cost = { }, },
+		[2] = { 1, cooldown = 4, levelRequirement = 1, manaMultiplier = 150, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["Unhinge"] = {

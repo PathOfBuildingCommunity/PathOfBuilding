@@ -1410,3 +1410,19 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #baseMod skill("radius", 26)
 #mods
+
+#skill Ambush
+#flags spell movement duration travel
+#mods
+
+#skill BladeTrap
+#flags area
+#mods
+
+#skill StormRain
+#flags area lightning projectile bow
+#mods
+
+#skill ExplosiveConcoction
+#flags area fire cold lightning projectile
+#mods
