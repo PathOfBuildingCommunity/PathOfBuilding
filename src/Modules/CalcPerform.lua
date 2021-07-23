@@ -1351,7 +1351,7 @@ function calcs.perform(env, avoidCache)
 					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
 				else
 					local basePercentVal = values.basePercent * mult
-					values.reservedPercent = m_max(basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+					values.reservedPercent = m_max(basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100, 0)
 				end
 				if activeSkill.activeMineCount then
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
