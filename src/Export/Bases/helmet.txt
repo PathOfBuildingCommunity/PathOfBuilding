@@ -27,5 +27,8 @@ local itemBases = ...
 #baseMatch Metadata/Items/Armours/Helmets/HelmetDexInt%d+
 #baseMatch Metadata/Items/Armours/Helmets/HelmetDexIntRitual%d+
 
+#subType Ward
+#baseMatch Metadata/Items/Armours/Helmets/HelmetExpedition%d+
+
 #subType
 #base Metadata/Items/Armours/Helmets/HelmetWreath1

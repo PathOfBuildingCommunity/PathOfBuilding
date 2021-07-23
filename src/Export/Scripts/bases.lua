@@ -124,7 +124,7 @@ directiveTable.base = function(state, args, out)
 		out:write('Range = ', weaponType.Range, ', ')
 		out:write('},\n')
 	end
-	local armourType = dat("ArmourTypes"):GetRow("BaseItemType", baseItemType.Id)
+	local armourType = dat("ArmourTypes"):GetRow("BaseItemType", baseItemType)
 	if armourType then
 		out:write('\tarmour = { ')
 		local shield = dat("ShieldTypes"):GetRow("BaseItemType", baseItemType)
@@ -141,10 +141,10 @@ directiveTable.base = function(state, args, out)
 			out:write('EnergyShieldBase = ', armourType.EnergyShield, ', ')
 		end
 		if armourType.MovementPenalty ~= 0 then
-			out:write('MovementPenalty = ', armourType.MovementPenalty, ', ')
+			out:write('MovementPenalty = ', -armourType.MovementPenalty, ', ')
 		end
 		if armourType.Ward ~= 0 then
-			out:write('Ward = ', armourType.Ward, ', ')
+			out:write('WardBase = ', armourType.Ward, ', ')
 		end
 		out:write('},\n')
 	end
