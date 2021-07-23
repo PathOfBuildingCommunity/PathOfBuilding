@@ -6731,9 +6731,9 @@ skills["PhysCascadeTrap"] = {
 	},
 	baseMods = {
 		skill("radius", 18),
-		("radiusLabel", "Large Burst:"),
-		("radiusSecondary", 9),
-		("radiusSecondaryLabel", "Small Burst:"),
+		skill("radiusLabel", "Large Burst:"),
+		skill("radiusSecondary", 9),
+		skill("radiusSecondaryLabel", "Small Burst:"),
 	},
 	qualityStats = {
 		Default = {
