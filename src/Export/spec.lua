@@ -3840,88 +3840,88 @@ return {
 			width=150
 		},
 		[19]={
-			list=false,
-			name="Aura",
-			refTo="BuffDefinitions",
-			type="Key",
-			width=150
-		},
-		[20]={
-			list=false,
-			name="AuraRadius",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[21]={
 			list=true,
-			name="Tags",
+			name="HasTags",
 			refTo="Tags",
 			type="Key",
 			width=150
 		},
-		[22]={
-			list=false,
+		[20]={
+			list=true,
 			name="GrantedEffect",
 			refTo="GrantedEffectsPerLevel",
 			type="Key",
 			width=150
 		},
-		[23]={
+		[21]={
 			list=true,
 			name="AuraFlags",
 			refTo="ModAuraFlags",
 			type="Enum",
 			width=80
 		},
-		[24]={
-			list=true,
-			name="",
-			refTo="",
-			type="Int",
-			width=80
-		},
-		[25]={
+		[22]={
 			list=false,
 			name="Daemon",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[26]={
+		[23]={
 			list=true,
 			name="",
 			refTo="",
-			type="Key",
-			width=100
-		},
-		[27]={
-			list=true,
-			name="",
-			refTo="",
-			type="Key",
-			width=100
-		},
-		[28]={
-			list=false,
-			name="AuraVisualOverride",
-			refTo="BuffVisuals",
 			type="Key",
 			width=150
 		},
-		[29]={
+		[24]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[25]={
 			list=false,
 			name="Stat5Value",
 			refTo="",
 			type="Interval",
 			width=60
 		},
-		[30]={
+		[26]={
 			list=false,
 			name="Stat5",
 			refTo="Stats",
 			type="Key",
 			width=150
+		},
+		[27]={
+			list=true,
+			name="FullClear",
+			refTo="AchievementItems",
+			type="Key",
+			width=100
+		},
+		[28]={
+			list=true,
+			name="AchievementItemsKey",
+			refTo="AchievementItems",
+			type="Key",
+			width=100
+		},
+		[29]={
+			list=true,
+			name="GenerationWeightTags",
+			refTo="Tags",
+			type="Key",
+			width=120
+		},
+		[30]={
+			list=true,
+			name="GenerationWeightValues",
+			refTo="Tags",
+			type="Int",
+			width=120
 		},
 		[31]={
 			list=true,
@@ -3932,100 +3932,100 @@ return {
 		},
 		[32]={
 			list=false,
-			name="",
-			refTo="",
-			type="Key",
-			width=100
-		},
-		[33]={
-			list=true,
-			name="GenerationWeightTags",
-			refTo="Tags",
-			type="Key",
-			width=120
-		},
-		[34]={
-			list=true,
-			name="GenerationWeightValues",
-			refTo="Tags",
-			type="Int",
-			width=120
-		},
-		[35]={
-			list=true,
-			name="",
-			refTo="",
-			type="Key",
-			width=100
-		},
-		[36]={
-			list=false,
 			name="IsEssence",
 			refTo="",
 			type="Bool",
 			width=60
 		},
-		[37]={
+		[33]={
 			list=false,
 			name="Stat6Value",
 			refTo="",
 			type="Interval",
 			width=60
 		},
-		[38]={
+		[34]={
 			list=false,
 			name="Stat6",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[39]={
+		[35]={
 			list=false,
-			name="",
+			name="MaxLevel",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[40]={
+		[36]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=40
 		},
-		[41]={
-			list=false,
-			name="",
-			refTo="",
-			type="Key",
-			width=100
-		},
-		[42]={
+		[37]={
 			list=true,
 			name="",
 			refTo="ItemClasses",
 			type="Key",
+			width=150
+		},
+		[38]={
+			list=false,
+			name="MonsterOnDeath",
+			refTo="",
+			type="String",
+			width=100
+		},
+		[39]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
 			width=200
+		},
+		[40]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[41]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[42]={
+			list=false,
+			name="",
+			refTo="GrantedEffectsPerLevel",
+			type="Int",
+			width=240
 		},
 		[43]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Key",
 			width=150
 		},
 		[44]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
-			width=150
+			type="Key",
+			width=250
 		},
 		[45]={
 			list=false,
 			name="",
-			refTo="GrantedEffectsPerLevel",
-			type="Key",
+			refTo="",
+			type="Int",
 			width=240
 		},
 		[46]={
@@ -4039,34 +4039,34 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Interval",
-			width=250
+			type="Int",
+			width=150
 		},
 		[48]={
-			list=false,
-			name="",
-			refTo="",
-			type="Key",
-			width=240
-		},
-		[49]={
-			list=false,
-			name="",
-			refTo="",
+			list=true,
+			name="ImplicitTags",
+			refTo="Tags",
 			type="Key",
 			width=150
 		},
-		[50]={
+		[49]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=150
 		},
+		[50]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
 		[51]={
 			list=false,
 			name="",
-			refTo="Tags",
+			refTo="",
 			type="Int",
 			width=150
 		},
@@ -4078,9 +4078,100 @@ return {
 			width=150
 		},
 		[53]={
-			list=true,
-			name="ImplicitTags",
-			refTo="Tags",
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[54]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[55]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[56]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[57]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[58]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[59]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[60]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[61]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[62]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[63]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[64]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[65]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[66]={
+			list=false,
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		}
