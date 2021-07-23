@@ -679,7 +679,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cursed enemies have {0}% more Evasion"
+					text="Cursed enemies have {0}% more Evasion Rating"
 				},
 				[2]={
 					[1]={
@@ -692,7 +692,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Cursed enemies have {0}% less Evasion"
+					text="Cursed enemies have {0}% less Evasion Rating"
 				}
 			}
 		},

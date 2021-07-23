@@ -100,9 +100,9 @@ local skillTypes = {
 	"Aegis",
 	"Orb",
 	"Type112",
-	"CannotRepeatElement",
+	"Prismatic",
 	"Type114",
-	"Type115",
+	"Arcane",
 	"Type116",
 }
 

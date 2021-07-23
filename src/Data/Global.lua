@@ -251,9 +251,9 @@ SkillType = {
 	Aegis = 110,
 	Orb = 111,
 	Type112 = 112,
-	CannotRepeatElement = 113,
+	Prismatic = 113, -- means elements cannot repeat
 	Type114 = 114,
-	Type115 = 115,
+	Arcane = 115, -- means it is reliant on amount of mana spent
 	Type116 = 116,
 }
 
