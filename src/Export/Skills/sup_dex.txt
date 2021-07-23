@@ -201,6 +201,9 @@ local skills, mod, flag, skill = ...
 #skill SupportFasterProjectiles
 #mods
 
+#skill SupportFocusedBallista
+#mods
+
 #skill SupportFork
 	statMap = {
 		["support_fork_projectile_damage_+%_final"] = {
@@ -359,11 +362,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCriticalStrikeAffliction
-	statMap = {
-		["support_poison_poison_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
-		},
-	},
 #mods
 
 #skill SupportAdditionalCooldown
@@ -420,6 +418,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_trap_and_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Trap, KeywordFlag.Mine)),
+		},
+		["support_trap_and_mine_damage_mine_throwing_speed_+%_final"] = {
+			mod("MineLayingSpeed", "MORE", nil),
+		},
+		["support_trap_and_mine_damage_trap_throwing_speed_+%_final"] = {
+			mod("TrapThrowingSpeed", "MORE", nil),
 		},
 	},
 #mods
@@ -497,7 +501,4 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportChaosAttacks
-#mods
-
-#skill SupportFocusedBallista
 #mods

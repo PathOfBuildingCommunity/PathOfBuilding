@@ -258,9 +258,8 @@ skills["SupportArcaneSurge"] = {
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
-			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-			div = 60.0001,
+		["support_arcane_surge_mana_regeneration_rate_+%"] = {
+			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
@@ -555,6 +554,11 @@ skills["SupportBonechill"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_bonechill_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil),
+		},
+	},
 	baseMods = {
 		skill("supportBonechill", true),
 	},
@@ -1183,6 +1187,9 @@ skills["SupportControlledDestruction"] = {
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
 		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
+		},
 	},
 	baseMods = {
 	},
@@ -1258,6 +1265,9 @@ skills["SupportControlledDestructionPlus"] = {
 	statMap = {
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
 		},
 	},
 	baseMods = {
