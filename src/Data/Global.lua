@@ -251,6 +251,10 @@ SkillType = {
 	Aegis = 110,
 	Orb = 111,
 	Type112 = 112,
+	CannotRepeatElement = 113,
+	Type114 = 114,
+	Type115 = 115,
+	Type116 = 116,
 }
 
 GlobalCache = { 

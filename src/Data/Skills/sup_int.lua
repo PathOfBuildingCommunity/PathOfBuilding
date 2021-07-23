@@ -341,7 +341,7 @@ skills["SupportArchmage"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Hit, SkillType.Spell, SkillType.AND, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Unknown104, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Type115, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -2166,7 +2166,7 @@ skills["SupportFasterCast"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Spell, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Instant, SkillType.Unknown105, },
+	excludeSkillTypes = { SkillType.Instant, SkillType.Type116, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},

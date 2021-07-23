@@ -2127,7 +2127,7 @@ skills["QuickDodge"] = {
 	name = "Dash",
 	color = 2,
 	description = "Performs a series of quick teleports towards a targeted location. If using the \"Attack in Place\" option, the direction is reversed. Shares a cooldown with other Blink skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.BlinkSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.Unknown105] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.BlinkSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.Type116] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.15,
 	baseFlags = {
@@ -2755,7 +2755,7 @@ skills["ElementalHit"] = {
 	baseEffectiveness = 2.8241999149323,
 	incrementalEffectiveness = 0.031399998813868,
 	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Unknown102] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.CannotRepeatElement] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	parts = {
@@ -8376,7 +8376,7 @@ skills["WildStrike"] = {
 	name = "Wild Strike",
 	color = 2,
 	description = "Your melee weapon strikes enemies, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave. It will avoid choosing the same element twice in a row.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.ProjectileAttack] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.Unknown102] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.ProjectileAttack] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.CannotRepeatElement] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -8607,7 +8607,7 @@ skills["Ambush"] = {
 	name = "Ambush",
 	color = 2,
 	description = "Teleports you to a nearby enemy, applying a buff to you for a short duration and blinding the enemy for a secondary duration. Performing a melee attack with a One-Handed Weapon removes the buff to exert that attack.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, [SkillType.Duration] = true, [SkillType.TravelSkill] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, [SkillType.Unknown103] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, [SkillType.Duration] = true, [SkillType.TravelSkill] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, [SkillType.Type114] = true, },
 	statDescriptionScope = "secondary_debuff_skill_stat_descriptions",
 	castTime = 0.3,
 	baseFlags = {

@@ -180,7 +180,7 @@ skills["ArcaneCloak"] = {
 	name = "Arcane Cloak",
 	color = 3,
 	description = "Spends a portion of your mana to grant a buff that takes some of the damage from hits for you until depleted. The buff grants added lightning damage based on the amount of mana spent by this skill. Shares a cooldown with other Guard skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.Unknown104] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.Type115] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -7721,7 +7721,7 @@ skills["CircleOfPower"] = {
 	baseEffectiveness = 0.38400000333786,
 	incrementalEffectiveness = 0.028000000864267,
 	description = "Places a Sigil on the ground, which grants a buff to you and allies in the area around it for a duration. The Sigil gains stages as you spend mana in its area, making the buff more powerful. You can only have one Sigil of Power at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.Unknown104] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.Type115] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -8886,7 +8886,7 @@ skills["RuneBlast"] = {
 	name = "Rune Blast",
 	color = 3,
 	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.Unknown104] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.Type115] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	baseFlags = {
@@ -10912,7 +10912,7 @@ skills["Manabond"] = {
 	baseEffectiveness = 2.0627999305725,
 	incrementalEffectiveness = 0.0320999994874,
 	description = "Deals lightning damage based upon your missing mana in a circular area around the targeted location, as well as in four rectangular extensions whose lengths depend upon your remaining mana.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanCascade] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Unknown104] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanCascade] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Type115] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
