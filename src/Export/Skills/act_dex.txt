@@ -1147,9 +1147,9 @@ local skills, mod, flag, skill = ...
 #skill PhysCascadeTrap
 #flags spell area trap duration
 #baseMod skill("radius", 18)
-#baseMod ("radiusLabel", "Large Burst:")
-#baseMod ("radiusSecondary", 9)
-#baseMod ("radiusSecondaryLabel", "Small Burst:")
+#baseMod skill("radiusLabel", "Large Burst:")
+#baseMod skill("radiusSecondary", 9)
+#baseMod skill("radiusSecondaryLabel", "Small Burst:")
 #mods
 
 #skill ShrapnelBallista
