@@ -4005,6 +4005,9 @@ skills["ForbiddenRite"] = {
 		["skill_base_chaos_damage_%_maximum_energy_shield"] = {
 			skill("energyShieldDealtAsChaos", nil),
 		},
+		["base_skill_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil),
+		},
 	},
 	baseFlags = {
 		spell = true,
