@@ -718,6 +718,36 @@ local skills, mod, flag, skill = ...
 
 #skill ForbiddenRite
 #flags spell projectile chaos area
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Primary Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local add
+		if activeSkill.skillFlags.totem then
+			add = output.TotemLife * activeSkill.skillData.lifeDealtAsChaos / 100
+		else
+			add = output.Life * activeSkill.skillData.lifeDealtAsChaos / 100 + output.EnergyShield * activeSkill.skillData.energyShieldDealtAsChaos / 100
+		end
+		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
+		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount + 1
+		end
+	end,
+	statMap = {
+		["skill_base_chaos_damage_%_maximum_life"] = {
+			skill("lifeDealtAsChaos", nil),
+		},
+		["skill_base_chaos_damage_%_maximum_energy_shield"] = {
+			skill("energyShieldDealtAsChaos", nil),
+		},
+	},
+#baseMod skill("radius", 8)
 #mods
 
 #skill FreezingPulse

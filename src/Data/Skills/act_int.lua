@@ -3977,6 +3977,35 @@ skills["ForbiddenRite"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.ChaosSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Primary Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local add
+		if activeSkill.skillFlags.totem then
+			add = output.TotemLife * activeSkill.skillData.lifeDealtAsChaos / 100
+		else
+			add = output.Life * activeSkill.skillData.lifeDealtAsChaos / 100 + output.EnergyShield * activeSkill.skillData.energyShieldDealtAsChaos / 100
+		end
+		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
+		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount + 1
+		end
+	end,
+	statMap = {
+		["skill_base_chaos_damage_%_maximum_life"] = {
+			skill("lifeDealtAsChaos", nil),
+		},
+		["skill_base_chaos_damage_%_maximum_energy_shield"] = {
+			skill("energyShieldDealtAsChaos", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -3984,6 +4013,7 @@ skills["ForbiddenRite"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 8),
 	},
 	qualityStats = {
 		Default = {
