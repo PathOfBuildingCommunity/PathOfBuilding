@@ -124,24 +124,27 @@ directiveTable.base = function(state, args, out)
 		out:write('Range = ', weaponType.Range, ', ')
 		out:write('},\n')
 	end
-	local compArmour = dat("ComponentArmour"):GetRow("BaseItemType", baseItemType.Id)
-	if compArmour then
+	local armourType = dat("ArmourTypes"):GetRow("BaseItemType", baseItemType.Id)
+	if armourType then
 		out:write('\tarmour = { ')
 		local shield = dat("ShieldTypes"):GetRow("BaseItemType", baseItemType)
 		if shield then
 			out:write('BlockChance = ', shield.Block, ', ')
 		end
-		if compArmour.Armour > 0 then
-			out:write('ArmourBase = ', compArmour.Armour, ', ')
+		if armourType.Armour > 0 then
+			out:write('ArmourBase = ', armourType.Armour, ', ')
 		end
-		if compArmour.Evasion > 0 then
-			out:write('EvasionBase = ', compArmour.Evasion, ', ')
+		if armourType.Evasion > 0 then
+			out:write('EvasionBase = ', armourType.Evasion, ', ')
 		end
-		if compArmour.EnergyShield > 0 then
-			out:write('EnergyShieldBase = ', compArmour.EnergyShield, ', ')
+		if armourType.EnergyShield > 0 then
+			out:write('EnergyShieldBase = ', armourType.EnergyShield, ', ')
 		end
-		if compArmour.MovementPenalty ~= 0 then
-			out:write('MovementPenalty = ', -compArmour.MovementPenalty, ', ')
+		if armourType.MovementPenalty ~= 0 then
+			out:write('MovementPenalty = ', armourType.MovementPenalty, ', ')
+		end
+		if armourType.Ward ~= 0 then
+			out:write('Ward = ', armourType.Ward, ', ')
 		end
 		out:write('},\n')
 	end
@@ -169,7 +172,7 @@ directiveTable.base = function(state, args, out)
 	end
 	out:write('\treq = { ')
 	local reqLevel = 1
-	if weaponType or compArmour then
+	if weaponType or armourType then
 		if baseItemType.DropLevel > 4 then
 			reqLevel = baseItemType.DropLevel
 		end
