@@ -1921,3 +1921,7 @@ local skills, mod, flag, skill = ...
 #skill EyeOfWinter
 #flags spell projectile cold
 #mods
+
+#skill VoltaxicBurst
+#flags spell area chaos lightning nova duration
+#mods

@@ -1426,3 +1426,7 @@ local skills, mod, flag, skill = ...
 #skill ExplosiveConcoction
 #flags area fire cold lightning projectile
 #mods
+
+#skill SpectralHelix
+#flags projectile
+#mods

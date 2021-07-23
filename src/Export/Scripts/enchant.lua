@@ -158,6 +158,15 @@ local skillMap = {
 	["WaterSphere"] = "Hydrosphere",
 	["CorruptingFever"] = "Corrupting Fever",
 	["Bloodreap"] = "Reap",
+	["BladeTrap"] = "Blade Trap",
+	["EyeOfWinter"] = "Eye of Winter",
+	["StormRain"] = "Storm Rain",
+	["RageVortex"] = "Rage Vortex",
+	["ShieldCrush"] = "Shield Crush",
+	["SummonedReaper"] = "Summon Reaper",
+	["Boneshatter"] = "Boneshatter",
+	["SpectralHelix"] = "Spectral Helix",
+	["DefianceBanner"] = "Defiance Banner",
 }
 
 local bySkill = { }

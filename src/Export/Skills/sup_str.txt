@@ -470,3 +470,7 @@ local skills, mod, flag, skill = ...
 #skill SupportBehead
 #flags strike
 #mods
+
+#skill SupportEarthbreaker
+#flags slam area melee
+#mods

@@ -1213,3 +1213,19 @@ end,
 #skill Boneshatter
 #flags melee strike area duration physical
 #mods
+
+#skill DefianceBanner
+#flags spell area duration aura physical banner
+#mods
+
+#skill RageVortex
+#flags area duration melee
+#mods
+
+#skill BattlemagesCry
+#flags area duration warcry
+#mods
+
+#skill Absolution
+#flags spell minion duration area physical lightning
+#mods
