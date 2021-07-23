@@ -3897,7 +3897,7 @@ return {
 		},
 		[19]={
 			list=true,
-			name="HasTags",
+			name="Tags",
 			refTo="Tags",
 			type="Key",
 			width=150
@@ -4458,7 +4458,7 @@ return {
 			width=100
 		},
 		[8]={
-			list=true,
+			list=false,
 			name="Tags",
 			refTo="Tags",
 			type="Key",
