@@ -14,7 +14,7 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 	self.lastContent = ""
 
 	local function getColorString(color, string) return color:gsub("%^", "^7")..": "..color..string end
-	local colorDesc = [[^7This field supports different colors.  Using the caret symbol (^) followed by a Hex code or a number will set the color.
+	local colorDesc = [[^7This field supports different colors.  Using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
 Below are some common color codes PoB uses:	]]
 	self.controls.colorDoc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, colorDesc)
 	self.controls.normal = new("LabelControl", {"TOPLEFT",self.controls.colorDoc,"TOPLEFT"}, 0, 32, 50, 16, getColorString(colorCodes.NORMAL, "NORMAL"))
