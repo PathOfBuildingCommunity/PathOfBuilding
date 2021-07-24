@@ -84,7 +84,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee area
 #mods
 
-#skill RockGolemWhirlingBlades Roll
+#skill RockGolemMinionWhirlingBlades Roll
 #flags attack melee movement
 #mods
 
@@ -281,3 +281,7 @@ skills["InfernalLegion"] = {
 		[1] = { cost = { } },
 	},
 }
+
+#skill MeleeAtAnimationSpeedUnique Default Attack
+#flags attack melee projectile
+#mods

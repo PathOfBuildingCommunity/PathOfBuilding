@@ -78,7 +78,7 @@ skills["AxisDoubleStrikeTrigger"] = {
 		[1] = { 0, 1, cooldown = 2, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 }
-skills["BanditExplosiveArrow"] = {
+skills["BanditExplosiveArrowAtAnimationSpeed"] = {
 	name = "Explosive Arrow",
 	hidden = true,
 	color = 4,
@@ -123,12 +123,10 @@ skills["BanditExplosiveArrow"] = {
 		"active_skill_attack_damage_+%_final",
 		"skill_can_fire_arrows",
 		"base_is_projectile",
+		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
 		[1] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 2, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
-		[2] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 10, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
-		[3] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 20, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
-		[4] = { 1000, 1.2000000476837, 1.7999999523163, 2, 0, 1, 1, critChance = 6, levelRequirement = 68, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
 	},
 }
 skills["BanditChampionBlastRainSpectre"] = {
@@ -166,22 +164,13 @@ skills["BanditChampionBlastRainSpectre"] = {
 		[1] = { 50, 0, 4, 80, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 15, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["BeastCleave"] = {
+skills["GABeastCleave"] = {
 	name = "Cleave",
 	hidden = true,
-	color = 1,
-	baseEffectiveness = 0,
-	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Type53] = true, [SkillType.PhysicalSkill] = true, },
-	weaponTypes = {
-		["Two Handed Axe"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
-		["Two Handed Sword"] = true,
-		["One Handed Sword"] = true,
-	},
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
+	castTime = 1.333,
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -192,47 +181,42 @@ skills["BeastCleave"] = {
 	qualityStats = {
 	},
 	stats = {
-		"cleave_damage_+%_final_while_dual_wielding",
 		"is_area_damage",
-		"physical_damage_+%",
-		"skill_double_hits_when_dual_wielding",
-		"attack_speed_+%",
-		"skill_sound_variation",
+		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { -40, 1, 31, 1, -30, 1, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
+		[1] = { baseMultiplier = 1.3, cooldown = 5, levelRequirement = 1, statInterpolation = { }, cost = { }, },
 	},
 }
-skills["BirdmanBloodProjectile"] = {
+skills["BirdmanBloodProjectileMortar"] = {
 	name = "Blood Projectile",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		area = true,
 	},
 	baseMods = {
 	},
 	qualityStats = {
 	},
 	stats = {
-		"attack_speed_+%",
+		"skill_repeat_count",
 		"active_skill_damage_+%_final",
 		"active_skill_area_of_effect_radius_+%_final",
 		"projectile_spread_radius",
+		"main_hand_base_maximum_attack_distance",
+		"attack_speed_+%",
 		"base_is_projectile",
-		"spell_maximum_action_distance_+%",
+		"projectile_uses_contact_position",
 	},
 	levels = {
-		[1] = { 100, 10, 0, 15, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 100, 10, 0, 15, -15, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 100, 10, 0, 15, -15, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[4] = { 100, 10, 0, 15, -15, levelRequirement = 39, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[5] = { 100, 10, 0, 15, -15, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[6] = { 100, 10, 0, 15, -15, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 2, 10, 0, 15, 40, 100, baseMultiplier = 1.15, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["BirdmanConsumeCorpse"] = {
@@ -1805,6 +1789,46 @@ skills["MonsterCausticArrow"] = {
 		[11] = { 3000, 23.33333345751, 34, 1, 0, -25, 2, levelRequirement = 74, statInterpolation = { 1, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 8, }, },
 	},
 }
+skills["MonsterCausticArrowAtAnimationSpeed"] = {
+	name = "Caustic Arrow",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.0666999816895,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Fires an arrow which deals chaos damage in an area on impact, and spreads caustic ground. Enemies standing on the caustic ground take chaos damage over time.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+		duration = true,
+		chaos = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"base_chaos_damage_to_deal_per_minute",
+		"physical_damage_%_to_add_as_chaos",
+		"skill_can_fire_arrows",
+		"active_skill_area_of_effect_radius_+%_final",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"ground_caustic_art_variation",
+		"projectile_damage_modifiers_apply_to_skill_dot",
+		"visual_hit_effect_chaos_is_green",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 1200, 16.666667039196, 34, 1, 0, -25, 2, levelRequirement = 3, statInterpolation = { 1, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 10, }, },
+	},
+}
 skills["MonsterCausticBomb"] = {
 	name = "Caustic Bomb",
 	hidden = true,
@@ -1984,7 +2008,7 @@ skills["MonsterEnfeeble"] = {
 		[1] = { 5000, 0, -40, -40, -15, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
 	},
 }
-skills["MonsterFireball"] = {
+skills["MonsterFireballContactPos"] = {
 	name = "Fireball",
 	hidden = true,
 	color = 3,
@@ -1993,7 +2017,7 @@ skills["MonsterFireball"] = {
 	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
 	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.85,
+	castTime = 1.33,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -2006,12 +2030,15 @@ skills["MonsterFireball"] = {
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
-		"base_is_projectile",
 		"spell_maximum_action_distance_+%",
+		"base_is_projectile",
+		"use_scaled_contact_offset",
+		"projectile_uses_contact_position",
+		"maintain_projectile_direction_when_using_contact_position",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 1, -50, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
-		[2] = { 1.9400000572205, 3.0099999904633, 1, -50, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[2] = { 1.9400000572205, 3.0099999904633, -50, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["MonsterFireBomb"] = {
@@ -2355,6 +2382,7 @@ skills["MonsterLightningArrow"] = {
 		attack = true,
 		projectile = true,
 		lightning = true,
+		area = true,
 	},
 	baseMods = {
 	},
@@ -2368,6 +2396,39 @@ skills["MonsterLightningArrow"] = {
 	},
 	levels = {
 		[1] = { 50, 4, 25, 0, levelRequirement = 9, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["SkeletonArcherLightningArrow"] = {
+	name = "Lightning Arrow",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.0199999809265,
+	incrementalEffectiveness = 0.019999999552965,
+	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages nearby enemies.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		lightning = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"lightning_arrow_maximum_number_of_extra_targets",
+		"base_chance_to_shock_%",
+		"active_skill_area_of_effect_radius_+%_final",
+	},
+	levels = {
+		[1] = { 50, 4, 50, 0, baseMultiplier = 1.25, levelRequirement = 9, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterLightningThorns"] = {
@@ -3291,32 +3352,6 @@ skills["SeaWitchScreech"] = {
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -20, 1900, cooldown = 6.5, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 		[2] = { 1.8500000238419, 2.8800001144409, -20, 1900, cooldown = 6.5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
-	},
-}
-skills["SeaWitchWave"] = {
-	name = "Wave",
-	hidden = true,
-	color = 4,
-	baseEffectiveness = 1.4636000394821,
-	incrementalEffectiveness = 0.034200001507998,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1.5,
-	baseFlags = {
-		spell = true,
-	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
-	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"base_is_projectile",
-	},
-	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 1, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
-		[2] = { 2.2400000095367, 3.3599998950958, 1, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
 	},
 }
 skills["SkeletonBlackAbyssBoneLance"] = {
@@ -5374,5 +5409,34 @@ skills["UltimatumGuardConeArrowCold"] = {
 	levels = {
 		[1] = { 100, 0, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
 		[2] = { 100, 250, cooldown = 8, levelRequirement = 83, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+}
+skills["MeleeAtAnimationSpeed"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, statInterpolation = { }, cost = { }, },
 	},
 }

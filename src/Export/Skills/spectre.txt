@@ -15,7 +15,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
-#skill BanditExplosiveArrow Explosive Arrow
+#skill BanditExplosiveArrowAtAnimationSpeed Explosive Arrow
 #flags cast projectile area duration
 	statMap = {
 		["minimum_fire_damage_per_fuse_arrow_orb"] = {
@@ -39,12 +39,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 4)
 #mods
 
-#skill BeastCleave Cleave
+#skill GABeastCleave Cleave
 #flags attack melee area
 #mods
 
-#skill BirdmanBloodProjectile Blood Projectile
-#flags attack projectile
+#skill BirdmanBloodProjectileMortar Blood Projectile
+#flags attack projectile area
 #mods
 
 #skill BirdmanConsumeCorpse Consume Corpse
@@ -260,6 +260,10 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area duration chaos
 #mods
 
+#skill MonsterCausticArrowAtAnimationSpeed Caustic Arrow
+#flags attack projectile area duration chaos
+#mods
+
 #skill MonsterCausticBomb Caustic Bomb
 #flags spell trap area duration chaos
 #mods
@@ -287,7 +291,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill MonsterFireball Fireball
+#skill MonsterFireballContactPos Fireball
 #flags spell projectile area
 #mods
 
@@ -315,7 +319,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee area
 #mods
 
-#skill MonsterLeapSlamFoothills
+#skill MonsterLeapSlamFoothills Leap Slam
 #flags attack melee area
 #mods
 
@@ -328,7 +332,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterLightningArrow Lightning Arrow
-#flags attack projectile lightning
+#flags attack projectile lightning area
+#mods
+
+#skill SkeletonArcherLightningArrow Lightning Arrow
+#flags attack projectile lightning area
 #mods
 
 #skill MonsterLightningThorns Lightning Thorns
@@ -513,10 +521,6 @@ local skills, mod, flag, skill = ...
 
 #skill SeaWitchScreech Screech
 #flags spell duration area
-#mods
-
-#skill SeaWitchWave Wave
-#flags spell 
 #mods
 
 #skill SkeletonBlackAbyssBoneLance Unearth
@@ -830,4 +834,8 @@ local skills, mod, flag, skill = ...
 
 #skill UltimatumGuardConeArrowCold Cone Arrow
 #flags attack hit area triggerable
+#mods
+
+#skill MeleeAtAnimationSpeed Default Attack
+#flags attack melee projectile
 #mods

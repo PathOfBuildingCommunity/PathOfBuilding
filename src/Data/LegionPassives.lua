@@ -316,8 +316,8 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Recovery from Life Leech is not applied", 
-				[2] = "1% less Damage taken for every 2% Recovery per second from Life Leech", 
+				[1] = "Life Recovery from Leech is not applied", 
+				[2] = "1% less Damage taken for every 2% Life Recovery per second from Leech", 
 			}, 
 			["dn"] = "Strength of Blood", 
 			["isJewelSocket"] = false, 
@@ -6493,14 +6493,14 @@ return {
 		}, 
 		["maraketh_notable_add_flask_effect"] = {
 			["stats"] = {
-				["non_unique_flask_effect_+%"] = {
-					["max"] = 8, 
-					["min"] = 8, 
+				["gain_alchemists_genius_on_flask_use_%"] = {
+					["max"] = 25, 
+					["min"] = 25, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "Non-Unique Flasks applied to you have 8% increased Effect", 
+				[1] = "25% chance to gain Alchemist's Genius when you use a Flask", 
 			}, 
 			["id"] = "maraketh_notable_add_flask_effect", 
 			["dn"] = "Add Flask Effect", 
@@ -6872,13 +6872,13 @@ return {
 		["karui_notable_add_fortify_effect"] = {
 			["stats"] = {
 				["fortify_effect_on_self_+%"] = {
-					["max"] = 10, 
-					["min"] = 10, 
+					["max"] = 5, 
+					["min"] = 5, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "10% increased Effect of Fortify on you", 
+				[1] = "5% increased Effect of Fortify on you", 
 			}, 
 			["id"] = "karui_notable_add_fortify_effect", 
 			["dn"] = "Add Fortify Effect", 

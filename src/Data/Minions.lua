@@ -148,7 +148,7 @@ minions["SummonedStoneGolem"] = {
 	skillList = {
 		"Melee",
 		"RockGolemSlam",
-		"RockGolemWhirlingBlades",
+		"RockGolemMinionWhirlingBlades",
 	},
 	modList = {
 	},
@@ -553,11 +553,11 @@ minions["RhoaUniqueSummoned"] = {
 	damage = 3.42,
 	damageSpread = 0.2,
 	attackTime = 0.93,
-	attackRange = 12,
+	attackRange = 14,
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeedUnique",
 		"SummonedRhoaShieldCharge",
 	},
 	modList = {
