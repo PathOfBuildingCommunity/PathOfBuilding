@@ -715,6 +715,9 @@ return {
 ["fire_damage_%_to_add_as_chaos"] = {
 	mod("FireDamageGainAsChaos", "BASE", nil),
 },
+["lightning_damage_%_to_add_as_chaos"] = {
+	mod("LightningDamageGainAsChaos", "BASE", nil),
+},
 ["base_physical_damage_%_to_convert_to_lightning"] = {
 	mod("PhysicalDamageConvertToLightning", "BASE", nil),
 },

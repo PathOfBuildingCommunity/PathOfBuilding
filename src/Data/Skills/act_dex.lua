@@ -7812,6 +7812,7 @@ skills["SpectralHelix"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		attack = true,
 		projectile = true,
 	},
 	baseMods = {

@@ -1240,7 +1240,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SpectralHelix
-#flags projectile
+#flags attack projectile
 #mods
 
 #skill SplitArrow
