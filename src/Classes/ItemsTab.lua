@@ -2332,6 +2332,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if armourData.EnergyShield > 0 then
 			tooltip:AddLine(16, s_format("^x7F7F7FEnergy Shield: %s%d", main:StatColor(armourData.EnergyShield, base.armour.EnergyShieldBase), armourData.EnergyShield))
 		end
+		if armourData.Ward > 0 then
+			tooltip:AddLine(16, s_format("^x7F7F7FWard: %s%d", main:StatColor(armourData.Ward, base.armour.WardBase), armourData.Ward))
+		end
 	elseif base.flask then
 		-- Flask-specific info
 		local flaskData = item.flaskData
