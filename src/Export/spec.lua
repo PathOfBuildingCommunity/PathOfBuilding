@@ -4459,17 +4459,17 @@ return {
 		},
 		[8]={
 			list=false,
-			name="Tags",
-			refTo="Tags",
+			name="Resistances",
+			refTo="MonsterResistances",
 			type="Key",
 			width=150
 		},
 		[9]={
 			list=false,
-			name="Resistances",
-			refTo="MonsterResistances",
-			type="Key",
-			width=150
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		},
 		[10]={
 			list=false,
