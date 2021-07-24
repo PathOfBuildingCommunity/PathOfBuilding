@@ -1367,6 +1367,10 @@ return {
 ["mine_throwing_speed_+%_per_frenzy_charge"] = {
 	mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
+["remote_mined_by_support"] = {
+	flag("ManaCostGainAsReservation"),
+	flag("LifeCostGainAsReservation"),
+},
 -- Totem
 ["totem_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Totem),

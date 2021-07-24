@@ -1325,8 +1325,14 @@ function calcs.perform(env, avoidCache)
 			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
 			local pool = { ["Mana"] = { }, ["Life"] = { } }
 			pool.Mana.baseFlat = activeSkill.skillData.manaReservationFlat or activeSkill.activeEffect.grantedEffectLevel.manaReservationFlat or 0
+			if skillModList:Flag(skillCfg, "ManaCostGainAsReservation") then
+				pool.Mana.baseFlat = skillModList:Sum("BASE", skillCfg, "ManaCostBase") + (activeSkill.activeEffect.grantedEffectLevel.cost.Mana or 0)
+			end
 			pool.Mana.basePercent = activeSkill.skillData.manaReservationPercent or activeSkill.activeEffect.grantedEffectLevel.manaReservationPercent or 0
 			pool.Life.baseFlat = activeSkill.skillData.lifeReservationFlat or activeSkill.activeEffect.grantedEffectLevel.lifeReservationFlat or 0
+			if skillModList:Flag(skillCfg, "LifeCostGainAsReservation") then
+				pool.Life.baseFlat = skillModList:Sum("BASE", skillCfg, "LifeCostBase") + (activeSkill.activeEffect.grantedEffectLevel.cost.Life or 0)
+			end
 			pool.Life.basePercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
 			if skillModList:Flag(skillCfg, "BloodMagicReserved") then
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
