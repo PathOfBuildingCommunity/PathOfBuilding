@@ -1191,6 +1191,7 @@ skills["Bladestorm"] = {
 		skill("radiusLabel", "Area of initial attack:"),
 		skill("radiusSecondary", 20),
 		skill("radiusSecondaryLabel", "Area of bladestorms:"),
+		mod("BleedChance", "BASE", 100, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
 	},
 	qualityStats = {
 		Default = {
