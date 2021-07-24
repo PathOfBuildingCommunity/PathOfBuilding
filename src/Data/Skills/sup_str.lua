@@ -1321,6 +1321,20 @@ skills["SupportEarthbreaker"] = {
 	addSkillTypes = { SkillType.Totem, },
 	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, },
 	statDescriptionScope = "gem_stat_descriptions",
+    addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_ancestor_slam_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_ancestor_slam_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["ancestor_totem_grants_owner_area_of_effect_+%_with_melee_skills"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Melee),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
