@@ -73,13 +73,12 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			page = pageFile:read("*a")
 			pageFile:close()
 		else
-			page = getFile("https://www.pathofexile.com/passive-skill-tree/")
+			page = getFile("https://www.pathofexile.com/passive-skill-tree")
 		end
 		local treeData = page:match("var passiveSkillTreeData = (%b{})")
 		if treeData then
 			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
-			treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
-			treeText = "return tree"
+			treeText = treeText .. "return tree"
 		else
 			treeText = "return " .. jsonToLua(page)
 		end
