@@ -1114,7 +1114,7 @@ end,
 #mods
 
 #skill ShieldCrush
-#flags attack melee physical area shieldAttack
+#flags attack melee area shieldAttack
     parts = {
 		{
 			name = "1 Wave",

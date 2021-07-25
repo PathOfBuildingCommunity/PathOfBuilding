@@ -6520,7 +6520,6 @@ skills["ShieldCrush"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		physical = true,
 		area = true,
 		shieldAttack = true,
 	},
