@@ -120,6 +120,10 @@ return {
 		modList:NewMod("BonechillEffect", "OVERRIDE", m_min(val, 30), "Config")
 		modList:NewMod("DesiredBonechillEffect", "BASE", m_min(val, 30), "Config")
 	end },
+	{ label = "Boneshatter:", ifSkill = "Boneshatter" },
+	{ var = "boneshatterTraumaStacks", type = "count", label = "# of Trauma Stacks:", ifSkill = "Boneshatter", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:TraumaStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ label = "Brand Skills:", ifSkillList = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
 	{ var = "ActiveBrands", type = "count", label = "# of active Brands:", ifSkillList = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigActiveBrands", "BASE", val, "Config")

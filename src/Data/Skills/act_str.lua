@@ -1387,7 +1387,16 @@ skills["Boneshatter"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+statMap = {
+		["trauma_strike_damage_+%_final_per_trauma"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+		["attack_speed_+%_per_trauma"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+	},
 	baseFlags = {
+		attack = true,
 		melee = true,
 		strike = true,
 		area = true,
