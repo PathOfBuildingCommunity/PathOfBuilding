@@ -293,3 +293,23 @@ skills["InfernalLegion"] = {
 #skill MeleeAtAnimationSpeedUnique Default Attack
 #flags attack melee projectile
 #mods
+
+#skill SummonedReaperMelee Default Attack
+#flags attack melee projectile
+#mods
+
+#skill SummonedReaperUltimate Ultimate
+#flags attack area melee
+#mods
+
+#skill GASummonReaperUltimateLeftSlash Ultimate Slash
+#flags attack area
+#mods
+
+#skill GASummonReaperComboWhirl Whirl
+#flags attack area
+#mods
+
+#skill GASummonReaperComboLeftSlash Combo Slash
+#flags attack area
+#mods

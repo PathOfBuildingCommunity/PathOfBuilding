@@ -3208,12 +3208,12 @@ skills["Firestorm"] = {
 		},
 	},
 	statMap = {
-	    ["firestorm_initial_impact_damage_+%_final"] = {
-	        mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 } )
-	    },
-	    ["firestorm_initial_impact_area_of_effect_+%_final"] = {
-	        mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
-	    },
+		["firestorm_initial_impact_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 } )
+		},
+		["firestorm_initial_impact_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -6514,9 +6514,9 @@ skills["Manabond"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanCascade] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
-    statMap = {
+	statMap = {
 		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
-            mod("Multiplier:ManaBondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
+			mod("Multiplier:ManaBondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
 			div = 100,
 		},
 	},
@@ -9173,6 +9173,20 @@ skills["SummonReaper"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
 	castTime = 1,
+	minionList = {
+		"SummonedReaper",
+	},
+	statMap = {
+		["bleed_on_hit_with_attacks_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
+		},
+		["non_reaper_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
+		},
+		["non_reaper_minion_maximum_life_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		physical = true,

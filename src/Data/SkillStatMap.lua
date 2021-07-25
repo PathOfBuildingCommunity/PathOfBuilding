@@ -1407,6 +1407,9 @@ return {
 ["minion_melee_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, ModFlag.Melee) }),
 },
+["active_skill_minion_bleeding_damage_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed) }),
+},
 ["minion_maximum_life_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }),
 },

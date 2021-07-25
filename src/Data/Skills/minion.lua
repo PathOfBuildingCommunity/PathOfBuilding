@@ -1407,3 +1407,127 @@ skills["MeleeAtAnimationSpeedUnique"] = {
 		[1] = { attackSpeedMultiplier = -25, levelRequirement = 1, statInterpolation = { }, cost = { }, },
 	},
 }
+skills["SummonedReaperMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["SummonedReaperUltimate"] = {
+	name = "Ultimate",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MovementSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 1.65, baseMultiplier = 1.65, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["GASummonReaperUltimateLeftSlash"] = {
+	name = "Ultimate Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["GASummonReaperComboWhirl"] = {
+	name = "Whirl",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["GASummonReaperComboLeftSlash"] = {
+	name = "Combo Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
