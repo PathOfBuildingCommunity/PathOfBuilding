@@ -259,6 +259,11 @@ skills["SupportBehead"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_executioner_damage_vs_enemies_on_low_life_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife"})
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

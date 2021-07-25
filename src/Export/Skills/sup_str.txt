@@ -33,7 +33,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBehead
-#flags strike
+	statMap = {
+		["support_executioner_damage_vs_enemies_on_low_life_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife"})
+		},
+	},
 #mods
 
 #skill SupportBloodMagic
