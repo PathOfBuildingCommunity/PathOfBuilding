@@ -7855,11 +7855,19 @@ skills["SpectralHelix"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["spectral_spiral_weapon_base_number_of_bounces"] = {
+			mod("BounceCount", "BASE", nil, 0, 0 ),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		bounce = true,
 	},
 	baseMods = {
+		flag("NoAdditionalProjectiles"),
+		flag("AdditionalProjectilesAddBouncesInstead"),
 	},
 	qualityStats = {
 		Default = {

@@ -638,6 +638,11 @@ function calcs.offence(env, actor, activeSkill)
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.ProjectileCount = m_floor(projBase * projMore)
 		end
+		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
+			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1 + skillModList:Sum("BASE", skillCfg, "BounceCount")
+			local projMore = skillModList:More(skillCfg, "ProjectileCount")
+			output.BounceCount = m_floor(projBase * projMore) 
+		end
 		if skillModList:Flag(skillCfg, "CannotFork") then
 			output.ForkCountString = "Cannot fork"
 		elseif skillModList:Flag(skillCfg, "ForkOnce") then

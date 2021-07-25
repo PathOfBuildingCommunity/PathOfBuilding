@@ -1283,7 +1283,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SpectralHelix
-#flags attack projectile
+#flags attack projectile bounce
+	statMap = {
+		["spectral_spiral_weapon_base_number_of_bounces"] = {
+			mod("BounceCount", "BASE", nil, 0, 0 ),
+		},
+	},
+#baseMod flag("NoAdditionalProjectiles)
+#baseMod flag("AdditionalProjectilesAddBouncesInstead")
 #mods
 
 #skill SplitArrow
