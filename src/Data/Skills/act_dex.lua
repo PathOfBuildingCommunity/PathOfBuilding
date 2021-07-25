@@ -3395,9 +3395,6 @@ skills["ExplosiveConcoction"] = {
 	baseFlags = {
 		attack = true,
 		area = true,
-		fire = true,
-		cold = true,
-		lightning = true,
 		projectile = true,
 	},
 	baseMods = {
