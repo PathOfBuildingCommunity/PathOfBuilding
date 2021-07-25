@@ -983,6 +983,65 @@ skills["DominatingBlowMinionCharge"] = {
 		[1] = { 25, 400, 30, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
+skills["AbsolutionMinion"] = {
+	name = "Absolution",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 1.6093000173569,
+	incrementalEffectiveness = 0.031099999323487,
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, cost = { }, },
+	},
+}
+skills["AbsolutionMinionEmpowered"] = {
+	name = "Absolution",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 1.2070000171661,
+	incrementalEffectiveness = 0.031099999323487,
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"absolution_blast_shockwave_every_x_beams",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 1, critChance = 5, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
+	},
+}
 skills["SummonedRhoaShieldCharge"] = {
 	name = "Shield Charge",
 	hidden = true,

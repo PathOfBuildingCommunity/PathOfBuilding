@@ -542,6 +542,30 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	},
 }
 
+minions["AbsolutionTemplarJudge"] = {
+	name = "Sentinel of Absolution",
+	life = 4,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.8,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"Melee",
+		"AbsolutionMinion",
+		"AbsolutionMinionEmpowered",
+	},
+	modList = {
+	},
+}
+
 minions["RhoaUniqueSummoned"] = {
 	name = "Summoned Rhoa",
 	life = 7.5,

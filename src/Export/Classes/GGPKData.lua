@@ -181,6 +181,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/minion_attack_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/minion_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/minion_spell_skill_stat_descriptions.txt",
+		"Metadata/StatDescriptions/minion_spell_damage_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/monster_stat_descriptions.txt",
 		"Metadata/StatDescriptions/offering_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/single_minion_spell_skill_stat_descriptions.txt",

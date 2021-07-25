@@ -7,6 +7,18 @@ local skills, mod, flag, skill = ...
 
 #skill Absolution
 #flags spell minion duration area physical lightning
+    minionList = {
+		"AbsolutionTemplarJudge",
+	},
+    statMap = {
+		["sentinel_minion_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		},
+		["skill_physical_damage_%_to_convert_to_lightning"] = {
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
+			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
+		},
+	},
 #mods
 
 #skill AbyssalCry
