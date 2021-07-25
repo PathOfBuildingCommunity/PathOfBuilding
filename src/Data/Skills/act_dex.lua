@@ -7854,7 +7854,7 @@ skills["SpectralHelix"] = {
 	castTime = 1,
 	statMap = {
 		["spectral_spiral_weapon_base_number_of_bounces"] = {
-			mod("BounceCount", "BASE", nil, 0, 0 ),
+			mod("BounceCount", "BASE", nil),
 		},
 	},
 	baseFlags = {

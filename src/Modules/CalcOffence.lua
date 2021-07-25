@@ -639,7 +639,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.ProjectileCount = m_floor(projBase * projMore)
 		end
 		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
-			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1 + skillModList:Sum("BASE", skillCfg, "BounceCount")
+			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.BounceCount = m_floor(projBase * projMore) 
 		end

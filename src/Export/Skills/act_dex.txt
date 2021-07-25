@@ -1283,10 +1283,10 @@ local skills, mod, flag, skill = ...
 #flags attack projectile bounce
 	statMap = {
 		["spectral_spiral_weapon_base_number_of_bounces"] = {
-			mod("BounceCount", "BASE", nil, 0, 0 ),
+			mod("BounceCount", "BASE", nil),
 		},
 	},
-#baseMod flag("NoAdditionalProjectiles)
+#baseMod flag("NoAdditionalProjectiles")
 #baseMod flag("AdditionalProjectilesAddBouncesInstead")
 #mods
 
