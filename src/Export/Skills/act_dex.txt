@@ -122,7 +122,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BladeTrap
-#flags area
+#flags attack area trap
 #mods
 
 #skill ChargedAttack

@@ -676,7 +676,9 @@ skills["BladeTrap"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		attack = true,
 		area = true,
+		trap = true,
 	},
 	baseMods = {
 	},
