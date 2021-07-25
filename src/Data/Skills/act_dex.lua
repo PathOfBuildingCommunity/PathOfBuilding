@@ -1646,7 +1646,6 @@ skills["PoisonArrow"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("radius", 20),
@@ -1856,7 +1855,7 @@ skills["CobraLash"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-    statMap = {
+	statMap = {
 		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
 		},
@@ -2374,7 +2373,6 @@ skills["Desecrate"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("dotIsArea", true),
@@ -2454,7 +2452,7 @@ skills["DetonateDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -2552,7 +2550,7 @@ skills["VaalDetonateDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -6099,7 +6097,6 @@ skills["StormRain"] = {
 	castTime = 1,
 	baseFlags = {
 		area = true,
-		lightning = true,
 		projectile = true,
 		bow = true,
 	},
@@ -8589,7 +8586,6 @@ skills["ViperStrike"] = {
 		attack = true,
 		melee = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("poisonIsSkillEffect", true),
@@ -8674,7 +8670,7 @@ skills["VolatileDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},

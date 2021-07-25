@@ -825,7 +825,6 @@ skills["Ember"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 		projectile = true,
 	},
 	baseMods = {
@@ -1763,7 +1762,6 @@ skills["Contagion"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -2010,7 +2008,6 @@ skills["Disintegrate"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2860,7 +2857,6 @@ skills["EssenceDrain"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -2942,7 +2938,6 @@ skills["EyeOfWinter"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 	},
@@ -3423,7 +3418,6 @@ skills["Firewall"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("radiusLabel", "Flame Wall Length:"),
@@ -4012,7 +4006,6 @@ skills["ForbiddenRite"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		chaos = true,
 		area = true,
 	},
 	baseMods = {
@@ -4291,7 +4284,6 @@ skills["FrostGlobe"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 	},
@@ -4841,9 +4833,6 @@ skills["WaterSphere"] = {
 		spell = true,
 		duration = true,
 		area = true,
-		cold = true,
-		lightning = true,
-		physical = true,
 	},
 	baseMods = {
 		skill("radius", 23),
@@ -4946,7 +4935,6 @@ skills["DoomBlast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("showAverage", true),
@@ -6523,7 +6511,6 @@ skills["Manabond"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 		arcane = true,
 	},
 	baseMods = {
@@ -8024,7 +8011,6 @@ skills["CircleOfPower"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("buffAllies", true),
@@ -9189,7 +9175,6 @@ skills["SummonReaper"] = {
 	},
 	baseFlags = {
 		spell = true,
-		physical = true,
 		minion = true,
 	},
 	baseMods = {
@@ -9728,7 +9713,6 @@ skills["SummonChaosGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -10256,8 +10240,6 @@ skills["BlackHole"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		physical = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -10517,8 +10499,6 @@ skills["VoltaxicBurst"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		chaos = true,
-		lightning = true,
 		nova = true,
 		duration = true,
 	},
@@ -11032,7 +11012,6 @@ skills["Wither"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("debuff", true),

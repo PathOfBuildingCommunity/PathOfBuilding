@@ -402,7 +402,7 @@ skills["SupportBloodthirst"] = {
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.TriggeredGrantedSkill, SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-    statMap = {
+	statMap = {
 		["support_blood_thirst_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
@@ -1171,7 +1171,7 @@ skills["SupportCruelty"] = {
 	addSkillTypes = { SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-    statMap = {
+	statMap = {
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
@@ -1321,7 +1321,7 @@ skills["SupportEarthbreaker"] = {
 	addSkillTypes = { SkillType.Totem, },
 	excludeSkillTypes = { SkillType.TriggeredGrantedSkill, },
 	statDescriptionScope = "gem_stat_descriptions",
-    addFlags = {
+	addFlags = {
 		totem = true,
 	},
 	statMap = {
@@ -2635,7 +2635,7 @@ skills["SupportLifetap"] = {
 	addSkillTypes = { SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-    statMap = {
+	statMap = {
 		["support_lifetap_damage_+%_final_while_buffed"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Lifetap" }),
 		},

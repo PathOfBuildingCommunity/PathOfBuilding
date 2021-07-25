@@ -17,7 +17,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalAccuracy
-    statMap = {
+	statMap = {
 		["attack_damage_+%_per_1000_accuracy_rating"] = {
 			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
 		}

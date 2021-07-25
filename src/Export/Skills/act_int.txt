@@ -133,7 +133,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Ember
-#flags spell area fire projectile
+#flags spell area projectile
 	parts = {
 		{
 			name = "1 Projectile",
@@ -300,7 +300,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Contagion
-#flags spell area duration chaos
+#flags spell area duration
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 17)
 #mods
@@ -327,7 +327,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Disintegrate
-#flags spell area lightning
+#flags spell area
 	statMap = {
 		["disintegrate_damage_+%_final_per_intensity"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
@@ -504,14 +504,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill EssenceDrain
-#flags spell projectile duration chaos
+#flags spell projectile duration
 #baseMod skill("debuff", true)
 #baseMod skill("showAverage", true)
 #baseMod skill("radius", 8)
 #mods
 
 #skill EyeOfWinter
-#flags spell projectile cold
+#flags spell projectile
 #mods
 
 #skill Fireball
@@ -580,7 +580,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Firewall
-#flags spell area duration fire
+#flags spell area duration
 	parts = {
 		{
 			name = "Primary Debuff",
@@ -717,7 +717,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ForbiddenRite
-#flags spell projectile chaos area
+#flags spell projectile area
 	parts = {
 		{
 			name = "1 Projectile",
@@ -782,7 +782,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrostGlobe
-#flags spell area duration cold
+#flags spell area duration
 	statMap = {
 		["frost_globe_additional_spell_base_critical_strike_chance_per_stage"] = {
 			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
@@ -856,7 +856,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill WaterSphere
-#flags spell duration area cold lightning physical
+#flags spell duration area
 	parts = {
 		{
 			name = "Frozen",
@@ -894,7 +894,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DoomBlast
-#flags spell area chaos
+#flags spell area
 	statMap = {
 		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
@@ -1166,7 +1166,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Manabond
-#flags spell area lightning arcane
+#flags spell area arcane
 	statMap = {
 		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
 			mod("Multiplier:ManaBondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
@@ -1456,7 +1456,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CircleOfPower
-#flags spell area duration lightning
+#flags spell area duration
 	statMap = {
 		["circle_of_power_skill_cost_mana_cost_+%"] = {
 			mod("ManaCost", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
@@ -1626,7 +1626,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonReaper
-#flags spell physical minion
+#flags spell minion
 	minionList = {
 		"SummonedReaper",
 	},
@@ -1717,7 +1717,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonChaosGolem
-#flags spell minion golem chaos
+#flags spell minion golem
 	minionList = {
 		"SummonedChaosGolem",
 	},
@@ -1795,7 +1795,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BlackHole
-#flags spell area duration physical chaos
+#flags spell area duration
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
 		 / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoidSphereFrequency") / 100)
@@ -1838,7 +1838,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VoltaxicBurst
-#flags spell area chaos lightning nova duration
+#flags spell area nova duration
 #mods
 
 #skill FrostBoltNova
@@ -1926,7 +1926,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Wither
-#flags spell area duration chaos
+#flags spell area duration
 	statMap = {
 		["base_skill_effect_duration"] = {
 		},

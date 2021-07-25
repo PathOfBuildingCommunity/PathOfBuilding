@@ -425,7 +425,6 @@ skills["ChaosDegenAura"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -1091,7 +1090,6 @@ skills["GuardianArc"] = {
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -1718,7 +1716,6 @@ skills["MonsterArc"] = {
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -1758,7 +1755,6 @@ skills["MonsterCausticArrow"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -1807,7 +1803,6 @@ skills["MonsterCausticArrowAtAnimationSpeed"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -1843,7 +1838,6 @@ skills["MonsterCausticBomb"] = {
 		trap = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -1885,7 +1879,6 @@ skills["MonsterDischarge"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2381,7 +2374,6 @@ skills["MonsterLightningArrow"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		lightning = true,
 		area = true,
 	},
 	baseMods = {
@@ -2414,7 +2406,6 @@ skills["SkeletonArcherLightningArrow"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		lightning = true,
 		area = true,
 	},
 	baseMods = {
@@ -2443,7 +2434,6 @@ skills["MonsterLightningThorns"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2654,7 +2644,6 @@ skills["MonsterShockNova"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2688,7 +2677,6 @@ skills["MonsterSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2873,7 +2861,6 @@ skills["NecromancerConductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -3588,7 +3575,6 @@ skills["SkeletonSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},

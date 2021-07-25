@@ -184,7 +184,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCurseOnHitCursePlus
-    statMap = {
+	statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
 			flag("CanHaveAdditionalCurse"),
@@ -315,8 +315,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ViciousHexExplosion
-#flags spell area chaos
-    statMap = {
+#flags spell area
+	statMap = {
 		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
@@ -515,8 +515,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportProjectileIntensity
-    statMap = {
-	    ["additional_projectiles_per_intensity"] = {
+	statMap = {
+		["additional_projectiles_per_intensity"] = {
 			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {

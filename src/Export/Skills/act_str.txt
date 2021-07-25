@@ -6,11 +6,11 @@
 local skills, mod, flag, skill = ...
 
 #skill Absolution
-#flags spell minion duration area physical lightning
-    minionList = {
+#flags spell minion duration area
+	minionList = {
 		"AbsolutionTemplarJudge",
 	},
-    statMap = {
+	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
 		},
@@ -22,7 +22,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AbyssalCry
-#flags warcry area duration chaos
+#flags warcry area duration
 	statMap = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("InfernalExertedAttacks", "BASE", nil),
@@ -265,7 +265,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Boneshatter
-#flags melee strike area duration physical
+#flags melee strike area duration
 #mods
 
 #skill ChainStrike
@@ -313,7 +313,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DefianceBanner
-#flags spell area duration aura physical banner
+#flags spell area duration aura banner
 	statMap = {
 		["evasion_and_physical_damage_reduction_rating_+%"] = {
 			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -922,7 +922,7 @@ local skills, mod, flag, skill = ...
 			name = "Rage Storm",
 		},
 	},
-    statMap = {
+	statMap = {
 		["rage_slash_radius_+_per_amount_of_rage_sacrificed"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "RageSacrificed", limitVar = "MaxRageVortexSacrifice" }),
 			div = 2
@@ -1102,7 +1102,7 @@ end,
 
 #skill Bloodreap
 #flags spell area duration
-    statMap = {
+	statMap = {
 		["blood_scythe_damage_+%_final_per_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
@@ -1115,7 +1115,7 @@ end,
 
 #skill ShieldCrush
 #flags attack melee area shieldAttack
-    parts = {
+	parts = {
 		{
 			name = "1 Wave",
 		},

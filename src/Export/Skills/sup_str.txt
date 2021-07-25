@@ -40,7 +40,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBloodthirst
-    statMap = {
+	statMap = {
 		["support_blood_thirst_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
@@ -120,7 +120,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCruelty
-    statMap = {
+	statMap = {
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
@@ -136,7 +136,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportEarthbreaker
-    addFlags = {
+	addFlags = {
 		totem = true,
 	},
 	statMap = {
@@ -286,7 +286,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportLifetap
-    statMap = {
+	statMap = {
 		["support_lifetap_damage_+%_final_while_buffed"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Lifetap" }),
 		},

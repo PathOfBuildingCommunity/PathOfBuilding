@@ -15,10 +15,10 @@ skills["Absolution"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
 	castTime = 0.75,
-    minionList = {
+	minionList = {
 		"AbsolutionTemplarJudge",
 	},
-    statMap = {
+	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
 		},
@@ -32,8 +32,6 @@ skills["Absolution"] = {
 		minion = true,
 		duration = true,
 		area = true,
-		physical = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -124,7 +122,6 @@ skills["AbyssalCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("radius", 60),
@@ -1395,7 +1392,6 @@ skills["Boneshatter"] = {
 		strike = true,
 		area = true,
 		duration = true,
-		physical = true,
 	},
 	baseMods = {
 	},
@@ -1922,7 +1918,6 @@ skills["DefianceBanner"] = {
 		area = true,
 		duration = true,
 		aura = true,
-		physical = true,
 		banner = true,
 	},
 	baseMods = {
@@ -5342,7 +5337,7 @@ skills["RageVortex"] = {
 			name = "Rage Storm",
 		},
 	},
-    statMap = {
+	statMap = {
 		["rage_slash_radius_+_per_amount_of_rage_sacrificed"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "RageSacrificed", limitVar = "MaxRageVortexSacrifice" }),
 			div = 2
@@ -6420,7 +6415,7 @@ skills["Bloodreap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.SpellCanCascade] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
-    statMap = {
+	statMap = {
 		["blood_scythe_damage_+%_final_per_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
@@ -6509,7 +6504,7 @@ skills["ShieldCrush"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.PhysicalSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-    parts = {
+	parts = {
 		{
 			name = "1 Wave",
 		},

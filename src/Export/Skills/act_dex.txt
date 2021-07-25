@@ -302,7 +302,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoisonArrow
-#flags attack projectile area duration chaos
+#flags attack projectile area duration
 #baseMod skill("radius", 20)
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
@@ -329,7 +329,7 @@ local skills, mod, flag, skill = ...
 
 #skill CobraLash
 #flags attack projectile
-    statMap = {
+	statMap = {
 		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
 		},
@@ -423,14 +423,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Desecrate
-#flags spell area duration chaos
+#flags spell area duration
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 12)
 #mods
 
 #skill DetonateDead
 #flags spell area
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -456,7 +456,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalDetonateDead
 #flags cast area
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -1078,7 +1078,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill StormRain
-#flags area lightning projectile bow
+#flags area projectile bow
 #mods
 
 #skill Puncture
@@ -1375,7 +1375,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ViperStrike
-#flags attack melee duration chaos
+#flags attack melee duration
 	statMap = {
 		["viper_strike_dual_wield_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
@@ -1389,7 +1389,7 @@ local skills, mod, flag, skill = ...
 
 #skill VolatileDead
 #flags spell area
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
