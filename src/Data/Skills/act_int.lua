@@ -6514,6 +6514,12 @@ skills["Manabond"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanCascade] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+    statMap = {
+		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
+            mod("Multiplier:ManaBondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
+			div = 100,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -6521,6 +6527,8 @@ skills["Manabond"] = {
 		arcane = true,
 	},
 	baseMods = {
+		mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" }),
+		mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" }),
 	},
 	qualityStats = {
 		Default = {

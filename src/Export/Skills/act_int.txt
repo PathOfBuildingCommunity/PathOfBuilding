@@ -1167,6 +1167,14 @@ local skills, mod, flag, skill = ...
 
 #skill Manabond
 #flags spell area lightning arcane
+    statMap = {
+		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
+            mod("Multiplier:ManaBondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
+			div = 100,
+		},
+	},
+#baseMod mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" })
+#baseMod mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" })
 #mods
 
 #skill OrbOfStorms
