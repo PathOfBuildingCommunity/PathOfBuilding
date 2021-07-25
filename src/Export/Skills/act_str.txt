@@ -1115,6 +1115,15 @@ end,
 
 #skill ShieldCrush
 #flags attack melee physical area shieldAttack
+    parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "2 Overlapping Waves",
+		},
+	},
+#baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill SummonFireGolem

@@ -7477,9 +7477,6 @@ skills["ThrownShield"] = {
 		["thrown_shield_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
-		["critical_multiplier_+%_per_100_max_es_on_shield"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, {type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2"})
-		},
 		["primary_projectile_chains_+"] = {
 			mod("ChainCountMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
