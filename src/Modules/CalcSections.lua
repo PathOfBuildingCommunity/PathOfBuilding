@@ -581,6 +581,7 @@ return {
 		{ breakdown = "ProjectileSpeedMod" },
 		{ modName = "ProjectileSpeed", cfg = "skill" },
 	}, },
+	{ label = "Bounces Count", flag = "bounce", { format = "{output:BounceCount}", { modName = { "BounceCount", "ProjectileCount" }, cfg = "skill" }, }, },
 	{ label = "Aura Effect Mod", haveOutput = "AuraEffectMod", { format = "x {2:output:AuraEffectMod}",
 		{ breakdown = "AuraEffectMod" },
 		{ modName = "AuraEffect", cfg = "skill" },

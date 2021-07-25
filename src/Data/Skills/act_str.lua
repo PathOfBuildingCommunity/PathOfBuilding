@@ -6509,12 +6509,22 @@ skills["ShieldCrush"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.PhysicalSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+    parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "2 Overlapping Waves",
+		},
+	},
 	baseFlags = {
-		area = true,
-		physical = true,
+		attack = true,
 		melee = true,
+		area = true,
+		shieldAttack = true,
 	},
 	baseMods = {
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {

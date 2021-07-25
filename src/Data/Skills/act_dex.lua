@@ -3351,11 +3351,52 @@ skills["ExplosiveConcoction"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "No Flasks",
+		},
+		{
+			name = "Sapphire",
+		},
+		{
+			name = "Topaz",
+		},
+		{
+			name = "Ruby",
+		},
+		{
+			name = "Sapphire + Topaz",
+		},
+		{
+			name = "Sapphire + Ruby",
+		},
+		{
+			name = "Topaz + Ruby",
+		},
+		{
+			name = "All Flasks",
+		},
+	},
+	statMap = {
+		["flask_throw_minimum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8 } }),
+		},
+		["flask_throw_maximum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8} }),
+		},
+		["flask_throw_minimum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
+		},
+		["flask_throw_maximum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8} }),
+		},
+		["flask_throw_ruby_flask_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8} }),
+		},
+	},
 	baseFlags = {
+		attack = true,
 		area = true,
-		fire = true,
-		cold = true,
-		lightning = true,
 		projectile = true,
 	},
 	baseMods = {
@@ -7435,9 +7476,6 @@ skills["ThrownShield"] = {
 		["thrown_shield_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
-		["critical_multiplier_+%_per_100_max_es_on_shield"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, {type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2"})
-		},
 		["primary_projectile_chains_+"] = {
 			mod("ChainCountMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -7813,11 +7851,19 @@ skills["SpectralHelix"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["spectral_spiral_weapon_base_number_of_bounces"] = {
+			mod("BounceCount", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		bounce = true,
 	},
 	baseMods = {
+		flag("NoAdditionalProjectiles"),
+		flag("AdditionalProjectilesAddBouncesInstead"),
 	},
 	qualityStats = {
 		Default = {
