@@ -6095,10 +6095,32 @@ skills["StormRain"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Arrow",
+		},
+		{
+			name = "Beam",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
+		end
+	end,
+	statMap = {
+		["prismatic_rain_beam_base_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+		["prismatic_rain_beam_frequency_+%"] = {
+			mod("StormRainBeamFrequency", "INC", nil),
+		},
+	},
 	baseFlags = {
+		attack = true,
 		area = true,
 		projectile = true,
-		bow = true,
 	},
 	baseMods = {
 	},
