@@ -20541,7 +20541,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}-{1} Added Cold Damage if Charges were consumed from a Sapphire Flask"
+					text="{0} to {1} Added Cold Damage if Charges were consumed from a Sapphire Flask"
 				},
 			}
 		},
@@ -20561,7 +20561,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Deals {0}-{1} Added Lightning Damage if Charges were consumed from a Topaz Flask"
+					text="Deals {0} to {1} Added Lightning Damage if Charges were consumed from a Topaz Flask"
 				},
 			}
 		},

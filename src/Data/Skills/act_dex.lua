@@ -3359,21 +3359,21 @@ skills["ExplosiveConcoction"] = {
 		{
 			name = "Topaz",
 		},
-        {
-            name = "Ruby",
-        },
+		{
+			name = "Ruby",
+		},
 		{
 			name = "Sapphire + Topaz",
 		},
 		{
 			name = "Sapphire + Ruby",
 		},
-        {
-            name = "Topaz + Ruby",
-        },
 		{
-            name = "All Flasks",
-        },
+			name = "Topaz + Ruby",
+		},
+		{
+			name = "All Flasks",
+		},
 	},
 	statMap = {
 		["flask_throw_minimum_cold_damage_if_used_sapphire_flask"] = {
