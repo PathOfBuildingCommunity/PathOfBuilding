@@ -1826,6 +1826,14 @@ skills["SupportFocusedBallista"] = {
 	excludeSkillTypes = { },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_focused_ballista_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_focused_ballista_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
