@@ -6510,9 +6510,11 @@ skills["ShieldCrush"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		attack = true,
 		area = true,
 		physical = true,
 		melee = true,
+		shieldAttack = true,
 	},
 	baseMods = {
 	},

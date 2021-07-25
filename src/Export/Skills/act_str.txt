@@ -1114,7 +1114,7 @@ end,
 #mods
 
 #skill ShieldCrush
-#flags area physical melee
+#flags attack melee physical area shieldAttack
 #mods
 
 #skill SummonFireGolem
