@@ -1181,8 +1181,8 @@ local skills, mod, flag, skill = ...
 			div = 100,
 		},
 	},
-#baseMod mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" })
-#baseMod mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" })
+#baseMod mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
+#baseMod mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
 #mods
 
 #skill OrbOfStorms
