@@ -2386,6 +2386,10 @@ skills["Earthquake"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "EarthquakeDurationIncDamage") * duration, "Skill:Earthquake")
+	end,
 	parts = {
 		{
 			name = "Initial impact",
