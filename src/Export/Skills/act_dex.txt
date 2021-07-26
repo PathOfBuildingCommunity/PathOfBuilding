@@ -649,7 +649,7 @@ local skills, mod, flag, skill = ...
 			mod("LightningMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
 		},
 		["flask_throw_maximum_lightning_damage_if_used_topaz_flask"] = {
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8} }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
 		},
 		["flask_throw_ruby_flask_ignite_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
