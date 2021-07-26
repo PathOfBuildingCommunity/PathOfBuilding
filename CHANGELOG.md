@@ -1,5 +1,38 @@
 # Changelog
 
+## [2.5.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.5.0) (2021/07/26)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.4.0...2.5.0)
+
+**Implemented enhancements:**
+
+- Add issue forms [\#3007](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3007) ([ppoelzl](https://github.com/ppoelzl))
+- Update new gems [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity))
+
+**Fixed bugs:**
+
+- Fix Mana Reservation Rounding [\#2989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2989) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix skills turned into mines not having reservation [\#2983](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2983) ([PJacek](https://github.com/PJacek))
+- Fix for downloading tree data if missing [\#2981](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2981) ([Wires77](https://github.com/Wires77))
+- Fix triggered skills not showing the right mana cost [\#2955](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2955) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Hexproof to be unaffected by curses, not immune [\#2933](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2933) ([Wires77](https://github.com/Wires77))
+- Fix level progress calculations [\#2932](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2932) ([ifnjeff](https://github.com/ifnjeff))
+
+**Merged pull requests:**
+
+- Fix Anomalous Pride quality didn't increase "chance to bleed". [\#3008](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3008) ([Typepluto](https://github.com/Typepluto))
+- Implement Forbidden Rite [\#2988](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2988) ([ifnjeff](https://github.com/ifnjeff))
+- Update GGPK Spec [\#2986](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2986) ([Wires77](https://github.com/Wires77))
+- Expedition - Dumped All Skill [\#2985](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2985) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Bladestorm to always bleeds in Blood Stance [\#2971](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2971) ([Wires77](https://github.com/Wires77))
+- Add documentation for color codes to Notes tab [\#2965](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2965) ([Wires77](https://github.com/Wires77))
+- Fix Hollow Palm Technique [\#2960](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2960) ([Helyos96](https://github.com/Helyos96))
+- Copy Timeless jewel edits when the tree is converted [\#2957](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2957) ([Wires77](https://github.com/Wires77))
+- changed poison dmg visual from 20 to 30%, fixes \#2935 [\#2947](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2947) ([pundm](https://github.com/pundm))
+
+
+
+
 ## [2.4.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.4.0) (2021/07/21)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.3.0...2.4.0)

@@ -1,3 +1,27 @@
+VERSION[2.5.0][2021/07/26]
+
+* Add issue forms (ppoelzl)
+* Update new gems (LocalIdentity)
+
+* Fix Mana Reservation Rounding (LocalIdentity)
+* Fix skills turned into mines not having reservation (PJacek)
+* Fix for downloading tree data if missing (Wires77)
+* Fix triggered skills not showing the right mana cost (LocalIdentity)
+* Fix Hexproof to be unaffected by curses, not immune (Wires77)
+* Fix level progress calculations (ifnjeff)
+
+* Fix Anomalous Pride quality didn't increase "chance to bleed". (Typepluto)
+* Implement Forbidden Rite (ifnjeff)
+* Update GGPK Spec (Wires77)
+* Expedition - Dumped All Skill (Nostrademous)
+* Fix Bladestorm to always bleeds in Blood Stance (Wires77)
+* Add documentation for color codes to Notes tab (Wires77)
+* Fix Hollow Palm Technique (Helyos96)
+* Copy Timeless jewel edits when the tree is converted (Wires77)
+* changed poison dmg visual from 20 to 30%, fixes \#2935 (pundm)
+
+
+
 VERSION[2.4.0][2021/07/22]
 
 * Add 3.15 passive skill tree (ppoelzl)
