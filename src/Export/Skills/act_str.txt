@@ -801,7 +801,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
 		},
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
-			mod("BleedChance", "BASE", nil, ModFlag.Attack, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 		["base_additional_physical_damage_reduction_%"] = {
 			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
