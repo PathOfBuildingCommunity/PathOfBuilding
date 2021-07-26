@@ -34,7 +34,7 @@ Below are some common color codes PoB uses:	]]
 		return self.width - 16
 	end
 	self.controls.edit.height = function()
-		return self.height - 64
+		return self.height - 112
 	end
 	self:SelectControl(self.controls.edit)
 end)
