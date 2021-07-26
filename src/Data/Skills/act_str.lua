@@ -930,6 +930,7 @@ skills["BattlemagesCry"] = {
 		warcry = true,
 	},
 	baseMods = {
+		skill("radius", 60),
 	},
 	qualityStats = {
 		Default = {
