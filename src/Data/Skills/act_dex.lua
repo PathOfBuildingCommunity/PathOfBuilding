@@ -3389,7 +3389,7 @@ skills["ExplosiveConcoction"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
 		},
 		["flask_throw_ruby_flask_ignite_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }), 
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
 		},
 	},
 	baseFlags = {
