@@ -1126,15 +1126,15 @@ function calcs.offence(env, actor, activeSkill)
 			if critOverride and source.type and source.type ~= "None" then
 				source.CritChance = critOverride
 			end
-			if skillData.setOffHandBaseCritChance then
-				source.CritChance = skillData.setOffHandBaseCritChance
+			if skillData.CritChance then
+				source.CritChance = skillData.CritChance
 			end
 			if skillData.setOffHandPhysicalMin and skillData.setOffHandPhysicalMax then
 				source.PhysicalMin = skillData.setOffHandPhysicalMin
 				source.PhysicalMax = skillData.setOffHandPhysicalMax
 			end
-			if skillData.setOffHandAttackTime then
-				source.AttackRate = 1000 / skillData.setOffHandAttackTime
+			if skillData.attackTime then
+				source.AttackRate = 1000 / skillData.attackTime
 			end
 			t_insert(passList, {
 				label = "Off Hand",

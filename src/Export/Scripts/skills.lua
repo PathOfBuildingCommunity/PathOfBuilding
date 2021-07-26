@@ -297,8 +297,8 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
 		end
-		if levelRow.AttackDuration ~= 0 then
-			level.extra.attackDuration = levelRow.AttackDuration
+		if levelRow.AttackTime ~= 0 then
+			level.extra.attackTime = levelRow.AttackTime
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000

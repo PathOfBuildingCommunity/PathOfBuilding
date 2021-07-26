@@ -3236,7 +3236,7 @@ return {
 		},
 		[55]={
 			list=false,
-			name="AttackDuration",
+			name="AttackTime",
 			refTo="",
 			type="Int",
 			width=150

@@ -15,6 +15,9 @@ launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
+package.cpath = package.cpath .. ';C:/Users/trevo/AppData/Roaming/JetBrains/PyCharmCE2021.1/plugins/EmmyLua/classes/debugger/emmy/windows/x86/?.dll'
+local dbg = require('emmy_core')
+dbg.tcpListen('localhost', 9966)
 	self.devMode = false
 	self.installedMode = false
 	self.versionNumber = "?"
