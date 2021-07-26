@@ -177,6 +177,11 @@ directiveTable.base = function(state, args, out)
 			reqLevel = baseItemType.DropLevel
 		end
 	end
+	if flask then
+		if baseItemType.DropLevel > 2 then
+			reqLevel = baseItemType.DropLevel
+		end
+	end
 	for _, mod in ipairs(baseItemType.ImplicitMods) do
 		reqLevel = math.max(reqLevel, math.floor(mod.Level * 0.8))
 	end

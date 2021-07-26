@@ -291,7 +291,7 @@ itemBases["Quicksilver Flask"] = {
 	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "40% increased Movement Speed" }, },
-	req = { },
+	req = { level = 4, },
 }
 itemBases["Amethyst Flask"] = {
 	type = "Flask",
