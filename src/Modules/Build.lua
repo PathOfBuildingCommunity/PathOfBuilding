@@ -361,6 +361,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "NetManaRegen", label = "Net Mana Regen", fmt = "+.1f" },
 		{ stat = "NetEnergyShieldRegen", label = "Net Energy Shield Regen", fmt = "+.1f" },
 		{ },
+		{ stat = "Ward", label = "Ward", fmt = "d", compPercent = true },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
 		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },

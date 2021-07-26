@@ -105,15 +105,18 @@ function calcs.defence(env, actor)
 	-- Primary defences: Energy shield, evasion and armour
 	do
 		local ironReflexes = modDB:Flag(nil, "IronReflexes")
+		local ward = 0
 		local energyShield = 0
 		local armour = 0
 		local evasion = 0
 		if breakdown then
+			breakdown.Ward = { slots = { } }
 			breakdown.EnergyShield = { slots = { } }
 			breakdown.Armour = { slots = { } }
 			breakdown.Evasion = { slots = { } }
 		end
-		local energyShieldBase, armourBase, evasionBase
+		local energyShieldBase, armourBase, evasionBase, wardBase
+		local gearWard = 0
 		local gearEnergyShield = 0
 		local gearArmour = 0
 		local gearEvasion = 0
@@ -122,13 +125,38 @@ function calcs.defence(env, actor)
 			local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 			if armourData then
 				slotCfg.slotName = slot
+				wardBase = armourData.Ward or 0
+				if wardBase > 0 then
+					output["WardOn"..slot] = wardBase
+					if modDB:Flag(nil, "EnergyShieldToWard") then
+						ward = ward + wardBase * calcLib.mod(modDB, slotCfg, "Ward", "Defences", "EnergyShield")
+						gearWard = gearWard + wardBase
+						if breakdown then
+							breakdown.slot(slot, nil, slotCfg, wardBase, nil, "Ward", "Defences", "EnergyShield")
+						end
+					else
+						ward = ward + wardBase * calcLib.mod(modDB, slotCfg, "Ward", "Defences")
+						gearWard = gearWard + wardBase
+						if breakdown then
+							breakdown.slot(slot, nil, slotCfg, wardBase, nil, "Ward", "Defences")
+						end
+					end
+				end
 				energyShieldBase = armourData.EnergyShield or 0
 				if energyShieldBase > 0 then
 					output["EnergyShieldOn"..slot] = energyShieldBase
-					energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
-					gearEnergyShield = gearEnergyShield + energyShieldBase
-					if breakdown then
-						breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
+					if modDB:Flag(nil, "EnergyShieldToWard") then
+						energyShield = energyShield + energyShieldBase
+						gearEnergyShield = gearEnergyShield + energyShieldBase
+						if breakdown then
+							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
+						end
+					else
+						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
+						gearEnergyShield = gearEnergyShield + energyShieldBase
+						if breakdown then
+							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
+						end
 					end
 				end
 				armourBase = armourData.Armour or 0
@@ -162,11 +190,33 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
+		wardBase = modDB:Sum("BASE", nil, "Ward")
+
+		if wardBase > 0 then
+			if modDB:Flag(nil, "EnergyShieldToWard") then
+				ward = ward + wardBase * calcLib.mod(modDB, nil, "Ward", "EnergyShield", "Defences")
+				if breakdown then
+					breakdown.slot("Global", nil, nil, wardBase, nil, "Ward", "EnergyShield", "Defences")
+				end
+			else
+				ward = ward + wardBase * calcLib.mod(modDB, nil, "Ward", "Defences")
+				if breakdown then
+					breakdown.slot("Global", nil, nil, wardBase, nil, "Ward", "Defences")
+				end
+			end
+		end
 		energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
 		if energyShieldBase > 0 then
-			energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
-			if breakdown then
-				breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
+			if modDB:Flag(nil, "EnergyShieldToWard") then
+				energyShield = energyShield + energyShieldBase
+				if breakdown then
+					breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
+				end
+			else
+				energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
+				if breakdown then
+					breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
+				end
 			end
 		end
 		armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
@@ -249,6 +299,8 @@ function calcs.defence(env, actor)
 		output.DoubleArmourChance = m_min(modDB:Sum("BASE", nil, "DoubleArmourChance"), 100)
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
+		output.Ward = m_max(round(ward), 0)
+		output["Gear:Ward"] = gearWard
 		output["Gear:EnergyShield"] = gearEnergyShield
 		output["Gear:Armour"] = gearArmour
 		output["Gear:Evasion"] = gearEvasion
@@ -544,6 +596,18 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+
+	-- Ward recharge
+	output.WardRechargeDelay = 5 / (1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100)
+		if breakdown then
+			if output.WardRechargeDelay ~= 5 then
+				breakdown.WardRechargeDelay = {
+					"5.00s ^8(base)",
+					s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100),
+					s_format("= %.2fs", output.WardRechargeDelay)
+				}
+			end
+		end
 
 	-- Miscellaneous: move speed, stun recovery, avoidance
 	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
