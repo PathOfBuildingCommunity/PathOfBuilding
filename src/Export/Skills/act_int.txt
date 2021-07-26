@@ -567,7 +567,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 })
 		},
 		["firestorm_initial_impact_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
 		},
 	},
 #baseMod skill("showAverage", false, { type = "SkillPart", skillPart = 1 })
