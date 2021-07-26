@@ -3226,6 +3226,20 @@ return {
 			refTo="",
 			type="Int",
 			width=150
+		},
+		[54]={
+			list=false,
+			name="OffhandCritChance",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[55]={
+			list=false,
+			name="AttackDuration",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	GroundEffectEffectTypes={
