@@ -6106,6 +6106,7 @@ skills["StormRain"] = {
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
+			activeSkill.skillData.dpsMultiplier = activeSkill.skillData.beamOverlapMultiplier or 1
 		end
 	end,
 	statMap = {

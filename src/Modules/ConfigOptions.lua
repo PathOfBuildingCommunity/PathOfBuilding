@@ -296,6 +296,10 @@ return {
 	{ var = "steelWards", type = "count", label = "Steel Wards:", ifSkill = "Shattering Steel", tooltip = "Steel Wards are gained from using Shattering Steel with at least 2 Steel Shards.\nYou can have up to 6 Steel Wards, and each grants +4% chance to Block Projectile Attack Damage.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ProjectileBlockChance", "BASE", m_min(val * 4, 24), "Config")
 	end },
+	{ label = "Storm Rain:", ifSkill = "Storm Rain" },
+	{ var = "stormRainBeamOverlap", type = "count", label = "# of Overlapping Beams:", ifSkill = "Storm Rain", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "beamOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillName = "Storm Rain" })
+	end },
 	{ label = "Summon Holy Relic:", ifSkill = "Summon Holy Relic" },
 	{ var = "summonHolyRelicEnableHolyRelicBoon", type = "check", label = "Enable Holy Relic's Boon Aura:", ifSkill = "Summon Holy Relic", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "RelicTriggeredNova" })
