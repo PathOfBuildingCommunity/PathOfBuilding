@@ -6512,7 +6512,7 @@ skills["Manabond"] = {
 	castTime = 0.8,
 	statMap = {
 		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
-			mod("Multiplier:ManaBondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
+			mod("Multiplier:ManabondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
 			div = 100,
 		},
 	},
@@ -6522,8 +6522,8 @@ skills["Manabond"] = {
 		arcane = true,
 	},
 	baseMods = {
-		mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" }),
-		mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManaBondUnreservedMana" }),
+		mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
+		mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
 	},
 	qualityStats = {
 		Default = {
