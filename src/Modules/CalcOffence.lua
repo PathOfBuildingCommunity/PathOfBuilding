@@ -990,8 +990,14 @@ function calcs.offence(env, actor, activeSkill)
 		output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
 		do
 			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
-			local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
-			local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+			local more, inc
+			if percent then
+				more = m_floor(skillModList:More(skillCfg, resource.."Cost", resource:gsub("Percent", "").."Cost", "Cost") * 100 + 0.0001) / 100
+				inc = skillModList:Sum("INC", skillCfg, resource.."Cost", resource:gsub("Percent", "").."Cost", "Cost")
+			else
+				more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
+				inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+			end
 			local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
 			local baseCost = output[resource.."Cost"]
 			output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
