@@ -209,14 +209,11 @@ function calcs.defence(env, actor)
 		if energyShieldBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
 				energyShield = energyShield + energyShieldBase
-				if breakdown then
-					breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
-				end
 			else
 				energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
-				if breakdown then
-					breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
-				end
+			end
+			if breakdown then
+				breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
 			end
 		end
 		armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
@@ -585,11 +582,11 @@ function calcs.defence(env, actor)
 				})
 			end
 		end
-		output.EnergyShieldRechargeDelay = 2 / (1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100)
+		output.EnergyShieldRechargeDelay = data.misc.EnergyShieldRechargeDelay / (1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100)
 		if breakdown then
-			if output.EnergyShieldRechargeDelay ~= 2 then
+			if output.EnergyShieldRechargeDelay ~= data.misc.EnergyShieldRechargeDelay then
 				breakdown.EnergyShieldRechargeDelay = {
-					"2.00s ^8(base)",
+					s_format("%.2fs ^8(base)", data.misc.EnergyShieldRechargeDelay),
 					s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100),
 					s_format("= %.2fs", output.EnergyShieldRechargeDelay)
 				}
@@ -598,11 +595,11 @@ function calcs.defence(env, actor)
 	end
 
 	-- Ward recharge
-	output.WardRechargeDelay = 5 / (1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100)
+	output.WardRechargeDelay = data.misc.WardRechargeDelay / (1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100)
 		if breakdown then
-			if output.WardRechargeDelay ~= 5 then
+			if output.WardRechargeDelay ~= data.misc.WardRechargeDelay then
 				breakdown.WardRechargeDelay = {
-					"5.00s ^8(base)",
+					s_format("%.2fs ^8(base)", data.misc.WardRechargeDelay),
 					s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100),
 					s_format("= %.2fs", output.WardRechargeDelay)
 				}

@@ -1262,4 +1262,24 @@ Requires Level 35, 40 Dex, 40 Int
 Gain a Power Charge every Second if you haven't lost Power Charges Recently
 Lose all Power Charges when you Block
 ]],
+-- Helmet: Ward
+[[
+Faithguard
+Runic Helm
+League: Expedition
+Requires Level 25, 30 Str, 30 Dex, 30 Int
++(20-30) to Intelligence
+(25-35)% increased Ward
+(20-30)% faster Restoration of Ward
+(15-25)% increased Light Radius
+Increases and Reductions to maximum Energy Shield instead apply to Ward
+]],[[
+Cadigan's Crown
+Runic Crown
+League: Expedition
+Requires Level 68, 66 Str, 66 Dex, 66 Int
+Never deal Critical Strikes
+Nearby Enemies cannot deal Critical Strikes
+Battlemage
+]],
 }

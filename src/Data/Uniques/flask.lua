@@ -451,4 +451,40 @@ Creates a Smoke Cloud on Use
 {variant:2}(25-40)% increased Damage Over Time during Flask Effect
 Grants level 21 Despair Curse Aura during Flask Effect
 ]],
+-- Flask: Ward
+[[
+Elixir of the Unbroken Circle
+Iron Flask
+League: Expedition
+Requires Level 40
+(20–40)% increased Duration
+Recover 4% of Life per Endurance Charge on use
+Lose all Endurance Charges on use
+Gain 1 Endurance Charge per Second during Flask Effect
+]],[[
+Olroth's Resolve
+Iron Flask
+League: Expedition
+Requires Level 40
+(40–50)% increased Charges used
+Ward does not Break during Flask effect
+70% less Ward during Flask Effect
+]],[[
+Starlight Chalice
+Iron Flask
+League: Expedition
+Requires Level 40
+(20–30)% increased Charge Recovery
+Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
+(20–30)% increased Effect of Non-Damaging Ailments you inflict during Flask Effect
+]],[[
+Vorana's Preparation
+Iron Flask
+League: Expedition
+Requires Level 40
+(-10–10)% reduced Charges used
+Debilitate nearby Enemies for 2 Seconds when Flask Effect ends
+Flask Effect is removed when Ward Breaks
+Culling Strike during Flask Effect
+]],
 }
