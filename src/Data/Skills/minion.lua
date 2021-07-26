@@ -983,6 +983,65 @@ skills["DominatingBlowMinionCharge"] = {
 		[1] = { 25, 400, 30, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
+skills["AbsolutionMinion"] = {
+	name = "Absolution",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 1.6093000173569,
+	incrementalEffectiveness = 0.031099999323487,
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, cost = { }, },
+	},
+}
+skills["AbsolutionMinionEmpowered"] = {
+	name = "Absolution",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 1.2070000171661,
+	incrementalEffectiveness = 0.031099999323487,
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"absolution_blast_shockwave_every_x_beams",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 1, critChance = 5, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
+	},
+}
 skills["SummonedRhoaShieldCharge"] = {
 	name = "Shield Charge",
 	hidden = true,
@@ -1346,5 +1405,129 @@ skills["MeleeAtAnimationSpeedUnique"] = {
 	},
 	levels = {
 		[1] = { attackSpeedMultiplier = -25, levelRequirement = 1, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["SummonedReaperMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["SummonedReaperUltimate"] = {
+	name = "Ultimate",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MovementSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 1.65, baseMultiplier = 1.65, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["GASummonReaperUltimateLeftSlash"] = {
+	name = "Ultimate Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["GASummonReaperComboWhirl"] = {
+	name = "Whirl",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
+	},
+}
+skills["GASummonReaperComboLeftSlash"] = {
+	name = "Combo Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 1, levelRequirement = 28, statInterpolation = { 2, }, cost = { }, },
+		[2] = { 60, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
 	},
 }

@@ -33,14 +33,18 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBehead
-#flags strike
+	statMap = {
+		["support_executioner_damage_vs_enemies_on_low_life_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" })
+		},
+	},
 #mods
 
 #skill SupportBloodMagic
 #mods
 
 #skill SupportBloodthirst
-    statMap = {
+	statMap = {
 		["support_blood_thirst_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
@@ -120,7 +124,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCruelty
-    statMap = {
+	statMap = {
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
@@ -136,7 +140,20 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportEarthbreaker
-#flags slam area melee
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_ancestor_slam_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_ancestor_slam_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["ancestor_totem_grants_owner_area_of_effect_+%_with_melee_skills"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Melee),
+		},
+	},
 #mods
 
 #skill SupportWeaponElementalDamage
@@ -273,7 +290,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportLifetap
-    statMap = {
+	statMap = {
 		["support_lifetap_damage_+%_final_while_buffed"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Lifetap" }),
 		},

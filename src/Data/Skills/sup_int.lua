@@ -1502,7 +1502,7 @@ skills["SupportCurseOnHitCursePlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHitCurse",
 	statDescriptionScope = "gem_stat_descriptions",
-    statMap = {
+	statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
 			flag("CanHaveAdditionalCurse"),
@@ -2624,7 +2624,7 @@ skills["ViciousHexExplosion"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.ChaosSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-    statMap = {
+	statMap = {
 		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
@@ -2632,7 +2632,6 @@ skills["ViciousHexExplosion"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("showAverage", true),
@@ -4106,8 +4105,8 @@ skills["SupportProjectileIntensity"] = {
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.Channelled, SkillType.Instant, SkillType.ManaCostReserved, SkillType.AuraDebuff, SkillType.Triggered, SkillType.TriggeredGrantedSkill, SkillType.Vaal, SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-    statMap = {
-	    ["additional_projectiles_per_intensity"] = {
+	statMap = {
+		["additional_projectiles_per_intensity"] = {
 			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {

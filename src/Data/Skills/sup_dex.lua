@@ -137,7 +137,7 @@ skills["SupportAdditionalAccuracy"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-    statMap = {
+	statMap = {
 		["attack_damage_+%_per_1000_accuracy_rating"] = {
 			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
 		}
@@ -1826,6 +1826,14 @@ skills["SupportFocusedBallista"] = {
 	excludeSkillTypes = { },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_focused_ballista_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_focused_ballista_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

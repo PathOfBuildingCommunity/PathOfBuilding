@@ -15,13 +15,23 @@ skills["Absolution"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
 	castTime = 0.75,
+	minionList = {
+		"AbsolutionTemplarJudge",
+	},
+	statMap = {
+		["sentinel_minion_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		},
+		["skill_physical_damage_%_to_convert_to_lightning"] = {
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
+			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
 		duration = true,
 		area = true,
-		physical = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -112,7 +122,6 @@ skills["AbyssalCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("radius", 60),
@@ -904,12 +913,24 @@ skills["BattlemagesCry"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("BattlemageExertedAttacks", "BASE", nil),
+		},
+		["divine_cry_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value_per_5_power_up_to_150%"] = {
+			mod("BattlemageSpellIncreaseApplyToAttackPer5MP", "BASE", nil),
+		},
+		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
+			mod("BattlemageCritChancePer5MP", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		area = true,
 		duration = true,
 		warcry = true,
 	},
 	baseMods = {
+		skill("radius", 60),
 	},
 	qualityStats = {
 		Default = {
@@ -1367,12 +1388,20 @@ skills["Boneshatter"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+statMap = {
+		["trauma_strike_damage_+%_final_per_trauma"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+		["attack_speed_+%_per_trauma"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+	},
 	baseFlags = {
+		attack = true,
 		melee = true,
 		strike = true,
 		area = true,
 		duration = true,
-		physical = true,
 	},
 	baseMods = {
 	},
@@ -1889,15 +1918,21 @@ skills["DefianceBanner"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.PhysicalSkill] = true, [SkillType.Banner] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "banner_aura_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["evasion_and_physical_damage_reduction_rating_+%"] = {
+			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 		aura = true,
-		physical = true,
 		banner = true,
 	},
 	baseMods = {
+		skill("radius", 46),
+		skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" }),
 	},
 	qualityStats = {
 		Default = {
@@ -2352,6 +2387,10 @@ skills["Earthquake"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "EarthquakeDurationIncDamage") * duration, "Skill:Earthquake")
+	end,
 	parts = {
 		{
 			name = "Initial impact",
@@ -5304,10 +5343,31 @@ skills["RageVortex"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Melee",
+		},
+		{
+			name = "Rage Storm",
+		},
+	},
+	statMap = {
+		["rage_slash_radius_+_per_amount_of_rage_sacrificed"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "RageSacrificed", limitVar = "MaxRageVortexSacrifice" }),
+			div = 2
+		},
+		["rage_slash_damage_+%_final_per_amount_of_rage_sacrificed"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", limitVar = "MaxRageVortexSacrifice" }),
+		},
+		["rage_slash_vortex_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
+		attack = true,
+		melee = true,
 		area = true,
 		duration = true,
-		melee = true,
 	},
 	baseMods = {
 	},
@@ -6369,7 +6429,7 @@ skills["Bloodreap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.SpellCanCascade] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
-    statMap = {
+	statMap = {
 		["blood_scythe_damage_+%_final_per_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
@@ -6458,12 +6518,22 @@ skills["ShieldCrush"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Shield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.PhysicalSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "2 Overlapping Waves",
+		},
+	},
 	baseFlags = {
-		area = true,
-		physical = true,
+		attack = true,
 		melee = true,
+		area = true,
+		shieldAttack = true,
 	},
 	baseMods = {
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {

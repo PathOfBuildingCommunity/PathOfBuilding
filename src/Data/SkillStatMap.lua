@@ -486,6 +486,9 @@ return {
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
+["critical_multiplier_+%_per_100_max_es_on_shield"] = {
+	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2" }),
+},
 ["damage_+%_per_endurance_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 },
@@ -714,6 +717,9 @@ return {
 },
 ["fire_damage_%_to_add_as_chaos"] = {
 	mod("FireDamageGainAsChaos", "BASE", nil),
+},
+["lightning_damage_%_to_add_as_chaos"] = {
+	mod("LightningDamageGainAsChaos", "BASE", nil),
 },
 ["base_physical_damage_%_to_convert_to_lightning"] = {
 	mod("PhysicalDamageConvertToLightning", "BASE", nil),
@@ -1403,6 +1409,9 @@ return {
 },
 ["minion_melee_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, ModFlag.Melee) }),
+},
+["active_skill_minion_bleeding_damage_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed) }),
 },
 ["minion_maximum_life_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }),

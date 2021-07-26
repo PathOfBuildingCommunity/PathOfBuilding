@@ -825,7 +825,6 @@ skills["Ember"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 		projectile = true,
 	},
 	baseMods = {
@@ -1763,7 +1762,6 @@ skills["Contagion"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -2010,7 +2008,6 @@ skills["Disintegrate"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2860,7 +2857,6 @@ skills["EssenceDrain"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -2939,10 +2935,17 @@ skills["EyeOfWinter"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.LaunchesSeriesOfProjectiles] = true, [SkillType.Hit] = true, [SkillType.Type71] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "EyeOfWinterRamp"), "Skill:EyeOfWinter", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+	end,
+	statMap = {
+		["freezing_pulse_damage_+%_final_at_long_range"] = {
+			mod("EyeOfWinterRamp", "BASE", nil)
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 	},
@@ -3208,12 +3211,12 @@ skills["Firestorm"] = {
 		},
 	},
 	statMap = {
-	    ["firestorm_initial_impact_damage_+%_final"] = {
-	        mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 } )
-	    },
-	    ["firestorm_initial_impact_area_of_effect_+%_final"] = {
-	        mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 } )
-	    },
+		["firestorm_initial_impact_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 })
+		},
+		["firestorm_initial_impact_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3423,7 +3426,6 @@ skills["Firewall"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("radiusLabel", "Flame Wall Length:"),
@@ -4012,7 +4014,6 @@ skills["ForbiddenRite"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		chaos = true,
 		area = true,
 	},
 	baseMods = {
@@ -4291,7 +4292,6 @@ skills["FrostGlobe"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 	},
@@ -4841,9 +4841,6 @@ skills["WaterSphere"] = {
 		spell = true,
 		duration = true,
 		area = true,
-		cold = true,
-		lightning = true,
-		physical = true,
 	},
 	baseMods = {
 		skill("radius", 23),
@@ -4946,7 +4943,6 @@ skills["DoomBlast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("showAverage", true),
@@ -6514,13 +6510,20 @@ skills["Manabond"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanCascade] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
+			mod("Multiplier:ManabondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
+			div = 100,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 		arcane = true,
 	},
 	baseMods = {
+		mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
+		mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
 	},
 	qualityStats = {
 		Default = {
@@ -8016,7 +8019,6 @@ skills["CircleOfPower"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("buffAllies", true),
@@ -9165,9 +9167,22 @@ skills["SummonReaper"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
 	castTime = 1,
+	minionList = {
+		"SummonedReaper",
+	},
+	statMap = {
+		["bleed_on_hit_with_attacks_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
+		},
+		["non_reaper_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["non_reaper_minion_maximum_life_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		spell = true,
-		physical = true,
 		minion = true,
 	},
 	baseMods = {
@@ -9706,7 +9721,6 @@ skills["SummonChaosGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -10234,8 +10248,6 @@ skills["BlackHole"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		physical = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -10492,11 +10504,13 @@ skills["VoltaxicBurst"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoltaxicDurationIncDamage") * duration * 10, "Skill:VoltaxicBurst")
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
-		chaos = true,
-		lightning = true,
 		nova = true,
 		duration = true,
 	},
@@ -11010,7 +11024,6 @@ skills["Wither"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("debuff", true),

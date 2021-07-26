@@ -676,7 +676,9 @@ skills["BladeTrap"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		attack = true,
 		area = true,
+		trap = true,
 	},
 	baseMods = {
 	},
@@ -1644,7 +1646,6 @@ skills["PoisonArrow"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("radius", 20),
@@ -1854,7 +1855,7 @@ skills["CobraLash"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-    statMap = {
+	statMap = {
 		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
 		},
@@ -2372,7 +2373,6 @@ skills["Desecrate"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("dotIsArea", true),
@@ -2452,7 +2452,7 @@ skills["DetonateDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -2550,7 +2550,7 @@ skills["VaalDetonateDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -3349,11 +3349,52 @@ skills["ExplosiveConcoction"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "No Flasks",
+		},
+		{
+			name = "Sapphire",
+		},
+		{
+			name = "Topaz",
+		},
+		{
+			name = "Ruby",
+		},
+		{
+			name = "Sapphire + Topaz",
+		},
+		{
+			name = "Sapphire + Ruby",
+		},
+		{
+			name = "Topaz + Ruby",
+		},
+		{
+			name = "All Flasks",
+		},
+	},
+	statMap = {
+		["flask_throw_minimum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8 } }),
+		},
+		["flask_throw_maximum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8 } }),
+		},
+		["flask_throw_minimum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
+		},
+		["flask_throw_maximum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
+		},
+		["flask_throw_ruby_flask_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
+		},
+	},
 	baseFlags = {
+		attack = true,
 		area = true,
-		fire = true,
-		cold = true,
-		lightning = true,
 		projectile = true,
 	},
 	baseMods = {
@@ -6054,11 +6095,33 @@ skills["StormRain"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Arrow",
+		},
+		{
+			name = "Beam",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
+			activeSkill.skillData.dpsMultiplier = activeSkill.skillData.beamOverlapMultiplier or 1
+		end
+	end,
+	statMap = {
+		["prismatic_rain_beam_base_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+		["prismatic_rain_beam_frequency_+%"] = {
+			mod("StormRainBeamFrequency", "INC", nil),
+		},
+	},
 	baseFlags = {
+		attack = true,
 		area = true,
-		lightning = true,
 		projectile = true,
-		bow = true,
 	},
 	baseMods = {
 	},
@@ -7433,9 +7496,6 @@ skills["ThrownShield"] = {
 		["thrown_shield_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
-		["critical_multiplier_+%_per_100_max_es_on_shield"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, {type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2"})
-		},
 		["primary_projectile_chains_+"] = {
 			mod("ChainCountMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -7811,10 +7871,19 @@ skills["SpectralHelix"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["spectral_spiral_weapon_base_number_of_bounces"] = {
+			mod("BounceCount", "BASE", nil),
+		},
+	},
 	baseFlags = {
+		attack = true,
 		projectile = true,
+		bounce = true,
 	},
 	baseMods = {
+		flag("NoAdditionalProjectiles"),
+		flag("AdditionalProjectilesAddBouncesInstead"),
 	},
 	qualityStats = {
 		Default = {
@@ -8540,7 +8609,6 @@ skills["ViperStrike"] = {
 		attack = true,
 		melee = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("poisonIsSkillEffect", true),
@@ -8625,7 +8693,7 @@ skills["VolatileDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},

@@ -700,7 +700,6 @@ skills["DeathWalk"] = {
 	baseFlags = {
 		cast = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("explodeCorpse", true),
@@ -1162,7 +1161,6 @@ skills["Envy"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("radius", 40),
@@ -2158,7 +2156,6 @@ skills["ChannelledSnipe"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		bow = true,
 	},
 	baseMods = {
 	},
@@ -3143,15 +3140,15 @@ skills["VampiricIcon"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.ManaCostReserved] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
-    fromItem = true,
-    statMap = {
+	fromItem = true,
+	statMap = {
 		["vampiric_icon_max_bleeding_beam_targets"] = {
-            mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-        },
-        ["skill_life_regeneration_per_minute_per_affected_enemy"] = {
-            mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
-            div = 60,
-        },
+			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
 		["vampiric_icon_bleeding_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
 		},

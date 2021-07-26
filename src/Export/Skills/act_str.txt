@@ -6,11 +6,23 @@
 local skills, mod, flag, skill = ...
 
 #skill Absolution
-#flags spell minion duration area physical lightning
+#flags spell minion duration area
+	minionList = {
+		"AbsolutionTemplarJudge",
+	},
+	statMap = {
+		["sentinel_minion_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0) })
+		},
+		["skill_physical_damage_%_to_convert_to_lightning"] = {
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
+			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
+		},
+	},
 #mods
 
 #skill AbyssalCry
-#flags warcry area duration chaos
+#flags warcry area duration
 	statMap = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("InfernalExertedAttacks", "BASE", nil),
@@ -151,6 +163,18 @@ local skills, mod, flag, skill = ...
 
 #skill BattlemagesCry
 #flags area duration warcry
+	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("BattlemageExertedAttacks", "BASE", nil),
+		},
+		["divine_cry_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value_per_5_power_up_to_150%"] = {
+			mod("BattlemageSpellIncreaseApplyToAttackPer5MP", "BASE", nil),
+		},
+		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
+			mod("BattlemageCritChancePer5MP", "BASE", nil),
+		},
+	},
+#baseMod skill("radius", 60)
 #mods
 
 #skill BattlemagesCrySupport
@@ -242,7 +266,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Boneshatter
-#flags melee strike area duration physical
+#flags attack melee strike area duration
+statMap = {
+		["trauma_strike_damage_+%_final_per_trauma"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+		["attack_speed_+%_per_trauma"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+	},
 #mods
 
 #skill ChainStrike
@@ -290,7 +322,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DefianceBanner
-#flags spell area duration aura physical banner
+#flags spell area duration aura banner
+	statMap = {
+		["evasion_and_physical_damage_reduction_rating_+%"] = {
+			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 46)
+#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
 
 #skill Determination
@@ -352,6 +391,10 @@ local skills, mod, flag, skill = ...
 
 #skill Earthquake
 #flags attack melee area duration
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "EarthquakeDurationIncDamage") * duration, "Skill:Earthquake")
+	end,
 	parts = {
 		{
 			name = "Initial impact",
@@ -883,7 +926,27 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RageVortex
-#flags area duration melee
+#flags attack melee area duration
+	parts = {
+		{
+			name = "Melee",
+		},
+		{
+			name = "Rage Storm",
+		},
+	},
+	statMap = {
+		["rage_slash_radius_+_per_amount_of_rage_sacrificed"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "RageSacrificed", limitVar = "MaxRageVortexSacrifice" }),
+			div = 2
+		},
+		["rage_slash_damage_+%_final_per_amount_of_rage_sacrificed"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", limitVar = "MaxRageVortexSacrifice" }),
+		},
+		["rage_slash_vortex_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 #mods
 
 #skill RallyingCry
@@ -1052,7 +1115,7 @@ end,
 
 #skill Bloodreap
 #flags spell area duration
-    statMap = {
+	statMap = {
 		["blood_scythe_damage_+%_final_per_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
@@ -1064,7 +1127,16 @@ end,
 #mods
 
 #skill ShieldCrush
-#flags area physical melee
+#flags attack melee area shieldAttack
+	parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "2 Overlapping Waves",
+		},
+	},
+#baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill SummonFireGolem
