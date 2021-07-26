@@ -29,9 +29,8 @@ local skills, mod, flag, skill = ...
 
 #skill SupportArcaneSurge
 	statMap = {
-		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
-			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-			div = 60.0001,
+		["support_arcane_surge_mana_regeneration_rate_+%"] = {
+			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
@@ -73,6 +72,11 @@ local skills, mod, flag, skill = ...
 
 #skill SupportBonechill
 #baseMod skill("supportBonechill", true)
+	statMap = {
+		["support_bonechill_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportCastOnStunned
@@ -148,6 +152,9 @@ local skills, mod, flag, skill = ...
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
 		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
+		},
 	},
 #mods
 
@@ -155,6 +162,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
 		},
 	},
 #mods
@@ -174,7 +184,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCurseOnHitCursePlus
-    statMap = {
+	statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
 			flag("CanHaveAdditionalCurse"),
@@ -305,8 +315,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ViciousHexExplosion
-#flags spell area chaos
-    statMap = {
+#flags spell area
+	statMap = {
 		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
@@ -505,8 +515,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportProjectileIntensity
-    statMap = {
-	    ["additional_projectiles_per_intensity"] = {
+	statMap = {
+		["additional_projectiles_per_intensity"] = {
 			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {

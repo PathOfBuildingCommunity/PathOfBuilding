@@ -37,7 +37,7 @@ itemBases["Reinforced Greaves"] = {
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
 	armour = { ArmourBase = 109, },
-	req = { level = 33, str = 60, },
+	req = { level = 33, str = 61, },
 }
 itemBases["Antique Greaves"] = {
 	type = "Boots",
@@ -465,7 +465,7 @@ itemBases["Zealot Boots"] = {
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
 	armour = { ArmourBase = 73, EnergyShieldBase = 14, },
-	req = { level = 40, str = 38, int = 38, },
+	req = { level = 40, str = 39, int = 39, },
 }
 itemBases["Soldier Boots"] = {
 	type = "Boots",
@@ -586,12 +586,12 @@ itemBases["Murder Boots"] = {
 	armour = { EvasionBase = 185, EnergyShieldBase = 17, },
 	req = { level = 69, dex = 82, int = 42, },
 }
-itemBases["Blessed Boots"] = {
+itemBases["Fugitive Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
 	tags = { boots = true, bootsatlasdexint = true, not_for_sale = true, atlas_base_type = true, armour = true, dex_int_armour = true, default = true, },
-	implicit = "+(7-13)% to Chaos Resistance",
+	implicit = "+(13-17)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
 	armour = { EvasionBase = 112, EnergyShieldBase = 31, },
 	req = { level = 70, dex = 56, int = 76, },
@@ -605,6 +605,34 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
 	armour = { EvasionBase = 126, EnergyShieldBase = 24, },
 	req = { level = 70, dex = 62, int = 62, },
+}
+
+itemBases["Runic Greaves"] = {
+	type = "Boots",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { boots = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 20, },
+	req = { level = 24, str = 20, dex = 20, int = 20, },
+}
+itemBases["Runic Sollerets"] = {
+	type = "Boots",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { boots = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 52, },
+	req = { level = 48, str = 37, dex = 37, int = 37, },
+}
+itemBases["Runic Sabatons"] = {
+	type = "Boots",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { boots = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 85, },
+	req = { level = 69, str = 46, dex = 46, int = 46, },
 }
 
 itemBases["Golden Caligae"] = {

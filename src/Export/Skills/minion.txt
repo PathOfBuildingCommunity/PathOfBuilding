@@ -84,7 +84,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee area
 #mods
 
-#skill RockGolemWhirlingBlades Roll
+#skill RockGolemMinionWhirlingBlades Roll
 #flags attack melee movement
 #mods
 
@@ -140,6 +140,14 @@ local skills, mod, flag, skill = ...
 
 #skill DominatingBlowMinionCharge
 #flags attack melee
+#mods
+
+#skill AbsolutionMinion
+#flags area spell duration
+#mods
+
+#skill AbsolutionMinionEmpowered
+#flags area spell duration
 #mods
 
 #skill SummonedRhoaShieldCharge
@@ -281,3 +289,27 @@ skills["InfernalLegion"] = {
 		[1] = { cost = { } },
 	},
 }
+
+#skill MeleeAtAnimationSpeedUnique Default Attack
+#flags attack melee projectile
+#mods
+
+#skill SummonedReaperMelee Default Attack
+#flags attack melee projectile
+#mods
+
+#skill SummonedReaperUltimate Ultimate
+#flags attack area melee
+#mods
+
+#skill GASummonReaperUltimateLeftSlash Ultimate Slash
+#flags attack area
+#mods
+
+#skill GASummonReaperComboWhirl Whirl
+#flags attack area
+#mods
+
+#skill GASummonReaperComboLeftSlash Combo Slash
+#flags attack area
+#mods

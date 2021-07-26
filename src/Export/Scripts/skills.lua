@@ -100,6 +100,10 @@ local skillTypes = {
 	"Aegis",
 	"Orb",
 	"Type112",
+	"Prismatic",
+	"Type114",
+	"Arcane",
+	"Type116",
 }
 
 local function mapAST(ast)
@@ -284,11 +288,17 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.SpellCritChance ~= 0 then
 			level.extra.critChance = levelRow.SpellCritChance / 100
 		end
+		if levelRow.OffhandCritChance ~= 0 then
+			level.extra.critChance = levelRow.OffhandCritChance / 100
+		end
 		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
 			level.extra.baseMultiplier = levelRow.DamageMultiplier / 10000 + 1
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
+		end
+		if levelRow.AttackTime ~= 0 then
+			level.extra.attackTime = levelRow.AttackTime
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000

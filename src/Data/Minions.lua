@@ -148,7 +148,7 @@ minions["SummonedStoneGolem"] = {
 	skillList = {
 		"Melee",
 		"RockGolemSlam",
-		"RockGolemWhirlingBlades",
+		"RockGolemMinionWhirlingBlades",
 	},
 	modList = {
 	},
@@ -542,6 +542,30 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	},
 }
 
+minions["AbsolutionTemplarJudge"] = {
+	name = "Sentinel of Absolution",
+	life = 4,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.8,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"Melee",
+		"AbsolutionMinion",
+		"AbsolutionMinionEmpowered",
+	},
+	modList = {
+	},
+}
+
 minions["RhoaUniqueSummoned"] = {
 	name = "Summoned Rhoa",
 	life = 7.5,
@@ -553,11 +577,11 @@ minions["RhoaUniqueSummoned"] = {
 	damage = 3.42,
 	damageSpread = 0.2,
 	attackTime = 0.93,
-	attackRange = 12,
+	attackRange = 14,
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeedUnique",
 		"SummonedRhoaShieldCharge",
 	},
 	modList = {
@@ -674,6 +698,41 @@ minions["SkitterbotLightning"] = {
 	skillList = {
 		"SkitterbotDetonateMines",
 		"SkitterbotWait",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+	},
+}
+
+minions["SummonedReaper"] = {
+	name = "Reaper",
+	life = 3,
+	armour = 1,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.4,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 3.4,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"ReaperConsumeMinionForHeal",
+		"ReaperConsumeMinionForBuff",
+		"SummonedReaperMelee",
+		"SummonedReaperDash",
+		"SummonedReaperUltimate",
+		"GASummonReaperUltimateLeftSlash",
+		"GASummonReaperUltimateRightSlash",
+		"EAASummonedReaperComboAttack",
+		"GASummonReaperComboWhirl",
+		"GASummonReaperComboLeftSlash",
+		"GASummonReaperComboRightSlash",
+		"GASummonReaperDashImpactSlash",
+		"GASummonReaperDash",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]

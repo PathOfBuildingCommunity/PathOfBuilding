@@ -109,7 +109,7 @@ itemBases["Majestic Plate"] = {
 	tags = { body_armour = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
 	armour = { ArmourBase = 530, MovementPenalty = 5, },
-	req = { level = 53, str = 144, },
+	req = { level = 53, str = 145, },
 }
 itemBases["Golden Plate"] = {
 	type = "Body Armour",
@@ -264,7 +264,7 @@ itemBases["Cutthroat's Garb"] = {
 	tags = { body_armour = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
 	armour = { EvasionBase = 530, MovementPenalty = 3, },
-	req = { level = 53, dex = 144, },
+	req = { level = 53, dex = 145, },
 }
 itemBases["Sharkskin Tunic"] = {
 	type = "Body Armour",
@@ -419,7 +419,7 @@ itemBases["Destroyer Regalia"] = {
 	tags = { body_armour = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
 	armour = { EnergyShieldBase = 104, MovementPenalty = 3, },
-	req = { level = 53, int = 144, },
+	req = { level = 53, int = 145, },
 }
 itemBases["Savant's Robe"] = {
 	type = "Body Armour",

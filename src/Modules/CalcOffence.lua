@@ -638,6 +638,11 @@ function calcs.offence(env, actor, activeSkill)
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.ProjectileCount = m_floor(projBase * projMore)
 		end
+		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
+			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
+			local projMore = skillModList:More(skillCfg, "ProjectileCount")
+			output.BounceCount = m_floor(projBase * projMore) 
+		end
 		if skillModList:Flag(skillCfg, "CannotFork") then
 			output.ForkCountString = "Cannot fork"
 		elseif skillModList:Flag(skillCfg, "ForkOnce") then
@@ -982,45 +987,42 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	for resource, name in pairs(names) do
 		local percent = resource == "ManaPercent" or resource == "LifePercent"
-		if isTriggered or activeSkill.activeEffect.grantedEffect.triggered then
-			output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
-		else
-			do
-				local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
-				local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
-				local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
-				local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
-				local baseCost = output[resource.."Cost"]
-				output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
-				output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
-				output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
-				output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
-				if skillFlags.totem then
-					local reservedFlat = activeSkill.skillData[name.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationFlat"] or 0
-					output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
-					local reservedPercent = activeSkill.skillData[name.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationPercent"] or 0
-					if reservedPercent ~= 0 then
-						skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
-					end
+		output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
+		do
+			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
+			local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
+			local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+			local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
+			local baseCost = output[resource.."Cost"]
+			output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
+			output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
+			output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
+			output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
+			if skillFlags.totem then
+				local reservedFlat = activeSkill.skillData[name.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationFlat"] or 0
+				output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
+				local reservedPercent = activeSkill.skillData[name.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationPercent"] or 0
+				if reservedPercent ~= 0 then
+					skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
 				end
-				if breakdown and output[resource.."Cost"] ~= baseCost then
-					breakdown[resource.."Cost"] = {
-						s_format("%.2f"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
-					}
-					if mult ~= 1 then
-						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
-					end
-					if inc ~= 0 then
-						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(increased/reduced "..name.." cost)", 1 + inc/100))
-					end	
-					if more ~= 1 then
-						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(more/less "..name.." cost)", more))
-					end	
-					if total ~= 0 then
-						t_insert(breakdown[resource.."Cost"], s_format("- %d ^8(- "..name.." cost)", -total))
-					end
-					t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
+			end
+			if breakdown and output[resource.."Cost"] ~= baseCost then
+				breakdown[resource.."Cost"] = {
+					s_format("%.2f"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
+				}
+				if mult ~= 1 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
 				end
+				if inc ~= 0 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(increased/reduced "..name.." cost)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(more/less "..name.." cost)", more))
+				end
+				if total ~= 0 then
+					t_insert(breakdown[resource.."Cost"], s_format("- %d ^8(- "..name.." cost)", -total))
+				end
+				t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
 			end
 		end
 	end
@@ -1124,15 +1126,15 @@ function calcs.offence(env, actor, activeSkill)
 			if critOverride and source.type and source.type ~= "None" then
 				source.CritChance = critOverride
 			end
-			if skillData.setOffHandBaseCritChance then
-				source.CritChance = skillData.setOffHandBaseCritChance
+			if skillData.CritChance then
+				source.CritChance = skillData.CritChance
 			end
 			if skillData.setOffHandPhysicalMin and skillData.setOffHandPhysicalMax then
 				source.PhysicalMin = skillData.setOffHandPhysicalMin
 				source.PhysicalMax = skillData.setOffHandPhysicalMax
 			end
-			if skillData.setOffHandAttackTime then
-				source.AttackRate = 1000 / skillData.setOffHandAttackTime
+			if skillData.attackTime then
+				source.AttackRate = 1000 / skillData.attackTime
 			end
 			t_insert(passList, {
 				label = "Off Hand",
@@ -2854,7 +2856,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalBreakdown.PoisonDotMulti = breakdown.critDot(globalOutput.PoisonDotMulti, globalOutput.CritPoisonDotMulti, totalFromHit, totalFromCrit)
 						globalOutput.PoisonDotMulti = (globalOutput.PoisonDotMulti * totalFromHit) + (globalOutput.CritPoisonDotMulti * totalFromCrit)
 					end
-					t_insert(breakdown.PoisonDPS, "x 0.20 ^8(poison deals 20% per second)")
+					t_insert(breakdown.PoisonDPS, "x 0.30 ^8(poison deals 30% per second)")
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.PoisonDPS, {
 						label = "Poison DPS:",

@@ -215,7 +215,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DeathWalk
-#flags cast area chaos
+#flags cast area
 	fromItem = true,
 #baseMod skill("explodeCorpse", true)
 #baseMod skill("showAverage", true)
@@ -325,7 +325,7 @@ local skills, mod, flag, skill = ...
 
 #noGem
 #skill Envy
-#flags spell aura area chaos
+#flags spell aura area
 	fromItem = true,
 	statMap = {
 		["attack_minimum_added_chaos_damage"] = {
@@ -394,8 +394,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("Condition:HaveGreaterSpellEcho")
-#baseMod mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
-#baseMod mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#baseMod mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#baseMod mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
 #mods
 
 #skill IcestormUniqueStaff12
@@ -566,7 +566,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ChannelledSnipe
-#flags attack projectile bow
+#flags attack projectile
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
@@ -788,15 +788,15 @@ local skills, mod, flag, skill = ...
 
 #skill VampiricIcon
 #flags spell
-    fromItem = true,
-    statMap = {
+	fromItem = true,
+	statMap = {
 		["vampiric_icon_max_bleeding_beam_targets"] = {
-            mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-        },
-        ["skill_life_regeneration_per_minute_per_affected_enemy"] = {
-            mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
-            div = 60,
-        },
+			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
 		["vampiric_icon_bleeding_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
 		},

@@ -494,6 +494,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 			else
 				match = (tag.skillName == matchName)
 			end
+			if tag.neg then
+				match = not match
+			end
 			if not match then
 				return
 			end
