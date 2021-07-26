@@ -6,9 +6,36 @@
 
 **Implemented enhancements:**
 
-- Add issue forms [\#3007](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3007) ([ppoelzl](https://github.com/ppoelzl))
-- Update new gems [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity))
-
+- Add full support for new 3.15 Skill Gems [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity)) ([ifnjeff](https://github.com/ifnjeff)) ([tcid](https://github.com/Voronoff)) 
+	- Absolution
+	- Behead Support
+	- Boneshatter
+	- Defiance Banner
+	- Explosive Concoction
+	- Eye of Winter
+	- Forbidden Rite
+	- Manabond
+	- Rage Vortex
+	- Shield Crush
+	- Spectral Helix
+	- Storm Rain
+	- Summon Reaper
+	- Voltaxic Burst
+- Add partial support for new 3.15 Skill Gems
+	- Ambush
+	- Battlemage's Cry
+	- Blade Trap
+	- Earthbreaker Support
+	- Focused Ballista Support
+- Update enchantments with 3.15 changes [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity)) ([Nostrademous](https://github.com/Nostrademous))
+- Update item mods to 3.15 stats [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update minions with 3.15 changes [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update Pantheons with 3.15 changes [\#2985](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2985) ([Nostrademous](https://github.com/Nostrademous))
+- Add new item bases [\#2986](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2986) ([Wires77](https://github.com/Wires77))
+- Add support for Timeless jewel edits to persist when updating to a new tree version [\#2957](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2957) ([Wires77](https://github.com/Wires77))
+- Add documentation for colour codes to the Notes tab [\#2965](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2965) ([Wires77](https://github.com/Wires77))
+- Update poison damage tooltip from 20% to 30% [\#2947](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2947) ([pundm](https://github.com/pundm))
+  
 **Fixed bugs:**
 
 - Fix Mana Reservation Rounding [\#2989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2989) ([LocalIdentity](https://github.com/LocalIdentity))
@@ -17,21 +44,9 @@
 - Fix triggered skills not showing the right mana cost [\#2955](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2955) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Hexproof to be unaffected by curses, not immune [\#2933](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2933) ([Wires77](https://github.com/Wires77))
 - Fix level progress calculations [\#2932](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2932) ([ifnjeff](https://github.com/ifnjeff))
-
-**Merged pull requests:**
-
-- Fix Anomalous Pride quality didn't increase "chance to bleed". [\#3008](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3008) ([Typepluto](https://github.com/Typepluto))
-- Implement Forbidden Rite [\#2988](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2988) ([ifnjeff](https://github.com/ifnjeff))
-- Update GGPK Spec [\#2986](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2986) ([Wires77](https://github.com/Wires77))
-- Expedition - Dumped All Skill [\#2985](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2985) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Anomalous Pride quality didn't increase "chance to bleed" [\#3008](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3008) ([Typepluto](https://github.com/Typepluto))
 - Fix Bladestorm to always bleeds in Blood Stance [\#2971](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2971) ([Wires77](https://github.com/Wires77))
-- Add documentation for color codes to Notes tab [\#2965](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2965) ([Wires77](https://github.com/Wires77))
-- Fix Hollow Palm Technique [\#2960](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2960) ([Helyos96](https://github.com/Helyos96))
-- Copy Timeless jewel edits when the tree is converted [\#2957](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2957) ([Wires77](https://github.com/Wires77))
-- changed poison dmg visual from 20 to 30%, fixes \#2935 [\#2947](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2947) ([pundm](https://github.com/pundm))
-
-
-
+- Fix Hollow Palm Technique parsing [\#2960](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2960) ([Helyos96](https://github.com/Helyos96))
 
 ## [2.4.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.4.0) (2021/07/21)
 
@@ -55,7 +70,7 @@
 - Add support for many Alternate Quality gems [\#2898](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2898) ([PJacek](https://github.com/PJacek))
 - Add support for "Perfect Crime" and "Bomb Specialist" ascendancy nodes [\#2905](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2905) ([Nostrademous](https://github.com/Nostrademous))
 - Add support for Chip Away brand cluster notable [\#2777](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2777) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add functionality for Blood Artist notable [\#2767](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2767) ([pundm](https://github.com/pundm))
+- Add functionality for Blood Artist notable [\#2767](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2767) ([pundm](https://github.com/pundm)) ([Wires77](https://github.com/Wires77))
 - Add skill parts for Smite [\#2918](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2918) ([Wires77](https://github.com/Wires77))
 - Add support for Gore Shockwave skill [\#2775](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2775) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for Divergent Close Combat [\#2788](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2788) ([Wires77](https://github.com/Wires77))
