@@ -19856,7 +19856,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Shard Spiral Angle during flight"
+					text="{0}% increased Shard Spiral angle during flight"
 				},
 				[2]={
 					[1]={
@@ -19869,7 +19869,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Shard Spiral Angle during flight"
+					text="{0}% reduced Shard Spiral angle during flight"
 				}
 			}
 		},

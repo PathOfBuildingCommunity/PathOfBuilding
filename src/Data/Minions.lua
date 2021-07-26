@@ -706,7 +706,7 @@ minions["SkitterbotLightning"] = {
 
 minions["SummonedReaper"] = {
 	name = "Reaper",
-	life = 1.5,
+	life = 3,
 	armour = 1,
 	fireResist = 40,
 	coldResist = 40,
