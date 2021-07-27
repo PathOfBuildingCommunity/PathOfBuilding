@@ -1,12 +1,11 @@
 VERSION[2.6.0][2021/07/27]
 
-* Fix Voltaxic Burst enchant (LocalIdentity)
+* Add new Expedition uniques (Wires77)
+* Add Ward as new defensive stat (Wires77)
+* Update Dendrobate with new gem name (pundm)
 
-* Prevent build code from being interpreted as markdown (ppoelzl)
-* updated dendrobate with new gem name (pundm)
-* Added new Expedition uniques (Wires77)
-
-
+* Fix Voltaxic Burst enchantment (LocalIdentity)
+* Fix last line of Notes tab being cut off (Wires77)
 
 VERSION[2.5.0][2021/07/26]
 
