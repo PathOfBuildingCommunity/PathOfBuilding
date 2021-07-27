@@ -10506,7 +10506,7 @@ skills["VoltaxicBurst"] = {
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
 		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
-		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoltaxicDurationIncDamage") * duration * 10, "Skill:VoltaxicBurst")
+		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoltaxicDurationIncDamage") * duration, "Skill:VoltaxicBurst")
 	end,
 	baseFlags = {
 		spell = true,

@@ -1164,6 +1164,24 @@ return {
 	}, },
 } }
 } },
+{ 1, "Ward", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Ward", data = {
+	extra = "{0:output:Ward}",
+	{ label = "Base from Armours", { format = "{0:output:Gear:Ward}", { breakdown = "Ward", gearOnly = true }, }, },
+	{ label = "Global Base", { format = "{0:mod:1}", { modName = "Ward", modType = "BASE" }, }, },
+	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Ward", modType = "INC", modSource = "Tree" }, }, },
+	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Ward", "Defences" }, modType = "INC" }, }, },
+	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Ward", "Defences" }, modType = "MORE" }, }, },
+	{ label = "Total", { format = "{0:output:Ward}", { breakdown = "Ward" }, }, },
+	{ label = "Recharge Delay", { format = "{2:output:WardRechargeDelay}s",
+		{ breakdown = "WardRechargeDelay" },
+		{ modName = "WardRechargeFaster" },
+	}, },
+	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)",
+		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRecovery", "EnergyShieldRegenPercent", "EnergyShieldDegen", "NoEnergyShieldRegen" } },
+		{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
+	}, },
+} }
+} },
 { 1, "Armour", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Armour", data = {
 	extra = "{0:output:Armour}",
 	{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true }, }, },

@@ -1021,7 +1021,7 @@ Mind Over Matter
 Dendrobate
 Sentinel Jacket
 Requires Level 59, 86 Dex, 86 Int
-Socketed Gems are Supported by Level 10 Lesser Poison
+Socketed Gems are Supported by Level 10 Chance to Poison
 (130-150)% increased Evasion and Energy Shield
 +40 to maximum Energy Shield
 +(15-25)% to all Elemental Resistances
