@@ -81,12 +81,16 @@ Prerequisites:
 Installation:
 - Clone this repository to a directory of your choice:
 
-       git clone https://github.com/PathOfBuildingCommunity/PathOfBuildingInstaller.git
-
+      git clone https://github.com/PathOfBuildingCommunity/PathOfBuildingInstaller.git
 - Please note that you might not have access to this repository if you're not a Path of
   Building Community maintainer.
   
 Usage:
 
       python make_release.py
-To change the output folder or repository URL, simply edit the script file.
+- To change the output folder or repository URL, simply edit the script file.
+- Created installers can be found in the `./Dist` directory.
+- NB: Output like the following can be safely ignored. This is due to NSIS complaining
+about including an empty directory.
+
+      AppData\Local\Temp\tmp5fo1ha19\Update -> no files found. (NSIS/Setup.nsi:158)
