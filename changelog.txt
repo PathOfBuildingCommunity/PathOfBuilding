@@ -1,3 +1,13 @@
+VERSION[2.6.0][2021/07/27]
+
+* Fix Voltaxic Burst enchant (LocalIdentity)
+
+* Prevent build code from being interpreted as markdown (ppoelzl)
+* updated dendrobate with new gem name (pundm)
+* Added new Expedition uniques (Wires77)
+
+
+
 VERSION[2.5.0][2021/07/26]
 
 * Add full support for new 3.15 Skill Gems (LocalIdentity) (ifnjeff) (tcid)
