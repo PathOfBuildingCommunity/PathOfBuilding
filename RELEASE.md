@@ -61,3 +61,32 @@ Steps:
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
 8. Remove `data.json` from the new directory. Do not commit this file.
+
+## Installer creation
+
+Path of Building Community offers both installable and standalone releases. They're
+built with automation scripts found in the repository described below.
+
+Prerequisites:
+- Have Git 2.21.0+ installed and `git` in your `PATH`.
+  Verify by running `git --version`.
+- Have NSIS 3.07+ installed and `makensis` in your `PATH`.
+  Verify by running `makensis /version`.
+  You may have to add this manually after installation.
+- Have Python 3.7+ installed and `python` in your `PATH`.
+  Verify by running `python --version`.
+- NB: You don't have to create a virtual environment, as you don't need to install any
+  third-party libraries.
+
+Installation:
+- Clone this repository to a directory of your choice:
+
+       git clone https://github.com/PathOfBuildingCommunity/PathOfBuildingInstaller.git
+
+- Please note that you might not have access to this repository if you're not a Path of
+  Building Community maintainer.
+  
+Usage:
+
+      python make_release.py
+To change the output folder or repository URL, simply edit the script file.
