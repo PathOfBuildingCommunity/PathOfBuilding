@@ -211,8 +211,8 @@ function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
 end
 
 function SkillsTabClass:Load(xml, fileName)
-	self.defaultGemLevel = tonumber(xml.attrib.defaultGemLevel)
-	self.defaultGemQuality = tonumber(xml.attrib.defaultGemQuality)
+	self.defaultGemLevel = m_max(m_min(tonumber(xml.attrib.defaultGemLevel) or 20, 21), 1)
+	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultLevel:SetText(self.defaultGemLevel or "")
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
 	if xml.attrib.sortGemsByDPS then
