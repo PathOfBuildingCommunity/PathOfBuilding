@@ -3398,7 +3398,6 @@ skills["ExplosiveConcoction"] = {
 		attack = true,
 		area = true,
 		projectile = true,
-		canOffHandWeapon = true,
 	},
 	baseMods = {
 	},

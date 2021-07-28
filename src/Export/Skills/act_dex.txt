@@ -611,7 +611,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ExplosiveConcoction
-#flags attack area projectile canOffHandWeapon
+#flags attack area projectile
 	parts = {
 		{
 			name = "No Flasks",
