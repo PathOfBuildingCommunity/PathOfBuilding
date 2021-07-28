@@ -217,7 +217,7 @@ Requires Level 52, 50 Dex
 Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
--(20-10)% to Chaos Resistance
++(-20-10)% to Chaos Resistance
 (7-8)% chance to Dodge Spell Damage
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
