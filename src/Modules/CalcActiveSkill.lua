@@ -246,7 +246,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if weapon2Flags then
 				activeSkill.weapon2Flags = weapon2Flags
 				skillFlags.weapon2Attack = true
-			elseif skillFlags.canStatStick then 
+			elseif skillFlags.canOffHandWeapon then
 				skillFlags.weapon2Attack = true
 				activeSkill.weapon2Flags = 0
 			elseif skillTypes[SkillType.DualWield] or weapon2Info then
