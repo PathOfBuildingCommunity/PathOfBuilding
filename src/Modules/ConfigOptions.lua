@@ -1193,7 +1193,7 @@ return {
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 2190202, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1201,7 +1201,7 @@ return {
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 44360789, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Sirus" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1209,7 +1209,7 @@ return {
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 37940148, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		end
 	end },
