@@ -754,7 +754,7 @@ Suffix: LocalCriticalMultiplier4
 Elemental Bow
 Thicket Bow
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: WeaponElementalDamageOnTwohandWeapon4
 Suffix: LocalIncreasedAttackSpeed2
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
