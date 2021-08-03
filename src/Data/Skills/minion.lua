@@ -1531,3 +1531,27 @@ skills["GASummonReaperComboLeftSlash"] = {
 		[2] = { 60, levelRequirement = 80, statInterpolation = { 2, }, cost = { }, },
 	},
 }
+skills["ReaperConsumeMinionForBuff"] = {
+	name = "Consume",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		skill("buffAllies", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 0, duration = 6, cooldown = 25, statInterpolation = { }, cost = { }, },
+	},
+}
