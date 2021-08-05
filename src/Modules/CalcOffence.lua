@@ -2011,8 +2011,8 @@ function calcs.offence(env, actor, activeSkill)
 								sourceRes = elementUsed
 							elseif isElemental[damageType] then
 								resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
-								if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-									resist = globalOutput[damageType.."Resist"]
+								if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+									resist = env.player.output[damageType.."Resist"]
 								else
 									local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
 									resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
@@ -3660,8 +3660,8 @@ function calcs.offence(env, actor, activeSkill)
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
-					if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-						resist = output[damageType.."Resist"]
+					if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+						resist = env.player.output[damageType.."Resist"]
 					else
 						resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 						if isElemental[damageType] then
