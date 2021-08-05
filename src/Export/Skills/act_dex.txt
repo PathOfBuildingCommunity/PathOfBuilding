@@ -612,6 +612,7 @@ local skills, mod, flag, skill = ...
 
 #skill ExplosiveConcoction
 #flags attack area projectile
+#baseMod skill("radius", 18)
 	parts = {
 		{
 			name = "No Flasks",
