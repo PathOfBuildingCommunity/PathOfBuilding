@@ -369,6 +369,10 @@ function calcs.offence(env, actor, activeSkill)
 		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
 	end
 
+	-- set other limits
+	output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
+	output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
@@ -757,7 +761,7 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8seconds per throw", output.TrapThrowingTime),
 			})
 		end
-		output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
+
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
 		if baseCooldown then
 			output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
@@ -817,7 +821,7 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8seconds per throw", output.MineLayingTime),
 			})
 		end
-		output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
+
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "MineDetonationAreaOfEffect")
 		local areaMod = round(round(incArea * moreArea, 10), 2)
 		output.MineDetonationRadius = calcRadius(data.misc.MineDetonationRadiusBase, areaMod)
