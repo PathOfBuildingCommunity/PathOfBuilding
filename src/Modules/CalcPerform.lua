@@ -807,7 +807,7 @@ local function doActorMisc(env, actor)
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
 			-- Override elusive effect if set.			
 			if modDB:Override(nil, "ElusiveEffect") then 
-				effect = modDB:Override(nil, "ElusiveEffect") / 100
+				effect = m_min(modDB:Override(nil, "ElusiveEffect") / 100, effect)
 			end
 			condList["Elusive"] = true
 			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
