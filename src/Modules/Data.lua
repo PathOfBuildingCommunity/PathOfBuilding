@@ -98,6 +98,7 @@ data.powerStatList = {
 	{ stat="Mana", label="Mana" },
 	{ stat="ManaRegen", label="Mana regen" },
 	{ stat="ManaLeechRate", label="Mana leech" },
+	{ stat="Ward", label="Ward" },
 	{ stat="Str", label="Strength" },
 	{ stat="Dex", label="Dexterity" },
 	{ stat="Int", label="Intelligence" },
