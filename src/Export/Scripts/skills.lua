@@ -104,6 +104,7 @@ local skillTypes = {
 	"Type114",
 	"Arcane",
 	"Type116",
+	"NoOffhandWeapon",
 }
 
 local function mapAST(ast)

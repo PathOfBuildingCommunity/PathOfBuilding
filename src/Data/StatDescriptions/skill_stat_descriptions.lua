@@ -10623,7 +10623,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Physical Damage taken from Hits"
+					text="Buff grants {0}% more Physical Damage taken from Hits while stationary"
 				},
 				[2]={
 					[1]={
@@ -10636,7 +10636,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Physical Damage taken from Hits"
+					text="Buff grants {0}% less Physical Damage taken from Hits while stationary"
 				}
 			}
 		},
@@ -10655,7 +10655,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Fire Damage taken from Hits"
+					text="Buff grants {0}% more Fire Damage taken from Hits while stationary"
 				},
 				[2]={
 					[1]={
@@ -10668,7 +10668,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Fire Damage taken from Hits"
+					text="Buff grants {0}% less Fire Damage taken from Hits while stationary"
 				}
 			}
 		},
@@ -20534,42 +20534,16 @@ return {
 	[701]={
 		lang={
 			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0} to {1} Added Cold Damage if Charges were consumed from a Sapphire Flask"
-				},
 			}
 		},
-		name="flask_throw_cold_damage_range",
-		stats={
-			[1]="flask_throw_minimum_cold_damage_if_used_sapphire_flask",
-			[2]="flask_throw_maximum_cold_damage_if_used_sapphire_flask"
-		}
+		name="flask_throw_cold_damage_range"
 	},
 	[702]={
 		lang={
 			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Deals {0} to {1} Added Lightning Damage if Charges were consumed from a Topaz Flask"
-				},
 			}
 		},
-		name="flask_throw_lightning_damage_range",
-		stats={
-			[1]="flask_throw_minimum_lightning_damage_if_used_topaz_flask",
-			[2]="flask_throw_maximum_lightning_damage_if_used_topaz_flask"
-		}
+		name="flask_throw_lightning_damage_range"
 	},
 	[703]={
 		lang={
@@ -34916,10 +34890,6 @@ return {
 	["flamethrower_trap_damage_+%_final_vs_burning_enemies"]=698,
 	["flask_charges_used_+%"]=699,
 	["flask_throw_base_charges_used"]=700,
-	["flask_throw_minimum_cold_damage_if_used_sapphire_flask"]=701,
-	["flask_throw_maximum_cold_damage_if_used_sapphire_flask"]=701,
-	["flask_throw_minimum_lightning_damage_if_used_topaz_flask"]=702,
-	["flask_throw_maximum_lightning_damage_if_used_topaz_flask"]=702,
 	["flask_throw_ruby_flask_ignite_damage_+%_final"]=703,
 	["flicker_strike_buff_movement_speed_+%"]=704,
 	["flicker_strike_teleport_range_+%"]=705,

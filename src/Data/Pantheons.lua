@@ -11,7 +11,7 @@ return {
 					[1] = { line = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Otesha, the Giantslayer",
+			[2] = { name = "Glace",
 				mods = {
 					-- base_stun_recovery_+%
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
