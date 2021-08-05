@@ -5240,7 +5240,7 @@ skills["VaalIceNova"] = {
 	color = 3,
 	baseEffectiveness = 1.7986999750137,
 	incrementalEffectiveness = 0.036400001496077,
-	description = "A chilling circle of ice expands from the caster, repeating from every enemy it hits. If the caster targets near one of their Frostbolt projectiles, it will expand from the projectile instead.",
+	description = "A chilling circle of ice expands from the caster, repeating from every enemy it hits.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.ColdSkill] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
@@ -9166,7 +9166,7 @@ skills["SummonReaper"] = {
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.PhysicalSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
-	castTime = 1,
+	castTime = 0.6,
 	minionList = {
 		"SummonedReaper",
 	},
@@ -9199,7 +9199,7 @@ skills["SummonReaper"] = {
 		},
 	},
 	stats = {
-		"number_of_reapers_allowed",
+		"base_number_of_reapers_allowed",
 		"non_reaper_minion_damage_+%_final",
 		"non_reaper_minion_maximum_life_+%_final",
 		"display_minion_monster_level",

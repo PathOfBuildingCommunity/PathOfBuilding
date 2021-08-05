@@ -345,6 +345,25 @@ return {
 				[1]={
 					limit={
 						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants Immunity to Freeze"
+				}
+			}
+		},
+		name="immune_to_freeze",
+		stats={
+			[1]="base_immune_to_freeze"
+		}
+	},
+	[15]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
 							[1]=1,
 							[2]="#"
 						}
@@ -371,7 +390,7 @@ return {
 			[1]="base_movement_velocity_+%"
 		}
 	},
-	[15]={
+	[16]={
 		lang={
 			English={
 				[1]={
@@ -390,7 +409,7 @@ return {
 			[1]="base_physical_damage_reduction_rating"
 		}
 	},
-	[16]={
+	[17]={
 		lang={
 			English={
 				[1]={
@@ -422,7 +441,7 @@ return {
 			[1]="berserk_spell_damage_+%_final"
 		}
 	},
-	[17]={
+	[18]={
 		lang={
 			English={
 				[1]={
@@ -446,7 +465,7 @@ return {
 			[2]="buff_added_spell_maximum_base_physical_damage_per_shield_quality"
 		}
 	},
-	[18]={
+	[19]={
 		lang={
 			English={
 				[1]={
@@ -469,7 +488,7 @@ return {
 			[1]="damage_taken_goes_to_mana_%"
 		}
 	},
-	[19]={
+	[20]={
 		lang={
 			English={
 				[1]={
@@ -492,7 +511,7 @@ return {
 			[1]="energy_shield_lost_per_minute"
 		}
 	},
-	[20]={
+	[21]={
 		lang={
 			English={
 				[1]={
@@ -572,7 +591,7 @@ return {
 			[3]="cannot_recover_above_low_life_except_flasks"
 		}
 	},
-	[21]={
+	[22]={
 		lang={
 			English={
 				[1]={
@@ -591,7 +610,7 @@ return {
 			[1]="physical_damage_reduction_%_per_endurance_charge"
 		}
 	},
-	[22]={
+	[23]={
 		lang={
 			English={
 				[1]={
@@ -623,7 +642,7 @@ return {
 			[1]="physical_damage_reduction_rating_+%"
 		}
 	},
-	[23]={
+	[24]={
 		lang={
 			English={
 				[1]={
@@ -642,7 +661,7 @@ return {
 			[1]="resist_all_elements_%_per_endurance_charge"
 		}
 	},
-	[24]={
+	[25]={
 		lang={
 			English={
 				[1]={
@@ -661,7 +680,7 @@ return {
 			[1]="resist_all_%"
 		}
 	},
-	[25]={
+	[26]={
 		lang={
 			English={
 				[1]={
@@ -693,7 +712,7 @@ return {
 			[1]="skill_buff_effect_+%"
 		}
 	},
-	[26]={
+	[27]={
 		lang={
 			English={
 				[1]={
@@ -725,7 +744,7 @@ return {
 			[1]="skill_buff_grants_attack_and_cast_speed_+%"
 		}
 	},
-	[27]={
+	[28]={
 		lang={
 			English={
 				[1]={
@@ -744,7 +763,7 @@ return {
 			[1]="skill_buff_grants_chance_to_freeze_%"
 		}
 	},
-	[28]={
+	[29]={
 		lang={
 			English={
 				[1]={
@@ -776,7 +795,7 @@ return {
 			[1]="skill_buff_grants_damage_+%"
 		}
 	},
-	[29]={
+	[30]={
 		lang={
 			English={
 				[1]={
@@ -799,7 +818,7 @@ return {
 			[1]="skill_grants_life_cost_%_mana_cost_while_not_on_low_life"
 		}
 	},
-	[30]={
+	[31]={
 		lang={
 			English={
 				[1]={
@@ -831,7 +850,7 @@ return {
 			[1]="spell_damage_+%"
 		}
 	},
-	[31]={
+	[32]={
 		lang={
 			English={
 				[1]={
@@ -858,35 +877,36 @@ return {
 	["attack_minimum_added_lightning_damage"]=3,
 	["base_chance_to_shock_%"]=12,
 	["base_damage_taken_+%"]=13,
-	["base_movement_velocity_+%"]=14,
-	["base_physical_damage_reduction_rating"]=15,
-	["berserk_spell_damage_+%_final"]=16,
-	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=17,
-	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=17,
-	["cannot_recover_above_low_life_except_flasks"]=20,
+	["base_immune_to_freeze"]=14,
+	["base_movement_velocity_+%"]=15,
+	["base_physical_damage_reduction_rating"]=16,
+	["berserk_spell_damage_+%_final"]=17,
+	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=18,
+	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=18,
+	["cannot_recover_above_low_life_except_flasks"]=21,
 	["critical_strike_chance_+%"]=5,
-	["damage_taken_goes_to_mana_%"]=18,
-	["energy_shield_lost_per_minute"]=19,
+	["damage_taken_goes_to_mana_%"]=19,
+	["energy_shield_lost_per_minute"]=20,
 	["herald_of_ash_burning_damage_+%_final"]=6,
 	["herald_of_ash_spell_fire_damage_+%_final"]=7,
 	["herald_of_ice_cold_damage_+%"]=8,
 	["herald_of_thunder_lightning_damage_+%"]=9,
 	parent="skill_stat_descriptions",
-	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=20,
-	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=20,
+	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=21,
+	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=21,
 	["phase_through_objects"]=11,
-	["physical_damage_reduction_%_per_endurance_charge"]=21,
-	["physical_damage_reduction_rating_+%"]=22,
-	["resist_all_%"]=24,
-	["resist_all_elements_%_per_endurance_charge"]=23,
-	["skill_buff_effect_+%"]=25,
-	["skill_buff_grants_attack_and_cast_speed_+%"]=26,
-	["skill_buff_grants_chance_to_freeze_%"]=27,
-	["skill_buff_grants_damage_+%"]=28,
-	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=29,
-	["spell_damage_+%"]=30,
+	["physical_damage_reduction_%_per_endurance_charge"]=22,
+	["physical_damage_reduction_rating_+%"]=23,
+	["resist_all_%"]=25,
+	["resist_all_elements_%_per_endurance_charge"]=24,
+	["skill_buff_effect_+%"]=26,
+	["skill_buff_grants_attack_and_cast_speed_+%"]=27,
+	["skill_buff_grants_chance_to_freeze_%"]=28,
+	["skill_buff_grants_damage_+%"]=29,
+	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=30,
+	["spell_damage_+%"]=31,
 	["spell_maximum_added_lightning_damage"]=4,
 	["spell_minimum_added_lightning_damage"]=4,
 	["stealth_+%"]=10,
-	["vaal_molten_shall_armour_+%_final"]=31
+	["vaal_molten_shall_armour_+%_final"]=32
 }

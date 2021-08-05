@@ -451,7 +451,7 @@ skills["SkeletonMinionProjectileCold"] = {
 	name = "Cold Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 2.2227001190186,
+	baseEffectiveness = 2.6651999950409,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -471,14 +471,14 @@ skills["SkeletonMinionProjectileCold"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 0, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["SkeletonMinionProjectileFire"] = {
 	name = "Fire Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 2.7167000770569,
+	baseEffectiveness = 2.6651999950409,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -498,14 +498,14 @@ skills["SkeletonMinionProjectileFire"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["SkeletonMinionProjectileLightning"] = {
 	name = "Lightning Projectile",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 3.0562999248505,
+	baseEffectiveness = 2.6651999950409,
 	incrementalEffectiveness = 0.045400001108646,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -525,7 +525,7 @@ skills["SkeletonMinionProjectileLightning"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, 0, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 0.5, 1.5, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["RockGolemSlam"] = {
@@ -987,12 +987,12 @@ skills["AbsolutionMinion"] = {
 	name = "Absolution",
 	hidden = true,
 	color = 1,
-	baseEffectiveness = 1.6093000173569,
-	incrementalEffectiveness = 0.031099999323487,
+	baseEffectiveness = 3.4595000743866,
+	incrementalEffectiveness = 0.041299998760223,
 	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
-	castTime = 0.8,
+	castTime = 0.75,
 	baseFlags = {
 		area = true,
 		spell = true,
@@ -1009,19 +1009,19 @@ skills["AbsolutionMinion"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["AbsolutionMinionEmpowered"] = {
 	name = "Absolution",
 	hidden = true,
 	color = 1,
-	baseEffectiveness = 1.2070000171661,
-	incrementalEffectiveness = 0.031099999323487,
+	baseEffectiveness = 2.5945999622345,
+	incrementalEffectiveness = 0.041299998760223,
 	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
-	castTime = 0.8,
+	castTime = 0.75,
 	baseFlags = {
 		area = true,
 		spell = true,
