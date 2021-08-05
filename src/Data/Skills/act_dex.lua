@@ -3398,6 +3398,7 @@ skills["ExplosiveConcoction"] = {
 		projectile = true,
 	},
 	baseMods = {
+		skill("radius", 18),
 	},
 	qualityStats = {
 		Default = {
