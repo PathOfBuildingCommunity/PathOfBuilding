@@ -490,6 +490,7 @@ local modNameList = {
 	["sword physical damage"] = { "PhysicalDamage", flags = bor(ModFlag.Sword, ModFlag.Hit) },
 	["damage over time"] = { "Damage", flags = ModFlag.Dot },
 	["physical damage over time"] = { "PhysicalDamage", keywordFlags = KeywordFlag.PhysicalDot },
+	["cold damage over time"] = { "ColdDamage", keywordFlags = KeywordFlag.ColdDot},
 	["chaos damage over time"] = { "ChaosDamage", keywordFlags = KeywordFlag.ChaosDot },
 	["burning damage"] = { "FireDamage", keywordFlags = KeywordFlag.FireDot },
 	["damage with ignite"] = { "Damage", keywordFlags = KeywordFlag.Ignite },
@@ -498,7 +499,6 @@ local modNameList = {
 	["physical damage over time multiplier"] = "PhysicalDotMultiplier",
 	["fire damage over time multiplier"] = "FireDotMultiplier",
 	["cold damage over time multiplier"] = "ColdDotMultiplier",
-	["cold damage over time"] = { "ColdDamage", keywordFlags = KeywordFlag.ColdDot},
 	["chaos damage over time multiplier"] = "ChaosDotMultiplier",
 	["damage over time multiplier"] = "DotMultiplier",
 	-- Crit/accuracy/speed modifiers
