@@ -2743,7 +2743,7 @@ skills["EnduringCry"] = {
 		},
 		Alternate2 = {
 			{ "skill_buff_effect_+%", 1 },
-			{ "base_cooldown_speed_+%", -2 },
+			{ "base_cooldown_speed_+%", 2 },
 		},
 	},
 	stats = {
