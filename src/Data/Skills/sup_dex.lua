@@ -211,6 +211,9 @@ skills["SupportArrowNova"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.FiresProjectilesFromSecondaryLocation, },
 	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
@@ -293,6 +296,9 @@ skills["SupportArrowNovaPlus"] = {
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.FiresProjectilesFromSecondaryLocation, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportArrowNova",
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
@@ -347,11 +353,11 @@ skills["SupportBarrage"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
-	statDescriptionScope = "gem_stat_descriptions",
 	weaponTypes = {
-		["Bow"] = true,
 		["Wand"] = true,
+		["Bow"] = true,
 	},
+	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
@@ -1176,14 +1182,14 @@ skills["SupportSlashingWeapon"] = {
 	addSkillTypes = { SkillType.Duration, SkillType.Buff, },
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
-	statDescriptionScope = "gem_stat_descriptions",
 	weaponTypes = {
-		["One Handed Axe"] = true,
 		["Two Handed Axe"] = true,
-		["One Handed Sword"] = true,
 		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
 		["Two Handed Sword"] = true,
+		["One Handed Sword"] = true,
 	},
+	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_slashing_damage_+%_final_from_distance"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
@@ -2881,11 +2887,11 @@ skills["SupportPuncturingWeapon"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
-	statDescriptionScope = "gem_stat_descriptions",
 	weaponTypes = {
 		["Dagger"] = true,
 		["Claw"] = true,
 	},
+	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["elusive_effect_+%"] = {
 			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),

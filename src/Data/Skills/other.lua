@@ -2182,6 +2182,9 @@ skills["ChannelledSnipeSupport"] = {
 	requireSkillTypes = { SkillType.ProjectileAttack, SkillType.AnimateWeapon, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.SecondWindSupport, },
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, SkillType.Channelled, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	baseMods = {

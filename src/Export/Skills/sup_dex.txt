@@ -41,10 +41,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBarrage Barrage Support
-	weaponTypes = {
-		["Bow"] = true,
-		["Wand"] = true,
-	},
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
@@ -138,13 +134,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportSlashingWeapon
-	weaponTypes = {
-		["One Handed Axe"] = true,
-		["Two Handed Axe"] = true,
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-	},
 	statMap = {
 		["support_slashing_damage_+%_final_from_distance"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
@@ -344,10 +333,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportPuncturingWeapon
-	weaponTypes = {
-		["Dagger"] = true,
-		["Claw"] = true,
-	},
 	statMap = {
 		["elusive_effect_+%"] = {
 			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
