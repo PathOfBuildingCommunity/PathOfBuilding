@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.6.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.6.1) (2021/08/08)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.6.0...2.6.1)
+
+**Fixed bugs:**
+
+- Fix error when Main Skill is not-minion but Minion is in FullDPS [\#3053](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3053) ([Nostrademous](https://github.com/Nostrademous))
+- Update Ailment threshold values [\#3049](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3049) ([LocalIdentity](https://github.com/LocalIdentity))
+- Sanitize default gem properties when loading a build [\#3037](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3037) ([PJacek](https://github.com/PJacek))
+
+**Merged pull requests:**
+
+- Stop keystones from being edited with timeless jewels [\#3098](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3098) ([Wires77](https://github.com/Wires77))
+- A cold damage over time stat to modparser [\#3094](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3094) ([learn2draw](https://github.com/learn2draw))
+- Fix Bomb Specialist AoE mod [\#3087](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3087) ([Nostrademous](https://github.com/Nostrademous))
+- Add radius to Explosive Concoction [\#3086](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3086) ([Wires77](https://github.com/Wires77))
+- Add new base types to rare template, modify existing rare templates [\#3080](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3080) ([a3person](https://github.com/a3person))
+- Add sorting by Ward attribute [\#3076](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3076) ([TiagoGoddard](https://github.com/TiagoGoddard))
+- Added full support for Eye To Eye cluster Notable [\#3064](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3064) ([Nostrademous](https://github.com/Nostrademous))
+- Modify Elusive effect [\#3061](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3061) ([learn2draw](https://github.com/learn2draw))
+- Don't set max inspiration charges for minions [\#3060](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3060) ([learn2draw](https://github.com/learn2draw))
+- Add Usurper's Penance [\#3055](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3055) ([pundm](https://github.com/pundm))
+- Fix Explosive Concoction not working with off hand weapons [\#3039](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3039) ([learn2draw](https://github.com/learn2draw))
+- Describe installer creation process [\#3031](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3031) ([ppoelzl](https://github.com/ppoelzl))
+- Release 2.6.0 [\#3029](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3029) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Fix Manabond not  being affected by reduced mana cost nodes [\#3028](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3028) ([Wires77](https://github.com/Wires77))
+- Fix Doryani's Prototype not applying to minions [\#3026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3026) ([Wires77](https://github.com/Wires77))
+
+
+
+
 ## [2.6.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.6.0) (2021/07/27)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.5.0...2.6.0)
