@@ -189,6 +189,83 @@ return {
 	Acts={
 	},
 	AddBuffToTargetVarieties={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	AdditionalLifeScaling={
 	},
@@ -1207,6 +1284,146 @@ return {
 	BuffStackUIModes={
 	},
 	BuffTemplates={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=380
+		},
+		[2]={
+			list=false,
+			name="BuffDefinition",
+			refTo="BuffDefinitions",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[16]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[17]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[20]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	BuffVisualOrbArt={
 	},
@@ -2843,7 +3060,7 @@ return {
 		},
 		[23]={
 			list=true,
-			name="RequireUsableWith",
+			name="WeaponRestrictions",
 			refTo="ItemClasses",
 			type="Key",
 			width=150
@@ -4790,8 +5007,8 @@ return {
 		},
 		[42]={
 			list=false,
-			name="HelmetItem",
-			refTo="ItemVisualIdentity",
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		},
@@ -4805,20 +5022,20 @@ return {
 		[44]={
 			list=true,
 			name="",
-			refTo="AchievementItems",
+			refTo="",
 			type="Key",
-			width=150
+			width=50
 		},
 		[45]={
 			list=true,
-			name="SpecialMods",
-			refTo="Mods",
+			name="KillSpecificMonsterCount",
+			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
 		[46]={
 			list=true,
-			name="",
+			name="KillRare",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
@@ -4828,7 +5045,7 @@ return {
 			name="",
 			refTo="",
 			type="Bool",
-			width=60
+			width=50
 		},
 		[48]={
 			list=false,
@@ -4840,23 +5057,23 @@ return {
 		[49]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="AchievementItems",
 			type="Int",
-			width=50
+			width=150
 		},
 		[50]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="AchievementItems",
 			type="Int",
-			width=50
+			width=150
 		},
 		[51]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="AchievementItems",
 			type="Int",
-			width=50
+			width=150
 		},
 		[52]={
 			list=false,
@@ -4895,22 +5112,22 @@ return {
 		},
 		[57]={
 			list=false,
-			name="",
+			name="KillWhileOnslaughtIsActive",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
 		[58]={
 			list=false,
-			name="",
-			refTo="",
+			name="MonsterSegments",
+			refTo="MonsterSegments",
 			type="Key",
 			width=50
 		},
 		[59]={
 			list=false,
-			name="",
-			refTo="",
+			name="MonsterArmours",
+			refTo="MonsterArmours",
 			type="Key",
 			width=50
 		},
@@ -4923,45 +5140,45 @@ return {
 		},
 		[61]={
 			list=true,
-			name="",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
-		},
-		[62]={
-			list=true,
 			name="ModsPart1",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[63]={
+		[62]={
 			list=true,
 			name="ModsPart2",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[64]={
+		[63]={
 			list=true,
 			name="ModsEndgame",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[65]={
+		[64]={
 			list=true,
 			name="",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[66]={
-			list=true,
+		[65]={
+			list=false,
 			name="",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[66]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
 		},
 		[67]={
 			list=true,
@@ -4971,69 +5188,34 @@ return {
 			width=150
 		},
 		[68]={
-			list=false,
-			name="",
-			refTo="",
-			type="Key",
-			width=50
-		},
-		[69]={
-			list=true,
-			name="",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
-		},
-		[70]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[71]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[72]={
-			list=true,
-			name="",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
-		},
-		[73]={
 			list=true,
 			name="",
 			refTo="MultiPartAchievements",
 			type="Key",
 			width=150
 		},
-		[74]={
+		[69]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[75]={
+		[70]={
 			list=false,
 			name="SinkAnimation",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[76]={
+		[71]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[77]={
+		[72]={
 			list=true,
 			name="",
 			refTo="MultiPartAchievements",
@@ -5330,11 +5512,25 @@ return {
 			width=350
 		},
 		[2]={
+			list=true,
+			name="",
+			refTo="",
+			type="Float",
+			width=150
+		},
+		[3]={
 			list=false,
 			name="Buff",
 			refTo="BuffDefinitions",
 			type="Key",
 			width=350
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	PassiveSkillFilterCatagories={

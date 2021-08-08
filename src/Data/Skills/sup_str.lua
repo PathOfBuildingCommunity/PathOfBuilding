@@ -3714,6 +3714,12 @@ skills["SupportBluntWeapon"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Triggered, SkillType.CreatesMinion, SkillType.Totem, },
 	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
