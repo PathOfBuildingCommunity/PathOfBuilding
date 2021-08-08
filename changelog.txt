@@ -1,26 +1,21 @@
 VERSION[2.6.1][2021/08/08]
 
-* Fix error when Main Skill is not-minion but Minion is in FullDPS (Nostrademous)
-* Update Ailment threshold values (LocalIdentity)
-* Sanitize default gem properties when loading a build (PJacek)
-
-* Stop keystones from being edited with timeless jewels (Wires77)
-* A cold damage over time stat to modparser (learn2draw)
-* Fix Bomb Specialist AoE mod (Nostrademous)
+* Add cold damage over time mod from cluster jewels (Lexy)
 * Add radius to Explosive Concoction (Wires77)
 * Add new base types to rare template, modify existing rare templates (a3person)
 * Add sorting by Ward attribute (TiagoGoddard)
-* Added full support for Eye To Eye cluster Notable (Nostrademous)
-* Modify Elusive effect (learn2draw)
-* Don't set max inspiration charges for minions (learn2draw)
+* Add full support for Eye To Eye cluster Notable (Nostrademous)
+* Add support for Elusive effect (Lexy)
 * Add Usurper's Penance (pundm)
-* Fix Explosive Concoction not working with off hand weapons (learn2draw)
-* Describe installer creation process (ppoelzl)
-* Release 2.6.0 (github-actions[bot])
-* Fix Manabond not  being affected by reduced mana cost nodes (Wires77)
+* Update Ailment threshold values (LocalIdentity)
+
+* Fix error when Main Skill is non-minion but Minion is in FullDPS (Nostrademous)
+* Fix crash when loading a build (PJacek)
+* Fix Bomb Specialist AoE mod (Nostrademous)
+* Fix minions getting inspiration charges (Lexy)
+* Fix Manabond not being affected by reduced mana cost nodes (Wires77)
 * Fix Doryani's Prototype not applying to minions (Wires77)
-
-
+* Fix bug where timeless jewel keystones could be edited (Wires77)
 
 VERSION[2.6.0][2021/07/27]
 
