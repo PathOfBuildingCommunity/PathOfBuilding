@@ -32,4 +32,9 @@ return {
 		Stat = "base_life_cost_%",
 		ResourceString = "{0}% Life",
 	},
+	[7] = {
+		Resource = "UnreservedManaPercent",
+		Stat = "base_unreserved_mana_cost_%",
+		ResourceString = "[DNT] {0}% Unreserved Mana ",
+	},
 }

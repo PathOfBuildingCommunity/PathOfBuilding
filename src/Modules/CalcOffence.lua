@@ -369,6 +369,10 @@ function calcs.offence(env, actor, activeSkill)
 		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
 	end
 
+	-- set other limits
+	output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
+	output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
@@ -638,6 +642,11 @@ function calcs.offence(env, actor, activeSkill)
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.ProjectileCount = m_floor(projBase * projMore)
 		end
+		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
+			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
+			local projMore = skillModList:More(skillCfg, "ProjectileCount")
+			output.BounceCount = m_floor(projBase * projMore) 
+		end
 		if skillModList:Flag(skillCfg, "CannotFork") then
 			output.ForkCountString = "Cannot fork"
 		elseif skillModList:Flag(skillCfg, "ForkOnce") then
@@ -752,7 +761,7 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8seconds per throw", output.TrapThrowingTime),
 			})
 		end
-		output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
+
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
 		if baseCooldown then
 			output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
@@ -812,7 +821,7 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8seconds per throw", output.MineLayingTime),
 			})
 		end
-		output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
+
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "MineDetonationAreaOfEffect")
 		local areaMod = round(round(incArea * moreArea, 10), 2)
 		output.MineDetonationRadius = calcRadius(data.misc.MineDetonationRadiusBase, areaMod)
@@ -982,45 +991,48 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	for resource, name in pairs(names) do
 		local percent = resource == "ManaPercent" or resource == "LifePercent"
-		if isTriggered or activeSkill.activeEffect.grantedEffect.triggered then
-			output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
-		else
-			do
-				local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
-				local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
-				local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
-				local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
-				local baseCost = output[resource.."Cost"]
-				output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
-				output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
-				output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
-				output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
-				if skillFlags.totem then
-					local reservedFlat = activeSkill.skillData[name.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationFlat"] or 0
-					output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
-					local reservedPercent = activeSkill.skillData[name.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationPercent"] or 0
-					if reservedPercent ~= 0 then
-						skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
-					end
+		output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
+		do
+			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
+			local more, inc
+			if percent then
+				more = m_floor(skillModList:More(skillCfg, resource.."Cost", resource:gsub("Percent", "").."Cost", "Cost") * 100 + 0.0001) / 100
+				inc = skillModList:Sum("INC", skillCfg, resource.."Cost", resource:gsub("Percent", "").."Cost", "Cost")
+			else
+				more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
+				inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+			end
+			local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
+			local baseCost = output[resource.."Cost"]
+			output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
+			output[resource.."Cost"] = m_floor(m_abs(inc / 100) * output[resource.."Cost"]) * (inc >= 0 and 1 or -1) + output[resource.."Cost"]
+			output[resource.."Cost"] = m_floor(m_abs(more - 1) * output[resource.."Cost"]) * (more >= 1 and 1 or -1) + output[resource.."Cost"]
+			output[resource.."Cost"] = m_max(0, m_floor(output[resource.."Cost"] + total))
+			if skillFlags.totem then
+				local reservedFlat = activeSkill.skillData[name.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationFlat"] or 0
+				output[resource.."Cost"] = output[resource.."Cost"] + reservedFlat
+				local reservedPercent = activeSkill.skillData[name.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[name.."ReservationPercent"] or 0
+				if reservedPercent ~= 0 then
+					skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
 				end
-				if breakdown and output[resource.."Cost"] ~= baseCost then
-					breakdown[resource.."Cost"] = {
-						s_format("%.2f"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
-					}
-					if mult ~= 1 then
-						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
-					end
-					if inc ~= 0 then
-						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(increased/reduced "..name.." cost)", 1 + inc/100))
-					end	
-					if more ~= 1 then
-						t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(more/less "..name.." cost)", more))
-					end	
-					if total ~= 0 then
-						t_insert(breakdown[resource.."Cost"], s_format("- %d ^8(- "..name.." cost)", -total))
-					end
-					t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
+			end
+			if breakdown and output[resource.."Cost"] ~= baseCost then
+				breakdown[resource.."Cost"] = {
+					s_format("%.2f"..(percent and "%%" or "").." ^8(base "..name.." cost)", baseCost)
+				}
+				if mult ~= 1 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(cost multiplier)", mult))
 				end
+				if inc ~= 0 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(increased/reduced "..name.." cost)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown[resource.."Cost"], s_format("x %.2f ^8(more/less "..name.." cost)", more))
+				end
+				if total ~= 0 then
+					t_insert(breakdown[resource.."Cost"], s_format("- %d ^8(- "..name.." cost)", -total))
+				end
+				t_insert(breakdown[resource.."Cost"], s_format("= %d"..(percent and "%%" or ""), output[resource.."Cost"]))
 			end
 		end
 	end
@@ -1124,15 +1136,15 @@ function calcs.offence(env, actor, activeSkill)
 			if critOverride and source.type and source.type ~= "None" then
 				source.CritChance = critOverride
 			end
-			if skillData.setOffHandBaseCritChance then
-				source.CritChance = skillData.setOffHandBaseCritChance
+			if skillData.CritChance then
+				source.CritChance = skillData.CritChance
 			end
 			if skillData.setOffHandPhysicalMin and skillData.setOffHandPhysicalMax then
 				source.PhysicalMin = skillData.setOffHandPhysicalMin
 				source.PhysicalMax = skillData.setOffHandPhysicalMax
 			end
-			if skillData.setOffHandAttackTime then
-				source.AttackRate = 1000 / skillData.setOffHandAttackTime
+			if skillData.attackTime then
+				source.AttackRate = 1000 / skillData.attackTime
 			end
 			t_insert(passList, {
 				label = "Off Hand",
@@ -2005,8 +2017,8 @@ function calcs.offence(env, actor, activeSkill)
 								sourceRes = elementUsed
 							elseif isElemental[damageType] then
 								resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
-								if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-									resist = globalOutput[damageType.."Resist"]
+								if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+									resist = env.player.output[damageType.."Resist"]
 								else
 									local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
 									resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
@@ -3654,8 +3666,8 @@ function calcs.offence(env, actor, activeSkill)
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
-					if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-						resist = output[damageType.."Resist"]
+					if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+						resist = env.player.output[damageType.."Resist"]
 					else
 						resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 						if isElemental[damageType] then

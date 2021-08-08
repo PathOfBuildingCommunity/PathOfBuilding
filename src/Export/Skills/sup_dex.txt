@@ -17,7 +17,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalAccuracy
-    statMap = {
+	statMap = {
 		["attack_damage_+%_per_1000_accuracy_rating"] = {
 			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
 		}
@@ -215,6 +215,17 @@ local skills, mod, flag, skill = ...
 #skill SupportFasterProjectiles
 #mods
 
+#skill SupportFocusedBallista
+	statMap = {
+		["support_focused_ballista_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_focused_ballista_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportFork
 	statMap = {
 		["support_fork_projectile_damage_+%_final"] = {
@@ -292,7 +303,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportLesserPoison
+#skill SupportChanceToPoison
 #mods
 
 #skill SupportManaLeech
@@ -376,12 +387,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportPoison
-	statMap = {
-		["support_poison_poison_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
-		},
-	},
+#skill SupportCriticalStrikeAffliction
 #mods
 
 #skill SupportAdditionalCooldown
@@ -438,6 +444,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_trap_and_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Trap, KeywordFlag.Mine)),
+		},
+		["support_trap_and_mine_damage_mine_throwing_speed_+%_final"] = {
+			mod("MineLayingSpeed", "MORE", nil),
+		},
+		["support_trap_and_mine_damage_trap_throwing_speed_+%_final"] = {
+			mod("TrapThrowingSpeed", "MORE", nil),
 		},
 	},
 #mods

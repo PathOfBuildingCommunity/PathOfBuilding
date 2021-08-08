@@ -3,26 +3,131 @@ return {
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
 					limit={
 						[1]={
 							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Banner lasts {0} seconds after being placed"
+					text="You and nearby Allies have {0}% increased Armour and Evasion Rating"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="You and nearby Allies have {0}% reduced Armour and Evasion Rating"
 				}
 			}
 		},
-		name="buff_duration",
+		name="evasion_and_physical_damage_reduction_rating_incr",
 		stats={
-			[1]="buff_effect_duration"
+			[1]="evasion_and_physical_damage_reduction_rating_+%"
 		}
 	},
 	[2]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Nearby Enemies have {0}% increased Critical Strike Chance"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Nearby Enemies have {0}% reduced Critical Strike Chance"
+				}
+			}
+		},
+		name="armour_evasion_banner_crit_chance",
+		stats={
+			[1]="armour_evasion_banner_critical_strike_chance_+%"
+		}
+	},
+	[3]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Nearby Enemies have {0}% more Accuracy Rating"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Nearby Enemies have {0}% less Accuracy Rating"
+				}
+			}
+		},
+		name="dread_banner_accuracy_final",
+		stats={
+			[1]="puresteel_banner_accuracy_rating_+%_final"
+		}
+	},
+	[4]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Nearby Enemies deal {0}% more Damage"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Nearby Enemies deal {0}% less Damage"
+				}
+			}
+		},
+		name="dread_banner_enemy_damage_final",
+		stats={
+			[1]="puresteel_banner_damage_+%_final"
+		}
+	},
+	[5]={
 		lang={
 			English={
 				[1]={
@@ -41,7 +146,43 @@ return {
 			[1]="banner_add_stage_on_impale"
 		}
 	},
-	[3]={
+	[6]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Gain 1 Stage every {0} second while an Enemy is Nearby"
+				},
+				[2]={
+					[1]={
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Gain 1 Stage every {0} seconds while an Enemy is Nearby"
+				}
+			}
+		},
+		name="banner_add_stage_every_x_milliseconds_while_enemies_nearby",
+		stats={
+			[1]="banner_add_stage_every_x_milliseconds_while_enemies_nearby"
+		}
+	},
+	[7]={
 		lang={
 			English={
 				[1]={
@@ -58,134 +199,6 @@ return {
 		name="banner_add_stage_on_kill",
 		stats={
 			[1]="banner_add_stage_on_kill"
-		}
-	},
-	[4]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="{0:+d} second to Base Placed Banner Duration per Stage"
-				},
-				[2]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} seconds to Base Placed Banner Duration per Stage"
-				}
-			}
-		},
-		name="banner_stage_duration",
-		stats={
-			[1]="banner_additional_base_duration_per_stage_ms"
-		}
-	},
-	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="When placed, {0}% increased Area of Effect per Stage"
-				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="When placed, {0}% reduced Area of Effect per Stage"
-				}
-			}
-		},
-		name="banner_stage_aoe",
-		stats={
-			[1]="banner_area_of_effect_+%_per_stage"
-		}
-	},
-	[6]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="When placed, {0}% increased Aura effect per Stage"
-				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="When placed, {0}% reduced Aura effect per Stage"
-				}
-			}
-		},
-		name="banner_stage_aura_effect",
-		stats={
-			[1]="banner_buff_effect_+%_per_stage"
-		}
-	},
-	[7]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Base Duration of {0} seconds after being Placed"
-				}
-			}
-		},
-		name="base_duration_identifier",
-		stats={
-			[1]="base_skill_effect_duration",
-			[2]="quality_display_base_duration_is_quality"
 		}
 	},
 	[8]={
@@ -242,7 +255,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Nearby Enemies have {0}% more Accuracy Rating"
+					text="{0}% increased Fortify effect per Stage"
 				},
 				[2]={
 					[1]={
@@ -255,48 +268,16 @@ return {
 							[2]=-1
 						}
 					},
-					text="Nearby Enemies have {0}% less Accuracy Rating"
+					text="{0}% reduced Fortify effect per Stage"
 				}
 			}
 		},
-		name="dread_banner_accuracy_final",
+		name="dread_banner_fortify_effect",
 		stats={
-			[1]="puresteel_banner_accuracy_rating_+%_final"
+			[1]="puresteel_banner_fortify_effect_+%_per_stage"
 		}
 	},
 	[10]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Nearby Enemies deal {0}% more Damage"
-				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Nearby Enemies deal {0}% less Damage"
-				}
-			}
-		},
-		name="dread_banner_enemy_damage_final",
-		stats={
-			[1]="puresteel_banner_damage_+%_final"
-		}
-	},
-	[11]={
 		lang={
 			English={
 				[1]={
@@ -340,7 +321,181 @@ return {
 			[1]="puresteel_banner_fortify_duration_per_stage_ms"
 		}
 	},
+	[11]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Taunt nearby Enemies for {0} second per Stage on Placing the Banner"
+				},
+				[2]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Taunt nearby Enemies for {0} seconds per Stage on Placing the Banner"
+				},
+				[3]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					[2]={
+						k="negate",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						},
+						[2]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Taunt nearby Enemies for {0} second per Stage on Placing the Banner\nEnemies Taunted this way deal {1}% less Damage"
+				},
+				[4]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					[2]={
+						k="negate",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Taunt nearby Enemies for {0} seconds per Stage on Placing the Banner\nEnemies Taunted this way deal {1}% less Damage"
+				}
+			}
+		},
+		name="armour_evasion_banner_super_taunt",
+		stats={
+			[1]="armour_evasion_banner_super_taunt_duration_per_stage_ms",
+			[2]="armour_evasion_banner_taunted_enemies_damage_+%_final"
+		}
+	},
 	[12]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Base Duration of {0} seconds after being Placed"
+				}
+			}
+		},
+		name="base_duration_identifier",
+		stats={
+			[1]="base_skill_effect_duration",
+			[2]="quality_display_base_duration_is_quality"
+		}
+	},
+	[13]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner lasts {0} seconds after being placed"
+				}
+			}
+		},
+		name="buff_duration",
+		stats={
+			[1]="buff_effect_duration"
+		}
+	},
+	[14]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="{0:+d} second to Base Placed Banner Duration per Stage"
+				},
+				[2]={
+					[1]={
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} seconds to Base Placed Banner Duration per Stage"
+				}
+			}
+		},
+		name="banner_stage_duration",
+		stats={
+			[1]="banner_additional_base_duration_per_stage_ms"
+		}
+	},
+	[15]={
 		lang={
 			English={
 				[1]={
@@ -350,7 +505,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Fortify effect per Stage"
+					text="When placed, {0}% increased Area of Effect per Stage"
 				},
 				[2]={
 					[1]={
@@ -363,27 +518,64 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Fortify effect per Stage"
+					text="When placed, {0}% reduced Area of Effect per Stage"
 				}
 			}
 		},
-		name="dread_banner_fortify_effect",
+		name="banner_stage_aoe",
 		stats={
-			[1]="puresteel_banner_fortify_effect_+%_per_stage"
+			[1]="banner_area_of_effect_+%_per_stage"
 		}
 	},
-	["banner_add_stage_on_impale"]=2,
-	["banner_add_stage_on_kill"]=3,
-	["banner_additional_base_duration_per_stage_ms"]=4,
-	["banner_area_of_effect_+%_per_stage"]=5,
-	["banner_buff_effect_+%_per_stage"]=6,
-	["base_skill_effect_duration"]=7,
+	[16]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="When placed, {0}% increased Aura effect per Stage"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="When placed, {0}% reduced Aura effect per Stage"
+				}
+			}
+		},
+		name="banner_stage_aura_effect",
+		stats={
+			[1]="banner_buff_effect_+%_per_stage"
+		}
+	},
+	["armour_evasion_banner_critical_strike_chance_+%"]=2,
+	["armour_evasion_banner_super_taunt_duration_per_stage_ms"]=11,
+	["armour_evasion_banner_taunted_enemies_damage_+%_final"]=11,
+	["banner_add_stage_every_x_milliseconds_while_enemies_nearby"]=6,
+	["banner_add_stage_on_impale"]=5,
+	["banner_add_stage_on_kill"]=7,
+	["banner_additional_base_duration_per_stage_ms"]=14,
+	["banner_area_of_effect_+%_per_stage"]=15,
+	["banner_buff_effect_+%_per_stage"]=16,
+	["base_skill_effect_duration"]=12,
 	["bloodstained_banner_adrenaline_duration_per_stage_ms"]=8,
-	["buff_effect_duration"]=1,
+	["buff_effect_duration"]=13,
+	["evasion_and_physical_damage_reduction_rating_+%"]=1,
 	parent="aura_skill_stat_descriptions",
-	["puresteel_banner_accuracy_rating_+%_final"]=9,
-	["puresteel_banner_damage_+%_final"]=10,
-	["puresteel_banner_fortify_duration_per_stage_ms"]=11,
-	["puresteel_banner_fortify_effect_+%_per_stage"]=12,
-	["quality_display_base_duration_is_quality"]=7
+	["puresteel_banner_accuracy_rating_+%_final"]=3,
+	["puresteel_banner_damage_+%_final"]=4,
+	["puresteel_banner_fortify_duration_per_stage_ms"]=10,
+	["puresteel_banner_fortify_effect_+%_per_stage"]=9,
+	["quality_display_base_duration_is_quality"]=12
 }

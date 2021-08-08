@@ -371,7 +371,11 @@ function ItemClass:ParseRaw(raw)
 					self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 							or data.itemMods[self.base.type]
 							or data.itemMods.Item
-					self.enchantments = data.enchantments[self.base.type]
+					if self.base.weapon then
+						self.enchantments = data.enchantments["Weapon"]
+					else
+						self.enchantments = data.enchantments[self.base.type]
+					end
 					self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
 					self.influenceTags = data.specialBaseTags[self.type]
 					self.canBeInfluenced = self.influenceTags
@@ -967,11 +971,13 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		local evasionEnergyShieldBase = sumLocal(modList, "EvasionAndEnergyShield", "BASE", 0)
 		local energyShieldBase = sumLocal(modList, "EnergyShield", "BASE", 0) + (self.base.armour.EnergyShieldBase or 0)
 		local armourEnergyShieldBase = sumLocal(modList, "ArmourAndEnergyShield", "BASE", 0)
+		local wardBase = sumLocal(modList, "Ward", "BASE", 0) + (self.base.armour.WardBase or 0)
 		local armourInc = sumLocal(modList, "Armour", "INC", 0)
 		local armourEvasionInc = sumLocal(modList, "ArmourAndEvasion", "INC", 0)
 		local evasionInc = sumLocal(modList, "Evasion", "INC", 0)
 		local evasionEnergyShieldInc = sumLocal(modList, "EvasionAndEnergyShield", "INC", 0)
 		local energyShieldInc = sumLocal(modList, "EnergyShield", "INC", 0)
+		local wardInc = sumLocal(modList, "Ward", "INC", 0)
 		local armourEnergyShieldInc = sumLocal(modList, "ArmourAndEnergyShield", "INC", 0)
 		local defencesInc = sumLocal(modList, "Defences", "INC", 0)
 		local qualityScalar = self.quality
@@ -981,6 +987,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100))
 		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
 		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
+		armourData.Ward = round(wardBase * (1 + (wardInc + defencesInc + qualityScalar) / 100))
 		if self.base.armour.BlockChance then
 			armourData.BlockChance = self.base.armour.BlockChance + sumLocal(modList, "BlockChance", "BASE", 0)
 		end

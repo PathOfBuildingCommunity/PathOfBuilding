@@ -217,7 +217,7 @@ Requires Level 52, 50 Dex
 Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
-+(-20-10)% to Chaos Resistance
+-(20-10)% to Chaos Resistance
 (7-8)% chance to Dodge Spell Damage
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
@@ -885,5 +885,26 @@ Socketed Gems are Supported by level 18 Added Lightning Damage
 +(25-30) to maximum Energy Shield
 10% increased Stun Duration on Enemies
 100% increased Duration of Lightning Ailments
+]],
+-- Gloves: Ward
+[[
+Medved's Challenge
+Runic Gauntlets
+Requires Level 69, 38 Str, 38 Dex, 38 Int
+League: Expedition
+800% increased Attribute Requirements
+(30–50)% increased Ward
++(15–25)% to all Elemental Resistances
+80% less Flask Charges gained from Kills
+Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
+]],[[
+Nightgrip
+Runic Gages
+League: Expedition
+Requires Level 48, 31 Str, 31 Dex, 31 Int
+(33–48)% increased Ward
++(17–23)% to Chaos Resistance
+Gain Added Chaos Damage equal to 25% of Ward
+75% of Damage bypasses Ward
 ]],
 }

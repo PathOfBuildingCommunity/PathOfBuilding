@@ -5,6 +5,10 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill Ambush
+#flags spell movement duration travel
+#mods
+
 #skill AnimateWeapon
 #flags spell minion duration
 	minionHasItemSet = true,
@@ -115,6 +119,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 10, { type = "SkillPart", skillPart = 4 })
 #baseMod skill("dpsMultiplier", 40, { type = "SkillPart", skillPart = 5 })
 #baseMod skill("dpsMultiplier", 50, { type = "SkillPart", skillPart = 6 })
+#mods
+
+#skill BladeTrap
+#flags attack area trap
 #mods
 
 #skill ChargedAttack
@@ -294,7 +302,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoisonArrow
-#flags attack projectile area duration chaos
+#flags attack projectile area duration
 #baseMod skill("radius", 20)
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
@@ -321,7 +329,7 @@ local skills, mod, flag, skill = ...
 
 #skill CobraLash
 #flags attack projectile
-    statMap = {
+	statMap = {
 		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
 		},
@@ -415,14 +423,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Desecrate
-#flags spell area duration chaos
+#flags spell area duration
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 12)
 #mods
 
 #skill DetonateDead
 #flags spell area
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -448,7 +456,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalDetonateDead
 #flags cast area
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
@@ -600,6 +608,54 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 4 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 5 })
+#mods
+
+#skill ExplosiveConcoction
+#flags attack area projectile
+#baseMod skill("radius", 18)
+	parts = {
+		{
+			name = "No Flasks",
+		},
+		{
+			name = "Sapphire",
+		},
+		{
+			name = "Topaz",
+		},
+		{
+			name = "Ruby",
+		},
+		{
+			name = "Sapphire + Topaz",
+		},
+		{
+			name = "Sapphire + Ruby",
+		},
+		{
+			name = "Topaz + Ruby",
+		},
+		{
+			name = "All Flasks",
+		},
+	},
+	statMap = {
+		["flask_throw_minimum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8 } }),
+		},
+		["flask_throw_maximum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8 } }),
+		},
+		["flask_throw_minimum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
+		},
+		["flask_throw_maximum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
+		},
+		["flask_throw_ruby_flask_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
+		},
+	},
 #mods
 
 #skill ShrapnelTrap
@@ -1022,6 +1078,33 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #mods
 
+#skill StormRain
+#flags attack area projectile
+	parts = {
+		{
+			name = "Arrow",
+		},
+		{
+			name = "Beam",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
+			activeSkill.skillData.dpsMultiplier = activeSkill.skillData.beamOverlapMultiplier or 1
+		end
+	end,
+	statMap = {
+		["prismatic_rain_beam_base_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+		["prismatic_rain_beam_frequency_+%"] = {
+			mod("StormRainBeamFrequency", "INC", nil),
+		},
+	},
+#mods
+
 #skill Puncture
 #flags attack melee projectile duration
 	statMap = {
@@ -1147,9 +1230,9 @@ local skills, mod, flag, skill = ...
 #skill PhysCascadeTrap
 #flags spell area trap duration
 #baseMod skill("radius", 18)
-#baseMod ("radiusLabel", "Large Burst:")
-#baseMod ("radiusSecondary", 9)
-#baseMod ("radiusSecondaryLabel", "Small Burst:")
+#baseMod skill("radiusLabel", "Large Burst:")
+#baseMod skill("radiusSecondary", 9)
+#baseMod skill("radiusSecondaryLabel", "Small Burst:")
 #mods
 
 #skill ShrapnelBallista
@@ -1188,9 +1271,9 @@ local skills, mod, flag, skill = ...
 		["thrown_shield_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
-		["critical_multiplier_+%_per_100_max_es_on_shield"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, {type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2"})
-		}
+		["primary_projectile_chains_+"] = {
+			mod("ChainCountMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
 	},
 #mods
 
@@ -1201,6 +1284,11 @@ local skills, mod, flag, skill = ...
 
 #skill VaalThrownWeapon
 #flags attack projectile vaal
+	statMap = {
+		["base_number_of_projectiles_in_spiral_nova"] = {
+			mod("ProjectileCount", "BASE", nil),
+		},
+	},
 #mods
 
 #skill RainOfSpores
@@ -1213,6 +1301,17 @@ local skills, mod, flag, skill = ...
 #baseMod flag("OneShotProj")
 #baseMod skill("radius", 18)
 #baseMod skill("radiusLabel", "Pod Area:")
+#mods
+
+#skill SpectralHelix
+#flags attack projectile bounce
+	statMap = {
+		["spectral_spiral_weapon_base_number_of_bounces"] = {
+			mod("BounceCount", "BASE", nil),
+		},
+	},
+#baseMod flag("NoAdditionalProjectiles")
+#baseMod flag("AdditionalProjectilesAddBouncesInstead")
 #mods
 
 #skill SplitArrow
@@ -1300,7 +1399,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ViperStrike
-#flags attack melee duration chaos
+#flags attack melee duration
 	statMap = {
 		["viper_strike_dual_wield_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
@@ -1314,7 +1413,7 @@ local skills, mod, flag, skill = ...
 
 #skill VolatileDead
 #flags spell area
-    statMap = {
+	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},

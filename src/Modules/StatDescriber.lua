@@ -68,7 +68,7 @@ local function applySpecial(val, spec)
 		val[spec.v].min = round(val[spec.v].min / 100, 1)
 		val[spec.v].max = round(val[spec.v].max / 100, 1)
 		val[spec.v].fmt = "g"
-	elseif spec.k == "divide_by_one_hundred_2dp" then
+	elseif spec.k == "divide_by_one_hundred_2dp_if_required" or spec.k == "divide_by_one_hundred_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 100, 2)
 		val[spec.v].max = round(val[spec.v].max / 100, 2)
 		val[spec.v].fmt = "g"
