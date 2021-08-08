@@ -157,7 +157,7 @@ return {
 	flag("BloodMagicReserved"),
 },
 ["base_skill_cost_life_instead_of_mana"] = {
-	flag("BloodMagicCost"),
+	flag("CostLifeInsteadOfMana"),
 },
 ["base_active_skill_totem_level"] = {
 	skill("totemLevel", nil),

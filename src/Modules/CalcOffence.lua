@@ -1016,6 +1016,10 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output[resource.."Cost"] = cost
 	end
+	if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
+		output["LifeCost"] = output["LifeCost"] + output["ManaCost"]
+		output["ManaCost"] = 0
+	end
 	if skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") then
 		output["LifeCost"] = output["LifeCost"] + output["ManaCost"] * skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
 	end
