@@ -984,6 +984,9 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") then
 		output["LifeCost"] = output["LifeCost"] + output["ManaCost"] * skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
+		if skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") >= 100 then
+			output["ManaCost"] = 0
+		end
 	end
 	for resource, name in pairs(names) do
 		local percent = resource == "ManaPercent" or resource == "LifePercent"
