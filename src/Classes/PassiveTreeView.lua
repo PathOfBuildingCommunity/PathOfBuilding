@@ -288,7 +288,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				Karui (Lethal Pride):			only notables, +str already set
 				Templar (Militant Faith):		any non-keystone, non-notables add devotion or replace with devotion
 		]]--
-		elseif hoverNode and hoverNode.conqueredBy and
+		elseif hoverNode and hoverNode.conqueredBy and hoverNode.type ~= "Keystone" and
 				(hoverNode.conqueredBy.conqueror.type == "vaal"
 				or hoverNode.isNotable) then
 			build.treeTab:ModifyNodePopup(hoverNode)
@@ -916,7 +916,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 
 	-- Conqueror node editing
-	if node and node.conqueredBy and
+	if node and node.conqueredBy and node.type ~= "Keystone" and
 			(node.conqueredBy.conqueror.type == "vaal"
 			or node.isNotable) then
 		tooltip:AddSeparator(14)
