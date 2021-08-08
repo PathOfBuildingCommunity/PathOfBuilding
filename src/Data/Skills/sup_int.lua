@@ -5032,6 +5032,7 @@ skills["SupportHandcastAnticipation"] = {
 		},
 		["support_anticipation_charge_gain_interval_ms"] = {
 			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
 		},
 		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
 			mod("SealRepeatPenalty", "MORE", nil),
@@ -5117,6 +5118,7 @@ skills["SupportUnleashPlus"] = {
 		},
 		["support_anticipation_charge_gain_interval_ms"] = {
 			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
 		},
 		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
 			mod("SealRepeatPenalty", "MORE", nil),
