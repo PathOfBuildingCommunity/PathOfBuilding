@@ -1763,13 +1763,31 @@ skills["ChargedDash"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["charged_dash_damage_+%_maximum"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ChargedDashDistance" }),
-		},
-		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-	},
+parts = {
+    {
+        name = "Channelling, No Stages",
+    },
+    {
+        name = "Channelling, Max Stages",
+    },
+    {
+        name = "Release",
+    },
+},
+preDamageFunc = function(activeSkill, output)
+    local stageDamageMultiplier
+       if activeSkill.skillPart == 3 and activeSkill.activeStageCount then
+           stageDamageMultiplier = 75 * math.min(activeSkill.activeStageCount, 15)
+           activeSkill.skillModList:NewMod("Damage", "MORE", stageDamageMultiplier - 100, "Skill:ChargedDash", ModFlag.Attack, { type = "SkillPart", skillPart = 3})
+       elseif activeSkill.skillPart == 3 then
+           stageDamageMultiplier = 75
+           activeSkill.skillModList:NewMod("Damage", "MORE", stageDamageMultiplier - 100, "Skill:ChargedDash", ModFlag.Attack, { type = "SkillPart", skillPart = 3})
+       end
+end,
+statMap = {
+    ["base_skill_show_average_damage_instead_of_dps"] = {
+    },
+},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1780,6 +1798,10 @@ skills["ChargedDash"] = {
 		skill("radiusLabel", "Start of Dash:"),
 		skill("radiusSecondary", 26),
 		skill("radiusSecondaryLabel", "End of Dash:"),
+		skill("hitTimeMultiplier", 2, { type = "Skill", skillPartList = {1, 2} }),
+		mod("Damage", "MORE", 150, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:ChargedDashMaxStages", "BASE", 15),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		Default = {
