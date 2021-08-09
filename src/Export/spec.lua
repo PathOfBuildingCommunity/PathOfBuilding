@@ -5007,8 +5007,8 @@ return {
 		},
 		[42]={
 			list=false,
-			name="",
-			refTo="",
+			name="HelmetItem",
+			refTo="ItemVisualIdentity",
 			type="Key",
 			width=150
 		},
@@ -5021,15 +5021,15 @@ return {
 		},
 		[44]={
 			list=true,
-			name="",
-			refTo="",
+			name="KillSpecificMonsterCount",
+			refTo="AchievementItems",
 			type="Key",
-			width=50
+			width=150
 		},
 		[45]={
 			list=true,
-			name="KillSpecificMonsterCount",
-			refTo="AchievementItems",
+			name="SpecialMods",
+			refTo="Mods",
 			type="Key",
 			width=150
 		},
@@ -5112,7 +5112,7 @@ return {
 		},
 		[57]={
 			list=false,
-			name="KillWhileOnslaughtIsActive",
+			name="AchievementFlashback",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
@@ -5133,7 +5133,7 @@ return {
 		},
 		[60]={
 			list=false,
-			name="",
+			name="AchievementTalisman",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
@@ -5160,9 +5160,9 @@ return {
 			width=150
 		},
 		[64]={
-			list=true,
+			list=false,
 			name="",
-			refTo="AchievementItems",
+			refTo="",
 			type="Key",
 			width=150
 		},
@@ -5221,6 +5221,104 @@ return {
 			refTo="MultiPartAchievements",
 			type="Key",
 			width=150
+		},
+		[73]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[74]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[75]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[76]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[77]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[78]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=50
+		},
+		[79]={
+			list=false,
+			name="AilmentThreshold",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[80]={
+			list=false,
+			name="SinkEffect",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[81]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[82]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[83]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[84]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[85]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[86]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	MoveDaemon={
