@@ -111,6 +111,8 @@
 	<File name="Data/EnchantmentBelt.lua" part="program" sha1="9db3e2565f88473cd308172683d9b59939740d78" />
 	<File name="Data/EnchantmentBoots.lua" part="program" sha1="e8031900f71a4fb0974551c198dfa39f5f37bf1a" />
 	<File name="Data/EnchantmentGloves.lua" part="program" sha1="1fcdacb6f5e454b41163c0ddef1e4aa3444fe0fb" />
+	<File name="Data/EnchantmentBody.lua" part="program" sha1="6db58f76bfabc3dc3539822a9c8328497afa1ad6" />
+	<File name="Data/EnchantmentWeapon.lua" part="program" sha1="020c43e5a8228dbbd2d4718a1955bd139034c96c" />
 	<File name="Data/EnchantmentHelmet.lua" part="program" sha1="7d9fe7beaf90ffcef0020311f9b30383faeff72e" />
 	<File name="Data/Essence.lua" part="program" sha1="b65253574ad86d24edf71067d53d18d149b1f0d5" />
 	<File name="Data/Gems.lua" part="program" sha1="86808608cc2297076774da75bf195708918c088b" />
