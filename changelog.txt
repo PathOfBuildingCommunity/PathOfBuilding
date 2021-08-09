@@ -1,3 +1,12 @@
+VERSION[2.8.0][2021/08/09]
+
+* Add Leadership's Price unique amulet (Torchery)
+* Group similar stats in sidebar for enhanced clarity (Nightblade)
+
+* Fix Unleash crash with minion skills (LocalIdentity)
+* Fix images for socketed Cluster Jewels (LocalIdentity)
+* Fix Slipstream tooltip (Wires77)
+
 VERSION[2.7.0][2021/08/08]
 
 * Add support for Unleash (LocalIdentity) (scristall)
