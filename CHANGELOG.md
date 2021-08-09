@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.7.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.7.1) (2021/08/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.7.0...2.7.1)
+
+**Implemented enhancements:**
+
+- Update images for socketed Cluster Jewels [\#3116](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3116) ([LocalIdentity](https://github.com/LocalIdentity))
+
+**Fixed bugs:**
+
+- Fix Unleash crash with minion skills [\#3127](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3127) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix exporter for explosive concoction [\#3122](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3122) ([Wires77](https://github.com/Wires77))
+- Update slipstream tooltip [\#3117](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3117) ([Wires77](https://github.com/Wires77))
+
+**Merged pull requests:**
+
+- Fix MonsterVarieties spec [\#3129](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3129) ([PJacek](https://github.com/PJacek))
+- Add space between similar stat groups. [\#3121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3121) ([Nightblade](https://github.com/Nightblade))
+- Add Leadership's Price Unique Amulet [\#3120](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3120) ([Torchery](https://github.com/Torchery))
+
+
+
+
 ## [2.7.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.7.0) (2021/08/08)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.6.0...2.7.0)

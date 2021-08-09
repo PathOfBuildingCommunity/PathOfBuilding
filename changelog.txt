@@ -1,3 +1,17 @@
+VERSION[2.7.1][2021/08/09]
+
+* Update images for socketed Cluster Jewels (LocalIdentity)
+
+* Fix Unleash crash with minion skills (LocalIdentity)
+* Fix exporter for explosive concoction (Wires77)
+* Update slipstream tooltip (Wires77)
+
+* Fix MonsterVarieties spec (PJacek)
+* Add space between similar stat groups. (Nightblade)
+* Add Leadership's Price Unique Amulet (Torchery)
+
+
+
 VERSION[2.7.0][2021/08/08]
 
 * Add support for Unleash (LocalIdentity) (scristall)
