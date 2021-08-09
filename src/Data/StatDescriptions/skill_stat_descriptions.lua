@@ -91,6 +91,19 @@ return {
 				[1]={
 					limit={
 						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="No Physical Damage"
+				},
+				[2]={
+					limit={
+						[1]={
 							[1]="#",
 							[2]="#"
 						},
@@ -105,7 +118,8 @@ return {
 		},
 		name="weapon_physical_damage_range",
 		stats={
-			[1]="0"
+			[1]="main_hand_minimum_physical_damage",
+			[2]="main_hand_maximum_physical_damage"
 		}
 	},
 	[7]={
@@ -146,6 +160,19 @@ return {
 				[1]={
 					limit={
 						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="No Fire Damage"
+				},
+				[2]={
+					limit={
+						[1]={
 							[1]="#",
 							[2]="#"
 						},
@@ -160,13 +187,27 @@ return {
 		},
 		name="weapon_fire_damage_range",
 		stats={
-			[1]="0"
+			[1]="main_hand_minimum_fire_damage",
+			[2]="main_hand_maximum_fire_damage"
 		}
 	},
 	[9]={
 		lang={
 			English={
 				[1]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="No Cold Damage"
+				},
+				[2]={
 					limit={
 						[1]={
 							[1]="#",
@@ -183,13 +224,27 @@ return {
 		},
 		name="weapon_cold_damage_range",
 		stats={
-			[1]="0"
+			[1]="main_hand_minimum_cold_damage",
+			[2]="main_hand_maximum_cold_damage"
 		}
 	},
 	[10]={
 		lang={
 			English={
 				[1]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="No Lightning Damage"
+				},
+				[2]={
 					limit={
 						[1]={
 							[1]="#",
@@ -206,13 +261,27 @@ return {
 		},
 		name="weapon_lightning_damage_range",
 		stats={
-			[1]="0"
+			[1]="main_hand_minimum_lightning_damage",
+			[2]="main_hand_maximum_lightning_damage"
 		}
 	},
 	[11]={
 		lang={
 			English={
 				[1]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="No Chaos Damage"
+				},
+				[2]={
 					limit={
 						[1]={
 							[1]="#",
@@ -229,7 +298,8 @@ return {
 		},
 		name="weapon_chaos_damage_range",
 		stats={
-			[1]="0"
+			[1]="main_hand_minimum_chaos_damage",
+			[2]="main_hand_maximum_chaos_damage"
 		}
 	},
 	[12]={
@@ -20539,10 +20609,14 @@ return {
 						[1]={
 							[1]="#",
 							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
 						}
 					},
-					text="{0} to {1} Added Cold Damage if Charges were consumed from a Sapphire Flask"
-				},
+					text="Deals {0} to {1} Added Cold Damage if Charges were consumed from a Sapphire Flask"
+				}
 			}
 		},
 		name="flask_throw_cold_damage_range",
@@ -20559,10 +20633,14 @@ return {
 						[1]={
 							[1]="#",
 							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
 						}
 					},
 					text="Deals {0} to {1} Added Lightning Damage if Charges were consumed from a Topaz Flask"
-				},
+				}
 			}
 		},
 		name="flask_throw_lightning_damage_range",
@@ -34419,7 +34497,6 @@ return {
 	["%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"]=882,
 	["%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"]=883,
 	["%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy"]=884,
-	["0"]=11,
 	["absolution_blast_chance_to_summon_on_hitting_unique_%"]=408,
 	["abyssal_cry_%_max_life_as_chaos_on_death"]=323,
 	["abyssal_cry_movement_velocity_+%_per_one_hundred_nearby_enemies"]=321,
@@ -34916,10 +34993,10 @@ return {
 	["flamethrower_trap_damage_+%_final_vs_burning_enemies"]=698,
 	["flask_charges_used_+%"]=699,
 	["flask_throw_base_charges_used"]=700,
-	["flask_throw_minimum_cold_damage_if_used_sapphire_flask"]=701,
 	["flask_throw_maximum_cold_damage_if_used_sapphire_flask"]=701,
-	["flask_throw_minimum_lightning_damage_if_used_topaz_flask"]=702,
 	["flask_throw_maximum_lightning_damage_if_used_topaz_flask"]=702,
+	["flask_throw_minimum_cold_damage_if_used_sapphire_flask"]=701,
+	["flask_throw_minimum_lightning_damage_if_used_topaz_flask"]=702,
 	["flask_throw_ruby_flask_ignite_damage_+%_final"]=703,
 	["flicker_strike_buff_movement_speed_+%"]=704,
 	["flicker_strike_teleport_range_+%"]=705,
@@ -35098,6 +35175,16 @@ return {
 	["magma_orb_%_chance_to_big_explode_instead_of_chaining"]=800,
 	["maim_effect_+%"]=801,
 	["maim_on_hit_%"]=802,
+	["main_hand_maximum_chaos_damage"]=11,
+	["main_hand_maximum_cold_damage"]=9,
+	["main_hand_maximum_fire_damage"]=8,
+	["main_hand_maximum_lightning_damage"]=10,
+	["main_hand_maximum_physical_damage"]=6,
+	["main_hand_minimum_chaos_damage"]=11,
+	["main_hand_minimum_cold_damage"]=9,
+	["main_hand_minimum_fire_damage"]=8,
+	["main_hand_minimum_lightning_damage"]=10,
+	["main_hand_minimum_physical_damage"]=6,
 	["mamba_strike_deal_%_of_all_poison_total_damage_per_minute"]=803,
 	["mana_degeneration_per_minute"]=239,
 	["mana_gain_per_target"]=804,

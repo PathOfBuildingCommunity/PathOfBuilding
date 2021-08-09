@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.7.0" />
+	<Version number="2.8.0" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
@@ -10,7 +10,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="c0a1a7e9823bcecef193bf3a846e93d5ea2d9021" />
 	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
 	<File name="GameVersions.lua" part="program" sha1="da320a7931c7a98c907b4240fbb33f976e89e8a2" />
-	<File name="changelog.txt" part="default" sha1="101ad5c14d2706bb5e4c9c17f971ae3d6c00675e" />
+	<File name="changelog.txt" part="default" sha1="976ad5eda0b53e20d33a42f2f4a2ef550cc2e626" />
 	<File name="Path{space}of{space}Building.exe" part="runtime" platform="win32" sha1="7486cf4f0289df72ccce93a69a4198ad069f79b9" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="66cb4131f93c1e7b29564e0ee02560181a970e9c" />
@@ -65,7 +65,7 @@
 	<File name="Classes/PassiveSpec.lua" part="program" sha1="4d88a1d750a30b2cefddb6cd4e8e79531f4639b2" />
 	<File name="Classes/PassiveSpecListControl.lua" part="program" sha1="79c112162e18a001e6decec6e19338d560100448" />
 	<File name="Classes/PassiveTree.lua" part="program" sha1="97e514699ef35e98ec3e4169543a50d3650ed875" />
-	<File name="Classes/PassiveTreeView.lua" part="program" sha1="818dd4ce519a4f46dbcb27c52c2f8c56d2a0f90c" />
+	<File name="Classes/PassiveTreeView.lua" part="program" sha1="8fe4e47e798a7128a234b771c7824b3446353ab4" />
 	<File name="Classes/PathControl.lua" part="program" sha1="3acd77612e658766260129ffab70373d8ee60c59" />
 	<File name="Classes/PopupDialog.lua" part="program" sha1="2bfb5bb91475432d23a29c1eb36daec2d76914f0" />
 	<File name="Classes/PowerReportListControl.lua" part="program" sha1="ece0e878da763519f10c014ee4a793a3557bf0a7" />
@@ -83,7 +83,7 @@
 	<File name="Classes/TreeTab.lua" part="program" sha1="5da58232d6199cd576c2d0d887cfe038af3ac2c1" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
 	<File name="Data/Global.lua" part="program" sha1="3947fbbdf0c67a5b206fe2696b0fd8800b827019" />
-	<File name="Data/Uniques/amulet.lua" part="program" sha1="5e7504a230955225ec821607b096dbcc0cef8bd7" />
+	<File name="Data/Uniques/amulet.lua" part="program" sha1="3fd63be043380ac68f868b5f6910f5fa8a6fbdf9" />
 	<File name="Data/Uniques/axe.lua" part="program" sha1="8b3e9fdf7a32069927941d741e024aae40656466" />
 	<File name="Data/Uniques/belt.lua" part="program" sha1="e3506e2e7a470454bf5a578d5bae1db7df7469d1" />
 	<File name="Data/Uniques/body.lua" part="program" sha1="e8ac15fcc8da4b7647185e9b30828c150017d732" />
@@ -176,23 +176,23 @@
 	<File name="Data/StatDescriptions/minion_spell_skill_stat_descriptions.lua" part="program" sha1="4197a1304624768a20970df5510f42978d82f522" />
 	<File name="Data/StatDescriptions/monster_stat_descriptions.lua" part="program" sha1="93f08f6703b0783eeb393b36f73ef234c2ac569b" />
 	<File name="Data/StatDescriptions/offering_skill_stat_descriptions.lua" part="program" sha1="d737534c74145a4c2d7454cd35f31b76d13429db" />
-	<File name="Data/StatDescriptions/skill_stat_descriptions.lua" part="program" sha1="70c232ea251533cc855ca8f45357bbc06a1e9bc6" />
+	<File name="Data/StatDescriptions/skill_stat_descriptions.lua" part="program" sha1="ea92d9e5dde7f396c961eb7298807cffa76fe210" />
 	<File name="Data/StatDescriptions/single_minion_spell_skill_stat_descriptions.lua" part="program" sha1="3c9a68e0af6ebb8c210460f108c062502e247be3" />
 	<File name="Data/StatDescriptions/stat_descriptions.lua" part="program" sha1="4133cb9cedab808d67df724469b656f21efd6ab2" />
 	<File name="Data/StatDescriptions/variable_duration_skill_stat_descriptions.lua" part="program" sha1="24deef9b25cfbc01fe01d584a28137436d35f5ae" />
-	<File name="Modules/Build.lua" part="program" sha1="45b1fa217df99f898bcaedcf17fbdf083241e815" />
+	<File name="Modules/Build.lua" part="program" sha1="5b32e9a0dc030b87d436eca177ca739873afcd54" />
 	<File name="Modules/BuildList.lua" part="program" sha1="abef93590993b7a87e012036f7addc2fb4222e07" />
 	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="3ea4aa3cba959d3af47a74d2f0c30e9e31f20a01" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="cef0070011131bc171c081806b3f742f180520bb" />
 	<File name="Modules/CalcDefence.lua" part="program" sha1="8b53fd018e6dceb9a15816d62d17a4a52095bc76" />
-	<File name="Modules/CalcOffence.lua" part="program" sha1="d9d632423f50074f3b731946336428ebb5aad17b" />
+	<File name="Modules/CalcOffence.lua" part="program" sha1="ba1b8232e286f8dbc38100ee2857b96d23a7ad6d" />
 	<File name="Modules/CalcPerform.lua" part="program" sha1="4415a43b5b11582bf2034daaf22f5d4df09e5b91" />
 	<File name="Modules/Calcs.lua" part="program" sha1="8ee3984b9785615f522b5a78530b24d34336736f" />
 	<File name="Modules/CalcSections.lua" part="program" sha1="75870bf8b5778f056a63d66725ceed7d51c7affd" />
 	<File name="Modules/CalcSetup.lua" part="program" sha1="62af5ac94910c5937785e2140a64433035719db6" />
 	<File name="Modules/CalcTools.lua" part="program" sha1="36e3cd5f980dce33e9799d7f5d782c9057d5d9ff" />
 	<File name="Modules/Common.lua" part="program" sha1="4bd341300f932198aceb5f9fa74b6113f733e19c" />
-	<File name="Modules/ConfigOptions.lua" part="program" sha1="90723087bd03acac80128dc233423c64cb781e02" />
+	<File name="Modules/ConfigOptions.lua" part="program" sha1="64016e2084cfe891637f6c05c56382a20c5701f7" />
 	<File name="Modules/Data.lua" part="program" sha1="abf2f13b9da66f3baa7e1ffaf2c22ee654a3202e" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="88a4913b8a52df70954554260567835bd16b25aa" />
 	<File name="Modules/Main.lua" part="program" sha1="a9fe8dc94efc8e703b02050d284f1bd1ba2bb8a0" />
