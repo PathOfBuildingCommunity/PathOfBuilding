@@ -498,14 +498,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.baseName == "Timeless Jewel" then
 						overlay = node.expansionJewel and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
 					elseif jewel.baseName == "Large Cluster Jewel" then
-						-- Temp; waiting for art :/
-						overlay = "JewelSocketActiveGreenAlt"
+						overlay = "JewelSocketActiveAltPurple"
 					elseif jewel.baseName == "Medium Cluster Jewel" then
-						-- Temp; waiting for art :/
-						overlay = "JewelSocketActiveBlueAlt"
+						overlay = "JewelSocketActiveAltBlue"
 					elseif jewel.baseName == "Small Cluster Jewel" then
-						-- Temp; waiting for art :/
-						overlay = "JewelSocketActiveRedAlt"
+						overlay = "JewelSocketActiveAltRed"
 					end
 				end
 			else
