@@ -211,6 +211,9 @@ skills["SupportArrowNova"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.FiresProjectilesFromSecondaryLocation, },
 	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
@@ -293,6 +296,9 @@ skills["SupportArrowNovaPlus"] = {
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.FiresProjectilesFromSecondaryLocation, },
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportArrowNova",
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
@@ -347,11 +353,11 @@ skills["SupportBarrage"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
-	statDescriptionScope = "gem_stat_descriptions",
 	weaponTypes = {
-		["Bow"] = true,
 		["Wand"] = true,
+		["Bow"] = true,
 	},
+	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
@@ -1176,16 +1182,30 @@ skills["SupportSlashingWeapon"] = {
 	addSkillTypes = { SkillType.Duration, SkillType.Buff, },
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Sword"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_slashing_damage_+%_final_from_distance"] = {
-			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
+		},
+		["support_slashing_buff_attack_cast_speed_+%_final_to_grant"] = {
+			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.TravelSkill }),
 		},
 		["close_combat_damage_to_close_range_+%"] = {
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
+		},
+		["combat_rush_effect_+%"] = {
+			mod("CombatRushEffect", "INC", nil),
 		},
 	},
 	baseMods = {
+		flag("Condition:SupportedByCloseCombat"),
 	},
 	qualityStats = {
 		Default = {
@@ -2867,15 +2887,19 @@ skills["SupportPuncturingWeapon"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["elusive_effect_+%"] = {
-			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
+			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
 		},
 	},	
 	baseMods = {
-		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true}),
+		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
+		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
 	qualityStats = {
 		Default = {

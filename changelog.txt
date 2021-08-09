@@ -1,3 +1,27 @@
+VERSION[2.7.0][2021/08/08]
+
+* Add support for Unleash (LocalIdentity) (scristall)
+* Add Harvest and Heist enchantments to weapons and body armours (ifnjeff)
+* Add new base types to rare template, update existing rare templates (a3person)
+* Add support for Banishing Blade and Pneumatic Dagger implicits (LocalIdentity)
+* Add sorting by Ward attribute (TiagoGoddard)
+* Add support for Elusive effect (Lexy)
+* Add full support for Eye To Eye cluster jewel notable (Nostrademous)
+* Add Cold Damage over Time mod from cluster jewels (Lexy)
+* Add radius to Explosive Concoction (Wires77)
+* Add Usurper's Penance (pundm)
+* Update Ailment Threshold values (LocalIdentity)
+
+* Fix crash when loading certain builds (PJacek)
+* Fix error when main skill is not a minion skill but "Minion" is in FullDPS (Nostrademous)
+* Fix minions getting Inspiration Charges (Lexy)
+* Fix Doryani's Prototype not applying to minions (Wires77)
+* Fix parsing for new wording on Combat Focus jewels (LocalIdentity)
+* Fix Manabond not being affected by Reduced Mana Cost nodes (Wires77)
+* Fix Lifetap Support and Blood Magic not altering the cost of skills (Wires77) (LocalIdentity)
+* Fix Bomb Specialist AoE mod (Nostrademous)
+* Fix bug where Timeless Jewel keystones could be edited (Wires77)
+
 VERSION[2.6.0][2021/07/27]
 
 * Add new Expedition uniques (Wires77)

@@ -222,6 +222,19 @@ directiveTable.skill = function(state, args, out)
 		if granted.PlusVersionOf then
 			out:write('\tplusVersionOf = "', granted.PlusVersionOf.Id, '",\n')
 		end
+		local weaponTypes = { }
+		for _, class in ipairs(granted.WeaponRestrictions) do
+			if weaponClassMap[class.Id] then
+				weaponTypes[weaponClassMap[class.Id]] = true
+			end
+		end
+		if next(weaponTypes) then
+			out:write('\tweaponTypes = {\n')
+			for type in pairs(weaponTypes) do
+				out:write('\t\t["', type, '"] = true,\n')
+			end
+			out:write('\t},\n')
+		end
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
