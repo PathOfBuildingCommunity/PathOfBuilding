@@ -618,9 +618,9 @@ Onyx Amulet
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(10–16) to all Attributes
-+(-3–3)% to maximum Fire Resistance
-+(-3–3)% to maximum Cold Resistance
-+(-3–3)% to maximum Lightning Resistance
+{tags:jewellery_resistance}+(-3–3)% to maximum Fire Resistance
+{tags:jewellery_resistance}+(-3–3)% to maximum Cold Resistance
+{tags:jewellery_resistance}+(-3–3)% to maximum Lightning Resistance
 You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal
 Cannot Ignite, Chill, Freeze or Shock
 Corrupted
