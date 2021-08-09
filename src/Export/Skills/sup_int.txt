@@ -689,6 +689,7 @@ local skills, mod, flag, skill = ...
 			mod("SealRepeatPenalty", "MORE", nil),
 		},
 	},
+#baseMod flag("HasSeals")
 #mods
 
 #skill SupportUnleashPlus
@@ -704,4 +705,5 @@ local skills, mod, flag, skill = ...
 			mod("SealRepeatPenalty", "MORE", nil),
 		},
 	},
+#baseMod flag("HasSeals")
 #mods

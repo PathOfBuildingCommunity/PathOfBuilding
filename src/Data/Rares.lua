@@ -241,7 +241,7 @@ Prefix: IncreasedLife9
 -- Boots
 [[
 Evasion/Energy Shield Boots
-Blessed Boots
+Fugitive Boots
 Crafted: true
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife6
