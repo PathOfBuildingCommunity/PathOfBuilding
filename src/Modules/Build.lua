@@ -370,14 +370,17 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
 		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", fmt = ".1f", compPercent = true },
+		{ },
 		{ stat = "Evasion", label = "Evasion rating", fmt = "d", compPercent = true },
 		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
 		{ stat = "MeleeEvadeChance", label = "Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
 		{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
 		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
+		{ },
 		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
+		{ },
 		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
 		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%" },
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%" },
@@ -1238,7 +1241,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 				end
 			end
 		elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
-			t_insert(statBoxList, { height = 10 })
+			t_insert(statBoxList, { height = 6 })
 		end
 	end
 end
