@@ -701,7 +701,9 @@ local function doActorMisc(env, actor)
 	if modDB:Flag(nil, "UseBlitzCharges") then
 		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
 	end
-	output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
+	if not env.player.mainSkill.minion then 
+		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
+	end 
 	if modDB:Flag(nil, "UseGhostShrouds") then
 		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
 	end
@@ -805,6 +807,10 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "Elusive") then
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
+			-- Override elusive effect if set.			
+			if modDB:Override(nil, "ElusiveEffect") then 
+				effect = m_min(modDB:Override(nil, "ElusiveEffect") / 100, effect)
+			end
 			condList["Elusive"] = true
 			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
@@ -1541,7 +1547,7 @@ function calcs.perform(env, avoidCache)
 						activeSkill.buffSkill = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
-						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer", buff.name:gsub(" ", "").."Effect")
+						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)

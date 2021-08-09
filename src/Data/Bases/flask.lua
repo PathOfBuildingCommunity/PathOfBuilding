@@ -332,7 +332,7 @@ itemBases["Aquamarine Flask"] = {
 	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
 	implicit = "Creates Chilled Ground on Use",
 	implicitModTypes = { { "flask" }, },
-	flask = { duration = 5, chargesUsed = 20, chargesMax = 50, buff = { "40% reduced Effect of Freeze on you" }, },
+	flask = { duration = 5, chargesUsed = 20, chargesMax = 50, buff = { "60% reduced Effect of Freeze on you" }, },
 	req = { level = 27, },
 }
 itemBases["Stibnite Flask"] = {

@@ -98,6 +98,17 @@ Requires Level 55, 114 Str
 {variant:1,2}50% chance to Avoid being Frozen
 {variant:1,2}10% increased Stun and Block Recovery
 {variant:3}Cannot be Frozen or Chilled if you've used a Fire Skill Recently
+]],[[
+Usurper's Penance
+Eternal Burgonet
+League: Expedition
+Requires Level 69, 138 Str
+(50-80)% increased Armour
+Attacks have 15% chance to cause Bleeding
+50% reduced Light Radius
++4% to Damage over Time Multiplier for Bleeding per Frenzy Charge
+Bleeding you inflict deals Damage 4% faster per Frenzy Charge
+(20-30)% chance to gain a Frenzy Charge on Critical Strike at Close Range
 ]],
 -- Helmet: Evasion
 [[

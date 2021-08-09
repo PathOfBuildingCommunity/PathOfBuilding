@@ -10623,7 +10623,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Physical Damage taken from Hits"
+					text="Buff grants {0}% more Physical Damage taken from Hits while stationary"
 				},
 				[2]={
 					[1]={
@@ -10636,7 +10636,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Physical Damage taken from Hits"
+					text="Buff grants {0}% less Physical Damage taken from Hits while stationary"
 				}
 			}
 		},
@@ -10655,7 +10655,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Fire Damage taken from Hits"
+					text="Buff grants {0}% more Fire Damage taken from Hits while stationary"
 				},
 				[2]={
 					[1]={
@@ -10668,7 +10668,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Fire Damage taken from Hits"
+					text="Buff grants {0}% less Fire Damage taken from Hits while stationary"
 				}
 			}
 		},

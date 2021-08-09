@@ -255,6 +255,7 @@ SkillType = {
 	Type114 = 114,
 	Arcane = 115, -- means it is reliant on amount of mana spent
 	Type116 = 116,
+	CantEquipWeapon = 117,
 }
 
 GlobalCache = { 

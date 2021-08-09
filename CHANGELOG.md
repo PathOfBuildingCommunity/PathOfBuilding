@@ -1,5 +1,35 @@
 # Changelog
 
+## [2.7.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.7.0) (2021/08/08)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.6.0...2.7.0)
+
+**Implemented Enhancements:**
+
+- Add support for Unleash [\#2862](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2862) ([LocalIdentity](https://github.com/LocalIdentity)) ([scristall](https://github.com/scristall))
+- Add Harvest and Heist enchantments to weapons and body armours [\#2914](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2914) ([ifnjeff](https://github.com/ifnjeff))
+- Add new base types to rare template, update existing rare templates [\#3080](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3080) ([a3person](https://github.com/a3person))
+- Add support for Banishing Blade and Pneumatic Dagger implicits [\#3113](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3113) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add sorting by Ward attribute [\#3076](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3076) ([TiagoGoddard](https://github.com/TiagoGoddard))
+- Add support for Elusive effect [\#3061](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3061) ([Lexy](https://github.com/learn2draw))
+- Add full support for Eye To Eye cluster jewel notable [\#3064](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3064) ([Nostrademous](https://github.com/Nostrademous))
+- Add Cold Damage over Time mod from cluster jewels [\#3094](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3094) ([Lexy](https://github.com/learn2draw))
+- Add radius to Explosive Concoction [\#3086](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3086) ([Wires77](https://github.com/Wires77))
+- Add Usurper's Penance [\#3055](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3055) ([pundm](https://github.com/pundm))
+- Update Ailment Threshold values [\#3049](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3049) ([LocalIdentity](https://github.com/LocalIdentity))
+
+**Fixed bugs:**
+
+- Fix crash when loading certain builds [\#3037](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3037) ([PJacek](https://github.com/PJacek))
+- Fix error when main skill is not a minion skill but "Minion" is in FullDPS [\#3053](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3053) ([Nostrademous](https://github.com/Nostrademous))
+- Fix minions getting Inspiration Charges [\#3060](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3060) ([Lexy](https://github.com/learn2draw))
+- Fix Doryani's Prototype not applying to minions [\#3026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3026) ([Wires77](https://github.com/Wires77))
+- Fix parsing for new wording on Combat Focus jewels [\#3112](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3112) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Manabond not being affected by reduced mana cost nodes [\#3028](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3028) ([Wires77](https://github.com/Wires77))
+- Fix Lifetap Support and Blood Magic not altering the cost of skills [\#3106](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3106) ([Wires77](https://github.com/Wires77)) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Bomb Specialist AoE mod [\#3087](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3087) ([Nostrademous](https://github.com/Nostrademous))
+- Fix bug where timeless jewel keystones could be edited [\#3098](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3098) ([Wires77](https://github.com/Wires77))
+
 ## [2.6.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.6.0) (2021/07/27)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.5.0...2.6.0)

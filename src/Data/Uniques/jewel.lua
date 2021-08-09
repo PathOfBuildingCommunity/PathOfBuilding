@@ -998,24 +998,24 @@ Crimson Jewel
 Limited to: 2
 Radius: Medium
 (10-15)% increased Elemental Damage with Attack Skills
-With 40 total Strength and Intelligence in Radius, Elemental Hit and Wild Strike cannot choose Cold
-With 40 total Strength and Intelligence in Radius, Elemental Hit and Wild Strike deal 50% less Cold Damage
+With 40 total Strength and Intelligence in Radius, Prismatic Skills cannot choose Cold
+With 40 total Strength and Intelligence in Radius, Prismatic Skills deal 50% less Cold Damage
 ]],[[
 Combat Focus
 Cobalt Jewel
 Limited to: 2
 Radius: Medium
 (10-15)% increased Elemental Damage with Attack Skills
-With 40 total Intelligence and Dexterity in Radius, Elemental Hit and Wild Strike cannot choose Fire
-With 40 total Intelligence and Dexterity in Radius, Elemental Hit and Wild Strike deal 50% less Fire Damage
+With 40 total Intelligence and Dexterity in Radius, Prismatic Skills cannot choose Fire
+With 40 total Intelligence and Dexterity in Radius, Prismatic Skills deal 50% less Fire Damage
 ]],[[
 Combat Focus
 Viridian Jewel
 Limited to: 2
 Radius: Medium
 (10-15)% increased Elemental Damage with Attack Skills
-With 40 total Dexterity and Strength in Radius, Elemental Hit and Wild Strike cannot choose Lightning
-With 40 total Dexterity and Strength in Radius, Elemental Hit and Wild Strike deal 50% less Lightning Damage
+With 40 total Dexterity and Strength in Radius, Prismatic Skills Strike cannot choose Lightning
+With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less Lightning Damage
 ]],[[
 Collateral Damage
 Viridian Jewel

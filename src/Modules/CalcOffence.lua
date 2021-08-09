@@ -369,6 +369,10 @@ function calcs.offence(env, actor, activeSkill)
 		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
 	end
 
+	-- set other limits
+	output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
+	output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
@@ -555,6 +559,36 @@ function calcs.offence(env, actor, activeSkill)
 			if mod.source ~= "Base" then -- The global base Crit Multi doesn't apply to ailments with Perfect Agony
 				skillModList:NewMod("DotMultiplier", "BASE", m_floor(mod.value / 2), mod.source, ModFlag.Ailment, { type = "Condition", var = "CriticalStrike" }, unpack(mod))
 			end
+		end
+	end
+	if skillModList:Flag(nil, "HasSeals") then		
+		-- Applies DPS multiplier based on seals count
+		output.SealCooldown = skillModList:Sum("BASE", skillCfg, "SealGainFrequency") / calcLib.mod(skillModList, skillCfg, "SealGainFrequency")
+		output.SealMax = skillModList:Sum("BASE", skillCfg, "SealCount")
+		output.TimeMaxSeals = output.SealCooldown * output.SealMax
+
+		if not skillData.hitTimeOverride then
+			if skillModList:Flag(nil, "UseMaxUnleash") then
+				for i, value in ipairs(skillModList:Tabulate("INC",  { }, "MaxSealCrit")) do
+					local mod = value.mod
+					skillModList:NewMod("CritChance", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				end
+				skillData.dpsMultiplier = (1 + output.SealMax * calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty"))
+				skillData.hitTimeOverride = output.TimeMaxSeals
+			else
+				skillData.dpsMultiplier = 1 + 1 / output.SealCooldown / (1 / activeSkill.activeEffect.grantedEffect.castTime * 1.1 * calcLib.mod(skillModList, skillCfg, "Speed") * output.ActionSpeedMod) * calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty")
+			end
+		end
+		
+		if breakdown then
+			breakdown.SealGainTime = { }
+			breakdown.multiChain(breakdown.SealGainTime, {
+				label = "Gain frequency:",
+				base = s_format("%.2fs ^8(base gain frequency)", skillModList:Sum("BASE", skillCfg, "SealGainFrequency")),
+				{ "%.2f ^8(increased/reduced gain frequency)", 1 + skillModList:Sum("INC", skillCfg, "SealGainFrequency") / 100 },
+				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
+				total = s_format("= %.2fs ^8per Seal", output.SealCooldown),
+			})
 		end
 	end
 	if skillModList:Sum("BASE", skillCfg, "PhysicalDamageGainAsRandom", "PhysicalDamageConvertToRandom", "PhysicalDamageGainAsColdOrLightning") > 0 then
@@ -757,7 +791,7 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8seconds per throw", output.TrapThrowingTime),
 			})
 		end
-		output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
+
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
 		if baseCooldown then
 			output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
@@ -817,7 +851,7 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8seconds per throw", output.MineLayingTime),
 			})
 		end
-		output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
+
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "MineDetonationAreaOfEffect")
 		local areaMod = round(round(incArea * moreArea, 10), 2)
 		output.MineDetonationRadius = calcRadius(data.misc.MineDetonationRadiusBase, areaMod)
@@ -982,6 +1016,10 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output[resource.."Cost"] = cost
 	end
+	if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
+		output["LifeCost"] = output["LifeCost"] + output["ManaCost"]
+		output["ManaCost"] = 0
+	end
 	if skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") then
 		output["LifeCost"] = output["LifeCost"] + output["ManaCost"] * skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
 	end
@@ -990,8 +1028,14 @@ function calcs.offence(env, actor, activeSkill)
 		output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
 		do
 			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
-			local more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
-			local inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+			local more, inc
+			if percent then
+				more = m_floor(skillModList:More(skillCfg, resource.."Cost", resource:gsub("Percent", "").."Cost", "Cost") * 100 + 0.0001) / 100
+				inc = skillModList:Sum("INC", skillCfg, resource.."Cost", resource:gsub("Percent", "").."Cost", "Cost")
+			else
+				more = m_floor(skillModList:More(skillCfg, resource.."Cost", "Cost") * 100 + 0.0001) / 100
+				inc = skillModList:Sum("INC", skillCfg, resource.."Cost", "Cost")
+			end
 			local total = skillModList:Sum("BASE", skillCfg, resource.."Cost")
 			local baseCost = output[resource.."Cost"]
 			output[resource.."Cost"] = m_floor(output[resource.."Cost"] * mult)
@@ -2007,8 +2051,8 @@ function calcs.offence(env, actor, activeSkill)
 								sourceRes = elementUsed
 							elseif isElemental[damageType] then
 								resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
-								if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-									resist = globalOutput[damageType.."Resist"]
+								if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+									resist = env.player.output[damageType.."Resist"]
 								else
 									local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
 									resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
@@ -3656,8 +3700,8 @@ function calcs.offence(env, actor, activeSkill)
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
-					if modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-						resist = output[damageType.."Resist"]
+					if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+						resist = env.player.output[damageType.."Resist"]
 					else
 						resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 						if isElemental[damageType] then

@@ -42,6 +42,8 @@ jobs:
               run: |
                 sed -i '$d' temp_change.md
                 sed -i 's/\[Quotae\]/\[Quote_a\]/' temp_change.md
+                sed -i 's/\[learn2draw\]/\[Lexy\]/' temp_change.md;
+                sed -i 's/\[Voronoff\]/\[tcid\]/' temp_change.md;
                 echo "VERSION[${{ steps.current-version.outputs.ver }}][${{ steps.date.outputs.date }}]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\(\1\)/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt
                 cat CHANGELOG.md | sed '1d' >> temp_change.md
                 mv temp_change.md CHANGELOG.md

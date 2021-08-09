@@ -138,6 +138,10 @@ return {
 	{ var = "carrionGolemNearbyMinion", type = "count", label = "# of Nearby Non-Golem Minions:", ifSkill = "Summon Carrion Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyNonGolemMinion", "BASE", val, "Config")
 	end },
+	{ label = "Close Combat:", ifSkill = "Close Combat" },
+	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
+	end },
 	{ label = "Cyclone:", ifSkill = "Cyclone" },
 	{ var = "channellingCycloneCheck", type = "check", label = "Are you Channelling Cyclone?", ifSkill = "Cyclone", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChannellingCyclone", "FLAG", true, "Config")
@@ -533,6 +537,9 @@ return {
 	{ var = "overrideGhostShrouds", type = "count", label = "# of Ghost Shrouds (if not maximum):", ifOption = "useGhostShrouds", apply = function(val, modList, enemyModList)
 		modList:NewMod("GhostShrouds", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "waitForMaxSeals", type = "check", label = "Do you wait for Maximum Unleash Seals?", ifFlag = "HasSeals", apply = function(val, modList, enemyModList)
+		modList:NewMod("UseMaxUnleash", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "overrideBloodCharges", type = "count", label = "# of Blood Charges (if not maximum):", ifMult = "BloodCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("BloodCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -591,6 +598,9 @@ return {
 		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 	end },
+	{ var = "overrideBuffElusive", type = "count", label = "Effect of Elusive (if not maximum):", ifOption = "buffElusive", tooltip = "If you have a guaranteed source of Elusive, the strongest one will apply. \nYou can change this see decaying buff values", apply = function(val, modList, enemyModList)
+		modList:NewMod("ElusiveEffect", "OVERRIDE", val, "Config", {type = "GlobalEffect", effectType = "Buff" })
+	end },
 	{ var = "buffDivinity", type = "check", label = "Do you have Divinity?", ifCond = "Divinity", tooltip = "This will enable the Divinity buff, which grants:\n\t50% more Elemental Damage\n\t20% less Elemental Damage taken", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Divinity", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -624,7 +634,7 @@ return {
 	{ var = "conditionSummonedTotemRecently", type = "check", label = "Have you Summoned a Totem Recently?", ifCond = "SummonedTotemRecently", tooltip = "You will automatically be considered to have Summoned a Totem Recently if your main skill is a Totem,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SummonedTotemRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "TotemsSummoned", type = "count", label = "# of Summoned Totems (if not maximum):", ifSkillList = { "Spell Totem", "Searing Bond", "Ballista Totem", "Siege Ballista", "Artillery Ballista", "Shrapnel Ballista", "Ancestral Protector", "Ancestral Warchief", "Vaal Ancestral Warchief" }, tooltip = "This also implies that you have a Totem summoned.\nThis will affect all 'per Summoned Totem' modifiers, even for non-Totem skills.", apply = function(val, modList, enemyModList)
+	{ var = "TotemsSummoned", type = "count", label = "# of Summoned Totems (if not maximum):", ifSkillList = { "Spell Totem", "Searing Bond", "Ballista Totem", "Siege Ballista", "Artillery Ballista", "Shrapnel Ballista", "Ancestral Protector", "Ancestral Warchief", "Vaal Ancestral Warchief", "Earthbreaker" }, tooltip = "This also implies that you have a Totem summoned.\nThis will affect all 'per Summoned Totem' modifiers, even for non-Totem skills.", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotemsSummoned", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:HaveTotem", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1193,7 +1203,7 @@ return {
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 2190202, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1201,7 +1211,7 @@ return {
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 44360789, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Sirus" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1209,7 +1219,7 @@ return {
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 37940148, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		end
 	end },

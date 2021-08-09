@@ -960,7 +960,7 @@ skills["GoatmanMoltenShell"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 6.5,
-	incrementalEffectiveness = 0.046000000089407,
+	incrementalEffectiveness = 0.039000000804663,
 	description = "Summons fiery elemental shields providing additional armour for a short duration. If cumulative physical damage prevented by your blocking or armour reaches a threshold, the shields explode outwards, dealing fire damage to surrounding enemies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageCannotBeReflected] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",

@@ -318,7 +318,8 @@ local modNameList = {
 	["effect of offerings"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } } },
 	["effect of heralds on you"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["effect of herald buffs on you"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Herald } },
-	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector" } } },
+	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector", "Earthbreaker" } } },
+	["effect of buffs your ancestor totems grant "] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector", "Earthbreaker" } } },
 	["effect of withered"] = "WitherEffect",
 	["warcry effect"] = { "BuffEffect", keywordFlags = KeywordFlag.Warcry },
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
@@ -489,6 +490,7 @@ local modNameList = {
 	["sword physical damage"] = { "PhysicalDamage", flags = bor(ModFlag.Sword, ModFlag.Hit) },
 	["damage over time"] = { "Damage", flags = ModFlag.Dot },
 	["physical damage over time"] = { "PhysicalDamage", keywordFlags = KeywordFlag.PhysicalDot },
+	["cold damage over time"] = { "ColdDamage", keywordFlags = KeywordFlag.ColdDot},
 	["chaos damage over time"] = { "ChaosDamage", keywordFlags = KeywordFlag.ChaosDot },
 	["burning damage"] = { "FireDamage", keywordFlags = KeywordFlag.FireDot },
 	["damage with ignite"] = { "Damage", keywordFlags = KeywordFlag.Ignite },
@@ -669,6 +671,7 @@ local modFlagList = {
 	["with bow skills"] = { keywordFlags = KeywordFlag.Bow },
 	["on melee hit"] = { flags = ModFlag.Melee },
 	["with hits"] = { keywordFlags = KeywordFlag.Hit },
+	["with hits against nearby enemies"] = { keywordFlags = KeywordFlag.Hit },
 	["with hits and ailments"] = { keywordFlags = bor(KeywordFlag.Hit, KeywordFlag.Ailment) },
 	["with ailments"] = { flags = ModFlag.Ailment },
 	["with ailments from attack skills"] = { flags = ModFlag.Ailment, keywordFlags = KeywordFlag.Attack },
@@ -852,6 +855,7 @@ local preFlagList = {
 	["^guard skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.GuardSkill } },
 	["^nova spells [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.NovaSpell } },
 	["^area skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Area } },
+	["^prismatic skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Prismatic } },
 	["^warcry skills have "] = { tag = { type = "SkillType", skillType = SkillType.Warcry } },
 	["^non%-curse aura skills have "] = { tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["^non%-channelling skills have "] = { tag = { type = "SkillType", skillType = SkillType.Channelled, neg = true } },
@@ -1434,7 +1438,7 @@ local specialModList = {
 	} end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["removes all mana"] = { mod("Mana", "MORE", -100) },
-	["skills cost life instead of mana"] = { flag("BloodMagicCost") },
+	["skills cost life instead of mana"] = { flag("CostLifeInsteadOfMana") },
 	["skills reserve life instead of mana"] = { flag("BloodMagicReserved") },
 	["spend life instead of mana for effects of skills"] = { },
 	["skills cost %+(%d+) rage"] = function(num) return { mod("RageCostBase", "BASE", num) } end,
@@ -2063,6 +2067,7 @@ local specialModList = {
 	["critical strike chance is increased by lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResist", div = 1 }) },
 	["non%-critical strikes deal (%d+)%% damage"] = function(num) return { mod("Damage", "MORE", -100 + num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["critical strikes penetrate (%d+)%% of enemy elemental resistances while affected by zealotry"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike" }, { type = "Condition", var = "AffectedByZealotry" }) } end,
+	["attack critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	-- Generic Ailments
 	["enemies take (%d+)%% increased damage for each type of ailment you have inflicted on them"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -2150,6 +2155,7 @@ local specialModList = {
 		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "DualWielding", neg = true }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
+	["bleeding you inflict deals damage (%d+)%% faster per frenzy charge"] = function(num) return { mod("BleedFaster", "INC", num, { type = "Multiplier", var = "FrenzyCharge" }) } end,
 	-- Impale and Bleed
 	["(%d+)%% increased effect of impales inflicted by hits that also inflict bleeding"] = function(num) return {
 		mod("ImpaleEffectOnBleed", "INC", num, nil, 0, KeywordFlag.Hit)
@@ -2158,6 +2164,11 @@ local specialModList = {
 	["y?o?u?r? ?fire damage can poison"] = { flag("FireCanPoison") },
 	["y?o?u?r? ?cold damage can poison"] = { flag("ColdCanPoison") },
 	["y?o?u?r? ?lightning damage can poison"] = { flag("LightningCanPoison") },
+	["all damage from hits with this weapon can poison"] = {
+		flag("FireCanPoison", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		flag("ColdCanPoison", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		flag("LightningCanPoison", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack })
+	},
 	["your chaos damage poisons enemies"] = { mod("ChaosPoisonChance", "BASE", 100) },
 	["your chaos damage has (%d+)%% chance to poison enemies"] = function(num) return { mod("ChaosPoisonChance", "BASE", num) } end,
 	["melee attacks poison on hit"] = { mod("PoisonChance", "BASE", 100, nil, ModFlag.Melee) },
@@ -2842,6 +2853,9 @@ local specialModList = {
 	} end,
 	["herald of thunder's storms hit enemies with (%d+)%% increased frequency"] = function(num) return { mod("HeraldStormFrequency", "INC", num), } end,
 	["your critical strikes have a (%d+)%% chance to deal double damage"] = function(num) return { mod("DoubleDamageChanceOnCrit", "BASE", num) } end,
+	["skills supported by unleash have %+(%d) to maximum number of seals"] = function(num) return { mod("SealCount", "BASE", num) } end,
+	["skills supported by unleash have (%d+)%% increased seal gain frequency"] = function(num) return { mod("SealGainFrequency", "INC", num) } end,
+	["(%d+)%% increased critical strike chance with spells which remove the maximum number of seals"] = function(num) return { mod("MaxSealCrit", "INC", num) } end,
 	["gain elusive on critical strike"] = {
 		flag("Condition:CanBeElusive"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanBeElusive" }), -- Make the Configuration option appear
@@ -3350,6 +3364,9 @@ local jewelThresholdFuncs = {
 	["With 40 total Intelligence and Dexterity in Radius, Elemental Hit and Wild Strike deal 50% less Fire Damage"] = getThreshold({ "Int","Dex" }, "FireDamage", "MORE", -50, { type = "SkillName", skillNameList = { "Elemental Hit", "Wild Strike" } }),
 	["With 40 total Strength and Intelligence in Radius, Elemental Hit and Wild Strike deal 50% less Cold Damage"] = getThreshold({ "Str","Int" }, "ColdDamage", "MORE", -50, { type = "SkillName", skillNameList = { "Elemental Hit", "Wild Strike" } }),
 	["With 40 total Dexterity and Strength in Radius, Elemental Hit and Wild Strike deal 50% less Lightning Damage"] = getThreshold({ "Dex","Str" }, "LightningDamage", "MORE", -50, { type = "SkillName", skillNameList = { "Elemental Hit", "Wild Strike" } }),
+	["With 40 total Intelligence and Dexterity in Radius, Prismatic Skills deal 50% less Fire Damage"] = getThreshold({ "Int","Dex" }, "FireDamage", "MORE", -50, { type = "SkillType", skillType = SkillType.Prismatic }),
+	["With 40 total Strength and Intelligence in Radius, Prismatic Skills deal 50% less Cold Damage"] = getThreshold({ "Str","Int" }, "ColdDamage", "MORE", -50, { type = "SkillType", skillType = SkillType.Prismatic }),
+	["With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less Lightning Damage"] = getThreshold({ "Dex","Str" }, "LightningDamage", "MORE", -50, { type = "SkillType", skillType = SkillType.Prismatic }),
 	["With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times"] = getThreshold({ "Dex","Str" }, "ChainCountMax", "BASE", 4, { type = "SkillName", skillName = "Spectral Shield Throw" }),
 	["With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles"] = getThreshold({ "Dex","Str" }, "ProjectileCount", "MORE", -75, { type = "SkillName", skillName = "Spectral Shield Throw" }),
 	["With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("Condition:CanWither", "FLAG", true) }, { type = "SkillName", skillName = "Blight" }),
