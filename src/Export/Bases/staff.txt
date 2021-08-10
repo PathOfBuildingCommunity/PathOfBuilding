@@ -1,0 +1,13 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Staff
+#baseTags weapon twohand staff two_hand_weapon
+#socketLimit 6
+#baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractStaff
+
+#type Staff
+#subType Warstaff
+#baseTags weapon twohand two_hand_weapon attack_staff staff
+#socketLimit 6
+#baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractWarstaff
