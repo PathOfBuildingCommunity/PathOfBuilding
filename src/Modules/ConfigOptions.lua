@@ -579,7 +579,7 @@ return {
 	{ var = "buffUnholyMight", type = "check", label = "Do you have Unholy Might?", tooltip = "This will enable the Unholy Might buff. (Grants 30% of Physical Damage as Extra Chaos Damage)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UnholyMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "minionbuffUnholyMight", type = "check", label = "Do your minions have Unholy Might?", tooltip = "This will enable the Unholy Might buff on your minions. (Grants 30% of Physical Damage as Extra Chaos Damage)", apply = function(val, modList, enemyModList)
+	{ var = "minionbuffUnholyMight", type = "check", label = "Do your minions have Unholy Might?", ifFlag = "haveMinion", tooltip = "This will enable the Unholy Might buff on your minions. (Grants 30% of Physical Damage as Extra Chaos Damage)", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:UnholyMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },
 	{ var = "buffPhasing", type = "check", label = "Do you have Phasing?", ifCond = "Phasing", apply = function(val, modList, enemyModList)
