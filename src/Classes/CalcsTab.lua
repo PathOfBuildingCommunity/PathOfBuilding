@@ -83,7 +83,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				ExportAuraString = ""
 
 				ExportAuraString = ExportAuraString .. "Aura Bot\n"
-				ExportAuraString = ExportAuraString ..  "Cobalt Jewel\n"
+				ExportAuraString = ExportAuraString ..  "Prismatic Jewel\n"
 				
 				for i = 1, _G.GlobalArrayLen do
 					t = mysplit(_G.GlobalArray[i],":")
@@ -121,7 +121,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 									if(string.find(t[2],"Gain As"))then
 										local NewString = string.gsub(t[1], " base", "")
 										local NewString2 = string.gsub(NewString,"+", "")
-										ExportAuraString = ExportAuraString .. (NewString2 .. " of Physical Damage as extra Cold Damage\n")
+										ExportAuraString = ExportAuraString .. (NewString2 .. "% of Physical Damage as extra Cold Damage\n")
 									else
 										ExportAuraString = ExportAuraString .. (t[1] .. " Cold Damage\n")
 									end
@@ -187,7 +187,11 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 					end
 
 					if(string.find(t[2],"Crit Chance"))then
-						ExportAuraString = ExportAuraString .. (t[1] .. " Critical Strike Chance\n")
+						if(string.find(t[3],"Spell"))then
+							ExportAuraString = ExportAuraString .. (t[1] .. " Spell Critical Strike Chance\n")--zealotry
+						else
+							ExportAuraString = ExportAuraString .. (t[1] .. " Critical Strike Chance\n")--precision
+						end
 					end
 
 					if(string.find(t[2],"Accuracy"))then
