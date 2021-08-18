@@ -129,10 +129,19 @@ function calcs.defence(env, actor)
 				if wardBase > 0 then
 					output["WardOn"..slot] = wardBase
 					if modDB:Flag(nil, "EnergyShieldToWard") then
-						ward = ward + wardBase * calcLib.mod(modDB, slotCfg, "Ward", "Defences", "EnergyShield")
+						local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
+						local more = modDB:More(slotCfg, "Ward", "Defences")
+						ward = ward + wardBase * (1 + inc / 100) * more
 						gearWard = gearWard + wardBase
 						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, wardBase, nil, "Ward", "Defences", "EnergyShield")
+							t_insert(breakdown["Ward"].slots, {
+								base = wardBase,
+								inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
+								more = (more ~= 1) and s_format(" x %.2f", more),
+								total = s_format("%.2f", wardBase * (1 + inc / 100) * more),
+								source = slot,
+								item = actor.itemList[slot],
+							})
 						end
 					else
 						ward = ward + wardBase * calcLib.mod(modDB, slotCfg, "Ward", "Defences")
@@ -146,10 +155,17 @@ function calcs.defence(env, actor)
 				if energyShieldBase > 0 then
 					output["EnergyShieldOn"..slot] = energyShieldBase
 					if modDB:Flag(nil, "EnergyShieldToWard") then
-						energyShield = energyShield + energyShieldBase
+						local more = modDB:More(slotCfg, "EnergyShield", "Defences")
+						energyShield = energyShield + energyShieldBase * more
 						gearEnergyShield = gearEnergyShield + energyShieldBase
 						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
+							t_insert(breakdown["EnergyShield"].slots, {
+								base = energyShieldBase,
+								more = (more ~= 1) and s_format(" x %.2f", more),
+								total = s_format("%.2f", energyShieldBase * more),
+								source = slot,
+								item = actor.itemList[slot],
+							})
 						end
 					else
 						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
@@ -194,9 +210,18 @@ function calcs.defence(env, actor)
 
 		if wardBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
-				ward = ward + wardBase * calcLib.mod(modDB, nil, "Ward", "EnergyShield", "Defences")
+				local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
+				local more = modDB:More(slotCfg, "Ward", "Defences")
+				ward = ward + wardBase * (1 + inc / 100) * more
 				if breakdown then
-					breakdown.slot("Global", nil, nil, wardBase, nil, "Ward", "EnergyShield", "Defences")
+					t_insert(breakdown["Ward"].slots, {
+						base = wardBase,
+						inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
+						more = (more ~= 1) and s_format(" x %.2f", more),
+						total = s_format("%.2f", wardBase * (1 + inc / 100) * more),
+						source = "Global",
+						item = actor.itemList["Global"],
+					})
 				end
 			else
 				ward = ward + wardBase * calcLib.mod(modDB, nil, "Ward", "Defences")
@@ -208,12 +233,19 @@ function calcs.defence(env, actor)
 		energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
 		if energyShieldBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
-				energyShield = energyShield + energyShieldBase
+				energyShield = energyShield + energyShieldBase * modDB:More(slotCfg, "EnergyShield", "Defences")
 			else
 				energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
 			end
 			if breakdown then
-				breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
+				local more = modDB:More(slotCfg, "EnergyShield", "Defences")
+				t_insert(breakdown["EnergyShield"].slots, {
+					base = energyShieldBase,
+					more = (more ~= 1) and s_format(" x %.2f", more),
+					total = s_format("%.2f", energyShieldBase * more),
+					source = "Global",
+					item = actor.itemList["Global"],
+				})
 			end
 		end
 		armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
