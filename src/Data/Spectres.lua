@@ -127,7 +127,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 	weaponType1 = "Wand",
 	skillList = {
 		"MeleeUseContactPoint",
-		"SkeletonTemporalChains",
+		"AxisTemporalChains",
 		"MonsterDetonateDeadExperimenter",
 		"ExperimenterEnrageDemon",
 	},
@@ -152,7 +152,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 	weaponType1 = "Wand",
 	skillList = {
 		"Melee",
-		"MonsterEnfeeble",
+		"AxisEnfeeble",
 		"MonsterProjectileWeakness",
 		"MonsterDetonateDeadExperimenter",
 	},
@@ -178,7 +178,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 	weaponType1 = "Wand",
 	skillList = {
 		"MeleeUseContactPoint",
-		"MonsterEnfeeble",
+		"AxisEnfeeble",
 		"NecromancerRaiseZombie",
 		"ExperimenterEnrageDemon",
 	},

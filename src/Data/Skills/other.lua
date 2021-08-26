@@ -32,6 +32,7 @@ skills["RepeatingShockwave"] = {
 		"spell_uncastable_if_triggerable",
 		"is_area_damage",
 		"skill_can_add_multiple_charges_per_action",
+		"no_cost",
 	},
 	levels = {
 		[7] = { 50, 75, 10, critChance = 5, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
@@ -527,6 +528,7 @@ skills["ColdAegis"] = {
 		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
+		"no_cost",
 	},
 	levels = {
 		[20] = { 1000, 1, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
@@ -605,6 +607,7 @@ skills["CorpseWalk"] = {
 	stats = {
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
+		"no_cost",
 	},
 	levels = {
 		[20] = { levelRequirement = 60, statInterpolation = { }, cost = { }, },
@@ -682,6 +685,7 @@ skills["ChaosDegenAuraUnique"] = {
 		"base_chaos_damage_to_deal_per_minute",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
+		"no_cost",
 	},
 	levels = {
 		[1] = { 45500, levelRequirement = 62, statInterpolation = { 1, }, cost = { }, },
@@ -715,6 +719,7 @@ skills["DeathWalk"] = {
 		"is_area_damage",
 		"skill_can_add_multiple_charges_per_action",
 		"damage_cannot_be_reflected",
+		"no_cost",
 	},
 	levels = {
 		[20] = { 5, levelRequirement = 60, statInterpolation = { 1, }, cost = { }, },
@@ -985,6 +990,7 @@ skills["ElementalAegis"] = {
 		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
+		"no_cost",
 	},
 	levels = {
 		[1] = { 50, 2, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
@@ -1203,6 +1209,7 @@ skills["FireAegis"] = {
 		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
+		"no_cost",
 	},
 	levels = {
 		[20] = { 1000, 0, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
@@ -1651,6 +1658,7 @@ skills["LightningAegis"] = {
 		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
+		"no_cost",
 	},
 	levels = {
 		[20] = { 1000, 3, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
@@ -1808,6 +1816,7 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	stats = {
 		"unique_mjolner_lightning_spells_triggered",
 		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
+		"no_cost",
 	},
 	levels = {
 		[1] = { cooldown = 0.15, levelRequirement = 0, manaMultiplier = -100, statInterpolation = { }, cost = { }, },
@@ -1866,6 +1875,7 @@ skills["PhysicalAegis"] = {
 		"aegis_recharge_delay_ms",
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
+		"no_cost",
 	},
 	levels = {
 		[20] = { 1000, 4, 10000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
@@ -2032,6 +2042,7 @@ skills["UniqueMirageWarriors"] = {
 		"spell_uncastable_if_triggerable",
 		"display_mirage_warriors_no_spirit_strikes",
 		"force_lite_skill_effects",
+		"no_cost",
 	},
 	levels = {
 		[20] = { 10000, 2, -50, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
@@ -2231,6 +2242,7 @@ skills["SummonEssenceSpirits"] = {
 		"take_no_actions_while_parent_dead",
 		"minion_dies_when_parent_dies",
 		"minions_cannot_taunt_enemies",
+		"no_cost",
 	},
 	levels = {
 		[1] = { -15, 3, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },

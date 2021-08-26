@@ -6369,6 +6369,7 @@ skills["MagmaOrb"] = {
 		"is_area_damage",
 		"base_is_projectile",
 		"display_projectiles_chain_when_impacting_ground",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 0.89999997615814, 1.2000000476837, 2, 1, 0, damageEffectiveness = 2.3, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 6, }, },
