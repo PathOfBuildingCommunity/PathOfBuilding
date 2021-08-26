@@ -123,6 +123,7 @@ local skills, mod, flag, skill = ...
 
 #skill BladeTrap
 #flags attack area trap
+#baseMod skill("radius", 16)
 #mods
 
 #skill ChargedAttack
@@ -1103,6 +1104,10 @@ local skills, mod, flag, skill = ...
 			mod("StormRainBeamFrequency", "INC", nil),
 		},
 	},
+#baseMod skill("radius", 10, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radiusLabel", "Arrow Explosion:", { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radiusSecondary", 12, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusSecondaryLabel", "Beam Width:", { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill Puncture

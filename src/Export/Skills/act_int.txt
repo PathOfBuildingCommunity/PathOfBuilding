@@ -333,6 +333,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
+#baseMod skill("radius", 10)
 #mods
 
 #skill DarkPact
@@ -801,6 +802,7 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 	},
+#baseMod skill("radius", 22)
 #mods
 
 #skill FrostWall
@@ -921,6 +923,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#baseMod skill("radius", 29)
 #baseMod skill("showAverage", true)
 #baseMod flag("ChaosDamageUsesLowestResistance")
 #baseMod flag("PhysicalCanIgnite")
@@ -1181,6 +1184,10 @@ local skills, mod, flag, skill = ...
 			div = 100,
 		},
 	},
+#baseMod skill("radius", 18)
+#baseMod skill("radiusLabel", "Circle area:")
+#baseMod skill("radiusSecondary", 23)
+#baseMod skill("radiusSecondaryLabel", "Rectangle area:")
 #baseMod mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
 #baseMod mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
 #mods
@@ -1478,6 +1485,7 @@ local skills, mod, flag, skill = ...
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 	},
+#baseMod skill("radius", 30)
 #baseMod skill("buffAllies", true)
 #mods
 
@@ -1817,6 +1825,7 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
+#baseMod skill("radius", 38)
 #mods
 
 #skill Skitterbots
@@ -1851,6 +1860,7 @@ local skills, mod, flag, skill = ...
 		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
 		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoltaxicDurationIncDamage") * duration, "Skill:VoltaxicBurst")
 	end,
+#baseMod skill("radius", 22)
 #mods
 
 #skill FrostBoltNova
@@ -1935,6 +1945,7 @@ local skills, mod, flag, skill = ...
 			mod("BrandsAttachedLimit", "BASE", nil),
 		},
 	},
+#baseMod skill("radius", 20)
 #mods
 
 #skill Wither

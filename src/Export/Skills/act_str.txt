@@ -19,6 +19,7 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
 		},
 	},
+#baseMod skill("radius", 25)
 #mods
 
 #skill AbyssalCry
@@ -267,7 +268,17 @@ local skills, mod, flag, skill = ...
 
 #skill Boneshatter
 #flags attack melee strike area duration
-statMap = {
+	parts = {
+		{
+			name = "Attack",
+			area = false,
+		},
+		{
+			name = "Pulse",
+			area = true,
+		},
+	},
+	statMap = {
 		["trauma_strike_damage_+%_final_per_trauma"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
 		},
@@ -275,6 +286,7 @@ statMap = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
 		},
 	},
+#baseMod skill("radius", 14, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill ChainStrike
@@ -947,6 +959,7 @@ statMap = {
 			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
+#baseMod skill("radius", 18)
 #mods
 
 #skill RallyingCry
@@ -1123,6 +1136,7 @@ end,
 			mod("LifeCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
 	},
+#baseMod skill("radius", 25)
 #baseMod skill("debuff", true)
 #mods
 
@@ -1136,6 +1150,7 @@ end,
 			name = "2 Overlapping Waves",
 		},
 	},
+#baseMod skill("radius", 29)
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
