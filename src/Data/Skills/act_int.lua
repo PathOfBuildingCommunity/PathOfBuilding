@@ -2010,6 +2010,7 @@ skills["Disintegrate"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 10),
 	},
 	qualityStats = {
 		Default = {
@@ -4294,6 +4295,7 @@ skills["FrostGlobe"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -4945,6 +4947,7 @@ skills["DoomBlast"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 29),
 		skill("showAverage", true),
 		flag("ChaosDamageUsesLowestResistance"),
 		flag("PhysicalCanIgnite"),
@@ -6523,6 +6526,10 @@ skills["Manabond"] = {
 		arcane = true,
 	},
 	baseMods = {
+		skill("radius", 18),
+		skill("radiusLabel", "Circle area:"),
+		skill("radiusSecondary", 23),
+		skill("radiusSecondaryLabel", "Rectangle area:"),
 		mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
 		mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
 	},
@@ -8022,6 +8029,7 @@ skills["CircleOfPower"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 30),
 		skill("buffAllies", true),
 	},
 	qualityStats = {
@@ -10251,6 +10259,7 @@ skills["BlackHole"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 38),
 	},
 	qualityStats = {
 		Default = {
@@ -10516,6 +10525,7 @@ skills["VoltaxicBurst"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -10929,6 +10939,7 @@ skills["ImmolationSigil"] = {
 		brand = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		Default = {
