@@ -260,6 +260,7 @@ data.keystones = {
 	"Point Blank",
 	"Resolute Technique",
 	"Runebinder",
+	"Secrets of Suffering",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
