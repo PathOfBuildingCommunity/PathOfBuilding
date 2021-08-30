@@ -66,7 +66,7 @@ Variant: Attack Speed/Trigger Blood Rage on Kill
 Variant: Cast Speed/Trigger Arcane Surge on Kill
 Variant: Minion Attack and Cast Speed
 Variant: Double Damage
-Variant: Double Damage while Focussed
+Variant: Double Damage while Focused
 Variant: Socketed Spell Trigger
 Requires Level 57, 190 Dex
 Implicits: 1
@@ -92,7 +92,7 @@ Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 {variant:10}{crafted}Minions have (16-28)% increased Attack Speed
 {variant:10}{crafted}Minions have (16-28)% increased Cast Speed
 {variant:11}{crafted}(4-12)% chance to deal Double Damage
-{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focussed
+{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focused
 {variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
 ]],[[
 Darkscorn
