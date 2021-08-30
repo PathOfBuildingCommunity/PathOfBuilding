@@ -582,6 +582,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
 		end
 	end
+	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
 end
 
 -- Calculate life/mana reservation
