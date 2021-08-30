@@ -141,6 +141,8 @@ data.jewelRadius = {
 }
 
 data.enchantmentSource = {
+	{ name = "ENKINDLING", label = "Enkindling Orb" },
+	{ name = "INSTILLING", label = "Instilling Orb" },
 	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
 	{ name = "DEDICATION", label = "Dedication to the Goddess" },
@@ -322,6 +324,7 @@ data.enchantments = {
 	["Belt"] = LoadModule("Data/EnchantmentBelt"),
 	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
 	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
+	["Flask"] = LoadModule("Data/EnchantmentFlask"),
 }
 data.essences = LoadModule("Data/Essence")
 data.pantheons = LoadModule("Data/Pantheons")

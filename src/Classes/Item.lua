@@ -373,6 +373,11 @@ function ItemClass:ParseRaw(raw)
 							or data.itemMods.Item
 					if self.base.weapon then
 						self.enchantments = data.enchantments["Weapon"]
+					elseif self.base.flask then
+						self.enchantments = data.enchantments["Flask"]
+						if self.base.utility_flask then
+							self.enchantments = data.enchantments["Flask"]
+						end
 					else
 						self.enchantments = data.enchantments[self.base.type]
 					end
