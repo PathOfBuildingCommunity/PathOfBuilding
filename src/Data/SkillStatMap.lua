@@ -676,7 +676,7 @@ return {
 	mod("AddedDamage", "MORE", nil),
 },
 ["shield_charge_damage_+%_maximum"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
+	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
 },
 ["damage_+%_on_full_energy_shield"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield"})
