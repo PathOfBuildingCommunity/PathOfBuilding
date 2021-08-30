@@ -100,7 +100,7 @@ local skills, mod, flag, skill = ...
 
 #skill DarkRitual
 #flags spell duration area
-	preDamageFunc = function(activeSkill, output)
+	preSkillTypeFunc = function(activeSkill, output)
 		local curseCount = 0
 		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
 			if skill.socketGroup == activeSkill.socketGroup and skill.skillModList:GetCondition("AppliedByBane") then
