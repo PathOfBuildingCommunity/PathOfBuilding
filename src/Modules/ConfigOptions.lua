@@ -1258,4 +1258,23 @@ return {
 		enemyModList:NewMod("Condition:HitByLightningDamage", "FLAG", true, "Config")
 	end },
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
+
+	-- Section: Custom mods
+	{ section = "Custom Modifiers", col = 1 },
+	{ var = "customMods", type = "text", label = "", apply = function(val, modList, enemyModList)
+		for line in val:gmatch("([^\n]*)\n?") do
+			local mods, extra = modLib.parseMod(line)
+
+			if mods then
+				for i = 1, #mods do
+					local mod = mods[i]
+
+					if mod then
+						mod.source = "Custom"
+						modList:AddMod(mod)
+					end
+				end
+			end
+		end
+	end },
 }
