@@ -2148,6 +2148,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 				return modA.level > modB.level
 			end)
+		elseif sourceId == "VEILED" then
+			for i, mod in pairs(self.build.data.veiledMods) do
+				if self.displayItem:GetModSpawnWeight(mod) > 0 then
+					t_insert(modList, {
+						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2155,6 +2174,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
+	end
+	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
 	end
 	if not self.displayItem.crafted then
 		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })

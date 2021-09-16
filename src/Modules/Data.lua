@@ -328,6 +328,7 @@ data.enchantments = {
 	["Flask"] = LoadModule("Data/EnchantmentFlask"),
 }
 data.essences = LoadModule("Data/Essence")
+data.veiledMods = LoadModule("Data/ModVeiled")
 data.pantheons = LoadModule("Data/Pantheons")
 
 -- Cluster jewel data
