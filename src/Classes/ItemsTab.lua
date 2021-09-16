@@ -1448,7 +1448,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	end
 	local affixList = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 then
+		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 and item:CheckIfModIsDelve(mod) == false then
 			t_insert(affixList, modId)
 		end
 	end
@@ -2186,6 +2186,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		elseif sourceId == "VEILED" then
 			for i, mod in pairs(self.build.data.veiledMods) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 then
+		elseif sourceId == "DELVE" then
+			for i, mod in pairs(self.displayItem.affixes) do
+				if self.displayItem:CheckIfModIsDelve(mod) and self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
 						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
 						mod = mod,
@@ -2210,8 +2213,13 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
 	end
+<<<<<<< HEAD
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
+=======
+	if self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
+>>>>>>> In item crafting, moved delve affixes from default prefix/suffix dropdowns to a new 'Delve' source inside the 'Add modifier...' menu.
 	end
 	if not self.displayItem.crafted then
 		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })

@@ -623,6 +623,15 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 	return weight
 end
 
+function ItemClass:CheckIfModIsDelve(mod)
+	if mod.affix == "Subterranean" or mod.affix == "of the Underground" then
+		return true
+	else
+		return false
+	end
+end
+
+
 function ItemClass:BuildRaw()
 	local rawLines = { }
 	t_insert(rawLines, "Rarity: "..self.rarity)
