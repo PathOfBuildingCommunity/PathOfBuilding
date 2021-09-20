@@ -916,6 +916,57 @@ function calcs.offence(env, actor, activeSkill)
 		output.WarcryCastTime = calcWarcryCastTime(skillModList, skillCfg, actor)
 	end
 
+	-- General's Cry
+	if skillData.triggeredByGeneralsCry then
+		local exertInc = env.modDB:Sum("INC", skillCfg, "ExertIncrease")
+		local exertMore = env.modDB:Sum("MORE", skillCfg, "ExertIncrease")
+		local ddChance = env.modDB:Sum("BASE", skillCfg, "ExertDoubleDamageChance")
+		local mirageActiveSkill = nil
+
+		-- Find the active General's Cry gem to get active properties
+		for _, skill in ipairs(actor.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "General's Cry" and actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
+				mirageActiveSkill = skill
+				break
+			end
+		end
+
+		if mirageActiveSkill then
+			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
+			local maxMirageWarriors = 0
+
+			if mirageActiveSkill then
+				for i, value in ipairs(mirageActiveSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
+					local mod = value.mod
+					maxMirageWarriors = maxMirageWarriors + mod.value
+				end
+			end
+			maxMirageWarriors = m_max(maxMirageWarriors, 1)
+
+			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. activeSkill.activeEffect.grantedEffect.name
+
+			-- Non-channelled skills only attack once, disregard attack rate
+			if not activeSkill.skillTypes[SkillType.Channelled] then
+				skillData.timeOverride = 1
+			end
+
+			-- Supported Attacks Count as Exerted
+			skillModList:NewMod("Damage", "INC", exertInc, "Counts as Exerted", ModFlag.Attack)
+			skillModList:NewMod("Damage", "MORE", exertMore, "Counts as Exerted", ModFlag.Attack)
+			skillModList:NewMod("DoubleDamageChance", "BASE", ddChance, "Counts as Exerted")
+
+			-- Scale dps with amount of mirages
+			skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors)
+
+			-- Scale dps with GC's cooldown
+			if skillData.dpsMultiplier then
+				skillData.dpsMultiplier = skillData.dpsMultiplier * (1 / cooldown)
+			else
+				skillData.dpsMultiplier = 1 / cooldown
+			end
+		end
+	end
+
 	-- Skill duration
 	local debuffDurationMult = 1
 	if env.mode_effective then
