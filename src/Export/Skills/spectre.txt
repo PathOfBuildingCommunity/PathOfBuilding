@@ -839,3 +839,11 @@ local skills, mod, flag, skill = ...
 #skill MeleeAtAnimationSpeed Default Attack
 #flags attack melee projectile
 #mods
+
+#skill  MeleeKaruiArcher Default Attack
+#flags attack melee projectile
+#mods
+
+#skill  LegionKaruiArcherSnipe Snipe
+#flags attack hit projectile
+#mods

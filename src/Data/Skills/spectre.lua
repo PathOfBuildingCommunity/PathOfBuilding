@@ -5427,3 +5427,66 @@ skills["MeleeAtAnimationSpeed"] = {
 		[1] = { levelRequirement = 1, statInterpolation = { }, cost = { }, },
 	},
 }
+skills["MeleeKaruiArcher"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"arrow_projectile_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+	},
+	levels = {
+		[1] = { 18, 75, 0, levelRequirement = 1, statInterpolation = { 1, 1, 2, }, cost = { }, },
+		[2] = { 18, 75, 0, levelRequirement = 19, statInterpolation = { 1, 1, 2, }, cost = { }, },
+		[3] = { 18, 75, 1, levelRequirement = 20, statInterpolation = { 1, 1, 2, }, cost = { }, },
+		[4] = { 18, 75, 200, levelRequirement = 84, statInterpolation = { 1, 1, 2, }, cost = { }, },
+	},
+}
+skills["LegionKaruiArcherSnipe"] = {
+	name = "Snipe",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.5,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_attack_speed_+%_final",
+		"monster_projectile_variation",
+		"active_skill_damage_+%_final",
+		"base_is_projectile",
+		"always_pierce",
+		"skill_can_fire_arrows",
+	},
+	levels = {
+		[1] = { 75, -50, 69, 0, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 75, -50, 69, 0, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 20, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[3] = { 75, -50, 69, 1, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 21, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[4] = { 75, -50, 69, 200, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+	},
+}
