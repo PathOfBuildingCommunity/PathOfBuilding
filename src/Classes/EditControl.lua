@@ -106,6 +106,13 @@ function EditClass:SelectAll()
 	self:ScrollCaretIntoView()
 end
 
+function EditClass:GetSelText()
+	local left = m_min(self.caret, self.sel)
+	local right = m_max(self.caret, self.sel)
+	local newBuf = self.buf:sub(left, right - 1)
+	return newBuf
+end
+
 function EditClass:ReplaceSel(text)
 	text = text:gsub("\r","")
 	if text:match(self.filterPattern) then
