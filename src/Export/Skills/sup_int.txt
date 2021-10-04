@@ -321,6 +321,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
 	},
+#baseMod skill("radius", 20)
 #baseMod skill("showAverage", true)
 #mods
 

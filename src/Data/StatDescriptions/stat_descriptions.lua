@@ -132737,7 +132737,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance in Heists for Orbs of Scouring  to drop as Orbs of Annulment instead"
+					text="{0}% chance in Heists for Orbs of Scouring to drop as Orbs of Annulment instead"
 				},
 				[2]={
 					limit={
@@ -161302,20 +161302,11 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Area contains an additional Blight Encounter"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
+							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Area contains {0} additional Blight Encounters"
+					text="Area contains a Blight Encounter"
 				}
 			}
 		},

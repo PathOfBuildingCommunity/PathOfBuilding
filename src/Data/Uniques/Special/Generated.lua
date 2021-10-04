@@ -235,6 +235,7 @@ local excludedKeystones = {
 	"Hollow Palm Technique", -- exclusive to specific unique
 	"Immortal Ambition", -- exclusive to specific unique
 	"Necromantic Aegis", -- to prevent infinite loop
+	"Secrets of Suffering", -- exclusive to specific items
 }
 local keystones = {}
 for _, name in ipairs(data.keystones) do

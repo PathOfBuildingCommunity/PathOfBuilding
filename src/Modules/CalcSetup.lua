@@ -884,6 +884,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 									end
 								end
 							end
+							-- Validate support gem level in case there is no active skill (and no full calculation)
+							calcLib.validateGemLevel(supportEffect)
 							local add = true
 							for index, otherSupport in ipairs(supportList) do
 								-- Check if there's another support with the same name already present
