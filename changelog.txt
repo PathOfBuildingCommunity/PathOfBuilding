@@ -1,3 +1,147 @@
+VERSION[2.8.0][2021/08/09]
+
+* Add Leadership's Price unique amulet (Torchery)
+* Group similar stats in sidebar for enhanced clarity (Nightblade)
+
+* Fix Unleash crash with minion skills (LocalIdentity)
+* Fix images for socketed Cluster Jewels (LocalIdentity)
+* Fix Slipstream tooltip (Wires77)
+
+VERSION[2.7.0][2021/08/08]
+
+* Add support for Unleash (LocalIdentity) (scristall)
+* Add Harvest and Heist enchantments to weapons and body armours (ifnjeff)
+* Add new base types to rare template, update existing rare templates (a3person)
+* Add support for Banishing Blade and Pneumatic Dagger implicits (LocalIdentity)
+* Add sorting by Ward attribute (TiagoGoddard)
+* Add support for Elusive effect (Lexy)
+* Add full support for Eye To Eye cluster jewel notable (Nostrademous)
+* Add Cold Damage over Time mod from cluster jewels (Lexy)
+* Add radius to Explosive Concoction (Wires77)
+* Add Usurper's Penance (pundm)
+* Update Ailment Threshold values (LocalIdentity)
+
+* Fix crash when loading certain builds (PJacek)
+* Fix error when main skill is not a minion skill but "Minion" is in FullDPS (Nostrademous)
+* Fix minions getting Inspiration Charges (Lexy)
+* Fix Doryani's Prototype not applying to minions (Wires77)
+* Fix parsing for new wording on Combat Focus jewels (LocalIdentity)
+* Fix Manabond not being affected by Reduced Mana Cost nodes (Wires77)
+* Fix Lifetap Support and Blood Magic not altering the cost of skills (Wires77) (LocalIdentity)
+* Fix Bomb Specialist AoE mod (Nostrademous)
+* Fix bug where Timeless Jewel keystones could be edited (Wires77)
+
+VERSION[2.6.0][2021/07/27]
+
+* Add new Expedition uniques (Wires77)
+* Add Ward as new defensive stat (Wires77)
+* Update Dendrobate with new gem name (pundm)
+
+* Fix Voltaxic Burst enchantment (LocalIdentity)
+* Fix last line of Notes tab being cut off (Wires77)
+
+VERSION[2.5.0][2021/07/26]
+
+* Add full support for new 3.15 Skill Gems (LocalIdentity) (ifnjeff) (tcid)
+    * Absolution
+    * Behead Support
+    * Boneshatter
+    * Defiance Banner
+    * Explosive Concoction
+    * Eye of Winter
+    * Forbidden Rite
+    * Manabond
+    * Rage Vortex
+    * Shield Crush
+    * Spectral Helix
+    * Storm Rain
+    * Summon Reaper
+    * Voltaxic Burst
+* Add partial support for new 3.15 Skill Gems
+    * Ambush
+    * Battlemage's Cry
+    * Blade Trap
+    * Earthbreaker Support
+    * Focused Ballista Support
+* Update enchantments with 3.15 changes (Nostrademous) (LocalIdentity)
+* Update item mods to 3.15 stats (LocalIdentity)
+* Update minions with 3.15 changes (LocalIdentity)
+* Update Pantheons with 3.15 changes (Nostrademous)
+* Add new item bases (Wires77)
+* Add support for Timeless jewel edits to persist when updating to a new tree version (Wires77)
+* Add documentation for color codes to the Notes tab (Wires77)
+* Update poison damage tooltip from 20% to 30% (pundm)
+* Fix Mana Reservation Rounding (LocalIdentity)
+* Fix skills turned into mines not having reservation (PJacek)
+* Fix for downloading tree data if missing (Wires77)
+* Fix triggered skills not showing the right mana cost (LocalIdentity)
+* Fix Hexproof to be unaffected by curses, not immune (Wires77)
+* Fix level progress calculations (ifnjeff)
+* Fix Anomalous Pride quality didn't increase "chance to bleed" (Typepluto)
+* Fix Bladestorm to always bleeds in Blood Stance (Wires77)
+* Fix Hollow Palm Technique parsing (Helyos96)
+
+VERSION[2.4.0][2021/07/22]
+
+* Add 3.15 passive skill tree (ppoelzl)
+* Add level 20/21 gems from 3.15 patch notes (LocalIdentity)
+    * BEWARE: numbers may not be 100% accurate
+* Add 3.15 uniques (Wires77)
+* Add 3.15 flask changes (Helyos96)
+* Update Evasion, Poison, and Consecrated Ground calculations to 3.15 values (ifnjeff)
+* Update Alchemist's Genius to 3.15 value (Wires77)
+* Update Gem tooltip generation (PJacek)
+* Drastically accelerate searching for application updates (from 50s to 2s) (ppoelzl)
+* Add 20 Quality gem DPS tooltip comparison (7e11)
+* Add weapon crit to mod breakdown (PJacek)
+* Add space and newline before custom mods on Timeless Jewel nodes (Nightblade)
+* Add Trial Galecaller Spectre (Kayella)
+* Add support for Fishing Rods (aletrop)
+* Add support for many Alternate Quality gems (PJacek)
+* Add support for "Perfect Crime" and "Bomb Specialist" ascendancy nodes (Nostrademous)
+* Add support for Chip Away brand cluster notable (LocalIdentity)
+* Add functionality for Blood Artist notable (pundm) (Wires77)
+* Add skill parts for Smite (Wires77)
+* Add support for Gore Shockwave skill (LocalIdentity)
+* Add support for Divergent Close Combat (Wires77)
+* Add support for Unnerve belt enchant (Wires77)
+* Add support for Rathpith Globe and legacy Femur of the Saints (Wires77)
+* Add support for Replica Siegebreaker burning ground (ifnjeff)
+* Add support for Non-vaal Skill Damage during Soul Gain Prevention (Wires77)
+* Add support for reworked Arborix mods (LocalIdentity)
+* Add support for Warcries have infinite power (pundm)
+* Add Trap and Mine speed essence mod (pundm)
+* Add parsing for Increased Chaos Damage Over Time Mod found on weapons (Puddlestomper)
+* Add support for Fiery Impact (celuck)
+* Add unique variant of Commandment of Inferno (PJacek)
+* Add unique helmet The Fledgling (ppoelzl)
+* Add missing Fire Burst radius (quashtaki)
+* Add missing Pride aura radius (pundm)
+
+* Fix power report crash when loading builds (Wires77)
+* Fix error when the power report is not initialised yet (Nostrademous)
+* Fix Minion skill tooltips not working correctly (Nostrademous)
+* Fix FullDPS comparison for Alternate Gem Qualities (Nostrademous)
+* Fix FullDPS comparison of enabling/disabling flasks (Nostrademous)
+* Fix Blood Offering appearing in gem list (PJacek)
+* Fix multiple bugs with General's Cry Mirages (Nostrademous)
+* Fix Disciple's cooldown to apply to all Sentinels (Wires77)
+* Fix Triggered skill parsings (LocalIdentity)
+* Fix support for Petrified Blood (Wires77)
+* Fix Blood Stance not granting More Bleed damage (LocalIdentity)
+* Fix maces/sceptres and thrusting/non-thrusting swords counting as different weapon types (Wires77)
+* Fix interaction between Agnostic and Pious Path (LocalIdentity)
+* Fix The Agnostic life recovery calculation (roastpiece)
+* Fix Anomalous Chain Hook (PJacek)
+* Fix Divergent Stormbind Quality having More AoE instead of Increased (Wires77)
+* Fix Alternative Quality for Precision (czarandy)
+* Fix Mana Reservation mods (pundm)
+* Fix "increased Impale Effect" of Dread Banner only applying to attacks (Typepluto)
+* Fix parsing for Sacrificial Garb implicit (Wires77)
+* Fix Wildwrap Attack Speed mod (LocalIdentity)
+* Fix wording on Eyes of the Greatwolf (pundm)
+* Fix wording on Ngamahu's Sign (pundm)
+
 VERSION[2.3.0][2021/04/23]
 
 * Add new 3.14 uniques (Nostrademous)

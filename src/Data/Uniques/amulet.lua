@@ -613,6 +613,18 @@ Implicits: 1
 {tags:speed}30% increased Projectile Speed
 {tags:speed}10% increased Movement Speed
 ]],[[
+Leadership's Price
+Onyx Amulet
+Requires Level 68
+Implicits: 1
+{tags:jewellery_attribute}+(10–16) to all Attributes
+{tags:jewellery_resistance}+(-3–3)% to maximum Fire Resistance
+{tags:jewellery_resistance}+(-3–3)% to maximum Cold Resistance
+{tags:jewellery_resistance}+(-3–3)% to maximum Lightning Resistance
+You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal
+Cannot Ignite, Chill, Freeze or Shock
+Corrupted
+]],[[
 Maligaro's Cruelty
 Turquoise Amulet
 Requires Level 20
@@ -743,7 +755,7 @@ Requires Level 28
 Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}+(24-36)% to Global Critical Strike Multiplier
-+7% Base Unarmed Critical Strike Chance
++7% to Unarmed Melee Attack Critical Strike Chance
 Modifiers to Claw Damage also apply to Unarmed Attack Damage
 Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
 Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance

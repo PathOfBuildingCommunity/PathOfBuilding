@@ -368,7 +368,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
 		modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
 		modDB:NewMod("Devotion", "BASE", 0, "Base")
-		modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
+		modDB:NewMod("Evasion", "BASE", 15, "Base")
 		modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
 		modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
 		modDB:NewMod("DotMultiplier", "BASE", 50, "Base", { type = "Condition", var = "CriticalStrike" })
@@ -884,6 +884,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 									end
 								end
 							end
+							-- Validate support gem level in case there is no active skill (and no full calculation)
+							calcLib.validateGemLevel(supportEffect)
 							local add = true
 							for index, otherSupport in ipairs(supportList) do
 								-- Check if there's another support with the same name already present

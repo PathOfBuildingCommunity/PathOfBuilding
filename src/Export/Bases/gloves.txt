@@ -30,5 +30,8 @@ local itemBases = ...
 #subType Evasion/Energy Shield
 #baseMatch Metadata/Items/Armours/Gloves/GlovesDexInt%d+
 
+#subType Ward
+#baseMatch Metadata/Items/Armours/Gloves/GlovesExpedition%d+
+
 #subType
 #base Metadata/Items/Armours/Gloves/GlovesDemigods1

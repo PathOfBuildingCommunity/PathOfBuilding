@@ -44,7 +44,7 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	local icdr = 1
 	if focus then
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
-		env.player.mainSkill.skillData.focussed = true
+		env.player.mainSkill.skillData.focused = true
 	else
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 	end
@@ -470,13 +470,13 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 	end
 	if env.mode_effective then
-		if modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "FireExposureChance") > 0 or modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
 			condList["CanApplyFireExposure"] = true
 		end
-		if modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ColdExposureChance") > 0 or modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
 			condList["CanApplyColdExposure"] = true
 		end
-		if modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "LightningExposureChance") > 0 or modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
 			condList["CanApplyLightningExposure"] = true
 		end
 	end
@@ -582,6 +582,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
 		end
 	end
+	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
 end
 
 -- Calculate life/mana reservation
@@ -701,7 +702,9 @@ local function doActorMisc(env, actor)
 	if modDB:Flag(nil, "UseBlitzCharges") then
 		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
 	end
-	output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
+	if not env.player.mainSkill.minion then 
+		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
+	end 
 	if modDB:Flag(nil, "UseGhostShrouds") then
 		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
 	end
@@ -805,6 +808,10 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "Elusive") then
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
+			-- Override elusive effect if set.			
+			if modDB:Override(nil, "ElusiveEffect") then 
+				effect = m_min(modDB:Override(nil, "ElusiveEffect") / 100, effect)
+			end
 			condList["Elusive"] = true
 			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
@@ -863,6 +870,7 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
 			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
+			modDB.multipliers["MaxRageVortexSacrifice"] = output.MaximumRage / 4
 			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
 		end
 		if modDB:Sum("BASE", nil, "CoveredInAshEffect") > 0 then
@@ -1002,7 +1010,7 @@ function calcs.perform(env, avoidCache)
 	end
 	if modDB:Flag(nil, "AlchemistsGenius") then
 		local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
-		modDB:NewMod("FlaskEffect", "INC", m_floor(20 * effectMod), "Alchemist's Genius")
+		modDB:NewMod("FlaskEffect", "INC", m_floor(10 * effectMod), "Alchemist's Genius")
 		modDB:NewMod("FlaskChargesGained", "INC", m_floor(20 * effectMod), "Alchemist's Genius")
 	end
 
@@ -1143,6 +1151,20 @@ function calcs.perform(env, avoidCache)
 					env.player.modDB:NewMod("CoveredInAshEffect", "BASE", infernalAshEffect * uptime, { type = "Multiplier", var = "WarcryPower", div = 5 })
 				end
 				modDB:NewMod("InfernalActive", "FLAG", true) -- Prevents effect from applying multiple times
+			elseif activeSkill.activeEffect.grantedEffect.name == "Battlemage's Cry" and not modDB:Flag(nil, "BattlemageActive") then
+				local battlemageSpellToAttack = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageSpellIncreaseApplyToAttackPer5MP")
+				local battlemageSpellToAttackMax = m_floor(150 * buff_inc)
+				local battlemageCritChance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageCritChancePer5MP")
+				local battlemageCritChanceMax = m_floor(30 * buff_inc)
+				env.player.modDB:NewMod("NumBattlemageExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageExertedAttacks") + extraExertions)
+				if warcryPowerBonus ~= 0 then
+					battlemageCritChance = m_floor(battlemageCritChance * warcryPowerBonus * buff_inc) / warcryPowerBonus
+					battlemageSpellToAttack = m_floor(battlemageSpellToAttack * warcryPowerBonus * buff_inc) / warcryPowerBonus
+					modDB:NewMod("SpellDamageAppliesToAttacks", "FLAG", true)
+				end
+				env.player.modDB:NewMod("CritChance", "INC", battlemageCritChance * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageCritChanceMax, limitTotal = true })
+				--env.player.modDB:NewMod("ImprovedSpellDamageAppliesToAttacks", "INC", battlemageSpellToAttack * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageSpellToAttackMax, limitTotal = true })
+				modDB:NewMod("BattlemageActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
 				local intimidatingOverwhelmEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingPDRPer5MP")
 				if warcryPowerBonus ~= 0 then
@@ -1324,8 +1346,14 @@ function calcs.perform(env, avoidCache)
 			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
 			local pool = { ["Mana"] = { }, ["Life"] = { } }
 			pool.Mana.baseFlat = activeSkill.skillData.manaReservationFlat or activeSkill.activeEffect.grantedEffectLevel.manaReservationFlat or 0
+			if skillModList:Flag(skillCfg, "ManaCostGainAsReservation") then
+				pool.Mana.baseFlat = skillModList:Sum("BASE", skillCfg, "ManaCostBase") + (activeSkill.activeEffect.grantedEffectLevel.cost.Mana or 0)
+			end
 			pool.Mana.basePercent = activeSkill.skillData.manaReservationPercent or activeSkill.activeEffect.grantedEffectLevel.manaReservationPercent or 0
 			pool.Life.baseFlat = activeSkill.skillData.lifeReservationFlat or activeSkill.activeEffect.grantedEffectLevel.lifeReservationFlat or 0
+			if skillModList:Flag(skillCfg, "LifeCostGainAsReservation") then
+				pool.Life.baseFlat = skillModList:Sum("BASE", skillCfg, "LifeCostBase") + (activeSkill.activeEffect.grantedEffectLevel.cost.Life or 0)
+			end
 			pool.Life.basePercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
 			if skillModList:Flag(skillCfg, "BloodMagicReserved") then
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
@@ -1350,7 +1378,7 @@ function calcs.perform(env, avoidCache)
 					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
 				else
 					local basePercentVal = values.basePercent * mult
-					values.reservedPercent = m_max(basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+					values.reservedPercent = m_max(basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100, 0)
 				end
 				if activeSkill.activeMineCount then
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
@@ -1519,7 +1547,7 @@ function calcs.perform(env, avoidCache)
 						activeSkill.buffSkill = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
-						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer", buff.name:gsub(" ", "").."Effect")
+						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)

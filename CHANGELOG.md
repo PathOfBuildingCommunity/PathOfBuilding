@@ -1,5 +1,182 @@
 # Changelog
 
+## [2.8.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.8.0) (2021/08/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.7.0...2.8.0)
+
+**Implemented enhancements:**
+- Add Leadership's Price unique amulet [\#3120](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3120) ([Torchery](https://github.com/Torchery))
+- Group similar stats in sidebar for enhanced clarity [\#3121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3121) ([Nightblade](https://github.com/Nightblade))
+
+**Fixed bugs:**
+
+- Fix Unleash crash with minion skills [\#3127](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3127) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix images for socketed Cluster Jewels [\#3116](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3116) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Slipstream tooltip [\#3117](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3117) ([Wires77](https://github.com/Wires77))
+
+
+
+
+## [2.7.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.7.0) (2021/08/08)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.6.0...2.7.0)
+
+**Implemented Enhancements:**
+
+- Add support for Unleash [\#2862](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2862) ([LocalIdentity](https://github.com/LocalIdentity)) ([scristall](https://github.com/scristall))
+- Add Harvest and Heist enchantments to weapons and body armours [\#2914](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2914) ([ifnjeff](https://github.com/ifnjeff))
+- Add new base types to rare template, update existing rare templates [\#3080](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3080) ([a3person](https://github.com/a3person))
+- Add support for Banishing Blade and Pneumatic Dagger implicits [\#3113](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3113) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add sorting by Ward attribute [\#3076](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3076) ([TiagoGoddard](https://github.com/TiagoGoddard))
+- Add support for Elusive effect [\#3061](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3061) ([Lexy](https://github.com/learn2draw))
+- Add full support for Eye To Eye cluster jewel notable [\#3064](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3064) ([Nostrademous](https://github.com/Nostrademous))
+- Add Cold Damage over Time mod from cluster jewels [\#3094](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3094) ([Lexy](https://github.com/learn2draw))
+- Add radius to Explosive Concoction [\#3086](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3086) ([Wires77](https://github.com/Wires77))
+- Add Usurper's Penance [\#3055](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3055) ([pundm](https://github.com/pundm))
+- Update Ailment Threshold values [\#3049](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3049) ([LocalIdentity](https://github.com/LocalIdentity))
+
+**Fixed bugs:**
+
+- Fix crash when loading certain builds [\#3037](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3037) ([PJacek](https://github.com/PJacek))
+- Fix error when main skill is not a minion skill but "Minion" is in FullDPS [\#3053](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3053) ([Nostrademous](https://github.com/Nostrademous))
+- Fix minions getting Inspiration Charges [\#3060](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3060) ([Lexy](https://github.com/learn2draw))
+- Fix Doryani's Prototype not applying to minions [\#3026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3026) ([Wires77](https://github.com/Wires77))
+- Fix parsing for new wording on Combat Focus jewels [\#3112](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3112) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Manabond not being affected by reduced mana cost nodes [\#3028](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3028) ([Wires77](https://github.com/Wires77))
+- Fix Lifetap Support and Blood Magic not altering the cost of skills [\#3106](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3106) ([Wires77](https://github.com/Wires77)) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Bomb Specialist AoE mod [\#3087](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3087) ([Nostrademous](https://github.com/Nostrademous))
+- Fix bug where timeless jewel keystones could be edited [\#3098](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3098) ([Wires77](https://github.com/Wires77))
+
+## [2.6.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.6.0) (2021/07/27)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.5.0...2.6.0)
+
+**Implemented Enhancements:**
+
+- Add new Expedition uniques [\#3012](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3012) ([Wires77](https://github.com/Wires77))
+- Add Ward as new defensive stat [\#3012](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3012) ([Wires77](https://github.com/Wires77))
+- Update Dendrobate with new gem name [\#3013](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3013) ([pundm](https://github.com/pundm))
+
+**Fixed bugs:**
+
+- Fix Voltaxic Burst enchantment [\#3016](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3016) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix last line of Notes tab being cut off [\#3024](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3024) ([Wires77](https://github.com/Wires77))
+
+## [2.5.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.5.0) (2021/07/26)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.4.0...2.5.0)
+
+**Implemented enhancements:**
+
+- Add full support for new 3.15 Skill Gems [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity)) ([ifnjeff](https://github.com/ifnjeff)) ([tcid](https://github.com/Voronoff)) 
+	- Absolution
+	- Behead Support
+	- Boneshatter
+	- Defiance Banner
+	- Explosive Concoction
+	- Eye of Winter
+	- Forbidden Rite
+	- Manabond
+	- Rage Vortex
+	- Shield Crush
+	- Spectral Helix
+	- Storm Rain
+	- Summon Reaper
+	- Voltaxic Burst
+- Add partial support for new 3.15 Skill Gems
+	- Ambush
+	- Battlemage's Cry
+	- Blade Trap
+	- Earthbreaker Support
+	- Focused Ballista Support
+- Update enchantments with 3.15 changes [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity)) ([Nostrademous](https://github.com/Nostrademous))
+- Update item mods to 3.15 stats [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update minions with 3.15 changes [\#2999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2999) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update Pantheons with 3.15 changes [\#2985](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2985) ([Nostrademous](https://github.com/Nostrademous))
+- Add new item bases [\#2986](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2986) ([Wires77](https://github.com/Wires77))
+- Add support for Timeless jewel edits to persist when updating to a new tree version [\#2957](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2957) ([Wires77](https://github.com/Wires77))
+- Add documentation for colour codes to the Notes tab [\#2965](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2965) ([Wires77](https://github.com/Wires77))
+- Update poison damage tooltip from 20% to 30% [\#2947](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2947) ([pundm](https://github.com/pundm))
+  
+**Fixed bugs:**
+
+- Fix Mana Reservation Rounding [\#2989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2989) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix skills turned into mines not having reservation [\#2983](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2983) ([PJacek](https://github.com/PJacek))
+- Fix for downloading tree data if missing [\#2981](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2981) ([Wires77](https://github.com/Wires77))
+- Fix triggered skills not showing the right mana cost [\#2955](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2955) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Hexproof to be unaffected by curses, not immune [\#2933](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2933) ([Wires77](https://github.com/Wires77))
+- Fix level progress calculations [\#2932](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2932) ([ifnjeff](https://github.com/ifnjeff))
+- Fix Anomalous Pride quality didn't increase "chance to bleed" [\#3008](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3008) ([Typepluto](https://github.com/Typepluto))
+- Fix Bladestorm to always bleeds in Blood Stance [\#2971](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2971) ([Wires77](https://github.com/Wires77))
+- Fix Hollow Palm Technique parsing [\#2960](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2960) ([Helyos96](https://github.com/Helyos96))
+
+## [2.4.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.4.0) (2021/07/21)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.3.0...2.4.0)
+
+**Implemented enhancements:**
+
+- Add 3.15 passive skill tree [\#2910](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2910) ([ppoelzl](https://github.com/ppoelzl))
+- Add level 20/21 gems from 3.15 patch notes [\#2919](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2919) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add 3.15 uniques [\#2911](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2911) ([Wires77](https://github.com/Wires77))
+- Add 3.15 flask changes [\#2925](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2925) ([Helyos96](https://github.com/Helyos96))
+- Update Evasion, Poison, and Consecrated Ground calculations to 3.15 values [\#2913](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2913) ([ifnjeff](https://github.com/ifnjeff))
+- Update Alchemist's Genius to 3.15 value [\#2912](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2912) ([Wires77](https://github.com/Wires77))
+- Update Gem tooltip generation [\#2796](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2796) ([PJacek](https://github.com/PJacek))
+- Drastically accelerate searching for application updates (from 50s to 2s) [\#2791](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2791) ([ppoelzl](https://github.com/ppoelzl))
+- Add 20 Quality gem DPS tooltip comparison [\#2800](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2800) ([7e11](https://github.com/7e11))
+- Add weapon crit to mod breakdown[\#2901](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2901) ([PJacek](https://github.com/PJacek))
+- Add space and newline before custom mods on Timeless Jewel nodes [\#2888](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2888) ([Nightblade](https://github.com/Nightblade))
+- Add Trial Galecaller spectre [\#2751](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2751) ([Kayella](https://github.com/Kayella))
+- Add support for Fishing Rods [\#2841](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2841) ([aletrop](https://github.com/aletrop))
+- Add support for many Alternate Quality gems [\#2898](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2898) ([PJacek](https://github.com/PJacek))
+- Add support for "Perfect Crime" and "Bomb Specialist" ascendancy nodes [\#2905](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2905) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Chip Away brand cluster notable [\#2777](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2777) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add functionality for Blood Artist notable [\#2767](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2767) ([pundm](https://github.com/pundm)) ([Wires77](https://github.com/Wires77))
+- Add skill parts for Smite [\#2918](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2918) ([Wires77](https://github.com/Wires77))
+- Add support for Gore Shockwave skill [\#2775](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2775) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Divergent Close Combat [\#2788](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2788) ([Wires77](https://github.com/Wires77))
+- Add support for Unnerve belt enchant [\#2922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2922) ([Wires77](https://github.com/Wires77))
+- Add support for Rathpith Globe and legacy Femur of the Saints [\#2799](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2799) ([Wires77](https://github.com/Wires77))
+- Add support for Replica Siegebreaker burning ground [\#2820](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2820) ([ifnjeff](https://github.com/ifnjeff))
+- Add support for Non-vaal Skill Damage during Soul Gain Prevention [\#2917](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2917) ([Wires77](https://github.com/Wires77))
+- Add support for reworked Arborix mods [\#2776](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2776) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Warcries have infinite power [\#2762](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2762) ([pundm](https://github.com/pundm))
+- Add Trap and Mine speed essence mod [\#2760](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2760) ([pundm](https://github.com/pundm))
+- Add parsing for Increased Chaos Damage Over Time Mod found on weapons \(\#2750\) [\#2902](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2902) ([Puddlestomper](https://github.com/Puddlestomper))
+- Add support for Fiery Impact [\#2909](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2909) ([celuck](https://github.com/celuck))
+- Add unique variant of Commandment of Inferno [\#2882](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2882) ([PJacek](https://github.com/PJacek))
+- Add unique helmet The Fledgling [\#2873](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2873) ([ppoelzl](https://github.com/ppoelzl))
+- Add missing Fire Burst radius [\#2837](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2837) ([quashtaki](https://github.com/quashtaki))
+- Add missing Pride aura radius [\#2833](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2833) ([pundm](https://github.com/pundm))
+
+**Fixed bugs:**
+
+- Fix power report crash when loading builds [\#2785](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2785) ([Wires77](https://github.com/Wires77))
+- Fix error when the power report is not initialised yet [\#2815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2815) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Minion skill tooltips not working correctly [\#2778](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2778) ([Nostrademous](https://github.com/Nostrademous))
+- Fix FullDPS comparison for Alternate Gem Qualities [\#2780](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2780) ([Nostrademous](https://github.com/Nostrademous))
+- Fix FullDPS comparison of enabling/disabling flasks [\#2779](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2779) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Blood Offering appearing in gem list [\#2904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2904) ([PJacek](https://github.com/PJacek))
+- Fix multiple bugs with General's Cry Mirages [\#2770](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2770) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Disciple's cooldown to apply to all Sentinels [\#2916](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2916) ([Wires77](https://github.com/Wires77))
+- Fix Triggered skill parsings [\#2795](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2795) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix support for Petrified Blood [\#2806](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2806) ([Wires77](https://github.com/Wires77))
+- Fix Blood Stance not granting More Bleed damage [\#2789](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2789) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix maces/sceptres and thrusting/non-thrusting swords counting as different weapon types [\#2732](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2732) ([Wires77](https://github.com/Wires77))
+- Fix interaction between Agnostic and Pious Path [\#2883](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2883) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix The Agnostic life recovery calculation [\#2825](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2825) ([roastpiece](https://github.com/roastpiece))
+- Fix Anomalous Chain Hook [\#2889](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2889) ([PJacek](https://github.com/PJacek))
+- Fix Divergent Stormbind quality has more AoE vs. Increased [\#2772](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2772) ([Wires77](https://github.com/Wires77))
+- Fix Alternative Quality for Precision [\#2827](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2827) ([czarandy](https://github.com/czarandy))
+- Fix Mana Reservation mods [\#2756](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2756) ([pundm](https://github.com/pundm))
+- Fix "increased Impale Effect" of Dread Banner only applying to attacks [\#2878](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2878) ([Typepluto](https://github.com/Typepluto))
+- Fix parsing for Sacrificial Garb implicit [\#2874](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2874) ([Wires77](https://github.com/Wires77))
+- Fix Wildwrap Attack Speed mod [\#2790](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2790) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix wording on Eyes of the Greatwolf [\#2761](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2761) ([pundm](https://github.com/pundm))
+- Fix wording on Ngamahu's Sign [\#2839](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2839) ([pundm](https://github.com/pundm))
+
+
 ## [2.3.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.3.0) (2021/04/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.2.1...2.3.0)

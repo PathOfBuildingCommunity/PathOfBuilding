@@ -251,6 +251,11 @@ SkillType = {
 	Aegis = 110,
 	Orb = 111,
 	Type112 = 112,
+	Prismatic = 113, -- means elements cannot repeat
+	Type114 = 114,
+	Arcane = 115, -- means it is reliant on amount of mana spent
+	Type116 = 116,
+	CantEquipWeapon = 117,
 }
 
 GlobalCache = { 

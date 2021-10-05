@@ -157,7 +157,7 @@ return {
 	flag("BloodMagicReserved"),
 },
 ["base_skill_cost_life_instead_of_mana"] = {
-	flag("BloodMagicCost"),
+	flag("CostLifeInsteadOfMana"),
 },
 ["base_active_skill_totem_level"] = {
 	skill("totemLevel", nil),
@@ -486,6 +486,9 @@ return {
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
+["critical_multiplier_+%_per_100_max_es_on_shield"] = {
+	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2" }),
+},
 ["damage_+%_per_endurance_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 },
@@ -527,8 +530,8 @@ return {
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
 },
-["skill_effect_and_damaging_ailment_duration_+%"] = {
-	mod("SkillAndDamagingAilmentDuration", "INC", nil),
+["support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final"] = {
+	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
 	mod("BleedDuration", "INC", nil),
@@ -536,6 +539,9 @@ return {
 -- Damage
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
+},
+["chance_for_extra_damage_roll_%"] = {
+	mod("LuckyHitsChance", "BASE", nil)
 },
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
@@ -663,8 +669,14 @@ return {
 ["global_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil),
 },
+["added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
+},
+["active_skill_added_damage_+%_final"] = {
+	mod("AddedDamage", "MORE", nil),
+},
 ["shield_charge_damage_+%_maximum"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
+	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
 },
 ["damage_+%_on_full_energy_shield"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield"})
@@ -705,6 +717,9 @@ return {
 },
 ["fire_damage_%_to_add_as_chaos"] = {
 	mod("FireDamageGainAsChaos", "BASE", nil),
+},
+["lightning_damage_%_to_add_as_chaos"] = {
+	mod("LightningDamageGainAsChaos", "BASE", nil),
 },
 ["base_physical_damage_%_to_convert_to_lightning"] = {
 	mod("PhysicalDamageConvertToLightning", "BASE", nil),
@@ -1186,6 +1201,9 @@ return {
 ["accuracy_rating_+%"] = {
 	mod("Accuracy", "INC", nil),
 },
+["accuracy_rating_+%_when_on_low_life"] = {
+	mod("Accuracy", "INC", nil, 0, 0, { type = "Condition", var = "LowLife"})
+},
 ["attack_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Attack),
 },
@@ -1355,6 +1373,10 @@ return {
 ["mine_throwing_speed_+%_per_frenzy_charge"] = {
 	mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
+["remote_mined_by_support"] = {
+	flag("ManaCostGainAsReservation"),
+	flag("LifeCostGainAsReservation"),
+},
 -- Totem
 ["totem_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Totem),
@@ -1388,6 +1410,9 @@ return {
 ["minion_melee_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, ModFlag.Melee) }),
 },
+["active_skill_minion_bleeding_damage_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed) }),
+},
 ["minion_maximum_life_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }),
 },
@@ -1412,6 +1437,9 @@ return {
 },
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
+},
+["minion_additional_physical_damage_reduction_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", nil) }),
 },
 ["summon_fire_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("FireResist", "BASE", nil) }),
@@ -1466,6 +1494,9 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", nil) }),
 },
 ["active_skill_minion_life_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+},
+["support_minion_damage_minion_life_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
 },
 ["active_skill_minion_energy_shield_+%_final"] = {

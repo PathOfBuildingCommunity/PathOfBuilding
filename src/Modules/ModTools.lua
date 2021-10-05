@@ -147,7 +147,7 @@ function modLib.formatValue(value)
 		if paramName == "mod" then
 			ret = ret .. s_format("%s=[%s]", paramName, modLib.formatMod(value[paramName]))
 		else
-			ret = ret .. s_format("%s=%s", paramName, tostring(value[paramName]))
+			ret = ret .. s_format("%s=%s", paramName, modLib.formatValue(value[paramName]))
 		end
 	end
 	return "{"..ret.."}"

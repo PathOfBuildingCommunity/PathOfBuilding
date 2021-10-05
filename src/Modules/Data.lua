@@ -98,6 +98,7 @@ data.powerStatList = {
 	{ stat="Mana", label="Mana" },
 	{ stat="ManaRegen", label="Mana regen" },
 	{ stat="ManaLeechRate", label="Mana leech" },
+	{ stat="Ward", label="Ward" },
 	{ stat="Str", label="Strength" },
 	{ stat="Dex", label="Dexterity" },
 	{ stat="Int", label="Intelligence" },
@@ -139,12 +140,16 @@ data.jewelRadius = {
 	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
 }
 
-data.labyrinths = {
+data.enchantmentSource = {
+	{ name = "ENKINDLING", label = "Enkindling Orb" },
+	{ name = "INSTILLING", label = "Instilling Orb" },
+	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
-	{ name = "ENDGAME", label = "Eternal" },
-	{ name = "MERCILESS", label = "Merciless" },
-	{ name = "CRUEL", label = "Cruel" },
-	{ name = "NORMAL", label = "Normal" },
+	{ name = "DEDICATION", label = "Dedication to the Goddess" },
+	{ name = "ENDGAME", label = "Eternal Labyrinth" },
+	{ name = "MERCILESS", label = "Merciless Labyrinth" },
+	{ name = "CRUEL", label = "Cruel Labyrinth" },
+	{ name = "NORMAL", label = "Normal Labyrinth" },
 }
 
 local maxPenaltyFreeAreaLevel = 70
@@ -255,6 +260,7 @@ data.keystones = {
 	"Point Blank",
 	"Resolute Technique",
 	"Runebinder",
+	"Secrets of Suffering",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
@@ -275,12 +281,14 @@ data.misc = { -- magic numbers
 	DodgeChanceCap = 75,
 	AvoidChanceCap = 75,
 	EnergyShieldRechargeBase = 0.2,
+	EnergyShieldRechargeDelay = 2,
+	WardRechargeDelay = 5,
 	Transfiguration = 0.3,
 	EnemyMaxResist = 75,
 	LeechRateBase = 0.02,
 	BleedPercentBase = 70,
 	BleedDurationBase = 5,
-	PoisonPercentBase = 0.20,
+	PoisonPercentBase = 0.30,
 	PoisonDurationBase = 2,
 	IgnitePercentBase = 0.50,
 	IgniteDurationBase = 4,
@@ -311,10 +319,13 @@ data.itemMods = {
 }
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
-	Helmet = LoadModule("Data/EnchantmentHelmet"),
-	Boots = LoadModule("Data/EnchantmentBoots"),
-	Gloves = LoadModule("Data/EnchantmentGloves"),
-	Belt = LoadModule("Data/EnchantmentBelt"),
+	["Helmet"] = LoadModule("Data/EnchantmentHelmet"),
+	["Boots"] = LoadModule("Data/EnchantmentBoots"),
+	["Gloves"] = LoadModule("Data/EnchantmentGloves"),
+	["Belt"] = LoadModule("Data/EnchantmentBelt"),
+	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
+	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
+	["Flask"] = LoadModule("Data/EnchantmentFlask"),
 }
 data.essences = LoadModule("Data/Essence")
 data.pantheons = LoadModule("Data/Pantheons")

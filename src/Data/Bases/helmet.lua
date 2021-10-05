@@ -389,7 +389,7 @@ itemBases["Sorrow Mask"] = {
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
-	implicit = "-15% additional Physical Damage Reduction\n(20-25)% increased Effect of Fortify on you\nYou are Crushed",
+	implicit = "-15% additional Physical Damage Reduction\n(10-15)% increased Effect of Fortify on you\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	armour = { ArmourBase = 42, EvasionBase = 42, },
 	req = { level = 15, str = 20, dex = 20, },
@@ -399,7 +399,7 @@ itemBases["Atonement Mask"] = {
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
-	implicit = "-15% additional Physical Damage Reduction\n(20-25)% increased Effect of Fortify on you\nYou are Crushed",
+	implicit = "-15% additional Physical Damage Reduction\n(10-15)% increased Effect of Fortify on you\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	armour = { ArmourBase = 122, EvasionBase = 122, },
 	req = { level = 45, str = 51, dex = 51, },
@@ -409,7 +409,7 @@ itemBases["Penitent Mask"] = {
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
-	implicit = "-15% additional Physical Damage Reduction\n(20-25)% increased Effect of Fortify on you\nYou are Crushed",
+	implicit = "-15% additional Physical Damage Reduction\n(10-15)% increased Effect of Fortify on you\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	armour = { ArmourBase = 185, EvasionBase = 185, },
 	req = { level = 75, str = 79, dex = 79, },
@@ -674,6 +674,34 @@ itemBases["Blizzard Crown"] = {
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
 	armour = { EvasionBase = 185, EnergyShieldBase = 36, },
 	req = { level = 75, dex = 79, int = 79, },
+}
+
+itemBases["Runic Helm"] = {
+	type = "Helmet",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { not_for_sale = true, helmet = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 34, },
+	req = { level = 25, str = 30, dex = 30, int = 30, },
+}
+itemBases["Runic Crest"] = {
+	type = "Helmet",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { not_for_sale = true, helmet = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 81, },
+	req = { level = 49, str = 55, dex = 55, int = 55, },
+}
+itemBases["Runic Crown"] = {
+	type = "Helmet",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { not_for_sale = true, helmet = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 137, },
+	req = { level = 68, str = 66, dex = 66, int = 66, },
 }
 
 itemBases["Golden Wreath"] = {

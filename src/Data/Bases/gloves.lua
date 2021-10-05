@@ -64,7 +64,7 @@ itemBases["Goliath Gauntlets"] = {
 	tags = { gloves = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
 	armour = { ArmourBase = 174, },
-	req = { level = 53, str = 76, },
+	req = { level = 53, str = 77, },
 }
 itemBases["Vaal Gauntlets"] = {
 	type = "Gloves",
@@ -522,7 +522,7 @@ itemBases["Apothecary's Gloves"] = {
 	implicit = "(14-18)% increased Damage over Time",
 	implicitModTypes = { { "damage" }, },
 	armour = { ArmourBase = 108, EnergyShieldBase = 27, },
-	req = { level = 70, str = 46, int = 58, },
+	req = { level = 70, str = 46, int = 59, },
 }
 
 itemBases["Wrapped Mitts"] = {
@@ -596,6 +596,34 @@ itemBases["Murder Mitts"] = {
 	implicitModTypes = { },
 	armour = { EvasionBase = 121, EnergyShieldBase = 24, },
 	req = { level = 67, dex = 51, int = 51, },
+}
+
+itemBases["Runic Gloves"] = {
+	type = "Gloves",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { gloves = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 20, },
+	req = { level = 24, str = 16, dex = 16, int = 16, },
+}
+itemBases["Runic Gages"] = {
+	type = "Gloves",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { gloves = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 52, },
+	req = { level = 48, str = 31, dex = 31, int = 31, },
+}
+itemBases["Runic Gauntlets"] = {
+	type = "Gloves",
+	subType = "Ward",
+	socketLimit = 4,
+	tags = { gloves = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
+	implicitModTypes = { },
+	armour = { WardBase = 85, },
+	req = { level = 69, str = 38, dex = 38, int = 38, },
 }
 
 itemBases["Golden Bracers"] = {
