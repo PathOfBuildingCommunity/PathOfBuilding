@@ -239,7 +239,7 @@ or copy and paste an item from in game
 (hover over the item and Ctrl+C) to view or edit
 the item and add it to your build. You can 
 also clone an item within Path of Building by 
-copying and pasting it with Ctl+C and Ctl+V.
+copying and pasting it with Ctrl+C and Ctrl+V.
 
 You can Control + Click an item to equip it, or 
 drag it onto the slot.  This will also add it to 
