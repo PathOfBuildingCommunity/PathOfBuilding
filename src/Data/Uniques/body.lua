@@ -45,11 +45,14 @@ Take no Extra Damage from Critical Strikes
 ]],[[
 Craiceann's Carapace
 Golden Plate
+Variant: Pre 3.16.0
+Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 56, 152 Str
 Grants Level 20 Aspect of the Crab Skill
-(300-350)% increased Armour
+{variant:1}(300-350)% increased Armour
+{variant:2}(200-250)% increased Armour
 +(100-120) to maximum Life
 +(25-30)% to Fire and Cold Resistances
 Bleeding cannot be inflicted on you

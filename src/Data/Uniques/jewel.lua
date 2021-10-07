@@ -1508,8 +1508,11 @@ Non-Channelling Skills have -9 to Total Mana Cost
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-3% chance to Avoid Elemental Ailments
+{variant:1}3% chance to Avoid Elemental Ailments
+{variant:2}10% chance to Avoid Elemental Ailments
 8% increased Life Recovery from Flasks
 2% chance to Dodge Attacks
 ]],[[

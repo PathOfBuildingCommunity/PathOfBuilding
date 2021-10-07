@@ -692,6 +692,8 @@ Curse Enemies with Vulnerability on Block, with 20% increased Effect
 ]],[[
 The Ghastly Theatre
 Teak Round Shield
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Requires Level 58, 74 Str, 74 Dex
 Implicits: 1
@@ -699,7 +701,8 @@ Implicits: 1
 +2 to Level of Socketed Support Gems
 Triggers Level 20 Physical Aegis when Equipped
 340% increased Armour and Evasion
-33% chance to avoid Bleeding
+{variant:1}(30-50)% chance to avoid Bleeding
+{variant:2}Bleeding cannot be Inflicted on You
 12% increased Attack and Cast Speed while Physical Aegis is depleted
 50% increased Critical Strike Chance while Physical Aegis is depleted
 Nearby Enemies are Blinded while Physical Aegis is not depleted
