@@ -559,7 +559,10 @@ return {
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
 	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
-	{ label = "Quantity Multiplier", haveOutput = "QuantityMultiplier", { format = "{0:output:QuantityMultiplier}", { modName = "QuantityMultiplier", cfg = "skill" }, }, },
+	{ label = "Quantity Multiplier", haveOutput = "QuantityMultiplier", { format = "{0:output:QuantityMultiplier}",
+	    { breakdown = "QuantityMultiplier" },
+	    { modName = { "QuantityMultiplier" }, cfg = "skill" },
+	}, },
 	{ label = "Skill Cooldown", haveOutput = "Cooldown", { format = "{2:output:Cooldown}s", 
 		{ breakdown = "Cooldown" }, 
 		{ modName = "CooldownRecovery", cfg = "skill" },

@@ -918,9 +918,6 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- General's Cry
 	if skillData.triggeredByGeneralsCry then
-		local exertInc = env.modDB:Sum("INC", skillCfg, "ExertIncrease")
-		local exertMore = env.modDB:Sum("MORE", skillCfg, "ExertIncrease")
-		local ddChance = env.modDB:Sum("BASE", skillCfg, "ExertDoubleDamageChance")
 		local mirageActiveSkill = nil
 
 		-- Find the active General's Cry gem to get active properties
@@ -933,15 +930,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		if mirageActiveSkill then
 			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
-			local maxMirageWarriors = 0
-
-			if mirageActiveSkill then
-				for i, value in ipairs(mirageActiveSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
-					local mod = value.mod
-					maxMirageWarriors = maxMirageWarriors + mod.value
-				end
-			end
-			maxMirageWarriors = m_max(maxMirageWarriors, 1)
+			local maxMirageWarriors = m_max(mirageActiveSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount"), 1)
 
 			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. activeSkill.activeEffect.grantedEffect.name
 
@@ -951,12 +940,25 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			-- Supported Attacks Count as Exerted
-			skillModList:NewMod("Damage", "INC", exertInc, "Counts as Exerted", ModFlag.Attack)
-			skillModList:NewMod("Damage", "MORE", exertMore, "Counts as Exerted", ModFlag.Attack)
-			skillModList:NewMod("DoubleDamageChance", "BASE", ddChance, "Counts as Exerted")
+			for _, value in ipairs(env.modDB:Tabulate("INC", skillCfg, "ExertIncrease")) do
+				local mod = value.mod
+				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+			end
+			for _, value in ipairs(env.modDB:Tabulate("MORE", skillCfg, "ExertIncrease")) do
+				local mod = value.mod
+				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+			end
+			for _, value in ipairs(env.modDB:Tabulate("BASE", skillCfg, "ExertDoubleDamageChance")) do
+				local mod = value.mod
+				skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+			end
 
 			-- Scale dps with amount of mirages
-			skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors)
+			output.QuantityMultiplier = maxMirageWarriors
+			if breakdown then
+				breakdown.QuantityMultiplier = {}
+				breakdown.QuantityMultiplier.modList = mirageActiveSkill.skillModList:Tabulate("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount")
+			end
 
 			-- Scale dps with GC's cooldown
 			if skillData.dpsMultiplier then
