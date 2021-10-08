@@ -1525,7 +1525,7 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["ChaosGuardEffectivePool"] = 0,
 ["AbsorptionChargesMin"] = 0,
 ["ChaosMeleeDamageChance"] = 36.25,
-["FireAverageDamageChance"] = 36.25,
+["FireAverageDamageChance"] = 30.625,
 ["FireSpellDamageChance"] = 25,
 ["Gear:EnergyShield"] = 880,
 ["ColdAverageDamageChance"] = 30.625,
