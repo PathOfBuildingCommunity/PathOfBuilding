@@ -24,6 +24,7 @@ for _, name in pairs(ItemTypes) do
 		local specName, specVal = line:match("^([%a ]+): (.+)$")
 		if not specName and line ~= "]],[[" then
 			local variantString = line:match("({variant:[%d,]+})")
+			local fractured = line:match("({fractured})") or ""
 			local modName = line:gsub("{.+}", "")
 			if uniqueMods[modName] then
 				if variantString then
@@ -40,6 +41,7 @@ for _, name in pairs(ItemTypes) do
 				if tags[1] then
 					out:write("{tags:" .. table.concat(tags, ",") .. "}")
 				end
+				out:write(fractured)
 				out:write(uniqueMods[modName][1], "\n")
 			else
 				out:write(line, "\n")

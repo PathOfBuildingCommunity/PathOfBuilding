@@ -27,7 +27,7 @@ IncreasedEnergyShieldImplicitBelt1
 IncreasedEvasionRatingUnique__2
 {variant:1}{tags:jewellery_defense}+(35-45) to maximum Energy Shield
 {variant:2}IncreasedEnergyShieldUnique__4
-AllResistancesUniqueBootsStr1
+AllResistancesUnique__2
 PhasingOnBeginESRechargeUnique___1
 6% chance to Dodge Attacks while Phasing
 MovementSpeedWhilePhasedUnique__2
@@ -102,20 +102,20 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 20
 Implicits: 1
-StrengthImplicitBelt1
+StrengthImplicitBeltRoyale1
 {variant:1}10% reduced Chance to Block Attacks and Spells
 {tags:physical}(15-25)% increased Physical Damage
 ReducedCriticalStrikeDamageTakenUniqueBelt13
 IncreasedLifeUnique__19
 {variant:1}AllResistancesUniqueDagger9
-{variant:2}AllResistancesUniqueBootsStr1
+{variant:2}AllResistancesUnique__2
 {variant:2}NearbyEnemiesAreIntimidatedUnique__1
 ]],[[
 Bisco's Leash
 Heavy Belt
 Requires Level 30
 Implicits: 1
-StrengthImplicitBelt1
+StrengthImplicitBeltRoyale1
 ItemFoundQuantityIncreasedUnique__1
 ColdResistUniqueShieldDex7
 SimulatedRampageDexInt6
@@ -202,8 +202,8 @@ Variant: Current (Cold)
 Variant: Current (Lightning)
 Requires Level 68
 Implicits: 1
-StrengthImplicitBelt1
-{variant:1,5}{tags:physical}(20-30)% increased Physical Damage
+StrengthImplicitBeltRoyale1
+{variant:1,5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe6Royale
 {variant:2,6}FireDamagePercentUniqueRing36
 {variant:3,7}ColdDamagePercentUniqueBelt9b
 {variant:4,8}TalismanIncreasedLightningDamage
@@ -246,9 +246,9 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 52
 Implicits: 1
-StrengthImplicitBelt1
+StrengthImplicitBeltRoyale1
 IncreasedLifeFireResistUniqueBelt14
-FireResistUnique__23_
+FireResistUnique__9
 ColdResistUniqueShieldDex7
 {variant:1}{tags:attack,life}0.6% of Attack Damage Leeched as Life against Chilled enemies
 {variant:2}LifeLeechPermyriadFromAttacksAgainstChilledEnemiesUniqueBelt14
@@ -374,7 +374,7 @@ Variant: Pre 3.11.0 (Dexterity and Intelligence)
 Variant: Pre 3.11.0 (Strength and Intelligence)
 Variant: Pre 3.11.0 (Trap Throwing Speed)
 Variant: Pre 3.11.0 (Energy Shield Regen)
-Variant: Pre 3.11.0 (Lucky Crit Chance while Focussed)
+Variant: Pre 3.11.0 (Lucky Crit Chance while Focused)
 Variant: Current (Life Regen)
 Variant: Current (Fire and Chaos Resistances)
 Variant: Current (Cold and Chaos Resistances)
@@ -384,7 +384,7 @@ Variant: Current (Dexterity and Intelligence)
 Variant: Current (Strength and Intelligence)
 Variant: Current (Trap Throwing Speed)
 Variant: Current (Energy Shield Regen)
-Variant: Current (Lucky Crit Chance while Focussed)
+Variant: Current (Lucky Crit Chance while Focused)
 Requires Level 60
 Implicits: 1
 IncreasedLifeImplicitBelt1
@@ -402,7 +402,7 @@ DamageWithHitsAndAilmentsAgainstChilledEnemyUnique__1
 {variant:7,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
 {variant:8,18}{crafted}(7-12)% increased Trap Throwing Speed
 {variant:9,19}{crafted}{tags:jewellery_defense}(15-120) Energy Shield Regenerated per second while a Rare or Unique Enemy is Nearby
-{variant:10,20}{crafted}Your Critical Strike Chance is Lucky while Focussed
+{variant:10,20}{crafted}Your Critical Strike Chance is Lucky while Focused
 ]],[[
 Immortal Flesh
 Leather Belt
@@ -442,7 +442,7 @@ Requires Level 16
 Implicits: 1
 StunDurationUniqueQuiver2
 {tags:physical}(25-40)% increased Physical Damage
-StrengthUniqueBelt2
+StrengthUniqueTwoHandSword5
 BeltIncreasedFlaskChargesGainedUniqueBelt2
 {variant:2}AllResistanceAt200StrengthUnique__1
 ]],[[
@@ -453,7 +453,7 @@ Requires Level 48
 Implicits: 1
 StunDurationUniqueQuiver2
 IncreasedPhysicalDamagePercentUniqueBelt2
-StrengthUniqueBelt2
+StrengthUniqueTwoHandSword5
 DexterityUnique__7
 BeltIncreasedFlaskChargesGainedUniqueBelt2
 AllResistanceAt200StrengthUnique__1
@@ -466,7 +466,7 @@ Requires Level 48
 Implicits: 1
 StunDurationUniqueQuiver2
 IncreasedPhysicalDamagePercentUniqueBelt2
-StrengthUniqueBelt2
+StrengthUniqueTwoHandSword5
 IntelligenceUnique__9
 BeltIncreasedFlaskChargesGainedUniqueBelt2
 AllResistanceAt200StrengthUnique__1
@@ -489,12 +489,12 @@ Variant: Pre 2.0.0
 Variant: Current
 Requires Level 8
 Implicits: 1
-StrengthImplicitBelt1
+StrengthImplicitBeltRoyale1
 {variant:1}AddedPhysicalDamageUnique__3
-{variant:2}AddedPhysicalDamageUniqueBelt4
+{variant:2}AddedPhysicalDamageUniqueHelmetStr3Royale
 StrengthUniqueDagger2
-MaximumLifeUnique__3
-ColdResistUniqueBelt13
+MaximumLifeUniqueBodyInt3
+ColdResistUniqueShieldStrDex1
 BeltFlaskLifeRecoveryRateUniqueBelt4
 ]],[[
 Mother's Embrace
@@ -502,7 +502,7 @@ Heavy Belt
 League: Metamorph
 Requires Level 40
 Implicits: 1
-StrengthImplicitBelt1
+StrengthImplicitBeltRoyale1
 IncreasedLifeUnique__2
 ColdResistUnique__3
 MinionsUseFlaskOnSummonUnique__1__
@@ -624,7 +624,7 @@ Siegebreaker
 Heavy Belt
 Requires Level: 44
 Implicits: 1
-StrengthImplicitBelt1
+StrengthImplicitBeltRoyale1
 IncreasedEnergyShieldPercentUnique__3
 MaximumLifeUnique__16
 ChaosResistUnique__17
@@ -636,7 +636,7 @@ Heavy Belt
 League: Heist
 Requires Level 44
 Implicits: 1
-StrengthImplicitBelt1
+StrengthImplicitBeltRoyale1
 IncreasedEnergyShieldPercentUnique__3
 MaximumLifeUnique__16
 FireResistUnique__24
@@ -656,7 +656,7 @@ MaximumEnergyShieldAsPercentageOfLifeUnique__1
 {variant:1}You cannot Recharge Energy Shield
 {variant:1}You cannot Regenerate Energy Shield
 {variant:1}{tags:jewellery_defense}You lose 5% of Energy Shield per second
-{variant:1}LifeLeechNotRemovedOnFullLifeUnique__1
+{variant:1}{tags:resource,life}Life Leech effects are not removed at Full Life
 {variant:1}{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
 {variant:2}EnergyShieldStartsAtZero
 ]],[[
@@ -676,7 +676,7 @@ Requires Level 45
 Implicits: 1
 (15-25)% increased Stun Recovery
 IncreasedLifeUniqueGlovesInt3
-AllResistancesUniqueBodyStrInt2
+AllResistancesUniqueGlovesStrDex2
 BeltFlaskManaRecoveryUnique__1
 IncreasedFlaskDurationUnique__1
 Gain Soul Eater during Flask Effect
@@ -777,7 +777,7 @@ Implicits: 1
 IncreasedLifeImplicitBelt1
 StrengthUniqueClaw5_
 IntelligenceUnique__7
-ColdResistUniqueBelt13
+ColdResistUniqueShieldStrDex1
 LifeLeechPermyriadUniqueRing2
 ManaLeechPermyriadUniqueRing17
 ]],

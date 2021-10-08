@@ -700,7 +700,7 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}{tags:elemental_damage,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
 {variant:1}{tags:resource,life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
-{variant:2}{tags:life}Recover (20-30) Life when you Ignite an Enemy
+{variant:2}{tags:resource,life}Recover (20-30) Life when you Ignite an Enemy
 15% increased Ignite Duration on Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
 {variant:2}10% chance to Ignite
@@ -1073,11 +1073,11 @@ Has 1 Socket
 {variant:2}Socketed Vaal Skills require 30% less Souls per Use
 {variant:3}Socketed Vaal Skills can store Souls for 1 additional Use
 {variant:4}Hits from Socketed Vaal Skills ignore Enemy Monster Resistances
-{variant:5}Hits from Socketed Vaal Skills ignore Enemy Monster Physical Damage Reduction
+{variant:5}{tags:physical}Hits from Socketed Vaal Skills ignore Enemy Monster Physical Damage Reduction
 {variant:6}Socketed Vaal Skills grant Elusive when Used
 {variant:7}You have Tailwind if you've used a Socketed Vaal Skill Recently
 {variant:8}Socketed Vaal Skills have 60% increased Area of Effect
-{variant:9}Socketed Vaal Skills have 80% increased Projectile Speed
+{variant:9}{tags:speed}Socketed Vaal Skills have 80% increased Projectile Speed
 {variant:10}Socketed Vaal Skills have 80% increased Skill Effect Duration
 {variant:11}Socketed Vaal Skills have 30% reduced Soul Gain Prevention Duration
 {variant:12}Damage with Hits from Socketed Vaal Skills is Lucky

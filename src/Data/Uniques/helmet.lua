@@ -962,7 +962,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:2}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From you
-(5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
+(5-10)% of Damage taken Recouped as Mana
 Cannot Leech Mana
 ]],[[
 Speaker's Wreath
@@ -1283,7 +1283,7 @@ Requires Level 25, 30 Str, 30 Dex, 30 Int
 (25-35)% increased Ward
 (20-30)% faster Restoration of Ward
 (15-25)% increased Light Radius
-Increases and Reductions to maximum Energy Shield instead apply to Ward
+Increases and Reductions to Maximum Energy Shield instead apply to Ward
 ]],[[
 Cadigan's Crown
 Runic Crown

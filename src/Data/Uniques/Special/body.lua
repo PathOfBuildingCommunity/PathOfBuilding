@@ -8,7 +8,7 @@ Astral Plate
 League: Heist
 Requires Level 62, 180 Str
 Implicits: 1
-AllResistancesImplicitArmour1
+AllResistancesImplicitVictorAmulet
 StrengthRequirementsUnique__3_
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__6
 ShrineBuffEffectUnique__1
@@ -62,7 +62,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 62, 180 Str
 Implicits: 1
-AllResistancesImplicitArmour1
+AllResistancesImplicitVictorAmulet
 {variant:3}ChaosDegenAuraUnique__1
 AllAttributesUniqueBodyStr3
 {variant:3}IncreasedLifeUniqueAmulet25
@@ -152,12 +152,17 @@ Glorious Plate
 Requires Level 68, 191 Str
 League: Delirium
 Source: Drops from the Simulacrum Encounter
+Has Alt Variant: true
+Variant: War Banner
+Variant: Dread Banner
+Variant: Defiance Banner
 MeleeDamageUnique__2
 IncreasedLifeUnique__101
 Allow2ActiveBannersUnique__1
 Add1StageToBannersOnMeleeHitUpTo5PerSecondUnique__1
-BannerAdrenalineDurationUnique__1
-BannerFortifyDurationUnique__1
+{variant:1}BannerAdrenalineDurationUnique__1
+{variant:2}BannerFortifyDurationUnique__1
+{variant:3}BannerTauntDurationUnique__1_
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -181,7 +186,7 @@ Variant: Current
 Requires Level 17, 53 Dex
 {variant:2}ItemActsAsFireDamageSupportUniqueSceptre2
 LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
-{variant:2}IncreasedLifeUniqueAmulet4
+{variant:2}IncreasedLifeUnique__8
 FireResistUniqueBootsDex2
 AvoidIgniteUnique__1
 RangedWeaponPhysicalDamagePlusPercentUniqueBodyDex3
@@ -194,7 +199,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 9, 32 Dex
-{variant:1,2}LocalIncreasedAttackSpeedUniqueClaw3
+{variant:1,2}IncreasedAttackSpeedUniqueGlovesDex2
 {variant:3}IncreasedAttackSpeedUniqueQuiver1
 LocalIncreasedEvasionRatingUniqueBodyDex7
 ColdResistUnique__17
@@ -207,7 +212,7 @@ Wildwrap
 Strapped Leather
 Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
 Requires Level 57, 32 Dex
-LocalIncreasedAttackSpeedUnique__19
+IncreasedAttackSpeedUniqueQuiver1
 IncreasedEvasionRatingUnique__5_
 ColdResistUnique__17
 MovementVelocityUniqueIntHelmet2
@@ -326,7 +331,7 @@ IncreasedLifeUniqueBodyStrDex5
 {variant:2}FireResistUnique__11
 MovementVelocityUniqueBootsStrDex3
 IncreasedFireDamageTakenUniqueBodyStrDex5
-FireDamageTakenConvertedToPhysicalUnique__1
+FireDamageTakenConvertedToPhysicalUniqueBodyStrDex5
 ]],[[
 The Snowblind Grace
 Coronal Leather
@@ -362,7 +367,7 @@ PercentageDexterityUnique__4
 LocalIncreasedEvasionRatingPercentUnique__5
 IncreasedLifeUnique__37
 ColdResistUnique__14
-Flesh and Stone has 100% reduced Mana Reservation
+FleshAndStoneManaReservationUnique__1_
 EvasionIncreasedByUncappedColdResistanceUnique__1
 KeystoneHollowPalmTechniqueUnique__1
 ]],[[
@@ -389,7 +394,7 @@ Requires Level 62, 170 Dex
 {variant:1}GrantsSummonBeastRhoaUnique__1
 {variant:2}GrantsSummonBeastSnakeUnique__1
 {variant:3}GrantsSummonBeastUrsaUnique__1
-IncreasedAccuracyUnique__5
+IncreasedAccuracyUnique__1
 LocalIncreasedEvasionRatingPercentUnique__9
 IncreasedLifeUniqueBodyStrDexInt1
 ProjectileAttackCriticalStrikeChanceUnique__1
@@ -441,7 +446,7 @@ The Coming Calamity
 Destroyer Regalia
 Requires Level 53, 144 Int
 LocalIncreaseSocketedHeraldLevelUnique__1_
-LocalIncreasedEnergyShieldPercentUnique__6
+LocalIncreasedEnergyShieldPercentUnique___4_
 35% chance to avoid being Stunned for each Herald Skill affecting you
 HeraldsAlwaysCost45Unique__1
 ]],[[
@@ -456,7 +461,7 @@ Requires Level 49, 134 Int
 SocketedGemsHaveAddedChaosDamageUniqueBodyInt3
 IntelligenceUnique__7
 {variant:1,2,3}MaximumLifeUniqueAmulet6
-{variant:4,5}MaximumLifeUnique__3
+{variant:4,5}MaximumLifeUniqueBodyInt3
 {variant:1}LocalIncreasedEnergyShieldPercentUniqueBodyInt8
 {variant:2}LocalIncreasedEnergyShieldPercentUnique__19
 {variant:3,4}(280-320)% increased Energy Shield
@@ -513,7 +518,7 @@ Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 56, 152 Int
-LocalIncreasedEnergyShieldPercentUnique__24
+{fractured}LocalIncreasedEnergyShieldPercentUnique__24
 StrengthIntelligenceRequirementsUnique__1
 DivineChargeOnHitUnique__1_
 Gain a Divine Charge on Hit
@@ -563,7 +568,7 @@ SpellDamageImplicitArmour1
 {variant:2}(140-200)% increased Energy Shield
 {variant:3}LocalIncreasedEnergyShieldUniqueBodyInt1
 ReducedEnergyShieldDelayUniqueBodyInt1
-LightningResistUnique__8
+LightningResistUniqueAmulet15
 AttackerTakesLightningDamageUniqueBodyInt1
 ChaosTakenOnES
 ]],[[
@@ -621,7 +626,7 @@ Variant: Current
 Requires Level 59, 160 Int
 {variant:1}LocalIncreasedEnergyShieldUniqueBodyInt7
 {variant:2,3}LocalIncreasedEnergyShieldUniqueBodyInt9
-IncreasedManaUniqueBodyInt9
+IncreasedManaUniqueIntHelmet3
 MinionLifeUniqueBodyInt9
 MinionDamageUniqueBodyInt9
 {variant:1,2}MaximumMinionCountUniqueSceptre5
@@ -654,7 +659,7 @@ Full Wyrmscale
 Requires Level 46, 68 Str, 68 Dex
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStrDex1
 MaximumLifeUniqueBodyStrDex1
-AllResistancesUniqueBootsStr1
+AllResistancesUnique__2
 FlaskLifeRecoveryRateUniqueBodyStrDex1
 ExtraGore
 ]],[[
@@ -666,7 +671,7 @@ Variant: Current
 Requires Level 69, 95 Str, 116 Dex
 {variant:1,2}(10-20)% increased Chaos Damage
 {variant:3}IncreasedChaosDamageUniqueBodyStrDex4
-LocalIncreasedArmourAndEvasionRatingUniqueBodyStrDex3
+LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
 IncreasedLifeUnique__91
 {variant:1}30% increased Life Leeched per second
 {variant:2,3}100% increased Life Leeched per second
@@ -677,7 +682,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 63, 115 Str, 94 Dex
-LocalIncreasedArmourAndEvasionRatingUniqueBodyStrDex3
+LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
 {variant:1,2}IncreasedLifeUniqueShieldStr5
 {variant:3}IncreasedLifeUnique__101
 LifeLeechPermyriadUniqueBodyStrDex3
@@ -694,7 +699,7 @@ Triumphant Lamellar
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 69, 95 Str, 116 Dex
-LocalIncreasedArmourAndEvasionUnique__14
+LocalIncreasedArmourAndEvasionUnique__7
 IncreasedLifeUniqueBodyStrDexInt1
 CatAspectReservesNoManaUnique__1___
 +2 seconds to Cat's Stealth Duration
@@ -705,7 +710,7 @@ Replica Farrul's Fur
 Triumphant Lamellar
 League: Heist
 Requires Level 69, 95 Str, 116 Dex
-LocalIncreasedArmourAndEvasionUnique__14
+LocalIncreasedArmourAndEvasionUnique__7
 IncreasedLifeUniqueHelmetDex4
 +2.00 seconds to Cat's Agility Duration
 CatAspectReservesNoManaUnique__1___
@@ -746,7 +751,7 @@ Source: Drops in The Lord's Labyrinth
 Requires Level 28, 43 Str, 43 Dex
 LocalIncreasedArmourAndEvasionUnique__10_
 IncreasedLifeUnique__19
-ColdResistUnique__19
+ColdResistUnique__6
 MovementVelocityUniqueIntHelmet2
 ChanceToPoisonWithAttacksUnique___1
 CannotBePoisonedUnique__1
@@ -765,7 +770,7 @@ Requires Level 43, 64 Str, 64 Int
 {variant:3,4}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2
 {variant:4}IncreasedLifeUniqueGlovesInt3
 {variant:1,2}AllResistancesUniqueIntHelmet3
-{variant:3,4}AllResistancesUniqueBodyStrInt2
+{variant:3,4}AllResistancesUniqueGlovesStrDex2
 GainEnduranceChargeWhenCriticallyHit
 {variant:1,2,3}2% of Life Regenerated per Second while on Low Life
 {variant:4}2% of Life Regenerated per Second if you've been Hit Recently
@@ -777,7 +782,7 @@ League: Heist
 Requires Level 43, 64 Str, 64 Int
 LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2
 IncreasedLifeUniqueGlovesInt3
-AllResistancesUniqueBodyStrInt2
+AllResistancesUniqueGlovesStrDex2
 ShareEnduranceChargesWithParty
 GainEnduranceChargesWhenHitUnique__1_
 LoseLifeIfHitRecentlyUnique__1
@@ -798,7 +803,7 @@ Doryani's Prototype
 Saint's Hauberk
 League: Harvest
 Requires Level 67, 109 Str, 94 Int
-LocalIncreasedArmourAndEnergyShieldUnique__21
+LocalIncreasedArmourAndEnergyShieldUnique__15
 IncreasedLifeUnique__101
 DealNoNonLightningDamageUnique__1_
 ArmourAppliesToLightningDamageUnique__1_
@@ -1108,8 +1113,8 @@ League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 65, 107 Dex, 90 Int
 AllAttributesUnique__5
-LightningResistUnique__8
-(6-10)% reduced Mana Reserved
+LightningResistUniqueAmulet15
+ReducedManaReservationCostUnique__2
 AvianAspectBuffEffectUnique__1
 GrantAviansAspectToAlliesUnique__1
 LocalFlatIncreasedEvasionAndEnergyShieldUnique__2_
@@ -1161,8 +1166,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 LocalIncreaseSocketedAuraGemLevelUniqueBodyDexInt4
-{variant:1}Socketed Gems have 20% reduced Mana Reservation
-{variant:2}Socketed Gems have 30% reduced Mana Reservation
+{variant:1}SocketedItemsHaveReducedReservationUnique__1
+{variant:2}SocketedItemsHaveReducedReservationUniqueBodyDexInt4
 {variant:1}Socketed Gems are Supported by level 1 Generosity
 {variant:2}SupportedByGenerosityUniqueBodyDexInt4_
 LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt4
@@ -1179,7 +1184,7 @@ League: Heist
 Requires Level 62, 96 Dex, 96 Int
 IntelligenceUnique__16
 LocalIncreasedEvasionAndEnergyShieldUnique__31
-AllResistancesUnique__20
+AllResistancesUnique__7
 ChanceToFreezeShockIgniteUnique__1
 ElementalDamageLowestResistUnique__1
 ]],[[
@@ -1205,6 +1210,8 @@ Variant: Current (Armour/ES + Life)
 Variant: Current (Armour/ES + ES)
 Variant: Current (Armour/Evasion/ES)
 Requires Level 75, 66 Str, 66 Dex, 66 Int
+Implicits: 1
+GlobalVaalGemsLevelImplicit1_
 {variant:1,10}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStrDexInt1a
 {variant:2,11}(200-220)% increased Evasion Rating and Armour
 {variant:3,12}LocalIncreasedEvasionRatingPercentUniqueBodyStrDexInt1c

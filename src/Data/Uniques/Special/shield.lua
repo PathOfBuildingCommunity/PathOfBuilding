@@ -10,7 +10,7 @@ Variant: Pre 3.10.0
 Variant: Current
 Requires Level 67, 159 Str
 Implicits: 1
-{variant:2,3}IncreasedLifeUniqueHelmetDex5
+{variant:2,3}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__8
 IncreasedLifeUniqueGlovesInt3
 ReducedMaximumEnduranceChargeUniqueCorruptedJewel17
@@ -60,7 +60,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
-{variant:4}IncreasedLifeImplicitGlovesDemigods1
+{variant:4}IncreasedLifeUnique___7Royale_
 {variant:1}Adds 10 to 25 Fire Damage to Spells and Attacks
 {variant:2}Adds (7-10) to (15-25) Fire Damage to Spells and Attacks
 {variant:3,4}AddedFireDamageUniqueShieldStr3
@@ -78,7 +78,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 70, 159 Str
 Implicits: 1
-{variant:3}IncreasedLifeImplicitGlovesDemigods1
+{variant:3}IncreasedLifeUnique___7Royale_
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
 {variant:1}IncreasedLifeUniqueHelmetDex4
 {variant:2,3}IncreasedLifeUniqueShieldStr1
@@ -93,7 +93,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 11, 33 Str
 Implicits: 1
-{variant:2}IncreasedLifeUniqueHelmetDex5
+{variant:2}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__2
 IncreasedLifeUnique__19
 AlwaysHitsUniqueGlovesDexInt4
@@ -105,8 +105,8 @@ Pinnacle Tower Shield
 Source: Vendor recipe
 Requires Level 70, 159 Str
 Implicits: 1
-IncreasedLifeImplicitGlovesDemigods1
-LocalIncreaseSocketedGemLevelUniqueWand8
+IncreasedLifeUnique___7Royale_
+LocalIncreaseSocketedGemLevelUniqueRing39
 TriggeredElementalAegisSkillUnique__1_
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
 IncreasedLifeUniqueGlovesInt3
@@ -121,7 +121,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 35, 87 Str
 Implicits: 1
-{variant:3,4}IncreasedLifeImplicitGlovesDemigods1
+{variant:3,4}IncreasedLifeUnique___7Royale_
 {variant:2,3,4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__9
 {variant:1}IncreasedLifeUnique__80_
 {variant:2,3,4}IncreasedLifeUnique__67_
@@ -141,9 +141,9 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30, 76 Str
 Implicits: 1
-{variant:3}IncreasedLifeUniqueHelmetDex5
+{variant:3}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr4
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 {variant:1}-10 Physical Damage taken from Projectile Attacks
 {variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
 ArmourPercent VsProjectilesUniqueShieldStr2
@@ -157,7 +157,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 17, 46 Str
 Implicits: 1
-{variant:3}IncreasedLifeImplicitGlovesDemigods1
+{variant:3}IncreasedLifeUnique___7Royale_
 {variant:2,3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__11
 IncreasedLifeUniqueShieldStr5
 TotemAreaOfEffectUniqueShieldStr5
@@ -172,7 +172,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
-{variant:2,3}IncreasedLifeImplicitGlovesDemigods1
+{variant:2,3}IncreasedLifeUnique___7Royale_
 TotemDamageUnique__1_
 IncreasedLifeUniqueHelmetDex4
 Can have up to 1 additional Totem summoned at a time
@@ -185,7 +185,7 @@ Ebony Tower Shield
 League: Heist
 Requires Level 61, 159 Str
 Implicits: 1
-IncreasedLifeImplicitGlovesDemigods1
+IncreasedLifeUnique___7Royale_
 IncreasedLifeUniqueHelmetDex4
 AdditionalBrandUnique__1
 CriticalStrikeChancePerBrandUnique__1___
@@ -238,8 +238,8 @@ Implicits: 1
 {variant:3}MovementVelocityImplicitShield3
 IncreaseSocketedCurseGemLevelUnique__1
 LocalIncreasedEvasionRatingPercentUnique__5
-{variant:2,3}IncreasedLifeUnique__47
-{variant:2,3}IncreasedEnergyShieldUnique__9
+{variant:2,3}IncreasedLifeUniqueQuiver3
+{variant:2,3}LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
 100% increased Curse Duration
 AdditionalBlockChanceUniqueShieldStrInt6
 ChanceForEnemyToFleeOnBlockUniqueShieldDex4
@@ -255,8 +255,8 @@ Implicits: 1
 {variant:3}MovementVelocityImplicitShield3
 IncreaseSocketedCurseGemLevelUnique__1
 LocalIncreasedEvasionRatingPercentUnique__5
-{variant:2,3}IncreasedLifeUnique__47
-{variant:2,3}IncreasedEnergyShieldUnique__9
+{variant:2,3}IncreasedLifeUniqueQuiver3
+{variant:2,3}LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
 100% increased Curse Duration
 AdditionalBlockChanceUniqueShieldStrInt6
 ChanceForEnemyToFleeOnBlockUniqueShieldDex4
@@ -273,7 +273,7 @@ Implicits: 1
 IncreasedLifeUniqueGlovesInt3
 LifeRegenerationUniqueShieldDex2
 LightningResistUniqueStrDexHelmet1
-LifeLeechPermyriadUniqueShieldDex2
+LifeLeechPermyriadUnique__4
 {variant:1}+10% Chance to Block
 {variant:2,3}AdditionalBlockChanceUniqueShieldStrInt6
 ]],[[
@@ -299,7 +299,7 @@ Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
 {variant:4}MovementVelocityMarakethBowImplicit1
-LocalIncreasedEvasionRatingPercentUniqueGlovesStrDex1
+IncreasedEvasionRatingPercentUnique__1_
 MaximumColdResistUniqueShieldDex1
 ColdResistUniqueShieldDex1
 {variant:3,4}PhysicalAddedAsColdUnique__2
@@ -316,7 +316,7 @@ Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
 {variant:3}MovementVelocityMarakethBowImplicit1
-LocalIncreasedEvasionRatingPercentUniqueGlovesStrDex1
+IncreasedEvasionRatingPercentUnique__1_
 MaximumColdResistUniqueShieldDex1
 ColdResistUniqueShieldDex1
 {variant:2,3}PhysicalAddedAsColdUnique__2
@@ -389,8 +389,8 @@ ReflectDamageToAttackersOnBlockUniqueShieldDex5
 Apep's Slumber
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Vaal Spirit Shield
 {variant:1}Ancient Spirit Shield
+{variant:2}Vaal Spirit Shield
 League: Incursion
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 {variant:1}Requires Level 45, 110 Int
@@ -478,7 +478,7 @@ Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
 Requires Level 53, 128 Int
 IntelligenceUnique__7
 IncreasedLifeUnique__36_
-LocalIncreasedEnergyShieldPercentUnique__6
+LocalIncreasedEnergyShieldPercentUnique___4_
 LightningResistUnique__7
 AddedLightningDamagePerShockedEnemyKilledUnique__1
 ReflectsShocksUnique__1
@@ -495,7 +495,7 @@ Implicits: 2
 {variant:2}SpellDamageImplicitShield1
 IncreasedLifeUnique__36_
 LocalIncreasedEnergyShieldPercentUnique__9
-LightningResistUnique__8
+LightningResistUniqueAmulet15
 ChaosResistUnique__4
 ChaosDamageDoesNotBypassESNotLowLifeOrManaUnique__1
 ReflectsShockToEnemiesInRadiusUnique__1
@@ -566,7 +566,7 @@ IncreasedMaximumPowerChargesUnique__3
 PowerChargeOnHitUnique__1
 {variant:1,2,3}6% increased Spell Damage per Power Charge
 {variant:4}IncreasedSpellDamagePerPowerChargeUnique__1
-LosePowerChargesOnMaxPowerChargesUnique__1
+LosePowerChargesOnMaxPowerChargesUnique__2
 ShockOnMaxPowerChargesUnique__1
 ]],[[
 Manastorm
@@ -589,7 +589,7 @@ Requires Level 23, 60 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
 {variant:2}SpellDamageImplicitShield1
-LocalIncreaseSocketedMinionGemLevelUnique__4
+LocalIncreaseSocketedMinionGemLevelUniqueShieldInt2
 IncreasedManaUniqueShieldInt2
 LocalIncreasedEnergyShieldPercentUniqueShieldInt2
 AuraEffectOnMinionsUniqueShieldInt2
@@ -623,11 +623,11 @@ Requires Level 68, 159 Int
 {variant:2,3}+(10-15)% chance to Block Spell Damage
 {variant:1,2}SpellDamageUniqueStaff11_
 LocalIncreasedEnergyShieldPercentUniqueShieldInt1
-MaximumLifeUnique__3
+MaximumLifeUniqueBodyInt3
 {variant:1,2}LightningResistUniqueShieldInt1
 {variant:3}SacrificeLifeOnSpellSkillUnique__1
-{variant:3}2% increased Critical Strike Chance for Spells per 100 Maximum Life
-{variant:3}2% increased Spell Damage per 100 Maximum Life
+{variant:3}SpellCriticalStrikeChancePerLifeUnique__1
+{variant:3}SpellDamagePerLifeUnique__1
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
@@ -667,9 +667,9 @@ BlockRecoveryImplicitShield2
 LocalIncreasedPhysicalDamageUniqueSceptre9
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
 {variant:1}FireResistUniqueBelt13
-{variant:1}ColdResistUniqueBelt13
+{variant:1}ColdResistUniqueShieldStrDex1
 {variant:1}LightningResistUniqueShieldStrDex1
-{variant:2,3}AllResistancesUnique__20
+{variant:2,3}AllResistancesUnique__7
 {variant:1,2}+36% chance to Block Spell Damage while on Low Life
 {variant:3}SpellBlockPercentageOnLowLifeUniqueShieldStrDex1_
 AdditionalBlockChanceUniqueShieldStrDex1
@@ -717,7 +717,7 @@ AdditionalBlockChanceUnique__7__
 Vix Lunaris
 Cardinal Round Shield
 Requires Level: 66, 85 Str, 85 Dex
-LocalIncreaseSocketedGemLevelUniqueWand8
+LocalIncreaseSocketedGemLevelUniqueRing39
 TriggeredColdAegisSkillUnique__1
 LocalIncreasedArmourAndEvasionUnique__4
 IncreasedLifeUniqueGlovesInt3
@@ -788,7 +788,7 @@ Archon Kite Shield
 Requires Level: 68, 85 Str, 85 Int
 Implicits: 1
 AllResistancesImplicitShield3
-LocalIncreaseSocketedGemLevelUniqueWand8
+LocalIncreaseSocketedGemLevelUniqueRing39
 TriggeredFireAegisSkillUnique__1_
 LocalIncreasedArmourAndEnergyShieldUnique__18_
 IncreasedLifeUniqueGlovesInt3
@@ -852,7 +852,7 @@ Implicits: 2
 {variant:2,3}AllResistancesImplicitShield1
 {variant:1,2}+(21-24)% chance to Block Spell Damage
 {variant:3}+(15-20)% chance to Block Spell Damage
-SpellDamageUniqueSceptre2
+SpellDamageOnWeaponUniqueDagger1Royale
 AllResistancesUniqueIntHelmet3
 {variant:1}+5% to all maximum Resistances
 {variant:2,3}IncreasedMaximumResistsUniqueShieldStrInt1
@@ -902,7 +902,7 @@ Implicits: 1
 AllResistancesImplicitShield3
 HarbingerSkillOnEquipUnique__3
 IncreasedLifeUniqueGlovesInt3
-AllResistancesUniqueBootsStr1
+AllResistancesUnique__2
 GainManaOnBlockUnique__1
 AdditionalBlockChanceUniqueShieldStrInt6
 (50-70)% increased Damage with Channelling Skills
@@ -916,7 +916,7 @@ Implicits: 1
 AllResistancesImplicitShield3
 HarbingerSkillOnEquipUnique2__3
 IncreasedLifeUniqueGlovesInt3
-AllResistancesUniqueBootsStr1
+AllResistancesUnique__2
 GainManaOnBlockUnique__1
 AdditionalBlockChanceUniqueShieldStrInt6
 (50-70)% increased Damage with Channelling Skills
@@ -971,7 +971,7 @@ Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
 DodgeImplicitMarakethSword1
 LocalIncreasedEvasionAndEnergyShieldUnique__30_
-ManaRegenerationUnique__12
+ManaRegenerationUnique__13
 ChanceToBeShockedUnique__2
 ColdHitAndDoTDamageTakenAsLightningUnique__1
 FireHitAndDoTDamageTakenAsLightningUnique__1
@@ -985,7 +985,7 @@ Implicits: 2
 {variant:1}AttackerTakesDamageShieldImplicit3
 {variant:2}4% chance to Dodge Attacks
 LocalIncreasedEvasionAndEnergyShieldUnique__1
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 LocalIncreasedEnergyShieldUnique__6
 ItemFoundRarityIncreaseUniqueHelmetDex3
 25% chance to avoid Fire Damage when Hit

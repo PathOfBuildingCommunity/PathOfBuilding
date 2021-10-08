@@ -430,7 +430,7 @@ Viridian Jewel
 GolemAttackAndCastSpeedUnique__1
 GolemBuffEffectUnique__1
 GolemArmourRatingUnique__1
-PrimordialJewelCountUnique__1
+PrimordialJewelCountUnique__3
 ]],[[
 Primordial Harmony
 Cobalt Jewel
@@ -441,7 +441,7 @@ GolemSkillsCooldownRecoveryUnique__1
 {variant:2}GolemsSkillsCooldownRecoveryUnique__1_
 IncreasedGolemDamagePerGolemUnique__1
 GolemLifeRegenerationUnique__1
-PrimordialJewelCountUnique__1
+PrimordialJewelCountUnique__3
 ]],[[
 Primordial Might
 Crimson Jewel
@@ -449,7 +449,7 @@ IncreasedDamageIfGolemSummonedRecently__1
 IncreasedGolemDamageIfGolemSummonedRecently__1_
 GolemLifeUnique__1
 GolemLargerAggroRadiusUnique__1
-PrimordialJewelCountUnique__1
+PrimordialJewelCountUnique__3
 ]],[[
 Replica Primordial Might
 Crimson Jewel
@@ -458,7 +458,7 @@ League: Heist
 IncreasedDamageIfGolemSummonedRecently__1
 IncreasedGolemDamageIfGolemSummonedRecentlyUnique__1
 GolemLifeUnique__1
-PrimordialJewelCountUnique__1
+PrimordialJewelCountUnique__3
 GolemLargerAggroRadiusUnique__1
 ]],[[
 Pugilist
@@ -676,7 +676,7 @@ Implicits: 0
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
 AllocateDisconnectedPassivesDonutUnique__1
-AllResistancesUnique__6
+AllResistancesUnique__18
 ]],[[
 To Dust
 Cobalt Jewel
@@ -975,7 +975,7 @@ Minions have +6% to Damage over Time Multiplier per Ghastly Eye Jewel affecting 
 ]],[[
 Kurgal's Gaze
 Hypnotic Eye Jewel
-IntelligenceUniqueWand2
+IntelligenceUniqueOneHandAxe1
 8% increased Effect of Arcane Surge on you per Hypnotic Eye Jewel affecting you, up to a maximum of 40%
 ]],[[
 Tecrod's Gaze
@@ -998,7 +998,7 @@ Crimson Jewel
 Limited to: 2
 Radius: Medium
 ElementalDamageUniqueJewel_1
-With 40 total Strength and Intelligence in Radius, Elemental Hit and Wild Strike cannot choose Cold
+With 40 total Strength and Intelligence in Radius, Prismatic Skills cannot choose Cold
 ElementalHitDisableColdUniqueJewel_1
 ]],[[
 Combat Focus
@@ -1006,7 +1006,7 @@ Cobalt Jewel
 Limited to: 2
 Radius: Medium
 ElementalDamageUniqueJewel_1
-With 40 total Intelligence and Dexterity in Radius, Elemental Hit and Wild Strike cannot choose Fire
+With 40 total Intelligence and Dexterity in Radius, Prismatic Skills cannot choose Fire
 ElementalHitDisableFireUniqueJewel_1
 ]],[[
 Combat Focus
@@ -1014,7 +1014,7 @@ Viridian Jewel
 Limited to: 2
 Radius: Medium
 ElementalDamageUniqueJewel_1
-With 40 total Dexterity and Strength in Radius, Elemental Hit and Wild Strike cannot choose Lightning
+With 40 total Dexterity and Strength in Radius, Prismatic Skills Strike cannot choose Lightning
 ElementalHitDisableLightningUniqueJewel_1
 ]],[[
 Collateral Damage
@@ -1038,7 +1038,7 @@ MinionElementalResistancesUnique__1
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
 ]],[[
-Divide and Conquer
+Seething Fury
 Viridian Jewel
 League: Legion
 Requires Level: 20
@@ -1047,7 +1047,6 @@ Radius: Medium
 AttackDamageWhileHoldingShieldUnique__1
 SpectralShieldThrowThresholdJewel1_
 SpectralShieldThrowThresholdJewel2
-SpectralShieldThrowThresholdJewel3
 ]],[[
 Fight for Survival
 Viridian Jewel
@@ -1091,7 +1090,7 @@ Hazardous Research
 Cobalt Jewel
 Limited to: 1
 Radius: Medium
-LightningDamagePercentUniqueHelmetStrInt3
+LightningDamagePercentUnique__6
 SparkThresholdJewel_2
 With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
 (20-15)% reduced Spark Duration
@@ -1389,7 +1388,7 @@ Replica Blood Sacrifice
 Crimson Jewel
 League: Heist
 Implicits: 0
-MaximumLifeOnKillPercentUnique__1
+MaximumLifeOnKillPercentUnique__4_
 MaximumEnergyShieldOnKillPercentUnique__2
 CannotLeechOrRegenerateManaUnique__1_
 ]],[[
@@ -1424,7 +1423,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
 Radius: Small
-{variant:1}SpellDamageUniqueSceptre2
+{variant:1}SpellDamageOnWeaponUniqueDagger1Royale
 {variant:2}SpellDamageUnique__6
 {variant:1}100% increased Mana Cost of Skills
 {variant:2}ManaCostIncreasedUniqueCorruptedJewel3
@@ -1469,7 +1468,7 @@ Self-Flagellation
 Viridian Jewel
 Limited to: 1
 AdditionalCurseOnSelfUniqueCorruptedJewel13
-IncreasedDamagePerCurseOnSelfCorruptedJewel13_
+IncreasedDamagePerCurseOnSelfUniqueCorruptedJewel8
 Corrupted
 ]],[[
 Vaal Sentencing
@@ -1497,7 +1496,7 @@ Crimson Jewel
 Limited to: 1
 ManaCostReductionUniqueJewel44
 SkillEffectDurationUniqueJewel44
-2% reduced Mana Reserved
+ReducedManaReservationsCostUniqueJewel44
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
@@ -1582,7 +1581,7 @@ Emperor's Wit
 Cobalt Jewel
 Source: Fastest Cruel Labyrinth
 Limited to: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 ActorSizeUnique__1
 PercentageIntelligenceUnique__2
 ]],
@@ -1709,7 +1708,7 @@ Implicits: 0
 {variant:14}MinionAttackAndCastSpeedPerDevotion
 {variant:15}MinionAccuracyRatingPerDevotion_
 {variant:16}AddedManaRegenerationPerDevotion
-{variant:17}ReducedManaCostPerDevotion
+{variant:17}1% reduced Cost of Skills per 10 Devotion
 {variant:18}AuraEffectPerDevotion
 {variant:19}ShieldDefencesPerDevotion
 Passives in radius are Conquered by the Templars

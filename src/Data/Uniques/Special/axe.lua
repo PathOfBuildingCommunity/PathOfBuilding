@@ -20,7 +20,7 @@ Variant: Current
 Requires Level 16, 48 Str
 LocalAddedPhysicalDamageUniqueOneHandAxe7
 LocalAddedFireDamageUniqueOneHandAxe7
-IncreasedAttackSpeedUniqueQuiver6
+LocalIncreasedAttackSpeedUniqueOneHandSword6
 FireResistUnique__24
 MovementVelocityUniqueIntHelmet2
 {variant:1}FlammabilityOnHitUniqueOneHandAxe7
@@ -32,7 +32,7 @@ Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
 Requires Level 60, 48 Str
 LocalAddedPhysicalDamageUniqueOneHandAxe7
 LocalAddedFireDamageUnique__4
-IncreasedAttackSpeedUniqueQuiver6
+LocalIncreasedAttackSpeedUniqueOneHandSword6
 FireResistUnique__24
 MovementVelocityUniqueIntHelmet2
 IgnoreEnemyFireResistWhileIgnitedUnique__1
@@ -92,7 +92,7 @@ LocalAddedPhysicalDamageUniqueOneHandAxe5
 {variant:1}LocalIncreasedAttackSpeedUniqueBow10
 {variant:1}LifeLeechUniqueRing2
 {variant:1}50% reduced Life Leeched per second
-CausesBleedingUnique__1
+CausesBleedingUniqueTwoHandAxe7Updated
 {variant:2}LocalBleedDamageOverTimeMultiplierUnique__1
 ]],[[
 Moonbender's Wing
@@ -106,7 +106,7 @@ Requires Level 39, 81 Str, 56 Dex
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword8
 {variant:1}LocalAddedPhysicalDamageUniqueOneHandAxe8
 LocalCriticalStrikeChanceImplicitBow1
-{variant:1}ConvertPhysicalToColdUnique__1
+{variant:1}ConvertPhysicalToColdUniqueOneHandAxe8
 {variant:1}ConvertPhysicalToLightningUniqueOneHandAxe8
 {variant:2}WeaponPhysicalDamageAddedAsColdOrLightningUnique__1
 ]],[[
@@ -117,7 +117,7 @@ Variant: Current
 Requires Level 29, 80 Str, 23 Dex
 LocalIncreasedPhyiscalDamagePercentUnique__3
 LocalAddedPhysicalDamageUniqueOneHandAxe6
-{variant:1}LifeLeechPermyriadUniqueShieldDex2
+{variant:1}LifeLeechPermyriadUnique__4
 {variant:2}LifeLeechUniqueRing2
 NearbyAlliesHaveCullingStrikeUnique__1
 GainOnslaughtWhenCullingEnemyUniqueOneHandAxe6
@@ -134,7 +134,7 @@ LocalAddedPhysicalDamageUnique__7
 40% increased Physical Weapon Damage while Dual Wielding
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1}SwordPhysicalAttackSpeedUnique__1
-{variant:1}CausesBleedingUnique__1
+{variant:1}CausesBleedingUniqueTwoHandAxe7Updated
 {variant:2}MaxRagePerEquippedSwordUnique__1____
 ]],[[
 Soul Taker
@@ -145,7 +145,7 @@ Requires Level 59, 119 Str, 82 Dex
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
 LocalAddedPhysicalDamageOneHandAxe1
-LocalIncreasedAttackSpeedUniqueOneHandSword9
+LocalIncreasedAttackSpeedUniqueOneHandSword11
 ColdResistUniqueOneHandAxe1_
 MeleeAttacksUsableWithoutManaUnique__1
 PhysicalDamageCanChillUniqueDescentOneHandAxe1
@@ -175,7 +175,7 @@ LocalIncreaseSocketedSupportGemLevelUniqueTwoHandAxe7
 {variant:1}Adds (220-235) to (270-290) Physical Damage
 {variant:2}LocalAddedPhysicalDamageUniqueTwoHandAxe7
 LocalIncreasedAttackSpeedUniqueTwoHandAxe7
-CausesBleedingUnique__1
+CausesBleedingUniqueTwoHandAxe7Updated
 LocalIncreasedMeleeWeaponRangeUniqueDescentStaff1
 ]],[[
 The Blood Reaper
@@ -186,7 +186,7 @@ Variant: Current
 Requires Level 45, 99 Str, 57 Dex
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__10
 {variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__29
-IncreasedLifeUniqueTwoHandAxe4
+IncreasedLifeUniqueBodyStr1Royale
 {variant:1,2}Regenerate 10 Life per second
 {variant:3}LifeRegenerationUniqueTwoHandAxe4
 LifeLeechPermyriadUnique__5
@@ -260,8 +260,8 @@ Variant: Current
 Requires Level 66, 140 Str, 86 Dex
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__43
 {variant:3}(250-285)% increased Physical Damage
-{variant:4}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
-IncreasedAttackSpeedUnique__4_
+{variant:4}LocalIncreasedPhysicalDamagePercentUnique__25
+LocalIncreasedAttackSpeedUniqueBow12
 {variant:2,3,4}LocalCriticalStrikeChanceUnique__10
 {variant:1}IncreasedManaUniqueTwoHandAxe9
 DisplayNearbyAlliesHaveIncreasedItemRarityUniqueTwoHandAxe9

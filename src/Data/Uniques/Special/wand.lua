@@ -109,7 +109,7 @@ Requires Level 40, 131 Int
 Implicits: 2
 {variant:1}SpellDamageImplicitGloves1
 {variant:2,3}SpellDamageOnWeaponImplicitWand9
-IntelligenceUniqueWand2
+IntelligenceUniqueOneHandAxe1
 {variant:1,2}MinionRunSpeedUnique__4
 {variant:3}MinionRunSpeedUniqueWand2
 {variant:1,2}Minions deal (10-30)% increased Damage
@@ -127,7 +127,7 @@ Requires Level 40, 131 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand9
 LifeReservationUniqueWand2
-IntelligenceUniqueWand2
+IntelligenceUniqueOneHandAxe1
 MinionRunSpeedUnique__5
 MinionDamageUniqueWand2
 ExtraRagingSpiritsUnique__1
@@ -152,7 +152,7 @@ SpellDamageUnique__6
 {variant:4}LocalIncreasedPhysicalDamagePercentUniqueWand1
 IntelligenceUniqueOneHandSword2
 TalismanIncreasedLightningDamage
-IncreasedCastSpeedUniqueWand10
+IncreasedCastSpeedUniqueStaff1
 BlindingHitUniqueWand1
 ]],[[
 Obliteration
@@ -195,7 +195,7 @@ Implicits: 1
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
 (8-12)% increased Attack Speed 
-Trigger a Socketed Spell when you Attack with this Weapon
+TriggerSocketedSpellOnAttackUnique__1
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -208,7 +208,7 @@ Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand2
 {variant:2,3}SpellDamageOnWeaponImplicitWand5
 {variant:1,2}LocalIncreaseSocketedGemLevelUniqueHelmetStrInt2
-{variant:3}LocalIncreaseSocketedGemLevelUniqueWand8
+{variant:3}LocalIncreaseSocketedGemLevelUniqueRing39
 SupportedByEchoUniqueWand8New_
 IntelligenceUniqueWand8
 ]],[[
@@ -230,7 +230,7 @@ Requires Level 36, 83 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
 {variant:1}LocalIncreaseSocketedGemLevelUniqueHelmetStrInt2
-{variant:2}LocalIncreaseSocketedGemLevelUniqueWand8
+{variant:2}LocalIncreaseSocketedGemLevelUniqueRing39
 SocketedGemsGetIncreasedAreaOfEffectUnique__1
 SupportedByEchoUniqueWand8New_
 ControlledDestructionSupportUnique__1New_
@@ -288,7 +288,7 @@ Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Requires Level 24, 83 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
-IncreasedCastSpeedUnique__7
+IncreasedCastSpeedFishing__Unique1
 GainPowerChargeOnKillingFrozenEnemyUnique__1
 AddedColdDamagePerPowerChargeUnique__1
 GainManaOnKillingFrozenEnemyUnique__1
@@ -300,10 +300,10 @@ Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand16
-IncreasedCastSpeedUnique__7
+IncreasedCastSpeedFishing__Unique1
 GainPowerChargeOnKillingFrozenEnemyUnique__1
 AddedColdDamagePerPowerChargeUnique__2
-LosePowerChargesOnMaxPowerChargesUnique__1
+LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 IncreasedColdDamagePerFrenzyChargeUnique__1
 ]],[[
@@ -314,7 +314,7 @@ Requires Level 65, 212 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand16
 IncreasedCastSpeedUnique__22
-LosePowerChargesOnMaxPowerChargesUnique__1
+LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 IncreasedColdDamagePerFrenzyChargeUnique__2
 PowerChargeOnHittingFrozenEnemyUnique__1

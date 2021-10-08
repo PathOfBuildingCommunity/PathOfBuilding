@@ -9,7 +9,7 @@ Requires Level 53, 58 Dex, 123 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDaggerNew2
 SummonSpidersOnKillUnique__1
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
+LocalIncreasedPhysicalDamagePercentUnique__25
 LocalAddedPhysicalDamageUnique__25
 LocalAddedChaosDamageUnique___1
 LocalChanceToPoisonOnHitUnique__1
@@ -20,7 +20,7 @@ Variant: Pre 2.2.0
 Variant: Current
 Requires Level 65, 81 Dex, 117 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 DegenerationDamageUniqueDagger8
 LocalAddedPhysicalDamageUniqueDagger8
 LocalCriticalStrikeChanceUnique__4
@@ -36,25 +36,25 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 15, 30 Dex, 30 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 DexterityUniqueJewel8
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
 IncreasedAttackSpeedUniqueQuiver1
 ExtraGore
 {variant:1}10% chance to cause Bleeding on Hit
-{variant:2}LocalChanceToBleedUniqueOneHandMace8
+{variant:2}LocalChanceToBleedUniqueDagger12
 ]],[[
 Replica Bloodplay
 Stiletto
 League: Heist
 Requires Level 15, 30 Dex, 30 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 StrengthUnique__20_
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
-LocalChanceToBleedUniqueOneHandMace8
+LocalChanceToBleedUniqueDagger12
 CriticalStrikeChanceAgainstBleedingEnemiesUnique__1
 ExtraGore
 ]],[[
@@ -62,7 +62,7 @@ Cold Iron Point
 Ezomyte Dagger
 Requires Level 62, 95 Dex, 131 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 GlobalPhysicalSpellGemsLevelUnique__1
 DealNoElementalDamageUnique__2
 ]],[[
@@ -71,7 +71,7 @@ Ezomyte Dagger
 League: Heist
 Requires Level 62, 95 Dex, 131 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 GlobalColdSpellGemsLevelUnique__1
 DealNoColdDamageUnique__1
 ]],[[
@@ -99,7 +99,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 SpellDamageOnWeaponUniqueDagger1
 {variant:1}LifeGainedFromEnemyDeathUniqueTwoHandMace7
 {variant:2}LifeGainedFromEnemyDeathUniqueDagger1
@@ -114,7 +114,7 @@ Skinning Knife
 Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Requires Level 5, 16 Dex
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 DexterityUniqueDagger11
 LocalIncreasedPhysicalDamagePercentUniqueBow10
 LocalAddedPhysicalDamageUniqueDagger11
@@ -127,7 +127,7 @@ Skinning Knife
 Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
 Requires Level 59
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 LocalIncreasedPhysicalDamagePercentUniqueBow10
 LocalAddedPhysicalDamageUnique__36
 DexterityUniqueDagger11
@@ -141,7 +141,7 @@ Ambusher
 League: Ritual
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 LocalIncreasedPhysicalDamagePercentUnique__43
 AttackSpeedFrenzyChargeNotGainedUnique__1
 CriticalStrikeChancePowerChargeNotGainedUnique__1
@@ -155,7 +155,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 {variant:1}SpellDamageUnique__7
 {variant:2}SpellDamageOnWeaponUniqueDagger4
 IncreasedManaUniqueWand3
@@ -168,11 +168,11 @@ Royal Skean
 League: Heist
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 SpellDamageOnWeaponUniqueDagger4
 IncreasedEnergyShieldUniqueDagger4
 ReducedEnergyShieldDelayUniqueBodyInt1
-IncreasedLifeUnique__47
+IncreasedLifeUniqueQuiver3
 ImpaleEffectUnique__1
 ChanceToImpaleWithSpellsUnique__1
 ]],[[
@@ -181,7 +181,7 @@ Ambusher
 League: Heist
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 UniqueSecretBladeGrantHiddenBlade
 DexterityUnique__20__
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword8
@@ -210,7 +210,7 @@ Mightflay
 Flaying Knife
 Requires Level 35, 73 Dex, 51 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
 LocalAddedPhysicalDamageUniqueDagger2
 StrengthUniqueDagger2
@@ -220,7 +220,7 @@ Taproot
 Ambusher
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 LocalIncreasedPhysicalDamagePercentUnique__29
 LocalIncreasedAttackSpeedUniqueBow10
 PoisonDurationUnique__1_
@@ -236,7 +236,7 @@ Variant: Pre 1.3.0
 Variant: Current
 Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 {variant:2}20% additional Chance to Block while Dual Wielding
 {variant:1,3}12% additional Chance to Block while Dual Wielding
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
@@ -250,7 +250,7 @@ Boot Knife
 League: Heist
 Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 BlockWhileDualWieldingUnique__2_
 DexterityUniqueRing8
 IncreasedAttackSpeedUniqueQuiver1
@@ -287,7 +287,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 LocalAddedColdDamageUnique__7
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1}+(300-400) to Evasion Rating
@@ -303,7 +303,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 44, 63 Dex, 90 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 {variant:1}Adds (15-25) to (35-45) Physical Damage
 {variant:2}LocalAddedPhysicalDamageUnique__8
 LocalCriticalStrikeChanceUnique__2

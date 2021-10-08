@@ -755,7 +755,7 @@ Requires Level 28
 Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
-+7% to Unarmed Melee Attack Critical Strike Chance
+{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
 {tags:attack}Modifiers to Claw Damage also apply to Unarmed Attack Damage
 {tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
 {tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
@@ -834,7 +834,7 @@ Implicits: 1
 {tags:resource,life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Reservation if Cast as an Aura
+{tags:caster}Temporal Chains has 100% reduced Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast

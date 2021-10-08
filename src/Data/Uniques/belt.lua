@@ -203,7 +203,7 @@ Variant: Current (Lightning)
 Requires Level 68
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
-{variant:1,5}{tags:physical}(20-30)% increased Physical Damage
+{variant:1,5}{tags:physical,attack}(20-30)% increased Physical Damage
 {variant:2,6}{tags:elemental_damage}(20-30)% increased Fire Damage
 {variant:3,7}{tags:elemental_damage}(20-30)% increased Cold Damage
 {variant:4,8}{tags:elemental_damage}(20-30)% increased Lightning Damage

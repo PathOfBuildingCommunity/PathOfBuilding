@@ -14,7 +14,7 @@ Implicits: 2
 SocketedGemsSupportedByFortifyUnique____1
 LocalIncreasedPhysicalDamagePercentUnique__10
 IncreasedEvasionRatingUnique___1
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 IncreasedEnergyShieldUnique__2
 AttackerTakesDamageUnique__1
 15% Chance to Block
@@ -28,7 +28,7 @@ LifeGainPerTargetImplicit2Claw8
 SupportedByCastOnDamageTakenUnique__1
 AdditionalBlockUnique__2
 LocalIncreasedPhysicalDamagePercentUnique__10
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 ShieldArmourIncreaseUnique__1
 AddedFireDamageIfBlockedRecentlyUnique__1
 ]],[[
@@ -79,7 +79,7 @@ Implicits: 3
 {variant:4,5}TriggeredAbyssalCryUnique__1
 {variant:1}LocalIncreasedPhyiscalDamagePercentUnique__3
 {variant:2,3,4,5,6}LocalIncreasedPhysicalDamagePercentUnique__10
-LifeLeechUniqueOneHandAxe6
+LifeLeechPermyriadUniqueClaw6
 {variant:1,2,3,4}StunThresholdReductionUniqueClaw6
 {variant:6}WarcryTauntChaosExplosionUnique__1_
 {variant:5}50% increased Warcry Buff Effect
@@ -96,7 +96,7 @@ LifeLeechPermyriadImplicitClaw1
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__10
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueClaw3
 LocalAddedPhysicalDamageUniqueClaw3
-LocalIncreasedAttackSpeedUniqueClaw3
+IncreasedAttackSpeedUniqueGlovesDex2
 LifeLeechPermyriadUniqueClaw3
 MovementVelocityUniqueIntHelmet2
 LocalLifeLeechIsInstantUniqueClaw3
@@ -112,7 +112,7 @@ Implicits: 3
 {variant:2}+21 Life gained for each Enemy hit by Attacks
 {variant:3}LifeGainPerTargetImplicit2Claw6
 IncreasedCastSpeedUniqueClaw7
-IncreasedManaUniqueHelmetDexInt3
+IncreasedManaUniqueClaw7
 LifeGainedOnSpellHitUniqueClaw7
 {variant:1}6% increased Spell Damage per 5% Block Chance
 {variant:2,3}8% increased Spell Damage per 5% Block Chance
@@ -125,7 +125,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 64, 113 Dex, 113 Int
 Implicits: 3
-{variant:1,2}LifeLeechPermyriadUniqueShieldDex2
+{variant:1,2}LifeLeechPermyriadUnique__4
 {variant:3}+31 Life gained for each Enemy hit by Attacks
 {variant:4}LifeGainPerTargetImplicit2Claw12
 {variant:1}10% additional Chance to Block while Dual Wielding Claws
@@ -206,7 +206,7 @@ LocalIncreasedPhysicalDamagePercentUnique__6
 LocalAddedPhysicalDamageUnique__3
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1,2}+(250-350) to Accuracy Rating
-{variant:3}IncreasedAccuracyUnique__5
+{variant:3}IncreasedAccuracyUnique__1
 100% increased Physical Damage while Frozen
 ]],[[
 Last Resort
@@ -260,7 +260,7 @@ Implicits: 2
 {variant:3,4}LifeGainPerTargetImplicit2Claw5_1
 LocalIncreasedPhysicalDamagePercentUniqueClaw2
 LocalIncreasedAttackSpeedUniqueDescentOneHandMace1
-LocalCriticalStrikeChanceUniqueClaw2
+LocalCriticalStrikeChanceUniqueOneHandMace1
 {variant:1}CriticalMultiplierImplicitSword1
 {variant:2,3,4}CriticalMultiplierUniqueGlovesDexInt4
 PhysicalDamageConvertToChaosUniqueClaw2
@@ -292,7 +292,7 @@ Implicits: 1
 LifeLeechUniqueRing2
 LocalIncreasedPhyiscalDamagePercentUnique__3
 LocalAddedPhysicalDamageUnique__13
-CausesBleedingUnique__1
+CausesBleedingUniqueTwoHandAxe7Updated
 IncreasePhysicalDegenDamagePerDexterityUnique__1
 1% increased Bleed Duration per 12 Intelligence
 BleedingEnemiesFleeOnHitUnique__1
@@ -336,7 +336,7 @@ Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 LifeGainPerTargetImplicit2Claw11_
 LocalIncreasedPhysicalDamagePercentUniqueClaw3
-LocalIncreasedAttackSpeedUniqueOneHandSword9
+LocalIncreasedAttackSpeedUniqueOneHandSword11
 LocalCriticalStrikeChanceUnique__11
 {variant:1}+(180-200) to Accuracy Rating
 {variant:2}LocalIncreasedAccuracyUnique__1

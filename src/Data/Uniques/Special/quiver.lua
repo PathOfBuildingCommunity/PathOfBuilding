@@ -80,7 +80,7 @@ Implicits: 1
 AdditionalArrowPierceImplicitQuiver12_
 LocalIncreasedAttackSpeedUnique__24
 IncreasedEvasionRatingUniqueQuiver3_
-IncreasedLifeUnique__47
+IncreasedLifeUniqueQuiver3
 Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 ArrowDamageAgainstPiercedTargetsUnique__1
 ]],[[
@@ -118,11 +118,11 @@ Variant: Current
 Requires Level 10
 Implicits: 1
 LifeGainPerTargetImplicitQuiver8
-StrengthUniqueQuiver6
+StrengthUniqueRing31__
 DexterityUniqueQuiver6
 IntelligenceUniqueBelt11
 {variant:2}AddedColdDamageUnique__1
-IncreasedAttackSpeedUniqueQuiver6
+LocalIncreasedAttackSpeedUniqueOneHandSword6
 LifeGainPerTargetUniqueQuiver6_
 10% increased Area of Effect of Area Skills
 ]],[[
@@ -133,7 +133,7 @@ Requires Level 45
 Implicits: 1
 LifeGainPerTargetImplicitQuiver8
 AllAttributesUnique__7
-IncreasedAttackSpeedUniqueQuiver6
+LocalIncreasedAttackSpeedUniqueOneHandSword6
 LifeGainPerTargetUniqueQuiver6_
 AreaOfEffectUnique__3
 ColdDamageToAttacksPerDexterityUnique__1
@@ -146,8 +146,8 @@ Requires Level 45
 Implicits: 1
 RingHasOneSocket
 HasTwoSocketsUnique__1
-Trigger a Socketed Bow Skill when you Attack with a Bow
-IncreasedAttackSpeedUnique__4_
+TriggerBowSkillsOnBowAttackUnique__1
+LocalIncreasedAttackSpeedUniqueBow12
 IncreasedLifeUnique__2
 AttacksBlindOnHitChanceUnique__1
 ]],[[
@@ -205,8 +205,8 @@ Implicits: 1
 FireResistUnique__3
 LightningResistUnique__2
 LifeGainPerTargetUnique__1
-ProjectileSpeedUnique__4
-IncreasedProjectileDamageUnique___10_
+ProjectileSpeedUniqueQuiver2
+IncreasedProjectileDamageUnique___4
 {variant:1}Projectiles Fork
 {variant:2}ProjectilesForkUnique____1
 ]],[[
@@ -297,7 +297,7 @@ AddedColdDamageUnique__7
 IncreasedEnergyShieldUnique__7
 ColdResistUnique__3
 ManaGainedFromEnemyDeathUnique__2
-ProjectileSpeedUnique__5__
+ProjectileSpeedUnique__2
 MaximumVoidArrowsUnique__1
 Gain a Void Charge every 0.5 seconds
 Elder Item

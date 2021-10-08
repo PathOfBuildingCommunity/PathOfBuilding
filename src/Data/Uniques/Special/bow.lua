@@ -27,7 +27,7 @@ Implicits: 1
 {variant:4}EvasionRatingIfUsedDashRecentlyUnique__1
 {variant:4}MovementSpeedIfUsedDashRecentlyUnique__1
 {variant:4}DisableTravelSkillsExceptDashUnique__1
-{variant:4}KeystoneIronReflexesUnique__1
+{variant:4}IronReflexes
 ]],[[
 Chin Sol
 Assassin Bow
@@ -46,7 +46,7 @@ DexterityUniqueRing8
 {variant:3,4}(150-180)% increased Physical Damage
 {variant:5,6}LocalIncreasedPhysicalDamagePercentUniqueBow6
 LocalAddedFireDamageUniqueBow6
-{variant:1,2}LocalIncreasedAttackSpeedUniqueClaw3
+{variant:1,2}IncreasedAttackSpeedUniqueGlovesDex2
 {variant:3,4,5,6}LocalIncreasedAttackSpeedUniqueBow6
 {variant:1,2,3,4}100% More Damage with Arrow Hits at Close Range
 {variant:5,6}PhysicalBowDamageCloseRangeUniqueBow6
@@ -66,7 +66,7 @@ Variant: Attack Speed/Trigger Blood Rage on Kill
 Variant: Cast Speed/Trigger Arcane Surge on Kill
 Variant: Minion Attack and Cast Speed
 Variant: Double Damage
-Variant: Double Damage while Focussed
+Variant: Double Damage while Focused
 Variant: Socketed Spell Trigger
 Requires Level 57, 190 Dex
 Implicits: 1
@@ -92,8 +92,8 @@ MaimOnCritUnique__1
 {variant:10}{crafted}Minions have (16-28)% increased Attack Speed
 {variant:10}{crafted}Minions have (16-28)% increased Cast Speed
 {variant:11}{crafted}(4-12)% chance to deal Double Damage
-{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focussed
-{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill
+{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focused
+{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
 ]],[[
 Darkscorn
 Assassin Bow
@@ -136,7 +136,7 @@ LocalIncreasedPhysicalDamagePercentUnique__2
 IncreasedAttackSpeedUniqueQuiver1
 {variant:1,2,4}+100% to Global Critical Strike Multiplier
 {variant:3}+150% to Global Critical Strike Multiplier
-{variant:5}LocalCriticalMultiplierUniqueBow3
+{variant:5}CriticalMultiplierImplicitSword3
 Adds an additional Arrow
 ]],[[
 Death's Opus
@@ -155,7 +155,7 @@ LocalAddedPhysicalDamageUnique__17_
 IncreasedAttackSpeedUniqueQuiver1
 {variant:1,2,4}+100% to Global Critical Strike Multiplier
 {variant:3}+150% to Global Critical Strike Multiplier
-{variant:5}LocalCriticalMultiplierUniqueBow3
+{variant:5}CriticalMultiplierImplicitSword3
 2 additional Arrows
 ]],[[
 Doomfletch
@@ -173,7 +173,7 @@ Implicits: 2
 {variant:4}LocalAddedPhysicalDamageUniqueBow11
 LocalIncreasedAttackSpeedUniqueBow6
 {variant:1,2,3}LocalCriticalStrikeChanceUnique__10
-ManaRegenerationUniqueBootsDex2
+ManaRegenerationUniqueDexHelmet2
 {variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of an Element
 {variant:4}Gain 100% of Bow Physical Damage as Extra Damage of an Element
 ]],[[
@@ -192,7 +192,7 @@ Implicits: 2
 {variant:4}LocalAddedPhysicalDamageUniqueBow11
 LocalIncreasedAttackSpeedUniqueBow6
 {variant:1,2,3}LocalCriticalStrikeChanceUnique__10
-ManaRegenerationUniqueBootsDex2
+ManaRegenerationUniqueDexHelmet2
 {variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of each Element
 {variant:4}Gain 100% of Bow Physical Damage as Extra Damage of each Element
 ]],[[
@@ -296,7 +296,7 @@ Variant: Pre 3.14.0
 Variant: Current
 Requires Level 60, 212 Dex, 212 Int
 AddedChaosDamageUniqueBow12
-IncreasedAttackSpeedUnique__4_
+LocalIncreasedAttackSpeedUniqueBow12
 ChaosResistUniqueBow12
 {variant:1}Minions deal 1% increased Damage per 10 Dexterity
 {variant:2}IncreasedMinionDamagePerDexterityUniqueBow12
@@ -364,7 +364,7 @@ Requires Level 64, 212 Dex
 LocalIncreasedAttackSpeedUnique__24
 {variant:1,2}4 additional Arrows
 {variant:3}2 additional Arrows
-ProjectileSpeedUnique__4
+ProjectileSpeedUniqueQuiver2
 {variant:5}VolleyFirstPointPierceUnique__1_
 {variant:5}VolleySecondPointForkUnique__1
 {variant:5}VolleyThirdPointReturnUnique__1__
@@ -381,7 +381,7 @@ LocalIncreasedPhyiscalDamagePercentUnique__3
 WeaponElementalDamageUnique__2
 LocalIncreasedAttackSpeedUnique__1
 AdditionalChainUniqueOneHandMace3
-ProjectileSpeedUnique__5__
+ProjectileSpeedUnique__2
 ]],[[
 Silverbranch
 Crude Bow
@@ -455,7 +455,7 @@ LocalIncreasedAttackSpeedUniqueBow10
 ConvertLightningDamageToChaosUniqueBow10
 ChanceToShockUnique__1
 ChaosDamageCanShockUniqueBow10
-{variant:2}AttacksShockAsIfDealingMoreDamageUniqueBow10
+{variant:2}AttacksShockAsIfDealingMoreDamageUnique__2
 {variant:2}MaximumShockOverrideUniqueBow10
 ]],[[
 Windripper

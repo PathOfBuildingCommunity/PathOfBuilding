@@ -15,7 +15,7 @@ Implicits: 2
 LocalIncreasedPhysicalDamagePercentUnique__15
 {variant:1,2}LocalIncreasedAttackSpeedUniqueTwoHandMace4
 {variant:3}LocalIncreasedAttackSpeedUniqueOneHandMace1
-LocalCriticalStrikeChanceUniqueClaw2
+LocalCriticalStrikeChanceUniqueOneHandMace1
 FireResistUniqueAmulet4
 LightningResistUnique__2
 ]],[[
@@ -89,7 +89,7 @@ LocalAddedPhysicalDamageUniqueRapier2
 IncreasedAttackSpeedUniqueQuiver1
 LifeLeechPermyriadUnique__5
 {variant:1}10% Chance to cause Bleeding on Hit
-{variant:2}LocalChanceToBleedUniqueOneHandMace8
+{variant:2}LocalChanceToBleedUniqueDagger12
 {variant:1}AttackDamageLifeLeechAgainstBleedingEnemiesUnique_1
 {variant:2}LifeLeechPhysicalAgainstBleedingEnemiesUniqueOneHandMace8
 ]],[[
@@ -149,7 +149,7 @@ Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}StunThresholdReductionUniqueGlovesDexInt2
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
-{variant:1,2}IncreasedLifeUniqueHelmetDex5
+{variant:1,2}IncreasedLifeImplicitShield1
 {variant:1,2}IncreasedManaUniqueBootsStrDex3
 {variant:3}IncreasedLifeUniqueOneHandMace7
 {variant:3}IncreasedManaUniqueOneHandMace7
@@ -165,20 +165,22 @@ Gavel
 Variant: Pre 2.0.0
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
-{variant:4}StunThresholdReductionUniqueTwoHandMace1
+{variant:4,5}StunThresholdReductionUniqueTwoHandMace1
 LocalIncreasedPhysicalDamagePercentUniqueWand9
 AdditionalChainUniqueOneHandMace3
-WeaponLightningDamageUniqueOneHandMace3
+{variant:1,2,3,4}(30-40)% increased Lightning Damage with Attack Skills
+{variant:5}WeaponLightningDamageUniqueOneHandMace3
 StrengthRequirementsUnique__2
 IntelligenceRequirementsUniqueOneHandMace3
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
-{variant:3,4}Trigger a Socketed Lightning Spell on Hit
-Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
+{variant:3,4,5}CastSocketedLightningSpellsOnHit
+{variant:1,2,3,4}Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
 Void Sceptre
@@ -187,7 +189,7 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__16
+IncreasedCastSpeedUnique__11__
 ColdDamagePerResistanceAbove75Unique__1
 LightningDamagePerResistanceAbove75Unique__1
 ]],[[
@@ -197,7 +199,7 @@ League: Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__16
+IncreasedCastSpeedUnique__11__
 ColdDamagePerMissingColdResistanceUnique__1
 FireDamagePerMissingFireResistanceUnique__1
 ]],[[
@@ -278,7 +280,7 @@ DisplaySupportedByIceBiteUnique__1
 DisplaySupportedByColdPenetrationUnique__1
 {variant:1,2}DisplaySupportedByManaLeechUnique__1
 DisplaySupportedByAddedColdDamageUnique__1
-Socketed Gems are Supported by level 1 Reduced Mana
+DisplaySupportedByReducedManaUnique__1
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
@@ -335,7 +337,7 @@ LocalIncreasedPhysicalDamageUniqueSceptre9
 LocalAddedPhysicalDamageUniqueSceptre9
 {variant:3}Adds 2 to 4 Fire Damage to Attacks per 10 Strength
 {variant:4}AddedFireDamagePerStrengthUnique__1
-FireDamagePercentUniqueSceptre9
+IncreasedFireDamgeIfHitRecentlyUnique__1Royale_
 LocalIncreasedAttackSpeedUniqueSceptre9
 LocalCriticalStrikeChanceUnique__10
 ]],[[
@@ -344,9 +346,10 @@ Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 47, 81 Str, 81 Int
+Implicits: 1
 ElementalDamagePercentImplicitSceptreNew13
 SpellDamageUnique__9
-IncreasedCastSpeedUnique__16
+IncreasedCastSpeedUnique__11__
 LifeLeechFromSpellsWith30BlockOnShieldUnique__1_
 EnergyShieldPerArmourOnShieldUnique__1
 ArmourPerEvasionRatingOnShieldUnique__1
@@ -404,7 +407,7 @@ Implicits: 2
 {variant:2}ElementalDamagePercentImplicitSceptreNew20
 StrengthUniqueSceptre6
 IncreasedCastSpeedUniqueSceptre6
-IncreasedManaUniqueBodyInt9
+IncreasedManaUniqueIntHelmet3
 DisplaySocketedGemsSupportedByIronWillUniqueSceptre6
 DamagePerStrengthInMainHandUniqueSceptre6
 ArmourPerStrengthInOffHandUniqueSceptre6
@@ -422,7 +425,7 @@ SocketedGemsGetElementalProliferationUniqueSceptre7
 LocalAddedPhysicalDamageUniqueSceptre7
 LocalIncreasedAttackSpeedUniqueSceptre7
 IncreasedCastSpeedUniqueSceptre7
-CriticalSrikeChanceUniqueSceptre7
+CriticalStrikeChanceImplicitRingRoyale1_
 ElementalDamageLeechedAsLifePermyriadUniqueSceptre7_
 ElementalDamageUniqueSceptre7
 ]],[[
@@ -479,12 +482,12 @@ Requires Level 41, 59 Str, 85 Int
 Implicits: 2
 {variant:1,2}ElementalDamageUniqueHelmetInt9
 {variant:3,4}ElementalDamageUnique__1
-{variant:4}LocalIncreaseSocketedFireGemLevelUnique__2
+{variant:4}LocalIncreaseSocketedFireGemLevelUnique__1_
 {variant:1,2,3}ItemActsAsFireDamageSupportUniqueSceptre2
 {variant:1,2,3}ItemActsAsColdToFireSupportUniqueSceptre2
 ItemActsAsFirePenetrationSupportUniqueSceptre2
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
-SpellDamageUniqueSceptre2
+SpellDamageOnWeaponUniqueDagger1Royale
 {variant:2,3,4}LocalIncreasedPhysicalDamagePercentUniqueSceptre2
 LifeGainPerTargetUniqueSceptre2
 LightRadiusUniqueSceptre2
@@ -578,8 +581,8 @@ Implicits: 3
 ConvertPhysicaltoLightningUnique__1
 {variant:1,2}ChanceToShockUniqueStaff8
 {variant:3}ChanceToShockUnique__2_
-{variant:1,2}HitsCauseMonsterFleeUniqueRing1
-{variant:3}AttacksShockAsIfDealingMoreDamageUniqueBow10
+{variant:1,2}HitsCauseMonsterFleeUnique__1
+{variant:3}AttacksShockAsIfDealingMoreDamageUnique__2
 LightningPenetrationUnique__1
 ShockedEnemyCastSpeedUnique__1
 ShockedEnemyMovementSpeedUnique__1
@@ -610,7 +613,7 @@ Requires Level 60, 131 Str
 Implicits: 1
 StunDurationImplicitMace1
 LocalIncreaseSocketedMeleeGemLevelUniqueRapier1
-LocalIncreaseSocketedMinionGemLevelUnique__4
+LocalIncreaseSocketedMinionGemLevelUniqueShieldInt2
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace5
 LocalAddedPhyiscalDamageUnique__38
 MaximumManaUniqueTwoHandMace5
@@ -827,7 +830,7 @@ Requires Level 54, 173 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}StunDurationImplicitMace1
-LocalIncreasedPhysicalDamagePercentUniqueOneHandSword2
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace4
 LocalIncreasedAttackSpeedUniqueTwoHandMace4
 ItemFoundRarityDecreaseUniqueTwoHandMace4
 IncreasedExperienceUniqueTwoHandMace4

@@ -252,7 +252,7 @@ Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}StaffBlockPercentImplicitStaff1
-LocalIncreaseSocketedMinionGemLevelUnique__4
+LocalIncreaseSocketedMinionGemLevelUniqueShieldInt2
 {variant:3}MinionDamageUnique__7
 {variant:3}AttackBlockPerSkeletonUnique__1
 {variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
@@ -386,15 +386,17 @@ League: Legion
 Source: Drops from Vaal Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}20% Chance to Block Spell Damage while wielding a Staff
+{variant:3,4}20% Chance to Block Spell Damage while wielding a Staff
 SupportedByEchoUniqueStaff6
 SpellDamageUniqueStaff6
-MaximumManaUniqueStaff6
+{variant:1,2,3}100% increased maximum Mana
+{variant:4}MaximumManaUniqueStaff6
 ]],[[
 Realmshaper
 Iron Staff
@@ -443,7 +445,7 @@ LocalIncreaseSocketedFireGemLevelUniqueStaff1
 {variant:1,2}SpellDamageUnique__10
 {variant:1,2}FireDamagePercentBodyStr1
 {variant:3,4}FireDamagePercentUniqueStaff1_
-IncreasedCastSpeedUniqueWand10
+IncreasedCastSpeedUniqueStaff1
 {variant:1,2,3}BurnDamageUniqueStaff1
 {variant:4}FireDamageOverTimeMultiplierUnique__1
 ]],[[
@@ -453,10 +455,10 @@ Variant: Pre 2.0.0
 Requires Level 18, 35 Str, 35 Int
 Implicits: 1
 12% Chance to Block Attack Damage while wielding a Staff
-LocalIncreaseSocketedFireGemLevelUnique__2
+LocalIncreaseSocketedFireGemLevelUnique__1_
 SpellDamageUnique__10
 FireDamagePercentBodyStr1
-IncreasedCastSpeedUniqueWand10
+IncreasedCastSpeedUniqueStaff1
 BurnDamageUniqueStaff1
 ]],[[
 Sire of Shards
@@ -502,7 +504,7 @@ Implicits: 2
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
 LocalAddedColdDamageUniqueStaff14
 LocalAddedLightningDamageUniqueStaff14
-LocalCriticalStrikeChanceUniqueStaff14
+LocalCriticalStrikeChanceUnique__7
 {variant:1}CannotBeShockedWhileFrozenUniqueStaff14
 {variant:2}You Cannot Be Shocked While Chilled
 {variant:2}ChanceToShockChilledEnemiesUnique__1
@@ -515,7 +517,7 @@ Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 15% Chance to Block Attack Damage while wielding a Staff
 LocalAddedPhysicalDamageUnique__33_
-LocalCriticalStrikeChanceUniqueStaff14
+LocalCriticalStrikeChanceUnique__7
 ConvertPhysicalToColdUniqueGlovesDex1
 ConvertPhysicaltoLightningUnique__1
 CannotBeShockedWhileChilledUnique__1
@@ -536,7 +538,7 @@ Implicits: 3
 {variant:1,2}+1 to Level of all Cold Spell Skill Gems
 {variant:3,4}LocalIncreaseSocketedColdGemLevelUniqueStaff2
 {variant:1}SpellDamageUnique__7
-{variant:2,3,4}SpellDamageUniqueStaff2
+{variant:2,3,4}SpellDamageUniqueGlovesInt2
 ColdDamagePercentUniqueStaff2
 IncreasedCastSpeedUniqueStaff2
 ChanceToFreezeUniqueStaff2

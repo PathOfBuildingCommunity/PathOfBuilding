@@ -32,7 +32,7 @@ Upgrade: Upgrades to unique{Ngamahu Tiki} via prophecy{A Forest of False Idols}
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 {tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 FireResistUniqueAmulet4
 {tags:life}1% of Life Regenerated per Second while on Low Life
 ]],[[
@@ -44,7 +44,7 @@ Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 FireDamagePercentUnique__6
 {tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 FireResistUniqueAmulet4
 {tags:life}1% of Life Regenerated per Second while on Low Life
 ]],[[
@@ -86,7 +86,7 @@ League: Heist
 Requires Level 16
 Implicits: 1
 {tags:life}Regenerate (1.00-2.00)% of Life per second
-IncreasedLifeUniqueTwoHandAxe4
+IncreasedLifeUniqueBodyStr1Royale
 LifeRecoveryRateUnique__1
 GlobalItemAttributeRequirementsUniqueAmulet10
 ]],[[
@@ -154,7 +154,7 @@ Variant: Current
 Requires Level 32
 Implicits: 1
 HybridStrInt
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 IncreasedManaUniqueHelmetStrDex5_
 IncreasedMaximumPowerChargesUnique__1
 IncreasedManaRegenerationPerPowerChargeUnique__1
@@ -252,7 +252,7 @@ AllAttributesImplicitAmulet1
 AllAttributesUniqueAmulet9
 {tags:life}{variant:1}25% reduced maximum Life
 {tags:jewellery_defense}{variant:1}25% reduced maximum Energy Shield
-AllResistancesUnique__20
+AllResistancesUnique__7
 LifeLeechPermyriadUniqueAmulet9
 {variant:2}IncreasedDamageWhileLeechingUnique__1
 {tags:life}{variant:2}50% increased Life Leeched per second
@@ -277,7 +277,7 @@ League: Heist
 Requires Level 68
 Implicits: 1
 IntelligenceUnique__7
-ManaRegenerationUnique__12
+ManaRegenerationUnique__13
 AllResistancesUnique__21
 CriticalStrikeMultiplierIfGainedPowerChargeUnique__1_
 GlobalAddedLightningDamagePerPowerChargeUnique__1
@@ -290,7 +290,7 @@ Variant: Current
 Requires Level 16
 Implicits: 1
 HybridStrInt
-StrengthUnique___2
+StrengthUnique__18
 GrantEnemiesUnholyMightOnKillUnique__1
 GrantEnemiesOnslaughtOnKillUnique__1
 {variant:1}5% chance to gain Unholy Might for 10 seconds on Kill
@@ -380,7 +380,7 @@ Implicits: 32
 {variant:9}(40-60)% increased Global Physical Damage
 {variant:10}(40-60)% increased maximum Mana
 {variant:11}(50-70)% increased Damage
-{variant:12}(8-12)% increased Physical Damage Reduction
+{variant:12}(8-12)% additional Physical Damage Reduction
 {variant:13}(8-12)% chance to Freeze, Shock and Ignite
 {variant:14}(80-100)% increased Global Critical Strike Chance
 {variant:15}(10-16)% increased Area of Effect
@@ -410,7 +410,7 @@ Requires Level 61
 Implicits: 1
 HybridStrDex
 IntelligenceUnique__22_
-IncreasedCastSpeedUnique__7
+IncreasedCastSpeedFishing__Unique1
 AreaOfEffectUnique__6
 {tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
 Curse50PercentCurseEffectUnique__1
@@ -508,7 +508,7 @@ AddedPhysicalDamageUnique__7
 AddedColdDamageUnique__8
 CriticalMultiplierUnique__3__
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-{tags:mana}Hatred has 50% less Mana Reservation
+HyrrisTruthHatredManaReservationFinalUnique__1
 ]],[[
 The Ignomon
 Gold Amulet
@@ -558,7 +558,7 @@ IncreasedLifeUnique__2
 {variant:3}ManaRegenerationUnique__7
 {variant:4}EnergyShieldRegenerationUnique__2
 {variant:5}DegenerationDamageUnique__3
-{variant:1}StunRecoveryUnique__3
+{variant:1}StunRecoveryImplicitBeltRoyale1
 {variant:2}FireResistUniqueShieldStrInt5
 {variant:3}ColdResistUniqueOneHandAxe1_
 {variant:4}LightningResistUnique__11
@@ -582,7 +582,7 @@ DexterityUniqueGlovesInt4__
 StrengthUniqueClaw5_
 IncreasedAccuracyUniqueAmulet5
 {variant:2}IncreasedProjectileDamageUnique__6
-ProjectileSpeedUnique__5__
+ProjectileSpeedUnique__2
 MovementVelocityUniqueAmulet5
 ]],[[
 Replica Karui Ward
@@ -610,8 +610,20 @@ StrengthUniqueClaw5_
 {variant:2}LocalIncreasedAttackSpeedUniqueStaff9
 IncreasedAccuracyUniqueAmulet5
 {variant:2}IncreasedProjectileDamageUnique__6
-ProjectileSpeedUnique__5__
+ProjectileSpeedUnique__2
 MovementVelocityUniqueAmulet5
+]],[[
+Leadership's Price
+Onyx Amulet
+Requires Level 68
+Implicits: 1
+{tags:attribute}+(10–16) to all Attributes
+{tags:resistance}+(-3–3)% to maximum Fire Resistance
+{tags:resistance}+(-3–3)% to maximum Cold Resistance
+{tags:resistance}+(-3–3)% to maximum Lightning Resistance
+ScorchingBrittleSappingConfluxUnique__1
+CannotIgniteChillFreezeShockUnique__1
+Corrupted
 ]],[[
 Maligaro's Cruelty
 Turquoise Amulet
@@ -680,7 +692,7 @@ Talisman Tier: 1
 Requires Level 12
 Implicits: 1
 RingHasOneSocket
-LocalIncreaseSocketedGemLevelUniqueWand8
+LocalIncreaseSocketedGemLevelUniqueRing39
 SocketedGemsHaveAddedChaosDamageUnique__1
 ItemActsAsSupportBlindUnique__1
 SupportedByCastOnStunUnique___1
@@ -708,15 +720,15 @@ GolemSizeUnique__1
 LessGolemDamageUnique__1
 LessGolemLifeUnique__1
 GolemMovementSpeedUnique__1
-PrimordialJewelCountUnique__1
+PrimordialJewelCountUnique__3
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
 Requires Level 61
 Implicits: 1
 DexterityUniqueGlovesInt4__
-IncreasedLifeUnique__13
-IncreasedManaUniqueAmulet19
+IncreasedLifeUniqueAmulet19
+IncreasedManaUniqueBootsStrDex4
 ElementalStatusAilmentDurationUniqueAmulet19
 GlobalItemAttributeRequirementsUniqueAmulet19
 ChanceToFreezeShockIgniteUniqueAmulet19
@@ -743,10 +755,10 @@ Requires Level 28
 Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}TalismanIncreasedCriticalStrikeMultiplier_
-+7% Base Unarmed Critical Strike Chance
-ClawDamageModsAlsoAffectUnarmedUnique__1
-ClawAttackSpeedModsAlsoAffectUnarmed__1
-ClawCritModsAlsoAffectUnarmed__1
+BaseUnarmedCriticalStrikeChanceUnique__1
+{tags:attack}Modifiers to Claw Damage also apply to Unarmed Attack Damage
+{tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
+{tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
 Corrupted
 ]],[[
 Sacrificial Heart
@@ -822,7 +834,7 @@ AllAttributesImplicitAmulet1
 IncreasedLifeUnique__2
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Mana Reservation
+TemporalChainsReservationCostUnique__1
 GainShapersPresenceUnique__1
 ]],[[
 Star of Wraeclast
@@ -836,7 +848,7 @@ Implicits: 1
 FireResistUniqueAmulet4
 {variant:3}GrantsFrostblinkSkillUnique__1
 ColdDamagePercentUnique__3
-AllResistancesUniqueBootsStr1
+AllResistancesUnique__2
 {variant:1}{tags:caster}30% increased Area of Effect of Hex Skills
 {variant:2,3}CurseAreaOfEffectUnique__1
 SilenceImmunityUnique__1
@@ -853,7 +865,7 @@ Implicits: 1
 IntelligenceUnique__7
 {variant:1}+15% chance to Block Spell Damage
 {variant:2}+(12-15)% chance to Block Spell Damage
-IncreasedCastSpeedUnique__7
+IncreasedCastSpeedFishing__Unique1
 IncreasedManaUnique__6
 ]],[[
 Tavukai
@@ -889,7 +901,7 @@ Implicits: 1
 HybridDexInt
 {variant:1}CriticalStrikeChanceUniqueBodyInt4
 {variant:2}CriticalStrikeChanceUniqueAmulet18
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 IncreasedManaUnique__6
 StunRecoveryUniqueAmulet18
 CriticalMultiplierUniqueAmulet18
@@ -900,7 +912,7 @@ League: Onslaught
 Requires Level 16
 Implicits: 1
 HybridDexInt
-LightningResistUnique__8
+LightningResistUniqueAmulet15
 ChaosResistUniqueAmulet15_
 TalismanFrenzyChargeOnKill
 PowerChargeOnKillChanceUniqueUniqueShieldInt3
@@ -958,7 +970,7 @@ HybridDexInt
 {variant:1}LocalIncreasedAttackSpeedUnique__24
 {variant:2}LocalIncreasedAttackSpeedUniqueBow10
 {variant:1}IncreasedCastSpeedUniqueClaw7
-{variant:2}IncreasedCastSpeedUnique__7
+{variant:2}IncreasedCastSpeedFishing__Unique1
 {tags:speed}12% increased Movement Speed
 {variant:1}(8-12)% reduced Skill Effect Duration
 {variant:2}ReducedSkillEffectDurationUniqueAmulet20
@@ -994,7 +1006,7 @@ Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 DexterityUniqueGlovesInt4__
-IncreasedEnergyShieldUnique__9
+LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
 LightningResistUnique__23_
 EnergyShieldRegenerationWhileShockedUnique__1
 UnaffectedByShockUnique__1
@@ -1010,7 +1022,7 @@ StrengthUniqueClaw5_
 StrengthUniqueClaw5_
 FireDamagePercentUnique___7
 IncreasedLifeUnique__25
-FireResistUnique__23_
+FireResistUnique__9
 CoverInAshWhenHitUnique__1
 ]],[[
 Xoph's Blood
@@ -1020,8 +1032,8 @@ Source: Upgraded from unique{Xoph's Heart} using currency{Blessing of Xoph}
 Requires Level 64
 Implicits: 1
 StrengthUniqueClaw5_
-MaximumLifeUnique__3
-FireResistUnique__23_
+MaximumLifeUniqueBodyInt3
+FireResistUnique__9
 PercentageStrengthImplicitMace1
 FirePenetrationUnique__1
 CoverInAshWhenHitUnique__1
@@ -1034,7 +1046,7 @@ Requires Level 70
 Implicits: 1
 AllAttributesImplicitAmulet1
 FireResistUniqueBelt13
-ColdResistUniqueBelt13
+ColdResistUniqueShieldStrDex1
 LightningResistUnique__5
 IncreasedAilmentDurationUnique__2
 ChanceToShockUnique__3

@@ -44,7 +44,7 @@ Implicits: 2
 {variant:1}Adds (15-30) to (35-50) Physical Damage
 {variant:2}Adds (20-40) to (55-70) Physical Damage
 {variant:3,4}LocalAddedPhysicalDamageUniqueOneHandSword9
-LocalIncreasedAttackSpeedUniqueOneHandSword9
+LocalIncreasedAttackSpeedUniqueOneHandSword11
 IncreasedEvasionRatingUniqueOneHandSword9
 MovementVelocityUniqueOneHandSword9
 {variant:1,2,3}+(180-200) to Accuracy Rating
@@ -74,7 +74,7 @@ Implicits: 2
 {variant:1,2}18% increased Accuracy Rating
 {variant:3}AccuracyPercentImplicitSword1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueDescentStaff1
-{variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword2
+{variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace4
 IntelligenceUniqueOneHandSword2
 CriticalStrikeChanceUniqueOneHandSword2
 ManaLeechPermyriadUniqueOneHandSword2
@@ -91,7 +91,7 @@ Requires Level 28, 46 Str, 55 Dex
 Implicits: 2
 {variant:1,2}18% Increased Accuracy Rating
 {variant:3}IncreasedAccuracySwordImplicit3
-DisableOffhandSlot
+DisableOffHandSlotUnique__1
 LocalIncreasedPhysicalDamagePercentUniqueRapier1
 LocalCriticalStrikeChanceUniqueOneHandSword4
 {variant:1}+(15-20)% to Global Critical Strike Multiplier
@@ -111,7 +111,7 @@ Requires Level 51, 104 Str, 122 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}IncreasedAccuracySwordImplicit9
-DisableOffhandSlot
+DisableOffHandSlotUnique__1
 LocalAddedPhysicalDamageUniqueOneHandSword10
 LocalCriticalStrikeChanceUniqueOneHandSword10
 BurnDurationUnique__1
@@ -151,7 +151,7 @@ Implicits: 2
 {variant:4,5,6}AccuracyPercentImplicitSword1
 {variant:1,2}Adds 1 to (500-600) Lightning Damage
 {variant:3,4,5,6}LocalAddedLightningDamageUniqueOneHandSword6
-IncreasedAttackSpeedUniqueQuiver6
+LocalIncreasedAttackSpeedUniqueOneHandSword6
 {variant:1}6% increased Damage taken per Frenzy Charge
 {variant:2,3,4}3% increased Damage taken per Frenzy Charge
 {variant:5,6}DamageTakenPerFrenzyChargeUniqueOneHandSword6
@@ -171,8 +171,8 @@ LocalAddedPhysicalDamageUniqueOneHandSword11
 {variant:1}LocalIncreasedPhyiscalDamagePercentUnique__3
 {variant:2}LocalIncreasedPhysicalDamageUniqueOneHandSword11
 {variant:1}LocalIncreasedAttackSpeedUniqueBow10
-{variant:2}LocalIncreasedAttackSpeedUniqueOneHandSword9
-5% reduced Mana Reserved
+{variant:2}LocalIncreasedAttackSpeedUniqueOneHandSword11
+IncreasedManaReservationsCostUniqueOneHandSword11
 CannotBeBuffedByAlliedAurasUniqueOneHandSword11
 AurasCannotBuffAlliesUniqueOneHandSword11
 IncreasedBuffEffectivenessUniqueOneHandSword11
@@ -238,7 +238,7 @@ Sockets: R-R-R-R-R-R
 Requires Level: 2
 Implicits: 1
 AccuracyPercentImplicitSword1
-DisableOffhandSlot
+DisableOffHandSlotUnique__1
 LocalCriticalStrikeChanceUnique__13
 PhysicalDamageToAttacksPerLevelUnique__2
 GainHerEmbraceOnIgniteUnique__1
@@ -344,7 +344,7 @@ IncreasedPhysicalDamagePercentOnLowLifeUniqueOneHandSword1
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword1
 LocalAddedPhysicalDamageUniqueDescentOneHandSword1
 IncreasedAttackSpeedUniqueQuiver1
-IncreasedLifeImplicitGlovesDemigods1
+IncreasedLifeUnique___7Royale_
 LifeGainPerTargetUniqueOneHandSword1
 ]],[[
 Dreadbeak
@@ -360,7 +360,7 @@ LocalIncreasedPhysicalDamagePercentUniqueOneHandSword1
 {variant:1}Adds (90-98) to (133-140) Physical Damage
 {variant:2}LocalAddedPhysicalDamageUnique__35
 IncreasedAttackSpeedUniqueQuiver1
-IncreasedLifeImplicitGlovesDemigods1
+IncreasedLifeUnique___7Royale_
 LifeGainPerTargetUniqueOneHandSword1
 OnslaughtOnLowLifeUnique__1
 ]],[[
@@ -392,7 +392,7 @@ AccuracyPercentImplicitSword1
 HarbingerSkillOnEquipUnique__1
 LocalGrantsStormCascadeOnAttackUnique__1
 SpellDamageUnique__5
-LocalIncreasedPhysicalDamagePercentUnique__5
+LocalIncreasedPhysicalDamagePercentUnique__27
 LocalAddedLightningDamageUnique__5
 SpellAddedLightningDamageUnique__4
 10% increased Area of Effect of Area Skills
@@ -407,7 +407,7 @@ AccuracyPercentImplicitSword1
 HarbingerSkillOnEquipUnique2_1
 LocalGrantsStormCascadeOnAttackUnique__1
 SpellDamageUnique__5
-LocalIncreasedPhysicalDamagePercentUnique__5
+LocalIncreasedPhysicalDamagePercentUnique__27
 LocalAddedLightningDamageUnique__5
 SpellAddedLightningDamageUnique__4
 10% increased Area of Effect of Area Skills
@@ -481,8 +481,8 @@ MinionLeechOnPoisonedEnemiesUnique__1
 Story of the Vaal
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Gemstone Sword
 {variant:1}Variscite Blade
+{variant:2}Gemstone Sword
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 {variant:1}Requires Level 35, 62 Str, 62 Dex
@@ -507,7 +507,7 @@ Variant: Pre 3.10.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Dex
 Implicits: 1
-IncreasedAccuracySwordImplicit7
+IncreasedAccuracy2hSwordImplicit7
 {variant:1}LocalIncreasedPhysicalDamageUniqueClaw8
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__35
 LocalIncreasedAttackSpeedUniqueBow10
@@ -572,7 +572,7 @@ Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}CriticalMultiplierUniqueGlovesDexInt2
 {variant:3}CriticalMultiplierImplicitSword1
-LocalIncreasedPhysicalDamagePercentUniqueRapier2
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword1
 ItemFoundRarityDecreaseUniqueRapier1
 AllResistancesUniqueRapier2
 +3 Life gained for each Enemy hit by your Attacks
@@ -587,7 +587,7 @@ Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}CriticalMultiplierUniqueGlovesDexInt2
 {variant:3}CriticalMultiplierImplicitSword1
-LocalIncreasedPhysicalDamagePercentUnique__5
+LocalIncreasedPhysicalDamagePercentUnique__27
 StrengthUnique__4
 IncreasedManaUnique__2
 MovementVelocityUniqueIntHelmet2
@@ -608,7 +608,7 @@ SpellAddedColdDamageUnique__4
 LocalIncreasedAttackSpeedUnique__12
 AddedIntelligenceRequirementsUnique__1
 GlobalCriticalStrikeChanceAgainstChilledUnique__1
-Trigger a Socketed Cold Spell on Melee Critical Strike
+CastSocketedColdSkillsOnCriticalStrikeUnique__1
 ]],[[
 Daresso's Passion
 Estoc
@@ -667,11 +667,11 @@ Implicits: 3
 {variant:2}CriticalMultiplierUniqueGlovesDexInt2
 {variant:3}CriticalMultiplierImplicitSword1
 LocalIncreaseSocketedMeleeGemLevelUniqueRapier1
-DisableOffhandSlot
+DisableOffHandSlotUnique__1
 LocalIncreasedPhysicalDamagePercentUniqueRapier1
 LocalAddedFireDamageUniqueRapier1
 LocalIncreasedAttackSpeedUniqueDescentOneHandMace1
-CriticalStrikeChanceImplicitDaggerNew1
+CriticalStrikeChanceImplicitDagger1
 IncreasedEvasionRatingUniqueRapier1
 ItemFoundRarityDecreaseUniqueRapier1
 MovementVelocityOnLowLifeUniqueBootsDex3
@@ -786,7 +786,7 @@ Implicits: 3
 {variant:3}CriticalMultiplierImplicitSword1
 {variant:1,2}(270-320)% increased Physical Damage
 {variant:3}LocalIncreasedPhysicalDamagePercentUnique__18
-LifeLeechPermyriadUniqueShieldDex2
+LifeLeechPermyriadUnique__4
 MeleeDamageAgainstBleedingEnemiesUnique__1
 CannotLeechFromCriticalStrikesUnique___1
 ChanceToBlindOnCriticalStrikesUnique__1
@@ -878,7 +878,7 @@ Requires Level 44, 77 Str, 77 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}IncreasedAccuracy2hSwordImplicit5
-LocalIncreasedPhysicalDamagePercentUniqueRapier2
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword1
 LocalIncreasedAttackSpeedUniqueDescentOneHandMace1
 {variant:1,2}+(150-200) to Accuracy Rating
 {variant:3}IncreasedAccuracyUniqueRing12

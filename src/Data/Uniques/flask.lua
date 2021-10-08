@@ -167,17 +167,17 @@ Variant: Current
 Requires Level 22
 Implicits: 0
 {variant:7}Recharges 1 Charge when you Consume an Ignited corpse
-{variant:8}Recharges 5 Charges when you consume an Ignited Corpse
+{variant:8}Recharges 5 Charges when you Consume an Ignited corpse
 {variant:7}Enemies Ignited by you during Flask Effect take 10% increased Damage
 {variant:8}Enemies Ignited by you during Flask Effect take (7-10)% increased Damage
 {variant:7,8}Recover (1-3)% of Life when you Kill an Enemy during Flask Effect
 {variant:7,8}Recover (1-3)% of Mana when you Kill an Enemy during Flask Effect
 {variant:7,8}Recover (1-3)% of Energy Shield when you Kill an Enemy during Flask Effect
-{variant:8}+90 to maximum charges
-{variant:8}(250-300)% increased Charges Used
+{variant:8}+90 to Maximum Charges
+{variant:8}(250-300)% increased Charges used
 {variant:1}{crafted}(60-80)% increased Critical Strike Chance during Flask Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Flask Effect
-{variant:3}{crafted}(20-30)% increased Rarity of Items found during Flask Effect
+{variant:3}(20-30)% increased Rarity of Items found during Flask effect
 {variant:4}{crafted}(25-20)% reduced Mana Cost of Skills during Flask Effect
 {variant:5}{crafted}(8-12)% increased Movement Speed during Flask effect
 {variant:5}{crafted}50% Chance to avoid being Stunned during Flask Effect
@@ -192,7 +192,7 @@ Variant: Current
 Requires Level 68
 {variant:2}(-10-10)% increased Charges used
 {variant:3}(125-150)% increased Charges used
-{variant:3}(40-60)% reduced duration
+{variant:3}(40-60)% reduced Duration
 {variant:1}30% increased Area of Effect during Flask Effect
 {variant:2}(15-25)% increased Area of Effect during Flask Effect
 {variant:3}(10-20)% increased Area of Effect during Flask Effect
@@ -211,7 +211,7 @@ Requires Level 27
 {variant:3,4}Recover (75-100)% of your maximum Life on use
 {variant:1}15% of maximum Life taken as Chaos Damage per second
 {variant:2,3}8% of Maximum Life taken as Chaos Damage per second
-{variant:4}25% of maximum Life taken as Chaos Damage per second
+{variant:4}25% of Maximum Life taken as Chaos Damage per second
 ]],[[
 Kiara's Determination
 Silver Flask
@@ -344,7 +344,7 @@ Requires Level 27
 {variant:1}100% increased Charges used
 {variant:1}Vaal Skills deal (30-40)% more Damage during Effect
 {variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
-{variant:1}Gains no Charges during effect of any Soul Ripper Flask
+{variant:1}Gains no Charges during Effect of any Soul Ripper Flask
 {variant:2}+(-40 to 90) maximum Charges
 {variant:2}Loses all Charges when you enter a new area
 {variant:2}Consumes Maximum Charges to use

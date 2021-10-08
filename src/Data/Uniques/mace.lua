@@ -280,7 +280,7 @@ Socketed Gems are Supported by Level 1 Ice Bite
 Socketed Gems are Supported by Level 1 Cold Penetration
 {variant:1,2}Socketed Gems are Supported by Level 1 Mana Leech
 Socketed Gems are Supported by Level 10 Added Cold Damage
-Socketed Gems are Supported by level 1 Inspiration
+Socketed Gems are Supported by Level 1 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre

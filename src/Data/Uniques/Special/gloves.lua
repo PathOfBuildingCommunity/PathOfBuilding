@@ -65,7 +65,7 @@ Requires Level 47, 68 Str
 SupportedByRageUnique__1__
 LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStr3
 ReducedRageCostUnique__1
-VaalAttacksUseRageInsteadOfSoulsUnique__1_
+Vaal Attack Skills Cost Rage instead of requiring Souls to Use
 CannotGainRageDuringSoulGainPreventionUnique__1__
 ]],[[
 Empire's Grasp
@@ -89,9 +89,9 @@ Variant: Pre 2.6.0
 Variant: Current
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1}LocalIncreasedPhysicalDamageReductionRatingUniqueGlovesStr1
-{variant:2}IncreasedLifeImplicitGlovesDemigods1
+{variant:2}IncreasedLifeUnique___7Royale_
 IncreasedManaUniqueGlovesStr1
-IncreasedCastSpeedUnique__7
+IncreasedCastSpeedFishing__Unique1
 {variant:2}10% chance to gain a Frenzy, Power or Endurance Charge on Kill
 KeystoneConduitUnique__1__
 ]],[[
@@ -124,7 +124,7 @@ Implicits: 0
 Trigger Socketed Curse Spells when you cast a Curse
 LocalIncreasedEnergyShieldUnique__27_
 EnergyShieldLeechPerCurseUnique__1_
-AdditionalCurseOnEnemiesUnique__1
+AdditionalCurseOnEnemiesUnique__2
 (10-20)% increased Cast Speed with Curse Skills
 ]],[[
 Winds of Change
@@ -134,11 +134,11 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 47, 68 Str
 IncreasedLifeUnique__27
-ProjectileSpeedUnique__5__
+ProjectileSpeedUnique__2
 {variant:1}MovementSkillCooldownReducedMoveSpeedImplicitR2_
 {variant:2}MovementVelocityUnique__2
 KnockbackChanceUnique__1
-IncreasedProjectileDamageUnique___10_
+IncreasedProjectileDamageUnique___4
 ]],
 -- Gloves: Evasion
 [[
@@ -159,10 +159,10 @@ Requires Level 9, 17 Dex
 StrengthUniqueClaw5_
 {variant:1}50% increased Evasion Rating
 {variant:2}LocalIncreasedEvasionRatingPercentUniqueGlovesDex1
-{variant:1}ColdResistUniqueBelt13
+{variant:1}ColdResistUniqueShieldStrDex1
 {variant:2}ColdResistUnique__3
 {variant:2}AddedColdDamageToSpellsAndAttacksUnique__2
-{variant:1}ConvertPhysicalToColdUnique__1
+{variant:1}ConvertPhysicalToColdUniqueOneHandAxe8
 {variant:2}ConvertPhysicalToColdUniqueGlovesDex1
 AttackerTakesColdDamageGlovesDex1
 ]],[[
@@ -175,10 +175,10 @@ Requires Level 24, 17 Dex
 StrengthUniqueClaw5_
 {variant:1}50% increased Evasion Rating
 {variant:2}LocalIncreasedEvasionRatingPercentUniqueGlovesDex1
-{variant:1}ColdResistUniqueBelt13
+{variant:1}ColdResistUniqueShieldStrDex1
 {variant:2}ColdResistUnique__3
 {variant:2}AddedColdDamageToSpellsAndAttacksUnique__2
-{variant:1}ConvertPhysicalToColdUnique__1
+{variant:1}ConvertPhysicalToColdUniqueOneHandAxe8
 {variant:2}ConvertPhysicalToColdUniqueGlovesDex1
 AttackerTakesColdDamageGlovesDex1
 ColdDamageIgnitesUnique__1
@@ -193,7 +193,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 21, 33 Dex
 DexterityUniqueGlovesInt4__
-LocalIncreasedAttackSpeedUniqueClaw3
+IncreasedAttackSpeedUniqueGlovesDex2
 CriticalStrikeChanceUniqueOneHandSword2
 {variant:1}+(40-50)% to Global Critical Strike Multiplier
 {variant:2}+(28-36)% to Global Critical Strike Multiplier
@@ -216,8 +216,8 @@ Nubuck Gloves
 Requires Level 52, 50 Dex
 CurseOnHitCriticalWeaknessUnique__1
 (30-40)% increased Accuracy Rating
-IncreasedLifeUnique__47
-+(-20-10)% to Chaos Resistance
+IncreasedLifeUniqueQuiver3
+ChaosResistUnique__8
 (7-8)% chance to Dodge Spell Damage
 IncreasedCriticalStrikeChancePerAccuracyRatingUnique__1
 ]],[[
@@ -263,9 +263,9 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 25, 39 Int
 IntelligenceUnique__7
-{variant:1,2}IncreasedLifeImplicitGlovesDemigods1
+{variant:1,2}IncreasedLifeUnique___7Royale_
 {variant:3}IncreasedLifeUniqueGlovesInt3
-{variant:1,2}IncreasedManaUniqueBodyInt9
+{variant:1,2}IncreasedManaUniqueIntHelmet3
 {variant:3}IncreasedManaUniqueGlovesInt3
 {variant:1}TemporalChainsOnHitUniqueGlovesInt3
 {variant:2,3}CurseOnHitTemporalChainsUnique__1
@@ -278,8 +278,8 @@ Demon Stitcher
 Satin Gloves
 League: Delve
 Requires Level 41, 60 Int
-IncreasedCastSpeedUnique__16
-IncreasedEnergyShieldUnique__9
+IncreasedCastSpeedUnique__11__
+LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
 IncreasedLifeUnique__2
 SacrificeLifeToGainESUnique__1
 ]],[[
@@ -290,7 +290,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 21 Int
 {variant:1}SpellDamageUnique__7
-{variant:2}SpellDamageUniqueStaff2
+{variant:2}SpellDamageUniqueGlovesInt2
 {variant:1}IntelligenceUniqueOneHandSword2
 {variant:2}IntelligenceUniqueGlovesInt2
 {variant:1}20% reduced Cast Speed
@@ -304,7 +304,7 @@ Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
-SpellDamageUniqueStaff2
+SpellDamageUniqueGlovesInt2
 IntelligenceUniqueGlovesInt2
 SpellAddedChaosDamageUnique__1
 ReducedCastSpeedUniqueHelmetStrInt6
@@ -317,7 +317,7 @@ Arcanist Gloves
 Source: prophecy{The Unbreathing Queen V}
 Requires Level 60, 95 Int
 StrengthUnique__4
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__8
 ColdResistUniqueShieldDex7
 MinionRunSpeedUnique__1
 MinionColdResistUnique__1
@@ -328,8 +328,8 @@ Arcanist Gloves
 League: Heist
 Requires Level 60, 95 Int
 StrengthUnique__4
-IncreasedLifeUniqueAmulet4
-FireResistUnique__23_
+IncreasedLifeUnique__8
+FireResistUnique__9
 MinionLifeUnique__4__
 MinionFireResistUnique__1
 MinionPhysicalDamageAddedAsFireUnique__1
@@ -360,7 +360,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 11
 AddedFireDamageUniqueGlovesInt1
-AddedLightningDamageUniqueGlovesInt1
+AddedLightningDamageUniqueGlovesDexInt1
 LocalIncreasedEnergyShieldUniqueGlovesInt1
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
@@ -388,7 +388,7 @@ Aurseize
 Steelscale Gauntlets
 Requires Level 36, 29 Str, 29 Dex
 LocalIncreasedArmourAndEvasionUniqueBootsStrDex3
-AllResistancesUniqueBodyStrInt2
+AllResistancesUniqueGlovesStrDex2
 ItemFoundRarityIncreaseUniqueGlovesStrDex2
 MovementVelocityUniqueShieldStr1
 ]],[[
@@ -396,7 +396,7 @@ Breathstealer
 Hydrascale Gauntlets
 Requires Level 59, 45 Str, 45 Dex
 League: Blight
-LocalIncreasedArmourAndEvasionUnique__14
+LocalIncreasedArmourAndEvasionUnique__7
 IncreasedManaUnique__6
 AllResistancesUnique__16
 AttackAndCastSpeedUnique__2
@@ -444,10 +444,10 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 22 Str, 22 Dex
 DexterityUnique__7
-{variant:1}LocalIncreasedAttackSpeedUniqueClaw3
+{variant:1}IncreasedAttackSpeedUniqueGlovesDex2
 {variant:2}LocalIncreasedAttackSpeedUniqueStaff9
-LocalIncreasedEvasionRatingPercentUniqueGlovesStrDex1
-LifeLeechPermyriadUniqueShieldDex2
+IncreasedEvasionRatingPercentUnique__1_
+LifeLeechPermyriadUnique__4
 ManaLeechPermyriadUniqueRing17
 ]],[[
 Surgebinders
@@ -542,7 +542,7 @@ Crusader Gloves
 Requires Level 66, 51 Str, 51 Int
 ModifyableWhileCorruptedUnique__1
 Can have up to 5 Implicit Modifiers while Item has this Modifier
-LocalIncreasedArmourAndEnergyShieldUnique__21
+LocalIncreasedArmourAndEnergyShieldUnique__15
 MaximumLifeUnique__19
 FireAndLightningResistUnique__1
 ]],[[
@@ -564,11 +564,11 @@ League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 57, 44 Str, 44 Int
 AllAttributesUnique__14
-LocalIncreasedArmourAndEnergyShieldUnique__21
+LocalIncreasedArmourAndEnergyShieldUnique__15
 MaximumLifeLeechAmountUnique__1
 AttackAndCastSpeedUnique__4
 IncreasedDamageWhileLeechingUnique__2__
-LifeLeechNotRemovedOnFullLifeUnique__1
+Life Leech effects are not removed at Full Life
 ]],[[
 Repentance
 Crusader Gloves
@@ -661,7 +661,7 @@ Requires Level 43, 34 Str, 34 Int
 IncreasedLifeUnique__2
 {variant:1}FireResistUniqueAmulet13
 {variant:2}ColdResistUnique__17
-{variant:3}LightningResistUnique__8
+{variant:3}LightningResistUniqueAmulet15
 VolkuurLessPoisonDurationUnique__1
 {variant:1}FireDamageCanPoisonUnique__1
 {variant:2}ColdDamageCanPoisonUnique__1_
@@ -699,7 +699,7 @@ Carnal Mitts
 League: Delirium
 Source: Drops from the Simulacrum Encounter
 Requires Level 50, 39 Dex, 39 Int
-IncreasedEnergyShieldUnique__9
+LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
 ColdAndLightningResistUnique__2
 ChanceToSapVsEnemiesInChillingAreasUnique__1
 ChillingAreasAlsoGrantLightningDamageTakenUnique__1
@@ -720,8 +720,8 @@ ZombiesCountAsCorpsesUnique__1
 Architect's Hand
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Ambush Mitts
 {variant:1}Strapped Mitts
+{variant:2}Ambush Mitts
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 {variant:1}Requires Level 16
@@ -783,7 +783,7 @@ Requires Level 16, 14 Dex, 14 Int
 {variant:5}CriticalMultiplierUniqueGlovesDexInt2
 StunThresholdReductionUniqueGlovesDexInt2
 {variant:1}(800-1000)% more Unarmed Physical Damage
-{variant:2,3,4,5}(600-800)% more Unarmed Physical Damage
+{variant:2,3,4,5}FacebreakerUnarmedMoreDamage
 ExtraGore
 ]],[[
 Fenumus' Weave
@@ -793,7 +793,7 @@ Source: Drops from unique{Fenumus, First of the Night}
 Requires Level 50, 39 Dex, 39 Int
 GrantsSpiderAspect1
 LocalIncreasedEvasionAndEnergyShieldUnique__13
-IncreasedLifeUnique__47
+IncreasedLifeUniqueQuiver3
 AttackAndCastSpeedUnique__3
 DamageAgainstEnemiesWith3WebsUnique__1_
 ChaosDamagePerWebOnEnemyUnique__1
@@ -815,7 +815,7 @@ Variant: Current
 Requires Level 5
 {variant:1}20% increased Attack Speed when on Full Life
 {variant:2}AttackSpeedOnFullLifeUniqueGlovesStr1
-AddedLightningDamageUniqueGlovesInt1
+AddedLightningDamageUniqueGlovesDexInt1
 IncreasedAccuracyUniqueGlovesDexInt1
 {variant:1}(10-15)% increased Movement Speed when on Low Life
 {variant:2}MovementVelocityOnLowLifeUniqueGlovesDexInt1
@@ -885,5 +885,26 @@ IncreasedAttackSpeedUniqueQuiver1
 LocalIncreasedEnergyShieldUniqueGlovesDexInt3
 StunDurationUniqueGlovesDexInt3
 ShockDurationUniqueStaff8
+]],
+-- Gloves: Ward
+[[
+Medved's Challenge
+Runic Gauntlets
+Requires Level 69, 38 Str, 38 Dex, 38 Int
+League: Expedition
+IncreasedLocalAttributeRequirementsUnique__1
+(30–50)% increased Ward
++(15–25)% to all Elemental Resistances
+FlaskChargesFromKillsFinalUnique__1_
+FlaskChargePerSecondUniqueEnemyUnique__1___
+]],[[
+Nightgrip
+Runic Gages
+League: Expedition
+Requires Level 48, 31 Str, 31 Dex, 31 Int
+(33–48)% increased Ward
++(17–23)% to Chaos Resistance
+GlobalAddedChaosDamageWardUnique__
+DamageBypassesWardPercentUnique__1
 ]],
 }
