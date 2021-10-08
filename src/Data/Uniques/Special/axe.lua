@@ -20,9 +20,9 @@ Variant: Current
 Requires Level 16, 48 Str
 LocalAddedPhysicalDamageUniqueOneHandAxe7
 LocalAddedFireDamageUniqueOneHandAxe7
-LocalIncreasedAttackSpeedUniqueOneHandSword6
-FireResistUnique__24
-MovementVelocityUniqueIntHelmet2
+LocalIncreasedAttackSpeedUniqueOneHandAxe7
+FireResistUniqueOneHandAxe7_
+MovementVelocityUniqueOneHandAxe7
 {variant:1}FlammabilityOnHitUniqueOneHandAxe7
 {variant:2}FlammabilityOnHitUnique__1
 ]],[[
@@ -32,9 +32,9 @@ Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
 Requires Level 60, 48 Str
 LocalAddedPhysicalDamageUniqueOneHandAxe7
 LocalAddedFireDamageUnique__4
-LocalIncreasedAttackSpeedUniqueOneHandSword6
-FireResistUnique__24
-MovementVelocityUniqueIntHelmet2
+LocalIncreasedAttackSpeedUniqueOneHandAxe7
+FireResistUniqueOneHandAxe7_
+MovementVelocityUniqueOneHandAxe7
 IgnoreEnemyFireResistWhileIgnitedUnique__1
 ]],[[
 Dyadus
@@ -47,7 +47,7 @@ Requires Level 69, 158 Str, 76 Dex
 {variant:2,3}MainHandAddedFireDamageUniqueOneHandAxe2
 {variant:1}Adds (170-190) to (200-220) Cold Damage in Off Hand
 {variant:2,3}OffHandAddedColdDamageUniqueOneHandAxe2
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUniqueOneHandAxe2
 {variant:1}Enemies Chilled by you take 40% increased Burning Damage
 {variant:2}Enemies Chilled by you take 100% increased Burning Damage
 {variant:3}100% increased Damage with Ignites inflicted on Chilled Enemies
@@ -65,7 +65,7 @@ Requires Level 6, 21 Str
 {variant:2}LocalAddedPhysicalDamageUniqueOneHandAxe3
 IncreasedLifeUniqueOneHandAxe3
 LifeGainedFromEnemyDeathUniqueOneHandAxe3
-MovementVelocityUniqueAmulet5
+MovementVelocityUniqueOneHandAxe3
 DisplaySocketedGemGetsChanceToFleeUniqueOneHandAxe3
 ]],[[
 The Gryphon
@@ -77,7 +77,7 @@ LocalIncreasedPhysicalDamagePercentUnique__17_
 LocalAddedPhysicalDamageUniqueOneHandAxe3
 IncreasedLifeUniqueOneHandAxe3
 LifeGainedFromEnemyDeathUniqueOneHandAxe3
-MovementVelocityUniqueAmulet5
+MovementVelocityUniqueOneHandAxe3
 MovementSpeedIfKilledRecentlyUnique___1
 ]],[[
 Jack, the Axe
@@ -87,12 +87,12 @@ Variant: Current
 Requires Level 65, 140 Str, 86 Dex
 {variant:2}GrantsVampiricIconSkillUnique__1
 {variant:1}(90-110)% increased Physical Damage
-{variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow5
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe5
 LocalAddedPhysicalDamageUniqueOneHandAxe5
-{variant:1}LocalIncreasedAttackSpeedUniqueBow10
-{variant:1}LifeLeechUniqueRing2
+{variant:1}LocalIncreasedAttackSpeedUniqueOneHandAxe2
+{variant:1}LifeLeechPermyriadUniqueOneHandAxe6
 {variant:1}50% reduced Life Leeched per second
-CausesBleedingUniqueTwoHandAxe7Updated
+CausesBleedingUniqueTwoHandAxe7
 {variant:2}LocalBleedDamageOverTimeMultiplierUnique__1
 ]],[[
 Moonbender's Wing
@@ -103,9 +103,9 @@ Requires Level 39, 81 Str, 56 Dex
 {variant:1}LightningWarpSkillUniqueOneHandAxe8
 {variant:2}TriggeredLightningWarpUnique__1__
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__21
-{variant:2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword8
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe8
 {variant:1}LocalAddedPhysicalDamageUniqueOneHandAxe8
-LocalCriticalStrikeChanceImplicitBow1
+LocalCriticalStrikeChanceUniqueOneHandAxe8_
 {variant:1}ConvertPhysicalToColdUniqueOneHandAxe8
 {variant:1}ConvertPhysicalToLightningUniqueOneHandAxe8
 {variant:2}WeaponPhysicalDamageAddedAsColdOrLightningUnique__1
@@ -115,11 +115,11 @@ Decorative Axe
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 29, 80 Str, 23 Dex
-LocalIncreasedPhyiscalDamagePercentUnique__3
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe6
 LocalAddedPhysicalDamageUniqueOneHandAxe6
-{variant:1}LifeLeechPermyriadUnique__4
-{variant:2}LifeLeechUniqueRing2
-NearbyAlliesHaveCullingStrikeUnique__1
+{variant:1}LifeLeechPermyriadUniqueGlovesStrDex1
+{variant:2}LifeLeechPermyriadUniqueOneHandAxe6
+NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 GainOnslaughtWhenCullingEnemyUniqueOneHandAxe6
 Cannot be Chilled while you have Onslaught
 ]],[[
@@ -132,9 +132,9 @@ Variant: Current
 Requires Level 67, 167 Str, 57 Dex
 LocalAddedPhysicalDamageUnique__7
 40% increased Physical Weapon Damage while Dual Wielding
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUniqueOneHandAxe2
 {variant:1}SwordPhysicalAttackSpeedUnique__1
-{variant:1}CausesBleedingUniqueTwoHandAxe7Updated
+{variant:1}CausesBleedingUniqueTwoHandAxe7
 {variant:2}MaxRagePerEquippedSwordUnique__1____
 ]],[[
 Soul Taker
@@ -145,10 +145,10 @@ Requires Level 59, 119 Str, 82 Dex
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
 LocalAddedPhysicalDamageOneHandAxe1
-LocalIncreasedAttackSpeedUniqueOneHandSword11
+LocalIncreasedAttackSpeedUniqueOneHandAxe1
 ColdResistUniqueOneHandAxe1_
-MeleeAttacksUsableWithoutManaUnique__1
-PhysicalDamageCanChillUniqueDescentOneHandAxe1
+MeleeAttacksUsableWithoutManaUniqueOneHandAxe1
+PhysicalDamageCanChillUniqueOneHandAxe1
 ]],[[
 Replica Soul Taker
 Siege Axe
@@ -175,8 +175,8 @@ LocalIncreaseSocketedSupportGemLevelUniqueTwoHandAxe7
 {variant:1}Adds (220-235) to (270-290) Physical Damage
 {variant:2}LocalAddedPhysicalDamageUniqueTwoHandAxe7
 LocalIncreasedAttackSpeedUniqueTwoHandAxe7
-CausesBleedingUniqueTwoHandAxe7Updated
-LocalIncreasedMeleeWeaponRangeUniqueDescentStaff1
+CausesBleedingUniqueTwoHandAxe7
+LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe5
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -185,13 +185,13 @@ Variant: Pre 3.12.0
 Variant: Current
 Requires Level 45, 99 Str, 57 Dex
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__10
-{variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__29
-IncreasedLifeUniqueBodyStr1Royale
+{variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe4
+IncreasedLifeUniqueTwoHandAxe4
 {variant:1,2}Regenerate 10 Life per second
 {variant:3}LifeRegenerationUniqueTwoHandAxe4
-LifeLeechPermyriadUnique__5
-ManaCostIncreasedUniqueCorruptedJewel3
-CausesBleedingUniqueTwoHandAxe4
+LifeLeechPermyriadUniqueTwoHandAxe4
+ManaCostIncreaseUniqueTwoHandAxe4
+CausesBleedingUniqueTwoHandAxe4Updated
 ]],[[
 Debeon's Dirge
 Despot Axe
@@ -227,9 +227,9 @@ Requires Level 64, 158 Str, 76 Dex
 Implicits: 1
 {variant:2}LocalMaimOnHit2HImplicit_1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw3
-{variant:2}LocalIncreasedPhysicalDamagePercentUnique__2
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
 Adds (7-12) to (16-25) Physical Damage
-LifeLeechPermyriadUnique__5
+LifeLeechPermyriadUniqueTwoHandAxe4
 {variant:2}AttackSpeedAfterSavageHitTakenUnique__1
 Attacks have Blood Magic
 ]],[[
@@ -245,8 +245,8 @@ Requires Level 58, 151 Str, 43 Dex
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
 LifeGainedFromEnemyDeathUniqueTwoHandAxe1
 {variant:1}LocalAddedFireDamageUniqueTwoHandAxe1
-IncreasedAccuracyUnique__6
-NearbyAlliesHaveCullingStrikeUnique__1
+IncreasedAccuracyUniqueTwoHandAxe1
+NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 {variant:2,3}RageOnAttackCritUnique__1
 {variant:2,3}PhysicalAddedAsFirePerRageUnique__1
 ]],[[
@@ -260,14 +260,14 @@ Variant: Current
 Requires Level 66, 140 Str, 86 Dex
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__43
 {variant:3}(250-285)% increased Physical Damage
-{variant:4}LocalIncreasedPhysicalDamagePercentUnique__25
-LocalIncreasedAttackSpeedUniqueBow12
-{variant:2,3,4}LocalCriticalStrikeChanceUnique__10
+{variant:4}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
+LocalIncreasedAttackSpeedUniqueTwoHandAxe9
+{variant:2,3,4}CriticalStrikeChanceUniqueBow9
 {variant:1}IncreasedManaUniqueTwoHandAxe9
 DisplayNearbyAlliesHaveIncreasedItemRarityUniqueTwoHandAxe9
 {variant:1}Nearby Allies' spells have Culling Strike
 {variant:2,3,4}DisplayNearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
-{variant:2,3,4}MeleeAttacksUsableWithoutManaUnique__1
+{variant:2,3,4}MeleeAttacksUsableWithoutManaUniqueOneHandAxe1
 {variant:3,4}DisplayNearbyAlliesHaveCriticalStrikeMultiplierTwoHandAxe9
 {variant:3,4}DisplayNearbyAlliesHaveFortifyTwoHandAxe9
 ]],[[
@@ -281,7 +281,7 @@ SupportedByMeleeSplashUnique__1_
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueRapier1
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__38
 {variant:3}LocalIncreasedPhysicalDamagePercentUnique__23
-LifeLeechPermyriadUnique__5
+LifeLeechPermyriadUniqueTwoHandAxe4
 ManaLeechUniqueGlovesDexInt6
 Recover 5% of Maximum Life on Kill
 EnemiesDestroyedOnKillUnique__1
@@ -297,7 +297,7 @@ LocalIncreaseSocketedStrengthGemLevelUniqueTwoHandAxe3
 StrengthUniqueTwoHandAxe3
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
 LocalAddedPhysicalDamageUniqueTwoHandAxe3
-NearbyAlliesHaveCullingStrikeUnique__1
+NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 ]],[[
 The Cauteriser
 Woodsplitter
@@ -311,7 +311,7 @@ StrengthUniqueTwoHandAxe3
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
 Adds (35-45) to (80-90) Physical Damage
 PhysicalAddedAsFireUnique__2
-NearbyAlliesHaveCullingStrikeUnique__1
+NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 ]],[[
 Ngamahu's Flame
 Abyssal Axe
@@ -329,11 +329,11 @@ PenetrateEnemyFireResistUnique__1
 Reaper's Pursuit
 Shadow Axe
 Requires Level 33, 80 Str, 37 Dex
-LocalIncreasedPhysicalDamagePercentUnique__2
-LifeGainedFromEnemyDeathUniqueTwoHandMace7
-ItemFoundRarityIncreaseUniqueShieldStrDex2
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
+LifeGainedFromEnemyDeathUniqueTwoHandAxe2
+ItemFoundRarityIncreaseUniqueTwoHandAxe2
 MovementVelocityOnFullLifeUniqueTwoHandAxe2
-NearbyAlliesHaveCullingStrikeUnique__1
+NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 AlwaysHits
 ]],[[
 Sinvicta's Mettle
@@ -379,19 +379,19 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 18, 44 Str, 25 Dex
 SocketedGemsGetIncreasedAreaOfEffectUniqueTwoHandAxe5
-LocalIncreasedPhysicalDamagePercentUnique13
-StrengthUniqueTwoHandMace1
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe5
+StrengthUniqueTwoHandAxe5
 {variant:1}IncreasedAccuracyUniqueGlovesDexInt1
 {variant:2}IncreasedAccuracyUniqueTwoHandAxe5
-ManaGainedFromEnemyDeathUniqueShieldInt3
-LocalIncreasedMeleeWeaponRangeUniqueDescentStaff1
+ManaGainedFromEnemyDeathUniqueTwoHandAxe5
+LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe5
 ]],[[
 Wings of Entropy
 Ezomyte Axe
 Requires Level 62, 140 Str, 86 Dex
 SpellBlockPercentageUniqueTwoHandAxe6
 BlockWhileDualWieldingUniqueTwoHandAxe6
-LocalIncreasedPhyiscalDamagePercentUnique__3
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe6
 MainHandAddedFireDamageUniqueTwoHandAxe6
 OffHandAddedChaosDamageUniqueTwoHandAxe6
 UniqueWingsOfEntropyCountsAsDualWielding
@@ -402,7 +402,7 @@ League: Heist
 Requires Level 62, 140 Str, 86 Dex
 SpellBlockPercentageUniqueTwoHandAxe6
 BlockWhileDualWieldingUniqueTwoHandAxe6
-LocalIncreasedPhyiscalDamagePercentUnique__3
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe6
 UniqueWingsOfEntropyCountsAsDualWielding
 +(8.00-10.00)% to Off Hand Critical Strike Chance
 WingsOfEntropyMainHandAttackSpeedFinalUnique__1_
@@ -426,7 +426,7 @@ Implicits:1
 {variant:5}+(8-10)% Chance to Block Attack Damage while Dual Wielding
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueWand9
 {variant:3,4}LocalIncreasedPhysicalDamagePercentUnique__10
-{variant:5}LocalIncreasedPhyiscalDamagePercentUnique__3
+{variant:5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe6
 {variant:1,2,3,4}Adds (55-65) to (100-120) Fire Damage in Main Hand
 {variant:5}MainHandAddedFireDamageUniqueTwoHandAxe6
 {variant:1,2,3,4}Adds (55-65) to (100-120) Chaos Damage in Off Hand

@@ -10,10 +10,10 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 45
 Implicits: 1
-StrengthUniqueClaw5_
+StrengthImplicitAmulet1
 ReducedAttackSpeedUniqueAmulet16
-ReducedCastSpeedUniqueBootsDex5
-IncreasedPhysicalDamageReductionRatingUnique__3
+IncreasedCastSpeedUniqueAmulet16
+IncreasedPhysicalDamageReductionRatingUniqueAmulet16
 {variant:1}{tags:life}+(30-40) Life gained when you Block
 {variant:2,3}GainLifeOnBlockUniqueAmulet16
 {variant:1}{tags:mana}+(10-20) Mana gained when you Block
@@ -32,8 +32,8 @@ Upgrade: Upgrades to unique{Ngamahu Tiki} via prophecy{A Forest of False Idols}
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 {tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-IncreasedLifeUnique__8
-FireResistUniqueAmulet4
+IncreasedLifeUniqueAmulet18
+FireResistImplicitAmulet1
 {tags:life}1% of Life Regenerated per Second while on Low Life
 ]],[[
 Ngamahu Tiki
@@ -44,8 +44,8 @@ Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 FireDamagePercentUnique__6
 {tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-IncreasedLifeUnique__8
-FireResistUniqueAmulet4
+IncreasedLifeUniqueAmulet18
+FireResistImplicitAmulet1
 {tags:life}1% of Life Regenerated per Second while on Low Life
 ]],[[
 The Ascetic
@@ -77,7 +77,7 @@ ManaRegenerationImplicitAmulet1
 {variant:1}{tags:mana}(8-12)% increased maximum Mana
 {variant:2}MaximumManaUniqueAmulet10
 {variant:1}ManaRegenerationUnique__11___
-{variant:2}ManaRegenerationUnique__9___
+{variant:2}ManaRegenerationUniqueAmulet10
 GlobalItemAttributeRequirementsUniqueAmulet10
 ]],[[
 Replica Atziri's Foible
@@ -86,7 +86,7 @@ League: Heist
 Requires Level 16
 Implicits: 1
 {tags:life}Regenerate (1.00-2.00)% of Life per second
-IncreasedLifeUniqueBodyStr1Royale
+IncreasedLifeUniqueTwoHandAxe4
 LifeRecoveryRateUnique__1
 GlobalItemAttributeRequirementsUniqueAmulet10
 ]],[[
@@ -114,9 +114,9 @@ Variant: Envy
 Requires Level 55
 Implicits: 1
 AllAttributesImplicitAmulet1
-{variant:1,2,3,4,5}StrengthUniqueClaw5_
-{variant:6,7,8,9}DexterityUniqueGlovesInt4__
-{variant:10,11,12,13,14,15,16}IntelligenceUnique__7
+{variant:1,2,3,4,5}StrengthImplicitAmulet1
+{variant:6,7,8,9}DexterityImplicitAmulet1
+{variant:10,11,12,13,14,15,16}IntelligenceImplicitAmulet1
 {variant:17}GrantsEnvyUnique__2
 {variant:1,2,3,4,5}GlobalPhysicalDamageReductionRatingPercentUnique__1
 {variant:6,7,8,9}GlobalEvasionRatingPercentUnique__1
@@ -154,7 +154,7 @@ Variant: Current
 Requires Level 32
 Implicits: 1
 HybridStrInt
-IncreasedLifeUnique__8
+IncreasedLifeUniqueAmulet18
 IncreasedManaUniqueHelmetStrDex5_
 IncreasedMaximumPowerChargesUnique__1
 IncreasedManaRegenerationPerPowerChargeUnique__1
@@ -195,7 +195,7 @@ Talisman Tier: 2
 Requires Level 28
 Implicits: 1
 TalismanGlobalDefensesPercent
-LocalIncreasedEnergyShieldUnique__6
+IncreasedEnergyShieldUniqueAmulet14
 FireResistUnique__2
 LightningResistUnique__1
 30% slower start of Energy Shield Recharge during Flask Effect
@@ -207,11 +207,11 @@ Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
 Requires Level 20
 Implicits: 1
-StrengthUniqueClaw5_
+StrengthImplicitAmulet1
 GluttonyOfElementsUniqueAmulet23
 {tags:attack,chaos}Adds 19-43 Chaos Damage to Attacks
 AllResistancesUniqueAmulet23
-ChaosResistUnique__4
+ChaosResistUniqueAmulet23
 Corrupted
 ]],[[
 Bloodgrip
@@ -221,12 +221,12 @@ Variant: Current
 Requires Level 55
 Implicits: 1
 {tags:life}(2.0-4.0) Life Regenerated per second
-AddedPhysicalDamageUnique__3
+AddedPhysicalDamageUniqueAmulet25
 IncreasedLifeUniqueAmulet25
 {variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
 {variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
 FlaskLifeRecoveryUniqueAmulet25
-NoExtraBleedDamageWhileMovingUnique__1
+NoExtraBleedDamageWhileMovingUniqueAmulet25
 ]],[[
 Bloodgrip
 Marble Amulet
@@ -235,12 +235,12 @@ Variant: Current
 Requires Level 74
 Implicits: 1
 {tags:life}(1.2-1.6)% of Life Regenerated per second
-AddedPhysicalDamageUnique__3
+AddedPhysicalDamageUniqueAmulet25
 IncreasedLifeUniqueAmulet25
 {variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
 {variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
 FlaskLifeRecoveryUniqueAmulet25
-NoExtraBleedDamageWhileMovingUnique__1
+NoExtraBleedDamageWhileMovingUniqueAmulet25
 ]],[[
 Carnage Heart
 Onyx Amulet
@@ -252,7 +252,7 @@ AllAttributesImplicitAmulet1
 AllAttributesUniqueAmulet9
 {tags:life}{variant:1}25% reduced maximum Life
 {tags:jewellery_defense}{variant:1}25% reduced maximum Energy Shield
-AllResistancesUnique__7
+AllResistancesUniqueAmulet9
 LifeLeechPermyriadUniqueAmulet9
 {variant:2}IncreasedDamageWhileLeechingUnique__1
 {tags:life}{variant:2}50% increased Life Leeched per second
@@ -266,7 +266,7 @@ Implicits: 1
 HybridStrDex
 ReducedEnergyShieldPercentUniqueAmulet13
 FireResistUniqueAmulet13
-ColdResistUnique__17
+ColdResistUniqueAmulet13
 MovementVelocityOnFullLifeUniqueAmulet13
 {tags:attack}+2 to Melee Weapon and Unarmed range
 MeleeDamageOnFullLifeUniqueAmulet13
@@ -276,8 +276,8 @@ Lapis Amulet
 League: Heist
 Requires Level 68
 Implicits: 1
-IntelligenceUnique__7
-ManaRegenerationUnique__13
+IntelligenceImplicitAmulet1
+ManaRegenerationUnique__12
 AllResistancesUnique__21
 CriticalStrikeMultiplierIfGainedPowerChargeUnique__1_
 GlobalAddedLightningDamagePerPowerChargeUnique__1
@@ -306,7 +306,7 @@ Requires Level 20
 Implicits: 1
 AllAttributesImplicitAmulet1
 MaximumLifeUniqueAmulet6
-ItemFoundRarityIncreaseUnique__2
+ItemFoundRarityIncreaseUniqueAmulet6
 CannotBeStunned
 ]],[[
 Presence of Chayula
@@ -316,7 +316,7 @@ Source: Upgraded from unique{Eye of Chayula} using currency{Blessing of Chayula}
 Requires Level 60
 Implicits: 1
 AllAttributesImplicitAmulet1
-ItemFoundRarityIncreaseUnique__2
+ItemFoundRarityIncreaseUniqueAmulet6
 ChaosResistUnique__5
 CannotBeStunned
 MaximumLifeConvertedToEnergyShieldUnique__1
@@ -410,7 +410,7 @@ Requires Level 61
 Implicits: 1
 HybridStrDex
 IntelligenceUnique__22_
-IncreasedCastSpeedFishing__Unique1
+IncreasedCastSpeedUniqueAmulet1
 AreaOfEffectUnique__6
 {tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
 Curse50PercentCurseEffectUnique__1
@@ -423,7 +423,7 @@ Requires Level 40
 Implicits: 1
 HybridDexInt
 IncreasedEvasionRatingPercentUnique__2
-AllResistancesUnique__17
+AllResistancesUniqueAmulet14
 AdditionalProjectilesUnique__1__
 ProjectileSpeedUniqueQuiver4
 Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards
@@ -451,7 +451,7 @@ Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Pandemonius} using currency{Blessing of Tul}
 Requires Level 35
 Implicits: 1
-DexterityUniqueGlovesInt4__
+DexterityImplicitAmulet1
 ColdDamagePercentUnique___10
 ColdResistUnique__11
 FreezeDurationUnique__1
@@ -464,7 +464,7 @@ League: Breach
 Source: Upgraded from unique{The Halcyon} using currency{Blessing of Tul}
 Requires Level 64
 Implicits: 1
-DexterityUniqueGlovesInt4__
+DexterityImplicitAmulet1
 ColdDamagePercentUniqueBelt9b
 ColdResistUnique__11
 Chill Enemy for 1 second when Hit
@@ -487,7 +487,7 @@ Jade Amulet
 League: Synthesis
 Requires Level 64
 Implicits: 1
-DexterityUniqueGlovesInt4__
+DexterityImplicitAmulet1
 GrantsAccuracyAuraSkillUnique__1
 DexterityUnique__15
 AddedPhysicalDamageUnique__7
@@ -501,7 +501,7 @@ Jade Amulet
 League: Heist
 Requires Level 64
 Implicits: 1
-DexterityUniqueGlovesInt4__
+DexterityImplicitAmulet1
 GrantsHatredUnique__1__
 DexterityUnique__15
 AddedPhysicalDamageUnique__7
@@ -516,10 +516,10 @@ Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
 Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityUniqueRing3
+DexterityUniqueAmulet7
 AddedFireDamageUniqueAmulet7
 IncreasedAccuracyUniqueAmulet7
-LocalIncreasedEvasionRatingUnique__1
+IncreasedEvasionRatingUniqueAmulet7
 FireResistUniqueAmulet7
 ]],[[
 The Effigon
@@ -528,10 +528,10 @@ Source: Upgraded from unique{The Ignomon} via prophecy{Blind Faith}
 Requires Level 57
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityUniqueRing3
+DexterityUniqueAmulet7
 AddedFireDamageUniqueAmulet7
 IncreasedAccuracyUniqueAmulet7
-LocalIncreasedEvasionRatingUnique__1
+IncreasedEvasionRatingUniqueAmulet7
 FireResistUniqueAmulet7
 HitsCannotBeEvadedAgainstBlindedEnemiesUnique__1
 FirePenetrationAgainstBlindedEnemiesUnique__1
@@ -553,14 +553,14 @@ AllAttributesImplicitAmulet1
 {variant:4}GlobalAddedLightningDamageUnique__1_
 {variant:5}GlobalAddedChaosDamageUnique__1
 IncreasedLifeUnique__2
-{variant:1}IncreasedPhysicalDamageReductionRatingUnique__3
+{variant:1}IncreasedPhysicalDamageReductionRatingUniqueAmulet16
 {variant:2}LifeRegenerationRatePercentUnique__3
 {variant:3}ManaRegenerationUnique__7
 {variant:4}EnergyShieldRegenerationUnique__2
 {variant:5}DegenerationDamageUnique__3
-{variant:1}StunRecoveryImplicitBeltRoyale1
+{variant:1}StunRecoveryUnique__3
 {variant:2}FireResistUniqueShieldStrInt5
-{variant:3}ColdResistUniqueOneHandAxe1_
+{variant:3}ColdResistUnique__20
 {variant:4}LightningResistUnique__11
 {variant:5}ChaosResistUnique__17
 {variant:1}VulnerabilityReservationCostUnique__1_
@@ -578,11 +578,11 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 5
 Implicits: 1
-DexterityUniqueGlovesInt4__
-StrengthUniqueClaw5_
+DexterityImplicitAmulet1
+StrengthImplicitAmulet1
 IncreasedAccuracyUniqueAmulet5
 {variant:2}IncreasedProjectileDamageUnique__6
-ProjectileSpeedUnique__2
+ProjectileSpeedUniqueAmulet5
 MovementVelocityUniqueAmulet5
 ]],[[
 Replica Karui Ward
@@ -590,8 +590,8 @@ Jade Amulet
 League: Heist
 Requires Level 5
 Implicits: 1
-DexterityUniqueGlovesInt4__
-IntelligenceUnique__7
+DexterityImplicitAmulet1
+IntelligenceImplicitAmulet1
 IncreasedAccuracyUniqueAmulet5
 MovementVelocityUniqueAmulet5
 AreaOfEffectUnique__7_
@@ -604,13 +604,13 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
 Implicits: 1
-DexterityUniqueGlovesInt4__
-StrengthUniqueClaw5_
+DexterityImplicitAmulet1
+StrengthImplicitAmulet1
 {variant:1}LocalIncreasedAttackSpeedUniqueSceptre9
 {variant:2}LocalIncreasedAttackSpeedUniqueStaff9
 IncreasedAccuracyUniqueAmulet5
 {variant:2}IncreasedProjectileDamageUnique__6
-ProjectileSpeedUnique__2
+ProjectileSpeedUniqueAmulet5
 MovementVelocityUniqueAmulet5
 ]],[[
 Leadership's Price
@@ -657,11 +657,11 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 40
 Implicits: 1
-IntelligenceUnique__7
+IntelligenceImplicitAmulet1
 IncreasedAccuracyUniqueAmulet17_
 {tags:critical}{variant:1,2,3}+(140-160)% to Global Critical Strike Multiplier
 {variant:4,5}CriticalMultiplierUniqueAmulet17
-IncreasedEvasionRatingUniqueQuiver1
+IncreasedEvasionRatingUniqueAmulet17
 LightRadiusUniqueAmulet17
 {variant:1,2}Non-critical strikes deal 25% Damage
 {variant:3,4}Non-critical strikes deal 40% Damage
@@ -692,7 +692,7 @@ Talisman Tier: 1
 Requires Level 12
 Implicits: 1
 RingHasOneSocket
-LocalIncreaseSocketedGemLevelUniqueRing39
+LocalIncreaseSocketedGemLevelUnique__1
 SocketedGemsHaveAddedChaosDamageUnique__1
 ItemActsAsSupportBlindUnique__1
 SupportedByCastOnStunUnique___1
@@ -703,7 +703,7 @@ Gold Amulet
 Requires Level 29
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityUnique__7
+DexterityUnique__11
 MovementVelocityUnique__36_
 Lightning Damage from Enemies Hitting you is Lucky
 UniqueNearbyAlliesAreLuckyDisplay
@@ -720,15 +720,15 @@ GolemSizeUnique__1
 LessGolemDamageUnique__1
 LessGolemLifeUnique__1
 GolemMovementSpeedUnique__1
-PrimordialJewelCountUnique__3
+PrimordialJewelCountUnique__1
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
 Requires Level 61
 Implicits: 1
-DexterityUniqueGlovesInt4__
+DexterityImplicitAmulet1
 IncreasedLifeUniqueAmulet19
-IncreasedManaUniqueBootsStrDex4
+IncreasedManaUniqueAmulet19
 ElementalStatusAilmentDurationUniqueAmulet19
 GlobalItemAttributeRequirementsUniqueAmulet19
 ChanceToFreezeShockIgniteUniqueAmulet19
@@ -801,7 +801,7 @@ Variant: Current
 Requires Level 16
 Implicits: 1
 HybridStrInt
-ManaRegenerationUnique__10
+ManaRegenerationUniqueAmulet21
 {tags:life}2% of Life Regenerated per Second
 {variant:1}{tags:life}Nearby Allies gain 1% of Life Regenerated per Second
 {variant:2}DisplayLifeRegenerationAuraUniqueAmulet21
@@ -814,11 +814,11 @@ Variant: Pre 3.8.0
 Variant: Current
 ManaRegenerationImplicitAmulet1
 ColdResistUniqueAmulet3
-{variant:1,2}ManaLeechPermyriadUniqueGlovesDexInt6
+{variant:1,2}ManaLeechPermyriadUniqueAmulet3
 MinionLifeUniqueAmulet3
 MinionRunSpeedUniqueAmulet3
 {tags:jewellery_elemental}{variant:3}Minions deal 6 to 13 additional Cold Damage
-{variant:1,2}MinionDamageUnique4
+{variant:1,2}MinionDamageUniqueAmulet3
 {variant:2,3}MinionSkillManaCostUnique__1_
 ]],[[
 Solstice Vigil
@@ -845,7 +845,7 @@ Variant: Pre 3.8.0
 Variant: Current
 Requires Level 28
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitAmulet1
 {variant:3}GrantsFrostblinkSkillUnique__1
 ColdDamagePercentUnique__3
 AllResistancesUnique__2
@@ -862,11 +862,11 @@ Variant: Pre 3.4.0
 Variant: Current
 Requires Level 5
 Implicits: 1
-IntelligenceUnique__7
+IntelligenceImplicitAmulet1
 {variant:1}+15% chance to Block Spell Damage
 {variant:2}+(12-15)% chance to Block Spell Damage
-IncreasedCastSpeedFishing__Unique1
-IncreasedManaUnique__6
+IncreasedCastSpeedUniqueAmulet1
+IncreasedManaUniqueAmulet1
 ]],[[
 Tavukai
 Coral Amulet
@@ -886,10 +886,10 @@ Tear of Purity
 Lapis Amulet
 Requires Level 20
 Implicits: 1
-IntelligenceUnique__7
+IntelligenceImplicitAmulet1
 PuritySkillUniqueAmulet22
-AllAttributesUnique__23
-IncreasedLifeUniqueRing28
+AllAttributesUniqueAmulet22
+IncreasedLifeUniqueAmulet22
 ChanceToAvoidElementalStatusAilmentsUniqueAmulet22
 ]],[[
 Ungil's Harmony
@@ -901,8 +901,8 @@ Implicits: 1
 HybridDexInt
 {variant:1}CriticalStrikeChanceUniqueBodyInt4
 {variant:2}CriticalStrikeChanceUniqueAmulet18
-IncreasedLifeUnique__8
-IncreasedManaUnique__6
+IncreasedLifeUniqueAmulet18
+IncreasedManaUniqueAmulet1
 StunRecoveryUniqueAmulet18
 CriticalMultiplierUniqueAmulet18
 ]],[[
@@ -914,8 +914,8 @@ Implicits: 1
 HybridDexInt
 LightningResistUniqueAmulet15
 ChaosResistUniqueAmulet15_
-TalismanFrenzyChargeOnKill
-PowerChargeOnKillChanceUniqueUniqueShieldInt3
+FrenzyChargeOnKillChanceUniqueAmulet15
+PowerChargeOnKillChanceUniqueAmulet15
 ProjectileSpeedPerFrenzyChargeUniqueAmulet15
 ProjectileDamagePerPowerChargeUniqueAmulet15
 ]],[[
@@ -926,7 +926,7 @@ Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Requires Level 40
 Implicits: 1
-IntelligenceUnique__7
+IntelligenceImplicitAmulet1
 LightningStrikesOnCritUnique__1
 AllAttributesUniqueRing26
 MaximumManaUniqueStaff4
@@ -940,7 +940,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69
 Implicits: 1
-IntelligenceUnique__7
+IntelligenceImplicitAmulet1
 LightningStrikesOnCritUnique__2
 CriticalStrikesDealIncreasedLightningDamageUnique__1
 MaximumManaUniqueStaff4
@@ -953,9 +953,9 @@ League: Anarchy, Onslaught
 Requires Level 32
 Implicits: 1
 HybridStrInt
-IncreasedLifeUnique__19
-LocalIncreasedEnergyShieldUnique__6
-AllResistancesUnique__17
+IncreasedLifeUniqueAmulet14
+IncreasedEnergyShieldUniqueAmulet14
+AllResistancesUniqueAmulet14
 EnduranceChargeDurationUniqueAmulet14
 PowerChargeDurationUniqueAmulet14
 Gain an Endurance Charge when a Power Charge expires or is consumed
@@ -968,9 +968,9 @@ Requires Level 50
 Implicits: 1
 HybridDexInt
 {variant:1}LocalIncreasedAttackSpeedUnique__24
-{variant:2}LocalIncreasedAttackSpeedUniqueBow10
+{variant:2}IncreasedAttackSpeedUniqueAmulet20
 {variant:1}IncreasedCastSpeedUniqueClaw7
-{variant:2}IncreasedCastSpeedFishing__Unique1
+{variant:2}IncreasedCastSpeedUniqueAmulet1
 {tags:speed}12% increased Movement Speed
 {variant:1}(8-12)% reduced Skill Effect Duration
 {variant:2}ReducedSkillEffectDurationUniqueAmulet20
@@ -980,11 +980,11 @@ Willowgift
 Jade Amulet
 Requires Level 52
 Implicits: 1
-DexterityUniqueGlovesInt4__
+DexterityImplicitAmulet1
 PercentageStrengthUnique__4_
 PercentageDexterityUnique__5
 FireResistUnique__22_
-ColdResistUnique__17
+ColdResistUniqueAmulet13
 AlternateFortifyUnique__1_
 AttackAndCastSpeedFortifyUnique__1
 ]],[[
@@ -993,7 +993,7 @@ Gold Amulet
 Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityUniqueGlovesInt4__
+DexterityImplicitAmulet1
 IncreasedLifeUnique__2
 ColdResistUnique__5
 CannotBeChilledUniqueBodyStrInt3
@@ -1005,8 +1005,8 @@ League: Heist
 Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityUniqueGlovesInt4__
-LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
+DexterityImplicitAmulet1
+IncreasedEnergyShieldUnique__9
 LightningResistUnique__23_
 EnergyShieldRegenerationWhileShockedUnique__1
 UnaffectedByShockUnique__1
@@ -1018,11 +1018,11 @@ Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
 Requires Level 35
 Implicits: 1
-StrengthUniqueClaw5_
-StrengthUniqueClaw5_
+StrengthImplicitAmulet1
+StrengthImplicitAmulet1
 FireDamagePercentUnique___7
 IncreasedLifeUnique__25
-FireResistUnique__9
+FireResistUnique__23_
 CoverInAshWhenHitUnique__1
 ]],[[
 Xoph's Blood
@@ -1031,10 +1031,10 @@ League: Breach
 Source: Upgraded from unique{Xoph's Heart} using currency{Blessing of Xoph}
 Requires Level 64
 Implicits: 1
-StrengthUniqueClaw5_
+StrengthImplicitAmulet1
 MaximumLifeUniqueBodyInt3
-FireResistUnique__9
-PercentageStrengthImplicitMace1
+FireResistUnique__23_
+PercentageStrengthUnique__3
 FirePenetrationUnique__1
 CoverInAshWhenHitUnique__1
 KeystoneAvatarOfFireUnique__1
@@ -1045,7 +1045,7 @@ Source: Drops from unique{The Eradicator} (Tier 11+)
 Requires Level 70
 Implicits: 1
 AllAttributesImplicitAmulet1
-FireResistUniqueBelt13
+FireResistUnique__15
 ColdResistUniqueShieldStrDex1
 LightningResistUnique__5
 IncreasedAilmentDurationUnique__2

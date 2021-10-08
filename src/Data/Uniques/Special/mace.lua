@@ -11,13 +11,13 @@ Variant: Current
 Requires Level 20, 71 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2,3}StunThresholdReductionUniqueGlovesDexInt2
-LocalIncreasedPhysicalDamagePercentUnique__15
+{variant:2,3}StunThresholdReductionImplicitMace1
+LocalIncreasedPhysicalDamagePercentUniqueOneHandMace1
 {variant:1,2}LocalIncreasedAttackSpeedUniqueTwoHandMace4
 {variant:3}LocalIncreasedAttackSpeedUniqueOneHandMace1
 LocalCriticalStrikeChanceUniqueOneHandMace1
-FireResistUniqueAmulet4
-LightningResistUnique__2
+FireResistUniqueOneHandMace1
+LightningResistUniqueOneHandMace1
 ]],[[
 Callinellus Malleus
 Auric Mace
@@ -26,9 +26,9 @@ Variant: Current
 Requires Level 66, 212 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2}StunThresholdReductionUniqueTwoHandMace1
+{variant:2}StunThresholdReductionImplicitMace2
 LocalAddedPhysicalDamageUniqueOneHandMace5
-LocalIncreasedPhysicalDamagePercentUniqueSceptre2
+LocalIncreasedPhysicalDamageUniqueOneHandMace5
 StunThresholdReductionUniqueOneHandMace5
 CannotKnockBackUniqueOneHandMace5_
 ChillOnAttackStunUniqueOneHandMace5
@@ -41,7 +41,7 @@ Variant: Current
 Requires Level 60, 212 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2}StunThresholdReductionUniqueTwoHandMace1
+{variant:2}StunThresholdReductionImplicitMace2
 LocalIncreasedPhysicalDamageUniqueOneHandMace4
 LocalAddedColdDamageUniqueOneHandMace4_
 LocalCriticalStrikeChanceUniqueOneHandMace4
@@ -53,7 +53,7 @@ Gavel
 Source: Upgraded from unique{Cameria's Maul} via prophecy{Cold Greed}
 Requires Level 60, 212 Str
 Implicits: 1
-StunThresholdReductionUniqueTwoHandMace1
+StunThresholdReductionImplicitMace2
 LocalIncreasedPhysicalDamageUniqueOneHandMace4
 LocalAddedPhysicalDamageUnique__34
 LocalCriticalStrikeChanceUniqueOneHandMace4
@@ -68,7 +68,7 @@ Variant: Current
 Requires Level 41, 134 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2}StunThresholdReductionUniqueTwoHandMace1
+{variant:2}StunThresholdReductionImplicitMace2
 GrantsLevel12StoneGolem
 LocalAddedPhysicalDamageUnique__9
 LocalIncreasedAttackSpeedUnique__10
@@ -83,13 +83,13 @@ Variant: Current
 Requires Level 32, 107 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2}StunThresholdReductionUniqueGlovesDexInt2
-LocalIncreasedPhyiscalDamagePercentUnique__3
-LocalAddedPhysicalDamageUniqueRapier2
-IncreasedAttackSpeedUniqueQuiver1
-LifeLeechPermyriadUnique__5
+{variant:2}StunThresholdReductionImplicitMace1
+LocalIncreasedPhysicalDamagePercentUniqueOneHandMace8
+LocalAddedPhysicalDamageUniqueOneHandMace8
+LocalIncreasedAttackSpeedUniqueOneHandMace8
+LifeLeechPermyriadUniqueTwoHandMace1
 {variant:1}10% Chance to cause Bleeding on Hit
-{variant:2}LocalChanceToBleedUniqueDagger12
+{variant:2}LocalChanceToBleedUniqueOneHandMace8
 {variant:1}AttackDamageLifeLeechAgainstBleedingEnemiesUnique_1
 {variant:2}LifeLeechPhysicalAgainstBleedingEnemiesUniqueOneHandMace8
 ]],[[
@@ -101,7 +101,7 @@ Variant: Current
 Requires Level 50, 161 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2,3}StunThresholdReductionUniqueTwoHandMace1
+{variant:2,3}StunThresholdReductionImplicitMace2
 {variant:1,2}Adds (16-22) to (26-32) Physical Damage
 {variant:3}LocalAddedPhysicalDamageUnique__6_
 {variant:1,2}Adds (16-22) to (26-32) Cold Damage
@@ -116,7 +116,7 @@ Ornate Mace
 League: Heist
 Requires Level 50, 161 Str
 Implicits: 1
-StunThresholdReductionUniqueTwoHandMace1
+StunThresholdReductionImplicitMace2
 LocalAddedChaosDamageUnique__2
 LocalIncreasedAttackSpeedUnique__12
 ChaosResistUnique__15
@@ -130,7 +130,7 @@ Variant: Current
 Requires Level 10, 41 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2}StunThresholdReductionUniqueGlovesDexInt2
+{variant:2}StunThresholdReductionImplicitMace1
 LocalIncreasedPhysicalDamagePercentUniqueOneHandMace6
 LocalReducedAttackSpeedUniqueOneHandMace6
 StunThresholdReductionUniqueOneHandMace6
@@ -147,16 +147,16 @@ Variant: Current
 Requires Level 20, 71 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2,3}StunThresholdReductionUniqueGlovesDexInt2
+{variant:2,3}StunThresholdReductionImplicitMace1
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
-{variant:1,2}IncreasedLifeImplicitShield1
+{variant:1,2}IncreasedLifeUniqueHelmetDex5
 {variant:1,2}IncreasedManaUniqueBootsStrDex3
 {variant:3}IncreasedLifeUniqueOneHandMace7
 {variant:3}IncreasedManaUniqueOneHandMace7
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__7
-MovementVelocityUniqueShieldStr1
+ReducedMovementVelocityUniqueOneHandMace7
 {variant:1,2}10% increased Area of Effect of Area Skills
-{variant:3}UniqueSpecialCorruptionAreaOfEffect_
+{variant:3}AreaOfEffectUniqueOneHandMace7
 {variant:1,2}(10-15)% increased Area Damage
 {variant:3}AreaDamageUniqueOneHandMace7
 ]],[[
@@ -170,12 +170,12 @@ Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
-{variant:4,5}StunThresholdReductionUniqueTwoHandMace1
-LocalIncreasedPhysicalDamagePercentUniqueWand9
+{variant:4,5}StunThresholdReductionImplicitMace2
+LocalIncreasedPhysicalDamagePercentUniqueOneHandMace3
 AdditionalChainUniqueOneHandMace3
 {variant:1,2,3,4}(30-40)% increased Lightning Damage with Attack Skills
 {variant:5}WeaponLightningDamageUniqueOneHandMace3
-StrengthRequirementsUnique__2
+StrengthRequirementsUniqueOneHandMace3
 IntelligenceRequirementsUniqueOneHandMace3
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
@@ -189,7 +189,7 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__11__
+IncreasedCastSpeedUnique__16
 ColdDamagePerResistanceAbove75Unique__1
 LightningDamagePerResistanceAbove75Unique__1
 ]],[[
@@ -199,7 +199,7 @@ League: Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__11__
+IncreasedCastSpeedUnique__16
 ColdDamagePerMissingColdResistanceUnique__1
 FireDamagePerMissingFireResistanceUnique__1
 ]],[[
@@ -210,7 +210,7 @@ Variant: Pre 3.4.0
 Variant: Current
 Requires Level 68, 212 Str
 Implicits: 1
-StunThresholdReductionUniqueGlovesDexInt2
+StunThresholdReductionImplicitMace1
 Adds (45-60) to (100-120) Physical Damage 
 Gain (30-40)% of Physical Attack Damage as Extra Fire Damage 
 +4% to Chaos Resistance per Endurance Charge 
@@ -246,7 +246,7 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 10, 22 Str, 22 Int
 Implicits: 2
-{variant:1}ElementalDamageUniqueDescentBelt1
+{variant:1}ElementalDamagePercentImplicitSceptreNew1
 {variant:2}ElementalDamagePercentImplicitSceptreNew2
 IncreasedCastSpeedUnique__4
 SpellCriticalStrikeChanceUnique__1
@@ -273,7 +273,7 @@ Variant: Current
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3}ElementalDamagePercentImplicitSceptreNew12___
+{variant:2,3}ElementalDamagePercentImplicitSceptreNew8
 {variant:3}DisplaySupportedByBonechillUnique__1
 DisplaySupportedByHypothermiaUnique__1
 DisplaySupportedByIceBiteUnique__1
@@ -287,7 +287,7 @@ Shadow Sceptre
 League: Heist
 Requires Level 32, 52 Str, 62 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew12___
+ElementalDamagePercentImplicitSceptreNew8
 DisplaySupportedByElementalPenetrationUnique__2
 DisplaySupportedByImmolateUnique__1
 DisplaySupportedByUnboundAilmentsUnique__1__
@@ -330,16 +330,16 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
-{variant:1}ElementalDamageUniqueDescentBelt1
-{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew6
+{variant:1}ElementalDamagePercentImplicitSceptreNew1
+{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew7
 LocalIncreasedPhysicalDamageUniqueSceptre9
 {variant:1,2}Adds 15 to 25 Fire Damage against Ignited Enemies
 LocalAddedPhysicalDamageUniqueSceptre9
 {variant:3}Adds 2 to 4 Fire Damage to Attacks per 10 Strength
 {variant:4}AddedFireDamagePerStrengthUnique__1
-IncreasedFireDamgeIfHitRecentlyUnique__1Royale_
+FireDamagePercentUniqueSceptre9
 LocalIncreasedAttackSpeedUniqueSceptre9
-LocalCriticalStrikeChanceUnique__10
+LocalCriticalStrikeChanceUniqueTwoHandMace6
 ]],[[
 Cerberus Limb
 Blood Sceptre
@@ -349,7 +349,7 @@ Requires Level 47, 81 Str, 81 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew13
 SpellDamageUnique__9
-IncreasedCastSpeedUnique__11__
+IncreasedCastSpeedUnique__16
 LifeLeechFromSpellsWith30BlockOnShieldUnique__1_
 EnergyShieldPerArmourOnShieldUnique__1
 ArmourPerEvasionRatingOnShieldUnique__1
@@ -369,7 +369,7 @@ Variant: Current (Mana/ES)
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3,4,5,6,7,8}ElementalDamagePercentImplicitSceptreNew12___
+{variant:2,3,4,5,6,7,8}ElementalDamagePercentImplicitSceptreNew8
 {variant:1,2,3,4,5}(30-50)% increased Global Damage
 {variant:6,7,8}AllDamageUniqueSceptre8
 {variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
@@ -389,7 +389,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 2
-{variant:1}ElementalDamageUniqueDescentBelt1
+{variant:1}ElementalDamagePercentImplicitSceptreNew1
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew16
 {variant:1,2}Adds (30-41) to (80-123) Physical Damage
 {variant:3}LocalAddedPhysicalDamageUniqueSceptre10
@@ -403,7 +403,7 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamageUniqueDescentBelt1
+{variant:1}ElementalDamagePercentImplicitSceptreNew1
 {variant:2}ElementalDamagePercentImplicitSceptreNew20
 StrengthUniqueSceptre6
 IncreasedCastSpeedUniqueSceptre6
@@ -419,13 +419,13 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 75, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamageUniqueDescentBelt1
+{variant:1}ElementalDamagePercentImplicitSceptreNew1
 {variant:2}ElementalDamagePercentImplicitSceptreNew20
 SocketedGemsGetElementalProliferationUniqueSceptre7
 LocalAddedPhysicalDamageUniqueSceptre7
 LocalIncreasedAttackSpeedUniqueSceptre7
 IncreasedCastSpeedUniqueSceptre7
-CriticalStrikeChanceImplicitRingRoyale1_
+CriticalSrikeChanceUniqueSceptre7
 ElementalDamageLeechedAsLifePermyriadUniqueSceptre7_
 ElementalDamageUniqueSceptre7
 ]],[[
@@ -433,9 +433,9 @@ Earendel's Embrace
 Grinning Fetish
 Requires Level 35, 62 Str, 62 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew10
+ElementalDamagePercentImplicitSceptreNew9
 AllAttributesUnique__8_
-MinionDamageUniqueTwoHandSword4
+MinionDamageUnique__5
 SkeletonsCoverEnemiesInAshUnique__1
 SkeletonsTakeFireDamagrPerSecondUnique__1
 SkeletonsHaveAvatarOfFireUnique__1_
@@ -445,9 +445,9 @@ Grinning Fetish
 League: Heist
 Requires Level 35, 62 Str, 62 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew10
+ElementalDamagePercentImplicitSceptreNew9
 AllAttributesUnique__8_
-MinionDamageUniqueTwoHandSword4
+MinionDamageUnique__5
 ZombiesCoverInAshOnHitUnique__1
 Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
 ZombiesHaveAvatarOfFireUnique__1
@@ -487,8 +487,8 @@ Implicits: 2
 {variant:1,2,3}ItemActsAsColdToFireSupportUniqueSceptre2
 ItemActsAsFirePenetrationSupportUniqueSceptre2
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
-SpellDamageOnWeaponUniqueDagger1Royale
-{variant:2,3,4}LocalIncreasedPhysicalDamagePercentUniqueSceptre2
+SpellDamageUniqueSceptre2
+{variant:2,3,4}LocalIncreasedPhysicalDamageUniqueOneHandMace5
 LifeGainPerTargetUniqueSceptre2
 LightRadiusUniqueSceptre2
 ]],[[
@@ -509,7 +509,7 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamageUniqueDescentBelt1
+{variant:1}ElementalDamagePercentImplicitSceptreNew1
 {variant:2}ElementalDamageUnique__1
 SpellAddedLightningDamageUnique__2
 IncreasedCastSpeedUnique__2
@@ -525,9 +525,9 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
-{variant:1}ElementalDamageUniqueDescentBelt1
+{variant:1}ElementalDamagePercentImplicitSceptreNew1
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew5
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
+LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
 IncreasedDamageAgainstFrozenEnemiesUnique__1
 ColdDamagePercentUnique__3
 {variant:3}ColdDamageOverTimeMultiplierUnique__1
@@ -545,7 +545,7 @@ Implicits: 2
 {variant:1,2}ElementalDamageUniqueHelmetInt9
 {variant:3}ElementalDamageUnique__1
 LocalIncreaseSocketedGemLevelUniqueHelmetStrInt2
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace7
 LocalIncreasedAttackSpeedOneHandSword3
 {variant:1}IncreasedExperienceUniqueIntHelmet3
 {variant:2,3}IncreasedExperienceUniqueSceptre1
@@ -597,7 +597,7 @@ Requires Level 40, 104 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}StunDurationImplicitMace1
-LocalIncreaseSocketedMeleeGemLevelUniqueRapier1
+LocalIncreaseSocketedMeleeGemLevelUniqueTwoHandMace5
 LocalIncreaseSocketedMinionGemLevelUniqueTwoHandMace5
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__10
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace5
@@ -612,8 +612,8 @@ Source: Upgraded from unique{Chober Chaber} via prophecy{Faith Exhumed}
 Requires Level 60, 131 Str
 Implicits: 1
 StunDurationImplicitMace1
-LocalIncreaseSocketedMeleeGemLevelUniqueRapier1
-LocalIncreaseSocketedMinionGemLevelUniqueShieldInt2
+LocalIncreaseSocketedMeleeGemLevelUniqueTwoHandMace5
+LocalIncreaseSocketedMinionGemLevelUnique__4
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace5
 LocalAddedPhyiscalDamageUnique__38
 MaximumManaUniqueTwoHandMace5
@@ -663,9 +663,9 @@ Implicits: 2
 {variant:2}StunDurationImplicitMace2
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace1
 StrengthUniqueTwoHandMace1
-StunThresholdReductionUniqueTwoHandMace1
-LifeLeechPermyriadUnique__5
-StunDurationUniqueTwoHandMace3
+StunThresholdReductionImplicitMace2
+LifeLeechPermyriadUniqueTwoHandMace1
+StunDurationUniqueTwoHandMace1
 ]],[[
 Hrimnor's Dirge
 Sledgehammer
@@ -679,9 +679,9 @@ Implicits: 2
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace1
 LocalAddedPhysicalDamageUnique__20_
 StrengthUniqueTwoHandMace1
-StunThresholdReductionUniqueTwoHandMace1
-LifeLeechPermyriadUnique__5
-StunDurationUniqueTwoHandMace3
+StunThresholdReductionImplicitMace2
+LifeLeechPermyriadUniqueTwoHandMace1
+StunDurationUniqueTwoHandMace1
 PhysicalAddedAsColdUnique__1
 ]],[[
 Jorrhast's Blacksteel
@@ -694,9 +694,9 @@ Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}StunDurationImplicitMace2
 {variant:2}TriggeredAnimateWeaponUnique__1
-LocalIncreasedPhysicalDamagePercentUniqueSceptre2
-LocalIncreasedAttackSpeedUnique__24
-IncreasedCastSpeedUniqueClaw7
+LocalIncreasedPhysicalDamageUniqueOneHandMace5
+LocalIncreasedAttackSpeedUniqueTwoHandMace8_
+IncreasedCastSpeedUniqueTwoHandMace8
 AnimateWeaponDurationUniqueTwoHandMace8
 NumberOfAdditionalAnimateWeaponCopiesUniqueTwoHandMace8
 ]],[[
@@ -713,8 +713,8 @@ Implicits: 3
 {variant:4}ChanceForDoubleStunDurationImplicitMace_1
 {variant:1}Adds (27-36) to (270-360) Physical Damage
 {variant:2,3,4}Adds (27-56) to (270-400) Physical Damage
-{variant:2,3,4}LocalCriticalStrikeChanceUnique__10
-AllResistancesUnique__17
+{variant:2,3,4}LocalCriticalStrikeChanceUniqueTwoHandMace6
+AllResistancesUniqueTwoHandMace6_
 AlwaysHits
 CriticalMultiplierUniqueAmulet18
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
@@ -727,8 +727,8 @@ Requires Level 67, 212 Str
 Implicits: 1
 ChanceForDoubleStunDurationImplicitMace_1
 LocalAddedPhysicalDamageUniqueTwoHandMace6
-LocalCriticalStrikeChanceUnique__10
-AllResistancesUnique__17
+LocalCriticalStrikeChanceUniqueTwoHandMace6
+AllResistancesUniqueTwoHandMace6_
 AlwaysHits
 CriticalMultiplierUniqueAmulet18
 LocalEnergyShieldRegenerationIfCritRecentlyUnique__1
@@ -753,10 +753,10 @@ Implicits: 3
 {variant:4}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3
 {variant:1,2}LocalAddedPhysicalDamageOneHandAxe1
 {variant:3,4}LocalAddedPhysicalDamageUniqueTwoHandMace3
-ReducedAttackSpeedUniqueAmulet16
+LocalIncreasedAttackSpeedUniqueTwoHandMace3
 IncreasedAccuracyUniqueTwoHandMace3
-MovementSkillCooldownReducedMoveSpeedImplicitR2_
-StunDurationUniqueTwoHandMace3
+MovementVelocityUniqueTwoHandMace3
+StunDurationUniqueTwoHandMace1
 ]],[[
 Quecholli
 Jagged Maul
@@ -767,7 +767,7 @@ Requires Level 22, 77 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}StunDurationImplicitMace1
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace7
 LocalAddedPhysicalDamageUniqueTwoHandMace7
 AllAttributesUniqueTwoHandMace7
 LifeGainedFromEnemyDeathUniqueTwoHandMace7
@@ -779,7 +779,7 @@ Source: Upgraded from unique{Quecholli} via prophecy{The Fall of an Empire}
 Requires Level 61, 77 Str
 Implicits: 1
 StunDurationImplicitMace1
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace7
 LocalAddedPhysicalDamageUnique__32
 AllAttributesUniqueTwoHandMace7
 Enemies killed explode dealing 10% of their Life as Fire Damage
@@ -834,6 +834,6 @@ LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace4
 LocalIncreasedAttackSpeedUniqueTwoHandMace4
 ItemFoundRarityDecreaseUniqueTwoHandMace4
 IncreasedExperienceUniqueTwoHandMace4
-ManaLeechPermyriadUniqueRing17
+ManaLeechPermyriadUniqueTwoHandMace4
 ]],
 }
