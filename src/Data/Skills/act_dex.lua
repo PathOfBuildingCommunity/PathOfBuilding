@@ -682,6 +682,7 @@ skills["BladeTrap"] = {
 		trap = true,
 	},
 	baseMods = {
+		skill("radius", 16),
 	},
 	qualityStats = {
 		Default = {
@@ -6127,6 +6128,10 @@ skills["StormRain"] = {
 		projectile = true,
 	},
 	baseMods = {
+		skill("radius", 10, { type = "SkillPart", skillPart = 1 }),
+		skill("radiusLabel", "Arrow Explosion:", { type = "SkillPart", skillPart = 1 }),
+		skill("radiusSecondary", 12, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusSecondaryLabel", "Beam Width:", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {

@@ -316,7 +316,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Life Recovery from Leech is not applied", 
+				[1] = "Life Recovery from Non-Instant Leech is not applied", 
 				[2] = "1% less Damage taken for every 2% Life Recovery per second from Leech", 
 			}, 
 			["dn"] = "Strength of Blood", 
@@ -4920,7 +4920,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Gain 4 Flask Charges per empty Flask Slot every 5 seconds", 
+				[1] = "Flasks Gain 4 Charges per empty Flask Slot every 5 seconds", 
 			}, 
 			["dn"] = "The Traitor", 
 			["isJewelSocket"] = false, 

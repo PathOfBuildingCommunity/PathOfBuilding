@@ -288,9 +288,9 @@ function calcs.offence(env, actor, activeSkill)
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
-	skillCfg.skillCond["SkillIsFocussed"] = skillData.triggeredByFocus
-	if skillCfg.skillCond["SkillIsFocussed"] then
-		skillFlags.focussed = true
+	skillCfg.skillCond["SkillIsFocused"] = skillData.triggeredByFocus
+	if skillCfg.skillCond["SkillIsFocused"] then
+		skillFlags.focused = true
 	end
 
 	-- Update skill data
@@ -1025,7 +1025,6 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	for resource, name in pairs(names) do
 		local percent = resource == "ManaPercent" or resource == "LifePercent"
-		output[resource.."Cost"] = output[resource.."Cost"] * (activeSkill.skillData.triggerCostMultiplier or 1)
 		do
 			local mult = m_floor(skillModList:More(skillCfg, "SupportManaMultiplier") * 100 + 0.0001) / 100
 			local more, inc

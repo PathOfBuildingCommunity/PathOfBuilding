@@ -2634,6 +2634,7 @@ skills["ViciousHexExplosion"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 		skill("showAverage", true),
 	},
 	qualityStats = {

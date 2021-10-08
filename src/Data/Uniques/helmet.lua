@@ -385,7 +385,7 @@ Eldritch Battery
 {variant:9}{crafted}+(6-17) to Strength and Intelligence
 {variant:10}{crafted}(7-12)% increased Mine Laying Speed
 {variant:11}{crafted}Trigger Socketed Spells when you Focus
-{variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focussed
+{variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
 ]],[[
 Doedre's Scorn
 Lunaris Circlet

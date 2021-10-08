@@ -276,7 +276,7 @@ local skills, mod, flag, skill = ...
 #flags warcry area duration
 #mods
 
-#skill MonsterEnfeeble Enfeeble
+#skill AxisEnfeeble Enfeeble
 #flags spell curse area duration
 	statMap = {
 		["enfeeble_damage_+%_final"] = {
@@ -556,7 +556,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile duration
 #mods
 
-#skill SkeletonTemporalChains Temporal Chains
+#skill AxisTemporalChains Temporal Chains
 #flags spell curse area duration
 	statMap = {
 		["temporal_chains_action_speed_+%_final"] = {

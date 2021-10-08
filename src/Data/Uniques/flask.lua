@@ -85,7 +85,7 @@ Requires Level 30
 25% increased Light Radius during Flask effect
 {variant:1,2}+6% to all maximum Elemental Resistances during Flask effect
 {variant:3}+4% to all maximum Elemental Resistances during Flask effect
-{variant:4}+50% to all Elemental Resistances during Flask Effect
+{variant:4,5}+50% to all Elemental Resistances during Flask Effect
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask

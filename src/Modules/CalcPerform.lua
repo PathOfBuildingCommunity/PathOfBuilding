@@ -44,7 +44,7 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	local icdr = 1
 	if focus then
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
-		env.player.mainSkill.skillData.focussed = true
+		env.player.mainSkill.skillData.focused = true
 	else
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 	end
@@ -470,13 +470,13 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 	end
 	if env.mode_effective then
-		if modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "FireExposureChance") > 0 or modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
 			condList["CanApplyFireExposure"] = true
 		end
-		if modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ColdExposureChance") > 0 or modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
 			condList["CanApplyColdExposure"] = true
 		end
-		if modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "LightningExposureChance") > 0 or modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
 			condList["CanApplyLightningExposure"] = true
 		end
 	end
@@ -582,6 +582,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
 		end
 	end
+	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
 end
 
 -- Calculate life/mana reservation
@@ -1223,7 +1224,6 @@ function calcs.perform(env, avoidCache)
 		end
 		if activeSkill.skillData.triggeredOnDeath and not activeSkill.skillFlags.minion then
 			activeSkill.skillData.triggered = true
-			activeSkill.skillData.triggerCostMultiplier = 0
 			for _, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
 				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 			end
@@ -2044,7 +2044,6 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
-			env.player.mainSkill.skillData.triggerCostMultiplier = 0
 			local uuid = cacheSkillUUID(source)
 			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
@@ -2349,7 +2348,6 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
-			env.player.mainSkill.skillData.triggerCostMultiplier = 2.5
 
 			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown)
 
