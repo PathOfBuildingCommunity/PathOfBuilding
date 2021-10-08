@@ -99,7 +99,7 @@ writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
 	return mod.Family == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
 writeMods("../Data/Uniques/Special/Uniques.lua", function(mod)
-	return mod.Family ~= "AuraBonus" and not mod.Family:match("^EnchantmentHeist") and not mod.Id:match("^Synthesis") and mod.GenerationType == 3
+	return mod.Family ~= "AuraBonus" and not mod.Family:match("^EnchantmentHeist") and not mod.Id:match("^Synthesis") and not mod.Id:match("Royale") and mod.GenerationType == 3
 			and (mod.Domain == 1 or mod.Domain == 2 or mod.Domain == 21 or mod.Domain == 10)
 end)
 
