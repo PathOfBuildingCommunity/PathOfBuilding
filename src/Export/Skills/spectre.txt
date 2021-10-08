@@ -15,7 +15,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
-#skill BanditExplosiveArrow Explosive Arrow
+#skill BanditExplosiveArrowAtAnimationSpeed Explosive Arrow
 #flags cast projectile area duration
 	statMap = {
 		["minimum_fire_damage_per_fuse_arrow_orb"] = {
@@ -39,12 +39,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 4)
 #mods
 
-#skill BeastCleave Cleave
+#skill GABeastCleave Cleave
 #flags attack melee area
 #mods
 
-#skill BirdmanBloodProjectile Blood Projectile
-#flags attack projectile
+#skill BirdmanBloodProjectileMortar Blood Projectile
+#flags attack projectile area
 #mods
 
 #skill BirdmanConsumeCorpse Consume Corpse
@@ -72,7 +72,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ChaosDegenAura Chaos Aura
-#flags spell aura area chaos
+#flags spell aura area
 #mods
 
 #skill DelayedBlastSpectre Delayed Blast
@@ -170,7 +170,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GuardianArc Arc
-#flags spell lightning
+#flags spell
 #mods
 
 #skill HalfSkeletonPuncture Puncture
@@ -253,26 +253,30 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterArc Arc
-#flags spell lightning
+#flags spell
 #mods
 
 #skill MonsterCausticArrow Caustic Arrow
-#flags attack projectile area duration chaos
+#flags attack projectile area duration
+#mods
+
+#skill MonsterCausticArrowAtAnimationSpeed Caustic Arrow
+#flags attack projectile area duration
 #mods
 
 #skill MonsterCausticBomb Caustic Bomb
-#flags spell trap area duration chaos
+#flags spell trap area duration
 #mods
 
 #skill MonsterDischarge Discharge
-#flags spell area lightning
+#flags spell area
 #mods
 
 #skill MonsterEnduringCry Enduring Cry
 #flags warcry area duration
 #mods
 
-#skill MonsterEnfeeble Enfeeble
+#skill AxisEnfeeble Enfeeble
 #flags spell curse area duration
 	statMap = {
 		["enfeeble_damage_+%_final"] = {
@@ -287,7 +291,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill MonsterFireball Fireball
+#skill MonsterFireballContactPos Fireball
 #flags spell projectile area
 #mods
 
@@ -315,7 +319,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee area
 #mods
 
-#skill MonsterLeapSlamFoothills
+#skill MonsterLeapSlamFoothills Leap Slam
 #flags attack melee area
 #mods
 
@@ -328,11 +332,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterLightningArrow Lightning Arrow
-#flags attack projectile lightning
+#flags attack projectile area
+#mods
+
+#skill SkeletonArcherLightningArrow Lightning Arrow
+#flags attack projectile area
 #mods
 
 #skill MonsterLightningThorns Lightning Thorns
-#flags spell duration lightning
+#flags spell duration
 #mods
 
 #skill MonsterMultiFireballSpectre Multi Fireball
@@ -366,11 +374,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterShockNova Shock Nova
-#flags spell area lightning
+#flags spell area
 #mods
 
 #skill MonsterSpark Spark
-#flags spell projectile duration lightning
+#flags spell projectile duration
 #mods
 
 #skill MonsterSplitFireballSpectre Split Fireball
@@ -402,7 +410,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill NecromancerConductivity Conductivity
-#flags spell curse area duration lightning
+#flags spell curse area duration
 	statMap = {
 		["base_lightning_damage_resistance_%"] = {
 			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -515,10 +523,6 @@ local skills, mod, flag, skill = ...
 #flags spell duration area
 #mods
 
-#skill SeaWitchWave Wave
-#flags spell 
-#mods
-
 #skill SkeletonBlackAbyssBoneLance Unearth
 #flags spell projectile area
 #mods
@@ -549,10 +553,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SkeletonSpark Spark
-#flags spell projectile duration lightning
+#flags spell projectile duration
 #mods
 
-#skill SkeletonTemporalChains Temporal Chains
+#skill AxisTemporalChains Temporal Chains
 #flags spell curse area duration
 	statMap = {
 		["temporal_chains_action_speed_+%_final"] = {
@@ -822,4 +826,16 @@ local skills, mod, flag, skill = ...
 
 #skill SecretDesecrateMonsterMultiSlash Multi Slash
 #flags attack hit area triggerable
+#mods
+
+#skill UltimatumGuardMeleeCold Cold Arrow
+#flags attack projectile melee
+#mods
+
+#skill UltimatumGuardConeArrowCold Cone Arrow
+#flags attack hit area triggerable
+#mods
+
+#skill MeleeAtAnimationSpeed Default Attack
+#flags attack melee projectile
 #mods

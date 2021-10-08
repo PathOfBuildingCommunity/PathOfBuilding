@@ -386,15 +386,17 @@ League: Legion
 Source: Drops from Vaal Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}20% Chance to Block Spell Damage while wielding a Staff
+{variant:3,4}20% Chance to Block Spell Damage while wielding a Staff
 Socketed Gems are Supported by Level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
-100% increased maximum Mana
+{variant:1,2,3}100% increased maximum Mana
+{variant:4}50% increased maximum Mana
 ]],[[
 Realmshaper
 Iron Staff

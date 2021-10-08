@@ -13,12 +13,28 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 
 	self.lastContent = ""
 
-	self.controls.edit = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 0, 0, "", nil, "^%C\t\n", nil, nil, 16)
+	local function getColorString(color, string) return color:gsub("%^", "^7")..": "..color..string end
+	local colorDesc = [[^7This field supports different colors.  Using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
+Below are some common color codes PoB uses:	]]
+	self.controls.colorDoc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, colorDesc)
+	self.controls.normal = new("LabelControl", {"TOPLEFT",self.controls.colorDoc,"TOPLEFT"}, 0, 32, 50, 16, getColorString(colorCodes.NORMAL, "NORMAL"))
+	self.controls.magic = new("LabelControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.MAGIC, "MAGIC"))
+	self.controls.rare = new("LabelControl", {"TOPLEFT",self.controls.magic,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.RARE, "RARE"))
+	self.controls.unique = new("LabelControl", {"TOPLEFT",self.controls.rare,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.UNIQUE, "UNIQUE"))
+	self.controls.fire = new("LabelControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, 0, 16, 50, 16, getColorString(colorCodes.FIRE, "FIRE"))
+	self.controls.cold = new("LabelControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.COLD, "COLD"))
+	self.controls.lightning = new("LabelControl", {"TOPLEFT",self.controls.cold,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.LIGHTNING, "LIGHTNING"))
+	self.controls.chaos = new("LabelControl", {"TOPLEFT",self.controls.lightning,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.CHAOS, "CHAOS"))
+	self.controls.strength = new("LabelControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 0, 16, 50, 16, getColorString(colorCodes.STRENGTH, "STRENGTH"))
+	self.controls.dexterity = new("LabelControl", {"TOPLEFT",self.controls.strength,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.DEXTERITY, "DEXTERITY"))
+	self.controls.intelligence = new("LabelControl", {"TOPLEFT",self.controls.dexterity,"TOPLEFT"}, 150, 0, 50, 16, getColorString(colorCodes.INTELLIGENCE, "INTELLIGENCE"))
+
+	self.controls.edit = new("EditControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 0, 48, 0, 0, "", nil, "^%C\t\n", nil, nil, 16)
 	self.controls.edit.width = function()
 		return self.width - 16
 	end
 	self.controls.edit.height = function()
-		return self.height - 16
+		return self.height - 112
 	end
 	self:SelectControl(self.controls.edit)
 end)

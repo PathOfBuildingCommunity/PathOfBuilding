@@ -380,7 +380,7 @@ Implicits: 32
 {variant:9}(40-60)% increased Global Physical Damage
 {variant:10}(40-60)% increased maximum Mana
 {variant:11}(50-70)% increased Damage
-{variant:12}(8-12)% increased Physical Damage Reduction
+{variant:12}(8-12)% additional Physical Damage Reduction
 {variant:13}(8-12)% chance to Freeze, Shock and Ignite
 {variant:14}(80-100)% increased Global Critical Strike Chance
 {variant:15}(10-16)% increased Area of Effect
@@ -508,7 +508,7 @@ Grants Level 22 Hatred Skill
 {tags:elemental_damage,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-{tags:mana}Hatred has 50% less Mana Reservation
+Hatred has 50% less Reservation
 ]],[[
 The Ignomon
 Gold Amulet
@@ -612,6 +612,18 @@ Implicits: 1
 {variant:2}30% increased Projectile Damage
 {tags:speed}30% increased Projectile Speed
 {tags:speed}10% increased Movement Speed
+]],[[
+Leadership's Price
+Onyx Amulet
+Requires Level 68
+Implicits: 1
+{tags:attribute}+(10–16) to all Attributes
+{tags:resistance}+(-3–3)% to maximum Fire Resistance
+{tags:resistance}+(-3–3)% to maximum Cold Resistance
+{tags:resistance}+(-3–3)% to maximum Lightning Resistance
+You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal
+Cannot Ignite, Chill, Freeze or Shock
+Corrupted
 ]],[[
 Maligaro's Cruelty
 Turquoise Amulet
@@ -743,7 +755,7 @@ Requires Level 28
 Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
-+7% Base Unarmed Critical Strike Chance
++7% to Unarmed Melee Attack Critical Strike Chance
 {tags:attack}Modifiers to Claw Damage also apply to Unarmed Attack Damage
 {tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
 {tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
@@ -822,7 +834,7 @@ Implicits: 1
 {tags:resource,life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Mana Reservation
+{tags:mana}Temporal Chains has 100% reduced Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast

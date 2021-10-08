@@ -75,6 +75,7 @@ ModFlag.Staff =		 0x00200000
 ModFlag.Sword =		 0x00400000
 ModFlag.Wand =		 0x00800000
 ModFlag.Unarmed =	 0x01000000
+ModFlag.Fishing =	 0x02000000
 -- Weapon classes
 ModFlag.WeaponMelee =0x02000000
 ModFlag.WeaponRanged=0x04000000
@@ -250,6 +251,11 @@ SkillType = {
 	Aegis = 110,
 	Orb = 111,
 	Type112 = 112,
+	Prismatic = 113, -- means elements cannot repeat
+	Type114 = 114,
+	Arcane = 115, -- means it is reliant on amount of mana spent
+	Type116 = 116,
+	CantEquipWeapon = 117,
 }
 
 ItemTypes = {
@@ -258,6 +264,7 @@ ItemTypes = {
 	"claw",
 	"dagger",
 	"mace",
+	"fishing",
 	"staff",
 	"sword",
 	"wand",

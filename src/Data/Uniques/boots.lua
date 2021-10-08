@@ -468,7 +468,7 @@ Requires Level 67, 123 Int
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
-6% reduced Mana Reserved
+6% reduced Reservation of Skills
 You have no Life Regeneration
 Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
@@ -798,8 +798,8 @@ For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
 Dance of the Offered
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Carnal Boots
 {variant:1}Shackled Boots
+{variant:2}Carnal Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 {variant:1}Requires Level 34, 34 Dex, 34 Int
@@ -929,5 +929,27 @@ Requires Level 69, 82 Dex, 42 Int
 You have Phasing if you've Killed Recently
 Projectiles Chain +1 times while you have Phasing
 Celestial Footprints
+]],
+-- Boots: Ward
+[[
+Olroth's Charge
+Runic Sollerets
+League: Expedition
+Requires Level 48, 37 Str, 37 Dex, 37 Int
+(50–80)% increased Ward
+(30–50)% slower Restoration of Ward
+20% increased Movement Speed
+Gain Adrenaline for 3 seconds when Ward Breaks
+]],[[
+Vorana's March
+Runic Sabatons
+League: Expedition
+Requires Level 69, 46 Str, 46 Dex, 46 Int
+Has no Sockets
+Triggers Level 20 Summon Arbalists when Equipped
+25% increased Movement Speed
+Summoned Arbalists have (10–20)% chance to inflict Cold Exposure on Hit
+Summoned Arbalists have (10–20)% chance to Intimidate for 4 seconds on Hit
+Summoned Arbalists Convert (30–50)% of Physical Damage to Fire Damage
 ]],
 }

@@ -78,7 +78,7 @@ skills["AxisDoubleStrikeTrigger"] = {
 		[1] = { 0, 1, cooldown = 2, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 }
-skills["BanditExplosiveArrow"] = {
+skills["BanditExplosiveArrowAtAnimationSpeed"] = {
 	name = "Explosive Arrow",
 	hidden = true,
 	color = 4,
@@ -123,12 +123,10 @@ skills["BanditExplosiveArrow"] = {
 		"active_skill_attack_damage_+%_final",
 		"skill_can_fire_arrows",
 		"base_is_projectile",
+		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
 		[1] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 2, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
-		[2] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 10, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
-		[3] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 20, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
-		[4] = { 1000, 1.2000000476837, 1.7999999523163, 2, 0, 1, 1, critChance = 6, levelRequirement = 68, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
 	},
 }
 skills["BanditChampionBlastRainSpectre"] = {
@@ -166,22 +164,13 @@ skills["BanditChampionBlastRainSpectre"] = {
 		[1] = { 50, 0, 4, 80, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 15, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["BeastCleave"] = {
+skills["GABeastCleave"] = {
 	name = "Cleave",
 	hidden = true,
-	color = 1,
-	baseEffectiveness = 0,
-	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Type53] = true, [SkillType.PhysicalSkill] = true, },
-	weaponTypes = {
-		["Two Handed Axe"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
-		["Two Handed Sword"] = true,
-		["One Handed Sword"] = true,
-	},
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
+	castTime = 1.333,
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -192,47 +181,42 @@ skills["BeastCleave"] = {
 	qualityStats = {
 	},
 	stats = {
-		"cleave_damage_+%_final_while_dual_wielding",
 		"is_area_damage",
-		"physical_damage_+%",
-		"skill_double_hits_when_dual_wielding",
-		"attack_speed_+%",
-		"skill_sound_variation",
+		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { -40, 1, 31, 1, -30, 1, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
+		[1] = { baseMultiplier = 1.3, cooldown = 5, levelRequirement = 1, statInterpolation = { }, cost = { }, },
 	},
 }
-skills["BirdmanBloodProjectile"] = {
+skills["BirdmanBloodProjectileMortar"] = {
 	name = "Blood Projectile",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		area = true,
 	},
 	baseMods = {
 	},
 	qualityStats = {
 	},
 	stats = {
-		"attack_speed_+%",
+		"skill_repeat_count",
 		"active_skill_damage_+%_final",
 		"active_skill_area_of_effect_radius_+%_final",
 		"projectile_spread_radius",
+		"main_hand_base_maximum_attack_distance",
+		"attack_speed_+%",
 		"base_is_projectile",
-		"spell_maximum_action_distance_+%",
+		"projectile_uses_contact_position",
 	},
 	levels = {
-		[1] = { 100, 10, 0, 15, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 100, 10, 0, 15, -15, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 100, 10, 0, 15, -15, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[4] = { 100, 10, 0, 15, -15, levelRequirement = 39, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[5] = { 100, 10, 0, 15, -15, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[6] = { 100, 10, 0, 15, -15, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 2, 10, 0, 15, 40, 100, baseMultiplier = 1.15, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["BirdmanConsumeCorpse"] = {
@@ -260,7 +244,7 @@ skills["BoneStalkerEarthquake"] = {
 	hidden = true,
 	color = 1,
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -320,11 +304,13 @@ skills["BreachCleave"] = {
 		"physical_damage_+%",
 		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
 		"skill_physical_damage_%_to_convert_to_fire",
+		"melee_range_+",
 		"is_area_damage",
 		"skill_double_hits_when_dual_wielding",
+		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { -40, 29, -20, 50, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[1] = { -40, 29, -20, 50, 4, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["BullCharge"] = {
@@ -356,7 +342,7 @@ skills["CageSpiderCycloneTriggerSandstorms"] = {
 	hidden = true,
 	color = 2,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -439,7 +425,6 @@ skills["ChaosDegenAura"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -599,7 +584,7 @@ skills["ElementalHitSkeletonKnight"] = {
 	baseEffectiveness = 1.1667000055313,
 	incrementalEffectiveness = 0.04280000180006,
 	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Prismatic] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -638,7 +623,7 @@ skills["ElementalHitSkeletonKnightIncursion"] = {
 	hidden = true,
 	color = 2,
 	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Prismatic] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -901,7 +886,7 @@ skills["GoatmanEarthquake"] = {
 	hidden = true,
 	color = 1,
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -929,7 +914,7 @@ skills["GoatmanEarthquake"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 1800, 25, damageEffectiveness = 0.5, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
+		[1] = { 1800, 25, damageEffectiveness = 0.5, cooldown = 2.75, attackSpeedMultiplier = 13, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 }
 skills["GoatmanFireMagmaOrb"] = {
@@ -941,7 +926,7 @@ skills["GoatmanFireMagmaOrb"] = {
 	description = "Lob a fiery orb that explodes as it hits the ground. The skill chains, releasing another fiery orb that repeats this effect.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Chaining] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.7,
+	castTime = 1.33,
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -961,6 +946,9 @@ skills["GoatmanFireMagmaOrb"] = {
 		"number_of_chains",
 		"is_area_damage",
 		"base_is_projectile",
+		"use_scaled_contact_offset",
+		"projectile_uses_contact_position",
+		"maintain_projectile_direction_when_using_contact_position",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, 0, 0, 30, 2, critChance = 5, cooldown = 3, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { }, },
@@ -971,12 +959,12 @@ skills["GoatmanMoltenShell"] = {
 	name = "Molten Shell",
 	hidden = true,
 	color = 1,
-	baseEffectiveness = 4.2555999755859,
-	incrementalEffectiveness = 0.03999999910593,
+	baseEffectiveness = 6.5,
+	incrementalEffectiveness = 0.039000000804663,
 	description = "Summons fiery elemental shields providing additional armour for a short duration. If cumulative physical damage prevented by your blocking or armour reaches a threshold, the shields explode outwards, dealing fire damage to surrounding enemies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageCannotBeReflected] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.17,
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -993,44 +981,45 @@ skills["GoatmanMoltenShell"] = {
 		"base_physical_damage_reduction_rating",
 		"base_resist_all_elements_%",
 		"skill_art_variation",
-		"base_skill_effect_duration",
 		"active_skill_area_of_effect_radius_+%_final",
+		"molten_shell_expire_after_x_hits",
 		"is_area_damage",
+		"always_ignite",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 20, 335, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 200, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 25, 649, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 5, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 200, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 36, 1000, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 8, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 190, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 49, 1633, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 180, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 64, 2075, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 15, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 180, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 91, 2573, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 175, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 116, 3094, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 22, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 175, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 160, 3641, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 26, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 166, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 209, 4352, 0, 1, 5000, 0, damageEffectiveness = 2, levelRequirement = 30, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 315, 5313, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 374, 5890, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 39, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 377, 6189, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 565, 7030, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 45, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 752, 7870, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 50, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 1194, 9159, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 57, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 1403, 9867, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 60, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 2091, 11090, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 2211, 11524, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 2334, 11966, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 2456, 12428, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 69, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 2579, 12894, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 2746, 13369, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 71, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 2912, 13857, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 3074, 14358, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 73, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 3237, 14875, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 3397, 15397, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 3552, 15931, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 3703, 16480, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 77, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 3847, 17039, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 3981, 17613, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 79, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 4110, 18195, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 4230, 18790, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 81, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 4334, 19399, 0, 1, 5000, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 160, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 20, 335, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 25, 649, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 5, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 36, 1000, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 8, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 49, 1633, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 64, 2075, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 15, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 91, 2573, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 116, 3094, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 22, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 160, 3641, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 26, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 209, 4352, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 30, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 315, 5313, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 374, 5890, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 39, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 377, 6189, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 565, 7030, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 45, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 752, 7870, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 50, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 1194, 9159, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 57, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 1403, 9867, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 60, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 2091, 11090, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 2211, 11524, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 2334, 11966, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 2456, 12428, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 69, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 2579, 12894, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 2746, 13369, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 71, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 2912, 13857, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 3074, 14358, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 73, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 3237, 14875, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 3397, 15397, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 3552, 15931, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 3703, 16480, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 77, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 3847, 17039, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 3981, 17613, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 79, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 4110, 18195, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 4230, 18790, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 81, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 4334, 19399, 0, 1, 0, 1, critChance = 5, cooldown = 7.5, duration = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["GoatmanMonsterSlam"] = {
@@ -1101,7 +1090,6 @@ skills["GuardianArc"] = {
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -1154,8 +1142,8 @@ skills["HalfSkeletonPuncture"] = {
 		"global_bleed_on_hit",
 	},
 	levels = {
-		[1] = { 46, 20, cooldown = 7.5, levelRequirement = 2, statInterpolation = { 1, 1, }, cost = { }, },
-		[2] = { 46, 20, cooldown = 7.5, levelRequirement = 14, statInterpolation = { 1, 1, }, cost = { }, },
+		[1] = { 57, 20, baseMultiplier = 1.2, cooldown = 7.5, levelRequirement = 2, statInterpolation = { 1, 1, }, cost = { }, },
+		[2] = { 57, 20, baseMultiplier = 1.2, cooldown = 7.5, levelRequirement = 14, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 }
 skills["HolyFireElementalFireball"] = {
@@ -1271,9 +1259,9 @@ skills["IncaMinionProjectile"] = {
 		"skill_range_+%",
 	},
 	levels = {
-		[1] = { 0.26669999957085, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 5, }, },
-		[2] = { 0.26669999957085, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 21, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 4, }, },
-		[3] = { 0.67330002784729, 1.0132999420166, 1.0099999904633, 1.5199999809265, 1, -75, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[1] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[2] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 21, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[3] = { 0.6700000166893, 1.0099999904633, 1.0099999904633, 1.5199999809265, 1, -75, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 4, }, },
 	},
 }
 skills["IncursionLeapSlamChampion"] = {
@@ -1281,7 +1269,7 @@ skills["IncursionLeapSlamChampion"] = {
 	hidden = true,
 	color = 4,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1490,7 +1478,7 @@ skills["KitavaDemonLeapSlam"] = {
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1728,7 +1716,6 @@ skills["MonsterArc"] = {
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -1768,7 +1755,6 @@ skills["MonsterCausticArrow"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -1799,6 +1785,45 @@ skills["MonsterCausticArrow"] = {
 		[11] = { 3000, 23.33333345751, 34, 1, 0, -25, 2, levelRequirement = 74, statInterpolation = { 1, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 8, }, },
 	},
 }
+skills["MonsterCausticArrowAtAnimationSpeed"] = {
+	name = "Caustic Arrow",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.0666999816895,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Fires an arrow which deals chaos damage in an area on impact, and spreads caustic ground. Enemies standing on the caustic ground take chaos damage over time.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"base_chaos_damage_to_deal_per_minute",
+		"physical_damage_%_to_add_as_chaos",
+		"skill_can_fire_arrows",
+		"active_skill_area_of_effect_radius_+%_final",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"ground_caustic_art_variation",
+		"projectile_damage_modifiers_apply_to_skill_dot",
+		"visual_hit_effect_chaos_is_green",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 1200, 16.666667039196, 34, 1, 0, -25, 2, levelRequirement = 3, statInterpolation = { 1, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 10, }, },
+	},
+}
 skills["MonsterCausticBomb"] = {
 	name = "Caustic Bomb",
 	hidden = true,
@@ -1813,7 +1838,6 @@ skills["MonsterCausticBomb"] = {
 		trap = true,
 		area = true,
 		duration = true,
-		chaos = true,
 	},
 	baseMods = {
 	},
@@ -1855,7 +1879,6 @@ skills["MonsterDischarge"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -1873,8 +1896,8 @@ skills["MonsterDischarge"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.5625, 1.6875, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, -75, 1, damageEffectiveness = 1.5, critChance = 4, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, cost = { }, },
-		[2] = { 0.61879998445511, 1.8500000238419, 0.87999999523163, 1.3200000524521, 0.72000002861023, 1.0800000429153, -75, 1, damageEffectiveness = 1.5, critChance = 4, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, cost = { }, },
+		[1] = { 0.56000000238419, 1.6900000572205, 0.80000001192093, 1.2000000476837, 0.64999997615814, 0.98000001907349, -75, 1, damageEffectiveness = 1.5, critChance = 4, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, cost = { }, },
+		[2] = { 0.62000000476837, 1.8500000238419, 0.87999999523163, 1.3200000524521, 0.72000002861023, 1.0800000429153, -75, 1, damageEffectiveness = 1.5, critChance = 4, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterEnduringCry"] = {
@@ -1937,7 +1960,7 @@ skills["MonsterEnduringCry"] = {
 		[34] = { 2, 1000, 600, cooldown = 8, levelRequirement = 82, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["MonsterEnfeeble"] = {
+skills["AxisEnfeeble"] = {
 	name = "Enfeeble",
 	hidden = true,
 	color = 3,
@@ -1975,19 +1998,19 @@ skills["MonsterEnfeeble"] = {
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 5000, 0, -40, -40, -15, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
+		[1] = { 5000, 0, -40, -40, -15, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["MonsterFireball"] = {
+skills["MonsterFireballContactPos"] = {
 	name = "Fireball",
 	hidden = true,
 	color = 3,
-	baseEffectiveness = 1.1888999938965,
+	baseEffectiveness = 2.5,
 	incrementalEffectiveness = 0.03940000012517,
 	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
 	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.85,
+	castTime = 1.33,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -2000,12 +2023,15 @@ skills["MonsterFireball"] = {
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
-		"base_is_projectile",
 		"spell_maximum_action_distance_+%",
+		"base_is_projectile",
+		"use_scaled_contact_offset",
+		"projectile_uses_contact_position",
+		"maintain_projectile_direction_when_using_contact_position",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 1, -50, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
-		[2] = { 1.9400000572205, 3.0099999904633, 1, -50, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[2] = { 1.9400000572205, 3.0099999904633, -50, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["MonsterFireBomb"] = {
@@ -2086,7 +2112,7 @@ skills["MonsterFlickerStrike"] = {
 		"melee_defer_damage_prediction",
 	},
 	levels = {
-		[1] = { 30, 10, 0, 10, cooldown = 2, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 18, }, },
+		[1] = { 30, 10, 0, 10, cooldown = 2, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterFlameRedCannibal"] = {
@@ -2096,7 +2122,7 @@ skills["MonsterFlameRedCannibal"] = {
 	baseEffectiveness = 1.3999999761581,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Summons a totem that fires a stream of flame at nearby enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Totem] = true, [SkillType.FireSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Totem] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 8,
 	castTime = 0.333,
@@ -2123,7 +2149,7 @@ skills["MonsterFlameRedCannibal"] = {
 		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 8, 2, -75, 0, -25, 3, damageEffectiveness = 0.25, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 0.30000001192093, 0.60000002384186, 2, 2, -75, 0, -25, 3, damageEffectiveness = 0.25, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterIceShot"] = {
@@ -2155,9 +2181,12 @@ skills["MonsterIceShot"] = {
 		"active_skill_damage_+%_final",
 		"skill_art_variation",
 		"skill_can_fire_arrows",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { 50, 2500, 50, 0, 2, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 50, 2500, 15, 0, 2, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 50, 2500, 50, 0, 2, levelRequirement = 68, statInterpolation = { 1, 1, 2, 1, 1, }, cost = { }, },
 	},
 }
 skills["MountainGoatmanIceSpear"] = {
@@ -2169,7 +2198,7 @@ skills["MountainGoatmanIceSpear"] = {
 	description = "Launches shards of ice in rapid succession. After travelling a short distance they change to a second form, which moves much faster and pierces through enemies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.85,
+	castTime = 1.33,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -2184,6 +2213,7 @@ skills["MountainGoatmanIceSpear"] = {
 		"chill_duration_+%",
 		"ice_spear_second_form_damage_+%",
 		"base_is_projectile",
+		"projectile_uses_contact_position",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 20, 50, critChance = 7, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
@@ -2196,7 +2226,7 @@ skills["MonsterLeapSlam"] = {
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2234,7 +2264,7 @@ skills["MonsterLeapSlamFoothills"] = {
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, [SkillType.SlamSkill] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2344,7 +2374,7 @@ skills["MonsterLightningArrow"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		lightning = true,
+		area = true,
 	},
 	baseMods = {
 	},
@@ -2360,6 +2390,38 @@ skills["MonsterLightningArrow"] = {
 		[1] = { 50, 4, 25, 0, levelRequirement = 9, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
+skills["SkeletonArcherLightningArrow"] = {
+	name = "Lightning Arrow",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.0199999809265,
+	incrementalEffectiveness = 0.019999999552965,
+	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages nearby enemies.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"lightning_arrow_maximum_number_of_extra_targets",
+		"base_chance_to_shock_%",
+		"active_skill_area_of_effect_radius_+%_final",
+	},
+	levels = {
+		[1] = { 50, 4, 50, 0, baseMultiplier = 1.25, levelRequirement = 9, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+	},
+}
 skills["MonsterLightningThorns"] = {
 	name = "Lightning Thorns",
 	hidden = true,
@@ -2372,7 +2434,6 @@ skills["MonsterLightningThorns"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2478,9 +2539,9 @@ skills["MonsterProjectileWeakness"] = {
 		"grant_attacker_x_life_flask_charges_when_hit_once_per_500ms",
 	},
 	levels = {
-		[1] = { 10400, 3, 32, 0, 0, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 10900, 3, 34, 0, 0, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 10900, 3, 34, 0, 0, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 6000, 3, 32, 0, 0, cooldown = 12, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 6000, 3, 34, 0, 0, cooldown = 12, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 6000, 3, 34, 0, 0, cooldown = 12, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterProximityShield"] = {
@@ -2538,9 +2599,9 @@ skills["MonsterPuncture"] = {
 		"global_bleed_on_hit",
 	},
 	levels = {
-		[1] = { 45, levelRequirement = 9, statInterpolation = { 1, }, cost = { }, },
-		[2] = { 107, levelRequirement = 30, statInterpolation = { 1, }, cost = { }, },
-		[3] = { 158, levelRequirement = 60, statInterpolation = { 1, }, cost = { }, },
+		[1] = { 112, baseMultiplier = 1.2, levelRequirement = 9, statInterpolation = { 1, }, cost = { }, },
+		[2] = { 155, baseMultiplier = 1.2, levelRequirement = 30, statInterpolation = { 1, }, cost = { }, },
+		[3] = { 197, baseMultiplier = 1.2, levelRequirement = 60, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["MonsterRighteousFireWhileSpectred"] = {
@@ -2576,14 +2637,13 @@ skills["MonsterShockNova"] = {
 	color = 3,
 	baseEffectiveness = 1.2374999523163,
 	incrementalEffectiveness = 0.0304000005126,
-	description = "Casts a shocking ring of lightning which deals damage to monsters it touches. Monsters in the centre of the ring receive no damage.",
+	description = "Casts a ring of Lightning around you, followed by a larger Lightning nova. Each effect hits enemies caught in their area with Lightning Damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2592,20 +2652,23 @@ skills["MonsterShockNova"] = {
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
-		"is_area_damage",
+		"newshocknova_first_ring_damage_+%_final",
+		"base_chance_to_shock_%",
+		"shock_effect_+%",
 		"active_skill_area_of_effect_radius_+%_final",
+		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, 1, 0, critChance = 3, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
-		[2] = { 1.460000038147, 4.3899998664856, 1, 0, critChance = 3, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
+		[1] = { 0.5, 1.5, -50, 50, 20, 0, critChance = 3, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 1.460000038147, 4.3899998664856, -50, 50, 20, 0, critChance = 3, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterSpark"] = {
 	name = "Spark",
 	hidden = true,
 	color = 3,
-	baseEffectiveness = 0.83749997615814,
-	incrementalEffectiveness = 0.026100000366569,
+	baseEffectiveness = 1.5625,
+	incrementalEffectiveness = 0.035000000149012,
 	description = "Launches unpredictable sparks that move randomly until they hit an enemy or expire.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -2614,7 +2677,6 @@ skills["MonsterSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2628,14 +2690,14 @@ skills["MonsterSpark"] = {
 		"number_of_additional_projectiles",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, 3500, 1, 0, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 20, }, },
-		[2] = { 0.5, 1.5, 3500, 1, 0, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 8, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 19, }, },
-		[3] = { 0.5, 1.5, 3500, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 11, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 18, }, },
-		[4] = { 0.5, 1.5, 3500, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 25, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 17, }, },
-		[5] = { 0.5, 1.5, 3500, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 29, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 16, }, },
-		[6] = { 0.5, 1.5, 3500, 1, 2, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 16, }, },
-		[7] = { 0.5, 1.5, 3500, 1, 2, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
-		[8] = { 1.1000000238419, 3.2999999523163, 3500, 1, 2, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[1] = { 0.5, 1.5, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[2] = { 0.5, 1.5, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 8, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[3] = { 0.5, 1.5, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 11, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[4] = { 0.5, 1.5, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 25, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[5] = { 0.5, 1.5, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 29, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[6] = { 0.5, 1.5, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[7] = { 0.5, 1.5, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[8] = { 1.1000000238419, 3.2999999523163, 2000, 1, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterSplitFireballSpectre"] = {
@@ -2739,7 +2801,7 @@ skills["MonsterWarlordsMark"] = {
 		"chance_to_grant_endurance_charge_on_death_%",
 	},
 	levels = {
-		[1] = { 8800, 40, 0, 200, 200, 100, levelRequirement = 5, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
+		[1] = { 4000, 40, 0, 200, 200, 100, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MotherOfFlamesMagmaOrb3"] = {
@@ -2785,7 +2847,7 @@ skills["NecromancerConductivity"] = {
 	description = "Curses all targets in an area, lowering their lightning resistance and giving them a chance to be shocked when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.1,
 	statMap = {
 		["base_lightning_damage_resistance_%"] = {
 			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -2799,7 +2861,6 @@ skills["NecromancerConductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -2827,7 +2888,7 @@ skills["NecromancerElementalWeakness"] = {
 	description = "Curses all targets in an area, lowering their elemental resistances.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.1,
 	statMap = {
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -2853,10 +2914,10 @@ skills["NecromancerElementalWeakness"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 6000, 0, -20, 0, 0, 0, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
-		[2] = { 6000, 0, -25, 0, 0, 0, 1, cooldown = 10, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
-		[3] = { 6000, 0, -30, 0, 0, 0, 1, cooldown = 10, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
-		[4] = { 6000, 0, -40, 0, 0, 0, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
+		[1] = { 6000, 0, -20, 0, 0, 0, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 6000, 0, -25, 0, 0, 0, 1, cooldown = 10, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 6000, 0, -30, 0, 0, 0, 1, cooldown = 10, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[4] = { 6000, 0, -40, 0, 0, 0, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["NecromancerEnfeeble"] = {
@@ -2867,7 +2928,7 @@ skills["NecromancerEnfeeble"] = {
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.1,
 	statMap = {
 		["enfeeble_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
@@ -2898,7 +2959,7 @@ skills["NecromancerEnfeeble"] = {
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 5000, 0, -40, -40, 1, -15, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
+		[1] = { 5000, 0, -60, -60, 1, -23, cooldown = 10, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["NecromancerFlammability"] = {
@@ -2909,7 +2970,7 @@ skills["NecromancerFlammability"] = {
 	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.1,
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -2936,10 +2997,10 @@ skills["NecromancerFlammability"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 6000, 0, -20, 25, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
-		[2] = { 6000, 0, -25, 25, 1, cooldown = 10, levelRequirement = 41, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
-		[3] = { 6000, 0, -30, 25, 1, cooldown = 10, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
-		[4] = { 6000, 0, -40, 25, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
+		[1] = { 6000, 0, -20, 25, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 6000, 0, -25, 25, 1, cooldown = 10, levelRequirement = 41, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 6000, 0, -30, 25, 1, cooldown = 10, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[4] = { 6000, 0, -40, 25, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["NecromancerFrostbite"] = {
@@ -2950,7 +3011,7 @@ skills["NecromancerFrostbite"] = {
 	description = "Curses all targets in an area, lowering their cold resistance and giving them a chance to be frozen when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.1,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
 			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -2977,10 +3038,10 @@ skills["NecromancerFrostbite"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 6000, 0, -20, 25, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
-		[2] = { 6000, 0, -25, 25, 1, cooldown = 10, levelRequirement = 41, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
-		[3] = { 6000, 0, -30, 25, 1, cooldown = 10, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
-		[4] = { 6000, 0, -40, 25, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
+		[1] = { 6000, 0, -20, 25, 1, cooldown = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 6000, 0, -25, 25, 1, cooldown = 10, levelRequirement = 41, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 6000, 0, -30, 25, 1, cooldown = 10, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[4] = { 6000, 0, -40, 25, 1, cooldown = 10, levelRequirement = 71, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["NecromancerProjectileWeakness"] = {
@@ -2991,7 +3052,7 @@ skills["NecromancerProjectileWeakness"] = {
 	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can gain charges for your life and mana flasks by hitting the cursed enemy. You can only have one Mark at a time.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.1,
 	statMap = {
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -3016,9 +3077,9 @@ skills["NecromancerProjectileWeakness"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 10400, 3, 22, 0, 0, 1, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 10900, 3, 24, 0, 0, 1, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 10900, 3, 24, 0, 0, 1, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 6000, 3, 22, 0, 0, 1, cooldown = 12, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 6000, 3, 24, 0, 0, 1, cooldown = 12, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 6000, 3, 24, 0, 0, 1, cooldown = 12, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["NecromancerRaiseZombie"] = {
@@ -3058,7 +3119,7 @@ skills["NecromancerVulnerability"] = {
 	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
+	castTime = 1.1,
 	statMap = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -3091,7 +3152,7 @@ skills["NecromancerVulnerability"] = {
 		"enemy_damaging_ailments_deal_damage_+%_faster_against_self",
 	},
 	levels = {
-		[1] = { 10900, 0, 50, 1, 20, 20, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 110, }, },
+		[1] = { 6000, 0, 50, 1, 20, 20, cooldown = 9, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["PyroChaosFireball"] = {
@@ -3230,7 +3291,7 @@ skills["SeawitchFrostbolt"] = {
 	description = "Fires a slow-moving projectile that pierces through enemies, dealing cold damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.75,
+	castTime = 1.333,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -3278,32 +3339,6 @@ skills["SeaWitchScreech"] = {
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -20, 1900, cooldown = 6.5, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 		[2] = { 1.8500000238419, 2.8800001144409, -20, 1900, cooldown = 6.5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
-	},
-}
-skills["SeaWitchWave"] = {
-	name = "Wave",
-	hidden = true,
-	color = 4,
-	baseEffectiveness = 1.4636000394821,
-	incrementalEffectiveness = 0.034200001507998,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1.5,
-	baseFlags = {
-		spell = true,
-	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
-	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"base_is_projectile",
-	},
-	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 1, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
-		[2] = { 2.2400000095367, 3.3599998950958, 1, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
 	},
 }
 skills["SkeletonBlackAbyssBoneLance"] = {
@@ -3540,7 +3575,6 @@ skills["SkeletonSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 	},
@@ -3561,10 +3595,10 @@ skills["SkeletonSpark"] = {
 		[4] = { 0.5, 1.5, 3500, 1, 2, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 44, }, },
 		[5] = { 0.5, 1.5, 3500, 1, 2, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 41, }, },
 		[6] = { 0.5, 1.5, 3500, 1, 2, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 29, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 40, }, },
-		[7] = { 2.2439999580383, 6.731999874115, 3500, 1, 2, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 40, }, },
+		[7] = { 2.2400000095367, 6.7300000190735, 3500, 1, 2, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
-skills["SkeletonTemporalChains"] = {
+skills["AxisTemporalChains"] = {
 	name = "Temporal Chains",
 	hidden = true,
 	color = 4,
@@ -3603,7 +3637,7 @@ skills["SkeletonTemporalChains"] = {
 		"temporal_chains_action_speed_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 4000, 0, -20, -40, 0, -10, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[1] = { 4000, 0, -20, -40, 0, -10, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SkeletonVulnerability"] = {
@@ -4182,12 +4216,13 @@ skills["AtlasExilesCrusaderMageguardProjectile"] = {
 		"monster_projectile_variation",
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"spell_maximum_action_distance_+%",
 		"base_is_projectile",
 		"projectile_uses_contact_position",
 		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { 127, 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, cost = { }, },
+		[1] = { 127, 0.5, 1.5, -40, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["AtlasExileCrusaderMageguardBombExplodeSpectre"] = {
@@ -5012,7 +5047,7 @@ skills["GAHeistThugRangedArrowShotgun"] = {
 	name = "Arrow Shotgun",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 3,
 	baseFlags = {
@@ -5244,7 +5279,7 @@ skills["SecretDesecrateMonsterEarthquakeTriggered"] = {
 	hidden = true,
 	color = 4,
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, [SkillType.SlamSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTotem] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -5282,7 +5317,7 @@ skills["SecretDesecrateMonsterMultiSlash"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -5301,5 +5336,94 @@ skills["SecretDesecrateMonsterMultiSlash"] = {
 	},
 	levels = {
 		[1] = { attackSpeedMultiplier = -33, levelRequirement = 0, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["UltimatumGuardMeleeCold"] = {
+	name = "Cold Arrow",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"number_of_additional_projectiles",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"arrow_projectile_variation",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 2, 50, -50, 34, levelRequirement = 1, statInterpolation = { 1, 1, 2, 1, }, cost = { }, },
+		[2] = { 2, 50, 0, 34, levelRequirement = 68, statInterpolation = { 1, 1, 2, 1, }, cost = { }, },
+	},
+}
+skills["UltimatumGuardConeArrowCold"] = {
+	name = "Cone Arrow",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 100, 0, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 100, 250, cooldown = 8, levelRequirement = 83, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+}
+skills["MeleeAtAnimationSpeed"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, statInterpolation = { }, cost = { }, },
 	},
 }

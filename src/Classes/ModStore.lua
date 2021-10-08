@@ -304,13 +304,19 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "PerStat" then
 			local base
+			local target = self
+			-- This functions similar to the above tagTypes in regard to which actor to use, but for PerStat
+			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
+			if tag.actor and self.actor[tag.actor] then
+				target = self.actor[tag.actor].modDB
+			end
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + self:GetStat(stat, cfg)
+					base = base + target:GetStat(stat, cfg)
 				end
 			else
-				base = self:GetStat(tag.stat, cfg)
+				base = target:GetStat(tag.stat, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
@@ -487,6 +493,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 				end
 			else
 				match = (tag.skillName == matchName)
+			end
+			if tag.neg then
+				match = not match
 			end
 			if not match then
 				return

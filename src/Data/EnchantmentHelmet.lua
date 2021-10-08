@@ -2,6 +2,28 @@
 -- Item data (c) Grinding Gear Games
 
 return {
+	["Absolution"] = {
+		["MERCILESS"] = {
+			"20% increased Absolution Duration",
+			"8% increased Absolution Cast Speed",
+			"Summoned Sentinels of Absolution have 16% increased Area of Effect",
+		},
+		["ENDGAME"] = {
+			"30% increased Absolution Duration",
+			"12% increased Absolution Cast Speed",
+			"Summoned Sentinels of Absolution have 24% increased Area of Effect",
+		},
+	},
+	["Ambush"] = {
+		["MERCILESS"] = {
+			"20% increased Ambush Cooldown Recovery Rate",
+			"Attacks Exerted by Ambush have +25% to Critical Strike Multiplier",
+		},
+		["ENDGAME"] = {
+			"30% increased Ambush Cooldown Recovery Rate",
+			"Attacks Exerted by Ambush have +40% to Critical Strike Multiplier",
+		},
+	},
 	["Ancestral Cry"] = {
 		["MERCILESS"] = {
 			"Attacks Exerted by Ancestral Cry deal 35% increased Damage ",
@@ -175,6 +197,15 @@ return {
 			"Barrage fires an additional Projectile",
 		},
 	},
+	["Battlemage's Cry"] = {
+		["MERCILESS"] = {
+			"10% increased Battlemage's Cry Buff Effect",
+		},
+		["ENDGAME"] = {
+			"15% increased Battlemage's Cry Buff Effect",
+			"Battlemage's Cry Exerts 1 additional Attack",
+		},
+	},
 	["Bear Trap"] = {
 		["MERCILESS"] = {
 			"25% increased Bear Trap Damage",
@@ -219,6 +250,17 @@ return {
 			"40% increased Blade Flurry Damage",
 			"24% increased Blade Flurry Area of Effect",
 			"9% chance to Dodge Attack Hits while at maximum Blade Flurry stages",
+		},
+	},
+	["Blade Trap"] = {
+		["MERCILESS"] = {
+			"25% increased Blade Trap Damage",
+			"16% increased Blade Trap Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Blade Trap Damage",
+			"24% increased Blade Trap Area of Effect",
+			"Blade Trap rotates +100 times",
 		},
 	},
 	["Blade Vortex"] = {
@@ -339,6 +381,18 @@ return {
 		["ENDGAME"] = {
 			"45% increased Bone Offering Duration",
 			"Bone Offering grants an additional +9% Chance to Block Attack Damage",
+		},
+	},
+	["Boneshatter"] = {
+		["MERCILESS"] = {
+			"25% increased Boneshatter Damage",
+			"25% increased Boneshatter Stun Duration",
+			"Boneshatter has 16% chance to grant +1 Trauma",
+		},
+		["ENDGAME"] = {
+			"40% increased Boneshatter Damage",
+			"40% increased Boneshatter Stun Duration",
+			"Boneshatter has 24% chance to grant +1 Trauma",
 		},
 	},
 	["Burning Arrow"] = {
@@ -586,6 +640,14 @@ return {
 			"24% increased Decoy Totem Area of Effect",
 		},
 	},
+	["Defiance Banner"] = {
+		["MERCILESS"] = {
+			"Defiance Banner has 25% increased Aura Effect",
+		},
+		["ENDGAME"] = {
+			"Defiance Banner has 40% increased Aura Effect",
+		},
+	},
 	["Desecrate"] = {
 		["MERCILESS"] = {
 			"Desecrate Spawns 2 additional corpses",
@@ -822,6 +884,18 @@ return {
 			"Explosive Arrow has 30% reduced Duration",
 		},
 	},
+	["Explosive Concoction"] = {
+		["MERCILESS"] = {
+			"25% increased Explosive Concoction Damage",
+			"16% increased Explosive Concoction Area of Effect",
+			"Explosive Concoction uses 8% reduced Flask Charges",
+		},
+		["ENDGAME"] = {
+			"40% increased Explosive Concoction Damage",
+			"24% increased Explosive Concoction Area of Effect",
+			"Explosive Concoction uses 12% reduced Flask Charges",
+		},
+	},
 	["Explosive Trap"] = {
 		["MERCILESS"] = {
 			"Explosive Trap deals 25% increased Damage",
@@ -843,6 +917,18 @@ return {
 			"Exsanguinate deals 40% increased Damage",
 			"30% increased Exsanguinate Duration",
 			"Exsanguinate has a 25% chance to Chain an additional time",
+		},
+	},
+	["Eye of Winter"] = {
+		["MERCILESS"] = {
+			"25% increased Eye of Winter Damage",
+			"20% increased Eye of Winter Projectile Speed",
+			"Eye of Winter fires Shard projectiles with 8% increased Frequency during flight",
+		},
+		["ENDGAME"] = {
+			"40% increased Eye of Winter Damage",
+			"30% increased Eye of Winter Projectile Speed",
+			"Eye of Winter fires Shard projectiles with 12% increased Frequency during flight",
 		},
 	},
 	["Fire Trap"] = {
@@ -980,6 +1066,17 @@ return {
 			"40% increased Flicker Strike Damage",
 			"Flicker Strike has 30% increased Cooldown Recovery Rate",
 			"9% increased Flicker Strike Damage per Frenzy Charge",
+		},
+	},
+	["Forbidden Rite"] = {
+		["MERCILESS"] = {
+			"25% increased Forbidden Rite Damage",
+			"20% increased Forbidden Rite Projectile Speed",
+		},
+		["ENDGAME"] = {
+			"40% increased Forbidden Rite Damage",
+			"30% increased Forbidden Rite Projectile Speed",
+			"Forbidden Rite fires an additional Projectile",
 		},
 	},
 	["Freezing Pulse"] = {
@@ -1534,6 +1631,18 @@ return {
 			"Malevolence has 15% reduced Reservation",
 		},
 	},
+	["Manabond"] = {
+		["MERCILESS"] = {
+			"25% increased Manabond Damage",
+			"16% increased Manabond Area of Effect",
+			"Manabond Penetrates 8% Lightning Resistance while on Low Mana",
+		},
+		["ENDGAME"] = {
+			"40% increased Manabond Damage",
+			"24% increased Manabond Area of Effect",
+			"Manabond Penetrates 12% Lightning Resistance while on Low Mana",
+		},
+	},
 	["Mirror Arrow"] = {
 		["MERCILESS"] = {
 			"Mirror Arrow and Mirror Arrow Clones deal 25% increased Damage",
@@ -1763,6 +1872,18 @@ return {
 			"Pyroclast Mine fires an additional Projectile",
 		},
 	},
+	["Rage Vortex"] = {
+		["MERCILESS"] = {
+			"25% increased Rage Vortex Damage",
+			"16% increased Rage Vortex Area of Effect",
+			"Rage Vortex Sacrifices +3% of Rage",
+		},
+		["ENDGAME"] = {
+			"40% increased Rage Vortex Damage",
+			"24% increased Rage Vortex Area of Effect",
+			"Rage Vortex Sacrifices +5% of Rage",
+		},
+	},
 	["Rain of Arrows"] = {
 		["MERCILESS"] = {
 			"25% increased Rain of Arrows Damage",
@@ -1962,6 +2083,18 @@ return {
 			"15% increased Shield Charge Attack Speed",
 		},
 	},
+	["Shield Crush"] = {
+		["MERCILESS"] = {
+			"25% increased Shield Crush Damage",
+			"10% increased Shield Crush Attack Speed",
+			"Shield Crush central wave has 16% more Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Shield Crush Damage",
+			"15% increased Shield Crush Attack Speed",
+			"Shield Crush central wave has 24% more Area of Effect",
+		},
+	},
 	["Shock Nova"] = {
 		["MERCILESS"] = {
 			"25% increased Shock Nova Damage",
@@ -2085,6 +2218,17 @@ return {
 			"40% increased Spark Damage",
 			"Spark fires 3 additional Projectiles",
 			"30% increased Spark Projectile Speed",
+		},
+	},
+	["Spectral Helix"] = {
+		["MERCILESS"] = {
+			"25% increased Spectral Helix Damage",
+			"20% increased Spectral Helix Projectile Speed",
+		},
+		["ENDGAME"] = {
+			"40% increased Spectral Helix Damage",
+			"30% increased Spectral Helix Projectile Speed",
+			"Spectral Helix Projectile spirals through +100 rotations",
 		},
 	},
 	["Spectral Shield Throw"] = {
@@ -2215,6 +2359,17 @@ return {
 			"24% increased Storm Call Area of Effect",
 		},
 	},
+	["Storm Rain"] = {
+		["MERCILESS"] = {
+			"25% increased Storm Rain Damage",
+			"Storm Rain has 25% increased Beam frequency",
+		},
+		["ENDGAME"] = {
+			"40% increased Storm Rain Damage",
+			"Storm Rain has 40% increased Beam frequency",
+			"Storm Rain fires an additional Arrow",
+		},
+	},
 	["Stormbind"] = {
 		["MERCILESS"] = {
 			"Stormbind has 16% increased Area of Effect",
@@ -2321,6 +2476,18 @@ return {
 			"Summon Raging Spirit has 30% increased Duration",
 			"Summon Raging Spirit has 18% chance to summon an extra Minion",
 			"Summoned Raging Spirits deal 40% increased Damage",
+		},
+	},
+	["Summon Reaper"] = {
+		["MERCILESS"] = {
+			"Summoned Reaper deals 25% increased Damage",
+			"Summoned Reaper has +12% to Physical Damage over Time Multiplier",
+			"20% increased Summon Reaper Cooldown Recovery Rate",
+		},
+		["ENDGAME"] = {
+			"Summoned Reaper deals 40% increased Damage",
+			"Summoned Reaper has +20% to Physical Damage over Time Multiplier",
+			"30% increased Summon Reaper Cooldown Recovery Rate",
 		},
 	},
 	["Summon Skeleton"] = {
@@ -2525,6 +2692,18 @@ return {
 			"Volatile Dead Consumes up to 1 additional corpse",
 			"40% increased Volatile Dead Damage",
 			"12% increased Volatile Dead Cast Speed",
+		},
+	},
+	["Voltaxic Burst"] = {
+		["MERCILESS"] = {
+			"25% increased Voltaxic Burst Damage",
+			"16% increased Voltaxic Burst Area of Effect",
+			"Voltaxic Burst deals 2% increased Damage per 0.1 seconds of Duration",
+		},
+		["ENDGAME"] = {
+			"40% increased Voltaxic Burst Damage",
+			"24% increased Voltaxic Burst Area of Effect",
+			"Voltaxic Burst deals 3% increased Damage per 0.1 seconds of Duration",
 		},
 	},
 	["Vortex"] = {

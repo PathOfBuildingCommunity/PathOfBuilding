@@ -1757,8 +1757,8 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	local controls = { } 
 	local enchantments = self.displayItem.enchantments
 	local haveSkills = true
-	for _, lab in ipairs(self.build.data.labyrinths) do
-		if self.displayItem.enchantments[lab.name] then
+	for _, source in ipairs(self.build.data.enchantmentSource) do
+		if self.displayItem.enchantments[source.name] then
 			haveSkills = false
 			break
 		end
@@ -1787,13 +1787,13 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		table.sort(skillList)
 	end
-	local labyrinthList = { }
-	local function buildLabyrinthList()
-		wipeTable(labyrinthList)
+	local enchantmentSourceList = { }
+	local function buildEnchantmentSourceList()
+		wipeTable(enchantmentSourceList)
 		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
-		for _, lab in ipairs(self.build.data.labyrinths) do
-			if list[lab.name] then
-				t_insert(labyrinthList, lab)
+		for _, source in ipairs(self.build.data.enchantmentSource) do
+			if list[source.name] then
+				t_insert(enchantmentSourceList, source)
 			end
 		end
 	end
@@ -1801,30 +1801,39 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	local function buildEnchantmentList()
 		wipeTable(enchantmentList)
 		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
-		for _, enchantment in ipairs(list[labyrinthList[controls.labyrinth and controls.labyrinth.selIndex or 1].name]) do
+		for _, enchantment in ipairs(list[enchantmentSourceList[controls.enchantmentSource and controls.enchantmentSource.selIndex or 1].name]) do
 			t_insert(enchantmentList, enchantment)
 		end
 	end
 	if haveSkills then
 		buildSkillList(true)
 	end
-	buildLabyrinthList()
+	buildEnchantmentSourceList()
 	buildEnchantmentList()
 	local function enchantItem()
 		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
-		if #item.enchantModLines >= self.enchantSlot then
-			t_remove(item.enchantModLines, self.enchantSlot)
-		end
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
-		t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
+		local line = list[controls.enchantmentSource.list[controls.enchantmentSource.selIndex].name][controls.enchantment.selIndex]
+		local first, second = line:match("([^/]+)/([^/]+)")
+		if first then
+			item.enchantModLines = { { crafted = true, line = first }, { crafted = true, line = second } }
+		else
+			if not item.canHaveTwoEnchants and #item.enchantModLines > 1 then
+				item.enchantModLines = { item.enchantModLines[1] }
+			end
+			if #item.enchantModLines >= self.enchantSlot then
+				t_remove(item.enchantModLines, self.enchantSlot)
+			end
+			t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = line})
+		end
 		item:BuildAndParseRaw()
 		return item
 	end
 	if haveSkills then
 		controls.skillLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Skill:")
 		controls.skill = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 180, 18, skillList, function(index, value)
-			buildLabyrinthList()
+			buildEnchantmentSourceList()
 			buildEnchantmentList()
 			controls.enchantment:SetSel(1)
 		end)
@@ -1840,8 +1849,8 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 			controls.allSkills.enabled = false
 		end
 	end
-	controls.labyrinthLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Labyrinth:")
-	controls.labyrinth = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 100, 18, labyrinthList, function(index, value)
+	controls.enchantmentSourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Source:")
+	controls.enchantmentSource = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 180, 18, enchantmentSourceList, function(index, value)
 		buildEnchantmentList()
 		controls.enchantment:SetSel(m_min(controls.enchantment.selIndex, #enchantmentList))
 	end)
@@ -2332,6 +2341,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if armourData.EnergyShield > 0 then
 			tooltip:AddLine(16, s_format("^x7F7F7FEnergy Shield: %s%d", main:StatColor(armourData.EnergyShield, base.armour.EnergyShieldBase), armourData.EnergyShield))
 		end
+		if armourData.Ward > 0 then
+			tooltip:AddLine(16, s_format("^x7F7F7FWard: %s%d", main:StatColor(armourData.Ward, base.armour.WardBase), armourData.Ward))
+		end
 	elseif base.flask then
 		-- Flask-specific info
 		local flaskData = item.flaskData
@@ -2563,7 +2575,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				tooltip:AddLine(14, stat)
 			end
 		end
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 		local output = calcFunc({ toggleFlask = item }, {})
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		local header
 		if self.build.calcsTab.mainEnv.flasks[item] then
 			header = "^7Deactivating this flask will give you:"

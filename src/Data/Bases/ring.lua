@@ -69,7 +69,7 @@ itemBases["Moonstone Ring"] = {
 itemBases["Amethyst Ring"] = {
 	type = "Ring",
 	tags = { ring = true, default = true, },
-	implicit = "+(9-13)% to Chaos Resistance",
+	implicit = "+(17-23)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
 	req = { level = 30, },
 }

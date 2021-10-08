@@ -88,7 +88,7 @@ function ItemClass:ParseRaw(raw)
 			if colorCodes[rarity:upper()] then
 				self.rarity = rarity:upper()
 			end
-			if self.rarity == "NORMAL" then
+			if self.rarity == "UNIQUE" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
 					if line == "Relic Unique" then
@@ -323,45 +323,42 @@ function ItemClass:ParseRaw(raw)
 				end
 				self.namePrefix = self.namePrefix or ""
 				self.nameSuffix = self.nameSuffix or ""
+				local baseName
 				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
 					-- Exact match (affix-less magic and normal items)
 					if data.itemBases[self.name] then
-						self.baseName = self.name
-						self.type = data.itemBases[self.name].type
+						baseName = self.name
 					else
 						-- Partial match (magic items with affixes)
-						for baseName, baseData in pairs(data.itemBases) do
-							local s, e = self.name:find(baseName, 1, true)
+						for itemBaseName, baseData in pairs(data.itemBases) do
+							local s, e = self.name:find(itemBaseName, 1, true)
 							if s then
 								-- Set the base name if it isn't there, or we found a better match, so replace it
-								if (self.baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
-										or self.baseName == nil or self.baseName == "" then
+								if (baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
+										or baseName == nil then
 									self.namePrefix = self.name:sub(1, s - 1)
 									self.nameSuffix = self.name:sub(e + 1)
-									self.baseName = baseName
-									self.type = baseData.type
+									baseName = itemBaseName
 								end
 							end
 						end
 					end
-					if not self.baseName then
+					if not baseName then
 						local s, e = self.name:find("Two-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
 							self.baseName = "Two-Toned Boots (Armour/Energy Shield)"
 							self.namePrefix = self.name:sub(1, s - 1)
 							self.nameSuffix = self.name:sub(e + 1)
-							self.type = "Boots"
 						end
 					end
 					self.name = self.name:gsub(" %(.+%)","")
 				end
-				local baseName = self.baseName or ""
 				if self.variant and variantList then
 					if variantList[self.variant] then
 						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 					end
-				elseif baseName == "" then
+				elseif not baseName then
 					baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 				end
 				if baseName and data.itemBases[baseName] then
@@ -374,7 +371,16 @@ function ItemClass:ParseRaw(raw)
 					self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 							or data.itemMods[self.base.type]
 							or data.itemMods.Item
-					self.enchantments = data.enchantments[self.base.type]
+					if self.base.weapon then
+						self.enchantments = data.enchantments["Weapon"]
+					elseif self.base.flask then
+						self.enchantments = data.enchantments["Flask"]
+						if self.base.utility_flask then
+							self.enchantments = data.enchantments["Flask"]
+						end
+					else
+						self.enchantments = data.enchantments[self.base.type]
+					end
 					self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
 					self.influenceTags = data.specialBaseTags[self.type]
 					self.canBeInfluenced = self.influenceTags
@@ -970,11 +976,13 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		local evasionEnergyShieldBase = sumLocal(modList, "EvasionAndEnergyShield", "BASE", 0)
 		local energyShieldBase = sumLocal(modList, "EnergyShield", "BASE", 0) + (self.base.armour.EnergyShieldBase or 0)
 		local armourEnergyShieldBase = sumLocal(modList, "ArmourAndEnergyShield", "BASE", 0)
+		local wardBase = sumLocal(modList, "Ward", "BASE", 0) + (self.base.armour.WardBase or 0)
 		local armourInc = sumLocal(modList, "Armour", "INC", 0)
 		local armourEvasionInc = sumLocal(modList, "ArmourAndEvasion", "INC", 0)
 		local evasionInc = sumLocal(modList, "Evasion", "INC", 0)
 		local evasionEnergyShieldInc = sumLocal(modList, "EvasionAndEnergyShield", "INC", 0)
 		local energyShieldInc = sumLocal(modList, "EnergyShield", "INC", 0)
+		local wardInc = sumLocal(modList, "Ward", "INC", 0)
 		local armourEnergyShieldInc = sumLocal(modList, "ArmourAndEnergyShield", "INC", 0)
 		local defencesInc = sumLocal(modList, "Defences", "INC", 0)
 		local qualityScalar = self.quality
@@ -984,6 +992,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100))
 		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
 		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
+		armourData.Ward = round(wardBase * (1 + (wardInc + defencesInc + qualityScalar) / 100))
 		if self.base.armour.BlockChance then
 			armourData.BlockChance = self.base.armour.BlockChance + sumLocal(modList, "BlockChance", "BASE", 0)
 		end

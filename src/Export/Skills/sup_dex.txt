@@ -17,7 +17,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalAccuracy
-    statMap = {
+	statMap = {
 		["attack_damage_+%_per_1000_accuracy_rating"] = {
 			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
 		}
@@ -41,10 +41,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBarrage Barrage Support
-	weaponTypes = {
-		["Bow"] = true,
-		["Wand"] = true,
-	},
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
@@ -138,6 +134,21 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportSlashingWeapon
+	statMap = {
+		["support_slashing_damage_+%_final_from_distance"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
+		},
+		["support_slashing_buff_attack_cast_speed_+%_final_to_grant"] = {
+			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.TravelSkill }),
+		},
+		["close_combat_damage_to_close_range_+%"] = {
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
+		},
+		["combat_rush_effect_+%"] = {
+			mod("CombatRushEffect", "INC", nil),
+		},
+	},
+#baseMod flag("Condition:SupportedByCloseCombat")
 #mods
 
 #skill SupportClusterTrap
@@ -191,6 +202,17 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportFasterProjectiles
+#mods
+
+#skill SupportFocusedBallista
+	statMap = {
+		["support_focused_ballista_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_focused_ballista_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportFork
@@ -270,7 +292,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportLesserPoison
+#skill SupportChanceToPoison
 #mods
 
 #skill SupportManaLeech
@@ -313,11 +335,11 @@ local skills, mod, flag, skill = ...
 #skill SupportPuncturingWeapon
 	statMap = {
 		["elusive_effect_+%"] = {
-			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
+			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
 		},
 	},	
-#baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true})
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true})
+#baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #mods
 
 #skill SupportOnslaught
@@ -333,6 +355,9 @@ local skills, mod, flag, skill = ...
 		["support_pierce_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
+		["projectile_damage_+%_if_pierced_enemy"] = {
+			mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
+		},
 	},
 #mods
 
@@ -347,12 +372,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportPoison
-	statMap = {
-		["support_poison_poison_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
-		},
-	},
+#skill SupportCriticalStrikeAffliction
 #mods
 
 #skill SupportAdditionalCooldown
@@ -409,6 +429,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_trap_and_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Trap, KeywordFlag.Mine)),
+		},
+		["support_trap_and_mine_damage_mine_throwing_speed_+%_final"] = {
+			mod("MineLayingSpeed", "MORE", nil),
+		},
+		["support_trap_and_mine_damage_trap_throwing_speed_+%_final"] = {
+			mod("TrapThrowingSpeed", "MORE", nil),
 		},
 	},
 #mods

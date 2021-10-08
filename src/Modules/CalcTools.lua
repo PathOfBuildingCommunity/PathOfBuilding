@@ -42,20 +42,19 @@ end
 function calcLib.validateGemLevel(gemInstance)
 	local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
 	if not grantedEffect.levels[gemInstance.level] then
-		if gemInstance.gemData and gemInstance.gemData.defaultLevel then
-			gemInstance.level = gemInstance.gemData.defaultLevel
-		else
-			-- Try limiting to the level range of the skill
-			gemInstance.level = m_max(1, gemInstance.level)
-			if #grantedEffect.levels > 0 then
-				gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
-			end
-			if not grantedEffect.levels[gemInstance.level] then
-				-- That failed, so just grab any level
-				gemInstance.level = next(grantedEffect.levels)
-			end
+		-- Try limiting to the level range of the skill
+		gemInstance.level = m_max(1, gemInstance.level)
+		if #grantedEffect.levels > 0 then
+			gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
 		end
-	end	
+	end
+	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.defaultLevel then
+		gemInstance.level = gemInstance.gemData.defaultLevel
+	end
+	if not grantedEffect.levels[gemInstance.level] then
+		-- That failed, so just grab any level
+		gemInstance.level = next(grantedEffect.levels)
+	end
 end
 
 -- Evaluate a skill type postfix expression

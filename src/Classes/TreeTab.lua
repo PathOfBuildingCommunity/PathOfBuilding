@@ -127,9 +127,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
 	end)
-
-	-- Sets up UI elements and power report calculations
-	self:TogglePowerReport()
 	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
@@ -140,6 +137,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
+		newSpec.tree.legion.editedNodes = self.build.spec.tree.legion.editedNodes
 		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
@@ -183,15 +181,19 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 		self.controls.specSelect.y = -24
 		self.controls.specConvertText.y = -16
-		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
-		self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"BOTTOMLEFT", 0, 4)
+		if self.controls.powerReportList then
+			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"BOTTOMLEFT", 0, 4)
+		end
 	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
 		twoLineHeight = 0
 		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
 		self.controls.treeHeatMap.y = 0
 		self.controls.treeHeatMap.x = 130
-		self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.specSelect.height + 4)
-		self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"TOPRIGHT", 8, 4)
+		if self.controls.powerReportList then
+			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.specSelect.height + 4)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"TOPRIGHT", 8, 4)
+		end
 	end
 
 	local bottomDrawerHeight = self.showPowerReport and 200 or 0
@@ -228,10 +230,12 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	if self.build.calcsTab.powerStat then
 		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
 	end
-	if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
-		self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
-	else
-		self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
+	if self.controls.powerReportList then
+		if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
+			self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
+		else
+			self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
+		end
 	end
 
 	SetDrawLayer(1)
@@ -504,7 +508,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			if self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] and self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] then
 				self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			end
-			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, " \n"..modDesc, false)
 		end
 		self.build.spec:ReconnectNodeToClassStart(selectedNode)
 		if not self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
