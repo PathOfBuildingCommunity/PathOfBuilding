@@ -813,8 +813,11 @@ local function doActorMisc(env, actor)
 				effect = m_min(modDB:Override(nil, "ElusiveEffect") / 100, effect)
 			end
 			condList["Elusive"] = true
-			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
-			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidPhysicalDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidLightningDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidColdDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidFireDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidChaosDamageChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
 		if modDB:Flag(nil, "Blind") then
