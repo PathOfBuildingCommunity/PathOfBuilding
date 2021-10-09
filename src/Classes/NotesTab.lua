@@ -48,10 +48,10 @@ end)
 function NotesTabClass:SetShowColorCodes(setting)
 	self.showColorCodes = setting
 	if setting then
-		self.controls.toggleColorCodes.label = "Hide Colour Codes"
+		self.controls.toggleColorCodes.label = "Hide Color Codes"
 		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^x(%x%x%x)","^_x%1"):gsub("%^(%d)","^_%1"))
 	else
-		self.controls.toggleColorCodes.label = "Show Colour Codes"
+		self.controls.toggleColorCodes.label = "Show Color Codes"
 		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^_x(%x%x%x)","^x%1"):gsub("%^_(%d)","^%1"))
 	end
 end
