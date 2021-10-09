@@ -61,8 +61,8 @@ function NotesTabClass:SetColor(color)
 	if self.controls.edit.sel == nil or self.controls.edit.sel == self.controls.edit.caret then
 		self.controls.edit:Insert(text)
 	else
-		local lastColor = self.controls.edit:GetSelText():reverse():match(self.showColorCodes and "^.-(%x%x%x%x%x%xx_%^)" or "^.-(%x%x%x%x%x%xx%^)") or "7^"
-		self.controls.edit:ReplaceSel(text..self.controls.edit:GetSelText():gsub(self.showColorCodes and "%^_x%x%x%x%x%x%x" or "%^x%x%x%x%x%x%x", "")..lastColor:reverse())
+		local lastColor = self.controls.edit:GetSelText():match(self.showColorCodes and "^.*(%^_x%x%x%x%x%x%x)" or "^.*(%^x%x%x%x%x%x%x)") or "^7"
+		self.controls.edit:ReplaceSel(text..self.controls.edit:GetSelText():gsub(self.showColorCodes and "%^_x%x%x%x%x%x%x" or "%^x%x%x%x%x%x%x", "")..lastColor)
 	end
 end
 
