@@ -509,6 +509,11 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 		
 		output.LowestAttribute = m_min(output.Str, output.Dex, output.Int)
+
+		local stats = { output.Str, output.Dex, output.Int }
+		table.sort(stats)
+		condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
+
 		condList["DexHigherThanInt"] = output.Dex > output.Int
 		condList["StrHigherThanDex"] = output.Str > output.Dex
 		condList["IntHigherThanStr"] = output.Int > output.Str
