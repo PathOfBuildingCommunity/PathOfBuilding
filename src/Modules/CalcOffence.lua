@@ -2677,27 +2677,27 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.KnockbackChanceOnHit = skillModList:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
-		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 then
+		if skillModList:Sum("BASE", cfg, "EnemyScorchChance") > 0 then
 			skillFlags.inflictScorch = true
 		end
-		if skillModList:Sum("BASE", cfg, "ScorchChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotScorch") then
-			output.ScorchChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "ScorchChance"))
+		if skillModList:Sum("BASE", cfg, "EnemyScorchChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotScorch") then
+			output.ScorchChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyScorchChance"))
 		else
 			output.ScorchChanceOnHit = 0
 		end
-		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 then
+		if skillModList:Sum("BASE", cfg, "EnemyBrittleChance") > 0 then
 			skillFlags.inflictBrittle = true
 		end
-		if skillModList:Sum("BASE", cfg, "BrittleChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotBrittle") then
-			output.BrittleChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BrittleChance"))
+		if skillModList:Sum("BASE", cfg, "EnemyBrittleChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotBrittle") then
+			output.BrittleChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyBrittleChance"))
 		else
 			output.BrittleChanceOnHit = 0
 		end
-		if skillModList:Sum("BASE", cfg, "SapChance") > 0 then
+		if skillModList:Sum("BASE", cfg, "EnemySapChance") > 0 then
 			skillFlags.inflictSap = true
 		end
-		if skillModList:Sum("BASE", cfg, "SapChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotSap") then
-			output.SapChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "SapChance"))
+		if skillModList:Sum("BASE", cfg, "EnemySapChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotSap") then
+			output.SapChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemySapChance"))
 		else
 			output.SapChanceOnHit = 0
 		end

@@ -829,7 +829,7 @@ return {
 	mod("EnemyFreezeChance", "BASE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 },
 ["chance_to_scorch_%"] = {
-	mod("ScorchChance", "BASE", nil)
+	mod("EnemyScorchChance", "BASE", nil)
 },
 ["cannot_inflict_status_ailments"] = {
 	flag("CannotShock"),
