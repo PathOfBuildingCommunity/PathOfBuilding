@@ -2741,6 +2741,26 @@ function calcs.offence(env, actor, activeSkill)
 
 		local ailmentData = data.nonDamagingAilment
 
+		---Calculates normal and crit damage to be used in non-damaging ailment calculations
+		---@param ailment string
+		---@return number, number @average hit damage, average crit damage
+		local function calcAverageSourceDamage(ailment)
+			local sourceHitDmg, sourceCritDmg = 0, 0
+			for _, type in ipairs(dmgTypeList) do
+				if canDeal[type] and (function()
+					if type == ailmentData[ailment].associatedType then
+						return not skillModList:Flag(cfg, type.."Cannot"..ailment)
+					else
+						return skillModList:Flag(cfg, type.."Can"..ailment)
+					end
+				end)() then
+					sourceHitDmg = sourceHitDmg + output[type.."HitAverage"]
+					sourceCritDmg = sourceCritDmg + output[type.."CritAverage"]
+				end
+			end
+			return sourceHitDmg, sourceCritDmg
+		end
+
 		local function calcAilmentDamage(type, sourceHitDmg, sourceCritDmg)
 			-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
 			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
@@ -3296,28 +3316,6 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate shock and freeze chance + duration modifier
 		if (output.ShockChanceOnHit + output.ShockChanceOnCrit) > 0 then
-			local sourceHitDmg = 0
-			local sourceCritDmg = 0
-			if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanShock") then
-				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
-				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
-			end
-			if canDeal.Lightning and not skillModList:Flag(cfg, "LightningCannotShock") then
-				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
-				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
-			end
-			if canDeal.Cold and skillModList:Flag(cfg, "ColdCanShock") then
-				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
-				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
-			end
-			if canDeal.Fire and skillModList:Flag(cfg, "FireCanShock") then
-				sourceHitDmg = sourceHitDmg + output.FireHitAverage
-				sourceCritDmg = sourceCritDmg + output.FireCritAverage
-			end
-			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanShock") then
-				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
-				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
-			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
 				output.ShockChanceOnHit = 0
@@ -3327,7 +3325,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Shock", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "ShockAsThoughDealing")
+			local baseVal = calcAilmentDamage("Shock", calcAverageSourceDamage("Shock")) * skillModList:More(cfg, "ShockAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.shock = true
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
@@ -3410,28 +3408,6 @@ function calcs.offence(env, actor, activeSkill)
  			end
 		end
 		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 or (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.ChillNotHit]) then
-			local sourceHitDmg = 0
-			local sourceCritDmg = 0
-			if canDeal.Cold and not skillModList:Flag(cfg, "ColdCannotChill") then
-				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
-				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
-			end
-			if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanChill") then
-				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
-				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
-			end
-			if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanChill") then
-				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
-				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
-			end
-			if canDeal.Fire and skillModList:Flag(cfg, "FireCanChill") then
-				sourceHitDmg = sourceHitDmg + output.FireHitAverage
-				sourceCritDmg = sourceCritDmg + output.FireCritAverage
-			end
-			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanChill") then
-				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
-				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
-			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
 				output.ChillChanceOnHit = 0
@@ -3441,7 +3417,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "ChillAsThoughDealing")
+			local baseVal = calcAilmentDamage("Chill", calcAverageSourceDamage("Chill")) * skillModList:More(cfg, "ChillAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.chill = true
 				output.ChillEffectMod = calcLib.mod(skillModList, cfg, "EnemyChillEffect")
@@ -3534,28 +3510,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
-			local sourceHitDmg = 0
-			local sourceCritDmg = 0
-			if canDeal.Cold and not skillModList:Flag(cfg, "ColdCannotFreeze") then
-				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
-				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
-			end
-			if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanFreeze") then
-				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
-				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
-			end
-			if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanFreeze") then
-				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
-				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
-			end
-			if canDeal.Fire and skillModList:Flag(cfg, "FireCanFreeze") then
-				sourceHitDmg = sourceHitDmg + output.FireHitAverage
-				sourceCritDmg = sourceCritDmg + output.FireCritAverage
-			end
-			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanFreeze") then
-				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
-				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
-			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
 				output.FreezeChanceOnHit = 0
@@ -3565,7 +3519,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg) * skillModList:More(cfg, "FreezeAsThoughDealing")
+			local baseVal = calcAilmentDamage("Freeze", calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.freeze = true
 				skillFlags.chill = true
@@ -3577,20 +3531,11 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
-			local sourceHitDmg = 0
-			local sourceCritDmg = 0
-			if output.ScorchChanceOnCrit == 0 and output.ScorchChanceOnHit > 0 then
-				output.ScorchChanceOnCrit = output.ScorchChanceOnHit
-			end
-			if canDeal.Fire then
-				sourceHitDmg = sourceHitDmg + output.FireHitAverage
-				sourceCritDmg = sourceCritDmg + output.FireCritAverage
-			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
 				output.ScorchChanceOnHit = 0
 			end
-			local baseVal = calcAilmentDamage("Scorch", sourceHitDmg, sourceCritDmg)
+			local baseVal = calcAilmentDamage("Scorch", calcAverageSourceDamage("Scorch"))
 			if baseVal > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
 				skillFlags.scorch = true
 				output.ScorchEffectMod = skillModList:Sum("INC", cfg, "EnemyScorchEffect")
@@ -3598,20 +3543,11 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.BrittleChanceOnHit + output.BrittleChanceOnCrit) > 0 then
-			local sourceHitDmg = 0
-			local sourceCritDmg = 0
-			if output.BrittleChanceOnCrit == 0 and output.BrittleChanceOnHit > 0 then
-				output.BrittleChanceOnCrit = output.BrittleChanceOnHit
-			end
-			if canDeal.Cold then
-				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
-				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
-			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
 				output.BrittleChanceOnHit = 0
 			end
-			local baseVal = calcAilmentDamage("Brittle", sourceHitDmg, sourceCritDmg)
+			local baseVal = calcAilmentDamage("Brittle", calcAverageSourceDamage("Brittle"))
 			if baseVal > 0 then
 				skillFlags.brittle = true
 				output.BrittleEffectMod = skillModList:Sum("INC", cfg, "EnemyBrittleEffect")
@@ -3619,20 +3555,11 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.SapChanceOnHit + output.SapChanceOnCrit) > 0 then
-			local sourceHitDmg = 0
-			local sourceCritDmg = 0
-			if output.SapChanceOnCrit == 0 and output.SapChanceOnHit > 0 then
-				output.SapChanceOnCrit = output.SapChanceOnHit
-			end
-			if canDeal.Lightning then
-				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
-				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
-			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
 				output.SapChanceOnHit = 0
 			end
-			local baseVal = calcAilmentDamage("Sap", sourceHitDmg, sourceCritDmg)
+			local baseVal = calcAilmentDamage("Sap", calcAverageSourceDamage("Sap"))
 			if baseVal > 0 then
 				skillFlags.sap = true
 				output.SapEffectMod = skillModList:Sum("INC", cfg, "EnemySapEffect")
