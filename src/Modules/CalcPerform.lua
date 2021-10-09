@@ -2681,7 +2681,9 @@ function calcs.perform(env, avoidCache)
 	elseif enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks") > maxImpaleStacks then
 		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	end
-	
+
+	local ailmentData = data.nonDamagingAilment
+
 	-- Calculates maximum Shock, then applies the strongest Shock effect to the enemy
 	if (enemyDB:Sum("BASE", nil, "ShockVal") > 0 or modDB:Sum(nil, "ShockBase", "ShockOverride")) and not enemyDB:Flag(nil, "Condition:AlreadyShocked") then
 		local overrideShock = 0
@@ -2698,7 +2700,7 @@ function calcs.perform(env, avoidCache)
 			end
 			overrideShock = m_max(overrideShock or 0, effect or 0)
 		end
-		output.MaximumShock = modDB:Override(nil, "ShockMax") or 50
+		output.MaximumShock = modDB:Override(nil, "ShockMax") or ailmentData.Shock.max
 		output.CurrentShock = m_floor(m_min(m_max(overrideShock, enemyDB:Sum("BASE", nil, "ShockVal")), output.MaximumShock))
 		enemyDB:NewMod("DamageTaken", "INC", m_floor(output.CurrentShock), "Shock", { type = "Condition", var = "Shocked"} )
 		enemyDB:NewMod("Condition:AlreadyShocked", "FLAG", true, { type = "Condition", var = "Shocked"} ) -- Prevents Shock from applying doubly for minions
@@ -2720,7 +2722,7 @@ function calcs.perform(env, avoidCache)
 			end
 			overrideScorch = m_max(overrideScorch or 0, effect or 0)
 		end
-		output.MaximumScorch = modDB:Override(nil, "ScorchMax") or 50
+		output.MaximumScorch = modDB:Override(nil, "ScorchMax") or ailmentData.Scorch.max
 		output.CurrentScorch = m_floor(m_min(m_max(overrideScorch, enemyDB:Sum("BASE", nil, "ScorchVal")), output.MaximumScorch))
 		enemyDB:NewMod("ElementalResist", "BASE",  -m_floor(output.CurrentScorch), "Scorch", { type = "Condition", var = "Scorched"} )
 		enemyDB:NewMod("Condition:AlreadyScorched", "FLAG", true, { type = "Condition", var = "Scorched"} ) -- Prevents Scorch from applying doubly for minions

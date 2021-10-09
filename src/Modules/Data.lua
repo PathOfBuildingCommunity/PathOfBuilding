@@ -305,6 +305,15 @@ data.keystones = {
 	"Zealot's Oath",
 }
 
+data.nonDamagingAilment = {
+	["Chill"] = { associatedType = "Cold", default = 10, min = 5, max = 30, precision = 0, duration = 2 },
+	["Freeze"] = { associatedType = "Cold", default = nil, min = 0.3, max = 3, precision = 2, duration = nil },
+	["Shock"] = { associatedType = "Lightning", default = 15, min = 5, max = 50, precision = 0, duration = 2 },
+	["Scorch"] = { associatedType = "Fire", default = 10, min = 0, max = 30, precision = 0, duration = 4 },
+	["Brittle"] = { associatedType = "Cold", default = 5, min = 0, max = 15, precision = 2, duration = 4 },
+	["Sap"] = { associatedType = "Lightning", default = 6, min = 0, max = 20, precision = 0, duration = 4 },
+}
+
 data.misc = { -- magic numbers
 	ServerTickTime = 0.033,
 	ServerTickRate = 1 / 0.033,

@@ -2738,7 +2738,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.SapChanceOnHit = output.SapChanceOnHit * sapMult
 			output.SapChanceOnCrit = output.SapChanceOnCrit * sapMult
 		end
-	
+
+		local ailmentData = data.nonDamagingAilment
+
 		local function calcAilmentDamage(type, sourceHitDmg, sourceCritDmg)
 			-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
 			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
@@ -3331,7 +3333,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = calcLib.mod(skillModList, cfg, "EnemyShockEffect")
 				output.ShockEffectModDisplay = 100 * (output.ShockEffectMod - 1)
-				local maximum = skillModList:Override(nil, "ShockMax") or 50
+				local maximum = skillModList:Override(nil, "ShockMax") or ailmentData.Shock.max
 				local current = m_min(globalOutput.CurrentShock or 0, maximum)
 				local desired = m_min(enemyDB:Sum("BASE", nil, "DesiredShockVal"), maximum)
 				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
@@ -3340,21 +3342,21 @@ function calcs.offence(env, actor, activeSkill)
 					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (output.ShockEffectMod)
 					t_insert(effList, bossEffect)
 				end
-				if maximum ~= 50 then
+				if maximum ~= ailmentData.Shock.max then
 					t_insert(effList, maximum)
 				end
-				if current > 5 and current ~= (15 or 50 or maximum) and current < maximum then
+				if current > ailmentData.Shock.min and current ~= (15 or ailmentData.Shock.max or maximum) and current < maximum then
 					t_insert(effList, current)
 				end
-				if desired > 5 and desired ~= (15 or 50 or current or maximum) and desired < maximum and current == 0 then
+				if desired > ailmentData.Shock.min and desired ~= (15 or ailmentData.Shock.max or current or maximum) and desired < maximum and current == 0 then
 					t_insert(effList, desired)
 				end
 				table.sort(effList)
 				if breakdown then
 					if current > 0 then
-						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds ^8(with a ^7%s%% ^8shock on the enemy)^7", 2 * output.ShockDurationMod, current)
+						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds ^8(with a ^7%s%% ^8shock on the enemy)^7", ailmentData.Shock.duration * output.ShockDurationMod, current)
 					else
-						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds", 2 * output.ShockDurationMod)
+						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds", ailmentData.Shock.duration * output.ShockDurationMod)
 					end
 					breakdown.ShockDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
 					breakdown.ShockDPS.rowList = { }
@@ -3387,12 +3389,12 @@ function calcs.offence(env, actor, activeSkill)
 								effect = s_format("%s%% ^8(desired)", value),
 								thresh = threshString,
 							})
-						elseif value == maximum then
+						elseif value == ailmentData.Shock.max then
 							t_insert(breakdown.ShockDPS.rowList, {
 								effect = s_format("%s%% ^8(maximum)", value),
 								thresh = threshString,
 							})
-						elseif value == 5 then
+						elseif value == ailmentData.Shock.min then
 							t_insert(breakdown.ShockDPS.rowList, {
 								effect = s_format("%s%% ^8(minimum)", value),
 								thresh = threshString,
@@ -3460,11 +3462,11 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				table.sort(effList)
 				if breakdown then
-					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", ailmentData.Chill.duration * output.ChillDurationMod)
 					if output.BonechillEffect then
-						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds ^8(with a ^7%s%% ^8Bonechill effect on the enemy)^7", 2 * output.ChillDurationMod, output.BonechillEffect)
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds ^8(with a ^7%s%% ^8Bonechill effect on the enemy)^7", ailmentData.Chill.duration * output.ChillDurationMod, output.BonechillEffect)
 					else
-						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", 2 * output.ChillDurationMod)
+						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", ailmentData.Chill.duration * output.ChillDurationMod)
 					end
 					breakdown.ChillDPS.rowList = { }
 					breakdown.ChillDPS.colList = {
@@ -3496,12 +3498,12 @@ function calcs.offence(env, actor, activeSkill)
 								effect = s_format("%s%% ^8(desired)", value),
 								thresh = threshString,
 							})
-						elseif value == 30 then
+						elseif value == ailmentData.Chill.max then
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%% ^8(maximum)", value),
 								thresh = threshString,
 							})
-						elseif value == 5 then
+						elseif value == ailmentData.Chill.min then
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%% ^8(minimum)", value),
 								thresh = threshString,
@@ -3520,12 +3522,12 @@ function calcs.offence(env, actor, activeSkill)
 			skillFlags.chill = true
 			output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
-			output.ChillSourceEffect = m_min(30, m_floor(10 * (1 + output.ChillEffectMod / 100)))
+			output.ChillSourceEffect = m_min(ailmentData.Chill.max, m_floor(ailmentData.Chill.default * (1 + output.ChillEffectMod / 100)))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
-					label = "Effect of Chill: ^8(capped at 30%)",
-					base = "10% ^8(base)",
+					label = s_format("Effect of Chill: ^8(capped at %d%%)", ailmentData.Chill.max),
+					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
 					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})
