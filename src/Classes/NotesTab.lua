@@ -14,7 +14,6 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 	self.lastContent = ""
 	self.showColorCodes = false
 
-	local function getColorString(color, string) return color:gsub("%^", "^7")..": "..color..string end
 	local colorDesc = [[^7This field supports different colors.  Using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
 Below are some common color codes PoB uses:	]]
 	self.controls.colorDoc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, colorDesc)
@@ -49,21 +48,21 @@ function NotesTabClass:SetShowColorCodes(setting)
 	self.showColorCodes = setting
 	if setting then
 		self.controls.toggleColorCodes.label = "Hide Colour Codes"
-		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^x(%x%x%x)","^_x%1"):gsub("%^(%d)","^_%1"))
+		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^x(%x%x%x%x%x%x)","^_x%1"):gsub("%^(%d)","^_%1"))
 	else
 		self.controls.toggleColorCodes.label = "Show Colour Codes"
-		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^_x(%x%x%x)","^x%1"):gsub("%^_(%d)","^%1"))
+		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^_x(%x%x%x%x%x%x)","^x%1"):gsub("%^_(%d)","^%1"))
 	end
 end
 
 function NotesTabClass:SetColor(color)
-	local text
-	text = color
-	if self.showColorCodes then text = color:gsub("%^x(%x%x%x)","^_x%1") end
+	local text = color
+	if self.showColorCodes then text = color:gsub("%^x(%x%x%x%x%x%x)","^_x%1"):gsub("%^(%d)","^_%1") end
 	if self.controls.edit.sel == nil or self.controls.edit.sel == self.controls.edit.caret then
 		self.controls.edit:Insert(text)
 	else
-		self.controls.edit:ReplaceSel(text..self.controls.edit:GetSelText().."^7")
+		local lastColor = self.controls.edit:GetSelText():match(self.showColorCodes and "(%^_x%x%x%x%x%x%x).-$" or "(%^x%x%x%x%x%x%x).-$") or "^7"
+		self.controls.edit:ReplaceSel(text..self.controls.edit:GetSelText():gsub(self.showColorCodes and "%^_x%x%x%x%x%x%x" or "%^x%x%x%x%x%x%x", "")..lastColor)
 	end
 end
 
