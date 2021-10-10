@@ -2682,6 +2682,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillModList:Sum("BASE", cfg, "EnemyScorchChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotScorch") then
 			output.ScorchChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyScorchChance"))
+			if output.ScorchChanceOnCrit == 0 then
+				output.ScorchChanceOnCrit = output.ScorchChanceOnHit
+			end
 		else
 			output.ScorchChanceOnHit = 0
 		end
@@ -2690,6 +2693,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillModList:Sum("BASE", cfg, "EnemyBrittleChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotBrittle") then
 			output.BrittleChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyBrittleChance"))
+			if output.BrittleChanceOnCrit == 0 then
+				output.BrittleChanceOnCrit = output.BrittleChanceOnHit
+			end
 		else
 			output.BrittleChanceOnHit = 0
 		end
@@ -2698,6 +2704,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillModList:Sum("BASE", cfg, "EnemySapChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotSap") then
 			output.SapChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemySapChance"))
+			if output.SapChanceOnCrit == 0 then
+				output.SapChanceOnCrit = output.SapChanceOnHit
+			end
 		else
 			output.SapChanceOnHit = 0
 		end
@@ -2737,6 +2746,19 @@ function calcs.offence(env, actor, activeSkill)
 			local sapMult = (1 - enemyDB:Sum("BASE", nil, "AvoidSap") / 100)
 			output.SapChanceOnHit = output.SapChanceOnHit * sapMult
 			output.SapChanceOnCrit = output.SapChanceOnCrit * sapMult
+		end
+
+		local igniteMode = env.configInput.igniteMode or "AVERAGE"
+		if igniteMode == "CRIT" then
+			output.BleedChanceOnHit = 0
+			output.PoisonChanceOnHit = 0
+			output.IgniteChanceOnHit = 0
+			output.ShockChanceOnHit = 0
+			output.ChillChanceOnHit = 0
+			output.FreezeChanceOnHit = 0
+			output.ScorchChanceOnHit = 0
+			output.BrittleChanceOnHit = 0
+			output.SapChanceOnHit = 0
 		end
 
 		local ailmentData = data.nonDamagingAilment
@@ -2872,10 +2894,6 @@ function calcs.offence(env, actor, activeSkill)
 					output.BleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
 					sourceHitDmg = (min + max) / 2 * output.BleedDotMulti
 				end
-			end
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.BleedChanceOnHit = 0
 			end
 			if globalBreakdown then
 				globalBreakdown.BleedDPS = {
@@ -3045,10 +3063,6 @@ function calcs.offence(env, actor, activeSkill)
 					output.PoisonDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100
 					sourceHitDmg = (totalMin + totalMax) / 2 * output.PoisonDotMulti
 				end
-			end
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.PoisonChanceOnHit = 0
 			end
 			if globalBreakdown then
 				globalBreakdown.PoisonDPS = {
@@ -3221,10 +3235,6 @@ function calcs.offence(env, actor, activeSkill)
 					sourceHitDmg = (totalMin + totalMax) / 2 * output.IgniteDotMulti
 				end
 			end
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.IgniteChanceOnHit = 0
-			end
 			if globalBreakdown then
 				globalBreakdown.IgniteDPS = {
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
@@ -3316,10 +3326,6 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate shock and freeze chance + duration modifier
 		if (output.ShockChanceOnHit + output.ShockChanceOnCrit) > 0 then
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.ShockChanceOnHit = 0
-			end
 			if globalBreakdown then
 				globalBreakdown.ShockDurationMod = {
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
@@ -3408,10 +3414,6 @@ function calcs.offence(env, actor, activeSkill)
  			end
 		end
 		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 or (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.ChillNotHit]) then
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.ChillChanceOnHit = 0
-			end
 			if globalBreakdown then
 				globalBreakdown.ChillDurationMod = {
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
@@ -3510,10 +3512,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.FreezeChanceOnHit = 0
-			end
 			if globalBreakdown then
 				globalBreakdown.FreezeDurationMod = {
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
@@ -3531,10 +3529,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.ScorchChanceOnHit = 0
-			end
 			local baseVal = calcAilmentDamage("Scorch", calcAverageSourceDamage("Scorch"))
 			if baseVal > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
 				skillFlags.scorch = true
@@ -3543,10 +3537,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.BrittleChanceOnHit + output.BrittleChanceOnCrit) > 0 then
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.BrittleChanceOnHit = 0
-			end
 			local baseVal = calcAilmentDamage("Brittle", calcAverageSourceDamage("Brittle"))
 			if baseVal > 0 then
 				skillFlags.brittle = true
@@ -3555,10 +3545,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if (output.SapChanceOnHit + output.SapChanceOnCrit) > 0 then
-			local igniteMode = env.configInput.igniteMode or "AVERAGE"
-			if igniteMode == "CRIT" then
-				output.SapChanceOnHit = 0
-			end
 			local baseVal = calcAilmentDamage("Sap", calcAverageSourceDamage("Sap"))
 			if baseVal > 0 then
 				skillFlags.sap = true
