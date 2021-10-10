@@ -420,7 +420,6 @@ end
 
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
-	ConPrintf(self.userPath.."Settings.xml")
 	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "PathOfBuilding" then
@@ -559,7 +558,6 @@ function main:SaveSettings()
 		end
 		t_insert(sharedItemList, set)
 	end
-	ConPrintf(self.defaultGemQuality)
 	t_insert(setXML, sharedItemList)
 	t_insert(setXML, { elem = "Misc", attrib = {
 		buildSortMode = self.buildSortMode,
