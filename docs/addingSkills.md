@@ -2,7 +2,7 @@ Skills in Path of Building are generated from what is called a template file.  T
 
 ## Template files
 
-A template file for a new skill can consist of the following directives, which tell the export script what to put in the final file.
+A template file for a new skill can consist of the following directives, which tell the export script what to put in the final file.  Other fields that end up in 
 
 ### #skill grantedEffectId [displayName]
 This directive initializes all the data for the skill and emits the skill header.  `grantedEffectId` matches up with the name defined in the ggpk, in the `GrantedEffects` table.  `displayName` is optional, but can override the display name from the game data if needed
@@ -17,11 +17,11 @@ This directive does nothing but ensure the mods that come with the skill are inc
 This directive is used when there are mods associated with the skill that don't come in the statMap (see the statMap section below)
 
 ### #noGem
-This directive is used when a new skill doesn't have a gem associated with it.  Skills from uniques are some that fall in this category
+This directive is used when a new skill shouldn't have a gem associated with it.  Some skills have a gem internally, but it's not one that can be socketed in gear, so this is used to disable it (e.g. Bone Armour)
 
 ## Combined data
 
-The most important tables constructed from the game data are the `stats` table, and the `levels` table.  Taking a look at just one row in `levels`, there will be a list of numbers, followed by named entries, such as `levelRequirement`, `damageEffectiveness`, etc.  Each of these stats are mapped to a mod in Path of Building either via `SkillStatMap.lua`, or if the stat is specific to this particular skill (e.g. `spectral_helix_rotations_%` would only apply to Spectral Helix) in `skillStatMap` in this same table.  The corresponding mod will have `nil` in place of its normal value, and that value instead comes from this row in the `levels` table.  Notice that not all of the stats have a number in the first part of the `levels` row.  These extra stats are usually for booleans/flags that are always true.
+The most important tables constructed from the game data are the `stats` table, and the `levels` table.  Taking a look at just one row in `levels`, there will be a list of numbers, followed by named entries, such as `levelRequirement`, `damageEffectiveness`, etc.  Each of these stats are mapped to a mod in Path of Building either via `SkillStatMap.lua`, or if the stat is specific to this particular skill (e.g. `spectral_helix_rotations_%` would only apply to Spectral Helix) in `statMap` in this same table.  If a mapping exists in both places, the one local to this skill will take precedence.  The corresponding mod will have `nil` in place of its normal value, and that value instead comes from this row in the `levels` table.  Notice that not all of the stats have a number in the first part of the `levels` row.  These extra stats are usually for booleans/flags that are always true.
 
 Notice how these stat numbers don't really align with damage numbers in any meaningful way for active skills.  The stat numbers are interpolated by the numbers in the corresponding position in the `statInterpolation` table in the same row.
 * 1 means take the number as-is.  This is the most common interpolation
