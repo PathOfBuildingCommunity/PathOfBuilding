@@ -404,7 +404,7 @@ end
 
 -- update gui options for gem quality etc. here
 function SkillsTabClass:UpdateGuiOptions()
-	if main.defaultGemQuality > 0 then
+	if main.defaultGemQuality and main.defaultGemQuality > 0 then
 		self.defaultGemQuality = main.defaultGemQuality
 		if self.controls.defaultQuality then
 			self.controls.defaultQuality:SetText(main.defaultGemQuality)

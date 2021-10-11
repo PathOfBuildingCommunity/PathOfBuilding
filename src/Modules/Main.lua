@@ -569,7 +569,7 @@ function main:SaveSettings()
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 		betaTest = tostring(self.betaTest),
-		defaultGemQuality = self.defaultGemQuality,
+		defaultGemQuality = tostring(self.defaultGemQuality),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
