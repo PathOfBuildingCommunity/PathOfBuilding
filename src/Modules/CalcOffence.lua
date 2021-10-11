@@ -3324,187 +3324,50 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		-- Calculate shock and freeze chance + duration modifier
-		if (output.ShockChanceOnHit + output.ShockChanceOnCrit) > 0 then
-			if globalBreakdown then
-				globalBreakdown.ShockDurationMod = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
-				}
-			end
-			local baseVal = calcAilmentDamage("Shock", calcAverageSourceDamage("Shock")) * skillModList:More(cfg, "ShockAsThoughDealing")
-			if baseVal > 0 then
-				skillFlags.shock = true
-				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
-				output.ShockEffectMod = calcLib.mod(skillModList, cfg, "EnemyShockEffect")
-				output.ShockEffectModDisplay = 100 * (output.ShockEffectMod - 1)
-				local maximum = skillModList:Override(nil, "ShockMax") or ailmentData.Shock.max
-				local current = m_min(globalOutput.CurrentShock or 0, maximum)
-				local desired = m_min(enemyDB:Sum("BASE", nil, "DesiredShockVal"), maximum)
-				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
-				local effList = { 5, 15, 50 }
-				if enemyThreshold > 0 then
-					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (output.ShockEffectMod)
-					t_insert(effList, bossEffect)
-				end
-				if maximum ~= ailmentData.Shock.max then
-					t_insert(effList, maximum)
-				end
-				if current > ailmentData.Shock.min and current ~= (15 or ailmentData.Shock.max or maximum) and current < maximum then
-					t_insert(effList, current)
-				end
-				if desired > ailmentData.Shock.min and desired ~= (15 or ailmentData.Shock.max or current or maximum) and desired < maximum and current == 0 then
-					t_insert(effList, desired)
-				end
-				table.sort(effList)
-				if breakdown then
-					if current > 0 then
-						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds ^8(with a ^7%s%% ^8shock on the enemy)^7", ailmentData.Shock.duration * output.ShockDurationMod, current)
-					else
-						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds", ailmentData.Shock.duration * output.ShockDurationMod)
-					end
-					breakdown.ShockDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
-					breakdown.ShockDPS.rowList = { }
-					breakdown.ShockDPS.colList = {
-						{ label = "Shock Effect", key = "effect" },
-						{ label = "Ailment Threshold", key = "thresh" },
-					}
-					for _, value in ipairs(effList) do
-						local thresh = (((100 + (100 * (output.ShockEffectMod - 1)))^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
-						local decCheck = value / m_floor(value)
-						value = m_floor(value)
-						local threshString = ""
-						if m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) then
-							threshString = s_format("%.0f ^8(AL%.0f %s)", thresh, skillModList:Sum("BASE", nil, "AwakeningLevel"), env.configInput.enemyIsBoss)
-						else
-							threshString = s_format("%.0f", thresh)
-						end
-						if decCheck ~= 1 then -- don't put a label on the calculated boss effect
-							t_insert(breakdown.ShockDPS.rowList, {
-								effect = s_format("%s%%", value),
-								thresh = threshString,
-							})
-						elseif current > 0 and value == current then
-							t_insert(breakdown.ShockDPS.rowList, {
-								effect = s_format("%s%% ^8(current)", value),
-								thresh = threshString,
-							})
-						elseif value == desired then
-							t_insert(breakdown.ShockDPS.rowList, {
-								effect = s_format("%s%% ^8(desired)", value),
-								thresh = threshString,
-							})
-						elseif value == ailmentData.Shock.max then
-							t_insert(breakdown.ShockDPS.rowList, {
-								effect = s_format("%s%% ^8(maximum)", value),
-								thresh = threshString,
-							})
-						elseif value == ailmentData.Shock.min then
-							t_insert(breakdown.ShockDPS.rowList, {
-								effect = s_format("%s%% ^8(minimum)", value),
-								thresh = threshString,
-							})
-						else
-							t_insert(breakdown.ShockDPS.rowList, {
-								effect = s_format("%s%%", value),
-								thresh = threshString,
-							})
-						end
-					end
-				end
- 			end
-		end
-		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 or (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.ChillNotHit]) then
-			if globalBreakdown then
-				globalBreakdown.ChillDurationMod = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
-				}
-			end
-			local baseVal = calcAilmentDamage("Chill", calcAverageSourceDamage("Chill")) * skillModList:More(cfg, "ChillAsThoughDealing")
-			if baseVal > 0 then
-				skillFlags.chill = true
-				output.ChillEffectMod = calcLib.mod(skillModList, cfg, "EnemyChillEffect")
-				output.ChillEffectModDisplay = 100 * (output.ChillEffectMod - 1)
-				output.ChillDurationMod = 1 + (skillModList:Sum("INC", cfg, "EnemyChillDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration")) / 100
-				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
-				effList = { 5, 10, 30 }
-				local desired = skillModList:Sum("BASE", nil, "DesiredBonechillEffect") or 0
-				if output.BonechillEffect then
-					t_insert(effList, output.BonechillEffect)
-				end
-				if not output.BonechillEffect and desired ~= (0 or 5 or 10 or 30 or output.BonechillEffect) and desired > 5 and desired < 30 then
-					t_insert(effList, desired)
-				end
-				if enemyThreshold > 0 then
-					local bossEffect = 100 * 0.5 * ((baseVal / enemyThreshold) ^ (0.4)) * (output.ChillEffectMod)
-					t_insert(effList, bossEffect)
-				end
-				table.sort(effList)
-				if breakdown then
-					breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", ailmentData.Chill.duration * output.ChillDurationMod)
-					if output.BonechillEffect then
-						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds ^8(with a ^7%s%% ^8Bonechill effect on the enemy)^7", ailmentData.Chill.duration * output.ChillDurationMod, output.BonechillEffect)
-					else
-						breakdown.ChillDPS.label = s_format("To Chill for %.1f seconds", ailmentData.Chill.duration * output.ChillDurationMod)
-					end
-					breakdown.ChillDPS.rowList = { }
-					breakdown.ChillDPS.colList = {
-						{ label = "Chill Effect", key = "effect" },
-						{ label = "Ailment Threshold", key = "thresh" },
-					}
-					breakdown.ChillDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
-					for _, value in ipairs(effList) do
-						local thresh = (((100 + (100 * (output.ChillEffectMod - 1)))^(2.5)) * baseVal) / ((2 * value) ^ (2.5))
-						local decCheck = value / m_floor(value)
-						value = m_floor(value)
-						if m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) then
-							threshString = s_format("%.0f ^8(AL%.0f %s)", thresh, skillModList:Sum("BASE", nil, "AwakeningLevel"), env.configInput.enemyIsBoss)
-						else
-							threshString = s_format("%.0f", thresh)
-						end
-						if decCheck ~= 1 then -- don't put a label on the calculated boss effect
-							t_insert(breakdown.ChillDPS.rowList, {
-								effect = s_format("%s%%", value),
-								thresh = threshString,
-							})
-						elseif value == output.BonechillEffect then
-							t_insert(breakdown.ChillDPS.rowList, {
-								effect = s_format("%s%% ^8(current)", value),
-								thresh = threshString,
-							})
-						elseif value == desired then
-							t_insert(breakdown.ChillDPS.rowList, {
-								effect = s_format("%s%% ^8(desired)", value),
-								thresh = threshString,
-							})
-						elseif value == ailmentData.Chill.max then
-							t_insert(breakdown.ChillDPS.rowList, {
-								effect = s_format("%s%% ^8(maximum)", value),
-								thresh = threshString,
-							})
-						elseif value == ailmentData.Chill.min then
-							t_insert(breakdown.ChillDPS.rowList, {
-								effect = s_format("%s%% ^8(minimum)", value),
-								thresh = threshString,
-							})
-						else
-							t_insert(breakdown.ChillDPS.rowList, {
-								effect = s_format("%s%%", value),
-								thresh = threshString,
-							})
-						end
-					end
-				end
-			end
-		end
+		-- Calculate non-damaging ailments effect and duration modifiers
+		local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
+		local bonechill = output.BonechillEffect or skillModList:Sum("BASE", nil, "DesiredBonechillEffect")
+		local ailments = {
+			["Chill"] = {
+				effList = { 10, 20 },
+				effect = function(damage, effectMod) return 50 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
+				thresh = function(damage, value, effectMod) return damage * ((50 * effectMod / value) ^ 2.5) end,
+				ramping = bonechill > 0,
+			},
+			["Shock"] = {
+				effList = { 10, 20, 40 },
+				effect = function(damage, effectMod) return 50 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
+				thresh = function(damage, value, effectMod) return damage * ((50 * effectMod / value) ^ 2.5) end,
+				ramping = true,
+			},
+			["Scorch"] = {
+				effList = { 5, 10, 20 },
+				effect = function(damage, effectMod) return 50 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
+				thresh = function(damage, value, effectMod) return damage * ((50 * effectMod / value) ^ 2.5) end,
+				ramping = true,
+			},
+			["Brittle"] = {
+				effList = { 5, 10 },
+				effect = function(damage, effectMod) return 25 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
+				thresh = function(damage, value, effectMod) return damage * ((25 * effectMod / value) ^ 2.5) end,
+				ramping = true,
+			},
+			["Sap"] = {
+				effList = { 5, 10 },
+				effect = function(damage, effectMod) return (100 / 3) * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
+				thresh = function(damage, value, effectMod) return damage * ((100 / 3 * effectMod / value) ^ 2.5) end,
+				ramping = false,
+			},
+		}
 		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
 			skillFlags.chill = true
 			output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
-			output.ChillSourceEffect = m_min(ailmentData.Chill.max, m_floor(ailmentData.Chill.default * (1 + output.ChillEffectMod / 100)))
+			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * (1 + output.ChillEffectMod / 100)))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
-					label = s_format("Effect of Chill: ^8(capped at %d%%)", ailmentData.Chill.max),
+					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
 					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
 					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
@@ -3528,28 +3391,93 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
-		if (output.ScorchChanceOnHit + output.ScorchChanceOnCrit) > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
-			local baseVal = calcAilmentDamage("Scorch", calcAverageSourceDamage("Scorch"))
-			if baseVal > 0 or enemyDB:Flag(nil, "Condition:AlreadyScorched") then
-				skillFlags.scorch = true
-				output.ScorchEffectMod = skillModList:Sum("INC", cfg, "EnemyScorchEffect")
-				output.ScorchDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyScorchDuration") / 100 + enemyDB:Sum("INC", nil, "SelfScorchDuration") / 100
-			end
-		end
-		if (output.BrittleChanceOnHit + output.BrittleChanceOnCrit) > 0 then
-			local baseVal = calcAilmentDamage("Brittle", calcAverageSourceDamage("Brittle"))
-			if baseVal > 0 then
-				skillFlags.brittle = true
-				output.BrittleEffectMod = skillModList:Sum("INC", cfg, "EnemyBrittleEffect")
-				output.BrittleDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyBrittleDuration") / 100 + enemyDB:Sum("INC", nil, "SelfBrittleDuration") / 100
-			end
-		end
-		if (output.SapChanceOnHit + output.SapChanceOnCrit) > 0 then
-			local baseVal = calcAilmentDamage("Sap", calcAverageSourceDamage("Sap"))
-			if baseVal > 0 then
-				skillFlags.sap = true
-				output.SapEffectMod = skillModList:Sum("INC", cfg, "EnemySapEffect")
-				output.SapDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemySapDuration") / 100 + enemyDB:Sum("INC", nil, "SelfSapDuration") / 100
+		for ailment, val in pairs(ailments) do
+			if (output[ailment.."ChanceOnHit"] + output[ailment.."ChanceOnCrit"]) > 0 then
+				if globalBreakdown then
+					globalBreakdown[ailment.."EffectMod"] = {
+						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					}
+				end
+				local damage = calcAilmentDamage(ailment, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
+				if damage > 0 then
+					skillFlags[string.lower(ailment)] = true
+					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration")
+					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration") * enemyDB:More(nil, "Self"..ailment.."Duration")
+					globalOutput[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
+					globalOutput[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
+					if breakdown then
+						local maximum = skillModList:Override(nil, ailment.."Max") or ailmentData[ailment].max
+						local current = m_max(m_min(ailment == "Chill" and bonechill or globalOutput["Current"..ailment] or 0, maximum), 0)
+						local desired = m_max(m_min(enemyDB:Sum("BASE", nil, "Desired"..ailment.."Val"), maximum), 0)
+						if ailmentData[ailment].min ~= 0 then
+							t_insert(val.effList, ailmentData[ailment].min)
+						end
+						if enemyThreshold > 0 then
+							t_insert(val.effList, val.effect(damage, globalOutput[ailment.."EffectMod"]))
+						end
+						if not isValueInArray(val.effList, maximum) then
+							t_insert(val.effList, maximum)
+						end
+						if current > 0 and not isValueInArray(val.effList, current) then
+							t_insert(val.effList, current)
+						end
+						if desired > 0 and not isValueInArray(val.effList, desired) and current == 0 then
+							t_insert(val.effList, desired)
+						end
+						breakdown[ailment.."DPS"].label = "Resulting ailment effect"..((current > 0 and val.ramping) and s_format(" ^8(with a ^7%s%% ^8%s on the enemy)^7", current, ailment) or "")
+						breakdown[ailment.."DPS"].footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
+						breakdown[ailment.."DPS"].rowList = { }
+						breakdown[ailment.."DPS"].colList = {
+							{ label = ailment.." Effect", key = "effect" },
+							{ label = "Ailment Threshold", key = "thresh" },
+						}
+						table.sort(val.effList)
+						for _, value in ipairs(val.effList) do
+							local thresh = val.thresh(damage, value, globalOutput[ailment.."EffectMod"])
+							local decCheck = value / m_floor(value)
+							local precision = ailmentData[ailment].precision
+							value = m_floor(value * (10 ^ precision)) / (10 ^ precision)
+							local valueFormat = "%."..tostring(precision).."f%%"
+							local threshString = s_format("%d", thresh)..(m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) and s_format(" ^8(AL%d %s)", skillModList:Sum("BASE", nil, "AwakeningLevel"), env.configInput.enemyIsBoss) or "")
+							local labels = { }
+							if decCheck == 1 and value ~= 0 then
+								if ailment == "Chill" and value == bonechill then
+									t_insert(labels, "bonechill")
+								elseif value == current then
+									t_insert(labels, "current")
+								end
+								if value == desired then
+									t_insert(labels, "desired")
+								end
+								if value == maximum then
+									t_insert(labels, "maximum")
+								end
+								if value == ailmentData[ailment].min then
+									t_insert(labels, "minimum")
+								end
+							end
+							t_insert(breakdown[ailment.."DPS"].rowList, {
+								effect = s_format(valueFormat, value)..(next(labels) ~= nil and " ^8("..table.concat(labels, ", ")..")" or ""),
+								thresh = threshString,
+							})
+						end
+					end
+					if globalBreakdown and globalOutput[ailment.."Duration"] ~= ailmentData[ailment].duration then
+						globalBreakdown[ailment.."Duration"] = {
+							s_format("%.2fs ^8(base duration)", ailmentData[ailment].duration)
+						}
+						if incDur ~= 0 then
+							t_insert(globalBreakdown[ailment.."Duration"], s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur / 100))
+						end
+						if moreDur ~= 1 then
+							t_insert(globalBreakdown[ailment.."Duration"], s_format("x %.2f ^8(more/less duration)", moreDur))
+						end
+						if debuffDurationMult ~= 1 then
+							t_insert(globalBreakdown[ailment.."Duration"], s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+						end
+						t_insert(globalBreakdown[ailment.."Duration"], s_format("= %.2fs", globalOutput[ailment.."Duration"]))
+					end
+				end
 			end
 		end
 
@@ -3677,7 +3605,6 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("SapChance", "AVERAGE")
 		combineStat("SapEffectMod", "AVERAGE")
 		combineStat("SapDurationMod", "AVERAGE")
-		combineStat("BrittleChance", "AVERAGE")
 		combineStat("ImpaleChance", "AVERAGE")
 		combineStat("ImpaleStoredDamage", "AVERAGE")
 		combineStat("ImpaleModifier", "CHANCE", "ImpaleChance")
