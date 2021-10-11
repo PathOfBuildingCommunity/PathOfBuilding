@@ -1035,6 +1035,7 @@ function buildMode:OpenSaveAsPopup()
 		self.buildName = newBuildName
 		self.dbFileSubPath = controls.folder.subPath
 		self:SaveDBFile()
+		self.spec:SetWindowTitleWithBuildClass()
 	end)
 	controls.save.enabled = false
 	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
