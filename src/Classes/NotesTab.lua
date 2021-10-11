@@ -48,10 +48,10 @@ function NotesTabClass:SetShowColorCodes(setting)
 	self.showColorCodes = setting
 	if setting then
 		self.controls.toggleColorCodes.label = "Hide Color Codes"
-		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^x(%x%x%x%x%x%x)","^_x%1"):gsub("%^(%d)","^_%1"))
+		self.controls.edit.buf = self.controls.edit.buf:gsub("%^x(%x%x%x%x%x%x)","^_x%1"):gsub("%^(%d)","^_%1")
 	else
 		self.controls.toggleColorCodes.label = "Show Color Codes"
-		self.controls.edit:SetText(self.controls.edit.buf:gsub("%^_x(%x%x%x%x%x%x)","^x%1"):gsub("%^_(%d)","^%1"))
+		self.controls.edit.buf = self.controls.edit.buf:gsub("%^_x(%x%x%x%x%x%x)","^x%1"):gsub("%^_(%d)","^%1")
 	end
 end
 
@@ -88,7 +88,7 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 	self.height = viewPort.height
 
 	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then	
+		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self.controls.edit:Undo()
 			elseif event.key == "y" and IsKeyDown("CTRL") then
