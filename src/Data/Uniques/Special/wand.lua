@@ -11,7 +11,7 @@ Requires Level 6, 29 Int
 Implicits: 2
 {variant:1}(9-12)% increased Spell Damage
 {variant:2}SpellDamageOnWeaponImplicitWand2
-FireDamagePercentUniqueRing36
+FireDamagePercentUniqueWand10
 SpellAddedFireDamageUniqueWand10
 CriticalStrikeChanceUniqueWand10
 LifeGainedOnKillingIgnitedEnemiesUniqueWand10_
@@ -93,7 +93,7 @@ Driftwood Wand
 Requires Level 2
 Implicits: 1
 SpellDamageOnWeaponImplicitWand1
-LocalIncreaseSocketedSpellGemLevel1
+LocalIncreaseSocketedSpellGemLevelUniqueWand4
 SpellDamageUniqueWand4
 IncreasedCastSpeedUniqueWand4
 IncreasedLifeUniqueWand4
@@ -109,13 +109,13 @@ Requires Level 40, 131 Int
 Implicits: 2
 {variant:1}SpellDamageImplicitGloves1
 {variant:2,3}SpellDamageOnWeaponImplicitWand9
-IntelligenceUniqueOneHandAxe1
+IntelligenceUniqueWand2
 {variant:1,2}MinionRunSpeedUnique__4
 {variant:3}MinionRunSpeedUniqueWand2
 {variant:1,2}Minions deal (10-30)% increased Damage
 {variant:3}MinionDamageUniqueWand2
-MaximumMinionCountUniqueTwoHandSword4Updated
-MaximumMinionCountUniqueSceptre5
+MaximumMinionCountUniqueWand2
+MaximumMinionCountUniqueBodyInt9
 MaximumMinionCountUniqueBootsStrInt2Updated
 Reserves 30% of Life
 LifeReservationUniqueWand2
@@ -127,7 +127,7 @@ Requires Level 40, 131 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand9
 LifeReservationUniqueWand2
-IntelligenceUniqueOneHandAxe1
+IntelligenceUniqueWand2
 MinionRunSpeedUnique__5
 MinionDamageUniqueWand2
 ExtraRagingSpiritsUnique__1
@@ -146,13 +146,13 @@ Implicits: 2
 {variant:3,4}SpellDamageOnWeaponImplicitWand15
 {variant:1,2,3}Socketed Gems are supported by level 5 Blind
 {variant:4}ItemActsAsSupportBlindUniqueWand1
-SpellDamageUnique__6
+SpellDamageUniqueWand1
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage
 {variant:4}LocalIncreasedPhysicalDamagePercentUniqueWand1
-IntelligenceUniqueOneHandSword2
-TalismanIncreasedLightningDamage
-IncreasedCastSpeedUniqueStaff1
+IntelligenceUniqueWand1
+LightningDamageUniqueWand1
+IncreasedCastSpeedUniqueWand1
 BlindingHitUniqueWand1
 ]],[[
 Obliteration
@@ -180,7 +180,7 @@ Requires Level 65, 212 Int
 Implicits: 2
 {variant:1}(16-19)% increased Spell Damage
 {variant:2,3}SpellDamageOnWeaponImplicitWand16
-LocalReducedPhysicalDamagePercentUnique__1
+LocalReducedPhysicalDamagePercentUniqueWand6
 LocalIncreasedAttackSpeedUniqueWand6
 IncreasedAccuracyUniqueWand6
 LocalCriticalStrikeChanceUniqueWand6_
@@ -208,8 +208,8 @@ Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand2
 {variant:2,3}SpellDamageOnWeaponImplicitWand5
 {variant:1,2}LocalIncreaseSocketedGemLevelUniqueHelmetStrInt2
-{variant:3}LocalIncreaseSocketedGemLevelUniqueRing39
-SupportedByEchoUniqueWand8New_
+{variant:3}LocalIncreaseSocketedGemLevelUniqueWand8
+SupportedByEchoUniqueWand8
 IntelligenceUniqueWand8
 ]],[[
 Relic of the Pact
@@ -230,9 +230,9 @@ Requires Level 36, 83 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
 {variant:1}LocalIncreaseSocketedGemLevelUniqueHelmetStrInt2
-{variant:2}LocalIncreaseSocketedGemLevelUniqueRing39
+{variant:2}LocalIncreaseSocketedGemLevelUniqueWand8
 SocketedGemsGetIncreasedAreaOfEffectUnique__1
-SupportedByEchoUniqueWand8New_
+SupportedByEchoUniqueWand8
 ControlledDestructionSupportUnique__1New_
 IntelligenceUniqueWand8
 ]],[[
@@ -288,7 +288,7 @@ Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Requires Level 24, 83 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
-IncreasedCastSpeedFishing__Unique1
+IncreasedCastSpeedUnique__7
 GainPowerChargeOnKillingFrozenEnemyUnique__1
 AddedColdDamagePerPowerChargeUnique__1
 GainManaOnKillingFrozenEnemyUnique__1
@@ -300,7 +300,7 @@ Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand16
-IncreasedCastSpeedFishing__Unique1
+IncreasedCastSpeedUnique__7
 GainPowerChargeOnKillingFrozenEnemyUnique__1
 AddedColdDamagePerPowerChargeUnique__2
 LosePowerChargesOnMaxPowerChargesUnique__2
@@ -330,7 +330,7 @@ Implicits: 2
 {variant:2}SpellDamageOnWeaponImplicitWand6
 LocalIncreasedPhysicalDamagePercentUniqueWand9
 LocalAddedPhysicalDamageUniqueWand9
-LocalIncreasedAttackSpeedUniqueStaff9
+LocalIncreasedAttackSpeedUniqueWand9
 LocalCriticalStrikeChanceUniqueWand9
 SocketedGemsAdditionalProjectilesUniqueWand9
 ]],[[
@@ -340,7 +340,7 @@ League: Heist
 Requires Level 30, 119 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand6
-LocalIncreasedAttackSpeedUniqueStaff9
+LocalIncreasedAttackSpeedUniqueWand9
 LocalCriticalStrikeChanceUnique__20
 AttackAdditionalProjectilesUnique__1
 ]],[[
@@ -353,10 +353,10 @@ Implicits: 2
 {variant:1}(16-20)% increased Spell Damage
 {variant:2}SpellDamageOnWeaponImplicitWand17
 SpellDamageOnWeaponUniqueWand3
-IncreasedCastSpeedUniqueStaff2
+IncreasedCastSpeedUniqueWand3
 CriticalStrikeChanceUniqueWand3
 IncreasedManaUniqueWand3
-IncreasedMaximumPowerChargesUnique__1
+IncreasedMaximumPowerChargesUniqueWand3
 IncreasedSpellDamagePerPowerChargeUniqueWand3
 ]],
 }

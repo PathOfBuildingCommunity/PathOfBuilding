@@ -12,7 +12,7 @@ Requires Level 67, 159 Str
 Implicits: 1
 {variant:2,3}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__8
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueShieldDexInt1
 ReducedMaximumEnduranceChargeUniqueCorruptedJewel17
 -10% to maximum Block Chance
 AdditionalBlockChanceUniqueShieldStrInt4
@@ -29,9 +29,9 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
 Implicits: 1
-{variant:2}IncreasedLifeUnique__19
+{variant:2}IncreasedLifeImplicitShield3
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__4
-IncreasedLifeUnique__2
+IncreasedLifeUniqueShieldDex6
 AdditionalBlockChanceUniqueShieldStrInt4
 GainArmourIfBlockedRecentlyUnique__1
 EnemiesBlockedAreIntimidatedUnique__1
@@ -44,7 +44,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 64, 159 Str
 Implicits: 1
-{variant:2}IncreasedLifeUnique__19
+{variant:2}IncreasedLifeImplicitShield3
 GrantsLevel30ReckoningUnique__1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__5
 IncreasedLifeUnique__31
@@ -60,12 +60,12 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
-{variant:4}IncreasedLifeUnique___7Royale_
+{variant:4}IncreasedLifeImplicitShield2
 {variant:1}Adds 10 to 25 Fire Damage to Spells and Attacks
 {variant:2}Adds (7-10) to (15-25) Fire Damage to Spells and Attacks
 {variant:3,4}AddedFireDamageUniqueShieldStr3
 LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStr3
-{variant:3,4}IncreasedLifeUniqueGlovesInt3
+{variant:3,4}IncreasedLifeUniqueShieldDexInt1
 FireResistUniqueShieldStr3
 ConvertPhysicalToFireUniqueShieldStr3
 {variant:1,2}10% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
@@ -78,14 +78,14 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 70, 159 Str
 Implicits: 1
-{variant:3}IncreasedLifeUnique___7Royale_
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
+{variant:3}IncreasedLifeImplicitShield2
+LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
 {variant:1}IncreasedLifeUniqueHelmetDex4
 {variant:2,3}IncreasedLifeUniqueShieldStr1
 MovementVelocityUniqueShieldStr1
 20% increased Stun Recovery
 RangedAttackDamageReducedUniqueShieldStr1
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 ]],[[
 Lycosidae
 Rawhide Tower Shield
@@ -95,7 +95,7 @@ Requires Level 11, 33 Str
 Implicits: 1
 {variant:2}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__2
-IncreasedLifeUnique__19
+IncreasedLifeImplicitShield3
 AlwaysHitsUniqueGlovesDexInt4
 AdditionalBlockChanceUnique__1
 CounterAttacksAddedColdDamageUnique__1
@@ -105,11 +105,11 @@ Pinnacle Tower Shield
 Source: Vendor recipe
 Requires Level 70, 159 Str
 Implicits: 1
-IncreasedLifeUnique___7Royale_
-LocalIncreaseSocketedGemLevelUniqueRing39
+IncreasedLifeImplicitShield2
+LocalIncreaseSocketedGemLevelUnique__1
 TriggeredElementalAegisSkillUnique__1_
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
-IncreasedLifeUniqueGlovesInt3
+LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
+IncreasedLifeUniqueShieldDexInt1
 LocalFlatIncreasedEvasionAndEnergyShieldUnique__1
 ]],[[
 Redblade Banner
@@ -121,13 +121,13 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 35, 87 Str
 Implicits: 1
-{variant:3,4}IncreasedLifeUnique___7Royale_
+{variant:3,4}IncreasedLifeImplicitShield2
 {variant:2,3,4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__9
 {variant:1}IncreasedLifeUnique__80_
-{variant:2,3,4}IncreasedLifeUnique__67_
+{variant:2,3,4}IncreasedLifeUniqueShieldStr4
 IncreasedTauntDurationUniqueShieldStr4
-{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldDex7
-AdditionalBlockChanceUniqueShieldStrInt6
+{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldStr4
+AdditionalBlockChanceUniqueShieldStr4
 {variant:1}20% increased Endurance Charge Duration
 {variant:1}LifeGainedOnTauntingEnemyUniqueShieldStr4
 {variant:2,3,4}50% increased Warcry Cooldown Recovery Speed
@@ -142,8 +142,8 @@ Variant: Current
 Requires Level 30, 76 Str
 Implicits: 1
 {variant:3}IncreasedLifeImplicitShield1
-LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr4
-IncreasedLifeUnique__8
+LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStr2
+IncreasedLifeUniqueShieldStr2
 {variant:1}-10 Physical Damage taken from Projectile Attacks
 {variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
 ArmourPercent VsProjectilesUniqueShieldStr2
@@ -157,9 +157,9 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 17, 46 Str
 Implicits: 1
-{variant:3}IncreasedLifeUnique___7Royale_
+{variant:3}IncreasedLifeImplicitShield2
 {variant:2,3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__11
-IncreasedLifeUniqueShieldStr5
+IncreasedLifeUniqueShieldStrInt6
 TotemAreaOfEffectUniqueShieldStr5
 {variant:1}LifeLeechFromTotemSkillsUniqueShieldStr5
 {variant:2,3}TotemLeechLifeToYouUnique__1
@@ -172,7 +172,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
-{variant:2,3}IncreasedLifeUnique___7Royale_
+{variant:2,3}IncreasedLifeImplicitShield2
 TotemDamageUnique__1_
 IncreasedLifeUniqueHelmetDex4
 Can have up to 1 additional Totem summoned at a time
@@ -185,7 +185,7 @@ Ebony Tower Shield
 League: Heist
 Requires Level 61, 159 Str
 Implicits: 1
-IncreasedLifeUnique___7Royale_
+IncreasedLifeImplicitShield2
 IncreasedLifeUniqueHelmetDex4
 AdditionalBrandUnique__1
 CriticalStrikeChancePerBrandUnique__1___
@@ -203,7 +203,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 54, 130 Dex
 Implicits: 1
-{variant:3}MovementVelocityMarakethBowImplicit1
+{variant:3}MovementVelocityImplicitShield2
 IntelligenceUniqueShieldDex3
 {variant:1,2}LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
 {variant:3}LocalIncreasedEvasionRatingPercentUniqueShieldDex3
@@ -218,11 +218,11 @@ Golden Buckler
 Source: Upgraded from unique{Atziri's Mirror} via prophecy{The Queen's Sacrifice}
 Requires Level 68, 130 Dex
 Implicits: 1
-MovementVelocityMarakethBowImplicit1
+MovementVelocityImplicitShield2
 IntelligenceUniqueShieldDex3
 LocalIncreasedEvasionRatingPercentUniqueShieldDex3
 LocalIncreasedEnergyShieldUnique__19
-AllResistancesUniqueRing21
+AllResistancesUniqueShieldDex3
 ReflectCurses
 UnaffectedByCursesUnique__1
 CurseEffectivenessUnique__2_
@@ -236,12 +236,12 @@ Variant: Current
 Requires Level 29, 74 Dex
 Implicits: 1
 {variant:3}MovementVelocityImplicitShield3
-IncreaseSocketedCurseGemLevelUnique__1
-LocalIncreasedEvasionRatingPercentUnique__5
-{variant:2,3}IncreasedLifeUniqueQuiver3
-{variant:2,3}LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
+IncreaseSocketedCurseGemLevelUniqueShieldDex4
+LocalIncreasedEvasionRatingPercentUniqueShieldDex4
+{variant:2,3}IncreasedLifeUnique__33
+{variant:2,3}LocalIncreasedEnergyShieldUnique__10
 100% increased Curse Duration
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 ChanceForEnemyToFleeOnBlockUniqueShieldDex4
 ]],[[
 Thirst for Horrors
@@ -253,12 +253,12 @@ Variant: Current
 Requires Level 32, 74 Dex
 Implicits: 1
 {variant:3}MovementVelocityImplicitShield3
-IncreaseSocketedCurseGemLevelUnique__1
-LocalIncreasedEvasionRatingPercentUnique__5
-{variant:2,3}IncreasedLifeUniqueQuiver3
-{variant:2,3}LocalIncreasedEnergyShieldUniqueHelmetStrInt5_
+IncreaseSocketedCurseGemLevelUniqueShieldDex4
+LocalIncreasedEvasionRatingPercentUniqueShieldDex4
+{variant:2,3}IncreasedLifeUnique__33
+{variant:2,3}LocalIncreasedEnergyShieldUnique__10
 100% increased Curse Duration
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 ChanceForEnemyToFleeOnBlockUniqueShieldDex4
 LifeLeechVsCursedEnemiesUnique__1
 ]],[[
@@ -269,13 +269,13 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 8, 26 Dex
 Implicits: 1
-{variant:3}MovementVelocityUniqueOneHandSword9
-IncreasedLifeUniqueGlovesInt3
+{variant:3}MovementVelocityImplicitShield1
+IncreasedLifeUniqueShieldDexInt1
 LifeRegenerationUniqueShieldDex2
-LightningResistUniqueStrDexHelmet1
-LifeLeechPermyriadUnique__4
+LightningResistUniqueShieldDex2
+LifeLeechPermyriadUniqueShieldDex2
 {variant:1}+10% Chance to Block
-{variant:2,3}AdditionalBlockChanceUniqueShieldStrInt6
+{variant:2,3}AdditionalBlockChanceUniqueShieldStr4
 ]],[[
 Great Old One's Ward
 Corrugated Buckler
@@ -283,10 +283,10 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 46, 112 Dex
 Implicits: 1
-{variant:2}MovementVelocityUniqueOneHandSword9
+{variant:2}MovementVelocityImplicitShield1
 AddedPhysicalDamageUniqueShieldDex6
 IncreasedAttackSpeedUniqueShieldDex6
-IncreasedLifeUnique__2
+IncreasedLifeUniqueShieldDex6
 (8-12)% Chance to Block Spells
 ]],[[
 Kaltenhalt
@@ -298,14 +298,14 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
-{variant:4}MovementVelocityMarakethBowImplicit1
-IncreasedEvasionRatingPercentUnique__1_
-MaximumColdResistUniqueShieldDex1
+{variant:4}MovementVelocityImplicitShield2
+LocalIncreasedEvasionRatingPercentUniqueShieldDex1
+IncreasedMaximumColdResistUniqueShieldStrInt4
 ColdResistUniqueShieldDex1
 {variant:3,4}PhysicalAddedAsColdUnique__2
 {variant:1}Reflects (5-10) Cold Damage to Melee Attackers
 {variant:2,3,4}MeleeAttackerTakesColdDamageUniqueShieldDex1
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 ]],[[
 Kaltensoul
 Painted Buckler
@@ -315,20 +315,20 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
-{variant:3}MovementVelocityMarakethBowImplicit1
-IncreasedEvasionRatingPercentUnique__1_
-MaximumColdResistUniqueShieldDex1
+{variant:3}MovementVelocityImplicitShield2
+LocalIncreasedEvasionRatingPercentUniqueShieldDex1
+IncreasedMaximumColdResistUniqueShieldStrInt4
 ColdResistUniqueShieldDex1
 {variant:2,3}PhysicalAddedAsColdUnique__2
 MeleeAttackerTakesColdDamageUniqueShieldDex1
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 FireDamageTakenAsColdUnique___1
 ]],[[
 Mistwall
 Lacquered Buckler
 Requires Level 60, 159 Dex
 Implicits: 1
-MovementVelocityMarakethBowImplicit1
+MovementVelocityImplicitShield2
 LocalIncreasedEvasionRatingPercentUnique__17
 MovementVelocityUniqueAmulet5
 FireAndColdResistUnique__4_
@@ -341,7 +341,7 @@ Lacquered Buckler
 League: Heist
 Requires Level 60, 159 Dex
 Implicits: 1
-MovementVelocityMarakethBowImplicit1
+MovementVelocityImplicitShield2
 LocalIncreasedEvasionRatingPercentUnique__17
 MovementVelocityUniqueAmulet5
 FireAndColdResistUnique__4_
@@ -358,9 +358,9 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 42, 103 Dex
 Implicits: 1
-{variant:3,4}MovementVelocityMarakethBowImplicit1
-{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldDex7
-{variant:1}IncreasedChaosDamageUnique__4_2
+{variant:3,4}MovementVelocityImplicitShield2
+{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldStr4
+{variant:1}IncreasedChaosDamageUniqueShieldDex7
 {variant:2,3,4}LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
 ColdResistUniqueShieldDex7
 10% increased Area of Effect of Area Skills
@@ -376,11 +376,11 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 63, 159 Dex
 Implicits: 1
-{variant:3}MovementVelocityUniqueOneHandSword9
-LocalIncreasedEvasionRatingPercentUniqueBodyStrDex5
+{variant:3}MovementVelocityImplicitShield1
+LocalIncreasedEvasionRatingPercentUniqueShieldDex5
 IncreasedLifeUniqueShieldDex5
-LifeLeechPermyriadUniqueRing2
-AdditionalBlockChanceUniqueShieldStrInt6
+LifeLeechPermyriadUniqueShieldDex5
+AdditionalBlockChanceUniqueShieldStr4
 ReflectDamageToAttackersOnBlockUniqueShieldDex5
 {variant:2,3}10% of Damage Reflected Gained as Life
 ]],
@@ -399,7 +399,7 @@ Implicits: 1
 SpellDamageImplicitShield1
 {variant:1}Adds (20-22) to (30-37) Chaos Damage
 {variant:2}GlobalAddedChaosDamageUnique__3
-LocalIncreasedEnergyShieldUniqueGlovesStr4
+LocalIncreasedEnergyShieldUniqueBootsDexInt4
 ChanceToBePoisonedUnique__1
 MaximumResistancesWhilePoisonedUnique__1
 {variant:1}50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
@@ -433,7 +433,7 @@ Variant: Armour during Soul Gain Prevention
 Variant: Level of Socketed Support Gems
 Requires Level 68, 159 Int
 SpellDamageUnique__10
-LocalIncreasedEnergyShieldPercentUnique__19
+LocalIncreasedEnergyShieldPercentUnique__13
 SpectreIncreasedLifeUnique__1
 GainArcaneSurgeOnCritUnique__1
 SpectresGainArcaneSurgeWhenYouDoUnique__1_
@@ -460,9 +460,9 @@ Requires Level 23, 60 Int
 Implicits: 2
 {variant:1,2}5% increased Spell Damage
 {variant:3,4}SpellDamageImplicitShield1
-{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldDex7
+{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldStr4
 {variant:2,3,4}LocalIncreaseSocketedWarcryGemLevelUniqueShieldInt5
-{variant:1}LocalIncreasedAttackSpeedUnique__24
+{variant:1}IncreasedAttackSpeedUniqueShieldInt5
 {variant:2,3,4}IncreasedCastSpeedUniqueClaw7
 LocalIncreasedEnergyShieldUniqueShieldInt5
 ManaRegenerationUniqueShieldInt5
@@ -476,9 +476,9 @@ League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
 Requires Level 53, 128 Int
-IntelligenceUnique__7
+IntelligenceUniqueShieldInt4
 IncreasedLifeUnique__36_
-LocalIncreasedEnergyShieldPercentUnique___4_
+LocalIncreasedEnergyShieldPercentUnique__7
 LightningResistUnique__7
 AddedLightningDamagePerShockedEnemyKilledUnique__1
 ReflectsShocksUnique__1
@@ -495,7 +495,7 @@ Implicits: 2
 {variant:2}SpellDamageImplicitShield1
 IncreasedLifeUnique__36_
 LocalIncreasedEnergyShieldPercentUnique__9
-LightningResistUniqueAmulet15
+LightningResistUnique__16
 ChaosResistUnique__4
 ChaosDamageDoesNotBypassESNotLowLifeOrManaUnique__1
 ReflectsShockToEnemiesInRadiusUnique__1
@@ -506,7 +506,7 @@ Requires Level 49, 118 Int
 Implicits: 1
 SpellDamageImplicitShield2
 Trigger a Socketed Warcry Skill when you lose Endurance Charges
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueShieldDexInt1
 ChaosResistUnique__17
 You lose all Endurance Charges at maximum Endurance Charges
 NeverBlockUnique__1
@@ -524,7 +524,7 @@ Implicits: 2
 {variant:2,3,4}SpellDamageImplicitShield3
 {variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
 {variant:3,4}CreateSmokeCloudWhenTrapTriggeredUnique__1
-IntelligenceUnique__7
+IntelligenceUniqueShieldInt4
 {variant:1,2}LocalIncreasedEnergyShieldPercentUnique__27
 {variant:3,4}LocalIncreasedEnergyShieldPercent__1
 {variant:1,2,3}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
@@ -561,7 +561,7 @@ Implicits: 2
 {variant:1,2}10% increased Spell Damage
 {variant:3,4}SpellDamageImplicitShield2
 {variant:1}(160-200)% increased Energy Shield
-{variant:2,3,4}LocalIncreasedEnergyShieldPercent__2
+{variant:2,3,4}LocalIncreasedEnergyShieldUniqueBodyInt3
 IncreasedMaximumPowerChargesUnique__3
 PowerChargeOnHitUnique__1
 {variant:1,2,3}6% increased Spell Damage per Power Charge
@@ -593,7 +593,7 @@ LocalIncreaseSocketedMinionGemLevelUniqueShieldInt2
 IncreasedManaUniqueShieldInt2
 LocalIncreasedEnergyShieldPercentUniqueShieldInt2
 AuraEffectOnMinionsUniqueShieldInt2
-AuraEffectUnique__2____
+AuraEffectUniqueShieldInt2
 GroundTarOnCritTakenUniqueShieldInt2
 ]],[[
 Whakatutuki o Matua
@@ -621,9 +621,9 @@ Variant: Current
 Requires Level 68, 159 Int
 {variant:1}+(12-18)% chance to Block Spell Damage
 {variant:2,3}+(10-15)% chance to Block Spell Damage
-{variant:1,2}SpellDamageUniqueStaff11_
-LocalIncreasedEnergyShieldPercentUniqueShieldInt1
-MaximumLifeUniqueBodyInt3
+{variant:1,2}SpellDamageUniqueShieldInt1
+LocalIncreasedEnergyShieldUniqueBodyInt4
+MaximumLifeShieldInt1
 {variant:1,2}LightningResistUniqueShieldInt1
 {variant:3}SacrificeLifeOnSpellSkillUnique__1
 {variant:3}SpellCriticalStrikeChancePerLifeUnique__1
@@ -647,9 +647,9 @@ Variant: Current
 Requires Level 33, 82 Int
 {variant:1}+7% chance to Block Spell Damage
 {variant:2}+10% chance to Block Spell Damage
-IntelligenceUnique__7
+IntelligenceUniqueShieldInt4
 ItemFoundQuantityIncreaseUniqueShieldInt4
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 PunishmentOnMeleeBlockUniqueShieldInt4
 TemporalChainsOnProjectileBlockUniqueShieldInt4
 ElementalWeaknessOnSpellBlockUniqueShieldInt4
@@ -666,10 +666,10 @@ Implicits: 1
 BlockRecoveryImplicitShield2
 LocalIncreasedPhysicalDamageUniqueSceptre9
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
-{variant:1}FireResistUniqueBelt13
-{variant:1}ColdResistUniqueShieldStrDex1
-{variant:1}LightningResistUniqueShieldStrDex1
-{variant:2,3}AllResistancesUnique__7
+{variant:1}FireResistUniqueShieldStrDex1
+{variant:1}ColdResistUniqueShieldInt3
+{variant:1}LightningResistUniqueShieldInt3
+{variant:2,3}AllResistancesUniqueHelmetStrInt1
 {variant:1,2}+36% chance to Block Spell Damage while on Low Life
 {variant:3}SpellBlockPercentageOnLowLifeUniqueShieldStrDex1_
 AdditionalBlockChanceUniqueShieldStrDex1
@@ -687,8 +687,8 @@ AddedPhysicalDamageUniqueShieldStrDex3
 {variant:1}Adds 4 to 8 Cold Damage to Attacks
 {variant:2}AddedColdDamageUniqueShieldStrDex3
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex3
-FireResistUniqueBodyInt2
-VulnerabilityOnBlockUniqueStaff9
+FireResistUniqueShieldStrDex3
+VulnerabilityOnBlockUniqueShieldStrDex3
 ]],[[
 The Ghastly Theatre
 Teak Round Shield
@@ -717,10 +717,10 @@ AdditionalBlockChanceUnique__7__
 Vix Lunaris
 Cardinal Round Shield
 Requires Level: 66, 85 Str, 85 Dex
-LocalIncreaseSocketedGemLevelUniqueRing39
+LocalIncreaseSocketedGemLevelUnique__1
 TriggeredColdAegisSkillUnique__1
 LocalIncreasedArmourAndEvasionUnique__4
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueShieldDexInt1
 CannotBeFrozenUnique__1
 ]],[[
 Wheel of the Stormsail
@@ -732,7 +732,7 @@ LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStrDex2
 ItemFoundRarityIncreaseUniqueShieldStrDex2
 25% increased Curse Duration
 IncreasedSelfCurseDurationUniqueShieldStrDex2
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 ]],
 -- Shield: Armour/Energy Shield
 [[
@@ -744,9 +744,9 @@ Variant: Current
 Requires Level 62, 85 Str, 85 Int
 WeaponElementalDamageUniqueShieldStrInt4
 {variant:1,2}LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt5
-{variant:3}LocalIncreasedArmourAndEnergyShieldUnique__22
-AllResistancesUniqueIntHelmet3
-MaximumColdResistUniqueShieldDex1
+{variant:3}LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt4
+AllResistancesUniqueShieldStrInt1
+IncreasedMaximumColdResistUniqueShieldStrInt4
 AdditionalBlockChanceUniqueShieldStrInt4
 {variant:1}Replenishes Energy Shield by 4% of Armour when you Block
 {variant:2,3}EnergyShieldGainedOnBlockUniqueShieldStrInt4
@@ -776,7 +776,7 @@ Steel Kite Shield
 League: Harvest
 Requires Level 46, 60 Str, 60 Int
 SpellBlockPercentageUnique__3_
-LocalIncreasedArmourAndEnergyShieldUnique__22
+LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt4
 MaximumLifeUnique__20___
 CannotBlockWithNoEnergyShieldUnique__1
 DamageBypassEnergyShieldBlockUnique__1
@@ -788,10 +788,10 @@ Archon Kite Shield
 Requires Level: 68, 85 Str, 85 Int
 Implicits: 1
 AllResistancesImplicitShield3
-LocalIncreaseSocketedGemLevelUniqueRing39
+LocalIncreaseSocketedGemLevelUnique__1
 TriggeredFireAegisSkillUnique__1_
-LocalIncreasedArmourAndEnergyShieldUnique__18_
-IncreasedLifeUniqueGlovesInt3
+LocalIncreasedArmourAndEnergyShieldUnique__8
+IncreasedLifeUniqueShieldDexInt1
 AvoidIgniteUnique__1
 ]],[[
 Prism Guardian
@@ -807,7 +807,7 @@ Implicits: 2
 {variant:3}LocalIncreaseSocketedAuraLevelUniqueShieldStrInt2
 SocketedemsHaveBloodMagicUniqueShieldStrInt2
 SocketedItemsHaveReducedReservationUniqueShieldStrInt2
-DexterityUniqueGlovesInt4__
+DexterityUniqueShieldStrInt2
 AllResistancesUniqueShieldStrInt2
 ]],[[
 Mahuxotl's Machination
@@ -852,8 +852,8 @@ Implicits: 2
 {variant:2,3}AllResistancesImplicitShield1
 {variant:1,2}+(21-24)% chance to Block Spell Damage
 {variant:3}+(15-20)% chance to Block Spell Damage
-SpellDamageOnWeaponUniqueDagger1Royale
-AllResistancesUniqueIntHelmet3
+SpellDamageUniqueShieldStrInt1
+AllResistancesUniqueShieldStrInt1
 {variant:1}+5% to all maximum Resistances
 {variant:2,3}IncreasedMaximumResistsUniqueShieldStrInt1
 CannotBlockAttacks
@@ -869,7 +869,7 @@ Requires Level 7
 Implicits: 2
 {variant:1}AllResistancesImplicitShield2
 {variant:2,3,4}AllResistancesImplicitShield1
-LocalIncreasedArmourAndEnergyShieldUnique__5
+LocalIncreasedArmourAndEnergyShieldUnique__16
 ReducedFreezeDurationUniqueShieldStrInt3
 {variant:3}1% of Life Regenerated per Second
 {variant:4}3% of Life Regenerated per Second
@@ -885,7 +885,7 @@ Variant: Current
 Requires Level 40
 Implicits: 1
 AllResistancesImplicitShield1
-LocalIncreasedArmourAndEnergyShieldUnique__5
+LocalIncreasedArmourAndEnergyShieldUnique__16
 IncreasedLifeUnique__22
 ReducedFreezeDurationUniqueShieldStrInt3
 {variant:1}1% of Life Regenerated per Second
@@ -901,10 +901,10 @@ Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 AllResistancesImplicitShield3
 HarbingerSkillOnEquipUnique__3
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueShieldDexInt1
 AllResistancesUnique__2
 GainManaOnBlockUnique__1
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 (50-70)% increased Damage with Channelling Skills
 ]],[[
 The Immortal Will
@@ -915,10 +915,10 @@ Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 AllResistancesImplicitShield3
 HarbingerSkillOnEquipUnique2__3
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueShieldDexInt1
 AllResistancesUnique__2
 GainManaOnBlockUnique__1
-AdditionalBlockChanceUniqueShieldStrInt6
+AdditionalBlockChanceUniqueShieldStr4
 (50-70)% increased Damage with Channelling Skills
 ]],[[
 Unyielding Flame
@@ -929,7 +929,7 @@ Implicits: 1
 AllResistancesImplicitShield3
 CommandmentOfInfernoOnCritUnique__1
 CriticalStrikeChanceUnique__3
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueShieldDexInt1
 FireResistUniqueAmulet4
 AttackSpeedIfCriticalStrikeDealtRecentlyUnique__1
 CastSpeedIfCriticalStrikeDealtRecentlyUnique__1
@@ -941,7 +941,7 @@ Variant: Current
 Requires Level 50, 64 Str, 64 Int
 Implicits: 1
 AllResistancesImplicitShield2
-IncreasedLifeUnique__2
+IncreasedLifeUniqueShieldDex6
 LightningResistUnique__2
 ChaosResistUnique__1
 {variant:1}10% increased Radius of Aura Skills
@@ -955,10 +955,10 @@ League: Heist
 Requires Level 50, 64 Str, 64 Int
 Implicits: 1
 AllResistancesImplicitShield2
-IncreasedLifeUnique__2
+IncreasedLifeUniqueShieldDex6
 LightningResistUnique__2
 ChaosResistUnique__1
-AuraEffectUnique__2____
+AuraEffectUniqueShieldInt2
 GrantsAlliesEnduranceChargeOnHitUnique__1
 GrantsAlliesFrenzyChargeOnKillUnique__1_
 ]],
@@ -969,9 +969,9 @@ Mirrored Spiked Shield
 League: Heist
 Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
-DodgeImplicitMarakethSword1
-LocalIncreasedEvasionAndEnergyShieldUnique__30_
-ManaRegenerationUnique__13
+ChanceToDodgeImplicitShield2
+LocalIncreasedEvasionAndEnergyShieldUnique__9
+ManaRegenerationUnique__12
 ChanceToBeShockedUnique__2
 ColdHitAndDoTDamageTakenAsLightningUnique__1
 FireHitAndDoTDamageTakenAsLightningUnique__1
@@ -985,8 +985,8 @@ Implicits: 2
 {variant:1}AttackerTakesDamageShieldImplicit3
 {variant:2}4% chance to Dodge Attacks
 LocalIncreasedEvasionAndEnergyShieldUnique__1
-IncreasedLifeUnique__8
-LocalIncreasedEnergyShieldUnique__6
+IncreasedLifeUniqueShieldStr2
+IncreasedEnergyShieldUnique___1
 ItemFoundRarityIncreaseUniqueHelmetDex3
 25% chance to avoid Fire Damage when Hit
 {variant:2}AlwaysIgniteWhileBurningUnique__1
@@ -1005,7 +1005,7 @@ Implicits: 2
 {variant:4}GrantsBearTrapUniqueShieldDexInt1
 TrapDamageUniqueShieldDexInt1
 (15-25)% increased Physical Damage
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueShieldDexInt1
 -(14-18) Physical Damage taken from Attacks
 {variant:1}15% chance to gain a Power Charge on Throwing a Trap
 {variant:2,3,4}25% chance to gain a Power Charge on Throwing a Trap
@@ -1019,8 +1019,8 @@ Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
 4% chance to Dodge Attacks
 {variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__7
-{variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__30_
-IncreasedLifeUniqueGlovesInt3
+{variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__9
+IncreasedLifeUniqueShieldDexInt1
 IncreasedAilmentDurationUnique__1
 AdditionalBlockChanceUnique__6
 SharedSufferingUnique__1
@@ -1034,7 +1034,7 @@ Requires Level 45, 58 Dex, 58 Int
 Implicits: 2
 {variant:1}AttackerTakesDamageShieldImplicit6
 {variant:2,3}2% chance to Dodge Spell Damage
-LocalIncreasedAttackSpeedUniqueBow10
+IncreasedAttackSpeedUniqueShieldDexInt2
 MaximumLifeUniqueShieldDexInt2
 AllResistancesUniqueShieldDexInt2
 10% increased Area of Effect of Area Skills
@@ -1052,7 +1052,7 @@ LocalIncreaseSocketedLightningGemLevelUnique__1
 TriggeredLightningAegisSkillUnique__1
 IncreasedAttackSpeedUnique__3_
 IncreasedCastSpeedUnique__17
-LocalIncreasedEvasionAndEnergyShieldUnique__20
+LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt2
 IncreasedManaUnique__15
 MovementVelocityUnique__38
 ]],[[
@@ -1072,10 +1072,10 @@ Zeel's Amplifier
 Polished Spiked Shield
 Requires Level 49, 64 Dex, 64 Int
 Implicits: 1
-DodgeImplicitMarakethSword1
+ChanceToDodgeImplicitShield2
 SpellDamageUnique__7
-LocalIncreasedEnergyShieldPercentUniqueIntHelmet1
-IncreasedLifeUnique__2
+IncreasedEnergyShieldImplicitBelt2
+IncreasedLifeUniqueShieldDex6
 AreaOfEffectPerEnemyKilledRecentlyUnique__1
 ZealotsOathIfHaventBeenHitRecentlyUnique__1
 ]],

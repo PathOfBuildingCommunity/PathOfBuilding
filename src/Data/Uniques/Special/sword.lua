@@ -44,7 +44,7 @@ Implicits: 2
 {variant:1}Adds (15-30) to (35-50) Physical Damage
 {variant:2}Adds (20-40) to (55-70) Physical Damage
 {variant:3,4}LocalAddedPhysicalDamageUniqueOneHandSword9
-LocalIncreasedAttackSpeedUniqueOneHandSword11
+LocalIncreasedAttackSpeedUniqueOneHandSword9
 IncreasedEvasionRatingUniqueOneHandSword9
 MovementVelocityUniqueOneHandSword9
 {variant:1,2,3}+(180-200) to Accuracy Rating
@@ -74,7 +74,7 @@ Implicits: 2
 {variant:1,2}18% increased Accuracy Rating
 {variant:3}AccuracyPercentImplicitSword1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueDescentStaff1
-{variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace4
+{variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword2
 IntelligenceUniqueOneHandSword2
 CriticalStrikeChanceUniqueOneHandSword2
 ManaLeechPermyriadUniqueOneHandSword2
@@ -91,13 +91,13 @@ Requires Level 28, 46 Str, 55 Dex
 Implicits: 2
 {variant:1,2}18% Increased Accuracy Rating
 {variant:3}IncreasedAccuracySwordImplicit3
-DisableOffHandSlotUnique__1
-LocalIncreasedPhysicalDamagePercentUniqueRapier1
+DisableOffhandSlot
+LocalIncreasedPhysicalDamagePercentUniqueOneHandSword4
 LocalCriticalStrikeChanceUniqueOneHandSword4
 {variant:1}+(15-20)% to Global Critical Strike Multiplier
 {variant:2,3}LocalCriticalMultiplierUniqueOneHandSword4
-FireResistUniqueBootsDex2
-AvoidIgniteUnique__1
+FireResistUniqueOneHandSword4
+AvoidIgniteUniqueOneHandSword4
 ConvertPhysicalToFireUniqueOneHandSword4
 Ignited Enemies Burn 50% faster
 You can only deal Damage with this Weapon and Ignite
@@ -111,7 +111,7 @@ Requires Level 51, 104 Str, 122 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}IncreasedAccuracySwordImplicit9
-DisableOffHandSlotUnique__1
+DisableOffhandSlot
 LocalAddedPhysicalDamageUniqueOneHandSword10
 LocalCriticalStrikeChanceUniqueOneHandSword10
 BurnDurationUnique__1
@@ -168,10 +168,10 @@ Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}AccuracyPercentImplicitSword1
 LocalAddedPhysicalDamageUniqueOneHandSword11
-{variant:1}LocalIncreasedPhyiscalDamagePercentUnique__3
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword13
 {variant:2}LocalIncreasedPhysicalDamageUniqueOneHandSword11
-{variant:1}LocalIncreasedAttackSpeedUniqueBow10
-{variant:2}LocalIncreasedAttackSpeedUniqueOneHandSword11
+{variant:1}LocalIncreasedAttackSpeedUniqueTwoHandSword6
+{variant:2}LocalIncreasedAttackSpeedUniqueOneHandSword9
 IncreasedManaReservationsCostUniqueOneHandSword11
 CannotBeBuffedByAlliedAurasUniqueOneHandSword11
 AurasCannotBuffAlliesUniqueOneHandSword11
@@ -185,7 +185,7 @@ Requires Level 47, 81 Str, 81 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}IncreasedAccuracySwordImplicit5
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
+LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
 LocalIncreasedAttackSpeedUnique__14
 ChaosDamageLifeLeechPermyriadUnique__1
 PhysicalDamageConvertToChaosUniqueBow5
@@ -197,7 +197,7 @@ League: Heist
 Requires Level 47, 81 Str, 81 Dex
 Implicits: 1
 IncreasedAccuracySwordImplicit5
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
+LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
 ChaosDamageLifeLeechPermyriadUnique__1
 PhysicalDamageConvertedToChaosUnique__2
 PhysicalDamageTakenAsChaosUnique__1
@@ -225,9 +225,9 @@ Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}IncreasedAccuracySwordImplicit3
 SupportedByMultistrikeUniqueOneHandSword13
-LocalIncreasedPhyiscalDamagePercentUnique__3
+LocalIncreasedPhysicalDamagePercentUniqueOneHandSword13
 LocalAddedPhysicalDamageUniqueOneHandSword13
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUniqueTwoHandSword6
 StunAvoidanceUniqueOneHandSword13
 StunRecoveryUniqueOneHandSword13
 ]],[[
@@ -238,7 +238,7 @@ Sockets: R-R-R-R-R-R
 Requires Level: 2
 Implicits: 1
 AccuracyPercentImplicitSword1
-DisableOffHandSlotUnique__1
+DisableOffhandSlot
 LocalCriticalStrikeChanceUnique__13
 PhysicalDamageToAttacksPerLevelUnique__2
 GainHerEmbraceOnIgniteUnique__1
@@ -250,7 +250,7 @@ League: Betrayal
 Source: Drops from Bosses in Safehouse
 Requires Level 66, 212 Dex
 Implicits: 1
-CriticalMultiplierImplicitSword1
+CriticalMultiplierImplicitSword2H1
 DoubleDamageWithWeaponUnique__1
 ]],[[
 The Princess
@@ -343,9 +343,9 @@ Implicits: 2
 IncreasedPhysicalDamagePercentOnLowLifeUniqueOneHandSword1
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword1
 LocalAddedPhysicalDamageUniqueDescentOneHandSword1
-IncreasedAttackSpeedUniqueQuiver1
-IncreasedLifeUnique___7Royale_
-LifeGainPerTargetUniqueOneHandSword1
+LocalIncreasedAttackSpeedUniqueOneHandSword1
+IncreasedLifeUniqueOneHandSword1
+LifeGainPerTargetUniqueOneHandSword7
 ]],[[
 Dreadbeak
 Rusted Sword
@@ -359,9 +359,9 @@ IncreasedPhysicalDamagePercentOnLowLifeUniqueOneHandSword1
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword1
 {variant:1}Adds (90-98) to (133-140) Physical Damage
 {variant:2}LocalAddedPhysicalDamageUnique__35
-IncreasedAttackSpeedUniqueQuiver1
-IncreasedLifeUnique___7Royale_
-LifeGainPerTargetUniqueOneHandSword1
+LocalIncreasedAttackSpeedUniqueOneHandSword1
+IncreasedLifeUniqueOneHandSword1
+LifeGainPerTargetUniqueOneHandSword7
 OnslaughtOnLowLifeUnique__1
 ]],[[
 Rigwald's Command
@@ -490,9 +490,9 @@ Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Implicits: 1
 IncreasedAccuracySwordImplicit4
 {variant:1}(110-120)% increased Physical Damage
-{variant:2}LocalIncreasedPhysicalDamagePercentUnique__35
+{variant:2}LocalIncreasedPhysicalDamagePercentUnique__34___
 {variant:1}LifeGainedFromEnemyDeathUnique__2
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUniqueTwoHandSword6
 {variant:2}LocalFreezeAsThoughDealingMoreDamageUnique__1
 {variant:2}LocalShockAsThoughDealingMoreDamageUnique__1
 {variant:2}LocalWeaponMoreIgniteDamageUnique__1
@@ -509,8 +509,8 @@ Requires Level 56, 96 Str, 96 Dex
 Implicits: 1
 IncreasedAccuracy2hSwordImplicit7
 {variant:1}LocalIncreasedPhysicalDamageUniqueClaw8
-{variant:2}LocalIncreasedPhysicalDamagePercentUnique__35
-LocalIncreasedAttackSpeedUniqueBow10
+{variant:2}LocalIncreasedPhysicalDamagePercentUnique__34___
+LocalIncreasedAttackSpeedUniqueTwoHandSword6
 LocalDamageConversionToRandomElementUnique__2_
 Hits with this Weapon always inflict Elemental Ailments
 LocalElementalDamageAgainstIgnitedEnemiesUnique__1_
@@ -555,7 +555,7 @@ Requires Level 64, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}IncreasedAccuracySwordImplicit8
-LocalIncreasedPhysicalDamagePercentUnique__6
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword7
 LocalAddedPhysicalDamageUnique__12
 ManaGainPerTargetUnique__1
 WeaponCountsAsAllOneHandedWeapons__1
@@ -571,7 +571,7 @@ Requires Level 17, 62 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}CriticalMultiplierUniqueGlovesDexInt2
-{variant:3}CriticalMultiplierImplicitSword1
+{variant:3}CriticalMultiplierImplicitSword2H1
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword1
 ItemFoundRarityDecreaseUniqueRapier1
 AllResistancesUniqueRapier2
@@ -586,7 +586,7 @@ Requires Level 30, 101 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}CriticalMultiplierUniqueGlovesDexInt2
-{variant:3}CriticalMultiplierImplicitSword1
+{variant:3}CriticalMultiplierImplicitSword2H1
 LocalIncreasedPhysicalDamagePercentUnique__27
 StrengthUnique__4
 IncreasedManaUnique__2
@@ -601,8 +601,8 @@ Variant: Current
 Requires Level 68, 212 Dex, 257 Int
 Implicits: 2
 {variant:1}CriticalMultiplierUniqueGlovesDexInt2
-{variant:2}CriticalMultiplierImplicitSword1
-LocalReducedPhysicalDamagePercentUnique__1
+{variant:2}CriticalMultiplierImplicitSword2H1
+LocalReducedPhysicalDamagePercentUniqueOneHandSword7
 LocalAddedColdDamageUnique__5
 SpellAddedColdDamageUnique__4
 LocalIncreasedAttackSpeedUnique__12
@@ -617,7 +617,7 @@ Variant: Current
 Requires Level 43, 140 Dex
 Implicits: 2
 {variant:1}CriticalMultiplierUniqueGlovesDexInt2
-{variant:2}CriticalMultiplierImplicitSword1
+{variant:2}CriticalMultiplierImplicitSword2H1
 LocalAddedPhysicalDamageUnique__11
 LocalAddedColdDamageUnique__3
 FrenzyChargeDurationUnique__1
@@ -631,7 +631,7 @@ Variant: Current
 Requires Level 26, 89 Dex
 Implicits: 2
 {variant:1}CriticalMultiplierUniqueGlovesDexInt2
-{variant:2}CriticalMultiplierImplicitSword1
+{variant:2}CriticalMultiplierImplicitSword2H1
 WeaponElementalDamageUnique__3
 LocalAddedLightningDamageUnique__3
 LocalIncreasedAttackSpeedUnique__15
@@ -647,11 +647,11 @@ Requires Level 22, 77 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}CriticalMultiplierUniqueGlovesDexInt2
-{variant:3}CriticalMultiplierImplicitSword1
-LocalReducedPhysicalDamagePercentUnique__1
+{variant:3}CriticalMultiplierImplicitSword2H1
+LocalReducedPhysicalDamagePercentUniqueOneHandSword7
 LocalAddedLightningDamageUniqueOneHandSword7
 LocalIncreasedAttackSpeedUniqueOneHandSword7
-LifeGainPerTargetUniqueOneHandSword1
+LifeGainPerTargetUniqueOneHandSword7
 {variant:1,2}5% Chance to Shock
 {variant:3}ChanceToShockUniqueOneHandSword7
 {variant:3}50% increased Herald of Thunder Buff Effect
@@ -665,13 +665,13 @@ Requires Level 7, 32 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}CriticalMultiplierUniqueGlovesDexInt2
-{variant:3}CriticalMultiplierImplicitSword1
+{variant:3}CriticalMultiplierImplicitSword2H1
 LocalIncreaseSocketedMeleeGemLevelUniqueRapier1
-DisableOffHandSlotUnique__1
-LocalIncreasedPhysicalDamagePercentUniqueRapier1
+DisableOffhandSlot
+LocalIncreasedPhysicalDamagePercentUniqueOneHandSword4
 LocalAddedFireDamageUniqueRapier1
-LocalIncreasedAttackSpeedUniqueDescentOneHandMace1
-CriticalStrikeChanceImplicitDagger1
+LocalIncreasedAttackSpeedUniqueTwoHandSword1
+CriticalStrikeChanceImplicitDaggerNew1
 IncreasedEvasionRatingUniqueRapier1
 ItemFoundRarityDecreaseUniqueRapier1
 MovementVelocityOnLowLifeUniqueBootsDex3
@@ -751,7 +751,7 @@ Implicits: 3
 {variant:2}AccuracyPercentImplicitSword1
 {variant:3}AccuracyPercentImplicit2HSword1
 +1 to Level of Active Socketed Skill Gems
-LocalIncreasedPhysicalDamagePercentUnique__6
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword7
 LocalChaosDamageUniqueTwoHandSword7
 {variant:1}LifeGainedOnEnemyDeathPerLevelUniqueTwoHandSword7
 {variant:1}IncreasedChaosDamagePerLevelUniqueTwoHandSword7
@@ -783,10 +783,10 @@ Requires Level 61, 113 Str, 113 Dex
 Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}IncreasedAccuracy2hSwordImplicit8
-{variant:3}CriticalMultiplierImplicitSword1
+{variant:3}CriticalMultiplierImplicitSword2H1
 {variant:1,2}(270-320)% increased Physical Damage
 {variant:3}LocalIncreasedPhysicalDamagePercentUnique__18
-LifeLeechPermyriadUnique__4
+LifeLeechPermyriadUniqueGlovesStrDex1
 MeleeDamageAgainstBleedingEnemiesUnique__1
 CannotLeechFromCriticalStrikesUnique___1
 ChanceToBlindOnCriticalStrikesUnique__1
@@ -801,9 +801,9 @@ Requires Level 67, 113 Str, 113 Dex
 Implicits: 2
 {variant:1,2}30% increased Accuracy Rating
 {variant:3}ElementalDamageUnique__1
-LocalReducedPhysicalDamagePercentUnique__1
+LocalReducedPhysicalDamagePercentUniqueOneHandSword7
 LocalAddedFireDamageUniqueTwoHandSword6
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUniqueTwoHandSword6
 ChanceToIgniteUniqueTwoHandSword6
 {variant:1}IncreasedPhysicalDamageTakenUniqueBootsDex8
 {variant:2,3}IncreasedPhysicalDamageTakenUniqueTwoHandSword6
@@ -817,10 +817,10 @@ Infernal Sword
 League: Heist
 Requires Level 67, 113 Str, 113 Dex
 Implicits: 1
-WeaponElementalDamageUniqueRing21
-LocalReducedPhysicalDamagePercentUnique__1
+WeaponElementalDamageImplicitSword1
+LocalReducedPhysicalDamagePercentUniqueOneHandSword7
 LocalAddedColdDamageUnique__9_
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUniqueTwoHandSword6
 LifeLeechPermyriadOnFrozenEnemiesUnique__1
 ChanceToFreezeUnique__5
 IncreasedPhysicalDamageTakenUniqueTwoHandSword6
@@ -843,8 +843,8 @@ IncreasedStrengthRequirementsUniqueTwoHandSword4
 SkeletonDurationUniqueTwoHandSword4
 {variant:1,2}MinionDamageUnique4
 {variant:3}MinionDamageUniqueTwoHandSword4
-MaximumMinionCountUniqueTwoHandSword4Updated
-MaximumMinionCountUniqueSceptre5
+MaximumMinionCountUniqueTwoHandSword4
+MaximumMinionCountUniqueBodyInt9
 MaximumMinionCountUniqueBootsStrInt2Updated
 ]],[[
 Queen's Escape
@@ -864,8 +864,8 @@ MinionRunSpeedUnique__2
 SkeletonDurationUniqueTwoHandSword4
 {variant:1,2}MinionDamageUnique4
 {variant:3}MinionDamageUniqueTwoHandSword4
-MaximumMinionCountUniqueTwoHandSword4Updated
-MaximumMinionCountUniqueSceptre5
+MaximumMinionCountUniqueTwoHandSword4
+MaximumMinionCountUniqueBodyInt9
 MaximumMinionCountUniqueBootsStrInt2Updated
 IncreasedStrengthRequirementsUniqueTwoHandSword4
 ]],[[
@@ -879,10 +879,10 @@ Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}IncreasedAccuracy2hSwordImplicit5
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword1
-LocalIncreasedAttackSpeedUniqueDescentOneHandMace1
+LocalIncreasedAttackSpeedUniqueTwoHandSword1
 {variant:1,2}+(150-200) to Accuracy Rating
-{variant:3}IncreasedAccuracyUniqueRing12
-MovementVelocityUniqueAmulet5
+{variant:3}IncreasedAccuracyUniqueTwoHandSword1
+MovementVelocityUniqueTwoHandSword1
 ]],[[
 Shiversting
 Bastard Sword
@@ -894,7 +894,7 @@ Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}AccuracyPercentImplicitSword1
 {variant:3}AccuracyPercentImplicit2HSword1
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword2
 LocalAddedColdDamageUniqueTwoHandSword2
 ManaLeechPermyriadUniqueTwoHandSword2
 CannotBeFrozenUnique__1
@@ -913,7 +913,7 @@ Implicits: 2
 LocalIncreasedAttackSpeedUnique__19
 IncreasedLifeUniqueBodyStrDexInt1
 IncreasedAttackAreaOfEffectUnique__2_
-DealNoElementalDamageUnique__2
+DealNoElementalDamageUnique__1
 PhysicalDamageCanShockUnique__1
 Shaper Item
 ]],[[
@@ -930,9 +930,9 @@ Implicits: 2
 {variant:2}(220-260)% increased Physical Damage
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword3
 {variant:2,3}LocalCriticalStrikeChanceUnique__8
-LocalIncreasedAttackSpeedUniqueDescentOneHandMace1
-ManaGainedFromEnemyDeathUniqueShieldInt3
-MovementVelocityUniqueAmulet5
+LocalIncreasedAttackSpeedUniqueTwoHandSword1
+ManaGainedFromEnemyDeathUniqueTwoHandSword3
+MovementVelocityUniqueTwoHandSword1
 GainFrenzyChargeOnCriticalHit
 ]],[[
 Voidforge

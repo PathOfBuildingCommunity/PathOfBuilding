@@ -27,7 +27,7 @@ IncreasedEnergyShieldImplicitBelt1
 IncreasedEvasionRatingUnique__2
 {variant:1}{tags:jewellery_defense}+(35-45) to maximum Energy Shield
 {variant:2}IncreasedEnergyShieldUnique__4
-AllResistancesUnique__2
+AllResistancesUniqueBelt13
 PhasingOnBeginESRechargeUnique___1
 6% chance to Dodge Attacks while Phasing
 MovementSpeedWhilePhasedUnique__2
@@ -38,7 +38,7 @@ Variant: Pre 2.6.0
 Requires Level 70
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
-WeaponElementalDamageUniqueShieldStrInt4
+WeaponElementalDamageUniqueBelt5
 IncreasedManaUniqueBelt5
 IncreasedEnergyShieldUniqueBelt5
 {tags:attack,mana,physical}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
@@ -50,8 +50,8 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 70
 Implicits: 1
-LocalIncreasedEnergyShieldPercentUniqueIntHelmet1
-{variant:1}WeaponElementalDamageUniqueShieldStrInt4
+IncreasedEnergyShieldImplicitBelt2
+{variant:1}WeaponElementalDamageUniqueBelt5
 {variant:2}IncreasedWeaponElementalDamagePercentPerPowerChargeUnique__1
 IncreasedManaUniqueBelt5
 IncreasedEnergyShieldUniqueBelt5
@@ -66,9 +66,9 @@ Variant: Current
 Requires Level 22
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
-AllDamageUniqueRing8
+AllDamageUniqueBelt11
 IntelligenceUniqueBelt11
-LocalIncreasedEnergyShieldUnique__6
+IncreasedEnergyShieldUniqueBelt11
 {variant:2}IncreasedEnergyShieldPercentUnique__1
 ReducedEnergyShieldDelayUniqueBelt11
 ]],[[
@@ -79,7 +79,7 @@ Requires Level 22
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 IntelligenceUniqueBelt11
-AllDamageUniqueRing8
+AllDamageUniqueBelt11
 FishingPoolConsumptionUnique__1__
 FishingCastDistanceUnique__1__
 FishingRarityUnique__2_
@@ -91,7 +91,7 @@ Requires Level 68
 Implicits: 1
 IncreasedLifeImplicitBelt1
 AddedPhysicalDamageUnique__9_
-StunDurationUniqueQuiver2
+StunDurationImplicitBelt1
 Nearby Enemies are Crushed while you have least 25 Rage
 PhysicalDamagePerRageUnique__1
 MaximumRageUnique__1
@@ -102,22 +102,22 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 20
 Implicits: 1
-StrengthImplicitBeltRoyale1
+StrengthImplicitBelt1
 {variant:1}10% reduced Chance to Block Attacks and Spells
 {tags:physical}(15-25)% increased Physical Damage
 ReducedCriticalStrikeDamageTakenUniqueBelt13
-IncreasedLifeUnique__19
+IncreasedLifeUniqueBelt13
 {variant:1}AllResistancesUniqueDagger9
-{variant:2}AllResistancesUnique__2
+{variant:2}AllResistancesUniqueBelt13
 {variant:2}NearbyEnemiesAreIntimidatedUnique__1
 ]],[[
 Bisco's Leash
 Heavy Belt
 Requires Level 30
 Implicits: 1
-StrengthImplicitBeltRoyale1
+StrengthImplicitBelt1
 ItemFoundQuantityIncreasedUnique__1
-ColdResistUniqueShieldDex7
+ColdResistUniqueBelt14
 SimulatedRampageDexInt6
 IncreasedRarityPerRampageStacksUnique__1
 ]],[[
@@ -202,11 +202,11 @@ Variant: Current (Cold)
 Variant: Current (Lightning)
 Requires Level 68
 Implicits: 1
-StrengthImplicitBeltRoyale1
-{variant:1,5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe6Royale
-{variant:2,6}FireDamagePercentUniqueRing36
+StrengthImplicitBelt1
+{variant:1,5}{tags:physical,attack}(20-30)% increased Physical Damage
+{variant:2,6}FireDamagePercentUniqueBelt9a
 {variant:3,7}ColdDamagePercentUniqueBelt9b
-{variant:4,8}TalismanIncreasedLightningDamage
+{variant:4,8}LightningDamagePercentUniqueBelt9c
 {variant:2,3,4,6,7,8}IncreasedPhysicalDamageReductionRatingUniqueBelt9
 {variant:1,3,4,5,7,8}FireResistUniqueBelt9
 {variant:1,2,4,5,6,8}ColdResistUniqueBelt9
@@ -233,7 +233,7 @@ League: Heist
 Requires Level 48
 Implicits: 1
 StunRecoveryImplicitBelt1
-AllAttributesUnique__8_
+AllAttributesUniqueBelt3
 BeltIncreasedFlaskChargesGainedUnique__1_
 BeltIncreasedFlaskChargedUsedUnique__1
 BeltIncreasedFlaskDurationUnique__3___
@@ -246,10 +246,10 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 52
 Implicits: 1
-StrengthImplicitBeltRoyale1
+StrengthImplicitBelt1
 IncreasedLifeFireResistUniqueBelt14
-FireResistUnique__9
-ColdResistUniqueShieldDex7
+FireResistUniqueBelt14
+ColdResistUniqueBelt14
 {variant:1}{tags:attack,life}0.6% of Attack Damage Leeched as Life against Chilled enemies
 {variant:2}LifeLeechPermyriadFromAttacksAgainstChilledEnemiesUniqueBelt14
 {variant:1}{tags:jewellery_elemental,attack}Ignites you inflict with Attacks deal Damage 20% faster
@@ -263,7 +263,7 @@ Requires Level 18
 Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
 ColdResistUnique__3
-BeltIncreasedFlaskDurationUnique__2
+BeltIncreasedFlaskDurationUnique__1
 DisplayChaosDegenerationAuraUnique__1
 IncreasedProjectileDamageUnique__5
 30% reduced Flask Charges gained while using a Flask
@@ -345,7 +345,7 @@ Implicits: 1
 IncreasedLifeImplicitBelt1
 StrengthUniqueBelt7
 DexterityUniqueBelt7
-IncreasedLifeUnique__67_
+IncreasedLifeUniqueBelt7
 DamageOnRareMonstersUniqueBelt7
 When you Kill a Rare monster, you gain its mods for 20 seconds
 ]],[[
@@ -357,7 +357,7 @@ Implicits: 1
 IncreasedLifeImplicitBelt1
 StrengthUniqueBelt7
 DexterityUniqueBelt7
-IncreasedLifeUnique__67_
+IncreasedLifeUniqueBelt7
 DamageOnMagicMonstersUnique__1_
 GainMagicMonsterModsOnKillUnique__1_
 its Non-Bloodline Modifiers for 20 seconds
@@ -440,9 +440,9 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
 Implicits: 1
-StunDurationUniqueQuiver2
+StunDurationImplicitBelt1
 {tags:physical}(25-40)% increased Physical Damage
-StrengthUniqueTwoHandSword5
+StrengthUniqueBelt2
 BeltIncreasedFlaskChargesGainedUniqueBelt2
 {variant:2}AllResistanceAt200StrengthUnique__1
 ]],[[
@@ -451,10 +451,10 @@ Studded Belt
 Source: Upgraded from unique{The Magnate} via prophecy{The Great Leader of the North}
 Requires Level 48
 Implicits: 1
-StunDurationUniqueQuiver2
+StunDurationImplicitBelt1
 IncreasedPhysicalDamagePercentUniqueBelt2
-StrengthUniqueTwoHandSword5
-DexterityUnique__7
+StrengthUniqueBelt2
+DexterityUnique__11
 BeltIncreasedFlaskChargesGainedUniqueBelt2
 AllResistanceAt200StrengthUnique__1
 ProjectileAttackDamageAt200DexterityUnique__1
@@ -464,9 +464,9 @@ Studded Belt
 Source: Upgraded from unique{The Magnate} via prophecy{The Great Mind of the North}
 Requires Level 48
 Implicits: 1
-StunDurationUniqueQuiver2
+StunDurationImplicitBelt1
 IncreasedPhysicalDamagePercentUniqueBelt2
-StrengthUniqueTwoHandSword5
+StrengthUniqueBelt2
 IntelligenceUnique__9
 BeltIncreasedFlaskChargesGainedUniqueBelt2
 AllResistanceAt200StrengthUnique__1
@@ -479,7 +479,7 @@ Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 AddedLightningDamageUniqueBelt12
 SelfShockDurationUniqueBelt12_
-ShocksReflectToSelfUnique__1
+ShocksReflectToSelfUniqueBelt12
 DamageIncreaseWhileShockedUniqueBelt12
 MovementVelocityWhileShockedUniqueBelt12
 ]],[[
@@ -489,12 +489,12 @@ Variant: Pre 2.0.0
 Variant: Current
 Requires Level 8
 Implicits: 1
-StrengthImplicitBeltRoyale1
+StrengthImplicitBelt1
 {variant:1}AddedPhysicalDamageUnique__3
-{variant:2}AddedPhysicalDamageUniqueHelmetStr3Royale
-StrengthUniqueDagger2
-MaximumLifeUniqueBodyInt3
-ColdResistUniqueShieldStrDex1
+{variant:2}AddedPhysicalDamageUniqueBelt4
+StrengthUniqueBelt4
+MaximumLifeUniqueBelt4
+ColdResistUniqueBelt4
 BeltFlaskLifeRecoveryRateUniqueBelt4
 ]],[[
 Mother's Embrace
@@ -502,7 +502,7 @@ Heavy Belt
 League: Metamorph
 Requires Level 40
 Implicits: 1
-StrengthImplicitBeltRoyale1
+StrengthImplicitBelt1
 IncreasedLifeUnique__2
 ColdResistUnique__3
 MinionsUseFlaskOnSummonUnique__1__
@@ -529,10 +529,10 @@ Variant: Current
 Requires Level 16
 Implicits: 1
 (15-25)% increased Stun Recovery
-AllAttributesUnique__8_
+AllAttributesUniqueBelt3
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}ItemFoundQuantityIncreaseUniqueBelt3
-FireResistUniqueAmulet7
+FireResistUniqueBelt3
 BeltIncreasedFlaskDurationUniqueBelt3
 {tags:physical}-2 Physical Damage taken from Attacks
 ]],[[
@@ -542,7 +542,7 @@ Requires Level 78
 Implicits: 1
 ArmourAndEvasionImplicitBelt1
 MaximumLifeUnique__6
-ColdResistUniqueShieldDex7
+ColdResistUniqueBelt14
 AttackDamagePerLowestArmourOrEvasionUnique__1
 FortifyOnMeleeStunUnique__1
 OnslaughtWhileFortifiedUnique__1
@@ -598,8 +598,8 @@ Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
 IncreasedLifeUniqueGlovesInt3
 ColdResistUniqueRing24
-LifeLeechPermyriadUniqueRing2
-BeltIncreasedFlaskDurationUnique__2
+LifeLeechPermyriadUniqueBelt1
+BeltIncreasedFlaskDurationUnique__1
 30% reduced Flask Charges gained while using a Flask
 EnemiesLoseLifePlayerLeechesUnique__1
 {tags:speed}15% increased Movement Speed while using a Flask
@@ -610,7 +610,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20
 Implicits: 1
-StunDurationUniqueQuiver2
+StunDurationImplicitBelt1
 {variant:2}IncreasedLifeUniqueHelmetDex4
 StrengthUnique__5
 AddedPhysicalDamageUnique__4
@@ -624,8 +624,8 @@ Siegebreaker
 Heavy Belt
 Requires Level: 44
 Implicits: 1
-StrengthImplicitBeltRoyale1
-IncreasedEnergyShieldPercentUnique__3
+StrengthImplicitBelt1
+IncreasedEnergyShieldPercentUnique__5
 MaximumLifeUnique__16
 ChaosResistUnique__17
 MinionAttacksTauntOnHitChanceUnique__1
@@ -636,8 +636,8 @@ Heavy Belt
 League: Heist
 Requires Level 44
 Implicits: 1
-StrengthImplicitBeltRoyale1
-IncreasedEnergyShieldPercentUnique__3
+StrengthImplicitBelt1
+IncreasedEnergyShieldPercentUnique__5
 MaximumLifeUnique__16
 FireResistUnique__24
 MinionBurningCloudOnDeathUnique__1
@@ -742,9 +742,9 @@ Implicits: 1
 (15-25)% increased Stun Recovery
 TrapDamageUniqueBelt6
 ManaRegenerationUniqueBelt6
-FireResistUniqueAmulet4
+FireResistUniqueBelt6
 TrapDurationUniqueBelt6
-LightRadiusUniqueSceptre2
+LightRadiusUniqueBelt6
 Traps trigger at the end of their Duration
 ]],[[
 Survivor's Guilt
@@ -775,10 +775,10 @@ Leather Belt
 Requires Level 8
 Implicits: 1
 IncreasedLifeImplicitBelt1
-StrengthUniqueClaw5_
-IntelligenceUnique__7
-ColdResistUniqueShieldStrDex1
-LifeLeechPermyriadUniqueRing2
-ManaLeechPermyriadUniqueRing17
+StrengthUniqueBelt1
+IntelligenceUniqueBelt1
+ColdResistUniqueBelt4
+LifeLeechPermyriadUniqueBelt1
+ManaLeechPermyriadUniqueBelt1
 ]],
 }
