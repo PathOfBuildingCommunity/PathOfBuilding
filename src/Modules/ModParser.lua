@@ -2494,6 +2494,7 @@ local specialModList = {
 		mod("Armour", "MORE", -100),
 		mod("EnergyShield", "MORE", -100),
 		mod("Evasion", "MORE", -100),
+		mod("Ward", "MORE", -100),
 	},
 	["you have no intelligence"] = {
 		mod("Int", "MORE", -100),
