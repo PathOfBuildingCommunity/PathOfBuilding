@@ -69,6 +69,8 @@ Our example is fairly simple, as some mod forms will slightly alter mod names an
 
   If you're missing something, you can also see what is unable to be parsed: ![Unparsed Mods](https://i.imgur.com/RiIH0u4.png)
 
+- All mods get converted to lower case before getting parsed, so when adding a new one make sure it's also lowercase.
+
 - When adding a mod, see if you can add a new flag, or mod tag, before adding it to `specialModList`.  It makes the code much cleaner overall.
 
 - When a mod changes, keep in mind backwards compatibility.  Since mods in most builds contain just the raw mod text, and are not tied to the underlying mod from GGG's data, we need to keep old mod wordings intact so those keep working on older builds.  This is especially true for mods that have gone legacy (i.e. can still exist in game)
