@@ -40,7 +40,7 @@ The code for this can be found in `CalcTools.lua` starting [here](../src/Modules
 
 ## Adding minions
 
-The minion itself has to be added to `Minion.txt`.  This file uses different directives to construct the data, but the most important ones are `#monster monsterVariety monsterName`, `#limit modName`, and `#emit`. `monsterVariety` uses the Id from `MonsterVarieties`, while `monsterName` will be referenced in the skill gem.  `#limit` sets a limit on summoned monsters based on a multiplier calculated elsewhere on the character, and `#emit` works similarly to the `#mods` directive on skills.
-The only extra thing that needs to be added to the base skill is a table called `minionList` that contains the names of all the minions that skill can summon (`monsterName` from the previous step).
-Some minions have skills of their own.  These skills can be added like any other skill to `minion.txt`.
+* The minion itself has to be added to `Minion.txt`.  This file uses different directives to construct the data, but the most important ones are `#monster monsterVariety monsterName`, `#limit modName`, and `#emit`. `monsterVariety` uses the Id from `MonsterVarieties`, while `monsterName` will be referenced in the skill gem.  `#limit` sets a limit on summoned monsters based on a multiplier calculated elsewhere on the character, and `#emit` works similarly to the `#mods` directive on skills.
+* The only extra thing that needs to be added to the base skill is a table called `minionList` that contains the names of all the minions that skill can summon (`monsterName` from the previous step).
+* Some minions have skills of their own.  These skills can be added like any other skill to `minion.txt`.
 
