@@ -120,18 +120,13 @@ function PassiveSpecClass:Load(xml, dbFileName)
 
 					local editorSeed = tonumber(child.attrib.editorSeed)
 					local nodeId = tonumber(child.attrib.nodeId)
-					if not self.tree.legion.editedNodes then
-						self.tree.legion.editedNodes = { }
-					end
-					if self.tree.legion.editedNodes[editorSeed] then
-						self.tree.legion.editedNodes[editorSeed][nodeId] = copyTable(self.nodes[nodeId], true)
-					else
-						self.tree.legion.editedNodes[editorSeed] = { [nodeId] = copyTable(self.nodes[nodeId], true) }
-					end
+					self.tree.legion.editedNodes = { }
+					self.tree.legion.editedNodes[editorSeed] = { [nodeId] = copyTable(self.nodes[nodeId], true) }
 					self.tree.legion.editedNodes[editorSeed][nodeId].id = nodeId
 					self.tree.legion.editedNodes[editorSeed][nodeId].dn = child.attrib.nodeName
 					self.tree.legion.editedNodes[editorSeed][nodeId].icon = child.attrib.icon
 					if self.tree.legion.nodes[child.attrib.spriteId] then
+						self.tree.legion.editedNodes[editorSeed][nodeId].spriteId = child.attrib.spriteId
 						self.tree.legion.editedNodes[editorSeed][nodeId].sprites = self.tree.legion.nodes[child.attrib.spriteId].sprites
 					end
 					local modCount = 0
