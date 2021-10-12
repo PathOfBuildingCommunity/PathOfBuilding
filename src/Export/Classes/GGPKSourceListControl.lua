@@ -42,11 +42,11 @@ function GGPKSourceListClass:EditDATSource(datSource, newSource)
 		datSource.label = controls.label.buf
 		datSource.ggpkPath = controls.ggpk.buf or ""
 		datSource.datFilePath = controls.dat.buf or ""
+		datSource.spec = controls.spec.buf
 		if newSource then
 			table.insert(self.list, datSource)
 			self.selIndex = #self.list
 			self.selValue = datSource
-			--table.insert(main.datSources, datSource)
 		end
 		main:ClosePopup()
 	end)

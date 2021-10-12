@@ -150,7 +150,7 @@ function main:Init()
 		self.OpenPathPopup()
 	end)
 	self.controls.datSource = new("DropDownControl", nil, 10, 50, 250, 18, self.datSources, function(_, value)
-		local out = io.open(self.datSource.spec..self.datSource.spec:match("%.lua$") and "" or ".lua", "w")
+		local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
 		out:write('return ')
 		writeLuaTable(out, self.datSpecs, 1)
 		out:close()
@@ -439,6 +439,7 @@ function main:LoadSettings()
 		return true
 	end
 	self.datSource = {}
+	self.datSources = {}
 	for _, node in ipairs(setXML[1]) do
 		if type(node) == "table" then
 			if node.elem == "DatSource" then
@@ -448,12 +449,14 @@ function main:LoadSettings()
 				self.datSource.spec = node.attrib.spec
 			end
 			if node.elem == "DatSources" then
-				self.datSources = {}
 				for _, child in ipairs(node) do
 					t_insert(self.datSources, { ggpkPath = child.attrib.ggpkPath, datFilePath = child.attrib.datFilePath, label = child.attrib.label, spec = child.attrib.spec })
 				end
 			end
 		end
+	end
+	if not next(self.datSources) then
+		t_insert(self.datSources, self.datSource)
 	end
 end
 
