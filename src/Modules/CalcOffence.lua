@@ -930,9 +930,6 @@ function calcs.offence(env, actor, activeSkill)
 
 		if mirageActiveSkill then
 			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
-			local maxMirageWarriors = m_max(mirageActiveSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount"), 1)
-
-			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. activeSkill.activeEffect.grantedEffect.name
 
 			-- Non-channelled skills only attack once, disregard attack rate
 			if not activeSkill.skillTypes[SkillType.Channelled] then
@@ -952,13 +949,13 @@ function calcs.offence(env, actor, activeSkill)
 				local mod = value.mod
 				skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 			end
-
-			-- Scale dps with amount of mirages
-			output.QuantityMultiplier = maxMirageWarriors
-			if breakdown then
-				breakdown.QuantityMultiplier = {}
-				breakdown.QuantityMultiplier.modList = mirageActiveSkill.skillModList:Tabulate("BASE", activeSkill.skillCfg, "GeneralsCryDoubleMaxCount")
+			local maxMirageWarriors = 0
+			for _, value in ipairs(mirageActiveSkill.skillModList:Tabulate("BASE", skillCfg, "GeneralsCryDoubleMaxCount")) do
+				local mod = value.mod
+				skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+				maxMirageWarriors = maxMirageWarriors + mod.value
 			end
+			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. activeSkill.activeEffect.grantedEffect.name
 
 			-- Scale dps with GC's cooldown
 			if skillData.dpsMultiplier then
