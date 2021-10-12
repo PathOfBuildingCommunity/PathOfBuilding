@@ -2386,9 +2386,9 @@ local specialModList = {
 	["each summoned phantasm grants you phantasmal might"] = { flag("Condition:PhantasmalMight") },
 	["minions have (%d+)%% increased critical strike chance per maximum power charge you have"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", num, { type = "Multiplier",actor = "parent", var = "PowerChargeMax" }) }) } end,
 	["minions can hear the whispers for 5 seconds after they deal a critical strike"] = function() return {
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 50) }),
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 50) }),
-		mod("MinionModifier", "LIST", { mod = mod("ChaosDegen", "BASE", 1,{type = "PercentStat", stat = "Life", percent = 20}) }),
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 50, { type = "Condition", neg = true, var = "NeverCrit"}) }),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 50, { type = "Condition", neg = true, var = "NeverCrit"}) }),
+		mod("MinionModifier", "LIST", { mod = mod("ChaosDegen", "BASE", 1, {type = "PercentStat", stat = "Life", percent = 20},{ type = "Condition", neg = true, var = "NeverCrit"}) }),
 	} end,
 	
 	-- Projectiles
