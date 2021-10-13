@@ -518,7 +518,7 @@ Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 56, 152 Int
-{fractured}LocalIncreasedEnergyShieldPercentUnique__24
+LocalIncreasedEnergyShieldPercentUnique__24
 StrengthIntelligenceRequirementsUnique__1
 DivineChargeOnHitUnique__1_
 Gain a Divine Charge on Hit
