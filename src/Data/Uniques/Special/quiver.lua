@@ -11,8 +11,8 @@ Requires Level 10
 Implicits: 1
 (20-30)% increased Accuracy Rating
 {variant:2}GrantsFrostbiteUnique__1
-LocalIncreasedAttackSpeedUnique__24
-ColdResistUnique__17
+IncreasedAttackSpeedUniqueQuiver7
+ColdResistUniqueQuiver5
 IncreasedChillDurationUniqueQuiver5
 ConvertPhysicalToColdUniqueQuiver5
 ChanceToFreezeUniqueQuiver5
@@ -27,9 +27,9 @@ Variant: Current
 Requires Level 22
 Implicits: 1
 Adds 4 to 8 Fire Damage to Attacks with Bows
-IncreasedAttackSpeedUniqueQuiver1
+IncreasedAttackSpeedUniqueQuiver9
 IncreasedEvasionRatingUniqueQuiver1
-IncreasedManaUniqueQuiver1
+IncreasedManaUniqueQuiver1a
 {variant:1}(30-50)% of Physical Damage Converted to Fire Damage
 {variant:2}ConvertPhysicalToFireUniqueQuiver1_
 Adds 5 to 10 Fire Damage to Attacks with Bows
@@ -42,9 +42,9 @@ Source: Upgraded from unique{Blackgleam} using prophecy{Fire and Brimstone}
 Requires Level 24
 Implicits: 1
 Adds 4 to 8 Fire Damage to Attacks with Bows
-IncreasedAttackSpeedUniqueQuiver1
+IncreasedAttackSpeedUniqueQuiver9
 IncreasedEvasionRatingUniqueQuiver1
-IncreasedManaUniqueQuiver1
+IncreasedManaUniqueQuiver1a
 {variant:1}Gain (25-35)% of Physical Damage as Extra Fire Damage
 {variant:2}PhysicalAddedAsFireUnique__1
 ConvertPhysicalToFireUniqueQuiver1_
@@ -78,11 +78,11 @@ Penetrating Arrow Quiver
 Requires Level 36
 Implicits: 1
 AdditionalArrowPierceImplicitQuiver12_
-LocalIncreasedAttackSpeedUnique__24
+IncreasedAttackSpeedUniqueQuiver7
 IncreasedEvasionRatingUniqueQuiver3_
 IncreasedLifeUniqueQuiver3
 Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
-ArrowDamageAgainstPiercedTargetsUnique__1
+ArrowPierceAppliesToProjectileDamageUniqueQuiver3
 ]],[[
 The Fracturing Spinner
 Blunt Arrow Quiver
@@ -118,11 +118,11 @@ Variant: Current
 Requires Level 10
 Implicits: 1
 LifeGainPerTargetImplicitQuiver8
-StrengthUniqueRing31__
+StrengthUniqueQuiver6
 DexterityUniqueQuiver6
-IntelligenceUniqueBelt11
+IntelligenceUniqueQuiver6
 {variant:2}AddedColdDamageUnique__1
-LocalIncreasedAttackSpeedUniqueOneHandSword6
+IncreasedAttackSpeedUniqueQuiver6
 LifeGainPerTargetUniqueQuiver6_
 10% increased Area of Effect of Area Skills
 ]],[[
@@ -133,9 +133,9 @@ Requires Level 45
 Implicits: 1
 LifeGainPerTargetImplicitQuiver8
 AllAttributesUnique__7
-LocalIncreasedAttackSpeedUniqueOneHandSword6
+IncreasedAttackSpeedUniqueQuiver6
 LifeGainPerTargetUniqueQuiver6_
-AreaOfEffectUnique__3
+AreaOfEffectUniqueQuiver6
 ColdDamageToAttacksPerDexterityUnique__1
 FireDamageToAttacksPerStrengthUnique__1
 LightningDamageToAttacksPerIntelligenceUnique__1
@@ -144,11 +144,11 @@ Maloney's Mechanism
 Ornate Quiver
 Requires Level 45
 Implicits: 1
-RingHasOneSocket
+QuiverHasOneSocket
 HasTwoSocketsUnique__1
 TriggerBowSkillsOnBowAttackUnique__1
-LocalIncreasedAttackSpeedUniqueBow12
-IncreasedLifeUnique__2
+IncreasedAttackSpeedUnique__4_
+IncreasedLifeUniqueQuiver9
 AttacksBlindOnHitChanceUnique__1
 ]],[[
 Replica Maloney's Mechanism
@@ -156,11 +156,11 @@ Ornate Quiver
 League: Heist
 Requires Level 45
 Implicits: 1
-RingHasOneSocket
+QuiverHasOneSocket
 HasTwoSocketsUnique__1
 Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow
 IncreasedCastSpeedUnique__21
-IncreasedLifeUnique__2
+IncreasedLifeUniqueQuiver9
 AttacksBlindOnHitChanceUnique__1
 ]],[[
 Maloney's Nightfall
@@ -171,8 +171,8 @@ Requires Level 55
 Implicits: 1
 StunDurationImplicitQuiver9
 {variant:1}LocalIncreasedAttackSpeedUnique__10
-{variant:2}IncreasedAttackSpeedUniqueQuiver1
-IncreasedLifeUnique__2
+{variant:2}IncreasedAttackSpeedUniqueQuiver9
+IncreasedLifeUniqueQuiver9
 ChaosResistUniqueQuiver9
 {variant:1}Adds (5-7) to (8-10) Physical Damage to Attacks with Bows
 {variant:2}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
@@ -206,7 +206,7 @@ FireResistUnique__3
 LightningResistUnique__2
 LifeGainPerTargetUnique__1
 ProjectileSpeedUniqueQuiver2
-IncreasedProjectileDamageUnique___4
+IncreasedProjectileDamageUnique___10_
 {variant:1}Projectiles Fork
 {variant:2}ProjectilesForkUnique____1
 ]],[[
@@ -214,8 +214,8 @@ Saemus' Gift
 Spike-Point Arrow Quiver
 Requires Level 45
 Implicits: 1
-CriticalStrikeChanceImplicitRing1
-DexterityUnique__5
+CriticalStrikeChanceImplicitQuiver13
+DexterityImplicitQuiver1
 IncreasedCastSpeedUniqueClaw7
 IncreasedLifeUnique__27
 LightningResistUnique__5
@@ -228,7 +228,7 @@ League: Harvest
 Requires Level 57
 Implicits: 1
 Adds 6 to 12 Physical Damage to Bow Attacks
-DexterityUnique__20__
+DexterityUnique__6
 LifeRegenerationBloodStanceUnique__1
 ProjectileDamageBloodStanceUnique__1
 EvasionRatingSandStanceUnique__1
@@ -240,7 +240,7 @@ Two-Point Arrow Quiver
 Requires Level 19
 Implicits: 1
 (20-30)% increased Accuracy Rating
-IntelligenceUniqueBelt11
+IntelligenceUniqueQuiver6
 IncreasedManaUnique__6
 ManaRegenerationImplicitAmulet1
 ManaLeechPermyriadUniqueGlovesDexInt6
@@ -263,11 +263,11 @@ Variant: Pre 2.5.0
 Variant: Current
 Requires Level 64
 Implicits: 1
-CriticalStrikeChanceImplicitRing1
+CriticalStrikeChanceImplicitQuiver13
 DexterityUniqueQuiver7
 AddedChaosDamageUniqueQuiver7
-LocalIncreasedAttackSpeedUnique__24
-LocalIncreasedEnergyShieldUnique__9
+IncreasedAttackSpeedUniqueQuiver7
+IncreasedEnergyShieldUniqueQuiver7
 ReducedEnergyShieldRegenerationRateUniqueQuiver7
 {variant:1}150% faster start of Energy Shield Recharge
 {variant:2}ReducedEnergyShieldDelayUniqueQuiver7
@@ -277,10 +277,10 @@ Spike-Point Arrow Quiver
 League: Heist
 Requires Level 64
 Implicits: 1
-CriticalStrikeChanceImplicitRing1
+CriticalStrikeChanceImplicitQuiver13
 DexterityUniqueQuiver7
 AddedPhysicalDamageUnique__10
-LocalIncreasedAttackSpeedUnique__24
+IncreasedAttackSpeedUniqueQuiver7
 IncreasedLifeUniqueGlovesInt3
 MaximumLifeLeechAmountUnique__2
 40% increased Maximum total Recovery per second from Life Leech
@@ -297,7 +297,7 @@ AddedColdDamageUnique__7
 IncreasedEnergyShieldUnique__7
 ColdResistUnique__3
 ManaGainedFromEnemyDeathUnique__2
-ProjectileSpeedUnique__2
+ProjectileSpeedUnique__5__
 MaximumVoidArrowsUnique__1
 Gain a Void Charge every 0.5 seconds
 Elder Item

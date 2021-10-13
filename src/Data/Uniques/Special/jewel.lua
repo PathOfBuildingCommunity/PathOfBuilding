@@ -6,7 +6,7 @@ return {
 Anatomical Knowledge
 Cobalt Jewel
 Radius: Large
-MaximumLifeUnique__15
+MaximumLifeUniqueJewel52
 LifePerIntelligenceInRadusUniqueJewel52
 ]],[[
 The Anima Stone
@@ -37,7 +37,7 @@ Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Blue Nightmare} using currency{Blessing of Chayula}
 Radius: Large
 ChaosDamageAsPortionOfLightningDamageUnique__1
-LightningResistAlsoGrantsPowerChargeOnKillJewelUnique__1
+LightningResistConvertedToSpellBlockChanceScaledJewelUnique__1
 also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 The Blue Nightmare
@@ -47,22 +47,22 @@ Source: Upgraded from unique{The Blue Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 ChaosDamageAsPortionOfLightningDamageUnique__1
-LightningResistAlsoGrantsPowerChargeOnKillJewelUnique__1
+LightningResistConvertedToSpellBlockChanceScaledJewelUnique__1
 also grant Chance to Block Spell Damage at 35% of its value
-LightningResistAlsoGrantsPowerChargeOnKillJewelUnique__1
+LightningResistConvertedToSpellBlockChanceScaledJewelUnique__1
 also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 Brawn
 Crimson Jewel
 PercentageDexterityUniqueJewel29
-PercentageStrengthUnique__2
+PercentageStrengthUniqueJewel29
 PercentageIntelligenceUniqueJewel29
 ]],[[
 Brute Force Solution
 Cobalt Jewel
 Radius: Large
-IntelligenceUniqueJewel11
-JewelStrToInt
+IntelligenceUniqueJewel35
+JewelStrToIntUniqueJewel35
 ]],[[
 Calamitous Visions
 Small Cluster Jewel
@@ -73,8 +73,8 @@ JewelExpansionLoneMessenger_
 Careful Planning
 Viridian Jewel
 Radius: Large
-DexterityUniqueJewel36
-JewelIntToDexUniqueJewel36
+DexterityUniqueJewel13
+JewelIntToDex
 ]],[[
 Cheap Construction
 Viridian Jewel
@@ -90,7 +90,7 @@ AdditionalTrapsUnique__2__
 Clear Mind
 Cobalt Jewel
 Limited to: 1
-ManaRegenerationImplicitAmulet1
+ManaRegenerationUniqueJewel30
 SpellDamageWithNoManaReservedUniqueJewel30
 ]],[[
 Coated Shrapnel
@@ -111,8 +111,8 @@ Increases and Reductions to Cold Damage in Radius are Transformed to apply to Ph
 Efficient Training
 Crimson Jewel
 Radius: Large
-StrengthUniqueJewel37
-JewelIntToStrUniqueJewel34
+StrengthUniqueJewel34
+JewelIntToStr
 ]],[[
 Eldritch Knowledge
 Cobalt Jewel
@@ -132,7 +132,7 @@ With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
 Energised Armour
 Crimson Jewel
 Radius: Large
-GlobalPhysicalDamageReductionRatingPercentUnique__1
+IncreasedPhysicalDamageReductionRatingPercentUniqueJewel50
 EnergyShieldInRadiusIncreasesArmourUniqueJewel50
 ]],[[
 Energy From Within
@@ -147,8 +147,8 @@ LifeInRadiusBecomesEnergyShieldAtHalfValueUniqueJewel51
 Fertile Mind
 Cobalt Jewel
 Radius: Large
-IntelligenceUniqueJewel11
-JewelDexToInt
+IntelligenceUniqueJewel35
+JewelDexToIntUniqueJewel11
 ]],[[
 Fireborn
 Crimson Jewel
@@ -158,8 +158,8 @@ AllDamageInRadiusBecomesFireUniqueJewel49
 Fluid Motion
 Viridian Jewel
 Radius: Large
-DexterityUniqueJewel36
-JewelStrToDex
+DexterityUniqueJewel13
+JewelStrToDexUniqueJewel13
 ]],[[
 Fortified Legion
 Cobalt Jewel
@@ -261,7 +261,7 @@ Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Green Nightmare} using currency{Blessing of Chayula}
 Radius: Large
 ChaosDamageAsPortionOfColdDamageUnique__1
-ColdResistConvertedToDodgeChanceScaledJewelUnique__1
+ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
@@ -271,9 +271,9 @@ Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula
 Limited to: 1
 Radius: Large
 ChaosDamageAsPortionOfColdDamageUnique__1
-ColdResistConvertedToDodgeChanceScaledJewelUnique__1
+ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 also grant Chance to Dodge Attack Hits at 35% of its value
-ColdResistConvertedToDodgeChanceScaledJewelUnique__1
+ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 Hair Trigger
@@ -302,7 +302,7 @@ Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
 {variant:1}(10-15)% increased Movement Speed while Ignited
-{variant:2}MovementVelocityWhileIgnitedUnique__2
+{variant:2}MovementVelocityWhileIgnitedUniqueJewel20
 {variant:2}IncreasedAttackSpeedWhileIgnitedUniqueJewel20
 {variant:2}IncreasedCastSpeedWhileIgnitedUniqueJewel20_
 ]],[[
@@ -317,8 +317,8 @@ MovementVelocityWhileChilledUnique__1_
 Inertia
 Crimson Jewel
 Radius: Large
-StrengthUniqueJewel37
-JewelDexToStr
+StrengthUniqueJewel34
+JewelDexToStrUniqueJewel37
 ]],[[
 Inspired Learning
 Crimson Jewel
@@ -334,7 +334,7 @@ JewelExpansionSecretsOfSuffering
 Intuitive Leap
 Viridian Jewel
 Radius: Small
-AllocateDisconnectedPassivesDonutUnique__1
+JewelUniqueAllocateDisconnectedPassives
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
@@ -369,7 +369,7 @@ Variant: Impale Effect (Current)
 {variant:2,5}ImpalePhysicalReductionPenaltyUnique__1
 {variant:3,6}ImpaleEffectUnique__2
 {variant:1,3,4,6}CallOfSteelAreaOfEffectUnique__2___
-{variant:2,3,5,6}CallOfSteelUseSpeedUnique__2
+{variant:2,3,5,6}CallOfSteelUseSpeedUnique__1
 {variant:1,2}Call of Steel causes (40-50)% increased Reflected Damage
 {variant:4,5}CallOfSteelReflectDamageUnique__1
 ]],[[
@@ -430,7 +430,7 @@ Viridian Jewel
 GolemAttackAndCastSpeedUnique__1
 GolemBuffEffectUnique__1
 GolemArmourRatingUnique__1
-PrimordialJewelCountUnique__3
+PrimordialJewelCountUnique__4
 ]],[[
 Primordial Harmony
 Cobalt Jewel
@@ -441,7 +441,7 @@ GolemSkillsCooldownRecoveryUnique__1
 {variant:2}GolemsSkillsCooldownRecoveryUnique__1_
 IncreasedGolemDamagePerGolemUnique__1
 GolemLifeRegenerationUnique__1
-PrimordialJewelCountUnique__3
+PrimordialJewelCountUnique__4
 ]],[[
 Primordial Might
 Crimson Jewel
@@ -449,7 +449,7 @@ IncreasedDamageIfGolemSummonedRecently__1
 IncreasedGolemDamageIfGolemSummonedRecently__1_
 GolemLifeUnique__1
 GolemLargerAggroRadiusUnique__1
-PrimordialJewelCountUnique__3
+PrimordialJewelCountUnique__4
 ]],[[
 Replica Primordial Might
 Crimson Jewel
@@ -458,7 +458,7 @@ League: Heist
 IncreasedDamageIfGolemSummonedRecently__1
 IncreasedGolemDamageIfGolemSummonedRecentlyUnique__1
 GolemLifeUnique__1
-PrimordialJewelCountUnique__3
+PrimordialJewelCountUnique__4
 GolemLargerAggroRadiusUnique__1
 ]],[[
 Pugilist
@@ -517,7 +517,7 @@ Variant: Current
 {variant:1}+6% chance to Block Spell Damage
 {variant:2}SpellBlockPercentageUnique__1
 (2-4)% chance to Block Attack Damage
-ChanceToBeCritJewelUnique__1
+ChanceToBeCritJewelUpdatedUnique__1
 ]],[[
 Replica Reckless Defence
 Cobalt Jewel
@@ -533,7 +533,7 @@ Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Red Nightmare} using currency{Blessing of Chayula}
 Radius: Large
 ChaosDamageAsPortionOfFireDamageUnique__1
-FireResistConvertedToBlockChanceScaledJewelUnique__1_
+FireResistAlsoGrantsEnduranceChargeOnKillJewelUnique__1
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 The Red Nightmare
@@ -543,9 +543,9 @@ Source: Upgraded from unique{The Red Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 ChaosDamageAsPortionOfFireDamageUnique__1
-FireResistConvertedToBlockChanceScaledJewelUnique__1_
+FireResistAlsoGrantsEnduranceChargeOnKillJewelUnique__1
 also grant Chance to Block Attack Damage at 35% of its value
-FireResistConvertedToBlockChanceScaledJewelUnique__1_
+FireResistAlsoGrantsEnduranceChargeOnKillJewelUnique__1
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 The Siege
@@ -587,7 +587,7 @@ Variant: Current
 Radius: Medium
 AdditionalStrengthPerAllocatedStrengthJewelUnique__1_
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
-{variant:2}CriticalStrikeMultiplierPerUnallocatedStrengthUnique__1
+{variant:2}CriticalStrikeMultiplierPerUnallocatedStrengthJewelUnique__1_
 {variant:3}LifeRecoveryRatePerAllocatedStrengthUnique__1_
 ]],[[
 Transcendent Flesh
@@ -603,7 +603,7 @@ AdditionalStrengthPerAllocatedStrengthJewelUnique__1_
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 {variant:3}LifeRecoveryRatePerAllocatedStrengthUnique__2
 {variant:3}LifeRecoveryRatePerUnallocatedStrengthUnique__1_
-{variant:2,3}CriticalStrikeMultiplierPerUnallocatedStrengthUnique__1
+{variant:2,3}CriticalStrikeMultiplierPerUnallocatedStrengthJewelUnique__1_
 ]],[[
 Tempered Mind
 Cobalt Jewel
@@ -646,7 +646,7 @@ Variant: Current
 Radius: Medium
 AdditionalDexterityPerAllocatedDexterityJewelUnique__1
 {variant:1}FlatManaPerUnallocatedDexterityJewelUnique__1
-{variant:2}MovementSpeedPerAllocatedDexterityUnique__1
+{variant:2}MovementSpeedPerAllocatedDexterityJewelUnique__1
 ]],[[
 Transcendent Spirit
 Viridian Jewel
@@ -656,7 +656,7 @@ Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 AdditionalDexterityPerAllocatedDexterityJewelUnique__1
-{variant:1}MovementSpeedPerAllocatedDexterityUnique__1
+{variant:1}MovementSpeedPerAllocatedDexterityJewelUnique__1
 {variant:1}FlatManaPerUnallocatedDexterityJewelUnique__1
 {variant:2}MovementSpeedPerAllocatedDexterityUnique__2
 {variant:2}MovementSpeedPerUnallocatedDexterityUnique__1_
@@ -675,7 +675,7 @@ Implicits: 0
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
-AllocateDisconnectedPassivesDonutUnique__1
+JewelUniqueAllocateDisconnectedPassives
 AllResistancesUnique__18
 ]],[[
 To Dust
@@ -683,9 +683,9 @@ Cobalt Jewel
 Variant: Pre 3.0.0
 Variant: Current
 SkeletonDurationUniqueJewel1_
-MinionDamageUnique__1
+MinionDamageUniqueJewel1
 {variant:1}2% increased Skeleton Attack Speed
-{variant:2}SkeletonAttackSpeedUniqueJewel1
+{variant:2}MaximumMinionCountUniqueJewel1
 {variant:2}SkeletonCastSpeedUniqueJewel1
 {variant:2}SkeletonMovementSpeedUniqueJewel1
 ]],[[
@@ -1090,7 +1090,7 @@ Hazardous Research
 Cobalt Jewel
 Limited to: 1
 Radius: Medium
-LightningDamagePercentUnique__6
+LightningDamagePercentUniqueHelmetStrInt3
 SparkThresholdJewel_2
 With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
 (20-15)% reduced Spark Duration
@@ -1229,7 +1229,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-MinionDamageUnique__1
+MinionDamageUniqueJewel1
 {variant:1}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 4 Ranged Weapons
 {variant:2}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 8 Ranged Weapons
 ]],[[
@@ -1252,7 +1252,7 @@ Radius: Medium
 IncreasedChaosDamageUnique__3
 With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
 {variant:1}With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
-{variant:2}BlightThresholdJewel_3
+{variant:2}BlightThresholdJewel_2
 ]],[[
 Steel Spirit
 Viridian Jewel
@@ -1423,11 +1423,11 @@ Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
 Radius: Small
-{variant:1}SpellDamageOnWeaponUniqueDagger1Royale
-{variant:2}SpellDamageUnique__6
+{variant:1}SpellDamageUniqueSceptre2
+{variant:2}SpellDamageUniqueCorruptedJewel3_
 {variant:1}100% increased Mana Cost of Skills
 {variant:2}ManaCostIncreasedUniqueCorruptedJewel3
-{variant:3}IntelligenceUniqueRing4
+{variant:3}IntelligenceUniqueBootsInt1
 {variant:3}Notable Passive Skills in Radius are Transformed to instead grant: 10% increased Mana Cost of Skills and 20% increased Spell Damage
 Corrupted
 ]],[[
@@ -1523,7 +1523,7 @@ CurseEffectivenessUniqueJewel45
 Poacher's Aim
 Viridian Jewel
 Limited to: 1
-PierceChanceUniqueJewel41
+AdditionalPierceUniqueJewel__1
 ProjectileDamageJewelUniqueJewel41
 ]],[[
 Survival Instincts
@@ -1536,12 +1536,12 @@ Survival Secrets
 Cobalt Jewel
 Limited to: 1
 3 Mana Regenerated per second
-ElementalDamageUniqueDescentBelt1
+ElementalDamageUniqueJewel10
 ]],[[
 Survival Skills
 Crimson Jewel
 Limited to: 1
-IncreasedPhysicalDamagePercentUniqueGlovesStr2
+IncreasedPhysicalDamagePercentUniqueJewel9
 IncreasedPhysicalDamageReductionRatingUniqueJewel9
 ]],[[
 Warlord's Reach
@@ -1575,13 +1575,13 @@ Source: Fastest Merciless Labyrinth
 Limited to: 1
 AllDamageUniqueRing8
 ActorSizeUnique__1
-PercentageStrengthUnique__2
+PercentageStrengthUniqueJewel29
 ]],[[
 Emperor's Wit
 Cobalt Jewel
 Source: Fastest Cruel Labyrinth
 Limited to: 1
-CriticalStrikeChanceImplicitDagger1
+CriticalStrikeChanceImplicitDaggerNew1
 ActorSizeUnique__1
 PercentageIntelligenceUnique__2
 ]],

@@ -16,7 +16,7 @@ IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
 {variant:1}+1 to Level of all Lightning Spell Skill Gems
 {variant:2}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
-LightningPenetrationUnique__1
+LightningPenetrationUniqueStaff8
 ShockDurationUniqueStaff8
 ]],[[
 Agnerod North
@@ -33,7 +33,7 @@ IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
 ChanceToShockUniqueStaff8
 IncreasedStrengthRequirementUniqueStaff8
-LightningPenetrationUnique__1
+LightningPenetrationUniqueStaff8
 ]],[[
 Agnerod South
 Imperial Staff
@@ -49,7 +49,7 @@ IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
 MaximumLightningResistUniqueStaff8c
 IncreasedStrengthRequirementUniqueStaff8
-LightningPenetrationUnique__1
+LightningPenetrationUniqueStaff8
 ]],[[
 Agnerod West
 Imperial Staff
@@ -65,7 +65,7 @@ IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
 SpellAddedLightningDamageTwoHandUniqueStaff8d
 IncreasedStrengthRequirementUniqueStaff8
-LightningPenetrationUnique__1
+LightningPenetrationUniqueStaff8
 ]],[[
 Atziri's Rule
 Judgement Staff
@@ -86,7 +86,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 12% Chance to Block
-LocalIncreasedPhysicalDamagePercentUniqueDescentStaff1
+LocalIncreasedPhysicalDamagePercentUniqueStaff9
 LocalIncreasedAttackSpeedUniqueStaff9
 ReflectDamageToAttackersOnBlockUniqueStaff9
 VulnerabilityOnBlockUniqueStaff9
@@ -227,7 +227,7 @@ HarbingerSkillOnEquipUnique__6
 5% Chance to Block Attack Damage while wielding a Staff
 {variant:2}CriticalBleedDotMultiplierUnique__1_
 LocalAddedPhysicalDamageUnique__28
-LocalCriticalStrikeChanceUnique__10
+CriticalStrikeChanceUniqueBow9
 ]],[[
 The Yielding Mortality
 Imperial Staff
@@ -241,7 +241,7 @@ HarbingerSkillOnEquipUnique2_6
 StaffBlockPercentUnique__4_
 CriticalBleedDotMultiplierUnique__1_
 LocalAddedPhysicalDamageUnique__28
-LocalCriticalStrikeChanceUnique__10
+CriticalStrikeChanceUniqueBow9
 ]],[[
 Femurs of the Saints
 Primordial Staff
@@ -252,7 +252,7 @@ Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}StaffBlockPercentImplicitStaff1
-LocalIncreaseSocketedMinionGemLevelUniqueShieldInt2
+LocalIncreaseSocketedMinionGemLevelUnique__4
 {variant:3}MinionDamageUnique__7
 {variant:3}AttackBlockPerSkeletonUnique__1
 {variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
@@ -273,7 +273,7 @@ Implicits: 2
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 DisplaySupportedByTrapUniqueStaff4
 (40-50)% increased Damage
-MaximumLifeUniqueShieldDexInt2
+MaximumLifeUniqueStaff4
 MaximumManaUniqueStaff4
 ]],[[
 Replica Fencoil
@@ -283,7 +283,7 @@ Implicits: 1
 StaffBlockPercentImplicitStaff1
 SupportedByMultiTotemUnique__1
 AllDamageUniqueStaff4
-MaximumLifeUniqueShieldDexInt2
+MaximumLifeUniqueStaff4
 MaximumManaUniqueStaff4
 ]],[[
 The Fulcrum
@@ -292,7 +292,7 @@ League: Heist
 Requires Level 60, 113 Str, 113 Int
 Implicits: 1
 StaffBlockPercentImplicitStaff2
-LocalIncreasedPhysicalDamageUniqueOneHandMace4
+LocalIncreasedPhysicalDamagePercentUniqueClaw1
 (0-50)% of Physical Damage Converted to Fire Damage
 (0-50)% of Physical Damage Converted to Cold Damage
 (0-50)% of Physical Damage Converted to Lightning Damage
@@ -311,7 +311,7 @@ DisplaySupportedByTrapUnique__1
 SupportedByClusterTrapUnique__1
 SupportedByTrapAndMineDamageUnique__1
 MaximumManaUniqueStaff4
-MaximumLifeUniqueShieldDexInt2
+MaximumLifeUniqueStaff4
 (40-50)% increased Damage
 ]],[[
 The Grey Spire
@@ -342,10 +342,10 @@ Implicits: 3
 {variant:1,2}Adds (180-190) to (190-220) Physical Damage
 {variant:3}Adds (165-175) to (185-205) Physical Damage
 {variant:4}LocalAddedPhysicalDamageUniqueStaff7
-LocalIncreasedAttackSpeedUniqueTwoHandAxe7
+LocalIncreasedAttackSpeedUniqueStaff7
 {variant:1,2,3}LocalCriticalStrikeChanceUniqueWand6_
-{variant:4}LocalCriticalStrikeChanceUniqueWand9
-IncreasedMaximumPowerChargesUnique__1
+{variant:4}LocalCriticalStrikeChanceUniqueStaff7
+IncreasedMaximumPowerChargesUniqueStaff7
 PowerChargeOnKnockbackUniqueStaff7
 ]],[[
 Martyr of Innocence
@@ -408,7 +408,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 LocalIncreaseSocketedFireGemLevelUniqueStaff13
-LocalIncreaseSocketedColdGemLevelUniqueClaw5
+LocalIncreaseSocketedColdGemLevelUniqueStaff13
 ItemActsAsColdToFireSupportUniqueStaff13
 LocalAddedFireDamageUniqueStaff13
 LocalAddedColdDamageUniqueStaff13
@@ -424,7 +424,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 LocalIncreaseSocketedFireGemLevelUniqueStaff13
-LocalIncreaseSocketedColdGemLevelUniqueClaw5
+LocalIncreaseSocketedColdGemLevelUniqueStaff13
 LocalIncreaseSocketedElementalGemUnique___1
 ItemActsAsColdToFireSupportUniqueStaff13
 LocalAddedFireDamageUniqueStaff13
@@ -469,10 +469,10 @@ Requires Level 49, 85 Str, 85 Int
 Implicits: 2
 {variant:1}18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}20% Chance to Block Attack Damage while wielding a Staff
-AllAttributesUnique__12
+AllAttributesUniqueStaff10
 AllResistajcesUniqueStaff10
 IncreasedProjectileDamageUniqueStaff10
-LightRadiusUnique__3
+LightRadiusUniqueStaff10_
 SocketedGemsAdditionalProjectilesUniqueStaff10_
 Socketed Gems fire Projectiles in a Nova
 ]],[[
@@ -501,10 +501,10 @@ Requires Level 28, 51 Str, 51 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
+LocalIncreasedPhysicalDamagePercentUniqueStaff14
 LocalAddedColdDamageUniqueStaff14
 LocalAddedLightningDamageUniqueStaff14
-LocalCriticalStrikeChanceUnique__7
+LocalCriticalStrikeChanceUniqueStaff14
 {variant:1}CannotBeShockedWhileFrozenUniqueStaff14
 {variant:2}You Cannot Be Shocked While Chilled
 {variant:2}ChanceToShockChilledEnemiesUnique__1
@@ -517,7 +517,7 @@ Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 15% Chance to Block Attack Damage while wielding a Staff
 LocalAddedPhysicalDamageUnique__33_
-LocalCriticalStrikeChanceUnique__7
+LocalCriticalStrikeChanceUniqueStaff14
 ConvertPhysicalToColdUniqueGlovesDex1
 ConvertPhysicaltoLightningUnique__1
 CannotBeShockedWhileChilledUnique__1
@@ -538,7 +538,7 @@ Implicits: 3
 {variant:1,2}+1 to Level of all Cold Spell Skill Gems
 {variant:3,4}LocalIncreaseSocketedColdGemLevelUniqueStaff2
 {variant:1}SpellDamageUnique__7
-{variant:2,3,4}SpellDamageUniqueGlovesInt2
+{variant:2,3,4}SpellDamageUniqueStaff2
 ColdDamagePercentUniqueStaff2
 IncreasedCastSpeedUniqueStaff2
 ChanceToFreezeUniqueStaff2
@@ -572,7 +572,7 @@ Implicits: 2
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 LocalIncreaseSocketedSupportGemLevelUniqueStaff12
 IcestormUniqueStaff12
-IncreasedCastSpeedUniqueClaw7
+IncreasedCastSpeedUniqueStaff12
 SpellDamagePerIntelligenceUniqueStaff12
 PercentageIntelligenceUniqueStaff12_
 ]],[[

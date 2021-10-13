@@ -9,7 +9,7 @@ League: Delve
 Source: Drops from unique{Aul, the Crystal King}
 Requires Level 49
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 StrengthUnique__20_
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -20,7 +20,7 @@ League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 49
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 StrengthUnique__20_
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -31,7 +31,7 @@ League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
 Requires Level 49
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 StrengthUnique__20_
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -43,16 +43,16 @@ Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 DexterityUniqueRing3
 ItemFoundRarityIncreaseUniqueRing3
-AllResistancesUniqueRing25
+AllResistancesUniqueRing3
 ]],[[
 Astral Projector
 Topaz Ring
 League: Metamorph
 Requires Level 40
 Implicits: 1
-LightningResistUnique__2
+LightningResistImplicitRing1
 IntelligenceUnique__22_
-SpellDamageUnique__12
+SpellDamageUniqueRing35
 AvoidElementalAilmentsUnique__1_
 NovaSpellsAreaOfEffectUnique__1
 Nova Spells Cast at the targeted location instead of around you
@@ -70,9 +70,9 @@ ColdAndLightningResistImplicitRing1
 {variant:2,3}ColdDamagePercentUniqueRing19
 {variant:1}{tags:jewellery_elemental,attack}Adds 1 to (1-50) Lightning Damage to Attacks
 {variant:2,3}AddedLightningDamageUniqueRing19
-IncreasedLifeUnique__19
+IncreasedLifeUniqueRing19
 {variant:1}{tags:life}1% of Damage Leeched as Life against Frozen Enemies
-{variant:2,3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
+{variant:2,3}LifeLeechPermyriadOnFrozenEnemiesUniqueRing19
 {variant:1}{tags:mana}1% of Damage Leeched as Mana against Shocked Enemies
 {variant:2}ManaLeechPermyriadOnShockedEnemiesUniqueRing19
 {variant:3}EnergyShieldLeechPermyriadOnFrozenEnemiesUniqueRing19
@@ -86,10 +86,10 @@ Requires Level 20
 Implicits: 1
 FireAndColdResistImplicitRing1
 {variant:1}FireDamagePercentUnique____8
-{variant:2}FireDamagePercentUnique__4
+{variant:2}FireDamagePercentUniqueRing18
 {variant:1}{tags:jewellery_elemental,attack}Adds 1 to (10-30) Cold Damage to Attacks
 {variant:2}AddedColdDamageUniqueRing18
-IncreasedEnergyShieldUnique__5
+IncreasedEnergyShieldUniqueRing18
 DamageWhileIgnitedUniqueRing18
 ArmourWhileFrozenUniqueRing18
 ]],[[
@@ -103,9 +103,9 @@ Implicits: 1
 FireAndLightningResistImplicitRing1
 {variant:1}{tags:jewellery_elemental,attack}Adds 1 to (10-30) Fire Damage to Attacks
 {variant:2}AddedFireDamageUniqueRing20
-{variant:1}LightningDamagePercentUnique__6
+{variant:1}LightningDamagePercentUniqueHelmetStrInt3
 {variant:2}LightningDamagePercentUniqueRing20
-IncreasedManaUniqueClaw7
+IncreasedManaUniqueRing20
 {variant:1}Shock a nearby Enemy for 2 seconds on Killing a Shocked Enemy
 {variant:2}Shocks all nearby Enemies on Killing a Shocked Enemy
 {variant:1}Ignite a nearby Enemy on Killing an Ignited Enemy
@@ -131,9 +131,9 @@ Implicits: 1
 AddedPhysicalDamageImplicitRing1
 {tags:physical}5% increased Physical Damage
 AddedChaosDamageUniqueRing1
-IncreasedLifeUnique___7Royale_
+IncreasedLifeImplicitRing1
 {tags:life}(2-4) Life Regenerated per second
-HitsCauseMonsterFleeUnique__1
+HitsCauseMonsterFleeUniqueRing1
 ]],[[
 Voidheart
 Iron Ring
@@ -145,9 +145,9 @@ Implicits: 1
 AddedPhysicalDamageImplicitRing1
 {tags:physical}5% increased Physical Damage
 AddedChaosDamageUniqueRing1
-IncreasedLifeUnique___7Royale_
+IncreasedLifeImplicitRing1
 {tags:life}(2-4) Life Regenerated per second
-HitsCauseMonsterFleeUnique__1
+HitsCauseMonsterFleeUniqueRing1
 {variant:1}Melee Attacks cause Bleeding
 {variant:2}{tags:attack,physical}(30-50)% chance to cause Bleeding on Melee Hit
 {variant:1}Melee Attacks Poison on Hit
@@ -160,7 +160,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
 Implicits: 1
-IncreasedLifeUnique___7Royale_
+IncreasedLifeImplicitRing1
 {variant:1}{tags:jewellery_elemental,attack}Adds (7-10) to (15-20) Fire Damage to Attacks
 {variant:2}AddedFireDamageUniqueRing28
 IncreasedLifeUniqueRing28
@@ -175,7 +175,7 @@ Coral Ring
 Source: Upgraded from unique{Bloodboil} via prophecy{Cold Blooded Fury}
 Requires Level 53
 Implicits: 1
-IncreasedLifeUnique___7Royale_
+IncreasedLifeImplicitRing1
 AddedFireDamageUniqueRing28
 AddedColdDamageUnique__6
 IncreasedLifeUniqueRing28
@@ -192,14 +192,14 @@ Requires Level 45
 Implicits: 1
 RingHasOneSocket
 {variant:1}+2 to Level of Socketed Golem Gems
-{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing37
+{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing35
 {variant:1}ItemActsAsConcentratedAOESupportUniqueRing35
 {variant:2}LocalGolemBuffEffectUnique__1
 {variant:2}LocalGolemLifeAddedAsESUnique__1
 {variant:1}{tags:caster}(10-25)% increased Spell Damage
-{variant:2}SpellDamageUnique__12
-IncreasedEnergyShieldUniqueRing27
-LightningResistUnique__5
+{variant:2}SpellDamageUniqueRing35
+IncreasedEnergyShieldUniqueRing35
+LightningResistUniqueRing35
 {variant:1}Socketed Gems are Supported by Level 15 Increased Minion Life
 ]],[[
 Call of the Brotherhood
@@ -209,9 +209,9 @@ Variant: Current
 Requires Level 20
 Implicits: 1
 ColdAndLightningResistImplicitRing1
-IntelligenceUniqueBelt11
+IntelligenceUniqueRing34
 LightningDamagePercentUniqueRing34
-ManaRegenerationUniqueBootsStrDex4
+ManaRegenerationUniqueRing34
 {variant:1}{tags:jewellery_elemental}50% of Lightning Damage Converted to Cold Damage
 {variant:2}ConvertLightningToColdUniqueRing34
 SpellChanceToShockFrozenEnemiesUniqueRing34
@@ -230,10 +230,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Fire Resistance
-FireResistUniqueAmulet4
-StrengthUniqueClaw5_
+FireResistImplicitRing1
+StrengthUniqueRing8
 GlobalAddedFireDamageUnique__3_
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 {variant:1}Herald of Ash has (30-40)% reduced Reservation
 {variant:2}HeraldBonusAshReservation
 {variant:3}HeraldBonusAshFireDamage
@@ -256,10 +256,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
-ColdResistUnique__3
+ColdResistImplicitRing1
 DexterityUniqueGlovesInt4__
 GlobalAddedColdDamageUnique__3
-ColdResistUnique__3
+ColdResistImplicitRing1
 {variant:1}Herald of Ice has (30-40)% reduced Reservation
 {variant:2}HeraldBonusIceReservation_
 {variant:3}HeraldBonusIceColdDamage
@@ -311,7 +311,7 @@ Variant: Chaos Resistance
 {tags:chaos,resistance}+(9-13)% to Chaos Resistance
 AllAttributesUnique__3
 GlobalAddedChaosDamageUnique__5_
-ChaosResistUnique__17
+ChaosResistImplicitRing1
 {variant:1}Herald of Agony has (30-40)% reduced Reservation
 {variant:2}HeraldBonusAgonyReservation
 {variant:3}HeraldBonusAgonyChaosDamage_
@@ -334,10 +334,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
-LightningResistUnique__2
+LightningResistImplicitRing1
 IntelligenceUnique__7
 GlobalAddedLightningDamageUnique__3
-LightningResistUnique__2
+LightningResistImplicitRing1
 {variant:1}Herald of Thunder has (30-40)% reduced Reservation
 {variant:2}HeraldBonusThunderReservation
 {variant:3}HeraldBonusThunderLightningDamage
@@ -357,7 +357,7 @@ Implicits: 1
 IncreasedAccuracyUniqueRing12
 {tags:jewellery_defense}{variant:1}+(60-80) to Armour
 {variant:2}IncreasedPhysicalDamageReductionRatingUniqueRing12
-{variant:2}IncreasedLifeUniqueQuiver3
+{variant:2}IncreasedLifeUnique__33
 ChaosResistUniqueRing12
 LifeLeechPermyriadUniqueRing12
 {variant:1}You gain Onslaught for 2 seconds on Kill
@@ -366,9 +366,9 @@ LifeLeechPermyriadUniqueRing12
 Doedre's Damning
 Paua Ring
 Implicits: 1
-IncreasedManaUniqueIntHelmet3
+IncreasedManaImplicitRing1
 IntelligenceUniqueRing4
-AllResistancesUniqueGlovesStrDex2Royale
+AllResistancesUniqueRing4
 ManaGainedFromEnemyDeathUniqueRing4
 {tags:caster}Enemies can have 1 additional Curse
 ]],[[
@@ -376,9 +376,9 @@ Replica Doedre's Damning
 Paua Ring
 League: Heist
 Implicits: 1
-IncreasedManaUniqueIntHelmet3
+IncreasedManaImplicitRing1
 IntelligenceUniqueRing4
-AllResistancesUniqueGlovesStrDex2Royale
+AllResistancesUniqueRing4
 ManaGainedFromEnemyDeathUniqueRing4
 AdditionalCurseOnEnemiesUnique__3
 CurseEffectivenessUnique__4
@@ -389,7 +389,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 MaximumManaUniqueRing5
 ManaRegenerationUniqueRing5
 {variant:2}ColdResistUnique__17
@@ -403,12 +403,12 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 16
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 {variant:1}FireDamagePercentUniqueRing24
-{variant:2,3}FireDamagePercentUniqueStrHelmet2
-IncreasedCastSpeedUnique__15_
+{variant:2,3}FireDamagePercentUniqueRing38
+IncreasedCastSpeedUniqueRing27
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2,3}ChanceToIgniteUniqueBodyInt2
+{variant:2,3}ChanceToIgniteUniqueRing38
 CanInflictMultipleIgnitesUniqueRing38
 {variant:1}CriticalMultiplierUniqueAmulet18
 {variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
@@ -420,11 +420,11 @@ Ruby Ring
 League: Heist
 Requires Level 16
 Implicits: 1
-FireResistUniqueAmulet4
-FireDamagePercentUniqueStrHelmet2
-IncreasedCastSpeedUnique__15_
+FireResistImplicitRing1
+FireDamagePercentUniqueRing38
+IncreasedCastSpeedUniqueRing27
 IgniteDurationUnique__2
-ChanceToIgniteUniqueBodyInt2
+ChanceToIgniteUniqueRing38
 FasterIgniteDamageUnique__1
 ]],[[
 Essence Worm
@@ -441,7 +441,7 @@ Paua Ring
 League: Heist
 Requires Level 38
 Implicits: 1
-IncreasedManaUniqueIntHelmet3
+IncreasedManaImplicitRing1
 IntelligenceUnique__25
 CurseCastSpeedUnique__2
 DoubleDoomEffectUnique__1
@@ -458,7 +458,7 @@ Implicits: 1
 CriticalStrikeChanceImplicitRing1
 {variant:2}TriggeredConsecrateUnique__1
 CriticalStrikeChanceUniqueRing11_
-LightRadiusUniqueAmulet17
+LightRadiusUniqueRing11
 {variant:1}ConsecrateOnCritChanceToCreateUniqueRing11
 KilledMonsterItemRarityOnCritUniqueRing11
 {variant:2}IncreasedDamageOnConsecratedGroundUnique__1
@@ -468,9 +468,9 @@ Heartbound Loop
 Moonstone Ring
 Requires Level 20
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldUniqueRing35
 {tags:life}(10-15) Life Regenerated per second
-ManaRegenerationUniqueShieldInt5
+ManaRegenerationUniqueRing33
 MinionLifeUniqueRing33
 Minions have 10% increased Area of Effect of Area Skills
 PhysicalDamageToSelfOnMinionDeathUniqueRing33
@@ -515,8 +515,8 @@ Upgrade: Upgrades to unique{Kaom's Way} via prophecy{The King's Path}
 Variant: Pre 2.0.0
 Variant: Current
 Implicits: 1
-IncreasedLifeUnique___7Royale_
-StrengthUniqueBodyStr4
+IncreasedLifeImplicitRing1
+StrengthUniqueRing2
 {variant:1}LifeLeechPermyriadUniqueRing2
 {variant:2}LifeGainPerTargetUniqueRing2
 +1 Maximum Endurance Charge
@@ -526,8 +526,8 @@ Coral Ring
 Source: Upgraded from unique{Kaom's Sign} using prophecy{The King's Path}
 Requires Level 32
 Implicits: 1
-IncreasedLifeUnique___7Royale_
-StrengthUniqueBodyStr4
+IncreasedLifeImplicitRing1
+StrengthUniqueRing2
 {tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
 LifeGainPerTargetUniqueRing2
 +1 Maximum Endurance Charge
@@ -538,11 +538,11 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 20
 Implicits: 1
-LightningResistUnique__2
+LightningResistImplicitRing1
 AllAttributesUniqueRing26
 {variant:1}{tags:life}(13-17) Life Regenerated per second
 {variant:2}{tags:life}1 Life Regenerated per second per Level
-ManaRegenerationUniqueShieldInt5
+ManaRegenerationUniqueRing33
 {variant:1}ReducedCurseEffectUnique__1
 {variant:2}ReducedCurseEffectUniqueRing26
 ]],[[
@@ -559,7 +559,7 @@ AddedPhysicalDamageImplicitRing1
 {variant:2}AllAttributesUniqueRing6
 {variant:1}ItemFoundRarityIncreaseUnique__4_
 {variant:2}ItemFoundRarityIncreaseUniqueRing6
-{variant:1}AllResistancesUnique__7
+{variant:1}AllResistancesUniqueHelmetStrInt1
 {variant:2}AllResistancesUniqueRing6
 ]],[[
 Lori's Lantern
@@ -569,8 +569,8 @@ Variant: Current
 Requires Level 30
 Implicits: 2
 {variant:1}AllResistancesImplicitVictorAmulet
-{variant:2}AllResistancesImplicitRoyaleRing1
-AllResistancesUniqueIntHelmet3
+{variant:2}AllResistancesImplicitRing1
+AllResistancesUniqueRing9
 MovementVelocityOnLowLifeUniqueRing9
 LightRadiusUniqueRing9_
 {tags:chaos,jewellery_defense,life}+(20-25)% Chaos Resistance when on Low Life
@@ -585,7 +585,7 @@ Requires Level 5
 Implicits: 1
 RingHasOneSocket
 {variant:1}{tags:jewellery_resistance}-25% to all Elemental Resistances
-{variant:2}AllResistancesUniqueRing25
+{variant:2}AllResistancesUniqueRing3
 FireResistanceWhenSocketedWithRedGemUniqueRing25
 ColdResistanceWhenSocketedWithGreenGemUniqueRing25
 LightningResistanceWhenSocketedWithBlueGemUniqueRing25
@@ -599,7 +599,7 @@ Requires Level 5
 Implicits: 1
 RingHasOneSocket
 SocketedGemHasSecretsOfSufferingUnique__1
-AllResistancesUniqueRing25
+AllResistancesUniqueRing3
 FireResistanceWhenSocketedWithRedGemUniqueRing25
 ColdResistanceWhenSocketedWithGreenGemUniqueRing25
 LightningResistanceWhenSocketedWithBlueGemUniqueRing25
@@ -619,7 +619,7 @@ Requires Level 80
 Implicits: 1
 AddedPhysicalDamageImplicitRing2
 AddedColdDamageUnique__5
-IncreasedEnergyShieldPercentUnique__3
+IncreasedEnergyShieldPercentUnique__5
 MaximumLifeUnique__16
 AttackDamageShaperItemUnique__1
 CannotBeStunnedByAttacksElderItemUnique__1
@@ -633,7 +633,7 @@ Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 SpellAddedLightningDamageUnique__6_
-IncreasedEnergyShieldPercentUnique__3
+IncreasedEnergyShieldPercentUnique__5
 MaximumLifeUnique__16
 SpellDamageElderItemUnique__1_
 CannotBeStunnedBySpellsShaperItemUnique__1
@@ -661,7 +661,7 @@ Mokou's Embrace
 Ruby Ring
 Requires Level 16
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 FireDamagePercentUniqueRing24
 ColdResistUniqueRing24
 IncreasedChanceToIgniteUniqueRing24
@@ -678,11 +678,11 @@ Requires Level 45
 Implicits: 1
 RingHasOneSocket
 {variant:1}+2 to Level of Socketed Golem Gems
-{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing37
+{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing35
 {variant:1}DisplaySocketedGemGetsFasterAttackUniqueRing37
 {variant:2}LocalGolemIncreasedAttackAndCastSpeedUnique__1
 AddedPhysicalDamageUniqueRing37
-LocalIncreasedAttackSpeedUniqueStaff9
+IncreasedAttackSpeedUniqueRing37
 {variant:1}(1-2)% chance to Dodge Attack Hits
 {variant:2}ChanceToDodgeUniqueRing37
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
@@ -695,7 +695,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 29
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 StrengthUniqueRing31__
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}AddedFireDamageUniqueRing31
@@ -703,7 +703,7 @@ StrengthUniqueRing31__
 {variant:2}GainLifeOnIgnitingEnemyUnique__2
 BurnDurationUniqueRing31
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2}ChanceToIgniteUniqueBodyInt2
+{variant:2}ChanceToIgniteUniqueRing38
 ]],[[
 The Pariah
 Unset Ring
@@ -712,7 +712,7 @@ Requires Level 60
 Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedGemLevelUniqueRing39
-AttackAndCastSpeedUnique__2
+AttackAndCastSpeedUniqueRing39
 LifePerRedSocketUniqueRing39
 EnergyShieldPerBlueSocketUniqueRing39
 ManaPerGreenSocketUniqueRing39
@@ -723,7 +723,7 @@ Paua Ring
 Variant: Pre 2.0.0
 Variant: Current
 Implicits: 1
-IncreasedManaUniqueIntHelmet3
+IncreasedManaImplicitRing1
 IncreasedManaUniqueRing14
 ManaRegenerationUniqueRing14
 {variant:1}IncreasedExperienceUniqueSceptre1
@@ -736,7 +736,7 @@ Praxis
 Paua Ring
 Requires Level 22
 Implicits: 1
-IncreasedManaUniqueIntHelmet3
+IncreasedManaImplicitRing1
 IncreasedManaUniqueHelmetInt8
 {tags:mana}(3-6) Mana Regenerated per second
 {tags:mana}-(4-8) to Mana Cost of Skills
@@ -749,8 +749,8 @@ LevelReq: 52
 Implicits: 1
 RingHasOneSocket
 IncreaseSocketedCurseGemLevelUnique__2
-ColdResistUnique__3
-LightningResistUnique__2
+ColdResistImplicitRing1
+LightningResistImplicitRing1
 SupportSkitterBotAilmentAuraReplaceWithCurse____1
 {tags:caster}Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Hex Curse instead
 ]],[[
@@ -760,7 +760,7 @@ League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
 Requires Level 49
 Implicits: 1
-LightningResistUnique__2
+LightningResistImplicitRing1
 IntelligenceUniqueGlovesInt2
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -771,7 +771,7 @@ League: Delve
 Source: Drops from unique{Aul, the Crystal King}
 Requires Level 49
 Implicits: 1
-LightningResistUnique__2
+LightningResistImplicitRing1
 IntelligenceUniqueGlovesInt2
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -782,7 +782,7 @@ League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 49
 Implicits: 1
-LightningResistUnique__2
+LightningResistImplicitRing1
 IntelligenceUniqueGlovesInt2
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -794,7 +794,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 11
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 FireResistUniqueRing15
 {variant:1,2}{tags:jewellery_elemental}(25-35)% increased Burning Damage
 {variant:3}BurnDamageUniqueRing15
@@ -812,9 +812,9 @@ Requires Level 45
 Implicits: 1
 RingHasOneSocket
 {variant:1}+2 to Level of Socketed Golem Gems
-{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing37
-StrengthUniqueBodyStrInt3
-{variant:2}IncreasedLifeUnique__19
+{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing35
+StrengthUniqueRing36
+{variant:2}IncreasedLifeUniqueRing19
 {variant:1}AddedFireDamageUniqueRing36
 FireDamagePercentUniqueRing36
 {variant:1}DisplaySocketedGemsSupportedByLesserMultipleProjectilesUniqueRing36
@@ -845,7 +845,7 @@ CriticalStrikeChanceImplicitRing1
 IncreasedAccuracyUniqueRing17
 {tags:critical}{variant:1}+(10-20)% to Global Critical Strike Multiplier
 {tags:critical}{variant:2}+(10-15)% to Global Critical Strike Multiplier
-{variant:3}CriticalMultiplierUniqueDagger8
+{variant:3}CriticalMultiplierUniqueRing17
 IncreasedManaUniqueRing17
 ManaLeechPermyriadUniqueRing17
 PowerChargeOnNonCritUniqueRing17
@@ -872,7 +872,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 30
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldUniqueRing35
 IntelligenceUniqueRing13
 Right ring slot: You cannot Regenerate Mana
 {variant:1}{tags:jewellery_defense}Right ring slot: 4% of Energy Shield Regenerated per second
@@ -891,7 +891,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45
 Implicits: 1
-IncreasedLifeUnique___7Royale_
+IncreasedLifeImplicitRing1
 WeaponElementalDamageUniqueRing10
 AddedFireDamageUniqueRing10
 {variant:1}(20-40)% reduced Rarity of Items found
@@ -910,10 +910,10 @@ Variant: Current
 Source: Drops from unique{Guardian of the Hydra}
 Requires Level 68
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 {variant:1}ColdDamagePercentUnique__9
 {variant:2}SpellDamageUnique__11
-IncreasedCastSpeedUnique__15_
+IncreasedCastSpeedUniqueRing27
 {variant:1}Spells have an additional Projectile
 {variant:2}LeftRingSpellProjectilesCannotChainUnique__1
 {variant:2}LeftRingSpellProjectilesForkUnique__1_
@@ -937,7 +937,7 @@ Topaz Ring
 League: Harvest
 Requires Level 56
 Implicits: 1
-LightningResistUnique__2
+LightningResistImplicitRing1
 IntelligenceUnique__7
 TalismanIncreasedLightningDamage
 ChanceToShockUnique__4_
@@ -953,13 +953,13 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30
 Implicits: 1
-AllResistancesImplicitRoyaleRing1
+AllResistancesImplicitRing1
 {variant:1}{tags:jewellery_elemental,attack}15% increased Elemental Damage with Attack Skills
 {variant:2}WeaponElementalDamageUniqueRing21
 {variant:1}AllResistancesUnique__2
 {variant:2}AllResistancesUniqueRing21
 {variant:1}{tags:jewellery_elemental}15% increased Elemental Damage
-{variant:2}ElementalDamageUnique__1
+{variant:2}ElementalDamageUniqueRing21
 {variant:1}ChanceToFreezeShockIgniteUniqueAmulet19
 {variant:2}ChanceToFreezeShockIgniteUniqueRing21
 {variant:1}{tags:jewellery_elemental}10% increased Damage per Freeze, Shock and Ignite on Enemy
@@ -972,7 +972,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 20
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 {variant:1}AddedPhysicalDamageVsFrozenEnemiesUniqueRing30
 {variant:2}AddedColdDamageAgainstFrozenEnemiesUnique__1
 {variant:1}{tags:jewellery_elemental,attack}Adds (5-6) to (7-9) Cold Damage to Attacks
@@ -981,14 +981,14 @@ IncreasedEvasionRatingUniqueRing30
 {variant:1}ReducedChillDurationOnSelfUniqueRing30
 {variant:2}ChanceToAvoidChilledUnique__1
 {variant:1}ChanceToFreezeUnique__1
-{variant:2}ChanceToFreezeUnique__4
+{variant:2}ChanceToFreezeUniqueRing30
 ]],[[
 Replica Tasalio's Sign
 Sapphire Ring
 League: Heist
 Requires Level 20
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 AddedColdDamageUnique__10
 IncreasedEvasionRatingUniqueRing30
 ColdDamageCannotFreeze
@@ -1004,12 +1004,12 @@ Variant: Current
 Requires Level 30
 Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12) to all Elemental Resistances
-{variant:2,3,4}AllResistancesImplicitRoyaleRing1
+{variant:2,3,4}AllResistancesImplicitRing1
 {variant:1,2}(15-25)% increased Quantity of Items found
 {variant:3,4}ItemFoundQuantityIncreaseUniqueRing7
 DisablesOtherRingSlot
 {variant:1,2,3}AllResistancesImplicitVictorAmulet
-{variant:4}AllResistancesUniqueBeltDemigods1
+{variant:4}AllResistancesUniqueRing7
 ReducedCurseEffectUniqueRing7
 {variant:1,2,3}{tags:attack,life}+(20-30) Life gained for each Enemy hit by your Attacks
 {variant:4}LifeGainPerTargetUniqueRing7
@@ -1023,14 +1023,14 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
-LocalIncreasedAttackSpeedUniqueBow10
+IncreasedEnergyShieldUniqueRing35
+IncreasedAttackSpeedUniqueRing27
 {variant:1}IncreasedCastSpeedUniqueWand4
-{variant:2}IncreasedCastSpeedUnique__15_
+{variant:2}IncreasedCastSpeedUniqueRing27
 {variant:1}{tags:mana}15% reduced Mana Regeneration Rate
 {variant:2}ReducedManaRegenerationUniqueRing27
 {variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
-{variant:2}IncreasedEnergyShieldUniqueRing27
+{variant:2}IncreasedEnergyShieldUniqueRing35
 {variant:1}{tags:caster}Temporal Chains has 30% reduced Effect on You
 {variant:2}TemporalChainsEffectivenessOnSelfUniqueRing27
 ]],[[
@@ -1039,10 +1039,10 @@ Moonstone Ring
 Source: Upgraded from unique{Timeclasp} via prophecy{A Rift in Time}
 Requires Level 64
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
-LocalIncreasedAttackSpeedUniqueBow10
-IncreasedCastSpeedUnique__15_
-LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+IncreasedEnergyShieldUniqueRing35
+IncreasedAttackSpeedUniqueRing27
+IncreasedCastSpeedUniqueRing27
+LocalIncreasedEnergyShieldUnique__17__
 ReducedManaRegenerationUniqueRing27
 (-10-10)% increased Skill Effect Duration
 TemporalChainsEffectivenessOnSelfUnique__1
@@ -1090,7 +1090,7 @@ League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 49
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 DexterityUniqueJewel8
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -1101,7 +1101,7 @@ League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
 Requires Level 49
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 DexterityUniqueJewel8
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -1112,7 +1112,7 @@ League: Delve
 Source: Drops from unique{Aul, the Crystal King}
 Requires Level 49
 Implicits: 1
-ColdResistUnique__3
+ColdResistImplicitRing1
 DexterityUniqueJewel8
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
@@ -1125,13 +1125,13 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
 Implicits: 1
-LightningResistUnique__2
+LightningResistImplicitRing1
 {variant:1}15% increased Damage with Hits against Shocked Enemies
 {variant:2,3}IncreasedDamageToShockedTargetsUniqueRing29
-CriticalStrikesDealIncreasedLightningDamageUnique__1Royale_
-IncreasedManaUniqueBootsStrDex4
+LightningDamagePercentUniqueRing29
+IncreasedManaUniqueRing29
 {variant:1,2}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
-{variant:3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
+{variant:3}LifeLeechPermyriadOnFrozenEnemiesUniqueRing19
 {variant:1}{tags:jewellery_elemental}5% chance to Shock
 {variant:2}ChanceToShockUnique__1
 {variant:3}ChanceToShockUniqueRing29
@@ -1142,10 +1142,10 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldUniqueRing35
 {variant:1}LocalIncreasedEnergyShieldUniqueBodyInt5
-{variant:2}IncreasedEnergyShieldUnique__5
-{variant:1}FireResistUniqueAmulet4
+{variant:2}IncreasedEnergyShieldUniqueRing18
+{variant:1}FireResistImplicitRing1
 {variant:2}FireResistUniqueAmulet13
 ColdResistUnique__9
 StunDurationBasedOnEnergyShieldUnique__1
@@ -1156,8 +1156,8 @@ Requires Level: 49
 Implicits: 1
 League: Blight
 AddedPhysicalDamageImplicitRing1
-StrengthUniqueClaw5_
-CausesBleedingUniqueTwoHandAxe7Updated
+StrengthUniqueRing8
+CausesBleedingUnique__1
 BleedDamageUnique__1_
 ChilledWhileBleedingUnique__1_
 NonChilledEnemiesBleedAndChillUnique__1_
@@ -1239,7 +1239,7 @@ Ruby Ring
 League: Metamorph
 Requires Level 16
 Implicits: 1
-FireResistUniqueAmulet4
+FireResistImplicitRing1
 StrengthUnique__18
 MeleeDamageUnique__1
 AvoidStunUnique__1

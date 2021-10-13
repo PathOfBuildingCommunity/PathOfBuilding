@@ -7,9 +7,9 @@ Arakaali's Fang
 Fiend Dagger
 Requires Level 53, 58 Dex, 123 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew2
+CriticalStrikeChanceImplicitDagger2
 SummonSpidersOnKillUnique__1
-LocalIncreasedPhysicalDamagePercentUnique__25
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
 LocalAddedPhysicalDamageUnique__25
 LocalAddedChaosDamageUnique___1
 LocalChanceToPoisonOnHitUnique__1
@@ -23,7 +23,7 @@ Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 DegenerationDamageUniqueDagger8
 LocalAddedPhysicalDamageUniqueDagger8
-LocalCriticalStrikeChanceUnique__4
+LocalCriticalStrikeChanceUniqueDagger8
 {variant:1}+(10-15)% to Global Critical Strike Multiplier
 {variant:2}CriticalMultiplierUniqueDagger8
 ChaosResistUniqueDagger8
@@ -37,10 +37,10 @@ Variant: Current
 Requires Level 15, 30 Dex, 30 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-DexterityUniqueJewel8
+DexterityUniqueDagger12
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
-IncreasedAttackSpeedUniqueQuiver1
+LocalIncreasedAttackSpeedUniqueDagger12
 ExtraGore
 {variant:1}10% chance to cause Bleeding on Hit
 {variant:2}LocalChanceToBleedUniqueDagger12
@@ -64,7 +64,7 @@ Requires Level 62, 95 Dex, 131 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 GlobalPhysicalSpellGemsLevelUnique__1
-DealNoElementalDamageUnique__2
+DealNoElementalDamageUnique__1
 ]],[[
 Replica Cold Iron Point
 Ezomyte Dagger
@@ -82,10 +82,10 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 53, 58 Dex, 123 Int
 Implicits: 1
-CriticalStrikeChanceImplicitDaggerNew2
+CriticalStrikeChanceImplicitDagger2
 LocalIncreaseSocketedFireGemLevelUniqueDagger10
 SpellDamageUniqueDagger10
-IntelligenceUnique__25
+IntelligenceUniqueDagger10_
 {variant:1}45% of Fire Damage Converted to Chaos Damage
 {variant:2,3}ConvertFireToChaosUniqueDagger10Updated
 {variant:1,2}ChaosDamagePoisonsUniqueDagger10
@@ -104,7 +104,7 @@ SpellDamageOnWeaponUniqueDagger1
 {variant:1}LifeGainedFromEnemyDeathUniqueTwoHandMace7
 {variant:2}LifeGainedFromEnemyDeathUniqueDagger1
 {variant:1}ManaGainedFromEnemyDeathUniqueRing4
-{variant:2}ManaGainedFromEnemyDeathUniqueShieldInt3
+{variant:2}ManaGainedFromEnemyDeathUniqueDagger1
 10% increased Area of Effect of Area Skills
 {variant:2}SpellCriticalStrikeChanceIfKilledRecentlyUnique__1
 {variant:2}SpellCriticalStrikeMultiplierIfNotKilledRecentlyUnique__1
@@ -116,10 +116,10 @@ Requires Level 5, 16 Dex
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 DexterityUniqueDagger11
-LocalIncreasedPhysicalDamagePercentUniqueBow10
+LocalIncreasedPhysicalDamagePercentUniqueDagger11
 LocalAddedPhysicalDamageUniqueDagger11
 LocalCriticalStrikeChanceUniqueDagger11
-BleedOnMeleeCriticalStrikeUnique__1
+CausesBleedingOnCritUniqueDagger11
 AttackDamageAgainstBleedingUniqueDagger11
 ]],[[
 Sanguine Gambol
@@ -128,11 +128,11 @@ Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
 Requires Level 59
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-LocalIncreasedPhysicalDamagePercentUniqueBow10
+LocalIncreasedPhysicalDamagePercentUniqueDagger11
 LocalAddedPhysicalDamageUnique__36
 DexterityUniqueDagger11
 LocalCriticalStrikeChanceUniqueDagger11
-BleedOnMeleeCriticalStrikeUnique__1
+CausesBleedingOnCritUniqueDagger11
 AttackDamageAgainstBleedingUniqueDagger11
 CrimsonDanceIfCritRecentlyUnique__1
 ]],[[
@@ -158,9 +158,9 @@ Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 {variant:1}SpellDamageUnique__7
 {variant:2}SpellDamageOnWeaponUniqueDagger4
-IncreasedManaUniqueWand3
+IncreasedManaUniqueDagger4
 IncreasedEnergyShieldUniqueDagger4
-ReducedEnergyShieldDelayUniqueBodyInt1
+ReducedEnergyShieldDelayUniqueDagger4
 SpellsHaveCullingStrikeUniqueDagger4
 ]],[[
 Replica Heartbreaker
@@ -171,8 +171,8 @@ Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 SpellDamageOnWeaponUniqueDagger4
 IncreasedEnergyShieldUniqueDagger4
-ReducedEnergyShieldDelayUniqueBodyInt1
-IncreasedLifeUniqueQuiver3
+ReducedEnergyShieldDelayUniqueDagger4
+IncreasedLifeUnique__33
 ImpaleEffectUnique__1
 ChanceToImpaleWithSpellsUnique__1
 ]],[[
@@ -183,7 +183,7 @@ Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 UniqueSecretBladeGrantHiddenBlade
-DexterityUnique__20__
+DexterityUnique__6
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword8
 ReducedAttackSpeedWhilePhasingUnique__1
 ]],[[
@@ -194,15 +194,15 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 64, 76 Dex, 149 Int
 Implicits: 1
-CriticalStrikeChanceUniqueOneHandSword2
+CriticalStrikeChanceUniqueDagger3
 5% Additional Chance to Block while Dual Wielding
-{variant:1}LocalIncreasedPhysicalDamagePercentUnique__35
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__34___
 {variant:2}(210-240)% increased Physical Damage
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueDagger9
-ReducedAttackSpeedUniqueAmulet16
+LocalReducedAttackSpeedUniqueDagger9
 AllResistancesUniqueDagger9
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}BleedOnMeleeCriticalStrikeUnique__1
+{variant:3}CausesBleedingOnCritUniqueDagger11
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
 {variant:3}CausesPoisonOnCritUniqueDagger9
 ]],[[
@@ -211,7 +211,7 @@ Flaying Knife
 Requires Level 35, 73 Dex, 51 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
+LocalIncreasedPhysicalDamagePercentUniqueDagger2
 LocalAddedPhysicalDamageUniqueDagger2
 StrengthUniqueDagger2
 +10 Life gained for each Enemy hit by your Attacks
@@ -239,11 +239,11 @@ Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 {variant:2}20% additional Chance to Block while Dual Wielding
 {variant:1,3}12% additional Chance to Block while Dual Wielding
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
-DexterityUniqueRing8
+LocalIncreasedPhysicalDamagePercentUniqueDagger2
+DexterityUniqueDagger3
 AddedLightningDamageUniqueDagger3
-IncreasedAttackSpeedUniqueQuiver1
-CriticalStrikeChanceUniqueOneHandSword2
+LocalIncreasedAttackSpeedUniqueDagger12
+CriticalStrikeChanceUniqueDagger3
 ]],[[
 Replica Ungil's Gauche
 Boot Knife
@@ -252,9 +252,9 @@ Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 BlockWhileDualWieldingUnique__2_
-DexterityUniqueRing8
-IncreasedAttackSpeedUniqueQuiver1
-CriticalStrikeChanceUniqueOneHandSword2
+DexterityUniqueDagger3
+LocalIncreasedAttackSpeedUniqueDagger12
+CriticalStrikeChanceUniqueDagger3
 ChanceToChillAttackersOnBlockUnique__2__
 ChanceToShockAttackersOnBlockUnique__2
 ]],[[

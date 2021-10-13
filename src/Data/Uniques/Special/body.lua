@@ -65,14 +65,14 @@ Implicits: 1
 AllResistancesImplicitVictorAmulet
 {variant:3}ChaosDegenAuraUnique__1
 AllAttributesUniqueBodyStr3
-{variant:3}IncreasedLifeUniqueAmulet25
-LocalIncreasedAttackSpeedUniqueBow10
+{variant:3}IncreasedLifeUniqueBodyDex6
+IncreasedAttackSpeedUniqueBodyStr3
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr3
 LifeLeechPermyriadUniqueBodyStr3
 {variant:1,2}DisplayChaosDegenerationAuraUniqueBodyStr3
 {variant:1}You take 450 Chaos Damage per second for 10 seconds on Kill
 {variant:2,3}ChaosDegenerationOnKillUniqueBodyStr3
-ItemBloodFootstepsUnique__1
+ItemBloodFootstepsUniqueBodyStr3
 ]],[[
 Doppelgänger Guise
 Sadist Garb
@@ -90,8 +90,8 @@ Golden Plate
 Requires Level 56, 106 Str
 ItemFoundQuantityIncreaseUniqueBodyStr5
 ItemFoundRarityIncreaseUniqueBodyStr5
-FireResistUnique__3
-ColdResistUnique__3
+FireResistUniqueBodyStr5
+ColdResistUniqueBodyStr5
 LightningResistUniqueBodyStr5
 MovementVelocityUniqueBodyStr5
 ReducedStrengthRequirementUniqueBodyStr5
@@ -119,9 +119,9 @@ Crusader Plate
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 59, 160 Str
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
+LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6
 IncreasedLifeUniqueBodyStr6
-ManaLeechPermyriadUniqueRing17
+ManaLeechPermyriadUniqueBodyStr6
 SocketedGemsSupportedByPierceUniqueBodyStr6
 ChanceToBePiercedUniqueBodyStr6
 {variant:2}DexterityRequirementsUnique__1
@@ -157,7 +157,7 @@ Variant: War Banner
 Variant: Dread Banner
 Variant: Defiance Banner
 MeleeDamageUnique__2
-IncreasedLifeUnique__101
+IncreasedLifeUniqueBodyStrDex3_
 Allow2ActiveBannersUnique__1
 Add1StageToBannersOnMeleeHitUpTo5PerSecondUnique__1
 {variant:1}BannerAdrenalineDurationUnique__1
@@ -171,7 +171,7 @@ Variant: Current
 Requires Level 17, 53 Str
 StrengthUniqueBodyStr4
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr4
-LightRadiusUniqueSceptre2
+LightRadiusUniqueBodyInt8
 ChaosTakenOnES
 {variant:1}-10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
@@ -185,10 +185,10 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 53 Dex
 {variant:2}ItemActsAsFireDamageSupportUniqueSceptre2
-LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
-{variant:2}IncreasedLifeUnique__8
-FireResistUniqueBootsDex2
-AvoidIgniteUnique__1
+LocalIncreasedEvasionRatingPercentUniqueBodyDex3
+{variant:2}IncreasedLifeUniqueAmulet4
+FireResistUniqueBodyDex3
+AvoidIgniteUniqueBodyDex3
 RangedWeaponPhysicalDamagePlusPercentUniqueBodyDex3
 -(5-7) Physical Damage taken from Attacks
 ]],[[
@@ -199,25 +199,25 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 9, 32 Dex
-{variant:1,2}IncreasedAttackSpeedUniqueGlovesDex2
-{variant:3}IncreasedAttackSpeedUniqueQuiver1
+{variant:1,2}LocalIncreasedAttackSpeedUniqueClaw3
+{variant:3}IncreasedAttackSpeedUniqueBodyDex7
 LocalIncreasedEvasionRatingUniqueBodyDex7
-ColdResistUnique__17
-MovementVelocityUniqueIntHelmet2
+ColdResistUniqueBodyDex7
+MovementVelocityUniqueBodyDex7
 FlaskManaRecoveryUniqueBodyDex7
 {variant:1}5% increased Dexterity
-{variant:2,3}PercentageDexterityUnique__5
+{variant:2,3}PercentageDexterityUniqueBodyDex7
 ]],[[
 Wildwrap
 Strapped Leather
 Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
 Requires Level 57, 32 Dex
-IncreasedAttackSpeedUniqueQuiver1
+IncreasedAttackSpeedUniqueBodyDex7
 IncreasedEvasionRatingUnique__5_
-ColdResistUnique__17
-MovementVelocityUniqueIntHelmet2
+ColdResistUniqueBodyDex7
+MovementVelocityUniqueBodyDex7
 FlaskManaRecoveryUniqueBodyDex7
-PercentageDexterityUnique__5
+PercentageDexterityUniqueBodyDex7
 DamagePer15DexterityUnique__1
 ]],[[
 Bronn's Lithe
@@ -227,11 +227,11 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 53, 144 Dex
 LocalIncreaseSocketedMovementGemLevelUniqueBodyDex5
-IncreasedAttackSpeedUniqueQuiver1
+IncreasedAttackSpeedUniqueBodyDex7
 {variant:2,3}DamageWithMovementSkillsUniqueBodyDex5
 {variant:3}AttackAndCastSpeedOnUsingMovementSkillUnique__1
 LocalIncreasedEvasionRatingPercentUniqueBodyDex5
-MovementVelocityUniqueAmulet5
+MovementVelocityUniqueBodyDex5
 ]],[[
 Cospri's Will
 Assassin's Garb
@@ -254,22 +254,22 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 25, 73 Dex
 AddedPhysicalDamageUniqueBodyDex4
-DexterityUniqueGlovesInt4__
+DexterityUniqueBodyDex4
 {variant:1}You gain 150 Evasion Rating when on Full Life
 {variant:2}You gain 500 Evasion Rating when on Full Life
 LocalIncreasedEvasionRatingPercentUniqueBodyDex4
-MovementVelocityUniqueAmulet5
+MovementVelocityUniqueBodyDex5
 ]],[[
 Fox's Fortune
 Wild Leather
 Source: Upgraded from unique{Foxshade} via prophecy{Dark Instincts}
 Requires level 54, 73 Dex
 AddedPhysicalDamageUniqueBodyDex4
-DexterityUniqueGlovesInt4__
+DexterityUniqueBodyDex4
 EvasionOnFullLifeUnique__1_
 IncreasedEvasionRatingUniqueOneHandSword4
 LocalIncreasedEvasionRatingPercentUnique__17
-MovementVelocityUniqueAmulet5
+MovementVelocityUniqueBodyDex5
 Enemies are Unlucky when Damaging you while you are on Full Life
 ]],[[
 Hyrri's Ire
@@ -281,8 +281,8 @@ Variant: Pre 3.5.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
-{variant:1,2,3}DexterityUniqueGlovesInt4__
-{variant:4,5,6}DexterityUnique__7
+{variant:1,2,3}DexterityUniqueBodyDex4
+{variant:4,5,6}DexterityUniqueBodyDex1
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
@@ -299,7 +299,7 @@ Exquisite Leather
 Source: prophecy{Deadly Rivalry V}
 Requires Level 62, 170 Dex
 LocalIncreasedEvasionRatingPercentUniqueBodyStrDex5
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueBodyDexInt3
 FireResistUnique__6
 ReducedDamageIfNotHitRecentlyUnique__1
 50% increased Evasion if you have been Hit Recently
@@ -311,7 +311,7 @@ Variant: Current
 Requires Level 59, 160 Dex
 {variant:1}(240-380)% increased Evasion Rating
 {variant:2}LocalIncreasedEvasionRatingPercentUniqueBodyDex6
-IncreasedLifeUniqueAmulet25
+IncreasedLifeUniqueBodyDex6
 FireResistanceBodyDex6
 ColdResistanceBodyDex6
 LightningResistanceBodyDex6
@@ -329,7 +329,7 @@ LocalIncreasedEvasionRatingPercentUniqueBodyStrDex5
 IncreasedLifeUniqueBodyStrDex5
 {variant:1}-5% to maximum Fire Resistance
 {variant:2}FireResistUnique__11
-MovementVelocityUniqueBootsStrDex3
+MovementVelocityUniqueBodyStrDex5_
 IncreasedFireDamageTakenUniqueBodyStrDex5
 FireDamageTakenConvertedToPhysicalUniqueBodyStrDex5
 ]],[[
@@ -446,7 +446,7 @@ The Coming Calamity
 Destroyer Regalia
 Requires Level 53, 144 Int
 LocalIncreaseSocketedHeraldLevelUnique__1_
-LocalIncreasedEnergyShieldPercentUnique___4_
+LocalIncreasedEnergyShieldPercentUnique__6
 35% chance to avoid being Stunned for each Herald Skill affecting you
 HeraldsAlwaysCost45Unique__1
 ]],[[
@@ -459,13 +459,13 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 49, 134 Int
 SocketedGemsHaveAddedChaosDamageUniqueBodyInt3
-IntelligenceUnique__7
+IntelligenceUniqueBodyInt3
 {variant:1,2,3}MaximumLifeUniqueAmulet6
 {variant:4,5}MaximumLifeUniqueBodyInt3
 {variant:1}LocalIncreasedEnergyShieldPercentUniqueBodyInt8
-{variant:2}LocalIncreasedEnergyShieldPercentUnique__19
+{variant:2}LocalIncreasedEnergyShieldPercentUnique__21
 {variant:3,4}(280-320)% increased Energy Shield
-{variant:5}LocalIncreasedEnergyShieldPercent__2
+{variant:5}LocalIncreasedEnergyShieldUniqueBodyInt3
 {variant:1,2,3}BloodMagic
 {variant:4,5}Socketed Gems have Blood Magic
 ]],[[
@@ -496,7 +496,7 @@ Widowsilk Robe
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
 Requires Level 65, 187 Int
-IntelligenceUnique__16
+IntelligenceUniqueBodyStrInt3
 LocalIncreasedEnergyShieldPercentUnique__17
 (80-100) Energy Shield Regenerated per second
 DamageDealtByWebbedEnemiesUnique__1
@@ -533,12 +533,12 @@ Variant: Pre 3.0.0
 Variant: Pre 3.14.0
 Variant: Current
 Requires Level 65, 187 Int
-LocalIncreaseSocketedFireGemLevelUniqueStaff13
+LocalIncreaseSocketedFireGemLevelUniqueBodyInt4
 FireDamagePercentUniqueBodyInt4
 CriticalStrikeChanceUniqueBodyInt4
 {variant:1}(190-230)% increased Energy Shield
-{variant:2,3}LocalIncreasedEnergyShieldPercentUniqueShieldInt1
-ConvertFireToChaosUniqueBodyInt4Updated
+{variant:2,3}LocalIncreasedEnergyShieldUniqueBodyInt4
+ConvertFireToChaosUniqueBodyInt4
 {variant:1}100% increased Spell Damage taken when on Low Mana
 {variant:2}25% increased Spell Damage taken when on Low Mana
 {variant:3}SpellDamageTakenOnLowManaUniqueBodyInt4
@@ -549,11 +549,11 @@ Variant: Pre 2.0.0
 Requires Level 65, 187 Int
 Implicits: 1
 SpellDamageImplicitArmour1
-LocalIncreaseSocketedFireGemLevelUniqueStaff13
+LocalIncreaseSocketedFireGemLevelUniqueBodyInt4
 FireDamagePercentUniqueBodyInt4
 CriticalStrikeChanceUniqueBodyInt4
 (190-230)% increased Energy Shield
-ConvertFireToChaosUniqueBodyInt4Updated
+ConvertFireToChaosUniqueBodyInt4
 100% increased Spell Damage taken when on Low Mana
 ]],[[
 Shavronne's Wrappings
@@ -568,7 +568,7 @@ SpellDamageImplicitArmour1
 {variant:2}(140-200)% increased Energy Shield
 {variant:3}LocalIncreasedEnergyShieldUniqueBodyInt1
 ReducedEnergyShieldDelayUniqueBodyInt1
-LightningResistUniqueAmulet15
+LightningResistUniqueBodyInt1
 AttackerTakesLightningDamageUniqueBodyInt1
 ChaosTakenOnES
 ]],[[
@@ -590,7 +590,7 @@ Variant: Current
 Requires Level 49, 134 Int
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
 {variant:3}DisplaySocketedGemGetsSpellTotemBodyInt7
-SpellDamageUnique__12
+SpellDamageUniqueBodyInt7
 LocalIncreasedEnergyShieldUniqueBodyInt7
 {variant:1}25% increased Totem Life
 {variant:2,3}TotemLifeUniqueBodyInt7
@@ -626,10 +626,10 @@ Variant: Current
 Requires Level 59, 160 Int
 {variant:1}LocalIncreasedEnergyShieldUniqueBodyInt7
 {variant:2,3}LocalIncreasedEnergyShieldUniqueBodyInt9
-IncreasedManaUniqueIntHelmet3
+IncreasedManaUniqueBodyInt9
 MinionLifeUniqueBodyInt9
 MinionDamageUniqueBodyInt9
-{variant:1,2}MaximumMinionCountUniqueSceptre5
+{variant:1,2}MaximumMinionCountUniqueBodyInt9
 {variant:1}Minions gain Unholy Might for 5 seconds on Kill
 {variant:2}MinionUnholyMightOnKillUniqueBodyInt9
 {variant:3}MinionElementalDamageAddedAsChaosUnique__1
@@ -646,8 +646,8 @@ Requires Level 37, 104 Int
 {variant:1,2,3}(75-100)% increased Energy Shield
 {variant:4}LocalIncreasedEnergyShieldPercentUniqueBodyInt8
 {variant:1}+(20-25)% to Chaos Resistance
-{variant:2,3,4}ChaosResistUniqueRing16
-LightRadiusUniqueSceptre2
+{variant:2,3,4}ChaosResistUniqueBodyInt8
+LightRadiusUniqueBodyInt8
 {variant:1}25% chance on Block to create Consecrated Ground
 {variant:2}50% chance on Block to create Consecrated Ground
 {variant:3,4}100% chance on Block to create Consecrated Ground
@@ -659,7 +659,7 @@ Full Wyrmscale
 Requires Level 46, 68 Str, 68 Dex
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStrDex1
 MaximumLifeUniqueBodyStrDex1
-AllResistancesUnique__2
+AllResistancesUniqueBodyStrDex1
 FlaskLifeRecoveryRateUniqueBodyStrDex1
 ExtraGore
 ]],[[
@@ -672,7 +672,7 @@ Requires Level 69, 95 Str, 116 Dex
 {variant:1,2}(10-20)% increased Chaos Damage
 {variant:3}IncreasedChaosDamageUniqueBodyStrDex4
 LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
-IncreasedLifeUnique__91
+IncreasedLifeUniqueBodyStrDex4
 {variant:1}30% increased Life Leeched per second
 {variant:2,3}100% increased Life Leeched per second
 ]],[[
@@ -684,7 +684,7 @@ Variant: Current
 Requires Level 63, 115 Str, 94 Dex
 LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
 {variant:1,2}IncreasedLifeUniqueShieldStr5
-{variant:3}IncreasedLifeUnique__101
+{variant:3}IncreasedLifeUniqueBodyStrDex3_
 LifeLeechPermyriadUniqueBodyStrDex3
 6% Chance to Dodge Attacks
 LoseEnduranceChargesWhenHitUniqueBodyStrDex3
@@ -740,7 +740,7 @@ Variant: Current
 Requires Level 60, 96 Str, 96 Dex
 AddedLightningDamageUniqueBodyStrDex2
 LocalIncreasedArmourAndEvasionUniqueBodyStrDex2
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueBodyDexInt3
 LightningResistUniqueBodyStrDex2
 {variant:1}40% of Physical Damage from Hits taken as Lightning Damage
 {variant:2}PhysicalDamageTakenAsLightningPercentUniqueBodyStrDex2
@@ -752,7 +752,7 @@ Requires Level 28, 43 Str, 43 Dex
 LocalIncreasedArmourAndEvasionUnique__10_
 IncreasedLifeUnique__19
 ColdResistUnique__6
-MovementVelocityUniqueIntHelmet2
+MovementVelocityUniqueBodyDex7
 ChanceToPoisonWithAttacksUnique___1
 CannotBePoisonedUnique__1
 ]],
@@ -768,9 +768,9 @@ Requires Level 43, 64 Str, 64 Int
 {variant:1}LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt5
 {variant:2}LocalIncreasedArmourAndEnergyShieldUnique__10_
 {variant:3,4}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2
-{variant:4}IncreasedLifeUniqueGlovesInt3
+{variant:4}IncreasedLifeUniqueBodyDexInt3
 {variant:1,2}AllResistancesUniqueIntHelmet3
-{variant:3,4}AllResistancesUniqueGlovesStrDex2
+{variant:3,4}AllResistancesUniqueBodyStrInt2
 GainEnduranceChargeWhenCriticallyHit
 {variant:1,2,3}2% of Life Regenerated per Second while on Low Life
 {variant:4}2% of Life Regenerated per Second if you've been Hit Recently
@@ -781,8 +781,8 @@ Crusader Chainmail
 League: Heist
 Requires Level 43, 64 Str, 64 Int
 LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2
-IncreasedLifeUniqueGlovesInt3
-AllResistancesUniqueGlovesStrDex2
+IncreasedLifeUniqueBodyDexInt3
+AllResistancesUniqueBodyStrInt2
 ShareEnduranceChargesWithParty
 GainEnduranceChargesWhenHitUnique__1_
 LoseLifeIfHitRecentlyUnique__1
@@ -793,7 +793,7 @@ Requires Level 70, 99 Str, 115 Int
 AnimateGuardianWeaponOnGuardianKillUnique__1_
 AnimateGuardianWeaponOnAnimatedWeaponKillUnique__1
 LocalIncreasedArmourAndEnergyShieldUnique__11
-IncreasedLifeUnique__101
+IncreasedLifeUniqueBodyStrDex3_
 AnimatedGuardianDamagePerAnimatedWeaponUnique__1__
 AnimatedMinionsHaveMeleeSplashUnique__1
 IncreasedAnimatedMinionSplashDamageUnique__1
@@ -803,8 +803,8 @@ Doryani's Prototype
 Saint's Hauberk
 League: Harvest
 Requires Level 67, 109 Str, 94 Int
-LocalIncreasedArmourAndEnergyShieldUnique__15
-IncreasedLifeUnique__101
+LocalIncreasedArmourAndEnergyShieldUnique__21
+IncreasedLifeUniqueBodyStrDex3_
 DealNoNonLightningDamageUnique__1_
 ArmourAppliesToLightningDamageUnique__1_
 LightningResistNoReductionUnique__1_
@@ -817,7 +817,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 64, 90 Str, 105 Int
 LocalIncreasedArmourAndEnergyShieldUnique__2
-IncreasedLifeUnique__2
+IncreasedLifeUniqueBodyDexInt1
 {variant:1,2}IncreasedEnergyShieldUniqueBodyStrDexInt1
 {variant:3}IncreasedEnergyShieldUnique__5
 AllResistancesUnique__3
@@ -834,7 +834,7 @@ Requires Level 39, 59 Str, 59 Int
 {variant:1}+15 to Strength
 {variant:2}StrengthUniqueBodyStrInt3
 {variant:1}IntelligenceUniqueBootsDex3
-{variant:2}IntelligenceUnique__16
+{variant:2}IntelligenceUniqueBodyStrInt3
 LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt3
 ColdResistUniqueBodyStrInt3
 CannotBeChilledUniqueBodyStrInt3
@@ -845,7 +845,7 @@ Latticed Ringmail
 Source: Upgraded from unique{Icetomb} via prophecy{End of the Light}
 Requires Level 49, 59 Str, 59 Int
 StrengthUniqueBodyStrInt3
-IntelligenceUnique__16
+IntelligenceUniqueBodyStrInt3
 LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt3
 ColdResistUniqueBodyStrInt3
 CannotBeChilledUniqueBodyStrInt3
@@ -882,8 +882,8 @@ Kingsguard
 Conquest Chainmail
 Requires Level 61, 96 Str, 96 Int
 LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt6
-IncreasedLifeUnique__101
-IncreasedManaUniqueHelmetStrDex5_
+IncreasedLifeUniqueBodyStrDex3_
+IncreasedManaUniqueBodyStrInt6
 EnduranceChargeDurationUniqueBodyStrInt4
 Gain 100 Life when an Endurance Charge expires or is consumed
 ]],[[
@@ -900,7 +900,7 @@ Requires Level 47, 69 Str, 69 Int
 {variant:4}PhysicalDamageConvertToChaosBodyStrInt4
 {variant:1}Reflects (10-20) Chaos Damage to Melee Attackers
 {variant:2,3,4}AttackerTakesChaosDamageUniqueBodyStrInt4
-LightRadiusUniqueBootsStrDex2
+LightRadiusUniqueBodyStrInt4
 {variant:1}25% chance on Block to create Desecrated Ground
 {variant:2}50% chance on Block to create Desecrated Ground
 {variant:3,4}100% chance on Block to create Desecrated Ground
@@ -992,8 +992,8 @@ Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 96 Dex, 96 Int
-LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt4
-IncreasedLifeUnique__2
+LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt1
+IncreasedLifeUniqueBodyDexInt1
 AllResistancesUniqueBodyDexInt1
 {variant:1,2}20% increased Area of Effect of Area Skills
 {variant:3}(40-50)% increased Area of Effect of Area Skills
@@ -1009,9 +1009,9 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 {variant:1,2,3}(110-150)% increased Evasion and Energy Shield
-{variant:4}LocalIncreasedEvasionAndEnergyShieldUnique__20
+{variant:4}LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt2
 {variant:1,2}+(90-110) to maximum Mana
-{variant:3,4}IncreasedManaUniqueTwoHandAxe9
+{variant:3,4}IncreasedManaUniqueBodyDexInt2
 {variant:1,2}ManaRegenerationUniqueBodyDexInt2
 {variant:1}When hit, 10% of Damage is taken from Mana before Life
 {variant:3,4}DamageTakenFromManaBeforeLifeUniqueBodyDexInt2
@@ -1036,7 +1036,7 @@ Requires Level 65, 107 Dex, 90 Int
 Implicits: 0
 GlimpseOfEternityWhenHitUnique__1
 LocalIncreasedEvasionAndEnergyShieldUnique__27
-IncreasedLifeUnique__91
+IncreasedLifeUniqueBodyStrDex4
 ChaosResistUnique__17
 ElementalDamagePercentAddedAsChaosPerShaperItemUnique__1
 HitsIgnoreChaosResistanceAllShaperItemsUnique__1
@@ -1048,7 +1048,7 @@ League: Heist
 Requires Level 65, 107 Dex, 90 Int
 TriggerShadeFormWhenHitUnique__1
 LocalIncreasedEvasionAndEnergyShieldUnique__27
-IncreasedLifeUnique__91
+IncreasedLifeUniqueBodyStrDex4
 ChaosResistUnique__17
 PhysicalDamagePercentAddedAsChaosPerElderItemUnique__1
 HitsIgnoreChaosResistanceAllElderItemsUnique__1
@@ -1086,10 +1086,10 @@ Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 IncreasedManaImplicitArmour1
 {variant:1}IncreasedLifeUniqueShieldStr5
-{variant:2}IncreasedLifeUniqueGlovesInt3
-{variant:1}LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt4
+{variant:2}IncreasedLifeUniqueBodyDexInt3
+{variant:1}LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt1
 {variant:2}LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt3
-ChargeBonusMovementVelocityPerFrenzyCharge
+MovementVelocityPerFrenzyChargeUniqueBodyDexInt3
 ChargeDurationUniqueBodyDexInt3
 {variant:1}(15-20) Life Regenerated per second per Endurance Charge
 {variant:2}(20-30) Life Regenerated per second per Endurance Charge
@@ -1101,7 +1101,7 @@ Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 IncreasedManaImplicitArmour1
 LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt3
-IncreasedLifeUniqueGlovesInt3
+IncreasedLifeUniqueBodyDexInt3
 MovementVelocityPerFrenzyChargeUnique__2
 ReducedMaximumEnduranceChargeUnique__2
 ReducedMaximumFrenzyChargesUnique__2_
@@ -1113,7 +1113,7 @@ League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 65, 107 Dex, 90 Int
 AllAttributesUnique__5
-LightningResistUniqueAmulet15
+LightningResistUniqueBodyInt1
 ReducedManaReservationCostUnique__2
 AvianAspectBuffEffectUnique__1
 GrantAviansAspectToAlliesUnique__1
@@ -1153,7 +1153,7 @@ Tinkerskin
 Sadist Garb
 Requires Level 68, 103 Dex, 109 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__4
-IncreasedLifeUnique__101
+IncreasedLifeUniqueBodyStrDex3_
 (10-15)% increased Cooldown Recovery Speed for throwing Traps
 GainFrenzyChargeOnTrapTriggeredUnique__1
 PhasingOnTrapTriggeredUnique__1
@@ -1170,11 +1170,11 @@ LocalIncreaseSocketedAuraGemLevelUniqueBodyDexInt4
 {variant:2}SocketedItemsHaveReducedReservationUniqueBodyDexInt4
 {variant:1}Socketed Gems are Supported by level 1 Generosity
 {variant:2}SupportedByGenerosityUniqueBodyDexInt4_
-LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt4
+LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt1
 {variant:1}(10-20)% increased Radius of Auras
 {variant:2}IncreasedAuraRadiusUniqueBodyDexInt4
 {variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
-{variant:2}AuraEffectGlobalUnique__1
+{variant:2}IncreasedAuraEffectUniqueBodyDexInt4
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
@@ -1182,9 +1182,9 @@ The Admiral
 Varnished Coat
 League: Heist
 Requires Level 62, 96 Dex, 96 Int
-IntelligenceUnique__16
+IntelligenceUniqueBodyStrInt3
 LocalIncreasedEvasionAndEnergyShieldUnique__31
-AllResistancesUnique__7
+AllResistancesUniqueHelmetStrInt1
 ChanceToFreezeShockIgniteUnique__1
 ElementalDamageLowestResistUnique__1
 ]],[[
@@ -1215,9 +1215,9 @@ GlobalVaalGemsLevelImplicit1_
 {variant:1,10}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStrDexInt1a
 {variant:2,11}(200-220)% increased Evasion Rating and Armour
 {variant:3,12}LocalIncreasedEvasionRatingPercentUniqueBodyStrDexInt1c
-{variant:4,5,13,14}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1d
+{variant:4,5,13,14}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1f
 {variant:6,15}LocalIncreasedEnergyShieldUniqueBodyStrDexInt1g
-{variant:7,8,16,17}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1e
+{variant:7,8,16,17}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1h
 {variant:9,18}LocalArmourAndEvasionAndEnergyShieldUniqueBodyStrDexInt1i
 {variant:1,2,3,4,7,10,11,12,13,16}IncreasedLifeUniqueBodyStrDexInt1
 {variant:5,6,8}+(90-100) to Maximum Energy Shield

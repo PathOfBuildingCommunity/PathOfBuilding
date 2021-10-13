@@ -31,7 +31,7 @@ Implicits: 0
 {variant:3}FlaskTakeChaosDamagePercentageOfLifeUniqueFlask2
 {variant:1,2}FlaskGainPowerChargeUniqueFlask2
 {variant:1,2}FlaskGainFrenzyChargeUniqueFlask2
-{variant:1,2}FlaskGainEnduranceChargeUniqueFlask2
+{variant:1,2}FlaskGainEnduranceChargeUnique__1_
 {variant:3}You gain (1-3) Power Charges on use
 {variant:3}You gain (1-3) Frenzy Charges on use
 {variant:3}You gain (1-3) Endurance Charge on use
@@ -43,7 +43,7 @@ Lavianga's Spirit
 Sanctified Mana Flask
 League: Domination, Nemesis
 Requires Level 50
-FlaskIncreasedRecoveryAmountUnique__1
+FlaskIncreasedRecoveryAmountUniqueFlask4
 100% increased Recovery Speed
 Your Skills have no Mana Cost during Flask effect
 ]],[[
@@ -51,7 +51,7 @@ Replica Lavianga's Spirit
 Sanctified Mana Flask
 League: Heist
 Requires Level 50
-FlaskIncreasedRecoveryAmountUnique__1
+FlaskIncreasedRecoveryAmountUniqueFlask4
 50% reduced Recovery rate
 LocalFlaskAttackAndCastSpeedWhileHealingUnique__1
 (5-15)% increased Cast Speed during Flask effect
@@ -121,7 +121,7 @@ Variant: Current
 Requires Level 35
 UtilityFlaskConsecrate
 {variant:1}FlaskEffectDurationUnique__3
-{variant:2}FlaskConsecratedGroundDurationUnique__1
+{variant:2}FlaskEffectDurationUnique__7
 FlaskConsecratedGroundAreaOfEffectUnique__1_
 {variant:1}+(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
 {variant:2}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
@@ -191,7 +191,7 @@ Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68
 {variant:2}(-10-10)% increased Charges used
-{variant:3}FlaskChargesUsedUnique___2
+{variant:3}FlaskChargesUsedUnique__5
 {variant:3}FlaskEffectDurationUnique__6
 {variant:1}30% increased Area of Effect during Flask Effect
 {variant:2}(15-25)% increased Area of Effect during Flask Effect
@@ -279,7 +279,7 @@ Replica Rumi's Concoction
 Granite Flask
 League: Heist
 Requires Level 68
-FlaskGainEnduranceChargeUniqueFlask2
+FlaskGainEnduranceChargeUnique__1_
 BlockIncreasedDuringFlaskEffectUnique__1
 SpellBlockIncreasedDuringFlaskEffectUnique__1_
 LocalFlaskPetrifiedUnique__1
@@ -303,7 +303,7 @@ Implicits: 1
 UtilityFlaskConsecrate
 FlaskEffectDurationUnique__1
 Zealot's Oath during Flask effect
-FlaskEldritchBatteryUnique__1
+FlaskZealotsOathUnique__1
 ]],[[
 Replica Sorrow of the Divine
 Sulphur Flask
@@ -313,7 +313,7 @@ Implicits: 1
 UtilityFlaskConsecrate
 FlaskEffectDurationUnique__1
 Eldritch Battery during Flask effect
-FlaskEldritchBatteryUnique__1
+FlaskZealotsOathUnique__1
 ]],[[
 Soul Catcher
 Quartz Flask
@@ -403,7 +403,7 @@ Variant: Current (Spells)
 Variant: Current (Attacks)
 Requires Level 68
 {variant:5,6,7,8,9,10,11,12,13,14,15}FlaskChargesUsedUnique__6_
-{variant:16,17,18}FlaskChargesUsedUnique___2
+{variant:16,17,18}FlaskChargesUsedUnique__5
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Flask effect
 {variant:9,10,11,12,13,14,15,16,17,18}ShockNearbyEnemiesDuringFlaskEffect___1
 {variant:1,2,3,4,5,6,7,8}You are Shocked during Flask effect
