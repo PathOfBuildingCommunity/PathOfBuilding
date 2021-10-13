@@ -631,7 +631,7 @@ function main:OpenOptionsPopup()
 		self.betaTest = state
 	end)
 
-	controls.defaultGemQuality = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 204, 30, 20, self.defaultGemQuality, nil, "%%^", 2, function(gemQuality)
+	controls.defaultGemQuality = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 204, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
 		self.defaultGemQuality = m_min(tonumber(gemQuality) or 0, 23)
 	end)
 	controls.defaultGemQuality.tooltipText="Set the default quality that can be overwritten by build-related quality settings in the skill panel."
