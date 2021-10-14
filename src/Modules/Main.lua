@@ -64,7 +64,7 @@ function main:Init()
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
 		self.allowTreeDownload = true
 	end
-	
+
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
@@ -344,7 +344,7 @@ function main:OnFrame()
 		DrawString(cursorX + 1, cursorY - 7, "LEFT", 16, "VAR", self.showDragText)
 		self.showDragText = nil
 	end
-	
+
 	--[[local par = 300
 	for x = 0, 750 do
 		for y = 0, 750 do
@@ -519,6 +519,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.betaTest then
 					self.betaTest = node.attrib.betaTest == "true"
 				end
+				if node.attrib.defaultGemQuality then
+					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
+				end
 			end
 		end
 	end
@@ -556,9 +559,9 @@ function main:SaveSettings()
 		t_insert(sharedItemList, set)
 	end
 	t_insert(setXML, sharedItemList)
-	t_insert(setXML, { elem = "Misc", attrib = { 
-		buildSortMode = self.buildSortMode, 
-		proxyURL = launch.proxyURL, 
+	t_insert(setXML, { elem = "Misc", attrib = {
+		buildSortMode = self.buildSortMode,
+		proxyURL = launch.proxyURL,
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
@@ -566,6 +569,7 @@ function main:SaveSettings()
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 		betaTest = tostring(self.betaTest),
+		defaultGemQuality = tostring(self.defaultGemQuality),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -626,6 +630,13 @@ function main:OpenOptionsPopup()
 	controls.betaTest = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 182, 20, "Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
 	end)
+
+	controls.defaultGemQuality = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 204, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
+		self.defaultGemQuality = m_min(tonumber(gemQuality) or 0, 23)
+	end)
+	controls.defaultGemQuality.tooltipText="Set the default quality that can be overwritten by build-related quality settings in the skill panel."
+	controls.defaultGemQualityLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 225, 204, 0, 16, "^7Default gem quality:")
+
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
@@ -634,7 +645,8 @@ function main:OpenOptionsPopup()
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
 	local initialBetaTest = self.betaTest
-	controls.save = new("ButtonControl", nil, -45, 204, 80, 20, "Save", function()
+	local initialDefaultGemQuality = self.defaultGemQuality
+	controls.save = new("ButtonControl", nil, -45, 226, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -654,16 +666,17 @@ function main:OpenOptionsPopup()
 		main:SetManifestBranch(self.betaTest and "beta" or "master")
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 204, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 226, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
 		self.showTitlebarName = initialTitlebarName
 		self.betaTest = initialBetaTest
+		self.defaultGemQuality = initialDefaultGemQuality
 		main:ClosePopup()
 	end)
-	self:OpenPopup(450, 240, "Options", controls, "save", nil, "cancel")
+	self:OpenPopup(450, 262, "Options", controls, "save", nil, "cancel")
 end
 
 function main:SetManifestBranch(branchName)
@@ -858,7 +871,7 @@ function main:MoveFolder(name, srcPath, dstPath)
 	end
 
 	-- Move files
-	handle = NewFileSearch(srcPath..name.."/*") 
+	handle = NewFileSearch(srcPath..name.."/*")
 	while handle do
 		local fileName = handle:GetFileName()
 		local srcName = srcPath..name.."/"..fileName
@@ -870,7 +883,7 @@ function main:MoveFolder(name, srcPath, dstPath)
 		end
 		if not handle:NextFile() then
 			break
-		end		
+		end
 	end
 
 	-- Remove source folder
@@ -900,7 +913,7 @@ function main:CopyFolder(srcName, dstName)
 	end
 
 	-- Copy files
-	handle = NewFileSearch(srcName.."/*") 
+	handle = NewFileSearch(srcName.."/*")
 	while handle do
 		local fileName = handle:GetFileName()
 		local srcName = srcName.."/"..fileName
@@ -912,7 +925,7 @@ function main:CopyFolder(srcName, dstName)
 		end
 		if not handle:NextFile() then
 			break
-		end		
+		end
 	end
 end
 
@@ -982,7 +995,7 @@ function main:OpenNewFolderPopup(path, onClose)
 		end
 		main:ClosePopup()
 	end)
-	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")	
+	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")
 end
 
 function main:SetWindowTitleSubtext(subtext)
