@@ -580,17 +580,17 @@ end
 
 function main:OpenOptionsPopup()
     -- local func to make a new line with a heightModifier
-    local function nextRow(heightModifier)
-        heightModifier=heightModifier or 1
-        currentY = currentY + heightModifier *pxPerLine
-    end
-    popup_width = 600
-    pxPerLine = 26
-    currentY = 20
-    defaultLabelSpacingPx = -4
-    defaultLabelPlacementX = 240
-    childLabelPlacementX = 240
-    popupMiddle = popup_width / 2
+	local function nextRow(heightModifier)
+		heightModifier = heightModifier or 1
+		currentY = currentY + heightModifier * pxPerLine
+	end
+	popup_width = 600
+	pxPerLine = 26
+	currentY = 20
+	defaultLabelSpacingPx = -4
+	defaultLabelPlacementX = 240
+	childLabelPlacementX = 240
+	popupMiddle = popup_width / 2
 
 	local controls = { }
     controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 18, {
