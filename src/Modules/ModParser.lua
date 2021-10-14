@@ -127,6 +127,9 @@ local modNameList = {
 	["mana reservation if cast as an aura"] = { "ManaReserved", tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["reservation if cast as an aura"] = { "Reserved", tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["reservation"] = { "Reserved" },
+	["reservation efficiency"] = "ReservationEfficiency",
+	["mana reservation efficiency"] = "ManaReservationEfficiency",
+	["life reservation efficiency"] = "LifeReservationEfficiency",
 	-- Primary defences
 	["maximum energy shield"] = "EnergyShield",
 	["energy shield recharge rate"] = "EnergyShieldRecharge",

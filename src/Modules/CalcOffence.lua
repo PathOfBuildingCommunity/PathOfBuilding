@@ -830,13 +830,17 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
-		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / calcLib.mod(skillModList, skillCfg, "ManaReservationEfficiency", "ReservationEfficiency")
 		if breakdown then
 			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "Reserved", "SupportManaMultiplier")
+			breakdown.ManaReservedMod[3] = s_format("/ %.2f ^8(reservation efficiency)", calcLib.mod(skillModList, skillCfg, "ManaReservationEfficiency", "ReservationEfficiency"))
+			breakdown.ManaReservedMod[4] = s_format("= %.2f", output.ManaReservedMod)
 		end
-		output.LifeReservedMod = calcLib.mod(skillModList, skillCfg, "LifeReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
+		output.LifeReservedMod = calcLib.mod(skillModList, skillCfg, "LifeReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / calcLib.mod(skillModList, skillCfg, "LifeReservationEfficiency", "ReservationEfficiency")
 		if breakdown then
 			breakdown.LifeReservedMod = breakdown.mod(skillModList, skillCfg, "LifeReserved", "Reserved", "SupportManaMultiplier")
+			breakdown.LifeReservedMod[3] = s_format("/ %.2f ^8(reservation efficiency)", calcLib.mod(skillModList, skillCfg, "LifeReservationEfficiency", "ReservationEfficiency"))
+			breakdown.LifeReservedMod[4] = s_format("= %.2f", output.LifeReservedMod)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
