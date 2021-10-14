@@ -590,7 +590,6 @@ function main:OpenOptionsPopup()
 	defaultLabelSpacingPx = -4
 	defaultLabelPlacementX = 240
 	childLabelPlacementX = 240
-	popupMiddle = popup_width / 2
 
 	local controls = { }
     controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 18, {
