@@ -54,7 +54,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
-							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and not spec.allocNodes[nodeId] then
+							-- Assumption: Nodes >= 65536 are small cluster passives.
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
+							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536 
+							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
 								else
