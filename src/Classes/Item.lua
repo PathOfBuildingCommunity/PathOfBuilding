@@ -447,6 +447,15 @@ function ItemClass:ParseRaw(raw)
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
+				elseif lineLower == "can have 1 additional enchantment modifiers" then
+					self.canHaveTwoEnchants = true
+				elseif lineLower == "can have 2 additional enchantment modifiers" then
+					self.canHaveTwoEnchants = true
+					self.canHaveThreeEnchants = true
+				elseif lineLower == "can have 3 additional enchantment modifiers" then
+					self.canHaveTwoEnchants = true
+					self.canHaveThreeEnchants = true
+					self.canHaveFourEnchants = true
 				end
 
 				if data.itemBases[line] then
