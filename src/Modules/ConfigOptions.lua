@@ -219,6 +219,14 @@ return {
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MeatShieldEnemyNearYou", "FLAG", true, "Config")
 	end },
+	{ label = "Plague Bearer:", ifSkill = "Plague Bearer"},
+	{ var = "plagueBearerState", type = "list", label = "State:", ifSkill = "Plague Bearer", list = {{val="INC",label="Incubating"},{val="INF",label="Infecting"}}, apply = function(val, modList, enemyModList)
+		if val == "INC" then
+			modList:NewMod("Condition:PlagueBearerIncubating", "FLAG", true, "Config")
+		elseif val == "INF" then
+			modList:NewMod("Condition:PlagueBearerInfecting", "FLAG", true, "Config")
+		end
+	end },
 	{ label = "Perforate:", ifSkill = "Perforate"},
 	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillName = "Perforate" })
