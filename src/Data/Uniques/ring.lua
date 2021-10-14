@@ -374,6 +374,8 @@ Implicits: 1
 ]],[[
 Replica Doedre's Damning
 Paua Ring
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
@@ -381,7 +383,8 @@ Implicits: 1
 {tags:jewellery_resistance}+5% to all Elemental Resistances
 {tags:mana}+5 Mana gained on Kill
 {tags:caster}You can apply one fewer Curse
-{tags:caster}(25-35)% increased Effect of your Curses
+{variant:1}{tags:caster}(25-35)% increased Effect of your Curses
+{variant:2}{tags:caster}(15-25)% increased Effect of your Curses
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -400,20 +403,22 @@ Emberwake
 Ruby Ring
 Variant: Pre 3.0.0
 Variant: Pre 3.9.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
-{variant:2,3}{tags:jewellery_elemental}(30-40)% increased Fire Damage
+{variant:2,3,4}{tags:jewellery_elemental}(30-40)% increased Fire Damage
 {tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
+{variant:2,3,4}{tags:jewellery_elemental}10% chance to Ignite
 You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
 {variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
 {variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
+{variant:4}{tags:jewellery_elemental}40% less Burning Damage
 ]],[[
 Replica Emberwake
 Ruby Ring

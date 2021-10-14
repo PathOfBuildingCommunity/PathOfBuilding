@@ -638,13 +638,17 @@ Implicits: 1
 ]],[[
 The Jinxed Juju
 Citrine Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
 {tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
-{tags:caster}(10-15)% increased Effect of your Curses
-(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:1}{tags:caster}(10-15)% increased Effect of your Curses
+{variant:2}{tags:caster}(5-10)% increased Effect of your Curses
+{variant:1}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:2}(5-10)% increased effect of Non-Curse Auras from your Skills
 10% of Damage from Hits is taken from your Spectres' Life before you
 (The damage they take will be divided evenly between them)
 ]],[[

@@ -728,12 +728,15 @@ Cannot be Frozen
 ]],[[
 Wheel of the Stormsail
 Rotted Round Shield
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 5
 Implicits: 1
 60% increased Block Recovery
 +(5-10) to Armour
 (30-40)% increased Rarity of Items found
-25% increased Curse Duration
+{variant:1}25% increased Curse Duration
+{variant:2}100% increased Curse Duration
 100% increased Duration of Curses on you
 +5% Chance to Block
 ]],
