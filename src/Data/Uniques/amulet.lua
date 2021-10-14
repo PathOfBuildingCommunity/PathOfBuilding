@@ -884,13 +884,16 @@ Summoned Raging Spirits deal (60-80)% increased Damage
 ]],[[
 Tear of Purity
 Lapis Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Grants level 10 Purity of Elements Skill
 {tags:jewellery_attribute}+(5-10) to all Attributes
 {tags:life}+(20-40) to maximum Life
-5% chance to avoid Elemental Ailments
+{variant:1}5% chance to avoid Elemental Ailments
+{variant:2}+5% to all Elemental Resistances
 ]],[[
 Ungil's Harmony
 Turquoise Amulet

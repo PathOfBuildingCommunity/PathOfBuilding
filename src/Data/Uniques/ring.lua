@@ -535,16 +535,18 @@ Implicits: 1
 Kikazaru
 Topaz Ring
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {variant:1}{tags:life}(13-17) Life Regenerated per second
-{variant:2}{tags:life}1 Life Regenerated per second per Level
+{variant:2,3}{tags:life}1 Life Regenerated per second per Level
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 {variant:1}{tags:caster}20% reduced Effect of Curses on You
 {variant:2}{tags:caster}40% reduced Effect of Curses on You
+{variant:3}{tags:caster}60% reduced Effect of Curses on You
 ]],[[
 Le Heup of All
 Iron Ring
