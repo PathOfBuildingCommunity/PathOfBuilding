@@ -916,7 +916,7 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental}(20-40)% increased Cold Damage
 {variant:2}{tags:caster}(20-40)% increased Spell Damage
 {tags:caster,speed}(5-10)% increased Cast Speed
-{variant:1}Spells have an additional Projectile
+{variant:1}Spells fire an additional Projectile
 {variant:2}Left ring slot: Projectiles from Spells cannot Chain
 {variant:2}Left ring slot: Projectiles from Spells Fork
 {variant:2}Right ring slot: Projectiles from Spells Chain +1 times
