@@ -82,12 +82,15 @@ Implicits: 1
 ]],[[
 Replica Atziri's Foible
 Paua Amulet
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Requires Level 16
 Implicits: 1
 {tags:life}Regenerate (1.00-2.00)% of Life per second
 {tags:life}+100 to maximum Life
-{tags:life}(20-25)% increased Life Recovery rate
+{variant:1}{tags:life}(20-25)% increased Life Recovery rate
+{variant:2}{tags:life}(20-25)% increased Life Regeneration rate
 Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 Aul's Uprising

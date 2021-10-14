@@ -528,12 +528,16 @@ Implicits: 1
 ]],[[
 Kaom's Way
 Coral Ring
+Variant: Pre 3.16.0
+Variant: Current
 Source: Upgraded from unique{Kaom's Sign} using prophecy{The King's Path}
 Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
-{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
+{variant:1}{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
+{variant:2}{tags:life}0.2% of maximum Life Regenerated per second per Endurance Charge
+{variant:2}2% increased Area of Effect per Endurance Charge
 {tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
 +1 Maximum Endurance Charge
 ]],[[

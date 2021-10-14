@@ -488,16 +488,19 @@ Vaal Spirit Shield
 League: Breach
 Source: Upgraded from unique{Esh's Mirror} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 62, 159 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
-{variant:2}(5-10)% increased Spell Damage
-+(40-70) to maximum Life
+{variant:2,3}(5-10)% increased Spell Damage
+{variant:1,2}+(40-70) to maximum Life
+{variant:3}+(70-100) to maximum Life
 (240-260)% increased Energy Shield
 +(30-40)% to Lightning Resistance
 +(17-29)% to Chaos Resistance
-Chaos Damage does not bypass Energy Shield while not on Low Life or Low Mana
+{variant:1,2}Chaos Damage does not bypass Energy Shield while not on Low Life or Low Mana
+{variant:3}Chaos Damage does not bypass Energy Shield while not on Low Life
 Reflect Shocks applied to you to all Nearby Enemies
 ]],[[
 The Eternal Apple
