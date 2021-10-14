@@ -1182,6 +1182,7 @@ skills["SupportCruelty"] = {
 		},
 	},
 	baseMods = {
+		mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
 	},
 	qualityStats = {
 		Default = {
