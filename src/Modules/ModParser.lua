@@ -2953,8 +2953,6 @@ local specialModList = {
 	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
-	["flasks gain 2 charges every 3 seconds while they are inactive"] = { },
-	["flasks gain 2 charges when you hit a non%-unique enemy, no more than once per second"] = { },
 	-- Legion modifiers
 	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
@@ -2985,7 +2983,7 @@ local specialModList = {
 	["you take (%d+)%% reduced extra damage from critical strikes while you have no power charges"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true }) } end,
 	["nearby allies have 1%% chance to block attack damage per 100 strength you have"] = function(num)
 		return {  mod("ExtraAura", "LIST",
-				{onlyAllies = true, mod = mod("BlockChance", "BASE", 1)}, {type = "PerStat", stat = "Str", div = 1})} end,
+				{onlyAllies = true, mod = mod("BlockChance", "BASE", 1)}, {type = "PerStat", stat = "Str", div = 100})} end,
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }

@@ -1532,20 +1532,32 @@ Projectiles Pierce an additional Target
 Survival Instincts
 Viridian Jewel
 Limited to: 1
-50% chance for Flasks you use to not consume Charges
-70% less Flask Charges gained from Kills
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}+20 to Dexterity
+{variant:1}+6% to all Elemental Resistances
+{variant:2}50% chance for Flasks you use to not consume Charges
+{variant:2}70% less Flask Charges gained from Kills
 ]],[[
 Survival Secrets
 Cobalt Jewel
 Limited to: 1
-Flasks gain 2 Charges every 3 seconds while they are inactive
-50% less Flask Effect Duration
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}3 Mana Regenerated per second
+{variant:1}10% increased Elemental Damage
+{variant:2}Flasks gain 2 Charges every 3 seconds while they are inactive
+{variant:2}50% less Flask Effect Duration
 ]],[[
 Survival Skills
 Crimson Jewel
 Limited to: 1
-Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
-80% less Flask Charges gained from Kills
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}10% increased Global Physical Damage
+{variant:1}+50 to Armour
+{variant:2}Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
+{variant:2}80% less Flask Charges gained from Kills
 ]],[[
 Warlord's Reach
 Crimson Jewel
