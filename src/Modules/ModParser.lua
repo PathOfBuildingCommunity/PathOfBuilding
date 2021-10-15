@@ -1489,6 +1489,9 @@ local specialModList = {
 	["you take (%d+)%% of damage from blocked hits"] = function(num) return { mod("BlockEffect", "BASE", num) } end,
 	["ignore attribute requirements"] = { flag("IgnoreAttributeRequirements") },
 	["gain no inherent bonuses from attributes"] = { flag("NoAttributeBonuses") },
+	["gain no inherent bonuses from strength"] = { flag("NoStrengthAttributeBonuses") },
+	["gain no inherent bonuses from dexterity"] = { flag("NoDexterityAttributeBonuses") },
+	["gain no inherent bonuses from intelligence"] = { flag("NoIntelligenceAttributeBonuses") },
 	["all damage taken bypasses energy shield"] = {
 		mod("PhysicalEnergyShieldBypass", "BASE", 100),
 		mod("LightningEnergyShieldBypass", "BASE", 100),

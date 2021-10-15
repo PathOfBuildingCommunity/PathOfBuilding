@@ -36,12 +36,17 @@ Adds 2 to 4 Physical Damage to Attacks
 The Brass Dome
 Gladiator Plate
 Source: Drops from unique{Guardian of the Minotaur}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 177 Str
-30% reduced Chance to Block Attacks and Spells
-(600-650)% increased Armour
-10% reduced Movement Speed
-50% increased Shock Duration on You
-Take no Extra Damage from Critical Strikes
+{variant:1}30% reduced Chance to Block Attacks and Spells
+{variant:1}(600-650)% increased Armour
+{variant:1}10% reduced Movement Speed
+{variant:1}50% increased Shock Duration on You
+{variant:1}Take no Extra Damage from Critical Strikes
+{variant:2}(350-400)% increased Armour
+{variant:2}+(1-2) to all maximum Resistances
+{variant:2}Gain no inherent bonuses from Strength
 ]],[[
 Craiceann's Carapace
 Golden Plate
