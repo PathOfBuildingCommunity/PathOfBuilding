@@ -1532,20 +1532,20 @@ Projectiles Pierce an additional Target
 Survival Instincts
 Viridian Jewel
 Limited to: 1
-+20 to Dexterity
-+6% to all Elemental Resistances
+50% chance for Flasks you use to not consume Charges
+70% less Flask Charges gained from Kills
 ]],[[
 Survival Secrets
 Cobalt Jewel
 Limited to: 1
-3 Mana Regenerated per second
-10% increased Elemental Damage
+Flasks gain 2 Charges every 3 seconds while they are inactive
+50% less Flask Effect Duration
 ]],[[
 Survival Skills
 Crimson Jewel
 Limited to: 1
-10% increased Global Physical Damage
-+50 to Armour
+Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
+80% less Flask Charges gained from Kills
 ]],[[
 Warlord's Reach
 Crimson Jewel
