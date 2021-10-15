@@ -964,7 +964,7 @@ Requires Level 68, 62 Str, 91 Int
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
 {variant:1}10% increased Reservation of Skills
-{variant:2s}20% reduced Reservation Efficiency
+{variant:2}20% reduced Reservation Efficiency
 Gain Armour equal to your Reserved Mana
 ]],[[
 Mindspiral
