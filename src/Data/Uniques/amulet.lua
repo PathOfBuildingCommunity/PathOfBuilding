@@ -486,6 +486,8 @@ Hyrri's Truth
 Jade Amulet
 League: Synthesis
 Requires Level 64
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Precision Skill
@@ -494,11 +496,14 @@ Grants Level 22 Precision Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
 {tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
-Precision has 50% less Reservation
+{variant:1}Precision has 50% less Reservation
+{variant:2}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
 League: Heist
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -508,7 +513,8 @@ Grants Level 22 Hatred Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-Hatred has 50% less Reservation
+{variant:1}Hatred has 50% less Reservation
+{variant:2}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
 The Ignomon
 Gold Amulet
