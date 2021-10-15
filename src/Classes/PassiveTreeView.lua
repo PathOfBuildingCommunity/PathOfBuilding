@@ -259,16 +259,21 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	if treeClick == "LEFT" then
 		if hoverNode then
 			-- User left-clicked on a node
-			if hoverNode.alloc then
+			if hoverNode.alloc and not hoverNode.isMastery then -- Needed if mastery nodes get flagged as allocated, remove otherwise (we should avoid it to remove the check)
 				-- Node is allocated, so deallocate it
 				spec:DeallocNode(hoverNode)
 				spec:AddUndoState()
 				build.buildFlag = true
+			-- I'm pretty sure this code can work for allocating the mastery node nearly unchanged
+			-- the tracePath stuff above just needs to be changed to accomodate for it
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
 				spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
 				spec:AddUndoState()
 				build.buildFlag = true
+			elseif hoverNode.isMastery then
+				-- Node is a mastery, pop up the corresponding mastery dialogue
+				ConPrintf("You clicked a mastery!")
 			end
 		end
 	elseif treeClick == "RIGHT" then
@@ -639,7 +644,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end
-		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and not IsKeyDown("CTRL") and not main.popups[1] then
+		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and not IsKeyDown("CTRL") and not main.popups[1] and not node.isMastery then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)

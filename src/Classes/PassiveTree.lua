@@ -227,6 +227,15 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			allocAlt = "JewelSocketAltActive",
 			pathAlt = "JewelSocketAltCanAllocate",
 			unallocAlt = "JewelSocketAltNormal",
+		},
+		--temporary values, based on the new dev reference
+		--also required to have masteries be detected under the mouse cursor
+		Mastery = {
+			artWidth = 69,
+			alloc = "MasteryFrameActive",
+			--consensus seems to be people want support for the tristate masteries,
+			path = "MasteryFrameCanActivate",
+			unalloc = "InactiveMasteryImage"
 		}
 	}
 	for type, data in pairs(self.nodeOverlay) do
