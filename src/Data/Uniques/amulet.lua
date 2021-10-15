@@ -951,8 +951,8 @@ Implicits: 1
 Trigger Level 20 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_elemental}50% increased Lightning Damage
 {tags:mana}(10-20)% increased maximum Mana
-{variant:1}{variant:2}Critical Strike Chance is increased by Lightning Resistance
-{variant:1}{variant:3}{tags:jewellery_resistance}-30% to Lightning Resistance
+{variant:1,2}Critical Strike Chance is increased by Lightning Resistance
+{variant:1,3}{tags:jewellery_resistance}-30% to Lightning Resistance
 {variant:3}Critical Strike Chance is increased by Overcapped Lightning Resistance
 ]],[[
 Voll's Devotion
