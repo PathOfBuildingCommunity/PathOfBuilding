@@ -410,10 +410,16 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveFourEnchants and
 			#self.displayItem.enchantModLines > 2
 	end
-	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, 8, 0, 100, 20, "Corrupt...", function()
-		self:CorruptDisplayItem()
+	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, 8, 10, 100, 20, "Corrupt...", function()
+		self:CorruptDisplayItem("Corrupted")
 	end)
 	self.controls.displayItemCorrupt.shown = function()
+		return self.displayItem and self.displayItem.corruptable
+	end
+	self.controls.displayItemScourge = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 100, 20, "Scourge...", function()
+		self:CorruptDisplayItem("Scourge")
+	end)
+	self.controls.displayItemScourge.shown = function()
 		return self.displayItem and self.displayItem.corruptable
 	end
 
@@ -803,7 +809,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 					-- 'ModRange' elements are legacy though, so is this actually needed? :<
 					-- Maybe it is? Maybe it isn't? Maybe up is down? Maybe good is bad? AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 					-- Sorry, cluster jewels are making me crazy(-ier)
-					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
 						if id <= #list then
 							list[id].range = range
 							break
@@ -871,6 +877,12 @@ function ItemsTabClass:Save(xml)
 		t_insert(child, item.raw)
 		local id = #item.buffModLines + 1
 		for _, modLine in ipairs(item.enchantModLines) do
+			if modLine.range then
+				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
+			end
+			id = id + 1
+		end
+		for _, modLine in ipairs(item.scourgeModLines) do
 			if modLine.range then
 				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
 			end
@@ -1647,6 +1659,7 @@ function ItemsTabClass:CraftItem()
 		item.baseName = base.name
 		item.buffModLines = { }
 		item.enchantModLines = { }
+		item.scourgeModLines = { }
 		item.implicitModLines = { }
 		item.explicitModLines = { }
 		item.quality = 0
@@ -1894,7 +1907,7 @@ end
 function ItemsTabClass:getAnoint(item)
 	local result = { }
 	if item then
-		for _, modList in ipairs{item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+		for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
 			for _, mod in ipairs(modList) do
 				local line = mod.line
 				local anoint = line:find("Allocates ([a-zA-Z ]+)")
@@ -2009,11 +2022,11 @@ function ItemsTabClass:AnointDisplayItem(enchantSlot)
 end
 
 -- Opens the item corrupting popup
-function ItemsTabClass:CorruptDisplayItem()
+function ItemsTabClass:CorruptDisplayItem(modType)
 	local controls = { } 
 	local implicitList = { }
 	for modId, mod in pairs(self.displayItem.affixes) do
-		if (mod.type == "Corrupted" or mod.type == "Scourge") and self.displayItem:GetModSpawnWeight(mod) > 0 then
+		if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
 			t_insert(implicitList, mod)
 		end
 	end
@@ -2047,6 +2060,7 @@ function ItemsTabClass:CorruptDisplayItem()
 			if control.selIndex > 1 then
 				local mod = control.list[control.selIndex].mod
 				for _, modLine in ipairs(mod) do
+					modLine = (modType == "Scourge" and "{scourge}" or "") .. modLine
 					if mod.modTags[1] then
 						t_insert(newImplicit, { line = "{tags:" .. table.concat(mod.modTags, ",") .. "}" .. modLine })
 					else
@@ -2056,9 +2070,9 @@ function ItemsTabClass:CorruptDisplayItem()
 			end
 		end
 		if #newImplicit > 0 then
-			wipeTable(item.implicitModLines)
+			wipeTable(modType == "Corrupted" and item.implicitModLines or item.scourgeModLines)
 			for i, implicit in ipairs(newImplicit) do
-				t_insert(item.implicitModLines, i, implicit)
+				t_insert(modType == "Corrupted" and item.implicitModLines or item.scourgeModLines, i, implicit)
 			end
 		end
 		item:BuildAndParseRaw()
@@ -2074,7 +2088,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	end)
 	buildList(controls.implicit, controls.implicit2)
 	buildList(controls.implicit2, controls.implicit)
-	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Corrupt", function()
+	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, modType, function()
 		self:SetDisplayItem(corruptItem())
 		main:ClosePopup()
 	end)

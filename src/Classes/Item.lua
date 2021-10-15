@@ -470,10 +470,10 @@ function ItemClass:ParseRaw(raw)
 				local modLines
 				if enchant or (crafted and #self.enchantModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.enchantModLines
-				elseif implicit or (not crafted and #self.enchantModLines + #self.implicitModLines < implicitLines) then
-					modLines = self.implicitModLines
 				elseif scourge then
 					modLines = self.scourgeModLines
+				elseif implicit or (not crafted and #self.enchantModLines + #self.scourgeModLines + #self.implicitModLines < implicitLines) then
+					modLines = self.implicitModLines
 				else
 					modLines = self.explicitModLines
 				end
