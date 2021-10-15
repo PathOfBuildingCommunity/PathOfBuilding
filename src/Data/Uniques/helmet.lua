@@ -65,22 +65,28 @@ Siege Helmet
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 48, 101 Str
 +(100-120) to Armour
 +(40-50) to maximum Life
 -20 Fire Damage taken when Hit
-Armour is increased by Uncapped Fire Resistance
+{variant:1}Armour is increased by Uncapped Fire Resistance
+{variant:2}Armour is increased by Overcapped Fire Resistance
 ]],[[
 The Formless Inferno
 Royal Burgonet
 League: Breach
 Source: Upgraded from unique{The Formless Flame} using currency{Blessing of Xoph}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 148 Str
 (80-120)% increased Armour
 +(40-50) to maximum Life
 -30% to Fire Resistance
 8% of Physical Damage from Hits taken as Fire Damage
-Armour is increased by Uncapped Fire Resistance
+{variant:1}Armour is increased by Uncapped Fire Resistance
+{variant:2}Armour is increased by Overcapped Fire Resistance
 ]],[[
 Hrimnor's Resolve
 Samnite Helmet
@@ -921,10 +927,13 @@ Mask of the Tribunal
 Magistrate Crown
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 58, 64 Str, 64 Int
 +(25-30) to all Attributes
 (150-200)% increased Armour and Energy Shield
-Nearby Allies have (4-6)% increased Defences per 100 Strength you have
+{variant:1}Nearby Allies have (4-6)% increased Defences per 100 Strength you have
+{variant:2}Nearby Allies have 1% chance to Block Attack Damage per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
 1% reduced Reservation of Skills per 250 total Attributes
@@ -943,13 +952,16 @@ Minions are Aggressive
 Memory Vault
 Praetor Crown
 Source: Drops from unique{The Enslaver}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 68, 62 Str, 91 Int
 +(130-160) to maximum Energy Shield
 +(150-200) to maximum Mana
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
 10% increased Reservation of Skills
-Gain Armour equal to your Reserved Mana
+{variant:1}Gain Armour equal to your Reserved Mana
+{variant:2}1% increased Armour per 50 Reserved Mana
 ]],[[
 Mindspiral
 Aventail Helmet

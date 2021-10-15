@@ -341,25 +341,34 @@ Coronal Leather
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 49, 134 Dex
 +(30-40) to Dexterity
-(30-50)% increased Evasion Rating
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
 10% chance to Dodge Spell Damage
 25% increased Arctic Armour Buff Effect
-Evasion Rating is increased by Uncapped Cold Resistance
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 ]],[[
 The Perfect Form
 Zodiac Leather
 League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 197 Dex
-(30-50)% increased Evasion Rating
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
 +(50-80) to maximum Life
 -30% to Cold Resistance
-(5-10)% increased Dexterity
+{variant:1}(5-10)% increased Dexterity
+{variant:2}(10-15)% increased Dexterity
 Arctic Armour has 100% reduced Reservation
-Evasion Rating is increased by Uncapped Cold Resistance
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 Phase Acrobatics
 ]],[[
 Replica Perfect Form

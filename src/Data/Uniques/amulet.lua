@@ -927,19 +927,23 @@ Lapis Amulet
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {tags:mana}(10-20)% increased maximum Mana
-Critical Strike Chance is increased by Lightning Resistance
+{variant:1}Critical Strike Chance is increased by Lightning Resistance
+{variant:2}Critical Strike Chance is increased by Overcapped Lightning Resistance
 ]],[[
 Choir of the Storm
 Lapis Amulet
 League: Breach
 Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 69
 Implicits: 1
@@ -947,8 +951,9 @@ Implicits: 1
 Trigger Level 20 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_elemental}50% increased Lightning Damage
 {tags:mana}(10-20)% increased maximum Mana
-{variant:1}{tags:jewellery_resistance}-30% to Lightning Resistance
-Critical Strike Chance is increased by Lightning Resistance
+{variant:1}{variant:2}Critical Strike Chance is increased by Lightning Resistance
+{variant:1}{variant:3}{tags:jewellery_resistance}-30% to Lightning Resistance
+{variant:3}Critical Strike Chance is increased by Overcapped Lightning Resistance
 ]],[[
 Voll's Devotion
 Agate Amulet
