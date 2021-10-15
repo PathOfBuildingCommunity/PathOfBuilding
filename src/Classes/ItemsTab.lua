@@ -2013,7 +2013,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	local controls = { } 
 	local implicitList = { }
 	for modId, mod in pairs(self.displayItem.affixes) do
-		if mod.type == "Corrupted" and self.displayItem:GetModSpawnWeight(mod) > 0 then
+		if (mod.type == "Corrupted" or mod.type == "Scourge") and self.displayItem:GetModSpawnWeight(mod) > 0 then
 			t_insert(implicitList, mod)
 		end
 	end
@@ -2470,7 +2470,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0)
 
 	-- Modifiers
-	for _, modList in ipairs{item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+	for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
 		if modList[1] then
 			for _, modLine in ipairs(modList) do
 				if item:CheckModLineVariant(modLine) then

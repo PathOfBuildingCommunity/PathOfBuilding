@@ -110,6 +110,7 @@ function ItemClass:ParseRaw(raw)
 	self.sockets = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
+	self.scourgeModLines = { }
 	self.implicitModLines = { }
 	self.explicitModLines = { }
 	local implicitLines = 0
@@ -246,6 +247,8 @@ function ItemClass:ParseRaw(raw)
 					self.league = specVal
 				elseif specName == "Crafted" then
 					self.crafted = true
+				elseif specName == "Scourge" then
+					self.scourge = true
 				elseif specName == "Implicit" then
 					self.implicit = true
 				elseif specName == "Prefix" then
@@ -402,6 +405,7 @@ function ItemClass:ParseRaw(raw)
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local enchant = line:match(" %(enchant%)")
+				local scourge = line:match("{scourge}") or line:match(" %(scourge%)")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)") or enchant
 				local custom = line:match("{custom}")
 				local modTagsText = line:match("{tags:([^}]*)}") or ''
@@ -415,7 +419,7 @@ function ItemClass:ParseRaw(raw)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)","")
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)","")
 				local catalystScalar = getCatalystScalar(self.catalyst, modTags, self.catalystQuality)
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
@@ -426,7 +430,7 @@ function ItemClass:ParseRaw(raw)
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
-					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)","")
+					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)","")
 					local combLine = line.." "..nextLine
 					if combLine:match("%(%d+%-%d+ to %d+%-%d+%)") or combLine:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or combLine:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 						rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
@@ -468,11 +472,13 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.enchantModLines
 				elseif implicit or (not crafted and #self.enchantModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.implicitModLines
+				elseif scourge then
+					modLines = self.scourgeModLines
 				else
 					modLines = self.explicitModLines
 				end
 				if modList then
-					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or 0.5), valueScalar = catalystScalar })
+					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or 0.5), valueScalar = catalystScalar })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -487,12 +493,12 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
-						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 				end
 					
 			end
@@ -680,6 +686,9 @@ function ItemClass:BuildRaw()
 		if modLine.custom then
 			line = "{custom}" .. line
 		end
+		if modLine.scourge then
+			line = "{scourge}" .. line
+		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
 		end
@@ -739,8 +748,11 @@ function ItemClass:BuildRaw()
 	if self.limit then
 		t_insert(rawLines, "Limited to: "..self.limit)
 	end
-	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines))
+	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do
+		writeModLine(modLine)
+	end
+	for _, modLine in ipairs(self.scourgeModLines) do
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do
@@ -749,7 +761,7 @@ function ItemClass:BuildRaw()
 	for _, modLine in ipairs(self.explicitModLines) do
 		writeModLine(modLine)
 	end
-	if self.corrupted then
+	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
 	end
 	return table.concat(rawLines, "\n")

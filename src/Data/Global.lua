@@ -45,6 +45,7 @@ colorCodes = {
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
 	EYRIE = "^xAAB7B8",
+	SCOURGE = "^xFF6E25",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
