@@ -801,15 +801,17 @@ Prism Guardian
 Archon Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 2.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+24% to all Elemental Resistances
-{variant:2,3}+12% to all Elemental Resistances
+{variant:2,3,4}+12% to all Elemental Resistances
 {variant:1,2}+1 to Level of Aura Gems in this item
-{variant:3}+2 to Level of Socketed Aura Gems
+{variant:3,4}+2 to Level of Socketed Aura Gems
 Socketed Gems Cost and Reserve Life instead of Mana
-Socketed Gems have 25% reduced Reservation
+{variant:1,2,3}Socketed Gems have 25% reduced Reservation
+{variant:4}Socketed Gems have 30% increased Reservation Efficiency
 +(20-30) to Dexterity
 +25% to all Elemental Resistances
 ]],[[

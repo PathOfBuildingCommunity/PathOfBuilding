@@ -1166,18 +1166,20 @@ Recover 50 Energy Shield when your Trap is triggered by an Enemy
 Victario's Influence
 Lacquered Garb
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
 {variant:1}Socketed Gems have 20% reduced Reservation
 {variant:2}Socketed Gems have 30% reduced Reservation
+{variant:3}Socketed Gems have 45% increased Reservation Efficiency
 {variant:1}Socketed Gems are Supported by level 1 Generosity
-{variant:2}Socketed Gems are Supported by level 30 Generosity
+{variant:2,3}Socketed Gems are Supported by level 30 Generosity
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Radius of Auras
-{variant:2}(20-40)% increased Area of Effect of Aura Skills
+{variant:2,3}(20-40)% increased Area of Effect of Aura Skills
 {variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
-{variant:2}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:2,3}(10-15)% increased effect of Non-Curse Auras from your Skills
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
