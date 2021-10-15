@@ -1346,7 +1346,11 @@ Implicits: 0
 ["EnergyShieldRegen"] = 0,
 ["LightningAegis"] = 0,
 ["SiphoningCharges"] = 0,
+<<<<<<< HEAD
 ["PhysicalTakenHitMult"] = 0.4558,
+=======
+["PhysicalTakenHitMult"] = 0.4714,
+>>>>>>> 3188 Updated test build
 ["ChaosDotEHP"] = 5213.1707,
 ["Gear:Ward"] = 0,
 ["LightningGuardAbsorbRate"] = 0,
@@ -1434,6 +1438,7 @@ Implicits: 0
 ["FireTakenHit"] = 0.518,
 ["FullDPS"] = 0,
 ["BleedAvoidChance"] = 0,
+<<<<<<< HEAD
 ["AverageNotHitChance"] = 69.7,
 ["ExtraPoints"] = 2,
 ["EnergyShieldOnBlock"] = 0,
@@ -1444,6 +1449,18 @@ Implicits: 0
 ["Life"] = 3974,
 ["DurationMod"] = 3.14,
 ["MirageDPS"] = 13389298.5386,
+=======
+["AverageNotHitChance"] = 72.36,
+["CombinedDPS"] = 25270674.5987,
+["EnergyShieldOnBlock"] = 0,
+["MirageDPS"] = 13386296.8807,
+["StunAvoidChance"] = 0,
+["TotalDotDPS"] = 11807832.8408,
+["DamageReductionMax"] = 90,
+["Life"] = 3974,
+["DurationMod"] = 3.14,
+["RallyingHitEffect"] = 1,
+>>>>>>> 3188 Updated test build
 ["EnduranceCharges"] = 0,
 ["ChainRemaining"] = 0,
 ["WithIgniteDPS"] = 76544.8772,
@@ -1451,10 +1468,17 @@ Implicits: 0
 ["ChaosAverageDamageChance"] = 0,
 ["WithPoisonDPS"] = 76544.8772,
 ["ChaosMaximumHitTaken"] = 4938.7933,
+<<<<<<< HEAD
 ["WithPoisonDPS"] = 79989.4186,
 ["PhysicalTotalEHP"] = 28475.7914,
 ["ESCost"] = 0,
 ["CombinedDPS"] = 25277120.7981,
+=======
+["TotalDot"] = 11807832.8408,
+["PhysicalTotalEHP"] = 31216.2257,
+["ESCost"] = 0,
+["ChaosDot"] = 122372.4461,
+>>>>>>> 3188 Updated test build
 ["ColdMindOverMatter"] = 0,
 ["PhysicalGuardEffectivePool"] = 0,
 ["ChaosDotEffMult"] = 1.5842,
@@ -1467,9 +1491,12 @@ Implicits: 0
 ["PhysicalSpellProjectileDamageChance"] = 0,
 ["LifeLeechGainRate"] = 2145.1110,
 ["SpellNotHitChance"] = 52,
-["LifeReservedPercent"] = 0,
+["LightningMeleeDamageChance"] = 10,
 ["PhysicalMaximumHitTaken"] = 8436.9299,
+<<<<<<< HEAD
 ["FreezeChance"] = 4.75,
+=======
+>>>>>>> 3188 Updated test build
 ["ManaUnreservedPercent"] = 19.2982,
 ["ProjectileEvadeChance"] = 55,
 ["AbsorptionCharges"] = 0,
@@ -1488,9 +1515,15 @@ Implicits: 0
 ["LightningResistOverCap"] = 1,
 ["FreezeChance"] = 4.55,
 ["TotalDotInstance"] = 122372.4461,
+<<<<<<< HEAD
 ["LightningSpellDamageChance"] = 10,
 ["ColdAegis"] = 0,
 ["ShockChance"] = 4.75,
+=======
+["ManaReservedPercent"] = 80.7018,
+["ShockChance"] = 4.55,
+["LightningTotalPool"] = 3977,
+>>>>>>> 3188 Updated test build
 ["LightningTakenReflectMult"] = 0.1243,
 ["AvoidChaosDamageChance"] = 0,
 ["ChaosResistOver75"] = 0,
@@ -1500,13 +1533,17 @@ Implicits: 0
 ["PierceCountString"] = "Cannot pierce",
 ["ManaLeechGainRate"] = 922.8099,
 ["BrutalCharges"] = 0,
+<<<<<<< HEAD
 ["ManaLeechGainRate"] = 963.373,
+=======
+>>>>>>> 3188 Updated test build
 ["ManaLeechRate"] = 0,
 ["ManaLeechInstanceRate"] = 14.82,
 ["EnergyShieldLeechPerHit"] = 0.3,
 ["EnergyShieldLeechRate"] = 0.3,
 ["InspirationChargesMax"] = 5,
 ["ChaosResist"] = -21,
+<<<<<<< HEAD
 ["EnergyShieldLeechRate"] = 0.3,
 ["EnergyShieldOnHit"] = 0,
 ["LifeLeechRate"] = 159.9788,
@@ -1516,6 +1553,16 @@ Implicits: 0
 ["EnergyShieldOnHitRate"] = 0,
 ["LifeLeechPerHit"] = 5.48,
 ["LifeOnHitRate"] = 1985.1322,
+=======
+["LifeOnHitRate"] = 1901.5476,
+["LifeLeechRate"] = 153.0898,
+["dontSplitEvade"] = true,
+["ManaUnreserved"] = 143,
+["EnergyShield"] = 3,
+["EnergyShieldOnHitRate"] = 0,
+["EnergyShieldOnHit"] = 0,
+["LifeLeechPerHit"] = 5.4745,
+>>>>>>> 3188 Updated test build
 ["LifeOnHit"] = 68,
 ["ManaLeechInstantRate"] = 0,
 ["WardRechargeDelay"] = 5,
@@ -1531,6 +1578,7 @@ Implicits: 0
 ["ShowBlockEffect"] = true,
 ["LifeLeechInstantRate"] = 0,
 ["LifeLeechInstant"] = 0,
+<<<<<<< HEAD
 ["LifeLeechInstances"] = 2.0128,
 ["BlockChanceMax"] = 75,
 ["TotalDPS"] = 75852.3487,
@@ -1545,6 +1593,23 @@ Implicits: 0
 ["ExertedAttackUptimeRatio"] = 0,
 ["WithBleedDPS"] = 79989.4186,
 ["RallyingHitEffect"] = 1,
+=======
+["LifeLeechInstances"] = 1.9261,
+["LifeLeechDuration"] = 0.0689,
+["BlockChanceMax"] = 75,
+["TotalDPS"] = 76544.8772,
+["LightRadiusMod"] = 1,
+["FireTakenReflect"] = 0.518,
+["CritChance"] = 4.55,
+["ManaRegen"] = 65.6,
+["ChaosChaosBaseTakenHitMult"] = 0.8046,
+["PreEffectiveCritChance"] = 5,
+["LightningTakenDotMult"] = 0.1181,
+["FistOfWarCooldown"] = 0,
+["AilmentWarcryEffect"] = 1,
+["WithBleedDPS"] = 76544.8772,
+["SeismicHitEffect"] = 1,
+>>>>>>> 3188 Updated test build
 ["AvoidLightningDamageChance"] = 10,
 ["TheoreticalMaxOffensiveWarcryEffect"] = 1,
 ["ColdColdBaseTakenHitMult"] = 0.1243,
@@ -1572,6 +1637,7 @@ Implicits: 0
 ["Chain"] = 0,
 ["ChainMaxString"] = 0,
 ["ChainMax"] = 0,
+<<<<<<< HEAD
 ["LightningMaximumHitTaken"] = 31990.0257,
 ["ChaosTotalEHP"] = 20339.8510,
 ["PhysicalResistWhenHit"] = 5,
@@ -1582,6 +1648,19 @@ Implicits: 0
 ["ColdTotalEHP"] = 105767.2252,
 ["LightningAverageDamageChance"] = 10,
 ["ColdNumberOfHits"] = 85.8086,
+=======
+["ActiveMineLimit"] = 15,
+["ChaosTotalEHP"] = 22297.3041,
+["ChaosNumberOfHits"] = 18.0897,
+["PhysicalResistWhenHit"] = 5,
+["PhysicalDotEHP"] = 8507.0429,
+["FireNumberOfHits"] = 94.0666,
+["ColdTotalEHP"] = 115945.9813,
+["BlitzChargesMax"] = 0,
+["ColdNumberOfHits"] = 94.0666,
+["LightningAverageDamageChance"] = 10,
+["EffectiveMovementSpeedMod"] = 2.316,
+>>>>>>> 3188 Updated test build
 ["BloodCharges"] = 5,
 ["AnyAegis"] = false,
 ["ChaosGuardEffectiveLife"] = 3974,
@@ -1593,8 +1672,13 @@ Implicits: 0
 ["LowestAttribute"] = 104,
 ["EnduranceChargesMax"] = 3,
 ["ActionSpeedMod"] = 1.2,
+<<<<<<< HEAD
 ["ActiveMineLimit"] = 15,
 ["MeleeEvadeChance"] = 55,
+=======
+["SpellBlockChanceOverCap"] = 0,
+["MeleeEvadeChance"] = 74,
+>>>>>>> 3188 Updated test build
 ["FireDotEHP"] = 33673.7113,
 ["ProjectileBlockChance"] = 0,
 ["FireTotalEHP"] = 105767.2252,
@@ -1674,17 +1758,28 @@ Implicits: 0
 ["CullPercent"] = 0,
 ["ColdGuardEffectivePool"] = 0,
 ["BlitzCharges"] = 0,
+<<<<<<< HEAD
 ["PhysicalPhysicalBaseTakenHitMult"] = 0.4558,
+=======
+["PhysicalPhysicalBaseTakenHitMult"] = 0.4714,
+>>>>>>> 3188 Updated test build
 ["FrenzyChargesMax"] = 4,
 ["ChaosResistOverCap"] = 0,
 ["BlindAvoidChance"] = 0,
 ["FireMaximumHitTaken"] = 31990.0257,
 ["Ward"] = 0,
 ["ChillAvoidChance"] = 0,
+<<<<<<< HEAD
 ["IgniteAvoidChance"] = 0,
 ["AnyAegis"] = false,
 ["dontSplitEvade"] = true,
 ["LightningNumberOfHits"] = 95.3429,
+=======
+["ColdManaEffectiveLife"] = 3974,
+["FireManaEffectiveLife"] = 3974,
+["LifeRecoveryRateMod"] = 1,
+["LightningNumberOfHits"] = 104.5184,
+>>>>>>> 3188 Updated test build
 ["CritMultiplier"] = 1.5,
 ["ManaReserved"] = 598,
 ["FireGuardEffectivePool"] = 0,

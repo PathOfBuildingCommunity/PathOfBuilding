@@ -621,7 +621,11 @@ Implicits: 0
 ["SiphoningCharges"] = 0,
 ["RuthlessBlowEffect"] = 1,
 ["Cooldown"] = 0.99,
+<<<<<<< HEAD
 ["PhysicalTakenHitMult"] = 0.4652,
+=======
+["PhysicalTakenHitMult"] = 0.5612,
+>>>>>>> 3188 Updated test build
 ["ChaosDotEHP"] = 21025,
 ["ChillSourceEffect"] = 18,
 ["ReqStr"] = 155,
@@ -678,15 +682,26 @@ Implicits: 0
 ["ColdTakenReflect"] = 0.8,
 ["SpellBlockChanceMax"] = 75,
 ["ChaosEnergyShieldBypass"] = 100,
+<<<<<<< HEAD
 ["TotalDotDPS"] = 343620.6553,
+=======
+["TotalDotDPS"] = 343514.1354,
+>>>>>>> 3188 Updated test build
 ["impaleStoredHitAvg"] = 0,
 ["FistOfWarAilmentEffect"] = 1,
 ["ManaOnHitRate"] = 0,
 ["DamageTakenOnBlock"] = 0,
+<<<<<<< HEAD
 ["WithIgniteDPS"] = 47174.6109,
 ["EnergyShieldRechargeDelay"] = 2,
 ["WithPoisonDPS"] = 46997.0778,
 ["CombinedDPS"] = 390617.733,
+=======
+["WithIgniteDPS"] = 47068.091,
+["EnergyShieldRechargeDelay"] = 2,
+["WithPoisonDPS"] = 46997.0778,
+["CombinedDPS"] = 390511.2132,
+>>>>>>> 3188 Updated test build
 ["TotalDot"] = 343443.1221,
 ["BlockChanceOverCap"] = 0,
 ["ChallengerCharges"] = 0,
@@ -718,7 +733,11 @@ Implicits: 0
 ["ChillEffectMod"] = 80,
 ["Armour"] = 2393,
 ["ShockChance"] = 11.638,
+<<<<<<< HEAD
 ["IgniteDamage"] = 941.1395,
+=======
+["IgniteDamage"] = 282.3418,
+>>>>>>> 3188 Updated test build
 ["PoisonAvoidChance"] = 100,
 ["LightningResistTotal"] = 99.8525,
 ["FireMinBase"] = 8,
@@ -798,7 +817,11 @@ Implicits: 0
 ["LifeLeechGainRate"] = 0,
 ["SpellNotHitChance"] = 0,
 ["LightningMeleeDamageChance"] = 24,
+<<<<<<< HEAD
 ["PhysicalMaximumHitTaken"] = 18029.5799,
+=======
+["PhysicalMaximumHitTaken"] = 14945.2938,
+>>>>>>> 3188 Updated test build
 ["AverageHit"] = 46527.107,
 ["ManaUnreservedPercent"] = 2.8037,
 ["ProjectileEvadeChance"] = 6,
@@ -807,7 +830,7 @@ Implicits: 0
 ["LightningCritAverage"] = 0,
 ["EnergyShieldOnHitRate"] = 0,
 ["MaxEnergyShieldLeechInstance"] = 165.9,
-["IgniteDuration"] = 5.3012,
+["IgniteDuration"] = 3.9759,
 ["PhysicalSpellDamageChance"] = 0,
 ["EnergyShieldLeechInstances"] = 2.8195,
 ["AvoidPhysicalDamageChance"] = 0,
@@ -993,7 +1016,11 @@ Implicits: 0
 ["ManaLeechDuration"] = 0,
 ["TotalAttr"] = 772,
 ["PowerChargesMin"] = 0,
+<<<<<<< HEAD
 ["EnergyShieldRecharge"] = 602,
+=======
+["EnergyShieldRecharge"] = 365,
+>>>>>>> 3188 Updated test build
 ["CurrentScorch"] = 0,
 ["allMult"] = 1,
 ["BlockChance"] = 24,
@@ -1020,7 +1047,11 @@ Implicits: 0
 ["CullPercent"] = 0,
 ["ColdGuardEffectivePool"] = 0,
 ["EvasionOnBoots"] = 177,
+<<<<<<< HEAD
 ["PhysicalPhysicalBaseTakenHitMult"] = 0.4652,
+=======
+["PhysicalPhysicalBaseTakenHitMult"] = 0.5612,
+>>>>>>> 3188 Updated test build
 ["FrenzyChargesMax"] = 3,
 ["ArmourOnBoots"] = 177,
 ["BlindAvoidChance"] = 0,

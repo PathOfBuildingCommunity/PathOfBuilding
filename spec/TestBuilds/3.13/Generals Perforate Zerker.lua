@@ -1344,7 +1344,11 @@ Gain 50 Life when you Stun an Enemy
 ["ChaosAverageDamageChance"] = 15,
 ["SeismicHitEffect"] = 1,
 ["ChaosMaximumHitTaken"] = 8112.8913,
+<<<<<<< HEAD
 ["PhysicalTotalEHP"] = 84106.4804,
+=======
+["PhysicalTotalEHP"] = 39153.0167,
+>>>>>>> 3188 Updated test build
 ["ESCost"] = 0,
 ["ColdAegis"] = 0,
 ["ColdMindOverMatter"] = 0,
@@ -1358,7 +1362,11 @@ Gain 50 Life when you Stun an Enemy
 ["LifeLeechGainRate"] = 1031.0976,
 ["SpellNotHitChance"] = 0,
 ["LifeReservedPercent"] = 0,
+<<<<<<< HEAD
 ["PhysicalMaximumHitTaken"] = 70923.1274,
+=======
+["PhysicalMaximumHitTaken"] = 33097.4595,
+>>>>>>> 3188 Updated test build
 ["FreezeChance"] = 93.1953,
 ["ManaUnreservedPercent"] = 11.6071,
 ["ProjectileEvadeChance"] = 0,
@@ -1550,7 +1558,11 @@ Gain 50 Life when you Stun an Enemy
 ["MaxManaLeechInstance"] = 67.2,
 ["ChaosManaEffectiveLife"] = 8405.4,
 ["AfflictionCharges"] = 0,
+<<<<<<< HEAD
 ["EnergyShieldRecharge"] = 28,
+=======
+["EnergyShieldRecharge"] = 17,
+>>>>>>> 3188 Updated test build
 ["TotalAttr"] = 742,
 ["FireAegis"] = 0,
 ["EffectiveMovementSpeedMod"] = 2.1294,
@@ -1568,7 +1580,11 @@ Gain 50 Life when you Stun an Enemy
 ["CullPercent"] = 0,
 ["ColdGuardEffectivePool"] = 0,
 ["RemovablePowerCharges"] = 3,
+<<<<<<< HEAD
 ["PhysicalPhysicalBaseTakenHitMult"] = 0.1197,
+=======
+["PhysicalPhysicalBaseTakenHitMult"] = 0.2566,
+>>>>>>> 3188 Updated test build
 ["ColdGuardAbsorb"] = 3444.4,
 ["ArmourOnBoots"] = 126,
 ["BlindAvoidChance"] = 0,

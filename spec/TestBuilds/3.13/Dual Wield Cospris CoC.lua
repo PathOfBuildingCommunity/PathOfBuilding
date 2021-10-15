@@ -1200,7 +1200,11 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["SiphoningCharges"] = 0,
 ["RuthlessBlowEffect"] = 1,
 ["Cooldown"] = 0.132,
+<<<<<<< HEAD
 ["PhysicalTakenHitMult"] = 0.97,
+=======
+["PhysicalTakenHitMult"] = 0.99,
+>>>>>>> 3188 Updated test build
 ["ChaosDotEHP"] = 4786.4,
 ["Gear:Ward"] = 0,
 ["LightningGuardAbsorbRate"] = 0,
@@ -1229,7 +1233,11 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["PowerChargesMax"] = 6,
 ["ElusiveEffectMod"] = 169,
 ["Spec:ArmourInc"] = 0,
+<<<<<<< HEAD
 ["PhysicalDamageReduction"] = 3,
+=======
+["PhysicalDamageReduction"] = 1,
+>>>>>>> 3188 Updated test build
 ["Spec:EnergyShieldInc"] = 125,
 ["Str"] = 116,
 ["SpellDodgeChanceOverCap"] = 0,
@@ -1379,7 +1387,11 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["LifeLeechGainRate"] = 269.6,
 ["SpellNotHitChance"] = 0,
 ["LifeReservedPercent"] = 94.8813,
+<<<<<<< HEAD
 ["PhysicalMaximumHitTaken"] = 6168.0412,
+=======
+["PhysicalMaximumHitTaken"] = 6043.4343,
+>>>>>>> 3188 Updated test build
 ["ManaLeechInstantRate"] = 0,
 ["WarcryPower"] = 20,
 ["ProjectileEvadeChance"] = 0,
@@ -1567,7 +1579,11 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["PhysicalEnergyShieldBypass"] = 0,
 ["EvadeChance"] = 0,
 ["DamageReductionMax"] = 90,
+<<<<<<< HEAD
 ["EnergyShieldRecharge"] = 3454,
+=======
+["EnergyShieldRecharge"] = 2094,
+>>>>>>> 3188 Updated test build
 ["BrutalChargesMax"] = 0,
 ["LightningTotalEHP"] = 37310.9829,
 ["ChaosProjectileDamageChance"] = 36.25,
@@ -1601,7 +1617,11 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["CullPercent"] = 10,
 ["ColdGuardEffectivePool"] = 0,
 ["LightningTakenDotMult"] = 0.24,
+<<<<<<< HEAD
 ["PhysicalPhysicalBaseTakenHitMult"] = 0.97,
+=======
+["PhysicalPhysicalBaseTakenHitMult"] = 0.99,
+>>>>>>> 3188 Updated test build
 ["FireGuardEffectiveLife"] = 69,
 ["ArmourOnBoots"] = 164,
 ["BlindAvoidChance"] = 0,
