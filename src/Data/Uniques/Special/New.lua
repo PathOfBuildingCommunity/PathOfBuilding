@@ -44,7 +44,7 @@ League: Scourge
 Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
-+160% increased Evasion and Energy Shield
+160% increased Evasion and Energy Shield
 +100 to maximum Life
 Temporal Rift has no Reservation
 100% of Damage taken Recouped as Life
