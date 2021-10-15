@@ -594,7 +594,7 @@ function main:OpenOptionsPopup()
 	-- local func to make a new section header
 	local function drawSectionHeader(id, title)
 		local headerBGColor ={ .2, .2, .2}
-		controls["section-"..id .. "-bg"] = new("HorizontalLineControl", { "TOPLEFT", nil, "TOPLEFT" }, 1, currentY, popupWidth - 5, 24, headerBGColor)
+		controls["section-"..id .. "-bg"] = new("HorizontalLineControl", { "TOPLEFT", nil, "TOPLEFT" }, 2, currentY, popupWidth - 4, 24, headerBGColor)
 		nextRow(.2)
 		controls["section-"..id .. "-label"] = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, popupWidth / 2 - 60, currentY, 0, 16, "^7" .. title)
 		nextRow(1.5)

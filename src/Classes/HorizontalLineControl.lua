@@ -11,5 +11,5 @@ end)
 function HorizontalLineClass:Draw()
     local x, y = self:GetPos()
     SetDrawColor(unpack(self.colors))
-    DrawImage(nil, x + 1, y + 1, self.width, self.height)
+    DrawImage(nil, x,, y, self.width, self.height)
 end
