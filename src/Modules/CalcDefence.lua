@@ -76,7 +76,8 @@ function calcs.defence(env, actor)
 	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
-		local max, total
+		local min, max, total
+		min = data.misc.ResistFloor
 		if elem == "Chaos" and modDB:Flag(nil, "ChaosInoculation") then
 			max = 100
 			total = 100
@@ -88,7 +89,7 @@ function calcs.defence(env, actor)
 				total = base * calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 			end
 		end
-		local final = m_min(total, max)
+		local final = m_max(m_min(total, max), min)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
@@ -96,6 +97,7 @@ function calcs.defence(env, actor)
 		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
+				"Min: "..min.."%",
 				"Max: "..max.."%",
 				"Total: "..total.."%",
 			}
