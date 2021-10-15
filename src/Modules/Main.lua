@@ -580,62 +580,105 @@ end
 
 function main:OpenOptionsPopup()
 	local controls = { }
-	controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {
+
+	local currentY = 20
+	local popupWidth = 600
+
+	-- local func to make a new line with a heightModifier
+	local function nextRow(heightModifier)
+		local pxPerLine = 26
+		heightModifier = heightModifier or 1
+		currentY = currentY + heightModifier * pxPerLine
+	end
+
+	-- local func to make a new section header
+	local function drawSectionHeader(id, title)
+		local headerBGColor ={ .2, .2, .2}
+		controls["section-"..id .. "-bg"] = new("HorizontalLineControl", { "TOPLEFT", nil, "TOPLEFT" }, 2, currentY, popupWidth - 4, 24, headerBGColor)
+		nextRow(.2)
+		controls["section-"..id .. "-label"] = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, popupWidth / 2 - 60, currentY, 0, 16, "^7" .. title)
+		nextRow(1.5)
+	end
+
+	local defaultLabelSpacingPx = -4
+	local defaultLabelPlacementX = 240
+
+
+
+	drawSectionHeader("app", "Application options")
+
+    controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 18, {
 		{ label = "HTTP", scheme = "http" },
 		{ label = "SOCKS", scheme = "socks5" },
 		{ label = "SOCKS5H", scheme = "socks5h" },
 	})
-	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
+	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Proxy server:")
 	controls.proxyURL = new("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
+
 	if launch.proxyURL then
 		local scheme, url = launch.proxyURL:match("(%w+)://(.+)")
 		controls.proxyType:SelByValue(scheme, "scheme")
 		controls.proxyURL:SetText(url)
 	end
-	controls.buildPath = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 44, 290, 18)
-	controls.buildPathLabel = new("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, -4, 0, 0, 16, "^7Build save path:")
+
+	nextRow()
+    controls.buildPath = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 290, 18)
+	controls.buildPathLabel = new("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Build save path:")
 	if self.buildPath ~= self.defaultBuildPath then
 		controls.buildPath:SetText(self.buildPath)
 	end
 	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
-	controls.nodePowerTheme = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {
+
+    nextRow()
+	controls.nodePowerTheme = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 100, 18, {
 		{ label = "Red & Blue", theme = "RED/BLUE" },
 		{ label = "Red & Green", theme = "RED/GREEN" },
 		{ label = "Green & Blue", theme = "GREEN/BLUE" },
 	}, function(index, value)
 		self.nodePowerTheme = value.theme
 	end)
-	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
+	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators:")
-	controls.thousandsSeparators = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, nil, function(state)
-		self.showThousandsSeparators = state
-	end)
-	controls.thousandsSeparators.state = self.showThousandsSeparators
 
-	controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeparator, nil, "%%^", 1, function(buf)
-		self.thousandsSeparator = buf
-	end)
-	controls.thousandsSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 116, 92, 16, "Thousands Separator:")
 
-	controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 138, 20, 20, self.decimalSeparator, nil, "%%^", 1, function(buf)
-		self.decimalSeparator = buf
-	end)
-	controls.decimalSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 138, 92, 16, "Decimal Separator:")
-
-	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 160, 20, "Show build name in window title:", function(state)
-		self.showTitlebarName = state
-	end)
-	controls.betaTest = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 182, 20, "Opt-in to weekly beta test builds:", function(state)
+	nextRow()
+	controls.betaTest = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
 	end)
 
-	controls.defaultGemQuality = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 204, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
+	nextRow()
+	drawSectionHeader("build", "Build-related options")
+
+
+	controls.showThousandsSeparators = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show thousands separators:", function(state)
+    self.showThousandsSeparators = state
+	end)
+	controls.showThousandsSeparators.state = self.showThousandsSeparators
+
+    nextRow()
+    controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 30, 20, self.thousandsSeparator, nil, "%%^", 1, function(buf)
+		self.thousandsSeparator = buf
+	end)
+	controls.thousandsSeparatorLabel = new("LabelControl",  {"RIGHT",controls.thousandsSeparator,"LEFT"}, defaultLabelSpacingPx, 0, 92, 16, "^7Thousands separator:")
+
+    nextRow()
+    controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 30, 20, self.decimalSeparator, nil, "%%^", 1, function(buf)
+		self.decimalSeparator = buf
+	end)
+	controls.decimalSeparatorLabel = new("LabelControl", {"RIGHT",controls.decimalSeparator,"LEFT"}, defaultLabelSpacingPx, 0, 92, 16, "^7Decimal separator:")
+
+    nextRow()
+	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build name in window title:", function(state)
+		self.showTitlebarName = state
+	end)
+
+    nextRow()
+	controls.defaultGemQuality = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
 		self.defaultGemQuality = m_min(tonumber(gemQuality) or 0, 23)
 	end)
 	controls.defaultGemQuality.tooltipText="Set the default quality that can be overwritten by build-related quality settings in the skill panel."
-	controls.defaultGemQualityLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 225, 204, 0, 16, "^7Default gem quality:")
+	controls.defaultGemQualityLabel = new("LabelControl", {"RIGHT",controls.defaultGemQuality,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default gem quality:")
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
@@ -646,7 +689,11 @@ function main:OpenOptionsPopup()
 	local initialDecimalSeparator = self.decimalSeparator
 	local initialBetaTest = self.betaTest
 	local initialDefaultGemQuality = self.defaultGemQuality
-	controls.save = new("ButtonControl", nil, -45, 226, 80, 20, "Save", function()
+
+    -- last line with buttons has more spacing
+    nextRow(1.5)
+
+    controls.save = new("ButtonControl", nil, -45, currentY, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -666,7 +713,7 @@ function main:OpenOptionsPopup()
 		main:SetManifestBranch(self.betaTest and "beta" or "master")
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 226, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, currentY, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
@@ -676,7 +723,8 @@ function main:OpenOptionsPopup()
 		self.defaultGemQuality = initialDefaultGemQuality
 		main:ClosePopup()
 	end)
-	self:OpenPopup(450, 262, "Options", controls, "save", nil, "cancel")
+    nextRow(1.5)
+	self:OpenPopup(popupWidth, currentY, "Options", controls, "save", nil, "cancel")
 end
 
 function main:SetManifestBranch(branchName)
