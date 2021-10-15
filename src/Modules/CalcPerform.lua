@@ -822,7 +822,13 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "Blind") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
-				modDB:NewMod("HitChance", "MORE", -50, "Blind")
+				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
+				-- Override Blind effect if set.			
+				if modDB:Override(nil, "BlindEffect") then 
+					effect = m_min(modDB:Override(nil, "BlindEffect") / 100, effect)
+				end
+				modDB:NewMod("Accuracy", "MORE", m_floor(-20 * effect), "Blind")
+				modDB:NewMod("Evasion", "MORE", m_floor(-20 * effect), "Blind")
 			end
 		end
 		if modDB:Flag(nil, "Chill") then

@@ -1420,6 +1420,7 @@ local specialModList = {
 		mod("BlockChance", "MORE", -30),
 		mod("SpellBlockChance", "MORE", -30),
 	},
+	["(%d+)%% increased blind effect"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("BlindEffect", "INC", num) }), } end,
 	["maximum life becomes 1, immune to chaos damage"] = { flag("ChaosInoculation") },
 	["life regeneration is applied to energy shield instead"] = { flag("ZealotsOath") },
 	["life leeched per second is doubled"] = { mod("LifeLeechRate", "MORE", 100) },

@@ -682,6 +682,7 @@ return {
 		{ label = "Enemy Evasion modifiers", modName = { "Evasion", "CannotEvade" }, enemy = true },
 		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded", "IgnoreBlindHitChance" } },
 	}, },
+	{ label = "Effect of Blind", haveOutput = "BlindEffectMod", { format = "{0:output:BlindEffectMod}%", { breakdown = "BlindEffectMod" }, { modName = { "BlindEffect", "BuffEffectOnSelf" }, }, } },
 } }
 } },
 { 1, "Bleed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Bleed", data = {
@@ -1236,6 +1237,7 @@ return {
 	    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "ProjectileEvadeChance" } },
 	    { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
 	}, },
+	{ label = "Effect of Blind", haveOutput = "BlindEffectMod", { format = "{0:output:BlindEffectMod}%", { breakdown = "BlindEffectMod" }, { modName = { "BlindEffect", "BuffEffectOnSelf" }, }, } },
 } }
 } },
 { 1, "Resist", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Resists", data = {
