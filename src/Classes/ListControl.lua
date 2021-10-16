@@ -19,7 +19,6 @@
 -- :OnSelCopy(index, value)  [Called when Ctrl+C is pressed while a list value is selected]
 -- :OnSelDelete(index, value)  [Called when backspace or delete is pressed while a list value is selected]
 -- :OnSelKeyDown(index, value)  [Called when any other key is pressed while a list value is selected]
--- :OnHoverKeyUp(index, value, key) [Called when any other key is pressed while hovering a list value]
 --
 local ipairs = ipairs
 local t_insert = table.insert
@@ -416,17 +415,18 @@ function ListClass:OnKeyUp(key)
 			end
 		end
 	end
-	if self.OnHoverKeyUp then
-		local x, y = self:GetPos()
-		local cursorX, cursorY = GetCursorPos()
-		local rowRegion = self:GetRowRegion()
-		if cursorX >= x + rowRegion.x and cursorY >= y + rowRegion.y and cursorX < x + rowRegion.x + rowRegion.width and cursorY < y + rowRegion.y + rowRegion.height then
-			local index = math.floor((cursorY - y - rowRegion.y + self.controls.scrollBarV.offset) / self.rowHeight) + 1
-			local value = self.list[index]
-			if value then
-				self:OnHoverKeyUp(index, value, key)
-			end
+	return self
+end
+
+function ListClass:GetHoverValue(key)
+	local x, y = self:GetPos()
+	local cursorX, cursorY = GetCursorPos()
+	local rowRegion = self:GetRowRegion()
+	if cursorX >= x + rowRegion.x and cursorY >= y + rowRegion.y and cursorX < x + rowRegion.x + rowRegion.width and cursorY < y + rowRegion.y + rowRegion.height then
+		local index = math.floor((cursorY - y - rowRegion.y + self.controls.scrollBarV.offset) / self.rowHeight) + 1
+		local value = self.list[index]
+		if value then
+			return value
 		end
 	end
-	return self
 end

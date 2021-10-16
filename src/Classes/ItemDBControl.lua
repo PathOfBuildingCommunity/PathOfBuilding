@@ -331,10 +331,12 @@ function ItemDBClass:OnSelCopy(index, item)
 	Copy(item.raw:gsub("\n","\r\n"))
 end
 
-function ItemDBClass:OnHoverKeyUp(index, itemId, key)
+function ItemDBClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
-		local item = self.list[index]
+		local item = self.ListControl:GetHoverValue()
 
-		itemLib.wiki.openItem(item)
+		if item then
+			itemLib.wiki.openItem(item)
+		end
 	end
 end
