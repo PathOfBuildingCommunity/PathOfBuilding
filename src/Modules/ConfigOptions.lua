@@ -701,6 +701,9 @@ return {
 	{ var = "conditionChilled", type = "check", label = "Are you Chilled?", ifCond = "Chilled", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionChilledEffect", type = "count", label = "Effect of Chill:", ifOption = "conditionChilled", apply = function(val, modList, enemyModList)
+		modList:NewMod("ChillVal", "BASE", val, "Chill", { type = "Condition", var = "Chilled" })
+	end },
 	{ var = "conditionFrozen", type = "check", label = "Are you Frozen?", ifCond = "Frozen", implyCond = "Chilled", tooltip = "This also implies that you are Chilled.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
