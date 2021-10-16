@@ -746,7 +746,8 @@ local function doActorMisc(env, actor)
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
 		if modDB:Flag(nil, "Fortify") then
-			local effectScale = 1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100
+			-- Fortify is no longer used reduced its effect to 0
+			local effectScale = 0 * (1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100)
 			local modList = modDB:List(nil, "convertFortifyBuff")
 			local changeMod = modList[#modList]
 			if changeMod then
