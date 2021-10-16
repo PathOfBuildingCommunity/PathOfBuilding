@@ -1310,6 +1310,14 @@ return {
 	{ label = "Bleed Avoid Ch.", haveOutput = "BleedAvoidChance", { format = "{0:output:BleedAvoidChance}%", { modName = "AvoidBleed" }, }, },
 	{ label = "Poison Avoid Ch.", haveOutput = "PoisonAvoidChance", { format = "{0:output:PoisonAvoidChance}%", { modName = "AvoidPoison" }, }, },
 	{ label = "Crit Reduction", haveOutput = "CritExtraDamageReduction", { format = "{0:output:CritExtraDamageReduction}%", { modName = "ReduceCritExtraDamage" }, }, },
+	{ label = "Blind Duration", haveOutput = "SelfBlindDuration", { format = "{0:output:SelfBlindDuration}%", { modName = "SelfBlindDuration" }, }, },
+} }, { defaultCollapsed = true, label = "Other Ailment Defences", data = {
+	{ label = "Freeze Duration", { format = "{1:output:SelfFreezeDuration}%", { modName = "SelfFreezeDuration" }, }, },
+	{ label = "Chill Duration", { format = "{1:output:SelfChillDuration}%", { modName = "SelfChillDuration" }, }, },
+	{ label = "Shock Duration", { format = "{1:output:SelfShockDuration}%", { modName = "SelfShockDuration" }, }, },
+	{ label = "Ignite Duration", { format = "{1:output:SelfIgniteDuration}%", { modName = "SelfIgniteDuration" }, }, },
+	{ label = "Bleed Duration", { format = "{1:output:SelfBleedDuration}%", { modName = "SelfBleedDuration" }, }, },
+	{ label = "Poison Duration", { format = "{1:output:SelfPoisonDuration}%", { modName = "SelfPoisonDuration" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)", { modName = "AttackDodgeChance" }, }, },

@@ -721,6 +721,15 @@ function calcs.defence(env, actor)
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
 
+	-- Ailment duration on self	
+	output.SelfFreezeDuration = 100 * modDB:More(nil, "SelfFreezeDuration") * (1 + modDB:Sum("INC", nil, "SelfFreezeDuration") / 100) 
+	output.SelfBlindDuration = 100 * modDB:More(nil, "SelfBlindDuration") * (1 + modDB:Sum("INC", nil, "SelfBlindDuration") / 100)  
+	output.SelfShockDuration = 100 * modDB:More(nil, "SelfShockDuration") * (1 + modDB:Sum("INC", nil, "SelfShockDuration") / 100) 
+	output.SelfChillDuration = 100 * modDB:More(nil, "SelfChillDuration") * (1 + modDB:Sum("INC", nil, "SelfChillDuration") / 100) 
+	output.SelfIgniteDuration = 100 * modDB:More(nil, "SelfIgniteDuration") * (1 + modDB:Sum("INC", nil, "SelfIgniteDuration") / 100) 
+	output.SelfBleedDuration = 100 * modDB:More(nil, "SelfBleedDuration") * (1 + modDB:Sum("INC", nil, "SelfBleedDuration") / 100) 
+	output.SelfPoisonDuration = 100 * modDB:More(nil, "SelfPoisonDuration") * (1 + modDB:Sum("INC", nil, "SelfPoisonDuration") / 100) 
+
 	-- Energy Shield bypass
 	output.AnyBypass = false
 	for _, damageType in ipairs(dmgTypeList) do

@@ -526,7 +526,10 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if not modDB:Flag(nil, "NoIntBonusToMana") then
 			modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
 		end
-		modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
+
+		if not modDB:Flag(nil, "IntelligenceNoEnergyShieldBonus") then
+			modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
+		end
 	end
 
 	-- Check shrine buffs, must be done before life pool calculated for massive shrine
