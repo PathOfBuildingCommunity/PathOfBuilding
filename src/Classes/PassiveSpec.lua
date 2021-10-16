@@ -55,6 +55,9 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	-- Keys are subgraph IDs, values are graphs
 	self.subGraphs = { }
 
+	-- Keys are mastery node IDs, values are mastery effect IDs
+	self.masterySelections = { }
+
 	self:SelectClass(0)
 end)
 
@@ -374,11 +377,19 @@ function PassiveSpecClass:AllocNode(node, altPath)
 	self:BuildAllDependsAndPaths()
 end
 
+function PassiveSpecClass:DeallocSingleNode(node)
+	node.alloc = false
+	self.allocNodes[node.id] = nil
+	if node.type == "Mastery" then
+		self.masterySelections[node.id] = nil
+	end
+end
+
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
+	local effect
 	for _, depNode in ipairs(node.depends) do
-		depNode.alloc = false
-		self.allocNodes[depNode.id] = nil
+		self:DeallocSingleNode(depNode)
 	end
 
 	-- Rebuild all paths and dependencies for all allocated nodes
@@ -420,7 +431,7 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 		local startIndex = #visited + 1
 		if other.alloc and 
 		  (other.type == "ClassStart" or other.type == "AscendClassStart" or 
-		    (not other.visited and self:FindStartFromNode(other, visited, noAscend))
+		    (not other.visited and other.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
 		  ) then
 			if node.ascendancyName and not other.ascendancyName then
 				-- Pathing out of Ascendant, un-visit the outside nodes
@@ -460,15 +471,16 @@ function PassiveSpecClass:BuildPathFromNode(root)
 		local curDist = node.pathDist + 1
 		-- Iterate through all nodes that are connected to this one
 		for _, other in ipairs(node.linked) do
-			-- Paths must obey two rules:
+			-- Paths must obey these rules:
 			-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
 			-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
 			--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
 			--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
+			-- 3. They must not pass away from mastery nodes
 			if not other.pathDist then
 				ConPrintTable(other, true)
 			end
-			if other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if root.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)
@@ -629,6 +641,16 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		end
 	end
 
+	-- Add selected mastery effect mods to mastery nodes
+	for id, node in pairs(self.nodes) do
+		if node.type == "Mastery" and self.masterySelections[id] then
+			local effect = self.tree.masteryEffects[self.masterySelections[id]]
+			node.sd = effect.sd
+			node.mods = effect.mods
+			node.modList = effect.modList
+			node.modKey = effect.modKey
+		end
+	end
 
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
@@ -686,8 +708,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					end
 				end
 				if prune then
-					depNode.alloc = false
-					self.allocNodes[depNode.id] = nil
+					self:DeallocSingleNode(depNode)
 				end
 			end
 		end

@@ -229,8 +229,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						if index then
 							-- Node is already in the trace path, remove it first
 							t_remove(self.tracePath, index)
+							t_insert(self.tracePath, hoverNode)
+						elseif lastPathNode.type == "Mastery" then
+							hoverNode = nil
+						else
+							t_insert(self.tracePath, hoverNode)
 						end
-						t_insert(self.tracePath, hoverNode)	
 					else
 						hoverNode = nil
 					end
@@ -266,9 +270,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.buildFlag = true
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
-				spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
-				spec:AddUndoState()
-				build.buildFlag = true
+				if hoverNode.type == "Mastery" then
+					build.treeTab:OpenMasteryPopup(hoverNode)
+				else
+					spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
+					spec:AddUndoState()
+					build.buildFlag = true
+				end
 			end
 		end
 	elseif treeClick == "RIGHT" then
@@ -292,6 +300,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				(hoverNode.conqueredBy.conqueror.type == "vaal"
 				or hoverNode.isNotable) then
 			build.treeTab:ModifyNodePopup(hoverNode)
+			build.buildFlag = true
+		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" then
+			build.treeTab:OpenMasteryPopup(hoverNode)
 			build.buildFlag = true
 		end
 	end
@@ -465,10 +476,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
-		elseif node.type == "Mastery" then
-			-- This is the icon that appears in the center of many groups
-			SetDrawLayer(nil, 15)
-			base = node.sprites.mastery
+--		elseif node.type == "Mastery" then
+--			-- TODO: Reconsider rending approach once tree/sprites are released
+--			-- This is the icon that appears in the center of many groups
+--			SetDrawLayer(nil, 15)
+--			base = node.sprites.mastery
 		else
 			local state
 			if self.showHeatMap or isAlloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
@@ -507,7 +519,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			else
 				-- Normal node (includes keystones and notables)
-				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
+				if node.type == "Mastery" then
+					-- TODO: Reconsider rending approach once tree/sprites are released
+					base = node.sprites.mastery
+				else
+					base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
+				end
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
 			end
 		end
@@ -764,7 +781,7 @@ function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 end
 
 function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
-	if node.type == "ClassStart" or node.type == "Mastery" then
+	if node.type == "ClassStart" then
 		return
 	end
 

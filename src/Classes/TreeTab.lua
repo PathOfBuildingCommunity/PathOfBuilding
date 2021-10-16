@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_sort = table.sort
+local t_concat = table.concat
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
@@ -608,6 +609,42 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end)
 	main:OpenPopup(800, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
+end
+
+function TreeTabClass:OpenMasteryPopup(node)
+	local controls = { }
+	local effects = { }
+
+	wipeTable(effects)
+	for _, effect in pairs(node.masteryEffects) do
+		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, effect.effect)
+		if not assignedNodeId or assignedNodeId == node.id then
+			t_insert(effects, {
+						label = t_concat(effect.stats, "/"),
+						id = effect.effect
+					})
+		end
+	end
+	controls.effect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 579, 18, effects, nil)
+	controls.save =  new("ButtonControl", nil, -49, 49, 90, 20, "Assign", function()
+		local effect = self.build.spec.tree.masteryEffects[controls.effect:GetSelValue("id")]
+		node.sd = effect.sd
+		node.mods = effect.mods
+		node.modList = effect.modList
+		node.modKey = effect.modKey
+		self.build.spec.masterySelections[node.id] = effect.id
+		if not node.alloc then
+			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
+			self.build.spec:AddUndoState()
+		end
+		self.modFlag = true
+		self.build.buildFlag = true
+		main:ClosePopup()
+	end)
+	controls.close =  new("ButtonControl", nil, 49, 49, 90, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(591, 77, node.name, controls)
 end
 
 function TreeTabClass:SetPowerCalc(selection)
