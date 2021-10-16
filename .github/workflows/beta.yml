@@ -37,7 +37,7 @@ jobs:
             - name: Install changelog generator
               run: sudo gem install github_changelog_generator --version 1.15.2
             - name: Generate Release notes
-              run: github_changelog_generator --user ${{ github.repository_owner }} --project $(echo '${{ github.repository }}' | awk -F '/' '{print $2}') -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ steps.next-version.outputs.ver }} --since-tag `echo v${{ steps.current-version.outputs.ver }}` --max-issues 0 --no-issues true --date-format %Y/%m/%d
+              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ steps.next-version.outputs.ver }} --since-tag `echo v${{ steps.current-version.outputs.ver }}` --max-issues 0 --no-issues true --date-format %Y/%m/%d
             - name: Tweak changelogs
               run: |
                 sed -i '$d' temp_change.md
