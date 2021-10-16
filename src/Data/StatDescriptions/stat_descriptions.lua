@@ -8582,9 +8582,13 @@ return {
 						[1]={
 							[1]="#",
 							[2]="#"
-						}
+						},
+                        [2]={
+                            [1]="#",
+                            [2]="#"
+                        }
 					},
-					text="Grants Level {0} Summon Doedre's Effigy Skill\nSocketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned\nHexes from Socketed Skills ignore Curse Limit"
+					text="Grants Level {0} Summon Doedre's Effigy Skill\nSocketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned\nHexes from Socketed Skills can apply {0} additional Curses"
 				}
 			}
 		},

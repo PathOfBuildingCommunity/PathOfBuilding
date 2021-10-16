@@ -1653,7 +1653,8 @@ function calcs.perform(env, avoidCache)
 						fromPlayer = true,
 						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
 						isMark = mark,
-						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false
+						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
+                        socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 					local more = skillModList:More(skillCfg, "CurseEffect")
@@ -1821,7 +1822,7 @@ function calcs.perform(env, avoidCache)
 	for _, source in ipairs({curses, minionCurses}) do
 		for _, curse in ipairs(source) do
 			-- calculate curses that ignore hex limit after
-			if not curse.ignoreHexLimit then 
+			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then 
 				local slot
 				for i = 1, source.limit do
 					--Prevent multiple marks from being considered
@@ -1876,6 +1877,28 @@ function calcs.perform(env, avoidCache)
 					curseSlots[#curseSlots + 1] = curse
 				end
 			end
+            if curse.socketedCursesHexLimit then 	
+                local socketedCursesHexLimitValue = modDB:Sum("BASE", nil, "SocketedCursesHexLimitValue")
+                ConPrintf("%d", socketedCursesHexLimitValue)
+				local skipAddingCurse = false
+				for i = 1, #curseSlots do
+					if curseSlots[i].name == curse.name then
+						-- if curse is higher priority, replace current curse with it, otherwise if same or lower priority skip it entirely
+						if curseSlots[i].priority < curse.priority then
+							curseSlots[i] = curse
+						end
+						skipAddingCurse = true
+						break
+					end
+                    if i >= socketedCursesHexLimitValue then
+                        skipAddingCurse = true
+                    end
+				end
+				if not skipAddingCurse then
+					curseSlots[#curseSlots + 1] = curse
+				end
+			end
+            
 		end
 	end
 
