@@ -18,6 +18,7 @@ local tempTable1 = { }
 local isElemental = { Fire = true, Cold = true, Lightning = true }
 
 -- List of all damage types, ordered according to the conversion sequence
+local hitSourceList = {"Attack", "Spell"}
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
 local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
@@ -905,6 +906,16 @@ function calcs.defence(env, actor)
 			if output[damageType.."GuardEffectivePool"] > 0 then
 				t_insert(breakdown[damageType.."GuardAbsorb"], s_format("Guard energy shield protection: %d", output[damageType.."GuardEffectivePool"]))
 			end
+		end
+	end
+
+	-- Damage source taken multiplier calculations
+	for _, hitType in ipairs(hitSourceList) do
+		local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", hitType.."DamageTaken")
+		local baseTakenMore = modDB:More(nil, "DamageTaken", hitType.."DamageTaken")
+		do
+			-- Hit
+			output[hitType.."TakenHitMult"] = m_max((1 + baseTakenInc / 100) * baseTakenMore)
 		end
 	end
 
