@@ -435,6 +435,16 @@ function calcs.defence(env, actor)
 	-- Dodge
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+
+	-- Acrobatics Spell Suppression to Spell Dodge Chance conversion.
+	if modDB:Flag(nil, "ConvertSpellSuppressionToSpellDodge") then
+		local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
+		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
+	end
+
+	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
+	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+
 	output.AttackDodgeChance = m_min(totalAttackDodgeChance, data.misc.DodgeChanceCap)
 	output.SpellDodgeChance = m_min(totalSpellDodgeChance, data.misc.DodgeChanceCap)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
@@ -1247,6 +1257,40 @@ function calcs.defence(env, actor)
 		--average
 		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end
+
+	-- Spell Suppression
+
+	function chanceSuppressDamage(outputText, outputName, suppressionChance)
+		output[outputName] = output.SpellSuppressionChance
+		if breakdown then
+			breakdown[outputName] = { }
+			if output.ShowBlockEffect then
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					{ "%d%% Damage taken from suppressed hits", 100 - output.SpellSuppressionEffect },
+				})
+			else
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+				})
+			end
+		end
+	end
+
+	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or modDB:Sum("BASE", nil, "SpellSuppressionChance")
+
+	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
+	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
+
+	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
+	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
+	end
+
+	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
+
+	chanceSuppressDamage("Spell hit", "SpellSuppressionChanceBreakdown", output.SpellSuppressionChance)
 
 	--effective health pool vs dots
 	for _, damageType in ipairs(dmgTypeList) do

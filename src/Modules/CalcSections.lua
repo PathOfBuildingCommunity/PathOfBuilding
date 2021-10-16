@@ -1313,6 +1313,10 @@ return {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)", { modName = "AttackDodgeChance" }, }, },
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)", { modName = "SpellDodgeChance" }, }, },
+} }, { defaultCollapsed = false, label = "Spell Suppression", data = {
+	extra = "{0:output:SpellSuppressionChance}%",
+	{ label = "Suppression Chance", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
+	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
 } },
 } },
 { 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
@@ -1464,6 +1468,12 @@ return {
 		{ format = "{1:output:ChaosSpellProjectileDamageChance}%",
 			{ breakdown = "ChaosSpellProjectileDamageChance" }, 
 		},
+	},
+}, }, { defaultCollapsed = false, label = "Chance to suppress Damage when Hit", data = {
+	{ label = "Spell Ch.", 
+		{ format = "{1:output:SpellSuppressionChanceBreakdown}%", 
+			{ breakdown = "SpellSuppressionChanceBreakdown" }, 
+		}, 
 	},
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	colWidth = 114,

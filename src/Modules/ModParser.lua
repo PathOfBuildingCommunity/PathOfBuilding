@@ -224,6 +224,7 @@ local modNameList = {
 	["to dodge attacks and spell damage"] = { "AttackDodgeChance", "SpellDodgeChance" },
 	["to dodge attack and spell hits"] = { "AttackDodgeChance", "SpellDodgeChance" },
 	["to dodge attack or spell hits"] = { "AttackDodgeChance", "SpellDodgeChance" },
+	["to suppress spell damage"] = { "SpellSuppressionChance" },
 	["to block"] = "BlockChance",
 	["to block attacks"] = "BlockChance",
 	["to block attack damage"] = "BlockChance",
@@ -1406,13 +1407,22 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
+	["modifiers to spell suppression instead apply to spell dodge at 50%% of their values"] = { 
+		flag("ConvertSpellSuppressionToSpellDodge"),
+		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"), 
+	},
+	["dexterity provides no inherent bonus to evasion rating"] = { flag("MageBane"), flag("NoDexBonusToEvasion") },
+	["(%d+)%% chance to suppress spell damage per (%d+) dexterity"] = function(_, suppression, dex) return {
+		flag("MageBane"),
+		mod("SpellSuppressionChance", "BASE", tonumber(suppression), { type = "PerStat", stat = "Dex", div = tonumber(dex) })
+	} end,
 	["your hits can't be evaded"] = { flag("CannotBeEvaded") },
 	["never deal critical strikes"] = { flag("NeverCrit"), flag("Condition:NeverCrit") },
 	["no critical strike multiplier"] = { flag("NoCritMultiplier") },
 	["ailments never count as being from critical strikes"] = { flag("AilmentsAreNeverFromCrit") },
 	["the increase to physical damage from strength applies to projectile attacks as well as melee attacks"] = { flag("IronGrip") },
 	["strength%'s damage bonus applies to projectile attack damage as well as melee damage"] = { flag("IronGrip") },
-	["converts all evasion rating to armour%. dexterity provides no bonus to evasion rating"] = { flag("IronReflexes") },
+	["converts all evasion rating to armour%. dexterity provides no bonus to evasion rating"] = { flag("NoDexBonusToEvasion"), flag("IronReflexes") },
 	["30%% chance to dodge attack hits%. 50%% less armour, 30%% less energy shield, 30%% less chance to block spell and attack damage"] = {
 		mod("AttackDodgeChance", "BASE", 30),
 		mod("Armour", "MORE", -50),
@@ -2195,6 +2205,9 @@ local specialModList = {
 		mod("PurpHarbAuraBuffEffect", "INC", num, { type = "Multiplier", var = "Herald" })
 		-- Maximum buff effect is handled in CalcPerform, PurpHarbAuraBuffEffect is capped with a constant there.
 	} end,
+	["your chance to suppressed spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
+	["your chance to suppressed spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
+	["prevents +(%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
 	["(%d+)%% increased area of effect per power charge, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("VastPowerAoE", "INC", num),
 		-- Maximum effect is handled in CalcPerform, VastPowerAoE is capped with a constant there.
