@@ -826,7 +826,7 @@ local function doActorMisc(env, actor)
 			end
 		end
 		if modDB:Flag(nil, "Chill") then
-			local effect = m_min(m_max(m_floor(calcLib.val(modDB, "ChillVal") *  calcLib.mod(modDB, nil, "SelfChillEffect")), 0), 30)
+			local effect = m_min(m_max(m_floor((modDB:Override(nil, "ChillVal") or calcLib.val(modDB, "ChillVal")) *  (calcLib.mod(modDB, nil, "SelfChillEffect") + ((modDB:Flag(nil, "SelfChillEffectIsReversed") and calcLib.mod(modDB, nil, "EnemyChillEffect") - 1) or 0))), 0), 30)
 			modDB:NewMod("ActionSpeed", "INC", effect * (modDB:Flag(nil, "SelfChillEffectIsReversed") and 1 or -1), "Chill")
 		end
 		if modDB:Flag(nil, "Freeze") then
