@@ -7852,6 +7852,23 @@ return {
 		reqInt = 0,
 		defaultLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemPoisonousConcoction"] = {
+		name = "Poisonous Concoction",
+		grantedEffectId = "PoisonousConcoction",
+		tags = {
+			dexterity = true,
+			active_skill = true,
+			attack = true,
+			area = true,
+			chaos = true,
+			projectile = true,
+		},
+		tagString = "Attack, AoE, Chaos, Projectile",
+		reqStr = 0,
+		reqDex = 33,
+		reqInt = 0,
+		defaultLevel = 12,
+	},
 	["Metadata/Items/Gems/SkillGemEyeOfWinter"] = {
 		name = "Eye of Winter",
 		grantedEffectId = "EyeOfWinter",

@@ -3471,6 +3471,95 @@ skills["ExplosiveConcoction"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, 0.23999999463558, 0.36000001430511, 0.050000000745058, 0.55000001192093, 64, 3, 500, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, 1, }, cost = { Mana = 12, }, },
 	},
 }
+skills["PoisonousConcoction"] = {
+	name = "Poisonous Concoction",
+	color = 2,
+	baseEffectiveness = 2.5408999919891,
+	incrementalEffectiveness = 0.038699999451637,
+	description = "Throws an explosive bottle that deals unarmed attack damage in an area and has a chance to poison. Can consume charges from a life flask to add further damage. Requires an empty main hand, and no off-hand weapon.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.CantEquipWeapon] = true, },
+	weaponTypes = {
+		["None"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	parts = {
+		{
+			name = "No Flasks",
+		},
+		{
+			name = "Slot 1 Life Flask",
+		},
+		{
+			name = "Slot 2 Life Flask",
+		},
+		{
+			name = "Slot 3 Life Flask",
+		},
+		{
+			name = "Slot 4 Life Flask",
+		},
+		{
+			name = "Slot 5 Life Flask",
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		local add = 0
+		if activeSkill.skillPart == 2 then
+			add = 1000 + output.Life * activeSkill.skillData.flaskLifeRecoveryAsChaos / 100
+		end
+		if activeSkill.skillPart == 3 then
+			add = output.Life * activeSkill.skillData.flaskLifeRecoveryAsChaos / 100
+		end
+		if activeSkill.skillPart == 4 then
+			add = output.Life * activeSkill.skillData.flaskLifeRecoveryAsChaos / 100
+		end
+		if activeSkill.skillPart == 5 then
+			add = output.Life * activeSkill.skillData.flaskLifeRecoveryAsChaos / 100
+		end
+		if activeSkill.skillPart == 6 then
+			add = output.Life * activeSkill.skillData.flaskLifeRecoveryAsChaos / 100
+		end
+
+		activeSkill.skillData.attack_minimum_added_chaos_damage = add
+		activeSkill.skillData.attack_maximum_added_chaos_damage = add
+	end,
+	statMap = {
+		["flask_throw_life_recovery_%_as_added_chaos_damage"] = {
+			skill("flaskLifeRecoveryAsChaos", nil),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("radius", 18),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "critical_strike_chance_+%", 1.5 },
+		},
+	},
+	stats = {
+		"attack_minimum_added_chaos_damage",
+		"attack_maximum_added_chaos_damage",
+		"flask_throw_life_recovery_%_as_added_chaos_damage",
+		"life_flask_throw_base_charges_used",
+		"additional_base_critical_strike_chance",
+		"base_chance_to_poison_on_hit_%",
+		"base_is_projectile",
+		"is_area_damage",
+		"console_skill_dont_chase",
+	},
+	levels = {
+		[1] = { 23, 39, 3, 2, 600, 40, attackSpeedMultiplier = 15, levelRequirement = 12, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 7, }, }
+	},
+}
 skills["ShrapnelTrap"] = {
 	name = "Explosive Trap",
 	color = 2,
