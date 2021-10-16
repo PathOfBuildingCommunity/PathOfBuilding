@@ -15,6 +15,8 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 			itemsTab:AddUndoState()
 			itemsTab.build.buildFlag = true
 		end
+	end, nil, function(key, index, value)
+		self:OnHoverKeyUp(key, index)
 	end)
 	self.anchor.collapse = true
 	self.enabled = function()
@@ -163,9 +165,10 @@ function ItemSlotClass:OnKeyDown(key)
 	return self.DropDownControl:OnKeyDown(key)
 end
 
-function ItemSlotClass:OnHoverKeyUp(key)
+function ItemSlotClass:OnHoverKeyUp(key, index)
 	if itemLib.wiki.matchesKey(key) then
-		local item = self.itemsTab.items[self.selItemId]
+		local itemIndex = self.items[index]
+		local item = self.itemsTab.items[itemIndex]
 
 		if item then
 			itemLib.wiki.openItem(item)

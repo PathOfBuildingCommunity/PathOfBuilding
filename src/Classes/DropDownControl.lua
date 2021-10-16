@@ -8,7 +8,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
+local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText, hoverKeyUpFunc)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.TooltipHost(tooltipText)
@@ -33,6 +33,7 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.list = list or { }
 	self.selIndex = 1
 	self.selFunc = selFunc
+	self.hoverKeyUpFunc = hoverKeyUpFunc
 end)
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
@@ -432,8 +433,8 @@ function DropDownClass:OnKeyUp(key)
 		self:ScrollSelIntoView()
 		return self
 	end
-	if self.OnHoverKeyUp then
-		self:OnHoverKeyUp(key)
+	if self.hoverKeyUpFunc and self.hoverSel then
+		self.hoverKeyUpFunc(key, self.hoverSel, self.list[self.hoverSel])
 	end
 	return self.dropped and self
 end

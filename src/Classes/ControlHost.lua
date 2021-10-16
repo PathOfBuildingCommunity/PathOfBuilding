@@ -51,11 +51,11 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 				if self.selControl.OnKeyUp then
 					self:SelectControl(self.selControl:OnKeyUp(event.key))
 				end
+				
 				inputEvents[id] = nil
-			end
-			if isMouseInRegion(viewPort) then
+			elseif isMouseInRegion(viewPort) then
 				local mOverControl = self:GetMouseOverControl(viewPort)
-				if mOverControl and mOverControl.OnKeyUp and mOverControl ~= self.selControl then
+				if mOverControl and mOverControl.OnKeyUp then
 					if mOverControl:OnKeyUp(event.key) then
 						inputEvents[id] = nil
 					end
