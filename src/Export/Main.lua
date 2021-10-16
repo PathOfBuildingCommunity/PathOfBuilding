@@ -73,6 +73,7 @@ function main:Init()
 
 	self:LoadSettings()
 
+	self:InitGGPK()
 	if USE_DAT64 then
 		self:LoadDat64Files()
 	else
@@ -156,6 +157,7 @@ function main:Init()
 		out:close()
 		self.datSource = value
 		self.datSpecs = LoadModule(self.datSource.spec:gsub("%.lua$",""))
+		self:InitGGPK()
 		if USE_DAT64 then
 			self:LoadDat64Files()
 		else
@@ -334,7 +336,7 @@ function main:OnChar(key)
 	t_insert(self.inputEvents, { type = "Char", key = key })
 end
 
-function main:LoadDatFiles()
+function main:InitGGPK()
 	wipeTable(self.datFileList)
 	wipeTable(self.datFileByName)
 	self:SetCurrentDat()
@@ -343,55 +345,44 @@ function main:LoadDatFiles()
 	if not self.datSource then
 		return
 	else
+		local now = GetTime()
 		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
-		if ggpkPath:match("%.ggpk") or ggpkPath:match("steamapps[/\\].+[/\\]Path of Exile") then
-			local now = GetTime()
+		if ggpkPath and ggpkPath:match("%.ggpk") or ggpkPath:match("steamapps[/\\].+[/\\]Path of Exile") then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
-
-			now = GetTime()
-			for i, record in ipairs(self.ggpk.dat) do
-				if i == 1 then
-					ConPrintf("DAT find: %d ms", GetTime() - now)
-					now = GetTime()
-				end
-				local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
-				t_insert(self.datFileList, datFile)
-				self.datFileByName[datFile.name] = datFile
-			end
-			ConPrintf("DAT read: %d ms", GetTime() - now)
+		elseif self.datSource.datFilePath then
+			self.ggpk = new("GGPKData", nil, self.datSource.datFilePath)
+			ConPrintf("GGPK: %d ms", GetTime() - now)
 		end
 	end
 end
 
-function main:LoadDat64Files()
-	wipeTable(self.datFileList)
-	wipeTable(self.datFileByName)
-	self:SetCurrentDat()
-	self.ggpk = nil
-
-	if not self.datSource then
-		return
-	else
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
-		if ggpkPath:match("%.ggpk") or ggpkPath:match("steamapps[/\\].+[/\\]Path of Exile") then
-			local now = GetTime()
-			self.ggpk = new("GGPKData", ggpkPath)
-			ConPrintf("GGPK: %d ms", GetTime() - now)
-
+function main:LoadDatFiles()
+	local now = GetTime()
+	for i, record in ipairs(self.ggpk.dat) do
+		if i == 1 then
+			ConPrintf("DAT find: %d ms", GetTime() - now)
 			now = GetTime()
-			for i, record in ipairs(self.ggpk.dat) do
-				if i == 1 then
-					ConPrintf("DAT64 find: %d ms", GetTime() - now)
-					now = GetTime()
-				end
-				local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
-				t_insert(self.datFileList, datFile)
-				self.datFileByName[datFile.name] = datFile
-			end
-			ConPrintf("DAT64 read: %d ms", GetTime() - now)
 		end
+		local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
+		t_insert(self.datFileList, datFile)
+		self.datFileByName[datFile.name] = datFile
 	end
+	ConPrintf("DAT read: %d ms", GetTime() - now)
+end
+
+function main:LoadDat64Files()
+	local now = GetTime()
+	for i, record in ipairs(self.ggpk.dat) do
+		if i == 1 then
+			ConPrintf("DAT64 find: %d ms", GetTime() - now)
+			now = GetTime()
+		end
+		local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
+		t_insert(self.datFileList, datFile)
+		self.datFileByName[datFile.name] = datFile
+	end
+	ConPrintf("DAT64 read: %d ms", GetTime() - now)
 end
 
 function main:SetCurrentDat(datFile)
