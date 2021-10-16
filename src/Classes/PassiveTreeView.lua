@@ -270,7 +270,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.buildFlag = true
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
-				if hoverNode.type == "Mastery" then
+				if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 					build.treeTab:OpenMasteryPopup(hoverNode)
 				else
 					spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
@@ -301,7 +301,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				or hoverNode.isNotable) then
 			build.treeTab:ModifyNodePopup(hoverNode)
 			build.buildFlag = true
-		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" then
+		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode)
 			build.buildFlag = true
 		end
@@ -476,11 +476,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
---		elseif node.type == "Mastery" then
---			-- TODO: Reconsider rending approach once tree/sprites are released
---			-- This is the icon that appears in the center of many groups
---			SetDrawLayer(nil, 15)
---			base = node.sprites.mastery
 		else
 			local state
 			if self.showHeatMap or isAlloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
@@ -517,14 +512,18 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveAltRed"
 					end
 				end
+			elseif node.type == "Mastery" then
+				-- This is the icon that appears in the center of many groups
+				base = node.sprites.mastery
+				if node.masteryEffects then
+					-- TODO: Reconsider rending approach once tree/sprites are released
+					overlay = node.overlay[state]
+				else
+					SetDrawLayer(nil, 15)
+				end
 			else
 				-- Normal node (includes keystones and notables)
-				if node.type == "Mastery" then
-					-- TODO: Reconsider rending approach once tree/sprites are released
-					base = node.sprites.mastery
-				else
-					base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
-				end
+				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
 			end
 		end
@@ -781,7 +780,7 @@ function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 end
 
 function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
-	if node.type == "ClassStart" then
+	if node.type == "ClassStart" or (node.type == "Mastery" and not node.masteryEffects) then
 		return
 	end
 
