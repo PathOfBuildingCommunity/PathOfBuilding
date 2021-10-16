@@ -1154,6 +1154,7 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "EnergyShield", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "EnergyShield", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:EnergyShield}", { breakdown = "EnergyShield" }, }, },
+	{ label = "Total Recoverable", haveOutput = "CappingES", { format = "{0:output:EnergyShieldRecoveryCap}", { breakdown = "EnergyShield" }, }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToEnergyShield", { format = "{1:output:EnergyShieldRecharge}", 
 		{ breakdown = "EnergyShieldRecharge" },
 		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecoveryRate", "NoEnergyShieldRecharge" }, },

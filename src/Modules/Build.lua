@@ -366,6 +366,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "Ward", label = "Ward", fmt = "d", compPercent = true },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
+		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", fmt = "d", condFunc = function(v,o) return v ~= nil end },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
 		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
