@@ -433,8 +433,14 @@ function DropDownClass:OnKeyUp(key)
 		self:ScrollSelIntoView()
 		return self
 	end
-	if self.hoverKeyUpFunc and self.hoverSel then
-		self.hoverKeyUpFunc(key, self.hoverSel, self.list[self.hoverSel])
+	if self.hoverKeyUpFunc then
+		local index
+		if self.hoverSel then
+			index = self.hoverSel
+		else
+			index = self.selIndex
+		end
+		self.hoverKeyUpFunc(key, index, self.list[index])
 	end
 	return self.dropped and self
 end
