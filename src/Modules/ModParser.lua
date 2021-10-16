@@ -1420,6 +1420,11 @@ local specialModList = {
 		mod("BlockChance", "MORE", -30),
 		mod("SpellBlockChance", "MORE", -30),
 	},
+	["grants %+(%d+)%% chance to block spell damage for each (%d+)%% overcapped chance to block attack damage"] = function(num, _, div) return { mod("SpellBlockChance", "BASE", num, { type = "PerStat", stat = "BlockChanceOverCap", div = tonumber(div) }) } end,
+	["also grants %-25%% to maximum chance to block attack damage and %-25%% to maximum chance to block spell damage"] = {
+		mod("BlockChanceMax", "BASE", -25),
+		mod("SpellBlockChanceMax", "BASE", -25)
+	},
 	["maximum life becomes 1, immune to chaos damage"] = { flag("ChaosInoculation") },
 	["life regeneration is applied to energy shield instead"] = { flag("ZealotsOath") },
 	["life leeched per second is doubled"] = { mod("LifeLeechRate", "MORE", 100) },
