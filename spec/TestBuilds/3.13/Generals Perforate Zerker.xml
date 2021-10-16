@@ -20,7 +20,7 @@
 		<PlayerStat stat="TotalDotDPS" value="8339.9872536461"/>
 		<PlayerStat stat="ImpaleDPS" value="14718128.959809"/>
 		<PlayerStat stat="WithImpaleDPS" value="30360735.995424"/>
-		<PlayerStat stat="ImpaleDPS" value="14718128.959809"/>
+		<PlayerStat stat="ImpaleDPS" value="14718128.959809"/>f
 		<PlayerStat stat="WithImpaleDPS" value="30360735.995424"/>
 		<PlayerStat stat="MirageDPS" value="224769205.15442"/>
 		<PlayerStat stat="CombinedDPS" value="255126832.46127"/>
@@ -1166,7 +1166,7 @@ Gain 50 Life when you Stun an Enemy
 	</Items>
 	<Config>
 		<Input name="conditionCritRecently" boolean="true"/>
-		<Input name="buffFortify" boolean="true"/>
+		<Input name="multiplierFortification" number="20"/>
 		<Input name="conditionOnConsecratedGround" boolean="true"/>
 		<Input name="conditionEnemyTaunted" boolean="true"/>
 		<Input name="multiplierRage" number="25"/>
