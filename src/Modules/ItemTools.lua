@@ -145,13 +145,7 @@ itemLib.wiki = {
 		itemLib.wiki.open(name)
 	end,
 	openItem = function(item)
-		local name;
-
-		if item.rarity == "UNIQUE" then
-			name = item.title
-		else
-			name = item.baseName
-		end
+		local name = item.rarity == "UNIQUE" and item.title or item.baseName
 
 		itemLib.wiki.open(name)
 	end,
