@@ -635,8 +635,8 @@ function TreeTabClass:OpenMasteryPopup(node)
 		self.build.spec.masterySelections[node.id] = effect.id
 		if not node.alloc then
 			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
-			self.build.spec:AddUndoState()
 		end
+		self.build.spec:AddUndoState()
 		self.modFlag = true
 		self.build.buildFlag = true
 		main:ClosePopup()

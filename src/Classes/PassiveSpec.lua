@@ -104,7 +104,13 @@ function PassiveSpecClass:Load(xml, dbFileName)
 		for hash in xml.attrib.nodes:gmatch("%d+") do
 			t_insert(hashList, tonumber(hash))
 		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
+		local masteryEffects = { }
+		if xml.attrib.masteryEffects then
+			for mastery, effect in xml.attrib.masteryEffects:gmatch("{(%d+),(%d+)}") do
+				masteryEffects[tonumber(mastery)] = tonumber(effect)
+			end
+		end
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -151,6 +157,10 @@ function PassiveSpecClass:Save(xml)
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	local masterySelections = { }
+	for mastery, effect in pairs(self.masterySelections) do
+		t_insert(masterySelections, "{"..mastery..","..effect.."}")
+	end
 	local editedNodes = {
 		elem = "EditedNodes"
 	}
@@ -173,6 +183,7 @@ function PassiveSpecClass:Save(xml)
 		classId = tostring(self.curClassId), 
 		ascendClassId = tostring(self.curAscendClassId), 
 		nodes = table.concat(allocNodeIdList, ","),
+		masteryEffects = table.concat(masterySelections, ",")
 	}
 	t_insert(xml, {
 		-- Legacy format
@@ -194,7 +205,7 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, masteryEffects)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
@@ -212,6 +223,10 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 			node.alloc = true
 			self.allocNodes[id] = node
 		end
+	end
+	wipeTable(self.masterySelections)
+	for mastery, effect in pairs(masteryEffects) do
+		self.masterySelections[mastery] = effect
 	end
 	self:SelectAscendClass(ascendClassId)
 end
@@ -1218,15 +1233,20 @@ function PassiveSpecClass:CreateUndoState()
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	local selections = { }
+	for mastery, effect in pairs(self.masterySelections) do
+		selections[mastery] = effect
+	end
 	return {
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		hashList = allocNodeIdList,
+		masteryEffects = selections
 	}
 end
 
 function PassiveSpecClass:RestoreUndoState(state)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList)
+	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects)
 	self:SetWindowTitleWithBuildClass()
 end
 
