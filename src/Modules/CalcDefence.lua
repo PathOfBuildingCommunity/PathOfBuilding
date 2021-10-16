@@ -77,17 +77,12 @@ function calcs.defence(env, actor)
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
 		local max, total
-		if elem == "Chaos" and modDB:Flag(nil, "ChaosInoculation") then
-			max = 100
-			total = 100
-		else
 			max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
 			total = modDB:Override(nil, elem.."Resist")
 			if not total then
 				local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 				total = base * calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 			end
-		end
 		local final = m_min(total, max)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
