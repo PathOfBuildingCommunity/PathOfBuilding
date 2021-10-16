@@ -1318,6 +1318,8 @@ return {
 	{ label = "Ignite Duration", { format = "{1:output:SelfIgniteDuration}%", { modName = "SelfIgniteDuration" }, }, },
 	{ label = "Bleed Duration", { format = "{1:output:SelfBleedDuration}%", { modName = "SelfBleedDuration" }, }, },
 	{ label = "Poison Duration", { format = "{1:output:SelfPoisonDuration}%", { modName = "SelfPoisonDuration" }, }, },
+	{ label = "Chill Effect", { format = "{1:output:SelfChillEffect}%", { modName = "SelfChillEffect" }, }, },
+	{ label = "Shock Effect", { format = "{1:output:SelfShockEffect}%", { modName = "SelfShockEffect" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)", { modName = "AttackDodgeChance" }, }, },
