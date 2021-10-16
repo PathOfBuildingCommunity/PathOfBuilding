@@ -128,8 +128,12 @@ local skills, mod, flag, skill = ...
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
+		["cruelty_effect_+%"] = {
+			mod("CrueltyEffectOnSelf", "INC", nil)
+		},
 	},
 #baseMod mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" })
+#baseMod flag("Cruelty")
 #mods
 
 #skill SupportMeleeDamageOnFullLife
