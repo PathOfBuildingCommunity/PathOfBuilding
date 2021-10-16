@@ -601,9 +601,6 @@ return {
 	{ var = "buffPhasing", type = "check", label = "Do you have Phasing?", ifCond = "Phasing", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Phasing", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffFortify", type = "check", label = "Do you have Fortify?", tooltip = "In addition to allowing any 'while you have Fortify' modifiers to apply,\n this will enable the Fortify buff itself. (Grants 20% less Damage taken from Hits)", ifCond = "Fortify", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:Fortify", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
 	{ var = "multiplierFortification", type = "count", label = "# of Fortification Stacks:", tooltip = "You have 1% less damage taken from hits per stack of fortification:\nHas a default cap of 20 stacks.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Fortification", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
