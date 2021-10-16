@@ -525,6 +525,7 @@ Requires Level 52, 21 Int
 Beacon of Madness
 Variant: Two-Toned Boots (Armour/Evasion)
 Variant: Two-Toned Boots (Armour/Energy Shield)
+Variant: Two-Toned Boots (Evasion/Energy Shield) Pre 3.16.0
 Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:1}Two-Toned Boots (Armour/Evasion)
 {variant:2}Two-Toned Boots (Armour/Energy Shield)
@@ -533,11 +534,11 @@ League: Delirium
 Source: Drops from the Simulacrum Encounter
 {variant:1}Requires Level 70, 62 Str, 62 Dex
 {variant:2}Requires Level 70, 62 Str, 62 Int
-{variant:3}Requires Level 70, 62 Dex, 62 Int
+{variant:3,4}Requires Level 70, 62 Dex, 62 Int
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
 {variant:2}+(8-12)% to Fire and Lightning Resistances
-{variant:3}+(8-12)% to Cold and Lightning Resistances
+{variant:3,4}+(8-12)% to Cold and Lightning Resistances
 Grants Level 1 Embrace Madness Skill
 30% increased Movement Speed
 {variant:1}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
@@ -545,7 +546,8 @@ Grants Level 1 Embrace Madness Skill
 {variant:2}You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
 {variant:2}Immune to Elemental Ailments while affected by Glorious Madness
 {variant:3}60% increased Effect of Fortify on you while affected by Glorious Madness
-{variant:3}20% chance to deal Double Damage while affected by Glorious Madness
+{variant:4}+15 to maximum Fortification while affected by Glorious Madness
+{variant:3,4}20% chance to deal Double Damage while affected by Glorious Madness
 ]],[[
 Darkray Vectors
 Dragonscale Boots

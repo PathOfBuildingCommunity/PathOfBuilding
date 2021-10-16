@@ -154,6 +154,10 @@ return {
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
 	end },
+	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
+	{ var = "embraceMadness", type = "check", label = "Is Glorious Madness active?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:EmbraceMadnessActive", "FLAG", true, "Config")
+	end },
 	{ label = "Elemental Army:", ifSkill = "Elemental Army" },
 	{ var = "elementalArmyExposureType", type = "list", label = "Exposure Type:", ifSkill = "Elemental Army", list = {{val=0,label="None"},{val="Fire",label="Fire"},{val="Cold",label="Cold"},{val="Lightning",label="Lightning"}}, apply = function(val, modList, enemyModList)
 		if val == "Fire" then
