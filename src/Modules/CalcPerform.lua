@@ -1654,7 +1654,7 @@ function calcs.perform(env, avoidCache)
 						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
 						isMark = mark,
 						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
-                        socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
+						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 					local more = skillModList:More(skillCfg, "CurseEffect")
@@ -1877,9 +1877,8 @@ function calcs.perform(env, avoidCache)
 					curseSlots[#curseSlots + 1] = curse
 				end
 			end
-            if curse.socketedCursesHexLimit then 	
-                local socketedCursesHexLimitValue = modDB:Sum("BASE", nil, "SocketedCursesHexLimitValue")
-                ConPrintf("%d", socketedCursesHexLimitValue)
+			if curse.socketedCursesHexLimit then 	
+				local socketedCursesHexLimitValue = modDB:Sum("BASE", nil, "SocketedCursesHexLimitValue")
 				local skipAddingCurse = false
 				for i = 1, #curseSlots do
 					if curseSlots[i].name == curse.name then
@@ -1890,9 +1889,9 @@ function calcs.perform(env, avoidCache)
 						skipAddingCurse = true
 						break
 					end
-                    if i >= socketedCursesHexLimitValue then
-                        skipAddingCurse = true
-                    end
+					if i >= socketedCursesHexLimitValue then
+						skipAddingCurse = true
+					end
 				end
 				if not skipAddingCurse then
 					curseSlots[#curseSlots + 1] = curse
