@@ -1335,6 +1335,20 @@ return {
 { 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
 	colWidth = 114,
 	{
+		{ format = "Attack:" },
+		{ format = "Spell:" },
+	},
+	{ label = "Hit taken",
+		{ format = "x {2:output:AttackTakenHitMult}", 
+			{ breakdown = "AttackTakenHitMult" }, 
+			{ modName = { "DamageTaken", "AttackDamageTaken" } } 
+		},
+		{ format = "x {2:output:SpellTakenHitMult}",
+			{ breakdown = "SpellTakenHitMult" }, 
+			{ modName = { "DamageTaken", "SpellDamageTaken" } }
+		}
+	},
+	{
 		{ format = "Physical:" },
 		{ format = "Lightning:" },
 		{ format = "Cold:" },
