@@ -491,8 +491,9 @@ Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
 Hexes from Socketed Skills can apply 5 additional Curses
 +(30-40) to Intelligence 
-(130-150)% increased Energy Shield 
-20% reduced Effect of your Curses
+(130-150)% increased Energy Shield
+{variant:1}(25-33)% reduced Effect of your Curses
+{variant:2}20% reduced Effect of your Curses
 ]],[[
 Fenumus' Shroud
 Widowsilk Robe
