@@ -34529,53 +34529,6 @@ return {
 			[1]="minions_are_defensive"
 		}
 	},
-	[1206]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Deals Added Chaos Damage equal to {0}% of Flask's Recovery Amount if Charges were consumed"
-				}
-			}
-		},
-		name="flask_throw_life_recovery_as_chaos",
-		stats={
-			[1]="flask_throw_life_recovery_%_as_added_chaos_damage"
-		}
-	},
-	[1207]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Consumes {0} Charges from 1 Life Flask, if possible"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Consumes {0} Charges from 1 Life Flask, if possible"
-				}
-			}
-		},
-		name="life_flask_throw_charges_used",
-		stats={
-			[1]="life_flask_throw_base_charges_used"
-		}
-	},
 	["%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy"]=882,
 	["%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"]=883,
 	["%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"]=884,
@@ -35906,7 +35859,5 @@ return {
 	["withered_on_hit_chance_%"]=1193,
 	["withering_step_chance_to_not_remove_on_skill_use_%"]=1194,
 	["you_and_enemy_movement_velocity_+%_while_affected_by_ailment_you_inflicted"]=1195,
-	["zombie_slam_cooldown_speed_+%"]=1203,
-	["flask_throw_life_recovery_%_as_added_chaos_damage"]=1206,
-	["life_flask_throw_base_charges_used"]=1207
+	["zombie_slam_cooldown_speed_+%"]=1203
 }
