@@ -436,9 +436,5 @@ function DropDownClass:OnKeyUp(key)
 end
 
 function DropDownClass:GetHoverIndex(key)
-	if self.hoverSel then
-		return self.hoverSel
-	end
-	
-	return self.selIndex
+	return self.hoverSel or self.selIndex
 end
