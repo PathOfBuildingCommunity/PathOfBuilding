@@ -1412,10 +1412,6 @@ local specialModList = {
 		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"), 
 	},
 	["dexterity provides no inherent bonus to evasion rating"] = { flag("MageBane"), flag("NoDexBonusToEvasion") },
-	["(%d+)%% chance to suppress spell damage per (%d+) dexterity"] = function(_, suppression, dex) return {
-		flag("MageBane"),
-		mod("SpellSuppressionChance", "BASE", tonumber(suppression), { type = "PerStat", stat = "Dex", div = tonumber(dex) })
-	} end,
 	["your hits can't be evaded"] = { flag("CannotBeEvaded") },
 	["never deal critical strikes"] = { flag("NeverCrit"), flag("Condition:NeverCrit") },
 	["no critical strike multiplier"] = { flag("NoCritMultiplier") },
