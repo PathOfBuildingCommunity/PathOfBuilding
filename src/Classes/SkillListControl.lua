@@ -114,7 +114,6 @@ function SkillListClass:OnHoverKeyUp(key)
 
 		-- Get the first gem in the group
 		local gem = item.gemList[1]
-
 		if gem then
 			itemLib.wiki.openGem(gem.gemData)
 		end
