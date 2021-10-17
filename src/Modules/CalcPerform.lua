@@ -746,7 +746,8 @@ local function doActorMisc(env, actor)
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
 		if modDB:Flag(nil, "Fortify") then
-			local effectScale = 1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100
+			-- Fortify is no longer used reduced its effect to 0
+			local effectScale = 0 * (1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100)
 			local modList = modDB:List(nil, "convertFortifyBuff")
 			local changeMod = modList[#modList]
 			if changeMod then
@@ -974,6 +975,7 @@ function calcs.perform(env, avoidCache)
 		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ElementalResist", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+		env.minion.modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Poison)
 		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Ignite)
 		env.minion.modDB:NewMod("SkillData", "LIST", { key = "bleedBasePercent", value = 70/6 }, "Base")

@@ -602,6 +602,7 @@ return {
 	end },
 	{ var = "multiplierFortification", type = "count", label = "# of Fortification Stacks:", tooltip = "You have 1% less damage taken from hits per stack of fortification:\nHas a default cap of 20 stacks.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Fortification", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:Fortify", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffTailwind", type = "check", label = "Do you have Tailwind?", tooltip = "In addition to allowing any 'while you have Tailwind' modifiers to apply,\nthis will enable the Tailwind buff itself. (Grants 8% increased Action Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Tailwind", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
