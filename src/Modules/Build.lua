@@ -57,7 +57,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.xmlSectionList = { }
 	self.spectreList = { }
 	self.viewMode = "TREE"
-	self.characterLevel = 1
+	self.characterLevel = main.defaultCharLevel or 1
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
