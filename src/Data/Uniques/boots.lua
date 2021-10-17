@@ -116,12 +116,16 @@ Requires Level: 23, 44 Str
 ]],[[
 Torchoak Step
 Antique Greaves
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 37, 67 Str
 (80-120)% increased Armour
-(30-50)% increased Totem Life
+{variant:1}(30-50)% increased Totem Life
+{variant:2}(20-30)% increased Totem Life
 25% increased Movement Speed
 (30-50)% increased Totem Placement speed
-Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
+{variant:1}Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
+{variant:2}Totems Reflect 100% of their maximum Life as Fire Damage to nearby Enemies when Hit
 ]],[[
 Windscream
 Reinforced Greaves
