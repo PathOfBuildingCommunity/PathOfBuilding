@@ -598,7 +598,7 @@ function calcs.defence(env, actor)
 				breakdown.LifeRecharge = { }
 				breakdown.multiChain(breakdown.LifeRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(20%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
+					base = s_format("%.1f ^8(33%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
@@ -618,7 +618,7 @@ function calcs.defence(env, actor)
 				breakdown.EnergyShieldRecharge = { }
 				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(20%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
+					base = s_format("%.1f ^8(33%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
