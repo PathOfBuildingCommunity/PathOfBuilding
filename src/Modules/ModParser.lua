@@ -1048,6 +1048,7 @@ local modTagList = {
 	["per spectre you own"] = { tag = { type = "PerStat", stat = "ActiveSpectreLimit", actor = "parent" } },
 	["for each remaining chain"] = { tag = { type = "PerStat", stat = "ChainRemaining" } },
 	["for each enemy pierced"] = { tag = { type = "PerStat", stat = "PiercedCount" } },
+	["per Fortification"] = { tag = { type = "PerStat", stat = "Multiplier:Fortification" } },
 	-- Stat conditions
 	["with (%d+) or more strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
 	["with at least (%d+) strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
@@ -2982,8 +2983,6 @@ local specialModList = {
 	["you take (%d+)%% reduced extra damage from critical strikes while you have no power charges"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true }) } end,
 	["grants nearly allies (%d+) fortification"] = function(num) return {
 		mod("ExtraAura", "LIST",{ onlyAllies = true, mod = mod("Multiplier:Fortification", "BASE", num) }) } end,
-	["(%d+)%% chance to Suppress Spell Damage per Fortification"] = function(num) return {
-		mod("SpellSuppressionChance", "BASE", num, { type = "PerStat", stat = "Multiplier:Fortification" }) } end,
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
