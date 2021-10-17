@@ -75,11 +75,13 @@ Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 70, 159 Str
 Implicits: 1
 {variant:3}+(20-30) to maximum Life
-(200-250)% increased Armour
+{variant:1,2,3}(200-250)% increased Armour
+{variant:4}(180-220)% increased Armour
 {variant:1}+(80-100) to maximum Life
 {variant:2,3}+(160-180) to maximum Life
 5% reduced Movement Speed
@@ -102,13 +104,16 @@ Adds 250 to 300 Cold Damage to Counterattacks
 ]],[[
 Magna Eclipsis
 Pinnacle Tower Shield
+Variant: Pre 3.16.0
+Variant: Current
 Source: Vendor recipe
 Requires Level 70, 159 Str
 Implicits: 1
 +(20-30) to maximum Life
 +2 to Level of Socketed Gems
 Triggers Level 20 Elemental Aegis when Equipped
-(200-250)% increased Armour
+{variant:1}(200-250)% increased Armour
+{variant:2}(180-220)% increased Armour
 +(60-80) to maximum Life
 +(80-100) to Evasion Rating and Energy Shield
 ]],[[
@@ -975,11 +980,14 @@ Implicits: 1
 [[
 Font of Thunder
 Mirrored Spiked Shield
+Variant: 3.16.0
+Variant: Current
 League: Heist
 Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
 4% chance to Dodge Attack Hits
-(500-600)% increased Evasion and Energy Shield
+{variant:1}(500-600)% increased Evasion and Energy Shield
+{variant:2}(400-500)% increased Evasion and Energy Shield
 (25-40)% increased Mana Regeneration Rate
 +50% chance to be Shocked
 40% of Cold Damage taken as Lightning
