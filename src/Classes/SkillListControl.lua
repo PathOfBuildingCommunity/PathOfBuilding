@@ -108,7 +108,6 @@ end
 function SkillListClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
 		local item = self.ListControl:GetHoverValue()
-
 		if not item then
 			return
 		end
