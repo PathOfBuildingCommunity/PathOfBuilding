@@ -276,6 +276,7 @@ data.misc = { -- magic numbers
 	ServerTickRate = 1 / 0.033,
 	TemporalChainsEffectCap = 75,
 	DamageReductionCap = 90,
+	ResistFloor = -200,
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
