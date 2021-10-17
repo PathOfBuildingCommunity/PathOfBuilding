@@ -374,6 +374,8 @@ Implicits: 1
 ]],[[
 Replica Doedre's Damning
 Paua Ring
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
@@ -381,7 +383,8 @@ Implicits: 1
 {tags:jewellery_resistance}+5% to all Elemental Resistances
 {tags:mana}+5 Mana gained on Kill
 {tags:caster}You can apply one fewer Curse
-{tags:caster}(25-35)% increased Effect of your Curses
+{variant:1}{tags:caster}(25-35)% increased Effect of your Curses
+{variant:2}{tags:caster}(15-25)% increased Effect of your Curses
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -400,20 +403,22 @@ Emberwake
 Ruby Ring
 Variant: Pre 3.0.0
 Variant: Pre 3.9.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
-{variant:2,3}{tags:jewellery_elemental}(30-40)% increased Fire Damage
+{variant:2,3,4}{tags:jewellery_elemental}(30-40)% increased Fire Damage
 {tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
+{variant:2,3,4}{tags:jewellery_elemental}10% chance to Ignite
 You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
 {variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
 {variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
+{variant:4}{tags:jewellery_elemental}40% less Burning Damage
 ]],[[
 Replica Emberwake
 Ruby Ring
@@ -523,12 +528,16 @@ Implicits: 1
 ]],[[
 Kaom's Way
 Coral Ring
+Variant: Pre 3.16.0
+Variant: Current
 Source: Upgraded from unique{Kaom's Sign} using prophecy{The King's Path}
 Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
-{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
+{variant:1}{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
+{variant:2}{tags:life}0.2% of maximum Life Regenerated per second per Endurance Charge
+{variant:2}2% increased Area of Effect per Endurance Charge
 {tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
 +1 Maximum Endurance Charge
 ]],[[

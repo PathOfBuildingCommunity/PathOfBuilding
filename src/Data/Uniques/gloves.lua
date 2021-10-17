@@ -902,11 +902,14 @@ Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 ]],[[
 Nightgrip
 Runic Gages
+Variant: Pre 3.16.0
+Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 (33–48)% increased Ward
 +(17–23)% to Chaos Resistance
-Gain Added Chaos Damage equal to 25% of Ward
+{variant:1}Gain Added Chaos Damage equal to 25% of Ward
+{variant:2}Gain Added Chaos Damage equal to 20% of Ward
 75% of Damage bypasses Ward
 ]],
 }
