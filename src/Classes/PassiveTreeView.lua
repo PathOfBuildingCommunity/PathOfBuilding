@@ -212,7 +212,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	self.hoverNode = hoverNode
-
 	-- If hovering over a node, find the path to it (if unallocated) or the list of dependent nodes (if allocated)
 	local hoverPath, hoverDep
 	if self.traceMode then
