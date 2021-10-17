@@ -1871,7 +1871,10 @@ function calcs.offence(env, actor, activeSkill)
 					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
 				end
 				local preHitCheckCritChance = output.CritChance
+				local preCritConfirmationCritChance = output.CritChance
 				if env.mode_effective then
+					output.CritChance = output.CritChance * output.HitChance / 100
+					preCritConfirmationCritChance = output.CritChance
 					output.CritChance = output.CritChance * output.HitChance / 100
 				end
 				if breakdown and output.CritChance ~= baseCrit then
@@ -1898,8 +1901,14 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 					end
 					if env.mode_effective and output.HitChance < 100 then
-						t_insert(breakdown.CritChance, "Crit confirmation roll:")
+						t_insert(breakdown.CritChance, "")
+						t_insert(breakdown.CritChance, "Hit roll:")
 						t_insert(breakdown.CritChance, s_format("%.2f%%", preHitCheckCritChance))
+						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+						t_insert(breakdown.CritChance, s_format("= %.2f%%", preCritConfirmationCritChance))
+						t_insert(breakdown.CritChance, "")
+						t_insert(breakdown.CritChance, "Crit confirmation roll:")
+						t_insert(breakdown.CritChance, s_format("%.2f%%", preCritConfirmationCritChance))
 						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", output.CritChance))
 					end
