@@ -1411,7 +1411,7 @@ local specialModList = {
 		flag("ConvertSpellSuppressionToSpellDodge"),
 		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"), 
 	},
-	["dexterity provides no inherent bonus to evasion rating"] = { flag("MageBane"), flag("NoDexBonusToEvasion") },
+	["dexterity provides no inherent bonus to evasion rating"] = { flag("NoDexBonusToEvasion") },
 	["your hits can't be evaded"] = { flag("CannotBeEvaded") },
 	["never deal critical strikes"] = { flag("NeverCrit"), flag("Condition:NeverCrit") },
 	["no critical strike multiplier"] = { flag("NoCritMultiplier") },
