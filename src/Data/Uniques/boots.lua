@@ -317,7 +317,7 @@ Requires Level 55, 97 Dex
 {variant:2,3}+(50-70) to maximum Life
 {variant:1}20% increased Movement Speed
 {variant:2,3}25% increased Movement Speed
-{variant:1,2}10% chance to Dodge Spells while Phasing
+{variant:1,2}10% chance to Avoid Elemental Ailments while Phasing
 {variant:3}30% chance to Avoid Elemental Ailments while Phasing
 ]],[[
 Replica Three-step Assault
@@ -839,7 +839,7 @@ Requires Level 55, 52 Dex, 52 Int
 (15-20)% increased maximum Mana
 +(25-30)% to Lightning Resistance
 30% increased Movement Speed
-{variant:1}2% chance to Dodge Attack and Spell Hits per 500 Maximum Mana, up to 20%
+{variant:1}2% increased Evasion per 500 Maximum Mana
 {variant:2}10% increased Evasion per 500 Maximum Mana
 You have Onslaught while not on Low Mana
 Lose 7% of maximum Mana per Second

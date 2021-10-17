@@ -693,7 +693,6 @@ Requires Level 63, 115 Str, 94 Dex
 {variant:1,2}+(40-60) to maximum Life
 {variant:3}+(60-90) to maximum Life
 (0.4-0.6)% of Physical Attack Damage Leeched as Life
-{variant:1,2,3}6% Chance to Dodge Attacks
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
