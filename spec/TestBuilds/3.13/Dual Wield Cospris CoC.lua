@@ -1581,7 +1581,7 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["DoubleArmourChance"] = 0,
 ["MaxManaLeechInstance"] = 94.6,
 ["FireAegis"] = 0,
-["EnergyShieldRecharge"] = 2094,
+["EnergyShieldRecharge"] = 3454,
 ["Evasion"] = 45,
 ["Gear:Evasion"] = 0,
 ["Mana"] = 946,

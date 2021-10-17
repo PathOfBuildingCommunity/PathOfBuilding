@@ -1565,7 +1565,7 @@ Gain 50 Life when you Stun an Enemy
 ["ColdGuardEffectivePool"] = 0,
 ["FrenzyChargesMax"] = 3,
 ["PhysicalPhysicalBaseTakenHitMult"] = 0.2566,
-["EnergyShieldRecharge"] = 17,
+["EnergyShieldRecharge"] = 28,
 ["ChaosResistOverCap"] = 0,
 ["BlindAvoidChance"] = 0,
 ["FireMaximumHitTaken"] = 52248.8531,
