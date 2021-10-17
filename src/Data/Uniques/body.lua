@@ -373,7 +373,7 @@ Requires Level 65, 197 Dex
 -30% to Cold Resistance
 {variant:1}(5-10)% increased Dexterity
 {variant:2}(10-15)% increased Dexterity
-Arctic Armour has 100% reduced Reservation
+Arctic Armour has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
 {variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 Acrobatics
@@ -386,7 +386,7 @@ Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
 +(50-80) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has 100% reduced Reservation
+Flesh and Stone has no Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Hollow Palm Technique
 ]],[[
