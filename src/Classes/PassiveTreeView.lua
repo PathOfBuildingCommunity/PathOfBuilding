@@ -60,7 +60,6 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.searchStrCached = ""
 	self.searchStrResults = {}
 	self.showStatDifferences = true
-
 	self.hoverNode = nil
 end)
 
