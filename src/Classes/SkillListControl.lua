@@ -108,14 +108,12 @@ end
 function SkillListClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
 		local item = self.ListControl:GetHoverValue()
-		if not item then
-			return
-		end
-
-		-- Get the first gem in the group
-		local gem = item.gemList[1]
-		if gem then
-			itemLib.wiki.openGem(gem.gemData)
+		if item then
+			-- Get the first gem in the group
+			local gem = item.gemList[1]
+			if gem then
+				itemLib.wiki.openGem(gem.gemData)
+			end
 		end
 	end
 end

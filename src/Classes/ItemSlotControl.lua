@@ -164,18 +164,15 @@ function ItemSlotClass:OnKeyDown(key)
 end
 
 function ItemSlotClass:OnHoverKeyUp(key)
-	if not itemLib.wiki.matchesKey(key) then
-		return
-	end
+	if itemLib.wiki.matchesKey(key) then
+		local index = self.DropDownControl:GetHoverIndex()
+		if index then
+			local itemIndex = self.items[index]
+			local item = self.itemsTab.items[itemIndex]
 
-	local index = self.DropDownControl:GetHoverIndex()
-
-	if index then
-		local itemIndex = self.items[index]
-		local item = self.itemsTab.items[itemIndex]
-
-		if item then
-			itemLib.wiki.openItem(item)
+			if item then
+				itemLib.wiki.openItem(item)
+			end
 		end
 	end
 end

@@ -332,13 +332,10 @@ function ItemDBClass:OnSelCopy(index, item)
 end
 
 function ItemDBClass:OnHoverKeyUp(key)
-	if not itemLib.wiki.matchesKey(key) then
-		return
-	end
-	
-	local item = self.ListControl:GetHoverValue()
-
-	if item then
-		itemLib.wiki.openItem(item)
+	if itemLib.wiki.matchesKey(key) then
+		local item = self.ListControl:GetHoverValue()
+		if item then
+			itemLib.wiki.openItem(item)
+		end
 	end
 end

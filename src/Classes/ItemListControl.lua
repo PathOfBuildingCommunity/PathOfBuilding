@@ -144,15 +144,11 @@ function ItemListClass:OnSelDelete(index, itemId)
 end
 
 function ItemListClass:OnHoverKeyUp(key)
-	if not itemLib.wiki.matchesKey(key) then
-		return
-	end
-
-	local itemId = self.ListControl:GetHoverValue()
-
-	if itemId then
-		local item = self.itemsTab.items[itemId]
-
-		itemLib.wiki.openItem(item)
+	if itemLib.wiki.matchesKey(key) then
+		local itemId = self.ListControl:GetHoverValue()
+		if itemId then
+			local item = self.itemsTab.items[itemId]
+			itemLib.wiki.openItem(item)
+		end
 	end
 end
