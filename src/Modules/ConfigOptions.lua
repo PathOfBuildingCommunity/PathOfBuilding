@@ -155,7 +155,7 @@ return {
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
 	end },
 	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
-	{ var = "embraceMadness", type = "check", label = "Is Glorious Madness active?", apply = function(val, modList, enemyModList)
+	{ var = "embraceMadness", type = "check", label = "Is Glorious Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EmbraceMadnessActive", "FLAG", true, "Config")
 	end },
 	{ label = "Elemental Army:", ifSkill = "Elemental Army" },
