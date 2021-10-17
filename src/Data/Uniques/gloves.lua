@@ -7,14 +7,16 @@ Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.1.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
 +(60-75) to maximum Life
 (200-220)% increased Armour
-(25-35)% increased Global Critical Strike Chance
+{variant:2}(25-35)% increased Global Critical Strike Chance
+{variant:3}(40-60)% increased Global Critical Strike Chance
 {variant:1}Life and Mana Leech from Critical Strikes are instant
-{variant:2}You have Vaal Pact if you've dealt a Critical Strike Recently
+{variant:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets
