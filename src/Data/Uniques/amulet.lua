@@ -566,11 +566,11 @@ Implicits: 1
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
 {variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}Vulnerability has 100% reduced Reservation if Cast as an Aura
-{variant:2}Flammability has 100% reduced Reservation if Cast as an Aura
-{variant:3}Frostbite has 100% reduced Reservation if Cast as an Aura
-{variant:4}Conductivity has 100% reduced Reservation if Cast as an Aura
-{variant:5}Despair has 100% reduced Reservation if Cast as an Aura
+{variant:1}Vulnerability has no Reservation if Cast as an Aura
+{variant:2}Flammability has no Reservation if Cast as an Aura
+{variant:3}Frostbite has no Reservation if Cast as an Aura
+{variant:4}Conductivity has no Reservation if Cast as an Aura
+{variant:5}Despair has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 Elder Item
 ]],[[
