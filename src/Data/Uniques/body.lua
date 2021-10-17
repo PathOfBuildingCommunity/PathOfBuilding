@@ -593,7 +593,7 @@ Variant: Pre 3.16.0
 Variant: Current
 Requires Level 49, 134 Int
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
-{variant:3}Socketed Gems are Supported by level 20 Spell Totem
+{variant:3,4}Socketed Gems are Supported by level 20 Spell Totem
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
