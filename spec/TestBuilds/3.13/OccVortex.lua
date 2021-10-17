@@ -838,7 +838,7 @@ Implicits: 0
 ["FireCritAverage"] = 218.9,
 ["PhysicalTakenHitMult"] = 0.5612,
 ["PhysicalCritAverage"] = 0,
-["EnergyShieldRecharge"] = 365,
+["EnergyShieldRecharge"] = 602,
 ["InspirationChargesMax"] = 5,
 ["ChaosResist"] = 68,
 ["WardRechargeDelay"] = 5,
