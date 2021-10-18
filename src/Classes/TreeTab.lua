@@ -619,31 +619,31 @@ function TreeTabClass:OpenMasteryPopup(node)
 	for _, effect in pairs(node.masteryEffects) do
 		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, effect.effect)
 		if not assignedNodeId or assignedNodeId == node.id then
-			t_insert(effects, {
-						label = t_concat(effect.stats, "/"),
-						id = effect.effect
-					})
+			t_insert(effects, {label = t_concat(effect.stats, "/"), id = effect.effect})
 		end
 	end
-	controls.effect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 579, 18, effects, nil)
-	controls.save =  new("ButtonControl", nil, -49, 49, 90, 20, "Assign", function()
-		local effect = self.build.spec.tree.masteryEffects[controls.effect:GetSelValue("id")]
-		node.sd = effect.sd
-		node.reminderText = { "Tip: Right click to select a different effect" }
-		self.build.spec.tree:ProcessStats(node)
-		self.build.spec.masterySelections[node.id] = effect.id
-		if not node.alloc then
-			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
-		end
-		self.build.spec:AddUndoState()
-		self.modFlag = true
-		self.build.buildFlag = true
-		main:ClosePopup()
-	end)
-	controls.close =  new("ButtonControl", nil, 49, 49, 90, 20, "Cancel", function()
-		main:ClosePopup()
-	end)
-	main:OpenPopup(591, 77, node.name, controls)
+	--Check to make sure that the effects list has a potential mod to apply to a mastery
+	if not (next(effects) == nil) then
+		controls.effect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 579, 18, effects, nil)
+		controls.save =  new("ButtonControl", nil, -49, 49, 90, 20, "Assign", function()
+			local effect = self.build.spec.tree.masteryEffects[controls.effect:GetSelValue("id")]
+			node.sd = effect.sd
+			node.reminderText = { "Tip: Right click to select a different effect" }
+			self.build.spec.tree:ProcessStats(node)
+			self.build.spec.masterySelections[node.id] = effect.id
+			if not node.alloc then
+				self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
+			end
+			self.build.spec:AddUndoState()
+			self.modFlag = true
+			self.build.buildFlag = true
+			main:ClosePopup()
+		end)
+		controls.close =  new("ButtonControl", nil, 49, 49, 90, 20, "Cancel", function()
+			main:ClosePopup()
+		end)
+		main:OpenPopup(591, 77, node.name, controls)
+	end
 end
 
 function TreeTabClass:SetPowerCalc(selection)
