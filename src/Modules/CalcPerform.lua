@@ -1530,6 +1530,19 @@ function calcs.perform(env, avoidCache)
 			modDB.conditions["AffectedByHerald"] = true
 		end
 	end
+
+	-- Calculate number of active auras
+	if env.mode_buffs then
+		local auraList = { }
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillTypes[SkillType.Aura] then
+				auraList[activeSkill.skillCfg.skillName] = true
+			end
+		end
+		for _, aura in pairs(auraList) do
+			modDB.multipliers["Aura"] = (modDB.multipliers["Aura"] or 0) + 1
+		end
+	end
 	
 	-- Apply effect of Bonechill support
 	if env.mode_effective and output.BonechillEffect then 
