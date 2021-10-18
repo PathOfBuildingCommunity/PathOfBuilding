@@ -824,7 +824,8 @@ end
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(self.tree[latestTreeVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	local bgImageHandle = treeVersions[latestTreeVersion].num >= 3.16 and self.tree[latestTreeVersion].assets.Background2.handle or self.tree[latestTreeVersion].assets.Background1.handle
+	DrawImage(bgImageHandle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
 	SetDrawLayer(nil, 0)
 end
 

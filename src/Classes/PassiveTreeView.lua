@@ -301,7 +301,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	-- Draw the background artwork
-	local bg = tree.assets.Background1
+	local bg = treeVersions[tree.treeVersion].num >= 3.16 and tree.assets.Background2 or tree.assets.Background1
 	if bg.width == 0 then
 		bg.width, bg.height = bg.handle:ImageSize()
 	end
