@@ -434,12 +434,15 @@ Implicits: 1
 ]],[[
 Essence Worm
 Unset Ring
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 38
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Have no Reservation
-40% increased Reservation of Skills
+{variant:1}40% increased Reservation of Skills
+{variant:2}80% reduced Reservation Efficiency
 ]],[[
 Fated End
 Paua Ring
@@ -865,12 +868,15 @@ Lose all Power Charges on Critical Strike
 Rotblood Promise
 Unset Ring
 League: Ritual
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 56
 Implicits: 1
 Has 1 Socket
 Socketed Gems are Supported by Level 20 Blasphemy
 Curse Auras from Socketed Skills also affect you
-{tags:caster}Socketed Curse Gems have 50% reduced Reservation
+{variant:1}{tags:caster}Socketed Curse Gems have 50% reduced Reservation
+{variant:2}{tags:caster}Socketed Curse Gems have 80% increased Reservation Efficiency
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:caster}20% reduced Effect of Curses on you
 (15-25)% increased Damage with Hits and Ailments against Cursed Enemies
@@ -1189,6 +1195,17 @@ Implicits: 1
 Vivinsect
 Unset Ring
 League: Betrayal
+Variant: Fire and Chaos Resistances Pre 3.16.0
+Variant: Cold and Chaos Resistances Pre 3.16.0
+Variant: Lightning and Chaos Resistances Pre 3.16.0
+Variant: Strength and Dexterity Pre 3.16.0
+Variant: Dexterity and Intelligence Pre 3.16.0
+Variant: Strength and Intelligence Pre 3.16.0
+Variant: Effect of non-Damaging Ailments Pre 3.16.0
+Variant: Focus Shock Nearby Enemies Pre 3.16.0
+Variant: Minimum Frenzy Charges Pre 3.16.0
+Variant: Minimum Power Charges Pre 3.16.0
+Variant: Minimum Endurance Charges Pre 3.16.0
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
@@ -1204,21 +1221,22 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
-Socketed Gems have 10% increased Reservation
+{variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 10% increased Reservation
+{variant:13,14,15,16,17,18,19,20,21,22}Socketed Gems have 20% reduced Reservation Efficiency
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}15 Life Regenerated per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
-{variant:1}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:4}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
-{variant:5}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
-{variant:6}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
-{variant:7}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
-{variant:8}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
-{variant:9}{crafted}+1 to Minimum Frenzy Charges
-{variant:10}{crafted}+1 to Minimum Power Charges
-{variant:11}{crafted}+1 to Minimum Endurance Charges
+{variant:1,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:2,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:3,14}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:4,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
+{variant:5,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
+{variant:6,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
+{variant:7,18}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
+{variant:8,19}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
+{variant:9,20}{crafted}+1 to Minimum Frenzy Charges
+{variant:10,21}{crafted}+1 to Minimum Power Charges
+{variant:11,22}{crafted}+1 to Minimum Endurance Charges
 ]],[[
 Voideye
 Unset Ring

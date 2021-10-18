@@ -361,6 +361,18 @@ Necromancer Circlet
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
 Requires Level 54, 112 Int
+Variant: Strength and Quality Pre 3.16.0
+Variant: Dexterity and Quality Pre 3.16.0
+Variant: Intelligence and Quality Pre 3.16.0
+Variant: Fire and Chaos Resistances Pre 3.16.0
+Variant: Cold and Chaos Resistances Pre 3.16.0
+Variant: Lightning and Chaos Resistances Pre 3.16.0
+Variant: Strength and Dexterity Pre 3.16.0
+Variant: Dexterity and Intelligence Pre 3.16.0
+Variant: Strength and Intelligence Pre 3.16.0
+Variant: Mine Laying Speed Pre 3.16.0
+Variant: Focus Spell Trigger Pre 3.16.0
+Variant: Focus Ailment Duration Pre 3.16.0
 Variant: Strength and Quality
 Variant: Dexterity and Quality
 Variant: Intelligence and Quality
@@ -374,24 +386,25 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 +1 to Level of Socketed Gems
-Socketed Gems have 20% reduced Reservation
+{variant:1,2,3,4,5,6,7,8,9,10,12}Socketed Gems have 20% reduced Reservation
+{variant:13,14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
 Eldritch Battery
-{variant:1}{crafted}+(10-25) to Strength
-{variant:2}{crafted}+(10-25) to Dexterity
-{variant:3}{crafted}+(10-25) to Intelligence
-{variant:1,2,3}{crafted}+(7-18)% to Quality
-{variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
-{variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
-{variant:6}{crafted}+(8-15)% to Lightning and Chaos Resistances
-{variant:7}{crafted}+(6-17) to Strength and Dexterity
-{variant:8}{crafted}+(6-17) to Dexterity and Intelligence
-{variant:9}{crafted}+(6-17) to Strength and Intelligence
-{variant:10}{crafted}(7-12)% increased Mine Laying Speed
-{variant:11}{crafted}Trigger Socketed Spells when you Focus
-{variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
+{variant:1,13}{crafted}+(10-25) to Strength
+{variant:2,14}{crafted}+(10-25) to Dexterity
+{variant:3,15}{crafted}+(10-25) to Intelligence
+{variant:1,2,3,13,14,15}{crafted}+(7-18)% to Quality
+{variant:4,16}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:5,17}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:6,18}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:7,19}{crafted}+(6-17) to Strength and Dexterity
+{variant:8,20}{crafted}+(6-17) to Dexterity and Intelligence
+{variant:9,21}{crafted}+(6-17) to Strength and Intelligence
+{variant:10,22}{crafted}(7-12)% increased Mine Laying Speed
+{variant:11,23}{crafted}Trigger Socketed Spells when you Focus
+{variant:12,24}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
 ]],[[
 Doedre's Scorn
 Lunaris Circlet
@@ -961,7 +974,8 @@ Requires Level 68, 62 Str, 91 Int
 +(150-200) to maximum Mana
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
-10% increased Reservation of Skills
+{variant:1}10% increased Reservation of Skills
+{variant:2}20% reduced Reservation Efficiency
 {variant:1}Gain Armour equal to your Reserved Mana
 {variant:2}1% increased Armour per 50 Reserved Mana
 ]],[[
@@ -1144,15 +1158,17 @@ Heretic's Veil
 Deicide Mask
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield
 {variant:1,2}(130-150)% increased Evasion and Energy Shield
-{variant:3}(90-110)% increased Evasion and Energy Shield
+{variant:3,4}(90-110)% increased Evasion and Energy Shield
 {variant:1}+2 to Level of Socketed Curse Gems
-{variant:2,3}+1 to Level of Socketed Curse Gems
+{variant:2,3,4}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-Socketed Curse Gems have 12% reduced Reservation
+{variant:1,2,3}Socketed Curse Gems have 12% reduced Reservation
+{variant:4}Socketed Curse Gems have 20% increased Reservation Efficiency
 ]],[[
 Leer Cast
 Festival Mask
