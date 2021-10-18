@@ -269,7 +269,7 @@ data.keystones = {
 	"Vaal Pact",
 	"Wicked Ward",
 	"Wind Dancer",
-	"Zealot's Oath",
+	"Zealot's Oath"
 }
 
 data.misc = { -- magic numbers
