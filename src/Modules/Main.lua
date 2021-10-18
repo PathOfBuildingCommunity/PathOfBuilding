@@ -211,8 +211,10 @@ end
 
 function main:LoadTree(treeVersion)
 	if self.tree[treeVersion] then
+		data.setJewelRadiiGlobally(treeVersion)
 		return self.tree[treeVersion]
 	elseif isValueInTable(treeVersionList, treeVersion) then
+		data.setJewelRadiiGlobally(treeVersion)
 		--ConPrintf("[main:LoadTree] - Lazy Loading Tree " .. treeVersion)
 		self.tree[treeVersion] = new("PassiveTree", treeVersion)
 		return self.tree[treeVersion]

@@ -613,8 +613,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 
 	-- Initialise build components
-	self.data = data
 	self.latestTree = main.tree[latestTreeVersion]
+	data.setJewelRadiiGlobally(latestTreeVersion)
+	self.data = data
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
 	self.configTab = new("ConfigTab", self)

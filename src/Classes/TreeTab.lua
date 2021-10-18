@@ -317,6 +317,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	local prevSpec = self.build.spec
 	self.activeSpec = m_min(specId, #self.specList)
 	local curSpec = self.specList[self.activeSpec]
+	data.setJewelRadiiGlobally(curSpec.treeVersion)
 	self.build.spec = curSpec
 	self.build.buildFlag = true
 	self.build.spec:SetWindowTitleWithBuildClass()
