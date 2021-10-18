@@ -49,6 +49,19 @@ Implicits: 1
 Temporal Rift has no Reservation
 100% of Damage taken Recouped as Life
 Debuffs on you Expire 100% faster
+]],[[
+The Squire
+Elegant Round Shield
+League: Scourge
+Requires Level 70, 85 Str, 85 Dex
+Implicits: 1
+120% Increased Block Recovery
+Has 3 Sockets
+All Sockets are White
++2 to Level of Socketed Support Gems
+Socketed Non-Exceptional Support Gems can also Support Skills from your Main Hand
+102% increased Armour and Evasion
++3% Chance to Block
 ]]
 
 -- Reworked
