@@ -2191,6 +2191,23 @@ local specialModList = {
 		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "DualWielding", neg = true }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
+	-- Suppression
+	["your chance to suppressed spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
+	["your chance to suppressed spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
+	["prevent +(%+%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
+	["critical strike chance is increased by chance to suppress spell damage"] = { flag("CritChanceIncreasedBySuppressionChance") }, 
+	["you take (%d+)%% reduced extra damage from suppressed critical strikes"] = function(num) return { mod("ReduceSuppressedCritExtraDamage", "BASE", num) } end,
+	["+(%d+)%% chance to suppress spell damage if your boots, helmet and gloves have evasion"] = function(num) return { 
+		mod("SpellSuppressionChance", "BASE", tonumber(num), 
+			{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1}, 
+			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1, uppper = true},
+			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1, uppper = true}
+		)
+	} end,
+	["+(%d+)%% chance to suppress spell damage for each dagger you're wielding"] = function(num) return { 
+		mod("SpellSuppressionChance", "BASE", num, { type = "ModFlag", modFlags = ModFlag.Dagger } ),
+		mod("SpellSuppressionChance", "BASE", num, { type = "Condition", var = "DualWieldingDaggers" } )
+	} end,
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
@@ -2201,9 +2218,6 @@ local specialModList = {
 		mod("PurpHarbAuraBuffEffect", "INC", num, { type = "Multiplier", var = "Herald" })
 		-- Maximum buff effect is handled in CalcPerform, PurpHarbAuraBuffEffect is capped with a constant there.
 	} end,
-	["your chance to suppressed spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
-	["your chance to suppressed spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
-	["prevents +(%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
 	["(%d+)%% increased area of effect per power charge, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("VastPowerAoE", "INC", num),
 		-- Maximum effect is handled in CalcPerform, VastPowerAoE is capped with a constant there.
