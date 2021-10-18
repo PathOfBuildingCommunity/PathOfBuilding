@@ -1174,7 +1174,7 @@ Variant: Pre 3.16.0
 Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:3}(10-15)% increased Fire Damage
+{variant:2,3}(10-15)% increased Fire Damage
 {variant:3}+10% to Fire Damage over Time Multiplier
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
 {variant:2}With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
