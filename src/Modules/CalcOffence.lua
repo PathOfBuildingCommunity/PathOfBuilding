@@ -423,38 +423,6 @@ function calcs.offence(env, actor, activeSkill)
 		skillModList:NewMod("CritMultiplier", "BASE", m_floor(nightbladeMulti * elusiveEffect), "Nightblade")
 	end
 
-	-- modType: To look for "INC" or "BASE" for getting the percent conversion
-	-- modName: Mod name to look for getting the percent conversion
-	local getConversionMultiplier = function(modType, modName)
-		-- Default to 100% conversion
-		local multiplier = 1
-		if modType and modName then
-			local maxIncrease = 0
-			for i, value in ipairs(skillModList:Tabulate(modType, skillCfg, modName)) do
-				maxIncrease = m_max(maxIncrease, value.mod.value)
-			end
-			-- Convert from percent to fraction
-			multiplier = maxIncrease / 100.
-		end
-		return multiplier
-	end
-
-	-- Correct the tags on conversion with multipliers so they carry over correctly
-	local getConvertedModTags = function(mod, multiplier, minionMods)
-		local modifiers = modLib.extractModTags(mod)
-		for k, value in ipairs(modifiers) do
-			if minionMods and value.type == "ActorCondition" and value.actor == "parent" then
-				modifiers[k] = { type = "Condition", var = value.var }
-			elseif value.limitTotal then
-				-- LimitTotal can apply to 'per stat' or 'multiplier', so just copy the whole and update the limit
-				local copy = copyTable(value)
-				copy.limit = copy.limit * multiplier
-				modifiers[k] = copy
-			end
-		end
-		return modifiers
-	end
-
 	-- additional charge based modifiers
 	if skillModList:Flag(nil, "UseEnduranceCharges") and skillModList:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
 		local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
@@ -483,7 +451,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
 		-- the multiplier below exist for future possible extension of Battlemage modifiers
-		local multiplier = getConversionMultiplier("INC", "ImprovedWeaponDamageAppliesToSpells") or 1
+		local multiplier = (skillModList:Max(skillCfg, "ImprovedWeaponDamageAppliesToSpells") or 1) / 100
 		for _, damageType in ipairs(dmgTypeList) do
 			skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
 			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
@@ -491,33 +459,33 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
-		local multiplier = getConversionMultiplier("INC", "ImprovedMinionDamageAppliesToPlayer")
+		local multiplier = skillModList:Max(skillCfg, "ImprovedMinionDamageAppliesToPlayer") / 100
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
 			if value.mod.name == "Damage" and value.mod.type == "INC" then
 				local mod = value.mod
-				local modifiers = getConvertedModTags(mod, multiplier, true)
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier, true)
 				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
 			end
 		end
 	end
 	if skillModList:Flag(nil, "MinionAttackSpeedAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Command
-		local multiplier = getConversionMultiplier("INC", "ImprovedMinionAttackSpeedAppliesToPlayer")
+		local multiplier = skillModList:Max(skillCfg, "ImprovedMinionAttackSpeedAppliesToPlayer") / 100
 		-- Minion Attack Speed conversion from Spiritual Command
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
 			if value.mod.name == "Speed" and value.mod.type == "INC" and (value.mod.flags == 0 or band(value.mod.flags, ModFlag.Attack) ~= 0) then
-				local modifiers = getConvertedModTags(value.mod, multiplier, true)
+				local modifiers = calcLib.getConvertedModTags(value.mod, multiplier, true)
 				skillModList:NewMod("Speed", "INC", value.mod.value * multiplier, value.mod.source, ModFlag.Attack, value.mod.keywordFlags, unpack(modifiers))
 			end
 		end
 	end
 	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
 		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
-		local multiplier = getConversionMultiplier("INC", "ImprovedSpellDamageAppliesToAttacks")
+		local multiplier = skillModList:Max(skillCfg, "ImprovedSpellDamageAppliesToAttacks") / 100
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Spell) ~= 0 then
-				local modifiers = getConvertedModTags(mod, multiplier)
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier)
 				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(modifiers))
 				if mod.source == "Strength" then -- Prevent double-dipping from converted strength's damage bonus
 					skillModList:ReplaceMod("PhysicalDamage", "INC", 0, "Strength", ModFlag.Melee)
@@ -527,23 +495,23 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Flag(nil, "CastSpeedAppliesToAttacks") then
 		-- Get all increases for this; assumption is that multiple sources would not stack, so find the max
-		local multiplier = getConversionMultiplier("INC", "ImprovedCastSpeedAppliesToAttacks")
+		local multiplier = skillModList:Max(skillCfg, "ImprovedCastSpeedAppliesToAttacks") / 100
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Cast }, "Speed")) do
 			local mod = value.mod
 			-- Add a new mod for all mods that are cast only
 			-- Replace this with a single mod for the sum?
 			if band(mod.flags, ModFlag.Cast) ~= 0 then
-				local modifiers = getConvertedModTags(mod, multiplier)
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier)
 				skillModList:NewMod("Speed", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Cast)), ModFlag.Attack), mod.keywordFlags, unpack(modifiers))
 			end
 		end
 	end
 	if skillModList:Flag(nil, "MaximumManaAppliesToShockEffect") then
 		-- Maximum Mana conversion from Lightning Mastery
-		local multiplier = getConversionMultiplier("INC", "ImprovedMaximumManaAppliesToShockEffect")
+		local multiplier = skillModList:Max(skillCfg, "ImprovedMaximumManaAppliesToShockEffect") / 100
 		for i, value in ipairs(skillModList:Tabulate("INC", nil, "Mana")) do
 			local mod = value.mod
-			local modifiers = getConvertedModTags(mod, multiplier)
+			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
 			skillModList:NewMod("EnemyShockEffect", "INC", mod.value * multiplier, mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
 		end
 	end
