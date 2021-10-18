@@ -1,5 +1,88 @@
 # Changelog
 
+## [2.9.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.9.0) (2021/10/18)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.8.0...2.9.0)
+
+**Implemented enhancements:**
+
+- Add support for new exposure mods [\#3319](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3319) ([PJacek](https://github.com/PJacek))
+- Add support for opening related info on poewiki.net when pressing F1 on items/gems/passives [\#3291](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3291) ([BlueManiac](https://github.com/BlueManiac))
+- Added support for Versatile Combatant keystone [\#3290](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3290) ([Zpooks](https://github.com/Zpooks))
+- Add support for Iron Will keystone [\#3289](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3289) ([Lexy](https://github.com/learn2draw))
+- Add support for spell suppresion / magebane and Acrobatics [\#3288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3288) ([Lexy](https://github.com/learn2draw))
+- Four keystones and ailment duration [\#3287](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3287) ([Lilylicious](https://github.com/Lilylicious))
+- disable quivers on unarmed characters [\#3286](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3286) ([madinsane](https://github.com/madinsane))
+- Modified uniques items [\#3285](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3285) ([U-n-Own](https://github.com/U-n-Own))
+- Scourge mod support [\#3278](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3278) ([Wires77](https://github.com/Wires77))
+- Modify blind for 3.16 and implement blind effectiveness [\#3277](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3277) ([Lexy](https://github.com/learn2draw))
+- Reservation efficiency uniques [\#3276](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3276) ([SaloEater](https://github.com/SaloEater))
+- Updated armour calc to 3.16 version [\#3275](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3275) ([madinsane](https://github.com/madinsane))
+- Feat/add global default level [\#3274](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3274) ([FWidm](https://github.com/FWidm))
+- Add config option to bypass cold snap CD [\#3270](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3270) ([Lilylicious](https://github.com/Lilylicious))
+- Update the base es recharge rate for 3.16 [\#3269](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3269) ([borisbsv](https://github.com/borisbsv))
+- Updated Skin of The Lords, Atziri's Acuity and Forbidden Shako [\#3267](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3267) ([Zuiia](https://github.com/Zuiia))
+- Add new uniques with initial values for Scourge League [\#3265](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3265) ([Zuiia](https://github.com/Zuiia))
+- scourge\_uniques\_changes [\#3264](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3264) ([SaloEater](https://github.com/SaloEater))
+- Consecrated ground fixes [\#3261](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3261) ([Lilylicious](https://github.com/Lilylicious))
+- Implement minimum resistances [\#3260](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3260) ([ifnjeff](https://github.com/ifnjeff))
+- Update base ignite scaling [\#3259](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3259) ([ifnjeff](https://github.com/ifnjeff))
+- Add import of Pastebinp.com pastes [\#3258](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3258) ([MaxKruse](https://github.com/MaxKruse))
+- Scoure unique changes [\#3256](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3256) ([Lexy](https://github.com/learn2draw))
+- feat\(settings-ui\): normalize ui [\#3255](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3255) ([FWidm](https://github.com/FWidm))
+- Adding support for reservation efficiency [\#3253](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3253) ([Wires77](https://github.com/Wires77))
+- Update mod used by Touch of Anguish. [\#3223](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3223) ([nelchael](https://github.com/nelchael))
+- Added text to the instructions on the item tab that explains how to clone items with copy paste. [\#3216](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3216) ([Tom Clancy Is Dead](https://github.com/Voronoff))
+- Fixes \#3140 - Add support for Cruelty [\#3207](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3207) ([Helyos96](https://github.com/Helyos96))
+- Add support for Custom Modifiers text field in config [\#3192](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3192) ([deathbeam](https://github.com/deathbeam))
+- Add support for Plague Bearer infecting/incubating and its alt quals [\#3191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3191) ([deathbeam](https://github.com/deathbeam))
+- Add radius numbers for a number of skills [\#3177](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3177) ([LocalIdentity](https://github.com/LocalIdentity))
+
+**Fixed bugs:**
+
+- Fix elemental pen with attacks applying to other damage types [\#3310](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3310) ([PJacek](https://github.com/PJacek))
+- Fix strength's damage bonus double-dipping [\#3304](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3304) ([PJacek](https://github.com/PJacek))
+- Fixes \#3224 - Fix support for legacy Snakepit [\#3249](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3249) ([Wires77](https://github.com/Wires77))
+- Fixes \#3222 - Art swapped for lethal pride keystones [\#3248](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3248) ([Wires77](https://github.com/Wires77))
+- Fixes \#3156 - Edited nodes no longer persist between builds [\#3229](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3229) ([Wires77](https://github.com/Wires77))
+- Fix Weapon triggered skill parsing and mana cost [\#3187](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3187) ([LocalIdentity](https://github.com/LocalIdentity))
+- Change all instances of "Focussed" to "Focused" [\#3186](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3186) ([LocalIdentity](https://github.com/LocalIdentity))
+
+**Merged pull requests:**
+
+- Mastery Mod - Chance to ignite freeze shock poison cursed enemies [\#3334](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3334) ([Peechey](https://github.com/Peechey))
+- perSocketMastery [\#3333](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3333) ([bit-skipper](https://github.com/bit-skipper))
+- feat: added support for a Multiplier based on Number of Masteries / Notables allocated [\#3331](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3331) ([Nostrademous](https://github.com/Nostrademous))
+- Added support for new wand attack projectile mastery mod [\#3330](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3330) ([sida-wang](https://github.com/sida-wang))
+- Mastery Mod - Cannot be frozen if energy shield recharge has started recently [\#3328](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3328) ([Peechey](https://github.com/Peechey))
+- 3.16 Mastery support: % chance for triple damage [\#3327](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3327) ([monerofglory](https://github.com/monerofglory))
+- Added support for new elemental avoidance at max charges mastery mods [\#3326](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3326) ([sida-wang](https://github.com/sida-wang))
+- feat: added support for 'you can cast 2 additional brands' [\#3325](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3325) ([Nostrademous](https://github.com/Nostrademous))
+- more per stat mastery tags [\#3324](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3324) ([bit-skipper](https://github.com/bit-skipper))
+- feat: add The Squire unique [\#3322](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3322) ([Nostrademous](https://github.com/Nostrademous))
+- add keystones to data [\#3321](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3321) ([Lexy](https://github.com/learn2draw))
+- Reservation masteries [\#3320](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3320) ([bit-skipper](https://github.com/bit-skipper))
+- feat: Added support for Cross-Linked Supports for Uul-Netol and The Squire [\#3316](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3316) ([Nostrademous](https://github.com/Nostrademous))
+- Handle jewel radii for different tree versions [\#3315](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3315) ([Wires77](https://github.com/Wires77))
+- feat: added support for -1 to Level of Socketed Gems scourge modifier [\#3313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3313) ([Nostrademous](https://github.com/Nostrademous))
+- Add Hyrri's Watch spectre [\#3312](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3312) ([Kayella](https://github.com/Kayella))
+- Updated Multiple Uniques to 3.16.0 [\#3308](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3308) ([LordMotas](https://github.com/LordMotas))
+- Fix item import throwing due to scourgeModLines being nil [\#3303](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3303) ([Morilli](https://github.com/Morilli))
+- Fix dev tests [\#3302](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3302) ([Lexy](https://github.com/learn2draw))
+- Fix CI keystone [\#3293](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3293) ([Lexy](https://github.com/learn2draw))
+- Add 3.16 tree and implement passive masteries [\#3292](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3292) ([ifnjeff](https://github.com/ifnjeff))
+- feat: \[Scourge\] Added initial support for new Unique Amulet 'Stranglegasp' [\#3251](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3251) ([Nostrademous](https://github.com/Nostrademous))
+- Remove DUMMY mods in ModParser [\#3245](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3245) ([Wires77](https://github.com/Wires77))
+- Issue2884 [\#3242](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3242) ([pHiney](https://github.com/pHiney))
+- Feat/add global default gem quality [\#3238](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3238) ([FWidm](https://github.com/FWidm))
+- Change Elusive to provide 15% chance to Avoid Damage from Hits, instead of it's old Dodge-related stats. [\#3236](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3236) ([Lexy](https://github.com/learn2draw))
+- Issue3228: Colour buttons for NotesTab [\#3233](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3233) ([pHiney](https://github.com/pHiney))
+- Update some of the scourge unique changes [\#3231](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3231) ([Lexy](https://github.com/learn2draw))
+- Fix "Bitterdream not updated to use Inspiration support instead of Reduced Mana support" [\#3185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3185) ([Typepluto](https://github.com/Typepluto))
+
+
+
+
 ## [2.8.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.8.0) (2021/08/09)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.7.0...2.8.0)
