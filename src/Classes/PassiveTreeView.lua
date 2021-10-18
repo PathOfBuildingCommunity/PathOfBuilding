@@ -60,6 +60,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.searchStrCached = ""
 	self.searchStrResults = {}
 	self.showStatDifferences = true
+	self.hoverNode = nil
 end)
 
 function PassiveTreeViewClass:Load(xml, fileName)
@@ -118,6 +119,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				self:Zoom(IsKeyDown("SHIFT") and 3 or 1, viewPort)
 			elseif event.key == "PAGEDOWN" then
 				self:Zoom(IsKeyDown("SHIFT") and -3 or -1, viewPort)
+			elseif itemLib.wiki.matchesKey(event.key) and self.hoverNode then
+				itemLib.wiki.open(self.hoverNode.name or self.hoverNode.dn)
 			end
 		elseif event.type == "KeyUp" then
 			if event.key == "LEFTBUTTON" then
@@ -207,6 +210,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
+	self.hoverNode = hoverNode
 	-- If hovering over a node, find the path to it (if unallocated) or the list of dependent nodes (if allocated)
 	local hoverPath, hoverDep
 	if self.traceMode then
