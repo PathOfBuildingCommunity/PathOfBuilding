@@ -75,6 +75,9 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
 	end
+	if xml.attrib.showAllocationOrder then
+		self.showAllocationOrder = xml.attrib.showAllocationOrder == "true"
+	end
 	if xml.attrib.showHeatMap then
 		self.showHeatMap = xml.attrib.showHeatMap == "true"
 	end
@@ -89,6 +92,7 @@ function PassiveTreeViewClass:Save(xml)
 		zoomX = tostring(self.zoomX),
 		zoomY = tostring(self.zoomY),
 		searchStr = self.searchStr,
+		showAllocationOrder = tostring(self.showAllocationOrder),
 		showHeatMap = tostring(self.showHeatMap),
 		showStatDifferences = tostring(self.showStatDifferences),
 	}
@@ -669,6 +673,20 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			SetDrawColor(1, 0, 0)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
+		end
+		if self.showAllocationOrder and node.allocationOrder ~= nil then
+			SetDrawLayer(nile, 29)
+			SetDrawColor(1, 0, 0)
+			local size = 100 * scale
+			local offset = node.size * 1.8 * scale
+			DrawString(m_floor(scrX - offset), m_floor(scrY - offset), "LEFT", size, "VAR", tostring(node.allocationOrder))
+		end
+		if self.showAllocationOrder and node.ascendancyAllocationOrder ~= nil then
+			SetDrawLayer(nile, 29)
+			SetDrawColor(1, 0, 0)
+			local size = 100 * scale
+			local offset = node.size * 1.8 * scale
+			DrawString(m_floor(scrX - offset), m_floor(scrY - offset), "LEFT", size, "VAR", tostring(node.ascendancyAllocationOrder))
 		end
 		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and (node.type ~= "Mastery" or node.masteryEffects) and not IsKeyDown("CTRL") and not main.popups[1] then
 			-- Draw tooltip

@@ -58,6 +58,11 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	-- Keys are mastery node IDs, values are mastery effect IDs
 	self.masterySelections = { }
 
+	-- List of node allocation order
+	-- Keys are order indexes, values are node IDs
+	self.allocationOrder = { }
+	self.ascendancyAllocationOrder = { }
+
 	self:SelectClass(0)
 end)
 
@@ -116,6 +121,14 @@ function PassiveSpecClass:Load(xml, dbFileName)
 			end
 		end
 		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
+        for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
+            table.insert(self.allocationOrder, tonumber(nodeId))
+        end
+		for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
+			table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
+		end
+		self:ReIndexAllocationOrder("allocationOrder")
+		self:ReIndexAllocationOrder("ascendancyAllocationOrder")
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -201,7 +214,9 @@ function PassiveSpecClass:Save(xml)
 		classId = tostring(self.curClassId), 
 		ascendClassId = tostring(self.curAscendClassId), 
 		nodes = table.concat(allocNodeIdList, ","),
-		masteryEffects = table.concat(masterySelections, ",")
+		masteryEffects = table.concat(masterySelections, ","),
+		allocationOrder = table.concat(self.allocationOrder, ","),
+		ascendancyAllocationOrder = table.concat(self.ascendancyAllocationOrder, ",")
 	}
 	t_insert(xml, {
 		-- Legacy format
@@ -382,6 +397,32 @@ function PassiveSpecClass:ResetNodes()
 	wipeTable(self.masterySelections)
 end
 
+function PassiveSpecClass:SetAllocationOrder(node)
+	if node.ascendancyName then
+		t_insert(self.ascendancyAllocationOrder, node.id)
+		node.ascendancyAllocationOrder = #self.ascendancyAllocationOrder
+	else
+		t_insert(self.allocationOrder, node.id)
+		node.allocationOrder = #self.allocationOrder
+	end
+end
+
+function PassiveSpecClass:RemoveFromAllocationOrder(node)
+	if node.ascendancyName then
+		t_remove(self.ascendancyAllocationOrder, node.ascendancyAllocationOrder)
+		node.ascendancyAllocationOrder = nil
+	else
+		t_remove(self.allocationOrder, node.allocationOrder)
+		node.allocationOrder = nil
+	end
+end
+
+function PassiveSpecClass:ReIndexAllocationOrder(allocationOrder)
+	for i, nodeId in ipairs(self[allocationOrder]) do
+		self.nodes[nodeId][allocationOrder] = i
+	end
+end
+
 -- Allocate the given node, if possible, and all nodes along the path to the node
 -- An alternate path to the node may be provided, otherwise the default path will be used
 -- The path must always contain the given node, as will be the case for the default path
@@ -395,10 +436,14 @@ function PassiveSpecClass:AllocNode(node, altPath)
 	if node.dependsOnIntuitiveLeapLike then
 		node.alloc = true
 		self.allocNodes[node.id] = node
+		self:SetAllocationOrder(node)
 	else
-		for _, pathNode in ipairs(altPath or node.path) do
+		local path = altPath or node.path
+		for i = #(path), 1, -1 do
+			local pathNode = path[i]
 			pathNode.alloc = true
 			self.allocNodes[pathNode.id] = pathNode
+			self:SetAllocationOrder(pathNode)
 		end
 	end
 
@@ -407,8 +452,12 @@ function PassiveSpecClass:AllocNode(node, altPath)
 		local parent = node.linked[1]
 		for _, optNode in ipairs(parent.linked) do
 			if optNode.isMultipleChoiceOption and optNode.alloc and optNode ~= node then
-				optNode.alloc = false
-				self.allocNodes[optNode.id] = nil
+				self.DeallocSingleNode(optNode)
+				if optNode.ascendancyName then
+					self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+				else
+					self:ReIndexAllocationOrder("allocationOrder")
+				end
 			end
 		end
 	end
@@ -424,13 +473,46 @@ function PassiveSpecClass:DeallocSingleNode(node)
 		self:AddMasteryEffectOptionsToNode(node)
 		self.masterySelections[node.id] = nil
 	end
+	if self.allocationOrder[node.allocationOrder] or self.ascendancyAllocationOrder[node.ascendancyAllocationOrder] then
+		self:RemoveFromAllocationOrder(node)
+	end
 end
 
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
-	local effect
+	if node.ascendancyName then
+		table.sort(node.depends, function(a, b)
+			if a.ascendancyAllocationOrder == nil and b.ascendancyAllocationOrder == nil then
+				return false
+			elseif a.ascendancyAllocationOrder == nil then
+				return true
+			elseif b.ascendancyAllocationOrder == nil then
+				return false
+			else
+				return a.ascendancyAllocationOrder > b.ascendancyAllocationOrder
+			end
+		end)
+	else
+		table.sort(node.depends, function(a, b)
+			if a.allocationOrder == nil and b.allocationOrder == nil then
+				return false
+			elseif a.allocationOrder == nil then
+				return true
+			elseif b.allocationOrder == nil then
+				return false
+			else
+				return a.allocationOrder > b.allocationOrder
+			end
+		end)
+	end
+
 	for _, depNode in ipairs(node.depends) do
 		self:DeallocSingleNode(depNode)
+	end
+	if node.ascendancyName then
+		self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+	else
+		self:ReIndexAllocationOrder("allocationOrder")
 	end
 
 	-- Rebuild all paths and dependencies for all allocated nodes
