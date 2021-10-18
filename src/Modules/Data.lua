@@ -269,6 +269,13 @@ data.keystones = {
 	"Wicked Ward",
 	"Wind Dancer",
 	"Zealot's Oath",
+	"iron Will",
+	"MageBane",
+	"Divine Shield",
+	"Versatile Combatant",
+	"Ghost Dance",
+	"Lethe Shade",
+	"Solipsism",
 }
 
 data.misc = { -- magic numbers
