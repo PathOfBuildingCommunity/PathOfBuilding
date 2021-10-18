@@ -683,6 +683,10 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "Elusive") then
 		output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
 	end
+
+	if enemyDB:Flag(nil, "Blind") then
+		output.BlindEffectMod = calcLib.mod(enemyDB, nil, "BlindEffect", "BuffEffectOnSelf") * 100
+	end
 	
 	-- damage avoidances
 	for _, damageType in ipairs(dmgTypeList) do
