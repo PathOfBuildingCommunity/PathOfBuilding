@@ -513,17 +513,19 @@ Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 138 Int
 {variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
-{variant:2,3}Socketed Gems are Supported by level 20 Concentrated Effect
+{variant:2,3,4}Socketed Gems are Supported by level 20 Concentrated Effect
 30% increased Cold Damage
 +(40-60) to maximum Mana
 {variant:1}(100-120)% increased Energy Shield
 {variant:2,3}(180-200)% increased Energy Shield
+{variant:4}(140-160)% increased Energy Shield
 {variant:1}50% slower start of Energy Shield Recharge
-{variant:2,3}50% reduced Energy Shield Recharge Rate
-{variant:3}+(16-22)% to Cold Damage over Time Multiplier
+{variant:2,3,4}50% reduced Energy Shield Recharge Rate
+{variant:3,4}+(16-22)% to Cold Damage over Time Multiplier
 ]],[[
 Scold's Bridle
 Mind Cage

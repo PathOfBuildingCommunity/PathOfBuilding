@@ -20,16 +20,18 @@ Ascent From Flesh
 Chain Belt
 Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 44
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_defense}+300 to Evasion Rating
 {variant:1}{tags:jewellery_defense}+(35-45) to maximum Energy Shield
-{variant:2}{tags:jewellery_defense}+(75-80) to maximum Energy Shield
+{variant:2,3}{tags:jewellery_defense}+(75-80) to maximum Energy Shield
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 You have Phasing if Energy Shield Recharge has started Recently
-6% chance to Dodge Attacks while Phasing
+{variant:1,2}6% increased Evasion while Phasing
+{variant:3}30% increased Evasion while Phasing
 {tags:speed}10% increased Movement Speed while Phasing
 ]],[[
 Auxium

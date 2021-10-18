@@ -685,13 +685,14 @@ Daresso's Defiance
 Full Dragonscale
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 63, 115 Str, 94 Dex
-(160-200)% increased Armour and Evasion
+{variant:1,2,3}(160-200)% increased Armour and Evasion
+{variant:4}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
-{variant:3}+(60-90) to maximum Life
+{variant:3,4}+(60-90) to maximum Life
 (0.4-0.6)% of Physical Attack Damage Leeched as Life
-6% Chance to Dodge Attacks
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
