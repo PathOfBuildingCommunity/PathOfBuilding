@@ -126,7 +126,7 @@ Requires Level 64, 138 Dex
 +(20-30)% to Cold Resistance
 25% chance to Avoid being Chilled
 Cannot be Frozen
-16% increased Mana Reservation Efficiency
+16% increased Mana Reservation Efficiency of Skills
 ]],[[
 Replica Alpha's Howl
 Sinner Tricorne
@@ -974,8 +974,8 @@ Requires Level 68, 62 Str, 91 Int
 +(150-200) to maximum Mana
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
-{variant:1}10% increased Reservation of Skills
-{variant:2}40%  increased Mana Reservation Efficiency
+{variant:1}20% reduced Mana Reservation Efficiency of Skills
+{variant:2}20% reduced Reservation Efficiency
 {variant:1}Gain Armour equal to your Reserved Mana
 {variant:2}1% increased Armour per 50 Reserved Mana
 ]],[[
@@ -1167,7 +1167,7 @@ Requires Level 67, 73 Dex, 88 Int
 {variant:1}+2 to Level of Socketed Curse Gems
 {variant:2,3,4}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-{variant:1,2,3}Socketed Curse Gems have 24%  increased Mana Reservation Efficiency
+{variant:1,2,3}Socketed Curse Gems have 24% increased Mana Reservation Efficiency
 {variant:4}Socketed Curse Gems have 20% increased Reservation Efficiency
 ]],[[
 Leer Cast
