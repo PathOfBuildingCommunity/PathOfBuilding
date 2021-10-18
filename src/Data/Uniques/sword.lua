@@ -172,7 +172,7 @@ Adds (5-10) to (13-20) Physical Damage
 {variant:2}(80-95)% increased Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:2}(20-25)% increased Attack Speed
-5% reduced Reservation of Skills
+10% increased Reservation Efficiency
 Allies' Aura Buffs do not affect you
 Your Aura Buffs do not affect allies
 10% increased Effect of Buffs on you
