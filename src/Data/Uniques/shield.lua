@@ -79,11 +79,11 @@ Variant: Pre 3.16.0
 Variant: Current
 Requires Level 70, 159 Str
 Implicits: 1
-{variant:3}+(20-30) to maximum Life
+{variant:3,4}+(20-30) to maximum Life
 {variant:1,2,3}(200-250)% increased Armour
 {variant:4}(180-220)% increased Armour
 {variant:1}+(80-100) to maximum Life
-{variant:2,3}+(160-180) to maximum Life
+{variant:2,3,4}+(160-180) to maximum Life
 5% reduced Movement Speed
 20% increased Stun Recovery
 −25 Physical Damage taken from Projectile Attacks

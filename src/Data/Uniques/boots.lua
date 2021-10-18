@@ -269,7 +269,7 @@ Requires Level 62, 117 Dex
 Immune to Burning Ground, Shocked Ground and Chilled Ground
 Regenerate 100 Life per second while moving
 {variant:1}+1 to Maximum Life per 10 Dexterity
-{variant:2}+2 to Maximum Life per 10 Dexterity
+{variant:2,3}+2 to Maximum Life per 10 Dexterity
 ]],[[
 Seven-League Step
 Rawhide Boots
