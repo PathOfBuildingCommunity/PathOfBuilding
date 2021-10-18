@@ -514,10 +514,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			elseif node.type == "Mastery" then
 				-- This is the icon that appears in the center of many groups
-				base = node.sprites.mastery
 				if node.masteryEffects then
-					-- TODO: Reconsider rending approach once tree/sprites are released
-					overlay = node.overlay[state]
+					if isAlloc then
+						base = node.masterySprites.activeIcon.masteryActiveSelected
+					elseif node == hoverNode then
+						base = node.masterySprites.inactiveIcon.masteryConnected
+					else
+						base = node.masterySprites.inactiveIcon.masteryInactive
+					end
+				else
+					base = node.sprites.mastery
 				end
 				SetDrawLayer(nil, 15)
 			else

@@ -229,7 +229,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			unallocAlt = "JewelSocketAltNormal",
 		},
 		Mastery = {
-			artWidth = 120,
+			artWidth = versionNum >= 3.16 and 65 or 0,
 			alloc = "AscendancyFrameLargeAllocated",
 			path = "AscendancyFrameLargeCanAllocate",
 			unalloc = "AscendancyFrameLargeNormal"
@@ -558,7 +558,11 @@ end
 -- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
 function PassiveTreeClass:ProcessNode(node)
 	-- Assign node artwork assets
-	node.sprites = self.spriteMap[node.icon]
+	if node.type == "Mastery" and node.masteryEffects then
+		node.masterySprites = { activeIcon = self.spriteMap[node.activeIcon], inactiveIcon = self.spriteMap[node.inactiveIcon], activeEffectImage = self.spriteMap[node.activeEffectImage] }
+	else
+		node.sprites = self.spriteMap[node.icon]
+	end
 	if not node.sprites then
 		--error("missing sprite "..node.icon)
 		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
