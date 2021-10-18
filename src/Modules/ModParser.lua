@@ -2750,18 +2750,6 @@ local specialModList = {
 		mod("SkillData", "LIST", { key = "manaReservationPercent", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }),
 		mod("SkillData", "LIST", { key = "lifeReservationPercent", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }),
 	},
-	["([%a%s]+) has (%d+)%% increased Mana Reservation Efficiency"] = function(num, _, name) return {
-		mod("SkillData", "LIST", "INC", { key = "manaReservationEfficiency", value = num }, { type = "SkillId", skillId = gemIdLookup[name] }),
-	} end,
-	["([%a%s]+) has (%d+)%% increased Life Reservation Efficiency"] = function(num, _, name) return {
-		mod("SkillData", "LIST", "INC", { key = "LifeReservationEfficiency", value = num }, { type = "SkillId", skillId = gemIdLookup[name] }),
-	} end,
-	["(%d+)%% increased Mana Reservation Efficiency of Curse Aura Skills"] = function(num) return {
-		mod("SkillData", "LIST", "INC", { key = "manaReservationEfficiency", value = num }, { type = "SkillType", skillType = SkillType.Hex },  { type = "SkillType", skillType = SkillType.Aura }),
-	} end,
-	["(%d+)%% increased Mana Reservation Efficiency of Stance Skills"] = function(num) return {
-		mod("SkillData", "LIST", "INC", { key = "manaReservationEfficiency", value = num }, { type = "SkillType", skillType = SkillType.StanceSkill }),
-	} end,
 	["placed banners also grant (%d+)%% increased attack damage to you and allies"] = function(num) return { mod("ExtraAuraEffect", "LIST", { mod = mod("Damage", "INC", num, nil, ModFlag.Attack) }, { type = "Condition", var = "BannerPlanted" }) } end,
 	["your aura skills are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura }) },
 	["your spells are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Spell }) },
