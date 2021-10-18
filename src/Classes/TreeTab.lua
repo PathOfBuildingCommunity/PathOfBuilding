@@ -107,8 +107,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-  self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
-	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)
+  	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+  	self.controls.treeAllocationOrder = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 194, 0, 20, "Show Node Allocation Order:", function(state)
+		self.viewer.showAllocationOrder = state
+	end)
+	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeAllocationOrder,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
 	end)
@@ -227,6 +230,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
 	end
+
+	self.controls.treeAllocationOrder.state = self.viewer.showAllocationOrder
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
