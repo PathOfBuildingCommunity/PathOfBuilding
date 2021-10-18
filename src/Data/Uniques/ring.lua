@@ -441,7 +441,7 @@ Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Have no Reservation
-{variant:1}80% reduced Mana Reservation Efficiency
+{variant:1}80% reduced Mana Reservation Efficiency of Skills
 {variant:2}80% reduced Reservation Efficiency
 ]],[[
 Fated End
