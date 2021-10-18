@@ -1260,18 +1260,20 @@ function calcs.defence(env, actor)
 
 	-- Spell Suppression
 
-	function chanceSuppressDamage(outputText, outputName, suppressionChance)
-		output[outputName] = output.SpellSuppressionChance
+	function chanceSuppressDamage(outputText, outputName, suppressionChance, suppressionEffect)
+		output[outputName] = 100 - (1 - suppressionChance * suppressionEffect / 100 / 100 ) * 100
 		if breakdown then
 			breakdown[outputName] = { }
 			if output.ShowBlockEffect then
 				breakdown.multiChain(breakdown[outputName], {
 					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
-					{ "%d%% Damage taken from suppressed hits", 100 - output.SpellSuppressionEffect },
+					{ "%d%% Damage taken from suppressed hits", 100 - suppressionEffect },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
 				})
 			else
 				breakdown.multiChain(breakdown[outputName], {
 					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
 				})
 			end
 		end
@@ -1290,7 +1292,7 @@ function calcs.defence(env, actor)
 
 	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
 
-	chanceSuppressDamage("Spell hit", "SpellSuppressionChanceBreakdown", output.SpellSuppressionChance)
+	chanceSuppressDamage("Spell hit", "SpellSuppressionChanceBreakdown", output.SpellSuppressionChance, output.SpellSuppressionEffect)
 
 	--effective health pool vs dots
 	for _, damageType in ipairs(dmgTypeList) do
@@ -1323,6 +1325,12 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local hitTaken = output[damageConvertedType.."TotalPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageType..damageConvertedType.."BaseTakenHitMult"]
+
+				local damageCategoryConfig = env.configInput.EhpCalcMode or "Average"
+				if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+					hitTaken = hitTaken / ((100 - output.SpellSuppressionChanceBreakdown) / 100)
+				end
+
 				if hitTaken < output[damageType.."MaximumHitTaken"] then
 					output[damageType.."MaximumHitTaken"] = hitTaken
 				end
