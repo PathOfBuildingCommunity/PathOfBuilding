@@ -403,6 +403,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
+		modDB:NewMod("Multiplier:PerAllocatedNotable", "BASE", env.spec.allocatedNotableCount)
+		modDB:NewMod("Multiplier:PerAllocatedMastery", "BASE", env.spec.allocatedMasteryCount)
 
 		-- Add bandit mods
 		if build.bandit == "Alira" then
