@@ -469,7 +469,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- Determine the base and overlay images for this node based on type and state
 		local compareNode = self.compareSpec and self.compareSpec.nodes[nodeId] or nil
 
-		local base, overlay
+		local base, overlay, effect
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId] or (compareNode and compareNode.alloc)
 		SetDrawLayer(nil, 25)
 		if node.type == "ClassStart" then
@@ -517,6 +517,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				if node.masteryEffects then
 					if isAlloc then
 						base = node.masterySprites.activeIcon.masteryActiveSelected
+						effect = node.masterySprites.activeEffectImage.masteryActiveEffect
 					elseif node == hoverNode then
 						base = node.masterySprites.inactiveIcon.masteryConnected
 					else
@@ -606,7 +607,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(1, 1, 1)
 			end
 		end
-		
+
+		-- Draw master effect artwork
+		if effect then
+			self:DrawAsset(effect, scrX, scrY, scale)
+		end
+
 		-- Draw base artwork
 		if base then
 			self:DrawAsset(base, scrX, scrY, scale)
