@@ -629,9 +629,8 @@ function TreeTabClass:OpenMasteryPopup(node)
 	controls.save =  new("ButtonControl", nil, -49, 49, 90, 20, "Assign", function()
 		local effect = self.build.spec.tree.masteryEffects[controls.effect:GetSelValue("id")]
 		node.sd = effect.sd
-		node.mods = effect.mods
-		node.modList = effect.modList
-		node.modKey = effect.modKey
+		node.reminderText = { "Tip: Right click to select a different effect" }
+		self.build.spec.tree:ProcessStats(node)
 		self.build.spec.masterySelections[node.id] = effect.id
 		if not node.alloc then
 			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)

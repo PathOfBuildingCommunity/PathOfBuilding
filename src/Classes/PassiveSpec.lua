@@ -661,9 +661,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.type == "Mastery" and self.masterySelections[id] then
 			local effect = self.tree.masteryEffects[self.masterySelections[id]]
 			node.sd = effect.sd
-			node.mods = effect.mods
-			node.modList = effect.modList
-			node.modKey = effect.modKey
+			node.reminderText = { "Tip: Right click to select a different effect" }
+			self.tree:ProcessStats(node)
 		end
 	end
 
@@ -762,6 +761,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
+	old.reminderText = newNode.reminderText
 end
 
 ---Reconnects altered timeless jewel to class start, for Pure Talent
