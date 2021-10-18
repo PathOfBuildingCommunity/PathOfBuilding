@@ -353,7 +353,7 @@ Requires Level 49, 134 Dex
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
-{variant:1}10% chance to Dodge Spell Damage
+{variant:1}10% chance to Suppress Spell Damage
 {variant:2}20% chance to Suppress Spell Damage
 25% increased Arctic Armour Buff Effect
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
