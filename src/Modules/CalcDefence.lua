@@ -438,6 +438,16 @@ function calcs.defence(env, actor)
 	-- Dodge
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+
+	-- Acrobatics Spell Suppression to Spell Dodge Chance conversion.
+	if modDB:Flag(nil, "ConvertSpellSuppressionToSpellDodge") then
+		local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
+		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
+	end
+
+	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
+	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+
 	output.AttackDodgeChance = m_min(totalAttackDodgeChance, data.misc.DodgeChanceCap)
 	output.SpellDodgeChance = m_min(totalSpellDodgeChance, data.misc.DodgeChanceCap)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
@@ -1262,6 +1272,42 @@ function calcs.defence(env, actor)
 		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end
 
+	-- Spell Suppression
+
+	function chanceSuppressDamage(outputText, outputName, suppressionChance, suppressionEffect)
+		output[outputName] = 100 - (1 - suppressionChance * suppressionEffect / 100 / 100 ) * 100
+		if breakdown then
+			breakdown[outputName] = { }
+			if output.ShowBlockEffect then
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					{ "%d%% Damage taken from suppressed hits", 100 - suppressionEffect },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
+				})
+			else
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
+				})
+			end
+		end
+	end
+
+	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or modDB:Sum("BASE", nil, "SpellSuppressionChance")
+
+	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
+	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
+
+	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
+	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
+	end
+
+	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
+
+	chanceSuppressDamage("Spell hit", "SpellSuppressionEffectiveChance", output.SpellSuppressionChance, output.SpellSuppressionEffect)
+
 	--effective health pool vs dots
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."DotEHP"] = output[damageType.."TotalPool"] / output[damageType.."TakenDotMult"]
@@ -1341,6 +1387,9 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageType..damageConvertedType.."BaseTakenHitMult"])
+				if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+					damageTaken = damageTaken * ((100 - output.SpellSuppressionEffectiveChance) / 100)
+				end
 				local hitsTaken = math.ceil(output[damageConvertedType.."TotalPool"] / damageTaken)
 				hitsTaken = hitsTaken / (1 - output[damageCategory.."NotHitChance"] / 100)  / (1 - output[damageConvertedType..damageCategory.."DamageChance"] / 100)
 				if hitsTaken < output[damageType.."NumberOfHits"] then

@@ -126,6 +126,7 @@ data.powerStatList = {
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
+	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
@@ -311,6 +312,8 @@ data.misc = { -- magic numbers
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
+	SuppressionChanceCap = 100,
+	SuppressionEffect = 50,
 	AvoidChanceCap = 75,
 	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
