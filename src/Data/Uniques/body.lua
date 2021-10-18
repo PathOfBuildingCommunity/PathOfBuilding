@@ -36,12 +36,17 @@ Adds 2 to 4 Physical Damage to Attacks
 The Brass Dome
 Gladiator Plate
 Source: Drops from unique{Guardian of the Minotaur}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 177 Str
-30% reduced Chance to Block Attacks and Spells
-(600-650)% increased Armour
-10% reduced Movement Speed
-50% increased Shock Duration on You
+{variant:1}(600-650)% increased Armour
+{variant:2}(350-400)% increased Armour
+{variant:1}30% reduced Chance to Block Attacks and Spells
+{variant:1}10% reduced Movement Speed
+{variant:1}50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
+{variant:2}+(1-2) to all maximum Resistances
+{variant:2}Gain no inherent bonuses from Strength
 ]],[[
 Craiceann's Carapace
 Golden Plate
@@ -341,26 +346,37 @@ Coronal Leather
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 49, 134 Dex
 +(30-40) to Dexterity
-(30-50)% increased Evasion Rating
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
-10% chance to Dodge Spell Damage
+{variant:1}10% chance to Suppress Spell Damage
+{variant:2}20% chance to Suppress Spell Damage
 25% increased Arctic Armour Buff Effect
-Evasion Rating is increased by Uncapped Cold Resistance
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 ]],[[
 The Perfect Form
 Zodiac Leather
 League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 197 Dex
-(30-50)% increased Evasion Rating
-+(50-80) to maximum Life
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
+{variant:1}+(50-80) to maximum Life
+{variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
-(5-10)% increased Dexterity
-Arctic Armour has 100% reduced Reservation
-Evasion Rating is increased by Uncapped Cold Resistance
-Phase Acrobatics
+{variant:1}(5-10)% increased Dexterity
+{variant:2}(10-15)% increased Dexterity
+Arctic Armour has no Reservation
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+Acrobatics
 ]],[[
 Replica Perfect Form
 Zodiac Leather
@@ -370,7 +386,7 @@ Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
 +(50-80) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has 100% reduced Reservation
+Flesh and Stone has no Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Hollow Palm Technique
 ]],[[
