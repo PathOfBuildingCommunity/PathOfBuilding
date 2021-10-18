@@ -928,6 +928,7 @@ local preFlagList = {
 	["^templar: "] = { tag = { type = "Condition", var = "ConnectedToTemplarStart" } },
 	["^scion: "] = { tag = { type = "Condition", var = "ConnectedToScionStart" } },
 	["^skills supported by spellslinger have "] = { tag = { type = "Condition", var = "SupportedBySpellslinger" } },
+	["^skills that have dealt a critical strike in the past 8 seconds deal "] = { tag = { type = "Condition", var = "CritInPast8Sec" } },
 }
 
 -- List of modifier tags
