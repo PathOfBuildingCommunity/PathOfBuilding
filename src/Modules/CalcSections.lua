@@ -1471,8 +1471,8 @@ return {
 	},
 }, }, { defaultCollapsed = false, label = "Chance to suppress Damage when Hit", data = {
 	{ label = "Spell Ch.", 
-		{ format = "{1:output:SpellSuppressionChanceBreakdown}%", 
-			{ breakdown = "SpellSuppressionChanceBreakdown" }, 
+		{ format = "{1:output:SpellSuppressionEffectiveChance}%", 
+			{ breakdown = "SpellSuppressionEffectiveChance" }, 
 		}, 
 	},
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {

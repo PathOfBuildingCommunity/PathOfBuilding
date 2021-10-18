@@ -1292,7 +1292,7 @@ function calcs.defence(env, actor)
 
 	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
 
-	chanceSuppressDamage("Spell hit", "SpellSuppressionChanceBreakdown", output.SpellSuppressionChance, output.SpellSuppressionEffect)
+	chanceSuppressDamage("Spell hit", "SpellSuppressionEffectiveChance", output.SpellSuppressionChance, output.SpellSuppressionEffect)
 
 	--effective health pool vs dots
 	for _, damageType in ipairs(dmgTypeList) do
@@ -1325,12 +1325,6 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local hitTaken = output[damageConvertedType.."TotalPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageType..damageConvertedType.."BaseTakenHitMult"]
-
-				local damageCategoryConfig = env.configInput.EhpCalcMode or "Average"
-				if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
-					hitTaken = hitTaken / ((100 - output.SpellSuppressionChanceBreakdown) / 100)
-				end
-
 				if hitTaken < output[damageType.."MaximumHitTaken"] then
 					output[damageType.."MaximumHitTaken"] = hitTaken
 				end
@@ -1379,6 +1373,9 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageType..damageConvertedType.."BaseTakenHitMult"])
+				if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+					damageTaken = damageTaken * ((100 - output.SpellSuppressionEffectiveChance) / 100)
+				end
 				local hitsTaken = math.ceil(output[damageConvertedType.."TotalPool"] / damageTaken)
 				hitsTaken = hitsTaken / (1 - output[damageCategory.."NotHitChance"] / 100)  / (1 - output[damageConvertedType..damageCategory.."DamageChance"] / 100)
 				if hitsTaken < output[damageType.."NumberOfHits"] then
