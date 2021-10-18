@@ -1630,7 +1630,7 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		local weapon1Sel = itemSet[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
 		local weapon1Type = weapon1Sel > 0 and self.items[weapon1Sel].base.type or "None"
 		if weapon1Type == "None" then
-			return item.type == "Quiver" or item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand)
+			return item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand)
 		elseif weapon1Type == "Bow" then
 			return item.type == "Quiver"
 		elseif self.build.data.weaponTypeInfo[weapon1Type].oneHand then
