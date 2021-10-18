@@ -1191,7 +1191,7 @@ Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
 {variant:1}Socketed Gems have 40% increased Mana Reservation Efficiency
 {variant:2}Socketed Gems have 60% increased Mana Reservation Efficiency
-{variant:3}Socketed Gems have 90% increased Mana Reservation Efficiency
+{variant:3}Socketed Gems have 45% increased Mana Reservation Efficiency
 {variant:1}Socketed Gems are Supported by level 1 Generosity
 {variant:2,3}Socketed Gems are Supported by level 30 Generosity
 (120-150)% increased Evasion and Energy Shield

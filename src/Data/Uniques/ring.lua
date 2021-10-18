@@ -434,12 +434,15 @@ Implicits: 1
 ]],[[
 Essence Worm
 Unset Ring
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 38
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Have no Reservation
-80% reduced Reservation Efficiency
+{variant:1}80% reduced Mana Reservation Efficiency
+{variant:2}80% reduced Reservation Efficiency
 ]],[[
 Fated End
 Paua Ring
@@ -1218,7 +1221,8 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
-Socketed Gems have 20% reduced Reservation Efficiency
+{variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
+{variant:13,14,15,16,17,18,19,20,21,22}Socketed Gems have 20% reduced Reservation Efficiency
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}15 Life Regenerated per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
