@@ -709,7 +709,7 @@ Triggers Level 20 Reflection when Equipped
 		<Input name="conditionLeeching" boolean="true"/>
 	</Config>
 </PathOfBuilding>]],
-    output = {["CombinedAvg"] = 665.3752,
+    output = {["CombinedAvg"] = 659.8818,
 ["FrenzyChargesMin"] = 0,
 ["RageCost"] = 0,
 ["HitChance"] = 100,
@@ -808,7 +808,7 @@ Triggers Level 20 Reflection when Equipped
 ["PoisonAvoidChance"] = 0,
 ["LightningResistTotal"] = -60,
 ["InteruptStunAvoidChance"] = 0,
-["AverageDamage"] = 259.831,
+["AverageDamage"] = 257.6858,
 ["ColdTakenHitMult"] = 1.6,
 ["PowerCharges"] = 0,
 ["Devotion"] = 0,

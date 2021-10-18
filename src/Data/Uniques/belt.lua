@@ -282,6 +282,8 @@ Implicits: 1
 ]],[[
 The Flow Untethered
 Cloth Belt
+Variant: Pre 3.16.0
+Variant: Current
 League: Harbinger
 Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
 Requires Level 60
@@ -289,8 +291,10 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
 {tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
-{tags:life}(15-20)% increased Life Recovery rate
-{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:life}(15-20)% increased Life Recovery rate
+{variant:2}{tags:life}(10-15)% increased Life Recovery rate
+{variant:1}{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+{variant:2}{tags:jewellery_defense}(10-15)% increased Energy Shield Recovery rate
 (15-20)% increased Cooldown Recovery Speed
 Debuffs on you expire (15-20)% faster
 ]],[[

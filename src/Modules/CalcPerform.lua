@@ -721,6 +721,7 @@ local function doActorMisc(env, actor)
 	output.TotalCharges = output.PowerCharges + output.FrenzyCharges + output.EnduranceCharges
 	modDB.multipliers["WarcryPower"] = output.WarcryPower
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
+	modDB.multipliers["PowerChargeMax"] = output.PowerChargesMax
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
 	modDB.multipliers["RemovableFrenzyCharge"] = output.RemovableFrenzyCharges
@@ -972,7 +973,6 @@ function calcs.perform(env, avoidCache)
 		end
 		if env.theIronMass and env.minion.type == "RaisedSkeleton" then
 			env.minion.modDB:AddList(env.theIronMass)
-			env.minion.modDB:NewMod("TripleDamageChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "HitRecentlyWithWeapon" })
 		end
 		if env.player.mainSkill.skillData.minionUseBowAndQuiver then
 			if env.player.weaponData1.type == "Bow" then
@@ -1516,6 +1516,13 @@ function calcs.perform(env, avoidCache)
 	-- Apply effect of Bonechill support
 	if env.mode_effective and output.BonechillEffect then 
 		enemyDB:NewMod("ColdDamageTaken", "INC", output.BonechillEffect, "Bonechill", { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill Cold DoT Taken" }, { type = "Limit", limit = 30 }, { type = "Condition", var = "Chilled" } )
+	end
+
+	-- Deal with Consecrated Ground
+	if modDB:Flag(nil, "Condition:OnConsecratedGround") then
+		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+		modDB:NewMod("LifeRegenPercent", "BASE", 6 * effect, "Consecrated Ground")
+		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 	end
 
 	-- Combine buffs/debuffs 
@@ -2776,6 +2783,12 @@ function calcs.perform(env, avoidCache)
 			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
 			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
+	end
+
+	-- Handle consecrated ground effects on enemies
+	if enemyDB:Flag(nil, "Condition:OnConsecratedGround") then
+		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 
 	-- Defence/offence calculations

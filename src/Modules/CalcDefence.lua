@@ -33,7 +33,7 @@ end
 
 -- Calculate physical damage reduction from armour, float
 function calcs.armourReductionF(armour, raw)
-	return (armour / (armour + raw * 10) * 100)
+	return (armour / (armour + raw * 5) * 100)
 end
 
 -- Calculate physical damage reduction from armour, int
@@ -76,7 +76,8 @@ function calcs.defence(env, actor)
 	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
-		local max, total
+		local min, max, total
+		min = data.misc.ResistFloor
 		if elem == "Chaos" and modDB:Flag(nil, "ChaosInoculation") then
 			max = 100
 			total = 100
@@ -88,7 +89,7 @@ function calcs.defence(env, actor)
 				total = base * calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 			end
 		end
-		local final = m_min(total, max)
+		local final = m_max(m_min(total, max), min)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
@@ -96,6 +97,7 @@ function calcs.defence(env, actor)
 		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
+				"Min: "..min.."%",
 				"Max: "..max.."%",
 				"Total: "..total.."%",
 			}
@@ -596,7 +598,7 @@ function calcs.defence(env, actor)
 				breakdown.LifeRecharge = { }
 				breakdown.multiChain(breakdown.LifeRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(20%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
+					base = s_format("%.1f ^8(33%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
@@ -616,7 +618,7 @@ function calcs.defence(env, actor)
 				breakdown.EnergyShieldRecharge = { }
 				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(20%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
+					base = s_format("%.1f ^8(33%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),

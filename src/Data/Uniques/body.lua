@@ -589,14 +589,16 @@ Soul Mantle
 Spidersilk Robe
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 49, 134 Int
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
-{variant:3}Socketed Gems are Supported by level 20 Spell Totem
+{variant:3,4}Socketed Gems are Supported by level 20 Spell Totem
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
 {variant:2,3}50% increased Totem Life
+{variant:4}(20-30)% increased Totem Life
 Can have up to 1 additional Totem summoned at a time
 Inflicts a random Hex on you when your Totems die, with 80% more Effect
 ]],[[
