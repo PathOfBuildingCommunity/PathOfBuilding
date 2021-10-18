@@ -635,7 +635,7 @@ skills["DarkRitual"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.Triggerable] = true, [SkillType.Type59] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
-	preDamageFunc = function(activeSkill, output)
+	preSkillTypeFunc = function(activeSkill, output)
 		local curseCount = 0
 		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
 			if skill.socketGroup == activeSkill.socketGroup and skill.skillModList:GetCondition("AppliedByBane") then
@@ -2010,6 +2010,7 @@ skills["Disintegrate"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 10),
 	},
 	qualityStats = {
 		Default = {
@@ -4294,6 +4295,7 @@ skills["FrostGlobe"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -4945,6 +4947,7 @@ skills["DoomBlast"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 29),
 		skill("showAverage", true),
 		flag("ChaosDamageUsesLowestResistance"),
 		flag("PhysicalCanIgnite"),
@@ -6369,6 +6372,7 @@ skills["MagmaOrb"] = {
 		"is_area_damage",
 		"base_is_projectile",
 		"display_projectiles_chain_when_impacting_ground",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 0.89999997615814, 1.2000000476837, 2, 1, 0, damageEffectiveness = 2.3, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 6, }, },
@@ -6522,6 +6526,10 @@ skills["Manabond"] = {
 		arcane = true,
 	},
 	baseMods = {
+		skill("radius", 18),
+		skill("radiusLabel", "Circle area:"),
+		skill("radiusSecondary", 23),
+		skill("radiusSecondaryLabel", "Rectangle area:"),
 		mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
 		mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
 	},
@@ -8021,6 +8029,7 @@ skills["CircleOfPower"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 30),
 		skill("buffAllies", true),
 	},
 	qualityStats = {
@@ -10250,6 +10259,7 @@ skills["BlackHole"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 38),
 	},
 	qualityStats = {
 		Default = {
@@ -10515,6 +10525,7 @@ skills["VoltaxicBurst"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 22),
 	},
 	qualityStats = {
 		Default = {
@@ -10928,6 +10939,7 @@ skills["ImmolationSigil"] = {
 		brand = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		Default = {

@@ -59,8 +59,10 @@ for _, gemData in pairs(data.gems) do
 end
 table.sort(gems)
 for index, name in ipairs(gems) do
-	table.insert(forbiddenShako, "Variant: "..name)
-	table.insert(forbiddenShako, "{variant:"..index.."}Socketed Gems are Supported by Level (15-25) "..name)
+	table.insert(forbiddenShako, "Variant: "..name.. " (Low Level)")
+	table.insert(forbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
+	table.insert(forbiddenShako, "Variant: "..name.. " (High Level)")
+	table.insert(forbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (Low Level)")
 	table.insert(replicaForbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (High Level)")
@@ -235,6 +237,7 @@ local excludedKeystones = {
 	"Hollow Palm Technique", -- exclusive to specific unique
 	"Immortal Ambition", -- exclusive to specific unique
 	"Necromantic Aegis", -- to prevent infinite loop
+	"Secrets of Suffering", -- exclusive to specific items
 }
 local keystones = {}
 for _, name in ipairs(data.keystones) do
@@ -247,7 +250,7 @@ for _, name in ipairs(keystones) do
 end
 table.insert(skinOfTheLords, "Implicits: 0")
 table.insert(skinOfTheLords, "Sockets cannot be modified")
-table.insert(skinOfTheLords, "+1 to Level of Socketed Gems")
+table.insert(skinOfTheLords, "+2 to Level of Socketed Gems")
 table.insert(skinOfTheLords, "100% increased Global Defences")
 table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
 for index, name in ipairs(keystones) do

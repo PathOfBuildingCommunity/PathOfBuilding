@@ -10,7 +10,7 @@ local lab = {
 	[75] = "ENDGAME",
 	[83] = "DEDICATION",
 }
-local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "HARVEST", "HEIST" }
+local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "ENKINDLING", "INSTILLING", "HARVEST", "HEIST" }
 
 local function doLabEnchantment(fileName, group)
 	local byDiff = { }
@@ -42,14 +42,16 @@ doLabEnchantment("../Data/EnchantmentBoots.lua", "ConditionalBuffEnchantment")
 doLabEnchantment("../Data/EnchantmentGloves.lua", "TriggerEnchantment")
 doLabEnchantment("../Data/EnchantmentBelt.lua", "BuffEnchantment")
 
-local function doOtherEnchantment(fileName, groups)
+local function doOtherEnchantment(fileName, groupsList)
 	local byDiff = { }
-	for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 3)) do
-		if groups[mod.Family] then
-			local stats, orders = describeMod(mod)
-			local diff = groups[mod.Family]
-			byDiff[diff] = byDiff[diff] or { }
-			table.insert(byDiff[diff], stats)
+	for generation in pairs(groupsList) do
+		for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", generation)) do
+			if groupsList[generation][mod.Family] then
+				local stats, orders = describeMod(mod)
+				local diff = groupsList[generation][mod.Family]
+				byDiff[diff] = byDiff[diff] or { }
+				table.insert(byDiff[diff], stats)
+			end
 		end
 	end
 	local out = io.open(fileName, "w")
@@ -68,10 +70,12 @@ local function doOtherEnchantment(fileName, groups)
 	out:close()
 end
 
--- Flask enchants stat descriptions don't read properly yet, and might need support for value ranges
---doOtherEnchantment("../Data/EnchantmentFlask.lua", { ["FlaskEnchantment"] = "HARVEST" })
-doOtherEnchantment("../Data/EnchantmentBody.lua", { ["AlternateArmourQuality"] = "HARVEST", ["EnchantmentHeistArmour"] = "HEIST" })
-doOtherEnchantment("../Data/EnchantmentWeapon.lua", { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" })
+-- Harvest flask enchants stat descriptions don't read properly yet
+doOtherEnchantment("../Data/EnchantmentFlask.lua", { --[3] = { ["FlaskEnchantment"] = "HARVEST" },
+	[21] = { ["FlaskEnchantment"] = "ENKINDLING" },
+	[22] = { ["FlaskEnchantment"] = "INSTILLING" } })
+doOtherEnchantment("../Data/EnchantmentBody.lua", { [3] = { ["AlternateArmourQuality"] = "HARVEST", ["EnchantmentHeistArmour"] = "HEIST" } })
+doOtherEnchantment("../Data/EnchantmentWeapon.lua", { [3] = { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" } })
 
 local skillMap = {
 	["Summone?d?RagingSpirit"] = "Summon Raging Spirit",

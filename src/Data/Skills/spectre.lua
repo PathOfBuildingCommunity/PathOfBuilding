@@ -1960,7 +1960,7 @@ skills["MonsterEnduringCry"] = {
 		[34] = { 2, 1000, 600, cooldown = 8, levelRequirement = 82, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["MonsterEnfeeble"] = {
+skills["AxisEnfeeble"] = {
 	name = "Enfeeble",
 	hidden = true,
 	color = 3,
@@ -1998,7 +1998,7 @@ skills["MonsterEnfeeble"] = {
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 5000, 0, -40, -40, -15, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 35, }, },
+		[1] = { 5000, 0, -40, -40, -15, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterFireballContactPos"] = {
@@ -2539,9 +2539,9 @@ skills["MonsterProjectileWeakness"] = {
 		"grant_attacker_x_life_flask_charges_when_hit_once_per_500ms",
 	},
 	levels = {
-		[1] = { 10400, 3, 32, 0, 0, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 10900, 3, 34, 0, 0, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 10900, 3, 34, 0, 0, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 6000, 3, 32, 0, 0, cooldown = 12, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 6000, 3, 34, 0, 0, cooldown = 12, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 6000, 3, 34, 0, 0, cooldown = 12, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MonsterProximityShield"] = {
@@ -2801,7 +2801,7 @@ skills["MonsterWarlordsMark"] = {
 		"chance_to_grant_endurance_charge_on_death_%",
 	},
 	levels = {
-		[1] = { 8800, 40, 0, 200, 200, 100, levelRequirement = 5, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 50, }, },
+		[1] = { 4000, 40, 0, 200, 200, 100, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["MotherOfFlamesMagmaOrb3"] = {
@@ -2959,7 +2959,7 @@ skills["NecromancerEnfeeble"] = {
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 10000, 0, -60, -60, 1, -23, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 5000, 0, -60, -60, 1, -23, cooldown = 10, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["NecromancerFlammability"] = {
@@ -3077,9 +3077,9 @@ skills["NecromancerProjectileWeakness"] = {
 		"skill_art_variation",
 	},
 	levels = {
-		[1] = { 10400, 3, 22, 0, 0, 1, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 10900, 3, 24, 0, 0, 1, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 10900, 3, 24, 0, 0, 1, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 6000, 3, 22, 0, 0, 1, cooldown = 12, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 6000, 3, 24, 0, 0, 1, cooldown = 12, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 6000, 3, 24, 0, 0, 1, cooldown = 12, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["NecromancerRaiseZombie"] = {
@@ -3152,7 +3152,7 @@ skills["NecromancerVulnerability"] = {
 		"enemy_damaging_ailments_deal_damage_+%_faster_against_self",
 	},
 	levels = {
-		[1] = { 10900, 0, 50, 1, 20, 20, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 6000, 0, 50, 1, 20, 20, cooldown = 9, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["PyroChaosFireball"] = {
@@ -3598,7 +3598,7 @@ skills["SkeletonSpark"] = {
 		[7] = { 2.2400000095367, 6.7300000190735, 3500, 1, 2, 1, damageEffectiveness = 0.7, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
-skills["SkeletonTemporalChains"] = {
+skills["AxisTemporalChains"] = {
 	name = "Temporal Chains",
 	hidden = true,
 	color = 4,
@@ -3637,7 +3637,7 @@ skills["SkeletonTemporalChains"] = {
 		"temporal_chains_action_speed_+%_vs_rare_or_unique_final",
 	},
 	levels = {
-		[1] = { 4000, 0, -20, -40, 0, -10, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[1] = { 4000, 0, -20, -40, 0, -10, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SkeletonVulnerability"] = {
@@ -4216,12 +4216,13 @@ skills["AtlasExilesCrusaderMageguardProjectile"] = {
 		"monster_projectile_variation",
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"spell_maximum_action_distance_+%",
 		"base_is_projectile",
 		"projectile_uses_contact_position",
 		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { 127, 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, cost = { }, },
+		[1] = { 127, 0.5, 1.5, -40, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["AtlasExileCrusaderMageguardBombExplodeSpectre"] = {
@@ -5424,5 +5425,68 @@ skills["MeleeAtAnimationSpeed"] = {
 	},
 	levels = {
 		[1] = { levelRequirement = 1, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["MeleeKaruiArcher"] = {
+	name = "Cold Arrow",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"arrow_projectile_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+	},
+	levels = {
+		[1] = { 18, 75, 0, levelRequirement = 1, statInterpolation = { 1, 1, 2, }, cost = { }, },
+		[2] = { 18, 75, 0, levelRequirement = 19, statInterpolation = { 1, 1, 2, }, cost = { }, },
+		[3] = { 18, 75, 1, levelRequirement = 20, statInterpolation = { 1, 1, 2, }, cost = { }, },
+		[4] = { 18, 75, 200, levelRequirement = 84, statInterpolation = { 1, 1, 2, }, cost = { }, },
+	},
+}
+skills["LegionKaruiArcherSnipe"] = {
+	name = "Snipe",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.5,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		hit = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_attack_speed_+%_final",
+		"monster_projectile_variation",
+		"active_skill_damage_+%_final",
+		"base_is_projectile",
+		"always_pierce",
+		"skill_can_fire_arrows",
+	},
+	levels = {
+		[1] = { 75, -50, 69, 0, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 75, -50, 69, 0, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 20, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[3] = { 75, -50, 69, 1, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 21, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[4] = { 75, -50, 69, 200, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
 	},
 }

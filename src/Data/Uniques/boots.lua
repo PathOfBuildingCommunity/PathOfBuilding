@@ -116,12 +116,16 @@ Requires Level: 23, 44 Str
 ]],[[
 Torchoak Step
 Antique Greaves
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 37, 67 Str
 (80-120)% increased Armour
-(30-50)% increased Totem Life
+{variant:1}(30-50)% increased Totem Life
+{variant:2}(20-30)% increased Totem Life
 25% increased Movement Speed
 (30-50)% increased Totem Placement speed
-Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
+{variant:1}Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
+{variant:2}Totems Reflect 100% of their maximum Life as Fire Damage to nearby Enemies when Hit
 ]],[[
 Windscream
 Reinforced Greaves
@@ -254,16 +258,18 @@ Requires Level 34, 62 Dex
 Garukhan's Flight
 Stealth Boots
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 62, 117 Dex
 +(30-40) to Dexterity
 {variant:1}(80-120)% increased Evasion Rating
 {variant:2}(320-380)% increased Evasion Rating
+{variant:3}(300-340)% increased Evasion Rating
 30% increased Movement Speed
 Immune to Burning Ground, Shocked Ground and Chilled Ground
 Regenerate 100 Life per second while moving
 {variant:1}+1 to Maximum Life per 10 Dexterity
-{variant:2}+2 to Maximum Life per 10 Dexterity
+{variant:2,3}+2 to Maximum Life per 10 Dexterity
 ]],[[
 Seven-League Step
 Rawhide Boots
@@ -300,18 +306,19 @@ Poison you inflict with Travel Skills is Reflected to you if you have fewer than
 Three-step Assault
 Shagreen Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
-Evasion: (198-203)
 Requires Level 55, 97 Dex
 +(25-35) to Dexterity
 (20-40)% increased Evasion Rating
 {variant:1}40% increased Evasion Rating while you have Onslaught
-{variant:2}100% increased Evasion Rating while you have Onslaught
+{variant:2,3}100% increased Evasion Rating while you have Onslaught
 {variant:1}+(30-60) to maximum Life
-{variant:2}+(50-70) to maximum Life
+{variant:2,3}+(50-70) to maximum Life
 {variant:1}20% increased Movement Speed
-{variant:2}25% increased Movement Speed
-10% chance to Dodge Spells while Phasing
+{variant:2,3}25% increased Movement Speed
+{variant:1,2}10% chance to Avoid Elemental Ailments while Phasing
+{variant:3}30% chance to Avoid Elemental Ailments while Phasing
 ]],[[
 Replica Three-step Assault
 Shagreen Boots
@@ -368,6 +375,15 @@ Doryani's Delusion
 Sorcerer Boots
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire Pre 3.16.0
+Variant: Purity of Fire: Cold Pre 3.16.0
+Variant: Purity of Fire: Lightning Pre 3.16.0
+Variant: Purity of Ice: Fire Pre 3.16.0
+Variant: Purity of Ice: Cold Pre 3.16.0
+Variant: Purity of Ice: Lightning Pre 3.16.0
+Variant: Purity of Lightning: Fire Pre 3.16.0
+Variant: Purity of Lightning: Cold Pre 3.16.0
+Variant: Purity of Lightning: Lightning Pre 3.16.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -378,13 +394,14 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 67, 120 Int
-{variant:1,2,3}Grants Level 25 Purity of Fire Skill
-{variant:4,5,6}Grants Level 25 Purity of Ice Skill
-{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
-{variant:2,5,8}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
-{variant:3,6,9}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
-(180-220)% increased Energy Shield
+{variant:1,2,3,10,11,12}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6,13,14,15}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9,16,17,18}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+{variant:1,2,3,4,5,6,7,8,9}(180-220)% increased Energy Shield
+{variant:10,11,12,13,14,15,16,17,18}(150-180)% increased Energy Shield
 +(60-70) to maximum Life
 30% increased Movement Speed
 ]],[[
@@ -464,11 +481,14 @@ Requires Level 32, 54 Int
 Skyforth
 Sorcerer Boots
 Energy Shield: 64
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 67, 123 Int
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
-6% reduced Reservation of Skills
+{variant:1}6% reduced Reservation of Skills
+{variant:2}12% increased Reservation Efficiency
 You have no Life Regeneration
 Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
@@ -814,13 +834,16 @@ You have Onslaught while not on Low Mana
 ]],[[
 Omeyocan
 Carnal Boots
+Variant: Pre 3.16.0
+Variant: Current
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
 Requires Level 55, 52 Dex, 52 Int
 (15-20)% increased maximum Mana
 +(25-30)% to Lightning Resistance
 30% increased Movement Speed
-2% chance to Dodge Attack and Spell Hits per 500 Maximum Mana, up to 20%
+{variant:1}2% increased Evasion per 500 Maximum Mana
+{variant:2}10% increased Evasion per 500 Maximum Mana
 You have Onslaught while not on Low Mana
 Lose 7% of maximum Mana per Second
 ]],[[

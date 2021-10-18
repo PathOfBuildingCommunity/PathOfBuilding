@@ -142,3 +142,13 @@ function ItemListClass:OnSelDelete(index, itemId)
 		self.selValue = nil
 	end
 end
+
+function ItemListClass:OnHoverKeyUp(key)
+	if itemLib.wiki.matchesKey(key) then
+		local itemId = self.ListControl:GetHoverValue()
+		if itemId then
+			local item = self.itemsTab.items[itemId]
+			itemLib.wiki.openItem(item)
+		end
+	end
+end

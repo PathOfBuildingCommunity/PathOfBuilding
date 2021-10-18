@@ -35,7 +35,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				local height = 20
 				for _, varControl in pairs(self.varControlList) do
 					if varControl:IsShown() then
-						height = height + 20
+						height = height + m_max(varControl.height, 16) + 4
 					end
 				end
 				return m_max(height, 32)
@@ -65,6 +65,13 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
+			elseif varData.type == "text" then
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf)
+					self.input[varData.var] = tostring(buf)
+					self:AddUndoState()
+					self:BuildModList()
+					self.build.buildFlag = true
+				end, 16)
 			else 
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
@@ -209,7 +216,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			else
 				control.tooltipText = varData.tooltip
 			end
+			if varData.label then
 			t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
+			end
 			if varData.var then
 				self.varControls[varData.var] = control
 			end
@@ -317,8 +326,9 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 			if varControl:IsShown() then
 				doShow = true
 				local width, height = varControl:GetSize()
-				varControl.y = y + (18 - height) / 2
-				y = y + 20
+				height = m_max(height, 16)
+				varControl.y = y + 2
+				y = y + height + 4
 			end
 		end
 		section.shown = doShow
@@ -372,6 +382,10 @@ function ConfigTabClass:BuildModList()
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then
+				if input[varData.var] then
+					varData.apply(input[varData.var], modList, enemyModList, self.build)
+				end
+			elseif varData.type == "text" then
 				if input[varData.var] then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end

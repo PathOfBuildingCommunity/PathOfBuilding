@@ -34,6 +34,7 @@ skills["Absolution"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 25),
 	},
 	qualityStats = {
 		Default = {
@@ -1388,7 +1389,17 @@ skills["Boneshatter"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-statMap = {
+	parts = {
+		{
+			name = "Attack",
+			area = false,
+		},
+		{
+			name = "Pulse",
+			area = true,
+		},
+	},
+	statMap = {
 		["trauma_strike_damage_+%_final_per_trauma"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
 		},
@@ -1404,6 +1415,7 @@ statMap = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -5370,6 +5382,7 @@ skills["RageVortex"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 18),
 	},
 	qualityStats = {
 		Default = {
@@ -6443,6 +6456,7 @@ skills["Bloodreap"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 25),
 		skill("debuff", true),
 	},
 	qualityStats = {
@@ -6533,6 +6547,7 @@ skills["ShieldCrush"] = {
 		shieldAttack = true,
 	},
 	baseMods = {
+		skill("radius", 29),
 		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {

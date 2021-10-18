@@ -682,6 +682,7 @@ skills["BladeTrap"] = {
 		trap = true,
 	},
 	baseMods = {
+		skill("radius", 16),
 	},
 	qualityStats = {
 		Default = {
@@ -5744,6 +5745,17 @@ skills["CorrosiveShroud"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, [SkillType.Type112] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["plague_bearer_movement_speed_+%_while_infecting"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
+		},
+		["corrosive_shroud_poison_dot_multiplier_+_while_aura_active"] = {
+			mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
+		},
+		["corrosive_shroud_poison_damage_+%_final_while_accumulating_poison"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerIncubating" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -6127,6 +6139,10 @@ skills["StormRain"] = {
 		projectile = true,
 	},
 	baseMods = {
+		skill("radius", 10, { type = "SkillPart", skillPart = 1 }),
+		skill("radiusLabel", "Arrow Explosion:", { type = "SkillPart", skillPart = 1 }),
+		skill("radiusSecondary", 12, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusSecondaryLabel", "Beam Width:", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {

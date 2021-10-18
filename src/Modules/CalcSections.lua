@@ -456,10 +456,10 @@ return {
 	{ label = "Inc. Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "skill", }, }, },
 	{ label = "More Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
 	{ label = "Casts per second", flag = "spell", notFlag = "triggered", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
-	{ label = "Trigger Rate Cap", flag = "triggered", notFlag = "focussed", { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "CooldownRecovery", modType = "INC", cfg = "skill", }, }, },
-	{ label = "Trigger Rate Cap", flagList = {"triggered", "focussed"}, { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
-	{ label = "Skill Trigger Rate", flag = "triggered", notFlag = "focussed", { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, { breakdown = "SimData" }, }, },
-	{ label = "Skill Trigger Rate", flagList = {"triggered", "focussed"}, { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, { breakdown = "SimData" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
+	{ label = "Trigger Rate Cap", flag = "triggered", notFlag = "focused", { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "CooldownRecovery", modType = "INC", cfg = "skill", }, }, },
+	{ label = "Trigger Rate Cap", flagList = {"triggered", "focused"}, { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
+	{ label = "Skill Trigger Rate", flag = "triggered", notFlag = "focused", { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, { breakdown = "SimData" }, }, },
+	{ label = "Skill Trigger Rate", flagList = {"triggered", "focused"}, { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, { breakdown = "SimData" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
 	{ label = "Adj. Trigger Rate", flag = "triggered", { format = "{2:output:ServerTriggerRate}",  { breakdown = "ServerTriggerRate" }, }, },
 	{ label = "Eff. Trigger Rate", flag = "triggered", notFlag = "dontDisplay", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
@@ -588,11 +588,11 @@ return {
 	}, },
 	{ label = "Mana Reserve Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
 		{ breakdown = "ManaReservedMod" },
-		{ modName = { "ManaReserved", "Reserved", "SupportManaMultiplier" }, cfg = "skill"}
+		{ modName = { "ManaReserved", "Reserved", "SupportManaMultiplier", "ManaReservationEfficiency", "ReservationEfficiency" }, cfg = "skill"}
 	}, },
 	{ label = "Life Reserve Mod", haveOutput = "LifeReservedMod", { format = "x {2:output:LifeReservedMod}",
 		{ breakdown = "LifeReservedMod" },
-		{ modName = { "LifeReserved", "Reserved", "SupportManaMultiplier" }, cfg = "skill"}
+		{ modName = { "LifeReserved", "Reserved", "SupportManaMultiplier", "LifeReservationEfficiency", "ReservationEfficiency"  }, cfg = "skill"}
 	}, },
 	{ label = "Curse Effect Mod", haveOutput = "CurseEffectMod", { format = "x {2:output:CurseEffectMod}",
 		{ breakdown = "CurseEffectMod" },
@@ -682,6 +682,7 @@ return {
 		{ label = "Enemy Evasion modifiers", modName = { "Evasion", "CannotEvade" }, enemy = true },
 		{ label = "Player modifiers", modName = { "HitChance", "CannotBeEvaded", "IgnoreBlindHitChance" } },
 	}, },
+	{ label = "Effect of Blind", haveOutput = "BlindEffectMod", { format = "{0:output:BlindEffectMod}%", { breakdown = "BlindEffectMod" }, { modName = { "BlindEffect", "BuffEffectOnSelf" }, }, } },
 } }
 } },
 { 1, "Bleed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Bleed", data = {
@@ -1154,6 +1155,7 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "EnergyShield", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "EnergyShield", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:EnergyShield}", { breakdown = "EnergyShield" }, }, },
+	{ label = "Total Recoverable", haveOutput = "CappingES", { format = "{0:output:EnergyShieldRecoveryCap}", { breakdown = "EnergyShield" }, }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToEnergyShield", { format = "{1:output:EnergyShieldRecharge}", 
 		{ breakdown = "EnergyShieldRecharge" },
 		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecoveryRate", "NoEnergyShieldRecharge" }, },
@@ -1236,6 +1238,7 @@ return {
 	    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "ProjectileEvadeChance" } },
 	    { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
 	}, },
+	{ label = "Effect of Blind", haveOutput = "BlindEffectMod", { format = "{0:output:BlindEffectMod}%", { breakdown = "BlindEffectMod" }, { modName = { "BlindEffect", "BuffEffectOnSelf" }, }, } },
 } }
 } },
 { 1, "Resist", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Resists", data = {
@@ -1260,13 +1263,13 @@ return {
 } },
 { 1, "Block", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Block", data = {
 	extra = "{0:output:BlockChance}%/{0:output:SpellBlockChance}%",
-	{ label = "Block Chance", { format = "{0:output:BlockChance}%",
+	{ label = "Block Chance", { format = "{0:output:BlockChance}% (+{0:output:BlockChanceOverCap}%)",
 		{ breakdown = "BlockChance" },
 		{ modName = "BlockChance" }, 
 	}, },
-	{ label = "Spell Block Chance", { format = "{0:output:SpellBlockChance}%", 
+	{ label = "Spell Block Chance", { format = "{0:output:SpellBlockChance}% (+{0:output:SpellBlockChanceOverCap}%)", 
 		{ breakdown = "SpellBlockChance" }, 
-		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
+		{ modName = { "SpellBlockChance", "SpellBlockChanceIsBlockChance", "SpellBlockChanceMaxIsBlockChanceMax" }, },
 	}, },
 	{ label = "Taken From Block", haveOutput = "ShowBlockEffect", { format = "{0:output:DamageTakenOnBlock}%", 
 		{ breakdown = "BlockEffect" }, 
@@ -1309,10 +1312,24 @@ return {
 	{ label = "Bleed Avoid Ch.", haveOutput = "BleedAvoidChance", { format = "{0:output:BleedAvoidChance}%", { modName = "AvoidBleed" }, }, },
 	{ label = "Poison Avoid Ch.", haveOutput = "PoisonAvoidChance", { format = "{0:output:PoisonAvoidChance}%", { modName = "AvoidPoison" }, }, },
 	{ label = "Crit Reduction", haveOutput = "CritExtraDamageReduction", { format = "{0:output:CritExtraDamageReduction}%", { modName = "ReduceCritExtraDamage" }, }, },
+	{ label = "Blind Duration", haveOutput = "SelfBlindDuration", { format = "{0:output:SelfBlindDuration}%", { modName = "SelfBlindDuration" }, }, },
+} }, { defaultCollapsed = true, label = "Other Ailment Defences", data = {
+	{ label = "Freeze Duration", { format = "{1:output:SelfFreezeDuration}%", { modName = "SelfFreezeDuration" }, }, },
+	{ label = "Chill Duration", { format = "{1:output:SelfChillDuration}%", { modName = "SelfChillDuration" }, }, },
+	{ label = "Shock Duration", { format = "{1:output:SelfShockDuration}%", { modName = "SelfShockDuration" }, }, },
+	{ label = "Ignite Duration", { format = "{1:output:SelfIgniteDuration}%", { modName = "SelfIgniteDuration" }, }, },
+	{ label = "Bleed Duration", { format = "{1:output:SelfBleedDuration}%", { modName = "SelfBleedDuration" }, }, },
+	{ label = "Poison Duration", { format = "{1:output:SelfPoisonDuration}%", { modName = "SelfPoisonDuration" }, }, },
+	{ label = "Chill Effect", { format = "{1:output:SelfChillEffect}%", { modName = "SelfChillEffect" }, }, },
+	{ label = "Shock Effect", { format = "{1:output:SelfShockEffect}%", { modName = "SelfShockEffect" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
-	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
-	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
+	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)", { modName = "AttackDodgeChance" }, }, },
+	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)", { modName = "SpellDodgeChance" }, }, },
+} }, { defaultCollapsed = false, label = "Spell Suppression", data = {
+	extra = "{0:output:SpellSuppressionChance}%",
+	{ label = "Suppression Chance", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
+	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
 } },
 } },
 { 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
@@ -1464,6 +1481,12 @@ return {
 		{ format = "{1:output:ChaosSpellProjectileDamageChance}%",
 			{ breakdown = "ChaosSpellProjectileDamageChance" }, 
 		},
+	},
+}, }, { defaultCollapsed = false, label = "Chance to suppress Damage when Hit", data = {
+	{ label = "Spell Ch.", 
+		{ format = "{1:output:SpellSuppressionEffectiveChance}%", 
+			{ breakdown = "SpellSuppressionEffectiveChance" }, 
+		}, 
 	},
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	colWidth = 114,

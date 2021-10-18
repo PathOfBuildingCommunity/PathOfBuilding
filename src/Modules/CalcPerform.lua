@@ -44,7 +44,7 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	local icdr = 1
 	if focus then
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
-		env.player.mainSkill.skillData.focussed = true
+		env.player.mainSkill.skillData.focused = true
 	else
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 	end
@@ -418,6 +418,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if (actor.weaponData1.type == "Claw" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Claw" or actor.weaponData2.countsAsAll1H) then
 			condList["DualWieldingClaws"] = true
 		end
+		if (actor.weaponData1.type == "Dagger" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Dagger" or actor.weaponData2.countsAsAll1H) then
+			condList["DualWieldingDaggers"] = true
+		end
 		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.type) then
 			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
 			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
@@ -470,13 +473,13 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 	end
 	if env.mode_effective then
-		if modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "FireExposureChance") > 0 or modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
 			condList["CanApplyFireExposure"] = true
 		end
-		if modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ColdExposureChance") > 0 or modDB:Sum("BASE", nil, "ColdExposureChance") > 0 then
 			condList["CanApplyColdExposure"] = true
 		end
-		if modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
+		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "LightningExposureChance") > 0 or modDB:Sum("BASE", nil, "LightningExposureChance") > 0 then
 			condList["CanApplyLightningExposure"] = true
 		end
 	end
@@ -509,24 +512,30 @@ local function doActorAttribsPoolsConditions(env, actor)
 
 	-- Add attribute bonuses
 	if not modDB:Flag(nil, "NoAttributeBonuses") then
-		if not modDB:Flag(nil, "NoStrBonusToLife") then
-			modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+		if not modDB:Flag(nil, "NoStrengthAttributeBonuses") then
+			if not modDB:Flag(nil, "NoStrBonusToLife") then
+				modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+			end
+			local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
+			if strDmgBonusRatioOverride > 0 then
+				actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
+			else
+				actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+			end
+			modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
 		end
-		local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
-		if strDmgBonusRatioOverride > 0 then
-			actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
-		else
-			actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+		if not modDB:Flag(nil, "NoDexterityAttributeBonuses") then
+			modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
+			if not modDB:Flag(nil, "NoDexBonusToEvasion") then
+				modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
+			end
 		end
-		modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
-		modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
-		if not modDB:Flag(nil, "IronReflexes") then
-			modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
+		if not modDB:Flag(nil, "NoIntelligenceAttributeBonuses") then
+			if not modDB:Flag(nil, "NoIntBonusToMana") then
+				modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
+			end
+			modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 		end
-		if not modDB:Flag(nil, "NoIntBonusToMana") then
-			modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
-		end
-		modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 	end
 
 	-- Check shrine buffs, must be done before life pool calculated for massive shrine
@@ -582,6 +591,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
 		end
 	end
+	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
 end
 
 -- Calculate life/mana reservation
@@ -720,6 +730,7 @@ local function doActorMisc(env, actor)
 	output.TotalCharges = output.PowerCharges + output.FrenzyCharges + output.EnduranceCharges
 	modDB.multipliers["WarcryPower"] = output.WarcryPower
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
+	modDB.multipliers["PowerChargeMax"] = output.PowerChargesMax
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
 	modDB.multipliers["RemovableFrenzyCharge"] = output.RemovableFrenzyCharges
@@ -812,13 +823,22 @@ local function doActorMisc(env, actor)
 				effect = m_min(modDB:Override(nil, "ElusiveEffect") / 100, effect)
 			end
 			condList["Elusive"] = true
-			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
-			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidPhysicalDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidLightningDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidColdDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidFireDamageChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidChaosDamageChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
 		if modDB:Flag(nil, "Blind") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
-				modDB:NewMod("HitChance", "MORE", -50, "Blind")
+				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
+				-- Override Blind effect if set.			
+				if modDB:Override(nil, "BlindEffect") then 
+					effect = m_min(modDB:Override(nil, "BlindEffect") / 100, effect)
+				end
+				modDB:NewMod("Accuracy", "MORE", m_floor(-20 * effect), "Blind")
+				modDB:NewMod("Evasion", "MORE", m_floor(-20 * effect), "Blind")
 			end
 		end
 		if modDB:Flag(nil, "Chill") then
@@ -968,7 +988,6 @@ function calcs.perform(env, avoidCache)
 		end
 		if env.theIronMass and env.minion.type == "RaisedSkeleton" then
 			env.minion.modDB:AddList(env.theIronMass)
-			env.minion.modDB:NewMod("TripleDamageChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "HitRecentlyWithWeapon" })
 		end
 		if env.player.mainSkill.skillData.minionUseBowAndQuiver then
 			if env.player.weaponData1.type == "Bow" then
@@ -1223,7 +1242,6 @@ function calcs.perform(env, avoidCache)
 		end
 		if activeSkill.skillData.triggeredOnDeath and not activeSkill.skillFlags.minion then
 			activeSkill.skillData.triggered = true
-			activeSkill.skillData.triggerCostMultiplier = 0
 			for _, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
 				activeSkill.skillModList:NewMod("Damage", "INC", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 			end
@@ -1368,17 +1386,18 @@ function calcs.perform(env, avoidCache)
 			for name, values in pairs(pool) do
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
+				values.efficiency = skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
 					values.reservedFlat = activeSkill.skillData[name.."ReservationFlatForced"]
 				else
 					local baseFlatVal = m_floor(values.baseFlat * mult)
-					values.reservedFlat = m_max(baseFlatVal - m_modf(baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+					values.reservedFlat = m_max(m_modf((baseFlatVal - m_modf(baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100)) / (1 + values.efficiency / 100)), 0)
 				end
 				if activeSkill.skillData[name.."ReservationPercentForced"] then
 					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
 				else
 					local basePercentVal = values.basePercent * mult
-					values.reservedPercent = m_max(basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100, 0)
+					values.reservedPercent = m_max(m_modf((basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100) / (1 + values.efficiency / 100)), 0)
 				end
 				if activeSkill.activeMineCount then
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
@@ -1394,6 +1413,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
+							efficiency = values.efficiency ~= 0 and ("x " .. 1 / (1 + values.efficiency / 100)),
 							total = values.reservedFlat,
 						})
 					end
@@ -1409,6 +1429,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
+							efficiency = values.efficiency ~= 0 and ("x " .. 1 / (1 + values.efficiency / 100)),
 							total = values.reservedPercent .. "%",
 						})
 					end
@@ -1513,6 +1534,13 @@ function calcs.perform(env, avoidCache)
 	-- Apply effect of Bonechill support
 	if env.mode_effective and output.BonechillEffect then 
 		enemyDB:NewMod("ColdDamageTaken", "INC", output.BonechillEffect, "Bonechill", { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill Cold DoT Taken" }, { type = "Limit", limit = 30 }, { type = "Condition", var = "Chilled" } )
+	end
+
+	-- Deal with Consecrated Ground
+	if modDB:Flag(nil, "Condition:OnConsecratedGround") then
+		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+		modDB:NewMod("LifeRegenPercent", "BASE", 6 * effect, "Consecrated Ground")
+		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 	end
 
 	-- Combine buffs/debuffs 
@@ -2044,7 +2072,6 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
-			env.player.mainSkill.skillData.triggerCostMultiplier = 0
 			local uuid = cacheSkillUUID(source)
 			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
@@ -2349,7 +2376,6 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
-			env.player.mainSkill.skillData.triggerCostMultiplier = 2.5
 
 			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown)
 
@@ -2759,22 +2785,29 @@ function calcs.perform(env, avoidCache)
 	end
 
 	-- Apply exposures
-	for _, element in pairs({"Fire", "Cold", "Lightning"}) do
+	for _, element in ipairs({"Fire", "Cold", "Lightning"}) do
 		local min = math.huge
+		local source = ""
 		for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
 			if mod.value < min then
 				min = mod.value
+				source = mod.mod.source
 			end
 		end
 		if min ~= math.huge then
 			-- Modify the magnitude of all exposures
-			for _, value in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure")) do
-				local mod = value.mod
-				enemyDB:NewMod(element.."Resist", "BASE", mod.value, mod.source)
+			for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
+				min = min + mod.value
 			end
-			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+			enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
 			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
+	end
+
+	-- Handle consecrated ground effects on enemies
+	if enemyDB:Flag(nil, "Condition:OnConsecratedGround") then
+		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 
 	-- Defence/offence calculations

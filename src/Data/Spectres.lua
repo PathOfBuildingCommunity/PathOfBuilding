@@ -127,7 +127,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 	weaponType1 = "Wand",
 	skillList = {
 		"MeleeUseContactPoint",
-		"SkeletonTemporalChains",
+		"AxisTemporalChains",
 		"MonsterDetonateDeadExperimenter",
 		"ExperimenterEnrageDemon",
 	},
@@ -152,7 +152,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 	weaponType1 = "Wand",
 	skillList = {
 		"Melee",
-		"MonsterEnfeeble",
+		"AxisEnfeeble",
 		"MonsterProjectileWeakness",
 		"MonsterDetonateDeadExperimenter",
 	},
@@ -178,7 +178,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 	weaponType1 = "Wand",
 	skillList = {
 		"MeleeUseContactPoint",
-		"MonsterEnfeeble",
+		"AxisEnfeeble",
 		"NecromancerRaiseZombie",
 		"ExperimenterEnrageDemon",
 	},
@@ -3033,5 +3033,29 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
 		"UltimatumGuardConeArrowCold",
 	},
 	modList = {
+	},
+}
+-- Hyrri's Watch
+minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
+	name = "Hyrri's Watch",
+	life = 2.25,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 50,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"MeleeKaruiArcher",
+		"LegionKaruiArcherSnipe",
+	},
+	modList = {
+		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 	},
 }

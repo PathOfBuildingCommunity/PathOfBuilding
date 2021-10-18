@@ -1852,32 +1852,32 @@ return {
 			width=50
 		},
 		[20]={
-			list=false,
-			name="ModFamily",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[21]={
 			list=true,
 			name="ItemCategories",
 			refTo="CraftingItemClassCategories",
 			type="Key",
 			width=750
 		},
-		[22]={
+		[21]={
 			list=false,
 			name="",
 			refTo="",
 			type="Enum",
 			width=60
 		},
-		[23]={
+		[22]={
 			list=false,
 			name="UnlockCategories",
 			refTo="CraftingBenchUnlockCategories",
 			type="Key",
 			width=150
+		},
+		[23]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
 		},
 		[24]={
 			list=false,
@@ -1888,26 +1888,19 @@ return {
 		},
 		[25]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[26]={
-			list=false,
 			name="Affix",
 			refTo="",
 			type="String",
 			width=100
 		},
-		[27]={
+		[26]={
 			list=true,
 			name="",
 			refTo="CraftingItemClassCategories",
 			type="Key",
 			width=320
 		},
-		[28]={
+		[27]={
 			list=true,
 			name="",
 			refTo="",

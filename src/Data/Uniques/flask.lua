@@ -8,9 +8,11 @@ Sanctified Life Flask
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 50
-(5-20)% increased Recovery Speed
+{variant:1,2,3}(5-20)% increased Recovery Speed
+{variant:4}(35-50)% reduced Recovery Speed
 {variant:1}No Life Recovery Applies during Flask effect
 {variant:2}100% increased Amount Recovered
 {variant:3}50% increased Amount Recovered
@@ -85,7 +87,7 @@ Requires Level 30
 25% increased Light Radius during Flask effect
 {variant:1,2}+6% to all maximum Elemental Resistances during Flask effect
 {variant:3}+4% to all maximum Elemental Resistances during Flask effect
-{variant:4}+50% to all Elemental Resistances during Flask Effect
+{variant:4,5}+50% to all Elemental Resistances during Flask Effect
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask
@@ -117,14 +119,16 @@ Sulphur Flask
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 35
 Creates Consecrated Ground on Use
 {variant:1}(30-50)% increased Duration
 {variant:2}(20-40)% increased Duration
+{variant:3}(15-30)% reduced Duration
 Consecrated Ground created by this Flask has Tripled Radius
 {variant:1}+(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
-{variant:2}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
+{variant:2,3}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
 Consecrated Ground created during Effect applies (7-10)% increased Damage taken to Enemies
 ]],[[
 Coralito's Signature
@@ -143,10 +147,12 @@ Your Critical Strikes do not deal extra Damage during Flask effect
 Coruscating Elixir
 Ruby Flask
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 18
 Implicits: 0
 {variant:2}100% increased Duration
+{variant:3}25% increased Duration
 Chaos Damage does not bypass Energy Shield during effect
 Removes all but one Life on use
 Removed life is regenerated as Energy Shield over 2 seconds
@@ -188,14 +194,16 @@ Ruby Flask
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68
 {variant:2}(-10-10)% increased Charges used
-{variant:3}(125-150)% increased Charges used
+{variant:3,4}(125-150)% increased Charges used
 {variant:3}(40-60)% reduced duration
+{variant:4}(40-60)% less duration
 {variant:1}30% increased Area of Effect during Flask Effect
 {variant:2}(15-25)% increased Area of Effect during Flask Effect
-{variant:3}(10-20)% increased Area of Effect during Flask Effect
+{variant:3,4}(10-20)% increased Area of Effect during Flask Effect
 2 additional Projectiles during Flask Effect
 ]],[[
 Forbidden Taste

@@ -33,7 +33,7 @@ end
 
 -- Calculate physical damage reduction from armour, float
 function calcs.armourReductionF(armour, raw)
-	return (armour / (armour + raw * 10) * 100)
+	return (armour / (armour + raw * 5) * 100)
 end
 
 -- Calculate physical damage reduction from armour, int
@@ -76,19 +76,15 @@ function calcs.defence(env, actor)
 	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
-		local max, total
-		if elem == "Chaos" and modDB:Flag(nil, "ChaosInoculation") then
-			max = 100
-			total = 100
-		else
+		local min, max, total
+		min = data.misc.ResistFloor
 			max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
 			total = modDB:Override(nil, elem.."Resist")
 			if not total then
 				local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 				total = base * calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 			end
-		end
-		local final = m_min(total, max)
+		local final = m_max(m_min(total, max), min)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
@@ -96,6 +92,7 @@ function calcs.defence(env, actor)
 		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
+				"Min: "..min.."%",
 				"Max: "..max.."%",
 				"Total: "..total.."%",
 			}
@@ -129,10 +126,19 @@ function calcs.defence(env, actor)
 				if wardBase > 0 then
 					output["WardOn"..slot] = wardBase
 					if modDB:Flag(nil, "EnergyShieldToWard") then
-						ward = ward + wardBase * calcLib.mod(modDB, slotCfg, "Ward", "Defences", "EnergyShield")
+						local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
+						local more = modDB:More(slotCfg, "Ward", "Defences")
+						ward = ward + wardBase * (1 + inc / 100) * more
 						gearWard = gearWard + wardBase
 						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, wardBase, nil, "Ward", "Defences", "EnergyShield")
+							t_insert(breakdown["Ward"].slots, {
+								base = wardBase,
+								inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
+								more = (more ~= 1) and s_format(" x %.2f", more),
+								total = s_format("%.2f", wardBase * (1 + inc / 100) * more),
+								source = slot,
+								item = actor.itemList[slot],
+							})
 						end
 					else
 						ward = ward + wardBase * calcLib.mod(modDB, slotCfg, "Ward", "Defences")
@@ -146,10 +152,17 @@ function calcs.defence(env, actor)
 				if energyShieldBase > 0 then
 					output["EnergyShieldOn"..slot] = energyShieldBase
 					if modDB:Flag(nil, "EnergyShieldToWard") then
-						energyShield = energyShield + energyShieldBase
+						local more = modDB:More(slotCfg, "EnergyShield", "Defences")
+						energyShield = energyShield + energyShieldBase * more
 						gearEnergyShield = gearEnergyShield + energyShieldBase
 						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
+							t_insert(breakdown["EnergyShield"].slots, {
+								base = energyShieldBase,
+								more = (more ~= 1) and s_format(" x %.2f", more),
+								total = s_format("%.2f", energyShieldBase * more),
+								source = slot,
+								item = actor.itemList[slot],
+							})
 						end
 					else
 						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
@@ -194,9 +207,18 @@ function calcs.defence(env, actor)
 
 		if wardBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
-				ward = ward + wardBase * calcLib.mod(modDB, nil, "Ward", "EnergyShield", "Defences")
+				local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
+				local more = modDB:More(slotCfg, "Ward", "Defences")
+				ward = ward + wardBase * (1 + inc / 100) * more
 				if breakdown then
-					breakdown.slot("Global", nil, nil, wardBase, nil, "Ward", "EnergyShield", "Defences")
+					t_insert(breakdown["Ward"].slots, {
+						base = wardBase,
+						inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
+						more = (more ~= 1) and s_format(" x %.2f", more),
+						total = s_format("%.2f", wardBase * (1 + inc / 100) * more),
+						source = "Global",
+						item = actor.itemList["Global"],
+					})
 				end
 			else
 				ward = ward + wardBase * calcLib.mod(modDB, nil, "Ward", "Defences")
@@ -208,12 +230,19 @@ function calcs.defence(env, actor)
 		energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
 		if energyShieldBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
-				energyShield = energyShield + energyShieldBase
+				energyShield = energyShield + energyShieldBase * modDB:More(slotCfg, "EnergyShield", "Defences")
 			else
 				energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
 			end
 			if breakdown then
-				breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
+				local more = modDB:More(slotCfg, "EnergyShield", "Defences")
+				t_insert(breakdown["EnergyShield"].slots, {
+					base = energyShieldBase,
+					more = (more ~= 1) and s_format(" x %.2f", more),
+					total = s_format("%.2f", energyShieldBase * more),
+					source = "Global",
+					item = actor.itemList["Global"],
+				})
 			end
 		end
 		armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
@@ -284,7 +313,7 @@ function calcs.defence(env, actor)
 		end
 		local convEvasionToArmour = modDB:Sum("BASE", nil, "EvasionGainAsArmour")
 		if convEvasionToArmour > 0 then
-			armourBase = modDB:Sum("BASE", nil, "Evasion") * convEvasionToArmour / 100
+			armourBase = (modDB:Sum("BASE", nil, "Evasion") + gearEvasion) * convEvasionToArmour / 100
 			local total = armourBase * calcLib.mod(modDB, nil, "Evasion", "Armour", "ArmourAndEvasion", "Defences")
 			armour = armour + total
 			if breakdown then
@@ -301,6 +330,12 @@ function calcs.defence(env, actor)
 		output["Gear:EnergyShield"] = gearEnergyShield
 		output["Gear:Armour"] = gearArmour
 		output["Gear:Evasion"] = gearEvasion
+		output.CappingES = modDB:Flag(nil, "ArmourESRecoveryCap") and output.Armour < output.EnergyShield or modDB:Flag(nil, "EvasionESRecoveryCap") and output.Evasion < output.EnergyShield
+
+		if output.CappingES then
+			output.EnergyShieldRecoveryCap = modDB:Flag(nil, "ArmourESRecoveryCap") and modDB:Flag(nil, "EvasionESRecoveryCap") and m_min(output.Armour, output.Evasion) or modDB:Flag(nil, "ArmourESRecoveryCap") and output.Armour or modDB:Flag(nil, "EvasionESRecoveryCap") and output.Evasion
+		end
+
 		if modDB:Flag(nil, "CannotEvade") then
 			output.EvadeChance = 0
 			output.MeleeEvadeChance = 0
@@ -350,7 +385,9 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
 	else
-		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+		local totalBlockChance = (baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance")
+		output.BlockChance = m_min(totalBlockChance, output.BlockChanceMax)
+		output.BlockChanceOverCap = m_max(0, totalBlockChance - output.BlockChanceMax)
 	end
 	output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
 	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
@@ -361,13 +398,22 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
 		output.SpellBlockChance = output.BlockChance
 		output.SpellProjectileBlockChance = output.ProjectileBlockChance
+		output.SpellBlockChanceOverCap = output.BlockChanceOverCap
 	else
-		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
+		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax)
+		output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
 		output.SpellProjectileBlockChance = output.SpellBlockChance
 	end
 	if breakdown then
-		breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
-		breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
+		breakdown.BlockChance = {
+			"Base: "..baseBlockChance.."%",
+			"Max: "..output.BlockChanceMax.."%",
+			"Total: "..output.BlockChance+output.BlockChanceOverCap.."%",
+		}
+		breakdown.SpellBlockChance = {
+			"Max: "..output.SpellBlockChanceMax.."%",
+			"Total: "..output.SpellBlockChance+output.SpellBlockChanceOverCap.."%",
+		}
 	end
 	if modDB:Flag(nil, "CannotBlockAttacks") then
 		output.BlockChance = 0
@@ -390,12 +436,26 @@ function calcs.defence(env, actor)
 	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	-- Dodge
-	output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), data.misc.DodgeChanceCap)
-	output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), data.misc.DodgeChanceCap)
+	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
+	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+
+	-- Acrobatics Spell Suppression to Spell Dodge Chance conversion.
+	if modDB:Flag(nil, "ConvertSpellSuppressionToSpellDodge") then
+		local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
+		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
+	end
+
+	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
+	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+
+	output.AttackDodgeChance = m_min(totalAttackDodgeChance, data.misc.DodgeChanceCap)
+	output.SpellDodgeChance = m_min(totalSpellDodgeChance, data.misc.DodgeChanceCap)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
 		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
 	end
+	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - data.misc.DodgeChanceCap)
+	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - data.misc.DodgeChanceCap)
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
@@ -549,7 +609,7 @@ function calcs.defence(env, actor)
 				breakdown.LifeRecharge = { }
 				breakdown.multiChain(breakdown.LifeRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(20%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
+					base = s_format("%.1f ^8(33%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
@@ -569,7 +629,7 @@ function calcs.defence(env, actor)
 				breakdown.EnergyShieldRecharge = { }
 				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(20%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
+					base = s_format("%.1f ^8(33%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
@@ -623,6 +683,10 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "Elusive") then
 		output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
 	end
+
+	if enemyDB:Flag(nil, "Blind") then
+		output.BlindEffectMod = calcLib.mod(enemyDB, nil, "BlindEffect", "BuffEffectOnSelf") * 100
+	end
 	
 	-- damage avoidances
 	for _, damageType in ipairs(dmgTypeList) do
@@ -667,6 +731,17 @@ function calcs.defence(env, actor)
 	if breakdown then
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
+
+	-- Ailment duration on self	
+	output.SelfFreezeDuration = 100 * modDB:More(nil, "SelfFreezeDuration") * (1 + modDB:Sum("INC", nil, "SelfFreezeDuration") / 100) 
+	output.SelfBlindDuration = 100 * modDB:More(nil, "SelfBlindDuration") * (1 + modDB:Sum("INC", nil, "SelfBlindDuration") / 100)  
+	output.SelfShockDuration = 100 * modDB:More(nil, "SelfShockDuration") * (1 + modDB:Sum("INC", nil, "SelfShockDuration") / 100) 
+	output.SelfChillDuration = 100 * modDB:More(nil, "SelfChillDuration") * (1 + modDB:Sum("INC", nil, "SelfChillDuration") / 100) 
+	output.SelfIgniteDuration = 100 * modDB:More(nil, "SelfIgniteDuration") * (1 + modDB:Sum("INC", nil, "SelfIgniteDuration") / 100) 
+	output.SelfBleedDuration = 100 * modDB:More(nil, "SelfBleedDuration") * (1 + modDB:Sum("INC", nil, "SelfBleedDuration") / 100) 
+	output.SelfPoisonDuration = 100 * modDB:More(nil, "SelfPoisonDuration") * (1 + modDB:Sum("INC", nil, "SelfPoisonDuration") / 100)
+	output.SelfChillEffect = 100 * modDB:More(nil, "SelfChillEffect") * (1 + modDB:Sum("INC", nil, "SelfChillEffect") / 100)
+	output.SelfShockEffect = 100 * modDB:More(nil, "SelfShockEffect") * (1 + modDB:Sum("INC", nil, "SelfShockEffect") / 100)
 
 	-- Energy Shield bypass
 	output.AnyBypass = false
@@ -736,10 +811,10 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") and output[damageType.."EnergyShieldBypass"] < 100 then
 				manatext = manatext.." + non-bypassed energy shield"
 				if output[damageType.."EnergyShieldBypass"] > 0 then
-					local manaProtected = output.EnergyShield / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
+					local manaProtected = (output.EnergyShieldRecoveryCap or output.EnergyShield) / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
 					sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else 
-					sourcePool = sourcePool + output.EnergyShield
+					sourcePool = sourcePool + (output.EnergyShieldRecoveryCap or output.EnergyShield)
 				end
 			end
 			local poolProtected = sourcePool / (output[damageType.."MindOverMatter"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
@@ -787,10 +862,10 @@ function calcs.defence(env, actor)
 				manatext = manatext.." and non-bypassed Energy Shield"
 			else
 				if output[damageType.."EnergyShieldBypass"] > 0 then
-					local poolProtected = output.EnergyShield / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
+					local poolProtected = (output.EnergyShieldRecoveryCap or output.EnergyShield) / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
 					output[damageType.."TotalPool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else 
-					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.EnergyShield
+					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + (output.EnergyShieldRecoveryCap or output.EnergyShield)
 				end
 				if output[damageType.."GuardAbsorbRate"] > 0 then
 					local guardRemain = output[damageType.."GuardAbsorb"] - (output[damageType.."GuardEffectiveLife"] - output.LifeUnreserved)
@@ -1201,6 +1276,42 @@ function calcs.defence(env, actor)
 		output[damageType.."AverageDamageChance"] = (output[damageType.."MeleeDamageChance"] + output[damageType.."ProjectileDamageChance"] + output[damageType.."SpellDamageChance"] + output[damageType.."SpellProjectileDamageChance"] ) / 4
 	end
 
+	-- Spell Suppression
+
+	function chanceSuppressDamage(outputText, outputName, suppressionChance, suppressionEffect)
+		output[outputName] = 100 - (1 - suppressionChance * suppressionEffect / 100 / 100 ) * 100
+		if breakdown then
+			breakdown[outputName] = { }
+			if output.ShowBlockEffect then
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					{ "%d%% Damage taken from suppressed hits", 100 - suppressionEffect },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
+				})
+			else
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
+				})
+			end
+		end
+	end
+
+	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or modDB:Sum("BASE", nil, "SpellSuppressionChance")
+
+	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
+	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
+
+	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
+	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
+	end
+
+	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
+
+	chanceSuppressDamage("Spell hit", "SpellSuppressionEffectiveChance", output.SpellSuppressionChance, output.SpellSuppressionEffect)
+
 	--effective health pool vs dots
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."DotEHP"] = output[damageType.."TotalPool"] / output[damageType.."TakenDotMult"]
@@ -1280,6 +1391,9 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageType..damageConvertedType.."BaseTakenHitMult"])
+				if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+					damageTaken = damageTaken * ((100 - output.SpellSuppressionEffectiveChance) / 100)
+				end
 				local hitsTaken = math.ceil(output[damageConvertedType.."TotalPool"] / damageTaken)
 				hitsTaken = hitsTaken / (1 - output[damageCategory.."NotHitChance"] / 100)  / (1 - output[damageConvertedType..damageCategory.."DamageChance"] / 100)
 				if hitsTaken < output[damageType.."NumberOfHits"] then

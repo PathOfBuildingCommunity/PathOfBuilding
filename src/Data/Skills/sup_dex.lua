@@ -862,6 +862,7 @@ skills["SupportCastOnDeath"] = {
 		"spell_uncastable_if_triggerable",
 		"spell_only_castable_on_death",
 		"base_skill_show_average_damage_instead_of_dps",
+		"no_cost",
 	},
 	levels = {
 		[1] = { 100, 0, manaMultiplier = -100, levelRequirement = 38, statInterpolation = { 1, 1, }, cost = { }, },

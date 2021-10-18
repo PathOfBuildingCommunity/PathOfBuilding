@@ -123,6 +123,7 @@ local skills, mod, flag, skill = ...
 
 #skill BladeTrap
 #flags attack area trap
+#baseMod skill("radius", 16)
 #mods
 
 #skill ChargedAttack
@@ -1021,6 +1022,17 @@ local skills, mod, flag, skill = ...
 
 #skill CorrosiveShroud
 #flags spell area
+	statMap = {
+		["plague_bearer_movement_speed_+%_while_infecting"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
+		},
+		["corrosive_shroud_poison_dot_multiplier_+_while_aura_active"] = {
+			mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
+		},
+		["corrosive_shroud_poison_damage_+%_final_while_accumulating_poison"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerIncubating" }),
+		},
+	},
 #baseMod skill("radius", 25)
 #mods
 
@@ -1103,6 +1115,10 @@ local skills, mod, flag, skill = ...
 			mod("StormRainBeamFrequency", "INC", nil),
 		},
 	},
+#baseMod skill("radius", 10, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radiusLabel", "Arrow Explosion:", { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radiusSecondary", 12, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusSecondaryLabel", "Beam Width:", { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill Puncture
