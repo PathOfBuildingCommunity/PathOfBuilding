@@ -1124,6 +1124,7 @@ end,
 			mod("GuardAbsorbLimit", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 	},
+#baseMod mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" })
 #mods
 
 #skill Bloodreap
