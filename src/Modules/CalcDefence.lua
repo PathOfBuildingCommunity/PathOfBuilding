@@ -27,7 +27,7 @@ function calcs.hitChance(evasion, accuracy)
 	if accuracy < 0 then
 		return 5
 	end
-	local rawChance = accuracy / (accuracy + (evasion / 4) ^ 0.8) * 115
+	local rawChance = accuracy / (accuracy + (evasion / 5) ^ 0.9) * 125
 	return m_max(m_min(round(rawChance), 100), 5)	
 end
 
