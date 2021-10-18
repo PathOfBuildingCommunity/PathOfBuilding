@@ -233,8 +233,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						if index then
 							-- Node is already in the trace path, remove it first
 							t_remove(self.tracePath, index)
+							t_insert(self.tracePath, hoverNode)
+						elseif lastPathNode.type == "Mastery" then
+							hoverNode = nil
+						else
+							t_insert(self.tracePath, hoverNode)
 						end
-						t_insert(self.tracePath, hoverNode)	
 					else
 						hoverNode = nil
 					end
@@ -270,9 +274,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.buildFlag = true
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
-				spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
-				spec:AddUndoState()
-				build.buildFlag = true
+				if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
+					build.treeTab:OpenMasteryPopup(hoverNode)
+				else
+					spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
+					spec:AddUndoState()
+					build.buildFlag = true
+				end
 			end
 		end
 	elseif treeClick == "RIGHT" then
@@ -297,11 +305,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				or hoverNode.isNotable) then
 			build.treeTab:ModifyNodePopup(hoverNode)
 			build.buildFlag = true
+		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
+			build.treeTab:OpenMasteryPopup(hoverNode)
+			build.buildFlag = true
 		end
 	end
 
 	-- Draw the background artwork
-	local bg = tree.assets.Background1
+	local bg = tree.assets.Background2 or tree.assets.Background1
 	if bg.width == 0 then
 		bg.width, bg.height = bg.handle:ImageSize()
 	end
@@ -462,17 +473,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- Determine the base and overlay images for this node based on type and state
 		local compareNode = self.compareSpec and self.compareSpec.nodes[nodeId] or nil
 
-		local base, overlay
+		local base, overlay, effect
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId] or (compareNode and compareNode.alloc)
 		SetDrawLayer(nil, 25)
 		if node.type == "ClassStart" then
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
-		elseif node.type == "Mastery" then
-			-- This is the icon that appears in the center of many groups
-			SetDrawLayer(nil, 15)
-			base = node.sprites.mastery
 		else
 			local state
 			if self.showHeatMap or isAlloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
@@ -509,6 +516,21 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveAltRed"
 					end
 				end
+			elseif node.type == "Mastery" then
+				-- This is the icon that appears in the center of many groups
+				if node.masteryEffects then
+					if isAlloc then
+						base = node.masterySprites.activeIcon.masteryActiveSelected
+						effect = node.masterySprites.activeEffectImage.masteryActiveEffect
+					elseif node == hoverNode then
+						base = node.masterySprites.inactiveIcon.masteryConnected
+					else
+						base = node.masterySprites.inactiveIcon.masteryInactive
+					end
+				else
+					base = node.sprites.mastery
+				end
+				SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
@@ -589,7 +611,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(1, 1, 1)
 			end
 		end
-		
+
+		-- Draw master effect artwork
+		if effect then
+			self:DrawAsset(effect, scrX, scrY, scale)
+		end
+
 		-- Draw base artwork
 		if base then
 			self:DrawAsset(base, scrX, scrY, scale)
@@ -643,7 +670,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end
-		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and not IsKeyDown("CTRL") and not main.popups[1] then
+		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and (node.type ~= "Mastery" or node.masteryEffects) and not IsKeyDown("CTRL") and not main.popups[1] then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)
@@ -768,7 +795,7 @@ function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 end
 
 function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
-	if node.type == "ClassStart" or node.type == "Mastery" then
+	if node.type == "ClassStart" or (node.type == "Mastery" and not node.masteryEffects) then
 		return
 	end
 

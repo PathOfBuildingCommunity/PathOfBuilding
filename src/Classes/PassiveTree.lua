@@ -33,8 +33,8 @@ local orbit4Angle = { [0] = 0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110,
 for i, ang in ipairs(orbit4Angle) do
 	orbit4Angle[i] = m_rad(ang)
 end
-local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
-local orbitDist = { [0] = 0, 82, 162, 335, 493 }
+local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 6, m_pi / 36, m_pi / 36 }
+local orbitDist = { [0] = 0, 82, 162, 335, 493, 662, 845 }
 
 
 -- Retrieve the file at the given URL
@@ -135,7 +135,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -227,7 +227,13 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			allocAlt = "JewelSocketAltActive",
 			pathAlt = "JewelSocketAltCanAllocate",
 			unallocAlt = "JewelSocketAltNormal",
-		}
+		},
+		Mastery = {
+			artWidth = 65,
+			alloc = "AscendancyFrameLargeAllocated",
+			path = "AscendancyFrameLargeCanAllocate",
+			unalloc = "AscendancyFrameLargeNormal"
+		},
 	}
 	for type, data in pairs(self.nodeOverlay) do
 		local size = data.artWidth * 1.33
@@ -254,8 +260,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.notableMap = { }
 	self.clusterNodeMap = { }
 	self.sockets = { }
+	self.masteryEffects = { }
 	local nodeMap = { }
-	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
+	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 6, m_pi / 36, m_pi / 36 }
 	local orbitMultFull = {
 		[0] = 0,
 		[1] = 10 * m_pi / 180,
@@ -298,7 +305,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		[38] = 340 * m_pi / 180,
 		[39] = 350 * m_pi / 180
 	}
-	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
+	local orbitDist = { [0] = 0, 82, 162, 335, 493, 662, 845 }
 	for _, node in pairs(self.nodes) do
 		-- Migration...
 		if versionNum < 3.10 then
@@ -336,6 +343,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			ascendClass.startNodeId = node.id
 		elseif node.m or node.isMastery then
 			node.type = "Mastery"
+			if node.masteryEffects then
+				for _, effect in pairs(node.masteryEffects) do
+					if not self.masteryEffects[effect.effect] then
+						self.masteryEffects[effect.effect] = { id = effect.effect, sd = effect.stats }
+						self:ProcessStats(self.masteryEffects[effect.effect])
+					end
+				end
+			end
 		elseif node.isJewelSocket then
 			node.type = "Socket"
 			self.sockets[node.id] = node
@@ -390,7 +405,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			end
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
-			t_insert(other.linkedId, node.id)
 			if node.type ~= "ClassStart" and other.type ~= "ClassStart"
 				and node.type ~= "Mastery" and other.type ~= "Mastery"
 			  	and node.ascendancyName == other.ascendancyName
@@ -398,6 +412,12 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			  	and not node.group.isProxy and not node.group.isProxy then
 					t_insert(self.connectors, self:BuildConnector(node, other))
 			end
+		end
+		for _, otherId in pairs(node["in"] or {}) do
+			if type(otherId) == "string" then
+				otherId = tonumber(otherId)
+			end
+			t_insert(node.linkedId, otherId)
 		end
 	end
 	-- Precalculate the lists of nodes that are within each radius of each socket
@@ -410,7 +430,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
 			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
 			for _, node in pairs(self.nodes) do
-				if node ~= socket and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy then
+				if node ~= socket and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery then
 					local vX, vY = node.x - socket.x, node.y - socket.y
 					local euclideanDistanceSquared = vX * vX + vY * vY
 					if innerRadiusSquared <= euclideanDistanceSquared then
@@ -454,102 +474,11 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.sprites = { }
 		end
 
-		-- Parse node modifier lines
-		node.mods = { }
-		node.modKey= ""
-		local i = 1
-		if node.passivePointsGranted > 0 then
-			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
-		end
-		while node.sd[i] do
-			if node.sd[i]:match("\n") then
-				local line = node.sd[i]
-				local il = i
-				t_remove(node.sd, i)
-				for line in line:gmatch("[^\n]+") do
-					t_insert(node.sd, il, line)
-					il = il + 1
-				end
-			end
-			local line = node.sd[i]
-			local list, extra = modLib.parseMod(line)
-			if not list or extra then
-				-- Try to combine it with one or more of the lines that follow this one
-				local endI = i + 1
-				while node.sd[endI] do
-					local comb = line
-					for ci = i + 1, endI do
-						comb = comb .. " " .. node.sd[ci]
-					end
-					list, extra = modLib.parseMod(comb, true)
-					if list and not extra then
-						-- Success, add dummy mod lists to the other lines that were combined with this one
-						for ci = i + 1, endI do
-							node.mods[ci] = { list = { } }
-						end
-						break
-					end
-					endI = endI + 1
-				end
-			end
-			if not list then
-				-- Parser had no idea how to read this modifier
-				node.unknown = true
-			elseif extra then
-				-- Parser recognised this as a modifier but couldn't understand all of it
-				node.extra = true
-			else
-				for _, mod in ipairs(list) do
-					node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
-				end
-			end
-			node.mods[i] = { list = list, extra = extra }
-			i = i + 1
-			while node.mods[i] do
-				-- Skip any lines with dummy lists added by the line combining code
-				i = i + 1
-			end
-		end
-		node.modList = new("ModList")
-		for _, mod in pairs(node.mods) do
-			if mod.list and not mod.extra then
-				for i, mod in ipairs(mod.list) do
-					mod.source = "Tree:"..node.id
-					if type(mod.value) == "table" and mod.value.mod then
-						mod.value.mod.source = mod.source
-					end
-					node.modList:AddMod(mod)
-				end
-			end
-		end
-		if node.type == "Keystone" then
-			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
-		end
+		self:ProcessStats(node)
 	end
 end)
 
--- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
-function PassiveTreeClass:ProcessNode(node)
-	-- Assign node artwork assets
-	node.sprites = self.spriteMap[node.icon]
-	if not node.sprites then
-		--error("missing sprite "..node.icon)
-		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
-	end
-	node.overlay = self.nodeOverlay[node.type]
-	if node.overlay then
-		node.rsq = node.overlay.rsq
-		node.size = node.overlay.size
-	end
-
-	-- Derive the true position of the node
-	if node.group then
-		node.angle = node.o == 4 and orbit4Angle[node.oidx] or node.oidx * orbitMult[node.o]
-		local dist = orbitDist[node.o]
-		node.x = node.group.x + m_sin(node.angle) * dist
-		node.y = node.group.y - m_cos(node.angle) * dist
-	end
-
+function PassiveTreeClass:ProcessStats(node)
 	node.modKey = ""
 	if not node.sd then
 		return
@@ -624,6 +553,35 @@ function PassiveTreeClass:ProcessNode(node)
 	if node.type == "Keystone" then
 		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
 	end
+end
+
+-- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
+function PassiveTreeClass:ProcessNode(node)
+	-- Assign node artwork assets
+	if node.type == "Mastery" and node.masteryEffects then
+		node.masterySprites = { activeIcon = self.spriteMap[node.activeIcon], inactiveIcon = self.spriteMap[node.inactiveIcon], activeEffectImage = self.spriteMap[node.activeEffectImage] }
+	else
+		node.sprites = self.spriteMap[node.icon]
+	end
+	if not node.sprites then
+		--error("missing sprite "..node.icon)
+		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
+	end
+	node.overlay = self.nodeOverlay[node.type]
+	if node.overlay then
+		node.rsq = node.overlay.rsq
+		node.size = node.overlay.size
+	end
+
+	-- Derive the true position of the node
+	if node.group then
+		node.angle = node.o == 4 and orbit4Angle[node.oidx] or node.oidx * orbitMult[node.o]
+		local dist = orbitDist[node.o]
+		node.x = node.group.x + m_sin(node.angle) * dist
+		node.y = node.group.y - m_cos(node.angle) * dist
+	end
+
+	self:ProcessStats(node)
 end
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
