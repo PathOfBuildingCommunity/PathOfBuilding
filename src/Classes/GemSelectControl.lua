@@ -477,7 +477,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	if addReq then
 		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
 			gemInstance.level, 
-			(displayInstance.level > gemInstance.level) and " ("..colorCodes.MAGIC.."+"..(displayInstance.level - gemInstance.level).."^7)" or "",
+			((displayInstance.level > gemInstance.level) and " ("..colorCodes.MAGIC.."+"..(displayInstance.level - gemInstance.level).."^7)") or ((displayInstance.level < gemInstance.level) and " ("..colorCodes.WARNING.."-"..(gemInstance.level - displayInstance.level).."^7)") or "",
 			(gemInstance.level >= gemInstance.gemData.defaultLevel) and " (Max)" or ""
 		))
 	end
