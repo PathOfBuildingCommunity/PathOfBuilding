@@ -121,18 +121,18 @@ function PassiveSpecClass:Load(xml, dbFileName)
 			end
 		end
 		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
-		if xml.attrib.allocationOrder then
-			for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
-				table.insert(self.allocationOrder, tonumber(nodeId))
-			end
-			self:ReIndexAllocationOrder("allocationOrder")
-		end
-		if xml.attrib.ascendancyAllocationOrder then
-			for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
-				table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
-			end
-			self:ReIndexAllocationOrder("ascendancyAllocationOrder")
-		end
+		-- if xml.attrib.allocationOrder then
+		-- 	for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
+		-- 		table.insert(self.allocationOrder, tonumber(nodeId))
+		-- 	end
+		-- 	self:ReIndexAllocationOrder("allocationOrder")
+		-- end
+		-- if xml.attrib.ascendancyAllocationOrder then
+		-- 	for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
+		-- 		table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
+		-- 	end
+		-- 	self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+		-- end
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -394,7 +394,6 @@ end
 
 -- Clear the allocated status of all non-class-start nodes
 function PassiveSpecClass:ResetNodes()
-	ConPrintf("reset")
 	for id, node in pairs(self.nodes) do
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			node.alloc = false
@@ -466,7 +465,6 @@ end
 -- An alternate path to the node may be provided, otherwise the default path will be used
 -- The path must always contain the given node, as will be the case for the default path
 function PassiveSpecClass:AllocNode(node, altPath)
-	ConPrintTable(self.allocationOrder)
 	if not node.path then
 		-- Node cannot be connected to the tree as there is no possible path
 		return
@@ -955,7 +953,11 @@ end
 function PassiveSpecClass:BuildClusterJewelGraphs()
 	-- Remove old subgraphs
 	for id, subGraph in pairs(self.subGraphs) do
+		if type(subGraph.nodes) == "tree" then
+			self:SortNodesForRemovingFromAllocationOrder(subGraph.nodes)
+		end
 		for _, node in ipairs(subGraph.nodes) do
+			self:RemoveFromAllocationOrder(node)
 			if node.id then
 				self.nodes[node.id] = nil
 				if self.allocNodes[node.id] then
@@ -965,6 +967,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				end
 			end
 		end
+		self:ReIndexAllocationOrder("allocationOrder")
 		local index = isValueInArray(subGraph.parentSocket.linked, subGraph.entranceNode)
 		assert(index, "Entrance for subGraph not linked to parent socket???")
 		t_remove(subGraph.parentSocket.linked, index)
@@ -995,7 +998,11 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	end
 
 	-- (Re-)allocate subgraph nodes
-	for _, nodeId in ipairs(self.allocSubgraphNodes) do
+	local sortedAllocSubgraphNodes = {}
+	for i=#self.allocSubgraphNodes, 1, -1 do
+		sortedAllocSubgraphNodes[#sortedAllocSubgraphNodes+1] = self.allocSubgraphNodes[i]
+	end
+	for _, nodeId in ipairs(sortedAllocSubgraphNodes) do
 		local node = self.nodes[nodeId]
 		if node then
 			node.alloc = true
@@ -1003,6 +1010,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				self.allocNodes[nodeId] = node
 				t_insert(self.allocExtendedNodes, nodeId)
 			end
+			self:SetAllocationOrder(node)
 		end
 	end
 	wipeTable(self.allocSubgraphNodes)
