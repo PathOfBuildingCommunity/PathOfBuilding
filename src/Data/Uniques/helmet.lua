@@ -126,7 +126,7 @@ Requires Level 64, 138 Dex
 +(20-30)% to Cold Resistance
 25% chance to Avoid being Chilled
 Cannot be Frozen
-16% increased Mana Reservation Efficiency of Skills
+8% reduced Reservation of Skills
 ]],[[
 Replica Alpha's Howl
 Sinner Tricorne
@@ -136,7 +136,7 @@ Requires Level 64, 138 Dex
 (80-100)% increased Evasion Rating
 +(20-30)% to Chaos Resistance
 25% chance to Avoid being Poisoned
-16% increased Mana Reservation Efficiency of Skills
+8% reduced Reservation of Skills
 You cannot be Hindered
 ]],[[
 Assailum
@@ -148,7 +148,8 @@ Socketed Non-Channelling Bow Skills are Triggered by Snipe
 Socketed Triggered Bow Skills deal 40% less Damage
 +(350-500) to Accuracy Rating
 +(350-500) to Evasion Rating
-(14-20)% chance to Suppress Spell Damage while Channelling
+(7-10)% chance to Dodge Attack Hits while Channelling
+(7-10)% chance to Dodge Spell Hits while Channelling
 ]],[[
 Fairgraves' Tricorne
 Tricorne
@@ -385,7 +386,7 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 +1 to Level of Socketed Gems
-{variant:1,2,3,4,5,6,7,8,9,10,12}Socketed Gems have 40% increased Mana Reservation Efficiency
+{variant:1,2,3,4,5,6,7,8,9,10,12}Socketed Gems have 20% reduced Reservation
 {variant:13,14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
@@ -950,7 +951,7 @@ Requires Level 58, 64 Str, 64 Int
 {variant:2}Nearby Allies have 1% chance to Block Attack Damage per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
-2% increased Mana Reservation Efficiency of Skills per 250 total Attributes
+1% reduced Reservation of Skills per 250 total Attributes
 ]],[[
 Maw of Mischief
 Bone Helmet
@@ -973,7 +974,7 @@ Requires Level 68, 62 Str, 91 Int
 +(150-200) to maximum Mana
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
-{variant:1}20% reduced Mana Reservation Efficiency of Skills
+{variant:1}10% increased Reservation of Skills
 {variant:2}20% reduced Reservation Efficiency
 {variant:1}Gain Armour equal to your Reserved Mana
 {variant:2}1% increased Armour per 50 Reserved Mana
@@ -1166,7 +1167,7 @@ Requires Level 67, 73 Dex, 88 Int
 {variant:1}+2 to Level of Socketed Curse Gems
 {variant:2,3,4}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-{variant:1,2,3}Socketed Curse Gems have 24% increased Mana Reservation Efficiency
+{variant:1,2,3}Socketed Curse Gems have 12% reduced Reservation
 {variant:4}Socketed Curse Gems have 20% increased Reservation Efficiency
 ]],[[
 Leer Cast

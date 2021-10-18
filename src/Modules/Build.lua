@@ -193,8 +193,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
 		elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
 		elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
-		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
-		if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
+		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4]
+		elseif levelreq < 90 and currentAct <= 10 then strAct = currentAct end
 		
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
 		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
@@ -395,9 +395,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, overCapStat = "LightningResistOverCap" },
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return not o.ChaosInoculation end, overCapStat = "ChaosResistOverCap" },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, overCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
-		{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
 		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 		{ },
@@ -641,31 +640,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
 	}
-
-	-- so we ran into problems with converted trees, trying to check passive tree routes and also consider thread jewels
-	-- but we cant check jewel info because items have not been loaded yet, and they come after passives in the xml.
-	-- the simplest solution seems to be making sure passive trees (which contain jewel sockets) are loaded last.
-	local deferredPassiveTrees = { }
 	for _, node in ipairs(self.xmlSectionList) do
 		-- Check if there is a saver that can load this section
 		local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
 		if saver then
-			-- if the saver is treetab, defer it until everything is is loaded
-			if saver == self.treeTab  then
-				t_insert(deferredPassiveTrees, node)
-			else
-				if saver:Load(node, self.dbFileName) then
-					self:CloseBuild()
-					return
-				end
+			if saver:Load(node, self.dbFileName) then
+				self:CloseBuild()
+				return
 			end
-		end
-	end
-	for _, node in ipairs(deferredPassiveTrees) do
-		-- Check if there is a saver that can load this section
-		if self.treeTab:Load(node, self.dbFileName) then
-			self:CloseBuild()
-			return
 		end
 	end
 	for _, saver in pairs(self.savers) do
@@ -1189,13 +1171,13 @@ end
 function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
-	local color = (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
+	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
 
 	if overCapStatVal and overCapStatVal > 0 then
-		valStr = valStr .. "^x808080" .. " (+" .. s_format("%d", overCapStatVal) .. "%)"
+		valStr = valStr .. "^x808080" .. " (+" .. overCapStatVal .. "%)"
 	end
 	self.lastShowThousandsSeparators = main.showThousandsSeparators
 	self.lastShowThousandsSeparator = main.thousandsSeparator
@@ -1208,14 +1190,14 @@ end
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
-		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
-			local labelColor = "^7"
-				if statData.color then
-					labelColor = statData.color
-				end
-			if statData.stat then
+		if statData.stat then
+			if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
 				local statVal = actor.output[statData.stat]
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
+					local labelColor = "^7"
+					if statData.color then
+						labelColor = statData.color
+					end
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
@@ -1257,13 +1239,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 						})
 					end
 				end
-			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
-				t_insert(statBoxList, { 
-					height = 16, labelColor..statData.label..":", 
-					"^7"..actor.output[statData.labelStat].."%^x808080" .. " (" .. statData.val  .. ")",})
-			elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
-				t_insert(statBoxList, { height = 6 })
 			end
+		elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
+			t_insert(statBoxList, { height = 6 })
 		end
 	end
 end

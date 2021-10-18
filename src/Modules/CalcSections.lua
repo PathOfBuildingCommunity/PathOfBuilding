@@ -1124,9 +1124,7 @@ return {
 		{ modName = "EnergyShieldRechargeFaster" },
 	}, },
 	{ label = "Regen", { format = "{1:output:LifeRegen} ({1:output:LifeRegenPercent}%)", 
-		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen", "LifeDegen", "LifeRecovery" }, modType = "BASE" },
-		{ label = "Increased Life Regeneration Rate", modName = { "LifeRegen" }, modType = "INC" },
-		{ label = "More Life Regeneration Rate", modName = { "LifeRegen" }, modType = "MORE" },
+		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen", "LifeDegen", "LifeRecovery" }, modType = "BASE" }, 
 		{ label = "Recovery modifiers", modName = "LifeRecoveryRate" },
 	}, },
 } }
@@ -1278,11 +1276,10 @@ return {
 		{ modName = { "BlockEffect" }, },
 	}, },
 } }, { defaultCollapsed = true, label = "Gain on Block", data = {
-	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}/{0:output:EnergyShieldOnSpellBlock}",
+	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}",
 	{ label = "Life on Block", { format = "{0:output:LifeOnBlock}", { modName = "LifeOnBlock" }, }, },
 	{ label = "Mana on Block", { format = "{0:output:ManaOnBlock}", { modName = "ManaOnBlock" }, }, },
 	{ label = "ES on Block", { format = "{0:output:EnergyShieldOnBlock}", { modName = "EnergyShieldOnBlock" }, }, },
-	{ label = "ES on Spell Block", { format = "{0:output:EnergyShieldOnSpellBlock}", { modName = "EnergyShieldOnSpellBlock" }, }, },
 } },
 } },
 { 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
@@ -1331,7 +1328,7 @@ return {
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)", { modName = "SpellDodgeChance" }, }, },
 } }, { defaultCollapsed = false, label = "Spell Suppression", data = {
 	extra = "{0:output:SpellSuppressionChance}%",
-	{ label = "Suppression Ch.", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
+	{ label = "Suppression Chance", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
 	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
 } },
 } },

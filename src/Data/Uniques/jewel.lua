@@ -500,7 +500,8 @@ Limited to: 1
 Radius: Medium
 Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
-Minions have (20-24)% chance to Suppress Spell Damage
+Minions have (10-12)% chance to Dodge Attack Hits
+Minions have (10-12)% chance to Dodge Spell Hits
 Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
@@ -1502,7 +1503,7 @@ Crimson Jewel
 Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
-4% increased Mana Reservation Efficiency of Skills
+2% reduced Reservation of Skills
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
@@ -1519,10 +1520,8 @@ Variant: Current
 Limited to: 1
 {variant:1}3% chance to Avoid Elemental Ailments
 {variant:2}10% chance to Avoid Elemental Ailments
-{variant:1}8% increased Life Recovery from Flasks
-{variant:2}10% increased Life Recovery from Flasks
-{variant:1}3% chance to Suppress Spell Damage
-{variant:2}5% chance to Suppress Spell Damage
+8% increased Life Recovery from Flasks
+2% chance to Dodge Attacks
 ]],[[
 Conqueror's Potency
 Cobalt Jewel

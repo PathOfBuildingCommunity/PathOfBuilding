@@ -312,6 +312,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
+		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
+			build.treeTab:OpenMasteryPopup(hoverNode)
+			build.buildFlag = true
 		end
 	end
 

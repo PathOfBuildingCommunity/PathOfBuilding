@@ -299,7 +299,8 @@ Requires Level 65, 197 Dex
 {variant:2,3,4,5,6}(140-220)% increased Evasion Rating
 25% increased Chill Duration on Enemies
 {variant:1,2}Acrobatics
-{variant:3,4,5,6}30% chance to Suppress Spell Damage
+{variant:3,4,5,6}10% chance to Dodge Attacks
+{variant:3,4,5,6}10% chance to Dodge Spell Damage
 ]],[[
 Kintsugi
 Exquisite Leather
@@ -504,9 +505,9 @@ Requires Level 65, 187 Int
 Socketed Curse Gems are Supported by Level 20 Blasphemy 
 Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
-Hexes from Socketed Skills can apply 5 additional Curses
+Hexes from Socketed Skills ignore Curse Limit
 +(30-40) to Intelligence 
-(130-150)% increased Energy Shield
+(130-150)% increased Energy Shield 
 {variant:1}(25-33)% reduced Effect of your Curses
 ]],[[
 Fenumus' Shroud
@@ -712,8 +713,8 @@ You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 second per Endurance Charge when Hit
-{variant:3,4}You gain Onslaught for 5 second per Endurance Charge when Hit
-{variant:3,4}(60-100)% increased Onslaught Effect
+{variant:3}You gain Onslaught for 5 second per Endurance Charge when Hit
+{variant:3}(60-100)% increased Onslaught Effect
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -999,16 +1000,13 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 [[
 Bloodbond
 Bone Armour
-Variant: Pre 3.16.0
-Variant: Current
 Requires Level 35, 53 Dex, 53 Int
 Grants Level 15 Blood Offering Skill 
 (100-120)% increased Evasion and Energy Shield 
 (15-25)% increased maximum Life 
 Minions have (20-30)% increased maximum Life 
 1% of Life Regenerated per second 
-{variant:1}Minions have (6-10)% chance to Suppress Spell Damage
-{variant:2}Minions have (12-15)% chance to Suppress Spell Damage
+Minions have (6-10)% chance to Dodge Attacks 
 ]],[[
 Carcass Jack
 Varnished Coat
@@ -1138,7 +1136,7 @@ Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 65, 107 Dex, 90 Int
 +(25-75) to all Attributes
 +(30-40)% to Lightning Resistance
-(12-20)% increased Mana Reservation Efficiency of Skills
+(6-10)% reduced Reservation of Skills
 100% increased Aspect of the Avian Buff Effect
 Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
 +(120-150) to Evasion Rating and Energy Shield
@@ -1191,8 +1189,8 @@ Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
-{variant:1}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:2}Socketed Gems have 60% increased Mana Reservation Efficiency
+{variant:1}Socketed Gems have 20% reduced Reservation
+{variant:2}Socketed Gems have 30% reduced Reservation
 {variant:3}Socketed Gems have 45% increased Reservation Efficiency
 {variant:1}Socketed Gems are Supported by level 1 Generosity
 {variant:2,3}Socketed Gems are Supported by level 30 Generosity

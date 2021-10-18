@@ -63,6 +63,10 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	self.allocationOrder = { }
 	self.ascendancyAllocationOrder = { }
 
+	-- Keys are mastery node IDs, values are mastery effect IDs
+	self.masterySelections = { }
+
+
 	self:SelectClass(0)
 end)
 
@@ -120,7 +124,8 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				masteryEffects[tonumber(mastery)] = tonumber(effect)
 			end
 		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
+-- <<<<<<< HEAD
+		-- self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
 		-- if xml.attrib.allocationOrder then
 		-- 	for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
 		-- 		table.insert(self.allocationOrder, tonumber(nodeId))
@@ -133,6 +138,21 @@ function PassiveSpecClass:Load(xml, dbFileName)
 		-- 	end
 		-- 	self:ReIndexAllocationOrder("ascendancyAllocationOrder")
 		-- end
+-- =======
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
+-- 		if xml.attrib.allocationOrder then
+-- 			for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
+-- 				table.insert(self.allocationOrder, tonumber(nodeId))
+-- 			end
+-- 			self:ReIndexAllocationOrder("allocationOrder")
+-- 		end
+-- 		if xml.attrib.ascendancyAllocationOrder then
+-- 			for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
+-- 				table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
+-- 			end
+-- 			self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+-- 		end
+-- >>>>>>> Resolve merge with dev for passive masteries conflicts
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -220,7 +240,8 @@ function PassiveSpecClass:Save(xml)
 		nodes = table.concat(allocNodeIdList, ","),
 		masteryEffects = table.concat(masterySelections, ","),
 		allocationOrder = table.concat(self.allocationOrder, ","),
-		ascendancyAllocationOrder = table.concat(self.ascendancyAllocationOrder, ",")
+		ascendancyAllocationOrder = table.concat(self.ascendancyAllocationOrder, ","),
+		masteryEffects = table.concat(masterySelections, ",")
 	}
 	t_insert(xml, {
 		-- Legacy format
@@ -519,7 +540,7 @@ end
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
 	self:SortNodesForRemovingFromAllocationOrder(node, node.depends)
-
+	local effect
 	for _, depNode in ipairs(node.depends) do
 		self:DeallocSingleNode(depNode)
 	end
