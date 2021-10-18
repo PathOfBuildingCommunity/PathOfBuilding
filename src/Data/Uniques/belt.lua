@@ -542,13 +542,16 @@ Implicits: 1
 ]],[[
 Perseverance
 Vanguard Belt
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 78
 Implicits: 1
 {tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
 {tags:life}(4-8)% increased maximum Life
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
-{tags:attack}(14-20)% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:1}{tags:attack}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:2}{tags:attack}Melee Hits which Stun Fortify
 You have Onslaught while you have Fortify
 ]],[[
 Prismweave
