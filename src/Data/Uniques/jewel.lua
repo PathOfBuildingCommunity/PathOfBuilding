@@ -500,8 +500,7 @@ Limited to: 1
 Radius: Medium
 Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
-Minions have (10-12)% chance to Dodge Attack Hits
-Minions have (10-12)% chance to Dodge Spell Hits
+Minions have (20-24)% chance to Suppress Spell Damage
 Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
