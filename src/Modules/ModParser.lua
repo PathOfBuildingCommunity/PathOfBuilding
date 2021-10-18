@@ -775,6 +775,7 @@ local preFlagList = {
 	["^attacks with two handed melee weapons [hd][ae][va][el] "] = { flags = bor(ModFlag.Weapon2H, ModFlag.WeaponMelee) },
 	["^attacks with ranged weapons [hd][ae][va][el] "] = { flags = ModFlag.WeaponRanged },
 	-- Damage types
+	["^attack damage "] = { flags = ModFlag.Attack },
 	["^hits deal "] = { keywordFlags = KeywordFlag.Hit },
 	["^critical strikes deal "] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	["^poisons you inflict with critical strikes have "] = { keywordFlags = bor(KeywordFlag.Poison, KeywordFlag.MatchAll), tag = { type = "Condition", var = "CriticalStrike" } },
