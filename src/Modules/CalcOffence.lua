@@ -510,6 +510,9 @@ function calcs.offence(env, actor, activeSkill)
 			if band(mod.flags, ModFlag.Spell) ~= 0 then
 				local modifiers = getConvertedModTags(mod, multiplier)
 				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(modifiers))
+				if mod.source == "Strength" then -- Prevent double-dipping from converted strength's damage bonus
+					skillModList:ReplaceMod("PhysicalDamage", "INC", 0, "Strength", ModFlag.Melee)
+				end
 			end
 		end
 	end
@@ -830,13 +833,20 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
-		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
-		if breakdown then
-			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "Reserved", "SupportManaMultiplier")
-		end
-		output.LifeReservedMod = calcLib.mod(skillModList, skillCfg, "LifeReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
-		if breakdown then
-			breakdown.LifeReservedMod = breakdown.mod(skillModList, skillCfg, "LifeReserved", "Reserved", "SupportManaMultiplier")
+		for _, pool in ipairs({"Life", "Mana"}) do
+			output[pool .. "ReservedMod"] = calcLib.mod(skillModList, skillCfg, pool .. "Reserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")
+			if breakdown then
+				local inc = skillModList:Sum("INC", skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
+				local more = skillModList:More(skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
+				if inc ~= 0 and more ~= 1 then
+					breakdown[pool .. "ReservedMod"] = {
+						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
+						s_format("x %.2f ^8(more/less)", more),
+						s_format("/ %.2f ^8(reservation efficiency)", calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")),
+						s_format("= %.2f", output[pool .. "ReservedMod"]),
+					}
+				end
+			end
 		end
 	end
 	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
@@ -1837,6 +1847,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
+		if modDB:Flag(nil, "CritChanceIncreasedBySuppressionChance") then
+			local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
+			if modDB:Override("OVERRIDE", nil, "SpellSuppressionChance") then
+				SpellSuppressionChance = modDB:Sum("OVERRIDE", nil, "SpellSuppressionChance")
+			end
+			modDB:NewMod("CritChance", "INC", SpellSuppressionChance, "Spell Suppression Mastery")
+		end
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
@@ -2146,7 +2163,7 @@ function calcs.offence(env, actor, activeSkill)
 								resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
-							resist = m_min(resist, data.misc.EnemyMaxResist)
+							resist = m_max(m_min(resist, data.misc.EnemyMaxResist), data.misc.ResistFloor)
 						end
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
@@ -3154,7 +3171,7 @@ function calcs.offence(env, actor, activeSkill)
 					output.TotalIgniteDPS = output.IgniteDPS * output.TotalIgniteStacks
 				end
 				if breakdown then
-					t_insert(breakdown.IgniteDPS, "x 0.5 ^8(ignite deals 50% per second)")
+					t_insert(breakdown.IgniteDPS, "x 1.25 ^8(ignite deals 125% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.IgniteDPS, {
 						label = "Ignite DPS:",

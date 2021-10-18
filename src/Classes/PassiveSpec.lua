@@ -55,6 +55,9 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	-- Keys are subgraph IDs, values are graphs
 	self.subGraphs = { }
 
+	-- Keys are mastery node IDs, values are mastery effect IDs
+	self.masterySelections = { }
+
 	self:SelectClass(0)
 end)
 
@@ -101,7 +104,13 @@ function PassiveSpecClass:Load(xml, dbFileName)
 		for hash in xml.attrib.nodes:gmatch("%d+") do
 			t_insert(hashList, tonumber(hash))
 		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
+		local masteryEffects = { }
+		if xml.attrib.masteryEffects then
+			for mastery, effect in xml.attrib.masteryEffects:gmatch("{(%d+),(%d+)}") do
+				masteryEffects[tonumber(mastery)] = tonumber(effect)
+			end
+		end
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -148,6 +157,10 @@ function PassiveSpecClass:Save(xml)
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	local masterySelections = { }
+	for mastery, effect in pairs(self.masterySelections) do
+		t_insert(masterySelections, "{"..mastery..","..effect.."}")
+	end
 	local editedNodes = {
 		elem = "EditedNodes"
 	}
@@ -170,6 +183,7 @@ function PassiveSpecClass:Save(xml)
 		classId = tostring(self.curClassId), 
 		ascendClassId = tostring(self.curAscendClassId), 
 		nodes = table.concat(allocNodeIdList, ","),
+		masteryEffects = table.concat(masterySelections, ",")
 	}
 	t_insert(xml, {
 		-- Legacy format
@@ -191,7 +205,7 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, masteryEffects)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
@@ -209,6 +223,10 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 			node.alloc = true
 			self.allocNodes[id] = node
 		end
+	end
+	wipeTable(self.masterySelections)
+	for mastery, effect in pairs(masteryEffects) do
+		self.masterySelections[mastery] = effect
 	end
 	self:SelectAscendClass(ascendClassId)
 end
@@ -374,11 +392,19 @@ function PassiveSpecClass:AllocNode(node, altPath)
 	self:BuildAllDependsAndPaths()
 end
 
+function PassiveSpecClass:DeallocSingleNode(node)
+	node.alloc = false
+	self.allocNodes[node.id] = nil
+	if node.type == "Mastery" then
+		self.masterySelections[node.id] = nil
+	end
+end
+
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
+	local effect
 	for _, depNode in ipairs(node.depends) do
-		depNode.alloc = false
-		self.allocNodes[depNode.id] = nil
+		self:DeallocSingleNode(depNode)
 	end
 
 	-- Rebuild all paths and dependencies for all allocated nodes
@@ -420,7 +446,7 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 		local startIndex = #visited + 1
 		if other.alloc and 
 		  (other.type == "ClassStart" or other.type == "AscendClassStart" or 
-		    (not other.visited and self:FindStartFromNode(other, visited, noAscend))
+		    (not other.visited and other.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
 		  ) then
 			if node.ascendancyName and not other.ascendancyName then
 				-- Pathing out of Ascendant, un-visit the outside nodes
@@ -460,15 +486,16 @@ function PassiveSpecClass:BuildPathFromNode(root)
 		local curDist = node.pathDist + 1
 		-- Iterate through all nodes that are connected to this one
 		for _, other in ipairs(node.linked) do
-			-- Paths must obey two rules:
+			-- Paths must obey these rules:
 			-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
 			-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
 			--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
 			--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
+			-- 3. They must not pass away from mastery nodes
 			if not other.pathDist then
 				ConPrintTable(other, true)
 			end
-			if other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)
@@ -629,6 +656,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		end
 	end
 
+	-- Add selected mastery effect mods to mastery nodes
+	for id, node in pairs(self.nodes) do
+		if node.type == "Mastery" and self.masterySelections[id] then
+			local effect = self.tree.masteryEffects[self.masterySelections[id]]
+			node.sd = effect.sd
+			node.reminderText = { "Tip: Right click to select a different effect" }
+			self.tree:ProcessStats(node)
+		end
+	end
 
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
@@ -686,8 +722,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					end
 				end
 				if prune then
-					depNode.alloc = false
-					self.allocNodes[depNode.id] = nil
+					self:DeallocSingleNode(depNode)
 				end
 			end
 		end
@@ -726,6 +761,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
+	old.reminderText = newNode.reminderText
 end
 
 ---Reconnects altered timeless jewel to class start, for Pure Talent
@@ -984,6 +1020,8 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		-- Add mastery node
 		subGraph.group.oo[0] = true
 		t_insert(subGraph.nodes, {
+			dn = "Nothingness",
+			sd = { },
 			type = "Mastery",
 			id = nodeId + 12,
 			icon = skill.masteryIcon,
@@ -1197,15 +1235,20 @@ function PassiveSpecClass:CreateUndoState()
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	local selections = { }
+	for mastery, effect in pairs(self.masterySelections) do
+		selections[mastery] = effect
+	end
 	return {
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		hashList = allocNodeIdList,
+		masteryEffects = selections
 	}
 end
 
 function PassiveSpecClass:RestoreUndoState(state)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList)
+	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects)
 	self:SetWindowTitleWithBuildClass()
 end
 

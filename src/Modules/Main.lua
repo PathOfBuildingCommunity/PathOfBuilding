@@ -211,8 +211,10 @@ end
 
 function main:LoadTree(treeVersion)
 	if self.tree[treeVersion] then
+		data.setJewelRadiiGlobally(treeVersion)
 		return self.tree[treeVersion]
 	elseif isValueInTable(treeVersionList, treeVersion) then
+		data.setJewelRadiiGlobally(treeVersion)
 		--ConPrintf("[main:LoadTree] - Lazy Loading Tree " .. treeVersion)
 		self.tree[treeVersion] = new("PassiveTree", treeVersion)
 		return self.tree[treeVersion]
@@ -522,6 +524,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.defaultGemQuality then
 					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
 				end
+				if node.attrib.defaultCharLevel then
+					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
+				end
 			end
 		end
 	end
@@ -569,7 +574,8 @@ function main:SaveSettings()
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 		betaTest = tostring(self.betaTest),
-		defaultGemQuality = tostring(self.defaultGemQuality),
+		defaultGemQuality = tostring(self.defaultGemQuality or 0),
+		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -680,6 +686,14 @@ function main:OpenOptionsPopup()
 	controls.defaultGemQuality.tooltipText="Set the default quality that can be overwritten by build-related quality settings in the skill panel."
 	controls.defaultGemQualityLabel = new("LabelControl", {"RIGHT",controls.defaultGemQuality,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default gem quality:")
 
+
+    nextRow()
+	controls.defaultCharLevel = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
+		self.defaultCharLevel = m_min(tonumber(charLevel) or 1, 100)
+	end)
+	controls.defaultCharLevel.tooltipText="Set the default char level that can be overwritten by build-related level settings."
+	controls.defaultCharLevelLabel = new("LabelControl", {"RIGHT",controls.defaultCharLevel,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
+
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
@@ -688,7 +702,8 @@ function main:OpenOptionsPopup()
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
 	local initialBetaTest = self.betaTest
-	local initialDefaultGemQuality = self.defaultGemQuality
+	local initialDefaultGemQuality = self.defaultGemQuality or 0
+	local initialDefaultCharLevel = self.defaultCharLevel or 1
 
     -- last line with buttons has more spacing
     nextRow(1.5)
@@ -721,6 +736,7 @@ function main:OpenOptionsPopup()
 		self.showTitlebarName = initialTitlebarName
 		self.betaTest = initialBetaTest
 		self.defaultGemQuality = initialDefaultGemQuality
+		self.defaultCharLevel = initialDefaultCharLevel
 		main:ClosePopup()
 	end)
     nextRow(1.5)
@@ -810,7 +826,11 @@ end
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(self.tree[latestTreeVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	if self.tree[latestTreeVersion].assets.Background2 then
+		DrawImage(self.tree[latestTreeVersion].assets.Background2.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	else
+		DrawImage(self.tree[latestTreeVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	end
 	SetDrawLayer(nil, 0)
 end
 

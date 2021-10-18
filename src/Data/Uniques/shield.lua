@@ -75,13 +75,15 @@ Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 70, 159 Str
 Implicits: 1
-{variant:3}+(20-30) to maximum Life
-(200-250)% increased Armour
+{variant:3,4}+(20-30) to maximum Life
+{variant:1,2,3}(200-250)% increased Armour
+{variant:4}(180-220)% increased Armour
 {variant:1}+(80-100) to maximum Life
-{variant:2,3}+(160-180) to maximum Life
+{variant:2,3,4}+(160-180) to maximum Life
 5% reduced Movement Speed
 20% increased Stun Recovery
 −25 Physical Damage taken from Projectile Attacks
@@ -102,13 +104,16 @@ Adds 250 to 300 Cold Damage to Counterattacks
 ]],[[
 Magna Eclipsis
 Pinnacle Tower Shield
+Variant: Pre 3.16.0
+Variant: Current
 Source: Vendor recipe
 Requires Level 70, 159 Str
 Implicits: 1
 +(20-30) to maximum Life
 +2 to Level of Socketed Gems
 Triggers Level 20 Elemental Aegis when Equipped
-(200-250)% increased Armour
+{variant:1}(200-250)% increased Armour
+{variant:2}(180-220)% increased Armour
 +(60-80) to maximum Life
 +(80-100) to Evasion Rating and Energy Shield
 ]],[[
@@ -488,16 +493,19 @@ Vaal Spirit Shield
 League: Breach
 Source: Upgraded from unique{Esh's Mirror} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 62, 159 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
-{variant:2}(5-10)% increased Spell Damage
-+(40-70) to maximum Life
+{variant:2,3}(5-10)% increased Spell Damage
+{variant:1,2}+(40-70) to maximum Life
+{variant:3}+(70-100) to maximum Life
 (240-260)% increased Energy Shield
 +(30-40)% to Lightning Resistance
 +(17-29)% to Chaos Resistance
-Chaos Damage does not bypass Energy Shield while not on Low Life or Low Mana
+{variant:1,2}Chaos Damage does not bypass Energy Shield while not on Low Life or Low Mana
+{variant:3}Chaos Damage does not bypass Energy Shield while not on Low Life
 Reflect Shocks applied to you to all Nearby Enemies
 ]],[[
 The Eternal Apple
@@ -728,12 +736,15 @@ Cannot be Frozen
 ]],[[
 Wheel of the Stormsail
 Rotted Round Shield
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 5
 Implicits: 1
 60% increased Block Recovery
 +(5-10) to Armour
 (30-40)% increased Rarity of Items found
-25% increased Curse Duration
+{variant:1}25% increased Curse Duration
+{variant:2}100% increased Curse Duration
 100% increased Duration of Curses on you
 +5% Chance to Block
 ]],
@@ -801,15 +812,17 @@ Prism Guardian
 Archon Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 2.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+24% to all Elemental Resistances
-{variant:2,3}+12% to all Elemental Resistances
+{variant:2,3,4}+12% to all Elemental Resistances
 {variant:1,2}+1 to Level of Aura Gems in this item
-{variant:3}+2 to Level of Socketed Aura Gems
+{variant:3,4}+2 to Level of Socketed Aura Gems
 Socketed Gems Cost and Reserve Life instead of Mana
-Socketed Gems have 25% reduced Reservation
+{variant:1,2,3}Socketed Gems have 25% reduced Reservation
+{variant:4}Socketed Gems have 30% increased Reservation Efficiency
 +(20-30) to Dexterity
 +25% to all Elemental Resistances
 ]],[[
@@ -969,11 +982,14 @@ Implicits: 1
 [[
 Font of Thunder
 Mirrored Spiked Shield
+Variant: 3.16.0
+Variant: Current
 League: Heist
 Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
 4% chance to Dodge Attack Hits
-(500-600)% increased Evasion and Energy Shield
+{variant:1}(500-600)% increased Evasion and Energy Shield
+{variant:2}(400-500)% increased Evasion and Energy Shield
 (25-40)% increased Mana Regeneration Rate
 +50% chance to be Shocked
 40% of Cold Damage taken as Lightning

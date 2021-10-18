@@ -49,7 +49,6 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
-	modDB:NewMod("LifeRegenPercent", "BASE", 6, "Base", { type = "Condition", var = "OnConsecratedGround" })
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved"})
@@ -824,7 +823,21 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Build list of active skills
 		local groupCfg = wipeTable(tempTable1)
+
+		-- Below we re-order the socket group list in order to support modifiers introduced in 3.16
+		-- which allow a Shield (Weapon 2) to link to a Main Hand and an Amulet to link to a Body Armour
+		-- as we need their support gems and effects to be processed before we cross-link them to those slots
+		local indexOrder = { }
 		for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+			if socketGroup.slot == "Amulet" or socketGroup.slot == "Weapon 2" then
+				t_insert(indexOrder, 1, index)
+			else
+				t_insert(indexOrder, index)
+			end
+		end
+		local crossLinkedSupportList = { }
+		for _, index in ipairs(indexOrder) do
+			socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
 			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
@@ -852,6 +865,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 								enabled = true,
 							})
 						end
+					end
+				end
+				if crossLinkedSupportList[socketGroup.slot] then
+					for _, supportItem in ipairs(crossLinkedSupportList[socketGroup.slot]) do
+						t_insert(supportList, supportItem)
 					end
 				end
 				for _, gemInstance in ipairs(socketGroup.gemList) do
@@ -922,6 +940,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 							processGrantedEffect(gemInstance.gemData.secondaryGrantedEffect)
 						else
 							processGrantedEffect(gemInstance.grantedEffect)
+						end
+						-- Store extra supports for other items that are linked
+						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedNonExceptionSupport")) do
+							crossLinkedSupportList[value.targetSlotName] = { }
+							for _, supportItem in ipairs(supportList) do
+								if supportItem.grantedEffect.name ~= "Empower" and supportItem.grantedEffect.name ~= "Enlighten" and supportItem.grantedEffect.name ~= "Enhance" then
+									t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
+								end
+							end
 						end
 					end
 				end

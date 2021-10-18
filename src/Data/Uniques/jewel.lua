@@ -1040,12 +1040,15 @@ Minions have +(7-10)% to all Elemental Resistances
 ]],[[
 Seething Fury
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 League: Legion
 Requires Level: 20
 Limited to: 1
 Radius: Medium
 (10-15)% increased Attack Damage while holding a Shield
-+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+{variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+{variant:2}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
 +4% to Off Hand Critical Strike Multiplier per 10 Maximum Energy Shield on Shield
 ]],[[
 Fight for Survival
@@ -1167,12 +1170,14 @@ With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, u
 Pitch Darkness
 Viridian Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:2}(10-15)% increased Fire Damage
+{variant:2,3}(10-15)% increased Fire Damage
+{variant:3}+10% to Fire Damage over Time Multiplier
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
-With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
+{variant:2}With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
 Rapid Expansion
 Crimson Jewel
@@ -1265,12 +1270,14 @@ Radius: Medium
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
 Sudden Ignition
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
-With at least 40 Dexterity in Radius, Burning
-Arrow can inflict an additional Ignite on an Enemy
+{variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
+{Variant:2}Ignited Enemies Killed by your Hits are destroyed
 ]],[[
 Unending Hunger 
 Cobalt Jewel
@@ -1532,26 +1539,42 @@ Projectiles Pierce an additional Target
 Survival Instincts
 Viridian Jewel
 Limited to: 1
-+20 to Dexterity
-+6% to all Elemental Resistances
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}+20 to Dexterity
+{variant:1}+6% to all Elemental Resistances
+{variant:2}50% chance for Flasks you use to not consume Charges
+{variant:2}70% less Flask Charges gained from Kills
 ]],[[
 Survival Secrets
 Cobalt Jewel
 Limited to: 1
-3 Mana Regenerated per second
-10% increased Elemental Damage
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}3 Mana Regenerated per second
+{variant:1}10% increased Elemental Damage
+{variant:2}Flasks gain 2 Charges every 3 seconds while they are inactive
+{variant:2}50% less Flask Effect Duration
 ]],[[
 Survival Skills
 Crimson Jewel
 Limited to: 1
-10% increased Global Physical Damage
-+50 to Armour
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}10% increased Global Physical Damage
+{variant:1}+50 to Armour
+{variant:2}Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
+{variant:2}80% less Flask Charges gained from Kills
 ]],[[
 Warlord's Reach
 Crimson Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-8% increased Attack Damage
-+1 Melee Strike Range
+{variant:1}8% increased Attack Damage
+{variant:1}+1 Melee Strike Range
+{variant:2}10% increased Attack Damage
+{variant:2}+2 Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
 [[

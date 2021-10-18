@@ -57,7 +57,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.xmlSectionList = { }
 	self.spectreList = { }
 	self.viewMode = "TREE"
-	self.characterLevel = 1
+	self.characterLevel = main.defaultCharLevel or 1
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -366,6 +366,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "Ward", label = "Ward", fmt = "d", compPercent = true },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
+		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", fmt = "d", condFunc = function(v,o) return v ~= nil end },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
 		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
@@ -386,6 +387,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
+		{ stat = "SpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
 		{ },
 		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap"},
 		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
@@ -613,8 +615,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 
 	-- Initialise build components
-	self.data = data
 	self.latestTree = main.tree[latestTreeVersion]
+	data.setJewelRadiiGlobally(latestTreeVersion)
+	self.data = data
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
 	self.configTab = new("ConfigTab", self)

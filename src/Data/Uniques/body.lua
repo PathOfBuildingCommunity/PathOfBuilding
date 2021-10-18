@@ -36,12 +36,17 @@ Adds 2 to 4 Physical Damage to Attacks
 The Brass Dome
 Gladiator Plate
 Source: Drops from unique{Guardian of the Minotaur}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 177 Str
-30% reduced Chance to Block Attacks and Spells
-(600-650)% increased Armour
-10% reduced Movement Speed
-50% increased Shock Duration on You
+{variant:1}(600-650)% increased Armour
+{variant:2}(350-400)% increased Armour
+{variant:1}30% reduced Chance to Block Attacks and Spells
+{variant:1}10% reduced Movement Speed
+{variant:1}50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
+{variant:2}+(1-2) to all maximum Resistances
+{variant:2}Gain no inherent bonuses from Strength
 ]],[[
 Craiceann's Carapace
 Golden Plate
@@ -341,26 +346,37 @@ Coronal Leather
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 49, 134 Dex
 +(30-40) to Dexterity
-(30-50)% increased Evasion Rating
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
-10% chance to Dodge Spell Damage
+{variant:1}10% chance to Suppress Spell Damage
+{variant:2}20% chance to Suppress Spell Damage
 25% increased Arctic Armour Buff Effect
-Evasion Rating is increased by Uncapped Cold Resistance
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 ]],[[
 The Perfect Form
 Zodiac Leather
 League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 197 Dex
-(30-50)% increased Evasion Rating
-+(50-80) to maximum Life
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
+{variant:1}+(50-80) to maximum Life
+{variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
-(5-10)% increased Dexterity
-Arctic Armour has 100% reduced Reservation
-Evasion Rating is increased by Uncapped Cold Resistance
-Phase Acrobatics
+{variant:1}(5-10)% increased Dexterity
+{variant:2}(10-15)% increased Dexterity
+Arctic Armour has no Reservation
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+Acrobatics
 ]],[[
 Replica Perfect Form
 Zodiac Leather
@@ -370,7 +386,7 @@ Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
 +(50-80) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has 100% reduced Reservation
+Flesh and Stone has no Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Hollow Palm Technique
 ]],[[
@@ -589,14 +605,16 @@ Soul Mantle
 Spidersilk Robe
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 49, 134 Int
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
-{variant:3}Socketed Gems are Supported by level 20 Spell Totem
+{variant:3,4}Socketed Gems are Supported by level 20 Spell Totem
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
 {variant:2,3}50% increased Totem Life
+{variant:4}(20-30)% increased Totem Life
 Can have up to 1 additional Totem summoned at a time
 Inflicts a random Hex on you when your Totems die, with 80% more Effect
 ]],[[
@@ -683,13 +701,14 @@ Daresso's Defiance
 Full Dragonscale
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 63, 115 Str, 94 Dex
-(160-200)% increased Armour and Evasion
+{variant:1,2,3}(160-200)% increased Armour and Evasion
+{variant:4}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
-{variant:3}+(60-90) to maximum Life
+{variant:3,4}+(60-90) to maximum Life
 (0.4-0.6)% of Physical Attack Damage Leeched as Life
-6% Chance to Dodge Attacks
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
@@ -1166,18 +1185,20 @@ Recover 50 Energy Shield when your Trap is triggered by an Enemy
 Victario's Influence
 Lacquered Garb
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
 {variant:1}Socketed Gems have 20% reduced Reservation
 {variant:2}Socketed Gems have 30% reduced Reservation
+{variant:3}Socketed Gems have 45% increased Reservation Efficiency
 {variant:1}Socketed Gems are Supported by level 1 Generosity
-{variant:2}Socketed Gems are Supported by level 30 Generosity
+{variant:2,3}Socketed Gems are Supported by level 30 Generosity
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Radius of Auras
-{variant:2}(20-40)% increased Area of Effect of Aura Skills
+{variant:2,3}(20-40)% increased Area of Effect of Aura Skills
 {variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
-{variant:2}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:2,3}(10-15)% increased effect of Non-Curse Auras from your Skills
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[

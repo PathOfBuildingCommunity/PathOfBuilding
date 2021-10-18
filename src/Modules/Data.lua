@@ -93,6 +93,7 @@ data.powerStatList = {
 	{ stat="LifeRegen", label="Life regen" },
 	{ stat="LifeLeechRate", label="Life leech" },
 	{ stat="EnergyShield", label="Energy Shield" },
+	{ stat="EnergyShieldRecoveryCap", label="Recoverable ES" },
 	{ stat="EnergyShieldRegen", label="Energy Shield regen" },
 	{ stat="EnergyShieldLeechRate", label="Energy Shield leech" },
 	{ stat="Mana", label="Mana" },
@@ -125,20 +126,44 @@ data.powerStatList = {
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
+	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
-data.jewelRadius = {
-	{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
-	{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
-	{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+data.setJewelRadiiGlobally = function(treeVersion)
+	local major, minor = treeVersion:match("(%d+)_(%d+)")
+	if tonumber(major) <= 3 and tonumber(minor) <= 15 then
+		data.jewelRadius = data.jewelRadii["3_15"]
+	else
+		data.jewelRadius = data.jewelRadii["3_16"]
+	end
+end
 
-	{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
-	{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
-	{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
-	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+data.jewelRadii = {
+	["3_15"] = {
+		{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+
+		{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
+		{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+	},
+	["3_16"] = {
+		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
+
+		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
+		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
+		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
+	}
 }
+
+data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
 
 data.enchantmentSource = {
 	{ name = "ENKINDLING", label = "Enkindling Orb" },
@@ -237,12 +262,14 @@ data.keystones = {
 	"Conduit",
 	"Corrupted Soul",
 	"Crimson Dance",
-	"Doomsday",
 	"Divine Flesh",
+	"Divine Shield",
+	"Doomsday",
 	"Eldritch Battery",
 	"Elemental Equilibrium",
 	"Elemental Overload",
 	"Eternal Youth",
+	"Ghost Dance",
 	"Ghost Reaver",
 	"Glancing Blows",
 	"Hollow Palm Technique",
@@ -250,6 +277,9 @@ data.keystones = {
 	"Immortal Ambition",
 	"Iron Grip",
 	"Iron Reflexes",
+	"Iron Will",
+	"Lethe Shade",
+	"MageBane",
 	"Mind Over Matter",
 	"Minion Instability",
 	"Mortal Conviction",
@@ -261,11 +291,13 @@ data.keystones = {
 	"Resolute Technique",
 	"Runebinder",
 	"Secrets of Suffering",
+	"Solipsism",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
 	"Unwavering Stance",
 	"Vaal Pact",
+	"Versatile Combatant",
 	"Wicked Ward",
 	"Wind Dancer",
 	"Zealot's Oath",
@@ -276,11 +308,14 @@ data.misc = { -- magic numbers
 	ServerTickRate = 1 / 0.033,
 	TemporalChainsEffectCap = 75,
 	DamageReductionCap = 90,
+	ResistFloor = -200,
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
+	SuppressionChanceCap = 100,
+	SuppressionEffect = 50,
 	AvoidChanceCap = 75,
-	EnergyShieldRechargeBase = 0.2,
+	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
 	WardRechargeDelay = 5,
 	Transfiguration = 0.3,
@@ -290,7 +325,7 @@ data.misc = { -- magic numbers
 	BleedDurationBase = 5,
 	PoisonPercentBase = 0.30,
 	PoisonDurationBase = 2,
-	IgnitePercentBase = 0.50,
+	IgnitePercentBase = 1.25,
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
