@@ -148,8 +148,7 @@ Socketed Non-Channelling Bow Skills are Triggered by Snipe
 Socketed Triggered Bow Skills deal 40% less Damage
 +(350-500) to Accuracy Rating
 +(350-500) to Evasion Rating
-(7-10)% chance to Dodge Attack Hits while Channelling
-(7-10)% chance to Dodge Spell Hits while Channelling
+(14-20)% chance to Suppress Spell Damage while Channelling
 ]],[[
 Fairgraves' Tricorne
 Tricorne
