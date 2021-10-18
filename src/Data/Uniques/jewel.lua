@@ -1520,8 +1520,10 @@ Variant: Current
 Limited to: 1
 {variant:1}3% chance to Avoid Elemental Ailments
 {variant:2}10% chance to Avoid Elemental Ailments
-8% increased Life Recovery from Flasks
-2% chance to Dodge Attacks
+{variant:1}8% increased Life Recovery from Flasks
+{variant:2}10% increased Life Recovery from Flasks
+{variant:1}3% chance to Suppress Spell Damage
+{variant:2}5% chance to Suppress Spell Damage
 ]],[[
 Conqueror's Potency
 Cobalt Jewel
