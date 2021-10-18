@@ -124,6 +124,8 @@ local modNameList = {
 	["mana reserved"] = "ManaReserved",
 	["mana reservation"] = "ManaReserved",
 	["mana reservation of skills"] = "ManaReserved",
+	["mana reservation efficiency of skills"] = "ManaReservationEfficiency",
+	["life reservation efficiency of skills"] = "LifeReservationEfficiency",
 	["reservation of skills"] = "Reserved",
 	["mana reservation if cast as an aura"] = { "ManaReserved", tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["reservation if cast as an aura"] = { "Reserved", tag = { type = "SkillType", skillType = SkillType.Aura } },
