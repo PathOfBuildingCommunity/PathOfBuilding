@@ -713,8 +713,8 @@ You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 second per Endurance Charge when Hit
-{variant:3}You gain Onslaught for 5 second per Endurance Charge when Hit
-{variant:3}(60-100)% increased Onslaught Effect
+{variant:3,4}You gain Onslaught for 5 second per Endurance Charge when Hit
+{variant:3,4}(60-100)% increased Onslaught Effect
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
