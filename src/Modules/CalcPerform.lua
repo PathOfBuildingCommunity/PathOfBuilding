@@ -788,6 +788,7 @@ local function doActorMisc(env, actor)
 				modDB:AddMod(mod)
 			else
 				local effect = m_floor(1 * effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), modDB:Sum("BASE", skillCfg, "MaximumFortification")))
+				output.Fortification = effect
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
