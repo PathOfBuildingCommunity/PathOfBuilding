@@ -330,3 +330,12 @@ end
 function ItemDBClass:OnSelCopy(index, item)
 	Copy(item.raw:gsub("\n","\r\n"))
 end
+
+function ItemDBClass:OnHoverKeyUp(key)
+	if itemLib.wiki.matchesKey(key) then
+		local item = self.ListControl:GetHoverValue()
+		if item then
+			itemLib.wiki.openItem(item)
+		end
+	end
+end

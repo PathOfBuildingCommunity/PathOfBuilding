@@ -82,7 +82,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 2. The account's privacy settings hide the characters tab (this is the default setting).
 If this is your account, you can either:
 1. Change your privacy settings to show you characters tab and then retry, or
-2. Enter a valid POESESSID below. 
+2. Enter a valid POESESSID below.
 You can get this from your web browser's cookies while logged into the Path of Exile website.
 		]]
 	end
@@ -374,7 +374,7 @@ function ImportTabClass:DownloadCharacterList()
 					label = league,
 					league = league,
 				})
-			end				
+			end
 			if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
 				self.controls.charSelectLeague.selIndex = 1
 			end
@@ -689,6 +689,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		end
 	end
 	item.enchantModLines = { }
+	item.scourgeModLines = { }
 	item.implicitModLines = { }
 	item.explicitModLines = { }
 	if itemData.enchantMods then
@@ -791,7 +792,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
-			local gemId = self.build.data.gemForBaseName[normalizedBasename] 
+			local gemId = self.build.data.gemForBaseName[normalizedBasename]
 			if not gemId and socketedItem.hybrid then
 				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
 				-- Luckily the primary skill name is also there, so we can find the gem using that
@@ -855,13 +856,13 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
 		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
-	end	
+	end
 end
 
 function HexToChar(x)
 	return string.char(tonumber(x, 16))
 end
-  
+
 function UrlDecode(url)
 	if url == nil then
 		return

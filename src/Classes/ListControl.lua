@@ -417,3 +417,16 @@ function ListClass:OnKeyUp(key)
 	end
 	return self
 end
+
+function ListClass:GetHoverValue(key)
+	local x, y = self:GetPos()
+	local cursorX, cursorY = GetCursorPos()
+	local rowRegion = self:GetRowRegion()
+	if cursorX >= x + rowRegion.x and cursorY >= y + rowRegion.y and cursorX < x + rowRegion.x + rowRegion.width and cursorY < y + rowRegion.y + rowRegion.height then
+		local index = math.floor((cursorY - y - rowRegion.y + self.controls.scrollBarV.offset) / self.rowHeight) + 1
+		local value = self.list[index]
+		if value then
+			return value
+		end
+	end
+end
