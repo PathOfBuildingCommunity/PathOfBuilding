@@ -124,35 +124,19 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				masteryEffects[tonumber(mastery)] = tonumber(effect)
 			end
 		end
--- <<<<<<< HEAD
-		-- self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
-		-- if xml.attrib.allocationOrder then
-		-- 	for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
-		-- 		table.insert(self.allocationOrder, tonumber(nodeId))
-		-- 	end
-		-- 	self:ReIndexAllocationOrder("allocationOrder")
-		-- end
-		-- if xml.attrib.ascendancyAllocationOrder then
-		-- 	for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
-		-- 		table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
-		-- 	end
-		-- 	self:ReIndexAllocationOrder("ascendancyAllocationOrder")
-		-- end
--- =======
 		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
--- 		if xml.attrib.allocationOrder then
--- 			for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
--- 				table.insert(self.allocationOrder, tonumber(nodeId))
--- 			end
--- 			self:ReIndexAllocationOrder("allocationOrder")
--- 		end
--- 		if xml.attrib.ascendancyAllocationOrder then
--- 			for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
--- 				table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
--- 			end
--- 			self:ReIndexAllocationOrder("ascendancyAllocationOrder")
--- 		end
--- >>>>>>> Resolve merge with dev for passive masteries conflicts
+		if xml.attrib.allocationOrder then
+			for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
+				table.insert(self.allocationOrder, tonumber(nodeId))
+			end
+			self:ReIndexNodeAllocationOrder("allocationOrder")
+		end
+		if xml.attrib.ascendancyAllocationOrder then
+			for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
+				table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
+			end
+			self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
+		end
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -375,7 +359,7 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 			self:RemoveFromAllocationOrder(node)
 		end
 	end
-	self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+	self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
 
 	if ascendClass.startNodeId then
 		-- Allocate the new ascendancy class's start node
@@ -448,7 +432,7 @@ function PassiveSpecClass:RemoveFromAllocationOrder(node)
 	end
 end
 
-function PassiveSpecClass:ReIndexAllocationOrder(allocationOrder)
+function PassiveSpecClass:ReIndexNodeAllocationOrder(allocationOrder)
 	for i, nodeId in ipairs(self[allocationOrder]) do
 		self.nodes[nodeId][allocationOrder] = i
 	end
@@ -513,9 +497,9 @@ function PassiveSpecClass:AllocNode(node, altPath)
 			if optNode.isMultipleChoiceOption and optNode.alloc and optNode ~= node then
 				self.DeallocSingleNode(optNode)
 				if optNode.ascendancyName then
-					self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+					self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
 				else
-					self:ReIndexAllocationOrder("allocationOrder")
+					self:ReIndexNodeAllocationOrder("allocationOrder")
 				end
 			end
 		end
@@ -545,9 +529,9 @@ function PassiveSpecClass:DeallocNode(node)
 		self:DeallocSingleNode(depNode)
 	end
 	if node.ascendancyName then
-		self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+		self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
 	else
-		self:ReIndexAllocationOrder("allocationOrder")
+		self:ReIndexNodeAllocationOrder("allocationOrder")
 	end
 
 	-- Rebuild all paths and dependencies for all allocated nodes
@@ -918,8 +902,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					self:DeallocSingleNode(depNode)
 				end
 			end
-			self:ReIndexAllocationOrder("allocationOrder")
-			self:ReIndexAllocationOrder("ascendancyAllocationOrder")
+			self:ReIndexNodeAllocationOrder("allocationOrder")
+			self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
 		end
 	end
 
@@ -988,7 +972,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				end
 			end
 		end
-		self:ReIndexAllocationOrder("allocationOrder")
+		self:ReIndexNodeAllocationOrder("allocationOrder")
 		local index = isValueInArray(subGraph.parentSocket.linked, subGraph.entranceNode)
 		assert(index, "Entrance for subGraph not linked to parent socket???")
 		t_remove(subGraph.parentSocket.linked, index)
@@ -1449,16 +1433,24 @@ function PassiveSpecClass:CreateUndoState()
 	for mastery, effect in pairs(self.masterySelections) do
 		selections[mastery] = effect
 	end
+	local allocationOrder = copyTable(self.allocationOrder)
+	local ascendancyAllocationOrder = copyTable(self.ascendancyAllocationOrder)
 	return {
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		hashList = allocNodeIdList,
-		masteryEffects = selections
+		masteryEffects = selections,
+		allocationOrder = allocationOrder,
+		ascendancyAllocationOrder = ascendancyAllocationOrder
 	}
 end
 
 function PassiveSpecClass:RestoreUndoState(state)
 	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects)
+	self.allocationOrder = state.allocationOrder
+	self.ascendancyAllocationOrder = state.ascendancyAllocationOrder
+	self:ReIndexNodeAllocationOrder("allocationOrder")
+	self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
 	self:SetWindowTitleWithBuildClass()
 end
 
