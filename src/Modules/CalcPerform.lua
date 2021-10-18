@@ -2767,20 +2767,21 @@ function calcs.perform(env, avoidCache)
 	end
 
 	-- Apply exposures
-	for _, element in pairs({"Fire", "Cold", "Lightning"}) do
+	for _, element in ipairs({"Fire", "Cold", "Lightning"}) do
 		local min = math.huge
+		local source = ""
 		for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
 			if mod.value < min then
 				min = mod.value
+				source = mod.mod.source
 			end
 		end
 		if min ~= math.huge then
 			-- Modify the magnitude of all exposures
-			for _, value in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure")) do
-				local mod = value.mod
-				enemyDB:NewMod(element.."Resist", "BASE", mod.value, mod.source)
+			for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
+				min = min + mod.value
 			end
-			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+			enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
 			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
 	end

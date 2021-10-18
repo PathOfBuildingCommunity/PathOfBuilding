@@ -1193,6 +1193,9 @@ return {
 	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Intimidated", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionNearLinkedTarget", type = "check", label = "Is the enemy near you Linked target?", ifEnemyCond = "NearLinkedTarget", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:NearLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyUnnerved", type = "check", label = "Is the enemy Unnerved?", tooltip = "Unnerved enemies take 10% increased Spell Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Unnerved", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
