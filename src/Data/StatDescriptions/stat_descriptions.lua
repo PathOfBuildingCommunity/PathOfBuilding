@@ -11738,7 +11738,7 @@ return {
 					limit={
 						[1]={
 							[1]=1,
-							[2]=99
+							[2]=100
 						}
 					},
 					text="Recover {0}% of Life on use"
@@ -11746,7 +11746,7 @@ return {
 				[2]={
 					limit={
 						[1]={
-							[1]=100,
+							[1]=101,
 							[2]="#"
 						}
 					},
@@ -12014,7 +12014,7 @@ return {
 							[2]=1
 						}
 					},
-					text="You gain an Endurance Charge on use"
+					text="Gain {0} Endurance Charge on use"
 				},
 				[2]={
 					limit={
@@ -12023,7 +12023,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You gain {0} Endurance Charges on use"
+					text="Gain {0} Endurance Charges on use"
 				}
 			}
 		},
@@ -12041,7 +12041,7 @@ return {
 							[2]=1
 						}
 					},
-					text="You gain a Frenzy Charge on use"
+					text="Gain {0} Frenzy Charge on use"
 				},
 				[2]={
 					limit={
@@ -12050,7 +12050,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You gain {0} Frenzy Charges on use"
+					text="Gain {0} Frenzy Charges on use"
 				}
 			}
 		},
@@ -12068,7 +12068,7 @@ return {
 							[2]=1
 						}
 					},
-					text="You gain a Power Charge on use"
+					text="Gain {0} Power Charge on use"
 				},
 				[2]={
 					limit={
@@ -12077,7 +12077,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You gain {0} Power Charges on use"
+					text="Gain {0} Power Charges on use"
 				}
 			}
 		},
@@ -12605,7 +12605,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Reused at the end of the Flask effect"
+					text="Reused at the end of this Flask's effect"
 				}
 			}
 		},

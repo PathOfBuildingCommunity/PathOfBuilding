@@ -131,6 +131,7 @@ local modNameList = {
 	["reservation if cast as an aura"] = { "Reserved", tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["reservation"] = { "Reserved" },
 	["reservation efficiency"] = "ReservationEfficiency",
+	["reservation efficiency of skills"] = "ReservationEfficiency",
 	["mana reservation efficiency"] = "ManaReservationEfficiency",
 	["life reservation efficiency"] = "LifeReservationEfficiency",
 	-- Primary defences
@@ -929,6 +930,7 @@ local preFlagList = {
 	["^scion: "] = { tag = { type = "Condition", var = "ConnectedToScionStart" } },
 	["^skills supported by spellslinger have "] = { tag = { type = "Condition", var = "SupportedBySpellslinger" } },
 	["^skills that have dealt a critical strike in the past 8 seconds deal "] = { tag = { type = "Condition", var = "CritInPast8Sec" } },
+	["^blink arrow and mirror arrow have "] = { tag = { type = "SkillName", skillNameList = { "Blink Arrow", "Mirror Arrow" } } },
 }
 
 -- List of modifier tags
@@ -1435,7 +1437,7 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
-	["modifiers to spell suppression instead apply to spell dodge at 50%% of their values"] = { 
+	["modifiers to chance to suppress spell damage instead apply to chance to dodge spell hits at 50%% of their value"] = { 
 		flag("ConvertSpellSuppressionToSpellDodge"),
 		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"), 
 	},
@@ -1475,6 +1477,9 @@ local specialModList = {
 		mod("PhysicalDamageConvertToFire", "BASE", num),
 		mod("LightningDamageConvertToFire", "BASE", num),
 		mod("ColdDamageConvertToFire", "BASE", num),
+	} end,
+	["skills that have dealt a critical strike in the past (%d+) seconds deal (%d+)%% more elemental damage with hits and ailments"] = function(num, _, dmg) return {
+		mod("ElementalDamage", "MORE", tonumber(dmg)),
 	} end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["removes all mana"] = { mod("Mana", "MORE", -100) },
