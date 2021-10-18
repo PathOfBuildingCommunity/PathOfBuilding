@@ -47,12 +47,15 @@
 - Add support for Cruelty DoT multiplier [\#3207](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3207) ([Helyos96](https://github.com/Helyos96))
 - Add support for Custom Modifiers text field in config [\#3192](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3192) ([deathbeam](https://github.com/deathbeam))
 - Add support for Plague Bearer infecting/incubating and its alt quals [\#3191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3191) ([deathbeam](https://github.com/deathbeam))
+- Add support for flask enchants [\#3147](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3147) ([ifnjeff](https://github.com/ifnjeff))
 - Add radius numbers for a number of skills [\#3177](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3177) ([LocalIdentity](https://github.com/LocalIdentity))
 
 **Fixed bugs:**
 
 - Fix bug where elemental penetration with attacks was applying to other damage types [\#3310](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3310) ([PJacek](https://github.com/PJacek))
 - Fix strength's damage bonus double-dipping when using Iron Will [\#3304](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3304) ([PJacek](https://github.com/PJacek))
+- Fix gem levels not being properly limited [\#3167](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3167) ([PJacek](https://github.com/PJacek))
+- Fix Bane not gaining duration per curse applied [\#3160](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3160) ([PJacek](https://github.com/PJacek))  
 - Fix incorrect art for Lethal Pride keystones [\#3248](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3248) ([Wires77](https://github.com/Wires77))
 - Fix build files increasing in size over time [\#3229](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3229) ([Wires77](https://github.com/Wires77))
 - Fix Weapon triggered skill parsing and mana cost [\#3187](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3187) ([LocalIdentity](https://github.com/LocalIdentity))
