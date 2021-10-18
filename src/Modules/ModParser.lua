@@ -2617,6 +2617,7 @@ local specialModList = {
 	["you cannot be shocked while at maximum endurance charges"] = { mod("AvoidShock", "BASE", 100, { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
 	["cannot be shocked if intelligence is higher than strength"] = { mod("AvoidShock", "BASE", 100, { type = "Condition", var = "IntHigherThanStr" }) },
 	["cannot be frozen if dexterity is higher than intelligence"] = { mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "DexHigherThanInt" }) },
+	["cannot be frozen if energy shield recharge has started recently"] = { mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "EnergyShieldRechargeRecently" }) },
 	["cannot be ignited if strength is higher than dexterity"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "StrHigherThanDex" }) },
 	["cannot be chilled while burning"] = { mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Burning" }) },
 	["cannot be inflicted with bleeding"] = { mod("AvoidBleed", "BASE", 100) },
