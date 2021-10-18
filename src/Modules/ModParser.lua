@@ -1429,11 +1429,7 @@ local specialModList = {
 		mod("BlockChance", "MORE", -30),
 		mod("SpellBlockChance", "MORE", -30),
 	},
-	["grants %+(%d+)%% chance to block spell damage for each (%d+)%% overcapped chance to block attack damage"] = function(num, _, div) return { mod("SpellBlockChance", "BASE", num, { type = "PerStat", stat = "BlockChanceOverCap", div = tonumber(div) }) } end,
-	["also grants %-25%% to maximum chance to block attack damage and %-25%% to maximum chance to block spell damage"] = {
-		mod("BlockChanceMax", "BASE", -25),
-		mod("SpellBlockChanceMax", "BASE", -25)
-	},
+	["%+(%d+)%% chance to block spell damage for each (%d+)%% overcapped chance to block attack damage"] = function(num, _, div) return { mod("SpellBlockChance", "BASE", num, { type = "PerStat", stat = "BlockChanceOverCap", div = tonumber(div) }) } end,
 	["maximum life becomes 1, immune to chaos damage"] = { 
 		flag("ChaosInoculation"),
 		mod("ChaosDamageTaken", "MORE", -100)
