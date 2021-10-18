@@ -168,11 +168,14 @@ Burning Hoofprints
 Atziri's Step
 Slink Boots
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 69, 120 Dex
 180% increased Evasion Rating
 +(55-75) to maximum Life
 30% increased Movement Speed
-(14-16)% Chance to Dodge Spell Damage
+{variant:1}(21-24)% chance to Suppress Spell Damage
+{variant:2}(20-26)% chance to Suppress Spell Damage
 ]],[[
 The Blood Dance
 Sharkskin Boots
