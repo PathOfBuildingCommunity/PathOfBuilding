@@ -506,15 +506,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "MaximumManaAppliesToShockEffect") then
-		-- Maximum Mana conversion from Lightning Mastery
-		local multiplier = skillModList:Max(skillCfg, "ImprovedMaximumManaAppliesToShockEffect") / 100
-		for i, value in ipairs(skillModList:Tabulate("INC", nil, "Mana")) do
-			local mod = value.mod
-			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
-			skillModList:NewMod("EnemyShockEffect", "INC", mod.value * multiplier, mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
-		end
-	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw, keywordFlags = KeywordFlag.Hit }, "Damage")) do
