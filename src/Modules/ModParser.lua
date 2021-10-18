@@ -2146,6 +2146,7 @@ local specialModList = {
 	["increases and reductions to light radius also apply to area of effect at 50%% of their value"] = { flag("LightRadiusAppliesToAreaOfEffect") },
 	["increases and reductions to light radius also apply to damage"] = { flag("LightRadiusAppliesToDamage") },
 	["increases and reductions to cast speed also apply to trap throwing speed"] = { flag("CastSpeedAppliesToTrapThrowingSpeed") },
+	["increases and reductions to armour also apply to energy shield recharge rate at (%d+)%% of their value"] = function(num) return { flag("ArmourAppliesToEnergyShieldRecharge"), mod("ImprovedArmourAppliesToEnergyShieldRecharge", "MAX", num) } end,
 	["gain (%d+)%% of bow physical damage as extra damage of each element"] = function(num) return {
 		mod("PhysicalDamageGainAsLightning", "BASE", num, nil, ModFlag.Bow),
 		mod("PhysicalDamageGainAsCold", "BASE", num, nil, ModFlag.Bow),
