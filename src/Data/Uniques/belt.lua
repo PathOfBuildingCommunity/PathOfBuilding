@@ -282,6 +282,8 @@ Implicits: 1
 ]],[[
 The Flow Untethered
 Cloth Belt
+Variant: Pre 3.16.0
+Variant: Current
 League: Harbinger
 Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
 Requires Level 60
@@ -289,8 +291,10 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
 {tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
-{tags:life}(15-20)% increased Life Recovery rate
-{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:life}(15-20)% increased Life Recovery rate
+{variant:2}{tags:life}(10-15)% increased Life Recovery rate
+{variant:1}{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+{variant:2}{tags:jewellery_defense}(10-15)% increased Energy Shield Recovery rate
 (15-20)% increased Cooldown Recovery Speed
 Debuffs on you expire (15-20)% faster
 ]],[[
@@ -538,13 +542,16 @@ Implicits: 1
 ]],[[
 Perseverance
 Vanguard Belt
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 78
 Implicits: 1
 {tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
 {tags:life}(4-8)% increased maximum Life
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
-{tags:attack}(14-20)% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:1}{tags:attack}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:2}{tags:attack}Melee Hits which Stun Fortify
 You have Onslaught while you have Fortify
 ]],[[
 Prismweave

@@ -57,7 +57,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.xmlSectionList = { }
 	self.spectreList = { }
 	self.viewMode = "TREE"
-	self.characterLevel = 1
+	self.characterLevel = main.defaultCharLevel or 1
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -613,8 +613,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 
 	-- Initialise build components
-	self.data = data
 	self.latestTree = main.tree[latestTreeVersion]
+	data.setJewelRadiiGlobally(latestTreeVersion)
+	self.data = data
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
 	self.configTab = new("ConfigTab", self)

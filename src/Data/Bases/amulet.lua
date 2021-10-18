@@ -403,3 +403,11 @@ itemBases["Greatwolf Talisman"] = {
 	implicitModTypes = { },
 	req = { },
 }
+
+itemBases["Unset Amulet"] = {
+	type = "Amulet",
+	tags = { amulet = true, default = true, },
+	implicit = "Has 1 Socket",
+	implicitModTypes = { { }, },
+	req = { },
+}

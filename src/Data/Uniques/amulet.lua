@@ -82,12 +82,15 @@ Implicits: 1
 ]],[[
 Replica Atziri's Foible
 Paua Amulet
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Requires Level 16
 Implicits: 1
 {tags:life}Regenerate (1.00-2.00)% of Life per second
 {tags:life}+100 to maximum Life
-{tags:life}(20-25)% increased Life Recovery rate
+{variant:1}{tags:life}(20-25)% increased Life Recovery rate
+{variant:2}{tags:life}(20-25)% increased Life Regeneration rate
 Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 Aul's Uprising
@@ -563,11 +566,11 @@ Implicits: 1
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
 {variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}Vulnerability has 100% reduced Reservation if Cast as an Aura
-{variant:2}Flammability has 100% reduced Reservation if Cast as an Aura
-{variant:3}Frostbite has 100% reduced Reservation if Cast as an Aura
-{variant:4}Conductivity has 100% reduced Reservation if Cast as an Aura
-{variant:5}Despair has 100% reduced Reservation if Cast as an Aura
+{variant:1}Vulnerability has no Reservation if Cast as an Aura
+{variant:2}Flammability has no Reservation if Cast as an Aura
+{variant:3}Frostbite has no Reservation if Cast as an Aura
+{variant:4}Conductivity has no Reservation if Cast as an Aura
+{variant:5}Despair has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 Elder Item
 ]],[[
@@ -638,13 +641,17 @@ Implicits: 1
 ]],[[
 The Jinxed Juju
 Citrine Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
 {tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
-{tags:caster}(10-15)% increased Effect of your Curses
-(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:1}{tags:caster}(10-15)% increased Effect of your Curses
+{variant:2}{tags:caster}(5-10)% increased Effect of your Curses
+{variant:1}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:2}(5-10)% increased effect of Non-Curse Auras from your Skills
 10% of Damage from Hits is taken from your Spectres' Life before you
 (The damage they take will be divided evenly between them)
 ]],[[

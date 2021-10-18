@@ -7,14 +7,16 @@ Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.1.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
 +(60-75) to maximum Life
 (200-220)% increased Armour
-(25-35)% increased Global Critical Strike Chance
+{variant:2}(25-35)% increased Global Critical Strike Chance
+{variant:3}(40-60)% increased Global Critical Strike Chance
 {variant:1}Life and Mana Leech from Critical Strikes are instant
-{variant:2}You have Vaal Pact if you've dealt a Critical Strike Recently
+{variant:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets
@@ -900,11 +902,14 @@ Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 ]],[[
 Nightgrip
 Runic Gages
+Variant: Pre 3.16.0
+Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 (33–48)% increased Ward
 +(17–23)% to Chaos Resistance
-Gain Added Chaos Damage equal to 25% of Ward
+{variant:1}Gain Added Chaos Damage equal to 25% of Ward
+{variant:2}Gain Added Chaos Damage equal to 20% of Ward
 75% of Damage bypasses Ward
 ]],
 }

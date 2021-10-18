@@ -721,6 +721,7 @@ local function doActorMisc(env, actor)
 	output.TotalCharges = output.PowerCharges + output.FrenzyCharges + output.EnduranceCharges
 	modDB.multipliers["WarcryPower"] = output.WarcryPower
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
+	modDB.multipliers["PowerChargeMax"] = output.PowerChargesMax
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
 	modDB.multipliers["RemovableFrenzyCharge"] = output.RemovableFrenzyCharges
@@ -972,7 +973,6 @@ function calcs.perform(env, avoidCache)
 		end
 		if env.theIronMass and env.minion.type == "RaisedSkeleton" then
 			env.minion.modDB:AddList(env.theIronMass)
-			env.minion.modDB:NewMod("TripleDamageChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "HitRecentlyWithWeapon" })
 		end
 		if env.player.mainSkill.skillData.minionUseBowAndQuiver then
 			if env.player.weaponData1.type == "Bow" then
@@ -1371,17 +1371,18 @@ function calcs.perform(env, avoidCache)
 			for name, values in pairs(pool) do
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
+				values.efficiency = skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
 					values.reservedFlat = activeSkill.skillData[name.."ReservationFlatForced"]
 				else
 					local baseFlatVal = m_floor(values.baseFlat * mult)
-					values.reservedFlat = m_max(baseFlatVal - m_modf(baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100), 0)
+					values.reservedFlat = m_max(m_modf((baseFlatVal - m_modf(baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100)) / (1 + values.efficiency / 100)), 0)
 				end
 				if activeSkill.skillData[name.."ReservationPercentForced"] then
 					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
 				else
 					local basePercentVal = values.basePercent * mult
-					values.reservedPercent = m_max(basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100, 0)
+					values.reservedPercent = m_max(m_modf((basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100) / (1 + values.efficiency / 100)), 0)
 				end
 				if activeSkill.activeMineCount then
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
@@ -1397,6 +1398,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
+							efficiency = values.efficiency ~= 0 and ("x " .. 1 / (1 + values.efficiency / 100)),
 							total = values.reservedFlat,
 						})
 					end
@@ -1412,6 +1414,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
+							efficiency = values.efficiency ~= 0 and ("x " .. 1 / (1 + values.efficiency / 100)),
 							total = values.reservedPercent .. "%",
 						})
 					end
@@ -1516,6 +1519,13 @@ function calcs.perform(env, avoidCache)
 	-- Apply effect of Bonechill support
 	if env.mode_effective and output.BonechillEffect then 
 		enemyDB:NewMod("ColdDamageTaken", "INC", output.BonechillEffect, "Bonechill", { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill Cold DoT Taken" }, { type = "Limit", limit = 30 }, { type = "Condition", var = "Chilled" } )
+	end
+
+	-- Deal with Consecrated Ground
+	if modDB:Flag(nil, "Condition:OnConsecratedGround") then
+		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+		modDB:NewMod("LifeRegenPercent", "BASE", 6 * effect, "Consecrated Ground")
+		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 	end
 
 	-- Combine buffs/debuffs 
@@ -2760,22 +2770,29 @@ function calcs.perform(env, avoidCache)
 	end
 
 	-- Apply exposures
-	for _, element in pairs({"Fire", "Cold", "Lightning"}) do
+	for _, element in ipairs({"Fire", "Cold", "Lightning"}) do
 		local min = math.huge
+		local source = ""
 		for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
 			if mod.value < min then
 				min = mod.value
+				source = mod.mod.source
 			end
 		end
 		if min ~= math.huge then
 			-- Modify the magnitude of all exposures
-			for _, value in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure")) do
-				local mod = value.mod
-				enemyDB:NewMod(element.."Resist", "BASE", mod.value, mod.source)
+			for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
+				min = min + mod.value
 			end
-			enemyDB:NewMod(element.."Resist", "BASE", min, element.." Exposure")
+			enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
 			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
+	end
+
+	-- Handle consecrated ground effects on enemies
+	if enemyDB:Flag(nil, "Condition:OnConsecratedGround") then
+		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 
 	-- Defence/offence calculations
