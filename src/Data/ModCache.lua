@@ -4771,7 +4771,7 @@ c["Prismatic Jewel Source: Fastest Eternal Labyrinth"]={nil,"Prismatic Jewel Sou
 c["+60% to Damage over Time Multiplier if you've dealt a Critical Strike in the past 8 seconds"]={{[1]={[1]={type="Condition",var="CritInPast8Sec"},flags=0,keywordFlags=0,name="DotMultiplier",type="BASE",value=60}},nil}
 c["Hellion's Paw"]={nil,"Hellion's Paw "}
 c["Sovereign Spiked Shield League: Ritual"]={nil,"Sovereign Spiked Shield League: Ritual "}
-c["Auras from your Skills have 15% increased Effect on you"]={nil,"Auras from your Skills have 15% increased Effect on you "}
+c["Auras from your Skills have 15% increased Effect on you"]={{[1]={flags=0,keywordFlags=0,name="SkillAuraEffectOnSelf",type="INC",value=15}},nil}
 c["5% chance to gain a Frenzy Charge on Kill while Dual Wielding"]={{}," to gain aCharge on Kill  "}
 c["Murder Mitts Requires Level: 67"]={nil,"Murder Mitts Requires Level: 67 "}
 c["Gain Convergence when you Hit a Unique Enemy, no more than once every 8 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainConvergence",type="FLAG",value=true}},nil}
