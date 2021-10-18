@@ -11,7 +11,7 @@ return {
 	},
 	["INSTILLING"] = {
 		"Used when an adjacent Flask is used",
-		"Reused at the end of the Flask effect",
+		"Reused at the end of this Flask's effect",
 		"Used when Charges reach full",
 		"Used when you Use a Guard Skill",
 		"Used when you Use a Travel Skill",
