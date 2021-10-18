@@ -833,13 +833,20 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
-		output.ManaReservedMod = calcLib.mod(skillModList, skillCfg, "ManaReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
-		if breakdown then
-			breakdown.ManaReservedMod = breakdown.mod(skillModList, skillCfg, "ManaReserved", "Reserved", "SupportManaMultiplier")
-		end
-		output.LifeReservedMod = calcLib.mod(skillModList, skillCfg, "LifeReserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier")
-		if breakdown then
-			breakdown.LifeReservedMod = breakdown.mod(skillModList, skillCfg, "LifeReserved", "Reserved", "SupportManaMultiplier")
+		for _, pool in ipairs({"Life", "Mana"}) do
+			output[pool .. "ReservedMod"] = calcLib.mod(skillModList, skillCfg, pool .. "Reserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")
+			if breakdown then
+				local inc = skillModList:Sum("INC", skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
+				local more = skillModList:More(skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
+				if inc ~= 0 and more ~= 1 then
+					breakdown[pool .. "ReservedMod"] = {
+						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
+						s_format("x %.2f ^8(more/less)", more),
+						s_format("/ %.2f ^8(reservation efficiency)", calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")),
+						s_format("= %.2f", output[pool .. "ReservedMod"]),
+					}
+				end
+			end
 		end
 	end
 	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
