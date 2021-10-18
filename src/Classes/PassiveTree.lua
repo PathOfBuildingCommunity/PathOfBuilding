@@ -33,8 +33,8 @@ local orbit4Angle = { [0] = 0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110,
 for i, ang in ipairs(orbit4Angle) do
 	orbit4Angle[i] = m_rad(ang)
 end
-local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
-local orbitDist = { [0] = 0, 82, 162, 335, 493 }
+local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 6, m_pi / 36, m_pi / 36 }
+local orbitDist = { [0] = 0, 82, 162, 335, 493, 662, 845 }
 
 
 -- Retrieve the file at the given URL
@@ -135,7 +135,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -229,10 +229,10 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			unallocAlt = "JewelSocketAltNormal",
 		},
 		Mastery = {
-			artWidth = 58,
-			alloc = "NotableFrameAllocated",
-			path = "NotableFrameCanAllocate",
-			unalloc = "NotableFrameUnallocated"
+			artWidth = 120,
+			alloc = "AscendancyFrameLargeAllocated",
+			path = "AscendancyFrameLargeCanAllocate",
+			unalloc = "AscendancyFrameLargeNormal"
 		},
 	}
 	for type, data in pairs(self.nodeOverlay) do
@@ -262,7 +262,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.sockets = { }
 	self.masteryEffects = { }
 	local nodeMap = { }
-	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
+	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 6, m_pi / 36, m_pi / 36 }
 	local orbitMultFull = {
 		[0] = 0,
 		[1] = 10 * m_pi / 180,
@@ -305,7 +305,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		[38] = 340 * m_pi / 180,
 		[39] = 350 * m_pi / 180
 	}
-	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
+	local orbitDist = { [0] = 0, 82, 162, 335, 493, 662, 845 }
 	for _, node in pairs(self.nodes) do
 		-- Migration...
 		if versionNum < 3.10 then

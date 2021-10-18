@@ -308,7 +308,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	-- Draw the background artwork
-	local bg = tree.assets.Background1
+	local bg = tree.assets.Background2 or tree.assets.Background1
 	if bg.width == 0 then
 		bg.width, bg.height = bg.handle:ImageSize()
 	end
@@ -518,9 +518,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				if node.masteryEffects then
 					-- TODO: Reconsider rending approach once tree/sprites are released
 					overlay = node.overlay[state]
-				else
-					SetDrawLayer(nil, 15)
 				end
+				SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
