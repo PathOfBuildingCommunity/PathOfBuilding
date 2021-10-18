@@ -495,7 +495,7 @@ function PassiveSpecClass:BuildPathFromNode(root)
 			if not other.pathDist then
 				ConPrintTable(other, true)
 			end
-			if root.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)
@@ -1020,6 +1020,8 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		-- Add mastery node
 		subGraph.group.oo[0] = true
 		t_insert(subGraph.nodes, {
+			dn = "Nothingness",
+			sd = { },
 			type = "Mastery",
 			id = nodeId + 12,
 			icon = skill.masteryIcon,

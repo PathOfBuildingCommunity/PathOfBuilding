@@ -229,7 +229,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			unallocAlt = "JewelSocketAltNormal",
 		},
 		Mastery = {
-			artWidth = versionNum >= 3.16 and 65 or 0,
+			artWidth = 65,
 			alloc = "AscendancyFrameLargeAllocated",
 			path = "AscendancyFrameLargeCanAllocate",
 			unalloc = "AscendancyFrameLargeNormal"

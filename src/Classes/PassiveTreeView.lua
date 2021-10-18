@@ -666,7 +666,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end
-		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and not IsKeyDown("CTRL") and not main.popups[1] then
+		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and (node.type ~= "Mastery" or node.masteryEffects) and not IsKeyDown("CTRL") and not main.popups[1] then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)
