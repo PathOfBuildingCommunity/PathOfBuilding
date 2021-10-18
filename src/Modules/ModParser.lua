@@ -1434,7 +1434,7 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
-	["modifiers to spell suppression instead apply to spell dodge at 50%% of their values"] = { 
+	["modifiers to chance to suppress spell damage instead apply to chance to dodge spell hits at 50%% of their value"] = { 
 		flag("ConvertSpellSuppressionToSpellDodge"),
 		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"), 
 	},
