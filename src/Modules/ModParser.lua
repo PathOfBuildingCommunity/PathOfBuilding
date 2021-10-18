@@ -1408,6 +1408,7 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
+	["strength's damage bonus applies to all spell damage as well"] = { flag("IronWill") },
 	["your hits can't be evaded"] = { flag("CannotBeEvaded") },
 	["never deal critical strikes"] = { flag("NeverCrit"), flag("Condition:NeverCrit") },
 	["no critical strike multiplier"] = { flag("NoCritMultiplier") },
