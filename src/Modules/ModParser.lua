@@ -2928,6 +2928,7 @@ local specialModList = {
 	["nearby enemies are crushed while you have least (%d+) rage"] = function(num) return { mod("EnemyPhysicalDamageReduction", "BASE", -15, { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["you are crushed"] = function(num) return { mod("PhysicalDamageReduction", "BASE", -15) } end,
 	["nearby enemies are crushed"] = { mod("EnemyPhysicalDamageReduction", "BASE", -15) },
+	["crush enemies on hit with maces and sceptres"] = { mod("EnemyPhysicalDamageReduction", "BASE", -15, nil, ModFlag.Mace) },
 	["enemies on fungal ground you kill explode, dealing 5%% of their life as chaos damage"] = {},
 	["you have fungal ground around you while stationary"] = {
 		mod("ExtraAura", "LIST", { mod = mod("NonChaosDamageGainAsChaos", "BASE", 10) }, { type = "Condition", varList = { "OnFungalGround", "Stationary" } }),
