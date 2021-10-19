@@ -51,22 +51,6 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local function copy(obj, seen)
-	if type(obj) ~= 'table' then
-		return obj
-	end
-	if seen and seen[obj] then
-		return seen[obj]
-	end
-	local s = seen or {}
-	local res = setmetatable({}, getmetatable(obj))
-	s[obj] = res
-	for k, v in pairs(obj) do
-		res[copy(k, s)] = copy(v, s)
-	end
-	return res
-end
-
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
@@ -664,7 +648,7 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 				-- If we need a second arc of any size, we should shift the arcAngle to 25% of the distance between the nodes instead of 50%
 				arcAngle = arcAngle / 2
 				-- clone the original connector table to ensure same functionality for both of the necessary connectors
-				secondConnector = copy(connector)
+				secondConnector = copyTableSafe(connector)
 				-- And then ask the BuildArc function to create a connector that is a mirror of the provided arcAngle
 				-- Provide the second connector as a parameter to store the mirrored arc
 				self:BuildArc(arcAngle, node1, secondConnector, true)
