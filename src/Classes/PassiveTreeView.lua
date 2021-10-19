@@ -913,7 +913,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	if node.sd[1] then
+	if node.sd[1] and node.type ~= "Mastery" then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(node.sd) do
 			if node.mods[i].list then
@@ -970,7 +970,12 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			if node.type == "Mastery" and node.allMasteryOptions ~= nil then
+				pathNodes[node] = nil
+				nodeOutput = calcFunc()
+			else
+				nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			end
 			if pathLength > 1 then
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end

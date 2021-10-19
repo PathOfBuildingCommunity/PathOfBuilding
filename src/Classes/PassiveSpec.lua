@@ -688,9 +688,22 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.type == "Mastery" and self.masterySelections[id] then
 			local effect = self.tree.masteryEffects[self.masterySelections[id]]
 			node.sd = effect.sd
+			node.allMasteryOptions = nil
 			node.reminderText = { "Tip: Right click to select a different effect" }
 			self.tree:ProcessStats(node)
 			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+		elseif node.type == "Mastery" then
+			node.sd = {}
+			for _, effect in pairs(node.masteryEffects) do
+				effect = self.tree.masteryEffects[effect.effect]
+				if effect.sd ~= nil then
+					for _, sd in ipairs(effect.sd) do
+						t_insert(node.sd, sd)
+					end
+				end
+			end
+			self.tree:ProcessStats(node)
+			node.allMasteryOptions = true
 		elseif node.type == "Notable" then
 			self.allocatedNotableCount = self.allocatedNotableCount + 1
 		end
