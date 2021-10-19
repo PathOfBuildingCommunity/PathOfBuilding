@@ -2964,6 +2964,9 @@ local specialModList = {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
 	["focus has (%d+)%% increased cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", num, { type = "Condition", var = "Focused"}) } end,
+	["(%d+)%% chance to deal double damage with attacks if attack time is longer than 1 second"] = function(num) return { 
+		mod("DoubleDamageChance", "BASE", num, 0, 0, { type = "Condition", var = "OneSecondAttackTime" })
+	} end,
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		flag("Condition:Stationary"),
