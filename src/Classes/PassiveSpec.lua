@@ -726,7 +726,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					end
 				end
-				if prune then
+				if prune or _ > 100000 then
 					self:DeallocSingleNode(depNode)
 				end
 			end
