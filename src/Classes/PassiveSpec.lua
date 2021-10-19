@@ -894,7 +894,12 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	local function linkNodes(node1, node2)
 		t_insert(node1.linked, node2)
 		t_insert(node2.linked, node1)
-		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
+		-- BuildConnector returns a table of objects, not a single object now
+		local connectors = self.tree:BuildConnector(node1, node2)
+		t_insert(subGraph.connectors, connectors[1])
+		if connectors[2] then
+			t_insert(subGraph.connectors, connectors[2])
+		end
 	end
 
 	local function matchGroup(proxyId)
