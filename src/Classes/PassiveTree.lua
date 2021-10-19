@@ -43,7 +43,7 @@ local function getFile(URL)
 	local easy = common.curl.easy()
 	easy:setopt_url(URL)
 	easy:setopt_writefunction(function(data)
-		page = page .. data
+		page = page..data
 		return true
 	end)
 	easy:perform()
@@ -77,14 +77,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
 	local treeText
-	local treeFile = io.open("TreeData/" .. treeVersion .. "/tree.lua", "r")
+	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
 	if treeFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
 		ConPrintf("Downloading passive tree data...")
 		local page
-		local pageFile = io.open("TreeData/" .. treeVersion .. "/data.json", "r")
+		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
 		if pageFile then
 			page = pageFile:read("*a")
 			pageFile:close()
@@ -98,7 +98,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		else
 			treeText = "return " .. jsonToLua(page)
 		end
-		treeFile = io.open("TreeData/" .. treeVersion .. "/tree.lua", "w")
+		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 	end
@@ -140,7 +140,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		self:LoadImage(name .. ".png", cdnRoot .. (data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 	end
 
 	-- Load sprite sheets and build sprite map
@@ -151,7 +151,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$", ""):gsub(".*/", "") or maxZoom.filename:gsub("%?%x+$", ""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com" .. (self.imageRoot or "/image/") .. (versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/") .. maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -178,7 +178,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		if not sheet then
 			sheet = { }
 			sheet.handle = NewImageHandle()
-			sheet.handle:Load("TreeData/legion/" .. maxZoom.filename)
+			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
 			sheet.width, sheet.height = sheet.handle:ImageSize()
 			spriteSheets[maxZoom.filename] = sheet
 		end
@@ -339,7 +339,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 
 		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
-			t_insert(node.sd, "Grants " .. node.passivePointsGranted .. " Passive Skill Point" .. (node.passivePointsGranted > 1 and "s" or ""))
+			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
 		end
 		node.conquered = false
 		node.alternative = {}
@@ -422,15 +422,15 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
 			if node.type ~= "ClassStart" and other.type ~= "ClassStart"
-					and node.type ~= "Mastery" and other.type ~= "Mastery"
-					and node.ascendancyName == other.ascendancyName
-					and not node.isProxy and not other.isProxy
-					and not node.group.isProxy and not node.group.isProxy then
-						local connectors = self:BuildConnector(node, other)
-						t_insert(self.connectors, connectors[1])
-						if connectors[2] then
-							t_insert(self.connectors, connectors[2])
-						end
+				and node.type ~= "Mastery" and other.type ~= "Mastery"
+				and node.ascendancyName == other.ascendancyName
+				and not node.isProxy and not other.isProxy
+				and not node.group.isProxy and not node.group.isProxy then
+					local connectors = self:BuildConnector(node, other)
+					t_insert(self.connectors, connectors[1])
+					if connectors[2] then
+						t_insert(self.connectors, connectors[2])
+					end
 			end
 		end
 		for _, otherId in pairs(node["in"] or {}) do
@@ -468,7 +468,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		for _, nodeId in ipairs(startNode.linkedId) do
 			local node = nodeMap[nodeId]
 			if node.type == "Normal" then
-				node.modList:NewMod("Condition:ConnectedTo" .. class.name .. "Start", "FLAG", true, "Tree:" .. nodeId)
+				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
 			end
 		end
 	end
@@ -546,7 +546,7 @@ function PassiveTreeClass:ProcessStats(node)
 			node.extra = true
 		else
 			for _, mod in ipairs(list) do
-				node.modKey = node.modKey .. "[" .. modLib.formatMod(mod) .. "]"
+				node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
 			end
 		end
 		node.mods[i] = { list = list, extra = extra }
@@ -562,7 +562,7 @@ function PassiveTreeClass:ProcessStats(node)
 	for _, mod in pairs(node.mods) do
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod.source = "Tree:" .. node.id
+				mod.source = "Tree:"..node.id
 				if type(mod.value) == "table" and mod.value.mod then
 					mod.value.mod.source = mod.source
 				end
@@ -571,7 +571,7 @@ function PassiveTreeClass:ProcessStats(node)
 		end
 	end
 	if node.type == "Keystone" then
-		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree" .. node.id)
+		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
 	end
 end
 
@@ -606,19 +606,19 @@ end
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
 function PassiveTreeClass:LoadImage(imgName, url, data, ...)
-	local imgFile = io.open("TreeData/" .. imgName, "r")
+	local imgFile = io.open("TreeData/"..imgName, "r")
 	if imgFile then
 		imgFile:close()
 	else
-		imgFile = io.open("TreeData/" .. self.treeVersion .. "/" .. imgName, "r")
+		imgFile = io.open("TreeData/"..self.treeVersion.."/"..imgName, "r")
 		if imgFile then
 			imgFile:close()
-			imgName = self.treeVersion .. "/" .. imgName
+			imgName = self.treeVersion.."/"..imgName
 		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
 			if data and not data:match("<!DOCTYPE html>") then
-				imgFile = io.open("TreeData/" .. imgName, "wb")
+				imgFile = io.open("TreeData/"..imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()
 			else
@@ -627,7 +627,7 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		end
 	end
 	data.handle = NewImageHandle()
-	data.handle:Load("TreeData/" .. imgName, ...)
+	data.handle:Load("TreeData/"..imgName, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
@@ -638,8 +638,8 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 		nodeId1 = node1.id,
 		nodeId2 = node2.id,
 		c = { } -- This array will contain the quad's data: 1-8 are the vertex coordinates, 9-16 are the texture coordinates
-		-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
-		-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates
+				-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
+				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates
 	}
 	if node1.g == node2.g and node1.o == node2.o then
 		-- Nodes are in the same orbit of the same group
