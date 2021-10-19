@@ -374,6 +374,8 @@ function calcs.defence(env, actor)
 
 	-- Block
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+	output.BlockChanceOverCap = 0
+	output.SpellBlockChanceOverCap = 0
 	local baseBlockChance = 0
 	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
