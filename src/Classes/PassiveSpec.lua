@@ -694,7 +694,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 		elseif node.type == "Mastery" then
 			node.sd = {}
-			for _, effect in pairs(node.masteryEffects) do
+			for _, effect in ipairs(node.masteryEffects) do
 				effect = self.tree.masteryEffects[effect.effect]
 				if effect.sd ~= nil then
 					for _, sd in ipairs(effect.sd) do
