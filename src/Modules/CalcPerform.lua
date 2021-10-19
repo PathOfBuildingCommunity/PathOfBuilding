@@ -1540,7 +1540,7 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 		for _, aura in pairs(auraList) do
-			modDB.multipliers["Aura"] = (modDB.multipliers["Aura"] or 0) + 1
+			modDB.multipliers["AuraAffectingSelf"] = (modDB.multipliers["AuraAffectingSelf"] or 0) + 1
 		end
 	end
 	
