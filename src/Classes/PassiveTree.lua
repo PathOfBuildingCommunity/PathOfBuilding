@@ -43,12 +43,28 @@ local function getFile(URL)
 	local easy = common.curl.easy()
 	easy:setopt_url(URL)
 	easy:setopt_writefunction(function(data)
-		page = page..data
+		page = page .. data
 		return true
 	end)
 	easy:perform()
 	easy:close()
 	return #page > 0 and page
+end
+
+local function copy(obj, seen)
+	if type(obj) ~= 'table' then
+		return obj
+	end
+	if seen and seen[obj] then
+		return seen[obj]
+	end
+	local s = seen or {}
+	local res = setmetatable({}, getmetatable(obj))
+	s[obj] = res
+	for k, v in pairs(obj) do
+		res[copy(k, s)] = copy(v, s)
+	end
+	return res
 end
 
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
@@ -61,14 +77,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
 	local treeText
-	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
+	local treeFile = io.open("TreeData/" .. treeVersion .. "/tree.lua", "r")
 	if treeFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
 		ConPrintf("Downloading passive tree data...")
 		local page
-		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
+		local pageFile = io.open("TreeData/" .. treeVersion .. "/data.json", "r")
 		if pageFile then
 			page = pageFile:read("*a")
 			pageFile:close()
@@ -82,7 +98,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		else
 			treeText = "return " .. jsonToLua(page)
 		end
-		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
+		treeFile = io.open("TreeData/" .. treeVersion .. "/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 	end
@@ -124,7 +140,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		self:LoadImage(name .. ".png", cdnRoot .. (data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 	end
 
 	-- Load sprite sheets and build sprite map
@@ -135,7 +151,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$", ""):gsub(".*/", "") or maxZoom.filename:gsub("%?%x+$", ""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com" .. (self.imageRoot or "/image/") .. (versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/") .. maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -162,7 +178,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		if not sheet then
 			sheet = { }
 			sheet.handle = NewImageHandle()
-			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
+			sheet.handle:Load("TreeData/legion/" .. maxZoom.filename)
 			sheet.width, sheet.height = sheet.handle:ImageSize()
 			spriteSheets[maxZoom.filename] = sheet
 		end
@@ -323,13 +339,13 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 
 		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
-			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
+			t_insert(node.sd, "Grants " .. node.passivePointsGranted .. " Passive Skill Point" .. (node.passivePointsGranted > 1 and "s" or ""))
 		end
 		node.conquered = false
 		node.alternative = {}
 		node.__index = node
 		node.linkedId = { }
-		nodeMap[node.id] = node	
+		nodeMap[node.id] = node
 
 		-- Determine node type
 		if node.classStartIndex then
@@ -392,7 +408,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		elseif node.type == "Notable" or node.type == "Keystone" then
 			self.clusterNodeMap[node.dn] = node
 		end
-		
+
 		self:ProcessNode(node)
 	end
 
@@ -406,11 +422,15 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
 			if node.type ~= "ClassStart" and other.type ~= "ClassStart"
-				and node.type ~= "Mastery" and other.type ~= "Mastery"
-			  	and node.ascendancyName == other.ascendancyName
-			  	and not node.isProxy and not other.isProxy
-			  	and not node.group.isProxy and not node.group.isProxy then
-					t_insert(self.connectors, self:BuildConnector(node, other))
+					and node.type ~= "Mastery" and other.type ~= "Mastery"
+					and node.ascendancyName == other.ascendancyName
+					and not node.isProxy and not other.isProxy
+					and not node.group.isProxy and not node.group.isProxy then
+						local connectors = self:BuildConnector(node, other)
+						t_insert(self.connectors, connectors[1])
+						if connectors[2] then
+							t_insert(self.connectors, connectors[2])
+						end
 			end
 		end
 		for _, otherId in pairs(node["in"] or {}) do
@@ -448,7 +468,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		for _, nodeId in ipairs(startNode.linkedId) do
 			local node = nodeMap[nodeId]
 			if node.type == "Normal" then
-				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
+				node.modList:NewMod("Condition:ConnectedTo" .. class.name .. "Start", "FLAG", true, "Tree:" .. nodeId)
 			end
 		end
 	end
@@ -526,7 +546,7 @@ function PassiveTreeClass:ProcessStats(node)
 			node.extra = true
 		else
 			for _, mod in ipairs(list) do
-				node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
+				node.modKey = node.modKey .. "[" .. modLib.formatMod(mod) .. "]"
 			end
 		end
 		node.mods[i] = { list = list, extra = extra }
@@ -542,7 +562,7 @@ function PassiveTreeClass:ProcessStats(node)
 	for _, mod in pairs(node.mods) do
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod.source = "Tree:"..node.id
+				mod.source = "Tree:" .. node.id
 				if type(mod.value) == "table" and mod.value.mod then
 					mod.value.mod.source = mod.source
 				end
@@ -551,7 +571,7 @@ function PassiveTreeClass:ProcessStats(node)
 		end
 	end
 	if node.type == "Keystone" then
-		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
+		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree" .. node.id)
 	end
 end
 
@@ -586,19 +606,19 @@ end
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
 function PassiveTreeClass:LoadImage(imgName, url, data, ...)
-	local imgFile = io.open("TreeData/"..imgName, "r")
+	local imgFile = io.open("TreeData/" .. imgName, "r")
 	if imgFile then
 		imgFile:close()
 	else
-		imgFile = io.open("TreeData/"..self.treeVersion.."/"..imgName, "r")
+		imgFile = io.open("TreeData/" .. self.treeVersion .. "/" .. imgName, "r")
 		if imgFile then
 			imgFile:close()
-			imgName = self.treeVersion.."/"..imgName
+			imgName = self.treeVersion .. "/" .. imgName
 		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
 			if data and not data:match("<!DOCTYPE html>") then
-				imgFile = io.open("TreeData/"..imgName, "wb")
+				imgFile = io.open("TreeData/" .. imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()
 			else
@@ -607,7 +627,7 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		end
 	end
 	data.handle = NewImageHandle()
-	data.handle:Load("TreeData/"..imgName, ...)
+	data.handle:Load("TreeData/" .. imgName, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
@@ -618,8 +638,8 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 		nodeId1 = node1.id,
 		nodeId2 = node2.id,
 		c = { } -- This array will contain the quad's data: 1-8 are the vertex coordinates, 9-16 are the texture coordinates
-				-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
-				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates 
+		-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
+		-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates
 	}
 	if node1.g == node2.g and node1.o == node2.o then
 		-- Nodes are in the same orbit of the same group
@@ -628,41 +648,30 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 			node1, node2 = node2, node1
 		end
 		local arcAngle = node2.angle - node1.angle
-		if arcAngle > m_pi then
+		if arcAngle >= m_pi then
 			node1, node2 = node2, node1
 			arcAngle = m_pi * 2 - arcAngle
 		end
-		if arcAngle < m_pi * 0.9 then
+		if arcAngle < m_pi then
 			-- Angle is less than 180 degrees, draw an arc
-			connector.type = "Orbit" .. node1.o
-			-- This is an arc texture mapped onto a kite-shaped quad
-			-- Calculate how much the arc needs to be clipped by
-			-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
-			-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
-			-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
-			-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
-			local clipAngle = m_pi / 4 - arcAngle / 2
-			local p = 1 - m_max(m_tan(clipAngle), 0)
-			local angle = node1.angle - clipAngle
-			connector.vert = { }
-			for _, state in pairs({"Normal","Intermediate","Active"}) do
-				-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
-				local art = self.assets[connector.type..state]
-				local size = art.width * 2 * 1.33
-				local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi/4), size * m_sqrt(2) * -m_cos(angle + m_pi/4)
-				local cX, cY = node1.group.x + oX, node1.group.y + oY
-				local vert = { }
-				vert[1], vert[2] = node1.group.x, node1.group.y
-				vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
-				vert[5], vert[6] = cX, cY
-				vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
-				connector.vert[state] = vert
+			-- If our arc is greater than 90 degrees, we will need 2 arcs because our orbit assets are at most 90 degree arcs see below
+			-- The calling class already handles adding a second connector object in the return table if provided and omits it if nil
+			-- Establish a nil secondConnector to populate in the case that we need a second arc (>90 degree orbit)
+			local secondConnector
+			if arcAngle > (m_pi / 2) then
+				-- Angle is greater than 90 degrees.
+				-- The default behavior for a given arcAngle is to place the arc at the center point between two nodes and clip the excess
+				-- If we need a second arc of any size, we should shift the arcAngle to 25% of the distance between the nodes instead of 50%
+				arcAngle = arcAngle / 2
+				-- clone the original connector table to ensure same functionality for both of the necessary connectors
+				secondConnector = copy(connector)
+				-- And then ask the BuildArc function to create a connector that is a mirror of the provided arcAngle
+				-- Provide the second connector as a parameter to store the mirrored arc
+				self:BuildArc(arcAngle, node1, secondConnector, true)
 			end
-			connector.c[9], connector.c[10] = 1, 1
-			connector.c[11], connector.c[12] = 0, p
-			connector.c[13], connector.c[14] = 0, 0
-			connector.c[15], connector.c[16] = p, 0
-			return connector
+			-- generate the primary arc -- this arcAngle may have been modified if we have determined that a second arc is necessary for this orbit
+			self:BuildArc(arcAngle, node1, connector)
+			return { connector, secondConnector }
 		end
 	end
 
@@ -683,5 +692,46 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 	connector.c[13], connector.c[14] = endS, 0
 	connector.c[15], connector.c[16] = endS, 1
 	connector.vert = { Normal = connector, Intermediate = connector, Active = connector }
-	return connector
+	return { connector }
+end
+
+function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
+	connector.type = "Orbit" .. node1.o
+	-- This is an arc texture mapped onto a kite-shaped quad
+	-- Calculate how much the arc needs to be clipped by
+	-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
+	-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
+	-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
+	-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
+	local clipAngle = m_pi / 4 - arcAngle / 2
+	local p = 1 - m_max(m_tan(clipAngle), 0)
+	local angle = node1.angle - clipAngle
+	if isMirroredArc then
+		angle = angle + arcAngle
+	end
+	connector.vert = { }
+	for _, state in pairs({ "Normal", "Intermediate", "Active" }) do
+		-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
+		local art = self.assets[connector.type .. state]
+		local size = art.width * 2 * 1.33
+		local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi / 4), size * m_sqrt(2) * -m_cos(angle + m_pi / 4)
+		local cX, cY = node1.group.x + oX, node1.group.y + oY
+		local vert = { }
+		vert[1], vert[2] = node1.group.x, node1.group.y
+		vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
+		vert[5], vert[6] = cX, cY
+		vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
+		if (isMirroredArc) then
+		-- Flip the quad's non-origin, non-center vertexes when drawing a mirrored arc so that the arc actually mirrored
+		-- This is required to prevent the connection of the 2 arcs appear to have a 'seam'
+			local temp1, temp2 = vert[3],vert[4]
+			vert[3],vert[4] = vert[7],vert[8]
+			vert[7],vert[8] = temp1, temp2
+		end
+		connector.vert[state] = vert
+	end
+	connector.c[9], connector.c[10] = 1, 1
+	connector.c[11], connector.c[12] = 0, p
+	connector.c[13], connector.c[14] = 0, 0
+	connector.c[15], connector.c[16] = p, 0
 end
