@@ -2555,6 +2555,7 @@ local specialModList = {
 	["damage from blocked hits cannot bypass energy shield"] = { flag("BlockedDamageDoesntBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["damage from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["recover (%d+) life when you block"] = function(num) return { mod("LifeOnBlock", "BASE", num) } end,
+	["recover (%d+) energy shield when you block spell damage"] = function(num) return { mod("EnergyShieldOnSpellBlock", "BASE", num) } end,
 	["recover (%d+)%% of life when you block"] = function(num) return { mod("LifeOnBlock", "BASE", 1,  { type = "PerStat", stat = "Life", div = 100 / num }) } end,
 	["recover (%d+)%% of your maximum mana when you block"] = function(num) return { mod("ManaOnBlock", "BASE", 1,  { type = "PerStat", stat = "Mana", div = 100 / num }) } end,
 	["recover (%d+)%% of energy shield when you block"] = function(num) return { mod("EnergyShieldOnBlock", "BASE", 1,  { type = "PerStat", stat = "EnergyShield", div = 100 / num }) } end,
