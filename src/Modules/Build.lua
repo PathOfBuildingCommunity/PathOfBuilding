@@ -397,6 +397,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, overCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
+		{ label = "Chaos Inoculation active", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
 		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 		{ },
@@ -1190,14 +1191,14 @@ end
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
-		if statData.stat then
-			if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
+		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
+			local labelColor = "^7"
+				if statData.color then
+					labelColor = statData.color
+				end
+			if statData.stat then
 				local statVal = actor.output[statData.stat]
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
-					local labelColor = "^7"
-					if statData.color then
-						labelColor = statData.color
-					end
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
@@ -1239,6 +1240,8 @@ function buildMode:AddDisplayStatList(statList, actor)
 						})
 					end
 				end
+			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
+				t_insert(statBoxList, { height = 16, labelColor..statData.label})
 			end
 		elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
 			t_insert(statBoxList, { height = 6 })

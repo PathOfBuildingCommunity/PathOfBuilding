@@ -543,8 +543,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 		modDB:ScaleAddList({ value.mod }, calcLib.mod(modDB, nil, "BuffEffectOnSelf", "ShrineBuffEffect"))
 	end
 
+	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	-- Life/mana pools
-	if modDB:Flag(nil, "ChaosInoculation") then
+	if output.ChaosInoculation then
 		output.Life = 1
 		condList["FullLife"] = true
 	else
