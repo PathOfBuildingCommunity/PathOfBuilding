@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.10.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.10.0) (2021/10/19)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.9.0...2.10.0)
+
+**Implemented enhancements:**
+
+- Add balance updates from 3.16.0 v3 tree [\#3414](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3414) ([Wires77](https://github.com/Wires77))
+- Add support for mastery mod: Block Attack Damage if Not Blocked Recently [\#3387](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3387) ([Peechey](https://github.com/Peechey))
+- Add support for mastery mod: Intelligence is added to Accuracy Rating with Wands [\#3341](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3341) ([sida-wang](https://github.com/sida-wang))
+
+**Fixed bugs:**
+
+- Fix spell suppression label in Calcs tab [\#3369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3369) ([frodon1](https://github.com/frodon1))
+- Fix crash when using Mistwall [\#3360](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3360) ([Tom Clancy Is Dead](https://github.com/Voronoff))
+- Fix missing onslaught mods for Daresso's Defiance [\#3349](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3349) ([jfindley](https://github.com/jfindley))
+
 ## [2.9.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.9.0) (2021/10/18)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.8.0...2.9.0)

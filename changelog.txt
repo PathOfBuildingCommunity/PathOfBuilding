@@ -1,3 +1,13 @@
+VERSION[2.10.0][2021/10/19]
+
+* Add balance updates from 3.16.0 v3 tree (Wires77)
+* Add support for mastery mod: Block Attack Damage if Not Blocked Recently (Peechey)
+* Add support for mastery mod: Intelligence is added to Accuracy Rating with Wands (sida-wang)
+
+* Fix spell suppression label in Calcs tab (frodon1)
+* Fix crash when using Mistwall (Tom Clancy Is Dead)
+* Fix missing onslaught mods for Daresso's Defiance (jfindley)
+
 VERSION[2.9.0][2021/10/18]
 
 * Add 3.16 tree and implement passive masteries (ifnjeff)
