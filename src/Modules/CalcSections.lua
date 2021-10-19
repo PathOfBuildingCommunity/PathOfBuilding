@@ -1328,7 +1328,7 @@ return {
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)", { modName = "SpellDodgeChance" }, }, },
 } }, { defaultCollapsed = false, label = "Spell Suppression", data = {
 	extra = "{0:output:SpellSuppressionChance}%",
-	{ label = "Suppression Chance", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
+	{ label = "Suppression Ch.", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
 	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
 } },
 } },
