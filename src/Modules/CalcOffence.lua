@@ -3257,6 +3257,18 @@ function calcs.offence(env, actor, activeSkill)
 			if baseVal > 0 then
 				skillFlags.shock = true
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
+
+				if skillModList:Flag(nil, "MaximumManaAppliesToShockEffect") then
+					-- Maximum Mana conversion from Lightning Mastery keystone
+					local multiplier = getConversionMultiplier("INC", "ImprovedMaximumManaAppliesToShockEffect")
+
+					for i, value in ipairs(skillModList:Tabulate("INC", nil, "Mana")) do
+						local mod = value.mod
+						local modifiers = getConvertedModTags(mod, multiplier)
+						skillModList:NewMod("EnemyShockEffect", "INC", mod.value * multiplier, mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
+					end
+				end
+
 				output.ShockEffectMod = calcLib.mod(skillModList, cfg, "EnemyShockEffect")
 				output.ShockEffectModDisplay = 100 * (output.ShockEffectMod - 1)
 				local maximum = skillModList:Override(nil, "ShockMax") or 50
