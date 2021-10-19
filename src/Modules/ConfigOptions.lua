@@ -1287,11 +1287,12 @@ return {
 			local mods, extra = modLib.parseMod(line)
 
 			if mods then
+				local source = "Custom"
 				for i = 1, #mods do
 					local mod = mods[i]
 
 					if mod then
-						mod.source = "Custom"
+						mod = modLib.setSource(mod, source)
 						modList:AddMod(mod)
 					end
 				end

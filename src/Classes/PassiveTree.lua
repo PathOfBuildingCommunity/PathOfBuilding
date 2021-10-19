@@ -542,10 +542,7 @@ function PassiveTreeClass:ProcessStats(node)
 	for _, mod in pairs(node.mods) do
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod.source = "Tree:"..node.id
-				if type(mod.value) == "table" and mod.value.mod then
-					mod.value.mod.source = mod.source
-				end
+				mod = modLib.setSource(mod, "Tree:"..node.id)
 				node.modList:AddMod(mod)
 			end
 		end
