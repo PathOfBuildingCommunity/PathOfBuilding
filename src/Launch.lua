@@ -15,11 +15,6 @@ launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
-	package.cpath = package.cpath .. ';C:/Users/summ1/AppData/Local/JetBrains/Toolbox/apps/IDEA-U/ch-0/212.5284.40.plugins/EmmyLua/classes/debugger/emmy/windows/x86/?.dll'
-	local dbg = require('emmy_core')
-	dbg.tcpListen('localhost', 9966)
-	--dbg.waitIDE()
-
 	self.devMode = false
 	self.installedMode = false
 	self.versionNumber = "?"
