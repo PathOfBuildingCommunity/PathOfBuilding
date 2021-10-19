@@ -141,6 +141,7 @@ local modNameList = {
 	["restoration of ward"] = "WardRechargeFaster",
 	["armour"] = "Armour",
 	["to defend with double armour"] = "DoubleArmourChance",
+	["to defend with 200% of armour"] = "DoubleArmourChance",
 	["evasion"] = "Evasion",
 	["evasion rating"] = "Evasion",
 	["energy shield"] = "EnergyShield",
