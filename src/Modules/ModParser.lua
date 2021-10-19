@@ -2210,9 +2210,10 @@ local specialModList = {
 	} end,
 	["bleeding you inflict deals damage (%d+)%% faster per frenzy charge"] = function(num) return { mod("BleedFaster", "INC", num, { type = "Multiplier", var = "FrenzyCharge" }) } end,
 	-- Impale and Bleed
-	["(%d+)%% increased effect of impales inflicted by hits that also inflict bleeding"] = function(num) return {
-		mod("ImpaleEffectOnBleed", "INC", num, nil, 0, KeywordFlag.Hit)
-	} end,
+	-- Commented out due to modifier having NO effect on calculations
+	--["(%d+)%% increased effect of impales inflicted by hits that also inflict bleeding"] = function(num) return {
+	--	mod("ImpaleEffectOnBleed", "INC", num, nil, 0, KeywordFlag.Hit)
+	--} end,
 	-- Impale
 	["(%d+)%% increased effect of impales you inflict on non%-impaled enemies"] = function(num) return {
 		mod("ImpaleEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "Impaled", neg = true })
