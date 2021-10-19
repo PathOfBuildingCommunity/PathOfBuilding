@@ -6090,7 +6090,7 @@ c["With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant 
 c["+40 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=40}},nil}
 c["+140 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=140}},nil}
 c["Bone Helmet League: Heist"]={nil,"Bone Helmet League: Heist "}
-c["60% increased Damage with Bleeding inflicted on Poisoned Enemies"]={{[1]={flags=0,keywordFlags=4194304,name="Damage",type="INC",value=60}},"   inflicted on Poisoned Enemies "}
+c["60% increased Damage with Bleeding inflicted on Poisoned Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Poisoned"},flags=0,keywordFlags=0,name="BleedDamage",type="INC",value=60}},nil}
 c["Socketed Gems are Supported by Level 35 Iron Will"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportIronWill"}},[2]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35}}},nil}
 c["25% increased Zombie Size Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage"]={{[1]={[1]={skillName="Raise Zombie",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=25}}}},"  Size Enemies killed by Zombies explode dealing 20% of their  as Fire Damage "}
 c["15% increased Accuracy Rating with Two Handed Melee Weapons"]={{[1]={flags=301989892,keywordFlags=0,name="Accuracy",type="INC",value=15}},nil}
