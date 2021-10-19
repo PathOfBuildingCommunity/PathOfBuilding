@@ -707,6 +707,7 @@ function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	local p = 1 - m_max(m_tan(clipAngle), 0)
 	local angle = node1.angle - clipAngle
 	if isMirroredArc then
+		-- The center of the mirrored angle should be positioned at 75% of the way between nodes.
 		angle = angle + arcAngle
 	end
 	connector.vert = { }
