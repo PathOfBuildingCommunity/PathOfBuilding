@@ -652,7 +652,7 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 			node1, node2 = node2, node1
 			arcAngle = m_pi * 2 - arcAngle
 		end
-		if arcAngle < m_pi then
+		if arcAngle <= m_pi then
 			-- Angle is less than 180 degrees, draw an arc
 			-- If our arc is greater than 90 degrees, we will need 2 arcs because our orbit assets are at most 90 degree arcs see below
 			-- The calling class already handles adding a second connector object in the return table if provided and omits it if nil
