@@ -84,7 +84,12 @@ function PassiveSpecClass:Load(xml, dbFileName)
 							launch:ShowErrMsg("^1Error parsing '%s': 'Socket' element missing 'itemId' attribute", dbFileName)
 							return true
 						end
-						self.jewels[tonumber(child.attrib.nodeId)] = tonumber(child.attrib.itemId)
+						-- there are files which have been saved poorly and have empty jewel sockets saved as sockets with itemId zero.
+						-- this check filters them out to prevent dozens of invalid jewels
+						jewelIdNum = tonumber(child.attrib.itemId)
+						if jewelIdNum > 0 then
+							self.jewels[tonumber(child.attrib.nodeId)] = jewelIdNum
+						end
 					end
 				end
 			end
@@ -190,13 +195,19 @@ function PassiveSpecClass:Save(xml)
 		elem = "URL", 
 		[1] = self:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
 	})
+
 	local sockets = {
 		elem = "Sockets"
 	}
 	for nodeId, itemId in pairs(self.jewels) do
-		t_insert(sockets, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) } })
+		-- jewel socket contents should not be saved unless they contain a valid jewel
+		if itemId > 0 then
+			local socket = { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) }}
+			t_insert( sockets, socket )
+		end
 	end
 	t_insert(xml, sockets)
+
 	self.modFlag = false
 end
 
@@ -709,7 +720,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				for nodeId, itemId in pairs(self.jewels) do
 					if self.allocNodes[nodeId] then
 						if itemId ~= 0 and (
-							not self.build.itemsTab.items[itemId] or (
+							 self.build.itemsTab.items[itemId] and (
 								self.build.itemsTab.items[itemId].jewelData
 									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
 									and self.build.itemsTab.items[itemId].jewelRadiusIndex
@@ -719,7 +730,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								][depNode.id]
 							)
 						) then
-							-- Hold off on the pruning; this node is Intuitive Leap-like or items are not loaded yet
+							-- Hold off on the pruning; this node could be supported by Intuitive Leap-like jewel
 							prune = false
 							t_insert(self.nodes[nodeId].depends, depNode)
 							break
