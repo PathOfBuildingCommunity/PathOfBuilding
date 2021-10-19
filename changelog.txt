@@ -1,3 +1,14 @@
+VERSION[2.10.0][2021/10/19]
+
+* Add balance updates from 3.16.0 v3 tree (Wires77)
+* Add support for mastery mod: Block Attack Damage if Not Blocked Recently (Peechey)
+* Improve label length in Calc section (frodon1)
+* Fix block chance over cap error (Tom Clancy Is Dead)
+* Fix missing onslaught mods for Daresso's Defiance (jfindley)
+* Add support for new intelligence to wand accuracy mastery (sida-wang)
+
+
+
 VERSION[2.9.0][2021/10/18]
 
 * Add 3.16 tree and implement passive masteries (ifnjeff)
