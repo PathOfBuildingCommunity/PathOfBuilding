@@ -395,9 +395,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, overCapStat = "LightningResistOverCap" },
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, chaosInoc = function(o) return o.ChaosInoculation end, condFunc = function() return true end, overCapStat = "ChaosResistOverCap" },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return not o.ChaosInoculation end, overCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
-		{ label = "Immune to Chaos Damage", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
+		{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
 		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 		{ },
@@ -1241,7 +1241,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 					end
 				end
 			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
-				t_insert(statBoxList, { height = 16, labelColor..statData.label})
+				t_insert(statBoxList, { 
+					height = 16, labelColor..statData.label..":", 
+					"^7"..actor.output[statData.labelStat].."%^x808080" .. " (" .. statData.val  .. ")",})
 			end
 		elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
 			t_insert(statBoxList, { height = 6 })
