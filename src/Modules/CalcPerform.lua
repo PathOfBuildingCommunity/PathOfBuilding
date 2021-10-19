@@ -1531,11 +1531,11 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	-- Calculate number of active auras
+	-- Calculate number of active auras affecting self
 	if env.mode_buffs then
 		local auraList = { }
 		for _, activeSkill in ipairs(env.player.activeSkillList) do
-			if activeSkill.skillTypes[SkillType.Aura] then
+			if activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillData.auraCannotAffectSelf then
 				auraList[activeSkill.skillCfg.skillName] = true
 			end
 		end
