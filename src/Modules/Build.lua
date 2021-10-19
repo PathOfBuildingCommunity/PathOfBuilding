@@ -395,9 +395,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", hideStat = true },
 		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, overCapStat = "LightningResistOverCap" },
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, overCapStat = "ChaosResistOverCap" },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, chaosInoc = function(o) return o.ChaosInoculation end, condFunc = function() return true end, overCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
-		{ label = "Chaos Inoculation active", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
+		{ label = "Immune to Chaos Damage", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
 		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 		{ },
@@ -1172,7 +1172,7 @@ end
 function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
-	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
+	local color = (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
