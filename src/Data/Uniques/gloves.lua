@@ -215,12 +215,15 @@ Your Mark transfers to another Enemy when Marked Enemy dies
 ]],[[
 Oskarm
 Nubuck Gloves
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52, 50 Dex
 Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
 -(20-10)% to Chaos Resistance
-(7-8)% chance to Dodge Spell Damage
+{variant:1}(7-8)% chance to Suppress Spell Damage
+{variant:2}(10-12)% chance to Suppress Spell Damage
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
 Painseeker

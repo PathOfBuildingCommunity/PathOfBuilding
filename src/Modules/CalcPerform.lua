@@ -525,7 +525,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
 		end
 		if not modDB:Flag(nil, "NoDexterityAttributeBonuses") then
-			modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
+			modDB:NewMod("Accuracy", "BASE", output.Dex * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Dexterity")
 			if not modDB:Flag(nil, "NoDexBonusToEvasion") then
 				modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
 			end
