@@ -407,10 +407,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			t_insert(node.linkedId, otherId)
 			if node.type ~= "ClassStart" and other.type ~= "ClassStart"
 				and node.type ~= "Mastery" and other.type ~= "Mastery"
-			  	and node.ascendancyName == other.ascendancyName
-			  	and not node.isProxy and not other.isProxy
-			  	and not node.group.isProxy and not node.group.isProxy then
-					t_insert(self.connectors, self:BuildConnector(node, other))
+				and node.ascendancyName == other.ascendancyName
+				and not node.isProxy and not other.isProxy
+				and not node.group.isProxy and not node.group.isProxy then
+					local connectors = self:BuildConnector(node, other)
+					t_insert(self.connectors, connectors[1])
+					if connectors[2] then
+						t_insert(self.connectors, connectors[2])
+					end
 			end
 		end
 		for _, otherId in pairs(node["in"] or {}) do
@@ -542,10 +546,7 @@ function PassiveTreeClass:ProcessStats(node)
 	for _, mod in pairs(node.mods) do
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod.source = "Tree:"..node.id
-				if type(mod.value) == "table" and mod.value.mod then
-					mod.value.mod.source = mod.source
-				end
+				mod = modLib.setSource(mod, "Tree:"..node.id)
 				node.modList:AddMod(mod)
 			end
 		end
@@ -628,41 +629,30 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 			node1, node2 = node2, node1
 		end
 		local arcAngle = node2.angle - node1.angle
-		if arcAngle > m_pi then
+		if arcAngle >= m_pi then
 			node1, node2 = node2, node1
 			arcAngle = m_pi * 2 - arcAngle
 		end
-		if arcAngle < m_pi * 0.9 then
+		if arcAngle <= m_pi then
 			-- Angle is less than 180 degrees, draw an arc
-			connector.type = "Orbit" .. node1.o
-			-- This is an arc texture mapped onto a kite-shaped quad
-			-- Calculate how much the arc needs to be clipped by
-			-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
-			-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
-			-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
-			-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
-			local clipAngle = m_pi / 4 - arcAngle / 2
-			local p = 1 - m_max(m_tan(clipAngle), 0)
-			local angle = node1.angle - clipAngle
-			connector.vert = { }
-			for _, state in pairs({"Normal","Intermediate","Active"}) do
-				-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
-				local art = self.assets[connector.type..state]
-				local size = art.width * 2 * 1.33
-				local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi/4), size * m_sqrt(2) * -m_cos(angle + m_pi/4)
-				local cX, cY = node1.group.x + oX, node1.group.y + oY
-				local vert = { }
-				vert[1], vert[2] = node1.group.x, node1.group.y
-				vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
-				vert[5], vert[6] = cX, cY
-				vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
-				connector.vert[state] = vert
+			-- If our arc is greater than 90 degrees, we will need 2 arcs because our orbit assets are at most 90 degree arcs see below
+			-- The calling class already handles adding a second connector object in the return table if provided and omits it if nil
+			-- Establish a nil secondConnector to populate in the case that we need a second arc (>90 degree orbit)
+			local secondConnector
+			if arcAngle > (m_pi / 2) then
+				-- Angle is greater than 90 degrees.
+				-- The default behavior for a given arcAngle is to place the arc at the center point between two nodes and clip the excess
+				-- If we need a second arc of any size, we should shift the arcAngle to 25% of the distance between the nodes instead of 50%
+				arcAngle = arcAngle / 2
+				-- clone the original connector table to ensure same functionality for both of the necessary connectors
+				secondConnector = copyTableSafe(connector)
+				-- And then ask the BuildArc function to create a connector that is a mirror of the provided arcAngle
+				-- Provide the second connector as a parameter to store the mirrored arc
+				self:BuildArc(arcAngle, node1, secondConnector, true)
 			end
-			connector.c[9], connector.c[10] = 1, 1
-			connector.c[11], connector.c[12] = 0, p
-			connector.c[13], connector.c[14] = 0, 0
-			connector.c[15], connector.c[16] = p, 0
-			return connector
+			-- generate the primary arc -- this arcAngle may have been modified if we have determined that a second arc is necessary for this orbit
+			self:BuildArc(arcAngle, node1, connector)
+			return { connector, secondConnector }
 		end
 	end
 
@@ -683,5 +673,47 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 	connector.c[13], connector.c[14] = endS, 0
 	connector.c[15], connector.c[16] = endS, 1
 	connector.vert = { Normal = connector, Intermediate = connector, Active = connector }
-	return connector
+	return { connector }
+end
+
+function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
+	connector.type = "Orbit" .. node1.o
+	-- This is an arc texture mapped onto a kite-shaped quad
+	-- Calculate how much the arc needs to be clipped by
+	-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
+	-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
+	-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
+	-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
+	local clipAngle = m_pi / 4 - arcAngle / 2
+	local p = 1 - m_max(m_tan(clipAngle), 0)
+	local angle = node1.angle - clipAngle
+	if isMirroredArc then
+		-- The center of the mirrored angle should be positioned at 75% of the way between nodes.
+		angle = angle + arcAngle
+	end
+	connector.vert = { }
+	for _, state in pairs({ "Normal", "Intermediate", "Active" }) do
+		-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
+		local art = self.assets[connector.type .. state]
+		local size = art.width * 2 * 1.33
+		local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi / 4), size * m_sqrt(2) * -m_cos(angle + m_pi / 4)
+		local cX, cY = node1.group.x + oX, node1.group.y + oY
+		local vert = { }
+		vert[1], vert[2] = node1.group.x, node1.group.y
+		vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
+		vert[5], vert[6] = cX, cY
+		vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
+		if (isMirroredArc) then
+		-- Flip the quad's non-origin, non-center vertexes when drawing a mirrored arc so that the arc actually mirrored
+		-- This is required to prevent the connection of the 2 arcs appear to have a 'seam'
+			local temp1, temp2 = vert[3],vert[4]
+			vert[3],vert[4] = vert[7],vert[8]
+			vert[7],vert[8] = temp1, temp2
+		end
+		connector.vert[state] = vert
+	end
+	connector.c[9], connector.c[10] = 1, 1
+	connector.c[11], connector.c[12] = 0, p
+	connector.c[13], connector.c[14] = 0, 0
+	connector.c[15], connector.c[16] = p, 0
 end

@@ -95,7 +95,7 @@ local enduranceChargeMods = {
 	},
 	[2] = {
 		["Block Attacks"] = "1% Chance to Block Attack Damage per Endurance Charge",
-		["Dodge Attacks"] = "1% Chance to Dodge Attack Hits per Endurance Charge",
+		["Spell Suppression"] = "1% chance to Suppress Spell Damage per Endurance Charge",
 		["Chaos Res"] = "+4% to Chaos Resistance per Endurance Charge",
 		["Fire as Chaos"] = "Gain 1% of Fire Damage as Extra Chaos Damage per Endurance Charge",
 		["Attack and Cast Speed"] = "1% increased Attack and Cast Speed per Endurance Charge",
@@ -133,7 +133,7 @@ local frenzyChargeMods = {
 	},
 	[2] = {
 		["Block Attacks"] = "1% Chance to Block Attack Damage per Frenzy Charge",
-		["Dodge Attacks"] = "1% Chance to Dodge Attack Hits per Frenzy Charge",
+		["Spell Suppression"] = "1% chance to Suppress Spell Damage per Frenzy Charge",
 		["Accuracy Rating"] = "10% increased Accuracy Rating per Frenzy Charge",
 		["Cold as Chaos"] = "Gain 1% of Cold Damage as Extra Chaos Damage per Frenzy Charge",
 		["Attack and Cast Speed"] = "1% increased Attack and Cast Speed per Frenzy Charge",
@@ -171,7 +171,7 @@ local powerChargeMods = {
 	},
 	[2] = {
 		["Block Attacks"] = "1% Chance to Block Attack Damage per Power Charge",
-		["Dodge Attacks"] = "1% Chance to Dodge Attack Hits per Power Charge",
+		["Spell Suppression"] = "1% chance to Suppress Spell Damage per Power Charge",
 		["Phys. Damage Red."] = "1% additional Physical Damage Reduction per Power Charge",
 		["Lightning as Chaos"] = "Gain 1% of Lightning Damage as Extra Chaos Damage per Power Charge",
 		["Attack and Cast Speed"] = "1% increased Attack and Cast Speed per Power Charge",

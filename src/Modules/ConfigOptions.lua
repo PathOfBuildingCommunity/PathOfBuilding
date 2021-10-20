@@ -674,7 +674,7 @@ return {
 	{ var = "multiplierSummonedMinion", type = "count", label = "# of Summoned Minions:", ifMult = "SummonedMinion", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SummonedMinion", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nConsecrated Ground grants 6% Life Regeneration to players and allies.", apply = function(val, modList, enemyModList)
+	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nConsecrated Ground grants 5% Life Regeneration to players and allies.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },
@@ -993,6 +993,9 @@ return {
 	{ var = "conditionCursedEnemyRecently", type = "check", label = "Have you Cursed an enemy Recently?",  ifCond="CursedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CursedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionCastMarkRecently", type = "check", label = "Have you cast a Mark Spell Recently?", ifCond = "CastMarkRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CastMarkRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionSpawnedCorpseRecently", type = "check", label = "Spawned a corpse Recently?", ifCond = "SpawnedCorpseRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SpawnedCorpseRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1287,11 +1290,12 @@ return {
 			local mods, extra = modLib.parseMod(line)
 
 			if mods then
+				local source = "Custom"
 				for i = 1, #mods do
 					local mod = mods[i]
 
 					if mod then
-						mod.source = "Custom"
+						mod = modLib.setSource(mod, source)
 						modList:AddMod(mod)
 					end
 				end

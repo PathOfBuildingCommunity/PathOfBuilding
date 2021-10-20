@@ -821,7 +821,7 @@ Implicits: 2
 {variant:1,2}+1 to Level of Aura Gems in this item
 {variant:3,4}+2 to Level of Socketed Aura Gems
 Socketed Gems Cost and Reserve Life instead of Mana
-{variant:1,2,3}Socketed Gems have 25% reduced Reservation
+{variant:1,2,3}Socketed Gems have 50% increased Mana Reservation Efficiency
 {variant:4}Socketed Gems have 30% increased Reservation Efficiency
 +(20-30) to Dexterity
 +25% to all Elemental Resistances

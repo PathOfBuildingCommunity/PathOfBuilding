@@ -293,8 +293,7 @@ Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed
 {variant:1}+(300-400) to Evasion Rating
 {variant:2,3}+(1000-1500) to Evasion Rating
-{variant:1}20% chance to Dodge Attacks while your Off Hand is empty
-{variant:2}(15-25)% chance to Dodge Attacks while your Off Hand is empty
+{variant:1,2}(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
 {variant:3}(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
 {variant:1}100% increased Cold Damage while your Off Hand is empty
 {variant:2,3}(100-200)% increased Cold Damage while your Off Hand is empty

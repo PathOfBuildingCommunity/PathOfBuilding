@@ -193,8 +193,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
 		elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
 		elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
-		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4]
-		elseif levelreq < 90 and currentAct <= 10 then strAct = currentAct end
+		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
+		if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
 		
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
 		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
@@ -1177,7 +1177,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	valStr = color .. formatNumSep(valStr)
 
 	if overCapStatVal and overCapStatVal > 0 then
-		valStr = valStr .. "^x808080" .. " (+" .. overCapStatVal .. "%)"
+		valStr = valStr .. "^x808080" .. " (+" .. s_format("%d", overCapStatVal) .. "%)"
 	end
 	self.lastShowThousandsSeparators = main.showThousandsSeparators
 	self.lastShowThousandsSeparator = main.thousandsSeparator

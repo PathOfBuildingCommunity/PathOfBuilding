@@ -4387,7 +4387,7 @@ return {
 			["not"] = false, 
 			["sd"] = {
 				[1] = "Armour applies to Fire, Cold and Lightning Damage taken from Hits instead of Physical Damage", 
-				[2] = "-5% to all maximum Elemental Resistances", 
+				[2] = "-15% to all maximum Elemental Resistances", 
 			}, 
 			["dn"] = "Transcendence", 
 			["isJewelSocket"] = false, 
