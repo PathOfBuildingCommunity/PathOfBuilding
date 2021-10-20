@@ -9,6 +9,9 @@ local t_insert = table.insert
 local band = bit.band
 local bor = bit.bor
 local bnot = bit.bnot
+local function firstToUpper(str)
+	return (str:gsub("^%l", string.upper))
+end
 
 local conquerorList = {
 	["xibaqua"]		=	{id = 1, type = "vaal"},
@@ -1103,7 +1106,12 @@ local modTagList = {
 	["if your other ring is an elder item"] = { tag = { type = "Condition", var = "ElderItemInRing {OtherSlotNum}" } },
 	["if you have a (%a+) (%a+) in (%a+) slot"] = function(_, rarity, item, slot) return { tag = { type = "Condition", var = rarity:gsub("^%l", string.upper).."ItemIn"..item:gsub("^%l", string.upper).." "..(slot == "right" and 2 or slot == "left" and 1) } } end,
 	-- Equipment conditions
-	["while holding a shield"] = { tag = { type = "Condition", var = "UsingShield" } },
+	["while holding a (%w+)"] = function (_, gear) return {
+		tag = { type = "Condition", varList = { "Using"..firstToUpper(gear) } }
+	} end,
+	["while holding a (%w+) or (%w+)"] = function (_, g1, g2) return {
+		tag = { type = "Condition", varList = { "Using"..firstToUpper(g1), "Using"..firstToUpper(g2) } }
+	} end,
 	["while your off hand is empty"] = { tag = { type = "Condition", var = "OffHandIsEmpty" } },
 	["with shields"] = { tag = { type = "Condition", var = "UsingShield" } },
 	["while dual wielding"] = { tag = { type = "Condition", var = "DualWielding" } },
