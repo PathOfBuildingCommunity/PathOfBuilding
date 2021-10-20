@@ -336,6 +336,7 @@ data.misc = { -- magic numbers
 	VastPowerMaxAoEPercent = 50,
 	MaxEnemyLevel = 84,
 	LowPoolThreshold = 0.5,
+	AccuracyPerDexBase = 2,
 }
 
 -- Misc data tables
