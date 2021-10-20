@@ -1340,6 +1340,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	local storedMainHandAccuracy = nil
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1348,6 +1349,16 @@ function calcs.offence(env, actor, activeSkill)
 		output.Accuracy = m_max(0, calcLib.val(skillModList, "Accuracy", cfg))
 		if breakdown then
 			breakdown.Accuracy = breakdown.simple(nil, cfg, output.Accuracy, "Accuracy")
+		end
+		if skillModList:Flag(nil, "Condition:OffHandAccuracyIsMainHandAccuracy") and pass.label == "Main Hand" then
+			storedMainHandAccuracy = output.Accuracy
+		elseif skillModList:Flag(nil, "Condition:OffHandAccuracyIsMainHandAccuracy") and pass.label == "Off Hand" and storedMainHandAccuracy then
+			output.Accuracy = storedMainHandAccuracy
+			if breakdown then
+				breakdown.Accuracy = {
+					"Using Main Hand Accuracy due to Mastery: "..output.Accuracy,
+				}
+			end
 		end
 		if not isAttack or skillModList:Flag(cfg, "CannotBeEvaded") or skillData.cannotBeEvaded or (env.mode_effective and enemyDB:Flag(nil, "CannotEvade")) then
 			output.HitChance = 100

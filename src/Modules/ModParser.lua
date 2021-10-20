@@ -1561,6 +1561,8 @@ local specialModList = {
 		mod("PhysicalMin", "BASE", tonumber(min), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
 		mod("PhysicalMax", "BASE", tonumber(max), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
 	} end,
+	-- Masteries
+	["off hand accuracy is equal to main hand accuracy while wielding a sword"] = { flag("Condition:OffHandAccuracyIsMainHandAccuracy", { type = "Condition", var = "UsingSword" }) },
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
