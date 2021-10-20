@@ -194,7 +194,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
 		elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
 		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
-
 		if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
 		
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
