@@ -615,6 +615,9 @@ end
 function TreeTabClass:OpenMasteryPopup(node)
 	local controls = { }
 	local effects = { }
+	local c_save = 1
+	local c_close = 2
+	local c_effect = 3
 
 	wipeTable(effects)
 	for _, effect in pairs(node.masteryEffects) do
@@ -625,9 +628,9 @@ function TreeTabClass:OpenMasteryPopup(node)
 	end
 	--Check to make sure that the effects list has a potential mod to apply to a mastery
 	if not (next(effects) == nil) then
-		controls.effect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 579, 18, effects, nil)
-		controls.save =  new("ButtonControl", nil, -49, 49, 90, 20, "Assign", function()
-			local effect = self.build.spec.tree.masteryEffects[controls.effect:GetSelValue("id")]
+		controls[0] = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 20, 579, 18, "^x00FFFFDouble click your choice to quickly assign the effect, or use the controls as normal.")
+		controls[c_save] =  new("ButtonControl", nil, -49, 49, 90, 20, "Assign", function()
+			local effect = self.build.spec.tree.masteryEffects[controls[c_effect]:GetSelValue("id")]
 			node.sd = effect.sd
 			node.reminderText = { "Tip: Right click to select a different effect" }
 			self.build.spec.tree:ProcessStats(node)
@@ -640,10 +643,12 @@ function TreeTabClass:OpenMasteryPopup(node)
 			self.build.buildFlag = true
 			main:ClosePopup()
 		end)
-		controls.close =  new("ButtonControl", nil, 49, 49, 90, 20, "Cancel", function()
+		controls[c_close] =  new("ButtonControl", nil, 49, 49, 90, 20, "Cancel", function()
 			main:ClosePopup()
 		end)
-		main:OpenPopup(591, 77, node.name, controls)
+		controls[c_effect] = new("MasteryListControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 85, 0, 0, effects, controls[c_save])
+		-- As the List Control auto sizes, we need to control the height,width of the popup
+		main:OpenPopup(m_max(591, controls[c_effect].width + 10), controls[c_effect].height + 100, node.name, controls, c_save, c_effect, c_close)
 	end
 end
 
