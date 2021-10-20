@@ -74,6 +74,16 @@ table.insert(data.uniques.generated, table.concat(forbiddenShako, "\n"))
 table.insert(data.uniques.generated, table.concat(replicaForbiddenShako, "\n"))
 
 local enduranceChargeMods = {
+	[4] = {
+		["Up to Max."] = "15% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges",
+		["Duration"] = "(20-40)% increased Endurance Charge Duration",
+		["Movement Speed"] = "1% increased Movement Speed per Endurance Charge",
+		["Armour"] = "6% increased Armour per Endurance Charge",
+		["Add Fire Damage"] = "(7-9) to (13-14) Fire Damage per Endurance Charge",
+		["Inc. Damage"] = "5% increased Damage per Endurance Charge",
+		["On Kill"] = "10% chance to gain an Endurance Charge on Kill",
+		["Suppress"] = "1% chance to Suppress Spell Damage per Endurance Charge",
+	},
 	[3] = {
 		["Up to Max."] = "15% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges",
 		["Duration"] = "(20-40)% increased Endurance Charge Duration",
@@ -102,6 +112,16 @@ local enduranceChargeMods = {
 }
 
 local frenzyChargeMods = {
+	[4] = {
+		["Up to Max."] = "15% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges",
+		["Duration"] = "(20-40)% increased Frenzy Charge Duration",
+		["Movement Speed"] = "1% increased Movement Speed per Frenzy Charge",
+		["Evasion"] = "8% increased Evasion Rating per Frenzy Charge",
+		["Add Cold Damage"] = "(6-8) to (12-13) Cold Damage per Frenzy Charge",
+		["Inc. Damage"] = "5% increased Damage per Frenzy Charge",
+		["On Kill"] = "10% chance to gain an Frenzy Charge on Kill",
+		["Suppress"] = "1% chance to Suppress Spell Damage per Frenzy Charge",
+	},
 	[3] = {
 		["Up to Max."] = "15% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges",
 		["Duration"] = "(20-40)% increased Frenzy Charge Duration",
@@ -130,6 +150,16 @@ local frenzyChargeMods = {
 }
 
 local powerChargeMods = {
+	[4] = {
+		["Up to Max."] = "15% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges",
+		["Duration"] = "(20-40)% increased Power Charge Duration",
+		["Movement Speed"] = "1% increased Movement Speed per Power Charge",
+		["Energy Shield"] = "3% increased Energy Shield per Power Charge",
+		["Add Lightning Damage"] = "(1-2) to (18-20) Lightning Damage per Power Charge",
+		["Inc. Damage"] = "5% increased Damage per Power Charge",
+		["On Kill"] = "10% chance to gain an Power Charge on Kill",
+		["Suppress"] = "1% chance to Suppress Spell Damage per Power Charge",
+	},
 	[3] = {
 		["Up to Max."] = "15% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges",
 		["Duration"] = "(20-40)% increased Power Charge Duration",
@@ -187,6 +217,7 @@ table.insert(precursorsEmblem, [[Selected Variant: 1
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
+Has Alt Variant Four: true
 LevelReq: 49
 Implicits: 7
 {tags:jewellery_resistance}{variant:1}+(20-30)% to Lightning Resistance

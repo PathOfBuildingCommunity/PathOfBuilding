@@ -570,6 +570,7 @@ Grants Level 1 Embrace Madness Skill
 Darkray Vectors
 Dragonscale Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 62 Str, 62 Dex
 {variant:2}(40-70)% increased Armour and Evasion
@@ -579,7 +580,8 @@ Requires Level 65, 62 Str, 62 Dex
 {variant:1}50% reduced Frenzy Charge Duration
 {variant:2}40% reduced Frenzy Charge Duration
 25% reduced Light Radius
-2% chance to Dodge Attacks per Frenzy Charge
+{variant:1,2}2% chance to Dodge Attacks per Frenzy Charge
+{variant:3}10% increased Evasion Rating per Frenzy Charge
 ]],[[
 Dusktoe
 Ironscale Boots
