@@ -7,7 +7,6 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local row_Height = 20
-local inspect = LoadModule("inspect")
 
 local MasteryListClass = newClass("MasteryListControl", "ListControl", function(self, anchor, x, y, width, height, list, saveButton)
 	-- automagical height
@@ -24,6 +23,7 @@ local MasteryListClass = newClass("MasteryListControl", "ListControl", function(
 	end
 	self.ListControl(anchor, x, y, width, height, row_Height, false, false, list)
 	self.ListControl.controls.scrollBarV.enabled = false
+	self.ListControl.controls.scrollBarV.autoHide = false
 	self.ListControl:SelectIndex(1)
 	self.saveButton = saveButton
 	end)
