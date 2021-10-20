@@ -487,7 +487,7 @@ Requires Level 67, 123 Int
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
-{variant:1}6% reduced Reservation of Skills
+{variant:1}12% increased Mana Reservation Efficiency
 {variant:2}12% increased Reservation Efficiency
 You have no Life Regeneration
 Stun Threshold is based on 500% of your Mana instead of Life

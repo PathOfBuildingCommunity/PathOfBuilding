@@ -1503,7 +1503,7 @@ Crimson Jewel
 Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
-2% reduced Reservation of Skills
+4% increased Mana Reservation Efficiency of Skills
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
