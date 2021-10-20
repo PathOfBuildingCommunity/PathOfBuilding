@@ -231,6 +231,32 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 	self:SelectAscendClass(ascendClassId)
 end
 
+function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster)
+	for i = 1, #nodes - 1, 2 do
+		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
+		if isCluster then
+			id = id + 65536
+		end
+		local node = self.nodes[id]
+		if node then
+			node.alloc = true
+			self.allocNodes[id] = node
+		end
+	end
+end
+
+function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
+	for i = 1, #nodes - 1, 4 do
+		local id  = nodes:byte(i) * 256 + nodes:byte(i + 1)
+		local effectId = nodes:byte(i + 2) * 256 + nodes:byte(i + 3)
+
+		self.masterySelections[nodeId] = effectId
+		local effect = self.tree.masteryEffects[effectId]
+		self.allocNodes[id].sd = effect.sd
+		self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
+	end
+end
+
 -- Decode the given passive tree URL
 function PassiveSpecClass:DecodeURL(url)
 	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
@@ -238,7 +264,7 @@ function PassiveSpecClass:DecodeURL(url)
 		return "Invalid tree link (unrecognised format)"
 	end
 	local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
-	if ver > 4 then
+	if ver > 6 then
 		return "Invalid tree link (unknown version number '"..ver.."')"
 	end
 	local classId = b:byte(5)	
@@ -249,39 +275,75 @@ function PassiveSpecClass:DecodeURL(url)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	self:SelectAscendClass(ascendClassId)
-	local nodes = b:sub(ver >= 4 and 8 or 7, -1)
-	for i = 1, #nodes - 1, 2 do
-		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
-		local node = self.nodes[id]
-		if node then
-			node.alloc = true
-			self.allocNodes[id] = node
-			if node.type == "Mastery" then
-				local mastery_effect = nodes:byte(i + 2) * 256 + nodes:byte(i + 3)
-				self.masterySelections[id] = mastery_effect
-				local effect = self.tree.masteryEffects[mastery_effect]
-				node.sd = effect.sd
-				node.reminderText = { "Tip: Right click to select a different effect" }
-				i = i + 2
-			end
-		end
+	
+	local nodesStart = ver >= 4 and 8 or 7
+	local nodesEnd = ver >= 5 and 7 + (b:byte(7) * 2) or -1
+	local nodes = b:sub(nodesStart, nodesEnd)
+	
+	self:AllocateDecodedNodes(nodes, false)
+
+	if ver < 5 then
+		return
 	end
+
+	local clusterStart = nodesEnd
+	local clusterEnd = clusterStart + (b:byte(clusterStart) * 2)
+	local clusterNodes = b:sub(clusterStart, clusterEnd)
+	
+	self:AllocateDecodedNodes(clusterNodes, true)
+
+	if ver < 6 then
+		return
+	end
+
+	local masteryStart = clusterEnd
+	local masteryEnd = masteryStart + (b:byte(masteryStart) * 4)
+	local masteryEffects = b:sub(masteryStart, masteryEnd)
+	self:AllocateMasteryEffects(masteryEffects)
 end
 
 -- Encodes the current spec into a URL, using the official skill tree's format
 -- Prepends the URL with an optional prefix
 function PassiveSpecClass:EncodeURL(prefix)
-	local a = { 0, 0, 0, 4, self.curClassId, self.curAscendClassId, 0 }
+	local a = { 0, 0, 0, 5, self.curClassId, self.curAscendClassId }
+	
+	local nodeCount = 0
+	local clusterCount = 0
+	local masteryCount = 0
+
+	local clusterNodeIds = {}
+	local masteryNodeIds = {}
+
 	for id, node in pairs(self.allocNodes) do
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
+			nodeCount = nodeCount + 1
 			if self.masterySelections[node.id] then
 				local effect_id = self.masterySelections[node.id]
-				t_insert(a, m_floor(effect_id / 256))
-				t_insert(a, effect_id % 256)
+				t_insert(masteryNodeIds, m_floor(node.id / 256))
+				t_insert(masteryNodeIds, node.id % 256)
+				t_insert(masteryNodeIds, m_floor(effect_id / 256))
+				t_insert(masteryNodeIds, effect_id % 256)
+				masteryCount = masteryCount + 1
 			end
+		elseif id >= 65536 then
+			local clusterId = id - 65536
+			t_insert(clusterNodeIds, m_floor(clusterId / 256))
+			t_insert(clusterNodeIds, clusterId % 256)
+			clusterCount = clusterCount + 1
 		end
+	end
+	t_insert(a, 7, nodeCount)
+
+	t_insert(a, clusterCount) -- TODO: Implement for cluster jewels
+	for _, id in pairs(clusterNodeIds) do
+		t_insert(a, id)
+	end
+
+	t_insert(a, masteryCount)
+	for _, id in pairs(masteryNodeIds) do
+		t_insert(a, id)
 	end
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
 end
