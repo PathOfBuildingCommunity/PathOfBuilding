@@ -36,7 +36,7 @@ RUN cd /home && \
     make install && \
     ln -sf luajit-2.1.0-beta3 /usr/local/bin/luajit
 
-# Setupping test enviroment
+# Setup test enviroment
 RUN luarocks install busted && \
     luarocks install cluacov
 
