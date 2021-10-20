@@ -9918,7 +9918,7 @@ c["Lightning Damage with Non-Critical Strikes is Lucky"]={{[1]={flags=0,keywordF
 c["30% increased Damage while wielding a Wand"]={{[1]={[1]={type="Condition",var="UsingWand"},flags=0,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
 c["1 Added Passive Skill is Vivid Hues"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Vivid Hues"}},nil}
 c["Recover 100 Life when your Trap is triggered by an Enemy Recover 50 Energy Shield when your Trap is triggered by an Enemy"]={nil,"Recover 100 Life when your Trap is triggered by an Enemy Recover 50 Energy Shield when your Trap is triggered by an Enemy "}
-c["10% increased Movement Speed if you've cast a Mark Spell Recently"]={{[1]={flags=2,keywordFlags=0,name="MovementSpeed",type="INC",value=10}},"  if you've cast a Mark  Recently "}
+c["10% increased Movement Speed if you've cast a Mark Spell Recently"]={{[1]={[1]={type="Condition",var="CastMarkRecently"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=10}},nil}
 c["33% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=33}},nil}
 c["0.2% of Chaos Damage Leeched as Life"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamageLifeLeech",type="BASE",value=0.2}},nil}
 c["Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill"]={nil,"Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill "}
