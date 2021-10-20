@@ -618,20 +618,24 @@ end
 function TreeTabClass:OpenMasteryPopup(node)
 	local controls = { }
 	local effects = { }
+	local cachedSd = node.sd
+	local cachedAllMasteryOption = node.allMasteryOptions
 
 	wipeTable(effects)
 	for _, effect in pairs(node.masteryEffects) do
 		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, effect.effect)
 		if not assignedNodeId or assignedNodeId == node.id then
-			t_insert(effects, {label = t_concat(effect.stats, "/"), id = effect.effect})
+			t_insert(effects, {label = t_concat(effect.stats, " / "), id = effect.effect})
 		end
 	end
 	--Check to make sure that the effects list has a potential mod to apply to a mastery
 	if not (next(effects) == nil) then
-		controls.effect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 579, 18, effects, nil)
-		controls.save =  new("ButtonControl", nil, -49, 49, 90, 20, "Assign", function()
-			local effect = self.build.spec.tree.masteryEffects[controls.effect:GetSelValue("id")]
+		local passiveMasteryControlHeight = (#effects + 1) * 14 + 4
+		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 579, passiveMasteryControlHeight, effects, self, node)
+		controls.save =  new("ButtonControl", nil, -49, 30 + passiveMasteryControlHeight, 90, 20, "Assign", function()
+			local effect = self.build.spec.tree.masteryEffects[controls.effect.ListControl.selValue.id]
 			node.sd = effect.sd
+			node.allMasteryOptions = false
 			node.reminderText = { "Tip: Right click to select a different effect" }
 			self.build.spec.tree:ProcessStats(node)
 			self.build.spec.masterySelections[node.id] = effect.id
@@ -643,10 +647,13 @@ function TreeTabClass:OpenMasteryPopup(node)
 			self.build.buildFlag = true
 			main:ClosePopup()
 		end)
-		controls.close =  new("ButtonControl", nil, 49, 49, 90, 20, "Cancel", function()
+		controls.close =  new("ButtonControl", nil, 49, 30 + passiveMasteryControlHeight, 90, 20, "Cancel", function()
+			node.sd = cachedSd
+			node.allMasteryOptions = cachedAllMasteryOption
+			self.build.spec.tree:ProcessStats(node)
 			main:ClosePopup()
 		end)
-		main:OpenPopup(591, 77, node.name, controls)
+		main:OpenPopup(591, 60 + passiveMasteryControlHeight, node.name, controls)
 	end
 end
 

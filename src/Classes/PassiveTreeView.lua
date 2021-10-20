@@ -1001,7 +1001,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			if node.type == "Mastery" and node.allMasteryOptions ~= nil then
+			if node.type == "Mastery" and node.allMasteryOptions then
 				pathNodes[node] = nil
 				nodeOutput = calcFunc()
 			else
