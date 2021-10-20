@@ -115,12 +115,24 @@ More tests can be added to this folder to test specific functionality, or new te
 2. Run `luarocks install busted`
 3. Run `busted --lua=luajit` from the command line.  You may need to add `luajit` to your PATH
 
+Or
+
+1. Run `dockerfiles/bin/do_tests.sh` from the command line
+2. View last results in `spec/test_results.log`
+
 ### Creating new test builds or fixing an existing build
 
 Sometimes a change will be made that intends to change the stats garnered by PoB, which will break our tests.
 1. Add the new build XML (if applicable) to the `TestBuilds` folder
 2. Run `busted --lua=luajit -r generate` to generate a LUA file that contains the current stats of that build
 3. Run `busted --lua=luajit` and the tests should pass
+
+Or
+
+1. Add the new build XML (if applicable) to the `TestBuilds` folder
+2. Run `dockerfiles/bin/generate_builds.sh` from the command line
+3. Run `dockerfiles/bin/do_tests.sh` from the command line
+4. View last results in `spec/test_results.log`
 
 ## Keeping your fork up to date
 
