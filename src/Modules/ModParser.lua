@@ -2444,6 +2444,7 @@ local specialModList = {
 	["you can cast an additional brand"] = { mod("ActiveBrandLimit", "BASE", 1) },
 	["you can cast (%d+) additional brands"] = function(num) return { mod("ActiveBrandLimit", "BASE", num) } end,
 	["(%d+)%% increased damage while you are wielding a bow and have a totem"] = function(num) return { mod("Damage", "INC", num, { type = "Condition", var = "HaveTotem" }, { type = "Condition", var = "UsingBow" }) } end,
+	["each totem applies (%d+)%% increased damage taken to enemies near it"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Multiplier", var = "TotemsSummoned" }) }) } end,
 	-- Minions
 	["your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
 	["half of your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
