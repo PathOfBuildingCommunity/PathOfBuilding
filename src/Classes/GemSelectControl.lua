@@ -212,7 +212,7 @@ function GemSelectClass:UpdateSortCache()
 				gemInstance.level = self.skillsTab.defaultGemLevel or gemData.defaultLevel
 			end
 			gemInstance.gemData = gemData
-			if not gemData.grantedEffect.levels[gemInstance.level] then
+			if gemData.grantedEffect.plusVersionOf or not gemData.grantedEffect.levels[gemInstance.level] then
 				gemInstance.level = gemData.defaultLevel
 			end
 			--Calculate the impact of using this gem
