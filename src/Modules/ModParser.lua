@@ -2346,7 +2346,7 @@ local specialModList = {
 	["you take (%d+) chaos damage per second for 3 seconds on kill"] = function(num) return { mod("ChaosDegen", "BASE", num, { type = "Condition", var = "KilledLast3Seconds" }) } end,
 	["regenerate (%d+) life over 1 second for each spell you cast"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "CastLast1Seconds" }) } end,
 	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "KilledPosionedLast2Seconds" }) } end,
-	["(%d+)%% increased life regeneration rate"] = function(num) return { mod("LifeRegen", "MORE", num) } end,
+	["(%d+)%% increased life regeneration rate"] = function(num) return { mod("LifeRegen", "INC", num) } end,
 	["fire skills have a (%d+)%% chance to apply fire exposure on hit"] = function(num) return { mod("FireExposureChance", "BASE", num) } end,
 	["cold skills have a (%d+)%% chance to apply cold exposure on hit"] = function(num) return { mod("ColdExposureChance", "BASE", num) } end,
 	["lightning skills have a (%d+)%% chance to apply lightning exposure on hit"] = function(num) return { mod("LightningExposureChance", "BASE", num) } end,
