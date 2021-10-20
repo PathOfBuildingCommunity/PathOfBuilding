@@ -170,3 +170,11 @@ function modLib.extractModTags(mod)
 	end
 	return list
 end
+
+function modLib.setSource(mod, source)
+	mod.source = source
+	if type(mod.value) == "table" and mod.value.mod then
+		mod.value.mod.source = source
+	end
+	return mod
+end
