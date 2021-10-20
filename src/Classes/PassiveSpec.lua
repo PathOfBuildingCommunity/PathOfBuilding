@@ -246,14 +246,17 @@ function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster)
 end
 
 function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
-	for i = 1, #nodes - 1, 4 do
-		local id  = nodes:byte(i) * 256 + nodes:byte(i + 1)
-		local effectId = nodes:byte(i + 2) * 256 + nodes:byte(i + 3)
+	for i = 1, #masteryEffects - 1, 4 do
 
-		self.masterySelections[nodeId] = effectId
+		local id  = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
+		local effectId = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
+
+		self.masterySelections[id] = effectId
 		local effect = self.tree.masteryEffects[effectId]
 		self.allocNodes[id].sd = effect.sd
 		self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
+		self.tree:ProcessStats(self.allocNodes[id])
+		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 	end
 end
 
@@ -286,19 +289,19 @@ function PassiveSpecClass:DecodeURL(url)
 		return
 	end
 
-	local clusterStart = nodesEnd
+	local clusterStart = nodesEnd + 1
 	local clusterEnd = clusterStart + (b:byte(clusterStart) * 2)
-	local clusterNodes = b:sub(clusterStart, clusterEnd)
+	local clusterNodes = b:sub(clusterStart + 1, clusterEnd)
 	
 	self:AllocateDecodedNodes(clusterNodes, true)
-
+	
 	if ver < 6 then
 		return
 	end
-
-	local masteryStart = clusterEnd
+	
+	local masteryStart = clusterEnd + 1
 	local masteryEnd = masteryStart + (b:byte(masteryStart) * 4)
-	local masteryEffects = b:sub(masteryStart, masteryEnd)
+	local masteryEffects = b:sub(masteryStart + 1, masteryEnd)
 	self:AllocateMasteryEffects(masteryEffects)
 end
 
@@ -336,15 +339,16 @@ function PassiveSpecClass:EncodeURL(prefix)
 	end
 	t_insert(a, 7, nodeCount)
 
-	t_insert(a, clusterCount)
+	t_insert(a, clusterCount) -- TODO: Implement for cluster jewels
 	for _, id in pairs(clusterNodeIds) do
 		t_insert(a, id)
 	end
-
+	
 	t_insert(a, masteryCount)
 	for _, id in pairs(masteryNodeIds) do
 		t_insert(a, id)
 	end
+	
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
 end
 
