@@ -13,6 +13,7 @@ RUN apt update && \
 
 RUN cd /home
 
+
 # Then to build and install Lua, run the following commands to download the package tar ball, extract, build and install it.
 RUN curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz && \
     tar -zxf lua-5.1.5.tar.gz  && \
