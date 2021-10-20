@@ -99,6 +99,71 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	-- Block
+	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+	output.BlockChanceOverCap = 0
+	output.SpellBlockChanceOverCap = 0
+	local baseBlockChance = 0
+	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
+		baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
+	end
+	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
+		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
+	end
+	output.ShieldBlockChance = baseBlockChance
+	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
+		output.BlockChance = output.BlockChanceMax
+	else
+		local totalBlockChance = (baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance")
+		output.BlockChance = m_min(totalBlockChance, output.BlockChanceMax)
+		output.BlockChanceOverCap = m_max(0, totalBlockChance - output.BlockChanceMax)
+	end
+	output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax)
+	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
+		output.SpellBlockChanceMax = output.BlockChanceMax
+	else
+		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
+	end
+	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
+		output.SpellBlockChance = output.BlockChance
+		output.SpellProjectileBlockChance = output.ProjectileBlockChance
+		output.SpellBlockChanceOverCap = output.BlockChanceOverCap
+	else
+		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax)
+		output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
+		output.SpellProjectileBlockChance = output.SpellBlockChance
+	end
+	if breakdown then
+		breakdown.BlockChance = {
+			"Base: "..baseBlockChance.."%",
+			"Max: "..output.BlockChanceMax.."%",
+			"Total: "..output.BlockChance+output.BlockChanceOverCap.."%",
+		}
+		breakdown.SpellBlockChance = {
+			"Max: "..output.SpellBlockChanceMax.."%",
+			"Total: "..output.SpellBlockChance+output.SpellBlockChanceOverCap.."%",
+		}
+	end
+	if modDB:Flag(nil, "CannotBlockAttacks") then
+		output.BlockChance = 0
+		output.ProjectileBlockChance = 0
+	end
+	if modDB:Flag(nil, "CannotBlockSpells") then
+		output.SpellBlockChance = 0
+		output.SpellProjectileBlockChance = 0
+	end
+	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
+	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
+	if output.BlockEffect == 0 then
+		output.BlockEffect = 100
+	else
+		output.ShowBlockEffect = true
+		output.DamageTakenOnBlock = 100 - output.BlockEffect
+	end
+	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
+
 	-- Primary defences: Energy shield, evasion and armour
 	do
 		local ironReflexes = modDB:Flag(nil, "IronReflexes")
@@ -371,71 +436,6 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
-
-	-- Block
-	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
-	output.BlockChanceOverCap = 0
-	output.SpellBlockChanceOverCap = 0
-	local baseBlockChance = 0
-	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
-		baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
-	end
-	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
-		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
-	end
-	output.ShieldBlockChance = baseBlockChance
-	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
-		output.BlockChance = output.BlockChanceMax
-	else
-		local totalBlockChance = (baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance")
-		output.BlockChance = m_min(totalBlockChance, output.BlockChanceMax)
-		output.BlockChanceOverCap = m_max(0, totalBlockChance - output.BlockChanceMax)
-	end
-	output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
-	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
-		output.SpellBlockChanceMax = output.BlockChanceMax
-	else
-		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
-	end
-	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
-		output.SpellBlockChance = output.BlockChance
-		output.SpellProjectileBlockChance = output.ProjectileBlockChance
-		output.SpellBlockChanceOverCap = output.BlockChanceOverCap
-	else
-		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax)
-		output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
-		output.SpellProjectileBlockChance = output.SpellBlockChance
-	end
-	if breakdown then
-		breakdown.BlockChance = {
-			"Base: "..baseBlockChance.."%",
-			"Max: "..output.BlockChanceMax.."%",
-			"Total: "..output.BlockChance+output.BlockChanceOverCap.."%",
-		}
-		breakdown.SpellBlockChance = {
-			"Max: "..output.SpellBlockChanceMax.."%",
-			"Total: "..output.SpellBlockChance+output.SpellBlockChanceOverCap.."%",
-		}
-	end
-	if modDB:Flag(nil, "CannotBlockAttacks") then
-		output.BlockChance = 0
-		output.ProjectileBlockChance = 0
-	end
-	if modDB:Flag(nil, "CannotBlockSpells") then
-		output.SpellBlockChance = 0
-		output.SpellProjectileBlockChance = 0
-	end
-	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
-	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
-	if output.BlockEffect == 0 then
-		output.BlockEffect = 100
-	else
-		output.ShowBlockEffect = true
-		output.DamageTakenOnBlock = 100 - output.BlockEffect
-	end
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	-- Dodge
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
