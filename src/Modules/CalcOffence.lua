@@ -2284,11 +2284,11 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
 
-		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage + output.FireCritAverage + output.ColdCritAverage + output.LightningCritAverage > 0) then
+		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
 			-- Update enemy hit-by-damage-type conditions
-			enemyDB.conditions.HitByFireDamage = output.FireHitAverage + output.FireCritAverage > 0
-			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage + output.ColdCritAverage > 0
-			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage + output.LightningCritAverage > 0
+			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
+			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
+			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
 		end
 
 		local highestType = "Physical"
