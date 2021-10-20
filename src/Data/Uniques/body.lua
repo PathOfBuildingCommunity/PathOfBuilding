@@ -299,8 +299,7 @@ Requires Level 65, 197 Dex
 {variant:2,3,4,5,6}(140-220)% increased Evasion Rating
 25% increased Chill Duration on Enemies
 {variant:1,2}Acrobatics
-{variant:3,4,5,6}10% chance to Dodge Attacks
-{variant:3,4,5,6}10% chance to Dodge Spell Damage
+{variant:3,4,5,6}30% chance to Suppress Spell Damage
 ]],[[
 Kintsugi
 Exquisite Leather
@@ -1000,13 +999,16 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 [[
 Bloodbond
 Bone Armour
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 35, 53 Dex, 53 Int
 Grants Level 15 Blood Offering Skill 
 (100-120)% increased Evasion and Energy Shield 
 (15-25)% increased maximum Life 
 Minions have (20-30)% increased maximum Life 
 1% of Life Regenerated per second 
-Minions have (6-10)% chance to Dodge Attacks 
+{variant:1}Minions have (6-10)% chance to Suppress Spell Damage
+{variant:2}Minions have (12-15)% chance to Suppress Spell Damage
 ]],[[
 Carcass Jack
 Varnished Coat

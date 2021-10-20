@@ -168,11 +168,14 @@ Burning Hoofprints
 Atziri's Step
 Slink Boots
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 69, 120 Dex
 180% increased Evasion Rating
 +(55-75) to maximum Life
 30% increased Movement Speed
-(14-16)% Chance to Dodge Spell Damage
+{variant:1}(21-24)% chance to Suppress Spell Damage
+{variant:2}(20-26)% chance to Suppress Spell Damage
 ]],[[
 The Blood Dance
 Sharkskin Boots
@@ -570,16 +573,18 @@ Grants Level 1 Embrace Madness Skill
 Darkray Vectors
 Dragonscale Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 62 Str, 62 Dex
-{variant:2}(40-70)% increased Armour and Evasion
+{variant:2,3}(40-70)% increased Armour and Evasion
 +(20-40)% to Lightning Resistance
 5% increased Movement Speed per Frenzy Charge
 +1 to Maximum Frenzy Charge
 {variant:1}50% reduced Frenzy Charge Duration
-{variant:2}40% reduced Frenzy Charge Duration
+{variant:2,3}40% reduced Frenzy Charge Duration
 25% reduced Light Radius
-2% chance to Dodge Attacks per Frenzy Charge
+{variant:1,2}2% chance to Suppress Spell Damage per Frenzy Charge
+{variant:3}10% increased Evasion Rating per Frenzy Charge
 ]],[[
 Dusktoe
 Ironscale Boots
