@@ -2120,7 +2120,11 @@ function calcs.offence(env, actor, activeSkill)
 							end
 							local enemyArmour = calcLib.val(enemyDB, "Armour")
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
-							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
+							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") then
+								resist = 0
+							else
+								resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
+							end
 						else
 							if (skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") and damageType == "Chaos") or 
 							   (skillModList:Flag(cfg, "ElementalDamageUsesLowestResistance") and isElemental[damageType]) then

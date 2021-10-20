@@ -1436,9 +1436,9 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
-	["modifiers to chance to suppress spell damage instead apply to chance to dodge spell hits at 50%% of their value"] = { 
+	["modifiers to chance to suppress spell damage instead apply to chance to dodge spell hits at 50%% of their value"] = {
 		flag("ConvertSpellSuppressionToSpellDodge"),
-		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"), 
+		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"),
 	},
 	["dexterity provides no inherent bonus to evasion rating"] = { flag("NoDexBonusToEvasion") },
 	["strength's damage bonus applies to all spell damage as well"] = { flag("IronWill") },
@@ -1458,7 +1458,7 @@ local specialModList = {
 	},
 	["(%d+)%% increased blind effect"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("BlindEffect", "INC", num) }), } end,
 	["%+(%d+)%% chance to block spell damage for each (%d+)%% overcapped chance to block attack damage"] = function(num, _, div) return { mod("SpellBlockChance", "BASE", num, { type = "PerStat", stat = "BlockChanceOverCap", div = tonumber(div) }) } end,
-	["maximum life becomes 1, immune to chaos damage"] = { 
+	["maximum life becomes 1, immune to chaos damage"] = {
 		flag("ChaosInoculation"),
 		mod("ChaosDamageTaken", "MORE", -100)
 	},
@@ -1661,7 +1661,7 @@ local specialModList = {
 		mod("ColdDamageTaken", "INC", -num, { type = "Condition", var = "HitByColdDamageRecently" }),
 		mod("LightningDamageTaken", "INC", -num, { type = "Condition", var = "HitByLightningDamageRecently" }),
 	} end,
-	["gain convergence when you hit a unique enemy, no more than once every %d+ seconds"] = { 
+	["gain convergence when you hit a unique enemy, no more than once every %d+ seconds"] = {
 		flag("Condition:CanGainConvergence"),
 	},
 	["(%d+)%% increased area of effect while you don't have convergence"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", neg = true, var = "Convergence" }) } end,
@@ -1742,7 +1742,13 @@ local specialModList = {
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Riposte" }),
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Vengeance" }),
 	},
-	-- Guardian
+	["attack damage is lucky if you[' ]h?a?ve blocked in the past (%d+) seconds"] = function(num) return {
+		flag("LuckyHits", { type = "Condition", var = "BlockedRecently"} )
+	} end,
+	["hits ignore enemy monster physical damage reduction if you[' ]h?a?ve blocked in the past (%d+) seconds"] = function(num) return {
+		flag("IgnoreEnemyPhysicalDamageReduction", { type = "Condition", var = "BlockedRecently"} )
+	} end,
+    -- Guardian
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
 	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("EnergyShield", "BASE", num / 100) }) } end,
 	["warcries cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Warcry) },
