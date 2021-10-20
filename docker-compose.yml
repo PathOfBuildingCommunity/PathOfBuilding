@@ -7,3 +7,5 @@ services:
       dockerfile: dockerfiles/Dockerfile
     container_name: busted
     command: busted --lua=luajit
+    volumes:
+    - ./:/root

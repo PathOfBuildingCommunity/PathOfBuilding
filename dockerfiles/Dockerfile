@@ -40,7 +40,6 @@ RUN cd /home && \
 RUN luarocks install busted && \
     luarocks install cluacov
 
-RUN cd /root
-COPY . .
+WORKDIR /root
 
 ENTRYPOINT []
