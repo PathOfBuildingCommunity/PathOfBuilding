@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+
+  busted:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile
+    container_name: busted
+    command: busted --lua=luajit
