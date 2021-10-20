@@ -256,6 +256,14 @@ function PassiveSpecClass:DecodeURL(url)
 		if node then
 			node.alloc = true
 			self.allocNodes[id] = node
+			if node.type == "Mastery" then
+				local mastery_effect = nodes:byte(i + 2) * 256 + nodes:byte(i + 3)
+				self.masterySelections[id] = mastery_effect
+				local effect = self.tree.masteryEffects[mastery_effect]
+				node.sd = effect.sd
+				node.reminderText = { "Tip: Right click to select a different effect" }
+				i = i + 2
+			end
 		end
 	end
 end
@@ -268,6 +276,11 @@ function PassiveSpecClass:EncodeURL(prefix)
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
+			if self.masterySelections[node.id] then
+				local effect_id = self.masterySelections[node.id]
+				t_insert(a, m_floor(effect_id / 256))
+				t_insert(a, effect_id % 256)
+			end
 		end
 	end
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
