@@ -339,7 +339,7 @@ function PassiveSpecClass:EncodeURL(prefix)
 	end
 	t_insert(a, 7, nodeCount)
 
-	t_insert(a, clusterCount) -- TODO: Implement for cluster jewels
+	t_insert(a, clusterCount)
 	for _, id in pairs(clusterNodeIds) do
 		t_insert(a, id)
 	end
