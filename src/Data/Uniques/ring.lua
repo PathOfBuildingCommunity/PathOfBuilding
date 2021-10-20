@@ -313,7 +313,7 @@ Variant: Chaos Resistance
 {tags:chaos}Adds (15-20) to (21-30) Chaos Damage
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}Herald of Agony has (60-80)% increased Mana Reservation Efficiency
-{variant:2}Herald of Agony has (30-40)%  increased Mana Reservation Efficiency
+{variant:2}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:chaos}(40-60)% increased Chaos Damage while affected by Herald of Agony
 {variant:4}Herald of Agony has (70-100)% increased Buff Effect
 {variant:5}Herald of Agony has (40-60)% increased Buff Effect
