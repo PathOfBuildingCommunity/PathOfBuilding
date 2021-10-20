@@ -681,7 +681,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				if other.type == "ClassStart" or other.type == "AscendClassStart" then
 					-- Well that was easy!
 					anyStartFound = true
-				elseif self:FindStartFromNode(other, visited) then
+				elseif other.type ~= "Mastery" and self:FindStartFromNode(other, visited) then
 					-- We found a path through the other node, therefore the other node cannot be dependent on this node
 					anyStartFound = true
 					for i, n in ipairs(visited) do
@@ -691,7 +691,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				else
 					-- No path was found, so all the nodes visited while trying to find the path must be dependent on this node
 					for i, n in ipairs(visited) do
-						if not n.dependsOnIntuitiveLeapLike then
+						if not n.dependsOnIntuitiveLeapLike and n.type ~= "Mastery" then
 							t_insert(node.depends, n)
 						end
 						n.visited = false
