@@ -694,6 +694,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 		elseif node.type == "Mastery" then
 			node.sd = {}
+			if node.masteryEffects ~= nil then
 			for _, effect in ipairs(node.masteryEffects) do
 				effect = self.tree.masteryEffects[effect.effect]
 				if effect.sd ~= nil then
@@ -704,6 +705,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 			self.tree:ProcessStats(node)
 			node.allMasteryOptions = true
+			end
 		elseif node.type == "Notable" then
 			self.allocatedNotableCount = self.allocatedNotableCount + 1
 		end
