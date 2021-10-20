@@ -534,7 +534,6 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if not modDB:Flag(nil, "NoIntBonusToMana") then
 				modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
 			end
-
 			if not modDB:Flag(nil, "NoIntBonusToES") then
 				modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 			end
