@@ -576,12 +576,12 @@ Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 62 Str, 62 Dex
-{variant:2}(40-70)% increased Armour and Evasion
+{variant:2,3}(40-70)% increased Armour and Evasion
 +(20-40)% to Lightning Resistance
 5% increased Movement Speed per Frenzy Charge
 +1 to Maximum Frenzy Charge
 {variant:1}50% reduced Frenzy Charge Duration
-{variant:2}40% reduced Frenzy Charge Duration
+{variant:2,3}40% reduced Frenzy Charge Duration
 25% reduced Light Radius
 {variant:1,2}2% chance to Suppress Spell Damage per Frenzy Charge
 {variant:3}10% increased Evasion Rating per Frenzy Charge
