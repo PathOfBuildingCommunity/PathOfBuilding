@@ -170,19 +170,21 @@ Variant: Movement Speed/Stun Avoidance
 Variant: Life Regen
 Variant: Reduced Reflected Damage Taken
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 22
 Implicits: 0
 {variant:8}Recharges 1 Charge when you consume an Ignited Corpse
-{variant:9}Recharges 5 Charges when you consume an Ignited Corpse
+{variant:10}Recharges 5 Charges when you consume an Ignited Corpse
 {variant:8}Enemies Ignited by you during Flask Effect take 10% increased Damage
-{variant:9}Enemies Ignited by you during Flask Effect take (7-10)% increased Damage
-{variant:8,9}Recover (1-3)% of Life when you Kill an Enemy during Flask Effect
-{variant:8,9}Recover (1-3)% of Mana when you Kill an Enemy during Flask Effect
-{variant:8,9}Recover (1-3)% of Energy Shield when you Kill an Enemy during Flask Effect
-{variant:9}+90 to maximum charges
-{variant:9}(250-300)% increased Charges Used
-{variant:1}{crafted}(45-55)increased Critical Strike Chance during Flask Effect
+{variant:10}Enemies Ignited by you during Flask Effect take (7-10)% increased Damage
+{variant:8,10}Recover (1-3)% of Life when you Kill an Enemy during Flask Effect
+{variant:8,10}Recover (1-3)% of Mana when you Kill an Enemy during Flask Effect
+{variant:8,10}Recover (1-3)% of Energy Shield when you Kill an Enemy during Flask Effect
+{variant:10}+90 to maximum charges
+{variant:10}(250-300)% increased Charges Used
+{variant:1,9}{crafted}(60-80)increased Critical Strike Chance during Flask Effect
+{variant:1,10}{crafted}(45-55)increased Critical Strike Chance during Flask Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Flask Effect
 {variant:3}{crafted}(20-30)% increased Rarity of Items found during Flask Effect
 {variant:4}{crafted}(25-20)% reduced Mana Cost of Skills during Flask Effect
