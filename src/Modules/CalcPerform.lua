@@ -756,7 +756,8 @@ local function doActorMisc(env, actor)
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
 		if modDB:Flag(nil, "Fortify") then
-			local effectScale = 1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100
+			-- Fortify is no longer used reduced its effect to 0
+			local effectScale = 0 * (1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100)
 			local modList = modDB:List(nil, "convertFortifyBuff")
 			local changeMod = modList[#modList]
 			if changeMod then
@@ -770,6 +771,24 @@ local function doActorMisc(env, actor)
 			else
 				local effect = m_floor(20 * effectScale)
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortify")
+			end
+			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
+		end
+		if modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
+			local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+			local modList = modDB:List(nil, "convertFortificationBuff")
+			local changeMod = modList[#modList]
+			if changeMod then
+				local mod = changeMod.mod
+				if not mod.originValue then
+					mod.originValue = mod.value
+				end
+				mod.value = m_floor(mod.originValue * effectScale)
+				mod.source = "Fortification"
+				modDB:AddMod(mod)
+			else
+				local effect = m_floor(1 * effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), modDB:Sum("BASE", skillCfg, "MaximumFortification")))
+				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
@@ -972,6 +991,7 @@ function calcs.perform(env, avoidCache)
 		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ElementalResist", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+		env.minion.modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Poison)
 		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Ignite)
 		env.minion.modDB:NewMod("SkillData", "LIST", { key = "bleedBasePercent", value = 70/6 }, "Base")

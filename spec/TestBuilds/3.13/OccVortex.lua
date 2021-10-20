@@ -575,7 +575,7 @@ Implicits: 0
 	<Config>
 		<Input name="conditionCritRecently" boolean="true"/>
 		<Input name="conditionEnemyChilled" boolean="true"/>
-		<Input name="buffFortify" boolean="true"/>
+		<Input name="multiplierFortification" number="20"/>
 		<Input name="useEnduranceCharges" boolean="true"/>
 		<Input name="EEIgnoreHitDamage" boolean="true"/>
 		<Input name="brandAttachedToEnemy" boolean="true"/>
