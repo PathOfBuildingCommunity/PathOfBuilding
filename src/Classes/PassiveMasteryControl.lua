@@ -10,32 +10,28 @@ local m_max = math.max
 local m_floor = math.floor
 
 --constructor
-local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl", function(self, anchor, x, y, width, height, list, treeTab, node, tooltipText)
+local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl", function(self, anchor, x, y, width, height, list, treeTab, node, saveButton)
 	self.list = list or { }
+	-- automagical width
+	if width == 0 then
+		-- do not be smaller than this width
+		width = 579
+		for j=1,#list do
+			width = m_max(width, DrawStringWidth(16, "VAR", list[j].label) + 5)
+		end
+	end
 	self.ListControl(anchor, x, y, width, height, 16, false, false, self.list)
 	self.treeTab = treeTab
 	self.treeView = treeTab.viewer
 	self.node = node
 	self.selIndex = nil
+	self.saveButton = saveButton
 end)
 
 --  POB passive mastery UI
-    -- Hover tooltip for mastery node lists options
-    -- Clicking mastery node opens a panel that shows all options
-        -- Hovering an option highlights the option in beige and displays a tooltip that shows allocation effect as if it was the node on the tree
-        -- Clicking an option selects it, highlights it in white, and greys out other options
-
-
+-- TODO
         -- Hovering a greyed out option compares it to the currently selected option
-
 			-- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
-			-- Adds the provided header line before the first stat line, if any are added
-			-- Returns the number of stat lines added
-			-- build:AddStatComparesToTooltip(tooltip, baseOutput, compareOutput, header, nodeCount)
-
-        -- Clicking a greyed out option selects it instead and colors options appropriately
-        -- Assign button closes the panel, assigns highlighted option to mastery node, and allocates it
-        -- Cancel button closes the panel without assigning a mastery option to the mastery node or allocating it
 
 		--make sure that you can also see the stat differences of allocating without hovering over the option itself.
 		--like either add a tooltip to the Assign button like the Anoint menu has, or just show it all the time when the mastery UI is up
@@ -47,7 +43,7 @@ end
 
 function PassiveMasteryControlClass:GetRowValue(column, index, effect)
 	if column == 1 then
-		return StripEscapes(type(effect) == "table" and effect.label or effect)
+		return effect.label
 	end
 end
 
@@ -57,4 +53,10 @@ function PassiveMasteryControlClass:AddValueTooltip(tooltip, index, effect)
 	self.node.allMasteryOptions = false
 	self.treeTab.build.spec.tree:ProcessStats(self.node)
 	self.treeView:AddNodeTooltip(tooltip, self.node, self.treeTab.build)
+end
+
+function PassiveMasteryControlClass:OnSelClick(index, mastery, doubleClick)
+	if doubleClick then
+		self.saveButton:Click()
+	end
 end

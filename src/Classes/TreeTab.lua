@@ -630,8 +630,7 @@ function TreeTabClass:OpenMasteryPopup(node)
 	end
 	--Check to make sure that the effects list has a potential mod to apply to a mastery
 	if not (next(effects) == nil) then
-		local passiveMasteryControlHeight = (#effects + 1) * 14 + 4
-		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 579, passiveMasteryControlHeight, effects, self, node)
+		local passiveMasteryControlHeight = (#effects + 1) * 14
 		controls.save =  new("ButtonControl", nil, -49, 30 + passiveMasteryControlHeight, 90, 20, "Assign", function()
 			local effect = self.build.spec.tree.masteryEffects[controls.effect.ListControl.selValue.id]
 			node.sd = effect.sd
@@ -653,7 +652,8 @@ function TreeTabClass:OpenMasteryPopup(node)
 			self.build.spec.tree:ProcessStats(node)
 			main:ClosePopup()
 		end)
-		main:OpenPopup(591, 60 + passiveMasteryControlHeight, node.name, controls)
+		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 0, passiveMasteryControlHeight, effects, self, node, controls.save)
+		main:OpenPopup(controls.effect.width + 15, controls.effect.height + 60, node.name, controls)
 	end
 end
 
