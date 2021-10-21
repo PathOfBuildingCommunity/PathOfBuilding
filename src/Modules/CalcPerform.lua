@@ -780,7 +780,7 @@ local function doActorMisc(env, actor)
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
-		if modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
+		if modDB:Flag(nil, "Fortify") then
 			local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			local modList = modDB:List(nil, "convertFortificationBuff")
 			local changeMod = modList[#modList]
@@ -793,7 +793,8 @@ local function doActorMisc(env, actor)
 				mod.source = "Fortification"
 				modDB:AddMod(mod)
 			else
-				local effect = m_floor(1 * effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), modDB:Sum("BASE", skillCfg, "MaximumFortification")))
+				local effectMax = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
+				local effect = m_floor(1 * effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), effectMax))
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
