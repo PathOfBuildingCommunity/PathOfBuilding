@@ -615,6 +615,25 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	constructUI(modGroups[1])
 end
 
+function TreeTabClass:SaveMasteryPopup(node, listControl)
+		if listControl.selValue == nil then
+			return
+		end
+		local effect = self.build.spec.tree.masteryEffects[listControl.selValue.id]
+		node.sd = effect.sd
+		node.allMasteryOptions = false
+		node.reminderText = { "Tip: Right click to select a different effect" }
+		self.build.spec.tree:ProcessStats(node)
+		self.build.spec.masterySelections[node.id] = effect.id
+		if not node.alloc then
+			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
+		end
+		self.build.spec:AddUndoState()
+		self.modFlag = true
+		self.build.buildFlag = true
+		main:ClosePopup()
+end
+
 function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	local controls = { }
 	local effects = { }
@@ -634,46 +653,7 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	--Check to make sure that the effects list has a potential mod to apply to a mastery
 	if not (next(effects) == nil) then
 		local passiveMasteryControlHeight = (#effects + 1) * 14 + 2
-		controls.save =  new("ButtonControl", nil, -49, 30 + passiveMasteryControlHeight, 90, 20, "Allocate",
-		function()
-			if controls.effect.ListControl.selValue == nil then
-				return
-			end
-			local effect = self.build.spec.tree.masteryEffects[controls.effect.ListControl.selValue.id]
-			node.sd = effect.sd
-			node.allMasteryOptions = false
-			node.reminderText = { "Tip: Right click to select a different effect" }
-			self.build.spec.tree:ProcessStats(node)
-			self.build.spec.masterySelections[node.id] = effect.id
-			if not node.alloc then
-				self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
-			end
-			self.build.spec:AddUndoState()
-			self.modFlag = true
-			self.build.buildFlag = true
-			main:ClosePopup()
-		end,
-		function()
-			if controls.effect.ListControl.selValue == nil then
-				SetDrawLayer(nil, 100)
-				controls.save.tooltipText = "Select a mastery effect to allocate this node"
-				SetDrawLayer(nil, 0)
-				return
-			end
-			controls.save.tooltipText = nil
-			local effect = self.build.spec.tree.masteryEffects[controls.effect.ListControl.selValue.id]
-			node.sd = effect.sd
-			self.build.spec.tree:ProcessStats(node)
-			SetDrawLayer(nil, 100)
-			controls.save.tooltip:Clear()
-			self.viewer:AddNodeTooltip(controls.save.tooltip, node, self.build)
-			ttW, ttH = controls.save.tooltip:GetSize()
-			local x = m_floor(main.screenW / 2 + 100)
-			local y = m_floor(main.screenH / 2 - ttH / 2)
-			controls.save.tooltip:Draw(x, y, false, false, viewPort)
-			SetDrawLayer(nil, 0)
-		end)
-		controls.close =  new("ButtonControl", nil, 49, 30 + passiveMasteryControlHeight, 90, 20, "Cancel", function()
+		controls.close =  new("ButtonControl", nil, 0, 30 + passiveMasteryControlHeight, 90, 20, "Cancel", function()
 			node.sd = cachedSd
 			node.allMasteryOptions = cachedAllMasteryOption
 			self.build.spec.tree:ProcessStats(node)

@@ -43,7 +43,5 @@ function PassiveMasteryControlClass:AddValueTooltip(tooltip, index, effect)
 end
 
 function PassiveMasteryControlClass:OnSelClick(index, mastery, doubleClick)
-	if doubleClick then
-		self.saveButton:Click()
-	end
+	self.treeTab:SaveMasteryPopup(self.node, self)
 end
