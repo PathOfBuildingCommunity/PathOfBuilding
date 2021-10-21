@@ -3198,7 +3198,7 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(breakdown.IgniteDamage, s_format("x %.2fs ^8(ignite duration)", globalOutput.IgniteDuration))
 						t_insert(breakdown.IgniteDamage, s_format("= %.1f ^8damage per ignite stack", output.IgniteDamage))
 					end
-					if globalOutput.IgniteDuration ~= 4 then
+					if globalOutput.IgniteDuration ~= data.misc.IgniteDurationBase then
 						globalBreakdown.IgniteDuration = {
 							s_format("%.2fs ^8(base duration)", durationBase)
 						}
