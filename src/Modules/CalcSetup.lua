@@ -947,9 +947,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedNonExceptionSupport")) do
 							crossLinkedSupportList[value.targetSlotName] = { }
 							for _, supportItem in ipairs(supportList) do
-								if supportItem.grantedEffect.name ~= "Empower" and supportItem.grantedEffect.name ~= "Enlighten" and supportItem.grantedEffect.name ~= "Enhance" then
-									t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
-								end
+								t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
 							end
 						end
 					end
