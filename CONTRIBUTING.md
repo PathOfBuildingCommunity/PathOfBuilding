@@ -1,5 +1,15 @@
 # Contributing to Path of Building
 
+# Table of contents
+1. [Reporting bugs](#reporting-bugs)
+2. [Requesting features](#requesting-features)
+3. [Contributing code](#contributing-code)
+4. [Setting up a development installation](#setting-up-a-development-installation)
+5. [Setting up a development environment](#setting-up-a-development-environment)
+6. [Path of Building development tutorials](#path-of-building-development-tutorials)
+7. [Keeping your fork up to date](#keeping-your-fork-up-to-date)
+8. [Exporting GGPK data from Path of Exile](#exporting-ggpk-data-from-path-of-exile)
+
 ## Reporting bugs
 
 ### Before creating an issue:
@@ -129,6 +139,12 @@ Note: If you've configured a remote already, you can skip ahead to step 3.
 6. Push your updated branch to GitHub.
 
        git push -f origin dev
+
+##Path of Building development tutorials
+
+* [How are mods parsed?](docs/addingMods.md)
+* [Mod Syntax](docs/modSyntax.md)
+* [How skills work in Path of Building](docs/addingSkills.md)
 
 ## Exporting GGPK data from Path of Exile
 
