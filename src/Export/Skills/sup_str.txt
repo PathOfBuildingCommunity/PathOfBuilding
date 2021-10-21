@@ -130,6 +130,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" })
+#baseMod flag("Cruelty")
 #mods
 
 #skill SupportMeleeDamageOnFullLife

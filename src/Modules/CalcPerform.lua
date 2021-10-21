@@ -758,6 +758,9 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
+		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
+		end
 		if modDB:Flag(nil, "Fortify") then
 			local effectScale = 1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100
 			local modList = modDB:List(nil, "convertFortifyBuff")
