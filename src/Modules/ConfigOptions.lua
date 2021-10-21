@@ -143,7 +143,7 @@ return {
 		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
 	end },
 	{ label = "Cruelty:", ifSkill = "Cruelty" },
-	{ var = "overrideCruelty", type = "count", label = "Cruelty X%(if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
+	{ var = "overrideCruelty", type = "count", label = "Damage % (if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Cruelty", "OVERRIDE", m_min(val, 40), "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Cyclone:", ifSkill = "Cyclone" },
