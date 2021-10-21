@@ -449,15 +449,17 @@ function calcs.defence(env, actor)
 
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+	local attackDodgeChanceMax = data.misc.DodgeChanceCap
+	local spellDodgeChanceMax = modDB:Override(nil, "SpellDodgeChanceMax") or modDB:Sum("BASE", nil, "SpellDodgeChanceMax")
 
-	output.AttackDodgeChance = m_min(totalAttackDodgeChance, data.misc.DodgeChanceCap)
-	output.SpellDodgeChance = m_min(totalSpellDodgeChance, data.misc.DodgeChanceCap)
+	output.AttackDodgeChance = m_min(totalAttackDodgeChance, attackDodgeChanceMax)
+	output.SpellDodgeChance = m_min(totalSpellDodgeChance, spellDodgeChanceMax)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
 		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
 	end
-	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - data.misc.DodgeChanceCap)
-	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - data.misc.DodgeChanceCap)
+	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - attackDodgeChanceMax)
+	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - spellDodgeChanceMax)
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
