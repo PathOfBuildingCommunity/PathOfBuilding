@@ -3476,7 +3476,7 @@ skills["PoisonousConcoction"] = {
 	color = 2,
 	baseEffectiveness = 2.5408999919891,
 	incrementalEffectiveness = 0.038699999451637,
-	description = "Yeets a bottle, scales of your life flask. Requires an empty main hand, and no off-hand weapon.",
+	description = "Throws an explosive bottle that deals unarmed attack damage in an area and has a chance to poison. Can consume charges from a Life flasks to add further damage. Requires an empty main hand, and no off-hand weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.CantEquipWeapon] = true, },
 	weaponTypes = {
 		["None"] = true,
