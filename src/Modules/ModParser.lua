@@ -934,6 +934,7 @@ local preFlagList = {
 	["^templar: "] = { tag = { type = "Condition", var = "ConnectedToTemplarStart" } },
 	["^scion: "] = { tag = { type = "Condition", var = "ConnectedToScionStart" } },
 	["^skills supported by spellslinger have "] = { tag = { type = "Condition", var = "SupportedBySpellslinger" } },
+	["^skills that have dealt a critical strike in the past 8 seconds deal "] = { tag = { type = "Condition", var = "CritInPast8Sec" } },
 	["^blink arrow and mirror arrow have "] = { tag = { type = "SkillName", skillNameList = { "Blink Arrow", "Mirror Arrow" } } },
 }
 
@@ -1490,9 +1491,6 @@ local specialModList = {
 		mod("PhysicalDamageConvertToFire", "BASE", num),
 		mod("LightningDamageConvertToFire", "BASE", num),
 		mod("ColdDamageConvertToFire", "BASE", num),
-	} end,
-	["skills that have dealt a critical strike in the past (%d+) seconds deal (%d+)%% more elemental damage with hits and ailments"] = function(num, _, dmg) return {
-		mod("ElementalDamage", "MORE", tonumber(dmg)),
 	} end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["removes all mana"] = { mod("Mana", "MORE", -100) },
