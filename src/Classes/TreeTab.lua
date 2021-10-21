@@ -640,9 +640,6 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	local cachedSd = node.sd
 	local cachedAllMasteryOption = node.allMasteryOptions
 
-	local function allocateMasteryNode()
-	end
-
 	wipeTable(effects)
 	for _, effect in pairs(node.masteryEffects) do
 		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, effect.effect)
