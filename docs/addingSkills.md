@@ -8,7 +8,22 @@ A template file for a new skill can consist of the following directives, which t
 This directive initializes all the data for the skill and emits the skill header.  `grantedEffectId` matches up with the name defined in the ggpk, in the `GrantedEffects` table.  `displayName` is optional, but can override the display name from the game data if needed
 
 ### #flags
-Sets the base flags for an active skill, like projectile, attack, or minion, for example
+Sets the base flags for an active skill, like projectile, attack, or minion, for example.  These flags are then used, along with the SkillTypes gotten from the ggpk, to add different KeywordFlags and ModFlags to the skill.  The available flags include the following, and add a KeywordFlag or ModFlag of the same name unless otherwise stated:
+  * melee
+  * attack
+  * spell
+  * projectile
+  * area
+  * hit
+  * brand
+  * totem
+  * trap
+  * mine
+  * chaining
+  * warcry
+  * duration
+  * curse
+  * hex
 
 ### #mods
 This directive does nothing but ensure the mods that come with the skill are included after exporting.  This will almost always be included
@@ -21,7 +36,7 @@ This directive is used when a new skill shouldn't have a gem associated with it.
 
 ## Combined data
 
-The most important tables constructed from the game data are the `stats` table, and the `levels` table.  Taking a look at just one row in `levels`, there will be a list of numbers, followed by named entries, such as `levelRequirement`, `damageEffectiveness`, etc.  Each of these stats are mapped to a mod in Path of Building either via `SkillStatMap.lua`, or if the stat is specific to this particular skill (e.g. `spectral_helix_rotations_%` would only apply to Spectral Helix) in `statMap` in this same table.  If a mapping exists in both places, the one local to this skill will take precedence.  The corresponding mod will have `nil` in place of its normal value, and that value instead comes from this row in the `levels` table.  Notice that not all of the stats have a number in the first part of the `levels` row.  These extra stats are usually for booleans/flags that are always true.
+The most important tables constructed from the game data are the `stats` table, and the `levels` table.  Taking a look at just one row in `levels`, there is a list of numbers, followed by named entries, such as `levelRequirement`, `damageEffectiveness`, etc.  Each of these stats are mapped to a mod in Path of Building either via `SkillStatMap.lua`, or if the stat is specific to this particular skill (e.g. `spectral_helix_rotations_%` would only apply to Spectral Helix) in `statMap` in this same table.  If a mapping exists in both places, the one local to this skill will take precedence.  The corresponding mod will have `nil` in place of its normal value, and that value instead comes from this row in the `levels` table.  Notice that not all of the stats have a number in the first part of the `levels` row.  These extra stats are usually for booleans/flags that are always true.
 
 Notice how these stat numbers don't really align with damage numbers in any meaningful way for active skills.  The stat numbers are interpolated by the numbers in the corresponding position in the `statInterpolation` table in the same row.
 * 1 means take the number as-is.  This is the most common interpolation
@@ -30,13 +45,25 @@ Notice how these stat numbers don't really align with damage numbers in any mean
 
 The code for this can be found in `CalcTools.lua` starting [here](../src/Modules/CalcTools.lua#L166)
 
+## Skill Parts
+
+Many times a skill will have different components that each do different types of damage, or the skill can be used in more than one way that changes the damage output.  To support these different modes or parts of a skill, add a table called `parts` to the skill that contains multiple entries of the form: `{ name = <Part name>, }`.  Making mods based on the skill part the user chooses simply requires the `SkillPart` tag to be added to a mod: `{ type = "SkillPart", skillPart = 2 }`
+
+## Pre Functions (preFuncs)
+
+Some skills rely on knowing something more about the character before they can calculate damage or some other property.  One example is Righteous Fire, as it has to know the player (or totem's) life and ES totals before running the calculation.  To do this, a calculator will call a function, giving it `activeSkill` and `output` as parameters.  This function will live alongside the skill and is completely custom.  There are 4 preFuncs that can currently be used:
+* initialFunc - This is called before anything else is done in CalcOffence, allowing for special mods to be added to the player
+* preSkillTypeFunc - This is called before the flag-specific logic is called in CalcOffence.  For example, if you needed to calculate ChainCount differently, you could add the mod here
+* preDamageFunc - This is called before the final damage passes are done.  This is the most used of all the preFuncs, so there are plenty of examples to search for.
+* preDotFunc - This is run before damage over time is calculated.  The only current example is Burning Arrow, for its 5 stack multiplier.
+
 ## Adding skills
 
 1. Add `#skill grantedEffectId` to the appropriate template file for the skill
 2. Add `#mods` below that
 3. [Export the skills](../CONTRIBUTING.md#exporting-ggpk-data-from-path-of-exile) to combine it with the game data
 4. If there are stats in the `stats` table that aren't recognized already in `SkillStatMap.lua`, add a `statMap` table to the template file to map them properly to a mod.
-5. Add other mods via `#baseMod` if needed.
+5. Add other directives/options if needed
 
 ## Adding minions
 
