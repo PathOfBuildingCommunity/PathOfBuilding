@@ -20601,6 +20601,62 @@ return {
 			[1]="flask_throw_base_charges_used"
 		}
 	},
+	[1207]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]=2
+						}
+					},
+					text="Consumes {0} Charge from 1 Life Flask, if possible"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Consumes {0} Charge from 1 Life Flask, if possible"
+				}
+			}
+		},
+		name="flask_throw_life_charges_used",
+		stats={
+			[1]="flask_throw_life_charges_used"
+		}
+	},
+	[1208]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]=2
+						}
+					},
+					text="Added Chaos damage equal to {0}% of Flask's Recovery Amount If Charges were consumed"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Added Chaos damage equal to {0}% of Flask's Recovery Amount If Charges were consumed"
+				}
+			}
+		},
+		name="flask_throw_damage_life_flask_used",
+		stats={
+			[1]="flask_throw_damage_life_flask_used"
+		}
+	},
 	[701]={
 		lang={
 			English={
@@ -35029,6 +35085,8 @@ return {
 	["flamethrower_trap_damage_+%_final_vs_burning_enemies"]=698,
 	["flask_charges_used_+%"]=699,
 	["flask_throw_base_charges_used"]=700,
+	["flask_throw_life_charges_used"]=1207,
+	["flask_throw_damage_life_flask_used"]=1208,
 	["flask_throw_maximum_cold_damage_if_used_sapphire_flask"]=701,
 	["flask_throw_maximum_lightning_damage_if_used_topaz_flask"]=702,
 	["flask_throw_minimum_cold_damage_if_used_sapphire_flask"]=701,

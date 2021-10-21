@@ -613,6 +613,12 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "PoisonousConcoction") then 
+		local multiplier = skillModList:Sum("BASE", skillCfg, "ChaosPerLifeFlaskPercent") or 0
+		local addedFromFlask = (env.itemModDB.multipliers["LifeFlaskRecovery"] * (multiplier / 100))
+		skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "yeeting flask")
+		skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "yeeting flask")
+	end
 	if skillData.arrowSpeedAppliesToAreaOfEffect then
 		-- Arrow Speed conversion for Galvanic Arrow
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Bow }, "ProjectileSpeed")) do
