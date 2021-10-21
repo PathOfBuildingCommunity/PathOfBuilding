@@ -663,12 +663,14 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 			controls.save.tooltipText = nil
 			local effect = self.build.spec.tree.masteryEffects[controls.effect.ListControl.selValue.id]
 			node.sd = effect.sd
+			self.build.spec.tree:ProcessStats(node)
 			SetDrawLayer(nil, 100)
 			controls.save.tooltip:Clear()
 			self.viewer:AddNodeTooltip(controls.save.tooltip, node, self.build)
 			ttW, ttH = controls.save.tooltip:GetSize()
+			local x = m_floor(main.screenW / 2 + 100)
 			local y = m_floor(main.screenH / 2 - ttH / 2)
-			controls.save.tooltip:Draw(850, y, false, false, viewPort)
+			controls.save.tooltip:Draw(x, y, false, false, viewPort)
 			SetDrawLayer(nil, 0)
 		end)
 		controls.close =  new("ButtonControl", nil, 49, 30 + passiveMasteryControlHeight, 90, 20, "Cancel", function()

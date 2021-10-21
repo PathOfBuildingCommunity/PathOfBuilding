@@ -13,12 +13,8 @@ local m_floor = math.floor
 local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl", function(self, anchor, x, y, width, height, list, treeTab, node, saveButton)
 	self.list = list or { }
 	-- automagical width
-	if width == 0 then
-		-- do not be smaller than this width
-		width = 579
-		for j=1,#list do
-			width = m_max(width, DrawStringWidth(16, "VAR", list[j].label) + 5)
-		end
+	for j=1,#list do
+		width = m_max(width, DrawStringWidth(16, "VAR", list[j].label) + 5)
 	end
 	self.ListControl(anchor, x, y, width, height, 16, false, false, self.list)
 	self.treeTab = treeTab
@@ -27,15 +23,6 @@ local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListContro
 	self.selIndex = nil
 	self.saveButton = saveButton
 end)
-
---  POB passive mastery UI
--- TODO
-        -- Hovering a greyed out option compares it to the currently selected option
-			-- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
-
-		--make sure that you can also see the stat differences of allocating without hovering over the option itself.
-		--like either add a tooltip to the Assign button like the Anoint menu has, or just show it all the time when the mastery UI is up
-
 
 function PassiveMasteryControlClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)

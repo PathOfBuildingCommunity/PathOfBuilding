@@ -44,7 +44,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			self.scrollH = false
 		end
 	end
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, self.scroll and 16 or 0, rowHeight * 2, "HORIZONTAL", not self.scroll and true) {
+	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, self.scroll and 16 or 0, rowHeight * 2, "HORIZONTAL") {
 		shown = function()
 			return self.scrollH
 		end,
@@ -53,7 +53,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			return width - 18
 		end
 	}
-	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, self.scroll and 16 or 0, 0, rowHeight * 2, "VERTICAL", not self.scroll and true) {
+	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, self.scroll and 16 or 0, 0, rowHeight * 2, "VERTICAL") {
 		y = function()
 			return (self.scrollH and -8 or 0)
 		end,
@@ -62,6 +62,10 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			return height - 2 - (self.scrollH and 16 or 0)
 		end
 	}
+	if not self.scroll then
+		self.controls.scrollBarH.shown = false
+		self.controls.scrollBarV.shown = false
+	end
 end)
 
 function ListClass:SelectIndex(index)
