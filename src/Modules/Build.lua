@@ -1244,9 +1244,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 				t_insert(statBoxList, { 
 					height = 16, labelColor..statData.label..":", 
 					"^7"..actor.output[statData.labelStat].."%^x808080" .. " (" .. statData.val  .. ")",})
+			elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
+				t_insert(statBoxList, { height = 6 })
 			end
-		elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
-			t_insert(statBoxList, { height = 6 })
 		end
 	end
 end
