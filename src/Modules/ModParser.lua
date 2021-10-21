@@ -235,6 +235,7 @@ local modNameList = {
 	["to dodge attack and spell hits"] = { "AttackDodgeChance", "SpellDodgeChance" },
 	["to dodge attack or spell hits"] = { "AttackDodgeChance", "SpellDodgeChance" },
 	["to suppress spell damage"] = { "SpellSuppressionChance" },
+	["amount of suppressed spell damage prevented"] = { "SpellSuppressionEffect" },
 	["to block"] = "BlockChance",
 	["to block attacks"] = "BlockChance",
 	["to block attack damage"] = "BlockChance",

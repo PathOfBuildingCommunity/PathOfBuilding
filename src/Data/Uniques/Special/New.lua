@@ -72,6 +72,18 @@ Implicits: 0
 +23% to Chaos Resistance
 +21 Life gained on kill
 Nearby Enemies Killed by anyone count as being Killed by you instead
+]],[[
+The Oppressor
+Elegant Round Shield
+League: Scourge
+Requires Level 70, 85 Str, 85 Dex
+Implicits: 1
+120% Increased Block Recovery
+-10% to amount of Suppressed Spell Damage Prevented
++32% Chance to Suppress Spell Damage
+247% increased Armour and Evasion
++10% Chance to Block
+You take 20% of Damage from Blocked Hits
 ]]
 -- Reworked
 
