@@ -362,6 +362,7 @@ local modNameList = {
 	["maximum blitz charges"] = "BlitzChargesMax",
 	["maximum number of crab barriers"] = "CrabBarriersMax",
 	["maximum blood charges"] = "BloodChargesMax",
+	["charge duration"] = "ChargeDuration",
 	-- On hit/kill/leech effects
 	["life gained on kill"] = "LifeOnKill",
 	["mana gained on kill"] = "ManaOnKill",
