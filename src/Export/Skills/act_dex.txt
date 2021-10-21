@@ -671,11 +671,9 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["flask_throw_minimum_chaos_damage_if_used_life_flask"] = {
-			mod("ChaosMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2 } }),
-		},
-		["flask_throw_maximum_chaos_damage_if_used_life_flask"] = {
-			mod("ChaosMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2 } }),
+		["flask_throw_damage_life_flask_used"] = {
+			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2 } }),
+			flag("PoisonousConcoction")
 		},
 	},
 #mods
