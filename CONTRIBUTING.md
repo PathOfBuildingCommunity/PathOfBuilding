@@ -6,8 +6,8 @@
 3. [Contributing code](#contributing-code)
 4. [Setting up a development installation](#setting-up-a-development-installation)
 5. [Setting up a development environment](#setting-up-a-development-environment)
-6. [Path of Building development tutorials](#path-of-building-development-tutorials)
-7. [Keeping your fork up to date](#keeping-your-fork-up-to-date)
+6. [Keeping your fork up to date](#keeping-your-fork-up-to-date)
+7. [Path of Building development tutorials](#path-of-building-development-tutorials)
 8. [Exporting GGPK data from Path of Exile](#exporting-ggpk-data-from-path-of-exile)
 
 ## Reporting bugs
@@ -140,7 +140,7 @@ Note: If you've configured a remote already, you can skip ahead to step 3.
 
        git push -f origin dev
 
-##Path of Building development tutorials
+## Path of Building development tutorials
 
 * [How are mods parsed?](docs/addingMods.md)
 * [Mod Syntax](docs/modSyntax.md)
