@@ -439,9 +439,6 @@ function calcs.defence(env, actor)
 	end
 
 	-- Dodge
-	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
-	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
-
 	-- Acrobatics Spell Suppression to Spell Dodge Chance conversion.
 	if modDB:Flag(nil, "ConvertSpellSuppressionToSpellDodge") then
 		local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
