@@ -129,8 +129,13 @@ function PassiveSpecClass:Load(xml, dbFileName)
 
 					local editorSeed = tonumber(child.attrib.editorSeed)
 					local nodeId = tonumber(child.attrib.nodeId)
-					self.tree.legion.editedNodes = { }
-					self.tree.legion.editedNodes[editorSeed] = { [nodeId] = copyTable(self.nodes[nodeId], true) }
+					if not self.tree.legion.editedNodes then
+						self.tree.legion.editedNodes = { }
+					end
+					if not self.tree.legion.editedNodes[editorSeed] then
+						self.tree.legion.editedNodes[editorSeed] = { }
+					end
+					self.tree.legion.editedNodes[editorSeed][nodeId] = copyTable(self.nodes[nodeId], true)
 					self.tree.legion.editedNodes[editorSeed][nodeId].id = nodeId
 					self.tree.legion.editedNodes[editorSeed][nodeId].dn = child.attrib.nodeName
 					self.tree.legion.editedNodes[editorSeed][nodeId].icon = child.attrib.icon
@@ -171,7 +176,15 @@ function PassiveSpecClass:Save(xml)
 				for _, modLine in ipairs(node.sd) do
 					t_insert(editedNode, modLine)
 				end
-				t_insert(editedNodes, editedNode)
+				-- Do not save current editedNode data unless the current node is conquered
+				if self.nodes[nodeId].conqueredBy then
+					-- Do not save current editedNode data unless the current node is allocated
+					for allocNodeId in pairs(self.allocNodes) do
+						if nodeId == allocNodeId then
+							t_insert(editedNodes, editedNode)
+						end
+					end
+				end
 			end
 		end
 	end
@@ -355,6 +368,7 @@ function PassiveSpecClass:ResetNodes()
 			self.allocNodes[id] = nil
 		end
 	end
+	wipeTable(self.masterySelections)
 end
 
 -- Allocate the given node, if possible, and all nodes along the path to the node
@@ -894,7 +908,12 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	local function linkNodes(node1, node2)
 		t_insert(node1.linked, node2)
 		t_insert(node2.linked, node1)
-		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
+		-- BuildConnector returns a table of objects, not a single object now
+		local connectors = self.tree:BuildConnector(node1, node2)
+		t_insert(subGraph.connectors, connectors[1])
+		if connectors[2] then
+			t_insert(subGraph.connectors, connectors[2])
+		end
 	end
 
 	local function matchGroup(proxyId)
@@ -1326,10 +1345,7 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 	for _, mod in pairs(addition.mods) do
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod.source = "Tree:"..node.id
-				if type(mod.value) == "table" and mod.value.mod then
-					mod.value.mod.source = mod.source
-				end
+				mod = modLib.setSource(mod, "Tree:"..node.id)
 				addition.modList:AddMod(mod)
 			end
 		end

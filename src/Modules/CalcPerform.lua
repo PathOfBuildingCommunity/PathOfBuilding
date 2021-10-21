@@ -525,7 +525,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
 		end
 		if not modDB:Flag(nil, "NoDexterityAttributeBonuses") then
-			modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
+			modDB:NewMod("Accuracy", "BASE", output.Dex * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Dexterity")
 			if not modDB:Flag(nil, "NoDexBonusToEvasion") then
 				modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
 			end
@@ -534,7 +534,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if not modDB:Flag(nil, "NoIntBonusToMana") then
 				modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
 			end
-			modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
+			if not modDB:Flag(nil, "NoIntBonusToES") then
+				modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
+			end
 		end
 	end
 
@@ -543,8 +545,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 		modDB:ScaleAddList({ value.mod }, calcLib.mod(modDB, nil, "BuffEffectOnSelf", "ShrineBuffEffect"))
 	end
 
+	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	-- Life/mana pools
-	if modDB:Flag(nil, "ChaosInoculation") then
+	if output.ChaosInoculation then
 		output.Life = 1
 		condList["FullLife"] = true
 	else
@@ -1539,7 +1542,7 @@ function calcs.perform(env, avoidCache)
 	-- Deal with Consecrated Ground
 	if modDB:Flag(nil, "Condition:OnConsecratedGround") then
 		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
-		modDB:NewMod("LifeRegenPercent", "BASE", 6 * effect, "Consecrated Ground")
+		modDB:NewMod("LifeRegenPercent", "BASE", 5 * effect, "Consecrated Ground")
 		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 	end
 

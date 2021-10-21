@@ -1135,10 +1135,7 @@ function ItemClass:BuildModList()
 				end
 			end
 			for _, mod in ipairs(modLine.modList) do
-				mod.source = self.modSource
-				if type(mod.value) == "table" and mod.value.mod then
-					mod.value.mod.source = mod.source
-				end
+				mod = modLib.setSource(mod, self.modSource)
 				baseList:AddMod(mod)
 			end
 			if modLine.modTags and #modLine.modTags > 0 then
