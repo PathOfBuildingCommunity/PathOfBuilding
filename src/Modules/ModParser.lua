@@ -1209,7 +1209,7 @@ local modTagList = {
 	["if a non%-vaal guard buff was lost recently"] = { tag = { type = "Condition", var = "LostNonVaalBuffRecently" } },
 	["while affected by a guard skill buff"] = { tag = { type = "Condition", var = "AffectedByGuardSkill" } },
 	["while affected by a herald"] = { tag = { type = "Condition", var = "AffectedByHerald" } },
-	["while fortified"] = { tag = { type = "Condition", var = "Fortify" } },
+	["while fortified"] = { tag = { type = "Condition", var = "Fortified" } },
 	["while in blood stance"] = { tag = { type = "Condition", var = "BloodStance" } },
 	["while in sand stance"] = { tag = { type = "Condition", var = "SandStance" } },
 	["while you have a bestial minion"] = { tag = { type = "Condition", var = "HaveBestialMinion" } },
@@ -1645,7 +1645,7 @@ local specialModList = {
 	["you have (%d+) fortification"] = function(num) return { 
 		mod("MaximumFortification", "OVERRIDE", num), 
 		mod("Multiplier:Fortification", "BASE", num),
-		flag("Condition:Fortify") 
+		flag("Condition:Fortified") 
 	} end,
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
 	["if you've impaled an enemy recently, you and nearby allies have %+(%d+) to armour"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("Armour", "BASE", num) }, { type = "Condition", var = "ImpaledRecently" }) } end,
@@ -3221,7 +3221,7 @@ local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
 	["fortify"] = "Condition:Fortify",
-	["fortified"] = "Condition:Fortify",
+	["fortified"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
 	["tailwind"] = "Condition:Tailwind",
 	["intimidated"] = "Condition:Intimidated",
