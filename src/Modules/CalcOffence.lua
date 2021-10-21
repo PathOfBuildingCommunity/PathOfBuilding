@@ -1165,18 +1165,8 @@ function calcs.offence(env, actor, activeSkill)
 	runSkillFunc("preDamageFunc")
 
 	-- Handle corpse explosions
-	if skillData.explodeCorpse and (skillData.corpseLife or env.configInput.enemyLevel) then
-		local normalizedEnemyLevel
-		if env.configInput.enemyLevel then
-			if env.configInput.enemyLevel < 1 then
-				normalizedEnemyLevel = 1
-			elseif  env.configInput.enemyLevel > 100 then
-				normalizedEnemyLevel = 100
-			else
-				normalizedEnemyLevel = env.configInput.enemyLevel
-			end
-		end
-		local localCorpseLife = skillData.corpseLife or data.monsterLifeTable[normalizedEnemyLevel];
+	if skillData.explodeCorpse and (skillData.corpseLife or env.enemyLevel) then
+		local localCorpseLife = skillData.corpseLife or data.monsterLifeTable[env.enemyLevel];
 		local damageType = skillData.corpseExplosionDamageType or "Fire"
 		skillData[damageType.."BonusMin"] = localCorpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
 		skillData[damageType.."BonusMax"] = localCorpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
