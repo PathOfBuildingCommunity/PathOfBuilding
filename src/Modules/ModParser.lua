@@ -2667,7 +2667,6 @@ local specialModList = {
 	["cannot be shocked"] = { mod("AvoidShock", "BASE", 100) },
 	["immune to shock"] = { mod("AvoidShock", "BASE", 100) },
 	["cannot be frozen"] = { mod("AvoidFreeze", "BASE", 100) },
-	["corrupted blood cannot be inflicted on you"] = { flag("Condition:CorruptedBloodImmunity") },
 	["immune to freeze"] = { mod("AvoidFreeze", "BASE", 100) },
 	["cannot be chilled"] = { mod("AvoidChill", "BASE", 100) },
 	["immune to chill"] = { mod("AvoidChill", "BASE", 100) },
