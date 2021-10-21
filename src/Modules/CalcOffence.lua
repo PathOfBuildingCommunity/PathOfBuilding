@@ -470,6 +470,9 @@ function calcs.offence(env, actor, activeSkill)
 	output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
 	output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
 
+	-- set flask scaling
+	output.LifeFlaskRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"]
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
@@ -612,12 +615,6 @@ function calcs.offence(env, actor, activeSkill)
 				skillModList:NewMod("TrapThrowingSpeed", "INC", mod.value, mod.source, band(mod.flags, bnot(ModFlag.Cast), bnot(ModFlag.Attack)), mod.keywordFlags, unpack(mod))
 			end
 		end
-	end
-	if skillModList:Flag(nil, "PoisonousConcoction") then 
-		local multiplier = skillModList:Sum("BASE", skillCfg, "ChaosPerLifeFlaskPercent") or 0
-		local addedFromFlask = (env.itemModDB.multipliers["LifeFlaskRecovery"] * (multiplier / 100))
-		skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "Life flask charged consumed")
-		skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "Life flask charged consumed")
 	end
 	if skillData.arrowSpeedAppliesToAreaOfEffect then
 		-- Arrow Speed conversion for Galvanic Arrow

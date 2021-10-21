@@ -3491,10 +3491,15 @@ skills["PoisonousConcoction"] = {
 			name = "Life flask",
 		},
 	},
+	preDamageFunc = function(activeSkill, output)		
+		local multiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChaosPerLifeFlaskPercent") or 0
+		local addedFromFlask = output.LifeFlaskRecovery * (multiplier / 100)
+		activeSkill.skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "Life flask charged consumed")
+		activeSkill.skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "Life flask charged consumed")
+	end,
 	statMap = {
 		["flask_throw_damage_life_flask_used"] = {
 			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2 } }),
-			flag("PoisonousConcoction")
 		},
 	},
 	baseFlags = {
