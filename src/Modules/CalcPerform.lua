@@ -2809,23 +2809,31 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	local major, minor = env.spec.treeVersion:match("(%d+)_(%d+)")
+
 	-- Apply exposures
 	for _, element in ipairs({"Fire", "Cold", "Lightning"}) do
-		local min = math.huge
-		local source = ""
-		for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
-			if mod.value < min then
-				min = mod.value
-				source = mod.mod.source
+		if tonumber(major) <= 3 and tonumber(minor) <= 15 -- Elemental Equilibrium pre-3.16 does not remove Exposure effects
+			or not modDB:Flag(nil, "ElementalEquilibrium") -- if Elemental Equilibrium isn't active we just process Exposure normally
+			or element == "Fire" and not enemyDB:Flag(nil, "Condition:HitByFireDamage")
+			or element == "Cold" and not enemyDB:Flag(nil, "Condition:HitByColdDamage")
+			or element == "Lightning" and not enemyDB:Flag(nil, "Condition:HitByLightningDamage") then	
+			local min = math.huge
+			local source = ""
+			for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
+				if mod.value < min then
+					min = mod.value
+					source = mod.mod.source
+				end
 			end
-		end
-		if min ~= math.huge then
-			-- Modify the magnitude of all exposures
-			for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
-				min = min + mod.value
+			if min ~= math.huge then
+				-- Modify the magnitude of all exposures
+				for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
+					min = min + mod.value
+				end
+				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
+				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 			end
-			enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
-			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
 	end
 

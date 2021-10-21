@@ -1496,10 +1496,17 @@ local specialModList = {
 	["skills reserve life instead of mana"] = { flag("BloodMagicReserved") },
 	["spend life instead of mana for effects of skills"] = { },
 	["skills cost %+(%d+) rage"] = function(num) return { mod("RageCostBase", "BASE", num) } end,
+	["hits that deal elemental damage remove exposure to those elements and inflict exposure to other elements exposure inflicted this way applies (%-%d+)%% to resistances"] = function(num) return {
+		flag("ElementalEquilibrium"),
+		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", num, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) }),
+		mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", num, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" } }) }),
+		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", num, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" } }) }),
+	} end,
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
 		minus = tonumber(minus)
 		return {
 			flag("ElementalEquilibrium"),
+			flag("ElementalEquilibriumLegacy"),
 			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", plus, { type = "Condition", var = "HitByFireDamage" }) }),
 			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", minus, { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) }),
 			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", plus, { type = "Condition", var = "HitByColdDamage" }) }),
