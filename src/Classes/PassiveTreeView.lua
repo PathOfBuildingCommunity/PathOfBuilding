@@ -913,29 +913,35 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
+	local function addModInfoToTooltip(node, i, line)
+		if node.mods[i].list then
+			if launch.devModeAlt then
+				-- Modifier debugging info
+				local modStr
+				for _, mod in pairs(node.mods[i].list) do
+					modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
+				end
+				if node.mods[i].extra then
+					modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+				end
+				if modStr then
+					line = line .. "  " .. modStr
+				end
+			end
+		end
+		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+	end
+
 	if node.sd[1] and node.allMasteryOptions then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7Mastery node options are:")
 		tooltip:AddLine(6, "")
+		local lineCount = 0
 		for n, effect in ipairs(node.masteryEffects) do
 			effect = build.spec.tree.masteryEffects[effect.effect]
-			for i, line in ipairs(effect.sd) do
-				if node.mods[i].list then
-					if launch.devModeAlt then
-						-- Modifier debugging info
-						local modStr
-						for _, mod in pairs(node.mods[i].list) do
-							modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
-						end
-						if node.mods[i].extra then
-							modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
-						end
-						if modStr then
-							line = line .. "  " .. modStr
-						end
-					end
-				end
-				tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+			for _, line in ipairs(effect.sd) do
+				lineCount = lineCount + 1
+				addModInfoToTooltip(node, lineCount, line)
 			end
 			if n < #node.masteryEffects then
 				tooltip:AddLine(6, "")
@@ -947,22 +953,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	if node.sd[1] and not node.allMasteryOptions then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(node.sd) do
-			if node.mods[i].list then
-				if launch.devModeAlt then
-					-- Modifier debugging info
-					local modStr
-					for _, mod in pairs(node.mods[i].list) do
-						modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
-					end
-					if node.mods[i].extra then
-						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
-					end
-					if modStr then
-						line = line .. "  " .. modStr
-					end
-				end
-			end
-			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+			addModInfoToTooltip(node, i, line)
 		end
 	end
 
