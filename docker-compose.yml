@@ -13,7 +13,7 @@ services:
   busted-generate-build:
     image: summ1else/poe-busted-image
     container_name: busted-generate-build
-    command: bash -c "busted --lua=luajit -r generate"
+    command: busted --lua=luajit -r generate
     restart: "no"
     volumes:
       - ./:/root
