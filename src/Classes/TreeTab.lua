@@ -615,11 +615,14 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	constructUI(modGroups[1])
 end
 
-function TreeTabClass:OpenMasteryPopup(node)
+function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	local controls = { }
 	local effects = { }
 	local cachedSd = node.sd
 	local cachedAllMasteryOption = node.allMasteryOptions
+
+	local function allocateMasteryNode()
+	end
 
 	wipeTable(effects)
 	for _, effect in pairs(node.masteryEffects) do
@@ -631,7 +634,11 @@ function TreeTabClass:OpenMasteryPopup(node)
 	--Check to make sure that the effects list has a potential mod to apply to a mastery
 	if not (next(effects) == nil) then
 		local passiveMasteryControlHeight = (#effects + 1) * 14
-		controls.save =  new("ButtonControl", nil, -49, 30 + passiveMasteryControlHeight, 90, 20, "Assign", function()
+		controls.save =  new("ButtonControl", nil, -49, 30 + passiveMasteryControlHeight, 90, 20, "Allocate",
+		function()
+			if controls.effect.ListControl.selValue == nil then
+				return
+			end
 			local effect = self.build.spec.tree.masteryEffects[controls.effect.ListControl.selValue.id]
 			node.sd = effect.sd
 			node.allMasteryOptions = false
@@ -645,6 +652,24 @@ function TreeTabClass:OpenMasteryPopup(node)
 			self.modFlag = true
 			self.build.buildFlag = true
 			main:ClosePopup()
+		end,
+		function()
+			if controls.effect.ListControl.selValue == nil then
+				SetDrawLayer(nil, 100)
+				controls.save.tooltipText = "Select a mastery effect to allocate this node"
+				SetDrawLayer(nil, 0)
+				return
+			end
+			controls.save.tooltipText = nil
+			local effect = self.build.spec.tree.masteryEffects[controls.effect.ListControl.selValue.id]
+			node.sd = effect.sd
+			SetDrawLayer(nil, 100)
+			controls.save.tooltip:Clear()
+			self.viewer:AddNodeTooltip(controls.save.tooltip, node, self.build)
+			ttW, ttH = controls.save.tooltip:GetSize()
+			local y = m_floor(main.screenH / 2 - ttH / 2)
+			controls.save.tooltip:Draw(850, y, false, false, viewPort)
+			SetDrawLayer(nil, 0)
 		end)
 		controls.close =  new("ButtonControl", nil, 49, 30 + passiveMasteryControlHeight, 90, 20, "Cancel", function()
 			node.sd = cachedSd

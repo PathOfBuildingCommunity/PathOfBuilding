@@ -275,7 +275,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
 				if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
-					build.treeTab:OpenMasteryPopup(hoverNode)
+					build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 				else
 					spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
 					spec:AddUndoState()
@@ -306,7 +306,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			build.treeTab:ModifyNodePopup(hoverNode)
 			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
-			build.treeTab:OpenMasteryPopup(hoverNode)
+			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
 		end
 	end
