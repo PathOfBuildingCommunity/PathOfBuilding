@@ -2246,6 +2246,10 @@ local specialModList = {
 	["(%d+)%% increased effect of impales inflicted by hits that also inflict bleeding"] = function(num) return {
 		mod("ImpaleEffectOnBleed", "INC", num, nil, 0, KeywordFlag.Hit)
 	} end,
+	-- Poison and Bleed
+	["(%d+)%% increased damage with bleeding inflicted on poisoned enemies"] = function(num) return {
+		mod("BleedDamage", "INC", num, { type = "ActorCondition", actor = "enemy", var = "Poisoned"})
+	} end,
 	-- Poison
 	["y?o?u?r? ?fire damage can poison"] = { flag("FireCanPoison") },
 	["y?o?u?r? ?cold damage can poison"] = { flag("ColdCanPoison") },
