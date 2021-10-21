@@ -1478,6 +1478,9 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.Time = 1 / output.Speed
 		end
+		if output.Time > 1 then
+			modDB:NewMod("Condition:OneSecondAttackTime", "FLAG", true)
+		end
 		if skillFlags.bothWeaponAttack then
 			if breakdown then
 				breakdown.Speed = {
