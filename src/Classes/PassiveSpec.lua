@@ -349,9 +349,7 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 	-- Deallocate any allocated ascendancy nodes that don't belong to the new ascendancy class
 	for id, node in pairs(self.allocNodes) do
 		if node.ascendancyName and node.ascendancyName ~= ascendClass.name then
-			node.alloc = false
-			self.allocNodes[id] = nil
-			self:RemoveFromAllocationOrder(node)
+			self:DeallocNode(node)
 		end
 	end
 	self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
@@ -428,12 +426,18 @@ function PassiveSpecClass:RemoveFromAllocationOrder(node)
 end
 
 function PassiveSpecClass:ReIndexNodeAllocationOrder(allocationOrder)
-	for i, nodeId in ipairs(self[allocationOrder]) do
-		self.nodes[nodeId][allocationOrder] = i
+	for i=#self[allocationOrder],1,-1 do
+		nodeId = self[allocationOrder][i]
+		if self.nodes[nodeId] then
+			self.nodes[nodeId][allocationOrder] = i
+		else
+			t_remove(self[allocationOrder], i)
+		end
 	end
 end
 
-function PassiveSpecClass:SortNodesForRemovingFromAllocationOrder(node, depNodes)
+function PassiveSpecClass:SortNodesForRemovingFromAllocationOrder(node)
+	depNodes = node.depends
 	if node.ascendancyName then
 		table.sort(depNodes, function(a, b)
 			if a.ascendancyAllocationOrder == nil and b.ascendancyAllocationOrder == nil then
@@ -518,7 +522,7 @@ end
 
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
-	self:SortNodesForRemovingFromAllocationOrder(node, node.depends)
+	self:SortNodesForRemovingFromAllocationOrder(node)
 
 	for _, depNode in ipairs(node.depends) do
 		self:DeallocSingleNode(depNode)
@@ -870,7 +874,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if not anyStartFound then
 			-- No start nodes were found through ANY nodes
 			-- Therefore this node and all nodes depending on it are orphans and should be pruned
-			self:SortNodesForRemovingFromAllocationOrder(node, node.depends)
+			self:SortNodesForRemovingFromAllocationOrder(node)
 			for _, depNode in ipairs(node.depends) do
 				local prune = true
 				for nodeId, itemId in pairs(self.jewels) do
@@ -894,7 +898,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					end
 				end
 				if prune then
-					self:DeallocSingleNode(depNode)
+					self:DeallocNode(depNode)
 				end
 			end
 			self:ReIndexNodeAllocationOrder("allocationOrder")
@@ -953,12 +957,22 @@ end
 function PassiveSpecClass:BuildClusterJewelGraphs()
 	-- Remove old subgraphs
 	for id, subGraph in pairs(self.subGraphs) do
-		if type(subGraph.nodes) == "tree" then
-			self:SortNodesForRemovingFromAllocationOrder(subGraph.nodes)
-		end
+		table.sort(subGraph.nodes, function(a, b)
+			if a.allocationOrder == nil and b.allocationOrder == nil then
+				return false
+			elseif a.allocationOrder == nil then
+				return true
+			elseif b.allocationOrder == nil then
+				return false
+			else
+				return a.allocationOrder > b.allocationOrder
+			end
+		end)
 		for _, node in ipairs(subGraph.nodes) do
-			self:RemoveFromAllocationOrder(node)
 			if node.id then
+				if node.alloc then
+					self:RemoveFromAllocationOrder(node)
+				end
 				self.nodes[node.id] = nil
 				if self.allocNodes[node.id] then
 					-- Reserve the allocation in case the node is regenerated
