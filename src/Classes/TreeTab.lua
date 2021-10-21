@@ -657,7 +657,7 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 			main:ClosePopup()
 		end)
 		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 0, passiveMasteryControlHeight, effects, self, node, controls.save)
-		main:OpenPopup(controls.effect.width + 15, controls.effect.height + 60, node.name, controls)
+		main:OpenPopup(controls.effect.width + 12, controls.effect.height + 60, node.name, controls)
 	end
 end
 
