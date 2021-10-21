@@ -648,11 +648,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	for _, node in ipairs(self.xmlSectionList) do
 		-- Check if there is a saver that can load this section
 		local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
-
 		if saver then
 			-- if the saver is treetab, defer it until everything is is loaded
 			if saver == self.treeTab  then
-				t_insert( deferredPassiveTrees, node )
+				t_insert(deferredPassiveTrees, node)
 			else
 				if saver:Load(node, self.dbFileName) then
 					self:CloseBuild()
@@ -661,7 +660,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			end
 		end
 	end
-
 	for _, node in ipairs(deferredPassiveTrees) do
 		-- Check if there is a saver that can load this section
 		if self.treeTab:Load(node, self.dbFileName) then
@@ -669,7 +667,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return
 		end
 	end
-
 	for _, saver in pairs(self.savers) do
 		if saver.PostLoad then
 			saver:PostLoad()
