@@ -724,7 +724,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				if other.type == "ClassStart" or other.type == "AscendClassStart" then
 					-- Well that was easy!
 					anyStartFound = true
-				elseif other.type ~= "Mastery" and self:FindStartFromNode(other, visited) then
+				elseif self:FindStartFromNode(other, visited) then
 					-- We found a path through the other node, therefore the other node cannot be dependent on this node
 					anyStartFound = true
 					for i, n in ipairs(visited) do
