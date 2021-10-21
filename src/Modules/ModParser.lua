@@ -771,6 +771,7 @@ local modFlagList = {
 	["global"] = { tag = { type = "Global" } },
 	["from equipped shield"] = { tag = { type = "SlotName", slotName = "Weapon 2" } },
 	["from body armour"] = { tag = { type = "SlotName", slotName = "Body Armour" } },
+	["from your body armour"] = { tag = { type = "SlotName", slotName = "Body Armour" } },
 }
 
 -- List of modifier flags/tags that appear at the start of a line
