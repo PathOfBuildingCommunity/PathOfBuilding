@@ -633,7 +633,7 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	end
 	--Check to make sure that the effects list has a potential mod to apply to a mastery
 	if not (next(effects) == nil) then
-		local passiveMasteryControlHeight = (#effects + 1) * 14
+		local passiveMasteryControlHeight = (#effects + 1) * 14 + 2
 		controls.save =  new("ButtonControl", nil, -49, 30 + passiveMasteryControlHeight, 90, 20, "Allocate",
 		function()
 			if controls.effect.ListControl.selValue == nil then

@@ -421,6 +421,7 @@ function PassiveSpecClass:DeallocSingleNode(node)
 	node.alloc = false
 	self.allocNodes[node.id] = nil
 	if node.type == "Mastery" then
+		self:AddMasteryEffectOptionsToNode(node)
 		self.masterySelections[node.id] = nil
 	end
 end
@@ -462,7 +463,6 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 	-- Mark the current node as visited so we don't go around in circles
 	node.visited = true
 	t_insert(visited, node)
-
 	-- For each node which is connected to this one, check if...
 	for _, other in ipairs(node.linked) do
 		-- Either:
@@ -471,7 +471,7 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 		local startIndex = #visited + 1
 		if other.alloc and 
 		  (other.type == "ClassStart" or other.type == "AscendClassStart" or 
-		    (not other.visited and other.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
+		    (not other.visited and node.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
 		  ) then
 			if node.ascendancyName and not other.ascendancyName then
 				-- Pathing out of Ascendant, un-visit the outside nodes
@@ -577,6 +577,22 @@ function PassiveSpecClass:SetNodeDistanceToClassStart(root)
 			end
 		end
 	end
+end
+
+function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
+	node.sd = {}
+	if node.masteryEffects ~= nil then
+		for _, effect in ipairs(node.masteryEffects) do
+			effect = self.tree.masteryEffects[effect.effect]
+			if effect.sd ~= nil then
+				for _, sd in ipairs(effect.sd) do
+					t_insert(node.sd, sd)
+				end
+			end
+		end
+	end
+	self.tree:ProcessStats(node)
+	node.allMasteryOptions = true
 end
 
 -- Rebuilds dependencies and paths for all nodes
@@ -693,19 +709,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			self.tree:ProcessStats(node)
 			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 		elseif node.type == "Mastery" then
-			node.sd = {}
-			if node.masteryEffects ~= nil then
-			for _, effect in ipairs(node.masteryEffects) do
-				effect = self.tree.masteryEffects[effect.effect]
-				if effect.sd ~= nil then
-					for _, sd in ipairs(effect.sd) do
-						t_insert(node.sd, sd)
-					end
-				end
-			end
-			self.tree:ProcessStats(node)
-			node.allMasteryOptions = true
-			end
+			self:AddMasteryEffectOptionsToNode(node)
 		elseif node.type == "Notable" then
 			self.allocatedNotableCount = self.allocatedNotableCount + 1
 		end
@@ -713,7 +717,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
-
 		local anyStartFound = (node.type == "ClassStart" or node.type == "AscendClassStart")
 		for _, other in ipairs(node.linked) do
 			if other.alloc and not isValueInArray(node.depends, other) then
@@ -730,9 +733,36 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					end
 				else
 					-- No path was found, so all the nodes visited while trying to find the path must be dependent on this node
+					-- except for mastery nodes that have linked allocated nodes that weren't visited
+					local depIds = { }
+					for _, n in ipairs(visited) do
+						if not n.dependsOnIntuitiveLeapLike then
+							depIds[n.id] = true
+						end
+					end
 					for i, n in ipairs(visited) do
-						if not n.dependsOnIntuitiveLeapLike and n.type ~= "Mastery" then
-							t_insert(node.depends, n)
+						if not n.dependsOnIntuitiveLeapLike then
+							if n.type == "Mastery" then
+								local otherPath = false
+								local allocatedLinkCount = 0
+								for _, linkedNode in ipairs(n.linked) do
+									if linkedNode.alloc then
+										allocatedLinkCount = allocatedLinkCount + 1
+									end
+								end
+								if allocatedLinkCount > 1 then
+									for _, linkedNode in ipairs(n.linked) do
+										if linkedNode.alloc and not depIds[linkedNode.id] then
+											otherPath = true
+										end
+									end
+								end
+								if not otherPath then
+									t_insert(node.depends, n)
+								end
+							else
+								t_insert(node.depends, n)
+							end
 						end
 						n.visited = false
 						visited[i] = nil
