@@ -368,6 +368,7 @@ function PassiveSpecClass:ResetNodes()
 			self.allocNodes[id] = nil
 		end
 	end
+	wipeTable(self.masterySelections)
 end
 
 -- Allocate the given node, if possible, and all nodes along the path to the node
