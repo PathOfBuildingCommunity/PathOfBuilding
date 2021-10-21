@@ -447,6 +447,7 @@ function calcs.defence(env, actor)
 		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
 	end
 
+	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
 	local attackDodgeChanceMax = data.misc.DodgeChanceCap
@@ -460,6 +461,19 @@ function calcs.defence(env, actor)
 	end
 	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - attackDodgeChanceMax)
 	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - spellDodgeChanceMax)
+
+	if breakdown then
+		breakdown.AttackDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..attackDodgeChanceMax.."%",
+			"Total: "..output.AttackDodgeChance+output.AttackDodgeChanceOverCap.."%",
+		}
+		breakdown.SpellDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..spellDodgeChanceMax.."%",
+			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
+		}
+	end
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
