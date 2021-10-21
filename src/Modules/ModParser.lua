@@ -2570,6 +2570,7 @@ local specialModList = {
 	["(%d+) mana gained for each cursed enemy hit by your attacks"] = function(num) return { mod("ManaOnHit", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Cursed"})} end,
 	-- Defences
 	["chaos damage does not bypass energy shield"] = { flag("ChaosNotBypassEnergyShield") },
+	["(%d+)%% of chaos damage does not bypass energy shield"] = function(num) return { mod("ChaosEnergyShieldBypass", "BASE", -num) } end,
 	["chaos damage does not bypass energy shield while not on low life"] = { flag("ChaosNotBypassEnergyShield", { type = "Condition", varList = { "LowLife" }, neg = true }) },
 	["chaos damage does not bypass energy shield while not on low life or low mana"] = { flag("ChaosNotBypassEnergyShield", { type = "Condition", varList = { "LowLife", "LowMana" }, neg = true }) },
 	["chaos damage is taken from mana before life"] = function() return { mod("ChaosDamageTakenFromManaBeforeLife", "BASE", 100) } end,
