@@ -98,5 +98,9 @@ end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
 	return mod.Family == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
+writeMods("../Data/ModVeiled.lua", function(mod)
+	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)
+end)
+
 
 print("Mods exported.")
