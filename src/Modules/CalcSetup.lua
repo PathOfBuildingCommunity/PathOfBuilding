@@ -944,7 +944,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							processGrantedEffect(gemInstance.grantedEffect)
 						end
 						-- Store extra supports for other items that are linked
-						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedNonExceptionSupport")) do
+						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedSupport")) do
 							crossLinkedSupportList[value.targetSlotName] = { }
 							for _, supportItem in ipairs(supportList) do
 								t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
