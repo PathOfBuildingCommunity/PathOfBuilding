@@ -9355,3 +9355,4 @@ skills["Tornado"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, 4000, 250, 10, 1, 102, 20, -30, damageEffectiveness = 0.65, critChance = 5, duration = 1.5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 33, }, },
 	},
 }
+skills["VamipiricLink"] = {

@@ -1538,3 +1538,11 @@ local skills, mod, flag, skill = ...
 #skill Tornado
 #flags spell duration physical area orb
 #mods
+
+#skill IntuitiveLink
+#flags spell duration link
+#mods
+
+#skill VamipiricLink
+#flags spell duration link
+#mods

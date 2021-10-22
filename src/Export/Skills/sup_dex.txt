@@ -513,6 +513,3 @@ local skills, mod, flag, skill = ...
 
 #skill SupportChaosAttacks
 #mods
-
-#skill IntuitiveLink
-#mods
