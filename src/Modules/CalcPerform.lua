@@ -1393,6 +1393,8 @@ function calcs.perform(env, avoidCache)
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
 				values.efficiency = skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
+				-- used for Arcane Cloak calculations in ModStore.GetStat
+				env.player[name.."Efficiency"] = values.efficiency
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
 					values.reservedFlat = activeSkill.skillData[name.."ReservationFlatForced"]
 				else
