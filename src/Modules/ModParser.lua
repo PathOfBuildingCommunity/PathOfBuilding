@@ -469,8 +469,6 @@ local modNameList = {
 	["to deal double damage"] = "DoubleDamageChance",
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
-	["fortify duration"] = "FortifyDuration",
-	["fortification duration"] = "FortificationDuration",
 	["adrenaline duration"] = "AdrenalineDuration",
 	["effect of fortify on you"] = "FortifyEffectOnSelf",
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
