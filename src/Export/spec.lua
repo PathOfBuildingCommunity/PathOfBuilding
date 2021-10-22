@@ -2916,7 +2916,7 @@ return {
 			name="SupportTypes",
 			refTo="ActiveSkillType",
 			type="Enum",
-			width=170
+			width=330
 		},
 		[4]={
 			list=false,

@@ -52,7 +52,7 @@ local dataTypes = {
 		end,
 	},
 	Enum = { 
-		size = 4, 
+		size = 16, 
 		ref = true,
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
