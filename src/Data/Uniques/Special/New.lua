@@ -20,7 +20,7 @@ Source: Drops from Uber-Breachlords
 Requires Level 72
 Implicits: 1
 Has 1 Socket
-Socketed Non-Exceptional Support Gems can also Support Skills from your Body Armour
+Socketed Support Gems can also Support Skills from your Body Armour
 {tags:jewellery_resistance}+30% to Fire Resistance
 {tags:jewellery_resistance}+30% to Cold Resistance
 {tags:jewellery_resistance}+30% to Lightning Resistance
@@ -58,8 +58,8 @@ Implicits: 1
 120% Increased Block Recovery
 Has 3 Sockets
 All Sockets are White
-+2 to Level of Socketed Support Gems
-Socketed Non-Exceptional Support Gems can also Support Skills from your Main Hand
++2% to Quality of Socketed Support Gems
+Socketed Support Gems can also Support Skills from your Main Hand
 102% increased Armour and Evasion
 +3% Chance to Block
 ]],[[
