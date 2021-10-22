@@ -904,7 +904,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							if gemInstance.gemData then
 								for _, value in ipairs(propertyModList) do
-									if calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+									local match = true
+									if value.keywordList then
+										for _, keyword in ipairs(value.keywordList) do
+											if not calcLib.gemIsType(supportEffect.gemData, keyword) then
+												match = false
+												break
+											end
+										end
+									elseif not calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+										match = false
+									end
+									if match then
 										supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
 									end
 								end
