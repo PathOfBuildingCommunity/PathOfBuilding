@@ -1525,3 +1525,43 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #baseMod skill("radius", 26)
 #mods
+
+#skill PoisonousConcoction
+#flags attack area projectile
+#baseMod skill("radius", 18)
+	parts = {
+		{
+			name = "No Flask",
+		},
+		{
+			name = "Life",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local multiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChaosPerLifeFlaskPercent") or 0
+		local addedFromFlask = (output.LifeFlaskRecovery or 0) * (multiplier / 100)
+		activeSkill.skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "Life Flask charges consumed")
+		activeSkill.skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "Life Flask charges consumed")
+	end,
+	statMap = {
+		["flask_throw_added_chaos_damage_%_of_flask_life_to_recover"] = {
+			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
+#skill TemporalRift
+#flags spell
+#mods
+
+#skill Tornado
+#flags spell duration physical area
+#mods
+
+#skill IntuitiveLink
+#flags spell duration
+#mods
+
+#skill VampiricLink
+#flags spell duration
+#mods

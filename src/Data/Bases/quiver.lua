@@ -4,7 +4,6 @@ local itemBases = ...
 
 itemBases["Cured Quiver"] = {
 	type = "Quiver",
-	hidden = true,
 	tags = { quiver = true, default = true, },
 	implicit = "Adds 2 to 4 Fire Damage to Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
@@ -12,7 +11,6 @@ itemBases["Cured Quiver"] = {
 }
 itemBases["Rugged Quiver"] = {
 	type = "Quiver",
-	hidden = true,
 	tags = { quiver = true, default = true, },
 	implicit = "Adds 2 to 3 Cold Damage to Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold", "attack" }, },
@@ -20,7 +18,6 @@ itemBases["Rugged Quiver"] = {
 }
 itemBases["Conductive Quiver"] = {
 	type = "Quiver",
-	hidden = true,
 	tags = { quiver = true, default = true, },
 	implicit = "Adds 1 to 5 Lightning Damage to Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning", "attack" }, },
@@ -28,7 +25,6 @@ itemBases["Conductive Quiver"] = {
 }
 itemBases["Heavy Quiver"] = {
 	type = "Quiver",
-	hidden = true,
 	tags = { quiver = true, default = true, },
 	implicit = "Adds 1 to 4 Physical Damage to Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
@@ -36,7 +32,6 @@ itemBases["Heavy Quiver"] = {
 }
 itemBases["Light Quiver"] = {
 	type = "Quiver",
-	hidden = true,
 	tags = { quiver = true, default = true, },
 	implicit = "+(30-40) to Dexterity",
 	implicitModTypes = { { "attribute" }, },
@@ -100,14 +95,14 @@ itemBases["Spike-Point Arrow Quiver"] = {
 }
 itemBases["Ornate Quiver"] = {
 	type = "Quiver",
-	tags = { not_for_sale = true, quiver = true, default = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
 	req = { level = 45, },
 }
 itemBases["Artillery Quiver"] = {
 	type = "Quiver",
-	tags = { not_for_sale = true, atlas_base_type = true, quiveratlas1 = true, quiver = true, default = true, },
+	tags = { quiver = true, default = true, },
 	implicit = "(20-30)% increased Totem Placement speed",
 	implicitModTypes = { { "speed" }, },
 	req = { level = 74, },

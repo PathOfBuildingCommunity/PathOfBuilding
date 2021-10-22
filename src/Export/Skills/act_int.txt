@@ -2003,3 +2003,15 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 40)
 #mods
+
+#skill EnergyBlade
+#flags spell lightning
+#mods
+
+#skill SoulLink
+#flags spell duration
+#mods
+
+#skill DestructiveLink
+#flags spell duration
+#mods
