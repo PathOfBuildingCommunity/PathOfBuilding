@@ -8686,7 +8686,7 @@ skills["SupportBrandSupport"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Spell, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Brand },
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -8701,7 +8701,6 @@ skills["SupportBrandSupport"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
 		skill("triggeredByBrand", true),
 	},

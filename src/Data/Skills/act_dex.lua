@@ -3250,8 +3250,8 @@ skills["ExplosiveArrow"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 		["explosive_arrow_explosion_base_damage_+permyriad"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
-			div = 100,
+			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+			div = -10000,
 		},
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
