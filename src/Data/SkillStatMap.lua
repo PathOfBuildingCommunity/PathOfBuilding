@@ -1578,7 +1578,7 @@ return {
 	mod("TriggeredDamage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 },
 ["channelled_skill_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
+	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channel }),
 },
 ["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
 	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage" }),

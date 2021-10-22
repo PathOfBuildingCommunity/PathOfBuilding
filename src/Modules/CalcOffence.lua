@@ -839,7 +839,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
 		end
 	end
-	if activeSkill.skillTypes[SkillType.ManaCostReserved] then
+	if activeSkill.skillTypes[SkillType.HasReservation] then
 		for _, pool in ipairs({"Life", "Mana"}) do
 			output[pool .. "ReservedMod"] = calcLib.mod(skillModList, skillCfg, pool .. "Reserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")
 			if breakdown then

@@ -1,121 +1,3 @@
-local skillTypes = {
-	"Attack",
-	"Spell",
-	"Projectile",
-	"DualWield",
-	"Buff",
-	"Minion",
-	"Hit",
-	"Area",
-	"Duration",
-	"Shield",
-	"ProjectileDamage",
-	"ManaCostReserved",
-	"ManaCostPercent",
-	"SkillCanTrap",
-	"SkillCanTotem",
-	"SkillCanMine",
-	"CauseElementalStatus",
-	"CreateMinion",
-	"Chaining",
-	"Melee",
-	"MeleeSingleTarget",
-	"SpellCanRepeat",
-	"Type27",
-	"AttackCanRepeat",
-	"CausesBurning",
-	"Totem",
-	"DamageCannotBeReflected",
-	"PhysicalSkill",
-	"FireSkill",
-	"ColdSkill",
-	"LightningSkill",
-	"Triggerable",
-	"Trap",
-	"MovementSkill",
-	"DamageOverTime",
-	"Mine",
-	"Triggered",
-	"Vaal",
-	"Aura",
-	"Type46",
-	"ProjectileAttack",
-	"ChaosSkill",
-	"Type51",
-	"Type53",
-	"MinionProjectile",
-	"Type55",
-	"AnimateWeapon",
-	"Channelled",
-	"Type59",
-	"TriggeredGrantedSkill",
-	"Golem",
-	"Herald",
-	"AuraDebuff",
-	"Type65",
-	"Type66",
-	"SpellCanCascade",
-	"SkillCanVolley",
-	"SkillCanMirageArcher",
-	"LaunchesSeriesOfProjectiles",
-	"Type71",
-	"Type72",
-	"Type73",
-	"Warcry",
-	"Instant",
-	"Brand",
-	"DestroysCorpse",
-	"NonHitChill",
-	"ChillingArea",
-	"AppliesCurse",
-	"CanRapidFire",
-	"AuraDuration",
-	"AreaSpell",
-	"OR",
-	"AND",
-	"NOT",
-	"Maims",
-	"CreatesMinion",
-	"GuardSkill",
-	"TravelSkill",
-	"BlinkSkill",
-	"CanHaveBlessing",
-	"FiresProjectilesFromSecondaryLocation",
-	"Ballista",
-	"NovaSpell",
-	"Type91",
-	"Type92",
-	"CanDetonate",
-	"Banner",
-	"FiresArrowsAtTargetLocation",
-	"SecondWindSupport",
-	"Type97",
-	"SlamSkill",
-	"StanceSkill",
-	"CreatesMirageWarrior",
-	"UsesSupportedTriggerSkill",
-	"SteelSkill",
-	"Hex",
-	"Mark",
-	"Aegis",
-	"Orb",
-	"Type112",
-	"Prismatic",
-	"Type114",
-	"Arcane",
-	"Type116",
-	"CantEquipWeapon",
-	"Type118",
-	"Type119",
-	"Type120",
-	"Type121",
-	"Type122",
-}
-
-local function mapAST(ast)
-	return "SkillType."..(skillTypes[ast] or ("Unknown"..ast))
-end
-
 local weaponClassMap = {
 	["Claw"] = "Claw",
 	["Dagger"] = "Dagger",
@@ -205,17 +87,17 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tsupport = true,\n')
 		out:write('\trequireSkillTypes = { ')
 		for _, type in ipairs(granted.SupportTypes) do
-			out:write(mapAST(type), ', ')
+			out:write("SkillType." .. type.Id, ', ')
 		end
 		out:write('},\n')
 		out:write('\taddSkillTypes = { ')
 		for _, type in ipairs(granted.AddTypes) do
-			out:write(mapAST(type), ', ')
+			out:write("SkillType." .. type.Id, ', ')
 		end
 		out:write('},\n')
 		out:write('\texcludeSkillTypes = { ')
 		for _, type in ipairs(granted.ExcludeTypes) do
-			out:write(mapAST(type), ', ')
+			out:write("SkillType." .. type.Id, ', ')
 		end
 		out:write('},\n')
 		if granted.SupportGemsOnly then
@@ -247,18 +129,17 @@ directiveTable.skill = function(state, args, out)
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
-			out:write('[', mapAST(type), '] = true, ')
+			out:write('[', "SkillType." .. type.Id, '] = true, ')
 		end
 		out:write('},\n')
-		--[[
 		if granted.ActiveSkill.MinionSkillTypes[1] then
 			out:write('\tminionSkillTypes = { ')
 			for _, type in ipairs(granted.ActiveSkill.MinionSkillTypes) do
-				out:write('[', mapAST(type), '] = true, ')
+				out:write('[', "SkillType." .. type.Id, '] = true, ')
 			end
 			out:write('},\n')
 		end
-		--]]
+		--
 		local weaponTypes = { }
 		for _, class in ipairs(granted.ActiveSkill.WeaponRestrictions) do
 			if weaponClassMap[class.Id] then

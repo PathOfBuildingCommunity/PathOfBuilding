@@ -1366,7 +1366,7 @@ function calcs.perform(env, avoidCache)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillTypes[SkillType.ManaCostReserved] and not activeSkill.skillFlags.totem then
+		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.totem then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
@@ -2088,7 +2088,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
+			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredByMjolner and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
@@ -2388,7 +2388,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
+			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
 				source, trigRate = skill, 0
 			end
 			if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
@@ -2515,7 +2515,7 @@ function calcs.perform(env, avoidCache)
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if uniqueTriggerName == "The Poet's Pen" then
 				triggerName = "Poet"
-				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
+				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
 				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] then
@@ -2531,7 +2531,7 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif uniqueTriggerName == "Asenath's Chant" then
 				triggerName = "Asenath"
-				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
+				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
 				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] then

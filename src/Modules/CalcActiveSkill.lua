@@ -93,7 +93,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	-- Initialise skill flag set ('attack', 'projectile', etc)
 	local skillFlags = copyTable(activeGrantedEffect.baseFlags)
 	activeSkill.skillFlags = skillFlags
-	skillFlags.hit = skillFlags.hit or activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit] or activeSkill.skillTypes[SkillType.Projectile]
+	skillFlags.hit = skillFlags.hit or activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Projectile]
 
 	-- Process support skills
 	activeSkill.effectList = { activeEffect }
@@ -214,7 +214,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillFlags.multiPart = #activeGemParts > 1
 	end
 
-	if (skillTypes[SkillType.Shield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
+	if (skillTypes[SkillType.RequiresShield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
 		-- Skill requires a shield to be equipped
 		skillFlags.disable = true
 		activeSkill.disableReason = "This skill requires a Shield"
@@ -245,7 +245,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			elseif not weapon1Info.melee and skillFlags.projectile then
 				skillFlags.melee = nil
 			end
-		elseif skillTypes[SkillType.DualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info then
+		elseif skillTypes[SkillType.DualWieldOnly] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
@@ -255,7 +255,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if weapon2Flags then
 				activeSkill.weapon2Flags = weapon2Flags
 				skillFlags.weapon2Attack = true
-			elseif skillTypes[SkillType.DualWield] or weapon2Info then
+			elseif skillTypes[SkillType.DualWieldOnly] or weapon2Info then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"

@@ -264,6 +264,7 @@ SkillType = {
 	Type122 = 122,
 }
 
+SkillType = loadfile("Data/SkillType.lua")()
 GlobalCache = { 
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
 	deleteGroup = { },
