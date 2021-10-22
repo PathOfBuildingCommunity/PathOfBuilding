@@ -15,6 +15,11 @@
 * Do make sure any changes to the tree work on old tree versions.  Bricking old trees is not okay
 * Don't bother keeping legacy calculations around, as it increases code complexity to an unsustainable point
 
+### What mods to support
+
+* Don't add parsing for a mod unless it displays on UI, or is used in some calculation.  If everything is blue "just because", users won't know what is actually supported
+* Don't support mods that let you gain charges.  We don't want to support chances to gain charges under many different conditions.  Users can decide if they'll have charges or not
+
 ###Pull Requests
 
 * Do name your pull request starting with "Add [support for]" or "Fix" if you can.  This is what is used for the release note
