@@ -2102,7 +2102,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	controls.close = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(540, 100, "Corrupt Item", controls)
+	main:OpenPopup(540, 100, modType .. " Item", controls)
 end
 
 -- Opens the custom modifier popup
