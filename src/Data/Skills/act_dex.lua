@@ -9130,7 +9130,7 @@ skills["PoisonousConcoction"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		local multiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChaosPerLifeFlaskPercent") or 0
-		local addedFromFlask = output.LifeFlaskRecovery or 0 * (multiplier / 100)
+		local addedFromFlask = (output.LifeFlaskRecovery or 0) * (multiplier / 100)
 		activeSkill.skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "Life Flask charges consumed")
 		activeSkill.skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "Life Flask charges consumed")
 	end,
