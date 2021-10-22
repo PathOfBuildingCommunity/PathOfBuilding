@@ -163,6 +163,7 @@ function calcs.defence(env, actor)
 	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
 	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
 	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
+	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
 
 	-- Primary defences: Energy shield, evasion and armour
 	do
@@ -438,9 +439,6 @@ function calcs.defence(env, actor)
 	end
 
 	-- Dodge
-	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
-	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
-
 	-- Acrobatics Spell Suppression to Spell Dodge Chance conversion.
 	if modDB:Flag(nil, "ConvertSpellSuppressionToSpellDodge") then
 		local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")

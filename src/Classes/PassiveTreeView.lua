@@ -275,7 +275,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
 				if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
-					build.treeTab:OpenMasteryPopup(hoverNode)
+					build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 				else
 					spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
 					spec:AddUndoState()
@@ -303,10 +303,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		elseif hoverNode and hoverNode.conqueredBy and hoverNode.type ~= "Keystone" and
 				(hoverNode.conqueredBy.conqueror.type == "vaal"
 				or hoverNode.isNotable) then
-			build.treeTab:ModifyNodePopup(hoverNode)
+			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
 			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
-			build.treeTab:OpenMasteryPopup(hoverNode)
+			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
 		end
 	end
@@ -913,25 +913,47 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	if node.sd[1] then
-		tooltip:AddLine(16, "")
-		for i, line in ipairs(node.sd) do
-			if node.mods[i].list then
-				if launch.devModeAlt then
-					-- Modifier debugging info
-					local modStr
-					for _, mod in pairs(node.mods[i].list) do
-						modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
-					end
-					if node.mods[i].extra then
-						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
-					end
-					if modStr then
-						line = line .. "  " .. modStr
-					end
+	local function addModInfoToTooltip(node, i, line)
+		if node.mods[i].list then
+			if launch.devModeAlt then
+				-- Modifier debugging info
+				local modStr
+				for _, mod in pairs(node.mods[i].list) do
+					modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
+				end
+				if node.mods[i].extra then
+					modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+				end
+				if modStr then
+					line = line .. "  " .. modStr
 				end
 			end
-			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+		end
+		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+	end
+
+	if node.sd[1] and node.allMasteryOptions then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, "^7Mastery node options are:")
+		tooltip:AddLine(6, "")
+		local lineCount = 0
+		for n, effect in ipairs(node.masteryEffects) do
+			effect = build.spec.tree.masteryEffects[effect.effect]
+			for _, line in ipairs(effect.sd) do
+				lineCount = lineCount + 1
+				addModInfoToTooltip(node, lineCount, line)
+			end
+			if n < #node.masteryEffects then
+				tooltip:AddLine(6, "")
+			end
+		end
+		tooltip:AddSeparator(24)
+	end
+
+	if node.sd[1] and not node.allMasteryOptions then
+		tooltip:AddLine(16, "")
+		for i, line in ipairs(node.sd) do
+			addModInfoToTooltip(node, i, line)
 		end
 	end
 
@@ -962,7 +984,11 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			pathNodes[node] = true
 		end
 		local nodeOutput, pathOutput
-		if node.alloc then
+		local realloc = false
+		if node.alloc and node.type == "Mastery" and main.popups[1] then
+			realloc = true
+			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+		elseif node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependent nodes
 			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
 			if pathLength > 1 then
@@ -970,12 +996,17 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			if node.type == "Mastery" and node.allMasteryOptions then
+				pathNodes[node] = nil
+				nodeOutput = calcFunc()
+			else
+				nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			end
 			if pathLength > 1 then
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
-		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
+		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
 		if pathLength > 1 then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end

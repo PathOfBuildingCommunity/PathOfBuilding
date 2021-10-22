@@ -9,7 +9,7 @@ local m_max = math.max
 local s_format = string.format
 
 local SharedItemSetListClass = newClass("SharedItemSetListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, false, true, main.sharedItemSetList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, main.sharedItemSetList)
 	self.itemsTab = itemsTab
 	self.defaultText = "^x7F7F7FThis is a list of item sets that will be shared\nbetween all of your builds.\nYou can add sets to this list by dragging them\nfrom the build's set list."
 	self.controls.delete = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Delete", function()

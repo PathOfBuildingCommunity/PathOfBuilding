@@ -1278,10 +1278,11 @@ return {
 		{ modName = { "BlockEffect" }, },
 	}, },
 } }, { defaultCollapsed = true, label = "Gain on Block", data = {
-	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}",
+	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}/{0:output:EnergyShieldOnSpellBlock}",
 	{ label = "Life on Block", { format = "{0:output:LifeOnBlock}", { modName = "LifeOnBlock" }, }, },
 	{ label = "Mana on Block", { format = "{0:output:ManaOnBlock}", { modName = "ManaOnBlock" }, }, },
 	{ label = "ES on Block", { format = "{0:output:EnergyShieldOnBlock}", { modName = "EnergyShieldOnBlock" }, }, },
+	{ label = "ES on Spell Block", { format = "{0:output:EnergyShieldOnSpellBlock}", { modName = "EnergyShieldOnSpellBlock" }, }, },
 } },
 } },
 { 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
