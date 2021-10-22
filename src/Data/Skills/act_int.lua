@@ -11384,7 +11384,6 @@ skills["SoulLink"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		link = true,
 	},
 	baseMods = {
 	},
@@ -11459,8 +11458,6 @@ skills["DestructiveLink"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		link = true,
-		critical = true,
 	},
 	baseMods = {
 	},

@@ -7998,6 +7998,22 @@ return {
 		reqInt = 0,
 		defaultLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemVampiricLink"] = {
+		name = "Vampiric Link",
+		grantedEffectId = "VampiricLink",
+		tags = {
+			dexterity = true,
+			active_skill = true,
+			spell = true,
+			duration = true,
+			link = true,
+		},
+		tagString = "Spell, Duration, Link",
+		reqStr = 40,
+		reqDex = 60,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemProtectiveLink"] = {
 		name = "Protective Link",
 		grantedEffectId = "ProtectiveLink",

@@ -7666,7 +7666,6 @@ skills["FlameLink"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		link = true,
 		fire = true,
 	},
 	baseMods = {
@@ -7743,7 +7742,6 @@ skills["ProtectiveLink"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		link = true,
 	},
 	baseMods = {
 	},

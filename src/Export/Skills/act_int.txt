@@ -2009,9 +2009,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SoulLink
-#flags spell duration link
+#flags spell duration
 #mods
 
 #skill DestructiveLink
-#flags spell duration link critical
+#flags spell duration
 #mods

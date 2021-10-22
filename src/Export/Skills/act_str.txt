@@ -1322,9 +1322,9 @@ end,
 #mods
 
 #skill FlameLink
-#flags spell duration link fire
+#flags spell duration fire
 #mods
 
 #skill ProtectiveLink
-#flags spell duration link
+#flags spell duration
 #mods
