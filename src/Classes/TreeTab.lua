@@ -598,6 +598,14 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+		elseif selectedNode.conqueredBy.conqueror.type == "eternal" and selectedNode.type == "Notable" then
+			local legionNode = self.build.spec.tree.legion.nodes["eternal_notable_fire_resistance_1"]
+			selectedNode.dn = "Eternal Empire notable node"
+			selectedNode.sd = {"Right click to set mod"}
+			selectedNode.sprites = legionNode.sprites
+			selectedNode.mods = {""}
+			selectedNode.modList = new("ModList")
+			selectedNode.modKey = ""
 		else
 			self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			if selectedNode.conqueredBy.conqueror.type == "templar" then
