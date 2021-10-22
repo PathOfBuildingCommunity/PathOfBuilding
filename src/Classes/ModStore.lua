@@ -218,7 +218,13 @@ function ModStoreClass:GetMultiplier(var, cfg, noMod)
 end
 
 function ModStoreClass:GetStat(stat, cfg)
-	return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
+	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
+		-- 0% reserved means total mana
+		return self.actor.output["Mana"]
+	else
+		return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	end
 end
 
 function ModStoreClass:EvalMod(mod, cfg)
