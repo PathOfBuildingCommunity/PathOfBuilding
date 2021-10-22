@@ -11378,7 +11378,7 @@ skills["SoulLink"] = {
 	name = "Soul Link",
 	color = 3,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, your Energy Shield will intercept some of the damage they would take. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Type118] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -11452,7 +11452,7 @@ skills["DestructiveLink"] = {
 	name = "Destructive Link",
 	color = 3,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, they use your main hand critical strike chance. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Type118] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
