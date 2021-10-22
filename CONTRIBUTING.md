@@ -117,8 +117,9 @@ More tests can be added to this folder to test specific functionality, or new te
 
 Docker alternative:
 
-1. Run `dockerfiles/bin/do_tests.sh` from the command line
-2. View last results in `spec/test_results.log`
+1. Install [Docker](https://www.docker.com/get-started)
+2. Run `docker-compose up -d` from the command line
+3. View last results in `spec/test_results.log`
 
 ### Creating new test builds or fixing an existing build
 
@@ -130,8 +131,8 @@ Sometimes a change will be made that intends to change the stats garnered by PoB
 Docker alternative:
 
 1. Add the new build XML (if applicable) to the `TestBuilds` folder
-2. Run `dockerfiles/bin/generate_builds.sh` to generate a LUA file that contains the current stats of that build
-3. Run `dockerfiles/bin/do_tests.sh` and the tests should pass
+2. Run `docker-compose up -d` to generate a LUA file that contains the current stats of that build
+3. Run `docker-compose up -d` and the tests should pass
 
 ## Keeping your fork up to date
 
