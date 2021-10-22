@@ -479,6 +479,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				})
 			end
 		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
 	local function addModifier(selectedNode)
 		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
