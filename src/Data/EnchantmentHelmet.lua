@@ -259,7 +259,7 @@ return {
 		["ENDGAME"] = {
 			"40% increased Blade Trap Damage",
 			"24% increased Blade Trap Area of Effect",
-			"Blade Trap rotates +100 times",
+			"Blade Trap rotates +1 times",
 		},
 	},
 	["Blade Vortex"] = {
@@ -2273,7 +2273,7 @@ return {
 		["ENDGAME"] = {
 			"40% increased Spectral Helix Damage",
 			"30% increased Spectral Helix Projectile Speed",
-			"Spectral Helix Projectile spirals through +100 rotations",
+			"Spectral Helix Projectile spirals through +1 rotations",
 		},
 	},
 	["Spectral Shield Throw"] = {
