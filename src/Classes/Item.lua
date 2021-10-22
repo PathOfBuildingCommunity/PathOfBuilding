@@ -624,11 +624,7 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 end
 
 function ItemClass:CheckIfModIsDelve(mod)
-	if mod.affix == "Subterranean" or mod.affix == "of the Underground" then
-		return true
-	else
-		return false
-	end
+	return mod.affix == "Subterranean" or mod.affix == "of the Underground"
 end
 
 
