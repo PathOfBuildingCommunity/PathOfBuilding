@@ -149,6 +149,8 @@ function describeStats(stats)
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
 					val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+				elseif spec.k == "negate_and_double" then
+					val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
 				elseif spec.k == "divide_by_five" then
 					val[spec.v].min = round(val[spec.v].min / 5, 1)
 					val[spec.v].max = round(val[spec.v].max / 5, 1)
@@ -224,9 +226,6 @@ function describeStats(stats)
 				elseif spec.k == "double" then
 					val[spec.v].min = val[spec.v].min * 2
 					val[spec.v].max = val[spec.v].max * 2
-				elseif spec.k == "negate_and_double" then
-					val[spec.v].min = val[spec.v].min * -2
-					val[spec.v].max = val[spec.v].max * -2
 				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
 				elseif spec.k then
 					ConPrintf("Unknown description function: %s", spec.k)
