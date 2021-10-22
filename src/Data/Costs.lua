@@ -14,7 +14,7 @@ return {
 	},
 	[3] = {
 		Resource = "ES",
-		Stat = nil,
+		Stat = "base_es_cost",
 		ResourceString = "{0} Energy Shield",
 	},
 	[4] = {
@@ -36,5 +36,35 @@ return {
 		Resource = "UnreservedManaPercent",
 		Stat = "base_unreserved_mana_cost_%",
 		ResourceString = "[DNT] {0}% Unreserved Mana ",
+	},
+	[8] = {
+		Resource = "ManaPerMinute",
+		Stat = "base_mana_cost_per_minute",
+		ResourceString = "{0} Mana per second",
+	},
+	[9] = {
+		Resource = "LifePerMinute",
+		Stat = "base_life_cost_per_minute",
+		ResourceString = "{0} Life per second",
+	},
+	[10] = {
+		Resource = "ManaPercentPerMinute",
+		Stat = "base_mana_cost_%_per_minute",
+		ResourceString = "{0}% Mana per second",
+	},
+	[11] = {
+		Resource = "LifePercentPerMinute",
+		Stat = "base_life_cost_%_per_minute",
+		ResourceString = "{0}% Life per second",
+	},
+	[12] = {
+		Resource = "ESPerMinute",
+		Stat = "base_es_cost_per_minute",
+		ResourceString = "{0) Energy Shield per second",
+	},
+	[13] = {
+		Resource = "ESPercentPerMinute",
+		Stat = "base_es_cost_%_per_minute",
+		ResourceString = "{0}% Energy Shield per second",
 	},
 }

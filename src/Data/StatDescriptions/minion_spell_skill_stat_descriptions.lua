@@ -172,6 +172,7 @@ return {
 				}
 			}
 		},
+		name="chance_for_1_additional_trap_mine",
 		stats={
 			[1]="support_additional_trap_mine_%_chance_for_1_additional_trap_mine"
 		}
@@ -194,6 +195,7 @@ return {
 				}
 			}
 		},
+		name="chance_for_2_additional_trap_mine",
 		stats={
 			[1]="support_additional_trap_mine_%_chance_for_2_additional_trap_mine"
 		}
@@ -216,6 +218,7 @@ return {
 				}
 			}
 		},
+		name="chance_for_3_additional_trap_mine",
 		stats={
 			[1]="support_additional_trap_mine_%_chance_for_3_additional_trap_mine"
 		}

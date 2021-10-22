@@ -1320,3 +1320,11 @@ end,
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
+
+#skill FlameLink
+#flags spell duration link fire
+#mods
+
+#skill ProtectiveLink
+#flags spell duration link
+#mods

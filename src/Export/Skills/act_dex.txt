@@ -1525,3 +1525,16 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #baseMod skill("radius", 26)
 #mods
+
+#skill PoisonousConcoction
+#flags attack area projectile
+#baseMod skill("radius", 18)
+#mods
+
+#skill TemporalRift
+#flags spell
+#mods
+
+#skill Tornado
+#flags spell duration physical area orb
+#mods

@@ -60,21 +60,21 @@ itemBases["Mechalarm Belt"] = {
 }
 itemBases["Vanguard Belt"] = {
 	type = "Belt",
-	tags = { not_for_sale = true, atlas_base_type = true, beltatlas1 = true, belt = true, default = true, },
+	tags = { belt = true, default = true, },
 	implicit = "+(260-320) to Armour and Evasion Rating",
 	implicitModTypes = { { "armour", "evasion", "defences" }, },
 	req = { level = 78, },
 }
 itemBases["Crystal Belt"] = {
 	type = "Belt",
-	tags = { beltatlas2 = true, not_for_sale = true, atlas_base_type = true, belt = true, default = true, },
+	tags = { belt = true, default = true, },
 	implicit = "+(60-80) to maximum Energy Shield",
 	implicitModTypes = { { "energy_shield", "defences" }, },
 	req = { level = 79, },
 }
 itemBases["Stygian Vise"] = {
 	type = "Belt",
-	tags = { not_for_sale = true, default = true, belt = true, },
+	tags = { belt = true, default = true, },
 	implicit = "Has 1 Abyssal Socket",
 	implicitModTypes = { {  }, },
 	req = { },
@@ -82,7 +82,7 @@ itemBases["Stygian Vise"] = {
 
 itemBases["Golden Obi"] = {
 	type = "Belt",
-	tags = { demigods = true, not_for_sale = true, default = true, belt = true, },
+	tags = { belt = true, default = true, },
 	implicit = "(20-30)% increased Rarity of Items found",
 	implicitModTypes = { {  }, },
 	req = { },
