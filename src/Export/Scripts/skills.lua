@@ -113,7 +113,7 @@ local skillTypes = {
 }
 
 local function mapAST(ast)
-	return "SkillType."..(skillTypes[ast] or ("Unknown"..ast))
+	return "SkillType."..(skillTypes[ast._rowIndex] or ("Unknown"..ast._rowIndex))
 end
 
 local weaponClassMap = {
