@@ -659,42 +659,63 @@ return {
 		},
 		[2]={
 			list=false,
-			name="Armour",
+			name="ArmourMin",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[3]={
 			list=false,
-			name="Evasion",
+			name="ArmourMax",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[4]={
 			list=false,
-			name="EnergyShield",
+			name="EvasionMin",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[5]={
 			list=false,
-			name="MovementPenalty",
+			name="EvasionMax",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[6]={
 			list=false,
-			name="Ward",
+			name="EnergyShieldMin",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[7]={
 			list=false,
-			name="",
+			name="EnergyShieldMax",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="MovementPenalty",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="WardMin",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="WardMax",
 			refTo="",
 			type="Int",
 			width=150
