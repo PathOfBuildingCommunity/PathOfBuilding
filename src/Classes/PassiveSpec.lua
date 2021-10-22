@@ -63,6 +63,12 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	self.allocationOrder = { }
 	self.ascendancyAllocationOrder = { }
 
+	-- Keys are mastery node IDs, values are mastery effect IDs
+	self.masterySelections = { }
+
+	--for postload handler
+	self.initialLoad = true
+
 	self:SelectClass(0)
 end)
 
@@ -125,13 +131,11 @@ function PassiveSpecClass:Load(xml, dbFileName)
 			for nodeId in string.gmatch(xml.attrib.allocationOrder, ("%d+")) do
 				table.insert(self.allocationOrder, tonumber(nodeId))
 			end
-			self:ReIndexNodeAllocationOrder("allocationOrder")
 		end
 		if xml.attrib.ascendancyAllocationOrder then
 			for nodeId in string.gmatch(xml.attrib.ascendancyAllocationOrder, ("%d+")) do
 				table.insert(self.ascendancyAllocationOrder, tonumber(nodeId))
 			end
-			self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
 		end
 	elseif url then
 		self:DecodeURL(url)
@@ -245,6 +249,9 @@ end
 
 function PassiveSpecClass:PostLoad()
 	self:BuildClusterJewelGraphs()
+	self:ReIndexNodeAllocationOrder("allocationOrder")
+	self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
+	self.initialLoad = false
 end
 
 -- Import passive spec from the provided class IDs and node hash list
@@ -901,8 +908,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					self:DeallocNode(depNode)
 				end
 			end
-			self:ReIndexNodeAllocationOrder("allocationOrder")
-			self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
+			if node.ascendancyName then
+				self:ReIndexNodeAllocationOrder("ascendancyAllocationOrder")
+			else
+				self:ReIndexNodeAllocationOrder("allocationOrder")
+			end
 		end
 	end
 
@@ -956,6 +966,7 @@ end
 
 function PassiveSpecClass:BuildClusterJewelGraphs()
 	-- Remove old subgraphs
+	local reserverdAllocationOrders = {}
 	for id, subGraph in pairs(self.subGraphs) do
 		table.sort(subGraph.nodes, function(a, b)
 			if a.allocationOrder == nil and b.allocationOrder == nil then
@@ -971,7 +982,10 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 		for _, node in ipairs(subGraph.nodes) do
 			if node.id then
 				if node.alloc then
-					self:RemoveFromAllocationOrder(node)
+					if node.allocationOrder ~= nil then
+						reserverdAllocationOrders[node.id] = node.allocationOrder
+						node.allocationOrder = nil
+					end
 				end
 				self.nodes[node.id] = nil
 				if self.allocNodes[node.id] then
@@ -981,7 +995,6 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				end
 			end
 		end
-		self:ReIndexNodeAllocationOrder("allocationOrder")
 		local index = isValueInArray(subGraph.parentSocket.linked, subGraph.entranceNode)
 		assert(index, "Entrance for subGraph not linked to parent socket???")
 		t_remove(subGraph.parentSocket.linked, index)
@@ -1011,6 +1024,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 		end
 	end
 
+	ConPrintTable(reserverdAllocationOrders)
 	-- (Re-)allocate subgraph nodes
 	local sortedAllocSubgraphNodes = {}
 	for i=#self.allocSubgraphNodes, 1, -1 do
@@ -1024,9 +1038,22 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				self.allocNodes[nodeId] = node
 				t_insert(self.allocExtendedNodes, nodeId)
 			end
-			self:SetAllocationOrder(node)
+			if not self.initialLoad then
+				if reserverdAllocationOrders[nodeId] then
+					self.allocationOrder[reserverdAllocationOrders[nodeId]] = nodeId
+					node.allocationOrder = reserverdAllocationOrders[nodeId]
+					reserverdAllocationOrders[nodeId] = nil
+				else
+					self:SetAllocationOrder(node)
+				end
+			end
 		end
 	end
+	for nodeId, unallocated in pairs(reserverdAllocationOrders) do
+		self:RemoveFromAllocationOrder(self.nodes[nodeId])
+	end
+	ConPrintTable(self.allocationOrder)
+	self:ReIndexNodeAllocationOrder("allocationOrder")
 	wipeTable(self.allocSubgraphNodes)
 
 	-- Rebuild paths to account for new/removed nodes
