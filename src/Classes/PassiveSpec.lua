@@ -662,6 +662,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
 					local legionNode = legionNodes["eternal_small_blank"]
 					self:ReplaceNode(node,legionNode)
+				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Notable"  then
+					local legionNode = legionNodes["eternal_notable_fire_resistance_1"]
+					node.dn = "Eternal Empire notable node"
+					node.sd = {"Right click to set mod"}
+					node.sprites = legionNode.sprites
+					node.mods = {""}
+					node.modList = new("ModList")
+					node.modKey = ""
+					node.reminderText = { }
 				elseif conqueredBy.conqueror.type == "templar" then
 					if isValueInArray(attributes, node.dn) then
 						local legionNode =legionNodes["templar_devotion_node"]
@@ -691,6 +700,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					node.mods = {""}
 					node.modList = new("ModList")
 					node.modKey = ""
+					node.reminderText = { }
 				end
 				self:ReconnectNodeToClassStart(node)
 			end
@@ -836,7 +846,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
-	old.reminderText = newNode.reminderText
+	old.reminderText = newNode.reminderText or { }
 end
 
 ---Reconnects altered timeless jewel to class start, for Pure Talent
