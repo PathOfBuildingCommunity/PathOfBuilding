@@ -215,6 +215,9 @@ function describeStats(stats)
 				elseif spec.k == "multiply_by_four" then
 					val[spec.v].min = val[spec.v].min * 4
 					val[spec.v].max = val[spec.v].max * 4
+				elseif spec.k == "times_one_point_five" then
+					val[spec.v].min = val[spec.v].min * 1.5
+					val[spec.v].max = val[spec.v].max * 1.5
 				elseif spec.k == "times_twenty" then
 					val[spec.v].min = val[spec.v].min * 20
 					val[spec.v].max = val[spec.v].max * 20

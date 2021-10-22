@@ -13,7 +13,7 @@ skills["EnchantmentOfBladesOnHit"] = {
 	baseEffectiveness = 1.7000000476837,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Fires a chaining burst of ethereal blades.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -27,18 +27,8 @@ skills["EnchantmentOfBladesOnHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_physical_damage",
-		"spell_maximum_base_physical_damage",
-		"number_of_chains",
-		"cast_on_hit_%",
-		"skill_art_variation",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1, 126, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit2"] = {
@@ -48,7 +38,7 @@ skills["EnchantmentOfBladesOnHit2"] = {
 	baseEffectiveness = 1.7000000476837,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Fires a chaining burst of ethereal blades.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -62,18 +52,8 @@ skills["EnchantmentOfBladesOnHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_physical_damage",
-		"spell_maximum_base_physical_damage",
-		"number_of_chains",
-		"cast_on_hit_%",
-		"skill_art_variation",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.5, 585, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit3"] = {
@@ -83,7 +63,7 @@ skills["EnchantmentOfBladesOnHit3"] = {
 	baseEffectiveness = 1.7000000476837,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Fires a chaining burst of ethereal blades.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -97,18 +77,8 @@ skills["EnchantmentOfBladesOnHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_physical_damage",
-		"spell_maximum_base_physical_damage",
-		"number_of_chains",
-		"cast_on_hit_%",
-		"skill_art_variation",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2, 1477, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit4"] = {
@@ -118,7 +88,7 @@ skills["EnchantmentOfBladesOnHit4"] = {
 	baseEffectiveness = 1.7000000476837,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Fires a chaining burst of ethereal blades.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -132,18 +102,8 @@ skills["EnchantmentOfBladesOnHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_physical_damage",
-		"spell_maximum_base_physical_damage",
-		"number_of_chains",
-		"cast_on_hit_%",
-		"skill_art_variation",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.4000000953674, 2903, 4, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit"] = {
@@ -153,7 +113,7 @@ skills["EnchantmentOfFlamesOnHit"] = {
 	baseEffectiveness = 1.7777999639511,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -167,15 +127,8 @@ skills["EnchantmentOfFlamesOnHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"cast_on_hit_%",
-		"is_area_damage",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.2000000476837, 140, 100, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit2"] = {
@@ -185,7 +138,7 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 	baseEffectiveness = 1.7777999639511,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -199,15 +152,8 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"cast_on_hit_%",
-		"is_area_damage",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.7000000476837, 601, 100, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit3"] = {
@@ -217,7 +163,7 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 	baseEffectiveness = 1.7777999639511,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -231,15 +177,8 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"cast_on_hit_%",
-		"is_area_damage",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.2000000476837, 1453, 100, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit4"] = {
@@ -249,7 +188,7 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 	baseEffectiveness = 1.7777999639511,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -263,15 +202,8 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"cast_on_hit_%",
-		"is_area_damage",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.5999999046326, 2770, 100, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit"] = {
@@ -279,7 +211,7 @@ skills["EnchantmentOfForceOnHit"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -293,12 +225,8 @@ skills["EnchantmentOfForceOnHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, damageEffectiveness = 1.35, cooldown = 5, baseMultiplier = 1.35, levelRequirement = 32, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit2"] = {
@@ -306,7 +234,7 @@ skills["EnchantmentOfForceOnHit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -320,12 +248,8 @@ skills["EnchantmentOfForceOnHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, damageEffectiveness = 1.89, cooldown = 5, baseMultiplier = 1.89, levelRequirement = 53, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit3"] = {
@@ -333,7 +257,7 @@ skills["EnchantmentOfForceOnHit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -347,12 +271,8 @@ skills["EnchantmentOfForceOnHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, damageEffectiveness = 2.43, cooldown = 5, baseMultiplier = 2.43, levelRequirement = 66, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit4"] = {
@@ -360,7 +280,7 @@ skills["EnchantmentOfForceOnHit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Minion] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -374,12 +294,8 @@ skills["EnchantmentOfForceOnHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, damageEffectiveness = 2.97, cooldown = 5, baseMultiplier = 2.97, levelRequirement = 75, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill"] = {
@@ -389,7 +305,7 @@ skills["EnchantmentOfFrostOnKill"] = {
 	baseEffectiveness = 1.6363999843597,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Fire icy projectiles around you in all directions.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -403,18 +319,8 @@ skills["EnchantmentOfFrostOnKill"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"chance_to_cast_on_kill_%_target_self",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"projectiles_nova",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1, 114, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill2"] = {
@@ -424,7 +330,7 @@ skills["EnchantmentOfFrostOnKill2"] = {
 	baseEffectiveness = 1.6363999843597,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Fire icy projectiles around you in all directions.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -438,18 +344,8 @@ skills["EnchantmentOfFrostOnKill2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"chance_to_cast_on_kill_%_target_self",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"projectiles_nova",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.5, 509, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill3"] = {
@@ -459,7 +355,7 @@ skills["EnchantmentOfFrostOnKill3"] = {
 	baseEffectiveness = 1.6363999843597,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Fire icy projectiles around you in all directions.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -473,18 +369,8 @@ skills["EnchantmentOfFrostOnKill3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"chance_to_cast_on_kill_%_target_self",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"projectiles_nova",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2, 1254, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill4"] = {
@@ -494,7 +380,7 @@ skills["EnchantmentOfFrostOnKill4"] = {
 	baseEffectiveness = 1.6363999843597,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Fire icy projectiles around you in all directions.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Spell] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.SpellCanCascade] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.SkillCanVolley] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -508,18 +394,8 @@ skills["EnchantmentOfFrostOnKill4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"chance_to_cast_on_kill_%_target_self",
-		"number_of_additional_projectiles",
-		"base_is_projectile",
-		"projectiles_nova",
-		"spell_uncastable_if_triggerable",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.4000000953674, 2422, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit"] = {
@@ -528,7 +404,7 @@ skills["EnchantmentOfFuryOnHit"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -557,21 +433,8 @@ skills["EnchantmentOfFuryOnHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"projectile_spiral_nova_time_ms",
-		"projectile_spiral_nova_angle",
-		"base_number_of_projectiles_in_spiral_nova",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_fire",
-		"projectile_spiral_nova_starting_angle_offset",
-		"projectile_base_number_of_targets_to_pierce",
-		"base_is_projectile",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, 800, 180, 10, 1, 50, -90, 2, damageEffectiveness = 1.5, cooldown = 5, baseMultiplier = 1.5, levelRequirement = 32, statInterpolation = { 1, 1, 3325, 2122, 2123, 2121, 347, 1101, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit2"] = {
@@ -580,7 +443,7 @@ skills["EnchantmentOfFuryOnHit2"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -609,21 +472,8 @@ skills["EnchantmentOfFuryOnHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"projectile_spiral_nova_time_ms",
-		"projectile_spiral_nova_angle",
-		"base_number_of_projectiles_in_spiral_nova",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_fire",
-		"projectile_spiral_nova_starting_angle_offset",
-		"projectile_base_number_of_targets_to_pierce",
-		"base_is_projectile",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, 800, 180, 10, 1, 50, -90, 3, damageEffectiveness = 2.1, cooldown = 5, baseMultiplier = 2.1, levelRequirement = 53, statInterpolation = { 1, 1, 3325, 2122, 2123, 2121, 347, 1101, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit3"] = {
@@ -632,7 +482,7 @@ skills["EnchantmentOfFuryOnHit3"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -661,21 +511,8 @@ skills["EnchantmentOfFuryOnHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"projectile_spiral_nova_time_ms",
-		"projectile_spiral_nova_angle",
-		"base_number_of_projectiles_in_spiral_nova",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_fire",
-		"projectile_spiral_nova_starting_angle_offset",
-		"projectile_base_number_of_targets_to_pierce",
-		"base_is_projectile",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, 800, 180, 10, 1, 50, -90, 4, damageEffectiveness = 2.7, cooldown = 5, baseMultiplier = 2.7, levelRequirement = 66, statInterpolation = { 1, 1, 3325, 2122, 2123, 2121, 347, 1101, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit4"] = {
@@ -684,7 +521,7 @@ skills["EnchantmentOfFuryOnHit4"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -713,21 +550,8 @@ skills["EnchantmentOfFuryOnHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"attack_trigger_on_hit_%",
-		"projectile_spiral_nova_time_ms",
-		"projectile_spiral_nova_angle",
-		"base_number_of_projectiles_in_spiral_nova",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_fire",
-		"projectile_spiral_nova_starting_angle_offset",
-		"projectile_base_number_of_targets_to_pierce",
-		"base_is_projectile",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 100, 800, 180, 10, 1, 50, -90, 5, damageEffectiveness = 3.3, cooldown = 5, baseMultiplier = 3.3, levelRequirement = 75, statInterpolation = { 1, 1, 3520, 173, 2547, 347, 1102, 2, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill"] = {
@@ -737,7 +561,7 @@ skills["EnchantmentOfInfernoOnKill"] = {
 	baseEffectiveness = 3.5555999279022,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -752,18 +576,8 @@ skills["EnchantmentOfInfernoOnKill"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"base_skill_effect_duration",
-		"fire_storm_fireball_delay_ms",
-		"skill_override_pvp_scaling_time_ms",
-		"chance_to_cast_on_kill_%_target_self",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1, 249, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill2"] = {
@@ -773,7 +587,7 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 	baseEffectiveness = 3.5555999279022,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -788,18 +602,8 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"base_skill_effect_duration",
-		"fire_storm_fireball_delay_ms",
-		"skill_override_pvp_scaling_time_ms",
-		"chance_to_cast_on_kill_%_target_self",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.5, 1107, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill3"] = {
@@ -809,7 +613,7 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 	baseEffectiveness = 3.5555999279022,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -824,18 +628,8 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"base_skill_effect_duration",
-		"fire_storm_fireball_delay_ms",
-		"skill_override_pvp_scaling_time_ms",
-		"chance_to_cast_on_kill_%_target_self",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2, 2725, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill4"] = {
@@ -845,7 +639,7 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 	baseEffectiveness = 3.5555999279022,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -860,18 +654,8 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"base_skill_effect_duration",
-		"fire_storm_fireball_delay_ms",
-		"skill_override_pvp_scaling_time_ms",
-		"chance_to_cast_on_kill_%_target_self",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.4000000953674, 5263, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit"] = {
@@ -881,7 +665,7 @@ skills["EnchantmentOfIreWhenHit"] = {
 	baseEffectiveness = 1.2000000476837,
 	incrementalEffectiveness = 0.019999999552965,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -911,17 +695,8 @@ skills["EnchantmentOfIreWhenHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"extra_gore_chance_override_%",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_physical_damage_%_to_convert_to_lightning",
-		"is_area_damage",
-		"attack_unusable_if_triggerable",
-		"attack_is_not_melee_override",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 30, 100, 50, damageEffectiveness = 0.6, cooldown = 10, baseMultiplier = 0.6, levelRequirement = 32, statInterpolation = { 1, 357, 3897, 2547, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit2"] = {
@@ -931,7 +706,7 @@ skills["EnchantmentOfIreWhenHit2"] = {
 	baseEffectiveness = 1.2000000476837,
 	incrementalEffectiveness = 0.019999999552965,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -961,17 +736,8 @@ skills["EnchantmentOfIreWhenHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"extra_gore_chance_override_%",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_physical_damage_%_to_convert_to_lightning",
-		"is_area_damage",
-		"attack_unusable_if_triggerable",
-		"attack_is_not_melee_override",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 30, 100, 50, damageEffectiveness = 0.9, cooldown = 10, baseMultiplier = 0.9, levelRequirement = 53, statInterpolation = { 1, 357, 3897, 2547, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit3"] = {
@@ -981,7 +747,7 @@ skills["EnchantmentOfIreWhenHit3"] = {
 	baseEffectiveness = 1.2000000476837,
 	incrementalEffectiveness = 0.019999999552965,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1011,17 +777,8 @@ skills["EnchantmentOfIreWhenHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"extra_gore_chance_override_%",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_physical_damage_%_to_convert_to_lightning",
-		"is_area_damage",
-		"attack_unusable_if_triggerable",
-		"attack_is_not_melee_override",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 30, 100, 50, damageEffectiveness = 1.2, cooldown = 10, baseMultiplier = 1.2, levelRequirement = 66, statInterpolation = { 1, 357, 3897, 2547, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit4"] = {
@@ -1031,7 +788,7 @@ skills["EnchantmentOfIreWhenHit4"] = {
 	baseEffectiveness = 1.2000000476837,
 	incrementalEffectiveness = 0.019999999552965,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1061,17 +818,8 @@ skills["EnchantmentOfIreWhenHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"extra_gore_chance_override_%",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_physical_damage_%_to_convert_to_lightning",
-		"is_area_damage",
-		"attack_unusable_if_triggerable",
-		"attack_is_not_melee_override",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 30, 100, 50, damageEffectiveness = 1.5, cooldown = 10, baseMultiplier = 1.5, levelRequirement = 75, statInterpolation = { 1, 357, 3897, 3325, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit"] = {
@@ -1079,7 +827,7 @@ skills["EnchantmentOfLightWhenCrit"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1094,14 +842,8 @@ skills["EnchantmentOfLightWhenCrit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"life_regeneration_rate_per_minute_%",
-		"attack_trigger_when_critically_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 360, 100, damageEffectiveness = 1.35, cooldown = 5, baseMultiplier = 1.35, levelRequirement = 32, statInterpolation = { 1, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit2"] = {
@@ -1109,7 +851,7 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1124,14 +866,8 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"life_regeneration_rate_per_minute_%",
-		"attack_trigger_when_critically_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 360, 100, damageEffectiveness = 1.89, cooldown = 5, baseMultiplier = 1.89, levelRequirement = 53, statInterpolation = { 1, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit3"] = {
@@ -1139,7 +875,7 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1154,14 +890,8 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"life_regeneration_rate_per_minute_%",
-		"attack_trigger_when_critically_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 360, 100, damageEffectiveness = 2.43, cooldown = 5, baseMultiplier = 2.43, levelRequirement = 66, statInterpolation = { 1, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit4"] = {
@@ -1169,7 +899,7 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1184,14 +914,8 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"life_regeneration_rate_per_minute_%",
-		"attack_trigger_when_critically_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 5000, 360, 100, damageEffectiveness = 2.97, cooldown = 5, baseMultiplier = 2.97, levelRequirement = 75, statInterpolation = { 1, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit"] = {
@@ -1199,7 +923,8 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 	hidden = true,
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1220,17 +945,8 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"minion_damage_+%",
-		"minion_maximum_life_+%",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"cast_when_hit_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 5000, 1, 80, 150, 4, 32, 100, 100, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, 357, 2156, 488, 159, 458, 457, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit2"] = {
@@ -1238,7 +954,8 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1259,17 +976,8 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"minion_damage_+%",
-		"minion_maximum_life_+%",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"cast_when_hit_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 5000, 1, 100, 150, 4, 53, 100, 200, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, 357, 2156, 488, 159, 458, 457, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit3"] = {
@@ -1277,7 +985,8 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1298,17 +1007,8 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"minion_damage_+%",
-		"minion_maximum_life_+%",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"cast_when_hit_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 5000, 1, 120, 150, 4, 66, 100, 300, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, 357, 2156, 488, 159, 458, 457, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit4"] = {
@@ -1316,7 +1016,8 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1337,17 +1038,8 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"minion_damage_+%",
-		"minion_maximum_life_+%",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"cast_when_hit_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 5000, 1, 140, 150, 4, 75, 100, 400, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, 3325, 2, 618, 2301, 1, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit"] = {
@@ -1356,7 +1048,7 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.FireSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1385,21 +1077,8 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_projectile_ground_effect_duration",
-		"number_of_additional_projectiles",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_drop_ground_ice",
-		"projectiles_drop_ground_effects_on_client",
-		"base_is_projectile",
-		"projectiles_nova",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 1.5, cooldown = 5, baseMultiplier = 1.5, levelRequirement = 32, statInterpolation = { 1, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit2"] = {
@@ -1408,7 +1087,7 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.FireSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1437,21 +1116,8 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_projectile_ground_effect_duration",
-		"number_of_additional_projectiles",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_drop_ground_ice",
-		"projectiles_drop_ground_effects_on_client",
-		"base_is_projectile",
-		"projectiles_nova",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 2.1, cooldown = 5, baseMultiplier = 2.1, levelRequirement = 53, statInterpolation = { 1, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit3"] = {
@@ -1460,7 +1126,7 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.FireSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1489,21 +1155,8 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_projectile_ground_effect_duration",
-		"number_of_additional_projectiles",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_drop_ground_ice",
-		"projectiles_drop_ground_effects_on_client",
-		"base_is_projectile",
-		"projectiles_nova",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 2.7, cooldown = 5, baseMultiplier = 2.7, levelRequirement = 66, statInterpolation = { 1, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit4"] = {
@@ -1512,7 +1165,7 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 	color = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Type46] = true, [SkillType.Spell] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.FireSkill] = true, [SkillType.CanHaveBlessing] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.ColdSkill] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1541,21 +1194,8 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_projectile_ground_effect_duration",
-		"number_of_additional_projectiles",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_drop_ground_ice",
-		"projectiles_drop_ground_effects_on_client",
-		"base_is_projectile",
-		"projectiles_nova",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 3.3, cooldown = 5, baseMultiplier = 3.3, levelRequirement = 75, statInterpolation = { 1, 1, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit"] = {
@@ -1565,7 +1205,7 @@ skills["EnchantmentOfTempestOnHit"] = {
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 4,
 	cannotBeSupported = true,
@@ -1580,17 +1220,8 @@ skills["EnchantmentOfTempestOnHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"base_skill_area_of_effect_+%",
-		"skill_art_variation",
-		"cast_on_hit_%",
-		"base_skill_effect_duration",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1, 280, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit2"] = {
@@ -1600,7 +1231,7 @@ skills["EnchantmentOfTempestOnHit2"] = {
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 4,
 	cannotBeSupported = true,
@@ -1615,17 +1246,8 @@ skills["EnchantmentOfTempestOnHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"base_skill_area_of_effect_+%",
-		"skill_art_variation",
-		"cast_on_hit_%",
-		"base_skill_effect_duration",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.5, 1245, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit3"] = {
@@ -1635,7 +1257,7 @@ skills["EnchantmentOfTempestOnHit3"] = {
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 4,
 	cannotBeSupported = true,
@@ -1650,17 +1272,8 @@ skills["EnchantmentOfTempestOnHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"base_skill_area_of_effect_+%",
-		"skill_art_variation",
-		"cast_on_hit_%",
-		"base_skill_effect_duration",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2, 3065, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit4"] = {
@@ -1670,7 +1283,7 @@ skills["EnchantmentOfTempestOnHit4"] = {
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 4,
 	cannotBeSupported = true,
@@ -1685,17 +1298,8 @@ skills["EnchantmentOfTempestOnHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"base_skill_area_of_effect_+%",
-		"skill_art_variation",
-		"cast_on_hit_%",
-		"base_skill_effect_duration",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.4000000953674, 5920, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill"] = {
@@ -1703,7 +1307,8 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons three icy skull minions that explode at the end of their duration.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.FireSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1721,16 +1326,8 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 	qualityStats = {
 	},
 	stats = {
-		"chance_to_cast_on_owned_kill_%",
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
-		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { 100, 5000, 3, 10, 32, 20, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill2"] = {
@@ -1738,7 +1335,8 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons three icy skull minions that explode at the end of their duration.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.FireSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1756,16 +1354,8 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"chance_to_cast_on_owned_kill_%",
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
-		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { 100, 5000, 3, 10, 53, 20, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill3"] = {
@@ -1773,7 +1363,8 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons three icy skull minions that explode at the end of their duration.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.FireSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1791,16 +1382,8 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"chance_to_cast_on_owned_kill_%",
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
-		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { 100, 5000, 3, 10, 66, 20, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill4"] = {
@@ -1808,7 +1391,8 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons three icy skull minions that explode at the end of their duration.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.CauseElementalStatus] = true, [SkillType.FireSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.Maims] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1826,16 +1410,8 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"chance_to_cast_on_owned_kill_%",
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"display_minion_monster_type",
-		"display_minion_monster_level",
-		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
-		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { 100, 5000, 3, 10, 75, 20, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, 0, 0, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill"] = {
@@ -1845,7 +1421,7 @@ skills["EnchantmentOfThunderOnKill"] = {
 	baseEffectiveness = 1.625,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Damaging cones of lightning surround you.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Totem] = true, [SkillType.ColdSkill] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.DamageCannotBeReflected] = true, [SkillType.LightningSkill] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1860,14 +1436,8 @@ skills["EnchantmentOfThunderOnKill"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"chance_to_cast_on_kill_%_target_self",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1, 114, 100, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill2"] = {
@@ -1877,7 +1447,7 @@ skills["EnchantmentOfThunderOnKill2"] = {
 	baseEffectiveness = 1.625,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Damaging cones of lightning surround you.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Totem] = true, [SkillType.ColdSkill] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.DamageCannotBeReflected] = true, [SkillType.LightningSkill] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1892,14 +1462,8 @@ skills["EnchantmentOfThunderOnKill2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"chance_to_cast_on_kill_%_target_self",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.5, 506, 100, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill3"] = {
@@ -1909,7 +1473,7 @@ skills["EnchantmentOfThunderOnKill3"] = {
 	baseEffectiveness = 1.625,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Damaging cones of lightning surround you.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Totem] = true, [SkillType.ColdSkill] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.DamageCannotBeReflected] = true, [SkillType.LightningSkill] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1924,14 +1488,8 @@ skills["EnchantmentOfThunderOnKill3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"chance_to_cast_on_kill_%_target_self",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2, 1245, 100, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill4"] = {
@@ -1941,7 +1499,7 @@ skills["EnchantmentOfThunderOnKill4"] = {
 	baseEffectiveness = 1.625,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Damaging cones of lightning surround you.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Hit] = true, [SkillType.Totem] = true, [SkillType.ColdSkill] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.AuraDuration] = true, [SkillType.Ballista] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.DamageCannotBeReflected] = true, [SkillType.LightningSkill] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -1956,14 +1514,8 @@ skills["EnchantmentOfThunderOnKill4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_lightning_damage",
-		"spell_maximum_base_lightning_damage",
-		"chance_to_cast_on_kill_%_target_self",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.4000000953674, 2405, 100, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 0, 0, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill"] = {
@@ -1971,7 +1523,7 @@ skills["EnchantmentOfWarOnKill"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Melee] = true, [SkillType.Type27] = true, [SkillType.Chaining] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2000,13 +1552,8 @@ skills["EnchantmentOfWarOnKill"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"attack_trigger_on_kill_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 10000, 1, 100, 50, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 357, 2156, 4515, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill2"] = {
@@ -2014,7 +1561,7 @@ skills["EnchantmentOfWarOnKill2"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Melee] = true, [SkillType.Type27] = true, [SkillType.Chaining] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2043,13 +1590,8 @@ skills["EnchantmentOfWarOnKill2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"attack_trigger_on_kill_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 10000, 1, 100, 100, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 357, 2156, 4515, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill3"] = {
@@ -2057,7 +1599,7 @@ skills["EnchantmentOfWarOnKill3"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Melee] = true, [SkillType.Type27] = true, [SkillType.Chaining] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2086,13 +1628,8 @@ skills["EnchantmentOfWarOnKill3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"attack_trigger_on_kill_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 10000, 1, 100, 150, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 357, 2156, 4515, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill4"] = {
@@ -2100,7 +1637,7 @@ skills["EnchantmentOfWarOnKill4"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [SkillType.Unknown0] = true, [SkillType.Melee] = true, [SkillType.Type27] = true, [SkillType.Chaining] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SecondWindSupport] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2129,13 +1666,8 @@ skills["EnchantmentOfWarOnKill4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"base_skill_effect_duration",
-		"number_of_monsters_to_summon",
-		"attack_trigger_on_kill_%",
-		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { 10000, 1, 100, 200, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1470, 1471, 357, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit"] = {
@@ -2145,7 +1677,7 @@ skills["EnchantmentOfWinterWhenHit"] = {
 	baseEffectiveness = 1.0908999443054,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.SpellCanCascade] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
 	cannotBeSupported = true,
@@ -2160,16 +1692,8 @@ skills["EnchantmentOfWinterWhenHit"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"cast_when_hit_%",
-		"is_area_damage",
-		"base_is_projectile",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1, 76, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 1472, 1473, 347, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit2"] = {
@@ -2179,7 +1703,7 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 	baseEffectiveness = 1.0908999443054,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.SpellCanCascade] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
 	cannotBeSupported = true,
@@ -2194,16 +1718,8 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"cast_when_hit_%",
-		"is_area_damage",
-		"base_is_projectile",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1.5, 340, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 1472, 1473, 347, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit3"] = {
@@ -2213,7 +1729,7 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 	baseEffectiveness = 1.0908999443054,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.SpellCanCascade] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
 	cannotBeSupported = true,
@@ -2228,16 +1744,8 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"cast_when_hit_%",
-		"is_area_damage",
-		"base_is_projectile",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2, 836, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 1472, 1473, 347, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit4"] = {
@@ -2247,7 +1755,7 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 	baseEffectiveness = 1.0908999443054,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.SpellCanCascade] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.Hit] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.LightningSkill] = true, [SkillType.Mine] = true, [SkillType.AuraDuration] = true, [SkillType.FiresArrowsAtTargetLocation] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
 	cannotBeSupported = true,
@@ -2262,15 +1770,7 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 	qualityStats = {
 	},
 	stats = {
-		"spell_minimum_base_cold_damage",
-		"spell_maximum_base_cold_damage",
-		"skill_art_variation",
-		"cast_when_hit_%",
-		"is_area_damage",
-		"base_is_projectile",
-		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2.4000000953674, 1615, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 1474, 1475, 434, }, cost = { }, },
 	},
 }

@@ -113,7 +113,7 @@ local skillTypes = {
 }
 
 local function mapAST(ast)
-	return "SkillType."..(skillTypes[ast] or ("Unknown"..ast))
+	return "SkillType."..(skillTypes[ast._rowIndex] or ("Unknown"..ast._rowIndex))
 end
 
 local weaponClassMap = {
@@ -250,7 +250,6 @@ directiveTable.skill = function(state, args, out)
 			out:write('[', mapAST(type), '] = true, ')
 		end
 		out:write('},\n')
-		--[[
 		if granted.ActiveSkill.MinionSkillTypes[1] then
 			out:write('\tminionSkillTypes = { ')
 			for _, type in ipairs(granted.ActiveSkill.MinionSkillTypes) do
@@ -258,7 +257,6 @@ directiveTable.skill = function(state, args, out)
 			end
 			out:write('},\n')
 		end
-		--]]
 		local weaponTypes = { }
 		for _, class in ipairs(granted.ActiveSkill.WeaponRestrictions) do
 			if weaponClassMap[class.Id] then
