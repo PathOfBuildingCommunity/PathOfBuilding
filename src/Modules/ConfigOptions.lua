@@ -101,12 +101,12 @@ return {
 	{ var = "aspectOfTheSpiderWebStacks", type = "count", label = "# of Spider's Web Stacks:", ifSkill = "Aspect of the Spider", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraSkillMod", "LIST", { mod = modLib.createMod("Multiplier:SpiderWebApplyStack", "BASE", val) }, "Config", { type = "SkillName", skillName = "Aspect of the Spider" })
 	end },
-	{ label = "Banner Skills:", ifSkillList = { "Dread Banner", "War Banner" } },
-	{ var = "bannerPlanted", type = "check", label = "Is Banner Planted?", ifSkillList = { "Dread Banner", "War Banner" }, apply = function(val, modList, enemyModList)
+	{ label = "Banner Skills:", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" } },
+	{ var = "bannerPlanted", type = "check", label = "Is Banner Planted?", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BannerPlanted", "FLAG", true, "Config")
 	end },
-	{ var = "bannerStages", type = "count", label = "Banner Stages:", ifSkillList = { "Dread Banner", "War Banner" }, apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config", { type = "SkillName", skillNameList = { "Dread Banner", "War Banner" } })
+	{ var = "bannerStages", type = "count", label = "Banner Stages:", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config", { type = "SkillName", skillNameList = { "Dread Banner", "War Banner", "Defiance Banner" } })
 	end },
 	{ label = "Bladestorm:", ifSkill = "Bladestorm" },
 	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
@@ -141,6 +141,10 @@ return {
 	{ label = "Close Combat:", ifSkill = "Close Combat" },
 	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
+	end },
+	{ label = "Cruelty:", ifSkill = "Cruelty" },
+	{ var = "overrideCruelty", type = "count", label = "Damage % (if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Cruelty", "OVERRIDE", m_min(val, 40), "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Cyclone:", ifSkill = "Cyclone" },
 	{ var = "channellingCycloneCheck", type = "check", label = "Are you Channelling Cyclone?", ifSkill = "Cyclone", apply = function(val, modList, enemyModList)
@@ -543,9 +547,6 @@ return {
 	{ var = "overrideInspirationCharges", type = "count", label = "# of Inspiration Charges (if not maximum):", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("InspirationCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierCruelty", type = "count", label = "Effect of Cruelty:", ifMult = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 50% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:Cruelty", "BASE", m_min(val, 50), "Config", { type = "Condition", var = "Combat" })
-	end },
 	{ var = "useGhostShrouds", type = "check", label = "Do you use Ghost Shrouds?", ifMult = "GhostShroud", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseGhostShrouds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -891,14 +892,14 @@ return {
 	{ var = "conditionConvergence", type = "check", label = "Do you have Convergence?", ifFlag = "Condition:CanGainConvergence", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Convergence", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainConvergence" })
 	end },
-	{ var = "buffPendulum", type = "list", label = "Is Pendulum of Destruction active?", ifNode = 57197, list = {{val=0,label="None"},{val="AREA",label="Area of Effect"},{val="DAMAGE",label="Elemental Damage"}}, apply = function(val, modList, enemyModList)
+	{ var = "buffPendulum", type = "list", label = "Is Pendulum of Destruction active?", ifCond = "PendulumOfDestructionAreaOfEffect", list = {{val=0,label="None"},{val="AREA",label="Area of Effect"},{val="DAMAGE",label="Elemental Damage"}}, apply = function(val, modList, enemyModList)
 		if val == "AREA" then
 			modList:NewMod("Condition:PendulumOfDestructionAreaOfEffect", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		elseif val == "DAMAGE" then
 			modList:NewMod("Condition:PendulumOfDestructionElementalDamage", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 	end },
-	{ var = "buffConflux", type = "list", label = "Conflux Buff:", ifNode = 51391, list = {{val=0,label="None"},{val="CHILLING",label="Chilling"},{val="SHOCKING",label="Shocking"},{val="IGNITING",label="Igniting"},{val="ALL",label="Chill + Shock + Ignite"}}, apply = function(val, modList, enemyModList)
+	{ var = "buffConflux", type = "list", label = "Conflux Buff:", ifCond = "ChillingConflux", list = {{val=0,label="None"},{val="CHILLING",label="Chilling"},{val="SHOCKING",label="Shocking"},{val="IGNITING",label="Igniting"},{val="ALL",label="Chill + Shock + Ignite"}}, apply = function(val, modList, enemyModList)
 		if val == "CHILLING" or val == "ALL" then
 			modList:NewMod("Condition:ChillingConflux", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
@@ -909,10 +910,10 @@ return {
 			modList:NewMod("Condition:IgnitingConflux", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 	end },
-	{ var = "buffBastionOfHope", type = "check", label = "Is Bastion of Hope active?", ifNode = 39728, apply = function(val, modList, enemyModList)
+	{ var = "buffBastionOfHope", type = "check", label = "Is Bastion of Hope active?", ifCond = "BastionOfHopeActive", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BastionOfHopeActive", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffNgamahuFlamesAdvance", type = "check", label = "Is Ngamahu, Flame's Advance active?", ifNode = 50692, apply = function(val, modList, enemyModList)
+	{ var = "buffNgamahuFlamesAdvance", type = "check", label = "Is Ngamahu, Flame's Advance active?", ifCond = "NgamahuFlamesAdvance", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:NgamahuFlamesAdvance", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffHerEmbrace", type = "check", label = "Are you in Her Embrace?", ifCond = "HerEmbrace", tooltip = "This option is specific to Oni-Goroshi.", apply = function(val, modList, enemyModList)
@@ -1025,10 +1026,10 @@ return {
 		modList:NewMod("Multiplier:EnduranceChargesLostRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:LostEnduranceChargeInPast8Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionBlockedHitFromUniqueEnemyInPast10Sec", type = "check", label = "Blocked a Hit from a Unique enemy in the past 10s?", ifNode = 63490, apply = function(val, modList, enemyModList)
+	{ var = "conditionBlockedHitFromUniqueEnemyInPast10Sec", type = "check", label = "Blocked a Hit from a Unique enemy in the past 10s?", ifCond = "BlockedHitFromUniqueEnemyInPast10Sec", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedHitFromUniqueEnemyInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "BlockedPast10Sec", type = "count", label = "Number of times you've Blocked in the past 10s", ifNode = 63490, apply = function(val, modList, enemyModList)
+	{ var = "BlockedPast10Sec", type = "count", label = "Number of times you've Blocked in the past 10s", ifCond = "BlockedHitFromUniqueEnemyInPast10Sec", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:BlockedPast10Sec", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionImpaledRecently", type = "check", ifCond = "ImpaledRecently", label = "Impaled an enemy recently?", apply = function(val, modList, enemyModLIst)
@@ -1037,14 +1038,14 @@ return {
 	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on enemy (if not maximum):", ifNode = 17818, tooltip = "Sets current number of Bleeds on the enemy if using the Crimson Dance keystone.\nThis also implies that the enemy is Bleeding.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on enemy (if not maximum):", ifFlag = "Condition:HaveCrimsonDance", tooltip = "Sets current number of Bleeds on the enemy if using the Crimson Dance keystone.\nThis also implies that the enemy is Bleeding.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierFragileRegrowth", type = "count", label = "# of Fragile Regrowth Stacks:", ifMult = "FragileRegrowthCount", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FragileRegrowthCount", "BASE", m_min(val,10), "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionKilledUniqueEnemy", type = "check", label = "Killed a Rare or Unique enemy Recently?", ifNode = 3184, apply = function(val, modList, enemyModList)
+	{ var = "conditionKilledUniqueEnemy", type = "check", label = "Killed a Rare or Unique enemy Recently?", ifCond = "KilledUniqueEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:KilledUniqueEnemy", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionHaveArborix", type = "check", label = "Do you have Iron Reflexes?", ifFlag = "Condition:HaveArborix", tooltip = "This option is specific to Arborix.",apply = function(val, modList, enemyModList)
@@ -1199,6 +1200,9 @@ return {
 	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Intimidated", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyCrushed", type = "check", label = "Is the enemy Crushed?", tooltip = "Crushed enemies have 15% reduced Physical Damage Reduction.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Crushed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionNearLinkedTarget", type = "check", label = "Is the enemy near you Linked target?", ifEnemyCond = "NearLinkedTarget", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:NearLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1281,7 +1285,7 @@ return {
 	{ var = "enemyConditionHitByLightningDamage", type = "check", label = "Enemy was Hit by Light. Damage?", ifFlag = "ElementalEquilibrium", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HitByLightningDamage", "FLAG", true, "Config")
 	end },
-	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
+	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibriumLegacy", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
 
 	-- Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },

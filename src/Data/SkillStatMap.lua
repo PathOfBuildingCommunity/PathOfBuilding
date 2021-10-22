@@ -763,9 +763,6 @@ return {
 ["skill_cold_damage_%_to_convert_to_chaos"] = {
 	mod("SkillColdDamageConvertToChaos", "BASE", nil),
 },
-["skill_lightning_damage_%_to_convert_to_chaos"] = {
-	mod("SkillLightningDamageConvertToChaos", "BASE", nil),
-},
 ["skill_fire_damage_%_to_convert_to_chaos"] = {
 	mod("SkillFireDamageConvertToChaos", "BASE", nil),
 },
@@ -1504,10 +1501,6 @@ return {
 },
 ["active_skill_minion_movement_velocity_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "MORE", nil) }),
-},
-["minion_life_regeneration_rate_per_minute_%"] = {
-	mod("MinionModifier", "LIST", { mod = mod("LifeRegen", "BASE", nil) }),
-	div = 60,
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
