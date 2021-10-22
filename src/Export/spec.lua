@@ -29,6 +29,20 @@ return {
 	ActiveSkillTargetTypes={
 	},
 	ActiveSkillType={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	ActiveSkills={
 		[1]={
@@ -77,7 +91,7 @@ return {
 			list=true,
 			name="SkillTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=330
 		},
 		[8]={
@@ -154,7 +168,7 @@ return {
 			list=true,
 			name="MinionSkillTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=150
 		},
 		[19]={
@@ -2915,7 +2929,7 @@ return {
 			list=true,
 			name="SupportTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=170
 		},
 		[4]={
@@ -2950,14 +2964,14 @@ return {
 			list=true,
 			name="AddTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=90
 		},
 		[9]={
 			list=true,
 			name="ExcludeTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=200
 		},
 		[10]={
@@ -3027,7 +3041,7 @@ return {
 			list=true,
 			name="AddMinionTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=150
 		},
 		[20]={
