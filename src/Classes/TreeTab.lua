@@ -590,6 +590,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Notable" then
 			local legionNode = self.build.spec.tree.legion.nodes["vaal_notable_curse_1"]
 			selectedNode.dn = "Vaal notable node"
@@ -598,6 +599,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		elseif selectedNode.conqueredBy.conqueror.type == "eternal" and selectedNode.type == "Notable" then
 			local legionNode = self.build.spec.tree.legion.nodes["eternal_notable_fire_resistance_1"]
 			selectedNode.dn = "Eternal Empire notable node"
@@ -606,6 +608,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		else
 			self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			if selectedNode.conqueredBy.conqueror.type == "templar" then
