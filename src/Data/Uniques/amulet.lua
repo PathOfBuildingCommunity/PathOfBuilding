@@ -478,11 +478,15 @@ Hinekora's Sight
 Onyx Amulet
 Source: Any prophecy{Prophecy} enemy
 Requires Level 20
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-{tags:attack}+1000 to Accuracy Rating
-(6-10)% chance to Dodge Attacks
-(6-10)% chance to Dodge Spell Damage
+{variant:1}{tags:attack}+1000 to Accuracy Rating
+{variant:2}{tags:attack}+1000 to Accuracy Rating
+{variant:2}{tags:attack}+1000 to Evasion Rating
+{variant:1}(12-20)% chance to Suppress Spell Damage
+{variant:2}Prevent +3% of Suppressed Spell Damage
 Cannot be Blinded
 ]],[[
 Hyrri's Truth

@@ -112,13 +112,13 @@ return {
 						"Added Small Passive Skills grant: +12% to Chaos Resistance",
 					},
 				},
-				["affliction_chance_to_dodge_attacks"] = {
-					name = "Chance to Dodge Attacks",
+				["affliction_chance_to_suppress_spell_damage"] = {
+					name = "Chance to Suppress Spell Damage",
 					icon = "Art/2DArt/SkillIcons/passives/DodgeAtksNode.png",
-					tag = "affliction_chance_to_dodge_attacks",
-					stats = { "1% chance to Dodge Attack Hits" },
+					tag = "affliction_chance_to_suppress_spell_damage",
+					stats = { "1% chance to Suppress Spell Damage" },
 					enchant = {
-						"Added Small Passive Skills grant: 1% chance to Dodge Attack Hits",
+						"Added Small Passive Skills grant: 1% chance to Suppress Spell Damage",
 					},
 				},
 				["affliction_strength"] = {

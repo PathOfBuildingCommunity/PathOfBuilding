@@ -244,12 +244,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Blade Flurry Damage",
 			"16% increased Blade Flurry Area of Effect",
-			"6% chance to Dodge Attack Hits while at maximum Blade Flurry stages",
+			"+1 Maximum Blade Flurry stages",
 		},
 		["ENDGAME"] = {
 			"40% increased Blade Flurry Damage",
 			"24% increased Blade Flurry Area of Effect",
-			"9% chance to Dodge Attack Hits while at maximum Blade Flurry stages",
+			"+1 Maximum Blade Flurry stages",
 		},
 	},
 	["Blade Trap"] = {
@@ -437,13 +437,13 @@ return {
 	["Charged Dash"] = {
 		["MERCILESS"] = {
 			"25% increased Charged Dash Damage",
-			"4% chance to Dodge Attack Hits if you have finished Channelling Charged Dash Recently",
+			"Charged Dash has +4 to Radius if you have finished Channelling Charged Dash Recently",
 			"Charged Dash has +4 to Radius of each Wave's last damage Area",
 			"Charged Dash has 10% more Movement Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Charged Dash Damage",
-			"6% chance to Dodge Attack Hits if you have finished Channelling Charged Dash Recently",
+			"Charged Dash has +6 to Radius if you have finished Channelling Charged Dash Recently",
 			"Charged Dash has +6 to Radius of each Wave's last damage Area",
 			"Charged Dash has 15% more Movement Speed",
 		},
