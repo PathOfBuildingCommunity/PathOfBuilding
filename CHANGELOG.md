@@ -1,5 +1,71 @@
 # Changelog
 
+## [2.11.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.11.0) (2021/10/22)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.10.0...2.11.0)
+
+**Implemented enhancements:**
+
+- Add the ability to click a label to check the associated checkbox [\#3549](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3549) ([ajryan](https://github.com/ajryan))
+- Add support for Fortification [\#3540](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3540) ([Zpooks](https://github.com/Zpooks))
+- Improve build list loading speed [\#3500](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3500) ([PJacek](https://github.com/PJacek))
+- Add Accuracy Bonus per Dexterity Mastery [\#3489](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3489) ([enizor](https://github.com/enizor))
+- Update Consecrated Ground Life Regen % [\#3391](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3391) ([mthjones](https://github.com/mthjones))
+
+**Fixed bugs:**
+
+- Add support for Mark of the Red Covenant ignite mod [\#3530](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3530) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix options appearing on the configs screen for old ascendancy nodes  [\#3496](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3496) ([LocalIdentity](https://github.com/LocalIdentity))
+- fix: DPS sorting of Awakened Gems [\#3466](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3466) ([Nostrademous](https://github.com/Nostrademous))
+
+**Merged pull requests:**
+
+- Add Scourge mods and base type values [\#3568](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3568) ([Wires77](https://github.com/Wires77))
+- feat: 3.16 GGPK Dump [\#3563](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3563) ([Nostrademous](https://github.com/Nostrademous))
+- Fix replacement of notable passives conquered by Eternal Empire [\#3552](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3552) ([etojuice](https://github.com/etojuice))
+- Regenerate test builds [\#3531](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3531) ([jppianta](https://github.com/jppianta))
+- Remove attribute tag from "Reduced Attribute Requirements" mods [\#3528](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3528) ([randomflyingtaco](https://github.com/randomflyingtaco))
+- Added support for "All Damage with Maces and Sceptres inflicts Chill" [\#3515](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3515) ([Peechey](https://github.com/Peechey))
+- Added support for increased Melee Damage with Hits at Close Range [\#3511](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3511) ([Dullson](https://github.com/Dullson))
+- Add support for "Each Mine applies 2% increased Damage taken to Enemies near it, up to 10%" [\#3506](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3506) ([Lothrik](https://github.com/Lothrik))
+- Adding defiance banner to the configuration list [\#3505](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3505) ([uilman](https://github.com/uilman))
+- Added support 'not taken damage recently' clause [\#3504](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3504) ([Dullson](https://github.com/Dullson))
+- Add support for "Non-Projectile Chaining Lightning Skills Chain +1 times" mod [\#3503](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3503) ([Dullson](https://github.com/Dullson))
+- Add support for Surveillence notable [\#3501](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3501) ([Lothrik](https://github.com/Lothrik))
+- Cruelty QoL changes [\#3495](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3495) ([jfarrell731](https://github.com/jfarrell731))
+- Fix Elemental Ailment Duration on you applying to bleed and poison duration [\#3483](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3483) ([etojuice](https://github.com/etojuice))
+- Fix issue where node next to mastery node would remain allocated after Thread of Hope was removed [\#3480](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3480) ([bit-skipper](https://github.com/bit-skipper))
+- Update Transcendance Keystone to 3.16 value [\#3477](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3477) ([enizor](https://github.com/enizor))
+- Passive mastery node effect selection improvements [\#3476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3476) ([Tom Clancy Is Dead](https://github.com/Voronoff))
+- Fix Elemental Equilibrium [\#3474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3474) ([Lothrik](https://github.com/Lothrik))
+- Fix estimated act tooltip bug [\#3470](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3470) ([magnusvmt](https://github.com/magnusvmt))
+- Add support for Gladiator Violent Retaliation and Ascendant Gladiator nodes [\#3465](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3465) ([Peechey](https://github.com/Peechey))
+- Support complex custom modifiers [\#3462](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3462) ([SaloEater](https://github.com/SaloEater))
+- Add support for double damage mod on mace masteries [\#3457](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3457) ([uilman](https://github.com/uilman))
+- Fix Solipsism removing the Intelligence bonus to mana [\#3455](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3455) ([SaloEater](https://github.com/SaloEater))
+- Add support for recovering ES on spell block from Safeguard [\#3454](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3454) ([jppianta](https://github.com/jppianta))
+- Add support for Life Regeneration Rate [\#3450](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3450) ([SaloEater](https://github.com/SaloEater))
+- Fix Reigning Veteran [\#3449](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3449) ([Peechey](https://github.com/Peechey))
+- Add support for Bastion of Hope stun avoidance [\#3447](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3447) ([etojuice](https://github.com/etojuice))
+- Add parsing for mods that work with multiple weapons [\#3446](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3446) ([SaloEater](https://github.com/SaloEater))
+- Add parsing for new Storm Weaver Shocked/Frozen mod [\#3445](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3445) ([Quote_a](https://github.com/Quotae))
+- fix for converted trees and jewel data [\#3441](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3441) ([bit-skipper](https://github.com/bit-skipper))
+- Add support for "increased Damage with Bleeding inflicted on Poisoned Enemies" [\#3438](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3438) ([monerofglory](https://github.com/monerofglory))
+- Add labeling to chaos resistance to show when you have CI [\#3431](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3431) ([Lilylicious](https://github.com/Lilylicious))
+- Added support for new mark movement speed mastery [\#3425](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3425) ([sida-wang](https://github.com/sida-wang))
+- Fix edited Legion jewel nodes not saving/loading properly [\#3423](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3423) ([Lothrik](https://github.com/Lothrik))
+- Add support for 'Intimidate Enemies for 4 seconds on Block while holding a Shield' mastery mod [\#3416](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3416) ([etojuice](https://github.com/etojuice))
+- Add support for Cannot be Ignited while on Low Life [\#3415](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3415) ([etojuice](https://github.com/etojuice))
+- Add support for Increased Damage when using Bow and Totem [\#3410](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3410) ([Peechey](https://github.com/Peechey))
+- Add support for Crush Enemies on Hit with Maces and Sceptres [\#3408](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3408) ([Peechey](https://github.com/Peechey))
+- Add support for 'Auras from your Skills have x% increased Effect on you' [\#3407](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3407) ([etojuice](https://github.com/etojuice))
+- Fix visual bug causing node paths to appear broken [\#3405](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3405) ([summ1else](https://github.com/summ1else))
+- Adding two simple mastery mods [\#3398](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3398) ([uilman](https://github.com/uilman))
+- Fix overcapped Resistances displaying decimal values [\#3393](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3393) ([monerofglory](https://github.com/monerofglory))
+
+
+
+
 ## [2.10.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.10.0) (2021/10/19)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.9.0...2.10.0)
