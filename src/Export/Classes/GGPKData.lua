@@ -162,7 +162,8 @@ function GGPKClass:GetNeededFiles()
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
-		"Data/CostTypes.dat"
+		"Data/CostTypes.dat",
+		"Data/PassiveJewelRadii.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

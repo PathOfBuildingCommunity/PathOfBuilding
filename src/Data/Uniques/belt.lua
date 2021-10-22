@@ -94,7 +94,7 @@ Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
-Nearby Enemies are Crushed while you have least 25 Rage
+Nearby Enemies are Crushed while you have at least 25 Rage
 {tags:physical}(4-6)% increased Physical Damage per 10 Rage
 +20 to Maximum Rage
 ]],[[
