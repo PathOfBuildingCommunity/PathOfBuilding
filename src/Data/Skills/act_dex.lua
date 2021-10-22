@@ -9120,6 +9120,25 @@ skills["PoisonousConcoction"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "No Flask",
+		},
+		{
+			name = "Life",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local multiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChaosPerLifeFlaskPercent") or 0
+		local addedFromFlask = output.LifeFlaskRecovery or 0 * (multiplier / 100)
+		activeSkill.skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "Life Flask charges consumed")
+		activeSkill.skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "Life Flask charges consumed")
+	end,
+	statMap = {
+		["flask_throw_added_chaos_damage_%_of_flask_life_to_recover"] = {
+			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -9358,7 +9377,7 @@ skills["IntuitiveLink"] = {
 	name = "Intuitive Link",
 	color = 2,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, their hits can trigger your supported spells. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Type118] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -9431,7 +9450,7 @@ skills["VampiricLink"] = {
 	name = "Vampiric Link",
 	color = 2,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, they get recovery from your life leech instead of you. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Type118] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
