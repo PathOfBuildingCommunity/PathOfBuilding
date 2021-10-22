@@ -662,6 +662,14 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
 					local legionNode = legionNodes["eternal_small_blank"]
 					self:ReplaceNode(node,legionNode)
+				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Notable"  then
+					local legionNode = legionNodes["eternal_notable_fire_resistance_1"]
+					node.dn = "Eternal Empire notable node"
+					node.sd = {"Right click to set mod"}
+					node.sprites = legionNode.sprites
+					node.mods = {""}
+					node.modList = new("ModList")
+					node.modKey = ""
 				elseif conqueredBy.conqueror.type == "templar" then
 					if isValueInArray(attributes, node.dn) then
 						local legionNode =legionNodes["templar_devotion_node"]
