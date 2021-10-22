@@ -830,6 +830,16 @@ return {
 			"Enduring Cry grants 1 additional Endurance Charge",
 		},
 	},
+	["Energy Blade"] = {
+		["MERCILESS"] = {
+			"Energy Blades have 10% increased Attack Speed",
+			"Attacks with Energy Blades Penetrate 8% Lightning Resistance",
+		},
+		["ENDGAME"] = {
+			"Energy Blades have 15% increased Attack Speed",
+			"Attacks with Energy Blades Penetrate 12% Lightning Resistance",
+		},
+	},
 	["Enfeeble"] = {
 		["MERCILESS"] = {
 			"20% increased Enfeeble Curse Effect",
@@ -2635,10 +2645,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Tornado Damage",
 			"16% increased Tornado Area of Effect",
+			"Tornado has 20% increased Movement Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Tornado Damage",
 			"24% increased Tornado Area of Effect",
+			"Tornado has 30% increased Movement Speed",
 		},
 	},
 	["Tornado Shot"] = {

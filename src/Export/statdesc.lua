@@ -221,6 +221,12 @@ function describeStats(stats)
 				elseif spec.k == "times_twenty" then
 					val[spec.v].min = val[spec.v].min * 20
 					val[spec.v].max = val[spec.v].max * 20
+				elseif spec.k == "double" then
+					val[spec.v].min = val[spec.v].min * 2
+					val[spec.v].max = val[spec.v].max * 2
+				elseif spec.k == "negate_and_double" then
+					val[spec.v].min = val[spec.v].min * -2
+					val[spec.v].max = val[spec.v].max * -2
 				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
 				elseif spec.k then
 					ConPrintf("Unknown description function: %s", spec.k)
