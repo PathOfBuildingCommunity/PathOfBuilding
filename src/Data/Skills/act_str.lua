@@ -2023,6 +2023,9 @@ skills["Determination"] = {
 		["determination_aura_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_physical_damage_reduction_rating"] = {
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 		["evasion_rating_%_to_add_as_armour"] = {
 			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
@@ -6370,6 +6373,7 @@ skills["QuickGuard"] = {
 		duration = true,
 	},
 	baseMods = {
+		mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 	},
 	qualityStats = {
 		Default = {

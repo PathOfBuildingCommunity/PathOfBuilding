@@ -4182,12 +4182,16 @@ skills["FrostBomb"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillData.frostBombDamagePer100ms * duration, "Skill:FrostBomb", ModFlag.Hit)
+	end,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
-		["energy_shield_recharge_rate_+%"] = {
-			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+		["frost_bomb_damage_+%_final_per_100ms_duration"] = {
+			skill("frostBombDamagePer100ms", nil),
 		},
 	},
 	baseFlags = {
@@ -7076,12 +7080,6 @@ skills["Purity"] = {
 		["reduce_enemy_elemental_resistance_%"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["avoid_all_elemental_status_%"] = {
-			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7090,6 +7088,10 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 	},
 	qualityStats = {
 		Default = {
@@ -10424,9 +10426,6 @@ skills["TempestShield"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["shield_block_%"] = {
-			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["shield_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
@@ -10437,6 +10436,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
 		Default = {
@@ -10515,6 +10515,11 @@ skills["VoltaxicBurst"] = {
 		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
 		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoltaxicDurationIncDamage") * duration, "Skill:VoltaxicBurst")
 	end,
+	statMap = {
+		["voltaxic_burst_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "VoltaxicWaitingStages" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
