@@ -284,6 +284,7 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 White Wind
 Imperial Skean
 Variant: Pre 3.11.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
@@ -291,11 +292,11 @@ Implicits: 1
 Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed
 {variant:1}+(300-400) to Evasion Rating
-{variant:2}+(1000-1500) to Evasion Rating
-{variant:1}20% chance to Dodge Attacks while your Off Hand is empty
-{variant:2}(15-25)% chance to Dodge Attacks while your Off Hand is empty
+{variant:2,3}+(1000-1500) to Evasion Rating
+{variant:1,2}(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
+{variant:3}(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
 {variant:1}100% increased Cold Damage while your Off Hand is empty
-{variant:2}(100-200)% increased Cold Damage while your Off Hand is empty
+{variant:2,3}(100-200)% increased Cold Damage while your Off Hand is empty
 ]],[[
 Widowmaker
 Boot Blade

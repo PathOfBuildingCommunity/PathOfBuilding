@@ -15,7 +15,7 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.6,
+	damage = 0.79,
 	damageSpread = 0.2,
 	attackTime = 1.305,
 	attackRange = 40,
@@ -23,14 +23,12 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
 	skillList = {
-		"MeleeUseContactPoint",
-		"SkeletonSpark",
+		"MeleeAtAnimationSpeed",
+		"AxisCasterSpark",
 		"MonsterLightningThorns",
 		"AxisClaimSoldierMinions",
 	},
 	modList = {
-		-- MonsterCastsSparkText [monster_casts_spark_text = 1]
-		-- MonsterCastsLightningThornsText [monster_casts_lightning_thorns_text = 1]
 		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
 	},
 }
@@ -42,7 +40,7 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.6,
+	damage = 0.79,
 	damageSpread = 0.2,
 	attackTime = 1.305,
 	attackRange = 40,
@@ -50,14 +48,12 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
 	skillList = {
-		"MeleeUseContactPoint",
+		"MeleeAtAnimationSpeed",
 		"MonsterLightningThorns",
 		"AxisCasterArc",
 		"AxisClaimSoldierMinions",
 	},
 	modList = {
-		-- MonsterCastsArcText [monster_casts_arc_text = 1]
-		-- MonsterCastsLightningThornsText [monster_casts_lightning_thorns_text = 1]
 		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
 	},
 }
@@ -69,7 +65,7 @@ minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 0.6,
+	damage = 0.79,
 	damageSpread = 0.2,
 	attackTime = 1.305,
 	attackRange = 40,
@@ -77,12 +73,11 @@ minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
 	skillList = {
-		"MeleeUseContactPoint",
+		"MeleeAtAnimationSpeed",
 		"AxisCasterGlacialCascade",
 		"MonsterColdThorns",
 	},
 	modList = {
-		-- MonsterCastsGlacialCascade [monster_casts_glacial_cascade_text = 1]
 		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
 	},
 }
@@ -94,18 +89,19 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
 	coldResist = 20,
 	lightningResist = 20,
 	chaosResist = 0,
-	damage = 1.13,
+	damage = 1.41,
 	damageSpread = 0.2,
 	attackTime = 1.245,
-	attackRange = 11,
+	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"BreachCleave",
 		"AxisDoubleStrikeTrigger",
 		"SummonFlamingAnimatedWeapons",
 		"SolarisChampionFlameVortex",
+		"DoubleStrikeMeleeAtAnimationSpeed",
 	},
 	modList = {
 		mod("PhysicalDamageGainAsFire", "BASE", 100), -- MonsterPhysicalAddedAsFireSkeletonMaps [physical_damage_%_to_add_as_fire = 100]
@@ -119,21 +115,19 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 75,
-	damage = 0.6,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Wand",
 	skillList = {
-		"MeleeUseContactPoint",
+		"MeleeAtAnimationSpeed",
 		"AxisTemporalChains",
 		"MonsterDetonateDeadExperimenter",
 		"ExperimenterEnrageDemon",
 	},
 	modList = {
-		-- MonsterCastsTemporalChainsText [monster_casts_temporal_chains_text = 1]
-		-- MonsterDetonatesCorpsesText [monster_detonates_corpses_text = 1]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
@@ -144,22 +138,19 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 75,
-	damage = 0.6,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Wand",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"AxisEnfeeble",
 		"MonsterProjectileWeakness",
 		"MonsterDetonateDeadExperimenter",
 	},
 	modList = {
-		-- MonsterDetonatesCorpsesText [monster_detonates_corpses_text = 1]
-		-- MonsterCastsEnfeebleCurseText [monster_casts_enfeeble_curse_text = 1]
-		-- MonsterCastsProjectileWeaknessCurseText [monster_casts_projectile_vulnerability_curse_text = 1]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
@@ -170,21 +161,19 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 75,
-	damage = 0.6,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Wand",
 	skillList = {
-		"MeleeUseContactPoint",
+		"MeleeAtAnimationSpeed",
 		"AxisEnfeeble",
 		"NecromancerRaiseZombie",
 		"ExperimenterEnrageDemon",
 	},
 	modList = {
-		-- MonsterCastsEnfeebleCurseText [monster_casts_enfeeble_curse_text = 1]
-		-- MonsterRaisesZombiesText [monster_raises_zombies_text = 1]
 	},
 }
 -- Bandit
@@ -362,7 +351,7 @@ minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 -- Blood apes
 minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 	name = "Carnage Chieftain",
-	life = 1.5,
+	life = 2.4,
 	armour = 0.2,
 	fireResist = 75,
 	coldResist = 0,
@@ -371,26 +360,22 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.905,
-	attackRange = 7,
+	attackRange = 13,
 	accuracy = 1,
-	damageFixup = 0.22,
 	weaponType1 = "One Handed Mace",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"BloodChieftainSummonMonkeys",
 		"MassFrenzy",
 		"MonkeyThrow",
 		"TriggeredMonkeyBomb",
 	},
 	modList = {
-		-- MonsterSpeedAndDamageFixupLarge [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 22]
-		-- MonsterSummonsMonkeysText [monster_summons_monkeys_from_nearby_trees_text = 1]
-		-- MonsterCastsMassFrenzyText [monster_casts_mass_frenzy_text = 1]
 	},
 }
 minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
 	name = "Host Chieftain",
-	life = 1.5,
+	life = 2.4,
 	armour = 0.2,
 	fireResist = 75,
 	coldResist = 0,
@@ -399,19 +384,15 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
 	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.905,
-	attackRange = 7,
+	attackRange = 13,
 	accuracy = 1,
-	damageFixup = 0.22,
 	weaponType1 = "One Handed Mace",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"BloodChieftainSummonParasiteMonkeys",
 		"MassPower",
 	},
 	modList = {
-		-- MonsterSpeedAndDamageFixupLarge [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 22]
-		-- MonsterSummonsMonkeysText [monster_summons_monkeys_from_nearby_trees_text = 1]
-		-- MonsterUsesMassPowerText [monster_uses_mass_power_text = 1]
 	},
 }
 -- Bone Stalker
@@ -865,20 +846,19 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 0.48,
+	damage = 0.96,
 	damageSpread = 0.2,
-	attackTime = 1.995,
+	attackTime = 1.5,
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"MonsterPuncture",
 		"MonsterLightningArrow",
 	},
 	modList = {
 		mod("PhysicalDamageGainAsLightning", "BASE", 100), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
-		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
 	},
 }
 minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
@@ -889,15 +869,15 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 0.8,
+	damage = 1.32,
 	damageSpread = 0.2,
-	attackTime = 1.65,
+	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"MonsterFlickerStrikeExtraRange",
 	},
 	modList = {
@@ -914,15 +894,15 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1,
+	damage = 1.65,
 	damageSpread = 0.2,
-	attackTime = 1.65,
+	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"GhostPirateBladeVortex",
 		"GhostPirateBladeVortexSpectre",
 	},
@@ -1102,9 +1082,9 @@ minions["Metadata/Monsters/incaminion/Fragment"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 40,
-	damage = 0.84,
+	damage = 1.68,
 	damageSpread = 0.2,
-	attackTime = 1.995,
+	attackTime = 1.32,
 	attackRange = 25,
 	accuracy = 1,
 	skillList = {
@@ -1607,19 +1587,16 @@ minions["Metadata/Monsters/MossMonster/FireMonster"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.5,
+	damage = 2.55,
 	damageSpread = 0.2,
-	attackTime = 1.695,
-	attackRange = 7,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
-	damageFixup = 0.33,
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"FireMonsterWhirlingBlades",
 	},
 	modList = {
-		-- MonsterSpeedAndDamageFixupComplete [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 33]
-		-- MonsterRollsOverEnemiesText [display_monster_uses_whirling_blades_text = 1]
 		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
 	},
 }
@@ -1653,10 +1630,10 @@ minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.9,
+	damage = 1.35,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1675,10 +1652,10 @@ minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.9,
+	damage = 1.35,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1698,10 +1675,10 @@ minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.9,
+	damage = 1.35,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1721,10 +1698,10 @@ minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.9,
+	damage = 1.35,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1743,10 +1720,10 @@ minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.9,
+	damage = 1.35,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1765,10 +1742,10 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.9,
+	damage = 1.35,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1787,10 +1764,10 @@ minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 0.9,
+	damage = 1.35,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
+	attackTime = 1.17,
+	attackRange = 12,
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -2247,19 +2224,18 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 	coldResist = 35,
 	lightningResist = 35,
 	chaosResist = 20,
-	damage = 1.5,
+	damage = 2.42,
 	damageSpread = 0.3,
-	attackTime = 1.605,
-	attackRange = 9,
+	attackTime = 1.32,
+	attackRange = 11,
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"ElementalHitSkeletonKnightIncursion",
 		"IncursionLeapSlamChampion",
 	},
 	modList = {
-		-- MonsterCastsElementalHitText [monster_casts_elemental_hit_text = 1]
 		-- MonsterIncursionDropModifiers__ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 35] [monster_dropped_item_rarity_+% = 1250] [monster_no_map_drops = 1]
 	},
 }
@@ -2305,7 +2281,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 	modList = {
 		-- MonsterAbyssDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
 	},
 }
@@ -2342,11 +2318,11 @@ minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
 	chaosResist = 30,
 	damage = 1,
 	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 9,
+	attackTime = 1.095,
+	attackRange = 8,
 	accuracy = 1,
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"SnakeProjectile",
 	},
 	modList = {
@@ -2361,13 +2337,13 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 30,
-	damage = 0.75,
+	damage = 1.24,
 	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 9,
+	attackTime = 1.095,
+	attackRange = 8,
 	accuracy = 1,
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"SnakeSpineProjectile",
 	},
 	modList = {
@@ -2383,17 +2359,16 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1,
+	damage = 1.44,
 	damageSpread = 0.2,
-	attackTime = 1.44,
-	attackRange = 8,
+	attackTime = 0.945,
+	attackRange = 13,
 	accuracy = 1,
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"MonsterFlickerStrike",
 	},
 	modList = {
-		-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
 	},
 }
 -- Statue
@@ -2707,13 +2682,13 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	coldResist = 30,
 	lightningResist = 30,
 	chaosResist = 20,
-	damage = 1.2,
+	damage = 1.8,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
+	attackTime = 0.99,
+	attackRange = 7,
 	accuracy = 1,
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 		"SandLeaperDodgeLeft",
 		"SandLeaperDodgeRight",
 		"BreachLightningWhip",
@@ -2724,7 +2699,7 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	modList = {
 		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
 		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 	},
 }
 -- Scinteel Synthete
@@ -2801,7 +2776,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	},
 	modList = {
 		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 720] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
 	},
 }
@@ -2815,7 +2790,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	coldResist = 20,
 	lightningResist = 20,
 	chaosResist = 0,
-	damage = 1.5,
+	damage = 1.25,
 	damageSpread = 0.2,
 	attackTime = 1.17,
 	attackRange = 10,
@@ -2829,7 +2804,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	modList = {
 		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
 		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 	},
 }
 -- Frost Auto-Scout
@@ -3056,6 +3031,6 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 	modList = {
 		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
 		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 	},
 }

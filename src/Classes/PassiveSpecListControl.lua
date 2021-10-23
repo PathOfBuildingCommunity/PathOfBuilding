@@ -8,7 +8,7 @@ local t_remove = table.remove
 local m_max = math.max
 
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, x, y, width, height, treeTab)
-	self.ListControl(anchor, x, y, width, height, 16, false, true, treeTab.specList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
 		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)

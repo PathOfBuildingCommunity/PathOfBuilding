@@ -2525,29 +2525,6 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Dodges Attacks while Phasing"
-				}
-			}
-		},
-		stats={
-			[1]="chance_to_dodge_attacks_%_while_phasing",
-			[2]="chance_to_dodge_spells_%_while_phased"
-		}
-	},
-	[137]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
 							[1]=1,
 							[2]="#"
 						}
@@ -2560,7 +2537,7 @@ return {
 			[1]="action_speed_cannot_be_reduced_below_base"
 		}
 	},
-	[138]={
+	[137]={
 		lang={
 			English={
 				[1]={
@@ -2578,7 +2555,7 @@ return {
 			[1]="action_speed_+%_minimum_value"
 		}
 	},
-	[139]={
+	[138]={
 		lang={
 			English={
 				[1]={
@@ -2627,56 +2604,7 @@ return {
 			[2]="base_spell_block_%"
 		}
 	},
-	[140]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Dodges Attacks"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Dodges Spells"
-				},
-				[3]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Dodges Attacks and Spells"
-				}
-			}
-		},
-		stats={
-			[1]="base_chance_to_dodge_%",
-			[2]="base_chance_to_dodge_spells_%"
-		}
-	},
-	[141]={
+	[139]={
 		lang={
 			English={
 				[1]={
@@ -2694,7 +2622,7 @@ return {
 			[1]="cannot_have_life_leeched_from"
 		}
 	},
-	[142]={
+	[140]={
 		lang={
 			English={
 				[1]={
@@ -2712,7 +2640,7 @@ return {
 			[1]="display_monster_may_inflict_bleeding"
 		}
 	},
-	[143]={
+	[141]={
 		lang={
 			English={
 				[1]={
@@ -2730,7 +2658,7 @@ return {
 			[1]="display_monster_may_inflict_maim"
 		}
 	},
-	[144]={
+	[142]={
 		lang={
 			English={
 				[1]={
@@ -2748,7 +2676,7 @@ return {
 			[1]="is_blight_chaos_monster"
 		}
 	},
-	[145]={
+	[143]={
 		lang={
 			English={
 				[1]={
@@ -2766,7 +2694,7 @@ return {
 			[1]="is_blight_cold_monster"
 		}
 	},
-	[146]={
+	[144]={
 		lang={
 			English={
 				[1]={
@@ -2784,7 +2712,7 @@ return {
 			[1]="is_blight_fire_monster"
 		}
 	},
-	[147]={
+	[145]={
 		lang={
 			English={
 				[1]={
@@ -2802,7 +2730,7 @@ return {
 			[1]="is_blight_lightning_monster"
 		}
 	},
-	[148]={
+	[146]={
 		lang={
 			English={
 				[1]={
@@ -2820,7 +2748,7 @@ return {
 			[1]="is_blight_physical_monster"
 		}
 	},
-	[149]={
+	[147]={
 		lang={
 			English={
 				[1]={
@@ -2839,8 +2767,8 @@ return {
 		}
 	},
 	["accuracy_rating_+%"]=13,
-	["action_speed_+%_minimum_value"]=138,
-	["action_speed_cannot_be_reduced_below_base"]=137,
+	["action_speed_+%_minimum_value"]=137,
+	["action_speed_cannot_be_reduced_below_base"]=136,
 	["add_endurance_charge_on_skill_hit_%"]=24,
 	["add_frenzy_charge_on_skill_hit_%"]=25,
 	["add_power_charge_on_skill_hit_%"]=26,
@@ -2850,17 +2778,13 @@ return {
 	["base_avoid_ignite_%"]=114,
 	["base_avoid_shock_%"]=115,
 	["base_cannot_be_stunned"]=15,
-	["base_chance_to_dodge_%"]=140,
-	["base_chance_to_dodge_spells_%"]=140,
 	["base_movement_velocity_+%"]=5,
 	["base_physical_damage_%_to_convert_to_chaos"]=75,
 	["base_physical_damage_%_to_convert_to_cold"]=76,
 	["base_physical_damage_%_to_convert_to_fire"]=74,
 	["base_physical_damage_%_to_convert_to_lightning"]=73,
-	["base_spell_block_%"]=139,
-	["cannot_have_life_leeched_from"]=141,
-	["chance_to_dodge_attacks_%_while_phasing"]=136,
-	["chance_to_dodge_spells_%_while_phased"]=136,
+	["base_spell_block_%"]=138,
+	["cannot_have_life_leeched_from"]=139,
 	["combined_base_block_%"]=87,
 	["critical_strike_chance_+%"]=18,
 	["curse_on_hit_%_flammability"]=116,
@@ -2875,8 +2799,8 @@ return {
 	["display_monster_casts_wither"]=134,
 	["display_monster_causes_ground_desecration"]=135,
 	["display_monster_ice_spear_nova_on_death_text"]=118,
-	["display_monster_may_inflict_bleeding"]=142,
-	["display_monster_may_inflict_maim"]=143,
+	["display_monster_may_inflict_bleeding"]=140,
+	["display_monster_may_inflict_maim"]=141,
 	["display_monster_spike_nova_on_death_text"]=117,
 	["display_monster_uses_double_strike_text"]=108,
 	["display_monster_uses_far_shot_text"]=119,
@@ -2891,16 +2815,16 @@ return {
 	["gain_power_charge_for_each_quarter_life_removed"]=23,
 	["hexproof"]=20,
 	["immune_to_curses"]=19,
-	["is_blight_chaos_monster"]=144,
-	["is_blight_cold_monster"]=145,
-	["is_blight_fire_monster"]=146,
-	["is_blight_lightning_monster"]=147,
-	["is_blight_physical_monster"]=148,
+	["is_blight_chaos_monster"]=142,
+	["is_blight_cold_monster"]=143,
+	["is_blight_fire_monster"]=144,
+	["is_blight_lightning_monster"]=145,
+	["is_blight_physical_monster"]=146,
 	["life_leech_from_physical_attack_damage_permyriad"]=9,
 	["life_regeneration_rate_per_minute_%"]=11,
 	["maximum_energy_shield_+%"]=12,
 	["maximum_life_+%"]=6,
-	["monster_base_block_%"]=139,
+	["monster_base_block_%"]=138,
 	["monster_casts_arc_text"]=102,
 	["monster_casts_arctic_breath_text"]=28,
 	["monster_casts_assassins_mark_curse_text"]=32,
@@ -2988,6 +2912,6 @@ return {
 	["physical_damage_%_to_add_as_lightning"]=2,
 	["physical_damage_reduction_rating_+%"]=7,
 	["spell_block_%"]=88,
-	["trigger_charge_additional_block_chance_against_projectiles_%"]=149,
+	["trigger_charge_additional_block_chance_against_projectiles_%"]=147,
 	["undead_description"]=27
 }

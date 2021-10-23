@@ -32,7 +32,7 @@ itemBases["Stiletto"] = {
 itemBases["Prong Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
 	implicit = "4% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 14, PhysicalMax = 54, CritChanceBase = 6.2, AttackRateBase = 1.35, Range = 10, },
@@ -59,7 +59,7 @@ itemBases["Poignard"] = {
 itemBases["Trisula"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
 	implicit = "4% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.5, AttackRateBase = 1.35, Range = 10, },
@@ -86,7 +86,7 @@ itemBases["Ambusher"] = {
 itemBases["Sai"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
 	implicit = "6% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 88, CritChanceBase = 6.2, AttackRateBase = 1.35, Range = 10, },
@@ -95,7 +95,7 @@ itemBases["Sai"] = {
 itemBases["Hollowpoint Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
@@ -104,7 +104,7 @@ itemBases["Hollowpoint Dagger"] = {
 itemBases["Pressurised Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 18, PhysicalMax = 71, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
@@ -113,7 +113,7 @@ itemBases["Pressurised Dagger"] = {
 itemBases["Pneumatic Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 10, },
@@ -121,9 +121,8 @@ itemBases["Pneumatic Dagger"] = {
 }
 itemBases["Ethereal Blade"] = {
 	type = "Dagger",
-	hidden = true,
 	socketLimit = 3,
-	tags = { one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 4, PhysicalMax = 8, CritChanceBase = 6, AttackRateBase = 1.5, Range = 10, },
 	req = { dex = 9, int = 6, },
@@ -283,7 +282,7 @@ itemBases["Flickerflame Blade"] = {
 	type = "Dagger",
 	subType = "Rune",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, one_hand_weapon = true, weapon = true, dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, weapon = true, dagger = true, default = true, },
 	implicit = "Trigger Level 10 Flame Dash when you use a Socketed Skill",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 12, PhysicalMax = 47, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
@@ -293,7 +292,7 @@ itemBases["Flashfire Blade"] = {
 	type = "Dagger",
 	subType = "Rune",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, one_hand_weapon = true, weapon = true, dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, weapon = true, dagger = true, default = true, },
 	implicit = "Trigger Level 20 Flame Dash when you use a Socketed Skill",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 18, PhysicalMax = 73, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },
@@ -303,7 +302,7 @@ itemBases["Infernal Blade"] = {
 	type = "Dagger",
 	subType = "Rune",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, one_hand_weapon = true, weapon = true, dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, weapon = true, dagger = true, default = true, },
 	implicit = "Trigger Level 30 Flame Dash when you use a Socketed Skill",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 21, PhysicalMax = 85, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 10, },

@@ -131,20 +131,24 @@ directiveTable.base = function(state, args, out)
 		if shield then
 			out:write('BlockChance = ', shield.Block, ', ')
 		end
-		if armourType.Armour > 0 then
-			out:write('ArmourBase = ', armourType.Armour, ', ')
+		if armourType.ArmourMin > 0 then
+			out:write('ArmourBaseMin = ', armourType.ArmourMin, ', ')
+			out:write('ArmourBaseMax = ', armourType.ArmourMax, ', ')
 		end
-		if armourType.Evasion > 0 then
-			out:write('EvasionBase = ', armourType.Evasion, ', ')
+		if armourType.EvasionMin > 0 then
+			out:write('EvasionBaseMin = ', armourType.EvasionMin, ', ')
+			out:write('EvasionBaseMax = ', armourType.EvasionMax, ', ')
 		end
-		if armourType.EnergyShield > 0 then
-			out:write('EnergyShieldBase = ', armourType.EnergyShield, ', ')
+		if armourType.EnergyShieldMin > 0 then
+			out:write('EnergyShieldBaseMin = ', armourType.EnergyShieldMin, ', ')
+			out:write('EnergyShieldBaseMax = ', armourType.EnergyShieldMax, ', ')
 		end
 		if armourType.MovementPenalty ~= 0 then
 			out:write('MovementPenalty = ', -armourType.MovementPenalty, ', ')
 		end
-		if armourType.Ward ~= 0 then
-			out:write('WardBase = ', armourType.Ward, ', ')
+		if armourType.WardMin > 0 then
+			out:write('WardBaseMin = ', armourType.WardMin, ', ')
+			out:write('WardBaseMax = ', armourType.WardMax, ', ')
 		end
 		out:write('},\n')
 	end

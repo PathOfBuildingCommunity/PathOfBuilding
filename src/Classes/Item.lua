@@ -991,13 +991,14 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 	elseif self.base.armour then
 		local armourData = self.armourData
-		local armourBase = sumLocal(modList, "Armour", "BASE", 0) + (self.base.armour.ArmourBase or 0)
+		local defencePercentile = 1
+		local armourBase = sumLocal(modList, "Armour", "BASE", 0) + (self.base.armour.ArmourBaseMin or 0) + ((self.base.armour.ArmourBaseMax or 0) - (self.base.armour.ArmourBaseMin or 0)) * defencePercentile
 		local armourEvasionBase = sumLocal(modList, "ArmourAndEvasion", "BASE", 0)
-		local evasionBase = sumLocal(modList, "Evasion", "BASE", 0) + (self.base.armour.EvasionBase or 0)
+		local evasionBase = sumLocal(modList, "Evasion", "BASE", 0) + (self.base.armour.EvasionBaseMin or 0) + ((self.base.armour.EvasionBaseMax or 0) - (self.base.armour.EvasionBaseMin or 0)) * defencePercentile
 		local evasionEnergyShieldBase = sumLocal(modList, "EvasionAndEnergyShield", "BASE", 0)
-		local energyShieldBase = sumLocal(modList, "EnergyShield", "BASE", 0) + (self.base.armour.EnergyShieldBase or 0)
+		local energyShieldBase = sumLocal(modList, "EnergyShield", "BASE", 0) + (self.base.armour.EnergyShieldBaseMin or 0) + ((self.base.armour.EnergyShieldBaseMax or 0) - (self.base.armour.EnergyShieldBaseMin or 0)) * defencePercentile
 		local armourEnergyShieldBase = sumLocal(modList, "ArmourAndEnergyShield", "BASE", 0)
-		local wardBase = sumLocal(modList, "Ward", "BASE", 0) + (self.base.armour.WardBase or 0)
+		local wardBase = sumLocal(modList, "Ward", "BASE", 0) + (self.base.armour.WardBaseMin or 0) + ((self.base.armour.WardBaseMax or 0) - (self.base.armour.WardBaseMin or 0)) * defencePercentile
 		local armourInc = sumLocal(modList, "Armour", "INC", 0)
 		local armourEvasionInc = sumLocal(modList, "ArmourAndEvasion", "INC", 0)
 		local evasionInc = sumLocal(modList, "Evasion", "INC", 0)
@@ -1135,10 +1136,7 @@ function ItemClass:BuildModList()
 				end
 			end
 			for _, mod in ipairs(modLine.modList) do
-				mod.source = self.modSource
-				if type(mod.value) == "table" and mod.value.mod then
-					mod.value.mod.source = mod.source
-				end
+				mod = modLib.setSource(mod, self.modSource)
 				baseList:AddMod(mod)
 			end
 			if modLine.modTags and #modLine.modTags > 0 then
@@ -1147,6 +1145,9 @@ function ItemClass:BuildModList()
 		end
 	end
 	for _, modLine in ipairs(self.enchantModLines) do
+		processModLine(modLine)
+	end
+	for _, modLine in ipairs(self.scourgeModLines) do
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do

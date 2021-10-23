@@ -8,7 +8,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 
 local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
-	self.ListControl(anchor, x, y, width, height, 16, false, true, skillsTab.socketGroupList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
 	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()

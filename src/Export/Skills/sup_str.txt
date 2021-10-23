@@ -9,11 +9,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAddedFireDamagePlus
-	statMap = {
-		["supported_fire_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.FireSkill }),
-		},
-	},
 #mods
 
 #skill SupportSpiritStrike
@@ -130,6 +125,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" })
+#baseMod flag("Cruelty")
 #mods
 
 #skill SupportMeleeDamageOnFullLife
@@ -174,11 +170,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalLevel
-	statMap = {
-		["supported_active_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
-		},
-	},
 #mods
 
 #skill EnduranceChargeOnMeleeStun
@@ -246,9 +237,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
-		},
-		["supported_aura_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
 		},
 	},
 #mods
