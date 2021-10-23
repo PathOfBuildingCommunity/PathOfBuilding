@@ -586,7 +586,7 @@ return {
 	mod("Damage", "MORE", nil),
 },
 ["sigil_attached_target_hit_damage_+%_final"] = {
-	mod("Damage", "INC", nil, ModFlag.Hit),
+	mod("Damage", "MORE", nil, ModFlag.Hit),
 },
 ["melee_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Melee),

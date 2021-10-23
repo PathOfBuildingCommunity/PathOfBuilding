@@ -59,7 +59,7 @@ itemBases["Sage Wand"] = {
 itemBases["Pagan Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "10% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 40, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
@@ -113,7 +113,7 @@ itemBases["Omen Wand"] = {
 itemBases["Heathen Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "10% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
 	weapon = { PhysicalMin = 31, PhysicalMax = 57, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
@@ -167,7 +167,7 @@ itemBases["Prophecy Wand"] = {
 itemBases["Profane Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "14% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
 	weapon = { PhysicalMin = 33, PhysicalMax = 61, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
@@ -176,7 +176,7 @@ itemBases["Profane Wand"] = {
 itemBases["Assembler Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 16, PhysicalMax = 30, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -185,7 +185,7 @@ itemBases["Assembler Wand"] = {
 itemBases["Congregator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 25, PhysicalMax = 46, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -194,7 +194,7 @@ itemBases["Congregator Wand"] = {
 itemBases["Accumulator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -204,7 +204,7 @@ itemBases["Accumulator Wand"] = {
 itemBases["Convoking Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { weapon_can_roll_minion_modifiers = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, not_for_sale = true, wandatlas1 = true, weapon_can_roll_minion_modifiers = true, default = true, wand = true, atlas_base_type = true, ranged = true, one_hand_weapon = true, weapon = true, },
 	implicit = "Can roll Minion Modifiers",
 	implicitModTypes = { { "minion" }, },
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },

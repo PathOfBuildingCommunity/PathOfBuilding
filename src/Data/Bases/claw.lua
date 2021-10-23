@@ -77,7 +77,7 @@ itemBases["Fright Claw"] = {
 itemBases["Double Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { maraketh = true, onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "+15 Life gained for each Enemy hit by Attacks\n+6 Mana gained for each Enemy hit by Attacks",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
 	weapon = { PhysicalMin = 15, PhysicalMax = 44, CritChanceBase = 6.3, AttackRateBase = 1.5, Range = 11, },
@@ -149,7 +149,7 @@ itemBases["Eagle Claw"] = {
 itemBases["Twin Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { maraketh = true, onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "+28 Life gained for each Enemy hit by Attacks\n+10 Mana gained for each Enemy hit by Attacks",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
 	weapon = { PhysicalMin = 21, PhysicalMax = 64, CritChanceBase = 6.3, AttackRateBase = 1.5, Range = 11, },
@@ -221,7 +221,7 @@ itemBases["Terror Claw"] = {
 itemBases["Gemini Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { maraketh = true, onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "+38 Life gained for each Enemy hit by Attacks\n+14 Mana gained for each Enemy hit by Attacks",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
 	weapon = { PhysicalMin = 23, PhysicalMax = 68, CritChanceBase = 6.3, AttackRateBase = 1.5, Range = 11, },
@@ -230,7 +230,7 @@ itemBases["Gemini Claw"] = {
 itemBases["Shadow Fangs"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "Adds (23-33) to (45-60) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
 	weapon = { PhysicalMin = 13, PhysicalMax = 24, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
@@ -239,7 +239,7 @@ itemBases["Shadow Fangs"] = {
 itemBases["Malign Fangs"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "Adds (38-48) to (70-90) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
 	weapon = { PhysicalMin = 20, PhysicalMax = 37, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
@@ -248,7 +248,7 @@ itemBases["Malign Fangs"] = {
 itemBases["Void Fangs"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
 	implicit = "Adds (40-55) to (80-98) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 41, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
