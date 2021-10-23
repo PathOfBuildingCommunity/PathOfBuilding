@@ -265,14 +265,18 @@ Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
-Passives granting Cold Resistance or all Elemental Resistances in Radius
-also grant Chance to Dodge Attack Hits at 35% of its value
+{variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
+{variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
@@ -500,8 +504,7 @@ Limited to: 1
 Radius: Medium
 Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
-Minions have (10-12)% chance to Dodge Attack Hits
-Minions have (10-12)% chance to Dodge Spell Hits
+Minions have (20-24)% chance to Suppress Spell Damage
 Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
@@ -1509,7 +1512,7 @@ Crimson Jewel
 Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
-2% reduced Reservation of Skills
+4% increased Mana Reservation Efficiency of Skills
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
@@ -1526,8 +1529,10 @@ Variant: Current
 Limited to: 1
 {variant:1}3% chance to Avoid Elemental Ailments
 {variant:2}10% chance to Avoid Elemental Ailments
-8% increased Life Recovery from Flasks
-2% chance to Dodge Attacks
+{variant:1}8% increased Life Recovery from Flasks
+{variant:2}10% increased Life Recovery from Flasks
+{variant:1}3% chance to Suppress Spell Damage
+{variant:2}5% chance to Suppress Spell Damage
 ]],[[
 Conqueror's Potency
 Cobalt Jewel

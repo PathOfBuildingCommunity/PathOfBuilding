@@ -78,7 +78,7 @@ Implicits: 1
 {variant:2}{tags:mana}(16-24)% increased maximum Mana
 {variant:1}{tags:mana}(40-60)% increased Mana Regeneration Rate
 {variant:2}{tags:mana}(80-100)% increased Mana Regeneration Rate
-{tags:jewellery_attribute}Items and Gems have 25% reduced Attribute Requirements
+Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 Replica Atziri's Foible
 Paua Amulet
@@ -743,7 +743,7 @@ Implicits: 1
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
 {tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
-{tags:jewellery_attribute}Items and Gems have 10% reduced Attribute Requirements
+Items and Gems have 10% reduced Attribute Requirements
 {tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
 ]],[[

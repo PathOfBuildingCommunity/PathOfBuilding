@@ -525,7 +525,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
 		end
 		if not modDB:Flag(nil, "NoDexterityAttributeBonuses") then
-			modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
+			modDB:NewMod("Accuracy", "BASE", output.Dex * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Dexterity")
 			if not modDB:Flag(nil, "NoDexBonusToEvasion") then
 				modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
 			end
@@ -534,7 +534,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if not modDB:Flag(nil, "NoIntBonusToMana") then
 				modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
 			end
-			modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
+			if not modDB:Flag(nil, "NoIntBonusToES") then
+				modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
+			end
 		end
 	end
 
@@ -543,8 +545,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 		modDB:ScaleAddList({ value.mod }, calcLib.mod(modDB, nil, "BuffEffectOnSelf", "ShrineBuffEffect"))
 	end
 
+	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	-- Life/mana pools
-	if modDB:Flag(nil, "ChaosInoculation") then
+	if output.ChaosInoculation then
 		output.Life = 1
 		condList["FullLife"] = true
 	else
@@ -755,9 +758,12 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
-		if modDB:Flag(nil, "Fortify") then
-			local effectScale = 1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100
-			local modList = modDB:List(nil, "convertFortifyBuff")
+		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
+		end
+		if modDB:Flag(nil, "Fortified") then
+			local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+			local modList = modDB:List(nil, "convertFortificationBuff")
 			local changeMod = modList[#modList]
 			if changeMod then
 				local mod = changeMod.mod
@@ -765,11 +771,12 @@ local function doActorMisc(env, actor)
 					mod.originValue = mod.value
 				end
 				mod.value = m_floor(mod.originValue * effectScale)
-				mod.source = "Fortify"
+				mod.source = "Fortification"
 				modDB:AddMod(mod)
 			else
-				local effect = m_floor(20 * effectScale)
-				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortify")
+				local effectMax = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
+				local effect = m_floor(effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), effectMax))
+				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
@@ -972,10 +979,11 @@ function calcs.perform(env, avoidCache)
 		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ElementalResist", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+		env.minion.modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Poison)
 		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Ignite)
 		env.minion.modDB:NewMod("SkillData", "LIST", { key = "bleedBasePercent", value = 70/6 }, "Base")
-		env.minion.modDB:NewMod("Damage", "MORE", 500, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
+		env.minion.modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
 		for _, mod in ipairs(env.minion.minionData.modList) do
 			env.minion.modDB:AddMod(mod)
 		end
@@ -1539,7 +1547,7 @@ function calcs.perform(env, avoidCache)
 	-- Deal with Consecrated Ground
 	if modDB:Flag(nil, "Condition:OnConsecratedGround") then
 		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
-		modDB:NewMod("LifeRegenPercent", "BASE", 6 * effect, "Consecrated Ground")
+		modDB:NewMod("LifeRegenPercent", "BASE", 5 * effect, "Consecrated Ground")
 		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 	end
 
@@ -1678,7 +1686,8 @@ function calcs.perform(env, avoidCache)
 						fromPlayer = true,
 						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
 						isMark = mark,
-						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false
+						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
+						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 					local more = skillModList:More(skillCfg, "CurseEffect")
@@ -1846,7 +1855,7 @@ function calcs.perform(env, avoidCache)
 	for _, source in ipairs({curses, minionCurses}) do
 		for _, curse in ipairs(source) do
 			-- calculate curses that ignore hex limit after
-			if not curse.ignoreHexLimit then 
+			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then 
 				local slot
 				for i = 1, source.limit do
 					--Prevent multiple marks from being considered
@@ -1901,6 +1910,27 @@ function calcs.perform(env, avoidCache)
 					curseSlots[#curseSlots + 1] = curse
 				end
 			end
+			if curse.socketedCursesHexLimit then 	
+				local socketedCursesHexLimitValue = modDB:Sum("BASE", nil, "SocketedCursesHexLimitValue")
+				local skipAddingCurse = false
+				for i = 1, #curseSlots do
+					if curseSlots[i].name == curse.name then
+						-- if curse is higher priority, replace current curse with it, otherwise if same or lower priority skip it entirely
+						if curseSlots[i].priority < curse.priority then
+							curseSlots[i] = curse
+						end
+						skipAddingCurse = true
+						break
+					end
+					if i >= socketedCursesHexLimitValue then
+						skipAddingCurse = true
+					end
+				end
+				if not skipAddingCurse then
+					curseSlots[#curseSlots + 1] = curse
+				end
+			end
+            
 		end
 	end
 
@@ -2781,26 +2811,35 @@ function calcs.perform(env, avoidCache)
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
 			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
+			enemyDB.multipliers["TotemsSummoned"] = m_max(output.TotemsSummoned or 0, enemyDB.multipliers["TotemsSummoned"] or 0)
 		end
 	end
 
+	local major, minor = env.spec.treeVersion:match("(%d+)_(%d+)")
+
 	-- Apply exposures
 	for _, element in ipairs({"Fire", "Cold", "Lightning"}) do
-		local min = math.huge
-		local source = ""
-		for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
-			if mod.value < min then
-				min = mod.value
-				source = mod.mod.source
+		if tonumber(major) <= 3 and tonumber(minor) <= 15 -- Elemental Equilibrium pre-3.16 does not remove Exposure effects
+			or not modDB:Flag(nil, "ElementalEquilibrium") -- if Elemental Equilibrium isn't active we just process Exposure normally
+			or element == "Fire" and not enemyDB:Flag(nil, "Condition:HitByFireDamage")
+			or element == "Cold" and not enemyDB:Flag(nil, "Condition:HitByColdDamage")
+			or element == "Lightning" and not enemyDB:Flag(nil, "Condition:HitByLightningDamage") then	
+			local min = math.huge
+			local source = ""
+			for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
+				if mod.value < min then
+					min = mod.value
+					source = mod.mod.source
+				end
 			end
-		end
-		if min ~= math.huge then
-			-- Modify the magnitude of all exposures
-			for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
-				min = min + mod.value
+			if min ~= math.huge then
+				-- Modify the magnitude of all exposures
+				for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
+					min = min + mod.value
+				end
+				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
+				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 			end
-			enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
-			modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 		end
 	end
 

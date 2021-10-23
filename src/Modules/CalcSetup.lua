@@ -59,6 +59,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("Chill", "FLAG", true, "Base", { type = "Condition", var = "Chilled" })
 	modDB:NewMod("Freeze", "FLAG", true, "Base", { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Fortify", "FLAG", true, "Base", { type = "Condition", var = "Fortify" })
+	modDB:NewMod("Fortified", "FLAG", true, "Base", { type = "Condition", var = "Fortified" })
 	modDB:NewMod("Fanaticism", "FLAG", true, "Base", { type = "Condition", var = "Fanaticism" })
 	modDB:NewMod("Onslaught", "FLAG", true, "Base", { type = "Condition", var = "Onslaught" })
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
@@ -67,6 +68,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("AlchemistsGenius", "FLAG", true, "Base", { type = "Condition", var = "AlchemistsGenius" })
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB:NewMod("Convergence", "FLAG", true, "Base", { type = "Condition", var = "Convergence" })
+	modDB:NewMod("PhysicalDamageReduction", "BASE", -15, "Base", { type = "Condition", var = "Crushed" })
 	modDB.conditions["Buffed"] = env.mode_buffs
 	modDB.conditions["Combat"] = env.mode_combat
 	modDB.conditions["Effective"] = env.mode_effective
@@ -387,6 +389,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
+		modDB:NewMod("Multiplier:Fortification", "BASE", 0, "Base")
+		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
@@ -394,9 +398,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
 		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
+		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
 		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
-		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
+		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true})
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
 		modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
@@ -546,6 +551,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item and item.type == "Flask" then
 				if slot.active then
 					env.flasks[item] = true
+				end
+				if item.base.subType == "Life" then
+					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0
+					if item.flaskData.lifeTotal > highestLifeRecovery then
+						env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
+					end
 				end
 				item = nil
 			end

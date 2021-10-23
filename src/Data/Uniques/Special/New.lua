@@ -62,8 +62,17 @@ All Sockets are White
 Socketed Non-Exceptional Support Gems can also Support Skills from your Main Hand
 102% increased Armour and Evasion
 +3% Chance to Block
+]],[[
+Gravebind
+Hydrascale Gauntlets
+League: Scourge
+Requires Level 59, 45 Str, 45 Dex
+Implicits: 0
+146% increased Armour and Evasion
++23% to Chaos Resistance
++21 Life gained on kill
+Nearby Enemies Killed by anyone count as being Killed by you instead
 ]]
-
 -- Reworked
 
 }

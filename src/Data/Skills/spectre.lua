@@ -609,13 +609,17 @@ skills["ElementalHitSkeletonKnight"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 		"chance_to_freeze_shock_ignite_%",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0, 25, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, 1, }, cost = { }, },
-		[2] = { 0, 25, baseMultiplier = 1.5, levelRequirement = 20, statInterpolation = { 2, 1, }, cost = { }, },
-		[3] = { 1, 25, baseMultiplier = 1.5, levelRequirement = 21, statInterpolation = { 2, 1, }, cost = { }, },
-		[4] = { 200, 25, baseMultiplier = 1.5, levelRequirement = 84, statInterpolation = { 2, 1, }, cost = { }, },
+		[1] = { 1, 25, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, 1, }, cost = { }, },
+		[3] = { 100, 25, baseMultiplier = 1.5, levelRequirement = 45, statInterpolation = { 2, 1, }, cost = { }, },
+		[4] = { 400, 25, baseMultiplier = 1.5, levelRequirement = 84, statInterpolation = { 2, 1, }, cost = { }, },
 	},
 }
 skills["ElementalHitSkeletonKnightIncursion"] = {
@@ -638,12 +642,16 @@ skills["ElementalHitSkeletonKnightIncursion"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 		"chance_to_freeze_shock_ignite_%",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
 		"is_area_damage",
 	},
 	levels = {
 		[1] = { 0, 25, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, 1, }, cost = { }, },
-		[2] = { 0, 25, baseMultiplier = 1.5, levelRequirement = 20, statInterpolation = { 2, 1, }, cost = { }, },
-		[3] = { 1, 25, baseMultiplier = 1.5, levelRequirement = 21, statInterpolation = { 2, 1, }, cost = { }, },
+		[3] = { 1, 25, baseMultiplier = 1.5, levelRequirement = 45, statInterpolation = { 2, 1, }, cost = { }, },
 		[4] = { 200, 25, baseMultiplier = 1.5, levelRequirement = 84, statInterpolation = { 2, 1, }, cost = { }, },
 	},
 }
@@ -1241,7 +1249,7 @@ skills["IncaMinionProjectile"] = {
 	incrementalEffectiveness = 0.018999999389052,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1.65,
+	castTime = 1.33,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -1257,11 +1265,12 @@ skills["IncaMinionProjectile"] = {
 		"spell_maximum_base_physical_damage",
 		"base_is_projectile",
 		"skill_range_+%",
+		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
-		[1] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 5, }, },
-		[2] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 21, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 4, }, },
-		[3] = { 0.6700000166893, 1.0099999904633, 1.0099999904633, 1.5199999809265, 1, -75, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[1] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { }, },
+		[2] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, critChance = 5, levelRequirement = 21, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { }, },
+		[3] = { 0.6700000166893, 1.0099999904633, 1.0099999904633, 1.5199999809265, 1, -75, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 1, 1, }, cost = { }, },
 	},
 }
 skills["IncursionLeapSlamChampion"] = {
@@ -1637,7 +1646,7 @@ skills["MassFrenzy"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { cooldown = 6, levelRequirement = 0, statInterpolation = { }, cost = { Mana = 100, }, },
+		[1] = { cooldown = 6, levelRequirement = 0, statInterpolation = { }, cost = { }, },
 	},
 }
 skills["MassPower"] = {
@@ -1659,7 +1668,7 @@ skills["MassPower"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { cooldown = 6, levelRequirement = 0, statInterpolation = { }, cost = { Mana = 100, }, },
+		[1] = { cooldown = 6, levelRequirement = 0, statInterpolation = { }, cost = { }, },
 	},
 }
 skills["MinerThrowFireSpectre"] = {
@@ -2210,7 +2219,7 @@ skills["MountainGoatmanIceSpear"] = {
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
-		"chill_duration_+%",
+		"active_skill_chill_duration_+%_final",
 		"ice_spear_second_form_damage_+%",
 		"base_is_projectile",
 		"projectile_uses_contact_position",
@@ -3689,8 +3698,8 @@ skills["SlavedriverFlameWhip"] = {
 	color = 3,
 	baseEffectiveness = 2.5,
 	incrementalEffectiveness = 0.045000001788139,
-	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage. If you hit an ignited enemy, will create burning ground under them. Your damage modifiers don't apply to this burning ground.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -3719,8 +3728,8 @@ skills["KitavaSlavedriverFlameWhip"] = {
 	color = 3,
 	baseEffectiveness = 2.2000000476837,
 	incrementalEffectiveness = 0.027499999850988,
-	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage. If you hit an ignited enemy, will create burning ground under them. Your damage modifiers don't apply to this burning ground.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -4321,8 +4330,8 @@ skills["BreachLightningWhip"] = {
 	color = 3,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.03999999910593,
-	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage. If you hit an ignited enemy, will create burning ground under them. Your damage modifiers don't apply to this burning ground.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	baseFlags = {
@@ -4913,7 +4922,7 @@ skills["HeistThugRangedExplosiveArrow"] = {
 		"explosive_arrow_explosion_maximum_added_fire_damage",
 		"explosive_arrow_explosion_base_damage_+permyriad",
 		"explosive_arrow_maximum_bonus_explosion_radius",
-		"explosive_arrow_hit_and_ailment_damage_+%_final_per_stack",
+		"explosive_arrow_hit_damage_+%_final_per_stack",
 		"explosive_arrow_stack_limit",
 		"base_is_projectile",
 		"use_scaled_contact_offset",
