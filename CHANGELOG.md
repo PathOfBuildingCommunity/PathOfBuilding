@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.11.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.11.1) (2021/10/23)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.11.0...2.11.1)
+
+**Fixed bugs:**
+
+- Fix mods when crafting Cluster Jewels + items [\#3575](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3575) ([Wires77](https://github.com/Wires77))
+- Fix Storm + Armageddon Brand hit damage [\#3577](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3577) ([Lilylicious](https://github.com/Lilylicious))
+
 ## [2.11.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.11.0) (2021/10/22)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.10.0...2.11.0)
