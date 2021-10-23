@@ -927,54 +927,26 @@ return {
 		},
 		[12]={
 			list=true,
-			name="",
-			refTo="BaseItemTypes",
-			type="Key",
-			width=150
-		},
-		[13]={
-			list=true,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[14]={
-			list=true,
-			name="",
-			refTo="BaseItemTypes",
-			type="Key",
-			width=150
-		},
-		[15]={
-			list=true,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[16]={
-			list=true,
 			name="Tags",
 			refTo="Tags",
 			type="Key",
 			width=150
 		},
-		[17]={
+		[13]={
 			list=false,
 			name="ModDomain",
 			refTo="ModDomains",
 			type="Enum",
 			width=80
 		},
-		[18]={
+		[14]={
 			list=false,
 			name="Hidden",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[19]={
+		[15]={
 			list=false,
 			name="ItemVisualIdentityKey",
 			refTo="ItemVisualIdentity",
