@@ -7,6 +7,7 @@
 **Implemented enhancements:**
 
 - Improve mastery node effect selection UI [\#3476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3476) ([Tom Clancy Is Dead](https://github.com/Voronoff))
+- Update almost all existing gems with 3.16 changes [\#3570](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3570) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add the ability to click a label to check the associated checkbox [\#3549](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3549) ([ajryan](https://github.com/ajryan))
 - Add support for Fortification [\#3540](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3540) ([Zpooks](https://github.com/Zpooks)) ([AlphaCheese](https://github.com/AlphaCheese))
 - Add support for Poisonous Concoction [\#3510](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3510) ([Lexy](https://github.com/learn2draw))
