@@ -171,6 +171,10 @@ return {
 			modList:NewMod("LightningExposureChance", "BASE", 100, "Config")
 		end
 	end },
+	{ label = "Energy Blade:", ifSkill = "Energy Blade" },
+	{ var = "energyBladeActive", type = "check", label = "Is Energy Blade active?", ifSkill = "Energy Blade", tooltip = "Energy Blade transforms your weapons into Swords formed from energy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:EnergyBladeActive", "FLAG", true, "Config")
+	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FeedingFrenzyActive", "FLAG", true, "Config")
