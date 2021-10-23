@@ -86,11 +86,6 @@ skills["SupportAddedFireDamagePlus"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedFireDamage",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["supported_fire_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.FireSkill }),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -1549,11 +1544,6 @@ skills["SupportAdditionalLevel"] = {
 	excludeSkillTypes = { },
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["supported_active_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2033,9 +2023,6 @@ skills["SupportGenerosityPlus"] = {
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
-		},
-		["supported_aura_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
 		},
 	},
 	baseMods = {

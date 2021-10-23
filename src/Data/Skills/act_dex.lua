@@ -1460,30 +1460,6 @@ skills["BurningArrow"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "1 Stack",
-		},
-		{
-			name = "5 Stacks",
-		},
-	},
-	statMap = {
-		["base_additional_burning_debuff_%_of_ignite_damage"] = {
-			mod("DebuffEffect", "BASE", nil),
-			div = 100
-		},
-	},
-	preDotFunc = function(activeSkill, output)
-		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
-		local debuff = (output.IgniteDPS or 0) * effect
-		if activeSkill.skillPart == 1 then
-			output.FireDot = debuff
-		end
-		if activeSkill.skillPart == 2 then
-			output.FireDot = 5 * debuff
-		end
-	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -3248,8 +3224,8 @@ skills["ExplosiveArrow"] = {
 			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 			div = -10000,
 		},
-		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 	baseFlags = {
@@ -3386,8 +3362,8 @@ skills["ExplosiveConcoction"] = {
 		["flask_throw_maximum_lightning_damage_if_used_topaz_flask"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
 		},
-		["flask_throw_ruby_flask_ignite_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
+		["flask_throw_ruby_flask_ignite_dot_multiplier_+"] = {
+			mod("FireDotMultiplier", "BASE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
 		},
 	},
 	baseFlags = {
@@ -4126,6 +4102,9 @@ skills["Grace"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
+		["grace_aura_evasion_rating_+%_final"] = {
+			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 		["base_evasion_rating"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
@@ -4215,11 +4194,8 @@ skills["VaalGrace"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["base_chance_to_dodge_%"] = {
-			mod("AttackDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["base_chance_to_dodge_spells_%"] = {
-			mod("SpellDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["chance_to_evade_attacks_%"] = {
+			mod("EvadeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -7039,8 +7015,8 @@ skills["ShatteringSteel"] = {
 		},
 	},
 	statMap = {
-		["shattering_steel_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
+		["shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
 		},
 	},
 	baseFlags = {

@@ -87,11 +87,6 @@ skills["SupportAddedChaosDamagePlus"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedChaosDamage",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["supported_active_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -208,11 +203,6 @@ skills["SupportAddedLightningDamagePlus"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedLightningDamage",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["supported_lightning_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.LightningSkill }),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -504,11 +494,6 @@ skills["SupportBlasphemyPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["supported_curse_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2629,8 +2614,11 @@ skills["ViciousHexExplosion"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		["doom_blast_hit_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		},
+		["doom_blast_ailment_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
 	},
 	baseFlags = {

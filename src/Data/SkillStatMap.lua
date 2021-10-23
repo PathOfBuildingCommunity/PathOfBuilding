@@ -585,6 +585,9 @@ return {
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
+["sigil_attached_target_hit_damage_+%_final"] = {
+	mod("Damage", "INC", nil, ModFlag.Hit),
+},
 ["melee_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Melee),
 },
@@ -638,6 +641,12 @@ return {
 },
 ["global_maximum_added_fire_damage_vs_burning_enemies"] = {
 	mod("FireMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
+},
+["minimum_added_fire_damage_vs_ignited_enemies"] = {
+	mod("FireMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+},
+["maximum_added_fire_damage_vs_ignited_enemies"] = {
+	mod("FireMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
 },
 ["minimum_added_cold_damage_per_frenzy_charge"] = {
 	mod("ColdMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
@@ -1009,6 +1018,15 @@ return {
 },
 ["consecrated_ground_enemy_damage_taken_+%"] = {
 	mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
+},
+["base_inflict_cold_exposure_on_hit_%_chance"] = {
+	mod("ColdExposureChance", "BASE", nil),
+},
+["base_inflict_lightning_exposure_on_hit_%_chance"] = {
+	mod("LightningExposureChance", "BASE", nil),
+},
+["base_inflict_fire_exposure_on_hit_%_chance"] = {
+	mod("FireExposureChance", "BASE", nil),
 },
 -- Projectiles
 ["base_projectile_speed_+%"] = {
@@ -1552,6 +1570,15 @@ return {
 ["base_reservation_+%"] = {
 	mod("Reserved", "INC", nil)
 },
+["base_mana_reservation_efficiency_+%"] = {
+	mod("ManaReservationEfficiency", "INC", nil)
+},
+["base_life_reservation_efficiency_+%"] = {
+	mod("LifeReservationEfficiency", "INC", nil)
+},
+["base_reservation_efficiency_+%"] = {
+	mod("ReservationEfficiency", "INC", nil)
+},
 -- Brand
 ["sigil_attached_target_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
@@ -1601,5 +1628,52 @@ return {
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
+},
+--
+-- Gem Levels
+--
+--Fire
+["supported_fire_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.FireSkill }),
+},
+--Cold
+["supported_cold_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.ColdSkill }),
+},
+--Lightning
+["supported_lightning_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.LightningSkill }),
+},
+--Chaos
+["supported_chaos_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.ChaosSkill }),
+},
+--Physical
+["supported_physical_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.PhysicalSkill }),
+},
+--Active
+["supported_active_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
+},
+--Aura
+["supported_aura_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
+},
+--Curse
+["supported_curse_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
+},
+--Strike
+["supported_strike_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.MeleeSingleTarget }),
+},
+--Elemental
+["supported_elemental_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Elemental }),
+},
+--Minion
+["supported_minion_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
 },
 }
