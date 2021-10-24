@@ -1027,12 +1027,13 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	elseif self.base.flask then
 		local flaskData = self.flaskData
 		local durationInc = sumLocal(modList, "Duration", "INC", 0)
+		local durationMore = sumLocal(modList, "Duration", "MORE", 0)
 		if self.base.flask.life or self.base.flask.mana then
 			-- Recovery flask
 			flaskData.instantPerc = sumLocal(modList, "FlaskInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + sumLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + sumLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
-			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod
+			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod * (1 + durationMore / 100)
 			if self.base.flask.life then
 				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
@@ -1047,7 +1048,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		else
 			-- Utility flask
-			flaskData.duration = self.base.flask.duration * (1 + (durationInc + self.quality) / 100)
+			flaskData.duration = self.base.flask.duration * (1 + (durationInc + self.quality) / 100) * (1 + (durationMore) / 100)
 		end
 		flaskData.chargesMax = self.base.flask.chargesMax + sumLocal(modList, "FlaskCharges", "BASE", 0)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + sumLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
