@@ -2289,6 +2289,7 @@ local specialModList = {
 	["your chance to suppressed spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
 	["your chance to suppressed spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
 	["prevent +(%+%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
+	["%-(%d+)%% to amount of suppressed spell damage prevented"] = function(num) return { mod("SpellSuppressionEffect", "BASE", -num) } end,
 	["critical strike chance is increased by chance to suppress spell damage"] = { flag("CritChanceIncreasedBySuppressionChance") }, 
 	["you take (%d+)%% reduced extra damage from suppressed critical strikes"] = function(num) return { mod("ReduceSuppressedCritExtraDamage", "BASE", num) } end,
 	["+(%d+)%% chance to suppress spell damage if your boots, helmet and gloves have evasion"] = function(num) return { 
