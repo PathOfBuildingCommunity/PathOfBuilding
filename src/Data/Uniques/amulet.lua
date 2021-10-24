@@ -922,6 +922,18 @@ Implicits: 1
 40% increased Stun and Block Recovery
 Your Critical Strikes do not deal extra Damage
 ]],[[
+Uul-Netol's Vow
+Unset Amulet
+Source: Drops from Uber-Breachlords
+Requires Level 72
+Implicits: 1
+Has 1 Socket
+Socketed Support Gems can also Support Skills from your Body Armour
+{tags:jewellery_resistance}+(-30-30)% to Fire Resistance
+{tags:jewellery_resistance}+(-30-30)% to Cold Resistance
+{tags:jewellery_resistance}+(-30-30) to Lightning Resistance
+{tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
+    ]],[[
 Victario's Acuity
 Turquoise Amulet
 League: Onslaught

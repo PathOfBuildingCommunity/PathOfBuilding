@@ -14,18 +14,6 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Can have 3 additional Enchantment Modifiers
 ]],[[
-Uul-Netol's Vow
-Unset Amulet
-Source: Drops from Uber-Breachlords
-Requires Level 72
-Implicits: 1
-Has 1 Socket
-Socketed Non-Exceptional Support Gems can also Support Skills from your Body Armour
-{tags:jewellery_resistance}+30% to Fire Resistance
-{tags:jewellery_resistance}+30% to Cold Resistance
-{tags:jewellery_resistance}+30% to Lightning Resistance
-{tags:chaos,jewellery_resistance}+23% to Chaos Resistance
-]],[[
 Mageblood
 Heavy Belt
 Requires Level 44
