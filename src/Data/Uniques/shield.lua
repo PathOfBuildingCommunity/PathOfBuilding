@@ -744,7 +744,7 @@ Implicits: 1
 Has 3 Sockets
 All Sockets are White
 +(5-8)% to Quality of Socketed Support Gems
-Socketed Non-Exceptional Support Gems can also Support Skills from your Main Hand
+Socketed Support Gems can also Support Skills from your Main Hand
 (100-150)% increased Armour and Evasion
 +(3-5)% Chance to Block
 ]],[[

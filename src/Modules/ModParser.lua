@@ -2090,7 +2090,7 @@ local specialModList = {
 			end
 		end
 	end,
-	["socketed non%-exceptional support gems can also support skills from your ([%a%s]+)"] = function (_, itemSlotName)
+	["socketed support gems can also support skills from your ([%a%s]+)"] = function (_, itemSlotName)
 		local targetItemSlotName = "Body Armour"
 		if itemSlotName == "main hand" then
 			targetItemSlotName = "Weapon 1"
