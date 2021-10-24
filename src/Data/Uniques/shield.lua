@@ -725,6 +725,19 @@ Trigger Level 20 Shield Shatter when you Block
 +(80-100) to maximum Life
 +(8-12)% Chance to Block
 ]],[[
+The Squire
+Elegant Round Shield
+League: Scourge
+Requires Level 70, 85 Str, 85 Dex
+Implicits: 1
+120% Increased Block Recovery
+Has 3 Sockets
+All Sockets are White
++(5-8)% to Quality of Socketed Support Gems
+Socketed Non-Exceptional Support Gems can also Support Skills from your Main Hand
+(100-150)% increased Armour and Evasion
++(3-5)% Chance to Block
+]],[[
 Vix Lunaris
 Cardinal Round Shield
 Requires Level: 66, 85 Str, 85 Dex
