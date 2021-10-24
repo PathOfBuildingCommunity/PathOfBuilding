@@ -292,7 +292,7 @@ function main:OpenPathPopup()
 end
 
 function main:Shutdown()
-	local out = io.open(self.datSource.spec..".lua", "w")
+	local out = io.open(self.datSource.spec, "w")
 	out:write('return ')
 	writeLuaTable(out, self.datSpecs, 1)
 	out:close()
