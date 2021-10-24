@@ -1670,7 +1670,7 @@ return {
 },
 --Elemental
 ["supported_elemental_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Elemental }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "KeywordFlag", keywordFlags = bit.bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire) }),
 },
 --Minion
 ["supported_minion_skill_gem_level_+"] = {
