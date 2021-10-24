@@ -715,6 +715,17 @@ Triggers Level 20 Physical Aegis when Equipped
 50% increased Critical Strike Chance while Physical Aegis is depleted
 Nearby Enemies are Blinded while Physical Aegis is not depleted
 ]],[[
+The Oppressor
+Elegant Round Shield
+Requires Level 70, 85 Str, 85 Dex
+Implicits: 1
+120% Increased Block Recovery
+-10% to amount of Suppressed Spell Damage Prevented
++(26-32)% chance to Suppress Spell Damage
+(200-250)% increased Armour and Evasion
++(9-13)% Chance to Block
+You take 20% of Damage from Blocked Hits
+]],[[
 Shattershard
 Crimson Round Shield
 League: Heist
@@ -727,7 +738,6 @@ Trigger Level 20 Shield Shatter when you Block
 ]],[[
 The Squire
 Elegant Round Shield
-League: Scourge
 Requires Level 70, 85 Str, 85 Dex
 Implicits: 1
 120% Increased Block Recovery
