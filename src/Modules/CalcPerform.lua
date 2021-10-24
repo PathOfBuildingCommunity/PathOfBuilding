@@ -1584,7 +1584,7 @@ function calcs.perform(env, avoidCache)
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
-						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
 						mergeBuff(buff.unscalableModList, buffs, buff.name)
