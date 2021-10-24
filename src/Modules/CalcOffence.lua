@@ -418,11 +418,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	if modDB:Flag(nil, "Elusive") and skillModList:Flag(nil, "SupportedByNightblade") then
-		local elusiveEffect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
-		-- Override elusive effect if set.
-		if modDB:Override(nil, "ElusiveEffect") then
-			elusiveEffect = m_min(modDB:Override(nil, "ElusiveEffect") / 100, effect)
-		end
+		local elusiveEffect = output.ElusiveEffectMod / 100
 		local nightbladeMulti = skillModList:Sum("BASE", nil, "NightbladeElusiveCritMultiplier")
 		skillModList:NewMod("CritMultiplier", "BASE", m_floor(nightbladeMulti * elusiveEffect), "Nightblade")
 	end
