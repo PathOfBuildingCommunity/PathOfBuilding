@@ -472,8 +472,6 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 			effect = bit.rshift(tonumber(value), 16)
 			t_insert(charPassiveData.mastery_effects, mastery, effect)
 		end
-		-- if we want to remove the imported values from GGG we can do this but they might be useful later
-		-- charPassiveData.mastery_effects = { }
 	end
 
 	if errMsg then
