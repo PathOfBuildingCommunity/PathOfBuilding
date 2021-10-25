@@ -700,6 +700,14 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 		end
 	end
+	if itemData.scourgeMods then
+		for _, line in ipairs(itemData.scourgeMods) do
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod(line)
+				t_insert(item.scourgeModLines, { line = line, extra = extra, mods = modList or { }, scourge = true })
+			end
+		end
+	end
 	if itemData.implicitMods then
 		for _, line in ipairs(itemData.implicitMods) do
 			for line in line:gmatch("[^\n]+") do
