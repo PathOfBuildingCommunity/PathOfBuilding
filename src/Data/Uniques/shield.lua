@@ -740,7 +740,7 @@ The Squire
 Elegant Round Shield
 Requires Level 70, 85 Str, 85 Dex
 Implicits: 1
-120% Increased Block Recovery
+120% increased Block Recovery
 Has 3 Sockets
 All Sockets are White
 +(5-8)% to Quality of Socketed Support Gems
