@@ -931,7 +931,7 @@ Has 1 Socket
 Socketed Support Gems can also Support Skills from your Body Armour
 {tags:jewellery_resistance}+(-30-30)% to Fire Resistance
 {tags:jewellery_resistance}+(-30-30)% to Cold Resistance
-{tags:jewellery_resistance}+(-30-30) to Lightning Resistance
+{tags:jewellery_resistance}+(-30-30)% to Lightning Resistance
 {tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
 ]],[[
 Victario's Acuity
