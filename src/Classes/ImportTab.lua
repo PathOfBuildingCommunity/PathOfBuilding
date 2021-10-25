@@ -460,6 +460,23 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	--local out = io.open("get-passive-skills.json", "w")
 	--writeLuaTable(out, charPassiveData, 1)
 	--out:close()
+
+	-- 3.16+
+	if charPassiveData.mastery_effects then
+		local masteryEffects, mastery, effect = { }, ""
+		for key, value in pairs(charPassiveData.mastery_effects) do
+			mastery = bit.band(tonumber(value), 65535)
+			effect =  bit.rshift(tonumber(value), 16)
+			t_insert(masteryEffects, mastery, effect)
+		end
+		-- if we want to remove the imported values from GGG we can do this but they might be useful later
+		-- charPassiveData.mastery_effects = { }
+
+		for key, value in pairs(masteryEffects) do
+			charPassiveData.mastery_effects[key] = masteryEffects[key]
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
