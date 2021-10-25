@@ -463,18 +463,17 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 
 	-- 3.16+
 	if charPassiveData.mastery_effects then
-		local masteryEffects, mastery, effect = { }, 0, 0
+		local mastery, effect = 0, 0
 		for key, value in pairs(charPassiveData.mastery_effects) do
+			if type(value) ~= "string" then
+				break
+			end
 			mastery = bit.band(tonumber(value), 65535)
-			effect =  bit.rshift(tonumber(value), 16)
-			t_insert(masteryEffects, mastery, effect)
+			effect = bit.rshift(tonumber(value), 16)
+			t_insert(charPassiveData.mastery_effects, mastery, effect)
 		end
 		-- if we want to remove the imported values from GGG we can do this but they might be useful later
 		-- charPassiveData.mastery_effects = { }
-
-		for key, value in pairs(masteryEffects) do
-			charPassiveData.mastery_effects[key] = masteryEffects[key]
-		end
 	end
 
 	if errMsg then
