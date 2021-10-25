@@ -924,7 +924,7 @@ Your Critical Strikes do not deal extra Damage
 ]],[[
 Uul-Netol's Vow
 Unset Amulet
-Source: Drops from Uber-Breachlords
+Source: Drops from Flawless Breachlords
 Requires Level 72
 Implicits: 1
 Has 1 Socket
