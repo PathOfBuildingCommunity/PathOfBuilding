@@ -719,7 +719,7 @@ The Oppressor
 Elegant Round Shield
 Requires Level 70, 85 Str, 85 Dex
 Implicits: 1
-120% Increased Block Recovery
+120% increased Block Recovery
 -10% to amount of Suppressed Spell Damage Prevented
 +(26-32)% chance to Suppress Spell Damage
 (200-250)% increased Armour and Evasion
