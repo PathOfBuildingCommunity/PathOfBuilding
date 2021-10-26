@@ -1388,9 +1388,9 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillFlags.totem then
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * 0.35
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier
 		else
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + (output.Life + output.EnergyShield) * 0.35
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
 		end
 	end,
 	statMap = {
@@ -1408,6 +1408,15 @@ local skills, mod, flag, skill = ...
 		["spell_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute"] = {
+			skill("RFLifeMultiplier", nil),
+			div = 6000,
+		},
+		["base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute"] = {
+			skill("RFESMultiplier", nil),
+			div = 6000,
+		},
+		
 	},
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 18)
