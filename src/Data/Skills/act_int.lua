@@ -7638,9 +7638,9 @@ skills["RighteousFire"] = {
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillFlags.totem then
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * 0.35
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * 0.2
 		else
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + (output.Life + output.EnergyShield) * 0.35
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + (output.Life + output.EnergyShield) * 0.2
 		end
 	end,
 	statMap = {
