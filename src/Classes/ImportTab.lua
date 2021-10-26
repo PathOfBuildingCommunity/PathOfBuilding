@@ -5,6 +5,8 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local b_rshift = bit.rshift
+local band = bit.band
 
 local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
@@ -468,8 +470,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 			if type(value) ~= "string" then
 				break
 			end
-			mastery = bit.band(tonumber(value), 65535)
-			effect = bit.rshift(tonumber(value), 16)
+			mastery = band(tonumber(value), 65535)
+			effect = b_rshift(tonumber(value), 16)
 			t_insert(charPassiveData.mastery_effects, mastery, effect)
 		end
 	end
