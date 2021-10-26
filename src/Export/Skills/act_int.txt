@@ -1416,7 +1416,6 @@ local skills, mod, flag, skill = ...
 			skill("RFESMultiplier", nil),
 			div = 6000,
 		},
-		
 	},
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 18)
