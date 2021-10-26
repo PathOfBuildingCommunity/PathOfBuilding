@@ -248,8 +248,8 @@ end
 function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 	for i = 1, #masteryEffects - 1, 4 do
 
-		local id  = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
-		local effectId = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
+		local effectId = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
+		local id  = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
 
 		self.masterySelections[id] = effectId
 		local effect = self.tree.masteryEffects[effectId]
