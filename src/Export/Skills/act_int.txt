@@ -1388,9 +1388,9 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillFlags.totem then
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * 0.2
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * 0.35
 		else
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + (output.Life + output.EnergyShield) * 0.2
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + (output.Life + output.EnergyShield) * 0.35
 		end
 	end,
 	statMap = {
