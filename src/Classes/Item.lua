@@ -217,7 +217,7 @@ function ItemClass:ParseRaw(raw)
 				elseif specName == "Talisman Tier" then
 					self.talismanTier = tonumber(specVal)
 				elseif specName == "Armour" or specName == "Evasion" or specName == "Energy Shield" or specName == "Ward" then
-					self.armourData =  self.armourData or { }
+					self.armourData = self.armourData or { }
 					self.armourData[specName:gsub(" ", "")] = tonumber((specVal:gsub(" (augmented)", "")))
 				elseif specName == "Requires Level" then
 					self.requirements.level = tonumber(specVal)
@@ -1024,31 +1024,25 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		if sumLocal(modList, "AlternateQualityArmour", "BASE", 0) > 0 then
 			qualityScalar = 0
 		end
-		local basePercentile = 1
-		-- Find the highest variance so the basePercentile value can be as accurate as possible
-		if armourVariance > evasionVariance and armourVariance > energyShieldVariance and armourVariance > wardVariance then
-			if armourData.Armour then
-				basePercentile = ((armourData.Armour / (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.ArmourBaseMin)) / armourVariance
-			end
-		elseif evasionVariance > armourVariance and evasionVariance > energyShieldVariance and evasionVariance > wardVariance then
-			if armourData.Evasion then
-				basePercentile = ((armourData.Evasion / (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.EvasionBaseMin)) / evasionVariance
-			end
-		elseif energyShieldVariance > armourVariance and evasionVariance < energyShieldVariance and energyShieldVariance > wardVariance then
-			if armourData.EnergyShield then
-				basePercentile = ((armourData.EnergyShield / (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.EnergyShieldBaseMin)) / energyShieldVariance
-			end
-		elseif wardVariance > armourVariance and wardVariance > energyShieldVariance and evasionVariance < wardVariance then
-			if armourData.Ward then
-				basePercentile = ((armourData.Ward / (1 + (wardInc + defencesInc + qualityScalar) / 100) - self.base.armour.WardBaseMin)) / wardVariance
-			end
+		-- base percentiles need to differ for each armour type, as they're weighted differently
+		local ARbasePercentile, EVbasePercentile, ESbasePercentile, WardBasePercentile = 1, 1, 1, 1
+		if armourData.Armour and armourData.Armour > 0 then
+			ARbasePercentile = ((armourData.Armour / (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.ArmourBaseMin)) / armourVariance
 		end
-		basePercentile = m_min(m_max(basePercentile, 1), 0)
+		if armourData.Evasion and armourData.Evasion > 0 then
+			EVbasePercentile = ((armourData.Evasion / (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.EvasionBaseMin)) / evasionVariance
+		end
+		if armourData.EnergyShield and armourData.EnergyShield > 0 then
+			ESbasePercentile = ((armourData.EnergyShield / (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.EnergyShieldBaseMin)) / energyShieldVariance
+		end
+		if armourData.Ward and armourData.Ward > 0 then
+			WardBasePercentile = ((armourData.Ward / (1 + (wardInc + defencesInc + qualityScalar) / 100) - self.base.armour.WardBaseMin)) / wardVariance
+		end
 
-		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * basePercentile) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * basePercentile) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * basePercentile) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.Ward = round(wardBase * (1 + (wardInc + defencesInc + qualityScalar + wardVariance * basePercentile) / 100))
+		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * ARbasePercentile) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100))
+		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * EVbasePercentile) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
+		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * ESbasePercentile) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
+		armourData.Ward = round(wardBase * (1 + (wardInc + defencesInc + qualityScalar + wardVariance * WardBasePercentile) / 100))
 		if self.base.armour.BlockChance then
 			armourData.BlockChance = self.base.armour.BlockChance + sumLocal(modList, "BlockChance", "BASE", 0)
 		end
