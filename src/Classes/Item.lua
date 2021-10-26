@@ -636,9 +636,9 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, (self.namePrefix or "")..self.baseName..(self.nameSuffix or ""))
 	end
 	if self.armourData then
-		for type, value in pairs(self.armourData) do
-			if value > 0 then
-				t_insert(rawLines, type:gsub("EnergyShield", "Energy Shield") .. ": " .. value)
+		for _, type in ipairs({ "Armour", "Evasion", "EnergyShield", "Ward" }) do
+			if self.armourData[type] > 0 then
+				t_insert(rawLines, type:gsub("EnergyShield", "Energy Shield") .. ": " .. self.armourData[type])
 			end
 		end
 	end
