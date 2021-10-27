@@ -5108,7 +5108,7 @@ c["Baroque Round Shield Variant: Pre 2.6.0"]={nil,"Baroque Round Shield Variant:
 c["1 Added Passive Skill is Titanic Swings"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Titanic Swings"}},nil}
 c["Baroque Round Shield"]={nil,"Baroque Round Shield "}
 c["40% less Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="MORE",value=-40}},nil}
-c["Elusive also grants +40% to Critical Strike Multiplier for Skills Supported by Nightblade"]={nil,"Elusive also grants +40% to Critical Strike Multiplier for Skills Supported by Nightblade "}
+c["Elusive also grants +40% to Critical Strike Multiplier for Skills Supported by Nightblade"]={{[1]={flags=0,keywordFlags=0,name="NightbladeElusiveCritMultiplier",type="BASE",value=40}},nil}
 c["4% chance to Avoid Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=4},[2]={flags=0,keywordFlags=0,name="AvoidFreeze",type="BASE",value=4},[3]={flags=0,keywordFlags=0,name="AvoidChill",type="BASE",value=4},[4]={flags=0,keywordFlags=0,name="AvoidIgnite",type="BASE",value=4}},nil}
 c["+12% to Critical Strike Multiplier with Bows"]={{[1]={flags=131076,keywordFlags=0,name="CritMultiplier",type="BASE",value=12}},nil}
 c["Nearby Enemies grant 25% increased Flask Charges"]={nil,"grant 25% increased Flask Charges "}
