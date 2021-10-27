@@ -5,6 +5,8 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local b_rshift = bit.rshift
+local band = bit.band
 
 local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
@@ -460,6 +462,20 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	--local out = io.open("get-passive-skills.json", "w")
 	--writeLuaTable(out, charPassiveData, 1)
 	--out:close()
+
+	-- 3.16+
+	if charPassiveData.mastery_effects then
+		local mastery, effect = 0, 0
+		for key, value in pairs(charPassiveData.mastery_effects) do
+			if type(value) ~= "string" then
+				break
+			end
+			mastery = band(tonumber(value), 65535)
+			effect = b_rshift(tonumber(value), 16)
+			t_insert(charPassiveData.mastery_effects, mastery, effect)
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
