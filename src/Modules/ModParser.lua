@@ -238,6 +238,7 @@ local modNameList = {
 	["to dodge attack and spell hits"] = { "AttackDodgeChance", "SpellDodgeChance" },
 	["to dodge attack or spell hits"] = { "AttackDodgeChance", "SpellDodgeChance" },
 	["to suppress spell damage"] = { "SpellSuppressionChance" },
+	["amount of suppressed spell damage prevented"] = { "SpellSuppressionEffect" },
 	["to block"] = "BlockChance",
 	["to block attacks"] = "BlockChance",
 	["to block attack damage"] = "BlockChance",
@@ -2094,7 +2095,7 @@ local specialModList = {
 			end
 		end
 	end,
-	["socketed non%-exceptional support gems can also support skills from your ([%a%s]+)"] = function (_, itemSlotName)
+	["socketed support gems can also support skills from your ([%a%s]+)"] = function (_, itemSlotName)
 		local targetItemSlotName = "Body Armour"
 		if itemSlotName == "main hand" then
 			targetItemSlotName = "Weapon 1"

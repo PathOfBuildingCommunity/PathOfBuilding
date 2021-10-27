@@ -715,6 +715,17 @@ Triggers Level 20 Physical Aegis when Equipped
 50% increased Critical Strike Chance while Physical Aegis is depleted
 Nearby Enemies are Blinded while Physical Aegis is not depleted
 ]],[[
+The Oppressor
+Elegant Round Shield
+Requires Level 70, 85 Str, 85 Dex
+Implicits: 1
+120% increased Block Recovery
+-10% to amount of Suppressed Spell Damage Prevented
++(26-32)% chance to Suppress Spell Damage
+(200-250)% increased Armour and Evasion
++(9-13)% Chance to Block
+You take 20% of Damage from Blocked Hits
+]],[[
 Shattershard
 Crimson Round Shield
 League: Heist
@@ -724,6 +735,18 @@ Trigger Level 20 Shield Shatter when you Block
 (120-150)% increased Armour and Evasion
 +(80-100) to maximum Life
 +(8-12)% Chance to Block
+]],[[
+The Squire
+Elegant Round Shield
+Requires Level 70, 85 Str, 85 Dex
+Implicits: 1
+120% increased Block Recovery
+Has 3 Sockets
+All Sockets are White
++(5-8)% to Quality of Socketed Support Gems
+Socketed Support Gems can also Support Skills from your Main Hand
+(100-150)% increased Armour and Evasion
++(3-5)% Chance to Block
 ]],[[
 Vix Lunaris
 Cardinal Round Shield
