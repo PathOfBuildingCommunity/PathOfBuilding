@@ -1031,16 +1031,16 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 		-- base percentiles need to differ for each armour type, as they're weighted differently
 		local ARbasePercentile, EVbasePercentile, ESbasePercentile, WardBasePercentile = 1, 1, 1, 1
-		if armourData.Armour and armourData.Armour > 0 then
+		if armourData.Armour and armourData.Armour > 0 and self.base.armour.ArmourBaseMin then
 			ARbasePercentile = ((armourData.Armour / (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.ArmourBaseMin)) / armourVariance
 		end
-		if armourData.Evasion and armourData.Evasion > 0 then
+		if armourData.Evasion and armourData.Evasion > 0 and self.base.armour.EvasionBaseMin then
 			EVbasePercentile = ((armourData.Evasion / (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.EvasionBaseMin)) / evasionVariance
 		end
-		if armourData.EnergyShield and armourData.EnergyShield > 0 then
+		if armourData.EnergyShield and armourData.EnergyShield > 0 and self.base.armour.EnergyShieldBaseMin then
 			ESbasePercentile = ((armourData.EnergyShield / (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - self.base.armour.EnergyShieldBaseMin)) / energyShieldVariance
 		end
-		if armourData.Ward and armourData.Ward > 0 then
+		if armourData.Ward and armourData.Ward > 0 and self.base.armour.WardBaseMin then
 			WardBasePercentile = ((armourData.Ward / (1 + (wardInc + defencesInc + qualityScalar) / 100) - self.base.armour.WardBaseMin)) / wardVariance
 		end
 
@@ -1066,7 +1066,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			flaskData.instantPerc = calcLocal(modList, "FlaskInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + calcLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + calcLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
-			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore
+			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod
 			if self.base.flask.life then
 				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
