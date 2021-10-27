@@ -29,6 +29,20 @@ return {
 	ActiveSkillTargetTypes={
 	},
 	ActiveSkillType={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	ActiveSkills={
 		[1]={
@@ -77,7 +91,7 @@ return {
 			list=true,
 			name="SkillTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=330
 		},
 		[8]={
@@ -154,7 +168,7 @@ return {
 			list=true,
 			name="MinionSkillTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=150
 		},
 		[19]={
@@ -913,54 +927,26 @@ return {
 		},
 		[12]={
 			list=true,
-			name="",
-			refTo="BaseItemTypes",
-			type="Key",
-			width=150
-		},
-		[13]={
-			list=true,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[14]={
-			list=true,
-			name="",
-			refTo="BaseItemTypes",
-			type="Key",
-			width=150
-		},
-		[15]={
-			list=true,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[16]={
-			list=true,
 			name="Tags",
 			refTo="Tags",
 			type="Key",
 			width=150
 		},
-		[17]={
+		[13]={
 			list=false,
 			name="ModDomain",
 			refTo="ModDomains",
 			type="Enum",
 			width=80
 		},
-		[18]={
+		[14]={
 			list=false,
 			name="Hidden",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[19]={
+		[15]={
 			list=false,
 			name="ItemVisualIdentityKey",
 			refTo="ItemVisualIdentity",
@@ -2936,7 +2922,7 @@ return {
 			list=true,
 			name="SupportTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=330
 		},
 		[4]={
@@ -2971,14 +2957,14 @@ return {
 			list=true,
 			name="AddTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=90
 		},
 		[9]={
 			list=true,
 			name="ExcludeTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=200
 		},
 		[10]={
@@ -3048,7 +3034,7 @@ return {
 			list=true,
 			name="AddMinionTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="Key",
 			width=150
 		},
 		[20]={

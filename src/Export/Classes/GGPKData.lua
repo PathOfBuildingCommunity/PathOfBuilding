@@ -30,16 +30,19 @@ end
 
 -- Path can be in any format recognized by the extractor at oozPath, ie,
 -- a .ggpk file or a Steam Path of Exile directory
-local GGPKClass = newClass("GGPKData", function(self, path)
-	self.path = path
-	self.temp = io.popen("cd"):read('*l')
-	self.oozPath = self.temp .. "\\ggpk\\"
+local GGPKClass = newClass("GGPKData", function(self, path, datPath)
+	if datPath then
+		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
+	else
+		self.path = path
+		self.temp = io.popen("cd"):read('*l')
+		self.oozPath = self.temp .. "\\ggpk\\"
+		self:ExtractFiles()
+	end
 
 	self.dat = { }
 	self.txt = { }
-	
-	self:ExtractFiles()
-	
+
 	if USE_DAT64 then
 		self:AddDat64Files()
 	else

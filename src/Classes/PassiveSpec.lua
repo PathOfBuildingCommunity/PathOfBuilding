@@ -169,7 +169,10 @@ function PassiveSpecClass:Save(xml)
 	end
 	local masterySelections = { }
 	for mastery, effect in pairs(self.masterySelections) do
-		t_insert(masterySelections, "{"..mastery..","..effect.."}")
+		-- only save pob codes to xml (only profile import should have leftover effects to clean up)
+		if (tonumber(effect) < 65536) then
+			t_insert(masterySelections, "{"..mastery..","..effect.."}")
+		end
 	end
 	local editedNodes = {
 		elem = "EditedNodes"

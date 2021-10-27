@@ -259,7 +259,7 @@ return {
 		["ENDGAME"] = {
 			"40% increased Blade Trap Damage",
 			"24% increased Blade Trap Area of Effect",
-			"Blade Trap rotates +100 times",
+			"Blade Trap rotates +1 times",
 		},
 	},
 	["Blade Vortex"] = {
@@ -828,6 +828,16 @@ return {
 		["ENDGAME"] = {
 			"Enduring Cry has 30% increased Cooldown Recovery Rate",
 			"Enduring Cry grants 1 additional Endurance Charge",
+		},
+	},
+	["Energy Blade"] = {
+		["MERCILESS"] = {
+			"Energy Blades have 10% increased Attack Speed",
+			"Attacks with Energy Blades Penetrate 8% Lightning Resistance",
+		},
+		["ENDGAME"] = {
+			"Energy Blades have 15% increased Attack Speed",
+			"Attacks with Energy Blades Penetrate 12% Lightning Resistance",
 		},
 	},
 	["Enfeeble"] = {
@@ -2273,7 +2283,7 @@ return {
 		["ENDGAME"] = {
 			"40% increased Spectral Helix Damage",
 			"30% increased Spectral Helix Projectile Speed",
-			"Spectral Helix Projectile spirals through +100 rotations",
+			"Spectral Helix Projectile spirals through +1 rotations",
 		},
 	},
 	["Spectral Shield Throw"] = {
@@ -2635,10 +2645,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Tornado Damage",
 			"16% increased Tornado Area of Effect",
+			"Tornado has 20% increased Movement Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Tornado Damage",
 			"24% increased Tornado Area of Effect",
+			"Tornado has 30% increased Movement Speed",
 		},
 	},
 	["Tornado Shot"] = {

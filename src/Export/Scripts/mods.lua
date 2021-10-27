@@ -43,6 +43,8 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Suffix", ')
 				elseif mod.GenerationType == 5 then
 					out:write('type = "Corrupted", ')
+				elseif mod.GenerationType == 25 or mod.GenerationType == 24 then
+					out:write('type = "Scourge", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
 				out:write('"', table.concat(stats, '", "'), '", ')
@@ -81,7 +83,9 @@ local function writeMods(outName, condFunc)
 end
 
 writeMods("../Data/ModItem.lua", function(mod)
-	return (mod.Domain == 1 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
+	return (mod.Domain == 1 or mod.Domain == 16)
+			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24)
+			and not mod.Id:match("^Hellscape[UpDown]+sideMap")
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
