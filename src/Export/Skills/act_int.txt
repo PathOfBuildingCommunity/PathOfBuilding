@@ -1560,8 +1560,8 @@ local skills, mod, flag, skill = ...
 		["support_brand_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
 		},
-		["trigger_brand_support_hit_ailment_damage_+%_final_vs_branded_enemy"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
+			mod("TriggeredDamage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
 	addSkillTypes = { SkillType.Brand, },
