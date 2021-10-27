@@ -1,3 +1,36 @@
+VERSION[2.12][2021/10/27]
+
+* Add support for "Enemies Ignited or Chilled by you have -5% to Elemental Resistances" (Peechey)
+* Allow new uniques to use exceptional gems (Lexy)
+* Add support for Sword Mastery for Offhand Accuracy (Nostrademous)
+
+* Update Uniques that previously used dodge (LocalIdentity)
+* Fix overcap display of Spellblock not working (LocalIdentity)
+* Fix Awakened Cast on Crit not applying cooldown recovery (LocalIdentity)
+* Fix Divergent Fortify not working (LocalIdentity)
+* Fix Arcanist Brand not applying more damage with Hits (LocalIdentity)
+* Fix Explosive Arrow skill on Spectres (LocalIdentity)
+* Fix calculations for variable base armour values (Wires77)
+* Fix importing passive tree data from profile (Peechey)
+* Fix Flask More/Less Duration (Peechey)
+* Fix Arcane Cloak when 100% reduced Reservation Efficiency (Peechey)
+
+* Fix Awakened Ele Focus not giving +1 to supported elemental gems (randomflyingtaco)
+* Fix Rightous Fire to use 3.16 life multiplier (Lilylicious)
+* Fix rounding for attribute bonuses (etojuice)
+* Issue 3585: Fix Mana Efficiency rounding (HPSource)
+* Fix scourged mods not importing properly (Wires77)
+* fix: Updated The Squire, The Oppressor, Uul-Netol's Vow with ranges and modifiers (Nostrademous)
+* Update Collateral Damage Jewel to Affect Galvanic Arrow (randomflyingtaco)
+* Fix Critical support gem mastery (Wires77)
+* Rebuild dependencies and paths for all nodes upon tree reset (etojuice)
+* Make Timeless Jewel passive nodes in dropdown selection menu appear in alphabetical order (etojuice)
+* Fix Nightblade Crit Multi not scaling with Elusive effect (mthjones)
+* Updates to Dodge (etojuice)
+* Added support for variable ES bypass for chaos damage mod (Dullson)
+
+
+
 VERSION[2.11.1][2021/10/23]
 
 * Fix mods when crafting Cluster Jewels + items (Wires77)

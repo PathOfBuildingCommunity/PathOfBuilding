@@ -1,5 +1,47 @@
 # Changelog
 
+## [2.12](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.12) (2021/10/27)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.11.1...2.12)
+
+**Implemented enhancements:**
+
+- Add support for "Enemies Ignited or Chilled by you have -5% to Elemental Resistances" [\#3615](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3615) ([Peechey](https://github.com/Peechey))
+- Allow new uniques to use exceptional gems [\#3541](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3541) ([Lexy](https://github.com/learn2draw))
+- Add support for Sword Mastery for Offhand Accuracy [\#3498](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3498) ([Nostrademous](https://github.com/Nostrademous))
+
+**Fixed bugs:**
+
+- Update Uniques that previously used dodge [\#3630](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3630) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix overcap display of Spellblock not working [\#3627](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3627) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Awakened Cast on Crit not applying cooldown recovery [\#3624](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3624) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Divergent Fortify not working [\#3623](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3623) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Arcanist Brand not applying more damage with Hits [\#3622](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3622) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Explosive Arrow skill on Spectres [\#3621](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3621) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix calculations for variable base armour values [\#3608](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3608) ([Wires77](https://github.com/Wires77))
+- Fix importing passive tree data from profile [\#3600](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3600) ([Peechey](https://github.com/Peechey))
+- Fix Flask More/Less Duration [\#3584](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3584) ([Peechey](https://github.com/Peechey))
+- Fix Arcane Cloak when 100% reduced Reservation Efficiency [\#3553](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3553) ([Peechey](https://github.com/Peechey))
+
+**Merged pull requests:**
+
+- Fix Awakened Ele Focus not giving +1 to supported elemental gems [\#3629](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3629) ([randomflyingtaco](https://github.com/randomflyingtaco))
+- Fix Rightous Fire to use 3.16 life multiplier [\#3611](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3611) ([Lilylicious](https://github.com/Lilylicious))
+- Fix rounding for attribute bonuses [\#3607](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3607) ([etojuice](https://github.com/etojuice))
+- Issue 3585: Fix Mana Efficiency rounding [\#3604](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3604) ([HPSource](https://github.com/HPSource))
+- Fix scourged mods not importing properly [\#3603](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3603) ([Wires77](https://github.com/Wires77))
+- fix: Updated The Squire, The Oppressor, Uul-Netol's Vow with ranges and modifiers [\#3591](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3591) ([Nostrademous](https://github.com/Nostrademous))
+- Update Collateral Damage Jewel to Affect Galvanic Arrow [\#3579](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3579) ([randomflyingtaco](https://github.com/randomflyingtaco))
+- Fix Critical support gem mastery [\#3566](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3566) ([Wires77](https://github.com/Wires77))
+- Rebuild dependencies and paths for all nodes upon tree reset [\#3556](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3556) ([etojuice](https://github.com/etojuice))
+- Make Timeless Jewel passive nodes in dropdown selection menu appear in alphabetical order [\#3551](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3551) ([etojuice](https://github.com/etojuice))
+- Fix Nightblade Crit Multi not scaling with Elusive effect [\#3550](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3550) ([mthjones](https://github.com/mthjones))
+- Updates to Dodge [\#3535](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3535) ([etojuice](https://github.com/etojuice))
+- Added support for variable ES bypass for chaos damage mod [\#3509](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3509) ([Dullson](https://github.com/Dullson))
+
+
+
+
 ## [2.11.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.11.1) (2021/10/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.11.0...2.11.1)
