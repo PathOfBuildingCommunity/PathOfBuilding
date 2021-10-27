@@ -2101,7 +2101,7 @@ local specialModList = {
 			targetItemSlotName = "Weapon 1"
 		end
 		return {
-			mod("LinkedNonExceptionSupport", "LIST", { targetSlotName = targetItemSlotName }, { type = "SocketedIn", slotName = "{SlotName}" }),
+			mod("LinkedSupport", "LIST", { targetSlotName = targetItemSlotName }, { type = "SocketedIn", slotName = "{SlotName}" }),
 		}
 	end,
 	["socketed hex curse skills are triggered by doedre's effigy when summoned"] = { mod("ExtraSupport", "LIST", { skillId = "SupportCursePillarTriggerCurses", level = 20 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
