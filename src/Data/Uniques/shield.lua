@@ -987,7 +987,7 @@ Variant: Current
 League: Heist
 Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
-4% chance to Dodge Attack Hits
++5% chance to Suppress Spell Damage
 {variant:1}(500-600)% increased Evasion and Energy Shield
 {variant:2}(400-500)% increased Evasion and Energy Shield
 (25-40)% increased Mana Regeneration Rate
@@ -1002,7 +1002,7 @@ Variant: Current
 Requires Level 27, 36 Dex, 36 Int
 Implicits: 2
 {variant:1}Reflects (10-23) Physical Damage to Melee Attackers
-{variant:2}4% chance to Dodge Attacks
+{variant:2}+5% chance to Suppress Spell Damage
 (120-140)% increased Evasion and Energy Shield
 +(30-50) to maximum Life
 +(20-30) to maximum Energy Shield
@@ -1019,7 +1019,7 @@ Variant: Current
 Requires Level 70, 85 Dex, 85 Int
 Implicits: 2
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
-{variant:3,4}4% chance to Dodge Spell Damage
+{variant:3,4}+5% chance to Suppress Spell Damage
 {variant:1,2,3}Grants level 20 Bear Trap Skill
 {variant:4}Grants Level 25 Bear Trap Skill
 (18-28)% increased Trap Damage
@@ -1036,7 +1036,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
-4% chance to Dodge Attacks
++5% chance to Suppress Spell Damage
 {variant:1}(130-150)% increased Evasion and Energy Shield
 {variant:2}(500-600)% increased Evasion and Energy Shield
 +(60-80) to maximum Life
@@ -1052,7 +1052,7 @@ Variant: Current
 Requires Level 45, 58 Dex, 58 Int
 Implicits: 2
 {variant:1}Reflects (51-70) Physical Damage to Melee Attackers
-{variant:2,3}2% chance to Dodge Spell Damage
+{variant:2,3}+3% chance to Suppress Spell Damage
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
 −50% to all Elemental Resistances
@@ -1066,7 +1066,7 @@ League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 62, 85 Dex, 85 Int
 Implicits: 1
-2% chance to Dodge Spell Hits
++3% chance to Suppress Spell Damage
 +(1-3) to Level of Socketed Lightning Gems
 Triggers Level 20 Lightning Aegis when Equipped
 (1-20)% increased Attack Speed
@@ -1080,7 +1080,7 @@ Sovereign Spiked Shield
 League: Ritual
 Requires Level 54, 70 Dex, 70 Int
 Implicits: 1
-4% chance to Dodge Spell Hits
++5% chance to Suppress Spell Damage
 (160-220)% increased Evasion and Energy Shield
 +(40-60)% to Damage over Time Multiplier if you've dealt a Critical Strike in the past 8 seconds
 (2.0-2.5)% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds
@@ -1091,7 +1091,7 @@ Zeel's Amplifier
 Polished Spiked Shield
 Requires Level 49, 64 Dex, 64 Int
 Implicits: 1
-4% chance to Dodge Attack Hits
++5% chance to Suppress Spell Damage
 (40-50)% increased Spell Damage
 +(60-80) to maximum Energy Shield
 +(50-70) to maximum Life
