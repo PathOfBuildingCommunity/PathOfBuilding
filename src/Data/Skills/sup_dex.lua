@@ -3127,7 +3127,7 @@ skills["SupportPointBlank"] = {
 			flag("PointBlank"),
 		},
 		["knockback_chance_%_at_close_range"] = {
-			mod("EnemyKnockbackChance", "BASE", nil, 0, KeywordFlag.Hit),
+			mod("EnemyKnockbackChance", "BASE", nil, ModFlag.Hit),
 		},
 	},
 	baseMods = {
