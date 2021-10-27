@@ -437,6 +437,9 @@ return {
 ["base_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["base_spell_cooldown_speed_+%"] = {
+	mod("CooldownRecovery", "INC", nil),
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
