@@ -94,6 +94,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
+			self.build.spec:BuildAllDependsAndPaths()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 		end)
@@ -479,6 +480,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				})
 			end
 		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
 	local function addModifier(selectedNode)
 		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]

@@ -1,3 +1,37 @@
+VERSION[2.12][2021/10/28]
+
+* Add support for Nightblade Dagger Mastery (Dullson)
+* Add support for Sword Mastery for Offhand Accuracy (Nostrademous)
+* Add support for +3 levels Critical support gem mastery (Wires77)
+* Add support for variable ES bypass for Chaos Damage mastery (Dullson)
+* Add support for Active Aura Multiplier and Active Herald/Aura mods (Dullson)
+* Add support for "Enemies Ignited or Chilled by you have -5% to Elemental Resistances" (Peechey)
+* Change Timeless Jewel passive nodes in dropdown selection menu to appear in alphabetical order (etojuice)
+* Update passive tree (LocalIdentity)
+* Update Dodge breakdown on Calcs page (etojuice)
+* Update Uniques that previously used Dodge (LocalIdentity)
+* Update The Squire, The Oppressor, Uul-Netol's Vow with ranges and modifiers (Nostrademous)
+
+* Fix importing passive tree data from player profiles (Peechey)
+* Fix import/export of passive tree on the tree tab (hdwatts)
+* Fix scourged mods not importing properly (Wires77)
+* Fix masteries persisting after resetting the tree (etojuice)
+* Fix overcap display for Spell Block (LocalIdentity)
+* Fix calculations for variable base armour values (Wires77)
+* Fix Mana Efficiency rounding (HPSource)
+* Fix bug on builds that had 100% reduced Reservation Efficiency and were using Arcane Cloak (Peechey)
+* Fix rounding for attribute bonuses (etojuice)
+* Fix Flask More/Less Duration applying globally instead of locally (Peechey)
+* Fix new uniques to use exceptional gems (Lexy)
+* Fix Collateral Damage Jewel to Affect Galvanic Arrow (randomflyingtaco)
+* Fix Righteous Fire to use 3.16 Life multiplier (Lilylicious)
+* Fix Arcanist Brand not applying more damage with Hits (LocalIdentity)
+* Fix Awakened Elemental Focus not giving +1 to supported elemental gems (randomflyingtaco)
+* Fix Nightblade Crit Multi not scaling with Elusive effect (mthjones)
+* Fix Divergent Fortify not working (LocalIdentity)
+* Fix Awakened Cast on Critical Strike not applying cooldown recovery to skills (LocalIdentity)
+* Fix Explosive Arrow skill on Spectres (LocalIdentity)
+
 VERSION[2.11.1][2021/10/23]
 
 * Fix mods when crafting Cluster Jewels + items (Wires77)

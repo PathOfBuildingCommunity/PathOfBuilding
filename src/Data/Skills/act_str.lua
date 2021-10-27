@@ -4609,9 +4609,6 @@ skills["VaalMoltenShell"] = {
 		["molten_shell_max_damage_absorbed"] = {
 			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
-		["vaal_molten_shall_armour_+%_final"] = {
-			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
-		},
 		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
 			skill("moltenShellReflect", nil),
 		},

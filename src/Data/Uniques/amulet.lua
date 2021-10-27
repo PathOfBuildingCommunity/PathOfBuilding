@@ -478,11 +478,15 @@ Hinekora's Sight
 Onyx Amulet
 Source: Any prophecy{Prophecy} enemy
 Requires Level 20
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-{tags:attack}+1000 to Accuracy Rating
-(6-10)% chance to Dodge Attacks
-(6-10)% chance to Dodge Spell Damage
+{variant:1}{tags:attack}+1000 to Accuracy Rating
+{variant:2}{tags:attack}+(600-1000) to Accuracy Rating
+{variant:2}{tags:jewellery_defense}+(600-1000) to Evasion Rating
+{variant:1}(12-20)% chance to Suppress Spell Damage
+{variant:2}Prevent +3% of Suppressed Spell Damage
 Cannot be Blinded
 ]],[[
 Hyrri's Truth
@@ -921,6 +925,18 @@ Implicits: 1
 {tags:mana}+(30-50) to maximum Mana
 40% increased Stun and Block Recovery
 Your Critical Strikes do not deal extra Damage
+]],[[
+Uul-Netol's Vow
+Unset Amulet
+Source: Drops from Flawless Breachlords
+Requires Level 72
+Implicits: 1
+Has 1 Socket
+Socketed Support Gems can also Support Skills from your Body Armour
+{tags:jewellery_resistance}+(-30-30)% to Fire Resistance
+{tags:jewellery_resistance}+(-30-30)% to Cold Resistance
+{tags:jewellery_resistance}+(-30-30)% to Lightning Resistance
+{tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
 ]],[[
 Victario's Acuity
 Turquoise Amulet

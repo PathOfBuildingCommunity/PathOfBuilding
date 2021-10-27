@@ -437,6 +437,9 @@ return {
 ["base_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["base_spell_cooldown_speed_+%"] = {
+	mod("CooldownRecovery", "INC", nil),
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
@@ -500,7 +503,7 @@ return {
 	div = 100,
 },
 ["nightblade_elusive_grants_critical_strike_multiplier_+_to_supported_skills"] = {
-	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
+	mod("NightbladeElusiveCritMultiplier", "BASE", nil, 0, 0, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 },
 ["critical_strike_chance_against_enemies_on_full_life_+%"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
@@ -703,7 +706,7 @@ return {
 	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
 },
 ["hit_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, KeywordFlag.Hit)
+	mod("Damage", "INC", nil, ModFlag.Hit)
 },
 ["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
@@ -1670,7 +1673,7 @@ return {
 },
 --Elemental
 ["supported_elemental_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Elemental }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "KeywordFlag", keywordFlags = bit.bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire) }),
 },
 --Minion
 ["supported_minion_skill_gem_level_+"] = {

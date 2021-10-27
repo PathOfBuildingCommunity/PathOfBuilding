@@ -3225,7 +3225,7 @@ skills["ExplosiveArrow"] = {
 			div = -10000,
 		},
 		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 	baseFlags = {
@@ -5815,10 +5815,10 @@ skills["PoachersMark"] = {
 			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["minimum_added_physical_damage_taken"] = {
-			mod("SelfPhysicalMin", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfPhysicalMin", "BASE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["maximum_added_physical_damage_taken"] = {
-			mod("SelfPhysicalMax", "BASE", nil, 0, KeywordFlag.Hit, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfPhysicalMax", "BASE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_damage_taken_+%"] = {
 			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -7016,7 +7016,7 @@ skills["ShatteringSteel"] = {
 	},
 	statMap = {
 		["shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
 		},
 	},
 	baseFlags = {
