@@ -1327,8 +1327,14 @@ return {
 	{ label = "Shock Effect", { format = "{1:output:SelfShockEffect}%", { modName = "SelfShockEffect" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
-	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)", { modName = "AttackDodgeChance" }, }, },
-	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)", { modName = "SpellDodgeChance" }, }, },
+	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)",
+		{ breakdown = "AttackDodgeChance" },
+		{ modName = "AttackDodgeChance" }, 
+	}, },
+	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)",
+		{ breakdown = "SpellDodgeChance" },
+		{ modName = { "SpellDodgeChanceMax", "SpellDodgeChance" }, },
+	}, },
 } }, { defaultCollapsed = false, label = "Spell Suppression", data = {
 	extra = "{0:output:SpellSuppressionChance}%",
 	{ label = "Suppression Ch.", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },

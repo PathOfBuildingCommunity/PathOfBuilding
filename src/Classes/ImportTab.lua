@@ -5,6 +5,8 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local b_rshift = bit.rshift
+local band = bit.band
 
 local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
@@ -460,6 +462,20 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	--local out = io.open("get-passive-skills.json", "w")
 	--writeLuaTable(out, charPassiveData, 1)
 	--out:close()
+
+	-- 3.16+
+	if charPassiveData.mastery_effects then
+		local mastery, effect = 0, 0
+		for key, value in pairs(charPassiveData.mastery_effects) do
+			if type(value) ~= "string" then
+				break
+			end
+			mastery = band(tonumber(value), 65535)
+			effect = b_rshift(tonumber(value), 16)
+			t_insert(charPassiveData.mastery_effects, mastery, effect)
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
@@ -665,6 +681,12 @@ function ImportTabClass:ImportItem(itemData, slotName)
 					item.base = self.build.data.itemBases[item.baseName]
 				end
 			end
+			if property.name == "Energy Shield" or property.name == "Ward" or property.name == "Armour" or property.name == "Evasion" then
+				item.armourData = item.armourData or { }
+				for _, value in ipairs(property.values) do
+					item.armourData[property.name:gsub(" ", "")] = (item.armourData[property.name:gsub(" ", "")] or 0) + tonumber(value[1])
+				end
+			end
 		end
 	end
 	item.corrupted = itemData.corrupted
@@ -697,6 +719,14 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
 				t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			end
+		end
+	end
+	if itemData.scourgeMods then
+		for _, line in ipairs(itemData.scourgeMods) do
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod(line)
+				t_insert(item.scourgeModLines, { line = line, extra = extra, mods = modList or { }, scourge = true })
 			end
 		end
 	end

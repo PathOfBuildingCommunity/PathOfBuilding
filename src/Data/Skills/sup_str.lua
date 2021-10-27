@@ -1868,8 +1868,8 @@ skills["SupportFortify"] = {
 		["fortify_effect_+%"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
 		},
-		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
+		["overwhelm_%_physical_damage_reduction_while_max_fortification"] = {
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Hit, 0, { type = "Condition", var = "HaveMaximumFortification"}),
 			mult = -1,
 		},
 	},
