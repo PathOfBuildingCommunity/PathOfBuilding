@@ -9,11 +9,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAddedFireDamagePlus
-	statMap = {
-		["supported_fire_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.FireSkill }),
-		},
-	},
 #mods
 
 #skill SupportSpiritStrike
@@ -175,11 +170,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalLevel
-	statMap = {
-		["supported_active_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
-		},
-	},
 #mods
 
 #skill EnduranceChargeOnMeleeStun
@@ -228,8 +218,8 @@ local skills, mod, flag, skill = ...
 		["fortify_effect_+%"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
 		},
-		["overwhelm_%_physical_damage_reduction_while_fortified"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, 0, KeywordFlag.Hit, { type = "Condition", var = "Fortify"}),
+		["overwhelm_%_physical_damage_reduction_while_max_fortification"] = {
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Hit, 0, { type = "Condition", var = "HaveMaximumFortification"}),
 			mult = -1,
 		},
 	},
@@ -247,9 +237,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
-		},
-		["supported_aura_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
 		},
 	},
 #mods

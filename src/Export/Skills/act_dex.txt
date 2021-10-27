@@ -271,30 +271,6 @@ local skills, mod, flag, skill = ...
 
 #skill BurningArrow
 #flags attack projectile
-	parts = {
-		{
-			name = "1 Stack",
-		},
-		{
-			name = "5 Stacks",
-		},
-	},
-	statMap = {
-		["base_additional_burning_debuff_%_of_ignite_damage"] = {
-			mod("DebuffEffect", "BASE", nil),
-			div = 100
-		},
-	},
-	preDotFunc = function(activeSkill, output)
-		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect") * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "DebuffEffect") / 100)
-		local debuff = (output.IgniteDPS or 0) * effect
-		if activeSkill.skillPart == 1 then
-			output.FireDot = debuff
-		end
-		if activeSkill.skillPart == 2 then
-			output.FireDot = 5 * debuff
-		end
-	end,
 #mods
 
 #skill VaalBurningArrow
@@ -597,8 +573,8 @@ local skills, mod, flag, skill = ...
 			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 			div = -10000,
 		},
-		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 #baseMod skill("radius", 15)
@@ -653,8 +629,8 @@ local skills, mod, flag, skill = ...
 		["flask_throw_maximum_lightning_damage_if_used_topaz_flask"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
 		},
-		["flask_throw_ruby_flask_ignite_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
+		["flask_throw_ruby_flask_ignite_dot_multiplier_+"] = {
+			mod("FireDotMultiplier", "BASE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
 		},
 	},
 #mods
@@ -743,6 +719,9 @@ local skills, mod, flag, skill = ...
 #skill Grace
 #flags spell aura area
 	statMap = {
+		["grace_aura_evasion_rating_+%_final"] = {
+			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 		["base_evasion_rating"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
@@ -762,11 +741,8 @@ local skills, mod, flag, skill = ...
 #skill VaalGrace
 #flags spell aura area duration vaal
 	statMap = {
-		["base_chance_to_dodge_%"] = {
-			mod("AttackDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["base_chance_to_dodge_spells_%"] = {
-			mod("SpellDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["chance_to_evade_attacks_%"] = {
+			mod("EvadeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 40)
@@ -1236,8 +1212,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["shattering_steel_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
+		["shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
 		},
 	},
 #baseMod skill("radius", 28)
@@ -1524,4 +1500,44 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #baseMod skill("radius", 26)
+#mods
+
+#skill PoisonousConcoction
+#flags attack area projectile
+#baseMod skill("radius", 18)
+	parts = {
+		{
+			name = "No Flask",
+		},
+		{
+			name = "Life",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local multiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChaosPerLifeFlaskPercent") or 0
+		local addedFromFlask = (output.LifeFlaskRecovery or 0) * (multiplier / 100)
+		activeSkill.skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "Life Flask charges consumed")
+		activeSkill.skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "Life Flask charges consumed")
+	end,
+	statMap = {
+		["flask_throw_added_chaos_damage_%_of_flask_life_to_recover"] = {
+			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
+#skill TemporalRift
+#flags spell
+#mods
+
+#skill Tornado
+#flags spell duration physical area
+#mods
+
+#skill IntuitiveLink
+#flags spell duration
+#mods
+
+#skill VampiricLink
+#flags spell duration
 #mods

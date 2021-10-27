@@ -417,6 +417,12 @@ function calcs.offence(env, actor, activeSkill)
 		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * data.misc.Transfiguration), "Transfiguration of Soul", ModFlag.Spell)
 	end
 
+	if modDB:Flag(nil, "Elusive") and skillModList:Flag(nil, "SupportedByNightblade") then
+		local elusiveEffect = output.ElusiveEffectMod / 100
+		local nightbladeMulti = skillModList:Sum("BASE", nil, "NightbladeElusiveCritMultiplier")
+		skillModList:NewMod("CritMultiplier", "BASE", m_floor(nightbladeMulti * elusiveEffect), "Nightblade")
+	end
+
 	-- modType: To look for "INC" or "BASE" for getting the percent conversion
 	-- modName: Mod name to look for getting the percent conversion
 	local getConversionMultiplier = function(modType, modName)
@@ -469,6 +475,9 @@ function calcs.offence(env, actor, activeSkill)
 	-- set other limits
 	output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
 	output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
+
+	-- set flask scaling
+	output.LifeFlaskRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"]
 
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
@@ -1341,6 +1350,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	local storedMainHandAccuracy = nil
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1349,6 +1359,16 @@ function calcs.offence(env, actor, activeSkill)
 		output.Accuracy = m_max(0, calcLib.val(skillModList, "Accuracy", cfg))
 		if breakdown then
 			breakdown.Accuracy = breakdown.simple(nil, cfg, output.Accuracy, "Accuracy")
+		end
+		if skillModList:Flag(nil, "Condition:OffHandAccuracyIsMainHandAccuracy") and pass.label == "Main Hand" then
+			storedMainHandAccuracy = output.Accuracy
+		elseif skillModList:Flag(nil, "Condition:OffHandAccuracyIsMainHandAccuracy") and pass.label == "Off Hand" and storedMainHandAccuracy then
+			output.Accuracy = storedMainHandAccuracy
+			if breakdown then
+				breakdown.Accuracy = {
+					"Using Main Hand Accuracy due to Mastery: "..output.Accuracy,
+				}
+			end
 		end
 		if not isAttack or skillModList:Flag(cfg, "CannotBeEvaded") or skillData.cannotBeEvaded or (env.mode_effective and enemyDB:Flag(nil, "CannotEvade")) then
 			output.HitChance = 100

@@ -9,22 +9,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAddedChaosDamagePlus
-	statMap = {
-		["supported_active_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
-		},
-	},
 #mods
 
 #skill SupportAddedLightningDamage
 #mods
 
 #skill SupportAddedLightningDamagePlus
-	statMap = {
-		["supported_lightning_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.LightningSkill }),
-		},
-	},
 #mods
 
 #skill SupportArcaneSurge
@@ -63,11 +53,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBlasphemyPlus
-	statMap = {
-		["supported_curse_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
-		},
-	},
 #mods
 
 #skill SupportBonechill
@@ -317,8 +302,11 @@ local skills, mod, flag, skill = ...
 #skill ViciousHexExplosion
 #flags spell area
 	statMap = {
-		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		["doom_blast_hit_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		},
+		["doom_blast_ailment_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
 	},
 #baseMod skill("radius", 20)

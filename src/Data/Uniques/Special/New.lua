@@ -14,18 +14,6 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Can have 3 additional Enchantment Modifiers
 ]],[[
-Uul-Netol's Vow
-Unset Amulet
-Source: Drops from Uber-Breachlords
-Requires Level 72
-Implicits: 1
-Has 1 Socket
-Socketed Support Gems can also Support Skills from your Body Armour
-{tags:jewellery_resistance}+30% to Fire Resistance
-{tags:jewellery_resistance}+30% to Cold Resistance
-{tags:jewellery_resistance}+30% to Lightning Resistance
-{tags:chaos,jewellery_resistance}+23% to Chaos Resistance
-]],[[
 Mageblood
 Heavy Belt
 Requires Level 44
@@ -49,19 +37,6 @@ Implicits: 1
 Temporal Rift has no Reservation
 100% of Damage taken Recouped as Life
 Debuffs on you Expire 100% faster
-]],[[
-The Squire
-Elegant Round Shield
-League: Scourge
-Requires Level 70, 85 Str, 85 Dex
-Implicits: 1
-120% Increased Block Recovery
-Has 3 Sockets
-All Sockets are White
-+2% to Quality of Socketed Support Gems
-Socketed Support Gems can also Support Skills from your Main Hand
-102% increased Armour and Evasion
-+3% Chance to Block
 ]],[[
 Gravebind
 Hydrascale Gauntlets

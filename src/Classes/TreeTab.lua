@@ -94,6 +94,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
+			self.build.spec:BuildAllDependsAndPaths()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 		end)
@@ -479,6 +480,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				})
 			end
 		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
 	local function addModifier(selectedNode)
 		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
@@ -590,6 +592,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Notable" then
 			local legionNode = self.build.spec.tree.legion.nodes["vaal_notable_curse_1"]
 			selectedNode.dn = "Vaal notable node"
@@ -598,6 +601,16 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
+		elseif selectedNode.conqueredBy.conqueror.type == "eternal" and selectedNode.type == "Notable" then
+			local legionNode = self.build.spec.tree.legion.nodes["eternal_notable_fire_resistance_1"]
+			selectedNode.dn = "Eternal Empire notable node"
+			selectedNode.sd = {"Right click to set mod"}
+			selectedNode.sprites = legionNode.sprites
+			selectedNode.mods = {""}
+			selectedNode.modList = new("ModList")
+			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		else
 			self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			if selectedNode.conqueredBy.conqueror.type == "templar" then

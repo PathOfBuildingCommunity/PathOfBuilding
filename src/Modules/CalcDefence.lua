@@ -18,6 +18,7 @@ local tempTable1 = { }
 local isElemental = { Fire = true, Cold = true, Lightning = true }
 
 -- List of all damage types, ordered according to the conversion sequence
+local hitSourceList = {"Attack", "Spell"}
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
 local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
@@ -129,8 +130,9 @@ function calcs.defence(env, actor)
 		output.SpellProjectileBlockChance = output.ProjectileBlockChance
 		output.SpellBlockChanceOverCap = output.BlockChanceOverCap
 	else
-		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax)
-		output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
+		local totalSpellBlockChance = modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance")
+		output.SpellBlockChance = m_min(totalSpellBlockChance, output.SpellBlockChanceMax)
+		output.SpellBlockChanceOverCap = m_max(0, totalSpellBlockChance - output.SpellBlockChanceMax)
 		output.SpellProjectileBlockChance = output.SpellBlockChance
 	end
 	if breakdown then
@@ -445,17 +447,33 @@ function calcs.defence(env, actor)
 		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
 	end
 
+	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+	local attackDodgeChanceMax = data.misc.DodgeChanceCap
+	local spellDodgeChanceMax = modDB:Override(nil, "SpellDodgeChanceMax") or modDB:Sum("BASE", nil, "SpellDodgeChanceMax")
 
-	output.AttackDodgeChance = m_min(totalAttackDodgeChance, data.misc.DodgeChanceCap)
-	output.SpellDodgeChance = m_min(totalSpellDodgeChance, data.misc.DodgeChanceCap)
+	output.AttackDodgeChance = m_min(totalAttackDodgeChance, attackDodgeChanceMax)
+	output.SpellDodgeChance = m_min(totalSpellDodgeChance, spellDodgeChanceMax)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
 		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
 	end
-	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - data.misc.DodgeChanceCap)
-	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - data.misc.DodgeChanceCap)
+	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - attackDodgeChanceMax)
+	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - spellDodgeChanceMax)
+
+	if breakdown then
+		breakdown.AttackDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..attackDodgeChanceMax.."%",
+			"Total: "..output.AttackDodgeChance+output.AttackDodgeChanceOverCap.."%",
+		}
+		breakdown.SpellDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..spellDodgeChanceMax.."%",
+			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
+		}
+	end
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
@@ -679,9 +697,6 @@ function calcs.defence(env, actor)
 			{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
 			total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
 		})
-	end
-	if modDB:Flag(nil, "Elusive") then
-		output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
 	end
 
 	if enemyDB:Flag(nil, "Blind") then
@@ -1208,6 +1223,15 @@ function calcs.defence(env, actor)
 			end
 		end
 		output[damageType.."TakenHitMult"] = mult
+		for _, hitType in ipairs(hitSourceList) do
+			local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", hitType.."DamageTaken")
+			local baseTakenMore = modDB:More(nil, "DamageTaken", hitType.."DamageTaken")
+			do
+				-- Hit
+				output[hitType.."TakenHitMult"] = m_max((1 + baseTakenInc / 100) * baseTakenMore)
+				output[hitType..damageType.."TakenHitMult"] = mult * output[hitType.."TakenHitMult"]
+			end
+		end
 		if output.AnyTakenReflect then
 			output[damageType.."TakenReflectMult"] = multReflect
 		end
@@ -1326,6 +1350,7 @@ function calcs.defence(env, actor)
 
 	--maximum hit taken
 	--FIX ARMOUR MITIGATION FOR THIS, uses input damage to calculate mitigation from armour, instead of maximum hit taken
+	local damageCategoryConfig = env.configInput.EhpCalcMode or "Average"
 	for _, damageType in ipairs(dmgTypeList) do
 		if breakdown then
 			breakdown[damageType.."MaximumHitTaken"] = { 
@@ -1343,6 +1368,15 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local hitTaken = output[damageConvertedType.."TotalPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageType..damageConvertedType.."BaseTakenHitMult"]
+				if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
+					hitTaken = hitTaken * (1 / output.AttackTakenHitMult)
+				end
+				if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+					hitTaken = hitTaken * (1 / output.SpellTakenHitMult)
+				end
+				if damageCategoryConfig == "Average" then
+					hitTaken = hitTaken * (1 / ((output.SpellTakenHitMult + output.AttackTakenHitMult) / 2))
+				end
 				if hitTaken < output[damageType.."MaximumHitTaken"] then
 					output[damageType.."MaximumHitTaken"] = hitTaken
 				end
@@ -1391,8 +1425,14 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local damageTaken = (damage  * actor.damageShiftTable[damageType][damageConvertedType] / 100 * output[damageType..damageConvertedType.."BaseTakenHitMult"])
+				if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
+					damageTaken = damageTaken * output.AttackTakenHitMult
+				end
 				if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
-					damageTaken = damageTaken * ((100 - output.SpellSuppressionEffectiveChance) / 100)
+					damageTaken = damageTaken * ((100 - output.SpellSuppressionEffectiveChance) / 100) * output.SpellTakenHitMult
+				end
+				if damageCategoryConfig == "Average" then
+					damageTaken = damageTaken * ((((100 - output.SpellSuppressionEffectiveChance) / 100) * output.SpellTakenHitMult + output.AttackTakenHitMult) / 2)
 				end
 				local hitsTaken = math.ceil(output[damageConvertedType.."TotalPool"] / damageTaken)
 				hitsTaken = hitsTaken / (1 - output[damageCategory.."NotHitChance"] / 100)  / (1 - output[damageConvertedType..damageCategory.."DamageChance"] / 100)

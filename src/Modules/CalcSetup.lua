@@ -22,6 +22,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("ChaosResistMax", "BASE", 75, "Base")
 	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("SpellBlockChanceMax", "BASE", 75, "Base")
+	modDB:NewMod("SpellDodgeChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("PowerChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("FrenzyChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
@@ -59,6 +60,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("Chill", "FLAG", true, "Base", { type = "Condition", var = "Chilled" })
 	modDB:NewMod("Freeze", "FLAG", true, "Base", { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Fortify", "FLAG", true, "Base", { type = "Condition", var = "Fortify" })
+	modDB:NewMod("Fortified", "FLAG", true, "Base", { type = "Condition", var = "Fortified" })
 	modDB:NewMod("Fanaticism", "FLAG", true, "Base", { type = "Condition", var = "Fanaticism" })
 	modDB:NewMod("Onslaught", "FLAG", true, "Base", { type = "Condition", var = "Onslaught" })
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
@@ -388,6 +390,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
+		modDB:NewMod("Multiplier:Fortification", "BASE", 0, "Base")
+		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
@@ -548,6 +552,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item and item.type == "Flask" then
 				if slot.active then
 					env.flasks[item] = true
+				end
+				if item.base.subType == "Life" then
+					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0
+					if item.flaskData.lifeTotal > highestLifeRecovery then
+						env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
+					end
 				end
 				item = nil
 			end
@@ -901,7 +911,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							if gemInstance.gemData then
 								for _, value in ipairs(propertyModList) do
-									if calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+									local match = true
+									if value.keywordList then
+										for _, keyword in ipairs(value.keywordList) do
+											if not calcLib.gemIsType(supportEffect.gemData, keyword) then
+												match = false
+												break
+											end
+										end
+									elseif not calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+										match = false
+									end
+									if match then
 										supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
 									end
 								end
