@@ -2892,7 +2892,7 @@ skills["SupportPuncturingWeapon"] = {
 		["elusive_effect_+%"] = {
 			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
 		},
-	},	
+	},
 	baseMods = {
 		flag("SupportedByNightblade"),
 		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
