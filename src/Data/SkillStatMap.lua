@@ -703,7 +703,7 @@ return {
 	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
 },
 ["hit_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, KeywordFlag.Hit)
+	mod("Damage", "INC", nil, ModFlag.Hit)
 },
 ["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
