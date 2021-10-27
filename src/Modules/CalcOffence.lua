@@ -417,6 +417,12 @@ function calcs.offence(env, actor, activeSkill)
 		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * data.misc.Transfiguration), "Transfiguration of Soul", ModFlag.Spell)
 	end
 
+	if modDB:Flag(nil, "Elusive") and skillModList:Flag(nil, "SupportedByNightblade") then
+		local elusiveEffect = output.ElusiveEffectMod / 100
+		local nightbladeMulti = skillModList:Sum("BASE", nil, "NightbladeElusiveCritMultiplier")
+		skillModList:NewMod("CritMultiplier", "BASE", m_floor(nightbladeMulti * elusiveEffect), "Nightblade")
+	end
+
 	-- modType: To look for "INC" or "BASE" for getting the percent conversion
 	-- modName: Mod name to look for getting the percent conversion
 	local getConversionMultiplier = function(modType, modName)
