@@ -1066,7 +1066,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			flaskData.instantPerc = calcLocal(modList, "FlaskInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + calcLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + calcLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
-			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod
+			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore
 			if self.base.flask.life then
 				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
