@@ -3225,7 +3225,7 @@ skills["ExplosiveArrow"] = {
 			div = -10000,
 		},
 		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 	baseFlags = {
