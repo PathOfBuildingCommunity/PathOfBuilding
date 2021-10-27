@@ -777,6 +777,9 @@ local function doActorMisc(env, actor)
 				local effectMax = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
 				local effect = m_floor(effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), effectMax))
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
+				if modDB:Sum("BASE", nil, "Multiplier:Fortification") >= effectMax then
+					modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
+				end
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
