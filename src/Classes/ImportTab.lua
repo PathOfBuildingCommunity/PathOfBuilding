@@ -665,6 +665,12 @@ function ImportTabClass:ImportItem(itemData, slotName)
 					item.base = self.build.data.itemBases[item.baseName]
 				end
 			end
+			if property.name == "Energy Shield" or property.name == "Ward" or property.name == "Armour" or property.name == "Evasion" then
+				item.armourData = item.armourData or { }
+				for _, value in ipairs(property.values) do
+					item.armourData[property.name:gsub(" ", "")] = (item.armourData[property.name:gsub(" ", "")] or 0) + tonumber(value[1])
+				end
+			end
 		end
 	end
 	item.corrupted = itemData.corrupted
@@ -697,6 +703,14 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
 				t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			end
+		end
+	end
+	if itemData.scourgeMods then
+		for _, line in ipairs(itemData.scourgeMods) do
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod(line)
+				t_insert(item.scourgeModLines, { line = line, extra = extra, mods = modList or { }, scourge = true })
 			end
 		end
 	end
