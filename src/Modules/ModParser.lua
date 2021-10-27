@@ -3515,6 +3515,8 @@ local jewelThresholdFuncs = {
 	["With at least 40 Intelligence in Radius, Rolling Magma deals 50% less damage"] = getThreshold("Int", "Damage", "MORE", -50, { type = "SkillName", skillName = "Rolling Magma" }),
 	["With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect"] = getThreshold("Dex", "AreaOfEffect", "INC", 25, { type = "SkillName", skillName = "Shrapnel Shot" }),
 	["With at least 40 Dexterity in Radius, Shrapnel Shot's cone has a 50% chance to deal Double Damage"] = getThreshold("Dex", "DoubleDamageChance", "BASE", 50, { type = "SkillName", skillName = "Shrapnel Shot" }, { type = "SkillPart", skillPart = 2 }),
+	["With at least 40 Dexterity in Radius, Galvanic Arrow deals 50% increased Area Damage"] = getThreshold("Dex", "Damage", "INC", 50, { type = "SkillName", skillName = "Galvanic Arrow" }, { type = "SkillPart", skillPart = 2 }),
+	["With at least 40 Dexterity in Radius, Galvanic Arrow has 25% increased Area of Effect"] = getThreshold("Dex", "AreaOfEffect", "INC", 25, { type = "SkillName", skillName = "Galvanic Arrow" }),
 	["With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles"] = getThreshold("Int", "ProjectileCount", "BASE", 2, { type = "SkillName", skillName = "Freezing Pulse" }),
 	["With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if you've Shattered an Enemy Recently"] = getThreshold("Int", "Damage", "INC", 25, { type = "SkillName", skillName = "Freezing Pulse" }, { type = "Condition", var = "ShatteredEnemyRecently" }),
 	["With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles"] = getThreshold("Dex", "ProjectileCount", "BASE", 10, { type = "SkillName", skillName = "Ethereal Knives" }),
