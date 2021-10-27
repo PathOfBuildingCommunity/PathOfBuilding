@@ -1,12 +1,12 @@
 # Changelog
 
-## [2.12](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.12) (2021/10/28)
+## [2.12.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.12.0) (2021/10/28)
 
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.11.1...2.12)
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.11.1...2.12.0)
 
 **Implemented enhancements:**
 
-- Add support for Nightblade Dagger Mastery [\#3636](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3636) ([Dullson](https://github.com/Dullson))
+- Add support for Nightblade Dagger Mastery [\#3636](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3636) ([Dullson](https://github.com/mthjones))
 - Add support for Sword Mastery for Offhand Accuracy [\#3498](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3498) ([Nostrademous](https://github.com/Nostrademous))
 - Add support for +3 levels Critical support gem mastery [\#3566](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3566) ([Wires77](https://github.com/Wires77))
 - Add support for variable ES bypass for Chaos Damage mastery [\#3509](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3509) ([Dullson](https://github.com/Dullson))
