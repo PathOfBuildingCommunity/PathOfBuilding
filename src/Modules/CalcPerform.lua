@@ -1533,13 +1533,22 @@ function calcs.perform(env, avoidCache)
 	if env.mode_buffs then
 		local heraldList = { }
 		for _, activeSkill in ipairs(env.player.activeSkillList) do
-			if activeSkill.skillTypes[SkillType.Herald] then
+			if activeSkill.skillTypes[SkillType.Herald] and not heraldList[activeSkill.skillCfg.skillName] then
 				heraldList[activeSkill.skillCfg.skillName] = true
+				modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+				modDB.conditions["AffectedByHerald"] = true
 			end
 		end
-		for _, herald in pairs(heraldList) do
-			modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
-			modDB.conditions["AffectedByHerald"] = true
+	end
+
+	-- Calculate number of active auras affecting self
+	if env.mode_buffs then
+		local auraList = { }
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillData.auraCannotAffectSelf and not auraList[activeSkill.skillCfg.skillName] then
+				auraList[activeSkill.skillCfg.skillName] = true
+				modDB.multipliers["AuraAffectingSelf"] = (modDB.multipliers["AuraAffectingSelf"] or 0) + 1
+			end
 		end
 	end
 	

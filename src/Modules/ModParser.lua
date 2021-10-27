@@ -992,6 +992,7 @@ local modTagList = {
 	["for each uncorrupted item equipped"] = { tag = { type = "Multiplier", var = "NonCorruptedItem" } },
 	["per abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewel" } },
 	["for each herald s?k?i?l?l? ?affecting you"] = { tag = { type = "Multiplier", var = "Herald" } },
+	["for each of your aura or herald skills affecting you"] = { tag = { type = "Multiplier", varList = {"Herald", "AuraAffectingSelf"} } },
 	["for each type of abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewelType" } },
 	["per (.+) eye jewel affecting you, up to a maximum of %+?(%d+)%%"] = function(type, _, num) return { tag = { type = "Multiplier", var = (type:gsub("^%l", string.upper)) .. "EyeJewel", limit = tonumber(num), limitTotal = true } } end,
 	["per sextant affecting the area"] = { tag = { type = "Multiplier", var = "Sextant" } },
