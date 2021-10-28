@@ -847,3 +847,15 @@ local skills, mod, flag, skill = ...
 #skill LegionKaruiArcherSnipe Snipe
 #flags attack projectile hit
 #mods
+
+#skill TBHellscapePaleLightningBoltSpammableLeft Lightning Bolt
+#flags spell hit triggerable
+#mods
+
+#skill GSHellscapePaleEliteBoltImpact Bolt Impact
+#flags spell area hit triggerable
+#mods
+
+#skill GSHellscapePaleEliteOmegaBeam Omega Beam
+#flags spell area hit triggerable
+#mods

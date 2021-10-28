@@ -3034,3 +3034,30 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 	},
 }
+-- Pale Angel
+minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre"] = {
+	name = "Pale Angel",
+	life = 2.55,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"TBHellscapePaleLightningBoltSpammableLeft",
+		"TBHellscapePaleLightningBoltSpammableRight",
+		"GSHellscapePaleEliteBoltImpact",
+		"GSHellscapePaleEliteOmegaBeam",
+		"TeleportHellscapePaleElite",
+		"TeleportHellscapePaleEliteForwards",
+		"TeleportHellscapePaleEliteToAlly",
+	},
+	modList = {
+	},
+}
