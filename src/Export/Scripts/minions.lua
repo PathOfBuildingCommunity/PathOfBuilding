@@ -37,19 +37,6 @@ local function tableToString(tbl, pre)
 	end
 	return tableString .. " }"
 end
-local modMap = { }
-do
-	local lastMod
-	for line in io.lines("Minions/modmap.ini") do
-		local statName = line:match("^%[([^]]+)%]$")
-		if statName then
-			modMap[statName] = { }
-			lastMod = modMap[statName]
-		elseif line:match("^[^#].+") then
-			table.insert(lastMod, line)
-		end
-	end
-end
 
 local itemClassMap = {
 	["Claw"] = "Claw",
@@ -164,10 +151,7 @@ directiveTable.emit = function(state, args, out)
 		local modStats = ""
 		for i = 1, 6 do
 			if mod["Stat"..i] then
-				modStats = modStats .. ' [' .. mod["Stat"..i].Id .. ' = ' .. mod["Stat"..i.."Value"][1] .. ']'
-				if mod["Stat"..i].Id == "global_always_hit" then
-					local x = "X"
-				end
+				modStats = ' [' .. mod["Stat"..i].Id .. ' = ' .. mod["Stat"..i.."Value"][1] .. ']'
 				if skillStatMap[mod["Stat"..i].Id] then
 					local newMod = skillStatMap[mod["Stat"..i].Id][1]
 					--mod("Speed", "INC", -80, ModFlag.Cast, KeywordFlag.Curse)
@@ -176,16 +160,11 @@ directiveTable.emit = function(state, args, out)
 						out:write(', ', tableToString(extra))
 					end
 					out:write('), --', modStats, '\n')
+				else
+					out:write('\t\t--', modStats, '\n')
 				end
 			end
 		end
---[[		if modMap[mod.Id] then
-			for _, mappedMod in ipairs(modMap[mod.Id]) do
-				out:write('\t\t', mappedMod, ', -- ', mod.Id, modStats, '\n')
-			end
-		else]]
-			out:write('\t\t-- ', mod.Id, modStats, '\n')
-		--end
 	end
 	for _, mod in ipairs(state.extraModList) do
 		out:write('\t\t', mod, ',\n')
