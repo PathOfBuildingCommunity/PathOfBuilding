@@ -1,3 +1,7 @@
+VERSION[2.12.2][2021/10/28]
+
+* Fix crash when using Blood Magic Keystone (LocalIdentity)
+
 VERSION[2.12.1][2021/10/28]
 
 * Fix several bugs relating to armour calculations on items (Wires77)
