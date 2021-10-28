@@ -681,10 +681,10 @@ function ImportTabClass:ImportItem(itemData, slotName)
 					item.base = self.build.data.itemBases[item.baseName]
 				end
 			end
-			if property.name == "Energy Shield" or property.name == "Ward" or property.name == "Armour" or property.name == "Evasion" then
+			if property.name == "Energy Shield" or property.name == "Ward" or property.name == "Armour" or property.name == "Evasion Rating" then
 				item.armourData = item.armourData or { }
 				for _, value in ipairs(property.values) do
-					item.armourData[property.name:gsub(" ", "")] = (item.armourData[property.name:gsub(" ", "")] or 0) + tonumber(value[1])
+					item.armourData[property.name:gsub(" Rating", ""):gsub(" ", "")] = (item.armourData[property.name:gsub(" Rating", ""):gsub(" ", "")] or 0) + tonumber(value[1])
 				end
 			end
 		end
