@@ -198,3 +198,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre
 -- Hyrri's Watch
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre
+-- Demon Harpy
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
