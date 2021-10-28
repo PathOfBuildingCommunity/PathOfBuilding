@@ -351,11 +351,13 @@ function PassiveSpecClass:EncodeURL(prefix)
 			nodeCount = nodeCount + 1
 			if self.masterySelections[node.id] then
 				local effect_id = self.masterySelections[node.id]
-				t_insert(masteryNodeIds, m_floor(effect_id / 256))
-				t_insert(masteryNodeIds, effect_id % 256)
-				t_insert(masteryNodeIds, m_floor(node.id / 256))
-				t_insert(masteryNodeIds, node.id % 256)
-				masteryCount = masteryCount + 1
+				if (tonumber(effect_id) < 65536) then
+					t_insert(masteryNodeIds, m_floor(effect_id / 256))
+					t_insert(masteryNodeIds, effect_id % 256)
+					t_insert(masteryNodeIds, m_floor(node.id / 256))
+					t_insert(masteryNodeIds, node.id % 256)
+					masteryCount = masteryCount + 1
+				end
 			end
 		elseif id >= 65536 then
 			local clusterId = id - 65536
