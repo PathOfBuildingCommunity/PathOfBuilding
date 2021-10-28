@@ -1,3 +1,7 @@
+VERSION[2.12.3][2021/10/28]
+
+* Fix crash when importing/opening builds (LocalIdentity)
+
 VERSION[2.12.2][2021/10/28]
 
 * Fix crash when using Blood Magic Keystone (LocalIdentity)
