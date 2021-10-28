@@ -222,7 +222,7 @@ function ModStoreClass:GetStat(stat, cfg)
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
 		-- 0% reserved = total mana
 		return self.actor.output["Mana"]
-	elseif stat == "ManaUnreserved" and self.actor.output[stat] < 0 then
+	elseif self.actor.output["Mana"] > 0 and stat == "ManaUnreserved" and self.actor.output[stat] < 0 then
 		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
 		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)
 		return self.actor.output["Mana"] * (math.ceil(reservedPercentBeforeEfficiency) / 100);
