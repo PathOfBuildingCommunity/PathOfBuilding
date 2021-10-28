@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.12.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.12.0) (2021/10/28)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.12.0...2.12.1)
+
+**Fixed bugs:**
+
+- Fix several bugs relating to armour calculations on items ([Wires77](https://github.com/Wires77))
+
 ## [2.12.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.12.0) (2021/10/28)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.11.1...2.12.0)

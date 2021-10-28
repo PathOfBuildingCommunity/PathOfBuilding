@@ -1,3 +1,7 @@
+VERSION[2.12.1][2021/10/28]
+
+* Fix several bugs relating to armour calculations on items (Wires77)
+
 VERSION[2.12.0][2021/10/28]
 
 * Add support for Nightblade Dagger Mastery (mthjones)
