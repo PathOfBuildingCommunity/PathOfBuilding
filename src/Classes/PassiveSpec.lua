@@ -169,10 +169,7 @@ function PassiveSpecClass:Save(xml)
 	end
 	local masterySelections = { }
 	for mastery, effect in pairs(self.masterySelections) do
-		-- only save pob codes to xml (only profile import should have leftover effects to clean up)
-		if (tonumber(effect) < 65536) then
-			t_insert(masterySelections, "{"..mastery..","..effect.."}")
-		end
+		t_insert(masterySelections, "{"..mastery..","..effect.."}")
 	end
 	local editedNodes = {
 		elem = "EditedNodes"
@@ -253,7 +250,10 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 	end
 	wipeTable(self.masterySelections)
 	for mastery, effect in pairs(masteryEffects) do
-		self.masterySelections[mastery] = effect
+		-- ignore ggg codes from profile import
+		if (tonumber(effect) < 65536) then
+			self.masterySelections[mastery] = effect
+		end
 	end
 	self:SelectAscendClass(ascendClassId)
 end
@@ -351,13 +351,11 @@ function PassiveSpecClass:EncodeURL(prefix)
 			nodeCount = nodeCount + 1
 			if self.masterySelections[node.id] then
 				local effect_id = self.masterySelections[node.id]
-				if (tonumber(effect_id) < 65536) then
-					t_insert(masteryNodeIds, m_floor(effect_id / 256))
-					t_insert(masteryNodeIds, effect_id % 256)
-					t_insert(masteryNodeIds, m_floor(node.id / 256))
-					t_insert(masteryNodeIds, node.id % 256)
-					masteryCount = masteryCount + 1
-				end
+				t_insert(masteryNodeIds, m_floor(effect_id / 256))
+				t_insert(masteryNodeIds, effect_id % 256)
+				t_insert(masteryNodeIds, m_floor(node.id / 256))
+				t_insert(masteryNodeIds, node.id % 256)
+				masteryCount = masteryCount + 1
 			end
 		elseif id >= 65536 then
 			local clusterId = id - 65536
