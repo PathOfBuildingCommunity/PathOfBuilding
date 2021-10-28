@@ -1119,7 +1119,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 
 			-- Small and Medium Curse Cluster Jewel passive mods are parsed the same so the medium cluster data overwrites small and the skills differ
-			-- This changes small curse clusters to have the correct skill so it renders in the tree
+			-- This changes small curse clusters to have the correct clusterJewelSkill so it passes validation below and works as expected in the tree
 			if jewelData.clusterJewelSkill == "affliction_curse_effect" and jewelData.clusterJewelNodeCount and jewelData.clusterJewelNodeCount < 4 then
 				jewelData.clusterJewelSkill = "affliction_curse_effect_small"
 			end
