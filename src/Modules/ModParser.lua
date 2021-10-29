@@ -143,7 +143,7 @@ local modNameList = {
 	["start of energy shield recharge"] = "EnergyShieldRechargeFaster",
 	["restoration of ward"] = "WardRechargeFaster",
 	["armour"] = "Armour",
-	["to defend with double armour"] = "DoubleArmourChance",
+	["to defend with double armour"] = "MoreArmourChance", --legacy support
 	["evasion"] = "Evasion",
 	["evasion rating"] = "Evasion",
 	["energy shield"] = "EnergyShield",
@@ -1599,6 +1599,13 @@ local specialModList = {
 	} end,
 	-- Masteries
 	["off hand accuracy is equal to main hand accuracy while wielding a sword"] = { flag("Condition:OffHandAccuracyIsMainHandAccuracy", { type = "Condition", var = "UsingSword" }) },
+	["(%d+)%% chance to defend with (%d+)%% of armour"] = function(numChance, _, numArmourMultiplier) return {
+		mod("Armour", "MORE", tonumber(numArmourMultiplier) - 100, "Armour Mastery: Max Calc", { type = "Condition", var = "ArmourMax"}),
+		mod("Armour", "MORE", (numChance / 100) * (tonumber(numArmourMultiplier) - 100), "Armour Mastery: Average Calc", { type = "Condition", var = "ArmourAvg"}),
+	 } end,
+	 ["defend with (%d+)%% of armour while not on low energy shield"] = function(num) return {
+		mod("Armour", "MORE", num - 100, "Armour and Energy Shield Mastery", { type = "Condition", var = "LowEnergyShield", neg = true }),
+	 } end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
