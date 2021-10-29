@@ -16,7 +16,7 @@ return {
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse Life:", tooltip = "Sets the maximum life of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base life, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
-	{ var = "conditionStationary", type = "count", label = "Are you stationary?", ifFlag = "Condition:Stationary",
+	{ var = "conditionStationary", type = "count", label = "Are you stationary?", ifCond = "Stationary",
 		tooltip = "Applies mods that use `while stationary` and `per/every second while stationary`",
 		apply = function(val, modList, enemyModList)
 		if type(val) == "boolean" then
