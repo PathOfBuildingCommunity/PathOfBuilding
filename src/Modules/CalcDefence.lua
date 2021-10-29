@@ -130,8 +130,9 @@ function calcs.defence(env, actor)
 		output.SpellProjectileBlockChance = output.ProjectileBlockChance
 		output.SpellBlockChanceOverCap = output.BlockChanceOverCap
 	else
-		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax)
-		output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
+		local totalSpellBlockChance = modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance")
+		output.SpellBlockChance = m_min(totalSpellBlockChance, output.SpellBlockChanceMax)
+		output.SpellBlockChanceOverCap = m_max(0, totalSpellBlockChance - output.SpellBlockChanceMax)
 		output.SpellProjectileBlockChance = output.SpellBlockChance
 	end
 	if breakdown then
@@ -446,17 +447,33 @@ function calcs.defence(env, actor)
 		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
 	end
 
+	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+	local attackDodgeChanceMax = data.misc.DodgeChanceCap
+	local spellDodgeChanceMax = modDB:Override(nil, "SpellDodgeChanceMax") or modDB:Sum("BASE", nil, "SpellDodgeChanceMax")
 
-	output.AttackDodgeChance = m_min(totalAttackDodgeChance, data.misc.DodgeChanceCap)
-	output.SpellDodgeChance = m_min(totalSpellDodgeChance, data.misc.DodgeChanceCap)
+	output.AttackDodgeChance = m_min(totalAttackDodgeChance, attackDodgeChanceMax)
+	output.SpellDodgeChance = m_min(totalSpellDodgeChance, spellDodgeChanceMax)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
 		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
 	end
-	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - data.misc.DodgeChanceCap)
-	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - data.misc.DodgeChanceCap)
+	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - attackDodgeChanceMax)
+	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - spellDodgeChanceMax)
+
+	if breakdown then
+		breakdown.AttackDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..attackDodgeChanceMax.."%",
+			"Total: "..output.AttackDodgeChance+output.AttackDodgeChanceOverCap.."%",
+		}
+		breakdown.SpellDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..spellDodgeChanceMax.."%",
+			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
+		}
+	end
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
@@ -680,9 +697,6 @@ function calcs.defence(env, actor)
 			{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
 			total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
 		})
-	end
-	if modDB:Flag(nil, "Elusive") then
-		output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
 	end
 
 	if enemyDB:Flag(nil, "Blind") then

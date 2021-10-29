@@ -4896,8 +4896,8 @@ skills["HeistThugRangedExplosiveArrow"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 			div = 100,
 		},
-		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 	baseFlags = {

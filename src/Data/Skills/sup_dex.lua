@@ -2892,8 +2892,9 @@ skills["SupportPuncturingWeapon"] = {
 		["elusive_effect_+%"] = {
 			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
 		},
-	},	
+	},
 	baseMods = {
+		flag("SupportedByNightblade"),
 		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
@@ -3126,7 +3127,7 @@ skills["SupportPointBlank"] = {
 			flag("PointBlank"),
 		},
 		["knockback_chance_%_at_close_range"] = {
-			mod("EnemyKnockbackChance", "BASE", nil, 0, KeywordFlag.Hit),
+			mod("EnemyKnockbackChance", "BASE", nil, ModFlag.Hit),
 		},
 	},
 	baseMods = {

@@ -2575,7 +2575,7 @@ skills["DivineTempest"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["divine_tempest_hit_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
 		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
@@ -3598,7 +3598,7 @@ skills["Flameblast"] = {
 	castTime = 0.2,
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
@@ -3712,7 +3712,7 @@ skills["VaalFlameblast"] = {
 	},
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "VaalFlameblastStage" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
@@ -4928,7 +4928,7 @@ skills["DoomBlast"] = {
 	castTime = 0.6,
 	statMap = {
 		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "HexDoom", div = 5 })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
 		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
@@ -5535,7 +5535,7 @@ skills["ExpandingFireCone"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 2 }),
 		},
 		["expanding_fire_cone_release_hit_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
@@ -6715,7 +6715,7 @@ skills["MagmaSigil"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
 		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
@@ -7638,9 +7638,9 @@ skills["RighteousFire"] = {
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillFlags.totem then
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * 0.2
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier
 		else
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + (output.Life + output.EnergyShield) * 0.2
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
 		end
 	end,
 	statMap = {
@@ -7657,6 +7657,14 @@ skills["RighteousFire"] = {
 		},
 		["spell_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute"] = {
+			skill("RFLifeMultiplier", nil),
+			div = 6000,
+		},
+		["base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute"] = {
+			skill("RFESMultiplier", nil),
+			div = 6000,
 		},
 	},
 	baseFlags = {
@@ -8698,8 +8706,8 @@ skills["SupportBrandSupport"] = {
 		["support_brand_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
 		},
-		["trigger_brand_support_hit_ailment_damage_+%_final_vs_branded_enemy"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
+			mod("TriggeredDamage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
 	addSkillTypes = { SkillType.Brand, },

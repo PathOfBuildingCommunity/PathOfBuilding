@@ -28,7 +28,7 @@ Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
 Apparitions
 Viridian Jewel
 Minions have (5-10)% increased Movement Speed
-Minions have (2-5)% additional chance to Dodge Attacks
+Minions have +(2-5)% chance to Suppress Spell Damage
 ]],[[
 The Blue Dream
 Cobalt Jewel

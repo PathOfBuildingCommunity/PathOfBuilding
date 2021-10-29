@@ -518,24 +518,24 @@ local function doActorAttribsPoolsConditions(env, actor)
 			end
 			local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
 			if strDmgBonusRatioOverride > 0 then
-				actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
+				actor.strDmgBonus = m_floor((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
 			else
-				actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+				actor.strDmgBonus = m_floor((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
 			end
 			modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
 		end
 		if not modDB:Flag(nil, "NoDexterityAttributeBonuses") then
 			modDB:NewMod("Accuracy", "BASE", output.Dex * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Dexterity")
 			if not modDB:Flag(nil, "NoDexBonusToEvasion") then
-				modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
+				modDB:NewMod("Evasion", "INC", m_floor(output.Dex / 5), "Dexterity")
 			end
 		end
 		if not modDB:Flag(nil, "NoIntelligenceAttributeBonuses") then
 			if not modDB:Flag(nil, "NoIntBonusToMana") then
-				modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
+				modDB:NewMod("Mana", "BASE", m_floor(output.Int / 2), "Intelligence")
 			end
 			if not modDB:Flag(nil, "NoIntBonusToES") then
-				modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
+				modDB:NewMod("EnergyShield", "INC", m_floor(output.Int / 5), "Intelligence")
 			end
 		end
 	end
@@ -777,6 +777,9 @@ local function doActorMisc(env, actor)
 				local effectMax = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
 				local effect = m_floor(effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), effectMax))
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
+				if modDB:Sum("BASE", nil, "Multiplier:Fortification") >= effectMax then
+					modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
+				end
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
@@ -824,11 +827,12 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
 		if modDB:Flag(nil, "Elusive") then
-			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
-			-- Override elusive effect if set.			
-			if modDB:Override(nil, "ElusiveEffect") then 
-				effect = m_min(modDB:Override(nil, "ElusiveEffect") / 100, effect)
+			output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			-- Override elusive effect if set.
+			if modDB:Override(nil, "ElusiveEffect") then
+				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), output.ElusiveEffectMod)
 			end
+			local effect = output.ElusiveEffectMod / 100
 			condList["Elusive"] = true
 			modDB:NewMod("AvoidPhysicalDamageChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("AvoidLightningDamageChance", "BASE", m_floor(15 * effect), "Elusive")
@@ -1395,17 +1399,19 @@ function calcs.perform(env, avoidCache)
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
 				values.efficiency = skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
+				-- used for Arcane Cloak calculations in ModStore.GetStat
+				env.player[name.."Efficiency"] = values.efficiency
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
 					values.reservedFlat = activeSkill.skillData[name.."ReservationFlatForced"]
 				else
 					local baseFlatVal = m_floor(values.baseFlat * mult)
-					values.reservedFlat = m_max(m_modf((baseFlatVal - m_modf(baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100)) / (1 + values.efficiency / 100)), 0)
+					values.reservedFlat = m_max(round((baseFlatVal - m_modf(baseFlatVal * -m_floor((100 + values.inc) * values.more - 100) / 100)) / (1 + values.efficiency / 100), 2), 0)
 				end
 				if activeSkill.skillData[name.."ReservationPercentForced"] then
 					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
 				else
 					local basePercentVal = values.basePercent * mult
-					values.reservedPercent = m_max(m_modf((basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100) / (1 + values.efficiency / 100)), 0)
+					values.reservedPercent = m_max(round((basePercentVal - m_modf(basePercentVal * -m_floor((100 + values.inc) * values.more - 100)) / 100) / (1 + values.efficiency / 100), 2), 0)
 				end
 				if activeSkill.activeMineCount then
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
@@ -1529,13 +1535,22 @@ function calcs.perform(env, avoidCache)
 	if env.mode_buffs then
 		local heraldList = { }
 		for _, activeSkill in ipairs(env.player.activeSkillList) do
-			if activeSkill.skillTypes[SkillType.Herald] then
+			if activeSkill.skillTypes[SkillType.Herald] and not heraldList[activeSkill.skillCfg.skillName] then
 				heraldList[activeSkill.skillCfg.skillName] = true
+				modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+				modDB.conditions["AffectedByHerald"] = true
 			end
 		end
-		for _, herald in pairs(heraldList) do
-			modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
-			modDB.conditions["AffectedByHerald"] = true
+	end
+
+	-- Calculate number of active auras affecting self
+	if env.mode_buffs then
+		local auraList = { }
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillData.auraCannotAffectSelf and not auraList[activeSkill.skillCfg.skillName] then
+				auraList[activeSkill.skillCfg.skillName] = true
+				modDB.multipliers["AuraAffectingSelf"] = (modDB.multipliers["AuraAffectingSelf"] or 0) + 1
+			end
 		end
 	end
 	
