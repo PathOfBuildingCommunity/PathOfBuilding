@@ -3,6 +3,7 @@
 .vs/
 .vscode/
 *.code-workspace
+inspect.lua
 
 # Development files
 *.lnk

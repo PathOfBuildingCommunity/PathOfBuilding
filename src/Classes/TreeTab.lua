@@ -225,6 +225,17 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	t_insert(self.controls.specSelect.list, "Manage trees...")
 
+	local dWidth
+	local lineHeight = self.controls.specSelect.height - 4
+	  -- do not be smaller than the created width
+	dWidth = self.controls.specSelect.width
+	for j=1,#self.controls.specSelect.list do
+		  -- +10 to stop clipping
+		dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", self.controls.specSelect.list[j]) + 10)
+	end
+	  -- no greater than a 1500
+	self.controls.specSelect.droppedWidth = m_min(dWidth, 1500)
+
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
 	end
