@@ -1878,13 +1878,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		if modDB:Flag(nil, "CritChanceIncreasedBySuppressionChance") then
-			local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
-			if modDB:Override("OVERRIDE", nil, "SpellSuppressionChance") then
-				SpellSuppressionChance = modDB:Sum("OVERRIDE", nil, "SpellSuppressionChance")
-			end
-			modDB:NewMod("CritChance", "INC", SpellSuppressionChance, "Spell Suppression Mastery")
-		end
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
