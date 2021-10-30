@@ -223,6 +223,9 @@ return {
 ["base_spell_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil),
 },
+["base_melee_attack_repeat_count"] = {
+	mod("RepeatCount", "BASE", nil),
+},
 ["display_minion_monster_level"] = {
 	skill("minionLevel", nil),
 },

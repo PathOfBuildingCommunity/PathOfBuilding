@@ -1444,7 +1444,9 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.showAverage = false
 				skillData.showAverage = false
 			end
-			output.Speed = m_min(output.Speed, data.misc.ServerTickRate)
+			if not activeSkill.skillTypes[SkillType.Channelled] then
+				output.Speed = m_min(output.Speed, data.misc.ServerTickRate * output.Repeats)
+			end
 			if output.Speed == 0 then 
 				output.Time = 0
 			else 
