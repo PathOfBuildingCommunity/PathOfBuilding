@@ -233,8 +233,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		  -- +10 to stop clipping
 		dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", self.controls.specSelect.list[j]) + 10)
 	end
-	  -- no greater than a 1500
-	self.controls.specSelect.droppedWidth = m_min(dWidth, 1500)
+	  -- no greater than a 1000
+	self.controls.specSelect.droppedWidth = m_min(dWidth, 1000)
 
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
