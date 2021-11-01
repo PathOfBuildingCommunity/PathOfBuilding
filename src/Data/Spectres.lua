@@ -3034,3 +3034,28 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 	},
 }
+-- Demon Harpy
+minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre"] = {
+	name = "Demon Harpy",
+	life = 2.38,
+	armour = 0.5,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"DTTHellscapeDemonElite1",
+		"EASHellscapeDemonElite1Screech",
+		"GAHellscapeDemonElite1DashSlash",
+		"GSHellscapeDemonElite1Screech",
+	},
+	modList = {
+	},
+}

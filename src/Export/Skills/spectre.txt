@@ -847,3 +847,17 @@ local skills, mod, flag, skill = ...
 #skill LegionKaruiArcherSnipe Snipe
 #flags attack projectile hit
 #mods
+
+#skill MeleeAtAnimationSpeedFire Default Attack
+#flags attack projectile melee
+#mods
+
+#skill GAHellscapeDemonElite1DashSlash Dash Slash
+#flags attack hit area triggerable
+#mods
+
+#skill GSHellscapeDemonElite1Screech Screech
+#flags attack hit area triggerable
+#mods
+
+
