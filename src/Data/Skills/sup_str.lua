@@ -3052,7 +3052,7 @@ skills["SupportMultistrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack),
+			mod("Damage", "MORE", nil),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
@@ -3142,7 +3142,7 @@ skills["SupportMultistrikePlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_third_repeat"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack),
+			mod("Damage", "MORE", nil),
 			div = 2,
 		},
 		["support_multiple_attack_damage_+%_final"] = {

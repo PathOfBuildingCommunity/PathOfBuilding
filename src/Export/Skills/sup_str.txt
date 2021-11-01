@@ -337,7 +337,7 @@ local skills, mod, flag, skill = ...
 #skill SupportMultistrike
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack),
+			mod("Damage", "MORE", nil),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
@@ -355,7 +355,7 @@ local skills, mod, flag, skill = ...
 #skill SupportMultistrikePlus
 	statMap = {
 		["multistrike_damage_+%_final_on_third_repeat"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack),
+			mod("Damage", "MORE", nil),
 			div = 2,
 		},
 		["support_multiple_attack_damage_+%_final"] = {
