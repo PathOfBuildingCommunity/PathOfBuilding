@@ -235,6 +235,10 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	  -- no greater than a 1000
 	self.controls.specSelect.droppedWidth = m_min(dWidth, 1000)
+	local boxWidth
+	  -- add 20 to account for the 'down arrow' in the box
+	boxWidth = DrawStringWidth(lineHeight, "VAR", self.controls.specSelect.list[self.controls.specSelect.selIndex]) + 20
+	self.controls.specSelect.width = m_max(m_min(boxWidth, 390), 190)
 
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
