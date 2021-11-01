@@ -341,7 +341,7 @@ return {
 	end },
 	{ label = "Voltaxic Burst:", ifSkill = "Voltaxic Burst" },
 	{ var = "voltaxicBurstSpellsQueued", type = "count", label = "# of Casts currently waiting:", ifSkill = "Voltaxic Burst", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:VoltaxicCastsWaiting", "BASE", val, "Config")
+		modList:NewMod("Multiplier:VoltaxicWaitingStages", "BASE", val, "Config")
 	end },
 	{ label = "Vortex:", ifSkill = "Vortex" },
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
