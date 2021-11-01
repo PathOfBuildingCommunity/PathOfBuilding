@@ -3034,3 +3034,131 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
 	},
 }
+-- Demon Harpy
+minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre"] = {
+	name = "Demon Harpy",
+	life = 2.38,
+	armour = 0.5,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"DTTHellscapeDemonElite1",
+		"EASHellscapeDemonElite1Screech",
+		"GAHellscapeDemonElite1DashSlash",
+		"GSHellscapeDemonElite1Screech",
+	},
+	modList = {
+	},
+}
+-- Pale Angel
+minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre"] = {
+	name = "Pale Angel",
+	life = 2.55,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"TBHellscapePaleLightningBoltSpammableLeft",
+		"TBHellscapePaleLightningBoltSpammableRight",
+		"GSHellscapePaleEliteBoltImpact",
+		"GSHellscapePaleEliteOmegaBeam",
+		"TeleportHellscapePaleElite",
+		"TeleportHellscapePaleEliteForwards",
+		"TeleportHellscapePaleEliteToAlly",
+	},
+	modList = {
+	},
+}
+-- Demon Herder
+minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre"] = {
+	name = "Demon Herder",
+	life = 2.85,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.95,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "None",
+	weaponType2 = "One Handed Mace",
+	skillList = {
+		"GTHellscapeDemonEliteVomit",
+		"MMSHellscapeDemonEliteTripleMortar",
+		"MMSHellscapeDemonEliteVomitMortar",
+		"GSHellscapeDemonEliteBeamNuke",
+	},
+	modList = {
+	},
+}
+-- Pale Seraphim
+minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre"] = {
+	name = "Pale Seraphim",
+	life = 3.04,
+	armour = 0.66,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.24,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"EAAHellscapeStabbyStab",
+		"DTTHellscapeStabbySkyStab",
+		"DTTHellscapeStabWeb",
+		"GAHellscapeStabbyCleave1",
+		"GAHellscapeStabbyCleave2",
+		"GAHellscapeStabbyCleave3",
+		"GAHellscapeStabbyCleaveStab",
+		"GAHellscapeStabWeb",
+		"GAHellscapePaleEliteSkyStab",
+	},
+	modList = {
+	},
+}
+-- Ravenous Mishapen
+minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre"] = {
+	name = "Ravenous Misshapen",
+	life = 1.16,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.1,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"HellscapeFleshFodderArc",
+	},
+	modList = {
+	},
+}

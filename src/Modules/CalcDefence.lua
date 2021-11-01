@@ -45,10 +45,11 @@ end
 --- Calculates Damage Reduction from Armour
 ---@param armour number
 ---@param damage number
----@param doubleChance number @Chance to Defend with Double Armour 
+---@param moreChance number @Chance to Defend with More Armour
+---@param moreValue number multiplier to apply to armour (defaults to 2)
 ---@return number @Damage Reduction
-function calcs.armourReductionDouble(armour, damage, doubleChance)
-	return calcs.armourReduction(armour, damage) * (1 - doubleChance) + calcs.armourReduction(armour * 2, damage) * doubleChance
+function calcs.armourReductionDouble(armour, damage, moreChance, moreValue)
+	return calcs.armourReduction(armour, damage) * (1 - moreChance) + calcs.armourReduction(armour * (moreValue or 2), damage) * moreChance
 end
 
 function calcs.actionSpeedMod(actor)
@@ -390,7 +391,7 @@ function calcs.defence(env, actor)
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
-		output.DoubleArmourChance = m_min(modDB:Sum("BASE", nil, "DoubleArmourChance"), 100)
+		output.MoreArmourChance = m_min(modDB:Sum("BASE", nil, "MoreArmourChance"), 100)
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
 		output.Ward = m_max(round(ward), 0)
@@ -1115,7 +1116,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Incoming hit damage multipliers
-	local doubleArmourChance = (output.DoubleArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.DoubleArmourChance / 100
+	local moreArmourChance = (output.MoreArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.MoreArmourChance / 100
 	actor.damageShiftTable = wipeTable(actor.damageShiftTable)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Build damage shift table
@@ -1172,13 +1173,13 @@ function calcs.defence(env, actor)
 					local portionArmour = 100
 					if destType == "Physical" then
 						if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, doubleArmourChance)
+							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, moreArmourChance)
 							resist = m_min(output.DamageReductionMax, resist + armourReduct)
 						end
 						resist = m_max(resist, 0)
 					else
 						portionArmour = 100 - resist
-						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, doubleArmourChance)
+						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, moreArmourChance)
 						resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 					end
 					if damageType == destType then
@@ -1224,8 +1225,8 @@ function calcs.defence(env, actor)
 		end
 		output[damageType.."TakenHitMult"] = mult
 		for _, hitType in ipairs(hitSourceList) do
-			local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", hitType.."DamageTaken")
-			local baseTakenMore = modDB:More(nil, "DamageTaken", hitType.."DamageTaken")
+			local baseTakenInc = modDB:Sum("INC", nil, hitType.."DamageTaken")
+			local baseTakenMore = modDB:More(nil, hitType.."DamageTaken")
 			do
 				-- Hit
 				output[hitType.."TakenHitMult"] = m_max((1 + baseTakenInc / 100) * baseTakenMore)

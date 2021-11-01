@@ -1444,7 +1444,9 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.showAverage = false
 				skillData.showAverage = false
 			end
-			output.Speed = m_min(output.Speed, data.misc.ServerTickRate)
+			if not activeSkill.skillTypes[SkillType.Channelled] then
+				output.Speed = m_min(output.Speed, data.misc.ServerTickRate * output.Repeats)
+			end
 			if output.Speed == 0 then 
 				output.Time = 0
 			else 
@@ -1878,13 +1880,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		if modDB:Flag(nil, "CritChanceIncreasedBySuppressionChance") then
-			local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
-			if modDB:Override("OVERRIDE", nil, "SpellSuppressionChance") then
-				SpellSuppressionChance = modDB:Sum("OVERRIDE", nil, "SpellSuppressionChance")
-			end
-			modDB:NewMod("CritChance", "INC", SpellSuppressionChance, "Spell Suppression Mastery")
-		end
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0

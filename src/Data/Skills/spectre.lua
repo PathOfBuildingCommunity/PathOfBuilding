@@ -5499,3 +5499,399 @@ skills["LegionKaruiArcherSnipe"] = {
 		[4] = { 75, -50, 69, 200, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
 	},
 }
+skills["MeleeAtAnimationSpeedFire"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 75, 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 75, 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 1, 2, }, cost = { }, },
+		[3] = { 75, 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 1, 2, }, cost = { }, },
+		[4] = { 75, 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+}
+skills["GAHellscapeDemonElite1DashSlash"] = {
+	name = "Dash Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 50, -30, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 50, 0, levelRequirement = 19, statInterpolation = { 1, 2, }, cost = { }, },
+		[3] = { 50, 1, levelRequirement = 20, statInterpolation = { 1, 2, }, cost = { }, },
+		[4] = { 50, 60, levelRequirement = 84, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+}
+skills["GSHellscapeDemonElite1Screech"] = {
+	name = "Screech",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.75,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"damage_hit_effect_index",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 43, critChance = 5, duration = 4, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+	},
+}
+skills["TBHellscapePaleLightningBoltSpammableLeft"] = {
+	name = "Lightning Bolt",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.333,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"generic_skill_trigger_skills_with_id",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 1, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, cost = { }, },
+	},
+}
+skills["GSHellscapePaleEliteBoltImpact"] = {
+	name = "Bolt Impact",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"generic_skill_trigger_id",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 1, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+	},
+}
+skills["GSHellscapePaleEliteOmegaBeam"] = {
+	name = "Omega Beam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 6.5,
+	incrementalEffectiveness = 0.043099999427795,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.333,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"spell_maximum_action_distance_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, -50, critChance = 5, cooldown = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+	},
+}
+skills["MMSHellscapeDemonEliteTripleMortar"] = {
+	name = "Triple Mortal",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.2000000476837,
+	incrementalEffectiveness = 0.032000001519918,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"projectile_spread_radius",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, -30, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, 0, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[3] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, 1, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[4] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, 24, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+	},
+}
+skills["MMSHellscapeDemonEliteVomitMortar"] = {
+	name = "Vomit Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.875,
+	incrementalEffectiveness = 0.032000001519918,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.7,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"projectile_spread_radius",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, -30, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, 0, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[3] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, 1, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[4] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, 24, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+	},
+}
+skills["GSHellscapeDemonEliteBeamNuke"] = {
+	name = "Beam Nuke",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.033500000834465,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 25, -30, critChance = 5, cooldown = 7, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -50, 25, 0, critChance = 5, cooldown = 7, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+		[3] = { 0.80000001192093, 1.2000000476837, -50, 25, 1, critChance = 5, cooldown = 7, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+		[4] = { 0.80000001192093, 1.2000000476837, -50, 25, 24, critChance = 5, cooldown = 7, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+	},
+}
+skills["DTTHellscapeStabWeb"] = {
+	name = "Web Debuff",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		movement = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"walk_emerge_extra_distance",
+		"leap_slam_minimum_distance",
+		"spell_maximum_action_distance_+%",
+	},
+	levels = {
+		[1] = { 20, 40, -50, cooldown = 6, levelRequirement = 0, statInterpolation = { 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["GAHellscapeStabbyCleave1"] = {
+	name = "Cleave",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.5, levelRequirement = 1, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["GAHellscapePaleEliteSkyStab"] = {
+	name = "Stab Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["HellscapeFleshFodderArc"] = {
+	name = "Scourge Arc",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.3500000238419,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Chaining] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "beam_skill_stat_descriptions",
+	castTime = 1.166,
+	baseFlags = {
+		spell = true,
+		chaining = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_chance_to_shock_%",
+		"number_of_chains",
+		"spell_maximum_action_distance_+%",
+		"shock_art_variation",
+		"disable_visual_hit_effect",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 10, 0, -50, 2, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
