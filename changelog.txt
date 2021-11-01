@@ -1,3 +1,30 @@
+VERSION[2.13.0][2021/11/01]
+
+* Add Ravenous Mishapen Spectre (LocalIdentity)
+* Add Pale Seraphim Spectre (LocalIdentity)
+* Add Autowidth to dropdown control, dropped text only (pHiney)
+* Add support for gem level modifiers of socketed active skill gems (etojuice)
+* Add Demon Herder spectre (Kayella)
+* Add Pale Angel spectre (Kayella)
+* Add Demon Harpy spectre (Kayella)
+
+* Fix Mines counting towards \# of Auras affecting you mastery (LocalIdentity)
+* Fix parsing for mod on The Taming ring (LocalIdentity)
+* Fix Voltaxic Burst's \# of Casts currently waiting (LocalIdentity)
+* Fix Flame Totem consecrated ground enchant (LocalIdentity)
+* Fix Multistrike not applying its damage multiplier to Ailments (LocalIdentity)
+* Fix Multistrike not applying attack speed to certain skills (LocalIdentity)
+* Fix parsing for Curse on Hit rings (LocalIdentity)
+* Fix Impresence Mana Reservation mod not working (LocalIdentity)
+* Fix Spell Suppression mastery giving double Crit chance (LocalIdentity)
+* Fix attack/cast rate cap (LocalIdentity)
+* Fix Stationary Setting Box Sometimes Not Showing Up (randomflyingtaco)
+* Fix url encoding during save after profile import (Peechey)
+* Fix Small Curse Cluster Jewels rendering on the tree when socketed (Peechey)
+* Fix build list loading crash (PJacek)
+
+
+
 VERSION[2.12.3][2021/10/28]
 
 * Fix crash when importing/opening builds (LocalIdentity)

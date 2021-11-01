@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.13.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/2.13.0) (2021/11/01)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.12.3...2.13.0)
+
+**Implemented enhancements:**
+
+- Add Ravenous Mishapen Spectre [\#3687](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3687) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add Pale Seraphim Spectre [\#3686](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3686) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add Autowidth to dropdown control, dropped text only [\#3676](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3676) ([pHiney](https://github.com/pHiney))
+- Add support for gem level modifiers of socketed active skill gems [\#3658](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3658) ([etojuice](https://github.com/etojuice))
+- Add Demon Herder spectre [\#3656](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3656) ([Kayella](https://github.com/Kayella))
+- Add Pale Angel spectre [\#3639](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3639) ([Kayella](https://github.com/Kayella))
+- Add Demon Harpy spectre [\#3638](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3638) ([Kayella](https://github.com/Kayella))
+
+**Fixed bugs:**
+
+- Fix Mines counting towards \# of Auras affecting you mastery [\#3693](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3693) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix parsing for mod on The Taming ring [\#3692](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3692) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Voltaxic Burst's \# of Casts currently waiting [\#3691](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3691) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Flame Totem consecrated ground enchant [\#3689](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3689) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Multistrike not applying its damage multiplier to Ailments [\#3685](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3685) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Multistrike not applying attack speed to certain skills [\#3684](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3684) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix parsing for Curse on Hit rings [\#3680](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3680) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Impresence Mana Reservation mod not working [\#3679](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3679) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Spell Suppression mastery giving double Crit chance [\#3678](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3678) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix attack/cast rate cap [\#3677](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3677) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Stationary Setting Box Sometimes Not Showing Up [\#3666](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3666) ([randomflyingtaco](https://github.com/randomflyingtaco))
+- Fix url encoding during save after profile import [\#3654](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3654) ([Peechey](https://github.com/Peechey))
+- Fix Small Curse Cluster Jewels rendering on the tree when socketed [\#3651](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3651) ([Peechey](https://github.com/Peechey))
+- Fix build list loading crash [\#3626](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3626) ([PJacek](https://github.com/PJacek))
+
+
+
+
 ## [2.12.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.12.3) (2021/10/28)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.12.2...v2.12.3)
