@@ -5652,7 +5652,7 @@ skills["GSHellscapePaleEliteOmegaBeam"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 6.5,
-	incrementalEffectiveness = 0.052000001072884,
+	incrementalEffectiveness = 0.043099999427795,
 	skillTypes = { [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.333,
