@@ -206,3 +206,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre
 -- Pale Seraphim
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
+-- Ravenous Mishapen
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre

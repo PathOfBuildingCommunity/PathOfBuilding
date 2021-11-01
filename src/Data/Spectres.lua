@@ -3140,3 +3140,25 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectr
 	modList = {
 	},
 }
+-- Ravenous Mishapen
+minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre"] = {
+	name = "Ravenous Misshapen",
+	life = 1.16,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.1,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"HellscapeFleshFodderArc",
+	},
+	modList = {
+	},
+}
