@@ -202,3 +202,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
 -- Pale Angel
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre
+-- Demon Herder
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre

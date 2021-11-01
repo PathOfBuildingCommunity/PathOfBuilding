@@ -5676,3 +5676,117 @@ skills["GSHellscapePaleEliteOmegaBeam"] = {
 		[1] = { 0.5, 1.5, -50, critChance = 5, cooldown = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
+skills["MMSHellscapeDemonEliteTripleMortar"] = {
+	name = "Triple Mortal",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.2000000476837,
+	incrementalEffectiveness = 0.032000001519918,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"projectile_spread_radius",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, -30, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, 0, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[3] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, 1, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[4] = { 0.80000001192093, 1.2000000476837, -50, 15, 25, 24, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+	},
+}
+skills["MMSHellscapeDemonEliteVomitMortar"] = {
+	name = "Vomit Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.875,
+	incrementalEffectiveness = 0.032000001519918,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.7,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"projectile_spread_radius",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, -30, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, 0, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[3] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, 1, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+		[4] = { 0.80000001192093, 1.2000000476837, -50, 5, 25, 24, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 2, }, cost = { }, },
+	},
+}
+skills["GSHellscapeDemonEliteBeamNuke"] = {
+	name = "Beam Nuke",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.033500000834465,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		triggerable = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_maximum_action_distance_+%",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -50, 25, -30, critChance = 5, cooldown = 7, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -50, 25, 0, critChance = 5, cooldown = 7, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+		[3] = { 0.80000001192093, 1.2000000476837, -50, 25, 1, critChance = 5, cooldown = 7, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+		[4] = { 0.80000001192093, 1.2000000476837, -50, 25, 24, critChance = 5, cooldown = 7, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 2, }, cost = { }, },
+	},
+}

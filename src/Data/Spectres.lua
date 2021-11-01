@@ -3086,3 +3086,28 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectr
 	modList = {
 	},
 }
+-- Demon Herder
+minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre"] = {
+	name = "Demon Herder",
+	life = 2.85,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.95,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "None",
+	weaponType2 = "One Handed Mace",
+	skillList = {
+		"GTHellscapeDemonEliteVomit",
+		"MMSHellscapeDemonEliteTripleMortar",
+		"MMSHellscapeDemonEliteVomitMortar",
+		"GSHellscapeDemonEliteBeamNuke",
+	},
+	modList = {
+	},
+}
