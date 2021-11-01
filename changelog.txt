@@ -1,29 +1,30 @@
-VERSION[2.13.0][2021/11/01]
+VERSION[2.13.0][2021/11/02]
 
-* Add Ravenous Mishapen Spectre (LocalIdentity)
+* Add Ravenous Misshapen Spectre (LocalIdentity)
 * Add Pale Seraphim Spectre (LocalIdentity)
-* Add Autowidth to dropdown control, dropped text only (pHiney)
+* Add Pale Angel Spectre (Kayella)
+* Add Demon Harpy Spectre (Kayella)
+* Add Demon Herder Spectre (Kayella)
+* Add dynamically changing width for dropdown box when selecting tree (pHiney)
 * Add support for gem level modifiers of socketed active skill gems (etojuice)
-* Add Demon Herder spectre (Kayella)
-* Add Pale Angel spectre (Kayella)
-* Add Demon Harpy spectre (Kayella)
+* Add support for "chance to Defend with x% of Armour" masteries (Nostrademous)
 
-* Fix Mines counting towards \# of Auras affecting you mastery (LocalIdentity)
-* Fix parsing for mod on The Taming ring (LocalIdentity)
-* Fix Voltaxic Burst's \# of Casts currently waiting (LocalIdentity)
-* Fix Flame Totem consecrated ground enchant (LocalIdentity)
-* Fix Multistrike not applying its damage multiplier to Ailments (LocalIdentity)
-* Fix Multistrike not applying attack speed to certain skills (LocalIdentity)
-* Fix parsing for Curse on Hit rings (LocalIdentity)
-* Fix Impresence Mana Reservation mod not working (LocalIdentity)
-* Fix Spell Suppression mastery giving double Crit chance (LocalIdentity)
-* Fix attack/cast rate cap (LocalIdentity)
-* Fix Stationary Setting Box Sometimes Not Showing Up (randomflyingtaco)
-* Fix url encoding during save after profile import (Peechey)
-* Fix Small Curse Cluster Jewels rendering on the tree when socketed (Peechey)
+* Fix crash when attempting to save build after character import (Peechey)
 * Fix build list loading crash (PJacek)
-
-
+* Fix Multistrike Support not applying its damage multiplier to Ailments (LocalIdentity)
+* Fix Multistrike Support not providing attack speed to gems with multiple skill parts (LocalIdentity)
+	* Molten Strike, Lightning Strike, Wild Strike and Frost Blades
+* Fix Attack/Cast rate cap (LocalIdentity)
+* Fix Stationary setting box sometimes not showing up (randomflyingtaco)
+* Fix eHP double dipping on damage taken modifiers (Lothrik)
+* Fix Small Curse Cluster Jewels rendering on the tree when socketed (Peechey)
+* Fix Mines incorrectly counting towards "number of Auras affecting you" mastery (LocalIdentity)
+* Fix Spell Suppression mastery giving double Critical Strike chance (LocalIdentity)
+* Fix Voltaxic Burst's "number of Casts currently waiting" not adding damage (LocalIdentity)
+* Fix Flame Totem Consecrated Ground enchantment (LocalIdentity)
+* Fix parsing for Curse on Hit rings (LocalIdentity)
+* Fix parsing for mod on The Taming ring (LocalIdentity)
+* Fix parsing for Impresence Mana Reservation mod (LocalIdentity)
 
 VERSION[2.12.3][2021/10/28]
 
