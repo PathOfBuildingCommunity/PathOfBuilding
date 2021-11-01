@@ -3111,3 +3111,32 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spe
 	modList = {
 	},
 }
+-- Pale Seraphim
+minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre"] = {
+	name = "Pale Seraphim",
+	life = 3.04,
+	armour = 0.66,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.24,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"EAAHellscapeStabbyStab",
+		"DTTHellscapeStabbySkyStab",
+		"DTTHellscapeStabWeb",
+		"GAHellscapeStabbyCleave1",
+		"GAHellscapeStabbyCleave2",
+		"GAHellscapeStabbyCleave3",
+		"GAHellscapeStabbyCleaveStab",
+		"GAHellscapeStabWeb",
+		"GAHellscapePaleEliteSkyStab",
+	},
+	modList = {
+	},
+}
