@@ -895,3 +895,7 @@ local skills, mod, flag, skill = ...
 #skill GAHellscapePaleEliteSkyStab Stab Attack
 #flags attack hit triggerable area
 #mods
+
+#skill HellscapeFleshFodderArc Scourge Arc
+#flags spell chaining triggerable
+#mods

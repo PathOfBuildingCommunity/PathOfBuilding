@@ -5863,3 +5863,35 @@ skills["GAHellscapePaleEliteSkyStab"] = {
 		[1] = { levelRequirement = 1, statInterpolation = { }, cost = { }, },
 	},
 }
+skills["HellscapeFleshFodderArc"] = {
+	name = "Scourge Arc",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.3500000238419,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Chaining] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "beam_skill_stat_descriptions",
+	castTime = 1.166,
+	baseFlags = {
+		spell = true,
+		chaining = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_chance_to_shock_%",
+		"number_of_chains",
+		"spell_maximum_action_distance_+%",
+		"shock_art_variation",
+		"disable_visual_hit_effect",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 10, 0, -50, 2, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
