@@ -1199,6 +1199,7 @@ return {
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:Armour}", { breakdown = "Armour" }, }, },
 	{ label = "More Armour Ch.", haveOutput = "MoreArmourChance", { format = "{0:output:MoreArmourChance}%", { modName = "MoreArmourChance" }, }, },
+	{ label = "Armour Defense", haveOutput = "RawArmourDefense", { format = "{0:output:RawArmourDefense}%", { modName = "RawArmourDefense" }, }, },
 	{ label = "Phys. Dmg. Reduct", { format = "{0:output:PhysicalDamageReduction}%", 
 		{ breakdown = "PhysicalDamageReduction" },
 		{ modName = { "PhysicalDamageReduction", "PhysicalDamageReductionWhenHit", "ArmourDoesNotApplyToPhysicalDamageTaken", "DamageReductionMax" } }, 
