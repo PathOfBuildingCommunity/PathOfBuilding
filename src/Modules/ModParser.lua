@@ -2917,6 +2917,12 @@ local specialModList = {
 		mod("SkillData", "LIST", { key = "manaReservationPercent", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }),
 		mod("SkillData", "LIST", { key = "lifeReservationPercent", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }),
 	} end,
+	["([%a%s]+) has no reservation if cast as an aura"] = function(_, name) return {
+		mod("SkillData", "LIST", { key = "manaReservationFlat", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }, { type = "SkillType", skillType = SkillType.Aura }),
+		mod("SkillData", "LIST", { key = "lifeReservationFlat", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }, { type = "SkillType", skillType = SkillType.Aura }),
+		mod("SkillData", "LIST", { key = "manaReservationPercent", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }, { type = "SkillType", skillType = SkillType.Aura }),
+		mod("SkillData", "LIST", { key = "lifeReservationPercent", value = 0 }, { type = "SkillId", skillId = gemIdLookup[name] }, { type = "SkillType", skillType = SkillType.Aura }),
+	} end,
 	["banner skills reserve no mana"] = {
 		mod("SkillData", "LIST", { key = "manaReservationPercent", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }),
 		mod("SkillData", "LIST", { key = "lifeReservationPercent", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }),
