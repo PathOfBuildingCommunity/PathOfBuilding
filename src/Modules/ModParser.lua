@@ -2032,6 +2032,7 @@ local specialModList = {
 	["trigger level (%d+) (.+) when you hit an enemy while cursed"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a bleeding enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a rare or unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you hit a rare or unique enemy and have no mark"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a frozen enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you kill a frozen enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you consume a corpse"] = function(num, _, skill) return skill == "summon phantasm skill" and triggerExtraSkill("triggered summon phantasm skill", num) or triggerExtraSkill(skill, num) end,
