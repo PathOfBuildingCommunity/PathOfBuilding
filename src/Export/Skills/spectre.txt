@@ -883,3 +883,15 @@ local skills, mod, flag, skill = ...
 #skill GSHellscapeDemonEliteBeamNuke Beam Nuke
 #flags spell hit triggerable area
 #mods
+
+#skill DTTHellscapeStabWeb Web Debuff
+#flags spell hit movement
+#mods
+
+#skill GAHellscapeStabbyCleave1 Cleave
+#flags attack hit triggerable area
+#mods
+
+#skill GAHellscapePaleEliteSkyStab Stab Attack
+#flags attack hit triggerable area
+#mods
