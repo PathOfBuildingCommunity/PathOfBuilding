@@ -1563,7 +1563,7 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["LightningTakenReflect"] = 1,
 ["FireTakenHitMult"] = 0.2,
 ["LowestOfArmourAndEvasion"] = 45,
-["DoubleArmourChance"] = 0,
+["MoreArmourChance"] = 0,
 ["EnergyShieldLeech"] = 591.4,
 ["ChaosMinBase"] = 0,
 ["FireMindOverMatter"] = 0,
