@@ -200,3 +200,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre
 -- Demon Harpy
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
+-- Pale Angel
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre
