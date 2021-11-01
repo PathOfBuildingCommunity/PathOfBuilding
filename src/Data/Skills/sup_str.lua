@@ -3058,7 +3058,7 @@ skills["SupportMultistrike"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
+			mod("Speed", "MORE", nil, ModFlag.Attack),
 		},
 		["multistrike_area_of_effect_+%_per_repeat"] = {
 			mod("AreaOfEffect", "INC", nil)
@@ -3149,7 +3149,7 @@ skills["SupportMultistrikePlus"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
+			mod("Speed", "MORE", nil, ModFlag.Attack),
 		},
 	},
 	baseMods = {
