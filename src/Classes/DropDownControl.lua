@@ -7,7 +7,6 @@ local ipairs = ipairs
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
-local inspect = LoadModule("inspect")
 
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
 	self.Control(anchor, x, y, width, height)
