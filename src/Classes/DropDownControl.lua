@@ -7,6 +7,7 @@ local ipairs = ipairs
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local inspect = LoadModule("inspect")
 
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
 	self.Control(anchor, x, y, width, height)
@@ -33,8 +34,12 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.list = list or { }
 	self.selIndex = 1
 	self.selFunc = selFunc
-	  -- droppedWidth will allow for the parent to set the width of the dropped component
+	  -- Current value of the width of the dropped component
 	self.droppedWidth = self.width
+	  -- Set by the parent control. The maximum width of the dropped component will go to.
+	self.maxDroppedWidth = m_max(self.width, 300)
+	  -- Set by the parent control. Activates the auto width of the dropped component. 
+	self.enableDroppedWidth = false
 end)
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
@@ -162,12 +167,16 @@ function DropDownClass:IsMouseOver()
 	local cursorX, cursorY = GetCursorPos()
 	local dropExtra = self.dropped and self.dropHeight + 2 or 0
 	local mOver
-	width = m_max(width, self.droppedWidth)
 
-	if self.dropUp then
-		mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
+	if self.dropped then
+		width = m_max(width, self.droppedWidth)
+		if self.dropUp then
+			mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
+		else
+			mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+		end
 	else
-		mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+		mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 	end
 	local mOverComp
 	if mOver then
@@ -442,4 +451,31 @@ end
 
 function DropDownClass:GetHoverIndex(key)
 	return self.hoverSel or self.selIndex
+end
+
+function DropDownClass:SetList(textList)
+	if textList then
+		wipeTable(self.list)
+		self.list = textList
+	else
+		return
+	end
+
+	if self.enableDroppedWidth and self.list then
+		local dWidth
+		local lineHeight = self.height - 4
+		  -- do not be smaller than the created width
+		dWidth = self.width
+		for j=1,#self.list do
+			  -- +10 to stop clipping
+			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", self.list[j]) + 10)
+		end
+		  -- no greater than self.maxDroppedWidth
+		self.droppedWidth = m_min(dWidth, self.maxDroppedWidth)
+
+		  -- add 20 to account for the 'down arrow' in the box
+		local boxWidth
+		boxWidth = DrawStringWidth(lineHeight, "VAR", self.list[self.selIndex] or "") + 20
+		self.width = m_max(m_min(boxWidth, 390), 190)
+	end
 end
