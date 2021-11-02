@@ -162,12 +162,16 @@ function DropDownClass:IsMouseOver()
 	local cursorX, cursorY = GetCursorPos()
 	local dropExtra = self.dropped and self.dropHeight + 2 or 0
 	local mOver
-	width = m_max(width, self.droppedWidth)
 
-	if self.dropUp then
-		mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
+	if self.dropped then
+		width = m_max(width, self.droppedWidth)
+		if self.dropUp then
+			mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
+		else
+			mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+		end
 	else
-		mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+		mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 	end
 	local mOverComp
 	if mOver then
