@@ -216,7 +216,20 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif specName == "Talisman Tier" then
 					self.talismanTier = tonumber(specVal)
-				elseif specName == "Armour" or specName == "Evasion" or specName == "Energy Shield" or specName == "Ward" then
+				elseif specName == "Armour" or specName == "Evasion Rating" or specName == "Energy Shield" or specName == "Ward" then
+					if specName == "Evasion Rating" then
+						if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
+							-- Another hack for Two-Toned Boots
+							self.baseName = "Two-Toned Boots (Armour/Evasion)"
+							self.base = data.itemBases[self.baseName]
+						end
+					elseif specName == "Energy Shield" then
+						if self.baseName == "Two-Toned Boots (Armour/Evasion)" then
+							-- Yet another hack for Two-Toned Boots
+							self.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
+							self.base = data.itemBases[self.baseName]
+						end
+					end
 					self.armourData = self.armourData or { }
 					self.armourData[specName:gsub(" ", "")] = tonumber((specVal:gsub(" (augmented)", "")))
 				elseif specName:match("BasePercentile") then
@@ -279,18 +292,6 @@ function ItemClass:ParseRaw(raw)
 					t_insert(self.upgradePaths, specVal)
 				elseif specName == "Source" then
 					self.source = specVal
-				elseif specName == "Evasion Rating" then
-					if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
-						-- Another hack for Two-Toned Boots
-						self.baseName = "Two-Toned Boots (Armour/Evasion)"
-						self.base = data.itemBases[self.baseName]
-					end
-				elseif specName == "Energy Shield" then
-					if self.baseName == "Two-Toned Boots (Armour/Evasion)" then
-						-- Yet another hack for Two-Toned Boots
-						self.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
-						self.base = data.itemBases[self.baseName]
-					end
 				elseif specName == "Cluster Jewel Skill" then
 					if self.clusterJewel and self.clusterJewel.skills[specVal] then
 						self.clusterJewelSkill = specVal
