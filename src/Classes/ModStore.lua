@@ -561,6 +561,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
 				return
 			end
+		elseif tag.type == "KeywordFlag" then
+			if not cfg or not cfg.keywordFlags then
+				return
+			end
+			if band(cfg.keywordFlags, tag.keywordFlags) == 0 then
+				return
+			end
 		end
 	end	
 	return value
