@@ -36,6 +36,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.specSelect.maxDroppedWidth = 1000
 	self.controls.specSelect.enableDroppedWidth = true
+	self.controls.specSelect.enableChangeBoxWidth = true
+	self.controls.specSelect.controls.scrollBar.enabled = true
 	self.controls.specSelect.tooltipFunc = function(tooltip, mode, selIndex, selVal)
 		tooltip:Clear()
 		if mode ~= "OUT" then
@@ -95,6 +97,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect.shown = false
 	self.controls.compareSelect.maxDroppedWidth = 1000
 	self.controls.compareSelect.enableDroppedWidth = true
+	self.controls.compareSelect.enableChangeBoxWidth = true
 	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()

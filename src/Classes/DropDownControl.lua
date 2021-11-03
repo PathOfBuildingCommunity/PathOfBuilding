@@ -30,7 +30,7 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 		return self.dropped and self.controls.scrollBar.enabled
 	end
 	self.dropHeight = 0
-	self.list = list or { }
+	self:SetList(list or { })
 	self.selIndex = 1
 	self.selFunc = selFunc
 	  -- Current value of the width of the dropped component
@@ -39,6 +39,8 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.maxDroppedWidth = m_max(self.width, 300)
 	  -- Set by the parent control. Activates the auto width of the dropped component. 
 	self.enableDroppedWidth = false
+	  -- Set by the parent control. Activates the auto width of the box component. 
+	self.enableChangeBoxWidth = false
 end)
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
@@ -456,25 +458,50 @@ function DropDownClass:SetList(textList)
 	if textList then
 		wipeTable(self.list)
 		self.list = textList
+		  --check width on new list
+		self:EnableDroppedWidth(self.enableDroppedWidth)
 	else
 		return
 	end
+end
 
+function DropDownClass:EnableDroppedWidth(enable)
+	self.enableDroppedWidth = enable
 	if self.enableDroppedWidth and self.list then
-		local dWidth
+		local scrollWidth = self.dropped and self.controls.scrollBar.enabled and self.controls.scrollBar.width or 0
+		-- local scrollWidth = 0
+		-- if self.dropped and self.controls.scrollBar.enabled then
+			-- scrollWidth = self.controls.scrollBar.width
+		-- end
 		local lineHeight = self.height - 4
+
 		  -- do not be smaller than the created width
-		dWidth = self.width
+		local dWidth = self.width
 		for j=1,#self.list do
-			  -- +10 to stop clipping
-			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", self.list[j]) + 10)
+			local line = self.list[j]
+			if type(line) == "table" then
+				line = line.label
+			end
+			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line))
 		end
 		  -- no greater than self.maxDroppedWidth
-		self.droppedWidth = m_min(dWidth, self.maxDroppedWidth)
+			  -- +10 to stop clipping
+		self.droppedWidth = m_min(dWidth + 10 + scrollWidth, self.maxDroppedWidth)
 
-		  -- add 20 to account for the 'down arrow' in the box
-		local boxWidth
-		boxWidth = DrawStringWidth(lineHeight, "VAR", self.list[self.selIndex] or "") + 20
-		self.width = m_max(m_min(boxWidth, 390), 190)
+		if self.enableChangeBoxWidth then
+			local line = self.list[self.selIndex]
+			if type(line) == "table" then
+				line = line.label
+			end
+			-- add 20 to account for the 'down arrow' in the box
+			local boxWidth
+			boxWidth = DrawStringWidth(lineHeight, "VAR", line or "") + 20
+			self.width = m_max(m_min(boxWidth, 390), 190)
+		end
+		
+		self.controls.scrollBar.x = self.droppedWidth - self.width - 1
+	else
+		self.droppedWidth = self.width
+		self.controls.scrollBar.x = -1
 	end
 end

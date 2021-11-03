@@ -185,6 +185,7 @@ function ItemDBClass:BuildSortOrder()
 	end
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
+		self.controls.sort:EnableDroppedWidth(true)
 		self.controls.sort.selIndex = 1
 		self.controls.sort:SelByValue(self.sortMode, "sortMode")
 		self.sortDetail = self.controls.sort.list[self.controls.sort.selIndex]

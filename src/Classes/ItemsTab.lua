@@ -14,6 +14,7 @@ local m_min = math.min
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
+local inspect = LoadModule("inspect")
 
 local rarityDropList = { 
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
@@ -64,6 +65,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
 	end)
+	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
 		return #self.itemSetOrderList > 1
 	end
@@ -1010,14 +1012,15 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
-	wipeTable(self.controls.setSelect.list)
+	local newItemList = { }
 	for index, itemSetId in ipairs(self.itemSetOrderList) do
 		local itemSet = self.itemSets[itemSetId]
-		t_insert(self.controls.setSelect.list, itemSet.title or "Default")
+		t_insert(newItemList, itemSet.title or "Default")
 		if itemSetId == self.activeItemSetId then
 			self.controls.setSelect.selIndex = index
 		end
 	end
+	self.controls.setSelect:SetList(newItemList)
 
 	if self.displayItem then
 		local x, y = self.controls.displayItemTooltipAnchor:GetPos()
