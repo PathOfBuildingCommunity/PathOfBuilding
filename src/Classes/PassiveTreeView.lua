@@ -372,24 +372,26 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		renderGroup(subGraph.group, true)
 	end
 
+	local connectorColor = { 1, 1, 1 }
+	local function setConnectorColor(r, g, b)
+		connectorColor[1], connectorColor[2], connectorColor[3] = r, g, b
+	end
+	local function getState(n1, n2)
+		-- Determine the connector state
+		local state = "Normal"
+		if n1.alloc and n2.alloc then
+			state = "Active"
+		elseif hoverPath then
+			if (n1.alloc or n1 == hoverNode or hoverPath[n1]) and (n2.alloc or n2 == hoverNode or hoverPath[n2]) then
+				state = "Intermediate"
+			end
+		end
+		return state
+	end
 	local function renderConnector(connector)
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
-		local connectorColor = {1,1,1}
-
-
-		local function getState(n1, n2)
-			-- Determine the connector state
-			local state = "Normal"
-			if n1.alloc and n2.alloc then
-				state = "Active"
-			elseif hoverPath then
-				if (n1.alloc or n1 == hoverNode or hoverPath[n1]) and (n2.alloc or n2 == hoverNode or hoverPath[n2]) then
-					state = "Intermediate"
-				end
-			end
-			return state
-		end
-		local state = getState(node1, node2);
+		setConnectorColor(1, 1, 1)
+		local state = getState(node1, node2)
 		local baseState = state
 		if self.compareSpec then
 			local cNode1, cNode2 = self.compareSpec.nodes[connector.nodeId1], self.compareSpec.nodes[connector.nodeId2]
@@ -400,10 +402,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		if baseState == "Active" and state ~= "Active" then
 			state = "Active"
-			connectorColor = {0,1,0}
+			setConnectorColor(0, 1, 0)
 		end
 		if baseState ~= "Active" and state == "Active" then
-			connectorColor = {1,0,0}
+			setConnectorColor(1, 0, 0)
 		end
 
 		-- Convert vertex coordinates to screen-space and add them to the coordinate array
@@ -415,13 +417,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		if hoverDep and hoverDep[node1] and hoverDep[node2] then
 			-- Both nodes depend on the node currently being hovered over, so color the line red
-			SetDrawColor(1, 0, 0)
+			setConnectorColor(1, 0, 0)
 		elseif connector.ascendancyName and connector.ascendancyName ~= spec.curAscendClassName then
 			-- Fade out lines in ascendancy classes other than the current one
-			SetDrawColor(0.75, 0.75, 0.75)
-		else
-			SetDrawColor(connectorColor[1], connectorColor[2], connectorColor[3])
+			setConnectorColor(0.75, 0.75, 0.75)
 		end
+		SetDrawColor(unpack(connectorColor))
 		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
 	end
 
