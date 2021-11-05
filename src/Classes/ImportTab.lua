@@ -909,6 +909,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 		{ label = "Ghostbin", id = "Ghostbin", matchURL = "ghostbin%.co/paste/%w+", regexURL = "ghostbin%.co/paste/(%w+)%s*$", downloadURL = "ghostbin.co/paste/%1/raw" },
 		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
 		{ label = "TinyPaste", id = "TinyPaste", matchURL = "penyacom%.org/%w+", regexURL = "penyacom%.org/[pr]%?q=(%w+)%s*$", downloadURL = "penyacom.org/r?q=%1" },
+		{ label = "poe.ninja/pob", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
 	}
 	local controls = { }
 
