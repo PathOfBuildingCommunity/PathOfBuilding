@@ -241,6 +241,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
+	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
 	if self.build.calcsTab.powerStat then
 		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
 	end

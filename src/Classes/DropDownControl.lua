@@ -41,6 +41,7 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.enableDroppedWidth = false
 	  -- Set by the parent control. Activates the auto width of the box component. 
 	self.enableChangeBoxWidth = false
+	-- self.tag = "-"
 end)
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
@@ -459,20 +460,19 @@ function DropDownClass:SetList(textList)
 		wipeTable(self.list)
 		self.list = textList
 		  --check width on new list
-		self:EnableDroppedWidth(self.enableDroppedWidth)
+		self:CheckDroppedWidth(self.enableDroppedWidth)
 	else
 		return
 	end
 end
 
-function DropDownClass:EnableDroppedWidth(enable)
+function DropDownClass:CheckDroppedWidth(enable)
 	self.enableDroppedWidth = enable
 	if self.enableDroppedWidth and self.list then
-		local scrollWidth = self.dropped and self.controls.scrollBar.enabled and self.controls.scrollBar.width or 0
-		-- local scrollWidth = 0
-		-- if self.dropped and self.controls.scrollBar.enabled then
-			-- scrollWidth = self.controls.scrollBar.width
-		-- end
+		local scrollWidth = 0
+		if self.dropped and self.controls.scrollBar.enabled then
+			scrollWidth = self.controls.scrollBar.width
+		end
 		local lineHeight = self.height - 4
 
 		  -- do not be smaller than the created width
@@ -482,12 +482,11 @@ function DropDownClass:EnableDroppedWidth(enable)
 			if type(line) == "table" then
 				line = line.label
 			end
-			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line))
+			  -- +10 to stop clipping
+			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)
 		end
 		  -- no greater than self.maxDroppedWidth
-			  -- +10 to stop clipping
-		self.droppedWidth = m_min(dWidth + 10 + scrollWidth, self.maxDroppedWidth)
-
+		self.droppedWidth = m_min(dWidth + scrollWidth, self.maxDroppedWidth)
 		if self.enableChangeBoxWidth then
 			local line = self.list[self.selIndex]
 			if type(line) == "table" then

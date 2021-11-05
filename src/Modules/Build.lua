@@ -526,7 +526,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSocketGroup.tag = "mainSocketGroup"
 	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
 		local socketGroup = self.skillsTab.socketGroupList[index]
@@ -1103,7 +1102,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
 		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
-	controls.mainSocketGroup:EnableDroppedWidth(true)
+	controls.mainSocketGroup:CheckDroppedWidth(true)
 	if #controls.mainSocketGroup.list == 0 then
 		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
 		controls.mainSkill.shown = false

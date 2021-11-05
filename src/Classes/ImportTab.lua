@@ -69,6 +69,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
 	end)
 	self.controls.accountHistory:SelByValue(main.lastAccountName)
+	self.controls.accountHistory:CheckDroppedWidth(true)
 
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
@@ -158,6 +159,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			table.sort(historyList, function(a,b)
 				return a:lower() < b:lower()
 			end)
+			self.controls.accountHistory:CheckDroppedWidth(true)
 		end
 	end)
 
