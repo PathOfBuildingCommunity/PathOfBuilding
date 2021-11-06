@@ -113612,20 +113612,11 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Rare Breach Monsters drop an additional Currency Item"
-				},
-				[2]={
-					limit={
-						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Rare Breach Monsters drop {0} additional Currency Items"
+					text="Rare Breach Monsters drop additional Currency Items"
 				}
 			}
 		},

@@ -758,7 +758,7 @@ Implicits: 0
 ["ChillChanceOnCrit"] = 100,
 ["ColdGuardAbsorbRate"] = 0,
 ["EnergyShieldLeechDuration"] = 2.7913,
-["DoubleArmourChance"] = 0,
+["MoreArmourChance"] = 0,
 ["IgniteFireMax"] = 130,
 ["FireResist"] = 75,
 ["RemovableFrenzyCharges"] = 0,

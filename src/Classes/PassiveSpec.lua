@@ -169,10 +169,7 @@ function PassiveSpecClass:Save(xml)
 	end
 	local masterySelections = { }
 	for mastery, effect in pairs(self.masterySelections) do
-		-- only save pob codes to xml (only profile import should have leftover effects to clean up)
-		if (tonumber(effect) < 65536) then
-			t_insert(masterySelections, "{"..mastery..","..effect.."}")
-		end
+		t_insert(masterySelections, "{"..mastery..","..effect.."}")
 	end
 	local editedNodes = {
 		elem = "EditedNodes"
@@ -253,7 +250,10 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 	end
 	wipeTable(self.masterySelections)
 	for mastery, effect in pairs(masteryEffects) do
-		self.masterySelections[mastery] = effect
+		-- ignore ggg codes from profile import
+		if (tonumber(effect) < 65536) then
+			self.masterySelections[mastery] = effect
+		end
 	end
 	self:SelectAscendClass(ascendClassId)
 end

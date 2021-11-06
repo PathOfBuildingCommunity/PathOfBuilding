@@ -33,6 +33,8 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.list = list or { }
 	self.selIndex = 1
 	self.selFunc = selFunc
+	  -- droppedWidth will allow for the parent to set the width of the dropped component
+	self.droppedWidth = self.width
 end)
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
@@ -160,6 +162,8 @@ function DropDownClass:IsMouseOver()
 	local cursorX, cursorY = GetCursorPos()
 	local dropExtra = self.dropped and self.dropHeight + 2 or 0
 	local mOver
+	width = m_max(width, self.droppedWidth)
+
 	if self.dropUp then
 		mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
 	else
@@ -226,7 +230,7 @@ function DropDownClass:Draw(viewPort)
 	DrawImage(nil, x, y, width, height)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
-		DrawImage(nil, x, dropY, width, dropExtra)
+		DrawImage(nil, x, dropY, self.droppedWidth, dropExtra)
 		SetDrawLayer(nil, 0)
 	end
 	if not enabled then
@@ -250,7 +254,7 @@ function DropDownClass:Draw(viewPort)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, dropY + 1, width - 2, dropExtra - 2)
+		DrawImage(nil, x + 1, dropY + 1, self.droppedWidth - 2, dropExtra - 2)
 		SetDrawLayer(nil, 0)
 	end
 	if self.otherDragSource then
@@ -291,6 +295,7 @@ function DropDownClass:Draw(viewPort)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		self:DrawControls(viewPort)
+		width = self.droppedWidth
 
 		-- draw tooltip for hovered item
 		local cursorX, cursorY = GetCursorPos()

@@ -3052,13 +3052,13 @@ skills["SupportMultistrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack),
+			mod("Damage", "MORE", nil),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
+			mod("Speed", "MORE", nil, ModFlag.Attack),
 		},
 		["multistrike_area_of_effect_+%_per_repeat"] = {
 			mod("AreaOfEffect", "INC", nil)
@@ -3142,14 +3142,14 @@ skills["SupportMultistrikePlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_third_repeat"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack),
+			mod("Damage", "MORE", nil),
 			div = 2,
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)),
+			mod("Speed", "MORE", nil, ModFlag.Attack),
 		},
 	},
 	baseMods = {
