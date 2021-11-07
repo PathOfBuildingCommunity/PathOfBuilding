@@ -1946,6 +1946,7 @@ skills["DefianceBanner"] = {
 	baseMods = {
 		skill("radius", 46),
 		skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" }),
+		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 	},
 	qualityStats = {
 		Default = {
@@ -2318,6 +2319,7 @@ skills["PuresteelBanner"] = {
 	baseMods = {
 		skill("radius", 46),
 		skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" }),
+		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 	},
 	qualityStats = {
 		Default = {
@@ -7590,6 +7592,7 @@ skills["BloodstainedBanner"] = {
 	baseMods = {
 		skill("radius", 46),
 		skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" }),
+		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 	},
 	qualityStats = {
 		Default = {
