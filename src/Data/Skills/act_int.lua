@@ -6808,7 +6808,7 @@ skills["PowerSiphon"] = {
 	name = "Power Siphon",
 	color = 3,
 	description = "Fires your wand to unleash projectiles that fire toward enemies in front of you or to your sides, dealing increased damage and granting you a power charge if an enemy is killed by, or soon after, the hit.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
