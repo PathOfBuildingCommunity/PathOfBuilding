@@ -6363,7 +6363,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=310
+			width=420
 		},
 		[2]={
 			list=false,
@@ -6374,24 +6374,24 @@ return {
 		},
 		[3]={
 			list=false,
-			name="Local",
+			name="IsLocal",
 			refTo="",
 			type="Bool",
 			width=50
 		},
 		[4]={
 			list=false,
-			name="Proxied",
+			name="IsWeaponLocal",
 			refTo="",
 			type="Bool",
-			width=50
+			width=90
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
+			name="Semantics",
+			refTo="StatSemantics",
 			type="Enum",
-			width=50
+			width=170
 		},
 		[6]={
 			list=false,
@@ -6402,7 +6402,7 @@ return {
 		},
 		[7]={
 			list=false,
-			name="",
+			name="Text",
 			refTo="",
 			type="String",
 			width=160
@@ -6416,7 +6416,7 @@ return {
 		},
 		[9]={
 			list=false,
-			name="Virtual",
+			name="IsVirtual",
 			refTo="",
 			type="Bool",
 			width=50
@@ -6425,15 +6425,15 @@ return {
 			list=false,
 			name="Main Hand Stat",
 			refTo="Stats",
-			type="Enum",
-			width=150
+			type="Key",
+			width=350
 		},
 		[11]={
 			list=false,
 			name="Off Hand Stat",
-			refTo="Stats",
-			type="Enum",
-			width=150
+			refTo="",
+			type="Key",
+			width=350
 		},
 		[12]={
 			list=false,
@@ -6450,10 +6450,10 @@ return {
 			width=80
 		},
 		[14]={
-			list=true,
+			list=false,
 			name="Skills",
-			refTo="",
-			type="String",
+			refTo="ActiveSkillType",
+			type="Key",
 			width=150
 		},
 		[15]={
@@ -6476,6 +6476,41 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[20]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[21]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[22]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	StrDexIntMissionExtraRequirement={
