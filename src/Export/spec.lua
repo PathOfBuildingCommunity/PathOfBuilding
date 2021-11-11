@@ -6405,7 +6405,7 @@ return {
 			name="Text",
 			refTo="",
 			type="String",
-			width=160
+			width=300
 		},
 		[8]={
 			list=false,
@@ -6425,35 +6425,35 @@ return {
 			list=false,
 			name="Main Hand Stat",
 			refTo="Stats",
-			type="Key",
+			type="Enum",
 			width=350
 		},
 		[11]={
 			list=false,
-			name="Off Hand Stat",
-			refTo="",
-			type="Key",
-			width=350
+			name="",
+			refTo="Stats",
+			type="Int",
+			width=130
 		},
 		[12]={
 			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=50
+			name="Off Hand Stat",
+			refTo="Stats",
+			type="Enum",
+			width=330
 		},
 		[13]={
+			list=false,
+			name="",
+			refTo="Stats",
+			type="Int",
+			width=170
+		},
+		[14]={
 			list=false,
 			name="Hash",
 			refTo="",
 			type="UInt",
-			width=80
-		},
-		[14]={
-			list=false,
-			name="Skills",
-			refTo="ActiveSkillType",
-			type="Key",
 			width=150
 		},
 		[15]={
@@ -6461,41 +6461,41 @@ return {
 			name="",
 			refTo="",
 			type="Key",
-			width=110
+			width=280
 		},
 		[16]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=50
+			width=150
 		},
 		[17]={
 			list=false,
 			name="",
 			refTo="",
-			type="Bool",
-			width=50
+			type="Key",
+			width=150
 		},
 		[18]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=150
 		},
 		[19]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=150
 		},
 		[20]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=150
 		},
 		[21]={
@@ -6510,6 +6510,13 @@ return {
 			name="",
 			refTo="",
 			type="Int",
+			width=150
+		},
+		[23]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
 			width=150
 		}
 	},
