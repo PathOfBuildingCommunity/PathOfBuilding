@@ -1015,6 +1015,8 @@ Implicits: 1
 ]],[[
 Willowgift
 Jade Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -1022,8 +1024,11 @@ Implicits: 1
 {tags:jewellery_attribute}15% increased Dexterity
 {tags:jewellery_resistance}-(30-20)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
-Fortify Buffs you create instead grant 30% more Evasion Rating
-{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while you have Fortify
+{variant:1}Fortify Buffs you create instead grant 30% more Evasion Rating
+{variant:2}You do not inherently take less Damage for having Fortification
+{variant:2}+4% chance to Suppress Spell Damage per Fortification
+{variant:1}{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while you have Fortify
+{variant:2}{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while at maximum Fortification
 ]],[[
 Winterheart
 Gold Amulet
