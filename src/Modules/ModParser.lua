@@ -1112,7 +1112,7 @@ local modTagList = {
 	["in off hand"] = { tag = { type = "InSlot", num = 2 } },
 	["w?i?t?h? main hand"] = { tagList = { { type = "Condition", var = "MainHandAttack" }, { type = "SkillType", skillType = SkillType.Attack } } },
 	["w?i?t?h? off hand"] = { tagList = { { type = "Condition", var = "OffHandAttack" }, { type = "SkillType", skillType = SkillType.Attack } } },
-	["with this weapon"] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
+	["i?n?f?l?i?c?t?e?d? ? with this weapon"] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
 	["if your other ring is a shaper item"] = { tag = { type = "Condition", var = "ShaperItemInRing {OtherSlotNum}" } },
 	["if your other ring is an elder item"] = { tag = { type = "Condition", var = "ElderItemInRing {OtherSlotNum}" } },
 	["if you have a (%a+) (%a+) in (%a+) slot"] = function(_, rarity, item, slot) return { tag = { type = "Condition", var = rarity:gsub("^%l", string.upper).."ItemIn"..item:gsub("^%l", string.upper).." "..(slot == "right" and 2 or slot == "left" and 1) } } end,
