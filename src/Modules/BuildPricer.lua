@@ -6,52 +6,6 @@
 
 local bp = { }
 
-local BuildPricerClass = newClass("BuildPricer", "ControlHost", "Control", function(self, build)
-	self.ControlHost()
-	self.Control()
-
-    	-- Stage: input POESESSID
-	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 14)
-	self.controls.sessionHeader.label = function()
-		return [[
-^7The list of characters on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
-1. The account name is wrong, or
-2. The account's privacy settings hide the characters tab (this is the default setting).
-If this is your account, you can either:
-1. Change your privacy settings to show you characters tab and then retry, or
-2. Enter a valid POESESSID below.
-You can get this from your web browser's cookies while logged into the Path of Exile website.
-		]]
-	end
-	self.controls.sessionHeader.shown = function()
-		return self.charImportMode == "GETSESSIONID"
-	end
-end)
-
-function BuildPricerClass:Draw(viewPort, inputEvents)
-	self.x = viewPort.x
-	self.y = viewPort.y
-	self.width = viewPort.width
-	self.height = viewPort.height
-
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then
-			if event.key == "z" and IsKeyDown("CTRL") then
-				self.controls.edit:Undo()
-			elseif event.key == "y" and IsKeyDown("CTRL") then
-				self.controls.edit:Redo()
-			end
-		end
-	end
-	self:ProcessControlsInput(inputEvents, viewPort)
-
-	main:DrawBackground(viewPort)
-
-	self:DrawControls(viewPort)
-
-	--self.modFlag = (self.lastContent ~= self.controls.edit.buf)
-end
-
 function bp.ProcessJSON(json)
 	local func, errMsg = loadstring("return "..jsonToLua(json))
 	if errMsg then
@@ -141,6 +95,7 @@ function bp.blah(json_data, outputWhisper, outputImplicitMods)
                             end
                             for trade_indx, trade_entry in ipairs(response_2.result) do
                                 --ConPrintf(prettyPrintTable(trade_entry))
+                                -- TODO: add support for UTF8
                                 outputWhisper:SetText(trade_entry.listing.whisper)
                                 local implicitMods = ""
                                 if trade_entry.item.implicitMods then
