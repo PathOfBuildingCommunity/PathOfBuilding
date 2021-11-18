@@ -143,6 +143,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.saveAs.enabled = function()
 		return self.dbFileName
 	end
+	self.controls.buildPricer = new("ButtonControl", {"LEFT",self.controls.saveAs,"RIGHT"}, 8, 0, 170, 20, "Build Pricer (BETA)", function()
+		self:OpenBuildPricer()
+	end)
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = new("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
@@ -1063,6 +1066,11 @@ function buildMode:OpenSaveAsPopup()
 		self.actionOnSave = nil
 	end)
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
+end
+
+function buildMode:OpenBuildPricer()
+	local buildPricer = LoadModule("Modules/BuildPricer")
+	buildPricer.runBuildPricer(self)
 end
 
 -- Open the spectre library popup

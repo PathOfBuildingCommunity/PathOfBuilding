@@ -302,6 +302,7 @@ function TreeTabClass:Load(xml, dbFileName)
 		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
+	self.build.specs = self.specList
 end
 
 function TreeTabClass:PostLoad()
