@@ -19,7 +19,7 @@ function bp.ProcessJSON(json)
 	return data
 end
 
-function bp.blah(json_data, outputWhisper, outputImplicitMods)
+function bp.search_item(json_data, outputWhisper, outputImplicitMods)
     outputImplicitMods:SetText("")
     local id = LaunchSubScript([[
         local json_data = ...
@@ -117,6 +117,50 @@ function bp.blah(json_data, outputWhisper, outputImplicitMods)
     end
 end
 
+function bp.public_trade(url, whisper, implicitMods)
+    local id = LaunchSubScript([[
+        local url = ...
+        local curl = require("lcurl.safe")
+        local page = ""
+        local easy = curl.easy()
+        easy:setopt{
+            url = url,
+            post = true,
+            httpheader = {'Content-Type: application/json', 'Accept: application/json'}
+        }
+        easy:setopt_writefunction(function(data)
+            page = page..data
+            return true
+        end)
+        easy:perform()
+        easy:close()
+        return page
+    ]], "", "", url)
+    if id then
+        launch:RegisterSubScript(id, function(response, errMsg)
+            if errMsg then
+                return "TRADE ERROR", "Error: "..errMsg
+            else
+                local foo = io.open("../public_dump.txt", "w")
+                foo:write(response)
+                foo:close()
+
+                local _, start = response:find('"state":{')
+                local finish, _ = response:find(',"status":"online"},"loggedIn":false}')
+                local trimmed = response:sub(start+1, finish-1)
+                searchStr = trimmed
+                local json_query = '{"query": { "status": { "option": "online" }, ' .. searchStr .. ', "filters": {} }, "sort": {"price": "asc"}}'
+
+                --local foo = io.open("../test.txt", "w")
+                --foo:write(json_query)
+                --foo:close()
+
+                bp.search_item(json_query, whisper, implicitMods)
+            end
+        end)
+    end
+end
+
 function bp.runBuildPricer(build)
     local pane_height = 500
     local pane_width = 1200
@@ -144,8 +188,7 @@ function bp.runBuildPricer(build)
     end
     --]]
 
-    json_query = '{"query": { "status": { "option": "online" }, "name": "Inspired Learning", "type": "Crimson Jewel", "stats": [{"type": "and", "filters": []}], "filters": {} }, "sort": {"price": "asc"} }'
-    bp.blah(json_query, controls.whisper, controls.implicitMods)
+    bp.public_trade("https://www.pathofexile.com/trade/search/Scourge/2PEkepGFk", controls.whisper, controls.implicitMods)
 end
 
 return bp
