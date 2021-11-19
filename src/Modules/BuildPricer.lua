@@ -19,8 +19,8 @@ function bp.ProcessJSON(json)
 	return data
 end
 
-function bp.search_item(json_data, outputWhisper, outputImplicitMods)
-    outputImplicitMods:SetText("")
+function bp.search_item(json_data, controls, outputWhisper)
+    controls.implicitMods:SetText("")
     local id = LaunchSubScript([[
         local json_data = ...
         local curl = require("lcurl.safe")
@@ -55,8 +55,7 @@ function bp.search_item(json_data, outputWhisper, outputImplicitMods)
                 end
                 local res_lines = ""
                 if #response_1.result == 0 then
-                    outputWhisper:SetText("NO RESULTS FOUND")
-                    outputImplicitMods:SetText("")
+                    controls.whisper:SetText("NO RESULTS FOUND")
                     return
                 end
                 for index, res_line in ipairs(response_1.result) do
@@ -101,14 +100,16 @@ function bp.search_item(json_data, outputWhisper, outputImplicitMods)
                             for trade_indx, trade_entry in ipairs(response_2.result) do
                                 --ConPrintf(prettyPrintTable(trade_entry))
                                 -- TODO: add support for UTF8
-                                outputWhisper:SetText(trade_entry.listing.whisper)
+                                controls.priceAmount:SetText(trade_entry.listing.price.amount)
+                                controls.priceLabel:SetText(trade_entry.listing.price.currency)
+                                controls.whisper:SetText(trade_entry.listing.whisper)
                                 local implicitMods = ""
                                 if trade_entry.item.implicitMods then
                                     for _, mod in ipairs(trade_entry.item.implicitMods) do
                                         implicitMods = implicitMods .. mod .. ", "
                                     end
                                     implicitMods:sub(1, -4)
-                                    outputImplicitMods:SetText(implicitMods)
+                                    controls.implicitMods:SetText(implicitMods)
                                 end
                                 return
                             end
@@ -122,7 +123,7 @@ function bp.search_item(json_data, outputWhisper, outputImplicitMods)
     end
 end
 
-function bp.public_trade(url, whisper, implicitMods)
+function bp.public_trade(url, controls)
     local id = LaunchSubScript([[
         local url = ...
         local curl = require("lcurl.safe")
@@ -155,7 +156,7 @@ function bp.public_trade(url, whisper, implicitMods)
                 --local foo = io.open("../test.txt", "w")
                 --foo:write(json_query)
                 --foo:close()
-                bp.search_item(json_query, whisper, implicitMods)
+                bp.search_item(json_query, controls)
             end
         end)
     end
@@ -165,13 +166,21 @@ function bp.runBuildPricer(build)
     local pane_height = 500
     local pane_width = 1200
     local controls = { }
-    controls.whisper = new("EditControl", nil, 0, pane_height - 470, 1200 - 16, 16, "", "Whisper", "%Z")
-    controls.whisper.enabled = function()
-		return #controls.whisper.buf > 0
+    controls.priceAmount = new("EditControl", nil, -532, pane_height - 470, 120, 16, "", "Price", "%Z")
+    controls.priceAmount.enabled = function()
+		return #controls.priceAmount.buf > 0
 	end
-    controls.implicitMods = new("EditControl", {"TOPLEFT",controls.whisper,"TOPLEFT"}, 0, 32, 1200 - 16, 16, "", "Implicits", "%Z")
+    controls.priceLabel = new("EditControl", {"TOPLEFT",controls.priceAmount,"TOPLEFT"}, 120 + 16, 0, 120, 16, "", "Currency", "%Z")
+    controls.priceLabel.enabled = function()
+		return #controls.priceLabel.buf > 0
+	end
+    controls.implicitMods = new("EditControl", {"TOPLEFT",controls.priceAmount,"TOPLEFT"}, 0, 20, 1200 - 16, 16, "", "Implicits", "%Z")
     controls.implicitMods.enabled = function()
 		return #controls.implicitMods.buf > 0
+	end
+    controls.whisper = new("EditControl", {"TOPLEFT",controls.implicitMods,"TOPLEFT"}, 0, 20, 1200 - 16, 16, "", "Whisper", "%Z")
+    controls.whisper.enabled = function()
+		return #controls.whisper.buf > 0
 	end
     controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, 20, "Done", function()
 		main:ClosePopup()
@@ -188,7 +197,7 @@ function bp.runBuildPricer(build)
     end
     --]]
 
-    bp.public_trade("https://www.pathofexile.com/api/trade/search/opO8m3YIl", controls.whisper, controls.implicitMods)
+    bp.public_trade("https://www.pathofexile.com/api/trade/search/2PEkepGFk", controls)
 end
 
 return bp
