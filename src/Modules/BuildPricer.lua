@@ -125,8 +125,7 @@ function bp.public_trade(url, whisper, implicitMods)
         local easy = curl.easy()
         easy:setopt{
             url = url,
-            post = true,
-            httpheader = {'Content-Type: application/json', 'Accept: application/json'}
+            httpheader = {'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'}
         }
         easy:setopt_writefunction(function(data)
             page = page..data
@@ -145,16 +144,13 @@ function bp.public_trade(url, whisper, implicitMods)
                 foo:write(response)
                 foo:close()
 
-                local _, start = response:find('"state":{')
-                local finish, _ = response:find(',"status":"online"},"loggedIn":false}')
-                local trimmed = response:sub(start+1, finish-1)
-                searchStr = trimmed
-                local json_query = '{"query": { "status": { "option": "online" }, ' .. searchStr .. ', "filters": {} }, "sort": {"price": "asc"}}'
+                local _, start = response:find(',')
+                local trimmed = response:sub(start+1, -2)
+                local json_query = '{' .. trimmed .. ', "sort": {"price": "asc"}}'
 
                 --local foo = io.open("../test.txt", "w")
                 --foo:write(json_query)
                 --foo:close()
-
                 bp.search_item(json_query, whisper, implicitMods)
             end
         end)
@@ -188,7 +184,7 @@ function bp.runBuildPricer(build)
     end
     --]]
 
-    bp.public_trade("https://www.pathofexile.com/trade/search/Scourge/2PEkepGFk", controls.whisper, controls.implicitMods)
+    bp.public_trade("https://www.pathofexile.com/api/trade/search/opO8m3YIl", controls.whisper, controls.implicitMods)
 end
 
 return bp
