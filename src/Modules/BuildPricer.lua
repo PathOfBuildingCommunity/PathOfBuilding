@@ -45,15 +45,20 @@ function bp.search_item(json_data, outputWhisper, outputImplicitMods)
             if errMsg then
                 return "TRADE ERROR", "Error: "..errMsg
             else
-                local foo = io.open("../url_dump.txt", "w")
-                foo:write(response)
-                foo:close()
+                --local foo = io.open("../url_dump.txt", "w")
+                --foo:write(response)
+                --foo:close()
 
                 local response_1 = bp.ProcessJSON(response)
                 if not response_1 then
                     return
                 end
                 local res_lines = ""
+                if #response_1.result == 0 then
+                    outputWhisper:SetText("NO RESULTS FOUND")
+                    outputImplicitMods:SetText("")
+                    return
+                end
                 for index, res_line in ipairs(response_1.result) do
                     if index < 11 then
                         res_lines = res_lines .. res_line .. ","
@@ -140,13 +145,12 @@ function bp.public_trade(url, whisper, implicitMods)
             if errMsg then
                 return "TRADE ERROR", "Error: "..errMsg
             else
-                local foo = io.open("../public_dump.txt", "w")
-                foo:write(response)
-                foo:close()
+                --local foo = io.open("../public_dump.txt", "w")
+                --foo:write(response)
+                --foo:close()
 
-                local _, start = response:find(',')
-                local trimmed = response:sub(start+1, -2)
-                local json_query = '{' .. trimmed .. ', "sort": {"price": "asc"}}'
+                local trimmed = response:sub(1, -2)
+                local json_query = trimmed .. ', "sort": {"price": "asc"}}'
 
                 --local foo = io.open("../test.txt", "w")
                 --foo:write(json_query)
