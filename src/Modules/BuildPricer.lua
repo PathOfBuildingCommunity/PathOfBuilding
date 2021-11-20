@@ -19,8 +19,7 @@ function bp.ProcessJSON(json)
 	return data
 end
 
-function bp.search_item(json_data, controls, outputWhisper)
-    controls.implicitMods:SetText("")
+function bp.search_item(json_data, controls, index)
     local id = LaunchSubScript([[
         local json_data = ...
         local curl = require("lcurl.safe")
@@ -99,17 +98,26 @@ function bp.search_item(json_data, controls, outputWhisper)
                             end
                             for trade_indx, trade_entry in ipairs(response_2.result) do
                                 --ConPrintf(prettyPrintTable(trade_entry))
+                                controls['name'..index]:SetText(trade_entry.item.name.." "..trade_entry.item.typeLine)
+                                controls['priceAmount'..index]:SetText(trade_entry.listing.price.amount)
+                                controls['priceLabel'..index]:SetText(trade_entry.listing.price.currency)
                                 -- TODO: add support for UTF8
-                                controls.priceAmount:SetText(trade_entry.listing.price.amount)
-                                controls.priceLabel:SetText(trade_entry.listing.price.currency)
-                                controls.whisper:SetText(trade_entry.listing.whisper)
+                                controls['whisper'..index]:SetText(trade_entry.listing.whisper)
                                 local implicitMods = ""
                                 if trade_entry.item.implicitMods then
                                     for _, mod in ipairs(trade_entry.item.implicitMods) do
                                         implicitMods = implicitMods .. mod .. ", "
                                     end
-                                    implicitMods:sub(1, -4)
-                                    controls.implicitMods:SetText(implicitMods)
+                                    implicitMods = implicitMods:sub(1, -3)
+                                    controls['implicitMods'..index]:SetText(implicitMods)
+                                end
+                                local explicitMods = ""
+                                if trade_entry.item.explicitMods then
+                                    for _, mod in ipairs(trade_entry.item.explicitMods) do
+                                        explicitMods = explicitMods .. mod .. ", "
+                                    end
+                                    explicitMods = explicitMods:sub(1, -3)
+                                    controls['explicitMods'..index]:SetText(explicitMods)
                                 end
                                 return
                             end
@@ -123,7 +131,7 @@ function bp.search_item(json_data, controls, outputWhisper)
     end
 end
 
-function bp.public_trade(url, controls)
+function bp.public_trade(url, controls, index)
     local id = LaunchSubScript([[
         local url = ...
         local curl = require("lcurl.safe")
@@ -156,32 +164,56 @@ function bp.public_trade(url, controls)
                 --local foo = io.open("../test.txt", "w")
                 --foo:write(json_query)
                 --foo:close()
-                bp.search_item(json_query, controls)
+                bp.search_item(json_query, controls, index)
             end
         end)
     end
 end
 
 function bp.runBuildPricer(build)
-    local pane_height = 500
-    local pane_width = 1200
+    local gear_URIs = {
+        "https://www.pathofexile.com/api/trade/search/2PEkepGFk",
+        "https://www.pathofexile.com/api/trade/search/opO8m3YIl",
+    }
+
+    local pane_height = 600
+    local pane_width = 1600
     local controls = { }
-    controls.priceAmount = new("EditControl", nil, -532, pane_height - 470, 120, 16, "", "Price", "%Z")
-    controls.priceAmount.enabled = function()
-		return #controls.priceAmount.buf > 0
-	end
-    controls.priceLabel = new("EditControl", {"TOPLEFT",controls.priceAmount,"TOPLEFT"}, 120 + 16, 0, 120, 16, "", "Currency", "%Z")
-    controls.priceLabel.enabled = function()
-		return #controls.priceLabel.buf > 0
-	end
-    controls.implicitMods = new("EditControl", {"TOPLEFT",controls.priceAmount,"TOPLEFT"}, 0, 20, 1200 - 16, 16, "", "Implicits", "%Z")
-    controls.implicitMods.enabled = function()
-		return #controls.implicitMods.buf > 0
-	end
-    controls.whisper = new("EditControl", {"TOPLEFT",controls.implicitMods,"TOPLEFT"}, 0, 20, 1200 - 16, 16, "", "Whisper", "%Z")
-    controls.whisper.enabled = function()
-		return #controls.whisper.buf > 0
-	end
+    local top_pane_alignment_ref = nil
+    local top_pane_alignment_width = -612
+    local top_pane_alignment_height = pane_height - 570
+    for cnt, uri in ipairs(gear_URIs) do
+        local str_cnt = tostring(cnt)
+        controls['name'..str_cnt] = new("EditControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 360, 20, "", "Name", "%Z")
+        controls['name'..str_cnt].enabled = function()
+            return #controls['name'..str_cnt].buf > 0
+        end
+        controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 360 + 16, 0, 120, 20, "", "Price", "%Z")
+        controls['priceAmount'..str_cnt].enabled = function()
+            return #controls['priceAmount'..str_cnt].buf > 0
+        end
+        controls['priceLabel'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 120, 20, "", "Currency", "%Z")
+        controls['priceLabel'..str_cnt].enabled = function()
+            return #controls['priceLabel'..str_cnt].buf > 0
+        end
+        controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceLabel'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 500, 20, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
+        controls['uri'..str_cnt]:SetText(uri)
+        controls['implicitMods'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Implicits", "%Z")
+        controls['implicitMods'..str_cnt].enabled = function()
+            return #controls['implicitMods'..str_cnt].buf > 0
+        end
+        controls['explicitMods'..str_cnt] = new("EditControl", {"TOPLEFT",controls['implicitMods'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Explicits", "%Z")
+        controls['explicitMods'..str_cnt].enabled = function()
+            return #controls['explicitMods'..str_cnt].buf > 0
+        end
+        controls['whisper'..str_cnt] = new("EditControl", {"TOPLEFT",controls['explicitMods'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Whisper", "%Z")
+        controls['whisper'..str_cnt].enabled = function()
+            return #controls['whisper'..str_cnt].buf > 0
+        end
+        top_pane_alignment_ref = {"TOPLEFT",controls['whisper'..str_cnt],"TOPLEFT"}
+        top_pane_alignment_width = 0
+        top_pane_alignment_height = 48
+    end
     controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, 20, "Done", function()
 		main:ClosePopup()
 	end)
@@ -197,7 +229,9 @@ function bp.runBuildPricer(build)
     end
     --]]
 
-    bp.public_trade("https://www.pathofexile.com/api/trade/search/2PEkepGFk", controls)
+    for index, uri in ipairs(gear_URIs) do
+        --bp.public_trade(uri, controls, tostring(index))
+    end
 end
 
 return bp
