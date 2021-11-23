@@ -198,6 +198,16 @@ function bp.runBuildPricer(build)
         end
         controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceLabel'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 500, 20, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
         controls['uri'..str_cnt]:SetText(uri)
+        controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 16, 0, 100, 20, "Price Item", function()
+            bp.public_trade(uri, controls, str_cnt)
+        end)
+        controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, 20, "Import Item", function()
+            ConPrintf("TODO - import item found into build")
+        end)
+        controls['importButton'..str_cnt].enabled = function()
+            return #controls['priceAmount'..str_cnt].buf > 0
+        end
+
         controls['implicitMods'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Implicits", "%Z")
         controls['implicitMods'..str_cnt].enabled = function()
             return #controls['implicitMods'..str_cnt].buf > 0
@@ -228,10 +238,6 @@ function bp.runBuildPricer(build)
         end
     end
     --]]
-
-    for index, uri in ipairs(gear_URIs) do
-        --bp.public_trade(uri, controls, tostring(index))
-    end
 end
 
 return bp
