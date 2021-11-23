@@ -3152,6 +3152,7 @@ local specialModList = {
 				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["passives in radius are conquered by the (%D+)"] = { },
 	["historic"] = { },
+	["survival"] = { },
 	["you can have two different banners at the same time"] = { },
 	["can have a second enchantment modifier"] = { },
 	["can have (%d+) additional enchantment modifiers"] = { },
