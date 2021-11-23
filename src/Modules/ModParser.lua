@@ -629,6 +629,7 @@ local modNameList = {
 	["extra charges"] = "FlaskCharges",
 	["maximum charges"] = "FlaskCharges",
 	["charges used"] = "FlaskChargesUsed",
+	["charges per use"] = "FlaskChargesUsed",
 	["flask charges used"] = "FlaskChargesUsed",
 	["flask charges gained"] = "FlaskChargesGained",
 	["charge recovery"] = "FlaskChargeRecovery",
