@@ -1714,10 +1714,13 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		return #controls['priceLabel'..str_cnt].buf > 0
 	end
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceLabel'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 500, 20, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
-	controls['uri'..str_cnt]:SetText(uri)
+	controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 16, 0, 100, 20, "Price Item", function()
 		self:PublicTrade(controls['uri'..str_cnt].buf, controls, str_cnt)
 	end)
+	controls['priceButton'..str_cnt].enabled = function()
+		return controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
+	end
 	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, 20, "Import Item", function()
 		ConPrintf("TODO - import item found into build")
 	end)
@@ -1867,8 +1870,13 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
     end
 end
 
+function ItemsTabClass:ParseURL(url)
+	local query = url:match("https://www.pathofexile.com/trade/search/.+/(.+)$")
+	return "https://www.pathofexile.com/api/trade/search/" .. query
+end
+
 function ItemsTabClass:PublicTrade(url, controls, index)
-	ConPrintf("URL: " .. url)
+	local url = self:ParseURL(url)
     local id = LaunchSubScript([[
         local url = ...
         local curl = require("lcurl.safe")
