@@ -143,9 +143,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.saveAs.enabled = function()
 		return self.dbFileName
 	end
-	self.controls.buildPricer = new("ButtonControl", {"LEFT",self.controls.saveAs,"RIGHT"}, 8, 0, 170, 20, "Build Pricer (BETA)", function()
-		self:OpenBuildPricer()
-	end)
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = new("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
