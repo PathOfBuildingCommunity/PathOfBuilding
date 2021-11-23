@@ -1871,6 +1871,7 @@ local specialModList = {
 	["regenerate (%d+)%% of mana over 2 seconds when you consume a corpse"] = function(num) return { mod("ManaRegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num / 2 }, { type = "Condition", var = "ConsumedCorpseInPast2Sec" }) } end,
 	-- Occultist
 	["enemies you curse have malediction"] = { mod("AffectedByCurseMod", "LIST", { mod = flag("HasMalediction") }) },
+	["enemies you curse are unnerved"] = { mod("EnemyModifier", "LIST", { mod = mod("Condition:Unnerved", "FLAG", true)}, { type = "ActorCondition", actor = "enemy", var = "Cursed" } )},
 	["when you kill an enemy, for each curse on that enemy, gain (%d+)%% of non%-chaos damage as extra chaos damage for 4 seconds"] = function(num) return {
 		mod("NonChaosDamageGainAsChaos", "BASE", num, { type = "Condition", var = "KilledRecently" }, { type = "Multiplier", var = "CurseOnEnemy" }),
 	} end,
