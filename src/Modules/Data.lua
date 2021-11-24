@@ -92,6 +92,8 @@ data.powerStatList = {
 	{ stat="Life", label="Life" },
 	{ stat="LifeRegen", label="Life regen" },
 	{ stat="LifeLeechRate", label="Life leech" },
+	{ stat="Armour", label="Armour" },
+	{ stat="Evasion", label="Evasion" },
 	{ stat="EnergyShield", label="Energy Shield" },
 	{ stat="EnergyShieldRecoveryCap", label="Recoverable ES" },
 	{ stat="EnergyShieldRegen", label="Energy Shield regen" },
