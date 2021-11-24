@@ -188,8 +188,8 @@ Variant: Current
 Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
-{variant:1}50% increased Effect of Socketed Jewels
-{variant:2}75% increased Effect of Socketed Jewels
+{variant:1}50% increased Effect of Socketed Abyss Jewels
+{variant:2}75% increased Effect of Socketed Abyss Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt
