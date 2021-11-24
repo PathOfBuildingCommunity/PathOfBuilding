@@ -1375,6 +1375,7 @@ local modTagList = {
 	["while sane"] = { tag = { type = "Condition", var = "Insane", neg = true } },
 	["while insane"] = { tag = { type = "Condition", var = "Insane" } },
 	["while you have defiance"] = { tag = { type = "MultiplierThreshold", var = "Defiance", threshold = 1 } },
+	["while affected by glorious madness"] = { tag = { type = "Condition", var = "AffectedByGloriousMadness" } },
 	-- Enemy status conditions
 	["at close range"] = { tag = { type = "Condition", var = "AtCloseRange" } },
 	["against rare and unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
@@ -1740,6 +1741,28 @@ local specialModList = {
 		flag("ChaosCanIgnite", { type = "Condition", var = "IgnitingConflux" }),
 	},
 	["gain chilling, shocking and igniting conflux for %d seconds"] = { },
+	["you have igniting, chilling and shocking conflux while affected by glorious madness"] = {
+		flag("PhysicalCanChill", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("LightningCanChill", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("FireCanChill", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("ChaosCanChill", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		mod("EnemyIgniteChance", "BASE", 100, { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("PhysicalCanIgnite", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("LightningCanIgnite", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("ColdCanIgnite", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("ChaosCanIgnite", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		mod("EnemyShockChance", "BASE", 100, { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("PhysicalCanShock", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("ColdCanShock", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("FireCanShock", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("ChaosCanShock", { type = "Condition", var = "AffectedByGloriousMadness" }),
+	},
+	["immune to elemental ailments while affected by glorious madness"] = {
+		mod("AvoidChill", "BASE", 100, { type = "Condition", var = "AffectedByGloriousMadness" }),
+		mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "AffectedByGloriousMadness" }),
+		mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "AffectedByGloriousMadness" }),
+		mod("AvoidShock", "BASE", 100, { type = "Condition", var = "AffectedByGloriousMadness" }),
+	},
 	["summoned golems are immune to elemental damage"] = {
 		mod("MinionModifier", "LIST", { mod = mod("FireResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
 		mod("MinionModifier", "LIST", { mod = mod("FireResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
@@ -2286,6 +2309,11 @@ local specialModList = {
 		flag("FireCanPoison", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 		flag("ColdCanPoison", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 		flag("LightningCanPoison", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack })
+	},
+	["all damage inflicts poison while affected by glorious madness"] = {
+		flag("FireCanPoison", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("ColdCanPoison", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		flag("LightningCanPoison", { type = "Condition", var = "AffectedByGloriousMadness" })
 	},
 	["your chaos damage poisons enemies"] = { mod("ChaosPoisonChance", "BASE", 100) },
 	["your chaos damage has (%d+)%% chance to poison enemies"] = function(num) return { mod("ChaosPoisonChance", "BASE", num) } end,

@@ -180,6 +180,10 @@ return {
 			modList:NewMod("LightningExposureChance", "BASE", 100, "Config")
 		end
 	end },
+	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
+	{ var = "embraceMadnessActive", type = "check", label = "Is Embrace Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:AffectedByGloriousMadness", "FLAG", true, "Config")
+	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FeedingFrenzyActive", "FLAG", true, "Config")
