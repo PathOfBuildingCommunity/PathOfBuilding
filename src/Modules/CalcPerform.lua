@@ -2528,7 +2528,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if uniqueTriggerName == "The Poet's Pen" then
+			if uniqueTriggerName == "Poet's Pen" then
 				triggerName = "Poet"
 				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
