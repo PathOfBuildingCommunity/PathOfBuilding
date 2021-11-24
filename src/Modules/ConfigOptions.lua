@@ -118,7 +118,7 @@ return {
 		modList:NewMod("Condition:BannerPlanted", "FLAG", true, "Config")
 	end },
 	{ var = "bannerStages", type = "count", label = "Banner Stages:", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" }, apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config", { type = "SkillName", skillNameList = { "Dread Banner", "War Banner", "Defiance Banner" } })
+		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config")
 	end },
 	{ label = "Bladestorm:", ifSkill = "Bladestorm" },
 	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
