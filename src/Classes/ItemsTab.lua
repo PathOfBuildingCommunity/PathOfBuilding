@@ -1659,6 +1659,7 @@ end
 
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
+	self.totalPrice = { }
 	local pane_height = 1200
     local pane_width = 1600
     local controls = { }
@@ -1666,6 +1667,7 @@ function ItemsTabClass:PriceItem()
     local top_pane_alignment_width = -612
     local top_pane_alignment_height = 24
 	local cnt = 1
+	controls.fullPrice = new("EditControl", nil, 0, pane_height - 50, pane_width - 64, 20, "", "Total Cost", "%Z")
 	for _, uri in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
         self:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height)
@@ -1698,6 +1700,17 @@ function ItemsTabClass:PriceItem()
         end
     end
     --]]
+end
+
+function ItemsTabClass:GenerateTotalPriceString(editPane)
+	local text = ""
+	for currency, value in pairs(self.totalPrice) do
+		text = text .. tostring(value) .. " " .. currency .. ", "
+	end
+	if text ~= "" then
+		text = text:sub(1, -3)
+	end
+	editPane:SetText(text)
 end
 
 function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height)
@@ -1826,18 +1839,28 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                         if errMsg then
                             ConPrintf("TRADE ERROR", "Error:\n"..errMsg)
                         else
-                            local foo = io.open("../url_dump_2.txt", "w")
-                            foo:write(response2)
-                            foo:close()
+                            --local foo = io.open("../url_dump_2.txt", "w")
+                            --foo:write(response2)
+                            --foo:close()
                             local response_2 = self:ProcessJSON(response2)
                             if not response_2 then
                                 return
                             end
                             for trade_indx, trade_entry in ipairs(response_2.result) do
                                 --ConPrintf(prettyPrintTable(trade_entry))
+								local currency = trade_entry.listing.price.currency
+								local amount = trade_entry.listing.price.amount
                                 controls['name'..index]:SetText(trade_entry.item.name.." "..trade_entry.item.typeLine)
-                                controls['priceAmount'..index]:SetText(trade_entry.listing.price.amount)
-                                controls['priceLabel'..index]:SetText(trade_entry.listing.price.currency)
+                                controls['priceAmount'..index]:SetText(amount)
+                                controls['priceLabel'..index]:SetText(currency)
+								if self.totalPrice[currency] then
+									self.totalPrice[currency] = self.totalPrice[currency] + tonumber(amount)
+									ConPrintf("Updating: " .. currency .. " to " .. amount)
+								else
+									self.totalPrice[currency] = tonumber(amount)
+									ConPrintf("Setting: " .. currency .. " to " .. amount)
+								end
+								self:GenerateTotalPriceString(controls.fullPrice)
 								--[[
                                 -- TODO: add support for UTF8
                                 controls['whisper'..index]:SetText(trade_entry.listing.whisper)
