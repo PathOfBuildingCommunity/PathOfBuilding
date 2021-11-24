@@ -1855,10 +1855,8 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                                 controls['priceLabel'..index]:SetText(currency)
 								if self.totalPrice[currency] then
 									self.totalPrice[currency] = self.totalPrice[currency] + tonumber(amount)
-									ConPrintf("Updating: " .. currency .. " to " .. amount)
 								else
 									self.totalPrice[currency] = tonumber(amount)
-									ConPrintf("Setting: " .. currency .. " to " .. amount)
 								end
 								self:GenerateTotalPriceString(controls.fullPrice)
 								--[[
