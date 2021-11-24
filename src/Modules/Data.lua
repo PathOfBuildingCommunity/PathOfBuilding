@@ -281,7 +281,7 @@ data.keystones = {
 	"Iron Reflexes",
 	"Iron Will",
 	"Lethe Shade",
-	"MageBane",
+	"Magebane",
 	"Mind Over Matter",
 	"Minion Instability",
 	"Mortal Conviction",
