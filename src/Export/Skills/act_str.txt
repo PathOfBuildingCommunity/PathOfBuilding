@@ -342,6 +342,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill Determination
@@ -402,6 +403,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill Earthquake
@@ -1320,6 +1322,7 @@ end,
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill FlameLink
