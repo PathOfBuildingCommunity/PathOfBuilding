@@ -2769,18 +2769,16 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate bleeding chance and damage
 		if canDeal.Physical and (output.BleedChanceOnHit + output.BleedChanceOnCrit) > 0 then
-			if not activeSkill.bleedCfg then
-				activeSkill.bleedCfg = {
-					skillName = skillCfg.skillName,
-					skillPart = skillCfg.skillPart,
-					skillTypes = skillCfg.skillTypes,
-					slotName = skillCfg.slotName,
-					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
-					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
-					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
-					skillDist = skillCfg.skillDist,
-				}
-			end
+			activeSkill.bleedCfg = {
+				skillName = skillCfg.skillName,
+				skillPart = skillCfg.skillPart,
+				skillTypes = skillCfg.skillTypes,
+				slotName = skillCfg.slotName,
+				flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
+				keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
+				skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
+				skillDist = skillCfg.skillDist,
+			}
 			local dotCfg = activeSkill.bleedCfg
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
@@ -2899,18 +2897,16 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate poison chance and damage
 		if canDeal.Chaos and (output.PoisonChanceOnHit + output.PoisonChanceOnCrit + output.ChaosPoisonChance) > 0 then
-			if not activeSkill.poisonCfg then
-				activeSkill.poisonCfg = {
-					skillName = skillCfg.skillName,
-					skillPart = skillCfg.skillPart,
-					skillTypes = skillCfg.skillTypes,
-					slotName = skillCfg.slotName,
-					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
-					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
-					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
-					skillDist = skillCfg.skillDist,
-				}
-			end
+			activeSkill.poisonCfg = {
+				skillName = skillCfg.skillName,
+				skillPart = skillCfg.skillPart,
+				skillTypes = skillCfg.skillTypes,
+				slotName = skillCfg.slotName,
+				flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
+				keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
+				skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
+				skillDist = skillCfg.skillDist,
+			}
 			local dotCfg = activeSkill.poisonCfg
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
@@ -3083,18 +3079,16 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate ignite chance and damage
 		if canDeal.Fire and (output.IgniteChanceOnHit + output.IgniteChanceOnCrit) > 0 then
-			if not activeSkill.igniteCfg then
-				activeSkill.igniteCfg = {
-					skillName = skillCfg.skillName,
-					skillPart = skillCfg.skillPart,
-					skillTypes = skillCfg.skillTypes,
-					slotName = skillCfg.slotName,
-					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
-					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
-					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
-					skillDist = skillCfg.skillDist,
-				}
-			end
+			activeSkill.igniteCfg = {
+				skillName = skillCfg.skillName,
+				skillPart = skillCfg.skillPart,
+				skillTypes = skillCfg.skillTypes,
+				slotName = skillCfg.slotName,
+				flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
+				keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
+				skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
+				skillDist = skillCfg.skillDist,
+			}
 			local dotCfg = activeSkill.igniteCfg
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
