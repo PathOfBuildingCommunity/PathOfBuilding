@@ -2777,7 +2777,7 @@ function calcs.offence(env, actor, activeSkill)
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
-					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = cfg.skillCond } ),
+					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
 					skillDist = skillCfg.skillDist,
 				}
 			end
@@ -2907,7 +2907,7 @@ function calcs.offence(env, actor, activeSkill)
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
-					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = cfg.skillCond } ),
+					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
 					skillDist = skillCfg.skillDist,
 				}
 			end
@@ -3091,7 +3091,7 @@ function calcs.offence(env, actor, activeSkill)
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
-					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = skillCfg.skillCond } ),
+					skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] or cfg.skillCond[key] end } ),
 					skillDist = skillCfg.skillDist,
 				}
 			end
