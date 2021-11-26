@@ -2149,7 +2149,7 @@ function calcs.offence(env, actor, activeSkill)
 							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") then
 								resist = 0
 							else
-								resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
+								resist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction), data.misc.DamageReductionCap)
 							end
 						else
 							if (skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") and damageType == "Chaos") or 

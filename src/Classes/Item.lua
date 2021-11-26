@@ -216,9 +216,23 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif specName == "Talisman Tier" then
 					self.talismanTier = tonumber(specVal)
-				elseif specName == "Armour" or specName == "Evasion" or specName == "Energy Shield" or specName == "Ward" then
+				elseif specName == "Armour" or specName == "Evasion Rating" or specName == "Evasion" or specName == "Energy Shield" or specName == "Ward" then
+					if specName == "Evasion Rating" then
+						if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
+							-- Another hack for Two-Toned Boots
+							self.baseName = "Two-Toned Boots (Armour/Evasion)"
+							self.base = data.itemBases[self.baseName]
+						end
+					elseif specName == "Energy Shield" then
+						if self.baseName == "Two-Toned Boots (Armour/Evasion)" then
+							-- Yet another hack for Two-Toned Boots
+							self.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
+							self.base = data.itemBases[self.baseName]
+						end
+					end
 					self.armourData = self.armourData or { }
-					self.armourData[specName:gsub(" ", "")] = tonumber((specVal:gsub(" (augmented)", "")))
+					specName = specName:gsub("Rating", ""):gsub(" ", "")
+					self.armourData[specName] = tonumber((specVal:gsub(" (augmented)", "")))
 				elseif specName:match("BasePercentile") then
 					self.armourData = self.armourData or { }
 					self.armourData[specName] = tonumber(specVal) or 0
@@ -279,18 +293,6 @@ function ItemClass:ParseRaw(raw)
 					t_insert(self.upgradePaths, specVal)
 				elseif specName == "Source" then
 					self.source = specVal
-				elseif specName == "Evasion Rating" then
-					if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
-						-- Another hack for Two-Toned Boots
-						self.baseName = "Two-Toned Boots (Armour/Evasion)"
-						self.base = data.itemBases[self.baseName]
-					end
-				elseif specName == "Energy Shield" then
-					if self.baseName == "Two-Toned Boots (Armour/Evasion)" then
-						-- Yet another hack for Two-Toned Boots
-						self.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
-						self.base = data.itemBases[self.baseName]
-					end
 				elseif specName == "Cluster Jewel Skill" then
 					if self.clusterJewel and self.clusterJewel.skills[specVal] then
 						self.clusterJewelSkill = specVal
@@ -1038,19 +1040,19 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		-- base percentiles need to differ for each armour type, as they're weighted differently
 		if armourData.Armour and armourData.Armour > 0 and not armourData.ArmourBasePercentile then
 			armourData.ArmourBasePercentile = ((armourData.Armour / (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100) - armourBase)) / armourVariance
-			armourData.ArmourBasePercentile = round(m_max(m_min(armourData.ArmourBasePercentile, 1), 0), 2)
+			armourData.ArmourBasePercentile = round(m_max(m_min(armourData.ArmourBasePercentile, 1), 0), 4)
 		end
 		if armourData.Evasion and armourData.Evasion > 0 and not armourData.EvasionBasePercentile then
 			armourData.EvasionBasePercentile = ((armourData.Evasion / (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - evasionBase)) / evasionVariance
-			armourData.EvasionBasePercentile = round(m_max(m_min(armourData.EvasionBasePercentile, 1), 0), 2)
+			armourData.EvasionBasePercentile = round(m_max(m_min(armourData.EvasionBasePercentile, 1), 0), 4)
 		end
 		if armourData.EnergyShield and armourData.EnergyShield > 0 and not armourData.EnergyShieldBasePercentile then
 			armourData.EnergyShieldBasePercentile = ((armourData.EnergyShield / (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - energyShieldBase)) / energyShieldVariance
-			armourData.EnergyShieldBasePercentile = round(m_max(m_min(armourData.EnergyShieldBasePercentile, 1), 0), 2)
+			armourData.EnergyShieldBasePercentile = round(m_max(m_min(armourData.EnergyShieldBasePercentile, 1), 0), 4)
 		end
 		if armourData.Ward and armourData.Ward > 0 and not armourData.WardBasePercentile then
 			armourData.WardBasePercentile = ((armourData.Ward / (1 + (wardInc + defencesInc + qualityScalar) / 100) - wardBase)) / wardVariance
-			armourData.WardBasePercentile = round(m_max(m_min(armourData.WardBasePercentile, 1), 0),2)
+			armourData.WardBasePercentile = round(m_max(m_min(armourData.WardBasePercentile, 1), 0),4)
 		end
 
 		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * (armourData.ArmourBasePercentile or 1)) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100))

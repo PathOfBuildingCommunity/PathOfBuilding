@@ -49,7 +49,10 @@ end
 ---@param moreValue number multiplier to apply to armour (defaults to 2)
 ---@return number @Damage Reduction
 function calcs.armourReductionDouble(armour, damage, moreChance, moreValue)
-	return calcs.armourReduction(armour, damage) * (1 - moreChance) + calcs.armourReduction(armour * (moreValue or 2), damage) * moreChance
+	if moreValue and moreValue > 0 then
+		return calcs.armourReduction(armour * (1 + moreValue), damage)
+	end
+	return calcs.armourReduction(armour, damage) * (1 - moreChance) + calcs.armourReduction(armour * 2, damage) * moreChance
 end
 
 function calcs.actionSpeedMod(actor)
@@ -163,10 +166,6 @@ function calcs.defence(env, actor)
 		output.ShowBlockEffect = true
 		output.DamageTakenOnBlock = 100 - output.BlockEffect
 	end
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
-	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
 
 	-- Primary defences: Energy shield, evasion and armour
 	do
@@ -392,6 +391,8 @@ function calcs.defence(env, actor)
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
 		output.MoreArmourChance = m_min(modDB:Sum("BASE", nil, "MoreArmourChance"), 100)
+		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") / 100) or 0
+		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
 		output.Ward = m_max(round(ward), 0)
@@ -703,6 +704,12 @@ function calcs.defence(env, actor)
 	if enemyDB:Flag(nil, "Blind") then
 		output.BlindEffectMod = calcLib.mod(enemyDB, nil, "BlindEffect", "BuffEffectOnSelf") * 100
 	end
+	
+	-- recovery on block, needs to be after primary defences
+	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
+	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
 	
 	-- damage avoidances
 	for _, damageType in ipairs(dmgTypeList) do
@@ -1173,13 +1180,13 @@ function calcs.defence(env, actor)
 					local portionArmour = 100
 					if destType == "Physical" then
 						if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, moreArmourChance)
+							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, moreArmourChance, output.ArmourDefense)
 							resist = m_min(output.DamageReductionMax, resist + armourReduct)
 						end
 						resist = m_max(resist, 0)
 					else
 						portionArmour = 100 - resist
-						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, moreArmourChance)
+						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, moreArmourChance, output.ArmourDefense)
 						resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 					end
 					if damageType == destType then

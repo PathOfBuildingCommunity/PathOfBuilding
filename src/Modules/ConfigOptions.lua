@@ -118,7 +118,7 @@ return {
 		modList:NewMod("Condition:BannerPlanted", "FLAG", true, "Config")
 	end },
 	{ var = "bannerStages", type = "count", label = "Banner Stages:", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" }, apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config", { type = "SkillName", skillNameList = { "Dread Banner", "War Banner", "Defiance Banner" } })
+		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config")
 	end },
 	{ label = "Bladestorm:", ifSkill = "Bladestorm" },
 	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
@@ -179,6 +179,10 @@ return {
 		elseif val == "Lightning" then
 			modList:NewMod("LightningExposureChance", "BASE", 100, "Config")
 		end
+	end },
+	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
+	{ var = "embraceMadnessActive", type = "check", label = "Is Embrace Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:AffectedByGloriousMadness", "FLAG", true, "Config")
 	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
