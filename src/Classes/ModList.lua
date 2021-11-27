@@ -68,7 +68,6 @@ function ModListClass:MergeNewMod(...)
 	self:MergeMod(mod_createMod(...))
 end
 
-
 function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	local result = 0
 	for i = 1, select('#', ...) do
@@ -87,7 +86,7 @@ function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, so
 	if self.parent then
 		result = result + self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	end
-	return result
+	return round(result, 2)
 end
 
 function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
@@ -108,7 +107,7 @@ function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ..
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	end
-	return result
+	return round(result, 2)
 end
 
 function ModListClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)

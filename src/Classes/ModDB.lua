@@ -108,7 +108,7 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 	if self.parent then
 		result = result + self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	end
-	return result
+	return round(result, 2)
 end
 
 function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
@@ -131,7 +131,7 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	end
-	return result
+	return round(result, 2)
 end
 
 function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)

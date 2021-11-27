@@ -8,6 +8,7 @@ local calcs = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
 local m_huge = math.huge
@@ -272,8 +273,7 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
-		wardBase = modDB:Sum("BASE", nil, "Ward")
-
+		wardBase = m_floor(modDB:Sum("BASE", nil, "Ward"))
 		if wardBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
 				local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
@@ -296,7 +296,7 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
-		energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
+		energyShieldBase = m_floor(modDB:Sum("BASE", nil, "EnergyShield"))
 		if energyShieldBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
 				energyShield = energyShield + energyShieldBase * modDB:More(slotCfg, "EnergyShield", "Defences")
@@ -314,14 +314,14 @@ function calcs.defence(env, actor)
 				})
 			end
 		end
-		armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
+		armourBase = m_floor(modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion"))
 		if armourBase > 0 then
 			armour = armour + armourBase * calcLib.mod(modDB, nil, "Armour", "ArmourAndEvasion", "Defences")
 			if breakdown then
 				breakdown.slot("Global", nil, nil, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
 			end
 		end
-		evasionBase = modDB:Sum("BASE", nil, "Evasion", "ArmourAndEvasion")
+		evasionBase = m_floor(modDB:Sum("BASE", nil, "Evasion", "ArmourAndEvasion"))
 		if evasionBase > 0 then
 			if ironReflexes then
 				armour = armour + evasionBase * calcLib.mod(modDB, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
@@ -337,64 +337,65 @@ function calcs.defence(env, actor)
 		end
 		local convManaToArmour = modDB:Sum("BASE", nil, "ManaConvertToArmour")
 		if convManaToArmour > 0 then
-			armourBase = 2 * modDB:Sum("BASE", nil, "Mana") * convManaToArmour / 100
-			local total = armourBase * calcLib.mod(modDB, nil, "Mana", "Armour", "ArmourAndEvasion", "Defences")
+			convManaToArmour = m_floor(2 * modDB:Sum("BASE", nil, "Mana") * convManaToArmour / 100)
+			local total = convManaToArmour * calcLib.mod(modDB, nil, "Mana", "Armour", "ArmourAndEvasion", "Defences")
 			armour = armour + total
 			if breakdown then
-				breakdown.slot("Conversion", "Mana to Armour", nil, armourBase, total, "Armour", "ArmourAndEvasion", "Defences", "Mana")
+				breakdown.slot("Conversion", "Mana to Armour", nil, convManaToArmour, total, "Armour", "ArmourAndEvasion", "Defences", "Mana")
 			end
 		end
 		local convManaToES = modDB:Sum("BASE", nil, "ManaGainAsEnergyShield")
 		if convManaToES > 0 then
-			energyShieldBase = modDB:Sum("BASE", nil, "Mana") * convManaToES / 100
-			energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "Mana", "EnergyShield", "Defences") 
+			convManaToES = m_floor(modDB:Sum("BASE", nil, "Mana") * convManaToES / 100)
+			local total = convManaToES * calcLib.mod(modDB, nil, "Mana", "EnergyShield", "Defences")
+			energyShield = energyShield + total
 			if breakdown then
-				breakdown.slot("Conversion", "Mana to Energy Shield", nil, energyShieldBase, nil, "EnergyShield", "Defences", "Mana")
+				breakdown.slot("Conversion", "Mana to Energy Shield", nil, convManaToES, nil, "EnergyShield", "Defences", "Mana")
 			end
 		end
 		local convLifeToArmour = modDB:Sum("BASE", nil, "LifeGainAsArmour")
 		if convLifeToArmour > 0 then
-			armourBase = modDB:Sum("BASE", nil, "Life") * convLifeToArmour / 100
+			convLifeToArmour = m_floor(modDB:Sum("BASE", nil, "Life") * convLifeToArmour / 100)
 			local total
 			if modDB:Flag(nil, "ChaosInoculation") then
 				total = 1
 			else
-				total = armourBase * calcLib.mod(modDB, nil, "Life", "Armour", "ArmourAndEvasion", "Defences") 
+				total = convLifeToArmour * calcLib.mod(modDB, nil, "Life", "Armour", "ArmourAndEvasion", "Defences") 
 			end
 			armour = armour + total
 			if breakdown then
-				breakdown.slot("Conversion", "Life to Armour", nil, armourBase, total, "Armour", "ArmourAndEvasion", "Defences", "Life")
+				breakdown.slot("Conversion", "Life to Armour", nil, convLifeToArmour, total, "Armour", "ArmourAndEvasion", "Defences", "Life")
 			end
 		end
 		local convLifeToES = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield", "LifeGainAsEnergyShield")
 		if convLifeToES > 0 then
-			energyShieldBase = modDB:Sum("BASE", nil, "Life") * convLifeToES / 100
+			convLifeToES = m_floor(modDB:Sum("BASE", nil, "Life") * convLifeToES / 100)
 			local total
 			if modDB:Flag(nil, "ChaosInoculation") then
 				total = 1
 			else
-				total = energyShieldBase * calcLib.mod(modDB, nil, "Life", "EnergyShield", "Defences")
+				total = convLifeToES * calcLib.mod(modDB, nil, "Life", "EnergyShield", "Defences")
 			end
 			energyShield = energyShield + total
 			if breakdown then
-				breakdown.slot("Conversion", "Life to Energy Shield", nil, energyShieldBase, total, "EnergyShield", "Defences", "Life")
+				breakdown.slot("Conversion", "Life to Energy Shield", nil, convLifeToES, total, "EnergyShield", "Defences", "Life")
 			end
 		end
 		local convEvasionToArmour = modDB:Sum("BASE", nil, "EvasionGainAsArmour")
 		if convEvasionToArmour > 0 then
-			armourBase = (modDB:Sum("BASE", nil, "Evasion") + gearEvasion) * convEvasionToArmour / 100
-			local total = armourBase * calcLib.mod(modDB, nil, "Evasion", "Armour", "ArmourAndEvasion", "Defences")
+			convEvasionToArmour = m_floor((modDB:Sum("BASE", nil, "Evasion") + gearEvasion) * convEvasionToArmour / 100)
+			local total = convEvasionToArmour * calcLib.mod(modDB, nil, "Evasion", "Armour", "ArmourAndEvasion", "Defences")
 			armour = armour + total
 			if breakdown then
-				breakdown.slot("Conversion", "Evasion to Armour", nil, armourBase, total, "Armour", "ArmourAndEvasion", "Defences", "Evasion")
+				breakdown.slot("Conversion", "Evasion to Armour", nil, convEvasionToArmour, total, "Armour", "ArmourAndEvasion", "Defences", "Evasion")
 			end
 		end
-		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
-		output.Armour = m_max(round(armour), 0)
+		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_floor(energyShield)
+		output.Armour = m_floor(armour)
 		output.MoreArmourChance = m_min(modDB:Sum("BASE", nil, "MoreArmourChance"), 100)
-		output.Evasion = m_max(round(evasion), 0)
+		output.Evasion = m_floor(evasion)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
-		output.Ward = m_max(round(ward), 0)
+		output.Ward = m_floor(ward)
 		output["Gear:Ward"] = gearWard
 		output["Gear:EnergyShield"] = gearEnergyShield
 		output["Gear:Armour"] = gearArmour

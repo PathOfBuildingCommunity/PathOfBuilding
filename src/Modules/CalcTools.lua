@@ -14,7 +14,7 @@ calcLib = { }
 
 -- Calculate and combine INC/MORE modifiers for the given modifier names
 function calcLib.mod(modStore, cfg, ...)
-	return (1 + (modStore:Sum("INC", cfg, ...)) / 100) * modStore:More(cfg, ...)
+	return (1 + round(modStore:Sum("INC", cfg, ...), 2) / 100) * round(modStore:More(cfg, ...), 2)
 end
 
 ---Calculates additive and multiplicative modifiers for specified modifier names
@@ -23,8 +23,8 @@ end
 ---@param ... string @Mod name(s)
 ---@return number, number @increased, more
 function calcLib.mods(modStore, cfg, ...)
-	local inc = 1 + modStore:Sum("INC", cfg, ...) / 100
-	local more = modStore:More(cfg, ...)
+	local inc = 1 + round(modStore:Sum("INC", cfg, ...), 2) / 100
+	local more = round(modStore:More(cfg, ...), 2)
 	return inc, more
 end
 
