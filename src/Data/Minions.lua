@@ -181,6 +181,7 @@ minions["SummonedRagingSpirit"] = {
 		mod("PhysicalMax", "BASE", 5, ModFlag.Attack), -- RagingSpiritAddedPhys [attack_minimum_added_physical_damage = 4] [attack_maximum_added_physical_damage = 5]
 		-- CannotGainAfflictedMods [cannot_have_affliction_mods = 1]
 		mod("Speed", "MORE", 40, ModFlag.Attack), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 100),
 	},
 }
 
