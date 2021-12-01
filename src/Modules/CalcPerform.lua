@@ -829,7 +829,6 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Elusive") then
 			if modDB:Flag(nil, "HasRemovableElusiveBuff") then
 				local inc = 0
-				local more = 0
 				local skillCount = 0
 				local avgSkillInc = 0
 				for _, value in ipairs(modDB:Tabulate("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")) do
