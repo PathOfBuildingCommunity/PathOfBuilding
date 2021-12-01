@@ -403,6 +403,9 @@ return {
 ["elusive_effect_+%"] = {
 	mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
+["display_removes_and_grants_elusive_when_used"] = {
+	flag("HasRemovableElusiveBuff", { type = "GlobalEffect", effectType = "Buff" }),
+},
 ["cannot_be_stunned_while_leeching"] = {
 	mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching"}),
 },

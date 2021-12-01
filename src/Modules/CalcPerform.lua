@@ -827,7 +827,24 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
 		if modDB:Flag(nil, "Elusive") then
-			output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			if modDB:Flag(nil, "HasRemovableElusiveBuff") then
+				local inc = 0
+				local more = 0
+				local skillCount = 0
+				local avgSkillInc = 0
+				for _, value in ipairs(modDB:Tabulate("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")) do
+					if value.mod.source:find("Skill") then
+						avgSkillInc = avgSkillInc + value.mod.value
+						skillCount = skillCount + 1
+					else
+						inc = inc + value.mod.value
+					end
+				end
+				inc = inc + avgSkillInc / skillCount
+				output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			else
+				output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			end
 			-- Override elusive effect if set.
 			if modDB:Override(nil, "ElusiveEffect") then
 				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), output.ElusiveEffectMod)
