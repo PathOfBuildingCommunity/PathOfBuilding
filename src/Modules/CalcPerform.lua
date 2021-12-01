@@ -831,16 +831,21 @@ local function doActorMisc(env, actor)
 				local inc = 0
 				local skillCount = 0
 				local avgSkillInc = 0
-				for _, value in ipairs(modDB:Tabulate("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")) do
+				for indx, value in ipairs(modDB:Tabulate("INC", nil, "ElusiveEffect")) do
 					if value.mod.source:find("Skill") then
 						avgSkillInc = avgSkillInc + value.mod.value
 						skillCount = skillCount + 1
+						modDB.mods[value.mod.name][indx] = nil
 					else
 						inc = inc + value.mod.value
 					end
 				end
+				for _, value in ipairs(modDB:Tabulate("INC", nil, "BuffEffectOnSelf")) do
+					inc = inc + value.mod.value
+				end
 				inc = inc + avgSkillInc / skillCount
 				output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+				modDB:NewMod("ElusiveEffect", "INC", avgSkillInc / skillCount, "Skill Avg Effect")
 			else
 				output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
 			end
