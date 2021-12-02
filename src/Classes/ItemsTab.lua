@@ -1736,11 +1736,15 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		return controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil and not self.processing
 	end
 	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, 20, "Import Item", function()
-		ConPrintf("TODO - import item found into build")
+		self:CreateDisplayItemFromRaw(controls['importButtonText'..str_cnt].buf)
+		self:EditDisplayItemText()
 	end)
 	controls['importButton'..str_cnt].enabled = function()
 		return #controls['priceAmount'..str_cnt].buf > 0
 	end
+	controls['importButtonText'..str_cnt] = new("EditControl", nil, 0, 0, 0, 0, "", nil, "", nil, nil, 16)
+	controls['importButtonText'..str_cnt].shown = false
+
 	--[[
 	controls['implicitMods'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Implicits", "%Z")
 	controls['implicitMods'..str_cnt].enabled = function()
@@ -1860,26 +1864,10 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
 									self.totalPrice[currency] = tonumber(amount)
 								end
 								self:GenerateTotalPriceString(controls.fullPrice)
-								--[[
-                                -- TODO: add support for UTF8
-                                controls['whisper'..index]:SetText(trade_entry.listing.whisper)
-                                local implicitMods = ""
-                                if trade_entry.item.implicitMods then
-                                    for _, mod in ipairs(trade_entry.item.implicitMods) do
-                                        implicitMods = implicitMods .. mod .. ", "
-                                    end
-                                    implicitMods = implicitMods:sub(1, -3)
-                                    controls['implicitMods'..index]:SetText(implicitMods)
-                                end
-                                local explicitMods = ""
-                                if trade_entry.item.explicitMods then
-                                    for _, mod in ipairs(trade_entry.item.explicitMods) do
-                                        explicitMods = explicitMods .. mod .. ", "
-                                    end
-                                    explicitMods = explicitMods:sub(1, -3)
-                                    controls['explicitMods'..index]:SetText(explicitMods)
-                                end
-								--]]
+								--local foo = io.open("../item_dump.txt", "w")
+								--prettyPrintTable(trade_entry.item, "", foo)
+								--foo:close()
+								controls['importButtonText'..index]:SetText(common.base64.decode(trade_entry.item.extended.text))
 								self.processing = false
                                 return
                             end

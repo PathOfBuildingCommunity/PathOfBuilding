@@ -457,7 +457,7 @@ function isValueInArrayPred(table, predicate)
 end
 
 -- Pretty-prints a table
-function prettyPrintTable(tbl, pre)
+function prettyPrintTable(tbl, pre, outFile)
 	pre = pre or ""
 	local outNames = { }
 	for name in pairs(tbl) do
@@ -466,9 +466,13 @@ function prettyPrintTable(tbl, pre)
 	table.sort(outNames)
 	for _, name in ipairs(outNames) do
 		if type(tbl[name]) == "table" then
-			prettyPrintTable(tbl[name], pre .. name .. ".")
+			prettyPrintTable(tbl[name], pre .. name .. ".", outFile)
 		else
-			ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			if outFile then
+				outFile:write(pre .. name .. " = " .. tostring(tbl[name]) .. "\n")
+			else
+				ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			end
 		end
 	end
 end
