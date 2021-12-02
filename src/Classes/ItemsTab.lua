@@ -1737,7 +1737,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 	end
 	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, 20, "Import Item", function()
 		self:CreateDisplayItemFromRaw(controls['importButtonText'..str_cnt].buf)
-		self:EditDisplayItemText()
+		self:EditDisplayItemText(true)
 	end)
 	controls['importButton'..str_cnt].enabled = function()
 		return #controls['priceAmount'..str_cnt].buf > 0
@@ -2006,7 +2006,7 @@ function ItemsTabClass:CraftItem()
 end
 
 -- Opens the item text editor popup
-function ItemsTabClass:EditDisplayItemText()
+function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 	local controls = { }
 	local function buildRaw()
 		local editBuf = controls.edit.buf
@@ -2032,6 +2032,9 @@ function ItemsTabClass:EditDisplayItemText()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
 		self.displayItem.id = id
+		if alsoAddItem then
+			self:AddDisplayItem()
+		end
 		main:ClosePopup()
 	end)
 	controls.save.enabled = function()
