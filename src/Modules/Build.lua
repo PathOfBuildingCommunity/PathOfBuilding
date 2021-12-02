@@ -1065,11 +1065,6 @@ function buildMode:OpenSaveAsPopup()
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
-function buildMode:OpenBuildPricer()
-	local buildPricer = LoadModule("Modules/BuildPricer")
-	buildPricer.runBuildPricer(self)
-end
-
 -- Open the spectre library popup
 function buildMode:OpenSpectreLibrary()
 	local destList = copyTable(self.spectreList)

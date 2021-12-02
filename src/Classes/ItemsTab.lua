@@ -1660,6 +1660,7 @@ end
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
 	self.totalPrice = { }
+	self.processing = false
 	local pane_height = 1200
     local pane_width = 1600
     local controls = { }
@@ -1732,7 +1733,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		self:PublicTrade(controls['uri'..str_cnt].buf, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
-		return controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
+		return controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil and not self.processing
 	end
 	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, 20, "Import Item", function()
 		ConPrintf("TODO - import item found into build")
@@ -1879,6 +1880,7 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                                     controls['explicitMods'..index]:SetText(explicitMods)
                                 end
 								--]]
+								self.processing = false
                                 return
                             end
                         end
@@ -1898,6 +1900,7 @@ end
 
 function ItemsTabClass:PublicTrade(url, controls, index)
 	local url = self:ParseURL(url)
+	self.processing = true
     local id = LaunchSubScript([[
         local url = ...
         local curl = require("lcurl.safe")
