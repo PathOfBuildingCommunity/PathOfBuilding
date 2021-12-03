@@ -944,6 +944,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 			else
 				self.controls.importCodeIn:SetText(page, true)
 				main:ClosePopup()
+				main:SelectControl(self.controls.importCodeIn)
 			end
 		end)
 	end)
