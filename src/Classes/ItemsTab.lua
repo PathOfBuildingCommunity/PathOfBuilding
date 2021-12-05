@@ -1737,8 +1737,17 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 	end
 	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, 20, "Import Item", function()
 		self:CreateDisplayItemFromRaw(controls['importButtonText'..str_cnt].buf)
-		self:EditDisplayItemText(true)
+		self:AddDisplayItem()
 	end)
+	controls['importButton'..str_cnt].tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if #controls['importButtonText'..str_cnt].buf > 0 then
+			local item = new("Item", controls['importButtonText'..str_cnt].buf)
+			self:AddItemTooltip(tooltip, item, nil, true)
+		else
+			tooltip:AddLine(14, "The item is invalid.")
+		end
+	end	
 	controls['importButton'..str_cnt].enabled = function()
 		return #controls['priceAmount'..str_cnt].buf > 0
 	end
