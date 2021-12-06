@@ -715,7 +715,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if not accelerate.nodeAlloc then
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
-			if node then
+			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
 				if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
 					env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
 				else
