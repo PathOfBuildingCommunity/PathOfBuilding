@@ -1661,17 +1661,33 @@ end
 function ItemsTabClass:PriceItem()
 	self.totalPrice = { }
 	self.processing = false
-	local pane_height = 1200
+
+	-- Count number of rows to render
+	local row_count = 3
+	--   1. Count number of item slots
+	for _, uri in ipairs(baseSlots) do
+		row_count = row_count + 1
+	end
+	--   2. Count number of allocated sockets in Tree
+	for _, slot in pairs(self.sockets) do
+		if not slot.inactive then
+			row_count = row_count + 1
+		end
+	end
+
+	-- Set main Price Builder pane height and width
+	local row_height = 20
+	local top_pane_alignment_ref = nil
+    local top_pane_alignment_width = -612
+    local top_pane_alignment_height = row_height + 8
+	local pane_height = (top_pane_alignment_height) * row_count
     local pane_width = 1600
     local controls = { }
-    local top_pane_alignment_ref = nil
-    local top_pane_alignment_width = -612
-    local top_pane_alignment_height = 24
 	local cnt = 1
-	controls.fullPrice = new("EditControl", nil, 0, pane_height - 50, pane_width - 64, 20, "", "Total Cost", "%Z")
+	controls.fullPrice = new("EditControl", nil, 0, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
 	for _, uri in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
-        self:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height)
+        self:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
         top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
         top_pane_alignment_width = 0
         top_pane_alignment_height = 28
@@ -1680,14 +1696,14 @@ function ItemsTabClass:PriceItem()
 	for _, slot in pairs(self.sockets) do
 		if not slot.inactive then
 			local str_cnt = tostring(cnt)
-			self:PriceItemRowDisplay(controls, str_cnt, slot.label, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height)
+			self:PriceItemRowDisplay(controls, str_cnt, slot.label, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
 			top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
 			top_pane_alignment_width = 0
 			top_pane_alignment_height = 28
 			cnt = cnt + 1
 		end
 	end
-    controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, 20, "Done", function()
+    controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
 		main:ClosePopup()
 	end)
     main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
@@ -1714,28 +1730,28 @@ function ItemsTabClass:GenerateTotalPriceString(editPane)
 	editPane:SetText(text)
 end
 
-function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height)
-	controls['name'..str_cnt] = new("EditControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 360, 20, "", "Name", "%Z")
+function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+	controls['name'..str_cnt] = new("EditControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 360, row_height, "", "Name", "%Z")
 	controls['name'..str_cnt].enabled = function()
 		return #controls['name'..str_cnt].buf > 0
 	end
-	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 360 + 16, 0, 120, 20, "", "Price", "%Z")
+	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 360 + 16, 0, 120, row_height, "", "Price", "%Z")
 	controls['priceAmount'..str_cnt].enabled = function()
 		return #controls['priceAmount'..str_cnt].buf > 0
 	end
-	controls['priceLabel'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 120, 20, "", "Currency", "%Z")
+	controls['priceLabel'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 120, row_height, "", "Currency", "%Z")
 	controls['priceLabel'..str_cnt].enabled = function()
 		return #controls['priceLabel'..str_cnt].buf > 0
 	end
-	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceLabel'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 500, 20, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
+	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceLabel'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
 	controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
-	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 16, 0, 100, 20, "Price Item", function()
+	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 16, 0, 100, row_height, "Price Item", function()
 		self:PublicTrade(controls['uri'..str_cnt].buf, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		return controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil and not self.processing
 	end
-	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, 20, "Import Item", function()
+	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, row_height, "Import Item", function()
 		self:CreateDisplayItemFromRaw(controls['importButtonText'..str_cnt].buf)
 		self:AddDisplayItem()
 	end)
@@ -1753,17 +1769,6 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 	end
 	controls['importButtonText'..str_cnt] = new("EditControl", nil, 0, 0, 0, 0, "", nil, "", nil, nil, 16)
 	controls['importButtonText'..str_cnt].shown = false
-
-	--[[
-	controls['implicitMods'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Implicits", "%Z")
-	controls['implicitMods'..str_cnt].enabled = function()
-		return #controls['implicitMods'..str_cnt].buf > 0
-	end
-	controls['explicitMods'..str_cnt] = new("EditControl", {"TOPLEFT",controls['implicitMods'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Explicits", "%Z")
-	controls['explicitMods'..str_cnt].enabled = function()
-		return #controls['explicitMods'..str_cnt].buf > 0
-	end
-	--]]
 	--controls['whisper'..str_cnt] = new("EditControl", {"TOPLEFT",controls['explicitMods'..str_cnt],"TOPLEFT"}, 0, 24, pane_width - 16, 20, "", "Whisper", "%Z")
 	--controls['whisper'..str_cnt].enabled = function()
 	--    return #controls['whisper'..str_cnt].buf > 0
@@ -1775,7 +1780,8 @@ function ItemsTabClass:ProcessJSON(json)
 	if errMsg then
 		return nil, errMsg
 	end
-	setfenv(func, { }) -- Sandbox the function just in case
+	-- Sandbox the function just in case
+	setfenv(func, { })
 	local data = func()
 	if type(data) ~= "table" then
 		return nil, "Return type is not a table"
@@ -1808,10 +1814,6 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
             if errMsg then
                 return "TRADE ERROR", "Error: "..errMsg
             else
-                --local foo = io.open("../url_dump.txt", "w")
-                --foo:write(response)
-                --foo:close()
-
                 local response_1 = self:ProcessJSON(response)
                 if not response_1 then
                     return
@@ -1821,8 +1823,8 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                     controls.whisper:SetText("NO RESULTS FOUND")
                     return
                 end
-                for index, res_line in ipairs(response_1.result) do
-                    if index < 11 then
+                for response_index, res_line in ipairs(response_1.result) do
+                    if response_index < 11 then
                         res_lines = res_lines .. res_line .. ","
                     else
                         break
@@ -1853,15 +1855,11 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                         if errMsg then
                             ConPrintf("TRADE ERROR", "Error:\n"..errMsg)
                         else
-                            --local foo = io.open("../url_dump_2.txt", "w")
-                            --foo:write(response2)
-                            --foo:close()
                             local response_2 = self:ProcessJSON(response2)
                             if not response_2 then
                                 return
                             end
                             for trade_indx, trade_entry in ipairs(response_2.result) do
-                                --ConPrintf(prettyPrintTable(trade_entry))
 								local currency = trade_entry.listing.price.currency
 								local amount = trade_entry.listing.price.amount
                                 controls['name'..index]:SetText(trade_entry.item.name.." "..trade_entry.item.typeLine)
@@ -1873,9 +1871,6 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
 									self.totalPrice[currency] = tonumber(amount)
 								end
 								self:GenerateTotalPriceString(controls.fullPrice)
-								--local foo = io.open("../item_dump.txt", "w")
-								--prettyPrintTable(trade_entry.item, "", foo)
-								--foo:close()
 								controls['importButtonText'..index]:SetText(common.base64.decode(trade_entry.item.extended.text))
 								self.processing = false
                                 return
@@ -1920,16 +1915,8 @@ function ItemsTabClass:PublicTrade(url, controls, index)
             if errMsg then
                 return "TRADE ERROR", "Error: "..errMsg
             else
-                --local foo = io.open("../public_dump.txt", "w")
-                --foo:write(response)
-                --foo:close()
-
                 local trimmed = response:sub(1, -2)
                 local json_query = trimmed .. ', "sort": {"price": "asc"}}'
-
-                --local foo = io.open("../test.txt", "w")
-                --foo:write(json_query)
-                --foo:close()
                 self:SearchItem(json_query, controls, index)
             end
         end)
