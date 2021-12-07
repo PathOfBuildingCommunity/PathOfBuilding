@@ -1721,7 +1721,15 @@ end
 
 function ItemsTabClass:GenerateTotalPriceString(editPane)
 	local text = ""
-	for currency, value in pairs(self.totalPrice) do
+	local sorted_price = { }
+	for _, entry in pairs(self.totalPrice) do
+		if sorted_price[entry.currency] then
+			sorted_price[entry.currency] = sorted_price[entry.currency] + entry.amount
+		else
+			sorted_price[entry.currency] = entry.amount
+		end
+	end
+	for currency, value in pairs(sorted_price) do
 		text = text .. tostring(value) .. " " .. currency .. ", "
 	end
 	if text ~= "" then
@@ -1731,7 +1739,7 @@ function ItemsTabClass:GenerateTotalPriceString(editPane)
 end
 
 function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, uri)
+	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..uri)
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
 	controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 16, 0, 100, row_height, "Price Item", function()
@@ -1757,8 +1765,6 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		if #controls['importButtonText'..str_cnt].buf > 0 then
 			local item = new("Item", controls['importButtonText'..str_cnt].buf)
 			self:AddItemTooltip(tooltip, item, nil, true)
-		else
-			tooltip:AddLine(14, "The item is invalid.")
 		end
 	end	
 	controls['importButton'..str_cnt].enabled = function()
@@ -1861,11 +1867,16 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
 								local amount = trade_entry.listing.price.amount
                                 controls['priceAmount'..index]:SetText(amount)
                                 controls['priceLabel'..index]:SetText(currency)
+								--[[
 								if self.totalPrice[currency] then
 									self.totalPrice[currency] = self.totalPrice[currency] + tonumber(amount)
 								else
 									self.totalPrice[currency] = tonumber(amount)
 								end
+								--]]
+								self.totalPrice[index] = { }
+								self.totalPrice[index].currency = currency
+								self.totalPrice[index].amount = amount
 								self:GenerateTotalPriceString(controls.fullPrice)
 								controls['importButtonText'..index]:SetText(common.base64.decode(trade_entry.item.extended.text))
 								self.processing = false

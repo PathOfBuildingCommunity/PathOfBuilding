@@ -506,7 +506,6 @@ function ItemClass:ParseRaw(raw)
 				elseif foundExplicit then
 					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 				end
-					
 			end
 		end
 		l = l + 1
