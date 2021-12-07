@@ -1678,10 +1678,10 @@ function ItemsTabClass:PriceItem()
 	-- Set main Price Builder pane height and width
 	local row_height = 20
 	local top_pane_alignment_ref = nil
-    local top_pane_alignment_width = -612
+    local top_pane_alignment_width = -566
     local top_pane_alignment_height = row_height + 8
 	local pane_height = (top_pane_alignment_height) * row_count
-    local pane_width = 1600
+    local pane_width = 1232
     local controls = { }
 	local cnt = 1
 	controls.fullPrice = new("EditControl", nil, 0, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
@@ -1731,19 +1731,8 @@ function ItemsTabClass:GenerateTotalPriceString(editPane)
 end
 
 function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-	controls['name'..str_cnt] = new("EditControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 360, row_height, "", "Name", "%Z")
-	controls['name'..str_cnt].enabled = function()
-		return #controls['name'..str_cnt].buf > 0
-	end
-	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 360 + 16, 0, 120, row_height, "", "Price", "%Z")
-	controls['priceAmount'..str_cnt].enabled = function()
-		return #controls['priceAmount'..str_cnt].buf > 0
-	end
-	controls['priceLabel'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 120, row_height, "", "Currency", "%Z")
-	controls['priceLabel'..str_cnt].enabled = function()
-		return #controls['priceLabel'..str_cnt].buf > 0
-	end
-	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceLabel'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
+	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, uri)
+	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
 	controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 16, 0, 100, row_height, "Price Item", function()
 		self:PublicTrade(controls['uri'..str_cnt].buf, controls, str_cnt)
@@ -1751,7 +1740,15 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 	controls['priceButton'..str_cnt].enabled = function()
 		return controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil and not self.processing
 	end
-	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 100, row_height, "Import Item", function()
+	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 120, row_height, "", "Price", "%Z")
+	controls['priceAmount'..str_cnt].enabled = function()
+		return #controls['priceAmount'..str_cnt].buf > 0
+	end
+	controls['priceLabel'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 200, row_height, "", "Currency", "%Z")
+	controls['priceLabel'..str_cnt].enabled = function()
+		return #controls['priceLabel'..str_cnt].buf > 0
+	end
+	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceLabel'..str_cnt],"TOPLEFT"}, 200 + 16, 0, 100, row_height, "Import Item", function()
 		self:CreateDisplayItemFromRaw(controls['importButtonText'..str_cnt].buf)
 		self:AddDisplayItem()
 	end)
@@ -1862,7 +1859,6 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                             for trade_indx, trade_entry in ipairs(response_2.result) do
 								local currency = trade_entry.listing.price.currency
 								local amount = trade_entry.listing.price.amount
-                                controls['name'..index]:SetText(trade_entry.item.name.." "..trade_entry.item.typeLine)
                                 controls['priceAmount'..index]:SetText(amount)
                                 controls['priceLabel'..index]:SetText(currency)
 								if self.totalPrice[currency] then
