@@ -1155,8 +1155,16 @@ function ItemsTabClass:PopulateSlots()
 		slot:Populate()
 	end
 	-- Populate the jewels
-	for _, slot in pairs(self.sockets) do
+	for nodeId, slot in pairs(self.sockets) do
 		slot:Populate()
+		local item = self.items[self.sockets[nodeId].selItemId]
+		if item and (item.clusterJewel or item.baseName == "Timeless Jewel") then
+			-- We're populatin a timeless or cluster jewel
+			if isValueInTable(self.build.spec.jewels, item.id) then
+				-- Item is currently equipped, so we need to rebuild the graphs
+				self.build.spec:BuildClusterJewelGraphs()
+			end
+		end
 	end
 end
 
