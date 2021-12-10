@@ -1663,12 +1663,8 @@ function ItemsTabClass:PriceItem()
 	self.processing = false
 
 	-- Count number of rows to render
-	local row_count = 3
-	--   1. Count number of item slots
-	for _, uri in ipairs(baseSlots) do
-		row_count = row_count + 1
-	end
-	--   2. Count number of allocated sockets in Tree
+	local row_count = 3 + #baseSlots
+	-- Count sockets
 	for _, slot in pairs(self.sockets) do
 		if not slot.inactive then
 			row_count = row_count + 1
@@ -1686,9 +1682,9 @@ function ItemsTabClass:PriceItem()
 	local cnt = 1
 	controls.itemSetLabel = new("LabelControl",  nil, -548, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
 	controls.fullPrice = new("EditControl", nil, 0, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
-	for _, uri in ipairs(baseSlots) do
+	for _, slotName in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
-        self:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+        self:PriceItemRowDisplay(controls, str_cnt, slotName, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
         top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
         top_pane_alignment_width = 0
         top_pane_alignment_height = 28
@@ -1708,16 +1704,6 @@ function ItemsTabClass:PriceItem()
 		main:ClosePopup()
 	end)
     main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
-
-    -- TODO: Determine which build spec is used so we can do this per spec
-    --[[
-    local specs = build.specs
-    if specs then
-        for specId, spec in ipairs(specs) do
-            ConPrintf("SpecID: " .. tostring(specId))
-        end
-    end
-    --]]
 end
 
 function ItemsTabClass:GenerateTotalPriceString(editPane)
