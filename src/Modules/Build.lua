@@ -41,6 +41,14 @@ local PantheonMinorGodDropList = {
 
 local buildMode = new("ControlHost")
 
+local function InsertIfNew(t, val)
+	if (not t) then return end
+	for i,v in ipairs(t) do
+		if v == val then return end
+	end
+	table.insert(t, val)
+end
+
 function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
@@ -199,6 +207,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
 		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
 		
+		if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
+		if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
 	self.controls.pointDisplay.Draw = function(control)
@@ -334,17 +344,17 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
-		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
+		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return true, "You do not meet the Strength requirement" end },
 		{ stat = "Dex", label = "Dexterity", color = colorCodes.DEXTERITY, fmt = "d" },
-		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end },
+		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end, warnFunc = function(v) return true, "You do not meet the Dexterity requirement" end },
 		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
-		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
+		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end, warnFunc = function(v) return true, "You do not meet the Intelligence requirement" end },
 		{ },
 		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
 		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true },
+		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) if v < 0 then return true, "Your unreserved Life is negative" else return false end end },
 		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
@@ -352,7 +362,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "Mana", label = "Total Mana", fmt = "d", compPercent = true },
 		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
-		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true },
+		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) if v < 0 then return true, "Your unreserved Mana is negative" else return false end end },
 		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
 		{ stat = "ManaRegen", label = "Mana Regen", fmt = ".1f" },
 		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", compPercent = true },
@@ -612,7 +622,32 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
-		return main.screenH - main.mainBarHeight - 4 - y
+		local warnHeight = #self.controls.warnings.lines > 0 and 18 or 0
+		return main.screenH - main.mainBarHeight - 4 - y - warnHeight
+	end
+	self.controls.warnings = new("Control",{"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, 0, 0, 0, 18)
+	self.controls.warnings.lines = {}
+	self.controls.warnings.width = function(control)
+		return control.str and DrawStringWidth(16, "FIXED", control.str) + 8 or 0
+	end
+	self.controls.warnings.Draw = function(control)
+		if #self.controls.warnings.lines > 0 then
+			local count = 0
+			for _ in pairs(self.controls.warnings.lines) do count = count + 1 end
+			control.str = string.format("^1%d Warnings", count)
+			local x, y = control:GetPos()
+			local width, height = control:GetSize()
+			DrawString(x, y + 2, "LEFT", 16, "FIXED", control.str)
+			if control:IsMouseInBounds() then
+				SetDrawLayer(nil, 10)
+				miscTooltip:Clear()
+				for k,v in pairs(self.controls.warnings.lines) do miscTooltip:AddLine(16, v) end
+				miscTooltip:Draw(x, y, width, height, main.viewPort)
+				SetDrawLayer(nil, 0)
+			end
+		else
+			control.str = {}
+		end
 	end
 
 	-- Initialise build components
@@ -955,7 +990,7 @@ function buildMode:OnFrame(inputEvents)
 	SetDrawColor(0.1, 0.1, 0.1)
 	DrawImage(nil, 0, 32, sideBarWidth - 4, main.screenH - 32)
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)
+	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)	
 
 	self:DrawControls(main.viewPort)
 end
@@ -1101,6 +1136,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
 		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
+	if controls.warnings then controls.warnings.shown = #controls.warnings.lines > 0 end
 	if #controls.mainSocketGroup.list == 0 then
 		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
 		controls.mainSkill.shown = false
@@ -1257,6 +1293,12 @@ function buildMode:AddDisplayStatList(statList, actor)
 						})
 					end
 				end
+				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then 
+					local b,v = statData.warnFunc(statVal)
+					if b then
+						InsertIfNew(self.controls.warnings.lines, v)
+					end
+				end
 			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
 				t_insert(statBoxList, { 
 					height = 16, labelColor..statData.label..":", 
@@ -1270,6 +1312,7 @@ end
 
 -- Build list of side bar stats
 function buildMode:RefreshStatList()
+	self.controls.warnings.lines = {}
 	local statBoxList = wipeTable(self.controls.statBox.list)
 	if self.calcsTab.mainEnv.player.mainSkill.infoMessage then
 		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
