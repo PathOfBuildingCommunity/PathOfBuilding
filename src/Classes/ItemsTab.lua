@@ -1684,6 +1684,7 @@ function ItemsTabClass:PriceItem()
     local pane_width = 1232
     local controls = { }
 	local cnt = 1
+	controls.itemSetLabel = new("LabelControl",  nil, -548, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
 	controls.fullPrice = new("EditControl", nil, 0, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
 	for _, uri in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
