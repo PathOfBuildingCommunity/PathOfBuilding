@@ -850,6 +850,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 					if itemSet[slotName] then
 						itemSet[slotName].selItemId = tonumber(child.attrib.itemId)
 						itemSet[slotName].active = child.attrib.active == "true"
+						itemSet[slotName].pbURL = child.attrib.itemPbURL or ""
 					end
 				end
 			end
@@ -920,7 +921,7 @@ function ItemsTabClass:Save(xml)
 		local child = { elem = "ItemSet", attrib = { id = tostring(itemSetId), title = itemSet.title, useSecondWeaponSet = tostring(itemSet.useSecondWeaponSet) } }
 		for slotName, slot in pairs(self.slots) do
 			if not slot.nodeId then
-				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), active = itemSet[slotName].active and "true" }})
+				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), itemPbURL = itemSet[slotName].pbURL or "", active = itemSet[slotName].active and "true" }})
 			end
 		end
 		t_insert(xml, child)
@@ -1680,7 +1681,7 @@ function ItemsTabClass:PriceItem()
     local pane_width = 1232
     local controls = { }
 	local cnt = 1
-	controls.itemSetLabel = new("LabelControl",  nil, -548, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
+	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 8, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
 	controls.fullPrice = new("EditControl", nil, 0, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
 	for _, slotName in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
@@ -1728,12 +1729,20 @@ end
 function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
 	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..uri)
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
-	controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
+	if self.activeItemSet[uri].pbURL ~= "" then
+		controls['uri'..str_cnt]:SetText(self.activeItemSet[uri].pbURL)
+	else
+		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
+	end
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 16, 0, 100, row_height, "Price Item", function()
 		self:PublicTrade(controls['uri'..str_cnt].buf, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
-		return controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil and not self.processing
+		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
+		if validURL then
+			self.activeItemSet[uri].pbURL = controls['uri'..str_cnt].buf
+		end
+		return validURL and not self.processing
 	end
 	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 120, row_height, "", "Price", "%Z")
 	controls['priceAmount'..str_cnt].enabled = function()
