@@ -932,28 +932,42 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 	end
 
-	if node.sd[1] and node.allMasteryOptions then
+	-- If node is a Mastery node, check if compare tree is on
+	-- If so, check if the left hand tree is unallocated, but the right hand tree is allocated.
+	-- If so, set the node variable to be the node element from the right hand tree and change the Mastery color  
+	-- Then continue processing as normal
+	local masteryColor = ""
+	local mNode = node
+	if node.type == "Mastery" then
+		local compareNodeAlloc = self.compareSpec and self.compareSpec.nodes[node.id].alloc or false
+		if not node.alloc and compareNodeAlloc then
+			mNode = self.compareSpec.nodes[node.id]
+			masteryColor = colorCodes.DEXTERITY
+		end
+	end
+
+	if mNode.sd[1] and mNode.allMasteryOptions then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7Mastery node options are:")
 		tooltip:AddLine(6, "")
 		local lineCount = 0
-		for n, effect in ipairs(node.masteryEffects) do
+		for n, effect in ipairs(mNode.masteryEffects) do
 			effect = build.spec.tree.masteryEffects[effect.effect]
 			for _, line in ipairs(effect.sd) do
 				lineCount = lineCount + 1
-				addModInfoToTooltip(node, lineCount, line)
+				addModInfoToTooltip(mNode, lineCount, line)
 			end
-			if n < #node.masteryEffects then
+			if n < #mNode.masteryEffects then
 				tooltip:AddLine(6, "")
 			end
 		end
 		tooltip:AddSeparator(24)
 	end
 
-	if node.sd[1] and not node.allMasteryOptions then
+	if mNode.sd[1] and not mNode.allMasteryOptions then
 		tooltip:AddLine(16, "")
-		for i, line in ipairs(node.sd) do
-			addModInfoToTooltip(node, i, line)
+		for i, line in ipairs(mNode.sd) do
+			addModInfoToTooltip(mNode, i, masteryColor..line)
 		end
 	end
 
