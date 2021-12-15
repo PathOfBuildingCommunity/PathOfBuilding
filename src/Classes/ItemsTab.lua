@@ -14,6 +14,7 @@ local m_min = math.min
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
+local get_time = os.time
 
 local rarityDropList = { 
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
@@ -1658,10 +1659,30 @@ function ItemsTabClass:OpenItemSetManagePopup()
 	main:OpenPopup(630, 290, "Manage Item Sets", controls)
 end
 
+function ItemsTabClass:SetRateLimit(notice_control)
+	local rest_time = 0
+	if self.pbSearchCount <= 5 then
+		self:SetNotice(notice_control, "Rate Limit: 3 sec between checks")
+		rest_time = 3
+	elseif self.pbSearchCount <= 15 then
+		self:SetNotice(notice_control, "Rate Limit: 5 sec between checks")
+		rest_time = 5
+	else
+		self:SetNotice(notice_control, "Rate Limit: 11 sec between checks")
+		rest_time = 11
+	end
+	self.next_allowed_search = get_time() + rest_time
+end
+
+function ItemsTabClass:SetNotice(notice_control, msg)
+	notice_control:SetText(msg)
+end
+
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
 	self.totalPrice = { }
-	self.processing = false
+	self.pbSearchCount = 0
+	self.next_allowed_search = 0
 
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
@@ -1681,7 +1702,8 @@ function ItemsTabClass:PriceItem()
     local pane_width = 1232
     local controls = { }
 	local cnt = 1
-	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 8, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
+	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
+	controls.pbNotice = new("EditControl",  {"TOPRIGHT",nil,"TOPRIGHT"}, -16, 5, 240, 16, "", "INFO", "%Z")
 	controls.fullPrice = new("EditControl", nil, 0, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
 	for _, slotName in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
@@ -1742,11 +1764,12 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		if validURL then
 			self.activeItemSet[uri].pbURL = controls['uri'..str_cnt].buf
 		end
-		return validURL and not self.processing
+		return validURL and self.next_allowed_search < get_time()
 	end
 	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 120, row_height, "", "Price", "%Z")
 	controls['priceAmount'..str_cnt].enabled = function()
-		return #controls['priceAmount'..str_cnt].buf > 0
+		local boolean = #controls['priceAmount'..str_cnt].buf > 0
+		return boolean
 	end
 	controls['priceLabel'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 16, 0, 200, row_height, "", "Currency", "%Z")
 	controls['priceLabel'..str_cnt].enabled = function()
@@ -1811,17 +1834,20 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
     if id then
         launch:RegisterSubScript(id, function(response, errMsg)
             if errMsg then
+                self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
                 return "TRADE ERROR", "Error: "..errMsg
             else
                 local response_1 = self:ProcessJSON(response)
                 if not response_1 then
+                    self:SetNotice(controls.pbNotice, "Failed to Get Trade response")
                     return
                 end
                 local res_lines = ""
-                if #response_1.result == 0 then
-                    controls.whisper:SetText("NO RESULTS FOUND")
+                if not response_1.result or #response_1.result == 0 then
+                    self:SetNotice(controls.pbNotice, "Failed to Get Trade Indexes")
                     return
                 end
+                self.pbSearchCount = self.pbSearchCount + 1
                 for response_index, res_line in ipairs(response_1.result) do
                     if response_index < 11 then
                         res_lines = res_lines .. res_line .. ","
@@ -1852,30 +1878,24 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                     local ret_data = nil
                     launch:RegisterSubScript(id2, function(response2, errMsg)
                         if errMsg then
-                            ConPrintf("TRADE ERROR", "Error:\n"..errMsg)
+                            self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
                         else
                             local response_2 = self:ProcessJSON(response2)
                             if not response_2 then
+                                self:SetNotice(controls.pbNotice, "Failed to Get Trade Items")
                                 return
                             end
                             for trade_indx, trade_entry in ipairs(response_2.result) do
-								local currency = trade_entry.listing.price.currency
-								local amount = trade_entry.listing.price.amount
+                                local currency = trade_entry.listing.price.currency
+                                local amount = trade_entry.listing.price.amount
                                 controls['priceAmount'..index]:SetText(amount)
                                 controls['priceLabel'..index]:SetText(currency)
-								--[[
-								if self.totalPrice[currency] then
-									self.totalPrice[currency] = self.totalPrice[currency] + tonumber(amount)
-								else
-									self.totalPrice[currency] = tonumber(amount)
-								end
-								--]]
-								self.totalPrice[index] = { }
-								self.totalPrice[index].currency = currency
-								self.totalPrice[index].amount = amount
-								self:GenerateTotalPriceString(controls.fullPrice)
-								controls['importButtonText'..index]:SetText(common.base64.decode(trade_entry.item.extended.text))
-								self.processing = false
+                                self.totalPrice[index] = { }
+                                self.totalPrice[index].currency = currency
+                                self.totalPrice[index].amount = amount
+                                self:GenerateTotalPriceString(controls.fullPrice)
+                                controls['importButtonText'..index]:SetText(common.base64.decode(trade_entry.item.extended.text))
+                                self:SetRateLimit(controls.pbNotice)
                                 return
                             end
                         end
@@ -1895,7 +1915,6 @@ end
 
 function ItemsTabClass:PublicTrade(url, controls, index)
 	local url = self:ParseURL(url)
-	self.processing = true
     local id = LaunchSubScript([[
         local url = ...
         local curl = require("lcurl.safe")
@@ -1916,8 +1935,10 @@ function ItemsTabClass:PublicTrade(url, controls, index)
     if id then
         launch:RegisterSubScript(id, function(response, errMsg)
             if errMsg then
+                self:SetNotice(controls.pbNotice, "Bad URL: " .. tostring(errMsg))
                 return "TRADE ERROR", "Error: "..errMsg
             else
+                self.pbSearchCount = self.pbSearchCount + 1
                 local trimmed = response:sub(1, -2)
                 local json_query = trimmed .. ', "sort": {"price": "asc"}}'
                 self:SearchItem(json_query, controls, index)
