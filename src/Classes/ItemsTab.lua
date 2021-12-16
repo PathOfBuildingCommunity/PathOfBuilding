@@ -1659,30 +1659,88 @@ function ItemsTabClass:OpenItemSetManagePopup()
 	main:OpenPopup(630, 290, "Manage Item Sets", controls)
 end
 
-function ItemsTabClass:SetRateLimit(notice_control)
-	local rest_time = 0
-	if self.pbSearchCount <= 5 then
-		self:SetNotice(notice_control, "Rate Limit: 3 sec between checks")
-		rest_time = 3
-	elseif self.pbSearchCount <= 15 then
-		self:SetNotice(notice_control, "Rate Limit: 5 sec between checks")
-		rest_time = 5
-	else
-		self:SetNotice(notice_control, "Rate Limit: 11 sec between checks")
-		rest_time = 11
-	end
-	self.next_allowed_search = get_time() + rest_time
-end
-
+-- Price Builder: set the notice message in upper right of price builder pane
 function ItemsTabClass:SetNotice(notice_control, msg)
 	notice_control:SetText(msg)
 end
 
+-- Price Builder: add time to the 3 rate-limit windows for tracking
+function ItemsTabClass:PriceBuilderInsertSearchRequest()
+	local time = get_time()
+	t_insert(self.rate_short_window, 1, time)
+	t_insert(self.rate_medium_window, 1, time)
+	t_insert(self.rate_long_window, 1, time)
+end
+
+-- Price Builder: remove search times from rate-limit windows based on age out
+function ItemsTabClass:PriceBuilderAgeOutSearchRequest(tbl, agedTime)
+	local pop_count = 0
+	for _, v in ipairs(tbl) do
+		if v <= agedTime then
+			pop_count = pop_count + 1
+		end
+	end
+
+	for i = 1, pop_count do
+		t_remove(tbl) 
+	end
+end
+
+-- Price Builder: sync rate tables to age out appropriate times from each rate-limit table
+function ItemsTabClass:PriceBuilderSyncRateTables(time)
+	self:PriceBuilderAgeOutSearchRequest(self.rate_short_window, time - self.rate_short_time)
+	self:PriceBuilderAgeOutSearchRequest(self.rate_medium_window, time - self.rate_medium_time)
+	self:PriceBuilderAgeOutSearchRequest(self.rate_long_window, time - self.rate_long_time)
+end
+
+-- Price Builder: check if we have slots in the three rate-limit windows to issue a search
+function ItemsTabClass:PriceBuilderCanSearch(controls)
+	local time = get_time()
+	self:PriceBuilderSyncRateTables(time)
+	if #self.rate_short_window < self.rate_short_max_searches and
+		#self.rate_medium_window < self.rate_medium_max_searches and
+		#self.rate_long_window < self.rate_long_max_searches then
+		self:SetNotice(controls.pbNotice, colorCodes.CUSTOM .. "NONE")
+		return true
+	else
+		local short_time = 0
+		local medium_time = 0
+		local long_time = 0
+		if #self.rate_short_window >= self.rate_short_max_searches then
+			short_time = self.rate_short_time - (time - self.rate_short_window[#self.rate_short_window])
+		end
+		if #self.rate_medium_window >= self.rate_medium_max_searches then
+			medium_time = self.rate_medium_time - (time - self.rate_medium_window[#self.rate_medium_window])
+		end
+		if #self.rate_long_window >= self.rate_long_max_searches then
+			long_time = self.rate_long_time - (time - self.rate_long_window[#self.rate_long_window])
+		end
+		self:SetNotice(controls.pbNotice, colorCodes.WARNING .. tostring(m_max(short_time, m_max(medium_time, long_time))))
+		return false
+	end
+end
+
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
+	-- Note: Per each Check Price button click we do 2 search requests
+	--       Search is the most rate limiting behavior we need to track
+	-- SEARCH REQUEST RATE LIMIT DATA (as of Feb 2021)
+	--	 Up to  5 search requests in a 12 second window
+	--	 Up to 15 search requests in a 62 second window
+	--	 Up to 30 search requests in a 302 second window
 	self.totalPrice = { }
-	self.pbSearchCount = 0
-	self.next_allowed_search = 0
+	self.rate_short_window = { }
+	self.rate_short_time = 12
+	-- we reduce from 5 to 4 since we need 2 search slots for each request
+	self.rate_short_max_searches = 4
+	self.rate_medium_window = { }
+	self.rate_medium_time = 62
+	-- we reduce from 15 to 14 since we need 2 search slots for each request
+	self.rate_medium_max_searches = 14
+	self.rate_long_window = { }
+	self.rate_long_time = 302
+	-- we reduce from 30 to 29 since we need 2 search slots for each request
+	self.rate_long_max_searches = 29
 
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
@@ -1703,7 +1761,8 @@ function ItemsTabClass:PriceItem()
     local controls = { }
 	local cnt = 1
 	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
-	controls.pbNotice = new("EditControl",  {"TOPRIGHT",nil,"TOPRIGHT"}, -16, 5, 240, 16, "", "INFO", "%Z")
+	controls.pbNotice = new("EditControl",  {"TOPRIGHT",nil,"TOPRIGHT"}, -16, 5, 240, 16, "", "RATE LIMIT", "%Z")
+	controls.pbNotice.textCol = colorCodes.CUSTOM
 	controls.fullPrice = new("EditControl", nil, 0, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
 	for _, slotName in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
@@ -1764,7 +1823,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		if validURL then
 			self.activeItemSet[uri].pbURL = controls['uri'..str_cnt].buf
 		end
-		return validURL and self.next_allowed_search < get_time()
+		return validURL and self:PriceBuilderCanSearch(controls)
 	end
 	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 16, 0, 120, row_height, "", "Price", "%Z")
 	controls['priceAmount'..str_cnt].enabled = function()
@@ -1847,7 +1906,7 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                     self:SetNotice(controls.pbNotice, "Failed to Get Trade Indexes")
                     return
                 end
-                self.pbSearchCount = self.pbSearchCount + 1
+                self:PriceBuilderInsertSearchRequest()
                 for response_index, res_line in ipairs(response_1.result) do
                     if response_index < 11 then
                         res_lines = res_lines .. res_line .. ","
@@ -1895,7 +1954,6 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                                 self.totalPrice[index].amount = amount
                                 self:GenerateTotalPriceString(controls.fullPrice)
                                 controls['importButtonText'..index]:SetText(common.base64.decode(trade_entry.item.extended.text))
-                                self:SetRateLimit(controls.pbNotice)
                                 return
                             end
                         end
@@ -1938,7 +1996,7 @@ function ItemsTabClass:PublicTrade(url, controls, index)
                 self:SetNotice(controls.pbNotice, "Bad URL: " .. tostring(errMsg))
                 return "TRADE ERROR", "Error: "..errMsg
             else
-                self.pbSearchCount = self.pbSearchCount + 1
+                self:PriceBuilderInsertSearchRequest()
                 local trimmed = response:sub(1, -2)
                 local json_query = trimmed .. ', "sort": {"price": "asc"}}'
                 self:SearchItem(json_query, controls, index)
