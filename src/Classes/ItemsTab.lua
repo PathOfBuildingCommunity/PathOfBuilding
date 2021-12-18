@@ -1772,15 +1772,20 @@ function ItemsTabClass:PriceItem()
         top_pane_alignment_height = 28
 		cnt = cnt + 1
     end
-	for _, slot in pairs(self.sockets) do
+	local activeSocketList = { }
+	for nodeId, slot in pairs(self.sockets) do
 		if not slot.inactive then
-			local str_cnt = tostring(cnt)
-			self:PriceItemRowDisplay(controls, str_cnt, slot.label, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-			top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
-			top_pane_alignment_width = 0
-			top_pane_alignment_height = 28
-			cnt = cnt + 1
+			t_insert(activeSocketList, nodeId)
 		end
+	end
+	table.sort(activeSocketList)
+	for _, nodeId in pairs(activeSocketList) do
+		local str_cnt = tostring(cnt)
+		self:PriceItemRowDisplay(controls, str_cnt, self.sockets[nodeId].label, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
+		top_pane_alignment_width = 0
+		top_pane_alignment_height = 28
+		cnt = cnt + 1
 	end
     controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
 		main:ClosePopup()
@@ -1810,7 +1815,7 @@ end
 function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
 	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..uri)
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
-	if self.activeItemSet[uri].pbURL ~= "" then
+	if self.activeItemSet[uri] and self.activeItemSet[uri].pbURL ~= "" then
 		controls['uri'..str_cnt]:SetText(self.activeItemSet[uri].pbURL)
 	else
 		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
@@ -1820,7 +1825,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
-		if validURL then
+		if validURL and self.activeItemSet[uri] then
 			self.activeItemSet[uri].pbURL = controls['uri'..str_cnt].buf
 		end
 		return validURL and self:PriceBuilderCanSearch(controls)
