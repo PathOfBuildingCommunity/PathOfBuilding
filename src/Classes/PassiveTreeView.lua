@@ -938,11 +938,15 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	-- Then continue processing as normal
 	local masteryColor = ""
 	local mNode = node
+	local rightNodeAlloc = self.compareSpec and self.compareSpec.nodes[node.id].alloc or false
 	if node.type == "Mastery" then
-		local compareNodeAlloc = self.compareSpec and self.compareSpec.nodes[node.id].alloc or false
-		if not node.alloc and compareNodeAlloc then
+		if not node.alloc and rightNodeAlloc then
 			mNode = self.compareSpec.nodes[node.id]
 			masteryColor = colorCodes.DEXTERITY
+		end
+		if node.alloc and not rightNodeAlloc then
+			-- mNode = self.compareSpec.nodes[node.id]
+			masteryColor = colorCodes.STRENGTH
 		end
 	end
 
