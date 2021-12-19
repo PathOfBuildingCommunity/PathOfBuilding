@@ -1837,7 +1837,17 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 	end
 	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 8, 0, 100, row_height, "Import Item", function()
 		self:CreateDisplayItemFromRaw(controls['importButtonText'..str_cnt].buf)
-		self:AddDisplayItem()
+		local item = self.displayItem
+		-- pass "true" to not auto equip it as we will have our own logic
+		self:AddDisplayItem(true)
+		-- Autoequip it
+		local slot = self.slots[uri]
+		if uri == slot.label and slot:IsShown() and self:IsItemValidForSlot(item, slot.slotName) then
+			slot:SetSelItemId(item.id)
+			self:PopulateSlots()
+			self:AddUndoState()
+			self.build.buildFlag = true
+		end
 	end)
 	controls['importButton'..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
@@ -1906,6 +1916,7 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
         return page
     ]], "", "", json_data)
     if id then
+        self:PriceBuilderInsertSearchRequest()
         launch:RegisterSubScript(id, function(response, errMsg)
             if errMsg then
                 self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
@@ -1921,7 +1932,8 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                     self:SetNotice(controls.pbNotice, "Failed to Get Trade Indexes")
                     return
                 end
-                self:PriceBuilderInsertSearchRequest()
+                local str_quantity_found = (#response_1.result >= 100) and "100+" or tostring(#response_1.result)
+                --controls['numResults'..index]:SetText(str_quantity_found)
                 for response_index, res_line in ipairs(response_1.result) do
                     if response_index < 11 then
                         res_lines = res_lines .. res_line .. ","
@@ -1963,8 +1975,7 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
                                 local currency = trade_entry.listing.price.currency
                                 local amount = trade_entry.listing.price.amount
                                 controls['priceAmount'..index]:SetText(amount .. " " .. currency)
-                                --controls['priceLabel'..index]:SetText(currency)
-								controls['whisperButtonText'..index]:SetText(trade_entry.listing.whisper)
+                                controls['whisperButtonText'..index]:SetText(trade_entry.listing.whisper)
                                 self.totalPrice[index] = { }
                                 self.totalPrice[index].currency = currency
                                 self.totalPrice[index].amount = amount
