@@ -934,7 +934,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	-- If node is a Mastery node, check if compare tree is on
 	-- If so, check if the left hand tree is unallocated, but the right hand tree is allocated.
-	-- If so, set the node variable to be the node element from the right hand tree and change the Mastery color  
+	-- If so, set the node variable to be the node element from the right hand tree and change the Mastery color
 	-- Then continue processing as normal
 	local masteryColor = ""
 	local mNode = node
@@ -944,9 +944,20 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			mNode = self.compareSpec.nodes[node.id]
 			masteryColor = colorCodes.DEXTERITY
 		end
+		-- If allocated on Left, but not Right, match the colour of the other nodes.
 		if node.alloc and not rightNodeAlloc then
-			-- mNode = self.compareSpec.nodes[node.id]
 			masteryColor = colorCodes.STRENGTH
+		end
+		-- If both allocated but are different text, .
+		-- if node.alloc and rightNodeAlloc then
+		if node.alloc and rightNodeAlloc then
+			mNode = self.compareSpec.nodes[node.id]
+			if node.sd[1] ~= mNode.sd[1] then
+				for i, line in ipairs(node.sd) do
+					addModInfoToTooltip(node, i, "<- "..line)
+					masteryColor = colorCodes.DEXTERITY.."-> "
+				end
+			end
 		end
 	end
 
@@ -968,6 +979,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddSeparator(24)
 	end
 
+	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
 	if mNode.sd[1] and not mNode.allMasteryOptions then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(mNode.sd) do
