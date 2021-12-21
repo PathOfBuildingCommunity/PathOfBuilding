@@ -1941,10 +1941,24 @@ function ItemsTabClass:ProcessJSON(json)
 	return dkjson.decode(json)
 end
 
+function ItemsTabClass:CovertCurrencyToChaos(currency, amount)
+	-- we take the ceiling of all prices to integer chaos
+	-- to prevent dealing with shenanigans of people asking 4.9 chaos
+	if currency:lower() == "chaos" then
+		return m_ceil(amount)
+	elseif currency:lower() == "exalted" then
+		return m_ceil(amount * 163.3)
+	else
+		ConPrintf("Unhandled Currency Converstion: '" .. currency .. "'")
+		return m_ceil(amount)
+	end
+end
+
 function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 	local slot = self.slots[slot_name]
 	local tblDPS = {}
+	local dpsPerChaos = true
 	for index, tbl in pairs(self.resultTbl[trade_index]) do
 		local selItem = self.items[slot.selItemId]
 		local item = new("Item", tbl.item_string)
@@ -1952,7 +1966,12 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 		local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
 		local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
-		t_insert(tblDPS, { FullDPS = output.FullDPS, index = index })
+		if dpsPerChaos then
+			local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
+			t_insert(tblDPS, { FullDPS = output.FullDPS / chaosAmount, index = index })
+		else
+			t_insert(tblDPS, { FullDPS = output.FullDPS, index = index })
+		end
 		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	end
 	table.sort(tblDPS, function(a,b) return a.FullDPS > b.FullDPS end)
@@ -1978,7 +1997,7 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 		local easy = curl.easy()
 		easy:setopt{
 			url = fetch_url,
-			httpheader = {'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'}
+			httpheader = {'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
 		}
 		easy:setopt_writefunction(function(data)
 			page = page..data
@@ -2033,16 +2052,16 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 	end
 end
 
-function ItemsTabClass:SearchItem(json_data, slot_name, controls, index)
+function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
 	local id = LaunchSubScript([[
 		local json_data = ...
 		local curl = require("lcurl.safe")
 		local page = ""
 		local easy = curl.easy()
 		easy:setopt{
-			url = "https://www.pathofexile.com/api/trade/search/Scourge",
+			url = "https://www.pathofexile.com/api/trade/search/]]..league..[[",
 			post = true,
-			httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'},
+			httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'},
 			postfields = json_data
 		}
 		easy:setopt_writefunction(function(data)
@@ -2081,12 +2100,12 @@ function ItemsTabClass:SearchItem(json_data, slot_name, controls, index)
 end
 
 function ItemsTabClass:ParseURL(url)
-	local query = url:match("https://www.pathofexile.com/trade/search/.+/(.+)$")
-	return "https://www.pathofexile.com/api/trade/search/" .. query
+	local league, query = url:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
+	return league, "https://www.pathofexile.com/api/trade/search/" .. query
 end
 
 function ItemsTabClass:PublicTrade(url, slot_name, controls, index)
-	local url = self:ParseURL(url)
+	local league, url = self:ParseURL(url)
 	local id = LaunchSubScript([[
 		local url = ...
 		local curl = require("lcurl.safe")
@@ -2094,7 +2113,7 @@ function ItemsTabClass:PublicTrade(url, slot_name, controls, index)
 		local easy = curl.easy()
 		easy:setopt{
 			url = url,
-			httpheader = {'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'}
+			httpheader = {'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
 		}
 		easy:setopt_writefunction(function(data)
 			page = page..data
@@ -2113,7 +2132,7 @@ function ItemsTabClass:PublicTrade(url, slot_name, controls, index)
 				self:PriceBuilderInsertSearchRequest()
 				local trimmed = response:sub(1, -2)
 				local json_query = trimmed .. ', "sort": {"price": "asc"}}'
-				self:SearchItem(json_query, slot_name, controls, index)
+				self:SearchItem(league, json_query, slot_name, controls, index)
 			end
 		end)
 	end
