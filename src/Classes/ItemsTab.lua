@@ -16,6 +16,8 @@ local m_floor = math.floor
 local m_modf = math.modf
 local get_time = os.time
 
+local dkjson = require "dkjson"
+
 local rarityDropList = { 
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
 	{ label = colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
@@ -1664,12 +1666,19 @@ function ItemsTabClass:SetNotice(notice_control, msg)
 	notice_control:SetText(msg)
 end
 
--- Price Builder: add time to the 3 rate-limit windows for tracking
+-- Price Builder: add time to the 3 rate-limit windows for search tracking
 function ItemsTabClass:PriceBuilderInsertSearchRequest()
 	local time = get_time()
 	t_insert(self.rate_short_window, 1, time)
 	t_insert(self.rate_medium_window, 1, time)
 	t_insert(self.rate_long_window, 1, time)
+end
+
+-- Price Builder: add time to the 2 rate-limit windows for fetch tracking
+function ItemsTabClass:PriceBuilderInsertFetchRequest()
+	local time = get_time()
+	t_insert(self.rate_short_fetch_window, 1, time)
+	t_insert(self.rate_long_fetch_window, 1, time)
 end
 
 -- Price Builder: remove search times from rate-limit windows based on age out
@@ -1686,21 +1695,29 @@ function ItemsTabClass:PriceBuilderAgeOutSearchRequest(tbl, agedTime)
 	end
 end
 
--- Price Builder: sync rate tables to age out appropriate times from each rate-limit table
-function ItemsTabClass:PriceBuilderSyncRateTables(time)
+-- Price Builder: sync search rate tables to age out appropriate times from each rate-limit table
+function ItemsTabClass:PriceBuilderSyncSearchRateTables(time)
 	self:PriceBuilderAgeOutSearchRequest(self.rate_short_window, time - self.rate_short_time)
 	self:PriceBuilderAgeOutSearchRequest(self.rate_medium_window, time - self.rate_medium_time)
 	self:PriceBuilderAgeOutSearchRequest(self.rate_long_window, time - self.rate_long_time)
 end
 
--- Price Builder: check if we have slots in the three rate-limit windows to issue a search
+-- Price Builder: sync fetch rate tables to age out appropriate times from each rate-limit table
+function ItemsTabClass:PriceBuilderSyncFetchRateTables(time)
+	self:PriceBuilderAgeOutSearchRequest(self.rate_short_fetch_window, time - self.rate_short_fetch_time)
+	self:PriceBuilderAgeOutSearchRequest(self.rate_long_fetch_window, time - self.rate_long_fetch_time)
+end
+
+-- Price Builder: check if we have slots in the three search rate-limit windows to issue a search
 function ItemsTabClass:PriceBuilderCanSearch(controls)
 	local time = get_time()
-	self:PriceBuilderSyncRateTables(time)
+	self:PriceBuilderSyncSearchRateTables(time)
 	if #self.rate_short_window < self.rate_short_max_searches and
 		#self.rate_medium_window < self.rate_medium_max_searches and
 		#self.rate_long_window < self.rate_long_max_searches then
-		self:SetNotice(controls.pbNotice, colorCodes.CUSTOM .. "NONE")
+		if controls.pbNotice.buf:find("SEARCH") then
+			self:SetNotice(controls.pbNotice, "")
+		end
 		return true
 	else
 		local short_time = 0
@@ -1715,7 +1732,31 @@ function ItemsTabClass:PriceBuilderCanSearch(controls)
 		if #self.rate_long_window >= self.rate_long_max_searches then
 			long_time = self.rate_long_time - (time - self.rate_long_window[#self.rate_long_window])
 		end
-		self:SetNotice(controls.pbNotice, colorCodes.WARNING .. tostring(m_max(short_time, m_max(medium_time, long_time))))
+		self:SetNotice(controls.pbNotice, colorCodes.WARNING .. "<SEARCH RATE LIMIT> " .. tostring(m_max(short_time, m_max(medium_time, long_time))))
+		return false
+	end
+end
+
+-- Price Builder: check if we have slots in the two fetch rate-limit windows to issue a search
+function ItemsTabClass:PriceBuilderCanFetch(controls)
+	local time = get_time()
+	self:PriceBuilderSyncFetchRateTables(time)
+	if #self.rate_short_fetch_window < self.rate_short_max_fetches and
+		#self.rate_long_fetch_window < self.rate_long_max_fetches then
+		if controls.pbNotice.buf:find("FETCH") then
+			self:SetNotice(controls.pbNotice, "")
+		end
+		return true
+	else
+		local short_time = 0
+		local long_time = 0
+		if #self.rate_short_fetch_window >= self.rate_short_max_fetches then
+			short_time = self.rate_short_fetch_time - (time - self.rate_short_fetch_window[#self.rate_short_fetch_window])
+		end
+		if #self.rate_long_fetch_window >= self.rate_long_max_fetches then
+			long_time = self.rate_long_fetch_time - (time - self.rate_long_fetch_window[#self.rate_long_fetch_window])
+		end
+		self:SetNotice(controls.pbNotice, colorCodes.WARNING .. "<FETCH RATE LIMIT> " .. tostring(m_max(short_time, long_time)))
 		return false
 	end
 end
@@ -1742,6 +1783,21 @@ function ItemsTabClass:PriceItem()
 	-- we reduce from 30 to 29 since we need 2 search slots for each request
 	self.rate_long_max_searches = 29
 
+	-- FETCH REQUEST RATE LIMIT DATA (as of Feb 2021)
+	--	 Up to 12 fetch requests in a 6 second window
+	--	 Up to 16 fetch requests in a 14 second window
+	self.rate_short_fetch_window = { }
+	self.rate_short_fetch_time = 6
+	-- we reduce from 12 to 7 since we may want up to 5 fetch slots for each request
+	self.rate_short_max_fetches = 7
+	self.rate_long_fetch_window = { }
+	self.rate_long_fetch_time = 14
+	-- we reduce from 16 to 11 since we may want up to 5 fetch slots for each request
+	self.rate_long_max_fetches = 11
+
+	-- table of price results index by slot and number of fetched results
+	self.resultTbl = { }
+
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
 	-- Count sockets
@@ -1761,7 +1817,7 @@ function ItemsTabClass:PriceItem()
     local controls = { }
 	local cnt = 1
 	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
-	controls.pbNotice = new("EditControl",  {"TOPRIGHT",nil,"TOPRIGHT"}, -24, 5, 240, 16, "", "RATE LIMIT", "%Z")
+	controls.pbNotice = new("EditControl",  {"TOPRIGHT",nil,"TOPRIGHT"}, -24, 5, 240, 16, "", nil, nil)
 	controls.pbNotice.textCol = colorCodes.CUSTOM
 	controls.fullPrice = new("EditControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
 	for _, slotName in ipairs(baseSlots) do
@@ -1828,7 +1884,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		if validURL and self.activeItemSet[uri] then
 			self.activeItemSet[uri].pbURL = controls['uri'..str_cnt].buf
 		end
-		return validURL and self:PriceBuilderCanSearch(controls)
+		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
 	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 120, row_height, "Price", nil, nil)
 	controls['priceAmount'..str_cnt].enabled = function()
@@ -1857,7 +1913,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		end
 	end
 	controls['importButton'..str_cnt].enabled = function()
-		return #controls['priceAmount'..str_cnt].buf > 0
+		return #controls['importButtonText'..str_cnt].buf > 0
 	end
 	-- for storing the base64 item description
 	controls['importButtonText'..str_cnt] = new("EditControl", nil, 0, 0, 0, 0, "", nil, "", nil, nil, 16)
@@ -1882,115 +1938,128 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 end
 
 function ItemsTabClass:ProcessJSON(json)
-	local func, errMsg = loadstring("return "..jsonToLua(json))
-	if errMsg then
-		return nil, errMsg
+	return dkjson.decode(json)
+end
+
+function ItemsTabClass:FetchItem(controls, response_1, index, quantity_found, current_fetch_block)
+	local max_block_size = 10
+	local res_lines = ""
+	for response_index, res_line in ipairs(response_1.result) do
+		if response_index > current_fetch_block and response_index <= m_min(current_fetch_block + max_block_size, quantity_found) then
+			res_lines = res_lines .. res_line .. ","
+		elseif response_index > m_min(current_fetch_block + max_block_size, quantity_found) then
+			break
+		end
 	end
-	-- Sandbox the function just in case
-	setfenv(func, { })
-	local data = func()
-	if type(data) ~= "table" then
-		return nil, "Return type is not a table"
+	res_lines = res_lines:sub(1, -2)
+	local fetch_url = "https://www.pathofexile.com/api/trade/fetch/"..res_lines.."?query="..response_1.id
+	local id2 = LaunchSubScript([[
+		local fetch_url = ...
+		local curl = require("lcurl.safe")
+		local page = ""
+		local easy = curl.easy()
+		easy:setopt{
+			url = fetch_url,
+			httpheader = {'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'}
+		}
+		easy:setopt_writefunction(function(data)
+			page = page..data
+			return true
+		end)
+		easy:perform()
+		easy:close()
+		return page
+	]], "", "", fetch_url)
+	if id2 then
+		self:PriceBuilderInsertFetchRequest()
+		local ret_data = nil
+		launch:RegisterSubScript(id2, function(response2, errMsg)
+			if errMsg then
+				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
+			else
+				local response_2, response_2_err = self:ProcessJSON(response2)
+				if not response_2 or not response_2.result then
+					if response_2_err then
+						self:SetNotice(controls.pbNotice, "JSON Parse Error")
+					else
+						self:SetNotice(controls.pbNotice, "Failed to Get Trade Items")
+					end
+					return
+				end
+				for trade_indx, trade_entry in ipairs(response_2.result) do
+					current_fetch_block = current_fetch_block + 1
+					self.resultTbl[index][current_fetch_block] = {
+						amount = trade_entry.listing.price.amount,
+						currency = trade_entry.listing.price.currency,
+						item_string = common.base64.decode(trade_entry.item.extended.text),
+						whisper = trade_entry.listing.whisper,
+						item_obj = new("Item", item_string),
+					}
+				end
+				if current_fetch_block == quantity_found then
+					local pb_index = current_fetch_block
+					controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
+					self.totalPrice[index] = { }
+					self.totalPrice[index].currency = self.resultTbl[index][pb_index].currency
+					self.totalPrice[index].amount = self.resultTbl[index][pb_index].amount
+					controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
+					controls['whisperButtonText'..index]:SetText(self.totalPrice[index].whisper)
+					self:GenerateTotalPriceString(controls.fullPrice)
+				else
+					self:FetchItem(controls, response_1, index, quantity_found, current_fetch_block)
+				end
+			end
+		end)
+	else
+		return
 	end
-	return data
 end
 
 function ItemsTabClass:SearchItem(json_data, controls, index)
-    local id = LaunchSubScript([[
-        local json_data = ...
-        local curl = require("lcurl.safe")
-        local page = ""
-        local easy = curl.easy()
-        easy:setopt{
-            url = "https://www.pathofexile.com/api/trade/search/Scourge",
-            post = true,
-            httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'},
-            postfields = json_data
-        }
-        easy:setopt_writefunction(function(data)
-            page = page..data
-            return true
-        end)
-        easy:perform()
-        easy:close()
-        return page
-    ]], "", "", json_data)
-    if id then
-        self:PriceBuilderInsertSearchRequest()
-        launch:RegisterSubScript(id, function(response, errMsg)
-            if errMsg then
-                self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
-                return "TRADE ERROR", "Error: "..errMsg
-            else
-                local response_1 = self:ProcessJSON(response)
-                if not response_1 then
-                    self:SetNotice(controls.pbNotice, "Failed to Get Trade response")
-                    return
-                end
-                local res_lines = ""
-                if not response_1.result or #response_1.result == 0 then
-                    self:SetNotice(controls.pbNotice, "Failed to Get Trade Indexes")
-                    return
-                end
-                local str_quantity_found = (#response_1.result >= 100) and "100+" or tostring(#response_1.result)
-                --controls['numResults'..index]:SetText(str_quantity_found)
-                for response_index, res_line in ipairs(response_1.result) do
-                    if response_index < 11 then
-                        res_lines = res_lines .. res_line .. ","
-                    else
-                        break
-                    end
-                end
-                res_lines = res_lines:sub(1, -2)
-                local fetch_url = "https://www.pathofexile.com/api/trade/fetch/"..res_lines.."?query="..response_1.id
-                local id2 = LaunchSubScript([[
-                    local fetch_url = ...
-                    local curl = require("lcurl.safe")
-                    local page = ""
-                    local easy = curl.easy()
-                    easy:setopt{
-                        url = fetch_url,
-                        httpheader = {'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'}
-                    }
-                    easy:setopt_writefunction(function(data)
-                        page = page..data
-                        return true
-                    end)
-                    easy:perform()
-                    easy:close()
-                    return page
-                ]], "", "", fetch_url)
-                if id2 then
-                    local ret_data = nil
-                    launch:RegisterSubScript(id2, function(response2, errMsg)
-                        if errMsg then
-                            self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
-                        else
-                            local response_2 = self:ProcessJSON(response2)
-                            if not response_2 then
-                                self:SetNotice(controls.pbNotice, "Failed to Get Trade Items")
-                                return
-                            end
-                            for trade_indx, trade_entry in ipairs(response_2.result) do
-                                local currency = trade_entry.listing.price.currency
-                                local amount = trade_entry.listing.price.amount
-                                controls['priceAmount'..index]:SetText(amount .. " " .. currency)
-                                controls['whisperButtonText'..index]:SetText(trade_entry.listing.whisper)
-                                self.totalPrice[index] = { }
-                                self.totalPrice[index].currency = currency
-                                self.totalPrice[index].amount = amount
-                                self:GenerateTotalPriceString(controls.fullPrice)
-                                controls['importButtonText'..index]:SetText(common.base64.decode(trade_entry.item.extended.text))
-                                return
-                            end
-                        end
-                    end)
-                else
-                    return
-                end
-            end
-        end)
-    end
+	local id = LaunchSubScript([[
+		local json_data = ...
+		local curl = require("lcurl.safe")
+		local page = ""
+		local easy = curl.easy()
+		easy:setopt{
+			url = "https://www.pathofexile.com/api/trade/search/Scourge",
+			post = true,
+			httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'},
+			postfields = json_data
+		}
+		easy:setopt_writefunction(function(data)
+			page = page..data
+			return true
+		end)
+		easy:perform()
+		easy:close()
+		return page
+	]], "", "", json_data)
+	if id then
+		self:PriceBuilderInsertSearchRequest()
+		launch:RegisterSubScript(id, function(response, errMsg)
+			if errMsg then
+				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
+				return "TRADE ERROR", "Error: "..errMsg
+			else
+				local response_1 = self:ProcessJSON(response)
+				if not response_1 then
+					self:SetNotice(controls.pbNotice, "Failed to Get Trade response")
+					return
+				end
+				if not response_1.result or #response_1.result == 0 then
+					self:SetNotice(controls.pbNotice, "Failed to Get Trade Indexes")
+					return
+				end
+				local quantity_found = m_min(#response_1.result, 100)
+				local str_quantity_found = quantity_found == 100 and "100+" or tostring(quantity_found)
+				--controls['numResults'..index]:SetText(str_quantity_found)
+				local current_fetch_block = 0
+				self.resultTbl[index] = {}
+				self:FetchItem(controls, response_1, index, quantity_found, current_fetch_block)
+			end
+		end)
+	end
 end
 
 function ItemsTabClass:ParseURL(url)
@@ -2000,36 +2069,36 @@ end
 
 function ItemsTabClass:PublicTrade(url, controls, index)
 	local url = self:ParseURL(url)
-    local id = LaunchSubScript([[
-        local url = ...
-        local curl = require("lcurl.safe")
-        local page = ""
-        local easy = curl.easy()
-        easy:setopt{
-            url = url,
-            httpheader = {'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'}
-        }
-        easy:setopt_writefunction(function(data)
-            page = page..data
-            return true
-        end)
-        easy:perform()
-        easy:close()
-        return page
-    ]], "", "", url)
-    if id then
-        launch:RegisterSubScript(id, function(response, errMsg)
-            if errMsg then
-                self:SetNotice(controls.pbNotice, "Bad URL: " .. tostring(errMsg))
-                return "TRADE ERROR", "Error: "..errMsg
-            else
-                self:PriceBuilderInsertSearchRequest()
-                local trimmed = response:sub(1, -2)
-                local json_query = trimmed .. ', "sort": {"price": "asc"}}'
-                self:SearchItem(json_query, controls, index)
-            end
-        end)
-    end
+	local id = LaunchSubScript([[
+		local url = ...
+		local curl = require("lcurl.safe")
+		local page = ""
+		local easy = curl.easy()
+		easy:setopt{
+			url = url,
+			httpheader = {'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'}
+		}
+		easy:setopt_writefunction(function(data)
+			page = page..data
+			return true
+		end)
+		easy:perform()
+		easy:close()
+		return page
+	]], "", "", url)
+	if id then
+		launch:RegisterSubScript(id, function(response, errMsg)
+			if errMsg then
+				self:SetNotice(controls.pbNotice, "Bad URL: " .. tostring(errMsg))
+				return "TRADE ERROR", "Error: "..errMsg
+			else
+				self:PriceBuilderInsertSearchRequest()
+				local trimmed = response:sub(1, -2)
+				local json_query = trimmed .. ', "sort": {"price": "asc"}}'
+				self:SearchItem(json_query, controls, index)
+			end
+		end)
+	end
 end
 
 -- Opens the item crafting popup
