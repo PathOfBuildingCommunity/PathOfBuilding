@@ -1877,7 +1877,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
 	end
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", function()
-		self:PublicTrade(controls['uri'..str_cnt].buf, controls, str_cnt)
+		self:PublicTrade(controls['uri'..str_cnt].buf, uri, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
@@ -1941,7 +1941,25 @@ function ItemsTabClass:ProcessJSON(json)
 	return dkjson.decode(json)
 end
 
-function ItemsTabClass:FetchItem(controls, response_1, index, quantity_found, current_fetch_block)
+function ItemsTabClass:SortFetchResults(slot_name, trade_index)
+	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+	local slot = self.slots[slot_name]
+	local tblDPS = {}
+	for index, tbl in pairs(self.resultTbl[trade_index]) do
+		local selItem = self.items[slot.selItemId]
+		local item = new("Item", tbl.item_string)
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+		local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
+		local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
+		t_insert(tblDPS, { FullDPS = output.FullDPS, index = index })
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
+	end
+	table.sort(tblDPS, function(a,b) return a.FullDPS > b.FullDPS end)
+	return tblDPS
+end
+
+function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
 	local max_block_size = 10
 	local res_lines = ""
 	for response_index, res_line in ipairs(response_1.result) do
@@ -1993,11 +2011,11 @@ function ItemsTabClass:FetchItem(controls, response_1, index, quantity_found, cu
 						currency = trade_entry.listing.price.currency,
 						item_string = common.base64.decode(trade_entry.item.extended.text),
 						whisper = trade_entry.listing.whisper,
-						item_obj = new("Item", item_string),
 					}
 				end
 				if current_fetch_block == quantity_found then
-					local pb_index = current_fetch_block
+					local sortTbl = self:SortFetchResults(slot_name, index)
+					local pb_index = sortTbl[1].index
 					controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
 					self.totalPrice[index] = { }
 					self.totalPrice[index].currency = self.resultTbl[index][pb_index].currency
@@ -2006,7 +2024,7 @@ function ItemsTabClass:FetchItem(controls, response_1, index, quantity_found, cu
 					controls['whisperButtonText'..index]:SetText(self.totalPrice[index].whisper)
 					self:GenerateTotalPriceString(controls.fullPrice)
 				else
-					self:FetchItem(controls, response_1, index, quantity_found, current_fetch_block)
+					self:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
 				end
 			end
 		end)
@@ -2015,7 +2033,7 @@ function ItemsTabClass:FetchItem(controls, response_1, index, quantity_found, cu
 	end
 end
 
-function ItemsTabClass:SearchItem(json_data, controls, index)
+function ItemsTabClass:SearchItem(json_data, slot_name, controls, index)
 	local id = LaunchSubScript([[
 		local json_data = ...
 		local curl = require("lcurl.safe")
@@ -2056,7 +2074,7 @@ function ItemsTabClass:SearchItem(json_data, controls, index)
 				--controls['numResults'..index]:SetText(str_quantity_found)
 				local current_fetch_block = 0
 				self.resultTbl[index] = {}
-				self:FetchItem(controls, response_1, index, quantity_found, current_fetch_block)
+				self:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
 			end
 		end)
 	end
@@ -2067,7 +2085,7 @@ function ItemsTabClass:ParseURL(url)
 	return "https://www.pathofexile.com/api/trade/search/" .. query
 end
 
-function ItemsTabClass:PublicTrade(url, controls, index)
+function ItemsTabClass:PublicTrade(url, slot_name, controls, index)
 	local url = self:ParseURL(url)
 	local id = LaunchSubScript([[
 		local url = ...
@@ -2095,7 +2113,7 @@ function ItemsTabClass:PublicTrade(url, controls, index)
 				self:PriceBuilderInsertSearchRequest()
 				local trimmed = response:sub(1, -2)
 				local json_query = trimmed .. ', "sort": {"price": "asc"}}'
-				self:SearchItem(json_query, controls, index)
+				self:SearchItem(json_query, slot_name, controls, index)
 			end
 		end)
 	end
