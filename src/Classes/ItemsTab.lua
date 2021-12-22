@@ -2000,12 +2000,12 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
-			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
+			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.CombinedDPS or output.TotalDPS
 			if self.pbSortSelectionIndex == 3 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
-				t_insert(tblDPS, { FullDPS = output.FullDPS / chaosAmount, index = index })
+				t_insert(tblDPS, { FullDPS = newDPS / chaosAmount, index = index })
 			else
-				t_insert(tblDPS, { FullDPS = output.FullDPS, index = index })
+				t_insert(tblDPS, { FullDPS = newDPS, index = index })
 			end
 			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		end
