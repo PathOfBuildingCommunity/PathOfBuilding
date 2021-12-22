@@ -266,4 +266,5 @@ GlobalCache = {
 	excludeFullDpsList = { },
 	dontUseCache = nil,
 	useFullDPS = false,
+	numActiveSkillInFullDPS = 0,
 }

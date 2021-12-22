@@ -1979,10 +1979,22 @@ end
 function ItemsTabClass:CovertCurrencyToChaos(currency, amount)
 	-- we take the ceiling of all prices to integer chaos
 	-- to prevent dealing with shenanigans of people asking 4.9 chaos
+
+	-- Note: prices below are Scourge League prices (not Standard)
 	if currency:lower() == "chaos" then
 		return m_ceil(amount)
 	elseif currency:lower() == "exalted" then
 		return m_ceil(amount * 163.3)
+	elseif currency:lower() == "alt" then
+		return m_ceil(amount / 5.5)
+	elseif currency:lower() == "jewellers" then
+		return m_ceil(amount / 30)
+	elseif currency:lower() == "alch" then
+		return m_ceil(amount / 9)
+	elseif currency:lower() == "chisel" then
+		return m_ceil(amount / 6)
+	elseif currency:lower() == "mirror" then
+		return m_ceil(amount * 64500)
 	else
 		ConPrintf("Unhandled Currency Converstion: '" .. currency .. "'")
 		return m_ceil(amount)
@@ -1998,9 +2010,12 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 			local selItem = self.items[slot.selItemId]
 			local item = new("Item", tbl.item_string)
 			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
-			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.CombinedDPS or output.TotalDPS
+			local newDPS = output.TotalDPS
+			if GlobalCache.useFullDPS then
+				newDPS = output.FullDPS
+			end
 			if self.pbSortSelectionIndex == 3 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
 				t_insert(tblDPS, { FullDPS = newDPS / chaosAmount, index = index })
@@ -3178,7 +3193,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local output = calcFunc({ toggleFlask = item }, {})
 		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		local header
@@ -3218,7 +3233,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, slot in pairs(compareSlots) do
 			local selItem = self.items[slot.selItemId]
 			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
 			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 			local header

@@ -508,7 +508,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
 		gemInstance.qualityId = qualityId or "Default"
 		slot.level:SetText(tostring(gemInstance.level))
-		slot.count:SetText(tostring(gemInstance.count))
+		slot.count:SetText(tostring(gemInstance.count or 1))
 		if addUndo then
 			self:AddUndoState()
 		end
@@ -620,7 +620,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
 				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-				GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 				local output = calcFunc({}, {})
 				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				self.displayGroup.gemList[index].qualityId = tempQual
@@ -655,7 +655,7 @@ function SkillsTabClass:CreateGemSlot(index)
 					local storedQuality = self.displayGroup.gemList[index].quality
 					self.displayGroup.gemList[index].quality = 20
 					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].quality = storedQuality
@@ -695,7 +695,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
@@ -723,6 +723,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 		end
 		gemInstance.count = tonumber(buf) or 1
+		slot.count.buf = tostring(gemInstance.count)
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
