@@ -1798,6 +1798,9 @@ function ItemsTabClass:PriceItem()
 	-- table of price results index by slot and number of fetched results
 	self.resultTbl = { }
 
+	-- default set of trade item sort selection
+	self.pbSortSelectionIndex = 1
+
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
 	-- Count sockets
@@ -1810,16 +1813,26 @@ function ItemsTabClass:PriceItem()
 	-- Set main Price Builder pane height and width
 	local row_height = 20
 	local top_pane_alignment_ref = nil
-    local top_pane_alignment_width = -500
+    local top_pane_alignment_width = 0
     local top_pane_alignment_height = row_height + 8
-	local pane_height = (top_pane_alignment_height) * row_count
+	local pane_height = (top_pane_alignment_height) * row_count + 15
     local pane_width = 1100
     local controls = { }
 	local cnt = 1
-	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 5, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
-	controls.pbNotice = new("EditControl",  {"TOPRIGHT",nil,"TOPRIGHT"}, -24, 5, 240, 16, "", nil, nil)
+	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 18, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
+	controls.pbNotice = new("EditControl",  {"TOP",nil,"TOP"}, 0, 15, 240, 16, "", nil, nil)
 	controls.pbNotice.textCol = colorCodes.CUSTOM
+	local sortSelectionList = {
+		"Cheapest",
+		"Highest DPS",
+		"DPS / Price",
+	}
+	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -24, 15, 100, 20, sortSelectionList, function(index, value)
+		self.pbSortSelectionIndex = index
+	end)
+	controls.itemSortSelectionLabel = new("LabelControl",  {"TOPRIGHT",controls.itemSortSelection,"TOPRIGHT"}, -106, 0, 60, 18,  "^8Item Sort Selection:")
 	controls.fullPrice = new("EditControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
+	top_pane_alignment_ref = {"TOPLEFT",controls.itemSetLabel,"TOPLEFT"}
 	for _, slotName in ipairs(baseSlots) do
         local str_cnt = tostring(cnt)
         self:PriceItemRowDisplay(controls, str_cnt, slotName, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
@@ -1958,7 +1971,6 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 	local slot = self.slots[slot_name]
 	local tblDPS = {}
-	local dpsPerChaos = true
 	for index, tbl in pairs(self.resultTbl[trade_index]) do
 		local selItem = self.items[slot.selItemId]
 		local item = new("Item", tbl.item_string)
@@ -1966,7 +1978,7 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 		local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
 		local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
-		if dpsPerChaos then
+		if self.pbSortSelectionIndex == 3 then
 			local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
 			t_insert(tblDPS, { FullDPS = output.FullDPS / chaosAmount, index = index })
 		else
@@ -2033,8 +2045,10 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 					}
 				end
 				if current_fetch_block == quantity_found then
-					local sortTbl = self:SortFetchResults(slot_name, index)
-					local pb_index = sortTbl[1].index
+					local pb_index = 1
+					if self.pbSortSelectionIndex ~= 1 then
+						pb_index = self:SortFetchResults(slot_name, index)[1].index
+					end
 					controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
 					self.totalPrice[index] = { }
 					self.totalPrice[index].currency = self.resultTbl[index][pb_index].currency
