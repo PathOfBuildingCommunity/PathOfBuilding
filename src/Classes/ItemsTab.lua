@@ -227,9 +227,21 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end
 
 	-- Price Items
-	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, -20, 248, 20, "Price Items (BETA)", function()
+	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, -20, 248, 20, colorCodes.CUSTOM .. "PoB Trader", function()
 		self:PriceItem()
 	end)
+	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(18, colorCodes.NEGATIVE .. "NEW FEATURE: ")
+		tooltip:AddLine(16, "^7PoB Trader help search and compare items from the official PoE Trade website.")
+		tooltip:AddLine(16, "^7It allows you to retrieve up to 100 items for a given slot based on filters you")
+		tooltip:AddLine(16, "^7pre-set on the official PoE trade site and copy/paste within it.")
+		tooltip:AddLine(16, "")
+		tooltip:AddLine(16, colorCodes.WARNING .. "NOTE: PoB Trader is respectful of GGG's Search and Fetch Rate Limits;")
+		tooltip:AddLine(16, colorCodes.WARNING .. "   however, if you use 3rd-party trade apps or interact with PoE's trade site")
+		tooltip:AddLine(16, colorCodes.WARNING .. "   outside of PoB at the same time you can still get rate-limited as those are")
+		tooltip:AddLine(16, colorCodes.WARNING .. "   enforced at an Internet IP address level and not application level.")
+	end
 
 	-- Create/import item
 	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and -20 or 0, 120, 20, "Craft item...", function()
@@ -1797,6 +1809,7 @@ function ItemsTabClass:PriceItem()
 
 	-- table of price results index by slot and number of fetched results
 	self.resultTbl = { }
+	self.sortedResultTbl = { }
 
 	-- default set of trade item sort selection
 	self.pbSortSelectionIndex = 1
@@ -1816,7 +1829,7 @@ function ItemsTabClass:PriceItem()
     local top_pane_alignment_width = 0
     local top_pane_alignment_height = row_height + 8
 	local pane_height = (top_pane_alignment_height) * row_count + 15
-    local pane_width = 1100
+    local pane_width = 1246
     local controls = { }
 	local cnt = 1
 	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 18, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
@@ -1899,7 +1912,16 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		end
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
-	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 120, row_height, "Price", nil, nil)
+	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
+		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.resultTbl[str_cnt] and #self.resultTbl[str_cnt] or 1))
+	end)
+	controls['resultIndex'..str_cnt].tooltipFunc = function(tooltip)
+		if tooltip:CheckForUpdate(controls['resultIndex'..str_cnt].buf) then
+			self:SetFetchResultReturn(controls, str_cnt, tonumber(controls['resultIndex'..str_cnt].buf))
+		end
+	end
+	controls['resultCount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['resultIndex'..str_cnt],"TOPLEFT"}, 60 + 8, 0, 82, row_height, "^8No Results", nil, nil)
+	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPLEFT"}, 82 + 8, 0, 120, row_height, "Price", nil, nil)
 	controls['priceAmount'..str_cnt].enabled = function()
 		local boolean = #controls['priceAmount'..str_cnt].buf > 0
 		return boolean
@@ -1968,26 +1990,46 @@ function ItemsTabClass:CovertCurrencyToChaos(currency, amount)
 end
 
 function ItemsTabClass:SortFetchResults(slot_name, trade_index)
-	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
-	local slot = self.slots[slot_name]
 	local tblDPS = {}
-	for index, tbl in pairs(self.resultTbl[trade_index]) do
-		local selItem = self.items[slot.selItemId]
-		local item = new("Item", tbl.item_string)
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
-		local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
-		local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
-		if self.pbSortSelectionIndex == 3 then
-			local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
-			t_insert(tblDPS, { FullDPS = output.FullDPS / chaosAmount, index = index })
-		else
-			t_insert(tblDPS, { FullDPS = output.FullDPS, index = index })
+	if self.pbSortSelectionIndex ~= 1 then
+		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+		local slot = self.slots[slot_name]
+		for index, tbl in pairs(self.resultTbl[trade_index]) do
+			local selItem = self.items[slot.selItemId]
+			local item = new("Item", tbl.item_string)
+			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
+			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
+			if self.pbSortSelectionIndex == 3 then
+				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
+				t_insert(tblDPS, { FullDPS = output.FullDPS / chaosAmount, index = index })
+			else
+				t_insert(tblDPS, { FullDPS = output.FullDPS, index = index })
+			end
+			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		end
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
+		table.sort(tblDPS, function(a,b) return a.FullDPS > b.FullDPS end)
+	else
+		for index, tbl in pairs(self.resultTbl[trade_index]) do
+			t_insert(tblDPS, { index = index })
+		end
 	end
-	table.sort(tblDPS, function(a,b) return a.FullDPS > b.FullDPS end)
 	return tblDPS
+end
+
+function ItemsTabClass:SetFetchResultReturn(controls, index, pb_index)
+	if self.resultTbl[index] and self.resultTbl[index][pb_index] then
+		local pb_index = self.sortedResultTbl[index][pb_index].index
+		controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
+		self.totalPrice[index] = {
+			currency = self.resultTbl[index][pb_index].currency,
+			amount = self.resultTbl[index][pb_index].amount,
+		}
+		controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
+		controls['whisperButtonText'..index]:SetText(self.totalPrice[index].whisper)
+		self:GenerateTotalPriceString(controls.fullPrice)
+	end
 end
 
 function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
@@ -2045,14 +2087,14 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 					}
 				end
 				if current_fetch_block == quantity_found then
-					local pb_index = 1
-					if self.pbSortSelectionIndex ~= 1 then
-						pb_index = self:SortFetchResults(slot_name, index)[1].index
-					end
+					self.sortedResultTbl[index] = self:SortFetchResults(slot_name, index)
+					controls['resultIndex'..index]:SetText("1")
+					local pb_index = self.sortedResultTbl[index][1].index
 					controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
-					self.totalPrice[index] = { }
-					self.totalPrice[index].currency = self.resultTbl[index][pb_index].currency
-					self.totalPrice[index].amount = self.resultTbl[index][pb_index].amount
+					self.totalPrice[index] = {
+						currency = self.resultTbl[index][pb_index].currency,
+						amount = self.resultTbl[index][pb_index].amount,
+					}
 					controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
 					controls['whisperButtonText'..index]:SetText(self.totalPrice[index].whisper)
 					self:GenerateTotalPriceString(controls.fullPrice)
@@ -2104,7 +2146,7 @@ function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
 				end
 				local quantity_found = m_min(#response_1.result, 100)
 				local str_quantity_found = quantity_found == 100 and "100+" or tostring(quantity_found)
-				--controls['numResults'..index]:SetText(str_quantity_found)
+				controls['resultCount'..index]:SetText("out of " .. str_quantity_found)
 				local current_fetch_block = 0
 				self.resultTbl[index] = {}
 				self:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
