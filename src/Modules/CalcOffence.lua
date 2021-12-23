@@ -3401,12 +3401,13 @@ function calcs.offence(env, actor, activeSkill)
 				output.ChillEffectModDisplay = 100 * (output.ChillEffectMod - 1)
 				output.ChillDurationMod = 1 + (skillModList:Sum("INC", cfg, "EnemyChillDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration")) / 100
 				local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
-				effList = { 5, 10, 30 }
+				local chillEffectMax = modDB:Override(nil, "ChillMax") or 30
+				effList = { 5, 10, chillEffectMax }
 				local desired = skillModList:Sum("BASE", nil, "DesiredBonechillEffect") or 0
 				if output.BonechillEffect then
 					t_insert(effList, output.BonechillEffect)
 				end
-				if not output.BonechillEffect and desired ~= (0 or 5 or 10 or 30 or output.BonechillEffect) and desired > 5 and desired < 30 then
+				if not output.BonechillEffect and desired ~= (0 or 5 or 10 or chillEffectMax or output.BonechillEffect) and desired > 5 and desired < chillEffectMax then
 					t_insert(effList, desired)
 				end
 				if enemyThreshold > 0 then
@@ -3451,7 +3452,7 @@ function calcs.offence(env, actor, activeSkill)
 								effect = s_format("%s%% ^8(desired)", value),
 								thresh = threshString,
 							})
-						elseif value == 30 then
+						elseif value == chillEffectMax then
 							t_insert(breakdown.ChillDPS.rowList, {
 								effect = s_format("%s%% ^8(maximum)", value),
 								thresh = threshString,
@@ -3475,11 +3476,12 @@ function calcs.offence(env, actor, activeSkill)
 			skillFlags.chill = true
 			output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
-			output.ChillSourceEffect = m_min(30, m_floor(10 * (1 + output.ChillEffectMod / 100)))
+			local chillEffectMax = modDB:Override(nil, "ChillMax") or 30
+			output.ChillSourceEffect = m_min(chillEffectMax, m_floor(10 * (1 + output.ChillEffectMod / 100)))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
-					label = "Effect of Chill: ^8(capped at 30%)",
+					label = s_format("Effect of Chill: ^8(capped at %.0f%%)", chillEffectMax),
 					base = "10% ^8(base)",
 					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)

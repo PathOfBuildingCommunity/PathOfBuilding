@@ -129,8 +129,8 @@ return {
 	end },
 	{ label = "Bonechill Support:", ifSkill = "Bonechill" },
 	{ var = "bonechillEffect", type = "count", label = "Effect of Chill:", tooltip = "The effect of Chill is automatically calculated if you have a guaranteed source of Chill,\nbut you can use this to override the effect if necessary.", ifSkill = "Bonechill", apply = function(val, modList, enemyModList)
-		modList:NewMod("BonechillEffect", "OVERRIDE", m_min(val, 30), "Config")
-		modList:NewMod("DesiredBonechillEffect", "BASE", m_min(val, 30), "Config")
+		modList:NewMod("BonechillEffect", "OVERRIDE", val, "Config")
+		modList:NewMod("DesiredBonechillEffect", "BASE", val, "Config")
 	end },
 	{ label = "Boneshatter:", ifSkill = "Boneshatter" },
 	{ var = "boneshatterTraumaStacks", type = "count", label = "# of Trauma Stacks:", ifSkill = "Boneshatter", apply = function(val, modList, enemyModList)
