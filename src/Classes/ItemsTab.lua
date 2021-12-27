@@ -1894,6 +1894,8 @@ function ItemsTabClass:PriceItem()
 			-- Less than 1 day
 			currencyLabel = "^7Currency Rates are Recent"
 		end
+	else
+		currencyLabel = colorCodes.NEGATIVE .. "Get Currency Conversion Rates"
 	end
 	controls.updateCurrencyConverstion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, currencyLabel, function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
