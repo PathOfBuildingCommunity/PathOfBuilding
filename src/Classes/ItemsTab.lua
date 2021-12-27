@@ -1813,6 +1813,11 @@ function ItemsTabClass:PriceItem()
 
 	-- default set of trade item sort selection
 	self.pbSortSelectionIndex = 1
+	self.pbLeague = "Scourge"
+	self.pbCurrencyConversionNames = { }
+	self.pbCurrencyConversion = { }
+	self.lastCurrencyConversionRequest = 0
+	self.lastCurrencyFileTime = nil
 
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
@@ -1826,11 +1831,11 @@ function ItemsTabClass:PriceItem()
 	-- Set main Price Builder pane height and width
 	local row_height = 20
 	local top_pane_alignment_ref = nil
-    local top_pane_alignment_width = 0
-    local top_pane_alignment_height = row_height + 8
+	local top_pane_alignment_width = 0
+	local top_pane_alignment_height = row_height + 8
 	local pane_height = (top_pane_alignment_height) * row_count + 15
-    local pane_width = 1246
-    local controls = { }
+	local pane_width = 1246
+	local controls = { }
 	local cnt = 1
 	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 18, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
 	controls.pbNotice = new("EditControl",  {"TOP",nil,"TOP"}, 0, 15, 240, 16, "", nil, nil)
@@ -1847,13 +1852,13 @@ function ItemsTabClass:PriceItem()
 	controls.fullPrice = new("EditControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
 	top_pane_alignment_ref = {"TOPLEFT",controls.itemSetLabel,"TOPLEFT"}
 	for _, slotName in ipairs(baseSlots) do
-        local str_cnt = tostring(cnt)
-        self:PriceItemRowDisplay(controls, str_cnt, slotName, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-        top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
-        top_pane_alignment_width = 0
-        top_pane_alignment_height = 28
+		local str_cnt = tostring(cnt)
+		self:PriceItemRowDisplay(controls, str_cnt, slotName, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
+		top_pane_alignment_width = 0
+		top_pane_alignment_height = 28
 		cnt = cnt + 1
-    end
+	end
 	local activeSocketList = { }
 	for nodeId, slot in pairs(self.sockets) do
 		if not slot.inactive then
@@ -1869,10 +1874,42 @@ function ItemsTabClass:PriceItem()
 		top_pane_alignment_height = 28
 		cnt = cnt + 1
 	end
-    controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
+	controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
 		main:ClosePopup()
 	end)
-    main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
+	local currencyLabel = colorCodes.WARNING .. "Update Currency Conversion Rates"
+	self.pbFileTimestampDiff = 0
+	local foo = io.open("../poe_ninja_currency_conversion.json", "r")
+	if foo then
+		local lines = foo:read "*a"
+		foo:close()
+		self.pbCurrencyConversion[self.pbLeague] = { }
+		self:PriceBuilderProcessPoENinjaResponse(self:ProcessJSON(lines), controls)
+		local lastTimeStamp = self:ParseUTCTimeString(self.lastCurrencyFileTime)
+		self.pbFileTimestampDiff = os.time(os.date('!*t')) - lastTimeStamp
+		if self.pbFileTimestampDiff < 3600 then
+			-- Less than 1 hour (60 * 60 = 3600)
+			currencyLabel = "^8Currency Rates are Very Recent"
+		elseif self.pbFileTimestampDiff < (24 * 3600) then
+			-- Less than 1 day
+			currencyLabel = "^7Currency Rates are Recent"
+		end
+	end
+	controls.updateCurrencyConverstion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, currencyLabel, function()
+		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
+	end)
+	controls.updateCurrencyConverstion.enabled = function()
+		return self.pbFileTimestampDiff >= 3600
+	end
+	controls.updateCurrencyConverstion.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
+		tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
+		tooltip:AddLine(16, "")
+		tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
+		tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
+	end
+	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
 end
 
 function ItemsTabClass:GenerateTotalPriceString(editPane)
@@ -1976,27 +2013,106 @@ function ItemsTabClass:ProcessJSON(json)
 	return dkjson.decode(json)
 end
 
+function ItemsTabClass:PriceBuilderPoENinjaCurrencyRequest()
+	self.lastCurrencyConversionRequest = get_time()
+end
+
+function ItemsTabClass:ParseUTCTimeString(datetimeString)
+	local inYear, inMonth, inDay, inHour, inMinute, inSecond, inZone =      
+	string.match(datetimeString, '^(%d%d%d%d)-(%d%d)-(%d%d)T(%d%d):(%d%d):(%d%d)(.-)$')
+
+	local zHours, zMinutes = string.match(inZone, '^(.-):(%d%d)$')
+		
+	local returnTime = os.time({year=inYear, month=inMonth, day=inDay, hour=inHour, min=inMinute, sec=inSecond, isdst=false})
+	
+	if zHours then
+		returnTime = returnTime - ((tonumber(zHours)*3600) + (tonumber(zMinutes)*60))
+	end
+	
+	return returnTime
+end
+
+function ItemsTabClass:PriceBuilderProcessPoENinjaResponse(resp, controls)
+	if resp then
+		-- Populate the matching tradeId name conversion first
+		for _, entryTbl in ipairs(resp.currencyDetails) do
+			self.pbCurrencyConversionNames[entryTbl.name] = entryTbl.tradeId
+		end
+		-- Populate the chaos-converted values for each tradeId
+		local amountAnchor = "chaosEquivalent"
+		local nameAnchor = "currencyTypeName"
+		for _, entryTbl in ipairs(resp.lines) do
+			local currencyName = self.pbCurrencyConversionNames[entryTbl[nameAnchor]]
+			if currencyName then
+				self.pbCurrencyConversion[self.pbLeague][currencyName] = entryTbl[amountAnchor]
+			else
+				ConPrintf("Unhandled Currency Name: '"..entryTbl[nameAnchor].."'")
+			end
+			if not self.lastCurrencyFileTime then
+				self.lastCurrencyFileTime = entryTbl.pay.sample_time_utc
+			end
+		end
+	else
+		self:SetNotice(controls.pbNotice, "PoE Ninja JSON Processing Error")
+	end
+end
+
+function ItemsTabClass:PullPoENinjaCurrencyConversion(league, controls)
+	-- Limit PoE Ninja Currency Conversion request to 1 per hour
+	if (get_time() - self.lastCurrencyConversionRequest) > 3600 then
+		self.pbCurrencyConversion[league] = { }
+		local id = LaunchSubScript([[
+			local curl = require("lcurl.safe")
+			local page = ""
+			local easy = curl.easy()
+			easy:setopt{
+				url = "https://poe.ninja/api/data/CurrencyOverview?league=]]..league..[[&type=Currency&language=en",
+				httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
+			}
+			easy:setopt_writefunction(function(data)
+				page = page..data
+				return true
+			end)
+			easy:perform()
+			easy:close()
+			return page
+		]], "", "")
+		if id then
+			self:PriceBuilderPoENinjaCurrencyRequest()
+			launch:RegisterSubScript(id, function(response, errMsg)
+				if errMsg then
+					self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
+					return "POE NINJA ERROR", "Error: "..errMsg
+				else
+					local foo = io.open("../poe_ninja_currency_conversion.json", "w")
+					foo:write(response)
+					foo:close()
+					local response_1 = self:ProcessJSON(response)
+					if not response_1 then
+						self:SetNotice(controls.pbNotice, "Failed to Get PoE Ninja response")
+						return
+					end
+					self:PriceBuilderProcessPoENinjaResponse(response_1, controls)
+				end
+			end)
+		end
+	else
+		self:SetNotice(controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (get_time() - self.lastCurrencyConversionRequest)))
+	end
+end
+
 function ItemsTabClass:CovertCurrencyToChaos(currency, amount)
+	local conversionTable = self.pbCurrencyConversion[self.pbLeague]
+
 	-- we take the ceiling of all prices to integer chaos
 	-- to prevent dealing with shenanigans of people asking 4.9 chaos
-
-	-- Note: prices below are Scourge League prices (not Standard)
-	if currency:lower() == "chaos" then
+	if conversionTable[currency:lower()] then
+		--ConPrintf("Converted '"..currency.."' at " ..tostring(conversionTable[currency:lower()]))
+		return m_ceil(amount * conversionTable[currency:lower()])
+	elseif currency:lower() == "chaos" then
 		return m_ceil(amount)
-	elseif currency:lower() == "exalted" then
-		return m_ceil(amount * 163.3)
-	elseif currency:lower() == "alt" then
-		return m_ceil(amount / 5.5)
-	elseif currency:lower() == "jewellers" then
-		return m_ceil(amount / 30)
-	elseif currency:lower() == "alch" then
-		return m_ceil(amount / 9)
-	elseif currency:lower() == "chisel" then
-		return m_ceil(amount / 6)
-	elseif currency:lower() == "mirror" then
-		return m_ceil(amount * 64500)
 	else
-		ConPrintf("Unhandled Currency Converstion: '" .. currency .. "'")
+		ConPrintf("Unhandled Currency Converstion: '" .. currency:lower() .. "'")
 		return m_ceil(amount)
 	end
 end
@@ -2124,6 +2240,7 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 end
 
 function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
+	self.pbLeague = league
 	local id = LaunchSubScript([[
 		local json_data = ...
 		local curl = require("lcurl.safe")
