@@ -2106,7 +2106,7 @@ function ItemsTabClass:CovertCurrencyToChaos(currency, amount)
 
 	-- we take the ceiling of all prices to integer chaos
 	-- to prevent dealing with shenanigans of people asking 4.9 chaos
-	if conversionTable[currency:lower()] then
+	if conversionTable and conversionTable[currency:lower()] then
 		--ConPrintf("Converted '"..currency.."' at " ..tostring(conversionTable[currency:lower()]))
 		return m_ceil(amount * conversionTable[currency:lower()])
 	elseif currency:lower() == "chaos" then
