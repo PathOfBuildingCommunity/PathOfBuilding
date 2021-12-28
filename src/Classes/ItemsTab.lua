@@ -2286,8 +2286,10 @@ function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
 					return
 				end
 				if not response_1.result or #response_1.result == 0 then
-					self:SetNotice(controls.pbNotice, "Failed to Get Trade Indexes")
+					self:SetNotice(controls.pbNotice, colorCodes.NEGATIVE .. "No Matching Results Found")
 					return
+				else
+					self:SetNotice(controls.pbNotice, "")
 				end
 				local quantity_found = m_min(#response_1.result, 100)
 				local str_quantity_found = quantity_found == 100 and "100+" or tostring(quantity_found)
