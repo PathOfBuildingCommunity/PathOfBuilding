@@ -444,7 +444,7 @@ local modNameList = {
 	["maximum number of raging spirits"] = "ActiveRagingSpiritLimit",
 	["maximum number of summoned phantasms"] = "ActivePhantasmLimit",
 	["maximum number of summoned holy relics"] = "ActiveHolyRelicLimit",
-	["minion duration"] = { "Duration", tag = { type = "SkillType", skillType = SkillType.MinionsCanExplode } },
+	["minion duration"] = { "Duration", tag = { type = "SkillType", skillType = SkillType.CreatesMinion } },
 	["skeleton duration"] = { "Duration", tag = { type = "SkillName", skillName = "Summon Skeleton" } },
 	["sentinel of dominance duration"] = { "Duration", tag = { type = "SkillName", skillName = "Dominating Blow" } },
 	-- Other skill modifiers

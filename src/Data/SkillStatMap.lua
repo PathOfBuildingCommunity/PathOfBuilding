@@ -1454,7 +1454,7 @@ return {
 	value=30
 },
 ["base_minion_duration_+%"] = {
-	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.MinionsCanExplode }),
+	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreatesMinion }),
 },
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
