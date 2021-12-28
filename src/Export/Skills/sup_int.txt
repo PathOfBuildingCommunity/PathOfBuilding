@@ -70,7 +70,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannelling
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
@@ -82,7 +82,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingPlus
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
@@ -381,11 +381,11 @@ local skills, mod, flag, skill = ...
 			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
-#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })
-#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.FireSkill })
-#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.ColdSkill })
-#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.LightningSkill })
-#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.ChaosSkill })
+#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.Physical })
+#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.Fire })
+#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.Cold })
+#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.Lightning })
+#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.Chaos })
 #mods
 
 #skill SupportOnslaughtOnSlayingShockedEnemy
@@ -531,7 +531,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine }),
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Mineable }),
 		},
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),

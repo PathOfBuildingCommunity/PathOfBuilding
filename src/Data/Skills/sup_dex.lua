@@ -1190,7 +1190,7 @@ skills["SupportSlashingWeapon"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
 		},
 		["support_slashing_buff_attack_cast_speed_+%_final_to_grant"] = {
-			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.TravelSkill }),
+			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.Travel }),
 		},
 		["close_combat_damage_to_close_range_+%"] = {
 			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
@@ -3620,7 +3620,7 @@ skills["SupportTrap"] = {
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap }),
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Trappable }),
 		},
 	},
 	baseMods = {

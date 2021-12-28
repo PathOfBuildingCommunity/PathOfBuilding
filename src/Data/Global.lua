@@ -170,7 +170,6 @@ SkillType = {
 	CausesBurning = 29, -- Deals burning damage
 	SummonsTotem = 30,
 	TotemCastsWhenNotDetached = 31,
-	--Curse = 32,
 	Fire = 32,
 	Cold = 33,
 	Lightning = 34,

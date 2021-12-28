@@ -688,7 +688,7 @@ skills["SupportCastWhileChannelling"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
@@ -832,7 +832,7 @@ skills["SupportCastWhileChannellingPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
@@ -3080,11 +3080,11 @@ skills["SupportStormBarrier"] = {
 		},
 	},
 	baseMods = {
-		flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill }),
-		flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.FireSkill }),
-		flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.ColdSkill }),
-		flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.LightningSkill }),
-		flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.ChaosSkill }),
+		flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.Physical }),
+		flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.Fire }),
+		flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.Cold }),
+		flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.Lightning }),
+		flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.Chaos }),
 	},
 	qualityStats = {
 		Default = {
@@ -4263,7 +4263,7 @@ skills["SupportRemoteMine"] = {
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine }),
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Mineable }),
 		},
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),
