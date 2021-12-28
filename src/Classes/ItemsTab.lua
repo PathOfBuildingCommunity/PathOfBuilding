@@ -1878,15 +1878,14 @@ function ItemsTabClass:PriceItem()
 		main:ClosePopup()
 	end)
 	local currencyLabel = colorCodes.WARNING .. "Update Currency Conversion Rates"
-	self.pbFileTimestampDiff = 0
-	local foo = io.open("../poe_ninja_currency_conversion.json", "r")
+	self.pbFileTimestampDiff = nil
+	local foo = io.open("../"..self.pbLeague.."_currency_values.json", "r")
 	if foo then
 		local lines = foo:read "*a"
 		foo:close()
-		self.pbCurrencyConversion[self.pbLeague] = { }
-		self:PriceBuilderProcessPoENinjaResponse(self:ProcessJSON(lines), controls)
-		local lastTimeStamp = self:ParseUTCTimeString(self.lastCurrencyFileTime)
-		self.pbFileTimestampDiff = os.time(os.date('!*t')) - lastTimeStamp
+		self.pbCurrencyConversion[self.pbLeague] = self:ProcessJSON(lines)
+		self.lastCurrencyFileTime = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
+		self.pbFileTimestampDiff = get_time() - self.lastCurrencyFileTime
 		if self.pbFileTimestampDiff < 3600 then
 			-- Less than 1 hour (60 * 60 = 3600)
 			currencyLabel = "^8Currency Rates are Very Recent"
@@ -1897,19 +1896,21 @@ function ItemsTabClass:PriceItem()
 	else
 		currencyLabel = colorCodes.NEGATIVE .. "Get Currency Conversion Rates"
 	end
-	controls.updateCurrencyConverstion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, currencyLabel, function()
+	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, currencyLabel, function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
 	end)
-	controls.updateCurrencyConverstion.enabled = function()
-		return self.pbFileTimestampDiff >= 3600
+	controls.updateCurrencyConversion.enabled = function()
+		return self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600
 	end
-	controls.updateCurrencyConverstion.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
-		tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
-		tooltip:AddLine(16, "")
-		tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
-		tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
+	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
+		if self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600 then
+			tooltip:Clear()
+			tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
+			tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
+			tooltip:AddLine(16, "")
+			tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
+			tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
+		end
 	end
 	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
 end
@@ -2086,15 +2087,23 @@ function ItemsTabClass:PullPoENinjaCurrencyConversion(league, controls)
 					self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
 					return "POE NINJA ERROR", "Error: "..errMsg
 				else
-					local foo = io.open("../poe_ninja_currency_conversion.json", "w")
-					foo:write(response)
-					foo:close()
-					local response_1 = self:ProcessJSON(response)
-					if not response_1 then
+					--local foo = io.open("../poe_ninja_currency_conversion.json", "w")
+					--foo:write(response)
+					--foo:close()
+					local json_data = self:ProcessJSON(response)
+					if not json_data then
 						self:SetNotice(controls.pbNotice, "Failed to Get PoE Ninja response")
 						return
 					end
-					self:PriceBuilderProcessPoENinjaResponse(response_1, controls)
+					self:PriceBuilderProcessPoENinjaResponse(json_data, controls)
+					local print_str = ""
+					for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
+						print_str = print_str .. '"'..key..'": '..tostring(value)..','
+					end
+					foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
+					foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
+					foo:close()
+					controls.updateCurrencyConversion.label = "^8Currency Rates are Very Recent"
 				end
 			end)
 		end
@@ -2120,7 +2129,7 @@ function ItemsTabClass:CovertCurrencyToChaos(currency, amount)
 end
 
 function ItemsTabClass:SortFetchResults(slot_name, trade_index)
-	local tblDPS = {}
+	local newTbl = {}
 	if self.pbSortSelectionIndex ~= 1 then
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		local slot = self.slots[slot_name]
@@ -2136,19 +2145,21 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 			end
 			if self.pbSortSelectionIndex == 3 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
-				t_insert(tblDPS, { FullDPS = newDPS / chaosAmount, index = index })
+				t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
 			else
-				t_insert(tblDPS, { FullDPS = newDPS, index = index })
+				t_insert(newTbl, { outputAttr = newDPS, index = index })
 			end
 			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		end
-		table.sort(tblDPS, function(a,b) return a.FullDPS > b.FullDPS end)
+		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
 	else
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
-			t_insert(tblDPS, { index = index })
+			local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
+			t_insert(newTbl, { outputAttr = chaosAmount, index = index })
 		end
+		table.sort(newTbl, function(a,b) return a.outputAttr < b.outputAttr end)
 	end
-	return tblDPS
+	return newTbl
 end
 
 function ItemsTabClass:SetFetchResultReturn(controls, index, pb_index)
