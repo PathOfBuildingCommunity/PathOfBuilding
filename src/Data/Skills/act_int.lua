@@ -12,7 +12,7 @@ skills["Arc"] = {
 	baseEffectiveness = 1.722000002861,
 	incrementalEffectiveness = 0.032299999147654,
 	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Chaining] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.7,
 	statMap = {
@@ -100,7 +100,7 @@ skills["VaalArcChain"] = {
 	baseEffectiveness = 4.5599999427795,
 	incrementalEffectiveness = 0.032999999821186,
 	description = "A shocking arc of lightning stretches from the caster to a targeted enemy and chains to other nearby enemies. Each time the beam chains it will also chain simultaneously to a second enemy, but no enemy can be hit twice by the beams. Also grants a buff making you lucky when damaging enemies with Arc for a short duration.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Chaining] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Vaal] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	statMap = {
@@ -180,7 +180,7 @@ skills["ArcaneCloak"] = {
 	name = "Arcane Cloak",
 	color = 3,
 	description = "Spends a portion of your mana to grant a buff that takes some of the damage from hits for you until depleted. The buff grants added lightning damage based on the amount of mana spent by this skill. Shares a cooldown with other Guard skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, [SkillType.Arcane] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Guard] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -271,7 +271,7 @@ skills["ArcticBreath"] = {
 	baseEffectiveness = 1.2987999916077,
 	incrementalEffectiveness = 0.039900001138449,
 	description = "Fire an icy projectile that bursts on impact or when reaching the targeted area, dealing area damage and creating a chilling area that deals cold damage over time. This area will creep across the ground towards nearby enemies until its duration expires.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.ChillingArea] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.ChillingArea] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	baseFlags = {
@@ -357,7 +357,7 @@ skills["CataclysmSigil"] = {
 	baseEffectiveness = 1.2875000238419,
 	incrementalEffectiveness = 0.044900000095367,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, causing a fiery meteor to fall from the sky. The brand will detach if the enemy dies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.4,
 	preDamageFunc = function(activeSkill, output)
@@ -449,7 +449,7 @@ skills["AssassinsMark"] = {
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses a single enemy, making them more vulnerable to Critical Strikes. Killing the cursed enemy will grant life and mana, and a power charge. You can only have one Mark at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Mark] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -548,7 +548,7 @@ skills["BallLightning"] = {
 	baseEffectiveness = 0.73159998655319,
 	incrementalEffectiveness = 0.03489999845624,
 	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	statMap = {
@@ -631,7 +631,7 @@ skills["DarkRitual"] = {
 	baseEffectiveness = 4.6849999427795,
 	incrementalEffectiveness = 0.047100000083447,
 	description = "Applies a debuff to enemies in an area, which deals chaos damage over Time. Linked hex curses are also applied to those enemies. The debuff deals more damage and lasts longer for each hex applied this way.  This skill cannot be used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.Triggerable] = true, [SkillType.Type59] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	preSkillTypeFunc = function(activeSkill, output)
@@ -731,7 +731,7 @@ skills["SupportDarkRitual"] = {
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.AuraDebuff, SkillType.TriggeredGrantedSkill, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["apply_linked_curses_with_dark_ritual"] = {
@@ -805,7 +805,7 @@ skills["Ember"] = {
 	baseEffectiveness = 0.67449998855591,
 	incrementalEffectiveness = 0.034600000828505,
 	description = "Fires projectiles which fly in an arc, exploding on impact with either enemies or the ground near where you target. Targeting farther away causes the projectiles to spread out and land over a wider area.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	parts = {
@@ -898,7 +898,7 @@ skills["Blight"] = {
 	baseEffectiveness = 2.9040999412537,
 	incrementalEffectiveness = 0.035500001162291,
 	description = "Apply a debuff to enemies in front of you which deals chaos damage over time. Enemies who aren't already debuffed by Blight are also hindered for a shorter secondary duration, slowing their movement. Continued channelling adds layers of damage to the debuff, each with their own duration.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Channelled] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type59] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Chaos] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Channel] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.3,
 	parts = {
@@ -991,7 +991,7 @@ skills["VaalBlight"] = {
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.041400000452995,
 	description = "Apply a powerful debuff to enemies around you which deals chaos damage over time. Then applies two additional layers in a larger area, growing greatly in size each time. Enemies are also substantially hindered for a shorter secondary duration, slowing their movement.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type59] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Chaos] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	statMap = {
@@ -1073,7 +1073,7 @@ skills["CorpseWarp"] = {
 	baseEffectiveness = 0.42449998855591,
 	incrementalEffectiveness = 0.040800001472235,
 	description = "Violently destroys your body and recreates it at the location of a targeted enemy or corpse, dealing spell damage in an area at both locations. If there is no specific target, it will prioritise corpses over enemies. If targeting a corpse, the corpse will also explode, dealing damage around it that is not affected by modifiers to spell damage, and cannot be reflected. This spell cannot be repeated.",
-	skillTypes = { [SkillType.MovementSkill] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, [SkillType.TravelSkill] = true, },
+	skillTypes = { [SkillType.Movement] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Trappable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Travel] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	parts = {
@@ -1188,7 +1188,7 @@ skills["BoneOffering"] = {
 	name = "Bone Offering",
 	color = 3,
 	description = "Consumes a corpse, granting all of your minions the power to block both attacks and spells. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
 	statDescriptionScope = "offering_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -1278,7 +1278,7 @@ skills["SigilRecall"] = {
 	name = "Brand Recall",
 	color = 3,
 	description = "Recall your brands to you, detaching them from enemies and increasing attachment range until they next attach to an enemy. Spends a portion of each recalled brand's cost to cause it to activate.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
@@ -1335,7 +1335,7 @@ skills["Clarity"] = {
 	name = "Clarity",
 	color = 3,
 	description = "Casts an aura that grants mana regeneration to you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -1415,7 +1415,7 @@ skills["VaalClarity"] = {
 	name = "Vaal Clarity",
 	color = 3,
 	description = "Casts a temporary aura that lets you and your allies cast skills without paying their mana costs.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -1494,7 +1494,7 @@ skills["ColdSnap"] = {
 	baseEffectiveness = 2.4514000415802,
 	incrementalEffectiveness = 0.043400000780821,
 	description = "Creates a sudden burst of cold in a targeted area, damaging enemies. This also creates an expanding area which is filled with chilled ground, and deals cold damage over time to enemies. Enemies that die while in the area have a chance to grant Frenzy Charges. The cooldown can be bypassed by expending a Frenzy Charge.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.85,
 	baseFlags = {
@@ -1577,7 +1577,7 @@ skills["VaalColdSnap"] = {
 	baseEffectiveness = 3.1500000953674,
 	incrementalEffectiveness = 0.0456000007689,
 	description = "Creates a sudden burst of cold around you, damaging enemies. This also creates a chilling area around you which expands and deals cold damage over time to surrounding enemies in addition to chilling them. Enemies that die while in the area grant Frenzy Charges, and you will passively gain Frenzy Charges while there are enemies in the area.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.ColdSkill] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Cold] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.85,
 	baseFlags = {
@@ -1659,7 +1659,7 @@ skills["Conductivity"] = {
 	name = "Conductivity",
 	color = 3,
 	description = "Curses all targets in an area, lowering their lightning resistance and giving them a chance to be shocked when hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -1754,7 +1754,7 @@ skills["Contagion"] = {
 	baseEffectiveness = 2.2532999515533,
 	incrementalEffectiveness = 0.037999998778105,
 	description = "Unleashes a vile contagion on enemies, dealing chaos damage over time. If an enemy dies while affected by Contagion, it spreads to other enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Type59] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	baseFlags = {
@@ -1831,7 +1831,7 @@ skills["ConversionTrap"] = {
 	name = "Conversion Trap",
 	color = 3,
 	description = "Throws a trap that, when triggered by an enemy, converts that enemy to your side for a short duration. Does not affect unique monsters or players.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanMine] = true, [SkillType.Trap] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Trapped] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -1912,7 +1912,7 @@ skills["Convocation"] = {
 	name = "Convocation",
 	color = 3,
 	description = "Recalls all minions that are following you to your location, and grants them a temporary life regeneration effect.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -1996,7 +1996,7 @@ skills["Disintegrate"] = {
 	baseEffectiveness = 1.4269000291824,
 	incrementalEffectiveness = 0.040500000119209,
 	description = "Release a beam which deals lightning damage to enemies in a long area in front of you, and has several smaller beams branch off from it at an angle, hitting more enemies to the sides.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Lightning] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	statMap = {
@@ -2083,7 +2083,7 @@ skills["DarkPact"] = {
 	baseEffectiveness = 0.80000001192093,
 	incrementalEffectiveness = 0.037999998778105,
 	description = "This spell removes some life from one of your Skeleton minions near you or the targeted location to deal chaos damage in an area around it. This effect will chain to your other nearby skeletons. If you have no skeletons near you or the targeted location, it will sacrifice your own life to deal damage instead.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Chaining] = true, [SkillType.ChaosSkill] = true, [SkillType.Minion] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Chains] = true, [SkillType.Chaos] = true, [SkillType.Minion] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	parts = {
@@ -2196,7 +2196,7 @@ skills["Despair"] = {
 	baseEffectiveness = 0.66670000553131,
 	incrementalEffectiveness = 0.016000000759959,
 	description = "Curses all targets in an area, lowering their chaos resistance and increasing damage over time they take. All hits will deal added chaos damage to the cursed enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.ChaosSkill] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.Chaos] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2295,7 +2295,7 @@ skills["Discharge"] = {
 	baseEffectiveness = 4.2119998931885,
 	incrementalEffectiveness = 0.028899999335408,
 	description = "Discharge all the character's charges to deal elemental damage to all nearby monsters.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
@@ -2388,7 +2388,7 @@ skills["Discipline"] = {
 	name = "Discipline",
 	color = 3,
 	description = "Casts an aura that grants additional energy shield and increased energy shield recharge rate to you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -2478,7 +2478,7 @@ skills["VaalDiscipline"] = {
 	name = "Vaal Discipline",
 	color = 3,
 	description = "Casts a temporary aura that prevents energy shield recharge being delayed by damage taken for you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -2557,7 +2557,7 @@ skills["DivineTempest"] = {
 	baseEffectiveness = 0.63160002231598,
 	incrementalEffectiveness = 0.033399999141693,
 	description = "Channelling draws in energy around you to repeatedly build up stages, damaging a number of nearby enemies when you do so. Release to unleash a powerful burst of energy in a beam in front of you.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Channelled] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Channel] = true, [SkillType.Lightning] = true, [SkillType.Totemable] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.22,
 	parts = {
@@ -2663,7 +2663,7 @@ skills["ElementalWeakness"] = {
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, lowering their elemental resistances.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2755,7 +2755,7 @@ skills["Enfeeble"] = {
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2850,7 +2850,7 @@ skills["EssenceDrain"] = {
 	baseEffectiveness = 4.398099899292,
 	incrementalEffectiveness = 0.045400001108646,
 	description = "Fires a projectile that applies a damage over time debuff when it hits. You are healed for a portion of the debuff damage. The debuff is spread by Contagion.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SpellCanRepeat] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Multicastable] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
@@ -2932,7 +2932,7 @@ skills["EyeOfWinter"] = {
 	baseEffectiveness = 0.55089998245239,
 	incrementalEffectiveness = 0.03830000013113,
 	description = "Fires a single eye projectile which constantly releases shard projectiles in a spiral. The shards will damage enemies they impact, dealing cold damage. The eye cannot damage enemies. When the eye dissipates or collides with terrain, it releases a faster spiral of extra shards.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.LaunchesSeriesOfProjectiles] = true, [SkillType.Hit] = true, [SkillType.Type71] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectileSpiral] = true, [SkillType.Damage] = true, [SkillType.SingleMainProjectile] = true, [SkillType.Cold] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Trappable] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	preDamageFunc = function(activeSkill, output)
@@ -3019,7 +3019,7 @@ skills["Fireball"] = {
 	baseEffectiveness = 2.9384000301361,
 	incrementalEffectiveness = 0.041200000792742,
 	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	parts = {
@@ -3112,7 +3112,7 @@ skills["VaalFireballSpiralNova"] = {
 	baseEffectiveness = 2.9384000301361,
 	incrementalEffectiveness = 0.041200000792742,
 	description = "Launches a series of fireballs in a spiral around the caster.",
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.LaunchesSeriesOfProjectiles] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ProjectileSpiral] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	parts = {
@@ -3197,7 +3197,7 @@ skills["Firestorm"] = {
 	baseEffectiveness = 0.75999999046326,
 	incrementalEffectiveness = 0.039299998432398,
 	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	parts = {
@@ -3299,7 +3299,7 @@ skills["FlameDash"] = {
 	baseEffectiveness = 0.82669997215271,
 	incrementalEffectiveness = 0.047860000282526,
 	description = "Teleport to a location, damaging enemies and leaving a trail of burning ground in your wake. Shares a cooldown with other Blink skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, [SkillType.Hit] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.TravelSkill] = true, [SkillType.BlinkSkill] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Damage] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -3384,7 +3384,7 @@ skills["Firewall"] = {
 	baseEffectiveness = 4.3292999267578,
 	incrementalEffectiveness = 0.0625,
 	description = "Create a wall of fire for a duration, which deals burning damage to everything in its area. Each enemy that enters the wall also receives a secondary burning debuff which persists for a short duration after leaving the wall. Any projectiles fired through the wall by you and allies deal added fire damage and apply the wall's secondary debuff on hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SkillCanTotem] = true, [SkillType.FireSkill] = true, [SkillType.Type59] = true, [SkillType.CanRapidFire] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.CausesBurning] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.CanRapidFire] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.CausesBurning] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
 	parts = {
@@ -3505,7 +3505,7 @@ skills["FlameWhip"] = {
 	baseEffectiveness = 3.0369000434875,
 	incrementalEffectiveness = 0.03070000000298,
 	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage. If you hit an ignited enemy, will create burning ground under them. Your damage modifiers don't apply to this burning ground.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3593,7 +3593,7 @@ skills["Flameblast"] = {
 	baseEffectiveness = 1.1175999641418,
 	incrementalEffectiveness = 0.035199999809265,
 	description = "Channels to build up a large explosion, which is released when you stop using the skill. The longer you channel, the larger the area of effect and damage of the explosion, up to 10 stages.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.FireSkill] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	statMap = {
@@ -3699,7 +3699,7 @@ skills["VaalFlameblast"] = {
 	baseEffectiveness = 1.1175999641418,
 	incrementalEffectiveness = 0.035199999809265,
 	description = "Targets an area and builds up stages in that area based on cast speed. It explodes every 3 stages, until it reaches a maximum of 15. As it gains more stages, the area gets smaller but the damage gets higher.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Vaal] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	parts = {
@@ -3792,7 +3792,7 @@ skills["Flammability"] = {
 	name = "Flammability",
 	color = 3,
 	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3885,7 +3885,7 @@ skills["FleshOffering"] = {
 	name = "Flesh Offering",
 	color = 3,
 	description = "Consumes a corpse, which temporarily empowers your minions with swiftness. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
 	statDescriptionScope = "offering_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -3975,7 +3975,7 @@ skills["ForbiddenRite"] = {
 	baseEffectiveness = 1.1399999856949,
 	incrementalEffectiveness = 0.039000000804663,
 	description = "Lobs an exploding projectile near the targeted location, and extra projectiles toward enemies around you. The projectiles deal chaos damage based on your life and energy shield. Casting this spell damages you.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.ChaosSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Chaos] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	parts = {
@@ -4091,7 +4091,7 @@ skills["FreezingPulse"] = {
 	baseEffectiveness = 2.8691000938416,
 	incrementalEffectiveness = 0.038400001823902,
 	description = "An icy projectile which has a chance to freeze enemies it passes through. The projectile fades quickly, reducing damage and freezing chance until it dissipates.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
 	preDamageFunc = function(activeSkill, output)
@@ -4179,7 +4179,7 @@ skills["FrostBomb"] = {
 	baseEffectiveness = 1.8531999588013,
 	incrementalEffectiveness = 0.045699998736382,
 	description = "Creates a crystal that pulses with cold for a duration. Each pulse applies a debuff to nearby enemies for a secondary duration which reduces life and energy shield regeneration rate, and also inflicts Cold Exposure. When the crystal's duration ends, it explodes, dealing heavy cold damage to enemies around it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.Orb] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cold] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
@@ -4278,7 +4278,7 @@ skills["FrostGlobe"] = {
 	name = "Frost Shield",
 	color = 3,
 	description = "Place a Frost Shield that drains your energy shield for one second or until you run out, gaining stages while this drain occurs. The Frost Shield takes some damage from hits in place of you and allies while in its area. Enemies in the area are Chilled. You can only have one Frost Shield active at once.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.ChillingArea] = true, [SkillType.NonHitChill] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Type27] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Cold] = true, [SkillType.Totemable] = true, [SkillType.ChillingArea] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.TotemCastsAlone] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -4371,7 +4371,7 @@ skills["FrostWall"] = {
 	baseEffectiveness = 2,
 	incrementalEffectiveness = 0.034000001847744,
 	description = "Creates a wall of ice which holds back enemies. Targets under the wall are damaged and pushed back.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -4446,7 +4446,7 @@ skills["Frostbite"] = {
 	name = "Frostbite",
 	color = 3,
 	description = "Curses all targets in an area, lowering their cold resistance and giving them a chance to be frozen when hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Hex] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -4541,7 +4541,7 @@ skills["IceDash"] = {
 	baseEffectiveness = 2.0339000225067,
 	incrementalEffectiveness = 0.042599998414516,
 	description = "Teleport to a location, damaging enemies and leaving Chilled ground in an area at both ends of the teleport. Shares a cooldown with other Blink skills.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.MovementSkill] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.ChillingArea] = true, [SkillType.TravelSkill] = true, [SkillType.BlinkSkill] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Hit] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Instant] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.ChillingArea] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Instant] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
@@ -4625,7 +4625,7 @@ skills["FrostBolt"] = {
 	baseEffectiveness = 2.8794000148773,
 	incrementalEffectiveness = 0.039700001478195,
 	description = "Fires a slow-moving projectile that pierces through enemies, dealing cold damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
@@ -4709,7 +4709,7 @@ skills["GlacialCascade"] = {
 	baseEffectiveness = 0.7354000210762,
 	incrementalEffectiveness = 0.037000000476837,
 	description = "Icicles emerge from the ground in a series of small bursts, each damaging enemies caught in the area and knocking them back in the direction of the next burst.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Physical] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
@@ -4805,7 +4805,7 @@ skills["WaterSphere"] = {
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.046999998390675,
 	description = "Create a sphere of water, or move an existing sphere and reset its duration. The sphere continually applies a drenched debuff with a short duration to enemies in its area or those it moves through. You can hit the sphere with other skills to inflict Cold and Lightning Ailments (other than Chill). The sphere pulses when created, at regular intervals while afflicted by an Ailment, and after moving, damaging all drenched enemies in a large area.",
-	skillTypes = { [SkillType.Hit] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Orb] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.LightningSkill] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cold] = true, [SkillType.Totemable] = true, [SkillType.Orb] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Lightning] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
@@ -4923,7 +4923,7 @@ skills["DoomBlast"] = {
 	baseEffectiveness = 3.6324000358582,
 	incrementalEffectiveness = 0.036100000143051,
 	description = "Deals chaos damage to a single enemy, dealing more damage if they are Hexed, then removes the Hex with the highest Doom. If a Hex was removed this way, also deals area damage to other enemies around the target, boosting damage and removing Hexes from those enemies in the same way.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ChaosSkill] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Hex] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Chaos] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Hex] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	statMap = {
@@ -5040,7 +5040,7 @@ skills["HeraldOfThunder"] = {
 	baseEffectiveness = 1.375,
 	incrementalEffectiveness = 0.023000000044703,
 	description = "Grants a buff which adds lightning damage to spells and attacks. If you kill a shocked enemy, this skill will create a storm, causing lightning bolts to strike enemies around you for a duration. The damage inflicted by this skill is not affected by modifiers to spell damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.LightningSkill] = true, [SkillType.Type27] = true, [SkillType.Herald] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Herald] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
@@ -5158,7 +5158,7 @@ skills["IceNova"] = {
 	baseEffectiveness = 1.7986999750137,
 	incrementalEffectiveness = 0.036400001496077,
 	description = "A chilling circle of ice expands from the caster. If the caster targets near their Frostbolt projectiles, it will expand from a number of those projectiles instead. If this skill would repeat when cast this way, it will instead expand again from the same projectiles after a short delay.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	statMap = {
@@ -5246,7 +5246,7 @@ skills["VaalIceNova"] = {
 	baseEffectiveness = 1.7986999750137,
 	incrementalEffectiveness = 0.036400001496077,
 	description = "A chilling circle of ice expands from the caster, repeating from every enemy it hits.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.ColdSkill] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.Cold] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
@@ -5318,7 +5318,7 @@ skills["IceSpear"] = {
 	baseEffectiveness = 2.6526999473572,
 	incrementalEffectiveness = 0.027000000700355,
 	description = "Launches shards of ice in rapid succession. After travelling a short distance they change to a second form, which moves much faster and pierces through enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	parts = {
@@ -5428,7 +5428,7 @@ skills["ColdProjectileMine"] = {
 	baseEffectiveness = 1.6928999423981,
 	incrementalEffectiveness = 0.038100000470877,
 	description = "Throws a mine that fires projectiles around it when detonated. These projectiles quickly dissipate as they travel, before disappearing",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.Mine] = true, [SkillType.ColdSkill] = true, [SkillType.ManaCostReserved] = true, [SkillType.SkillCanVolley] = true, [SkillType.Aura] = true, [SkillType.Area] = true, [SkillType.AuraDebuff] = true, [SkillType.CanDetonate] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.RemoteMined] = true, [SkillType.Cold] = true, [SkillType.HasReservation] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Aura] = true, [SkillType.Area] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
@@ -5519,7 +5519,7 @@ skills["ExpandingFireCone"] = {
 	baseEffectiveness = 0.3100999891758,
 	incrementalEffectiveness = 0.044100001454353,
 	description = "Continuously launches a torrent of fire from your hand, repeatedly damaging enemies. As you channel this spell longer, the flames spread wider close to you and spread longer directly in front of you. When you stop channelling you release a wave of fire damage over a wide and long area that will apply a powerful Ignite.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTotem] = true, [SkillType.FireSkill] = true, [SkillType.Channelled] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	parts = {
@@ -5640,7 +5640,7 @@ skills["ClusterBurst"] = {
 	name = "Kinetic Blast",
 	color = 3,
 	description = "Fires a projectile from a Wand that causes a series of small explosions surrounding its point of impact, each damaging enemies caught in the area.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -5734,7 +5734,7 @@ skills["KineticBolt"] = {
 	name = "Kinetic Bolt",
 	color = 3,
 	description = "Fire a projectile from your wand that changes direction in a zig-zag pattern at regular intervals or when hitting enemies. Each time it changes direction, a secondary projectile breaks off, flying in the direction it changed away from.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.ProjectileAttack] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.RangedAttack] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -5826,7 +5826,7 @@ skills["LightningTowerTrap"] = {
 	baseEffectiveness = 0.67369997501373,
 	incrementalEffectiveness = 0.045400001108646,
 	description = "Throws a trap which, once triggered, will repeatedly strike multiple areas around it for a duration, dealing lightning damage. Modifiers to trap throwing speed will affect how frequently it strikes. Has a higher chance to critically strike Shocked enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -5912,7 +5912,7 @@ skills["LightningTendrilsChannelled"] = {
 	baseEffectiveness = 0.62199997901917,
 	incrementalEffectiveness = 0.044900000095367,
 	description = "While you channel this skill, it releases pulses of electrical energy, dealing lightning damage in a semicircular area in front of you.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Lightning] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.23,
 	parts = {
@@ -6008,7 +6008,7 @@ skills["LightningTrap"] = {
 	baseEffectiveness = 3.146399974823,
 	incrementalEffectiveness = 0.034400001168251,
 	description = "Throws a trap that launches a ring of projectiles through the enemy that set it off, dealing lightning damage to them and subsequent targets.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Trap] = true, [SkillType.SkillCanMine] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trapped] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -6093,7 +6093,7 @@ skills["VaalLightningTrap"] = {
 	baseEffectiveness = 4.6251997947693,
 	incrementalEffectiveness = 0.034400001168251,
 	description = "Throws a trap that launches a ring of projectiles through the enemy that set it off, dealing lightning damage to them and subsequent targets and leaving a trail of shocked ground.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Trap] = true, [SkillType.SkillCanMine] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trapped] = true, [SkillType.Mineable] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Lightning] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -6181,7 +6181,7 @@ skills["LightningWarp"] = {
 	color = 3,
 	incrementalEffectiveness = 0.037799999117851,
 	description = "Waits for a duration before teleporting to a targeted destination, with the duration based on the distance and your movement speed. When the teleport occurs, lightning damage is dealt to the area around both where the player was and where they teleported to. Casting again will queue up multiple teleportations to occur in sequence.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.MovementSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, [SkillType.TravelSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Movement] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Travel] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "variable_duration_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
@@ -6265,7 +6265,7 @@ skills["VaalLightningWarpInstant"] = {
 	color = 3,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Casts a delayed teleport for nearby enemies to a target destination. When the teleport occurs, lightning damage is dealt to the enemies both before and after they teleport.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "variable_duration_skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -6339,7 +6339,7 @@ skills["MagmaOrb"] = {
 	baseEffectiveness = 2.605299949646,
 	incrementalEffectiveness = 0.042100001126528,
 	description = "Lob a fiery orb that explodes as it hits the ground. The skill chains, releasing another fiery orb that repeats this effect.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Chaining] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, [SkillType.Chains] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
@@ -6425,7 +6425,7 @@ skills["DamageOverTimeAura"] = {
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,
 	description = "Casts an aura that multiplies damage over time and increases skill effect duration of you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -6513,7 +6513,7 @@ skills["Manabond"] = {
 	baseEffectiveness = 2.0627999305725,
 	incrementalEffectiveness = 0.0320999994874,
 	description = "Deals lightning damage based upon your missing mana in a circular area around the targeted location, as well as in four rectangular extensions whose lengths depend upon your remaining mana.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.SpellCanCascade] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Arcane] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, [SkillType.Lightning] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Trappable] = true, [SkillType.Cascadable] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -6602,7 +6602,7 @@ skills["OrbOfStorms"] = {
 	baseEffectiveness = 0.82090002298355,
 	incrementalEffectiveness = 0.040699999779463,
 	description = "Creates a stationary electrical orb that frequently unleashes a splitting bolt of lightning at a nearby enemy. Modifiers to cast speed will increase how frequently it does this. Using a lightning skill while inside the orb's cloud unleashes additional bolts. Casting this skill again will replace the previous orb.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.Orb] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Chains] = true, [SkillType.Triggerable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
@@ -6694,7 +6694,7 @@ skills["MagmaSigil"] = {
 	baseEffectiveness = 0.63830000162125,
 	incrementalEffectiveness = 0.036100000143051,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy. Each activation, energy spreads from each energised enemy to an enemy in range which is not energised by the brand. If the branded enemy has 20 energy, each activation will instead deal a pulse of area damage. Energy explodes when the energised enemy dies or the brand is removed, dealing damage in an area.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.PhysicalSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
@@ -6808,7 +6808,7 @@ skills["PowerSiphon"] = {
 	name = "Power Siphon",
 	color = 3,
 	description = "Fires your wand to unleash projectiles that fire toward enemies in front of you or to your sides, dealing increased damage and granting you a power charge if an enemy is killed by, or soon after, the hit.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -6886,7 +6886,7 @@ skills["VaalPowerSiphon"] = {
 	name = "Vaal Power Siphon",
 	color = 3,
 	description = "Fires your wand simultaneously at all nearby enemies, culling those close to death and granting you a power charge for each. Cannot be supported by Volley.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.ProjectilesNotFromUser] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -6964,7 +6964,7 @@ skills["Sanctify"] = {
 	baseEffectiveness = 2.467099905014,
 	incrementalEffectiveness = 0.040600001811981,
 	description = "A wave of divine fire deals damage in a line, then creates Consecrated Ground and deals damage in an area around the targeted location. A larger shockwave then expands outwards, damaging enemies standing on Consecrated Ground that were not already hit.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	parts = {
@@ -7061,7 +7061,7 @@ skills["Purity"] = {
 	name = "Purity of Elements",
 	color = 3,
 	description = "Casts an aura that grants elemental resistances and elemental ailment immunity to you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -7160,7 +7160,7 @@ skills["LightningResistAura"] = {
 	name = "Purity of Lightning",
 	color = 3,
 	description = "Casts an aura that grants lightning resistance to you and your allies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.LightningSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -7249,7 +7249,7 @@ skills["LightningImpurity"] = {
 	name = "Vaal Impurity of Lightning",
 	color = 3,
 	description = "Casts an aura that reduces lightning damage taken and provides shock immunity to you and nearby allies, and makes hits against nearby enemies ignore their lightning resistance. ",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.LightningSkill] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -7332,7 +7332,7 @@ skills["MortarBarrageMine"] = {
 	baseEffectiveness = 0.90490001440048,
 	incrementalEffectiveness = 0.036100000143051,
 	description = "Throws a mine that deals damage in an area when detonated, then launches fiery projectiles that rain down around it, each dealing damage in a smaller area.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.FireSkill] = true, [SkillType.Mine] = true, [SkillType.Area] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.NovaSpell] = true, [SkillType.CanDetonate] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.Fire] = true, [SkillType.RemoteMined] = true, [SkillType.Area] = true, [SkillType.HasReservation] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Nova] = true, [SkillType.AuraNotOnCaster] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.18,
 	statMap = {
@@ -7446,8 +7446,8 @@ skills["RaiseSpectre"] = {
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a spectral version of a defeated foe as a minion to fight for you in battle.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.Chaining] = true, [SkillType.Duration] = true, [SkillType.Totem] = true, [SkillType.Trap] = true, [SkillType.Mine] = true, [SkillType.DamageOverTime] = true, [SkillType.Channelled] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanVolley] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.Chains] = true, [SkillType.Duration] = true, [SkillType.SummonsTotem] = true, [SkillType.Trapped] = true, [SkillType.RemoteMined] = true, [SkillType.DamageOverTime] = true, [SkillType.Channel] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesFromUser] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.85,
 	minionList = {
@@ -7539,8 +7539,8 @@ skills["RaiseZombie"] = {
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee attack and an area of effect slam which cannot be evaded.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Area] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Area] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.85,
 	minionList = {
@@ -7633,7 +7633,7 @@ skills["RighteousFire"] = {
 	baseEffectiveness = 1.6399999856949,
 	incrementalEffectiveness = 0.057300001382828,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. Your spell damage is substantially increased while under this effect. The effect ends when you have 1 life remaining.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
@@ -7742,7 +7742,7 @@ skills["VaalRighteousFire"] = {
 	name = "Vaal Righteous Fire",
 	color = 3,
 	description = "Sacrifices a portion of your Life and Energy Shield to engulf you in magical fire that rapidly burns nearby enemies for a duration. Your spell damage is increased while under this effect.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.Totemable] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
@@ -7835,7 +7835,7 @@ skills["FireBeam"] = {
 	baseEffectiveness = 3.5011999607086,
 	incrementalEffectiveness = 0.047699999064207,
 	description = "Unleash a beam of fire that burns enemies it touches. Remaining in the beam intensifies the burning, adding a portion of the beam's damage in stages. Inflicts Fire Exposure at maximum stages. Enemies who leave the beam continue to burn for a duration. Increasing cast speed also increases the rate at which the beam can turn.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.CausesBurning] = true, [SkillType.Duration] = true, [SkillType.Channelled] = true, [SkillType.Type59] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.CausesBurning] = true, [SkillType.Duration] = true, [SkillType.Channel] = true, [SkillType.DegenOnlySpellDamage] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.25,
 	statMap = {
@@ -7921,7 +7921,7 @@ skills["ShockNova"] = {
 	baseEffectiveness = 1.7374999523163,
 	incrementalEffectiveness = 0.039900001138449,
 	description = "Casts a ring of Lightning around you, followed by a larger Lightning nova. Each effect hits enemies caught in their area with Lightning Damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	parts = {
@@ -8016,7 +8016,7 @@ skills["CircleOfPower"] = {
 	baseEffectiveness = 0.38400000333786,
 	incrementalEffectiveness = 0.028000000864267,
 	description = "Places a Sigil on the ground, which grants a buff to you and allies in the area around it for a duration. The Sigil gains stages as you spend mana in its area, making the buff more powerful. You can only have one Sigil of Power at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.Arcane] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Totemable] = true, [SkillType.Lightning] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -8117,7 +8117,7 @@ skills["IceSiphonTrap"] = {
 	baseEffectiveness = 5.9548997879028,
 	incrementalEffectiveness = 0.041000001132488,
 	description = "Throws a trap that applies debuff beams to a number of nearby enemies for a duration. The beams chill enemies and deal cold damage over time. A beam is also applied to you, granting life and mana regeneration based on the number of debuff beams affecting enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.ColdSkill] = true, [SkillType.DamageOverTime] = true, [SkillType.Type59] = true, [SkillType.NonHitChill] = true, [SkillType.CauseElementalStatus] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Cold] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -8225,7 +8225,7 @@ skills["Soulrend"] = {
 	baseEffectiveness = 5.4299998283386,
 	incrementalEffectiveness = 0.044199999421835,
 	description = "Fires a projectile that turns towards enemies in front of it, damaging and piercing through those it hits, and leeching some of that damage as energy shield. As the projectile travels, it repeatedly applies a short but powerful chaos damage over time debuff to each enemy in an area around it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.SkillCanVolley] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.Damage] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.ProjectilesFromUser] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -8311,7 +8311,7 @@ skills["Spark"] = {
 	baseEffectiveness = 3.8627998828888,
 	incrementalEffectiveness = 0.027000000700355,
 	description = "Launches unpredictable sparks that move randomly until they hit an enemy or expire.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
 	baseFlags = {
@@ -8392,7 +8392,7 @@ skills["VaalSparkSpiralNova"] = {
 	baseEffectiveness = 1.4524999856949,
 	incrementalEffectiveness = 0.02559999935329,
 	description = "Continuously launches unpredictable sparks in all directions that move randomly until they hit an enemy or expire.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.LaunchesSeriesOfProjectiles] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ProjectileSpiral] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.Lightning] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
 	baseFlags = {
@@ -8466,7 +8466,7 @@ skills["Spellslinger"] = {
 	name = "Spellslinger",
 	color = 3,
 	description = "Reserves mana based on the supported spells to cause those spells to trigger when you fire projectiles from a wand attack.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.ManaCostReserved] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
@@ -8537,8 +8537,8 @@ skills["SupportSpellslinger"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Spell, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.ManaCostReserved, SkillType.SecondWindSupport, },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.Triggered, SkillType.NOT, SkillType.AND, SkillType.TriggeredGrantedSkill, },
+	addSkillTypes = { SkillType.Triggered, SkillType.HasReservation, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.Triggered, SkillType.NOT, SkillType.AND, SkillType.InbuiltTrigger, },
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -8615,7 +8615,7 @@ skills["BrandSupport"] = {
 	name = "Arcanist Brand",
 	color = 3,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, triggering linked spells. The brand will detach if the enemy dies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.8,
 	preDamageFunc = function(activeSkill, output)
@@ -8699,7 +8699,7 @@ skills["SupportBrandSupport"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Spell, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
-	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -8787,7 +8787,7 @@ skills["SpiritOffering"] = {
 	name = "Spirit Offering",
 	color = 3,
 	description = "Consumes a corpse, granting extra chaos damage, elemental resistances and chaos resistance to your minions. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.ChaosSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Chaos] = true, },
 	statDescriptionScope = "offering_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -8877,7 +8877,7 @@ skills["ConduitSigil"] = {
 	baseEffectiveness = 0.41819998621941,
 	incrementalEffectiveness = 0.040399998426437,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, firing beams which deal damage to nearby enemies and those around them. The brand will detach if the enemy dies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.LightningSkill] = true, [SkillType.Chaining] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
@@ -8973,7 +8973,7 @@ skills["LightningExplosionMine"] = {
 	baseEffectiveness = 1.1905000209808,
 	incrementalEffectiveness = 0.043999999761581,
 	description = "Throws a mine that deals damage in an area when detonated.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, [SkillType.ManaCostReserved] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.NovaSpell] = true, [SkillType.CanDetonate] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.RemoteMined] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.HasReservation] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Nova] = true, [SkillType.AuraNotOnCaster] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
@@ -9067,7 +9067,7 @@ skills["Stormbind"] = {
 	baseEffectiveness = 2.1500000953674,
 	incrementalEffectiveness = 0.0337999984622,
 	description = "Channel to spread runes on the ground in a growing pattern. The runes fade away after a duration, or will be immediately removed and deal damage in a circular area when detonated by Rune Blast. Enemies standing on the runes are Hindered, reducing their movement speed.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.Channelled] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Duration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, [SkillType.Channel] = true, [SkillType.Lightning] = true, [SkillType.Totemable] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.12,
 	parts = {
@@ -9184,8 +9184,8 @@ skills["SummonReaper"] = {
 	name = "Summon Reaper",
 	color = 3,
 	description = "Summons a powerful Reaper which uses a variety of slashing area attacks. The Reaper's presence weakens your other minions, and it will consume them to temporarily empower and heal itself. Using this skill while the Reaper is already summoned causes it to dash to the targeted location and perform a powerful attack.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.PhysicalSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.MovementSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Duration] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Movement] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
 	castTime = 0.6,
 	minionList = {
@@ -9276,7 +9276,7 @@ skills["RuneBlast"] = {
 	name = "Rune Blast",
 	color = 3,
 	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.Arcane] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	baseFlags = {
@@ -9349,7 +9349,7 @@ skills["StormBurstNew"] = {
 	baseEffectiveness = 0.63929998874664,
 	incrementalEffectiveness = 0.030099999159575,
 	description = "Unleash orbs of energy while you channel that repeatedly jump towards the targeted location until their duration expires, dealing damage in small area after each jump. When you stop channelling, all remaining orbs explode, dealing higher damage in a larger area.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTotem] = true, [SkillType.LightningSkill] = true, [SkillType.Channelled] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Lightning] = true, [SkillType.Channel] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
 	parts = {
@@ -9460,7 +9460,7 @@ skills["StormCall"] = {
 	baseEffectiveness = 2.6089999675751,
 	incrementalEffectiveness = 0.036899998784065,
 	description = "Sets a marker at a location. After a short duration, lightning strikes the marker, dealing damage around it. When this happens, it will also set off the lightning at any other markers you've cast.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Lightning] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -9549,7 +9549,7 @@ skills["VaalStormCall"] = {
 	baseEffectiveness = 2.6089999675751,
 	incrementalEffectiveness = 0.033500000834465,
 	description = "Sets a marker at a location. Lightning strikes random enemies around the marker repeatedly over the skill's duration, dealing damage in an area around the strike. Modifiers to the skill's duration will also affect the delay between these strikes. When the duration ends, a large bolt of lightning strikes the marker, dealing damage around it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -9629,8 +9629,8 @@ skills["SummonBoneGolem"] = {
 	baseEffectiveness = 0.28000000119209,
 	incrementalEffectiveness = 0.020999999716878,
 	description = "Summons a Carrion Golem that grants added physical damage for your non-golem minions. The Carrion Golem attacks with a series of slashes that increase in speed and damage, as well as a cascade of bone spikes, and deals more damage for each of your non-golem minions near it.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.PhysicalSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MovementSkill] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
@@ -9726,8 +9726,8 @@ skills["SummonChaosGolem"] = {
 	name = "Summon Chaos Golem",
 	color = 3,
 	description = "Summons a Chaos Golem that grants you Physical Damage Reduction. The Chaos Golem can use a damage over time Chaos aura and a cascade of Chaos spikes in addition to its melee attack.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
@@ -9814,8 +9814,8 @@ skills["SummonRelic"] = {
 	name = "Summon Holy Relic",
 	color = 3,
 	description = "Summon a Holy Relic that stays near you. When you hit an enemy with an attack, the Holy Relic triggers a nova spell, with a very short cooldown, that deals physical damage to enemies and grants life regeneration to allies. This life regeneration is higher when applied to minions.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
-	minionSkillTypes = { [SkillType.Hit] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
@@ -9902,8 +9902,8 @@ skills["SummonLightningGolem"] = {
 	name = "Summon Lightning Golem",
 	color = 3,
 	description = "Summons a Lightning Golem that grants you increased Attack and Cast speed. The Lightning Golem fires a projectile spell, creates orbs of Lightning that zap nearby enemies, and casts a temporary aura that grants added Lightning Damage to spells and attacks used by the Golem and its nearby allies.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
-	minionSkillTypes = { [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Buff] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Buff] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
@@ -9990,8 +9990,8 @@ skills["SummonRagingSpirit"] = {
 	name = "Summon Raging Spirit",
 	color = 3,
 	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly. Enemies will not directly engage these spirits, and can pass through them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.5,
 	minionList = {
@@ -10072,8 +10072,8 @@ skills["SummonSkeletons"] = {
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summon Skeleton Warrior minions at the targeted location. They use a melee attack and die after a duration. If made aggressive, Skeleton Warriors will also dash towards nearby enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, [SkillType.SecondWindSupport] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.MinionProjectile] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type66] = true, [SkillType.SkillCanVolley] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.ThresholdJewelProjectile] = true, [SkillType.Multistrikeable] = true, [SkillType.ThresholdJewelSpellDamage] = true, [SkillType.ProjectilesFromUser] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.5,
 	minionList = {
@@ -10163,8 +10163,8 @@ skills["VaalSummonSkeletons"] = {
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summons an army of skeletal warriors, archers and mages, led by a powerful general.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.CreateMinion] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.CreatesMinion] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanVolley] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Type66] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multistrikeable] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.ThresholdJewelSpellDamage] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.8,
 	minionList = {
@@ -10249,7 +10249,7 @@ skills["BlackHole"] = {
 	baseEffectiveness = 0.50940001010895,
 	incrementalEffectiveness = 0.044799998402596,
 	description = "Creates a Void Sphere which Hinders enemies in an area around it, with the debuff being stronger on enemies closer to the sphere. It also regularly releases pulses of area damage. The Void Sphere will consume the corpses of any enemies which die in its area. Can only have one Void Sphere at a time.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.SecondWindSupport] = true, [SkillType.SkillCanTotem] = true, [SkillType.PhysicalSkill] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, [SkillType.Orb] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Totemable] = true, [SkillType.Physical] = true, [SkillType.Damage] = true, [SkillType.Chaos] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	preDamageFunc = function(activeSkill, output)
@@ -10345,7 +10345,7 @@ skills["Skitterbots"] = {
 	name = "Summon Skitterbots",
 	color = 3,
 	description = "Summon a Chilling Skitterbot and a Shocking Skitterbot, which will trigger your traps and detonate your mines. Mines detonated by Skitterbots will re-arm and can then be detonated again. The Skitterbots grant you more trap and mine damage, and cannot be targeted or damaged.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.ManaCostReserved] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, [SkillType.CanDetonate] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.HasReservation] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0,
 	minionList = {
@@ -10433,7 +10433,7 @@ skills["TempestShield"] = {
 	baseEffectiveness = 4.6932997703552,
 	incrementalEffectiveness = 0.038199998438358,
 	description = "Enchants your shield with the power of storms, which lashes out to deal arcing lightning damage to attackers when you block them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Shield] = true, [SkillType.Type27] = true, [SkillType.LightningSkill] = true, [SkillType.Chaining] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.SecondWindSupport] = true, [SkillType.SkillCanTotem] = true, [SkillType.Instant] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.RequiresShield] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, [SkillType.Totemable] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -10519,7 +10519,7 @@ skills["VoltaxicBurst"] = {
 	baseEffectiveness = 2.5072000026703,
 	incrementalEffectiveness = 0.036800000816584,
 	description = "Each cast of this spell waits for a short duration, releasing a burst of lightning and chaos spell damage in an area around you when that duration ends. Enemies killed by this damage, or shortly after, will explode. The explosions of the corpses are not affected by modifiers to spell damage, and cannot be reflected.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, [SkillType.Duration] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
@@ -10611,7 +10611,7 @@ skills["FrostBoltNova"] = {
 	baseEffectiveness = 1.8142999410629,
 	incrementalEffectiveness = 0.054900001734495,
 	description = "An icy blast explodes around the caster, dealing cold damage to enemies, and leaving behind a whirling vortex which deals cold damage over time and chills enemies caught in it. If the caster targets near their Frostbolt projectiles, it will explode from a number of those projectiles instead, destroying them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ColdSkill] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.NovaSpell] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.Nova] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
@@ -10708,7 +10708,7 @@ skills["Purge"] = {
 	baseEffectiveness = 2.5,
 	incrementalEffectiveness = 0.043099999427795,
 	description = "An expanding wave of energy surges forward, damaging enemies in a cone-shaped area over a duration. Each enemy hit is inflicted with Exposure matching the element of which they took the highest damage. Only one Wave of Conviction can be active at a time",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.LightningSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.SpellCanRepeat] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.Multicastable] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
 	statMap = {
@@ -10801,7 +10801,7 @@ skills["FrostFury"] = {
 	baseEffectiveness = 1.1656999588013,
 	incrementalEffectiveness = 0.031800001859665,
 	description = "Channel to conjure an orb above you, which pelts nearby enemies with projectiles that impact the ground and explode. Channelling for longer builds up stages on the skill. When you stop channelling, the stages decay over a duration.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Channelled] = true, [SkillType.ColdSkill] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.AreaSpell] = true, [SkillType.FiresProjectilesFromSecondaryLocation] = true, [SkillType.Orb] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Cold] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.Totemable] = true, [SkillType.AreaSpell] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
 	parts = {
@@ -10927,7 +10927,7 @@ skills["ImmolationSigil"] = {
 	baseEffectiveness = 4.5808000564575,
 	incrementalEffectiveness = 0.028899999335408,
 	description = "Creates a magical brand which can attach to a nearby enemy, dealing cold damage over time and chilling them. It periodically activates while attached, gaining stages that raise the damage. When removed, a short-duration debuff dealing the same damage over time and chill is applied to each nearby enemy. The brand keeps its charges while detached.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.ColdSkill] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, [SkillType.NonHitChill] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Type59] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.DegenOnlySpellDamage] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
@@ -11029,7 +11029,7 @@ skills["Wither"] = {
 	name = "Wither",
 	color = 3,
 	description = "Casts a debilitating debuff on enemies in an area, hindering their movement and also inflicts the Withered debuff, which increases the Chaos Damage they take and can stack up to 15 times.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.ChaosSkill] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Chaos] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.28,
 	statMap = {
@@ -11122,7 +11122,7 @@ skills["Wrath"] = {
 	baseEffectiveness = 2.25,
 	incrementalEffectiveness = 0.023000000044703,
 	description = "Casts an aura that adds lightning damage to the attacks of you and your allies, and makes your spells deal more lightning damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.LightningSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -11211,7 +11211,7 @@ skills["SpellDamageAura"] = {
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,
 	description = "Casts an aura that grants bonuses to damage and critical strike chance of spells to you and your allies, and gives a chance to create Consecrated Ground against stronger enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -11304,7 +11304,7 @@ skills["EnergyBlade"] = {
 	baseEffectiveness = 1.088700056076,
 	incrementalEffectiveness = 0.020099999383092,
 	description = "Grants a buff which significantly lowers your maximum Energy Shield to transform your equipped weapons into Swords formed from that energy. Casting the spell again removes the buff. Requires a Non-Bow weapon. This skill cannot be triggered.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.LightningSkill] = true, [SkillType.SecondWindSupport] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
